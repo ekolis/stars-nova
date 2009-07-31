@@ -126,7 +126,6 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="App.ico" />
-    <None Include="Race Designer_TemporaryKey.pfx" />
     <None Include="Resources\Nova.jpg" />
     <Compile Include="AboutBox.cs">
       <SubType>Form</SubType>
