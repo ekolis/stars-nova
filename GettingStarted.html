@@ -1,0 +1,113 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"><head>
+<meta http-equiv="content-type" content="text/html; charset=ISO-8859-1">
+
+
+    <title>Nova - Getting Started</title>
+    <link href="GettingStarted_files/StyleSheet.css" rel="stylesheet" type="text/css">
+    <style type="text/css"> </style>
+</head><body>
+<span style="font-size: 14pt; color: rgb(51, 153, 204); font-family: Arial;"><strong> Nova </strong></span><br> <hr>
+            <h1>
+                Basic Instructions</h1>
+    <h2>
+        Installing the Binaries</h2>
+    <p>
+        The binaries are available on SourceForge in a <i>zip</i> file. If you unzip 
+        this file you will get 4 folders <i>Nova/Component Editor, Nova/Console Nova/Race
+        Designer </i><span class="style1">&nbsp;and&nbsp; the </span><i>Nova GUI</i>.&nbsp;&nbsp; 
+        In each folder you will find a <i>.exe or application</i> file. Running it will run the
+        program of the same name. There is no need to install/uninstall the programs. 
+    <p>
+        Note that this version of the <i>Nova</i> binaries require that .Net version 3 
+        is installed. This is a free download from the Microsoft website. If you are 
+        using Windows Update you will already have received it automatically.</p>
+    <p>
+        You may place the Nova folder anywhere you wish, but when you first run Nova you will get an error message because you will
+        need to tell it where you placed it's files. Hopefully a future version will be smart enough to check the
+        obvious places first, but for now you will need to give it a hand. After you do 
+        this the first time, Nova will remember where the files are located, by using
+        the windows registry.</p>
+        
+        <h2> Component Editor </h2>
+    <p>
+        To start with, open the <i>Nova/Component Editor</i> folder and run the application <i>Component Editor.exe</i>
+        this program is used for browsing (or even modifying) the Nova design components (or technology tree)</p>
+
+    <h2>
+        Components.xml</h2>
+    <p>
+        Nova needs a file that defines the available design components. By default it's in the top-level folder
+        of the <em>Nova </em>directory and is called <i>components.xml</i>. Select the file and click the <i>Open</i> button.</p>
+    <h2>Graphics</h2>
+
+    <p>
+            Nex Nova needs to know where the Graphics images are located. They should be in <i>Nova/Graphics</i>.
+            Highlight the Graphics folder in the tree view and click the <i>OK</i> button. You should now be able to
+            browse the design components. When you are done with the component editor, close it and move on to making a race.</p>
+
+            <h2>
+                Create One or More Races</h2>
+            First, the Race Designer must be ran to create a race to play.&nbsp; Once the race
+            has been designed and the <em>Generate</em> button has been pressed you will be
+            prompted for a folder to hold all files related to the game. The <em>Nova</em> GUI
+            program can currently only play one game at a time and it will automatically use
+            the folder you specify in the Race Designer.<br>
+            <br>
+            If you want to play a "test" game you can create as many races as you like. You
+            will find things simpler to manage if you select the same folder for all races you
+            create (it will save you copying files around).<br>
+            <h2>
+                Create a Game</h2>
+            Next, run the Console program and press the<em> New Game</em> button. If no folder
+            has been specified before then, again, you will be prompted for one. If you are
+            running a test game then specify the same one given in the Race Designer as it will
+            save the need to copy turn files around.<br>
+            <h2>
+                Create a Player Turn</h2>
+            Then just start the GUI and create a turn. A turn file is created whenever you exit
+            the GUI so there is no explicit save or submit commands as there are in <em>Stars!</em><form runat="server">
+                <h2>
+                Generate a New Year Turn</h2>
+    </form>
+        <form runat="server">
+            Then it's a case of starting up the <em>Nova Console</em> and pressing the <em>Generate
+                Turn </em>button to create the game turn for the next year and then re-running
+            the GUI to generate the next player turn. These last two steps are performed until
+            the end of the game.<br>
+            <br>
+        </form>
+            <form runat="server">
+                Game Folders</form>
+        <form runat="server">
+            <p>
+                It is a design aim that all game persistent game data, including that of multiple
+                races, can exist in a single folder on a single PC and accessed by a single user
+                name. This allows a convenient method of debugging the programs (or playing practice
+                games) without having to copy files between folders or log in and out to switch
+                user names to play different races in a game.
+            </p>
+            <p>
+                There are potentially two folders: the one used for the player's game files (used
+                by the <em>Race Designer</em> and the <em>Nova GUI</em>) and one used by the <em>Nova
+                    Console</em> game files.</p>
+            <p>
+                The first program that must be run is the <em>Race Designer</em> and it will gather
+                (implicitly) the name of the player's game folder when the <em>Generate Race </em>
+                feature is selected and the where to save the race definition file is specified
+                in the <em>Save File</em> dialog . This folder name is saved in the Windows Registry
+                (for the current user) and picked up automatically by the <em>Nova GUI </em>when
+                it starts<em> </em>so it need not be requested from the user.
+            </p>
+            <p>
+                The <em>Nova Console</em> also needs a game folder to keep its data. It cannot use
+                the one specified by the <em>Race Designer</em> in the Registry as it may, and typically
+                will, be running on a different PC so a folder to use must be explicitly prompted
+                for (using the Windows <em>Browse Folder </em>dialog). However, if the <em>Nova Console
+                </em>is running on the same PC as a game player, the player's game directory can
+                be selected as the one to use. This removes the need to copy turn data files from
+                one place to the other. Once the console game folder has been selected it is saved
+                (in the console state data file) and not asked for again<br>
+            </p>
+<hr>Copyright © Ken Reed, 2008. Last modified Saturday, July 25, 2009<a href="http://sourceforge.net/"> <img src="GettingStarted_files/sflogo.png" a="" align="left" border="0">
+</a></form></body></html>
