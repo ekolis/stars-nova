@@ -185,7 +185,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ComponentEditor_TemporaryKey.pfx" />
     <None Include="Resources\Nova.jpg" />
   </ItemGroup>
   <ItemGroup>
