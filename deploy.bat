@@ -3,7 +3,7 @@ set target=C:\Users\Dan\Desktop\Nova
 set source="D:\dan\src\stars\nova\Archive\2009-06-09 nova source merge"
 set mycopy=xcopy /Y /s
 %mycopy% %source%\components.xml %target%\
-%mycopy% %source%\GettingStarted.html %target%\
+%mycopy% %source%\Documentation\GettingStarted.html %target%\
 %mycopy% %source%\Graphics\*.* %target%\Graphics\
 %mycopy% %source%\ComponentEditor\bin\Release\*.* %target%\ComponentEditor\
 %mycopy% %source%\"Race Designer"\bin\Release\*.* %target%\"Race Designer"\
