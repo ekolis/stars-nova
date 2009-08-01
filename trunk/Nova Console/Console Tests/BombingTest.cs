@@ -54,11 +54,11 @@ namespace NovaConsole
       {
          const double initial = 10000;
          Star star        = new Star();
-         star.DefenceType = "Neutron";
-         star.Defences    = 100;
+         star.DefenseType = "Neutron";
+         star.Defenses    = 100;
          star.Colonists   = (int) initial;
 
-         Defences.ComputeDefenceCoverage(star);
+         Defenses.ComputeDefenseCoverage(star);
 
          // In line with the example in the FAQ bomb with 10 Cherry bombs and 5
          // M70s
@@ -67,32 +67,32 @@ namespace NovaConsole
          Hashtable allComponents = NovaCommon.AllComponents.Data.Components;
          Bomb      totalBombs    = new Bomb();
          Bomb      cherry        = new Bomb();
-         cherry = allComponents["Cherry"] as Bomb;
+         cherry = allComponents["Cherry Bomb"] as Bomb;
 
          for (int i = 0; i < 10; i++) {
-            totalBombs.Kill        += cherry.Kill;
-            totalBombs.Damage      += cherry.Damage;
-            totalBombs.MinimumKill += cherry.MinimumKill;
+            totalBombs.PopKill       += cherry.PopKill;
+            totalBombs.Installations += cherry.Installations;
+            totalBombs.MinimumKill   += cherry.MinimumKill;
          }
 
          Bomb M70 = new Bomb();
-         M70 = allComponents["M-70"] as Bomb;
+         M70 = allComponents["M-70 Bomb"] as Bomb;
 
          for (int i = 0; i < 5; i++) {
-            totalBombs.Kill        += M70.Kill;
-            totalBombs.Damage      += M70.Damage;
-            totalBombs.MinimumKill += M70.MinimumKill;
+            totalBombs.PopKill       += M70.PopKill;
+            totalBombs.Installations += M70.Installations;
+            totalBombs.MinimumKill   += M70.MinimumKill;
          }
 
          // Just verify the algorithm, not the whole routine
 
-         double killFactor     = totalBombs.Kill / 100;
-         double defenceFactor  = 1.0 - Defences.PopulationCoverage;
+         double killFactor     = totalBombs.PopKill / 100;
+         double defenceFactor  = 1.0 - Defenses.PopulationCoverage;
          double populationKill = killFactor * defenceFactor;
          double killed         = (double) star.Colonists * populationKill;
 
          double minKilled      = totalBombs.MinimumKill 
-                               * (1 - Defences.PopulationCoverage);
+                               * (1 - Defenses.PopulationCoverage);
 
          int dead              = (int) Math.Max(killed, minKilled);
 
