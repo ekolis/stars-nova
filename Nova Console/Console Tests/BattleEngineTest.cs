@@ -67,8 +67,19 @@ namespace NovaConsole {
       {
          Resources cost = new Resources(10, 20, 30, 40);
 
-         cruiser.BattleSpeed = 1;
-         frigate.BattleSpeed = 1;
+         Component shipHull = new Component();
+         Hull hull = new Hull();
+         hull.FuelCapacity = 100;
+         hull.Modules = new ArrayList();
+         shipHull.Properties.Add("Hull", hull);
+         shipHull.Properties.Add("Battle Movement", new DoubleProperty(1.0));
+
+         cruiser.ShipHull = shipHull;
+         cruiser.Mass = 5000;
+         cruiser.Cost = cost;
+         frigate.ShipHull = shipHull;
+         frigate.Mass = 5000;
+         frigate.Cost = cost;
 
          ship1             = new Ship(cruiser);
          ship2             = new Ship(frigate);
@@ -80,10 +91,10 @@ namespace NovaConsole {
          ship3.Design.Name = "Cruiser";
          ship4.Design.Name = "Frigate";
 
-         ship1.Armour      = 100;
-         ship2.Armour      = 200;
-         ship3.Armour      = 100;
-         ship4.Armour      = 200;
+         ship1.Armor      = 100;
+         ship2.Armor      = 200;
+         ship3.Armor      = 100;
+         ship4.Armor      = 200;
 
          ship1.Cost        = cost;
          ship2.Cost        = cost;
