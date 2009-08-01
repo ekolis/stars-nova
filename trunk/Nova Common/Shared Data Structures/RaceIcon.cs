@@ -10,6 +10,7 @@ using System.IO;
 
 namespace NovaCommon.Shared_Data_Structures
 {
+    [Serializable]
     public class RaceIcon 
     {
         public String Source = String.Empty;
