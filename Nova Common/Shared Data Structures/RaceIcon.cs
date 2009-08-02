@@ -56,7 +56,7 @@ namespace NovaCommon.Shared_Data_Structures
 
         private AllRaceIcons()
         {
-            Restore();
+            //Restore();
         }
 
 
