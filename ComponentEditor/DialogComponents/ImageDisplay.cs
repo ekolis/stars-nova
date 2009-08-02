@@ -37,7 +37,7 @@ namespace ComponentEditor
       {
          OpenFileDialog dialog = new OpenFileDialog();
          dialog.Filter = 
-        "Image Files (*.BMP;*.JPG;.PNG)|*.BMP;*.JPG;*.PNG|All files (*.*)|*.*";
+        "Image Files (*.bmp;*.jpg;.png)|*.bmp;*.jpg;*.png|All files (*.*)|*.*";
 
          if (dialog.ShowDialog() == DialogResult.OK) {
             ComponentImage.Image = new Bitmap(dialog.OpenFile());
