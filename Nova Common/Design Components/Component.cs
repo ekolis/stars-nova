@@ -145,7 +145,8 @@ namespace NovaCommon
                   }
                   else if (subnode.Name.ToLower() == "image")
                   {
-                      this.ImageFile = ((XmlText)subnode.FirstChild).Value;
+                      // Paths are always stored in external files using forward slashes.
+                      this.ImageFile = ((XmlText)subnode.FirstChild).Value.Replace('/', Path.DirectorySeparatorChar);
                       // relative or absolute path? we normally store the relative path but will handle loading either incase the file has been manually modified.
                       try
                       {
@@ -164,7 +165,7 @@ namespace NovaCommon
                               }
                               else
                               {
-                                  this.ImageFile = AllComponents.Graphics + this.ImageFile;
+                                  this.ImageFile = Path.Combine(AllComponents.Graphics, this.ImageFile);
                                   info = new FileInfo(this.ImageFile);
                               }
                               if (info.Exists)
@@ -183,7 +184,7 @@ namespace NovaCommon
                       {
                           // The path doesn't make sense, maybe it wasn't relative.
                           // Don't change anything and don't load the image
-                          this.ImageFile = ((XmlText)subnode.FirstChild).Value;
+                          this.ImageFile = ((XmlText)subnode.FirstChild).Value.Replace('/', Path.DirectorySeparatorChar);
                           this.ComponentImage = null;
                           Report.Error("Unable to locate the image file " + this.ImageFile);
                       }
@@ -407,7 +408,8 @@ namespace NovaCommon
           xmlelComponent.AppendChild(this.Restrictions.ToXml(xmldoc));
           // Image - convert the ImageFile to a relative path, so this program runs in other locations
           XmlElement xmlelImage = xmldoc.CreateElement("Image");
-          XmlText xmltxtImage = xmldoc.CreateTextNode(Global.EvaluateRelativePath(AllComponents.Graphics, this.ImageFile));
+          // Paths are always stored in external files using forward slashes.
+          XmlText xmltxtImage = xmldoc.CreateTextNode(Global.EvaluateRelativePath(AllComponents.Graphics, this.ImageFile).Replace(Path.DirectorySeparatorChar, '/'));
           xmlelImage.AppendChild(xmltxtImage);
           xmlelComponent.AppendChild(xmlelImage);
 

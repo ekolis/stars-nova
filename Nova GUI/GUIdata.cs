@@ -136,7 +136,7 @@ namespace Nova
 
       public static void LoadTurnFile()
       {
-         string turnFileName = GUIstate.Data.GameFolder + "Nova.turn";
+         string turnFileName = Path.Combine(GUIstate.Data.GameFolder, "Nova.turn");
 
          if (File.Exists(turnFileName) == false) {
             Report.FatalError
@@ -168,9 +168,8 @@ namespace Nova
 
       private static void ProcessRaceDefinition()
       {
-         string raceFileName = GUIstate.Data.GameFolder 
-                             + GUIstate.Data.RaceName 
-                             + ".race";
+         string raceFileName = Path.Combine(GUIstate.Data.GameFolder, 
+                                            GUIstate.Data.RaceName + ".race");
                                                        
          FileStream  raceFile   = new FileStream(raceFileName, FileMode.Open);
          GUIstate.Data.RaceData = Formatter.Deserialize(raceFile) 

@@ -75,7 +75,7 @@ namespace NovaConsole
       private static void ReadPlayerData(Race race)
       {
          RaceTurn    inputTurn = new RaceTurn();
-         string      fileName  = StateData.GameFolder + race.Name + ".turn";
+         string      fileName  = Path.Combine(StateData.GameFolder, race.Name + ".turn");
 
          if (File.Exists(fileName)) {
             FileStream  turnFile  = new FileStream(fileName, FileMode.Open);

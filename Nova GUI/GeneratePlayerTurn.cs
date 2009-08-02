@@ -101,7 +101,7 @@ namespace Nova
             outputTurn.DeletedFleets.Add(designKey);
          }
 
-         string turnFileName = StateData.GameFolder + "/" + RaceName + ".turn";
+         string turnFileName = Path.Combine(StateData.GameFolder, RaceName + ".turn");
 
          FileStream turnFile=new FileStream(turnFileName, FileMode.Create);
          Formatter.Serialize(turnFile, outputTurn);

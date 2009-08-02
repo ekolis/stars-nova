@@ -308,7 +308,7 @@ namespace NovaCommon
                   Report.FatalError("You must specify a component folder.");
               }
 
-              SaveFilePath = folderDialog.SelectedPath + "\\components.xml";
+              SaveFilePath = Path.Combine(folderDialog.SelectedPath, "components.xml");
               subKey.SetValue(Global.ComponentFolderKey, SaveFilePath);
           }
 

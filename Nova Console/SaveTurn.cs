@@ -68,7 +68,7 @@ namespace NovaConsole
             TurnData.AllScores = new ArrayList();
          }
 
-         string turnFileName = ConsoleState.Data.GameFolder + "\\Nova.turn";
+         string turnFileName = Path.Combine(ConsoleState.Data.GameFolder, "Nova.turn");
          FileStream turnFile = new FileStream(turnFileName,FileMode.Create);
 
          Formatter.Serialize(turnFile, GlobalTurn.Data.TurnYear);

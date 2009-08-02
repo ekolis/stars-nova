@@ -1797,7 +1797,7 @@ namespace RaceDesigner
          }
 
          string gameFolder   = folderDialog.SelectedPath;
-         string SaveFileName = gameFolder + "\\" + RaceName.Text + ".race";
+         string SaveFileName = Path.Combine(gameFolder, RaceName.Text + ".race");
 
          FileStream saveFile = new FileStream(SaveFileName, FileMode.Create);
 
@@ -1810,7 +1810,7 @@ namespace RaceDesigner
          RegKey    = Registry.CurrentUser;
          RegSubKey = RegKey.CreateSubKey(Global.RootRegistryKey);
 
-         RegSubKey.SetValue(Global.GameFolderKey, gameFolder + "\\");
+         RegSubKey.SetValue(Global.GameFolderKey, gameFolder);
 
          Report.Information("The race file has been generated");
          ParametersChanged    = false;
