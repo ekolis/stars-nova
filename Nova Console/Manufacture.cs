@@ -91,18 +91,15 @@ namespace NovaConsole {
          // If we have the secondary racial trait Cheap Factories they need 1K
          // less germanium to build.
 
-         if (item.Name == "Mine") 
+         if (item.Name == "Factory" && race.Traits.Contains("CF")) 
          {
-            if (race.Traits.Contains("CE")) 
-            {
-               needed.Germanium -= 1;
-            }
+            needed.Germanium -= 1;
          }
 
          // If we have the secondary racial trait "Improved Starbases"
          //starbases cost 20% less.
 
-         if (design.Type == "Starbase" || race.Traits.Contains("ISB")) 
+         if (design.Type == "Starbase" && race.Traits.Contains("ISB")) 
          {
             needed.Ironium   *= 0.8;
             needed.Germanium *= 0.8;
