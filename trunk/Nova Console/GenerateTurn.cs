@@ -106,7 +106,7 @@ namespace NovaConsole {
       private static void ReadPlayerTurn(Race race)
       {
          RaceTurn    inputTurn = new RaceTurn();
-         string      fileName  = StateData.GameFolder + race.Name + ".turn";
+         string      fileName  = Path.Combine(StateData.GameFolder, race.Name + ".turn");
          
          // Check for the special condition mentioned in the header.
 

@@ -58,55 +58,26 @@ namespace NovaCommon
 
       // ============================================================================
       /// <summary>Derive a relative path from two absolute paths.</summary>
-      /// <param name="mainDirPath">The path from which the relative path will start.</param>
-      /// <param name="absoluteFilePath">The absolute path to be converted to a relative path.</param>
-      // Based on code posted by Marcin Grzębski
-      // http://bytes.com/groups/net-c/260727-absolute-path-relative-path-conversion
+      /// <param name="baseDir">The path from which the relative path will start.</param>
+      /// <param name="targetPath">The absolute or relative path to be converted to a relative path.</param>
       // ============================================================================
-        public static string EvaluateRelativePath(string mainDirPath, string absoluteFilePath) 
-        {
-            if (mainDirPath == null) return absoluteFilePath;
-            if (absoluteFilePath == null) return null;
+      public static string EvaluateRelativePath(string baseDir, string targetPath)
+      {
+          Uri baseUrl = new Uri(AddDirSeparator(baseDir));
+          Uri targetUri = new Uri(targetPath);
+          Uri relativeUri = baseUrl.MakeRelativeUri(targetUri);
+          string unescaped = Uri.UnescapeDataString(relativeUri.OriginalString);
+          return unescaped.Replace('/', Path.DirectorySeparatorChar);
+      }
 
-            string[] firstPathParts=mainDirPath.Trim(Path.DirectorySeparatorChar).Split(Path.DirectorySeparatorChar);
-            string[] secondPathParts=absoluteFilePath.Trim(Path.DirectorySeparatorChar).Split(Path.DirectorySeparatorChar );
-            int sameCounter=0;
-            
-            for(int i=0; i<Math.Min(firstPathParts.Length, secondPathParts.Length); i++) 
-            {
-                if(!firstPathParts[i].ToLower().Equals(secondPathParts[i].ToLower()) ) 
-                {
-                    break;
-                }
-                sameCounter++;
-            }
-            if( sameCounter==0 ) 
-            {
-                return absoluteFilePath;
-            }
-
-            string newPath=String.Empty;
-            for(int i=sameCounter; i<firstPathParts.Length; i++) 
-            {
-                if( i>sameCounter ) 
-                {
-                    newPath+=Path.DirectorySeparatorChar;
-                }
-                newPath+="..";
-            }
-            if( newPath.Length==0 ) 
-            {
-                //newPath="."; // don't want this bit
-            }
-            for(int i=sameCounter; i<secondPathParts.Length; i++) 
-            {
-                newPath+=Path.DirectorySeparatorChar;
-                newPath+=secondPathParts[i];
-            }
-
-            return newPath;
-        }
-
+      private static string AddDirSeparator(string path)
+      {
+          if (!path.EndsWith(Path.DirectorySeparatorChar + ""))
+          {
+              return path + Path.DirectorySeparatorChar;
+          }
+          return path;
+      }
 
    }
 }

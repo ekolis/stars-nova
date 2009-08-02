@@ -141,7 +141,7 @@ namespace Nova
             raceName = Path.GetFileNameWithoutExtension(pathName);
          }
 
-         StatePathName = gameFolder + raceName + ".state";
+         StatePathName = Path.Combine(gameFolder, raceName + ".state");
 
          if (File.Exists(StatePathName)) {
             FileStream stateFile = new FileStream(StatePathName,FileMode.Open);
@@ -168,7 +168,7 @@ namespace Nova
 
       public static void Restore(string gameFolder, string raceName)
       {
-         StatePathName = gameFolder + raceName + ".state";
+         StatePathName = Path.Combine(gameFolder, raceName + ".state");
 
          if (File.Exists(StatePathName))
          {

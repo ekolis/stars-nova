@@ -98,7 +98,7 @@ namespace NovaCommon.Shared_Data_Structures
             if (Data.IconList.Count < 1)
             {
                 // load the icons
-                DirectoryInfo info = new DirectoryInfo(AllComponents.Graphics + @"Race\");
+                DirectoryInfo info = new DirectoryInfo(Path.Combine(AllComponents.Graphics, "Race"));
                 foreach (FileInfo fi in info.GetFiles())
                 {
                     //fileList.Add(fi);

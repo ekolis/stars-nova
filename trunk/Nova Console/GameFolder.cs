@@ -71,12 +71,12 @@ namespace NovaConsole
                Report.FatalError("You must specify a Console game folder");
             }
 
-            gameFolder = folderDialog.SelectedPath + "\\";
+            gameFolder = folderDialog.SelectedPath;
             regSubKey.SetValue(Global.ServerFolderKey, gameFolder);
          }
           
          ConsoleState.Data.GameFolder    = gameFolder;
-         ConsoleState.Data.StatePathName = gameFolder + "Console.state";
+         ConsoleState.Data.StatePathName = Path.Combine(gameFolder, "Console.state");
          ConsoleState.Restore();
       }
 
