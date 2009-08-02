@@ -68,7 +68,7 @@ namespace NovaCommon
       public string                PluralName;
       public string                Name;
       public string                Password;
-      public RaceIcon              Icon; 
+      public Image                 Icon; 
 
       // These parameters affect the production rate of each star (used in the
       // Star class Update method).
@@ -174,7 +174,7 @@ namespace NovaCommon
           // Password 
           Global.SaveData(xmldoc, xmlelRace, "Password", Password);
           // RaceIconName
-          Global.SaveData(xmldoc, xmlelRace, "RaceIconName", Icon.Source);
+          // Global.SaveData(xmldoc, xmlelRace, "RaceIconName", Icon.Source);
           // Factory Build Cost
           Global.SaveData(xmldoc, xmlelRace, "FactoryBuildCost", FactoryBuildCost.ToString());
           // ColonistsPerResource
