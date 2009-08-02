@@ -1824,7 +1824,7 @@ namespace RaceDesigner
          RegKey    = Registry.CurrentUser;
          RegSubKey = RegKey.CreateSubKey(Global.RootRegistryKey);
 
-         RegSubKey.SetValue(Global.RaceFolderKey, gameFolder);
+         RegSubKey.SetValue(Global.ClientFolderKey, gameFolder);
 
          Report.Information("The race file has been generated");
          ParametersChanged    = false;
