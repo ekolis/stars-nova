@@ -1,13 +1,15 @@
-'Copy installation files to a folder on the desktop
-set target=C:\Users\Dan\Desktop\Nova
-set source="D:\dan\src\stars\nova\Archive\2009-06-09 nova source merge"
-set mycopy=xcopy /Y /s
-%mycopy% %source%\components.xml %target%\
-%mycopy% %source%\Documentation\GettingStarted.html %target%\
-%mycopy% %source%\Graphics\*.* %target%\Graphics\
-%mycopy% %source%\ComponentEditor\bin\Release\*.* %target%\ComponentEditor\
-%mycopy% %source%\"Race Designer"\bin\Release\*.* %target%\"Race Designer"\
-%mycopy% %source%\"Nova GUI"\bin\Release\*.* %target%\"Nova GUI"\
-%mycopy% %source%\"Nova Console"\bin\Release\*.* %target%\"Nova Console"\
+@echo off
+call script.conf.bat
+IF NOT EXIST script.conf.bat EXIT /B 2
+
+:: Copy release files to a common folder
+set COPYCMD=xcopy /Y /s
+%COPYCMD% %SRCDIR%\components.xml %DISTDIR%\
+%COPYCMD% %SRCDIR%\Documentation\GettingStarted.html %DISTDIR%\
+%COPYCMD% %SRCDIR%\Graphics\*.* %DISTDIR%\Graphics\
+%COPYCMD% %SRCDIR%\ComponentEditor\bin\Release\*.* %DISTDIR%\ComponentEditor\
+%COPYCMD% %SRCDIR%\"Race Designer"\bin\Release\*.* %DISTDIR%\"Race Designer"\
+%COPYCMD% %SRCDIR%\"Nova GUI"\bin\Release\*.* %DISTDIR%\"Nova GUI"\
+%COPYCMD% %SRCDIR%\"Nova Console"\bin\Release\*.* %DISTDIR%\"Nova Console"\
 
 pause
