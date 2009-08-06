@@ -88,14 +88,6 @@ namespace NovaConsole {
          NovaCommon.Resources needed = item.BuildState;
          Race          race          = stateData.AllRaces[star.Owner] as Race;
 
-         // If we have the secondary racial trait Cheap Factories they need 1K
-         // less germanium to build.
-
-         if (item.Name == "Factory" && race.Traits.Contains("CF")) 
-         {
-            needed.Germanium -= 1;
-         }
-
          // If we have the secondary racial trait "Improved Starbases"
          //starbases cost 20% less.
 
