@@ -122,8 +122,11 @@ namespace NovaConsole
             mine.Name      = "Mine";
             mine.Type      = "Mine";
             mine.Owner     = player;
-          
-            factory.Cost   = new NovaCommon.Resources(0, 0, 4, race.FactoryBuildCost);
+
+            // If we have the secondary racial trait Cheap Factories they need 1K
+            // less germanium to build.
+            int factoryBuildCostGerm = (race.Traits.Contains("CF") ? 3 : 4);
+            factory.Cost   = new NovaCommon.Resources(0, 0, factoryBuildCostGerm, race.FactoryBuildCost);
             factory.Name   = "Factory";
             factory.Type   = "Factory";
             factory.Owner  = player;
