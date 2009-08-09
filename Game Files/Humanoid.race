@@ -1,4 +1,45 @@
 <?xml version="1.0"?>
 <ROOT>
-  <Race />
+  <Race>
+    <GravityTolerance>
+      <EnvironmentTolerance>
+        <Min>2.70858</Min>
+        <max>5.41142</max>
+      </EnvironmentTolerance>
+    </GravityTolerance>
+    <RadiationTolerance>
+      <EnvironmentTolerance>
+        <Min>33.5215</Min>
+        <max>67.4785</max>
+      </EnvironmentTolerance>
+    </RadiationTolerance>
+    <TemperatureTolerance>
+      <EnvironmentTolerance>
+        <Min>-68.6</Min>
+        <max>68.6</max>
+      </EnvironmentTolerance>
+    </TemperatureTolerance>
+    <Tech>
+      <Biotechnology>100</Biotechnology>
+      <Electronics>100</Electronics>
+      <Energy>100</Energy>
+      <Propulsion>100</Propulsion>
+      <Weapons>100</Weapons>
+      <Construction>100</Construction>
+    </Tech>
+    <MineBuildCost>5</MineBuildCost>
+    <PRT>JackOfAllTrades</PRT>
+    <PluralName>Humanoids</PluralName>
+    <Name>Humanoid</Name>
+    <Password>B2F5FF47436671B6E533D8DC3614845D</Password>
+    <RaceIconName>00.jpg</RaceIconName>
+    <FactoryBuildCost>10</FactoryBuildCost>
+    <ColonistsPerResource>1000</ColonistsPerResource>
+    <FactoryProduction>10</FactoryProduction>
+    <OperableFactories>10</OperableFactories>
+    <MineProductionRate>10</MineProductionRate>
+    <OperableMines>10</OperableMines>
+    <MaxPopulation>1000000</MaxPopulation>
+    <GrowthRate>15</GrowthRate>
+  </Race>
 </ROOT>
