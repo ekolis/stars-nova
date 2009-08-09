@@ -177,10 +177,7 @@ namespace Nova
             string raceFileName = Path.Combine(GUIstate.Data.GameFolder,
                                                GUIstate.Data.RaceName + ".race");
 
-            FileStream raceFile = new FileStream(raceFileName, FileMode.Open);
-            GUIstate.Data.RaceData = Formatter.Deserialize(raceFile)
-                                     as Race;
-            raceFile.Close();
+            GUIstate.Data.RaceData = new Race(raceFileName);
 
             MainWindow.nova.Text = "Nova - " + GUIstate.Data.RaceData.PluralName;
 

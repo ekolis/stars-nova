@@ -13,6 +13,7 @@
 using Microsoft.Win32;
 using NovaCommon;
 using ControlLibrary;
+using System;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
@@ -21,9 +22,11 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
+using System.IO.Compression;
+using System.Xml;
 using System.Web.Security;
 using System.Windows.Forms;
-using System;
+
 
 namespace RaceDesigner
 {
@@ -35,9 +38,7 @@ namespace RaceDesigner
    [Serializable]
    public class RaceDesignerForm : System.Windows.Forms.Form
    {
-      int CurrentRaceIcon = 0;
-      int MaximumRaceIcon = 0;
-
+      RaceIcon CurrentRaceIcon = null; 
 
       //---------------------------------------------------------------------------- 
       //  Non-designer generated variables
@@ -45,9 +46,6 @@ namespace RaceDesigner
       private int AdvantagePoints = 53;   
       private string          SelectedRace      = "";
       private bool            ParametersChanged = false;
-      private BinaryFormatter Formatter         = new BinaryFormatter();
-      private RegistryKey     RegKey            = null;
-      private RegistryKey     RegSubKey         = null;
       private Race            RaceParameters    = new Race();
 
       //---------------------------------------------------------------------------- 
@@ -137,7 +135,7 @@ namespace RaceDesigner
       private ToolStripMenuItem aboutToolStripMenuItem;
       private TextBox Password;
       private Label label12;
-      private ImageList RaceIcons;
+//      private ImageList RaceIcons;
       private Button PreviousImage;
       private Button NextImage;
       private PictureBox PictureBox;
@@ -185,6 +183,20 @@ namespace RaceDesigner
          UnusedPointsTarget.SelectedIndex = 0;
       }
 
+      // ============================================================================
+      // Called when the form is loaded. 
+      // Load the race icon data. Load the first race icon into
+      // its image box, record the index of the current image (0) and make a note
+      // of the number of images so that we can just cycle through them.
+      // ============================================================================
+
+      private void OnLoad(object sender, EventArgs e)
+       {
+           AllRaceIcons.Restore();
+           CurrentRaceIcon = (RaceIcon)AllRaceIcons.Data.IconList[0];
+           PictureBox.Image = CurrentRaceIcon.Image;
+           IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source);
+       }
 
 // ============================================================================
 // Clean up any resources being used.
@@ -306,7 +318,6 @@ namespace RaceDesigner
             this.LoadRaceFile = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.RaceIcons = new System.Windows.Forms.ImageList(this.components);
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
             this.TabConrol.SuspendLayout();
@@ -551,7 +562,7 @@ namespace RaceDesigner
             this.JackOfAllTrades.Name = "JackOfAllTrades";
             this.JackOfAllTrades.Size = new System.Drawing.Size(126, 24);
             this.JackOfAllTrades.TabIndex = 9;
-            this.JackOfAllTrades.Tag = "JOAT";
+            this.JackOfAllTrades.Tag = "10";
             this.JackOfAllTrades.Text = "Jack of all Trades";
             this.JackOfAllTrades.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
@@ -563,7 +574,7 @@ namespace RaceDesigner
             this.AlternateReality.Name = "AlternateReality";
             this.AlternateReality.Size = new System.Drawing.Size(126, 24);
             this.AlternateReality.TabIndex = 8;
-            this.AlternateReality.Tag = "AR";
+            this.AlternateReality.Tag = "9";
             this.AlternateReality.Text = "Alternate Reality";
             this.AlternateReality.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
@@ -575,7 +586,7 @@ namespace RaceDesigner
             this.InterStellarTraveller.Name = "InterStellarTraveller";
             this.InterStellarTraveller.Size = new System.Drawing.Size(126, 24);
             this.InterStellarTraveller.TabIndex = 7;
-            this.InterStellarTraveller.Tag = "IT";
+            this.InterStellarTraveller.Tag = "8";
             this.InterStellarTraveller.Text = "Inter-stellar Traveller";
             this.InterStellarTraveller.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
@@ -587,7 +598,7 @@ namespace RaceDesigner
             this.PacketPhysics.Name = "PacketPhysics";
             this.PacketPhysics.Size = new System.Drawing.Size(126, 24);
             this.PacketPhysics.TabIndex = 6;
-            this.PacketPhysics.Tag = "PP";
+            this.PacketPhysics.Tag = "7";
             this.PacketPhysics.Text = "Packet Physics";
             this.PacketPhysics.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
@@ -599,7 +610,7 @@ namespace RaceDesigner
             this.SpaceDemolition.Name = "SpaceDemolition";
             this.SpaceDemolition.Size = new System.Drawing.Size(126, 24);
             this.SpaceDemolition.TabIndex = 5;
-            this.SpaceDemolition.Tag = "SD";
+            this.SpaceDemolition.Tag = "6";
             this.SpaceDemolition.Text = "Space Demolition";
             this.SpaceDemolition.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
@@ -610,7 +621,7 @@ namespace RaceDesigner
             this.InnerStrength.Name = "InnerStrength";
             this.InnerStrength.Size = new System.Drawing.Size(104, 24);
             this.InnerStrength.TabIndex = 4;
-            this.InnerStrength.Tag = "IS";
+            this.InnerStrength.Tag = "5";
             this.InnerStrength.Text = "Inner Strength";
             this.InnerStrength.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
@@ -621,7 +632,7 @@ namespace RaceDesigner
             this.ClaimAdjuster.Name = "ClaimAdjuster";
             this.ClaimAdjuster.Size = new System.Drawing.Size(104, 24);
             this.ClaimAdjuster.TabIndex = 3;
-            this.ClaimAdjuster.Tag = "CA";
+            this.ClaimAdjuster.Tag = "4";
             this.ClaimAdjuster.Text = "Claim Adjuster";
             this.ClaimAdjuster.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
@@ -632,7 +643,7 @@ namespace RaceDesigner
             this.WarMonger.Name = "WarMonger";
             this.WarMonger.Size = new System.Drawing.Size(104, 24);
             this.WarMonger.TabIndex = 2;
-            this.WarMonger.Tag = "WM";
+            this.WarMonger.Tag = "3";
             this.WarMonger.Text = "War Monger";
             this.WarMonger.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
@@ -643,7 +654,7 @@ namespace RaceDesigner
             this.SuperStealth.Name = "SuperStealth";
             this.SuperStealth.Size = new System.Drawing.Size(104, 24);
             this.SuperStealth.TabIndex = 1;
-            this.SuperStealth.Tag = "SS";
+            this.SuperStealth.Tag = "2";
             this.SuperStealth.Text = "Super Stealth";
             this.SuperStealth.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
@@ -654,7 +665,7 @@ namespace RaceDesigner
             this.HyperExpansion.Name = "HyperExpansion";
             this.HyperExpansion.Size = new System.Drawing.Size(110, 24);
             this.HyperExpansion.TabIndex = 0;
-            this.HyperExpansion.Tag = "HE";
+            this.HyperExpansion.Tag = "1";
             this.HyperExpansion.Text = "Hyper-Expansion";
             this.HyperExpansion.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
             // 
@@ -718,7 +729,6 @@ namespace RaceDesigner
             this.CheapFactories.Name = "CheapFactories";
             this.CheapFactories.Size = new System.Drawing.Size(186, 24);
             this.CheapFactories.TabIndex = 14;
-            this.CheapFactories.Tag = "CF";
             this.CheapFactories.Text = "Factories cost 1kT less Germanium";
             this.CheapFactories.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -729,7 +739,6 @@ namespace RaceDesigner
             this.RegeneratingShields.Name = "RegeneratingShields";
             this.RegeneratingShields.Size = new System.Drawing.Size(131, 24);
             this.RegeneratingShields.TabIndex = 13;
-            this.RegeneratingShields.Tag = "RS";
             this.RegeneratingShields.Text = "Regenerating shields";
             this.RegeneratingShields.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -740,7 +749,6 @@ namespace RaceDesigner
             this.BleedingEdgeTechnology.Name = "BleedingEdgeTechnology";
             this.BleedingEdgeTechnology.Size = new System.Drawing.Size(145, 24);
             this.BleedingEdgeTechnology.TabIndex = 12;
-            this.BleedingEdgeTechnology.Tag = "BET";
             this.BleedingEdgeTechnology.Text = "Bleeding edge technology";
             this.BleedingEdgeTechnology.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -751,7 +759,6 @@ namespace RaceDesigner
             this.LowStartingPopulation.Name = "LowStartingPopulation";
             this.LowStartingPopulation.Size = new System.Drawing.Size(130, 24);
             this.LowStartingPopulation.TabIndex = 11;
-            this.LowStartingPopulation.Tag = "LSP";
             this.LowStartingPopulation.Text = "Low starting population";
             this.LowStartingPopulation.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -762,7 +769,6 @@ namespace RaceDesigner
             this.NoAdvancedScanners.Name = "NoAdvancedScanners";
             this.NoAdvancedScanners.Size = new System.Drawing.Size(133, 24);
             this.NoAdvancedScanners.TabIndex = 10;
-            this.NoAdvancedScanners.Tag = "NAS";
             this.NoAdvancedScanners.Text = "No advanced scanners";
             this.NoAdvancedScanners.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -773,7 +779,6 @@ namespace RaceDesigner
             this.BasicRemoteMining.Name = "BasicRemoteMining";
             this.BasicRemoteMining.Size = new System.Drawing.Size(141, 24);
             this.BasicRemoteMining.TabIndex = 9;
-            this.BasicRemoteMining.Tag = "OBRM";
             this.BasicRemoteMining.Text = "Only basic remote mining";
             this.BasicRemoteMining.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -784,7 +789,6 @@ namespace RaceDesigner
             this.CheapEngines.Name = "CheapEngines";
             this.CheapEngines.Size = new System.Drawing.Size(131, 24);
             this.CheapEngines.TabIndex = 8;
-            this.CheapEngines.Tag = "CE";
             this.CheapEngines.Text = "Cheap engines";
             this.CheapEngines.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -795,7 +799,6 @@ namespace RaceDesigner
             this.NoRAMEngines.Name = "NoRAMEngines";
             this.NoRAMEngines.Size = new System.Drawing.Size(134, 24);
             this.NoRAMEngines.TabIndex = 7;
-            this.NoRAMEngines.Tag = "NRS";
             this.NoRAMEngines.Text = "No RAM scoop engines";
             this.NoRAMEngines.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -806,7 +809,6 @@ namespace RaceDesigner
             this.MineralAlchemy.Name = "MineralAlchemy";
             this.MineralAlchemy.Size = new System.Drawing.Size(152, 24);
             this.MineralAlchemy.TabIndex = 6;
-            this.MineralAlchemy.Tag = "MA";
             this.MineralAlchemy.Text = "Mineral alchemy";
             this.MineralAlchemy.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -817,7 +819,6 @@ namespace RaceDesigner
             this.UltimateRecycling.Name = "UltimateRecycling";
             this.UltimateRecycling.Size = new System.Drawing.Size(152, 24);
             this.UltimateRecycling.TabIndex = 5;
-            this.UltimateRecycling.Tag = "UR";
             this.UltimateRecycling.Text = "Ultimate recycling";
             this.UltimateRecycling.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -828,7 +829,6 @@ namespace RaceDesigner
             this.GeneralisedResearch.Name = "GeneralisedResearch";
             this.GeneralisedResearch.Size = new System.Drawing.Size(152, 24);
             this.GeneralisedResearch.TabIndex = 4;
-            this.GeneralisedResearch.Tag = "GR";
             this.GeneralisedResearch.Text = "Generalised reseach";
             this.GeneralisedResearch.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -839,7 +839,6 @@ namespace RaceDesigner
             this.ImprovedStarbases.Name = "ImprovedStarbases";
             this.ImprovedStarbases.Size = new System.Drawing.Size(152, 24);
             this.ImprovedStarbases.TabIndex = 3;
-            this.ImprovedStarbases.Tag = "ISB";
             this.ImprovedStarbases.Text = "Improved starbases";
             this.ImprovedStarbases.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -850,7 +849,6 @@ namespace RaceDesigner
             this.AdvancedRemoteMining.Name = "AdvancedRemoteMining";
             this.AdvancedRemoteMining.Size = new System.Drawing.Size(152, 24);
             this.AdvancedRemoteMining.TabIndex = 2;
-            this.AdvancedRemoteMining.Tag = "ARM";
             this.AdvancedRemoteMining.Text = "Advanced remote mining";
             this.AdvancedRemoteMining.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -861,7 +859,6 @@ namespace RaceDesigner
             this.TotalTerraforming.Name = "TotalTerraforming";
             this.TotalTerraforming.Size = new System.Drawing.Size(152, 24);
             this.TotalTerraforming.TabIndex = 1;
-            this.TotalTerraforming.Tag = "TT";
             this.TotalTerraforming.Text = "Total terraforming";
             this.TotalTerraforming.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -872,7 +869,6 @@ namespace RaceDesigner
             this.ImprovedFuelEfficiency.Name = "ImprovedFuelEfficiency";
             this.ImprovedFuelEfficiency.Size = new System.Drawing.Size(152, 24);
             this.ImprovedFuelEfficiency.TabIndex = 0;
-            this.ImprovedFuelEfficiency.Tag = "IFE";
             this.ImprovedFuelEfficiency.Text = "Improved fuel efficiency";
             this.ImprovedFuelEfficiency.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
@@ -1422,43 +1418,6 @@ namespace RaceDesigner
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
             // 
-            // RaceIcons
-            // 
-            this.RaceIcons.ImageStream = ((System.Windows.Forms.ImageListStreamer)(resources.GetObject("RaceIcons.ImageStream")));
-            this.RaceIcons.TransparentColor = System.Drawing.Color.Transparent;
-            this.RaceIcons.Images.SetKeyName(0, "00.jpg");
-            this.RaceIcons.Images.SetKeyName(1, "01.jpg");
-            this.RaceIcons.Images.SetKeyName(2, "02.jpg");
-            this.RaceIcons.Images.SetKeyName(3, "03.jpg");
-            this.RaceIcons.Images.SetKeyName(4, "04.jpg");
-            this.RaceIcons.Images.SetKeyName(5, "05.jpg");
-            this.RaceIcons.Images.SetKeyName(6, "06.jpg");
-            this.RaceIcons.Images.SetKeyName(7, "07.jpg");
-            this.RaceIcons.Images.SetKeyName(8, "08.jpg");
-            this.RaceIcons.Images.SetKeyName(9, "09.jpg");
-            this.RaceIcons.Images.SetKeyName(10, "10.jpg");
-            this.RaceIcons.Images.SetKeyName(11, "11.jpg");
-            this.RaceIcons.Images.SetKeyName(12, "12.jpg");
-            this.RaceIcons.Images.SetKeyName(13, "13.jpg");
-            this.RaceIcons.Images.SetKeyName(14, "14.jpg");
-            this.RaceIcons.Images.SetKeyName(15, "15.jpg");
-            this.RaceIcons.Images.SetKeyName(16, "16.jpg");
-            this.RaceIcons.Images.SetKeyName(17, "17.jpg");
-            this.RaceIcons.Images.SetKeyName(18, "18.jpg");
-            this.RaceIcons.Images.SetKeyName(19, "19.jpg");
-            this.RaceIcons.Images.SetKeyName(20, "20.jpg");
-            this.RaceIcons.Images.SetKeyName(21, "21.jpg");
-            this.RaceIcons.Images.SetKeyName(22, "22.jpg");
-            this.RaceIcons.Images.SetKeyName(23, "23.jpg");
-            this.RaceIcons.Images.SetKeyName(24, "24.jpg");
-            this.RaceIcons.Images.SetKeyName(25, "25.jpg");
-            this.RaceIcons.Images.SetKeyName(26, "26.jpg");
-            this.RaceIcons.Images.SetKeyName(27, "27.jpg");
-            this.RaceIcons.Images.SetKeyName(28, "28.jpg");
-            this.RaceIcons.Images.SetKeyName(29, "29.jpg");
-            this.RaceIcons.Images.SetKeyName(30, "30.jpg");
-            this.RaceIcons.Images.SetKeyName(31, "31.jpg");
-            // 
             // OpenFileDialog
             // 
             this.OpenFileDialog.FileName = "OpenFileDialog";
@@ -1547,7 +1506,7 @@ namespace RaceDesigner
          RadioButton radioButton = (RadioButton) sender;
 
          foreach (TraitEntry trait in PrimaryTraits.Traits) {
-            if (trait.Code == radioButton.Tag.ToString()) {
+            if (trait.RaceType == radioButton.Name) {
 
                if (radioButton.Checked) { 
                   SelectedRace                 = radioButton.Name;
@@ -1579,7 +1538,7 @@ namespace RaceDesigner
          CheckBox checkBox = (CheckBox) sender;
 
          foreach (TraitEntry trait in SecondaryTraits.Traits) {
-            if (trait.Code == checkBox.Tag.ToString()) {
+            if (trait.RaceType == checkBox.Name) {
 
                if (checkBox.Checked) { 
                   AdvantagePoints -= trait.Cost;
@@ -1736,7 +1695,7 @@ namespace RaceDesigner
             HashPasswordForStoringInConfigFile(Password.Text, "MD5");
 
          RaceParameters.Password   = passwordHash;
-         RaceParameters.Icon   = PictureBox.Image;
+         RaceParameters.Icon   = CurrentRaceIcon;
 
 // ----------------------------------------------------------------------------
 // Secondary Racial Traits
@@ -1799,35 +1758,92 @@ namespace RaceDesigner
 // Nova Console files it is possible to play a game with multiple races using
 // the same log-in name. This is a useful debugging aid.
 // ----------------------------------------------------------------------------
-         FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+         try
+         {
+             // If a race file has been saved before, suggest saving this race in the same location
+             RegistryKey regKey = Registry.CurrentUser;
+             RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
+             String RaceFilePath = subKey.GetValue(Global.RaceFolderKey, "?").ToString();
 
-         folderDialog.Description =
-          "Select the folder where the player game files will be located.";
+             if (RaceFilePath == "?" || RaceFilePath == "")
+             {
+                 // failing that, start in the nova install path
+                 RaceFilePath = subKey.GetValue(Global.NovaFolderKey, "?").ToString();
+             }
+             if (RaceFilePath == "?" || RaceFilePath == "")
+             {
+                 // still no joy? just let the user pick
+                 RaceFilePath = "";
+             }
 
-         DialogResult result = folderDialog.ShowDialog();
-         if (result == DialogResult.Cancel) {
-            Report.Error("You must specicify a game folder");
-            return;
+             SaveFileDialog fd = new SaveFileDialog();
+             fd.Title = "Save Race - " + RaceParameters.Name;
+             fd.FileName = RaceParameters.Name + ".race";
+             DialogResult result = fd.ShowDialog();
+             if (result == DialogResult.OK)
+             {
+                 RaceFilePath = fd.FileName;
+                 
+             }
+             else
+             {
+                 Report.Error("Race has not been saved.");
+                 return;
+             }
+
+
+             FileStream saveFile = new FileStream(RaceFilePath, FileMode.Create);
+             GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
+
+             // Setup the XML document
+             XmlDocument xmldoc;
+             XmlNode xmlnode;
+             XmlElement xmlRoot;
+             xmldoc = new XmlDocument();
+             // TODO (low priority) - add the encoding attribute like UTF-8 ???
+             xmlnode = xmldoc.CreateNode(XmlNodeType.XmlDeclaration, "", "");
+             xmldoc.AppendChild(xmlnode);
+             xmlRoot = xmldoc.CreateElement("", "ROOT", "");
+             xmldoc.AppendChild(xmlRoot);
+
+             // add the components to the document
+             xmldoc.ChildNodes.Item(1).AppendChild(RaceParameters.ToXml(xmldoc));
+     
+
+             // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
+             // manual inspection of the save file. Generally though it can be opened by any archiving tool that
+             // reads gzip format.
+             // xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
+             //       or
+             xmldoc.Save(saveFile);                                           //  not compressed
+
+             saveFile.Close();
+
+             Report.Information("The " + RaceParameters.PluralName + " have been saved to " + RaceFilePath);
+
+             subKey.SetValue(Global.RaceFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
+
+             // FIXME This is a work-around as the GUI doesn't currently ask and the console doesn't set it - Dan 09 Aug 09
+             subKey.SetValue(Global.ClientFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
+
+             // Remove the warning message for exiting with unsaved changes.
+             ParametersChanged = false;
+
+             return;
          }
+         catch (System.IO.FileNotFoundException)
+         {
 
-         string gameFolder   = folderDialog.SelectedPath;
-         string SaveFileName = Path.Combine(gameFolder, RaceName.Text + ".race");
+             Report.Error("File path not specified.");
+             return ;
 
-         FileStream saveFile = new FileStream(SaveFileName, FileMode.Create);
-
-         Formatter.Serialize(saveFile, RaceParameters);
-
-         saveFile.Close();
-
-         // Save the folder name of where the game files will be saved.
-
-         RegKey    = Registry.CurrentUser;
-         RegSubKey = RegKey.CreateSubKey(Global.RootRegistryKey);
-
-         RegSubKey.SetValue(Global.ClientFolderKey, gameFolder);
-
-         Report.Information("The race file has been generated");
-         ParametersChanged    = false;
+         }
+         catch (Exception exception)
+         {
+             Report.Error("Failed to save race file. " + exception.Message);
+             return ;
+         }
+          
       }
 
 
@@ -1849,14 +1865,10 @@ namespace RaceDesigner
 
        private void NextImage_Click(object sender, EventArgs e)
        {
-          CurrentRaceIcon++;
+          ++CurrentRaceIcon;
+          PictureBox.Image = CurrentRaceIcon.Image;
+          IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source); 
 
-          if (CurrentRaceIcon > MaximumRaceIcon) {
-             CurrentRaceIcon = 0;
-          }
-
-          PictureBox.Image = RaceIcons.Images[CurrentRaceIcon];
-          IconIndex.Text   = (CurrentRaceIcon + 1).ToString();
        }
 
 
@@ -1866,29 +1878,13 @@ namespace RaceDesigner
 
        private void PreviousImage_Click(object sender, EventArgs e)
        {
-          CurrentRaceIcon--;
-
-          if (CurrentRaceIcon < 0) {
-             CurrentRaceIcon = MaximumRaceIcon;
-          }
-
-          PictureBox.Image = RaceIcons.Images[CurrentRaceIcon];
-          IconIndex.Text   = (CurrentRaceIcon + 1).ToString();
+          --CurrentRaceIcon;
+          PictureBox.Image = CurrentRaceIcon.Image;
+          IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source); 
        }
 
 
-// ============================================================================
-// Called when the form is loaded. All we do is load the first race icon into
-// its image box, record the index of the current image (0) and make a note
-// of the number of images so that we can just cycle through them.
-// ============================================================================
 
-       private void OnLoad(object sender, EventArgs e)
-       {
-          MaximumRaceIcon  = RaceIcons.Images.Count - 1;
-          PictureBox.Image = RaceIcons.Images[0];
-          IconIndex.Text   = "1";
-       }
 
 
 // ============================================================================
@@ -1899,32 +1895,43 @@ namespace RaceDesigner
 
       private void LoadRaceFile_Click(object sender, EventArgs e)
       {
-         Race raceData;
+         
 
          OpenFileDialog.CheckFileExists = true;
-         OpenFileDialog.FileName        = "Humanoid.race";
-         if (OpenFileDialog.ShowDialog() != DialogResult.OK) {
-            return;
+         OpenFileDialog.FileName = "Humanoid.race";
+         if (OpenFileDialog.ShowDialog() != DialogResult.OK)
+         {
+             return;
          }
 
-         string fileName       = OpenFileDialog.FileName;
-         FileStream raceReader = new FileStream(fileName, FileMode.Open);
- 
-         raceData = Formatter.Deserialize(raceReader) as Race;
-         raceReader.Close();
+         string fileName = OpenFileDialog.FileName;
 
-         ControlLibrary.CheckPassword password = 
-            new ControlLibrary.CheckPassword(raceData);
+         Race raceData;
+         try
+         {
+             raceData = new Race(fileName);
 
-         password.ShowDialog();
-         password.Dispose();
+             // TODO - This level of security is not good enough as the race is stored un-encrypted.
+             ControlLibrary.CheckPassword password =
+                new ControlLibrary.CheckPassword(raceData);
 
-         RaceParameters = raceData;
-         reloadRace();
-         reloadSecondaryTraits();
-         reloadBuildCosts();
-         reloadEnvironmentalTolerance();
-         reloadResearchCosts();
+             password.ShowDialog();
+             if (password.DialogResult == DialogResult.OK)
+             {
+                 RaceParameters = raceData;
+                 reloadRace();
+                 reloadSecondaryTraits();
+                 reloadBuildCosts();
+                 reloadEnvironmentalTolerance();
+                 reloadResearchCosts();
+             }
+
+             password.Dispose();
+         }
+         catch (Exception ex)
+         {
+             Report.Error("Failed to load file: \r\n" + ex.Message);
+         }
       }
 
 

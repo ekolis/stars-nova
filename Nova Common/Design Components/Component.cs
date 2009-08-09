@@ -41,7 +41,7 @@ namespace NovaCommon
       // This is the list of all Compont.Properties keys for the above dictionary.
       // Note that these are not the Component.Type, but the ComponentProperty.Type.
       // They are needed here for the component to locate or load its properties
-      // in the dictionary.
+      // into the dictionary.
       public static String[] propertyKeys =
       {   
           "Armor", "Beam Deflector", "Bomb", "Battle Movement", "Capacitor", "Cargo", "Cloak", 
