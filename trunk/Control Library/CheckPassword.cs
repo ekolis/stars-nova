@@ -60,7 +60,7 @@ namespace ControlLibrary
             HashPasswordForStoringInConfigFile(enteredPassword, "MD5");
 
          if (newPasswordHash != oldPasswordHash) {
-            Report.Error("Incorrect password - Access denied");
+            Report.Information("Incorrect password - Access denied");
             DialogResult = DialogResult.Cancel;
          }
          else {

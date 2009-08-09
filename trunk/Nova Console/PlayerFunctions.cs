@@ -47,9 +47,7 @@ namespace NovaConsole
           }
 
           foreach (FileInfo file in raceFiles) {
-             FileStream  stream = new FileStream(file.FullName, FileMode.Open);
-             Race        race   = Formatter.Deserialize(stream) as Race;
-             stream.Close();
+             Race race = new Race(file.FullName); 
              ConsoleState.Data.AllRaces[race.Name] = race;
           }
       }
