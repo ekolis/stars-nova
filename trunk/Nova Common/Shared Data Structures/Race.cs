@@ -55,16 +55,21 @@ namespace NovaCommon
           {
               try
               {
-                  switch (node.Name.ToLower())
+                  switch (subnode.Name.ToLower())
                   {
-                      case "min": Minimum = double.Parse(((XmlText)node.FirstChild).Value); break;
-                      case "max": Minimum = double.Parse(((XmlText)node.FirstChild).Value); break;
+                      case "min": 
+                          Minimum = double.Parse(((XmlText)subnode.FirstChild).Value); 
+                          break;
+                      case "max": 
+                          Maximum = double.Parse(((XmlText)subnode.FirstChild).Value); 
+                          break;
                   }
               }
               catch
               {
                   // ignore incomplete or unset values
               }
+
               subnode = subnode.NextSibling;
           }
 
@@ -270,9 +275,9 @@ namespace NovaCommon
                   {
                       case "root": xmlnode = xmlnode.FirstChild; continue;
                       case "race": xmlnode = xmlnode.FirstChild; continue;
-                      case "gravitytolerance": this.GravityTolerance = new EnvironmentTolerance(xmlnode); break;
-                      case "Radiationtolerance": this.RadiationTolerance = new EnvironmentTolerance(xmlnode); break;
-                      case "temperaturetolerance": this.TemperatureTolerance = new EnvironmentTolerance(xmlnode); break;
+                      case "gravitytolerance": this.GravityTolerance = new EnvironmentTolerance(xmlnode.FirstChild); break;
+                      case "radiationtolerance": this.RadiationTolerance = new EnvironmentTolerance(xmlnode.FirstChild); break;
+                      case "temperaturetolerance": this.TemperatureTolerance = new EnvironmentTolerance(xmlnode.FirstChild); break;
                       case "tech": this.ResearchCosts = new TechLevel(xmlnode); break;
 
                       case "lrt": this.Traits.Add(((XmlText)xmlnode.FirstChild).Value); break;

@@ -4,19 +4,19 @@
     <GravityTolerance>
       <EnvironmentTolerance>
         <Min>2.70858</Min>
-        <max>5.41142</max>
+        <Max>5.41142</Max>
       </EnvironmentTolerance>
     </GravityTolerance>
     <RadiationTolerance>
       <EnvironmentTolerance>
         <Min>33.5215</Min>
-        <max>67.4785</max>
+        <Max>67.4785</Max>
       </EnvironmentTolerance>
     </RadiationTolerance>
     <TemperatureTolerance>
       <EnvironmentTolerance>
         <Min>-68.6</Min>
-        <max>68.6</max>
+        <Max>68.6</Max>
       </EnvironmentTolerance>
     </TemperatureTolerance>
     <Tech>
