@@ -88,17 +88,6 @@ namespace NovaConsole {
          NovaCommon.Resources needed = item.BuildState;
          Race          race          = stateData.AllRaces[star.Owner] as Race;
 
-         // If we have the secondary racial trait "Improved Starbases"
-         //starbases cost 20% less.
-
-         if (design.Type == "Starbase" && race.Traits.Contains("ISB")) 
-         {
-            needed.Ironium   *= 0.8;
-            needed.Germanium *= 0.8;
-            needed.Boranium  *= 0.8;
-            needed.Energy    *= 0.8;
-         }
-
          // If we've ran out of resources then give up. Note that there may be
          // a surplus in some areas and a deficit in others so we have to check
          // the individual resource components for over-payment.

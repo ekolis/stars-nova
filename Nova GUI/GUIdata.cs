@@ -12,18 +12,9 @@
 
 using Microsoft.Win32;
 using NovaCommon;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Reflection;
-using System.Resources;
 using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization;
 using System.Windows.Forms;
-using System;
 
 namespace Nova
 {
@@ -268,6 +259,23 @@ namespace Nova
                 int level = (int)GUIstate.Data.ResearchLevel.TechValues["Propulsion"];
                 level++;
                 GUIstate.Data.ResearchLevel.TechValues["Propulsion"] = level;
+            }
+            if (GUIstate.Data.RaceData.Traits.Contains("ISB"))
+            {
+                // Improved Starbases gives a 20% discount to starbase hulls.
+                foreach (Component component in GUIstate.Data.AvailableComponents.Values)
+                {
+                    // TODO (low priority) - work out why it sometimes is null.
+                    if (component == null || component.Type != "Hull") continue;
+                    Hull hull = component.Properties["Hull"] as Hull;
+                    if (hull == null || !hull.IsStarbase) continue;
+
+                    NovaCommon.Resources cost = component.Cost;
+                    cost.Boranium *= 0.8;
+                    cost.Ironium *= 0.8;
+                    cost.Germanium *= 0.8;
+                    cost.Energy *= 0.8;
+                }
             }
         }
 
