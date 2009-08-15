@@ -66,8 +66,8 @@ namespace NovaConsole
          AllComponents.Restore();
          Hashtable allComponents = NovaCommon.AllComponents.Data.Components;
          Bomb      totalBombs    = new Bomb();
-         Bomb      cherry        = new Bomb();
-         cherry = allComponents["Cherry Bomb"] as Bomb;
+         Component cherryComponent = allComponents["Cherry Bomb"] as Component;
+         Bomb cherry = cherryComponent.Properties["Bomb"] as Bomb;
 
          for (int i = 0; i < 10; i++) {
             totalBombs.PopKill       += cherry.PopKill;
@@ -75,8 +75,8 @@ namespace NovaConsole
             totalBombs.MinimumKill   += cherry.MinimumKill;
          }
 
-         Bomb M70 = new Bomb();
-         M70 = allComponents["M-70 Bomb"] as Bomb;
+         Component m70Component = allComponents["M-70 Bomb"] as Component;
+         Bomb M70 = m70Component.Properties["Bomb"] as Bomb;
 
          for (int i = 0; i < 5; i++) {
             totalBombs.PopKill       += M70.PopKill;
