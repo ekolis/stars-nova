@@ -26,9 +26,14 @@ namespace NovaConsole {
    {
       private static ConsoleState StateData      = ConsoleState.Data;
       private static double       MaxBattleTime  = 16;
-      private static BattleReport Battle         = null;
+      private static BattleReport Battle         = new BattleReport();
       private static int          StackID        = 0;
       private static Random       RandomNumber   = new Random();
+
+	  /// <summary>
+	  /// Residual fractional movement points left over between phases/turns of combat.
+	  /// </summary>
+	  private static IDictionary<Fleet, double> residualMovement = new Dictionary<Fleet, double>();
 
 // ============================================================================
 // Deal with any fleet battles. How the battle engine in Stars! works is
@@ -284,7 +289,7 @@ namespace NovaConsole {
 // destroyed or a pre-set maximum time has elapsed.   
 // ============================================================================
 
-      private  static void DoBattle(ArrayList zoneStacks)
+      public  static void DoBattle(ArrayList zoneStacks)
       {
          double time = 0;
 
@@ -294,6 +299,10 @@ namespace NovaConsole {
                break;
             }
 
+
+			foreach (Fleet stack in zoneStacks)
+				residualMovement.Add(stack, 0);	
+
             MoveStacks(zoneStacks);
             FireWeapons(zoneStacks);
 
@@ -301,6 +310,8 @@ namespace NovaConsole {
             if (time > MaxBattleTime) {
                break;
             }
+
+			residualMovement.Clear();
          }
       }
 
@@ -393,29 +404,43 @@ namespace NovaConsole {
 // ============================================================================
 // Move stacks towards their targets (if any). Record each movement in the
 // battle report.
-// TODO this doesn't implement the fractional movement.
 // ============================================================================
 
       public static void MoveStacks(ArrayList zoneStacks)
       {
-         foreach (Fleet stack in zoneStacks) {
-            if (stack.Target != null) {
-               Point from      = stack.Position;
-               Point to        = stack.Target.Position;
-               double distance = PointUtilities.Distance(from, to);
-               double movement = stack.BattleSpeed;
+		  // each turn has 3 phases
+		  // TODO - verify that a ship should be able to move 1 square per phase if it has 3 move points, or is it limited to 1 per turn?
+		  var phases = 3;
+		 for (var phase = 0; phase < phases; phase++)
+		 {
+			 foreach (Fleet stack in zoneStacks)
+			 {
+				 if (stack.Target != null)
+				 {
+					 Point from = stack.Position;
+					 Point to = stack.Target.Position;
+					 double distance = PointUtilities.Distance(from, to);
 
-               // TODO divide movement into three phases and work out how many moves to give each ship based on phase and turn as per Stars!
-               if (movement > 0.0) stack.Position  = PointUtilities.BattleMoveTo(from, to);
+					 // stack accumulates its full movement over the course of the 3 phases
+					 residualMovement[stack] += stack.BattleSpeed / (double)phases;
 
-               // Update the battle report with these movements.
+					 // stack can move only after accumulating at least 1 move point, and after doing so expends that 1 move point
+					 if (residualMovement[stack] >= 1.0)
+					 {
+						 stack.Position = PointUtilities.BattleMoveTo(from, to);
+						 residualMovement[stack] -= 1.0;
+					 }
 
-               BattleReport.Movement report = new BattleReport.Movement();
-               report.StackName = stack.Name;
-               report.Position  = stack.Position;
-               Battle.Steps.Add(report);
-            }
-         }
+					 // Update the battle report with these movements.
+
+					 BattleReport.Movement report = new BattleReport.Movement();
+					 report.StackName = stack.Name;
+					 report.Position = stack.Position;
+					 Battle.Steps.Add(report);
+				 }
+				 // TODO - shouldn't stacks without targets flee the battle if their strategy says to do so? they're sitting ducks now!
+			 }
+		 }
       }
 
 

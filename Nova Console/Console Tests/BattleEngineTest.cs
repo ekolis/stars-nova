@@ -202,11 +202,11 @@ namespace NovaConsole {
 
 
 // ============================================================================
-// Test for MoveStacks
+// Test for DoBattle
 // ============================================================================
 
       [Test]
-      public void Test6MoveStacks()
+      public void Test6DoBattle()
       {
          Fleet stackA = zoneStacks[0] as Fleet;
          Fleet stackB = zoneStacks[1] as Fleet;
@@ -215,7 +215,7 @@ namespace NovaConsole {
 
          distanceS = PointUtilities.Distance(stackA.Position, stackB.Position);
 
-         BattleEngine.MoveStacks(zoneStacks);
+         BattleEngine.DoBattle(zoneStacks);
 
          distanceE = PointUtilities.Distance(stackA.Position, stackB.Position);
 
@@ -224,6 +224,7 @@ namespace NovaConsole {
          Assert.Greater(distanceS, distanceE);
       }
 
+/*	   
 
 // ============================================================================
 // Test for FireWeapons
@@ -239,3 +240,4 @@ namespace NovaConsole {
    }
 }
 
+*/
