@@ -162,9 +162,9 @@ namespace NovaCommon
               XmlDocument xmldoc;
               XmlNode xmlnode;
               XmlElement xmlRoot;
-              xmldoc = new XmlDocument();
-              // TODO (low priority) - add the encoding attribute like UTF-8 ???
-              xmlnode = xmldoc.CreateNode(XmlNodeType.XmlDeclaration, "", ""); 
+			  xmldoc = new XmlDocument();
+			  // TODO - see if byte order marks emitted by .NET interfere with Mono parsing of XML files
+			  xmlnode = xmldoc.CreateXmlDeclaration("1.0", "UTF-8", null);
               xmldoc.AppendChild(xmlnode);
               xmlRoot = xmldoc.CreateElement("", "ROOT", "");
               xmldoc.AppendChild(xmlRoot);
