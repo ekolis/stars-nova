@@ -110,40 +110,9 @@ namespace ComponentEditor
        // component data file has not been set then set it now.
        // ----------------------------------------------------------------------------
        private void OnLoad(object sender, EventArgs e)
-       {
-           // Only want property tabs shown for properties of the current component,
-           // so start with them all cleared.
-           PropertyTabs.TabPages.Clear();
-           HullMap = new ArrayList();
+	   {
 
-           // Load the last known component definition file, if possible.
-           try
-           {
-               String SavePath = AllComponents.GetPath();
-               if (SavePath != null & SavePath != "" && SavePath != "?")
-               {
-                   AllComponents.Restore();
-               }
-               else
-               {
-                   Report.Error("Failed to locate an existing component data file. Use File->Open to specify one.");
-               }
-           }
-           catch
-           {
-               // Can fail for any number of reasons. Registry key setting, old format, etc.
-               Report.Error("Failed to load existing component data file '" + AllComponents.GetPath() + "'. File may be corrupt or of an old format.");
-           }
-
-           // try to start with something showing
-           ComponentType.Text = "Armor";
-           UpdateListBox("Armor");
-           if (ComponentList.Items.Count > 0)
-               ComponentList.SelectedIndex = 0; // pick the first item in the list
-
-           EditModeOff();
-           UpdateTitleBar();
-       }
+	   }
 
        #endregion Setup
 
@@ -1860,6 +1829,11 @@ namespace ComponentEditor
       }
 
       #endregion
+
+
+
+
+
 
 
 
