@@ -101,15 +101,15 @@ namespace ComponentEditor
 		  this.deleteSelectedPropertyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 		  this.RestrictionSummary = new System.Windows.Forms.TextBox();
 		  this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
+		  this.groupBox3 = new System.Windows.Forms.GroupBox();
+		  this.Description = new System.Windows.Forms.TextBox();
+		  this.groupBox4 = new System.Windows.Forms.GroupBox();
+		  this.ComponentList = new System.Windows.Forms.ListBox();
 		  this.groupBox1 = new System.Windows.Forms.GroupBox();
 		  this.ComponentType = new System.Windows.Forms.ComboBox();
 		  this.groupBox2 = new System.Windows.Forms.GroupBox();
 		  this.ComponentName = new System.Windows.Forms.TextBox();
-		  this.groupBox4 = new System.Windows.Forms.GroupBox();
-		  this.ComponentList = new System.Windows.Forms.ListBox();
 		  this.groupBox5 = new System.Windows.Forms.GroupBox();
-		  this.groupBox3 = new System.Windows.Forms.GroupBox();
-		  this.Description = new System.Windows.Forms.TextBox();
 		  this.PropertyTabs = new System.Windows.Forms.TabControl();
 		  this.tabArmor = new System.Windows.Forms.TabPage();
 		  this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -356,11 +356,11 @@ namespace ComponentEditor
 		  this.BasicProperties = new ComponentEditor.BasicProperties();
 		  this.MainMenu.SuspendLayout();
 		  this.tableLayoutPanel1.SuspendLayout();
+		  this.groupBox3.SuspendLayout();
+		  this.groupBox4.SuspendLayout();
 		  this.groupBox1.SuspendLayout();
 		  this.groupBox2.SuspendLayout();
-		  this.groupBox4.SuspendLayout();
 		  this.groupBox5.SuspendLayout();
-		  this.groupBox3.SuspendLayout();
 		  this.PropertyTabs.SuspendLayout();
 		  this.tabArmor.SuspendLayout();
 		  this.groupBox8.SuspendLayout();
@@ -560,7 +560,7 @@ namespace ComponentEditor
             this.helpToolStripMenuItem});
 		  this.MainMenu.Location = new System.Drawing.Point(0, 0);
 		  this.MainMenu.Name = "MainMenu";
-		  this.MainMenu.Size = new System.Drawing.Size(943, 24);
+		  this.MainMenu.Size = new System.Drawing.Size(904, 24);
 		  this.MainMenu.TabIndex = 2;
 		  this.MainMenu.Text = "menuStrip1";
 		  // 
@@ -961,24 +961,25 @@ namespace ComponentEditor
 					  | System.Windows.Forms.AnchorStyles.Right)));
 		  this.tableLayoutPanel1.SetColumnSpan(this.RestrictionSummary, 2);
 		  this.RestrictionSummary.ForeColor = System.Drawing.Color.Maroon;
-		  this.RestrictionSummary.Location = new System.Drawing.Point(417, 175);
+		  this.RestrictionSummary.Location = new System.Drawing.Point(403, 178);
 		  this.RestrictionSummary.Multiline = true;
 		  this.RestrictionSummary.Name = "RestrictionSummary";
 		  this.RestrictionSummary.ReadOnly = true;
 		  this.RestrictionSummary.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-		  this.RestrictionSummary.Size = new System.Drawing.Size(523, 85);
+		  this.RestrictionSummary.Size = new System.Drawing.Size(498, 82);
 		  this.RestrictionSummary.TabIndex = 19;
 		  this.RestrictionSummary.Text = "This component only available to the primary racial trait \'Inner Strength\'.";
 		  // 
 		  // tableLayoutPanel1
 		  // 
-		  this.tableLayoutPanel1.AutoSize = true;
-		  this.tableLayoutPanel1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+		  this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+					  | System.Windows.Forms.AnchorStyles.Left)
+					  | System.Windows.Forms.AnchorStyles.Right)));
 		  this.tableLayoutPanel1.ColumnCount = 4;
-		  this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-		  this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-		  this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
-		  this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+		  this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+		  this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
+		  this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+		  this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 125F));
 		  this.tableLayoutPanel1.Controls.Add(this.groupBox3, 2, 0);
 		  this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 1);
 		  this.tableLayoutPanel1.Controls.Add(this.RestrictionSummary, 2, 2);
@@ -988,28 +989,80 @@ namespace ComponentEditor
 		  this.tableLayoutPanel1.Controls.Add(this.ComponentImage, 3, 0);
 		  this.tableLayoutPanel1.Controls.Add(this.TechRequirements, 1, 1);
 		  this.tableLayoutPanel1.Controls.Add(this.BasicProperties, 1, 3);
-		  this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
-		  this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 24);
+		  this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 27);
+		  this.tableLayoutPanel1.MinimumSize = new System.Drawing.Size(904, 528);
 		  this.tableLayoutPanel1.Name = "tableLayoutPanel1";
 		  this.tableLayoutPanel1.RowCount = 4;
-		  this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-		  this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-		  this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-		  this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle());
-		  this.tableLayoutPanel1.Size = new System.Drawing.Size(943, 633);
+		  this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 50F));
+		  this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 125F));
+		  this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+		  this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 75F));
+		  this.tableLayoutPanel1.Size = new System.Drawing.Size(904, 528);
 		  this.tableLayoutPanel1.TabIndex = 23;
+		  // 
+		  // groupBox3
+		  // 
+		  this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+					  | System.Windows.Forms.AnchorStyles.Left)
+					  | System.Windows.Forms.AnchorStyles.Right)));
+		  this.groupBox3.Controls.Add(this.Description);
+		  this.groupBox3.Location = new System.Drawing.Point(403, 3);
+		  this.groupBox3.Name = "groupBox3";
+		  this.tableLayoutPanel1.SetRowSpan(this.groupBox3, 2);
+		  this.groupBox3.Size = new System.Drawing.Size(373, 169);
+		  this.groupBox3.TabIndex = 28;
+		  this.groupBox3.TabStop = false;
+		  this.groupBox3.Text = "Description";
+		  // 
+		  // Description
+		  // 
+		  this.Description.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+					  | System.Windows.Forms.AnchorStyles.Left)
+					  | System.Windows.Forms.AnchorStyles.Right)));
+		  this.Description.Location = new System.Drawing.Point(7, 16);
+		  this.Description.Multiline = true;
+		  this.Description.Name = "Description";
+		  this.Description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+		  this.Description.Size = new System.Drawing.Size(360, 147);
+		  this.Description.TabIndex = 9;
+		  // 
+		  // groupBox4
+		  // 
+		  this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+					  | System.Windows.Forms.AnchorStyles.Left)
+					  | System.Windows.Forms.AnchorStyles.Right)));
+		  this.groupBox4.Controls.Add(this.ComponentList);
+		  this.groupBox4.Location = new System.Drawing.Point(3, 53);
+		  this.groupBox4.Name = "groupBox4";
+		  this.tableLayoutPanel1.SetRowSpan(this.groupBox4, 3);
+		  this.groupBox4.Size = new System.Drawing.Size(194, 472);
+		  this.groupBox4.TabIndex = 14;
+		  this.groupBox4.TabStop = false;
+		  this.groupBox4.Text = "Component List";
+		  // 
+		  // ComponentList
+		  // 
+		  this.ComponentList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+					  | System.Windows.Forms.AnchorStyles.Left)
+					  | System.Windows.Forms.AnchorStyles.Right)));
+		  this.ComponentList.FormattingEnabled = true;
+		  this.ComponentList.Location = new System.Drawing.Point(3, 16);
+		  this.ComponentList.Name = "ComponentList";
+		  this.ComponentList.Size = new System.Drawing.Size(188, 446);
+		  this.ComponentList.Sorted = true;
+		  this.ComponentList.TabIndex = 8;
+		  this.ComponentList.SelectedIndexChanged += new System.EventHandler(this.ComponentList_SelectedIndexChanged);
 		  // 
 		  // groupBox1
 		  // 
 		  this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 					  | System.Windows.Forms.AnchorStyles.Left)
 					  | System.Windows.Forms.AnchorStyles.Right)));
-		  this.groupBox1.AutoSize = true;
 		  this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 		  this.groupBox1.Controls.Add(this.ComponentType);
 		  this.groupBox1.Location = new System.Drawing.Point(3, 3);
 		  this.groupBox1.Name = "groupBox1";
-		  this.groupBox1.Size = new System.Drawing.Size(194, 61);
+		  this.groupBox1.Size = new System.Drawing.Size(194, 44);
 		  this.groupBox1.TabIndex = 11;
 		  this.groupBox1.TabStop = false;
 		  this.groupBox1.Text = "Component Type";
@@ -1035,7 +1088,7 @@ namespace ComponentEditor
             "Shield",
             "Terraforming",
             "Torpedoes"});
-		  this.ComponentType.Location = new System.Drawing.Point(14, 21);
+		  this.ComponentType.Location = new System.Drawing.Point(14, 15);
 		  this.ComponentType.MaxDropDownItems = 15;
 		  this.ComponentType.Name = "ComponentType";
 		  this.ComponentType.Size = new System.Drawing.Size(174, 21);
@@ -1048,12 +1101,10 @@ namespace ComponentEditor
 		  this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 					  | System.Windows.Forms.AnchorStyles.Left)
 					  | System.Windows.Forms.AnchorStyles.Right)));
-		  this.groupBox2.AutoSize = true;
-		  this.groupBox2.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 		  this.groupBox2.Controls.Add(this.ComponentName);
 		  this.groupBox2.Location = new System.Drawing.Point(203, 3);
 		  this.groupBox2.Name = "groupBox2";
-		  this.groupBox2.Size = new System.Drawing.Size(208, 61);
+		  this.groupBox2.Size = new System.Drawing.Size(194, 44);
 		  this.groupBox2.TabIndex = 12;
 		  this.groupBox2.TabStop = false;
 		  this.groupBox2.Text = "Name";
@@ -1063,37 +1114,8 @@ namespace ComponentEditor
 		  this.ComponentName.Dock = System.Windows.Forms.DockStyle.Fill;
 		  this.ComponentName.Location = new System.Drawing.Point(3, 16);
 		  this.ComponentName.Name = "ComponentName";
-		  this.ComponentName.Size = new System.Drawing.Size(202, 20);
+		  this.ComponentName.Size = new System.Drawing.Size(188, 20);
 		  this.ComponentName.TabIndex = 7;
-		  // 
-		  // groupBox4
-		  // 
-		  this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-					  | System.Windows.Forms.AnchorStyles.Left)
-					  | System.Windows.Forms.AnchorStyles.Right)));
-		  this.groupBox4.AutoSize = true;
-		  this.groupBox4.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-		  this.groupBox4.Controls.Add(this.ComponentList);
-		  this.groupBox4.Location = new System.Drawing.Point(3, 70);
-		  this.groupBox4.Name = "groupBox4";
-		  this.tableLayoutPanel1.SetRowSpan(this.groupBox4, 3);
-		  this.groupBox4.Size = new System.Drawing.Size(194, 575);
-		  this.groupBox4.TabIndex = 14;
-		  this.groupBox4.TabStop = false;
-		  this.groupBox4.Text = "Component List";
-		  // 
-		  // ComponentList
-		  // 
-		  this.ComponentList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-					  | System.Windows.Forms.AnchorStyles.Left)
-					  | System.Windows.Forms.AnchorStyles.Right)));
-		  this.ComponentList.FormattingEnabled = true;
-		  this.ComponentList.Location = new System.Drawing.Point(3, 16);
-		  this.ComponentList.Name = "ComponentList";
-		  this.ComponentList.Size = new System.Drawing.Size(188, 537);
-		  this.ComponentList.Sorted = true;
-		  this.ComponentList.TabIndex = 8;
-		  this.ComponentList.SelectedIndexChanged += new System.EventHandler(this.ComponentList_SelectedIndexChanged);
 		  // 
 		  // groupBox5
 		  // 
@@ -1102,40 +1124,12 @@ namespace ComponentEditor
 					  | System.Windows.Forms.AnchorStyles.Right)));
 		  this.tableLayoutPanel1.SetColumnSpan(this.groupBox5, 2);
 		  this.groupBox5.Controls.Add(this.PropertyTabs);
-		  this.groupBox5.Location = new System.Drawing.Point(417, 266);
+		  this.groupBox5.Location = new System.Drawing.Point(403, 266);
 		  this.groupBox5.Name = "groupBox5";
-		  this.groupBox5.Size = new System.Drawing.Size(523, 379);
+		  this.groupBox5.Size = new System.Drawing.Size(498, 259);
 		  this.groupBox5.TabIndex = 25;
 		  this.groupBox5.TabStop = false;
 		  this.groupBox5.Text = "Component Properties";
-		  // 
-		  // groupBox3
-		  // 
-		  this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-					  | System.Windows.Forms.AnchorStyles.Left)
-					  | System.Windows.Forms.AnchorStyles.Right)));
-		  this.groupBox3.AutoSize = true;
-		  this.groupBox3.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-		  this.groupBox3.Controls.Add(this.Description);
-		  this.groupBox3.Location = new System.Drawing.Point(417, 3);
-		  this.groupBox3.MaximumSize = new System.Drawing.Size(9999, 9999);
-		  this.groupBox3.MinimumSize = new System.Drawing.Size(300, 100);
-		  this.groupBox3.Name = "groupBox3";
-		  this.tableLayoutPanel1.SetRowSpan(this.groupBox3, 2);
-		  this.groupBox3.Size = new System.Drawing.Size(300, 166);
-		  this.groupBox3.TabIndex = 28;
-		  this.groupBox3.TabStop = false;
-		  this.groupBox3.Text = "Description";
-		  // 
-		  // Description
-		  // 
-		  this.Description.Dock = System.Windows.Forms.DockStyle.Fill;
-		  this.Description.Location = new System.Drawing.Point(3, 16);
-		  this.Description.Multiline = true;
-		  this.Description.Name = "Description";
-		  this.Description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-		  this.Description.Size = new System.Drawing.Size(294, 147);
-		  this.Description.TabIndex = 9;
 		  // 
 		  // PropertyTabs
 		  // 
@@ -1178,7 +1172,7 @@ namespace ComponentEditor
 		  this.PropertyTabs.Multiline = true;
 		  this.PropertyTabs.Name = "PropertyTabs";
 		  this.PropertyTabs.SelectedIndex = 0;
-		  this.PropertyTabs.Size = new System.Drawing.Size(514, 348);
+		  this.PropertyTabs.Size = new System.Drawing.Size(489, 238);
 		  this.PropertyTabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
 		  this.PropertyTabs.TabIndex = 4;
 		  this.PropertyTabs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.PropertyTabs_DrawItem);
@@ -1190,7 +1184,7 @@ namespace ComponentEditor
 		  this.tabArmor.Location = new System.Drawing.Point(4, 4);
 		  this.tabArmor.Name = "tabArmor";
 		  this.tabArmor.Padding = new System.Windows.Forms.Padding(3);
-		  this.tabArmor.Size = new System.Drawing.Size(206, 340);
+		  this.tabArmor.Size = new System.Drawing.Size(81, 230);
 		  this.tabArmor.TabIndex = 0;
 		  this.tabArmor.Text = "Armor";
 		  // 
@@ -1203,7 +1197,7 @@ namespace ComponentEditor
 		  this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
 		  this.groupBox8.Location = new System.Drawing.Point(3, 3);
 		  this.groupBox8.Name = "groupBox8";
-		  this.groupBox8.Size = new System.Drawing.Size(200, 334);
+		  this.groupBox8.Size = new System.Drawing.Size(75, 224);
 		  this.groupBox8.TabIndex = 2;
 		  this.groupBox8.TabStop = false;
 		  this.groupBox8.Text = "Armor Properties";
@@ -1251,7 +1245,7 @@ namespace ComponentEditor
 		  this.tabMovement.Location = new System.Drawing.Point(4, 4);
 		  this.tabMovement.Name = "tabMovement";
 		  this.tabMovement.Padding = new System.Windows.Forms.Padding(3);
-		  this.tabMovement.Size = new System.Drawing.Size(206, 340);
+		  this.tabMovement.Size = new System.Drawing.Size(81, 230);
 		  this.tabMovement.TabIndex = 1;
 		  this.tabMovement.Text = "Battle Movement";
 		  // 
@@ -1306,7 +1300,7 @@ namespace ComponentEditor
 		  this.tabBomb.Location = new System.Drawing.Point(4, 4);
 		  this.tabBomb.Name = "tabBomb";
 		  this.tabBomb.Padding = new System.Windows.Forms.Padding(3);
-		  this.tabBomb.Size = new System.Drawing.Size(206, 340);
+		  this.tabBomb.Size = new System.Drawing.Size(81, 230);
 		  this.tabBomb.TabIndex = 2;
 		  this.tabBomb.Text = "Bomb";
 		  // 
@@ -1409,7 +1403,7 @@ namespace ComponentEditor
 		  this.tabCapacitor.Controls.Add(this.groupBox11);
 		  this.tabCapacitor.Location = new System.Drawing.Point(4, 4);
 		  this.tabCapacitor.Name = "tabCapacitor";
-		  this.tabCapacitor.Size = new System.Drawing.Size(206, 340);
+		  this.tabCapacitor.Size = new System.Drawing.Size(81, 230);
 		  this.tabCapacitor.TabIndex = 3;
 		  this.tabCapacitor.Text = "Capacitor";
 		  // 
@@ -1472,7 +1466,7 @@ namespace ComponentEditor
 		  this.tabCargo.Controls.Add(this.groupBox12);
 		  this.tabCargo.Location = new System.Drawing.Point(4, 4);
 		  this.tabCargo.Name = "tabCargo";
-		  this.tabCargo.Size = new System.Drawing.Size(206, 340);
+		  this.tabCargo.Size = new System.Drawing.Size(81, 230);
 		  this.tabCargo.TabIndex = 4;
 		  this.tabCargo.Text = "Cargo";
 		  // 
@@ -1530,7 +1524,7 @@ namespace ComponentEditor
 		  this.tabCloak.Controls.Add(this.groupBox13);
 		  this.tabCloak.Location = new System.Drawing.Point(4, 4);
 		  this.tabCloak.Name = "tabCloak";
-		  this.tabCloak.Size = new System.Drawing.Size(206, 340);
+		  this.tabCloak.Size = new System.Drawing.Size(81, 230);
 		  this.tabCloak.TabIndex = 5;
 		  this.tabCloak.Text = "Cloak";
 		  // 
@@ -1583,7 +1577,7 @@ namespace ComponentEditor
 		  this.tabColonization.Controls.Add(this.groupBox14);
 		  this.tabColonization.Location = new System.Drawing.Point(4, 4);
 		  this.tabColonization.Name = "tabColonization";
-		  this.tabColonization.Size = new System.Drawing.Size(206, 340);
+		  this.tabColonization.Size = new System.Drawing.Size(81, 230);
 		  this.tabColonization.TabIndex = 6;
 		  this.tabColonization.Text = "Colonization";
 		  // 
@@ -1626,7 +1620,7 @@ namespace ComponentEditor
 		  this.tabComputer.Controls.Add(this.groupBox15);
 		  this.tabComputer.Location = new System.Drawing.Point(4, 4);
 		  this.tabComputer.Name = "tabComputer";
-		  this.tabComputer.Size = new System.Drawing.Size(206, 340);
+		  this.tabComputer.Size = new System.Drawing.Size(81, 230);
 		  this.tabComputer.TabIndex = 7;
 		  this.tabComputer.Text = "Computer";
 		  // 
@@ -1698,7 +1692,7 @@ namespace ComponentEditor
 		  this.tabDefense.Controls.Add(this.groupBox16);
 		  this.tabDefense.Location = new System.Drawing.Point(4, 4);
 		  this.tabDefense.Name = "tabDefense";
-		  this.tabDefense.Size = new System.Drawing.Size(206, 340);
+		  this.tabDefense.Size = new System.Drawing.Size(81, 230);
 		  this.tabDefense.TabIndex = 8;
 		  this.tabDefense.Text = "Defense";
 		  // 
@@ -1841,7 +1835,7 @@ namespace ComponentEditor
 		  this.tabDeflector.Controls.Add(this.groupBox32);
 		  this.tabDeflector.Location = new System.Drawing.Point(4, 4);
 		  this.tabDeflector.Name = "tabDeflector";
-		  this.tabDeflector.Size = new System.Drawing.Size(206, 340);
+		  this.tabDeflector.Size = new System.Drawing.Size(81, 230);
 		  this.tabDeflector.TabIndex = 28;
 		  this.tabDeflector.Text = "Deflector";
 		  // 
@@ -1889,7 +1883,7 @@ namespace ComponentEditor
 		  this.tabEnergyDampener.Controls.Add(this.groupBox31);
 		  this.tabEnergyDampener.Location = new System.Drawing.Point(4, 4);
 		  this.tabEnergyDampener.Name = "tabEnergyDampener";
-		  this.tabEnergyDampener.Size = new System.Drawing.Size(206, 340);
+		  this.tabEnergyDampener.Size = new System.Drawing.Size(81, 230);
 		  this.tabEnergyDampener.TabIndex = 29;
 		  this.tabEnergyDampener.Text = "Energy Dampener";
 		  // 
@@ -1949,7 +1943,7 @@ namespace ComponentEditor
 		  this.tabEngine.Controls.Add(this.groupBox6);
 		  this.tabEngine.Location = new System.Drawing.Point(4, 4);
 		  this.tabEngine.Name = "tabEngine";
-		  this.tabEngine.Size = new System.Drawing.Size(206, 340);
+		  this.tabEngine.Size = new System.Drawing.Size(81, 230);
 		  this.tabEngine.TabIndex = 9;
 		  this.tabEngine.Text = "Engine";
 		  // 
@@ -2332,7 +2326,7 @@ namespace ComponentEditor
 		  this.tabFuel.Controls.Add(this.groupBox18);
 		  this.tabFuel.Location = new System.Drawing.Point(4, 4);
 		  this.tabFuel.Name = "tabFuel";
-		  this.tabFuel.Size = new System.Drawing.Size(206, 340);
+		  this.tabFuel.Size = new System.Drawing.Size(81, 230);
 		  this.tabFuel.TabIndex = 10;
 		  this.tabFuel.Text = "Fuel";
 		  // 
@@ -2419,7 +2413,7 @@ namespace ComponentEditor
 		  this.tabGate.Controls.Add(this.groupBox7);
 		  this.tabGate.Location = new System.Drawing.Point(4, 4);
 		  this.tabGate.Name = "tabGate";
-		  this.tabGate.Size = new System.Drawing.Size(206, 340);
+		  this.tabGate.Size = new System.Drawing.Size(81, 230);
 		  this.tabGate.TabIndex = 11;
 		  this.tabGate.Text = "Gate";
 		  // 
@@ -2538,7 +2532,7 @@ namespace ComponentEditor
 		  this.tabHull.Controls.Add(this.groupBox19);
 		  this.tabHull.Location = new System.Drawing.Point(4, 4);
 		  this.tabHull.Name = "tabHull";
-		  this.tabHull.Size = new System.Drawing.Size(206, 340);
+		  this.tabHull.Size = new System.Drawing.Size(81, 230);
 		  this.tabHull.TabIndex = 12;
 		  this.tabHull.Text = "Hull";
 		  // 
@@ -2777,7 +2771,7 @@ namespace ComponentEditor
 		  this.tabHullAffinity.Controls.Add(this.groupBox29);
 		  this.tabHullAffinity.Location = new System.Drawing.Point(4, 4);
 		  this.tabHullAffinity.Name = "tabHullAffinity";
-		  this.tabHullAffinity.Size = new System.Drawing.Size(206, 340);
+		  this.tabHullAffinity.Size = new System.Drawing.Size(81, 230);
 		  this.tabHullAffinity.TabIndex = 24;
 		  this.tabHullAffinity.Text = "Hull Affinity";
 		  // 
@@ -2817,7 +2811,7 @@ namespace ComponentEditor
 		  this.tabJammer.Controls.Add(this.groupBox20);
 		  this.tabJammer.Location = new System.Drawing.Point(4, 4);
 		  this.tabJammer.Name = "tabJammer";
-		  this.tabJammer.Size = new System.Drawing.Size(206, 340);
+		  this.tabJammer.Size = new System.Drawing.Size(81, 230);
 		  this.tabJammer.TabIndex = 13;
 		  this.tabJammer.Text = "Jammer";
 		  // 
@@ -2870,7 +2864,7 @@ namespace ComponentEditor
 		  this.tabLayerEfficiency.Controls.Add(this.ImprovedMineLayingEfficiency);
 		  this.tabLayerEfficiency.Location = new System.Drawing.Point(4, 4);
 		  this.tabLayerEfficiency.Name = "tabLayerEfficiency";
-		  this.tabLayerEfficiency.Size = new System.Drawing.Size(206, 340);
+		  this.tabLayerEfficiency.Size = new System.Drawing.Size(81, 230);
 		  this.tabLayerEfficiency.TabIndex = 27;
 		  this.tabLayerEfficiency.Text = "Layer Efficiency";
 		  // 
@@ -2926,7 +2920,7 @@ namespace ComponentEditor
 		  this.tabDriver.Controls.Add(this.groupBox21);
 		  this.tabDriver.Location = new System.Drawing.Point(4, 4);
 		  this.tabDriver.Name = "tabDriver";
-		  this.tabDriver.Size = new System.Drawing.Size(206, 340);
+		  this.tabDriver.Size = new System.Drawing.Size(81, 230);
 		  this.tabDriver.TabIndex = 14;
 		  this.tabDriver.Text = "Mass Driver";
 		  // 
@@ -2969,7 +2963,7 @@ namespace ComponentEditor
 		  this.tabMineLayer.Controls.Add(this.groupBox22);
 		  this.tabMineLayer.Location = new System.Drawing.Point(4, 4);
 		  this.tabMineLayer.Name = "tabMineLayer";
-		  this.tabMineLayer.Size = new System.Drawing.Size(206, 340);
+		  this.tabMineLayer.Size = new System.Drawing.Size(81, 230);
 		  this.tabMineLayer.TabIndex = 16;
 		  this.tabMineLayer.Text = "Mine Layer";
 		  // 
@@ -3217,7 +3211,7 @@ namespace ComponentEditor
 		  this.tabRadiation.Controls.Add(this.groupBox28);
 		  this.tabRadiation.Location = new System.Drawing.Point(4, 4);
 		  this.tabRadiation.Name = "tabRadiation";
-		  this.tabRadiation.Size = new System.Drawing.Size(206, 340);
+		  this.tabRadiation.Size = new System.Drawing.Size(81, 230);
 		  this.tabRadiation.TabIndex = 23;
 		  this.tabRadiation.Text = "Radiation";
 		  // 
@@ -3276,7 +3270,7 @@ namespace ComponentEditor
 		  this.tabRobot.Controls.Add(this.groupBox23);
 		  this.tabRobot.Location = new System.Drawing.Point(4, 4);
 		  this.tabRobot.Name = "tabRobot";
-		  this.tabRobot.Size = new System.Drawing.Size(206, 340);
+		  this.tabRobot.Size = new System.Drawing.Size(81, 230);
 		  this.tabRobot.TabIndex = 17;
 		  this.tabRobot.Text = "Mining Robot";
 		  // 
@@ -3338,7 +3332,7 @@ namespace ComponentEditor
 		  this.tabOrbitalAdjuster.Controls.Add(this.groupBox24);
 		  this.tabOrbitalAdjuster.Location = new System.Drawing.Point(4, 4);
 		  this.tabOrbitalAdjuster.Name = "tabOrbitalAdjuster";
-		  this.tabOrbitalAdjuster.Size = new System.Drawing.Size(206, 340);
+		  this.tabOrbitalAdjuster.Size = new System.Drawing.Size(81, 230);
 		  this.tabOrbitalAdjuster.TabIndex = 18;
 		  this.tabOrbitalAdjuster.Text = "Orbital Adjuster";
 		  // 
@@ -3391,7 +3385,7 @@ namespace ComponentEditor
 		  this.tabScanner.Controls.Add(this.groupBox17);
 		  this.tabScanner.Location = new System.Drawing.Point(4, 4);
 		  this.tabScanner.Name = "tabScanner";
-		  this.tabScanner.Size = new System.Drawing.Size(206, 340);
+		  this.tabScanner.Size = new System.Drawing.Size(81, 230);
 		  this.tabScanner.TabIndex = 19;
 		  this.tabScanner.Text = "Scanner";
 		  // 
@@ -3488,7 +3482,7 @@ namespace ComponentEditor
 		  this.tabShield.Controls.Add(this.groupBox25);
 		  this.tabShield.Location = new System.Drawing.Point(4, 4);
 		  this.tabShield.Name = "tabShield";
-		  this.tabShield.Size = new System.Drawing.Size(206, 340);
+		  this.tabShield.Size = new System.Drawing.Size(81, 230);
 		  this.tabShield.TabIndex = 20;
 		  this.tabShield.Text = "Shield";
 		  // 
@@ -3546,7 +3540,7 @@ namespace ComponentEditor
 		  this.tabTachyonDetector.Controls.Add(this.groupBox30);
 		  this.tabTachyonDetector.Location = new System.Drawing.Point(4, 4);
 		  this.tabTachyonDetector.Name = "tabTachyonDetector";
-		  this.tabTachyonDetector.Size = new System.Drawing.Size(206, 340);
+		  this.tabTachyonDetector.Size = new System.Drawing.Size(81, 230);
 		  this.tabTachyonDetector.TabIndex = 30;
 		  this.tabTachyonDetector.Text = "Tachyon Detector";
 		  // 
@@ -3594,7 +3588,7 @@ namespace ComponentEditor
 		  this.tabTerraforming.Controls.Add(this.groupBox26);
 		  this.tabTerraforming.Location = new System.Drawing.Point(4, 4);
 		  this.tabTerraforming.Name = "tabTerraforming";
-		  this.tabTerraforming.Size = new System.Drawing.Size(206, 340);
+		  this.tabTerraforming.Size = new System.Drawing.Size(81, 230);
 		  this.tabTerraforming.TabIndex = 21;
 		  this.tabTerraforming.Text = "Terraforming";
 		  // 
@@ -3712,7 +3706,7 @@ namespace ComponentEditor
 		  this.tabTransportShipsOnly.Controls.Add(this.textBox4);
 		  this.tabTransportShipsOnly.Location = new System.Drawing.Point(4, 4);
 		  this.tabTransportShipsOnly.Name = "tabTransportShipsOnly";
-		  this.tabTransportShipsOnly.Size = new System.Drawing.Size(206, 340);
+		  this.tabTransportShipsOnly.Size = new System.Drawing.Size(81, 230);
 		  this.tabTransportShipsOnly.TabIndex = 26;
 		  this.tabTransportShipsOnly.Text = "Transport Ships Only";
 		  // 
@@ -3733,7 +3727,7 @@ namespace ComponentEditor
 		  this.tabWeapon.Controls.Add(this.groupBox27);
 		  this.tabWeapon.Location = new System.Drawing.Point(4, 4);
 		  this.tabWeapon.Name = "tabWeapon";
-		  this.tabWeapon.Size = new System.Drawing.Size(206, 340);
+		  this.tabWeapon.Size = new System.Drawing.Size(81, 230);
 		  this.tabWeapon.TabIndex = 22;
 		  this.tabWeapon.Text = "Weapon";
 		  // 
@@ -3905,13 +3899,11 @@ namespace ComponentEditor
 		  // 
 		  // ComponentImage
 		  // 
-		  this.ComponentImage.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-					  | System.Windows.Forms.AnchorStyles.Left)
-					  | System.Windows.Forms.AnchorStyles.Right)));
+		  this.ComponentImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
 		  this.ComponentImage.AutoSize = true;
 		  this.ComponentImage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 		  this.ComponentImage.Image = null;
-		  this.ComponentImage.Location = new System.Drawing.Point(723, 3);
+		  this.ComponentImage.Location = new System.Drawing.Point(783, 3);
 		  this.ComponentImage.MaximumSize = new System.Drawing.Size(118, 166);
 		  this.ComponentImage.MinimumSize = new System.Drawing.Size(118, 166);
 		  this.ComponentImage.Name = "ComponentImage";
@@ -3921,37 +3913,29 @@ namespace ComponentEditor
 		  // 
 		  // TechRequirements
 		  // 
-		  this.TechRequirements.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-					  | System.Windows.Forms.AnchorStyles.Left)
-					  | System.Windows.Forms.AnchorStyles.Right)));
-		  this.TechRequirements.AutoSize = true;
-		  this.TechRequirements.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-		  this.TechRequirements.Location = new System.Drawing.Point(203, 70);
+		  this.TechRequirements.Location = new System.Drawing.Point(203, 53);
 		  this.TechRequirements.Name = "TechRequirements";
 		  this.tableLayoutPanel1.SetRowSpan(this.TechRequirements, 2);
-		  this.TechRequirements.Size = new System.Drawing.Size(208, 190);
+		  this.TechRequirements.Size = new System.Drawing.Size(171, 190);
 		  this.TechRequirements.TabIndex = 0;
 		  this.TechRequirements.Value = ((NovaCommon.TechLevel)(resources.GetObject("TechRequirements.Value")));
 		  // 
 		  // BasicProperties
 		  // 
-		  this.BasicProperties.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-					  | System.Windows.Forms.AnchorStyles.Left)
-					  | System.Windows.Forms.AnchorStyles.Right)));
 		  this.BasicProperties.AutoSize = true;
 		  this.BasicProperties.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
 		  this.BasicProperties.Cost = ((NovaCommon.Resources)(resources.GetObject("BasicProperties.Cost")));
 		  this.BasicProperties.Location = new System.Drawing.Point(203, 266);
 		  this.BasicProperties.Mass = 0;
 		  this.BasicProperties.Name = "BasicProperties";
-		  this.BasicProperties.Size = new System.Drawing.Size(208, 355);
+		  this.BasicProperties.Size = new System.Drawing.Size(171, 192);
 		  this.BasicProperties.TabIndex = 21;
 		  // 
 		  // ComponentEditorWindow
 		  // 
 		  this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
 		  this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-		  this.ClientSize = new System.Drawing.Size(943, 657);
+		  this.ClientSize = new System.Drawing.Size(904, 564);
 		  this.Controls.Add(this.tableLayoutPanel1);
 		  this.Controls.Add(this.MainMenu);
 		  this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -3964,13 +3948,13 @@ namespace ComponentEditor
 		  this.MainMenu.PerformLayout();
 		  this.tableLayoutPanel1.ResumeLayout(false);
 		  this.tableLayoutPanel1.PerformLayout();
+		  this.groupBox3.ResumeLayout(false);
+		  this.groupBox3.PerformLayout();
+		  this.groupBox4.ResumeLayout(false);
 		  this.groupBox1.ResumeLayout(false);
 		  this.groupBox2.ResumeLayout(false);
 		  this.groupBox2.PerformLayout();
-		  this.groupBox4.ResumeLayout(false);
 		  this.groupBox5.ResumeLayout(false);
-		  this.groupBox3.ResumeLayout(false);
-		  this.groupBox3.PerformLayout();
 		  this.PropertyTabs.ResumeLayout(false);
 		  this.tabArmor.ResumeLayout(false);
 		  this.groupBox8.ResumeLayout(false);
