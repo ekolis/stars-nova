@@ -214,14 +214,21 @@ namespace ControlLibrary
       public Resources Value
       {
          set {
-            if (value == null) return;
+             try
+             {
+                 if (value == null) return;
 
-            Resources resources = value;
+                 Resources resources = value;
 
-            Ironium.Text   = Convert.ToInt32(resources.Ironium)  .ToString();
-            Boranium.Text  = Convert.ToInt32(resources.Boranium) .ToString();
-            Germanium.Text = Convert.ToInt32(resources.Germanium).ToString();
-            Energy.Text    = Convert.ToInt32(resources.Energy)   .ToString();
+                 Ironium.Text = Convert.ToInt32(resources.Ironium).ToString();
+                 Boranium.Text = Convert.ToInt32(resources.Boranium).ToString();
+                 Germanium.Text = Convert.ToInt32(resources.Germanium).ToString();
+                 Energy.Text = Convert.ToInt32(resources.Energy).ToString();
+             }
+             catch
+             {
+                 Report.Error("Unable to convert resource values.");
+             }
          }
 
          get {
