@@ -39,6 +39,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common Tests", "Nova Common
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console Tests", "Nova Console\Console Tests\Console Tests.csproj", "{FB20AE47-F2D0-414F-A550-244FA127C866}"
 EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Nova Setup", "Nova Setup\Nova Setup.vdproj", "{5C23BD95-F262-494B-B82F-769DA5455D7C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics", "Graphics\Graphics.csproj", "{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}"
+EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -80,6 +84,12 @@ Global
 		{FB20AE47-F2D0-414F-A550-244FA127C866}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB20AE47-F2D0-414F-A550-244FA127C866}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB20AE47-F2D0-414F-A550-244FA127C866}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C23BD95-F262-494B-B82F-769DA5455D7C}.Debug|Any CPU.ActiveCfg = Debug
+		{5C23BD95-F262-494B-B82F-769DA5455D7C}.Release|Any CPU.ActiveCfg = Release
+		{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
