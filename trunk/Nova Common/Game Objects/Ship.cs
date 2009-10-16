@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -95,7 +94,7 @@ namespace NovaCommon
 
          double fuelConsumption = (TotalMass * efficiency * speed) / 200.0; 
 
-         if (race.Traits.Contains("IFE")) 
+         if (race.HasTrait("IFE")) 
          {
             fuelConsumption *= 0.85;
          }

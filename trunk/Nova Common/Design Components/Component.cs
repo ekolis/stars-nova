@@ -91,7 +91,7 @@ namespace NovaCommon
       /// ============================================================================
       public bool CheckAvailability(Race race)
       {
-          foreach (String trait in RaceRestriction.TraitKeys)
+          foreach (String trait in AllTraits.TraitKeys)
           {
               bool hasTrait = race.HasTrait(trait);
               RaceAvailability availability = this.Restrictions.Availability(trait);

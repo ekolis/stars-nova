@@ -66,14 +66,16 @@ namespace NovaCommon
          double habitalValue = HabitalValue(race);
          double growthRate   = race.GrowthRate / 100;
 
-         if (race.Type == "HyperExpansion") {
+         if (race.HasTrait("HyperExpansion")) 
+         {
             growthRate *= 2;
          }
 
          double populationGrowth = Colonists * growthRate * habitalValue;
          double capacity         = Colonists / race.MaxPopulation;
 
-         if (race.Type == "HyperExpansion") {
+         if (race.HasTrait("HyperExpansion")) 
+         {
             capacity /= 2;
          }
 
@@ -169,7 +171,8 @@ namespace NovaCommon
       public int Capacity(Race race)
       {
          double maxPopulation = race.MaxPopulation;
-         if (race.Type == "HyperExpansion") {
+         if (race.HasTrait("HyperExpansion")) 
+         {
             maxPopulation /= 2;
          }
 

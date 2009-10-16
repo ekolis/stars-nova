@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{BFDEE889-6F24-4014-A719-DDA9A9596D70}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -139,9 +139,6 @@
     <Compile Include="ParameterCosts.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PrimaryTraits.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="RaceDesigner.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -149,9 +146,6 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="SecondaryTraits.cs">
-      <SubType>Code</SubType>
     </Compile>
     <Compile Include="Utilities.cs">
       <SubType>Code</SubType>

@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -44,7 +43,7 @@ namespace RaceDesigner
       //  Non-designer generated variables
       //---------------------------------------------------------------------------- 
       private int AdvantagePoints = 53;   
-      private string          SelectedRace      = "";
+      private TraitEntry          SelectedRace      = AllTraits.Data.All["JOAT"];
       private bool            ParametersChanged = false;
       private Race            RaceParameters    = new Race();
 
@@ -158,67 +157,50 @@ namespace RaceDesigner
          InitializeComponent();
 
          JackOfAllTrades.Checked = true;
-         SelectedRace = JackOfAllTrades.Name;
-         // find the entry for JoaT
-         try
-         {
-             int traitIndex = 0;
-             TraitEntry trait = PrimaryTraits.Traits[traitIndex];
-             while (trait.Code != "JOAT")
-             {
-                 traitIndex++;
-                 trait = PrimaryTraits.Traits[traitIndex];
-             }
-             PrimaryTraitDescription.Text = trait.Description;
-             //AdvantagePoints += trait.Cost;
-             //AvailablePoints.Text = AdvantagePoints.ToString();
-         }
-             
-         catch
-         {
-             Report.FatalError("RaceDesigner: Unable to locate PRT Jack of all Trades");
-         }
-          
+         SelectedRace = AllTraits.Data.Primary["JOAT"];
+         PrimaryTraitDescription.Text = SelectedRace.Description;
+         //AdvantagePoints += trait.Cost;
+         //AvailablePoints.Text = AdvantagePoints.ToString();
+
          ParametersChanged                = false;
          UnusedPointsTarget.SelectedIndex = 0;
       }
 
-      // ============================================================================
-      // Called when the form is loaded. 
-      // Load the race icon data. Load the first race icon into
-      // its image box, record the index of the current image (0) and make a note
-      // of the number of images so that we can just cycle through them.
-      // ============================================================================
 
+      /// <summary>
+      /// Called when the form is loaded. 
+      /// Load the race icon data. Load the first race icon into
+      /// its image box, record the index of the current image (0) and make a note
+      /// of the number of images so that we can just cycle through them.
+      /// </summary>
       private void OnLoad(object sender, EventArgs e)
-       {
-           AllRaceIcons.Restore();
-           CurrentRaceIcon = (RaceIcon)AllRaceIcons.Data.IconList[0];
-           PictureBox.Image = CurrentRaceIcon.Image;
-           IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source);
-       }
-
-// ============================================================================
-// Clean up any resources being used.
-// ============================================================================
-
-      protected override void Dispose(bool disposing) 
       {
-         if (disposing) 
-         {
-            if (components != null) 
-            {
-               components.Dispose();
-            }
-         }
-         base.Dispose(disposing);
+          AllRaceIcons.Restore();
+          CurrentRaceIcon = (RaceIcon)AllRaceIcons.Data.IconList[0];
+          PictureBox.Image = CurrentRaceIcon.Image;
+          IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source);
+      }
+
+      /// <summary>
+      /// Clean up any resources being used.
+      /// </summary>
+      /// <param name="disposing"></param>
+      protected override void Dispose(bool disposing)
+      {
+          if (disposing)
+          {
+              if (components != null)
+              {
+                  components.Dispose();
+              }
+          }
+          base.Dispose(disposing);
       }
 
        
 // ============================================================================
 // Form Designer generated code
 // ============================================================================
-
 #region Windows Form Designer generated code
        /// <summary>
        /// Required method for Designer support - do not modify
@@ -1492,577 +1474,601 @@ namespace RaceDesigner
          }
 #endregion
 
-
-// ============================================================================
-// The main entry point for the application.
-// ============================================================================
-
-      [STAThread]
-      static void Main() 
-      {
-         Application.EnableVisualStyles();
-         Application.Run(new RaceDesignerForm());
-      }
-
-
-// ============================================================================
-// This funtion is invoked whenever a primary racial traits radio button
-// is selected. 
-//
-// If a button has moved to the unchecked state we "pay back" the advantage
-// point cost of the deselected race. If the button has moved to the selected
-// state then we adjust the advantage point balance by the appropriate cost.
-//
-// All primary racial traits are defined in the file PrimaryTraits.cs.
-// ============================================================================
-
-      private void radioButton_CheckedChanged(object sender, EventArgs e) 
-      {
-         RadioButton radioButton = (RadioButton) sender;
-
-         foreach (TraitEntry trait in PrimaryTraits.Traits) {
-            if (trait.Code == radioButton.Tag.ToString()) {
-
-               if (radioButton.Checked) { 
-                  SelectedRace                 = radioButton.Name;
-                  AdvantagePoints             -= trait.Cost;
-                  PrimaryTraitDescription.Text = trait.Description;
-               }
-               else {
-                  AdvantagePoints += trait.Cost;
-               }
-
-               ParametersChanged    = true;
-               AvailablePoints.Text = AdvantagePoints.ToString();
-               break;
-            }
-         }
-      }
-
-
-// ============================================================================
-// This funtion is invoked whenever a secondary racial traits radio button is
-// selected. Based on the value in the Name property, the description and
-// advantage point value will be adjusted to suit the selected race (in a
-// similar manner is as done for the primary racial trait above). 
-//
-// All secondary racial traits are defined in the file SecondaryTraits.cs.
-// ============================================================================
-      private void SecondaryTraits_CheckedChanged(object sender, EventArgs e)
-      {
-         CheckBox checkBox = (CheckBox) sender;
-
-         foreach (TraitEntry trait in SecondaryTraits.Traits) {
-            if (trait.Code == checkBox.Tag.ToString()) {
-
-               if (checkBox.Checked) { 
-                  AdvantagePoints -= trait.Cost;
-                  SecondaryTraitDescription.Text = trait.Description;
-               }
-               else {
-                  AdvantagePoints += trait.Cost;
-               }
-
-               AvailablePoints.Text = AdvantagePoints.ToString();
-               ParametersChanged    = true;
-               break;
-            }
-         }
-      }
-
-
-// ============================================================================
-// Called when an up/down counter has changed. Put back the previous advantage
-// point value taken and now use the newly selected value. 
-// 
-// Explicitly check for ColonistProduction as array indeces need dividing by
-// 100 to match its units. 
-//
-// Note that element zero of each entry in the parameter definition array is
-// used to hold the previous valueof the up-down counter (so that we can "pay
-// back" advantage points on a parameter change)
-//
-// The actual advantage point costs are defined in the file ParameterCosts.cs.
-//============================================================================
-
-      private void UpDown_ValueChanged(object sender, EventArgs e) 
-      {
-         NumericUpDown upDown = (NumericUpDown) sender;
-
-         foreach (ParameterEntry parameter in ParameterCosts.Parameters) {
-            if (parameter.ParameterName == upDown.Name) {
-               int newValue = (int) upDown.Value;
-               int oldValue = parameter.Cost[0];
-
-               if (upDown.Name == "ColonistProduction") {
-                  AdvantagePoints  += parameter.Cost[oldValue / 100];
-                  AdvantagePoints  -= parameter.Cost[newValue / 100];
-               }
-               else {
-                  AdvantagePoints  += parameter.Cost[oldValue];
-                  AdvantagePoints  -= parameter.Cost[newValue];
-               }
-
-               parameter.Cost[0]    = newValue;
-               AvailablePoints.Text = AdvantagePoints.ToString();
-               ParametersChanged    = true;
-               break;
-            }
-         }
-      }
-
-
-// ============================================================================
-// Called when a research cost has changed. Note that the ResearchCost control
-// retuns the appropriate advantage points adjustment for both the button going
-// off and for the new selection.
-// ============================================================================
-
-      private void ResearchCost_SelectionChanged(object sender, int value) 
-      {
-         AdvantagePoints     += value;
-         AvailablePoints.Text = AdvantagePoints.ToString();
-         ParametersChanged    = true;
-      }
-
-
-// ============================================================================
-// Called when a tolerance range has changed. The new width of the range and
-// its position (based on the middle of the bar) both impact the advantage
-// point value.
-// ============================================================================
-
-      private void Tolerance_RangeChanged(object sender,
-                                          int newLeftPos,
-                                          int newRightPos,
-                                          int oldLeftPos,
-                                          int oldRightPos)
-      {
-         AdvantagePoints -= Utilities.BarWidthCost(oldLeftPos, oldRightPos);
-         AdvantagePoints += Utilities.BarWidthCost(newLeftPos, newRightPos);
-
-         AdvantagePoints -= Utilities.BarPositionCost(oldLeftPos, oldRightPos);
-         AdvantagePoints += Utilities.BarPositionCost(newLeftPos, newRightPos);
-
-         AvailablePoints.Text = AdvantagePoints.ToString();
-         ParametersChanged    = true;
-      }
-
-
-// ============================================================================
-// This function is called when the Exit button is pressed. Provide a warning
-// that this will discard the race definition and see if he really wants
-// to do this.
-// ============================================================================
-
-      private void Exit_Click(object sender, EventArgs e) 
-      {
-         if (ParametersChanged) {
-            DialogResult result = Utilities.CancelWarning(this);
-
-            if (result == DialogResult.Yes) {
-               this.Close();
-            }
-         }
-         else {
-            this.Close();
-         }
-      }
-
-
-// ============================================================================
-// This function is called when the Generate button is pressed. Providing that
-// the advantage points total is not negative we then populate the race details
-// structure and use it to generate the race definition file.
-// ============================================================================
-
-      private void Finish_Click(object sender, System.EventArgs e) 
-      {
-         if (AdvantagePoints < 0) {
-            Report.Error("You are not allowed to generate a race file" +
-                         "when you have less than zero Advantage Points");
-            return ;
-         }
-
-// ----------------------------------------------------------------------------
-// Primary Racial Traits
-// ----------------------------------------------------------------------------
-
-         if (RaceName.Text == "" || PluralRaceName.Text == "") {
-            Report.Error("The race name canonot be blank when generating" +
-                         "a new race file - nor can the plural name");
-            return ;
-         }
-
-         if (Password.Text == "") {
-            Report.Error("The password field cannot be blank when " +
-                         "generating a new race file. You will need it to " +
-                         "access your turn during a game. Note, passwords " +
-                         "are case-sensitive.");
-            return ;
-         }
-
-         RaceParameters.Type       = SelectedRace;
-         RaceParameters.Name       = RaceName.Text;
-         RaceParameters.PluralName = PluralRaceName.Text;
-
-         string passwordHash = FormsAuthentication.
-            HashPasswordForStoringInConfigFile(Password.Text, "MD5");
-
-         RaceParameters.Password   = passwordHash;
-         RaceParameters.Icon   = CurrentRaceIcon;
-
-// ----------------------------------------------------------------------------
-// Secondary Racial Traits
-// ----------------------------------------------------------------------------
-         RaceParameters.Traits = new ArrayList();
-         if (ImprovedFuelEfficiency.Checked) RaceParameters.Traits.Add("IFE");
-         if (NoRAMEngines.Checked)           RaceParameters.Traits.Add("NRS");
-         if (TotalTerraforming.Checked)      RaceParameters.Traits.Add("TT");
-         if (CheapEngines.Checked)           RaceParameters.Traits.Add("CE");
-         if (AdvancedRemoteMining.Checked)   RaceParameters.Traits.Add("ARM");
-         if (BasicRemoteMining.Checked)      RaceParameters.Traits.Add("OBRM");
-         if (ImprovedStarbases.Checked)      RaceParameters.Traits.Add("ISB");
-         if (NoAdvancedScanners.Checked)     RaceParameters.Traits.Add("NAS");
-         if (GeneralisedResearch.Checked)    RaceParameters.Traits.Add("GR");
-         if (LowStartingPopulation.Checked)  RaceParameters.Traits.Add("LSP");
-         if (UltimateRecycling.Checked)      RaceParameters.Traits.Add("UR");
-         if (BleedingEdgeTechnology.Checked) RaceParameters.Traits.Add("BET");
-         if (MineralAlchemy.Checked)         RaceParameters.Traits.Add("MA");
-         if (RegeneratingShields.Checked)    RaceParameters.Traits.Add("RS");
-         if (CheapFactories.Checked)         RaceParameters.Traits.Add("CF");
-
-// ----------------------------------------------------------------------------
-// Production Costs and Rates
-// ----------------------------------------------------------------------------
-
-         RaceParameters.ColonistsPerResource= (double)ColonistProduction.Value;
-         RaceParameters.OperableFactories   = (double)OperableFactories.Value;
-         RaceParameters.MineProductionRate  = (double)MineralProduction.Value;
-         RaceParameters.OperableMines       = (double)OperableMines.Value;
-         RaceParameters.FactoryBuildCost    = (int)FactoryBuildCost.Value;
-         RaceParameters.MineBuildCost       = (int)ResourcesPerMine.Value;
-         RaceParameters.FactoryProduction   = (double)ResourceProduction.Value;
-
-// ----------------------------------------------------------------------------
-// Environmental Tolerance
-// ----------------------------------------------------------------------------
-
-         RaceParameters.GravityTolerance     = GravityTolerance.Values;
-         RaceParameters.RadiationTolerance   = RadiationTolerance.Values;
-         RaceParameters.TemperatureTolerance = TemperatureTolerance.Values;
-         RaceParameters.GrowthRate           = (double) MaxGrowth.Value;
-         
-// ----------------------------------------------------------------------------
-// Research Costs
-// ----------------------------------------------------------------------------
-
-         Hashtable researchCosts = RaceParameters.ResearchCosts.TechValues;
-
-         researchCosts["Energy"]        = EnergyResearch.Cost;
-         researchCosts["Weapons"]       = WeaponsResearch.Cost;
-         researchCosts["Propulsion"]    = PropulsionResearch.Cost;
-         researchCosts["Construction"]  = ConstructionResearch.Cost;
-         researchCosts["Electronics"]   = ElectronicsResearch.Cost;
-         researchCosts["Biotechnology"] = BiotechnologyResearch.Cost;
-         
-// ----------------------------------------------------------------------------
-// Generate the race definition file
-//
-// Note if the same folder on the same machine is chosen for all Nova GUI and
-// Nova Console files it is possible to play a game with multiple races using
-// the same log-in name. This is a useful debugging aid.
-// ----------------------------------------------------------------------------
-         try
+         /// <summary>
+         /// The main entry point for the application.
+         /// </summary>
+         [STAThread]
+         static void Main()
          {
-             // If a race file has been saved before, suggest saving this race in the same location
-             RegistryKey regKey = Registry.CurrentUser;
-             RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-             String RaceFilePath = subKey.GetValue(Global.RaceFolderKey, "?").ToString();
+             Application.EnableVisualStyles();
+             Application.Run(new RaceDesignerForm());
+         }
 
-             if (RaceFilePath == "?" || RaceFilePath == "")
-             {
-                 // failing that, start in the nova install path
-                 RaceFilePath = subKey.GetValue(Global.NovaFolderKey, "?").ToString();
-             }
-             if (RaceFilePath == "?" || RaceFilePath == "")
-             {
-                 // still no joy? just let the user pick
-                 RaceFilePath = "";
-             }
 
-             SaveFileDialog fd = new SaveFileDialog();
-             fd.Title = "Save Race - " + RaceParameters.Name;
-             fd.FileName = RaceParameters.Name + ".race";
-             DialogResult result = fd.ShowDialog();
-             if (result == DialogResult.OK)
+         /// <summary>
+         /// This funtion is invoked whenever a primary racial traits radio button
+         /// is selected. 
+         ///
+         /// If a button has moved to the unchecked state we "pay back" the advantage
+         /// point cost of the deselected race. If the button has moved to the selected
+         /// state then we adjust the advantage point balance by the appropriate cost.
+         ///
+         /// All primary racial traits are defined in the file PrimaryTraits.cs.
+         /// </summary>
+         private void radioButton_CheckedChanged(object sender, EventArgs e)
+         {
+             RadioButton radioButton = (RadioButton)sender;
+
+             foreach (TraitEntry trait in AllTraits.Data.Primary)
              {
-                 RaceFilePath = fd.FileName;
-                 
+                 if (trait.Code == radioButton.Tag.ToString())
+                 {
+
+                     if (radioButton.Checked)
+                     {
+                         SelectedRace = AllTraits.Data.Primary[radioButton.Tag.ToString()];
+                         AdvantagePoints -= trait.Cost;
+                         PrimaryTraitDescription.Text = trait.Description;
+                     }
+                     else
+                     {
+                         AdvantagePoints += trait.Cost;
+                     }
+
+                     ParametersChanged = true;
+                     AvailablePoints.Text = AdvantagePoints.ToString();
+                     break;
+                 }
+             }
+         }
+
+
+         /// <summary>
+         /// This funtion is invoked whenever a secondary racial traits radio button is
+         /// selected. Based on the value in the Name property, the description and
+         /// advantage point value will be adjusted to suit the selected race (in a
+         /// similar manner is as done for the primary racial trait above). 
+         ///
+         /// All secondary racial traits are defined in the file SecondaryTraits.cs.
+         /// </summary>
+
+         private void SecondaryTraits_CheckedChanged(object sender, EventArgs e)
+         {
+             CheckBox checkBox = (CheckBox)sender;
+
+             foreach (TraitEntry trait in AllTraits.Data.Secondary)
+             {
+                 if (trait.Code == checkBox.Tag.ToString())
+                 {
+
+                     if (checkBox.Checked)
+                     {
+                         AdvantagePoints -= trait.Cost;
+                         SecondaryTraitDescription.Text = trait.Description;
+                     }
+                     else
+                     {
+                         AdvantagePoints += trait.Cost;
+                     }
+
+                     AvailablePoints.Text = AdvantagePoints.ToString();
+                     ParametersChanged = true;
+                     break;
+                 }
+             }
+         }
+
+
+         /// <summary>
+         /// Called when an up/down counter has changed. Put back the previous advantage
+         /// point value taken and now use the newly selected value. 
+         /// 
+         /// Explicitly check for ColonistProduction as array indeces need dividing by
+         /// 100 to match its units. 
+         ///
+         /// Note that element zero of each entry in the parameter definition array is
+         /// used to hold the previous valueof the up-down counter (so that we can "pay
+         /// back" advantage points on a parameter change)
+         ///
+         /// The actual advantage point costs are defined in the file ParameterCosts.cs.
+         /// </summary>
+         private void UpDown_ValueChanged(object sender, EventArgs e)
+         {
+             NumericUpDown upDown = (NumericUpDown)sender;
+
+             foreach (ParameterEntry parameter in ParameterCosts.Parameters)
+             {
+                 if (parameter.ParameterName == upDown.Name)
+                 {
+                     int newValue = (int)upDown.Value;
+                     int oldValue = parameter.Cost[0];
+
+                     if (upDown.Name == "ColonistProduction")
+                     {
+                         AdvantagePoints += parameter.Cost[oldValue / 100];
+                         AdvantagePoints -= parameter.Cost[newValue / 100];
+                     }
+                     else
+                     {
+                         AdvantagePoints += parameter.Cost[oldValue];
+                         AdvantagePoints -= parameter.Cost[newValue];
+                     }
+
+                     parameter.Cost[0] = newValue;
+                     AvailablePoints.Text = AdvantagePoints.ToString();
+                     ParametersChanged = true;
+                     break;
+                 }
+             }
+         }//UpDown_ValueChanged
+
+
+         /// <summary>
+         /// Called when a research cost has changed. Note that the ResearchCost control
+         /// retuns the appropriate advantage points adjustment for both the button going
+         /// off and for the new selection.
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="value"></param>
+         private void ResearchCost_SelectionChanged(object sender, int value)
+         {
+             AdvantagePoints += value;
+             AvailablePoints.Text = AdvantagePoints.ToString();
+             ParametersChanged = true;
+         }
+
+         /// <summary>
+         /// Called when a tolerance range has changed. The new width of the range and
+         /// its position (based on the middle of the bar) both impact the advantage
+         /// point value.
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="newLeftPos"></param>
+         /// <param name="newRightPos"></param>
+         /// <param name="oldLeftPos"></param>
+         /// <param name="oldRightPos"></param>
+         private void Tolerance_RangeChanged(object sender,
+                                             int newLeftPos,
+                                             int newRightPos,
+                                             int oldLeftPos,
+                                             int oldRightPos)
+         {
+             AdvantagePoints -= Utilities.BarWidthCost(oldLeftPos, oldRightPos);
+             AdvantagePoints += Utilities.BarWidthCost(newLeftPos, newRightPos);
+
+             AdvantagePoints -= Utilities.BarPositionCost(oldLeftPos, oldRightPos);
+             AdvantagePoints += Utilities.BarPositionCost(newLeftPos, newRightPos);
+
+             AvailablePoints.Text = AdvantagePoints.ToString();
+             ParametersChanged = true;
+         }
+
+
+         /// <summary>
+         /// This function is called when the Exit button is pressed. Provide a warning
+         /// that this will discard the race definition and see if he really wants
+         /// to do this.
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="e"></param>
+         private void Exit_Click(object sender, EventArgs e)
+         {
+             if (ParametersChanged)
+             {
+                 DialogResult result = Utilities.CancelWarning(this);
+
+                 if (result == DialogResult.Yes)
+                 {
+                     this.Close();
+                 }
              }
              else
              {
-                 Report.Error("Race has not been saved.");
+                 this.Close();
+             }
+         }
+
+
+         /// <summary>
+         /// This function is called when the Generate button is pressed. Providing that
+         /// the advantage points total is not negative we then populate the race details
+         /// structure and use it to generate the race definition file.
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="e"></param>
+         private void Finish_Click(object sender, System.EventArgs e)
+         {
+             if (AdvantagePoints < 0)
+             {
+                 Report.Error("You are not allowed to generate a race file" +
+                              "when you have less than zero Advantage Points");
                  return;
              }
 
+             // ----------------------------------------------------------------------------
+             // Primary Racial Traits
+             // ----------------------------------------------------------------------------
 
-             FileStream saveFile = new FileStream(RaceFilePath, FileMode.Create);
-             GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
-
-             // Setup the XML document
-             XmlDocument xmldoc;
-             XmlNode xmlnode;
-             XmlElement xmlRoot;
-             xmldoc = new XmlDocument();
-             // TODO (low priority) - add the encoding attribute like UTF-8 ???
-             xmlnode = xmldoc.CreateNode(XmlNodeType.XmlDeclaration, "", "");
-             xmldoc.AppendChild(xmlnode);
-             xmlRoot = xmldoc.CreateElement("", "ROOT", "");
-             xmldoc.AppendChild(xmlRoot);
-
-             // add the components to the document
-             xmldoc.ChildNodes.Item(1).AppendChild(RaceParameters.ToXml(xmldoc));
-     
-
-             // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
-             // manual inspection of the save file. Generally though it can be opened by any archiving tool that
-             // reads gzip format.
-             // xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
-             //       or
-             xmldoc.Save(saveFile);                                           //  not compressed
-
-             saveFile.Close();
-
-             Report.Information("The " + RaceParameters.PluralName + " have been saved to " + RaceFilePath);
-
-             subKey.SetValue(Global.RaceFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
-
-             // FIXME This is a work-around as the GUI doesn't currently ask and the console doesn't set it - Dan 09 Aug 09
-             subKey.SetValue(Global.ClientFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
-
-             // Remove the warning message for exiting with unsaved changes.
-             ParametersChanged = false;
-
-             return;
-         }
-         catch (System.IO.FileNotFoundException)
-         {
-
-             Report.Error("File path not specified.");
-             return ;
-
-         }
-         catch (Exception exception)
-         {
-             Report.Error("Failed to save race file. " + exception.Message);
-             return ;
-         }
-          
-      }
-
-
-// ============================================================================
-// Display the about box
-// ============================================================================
-
-      private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
-      {
-         AboutBox about = new AboutBox();
-         about.ShowDialog();
-         about.Dispose();
-      }
-
-
-// ============================================================================
-// Called when the next image is to be selected
-// ============================================================================
-
-       private void NextImage_Click(object sender, EventArgs e)
-       {
-          ++CurrentRaceIcon;
-          PictureBox.Image = CurrentRaceIcon.Image;
-          IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source); 
-
-       }
-
-
-// ============================================================================
-// Called when the previous image is to be selected
-// ============================================================================
-
-       private void PreviousImage_Click(object sender, EventArgs e)
-       {
-          --CurrentRaceIcon;
-          PictureBox.Image = CurrentRaceIcon.Image;
-          IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source); 
-       }
-
-
-
-
-
-// ============================================================================
-// Load an existing race file for examination or modification (however, once
-// submitted there is no point in changing the race definition. It's too late
-// and it's "gone into the system").
-// ============================================================================
-
-      private void LoadRaceFile_Click(object sender, EventArgs e)
-      {
-         
-
-         OpenFileDialog.CheckFileExists = true;
-         OpenFileDialog.FileName = "Humanoid.race";
-         if (OpenFileDialog.ShowDialog() != DialogResult.OK)
-         {
-             return;
-         }
-
-         string fileName = OpenFileDialog.FileName;
-
-         Race raceData;
-         try
-         {
-             raceData = new Race(fileName);
-
-             // TODO - This level of security is not good enough as the race is stored un-encrypted.
-             ControlLibrary.CheckPassword password =
-                new ControlLibrary.CheckPassword(raceData);
-
-             password.ShowDialog();
-             if (password.DialogResult == DialogResult.OK)
+             if (RaceName.Text == "" || PluralRaceName.Text == "")
              {
-                 RaceParameters = raceData;
-                 reloadRace();
-                 reloadSecondaryTraits();
-                 reloadBuildCosts();
-                 reloadEnvironmentalTolerance();
-                 reloadResearchCosts();
+                 Report.Error("The race name canonot be blank when generating" +
+                              "a new race file - nor can the plural name");
+                 return;
              }
 
-             password.Dispose();
-         }
-         catch (Exception ex)
+             if (Password.Text == "")
+             {
+                 Report.Error("The password field cannot be blank when " +
+                              "generating a new race file. You will need it to " +
+                              "access your turn during a game. Note, passwords " +
+                              "are case-sensitive.");
+                 return;
+             }
+
+             RaceParameters.Traits.SetPrimary(SelectedRace);
+             RaceParameters.Name = RaceName.Text;
+             RaceParameters.PluralName = PluralRaceName.Text;
+
+             string passwordHash = FormsAuthentication.
+                HashPasswordForStoringInConfigFile(Password.Text, "MD5");
+
+             RaceParameters.Password = passwordHash;
+             RaceParameters.Icon = CurrentRaceIcon;
+
+             // ----------------------------------------------------------------------------
+             // Secondary Racial Traits
+             // ----------------------------------------------------------------------------
+             RaceParameters.Traits = new RacialTraits();
+             if (ImprovedFuelEfficiency.Checked) RaceParameters.Traits.Add("IFE");
+             if (NoRAMEngines.Checked) RaceParameters.Traits.Add("NRS");
+             if (TotalTerraforming.Checked) RaceParameters.Traits.Add("TT");
+             if (CheapEngines.Checked) RaceParameters.Traits.Add("CE");
+             if (AdvancedRemoteMining.Checked) RaceParameters.Traits.Add("ARM");
+             if (BasicRemoteMining.Checked) RaceParameters.Traits.Add("OBRM");
+             if (ImprovedStarbases.Checked) RaceParameters.Traits.Add("ISB");
+             if (NoAdvancedScanners.Checked) RaceParameters.Traits.Add("NAS");
+             if (GeneralisedResearch.Checked) RaceParameters.Traits.Add("GR");
+             if (LowStartingPopulation.Checked) RaceParameters.Traits.Add("LSP");
+             if (UltimateRecycling.Checked) RaceParameters.Traits.Add("UR");
+             if (BleedingEdgeTechnology.Checked) RaceParameters.Traits.Add("BET");
+             if (MineralAlchemy.Checked) RaceParameters.Traits.Add("MA");
+             if (RegeneratingShields.Checked) RaceParameters.Traits.Add("RS");
+             if (CheapFactories.Checked) RaceParameters.Traits.Add("CF");
+
+             // ----------------------------------------------------------------------------
+             // Production Costs and Rates
+             // ----------------------------------------------------------------------------
+
+             RaceParameters.ColonistsPerResource = (double)ColonistProduction.Value;
+             RaceParameters.OperableFactories = (double)OperableFactories.Value;
+             RaceParameters.MineProductionRate = (double)MineralProduction.Value;
+             RaceParameters.OperableMines = (double)OperableMines.Value;
+             RaceParameters.FactoryBuildCost = (int)FactoryBuildCost.Value;
+             RaceParameters.MineBuildCost = (int)ResourcesPerMine.Value;
+             RaceParameters.FactoryProduction = (double)ResourceProduction.Value;
+
+             // ----------------------------------------------------------------------------
+             // Environmental Tolerance
+             // ----------------------------------------------------------------------------
+
+             RaceParameters.GravityTolerance = GravityTolerance.Values;
+             RaceParameters.RadiationTolerance = RadiationTolerance.Values;
+             RaceParameters.TemperatureTolerance = TemperatureTolerance.Values;
+             RaceParameters.GrowthRate = (double)MaxGrowth.Value;
+
+             // ----------------------------------------------------------------------------
+             // Research Costs
+             // ----------------------------------------------------------------------------
+
+             Hashtable researchCosts = RaceParameters.ResearchCosts.TechValues;
+
+             researchCosts["Energy"] = EnergyResearch.Cost;
+             researchCosts["Weapons"] = WeaponsResearch.Cost;
+             researchCosts["Propulsion"] = PropulsionResearch.Cost;
+             researchCosts["Construction"] = ConstructionResearch.Cost;
+             researchCosts["Electronics"] = ElectronicsResearch.Cost;
+             researchCosts["Biotechnology"] = BiotechnologyResearch.Cost;
+
+             // ----------------------------------------------------------------------------
+             // Generate the race definition file
+             //
+             // Note if the same folder on the same machine is chosen for all Nova GUI and
+             // Nova Console files it is possible to play a game with multiple races using
+             // the same log-in name. This is a useful debugging aid.
+             // ----------------------------------------------------------------------------
+             try
+             {
+                 // If a race file has been saved before, suggest saving this race in the same location
+                 RegistryKey regKey = Registry.CurrentUser;
+                 RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
+                 String RaceFilePath = subKey.GetValue(Global.RaceFolderKey, "?").ToString();
+
+                 if (RaceFilePath == "?" || RaceFilePath == "")
+                 {
+                     // failing that, start in the nova install path
+                     RaceFilePath = subKey.GetValue(Global.NovaFolderKey, "?").ToString();
+                 }
+                 if (RaceFilePath == "?" || RaceFilePath == "")
+                 {
+                     // still no joy? just let the user pick
+                     RaceFilePath = "";
+                 }
+
+                 SaveFileDialog fd = new SaveFileDialog();
+                 fd.Title = "Save Race - " + RaceParameters.Name;
+                 fd.FileName = RaceParameters.Name + ".race";
+                 DialogResult result = fd.ShowDialog();
+                 if (result == DialogResult.OK)
+                 {
+                     RaceFilePath = fd.FileName;
+
+                 }
+                 else
+                 {
+                     Report.Error("Race has not been saved.");
+                     return;
+                 }
+
+
+                 FileStream saveFile = new FileStream(RaceFilePath, FileMode.Create);
+                 GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
+
+                 // Setup the XML document
+                 XmlDocument xmldoc;
+                 XmlNode xmlnode;
+                 XmlElement xmlRoot;
+                 xmldoc = new XmlDocument();
+                 // TODO (low priority) - add the encoding attribute like UTF-8 ???
+                 xmlnode = xmldoc.CreateNode(XmlNodeType.XmlDeclaration, "", "");
+                 xmldoc.AppendChild(xmlnode);
+                 xmlRoot = xmldoc.CreateElement("", "ROOT", "");
+                 xmldoc.AppendChild(xmlRoot);
+
+                 // add the components to the document
+                 xmldoc.ChildNodes.Item(1).AppendChild(RaceParameters.ToXml(xmldoc));
+
+
+                 // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
+                 // manual inspection of the save file. Generally though it can be opened by any archiving tool that
+                 // reads gzip format.
+                 // xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
+                 //       or
+                 xmldoc.Save(saveFile);                                           //  not compressed
+
+                 saveFile.Close();
+
+                 Report.Information("The " + RaceParameters.PluralName + " have been saved to " + RaceFilePath);
+
+                 subKey.SetValue(Global.RaceFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
+
+                 // FIXME This is a work-around as the GUI doesn't currently ask and the console doesn't set it - Dan 09 Aug 09
+                 subKey.SetValue(Global.ClientFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
+
+                 // Remove the warning message for exiting with unsaved changes.
+                 ParametersChanged = false;
+
+                 return;
+             }
+             catch (System.IO.FileNotFoundException)
+             {
+
+                 Report.Error("File path not specified.");
+                 return;
+
+             }
+             catch (Exception exception)
+             {
+                 Report.Error("Failed to save race file. " + exception.Message);
+                 return;
+             }
+
+         }//Finish_Click (save&close the race)
+
+
+         /// <summary>
+         /// Display the about box
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="e"></param>
+         private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
          {
-             Report.Error("Failed to load file: \r\n" + ex.Message);
+             AboutBox about = new AboutBox();
+             about.ShowDialog();
+             about.Dispose();
          }
-      }
 
 
-// ============================================================================
-// Brute force and ignorance reload of a file. There must be a bettter way of
-// doing this.
-// ============================================================================
+         /// <summary>
+         /// Called when the next image is to be selected
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="e"></param>
+         private void NextImage_Click(object sender, EventArgs e)
+         {
+             ++CurrentRaceIcon;
+             PictureBox.Image = CurrentRaceIcon.Image;
+             IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source);
 
-      void reloadRace()
-      {
-         
-         SelectedRace        = RaceParameters.Type;;
-         RaceName.Text       = RaceParameters.Name;
-         PluralRaceName.Text = RaceParameters.PluralName;
-
-         switch (SelectedRace) {
-         case "HyperExpansion":
-            HyperExpansion.Checked = true;
-            break;
-         case "SuperStealth":
-            SuperStealth.Checked = true;
-            break;
-         case "WarMonger":
-            WarMonger.Checked = true;
-            break;
-         case "ClaimAdjuster":
-            ClaimAdjuster.Checked = true;
-            break;
-         case "InnerStrength":
-            InnerStrength.Checked = true;
-            break;
-         case "SpaceDemolition":
-            SpaceDemolition.Checked = true;
-            break;
-         case "PacketPhysics":
-            PacketPhysics.Checked = true;
-            break;
-         case "InterStellarTraveller":
-            InterStellarTraveller.Checked = true;
-            break;
-         case "AlternateReality":
-            AlternateReality.Checked = true;
-            break;
-         case "JackOfAllTrades":
-            JackOfAllTrades.Checked = true;
-            break;
          }
-      }
 
-// ============================================================================
-// Reload seconday traits
-// ============================================================================
 
-      void reloadSecondaryTraits()
-      {
-          ImprovedFuelEfficiency.Checked = RaceParameters.Traits.Contains("IFE");
-          NoRAMEngines.Checked           = RaceParameters.Traits.Contains("NRS");
-          TotalTerraforming.Checked      = RaceParameters.Traits.Contains("TT");
-          CheapEngines.Checked           = RaceParameters.Traits.Contains("CE");
-          AdvancedRemoteMining.Checked   = RaceParameters.Traits.Contains("ARM");
-          BasicRemoteMining.Checked      = RaceParameters.Traits.Contains("OBRM");
-          ImprovedStarbases.Checked      = RaceParameters.Traits.Contains("ISB");
-          NoAdvancedScanners.Checked     = RaceParameters.Traits.Contains("NAS");
-          GeneralisedResearch.Checked    = RaceParameters.Traits.Contains("GR");
-          LowStartingPopulation.Checked  = RaceParameters.Traits.Contains("LSP");
-          UltimateRecycling.Checked      = RaceParameters.Traits.Contains("UR");
-          BleedingEdgeTechnology.Checked = RaceParameters.Traits.Contains("BET");
-          MineralAlchemy.Checked         = RaceParameters.Traits.Contains("MA");
-          RegeneratingShields.Checked    = RaceParameters.Traits.Contains("RS");
-          CheapFactories.Checked         = RaceParameters.Traits.Contains("CF");
-      }
+         /// <summary>
+         /// Called when the previous image is to be selected
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="e"></param>
+         private void PreviousImage_Click(object sender, EventArgs e)
+         {
+             --CurrentRaceIcon;
+             PictureBox.Image = CurrentRaceIcon.Image;
+             IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source);
+         }
 
-// ============================================================================
-// Reload build cost parameters
-// ============================================================================
 
-      void reloadBuildCosts()
-      {
-         ColonistProduction.Value = (decimal) RaceParameters.ColonistsPerResource;
-         OperableFactories.Value  = (decimal) RaceParameters.OperableFactories;
-         MineralProduction.Value  = (decimal) RaceParameters.MineProductionRate;
-         OperableMines.Value      = (decimal) RaceParameters.OperableMines;
-         FactoryBuildCost.Value   = (decimal) RaceParameters.FactoryBuildCost;
-         ResourcesPerMine.Value   = (decimal) RaceParameters.MineBuildCost;
-         ResourceProduction.Value = (decimal) RaceParameters.FactoryProduction;
 
-      }
 
-// ===========================================================================
-// Reload Environmental Tolerance
-// ============================================================================
 
-      void reloadEnvironmentalTolerance()
-      {
-          GravityTolerance.Values      = RaceParameters.GravityTolerance;
-          RadiationTolerance.Values    = RaceParameters.RadiationTolerance;
-          TemperatureTolerance.Values  = RaceParameters.TemperatureTolerance;
-          MaxGrowth.Value              = (decimal) RaceParameters.GrowthRate;
-      }
 
-// ===========================================================================
-// Reload Research Costs
-// ============================================================================
+         /// <summary>
+         /// Load an existing race file for examination or modification (however, once
+         /// submitted there is no point in changing the race definition. It's too late
+         /// and it's "gone into the system").
+         /// </summary>
+         /// <param name="sender"></param>
+         /// <param name="e"></param>
+         private void LoadRaceFile_Click(object sender, EventArgs e)
+         {
 
-      void reloadResearchCosts()
-      {
-         Hashtable researchCosts = RaceParameters.ResearchCosts.TechValues;
 
-         EnergyResearch.Cost        = (int) researchCosts["Energy"];
-         WeaponsResearch.Cost       = (int) researchCosts["Weapons"];
-         PropulsionResearch.Cost    = (int) researchCosts["Propulsion"];
-         ConstructionResearch.Cost  = (int) researchCosts["Construction"];
-         ElectronicsResearch.Cost   = (int) researchCosts["Electronics"];
-         BiotechnologyResearch.Cost = (int) researchCosts["Biotechnology"];
-      }
+             OpenFileDialog.CheckFileExists = true;
+             OpenFileDialog.FileName = "Humanoid.race";
+             if (OpenFileDialog.ShowDialog() != DialogResult.OK)
+             {
+                 return;
+             }
 
-   }
-}
+             string fileName = OpenFileDialog.FileName;
+
+             Race raceData;
+             try
+             {
+                 raceData = new Race(fileName);
+
+                 // TODO - This level of security is not good enough as the race is stored un-encrypted.
+                 ControlLibrary.CheckPassword password =
+                    new ControlLibrary.CheckPassword(raceData);
+
+                 password.ShowDialog();
+                 if (password.DialogResult == DialogResult.OK)
+                 {
+                     RaceParameters = raceData;
+                     reloadRace();
+                     reloadSecondaryTraits();
+                     reloadBuildCosts();
+                     reloadEnvironmentalTolerance();
+                     reloadResearchCosts();
+                 }
+
+                 password.Dispose();
+             }
+             catch (Exception ex)
+             {
+                 Report.Error("Failed to load file: \r\n" + ex.Message);
+             }
+         }//LoadRaceFile_Click
+
+
+         /// <summary>
+         /// Brute force and ignorance reload of a file. There must be a bettter way of
+         /// doing this.
+         /// </summary>
+         void reloadRace()
+         {
+
+             SelectedRace = RaceParameters.Traits.Primary;
+             RaceName.Text = RaceParameters.Name;
+             PluralRaceName.Text = RaceParameters.PluralName;
+
+             switch (SelectedRace.Code)
+             {
+                 case "HE":
+                     HyperExpansion.Checked = true;
+                     break;
+                 case "SS":
+                     SuperStealth.Checked = true;
+                     break;
+                 case "WM":
+                     WarMonger.Checked = true;
+                     break;
+                 case "CA":
+                     ClaimAdjuster.Checked = true;
+                     break;
+                 case "IS":
+                     InnerStrength.Checked = true;
+                     break;
+                 case "SD":
+                     SpaceDemolition.Checked = true;
+                     break;
+                 case "PP":
+                     PacketPhysics.Checked = true;
+                     break;
+                 case "IT":
+                     InterStellarTraveller.Checked = true;
+                     break;
+                 case "AR":
+                     AlternateReality.Checked = true;
+                     break;
+                 case "JOAT":
+                     JackOfAllTrades.Checked = true;
+                     break;
+             }
+         }
+
+         /// <summary>
+         /// Reload seconday traits
+         /// </summary>
+         void reloadSecondaryTraits()
+         {
+             ImprovedFuelEfficiency.Checked  = RaceParameters.Traits.Contains("IFE");
+             NoRAMEngines.Checked            = RaceParameters.Traits.Contains("NRS");
+             TotalTerraforming.Checked       = RaceParameters.Traits.Contains("TT");
+             CheapEngines.Checked            = RaceParameters.Traits.Contains("CE");
+             AdvancedRemoteMining.Checked    = RaceParameters.Traits.Contains("ARM");
+             BasicRemoteMining.Checked       = RaceParameters.Traits.Contains("OBRM");
+             ImprovedStarbases.Checked       = RaceParameters.Traits.Contains("ISB");
+             NoAdvancedScanners.Checked      = RaceParameters.Traits.Contains("NAS");
+             GeneralisedResearch.Checked     = RaceParameters.Traits.Contains("GR");
+             LowStartingPopulation.Checked   = RaceParameters.Traits.Contains("LSP");
+             UltimateRecycling.Checked       = RaceParameters.Traits.Contains("UR");
+             BleedingEdgeTechnology.Checked  = RaceParameters.Traits.Contains("BET");
+             MineralAlchemy.Checked          = RaceParameters.Traits.Contains("MA");
+             RegeneratingShields.Checked     = RaceParameters.Traits.Contains("RS");
+             CheapFactories.Checked          = RaceParameters.Traits.Contains("CF");
+         }
+
+
+         /// <summary>
+         /// Reload build cost parameters
+         /// </summary>
+         void reloadBuildCosts()
+         {
+             ColonistProduction.Value  = (decimal)RaceParameters.ColonistsPerResource;
+             OperableFactories.Value   = (decimal)RaceParameters.OperableFactories;
+             MineralProduction.Value   = (decimal)RaceParameters.MineProductionRate;
+             OperableMines.Value       = (decimal)RaceParameters.OperableMines;
+             FactoryBuildCost.Value    = (decimal)RaceParameters.FactoryBuildCost;
+             ResourcesPerMine.Value    = (decimal)RaceParameters.MineBuildCost;
+             ResourceProduction.Value  = (decimal)RaceParameters.FactoryProduction;
+         }
+
+
+         /// <summary>
+         /// Reload Environmental Tolerance
+         /// </summary>
+         void reloadEnvironmentalTolerance()
+         {
+             GravityTolerance.Values      = RaceParameters.GravityTolerance;
+             RadiationTolerance.Values    = RaceParameters.RadiationTolerance;
+             TemperatureTolerance.Values  = RaceParameters.TemperatureTolerance;
+             MaxGrowth.Value              = (decimal)RaceParameters.GrowthRate;
+         }
+
+
+         /// <summary>
+         /// Reload Research Costs
+         /// </summary>
+         void reloadResearchCosts()
+         {
+             Hashtable researchCosts     = RaceParameters.ResearchCosts.TechValues;
+
+             EnergyResearch.Cost         = (int)researchCosts["Energy"];
+             WeaponsResearch.Cost        = (int)researchCosts["Weapons"];
+             PropulsionResearch.Cost     = (int)researchCosts["Propulsion"];
+             ConstructionResearch.Cost   = (int)researchCosts["Construction"];
+             ElectronicsResearch.Cost    = (int)researchCosts["Electronics"];
+             BiotechnologyResearch.Cost  = (int)researchCosts["Biotechnology"];
+         }
+
+   }//RaceDesignerForm
+}//namespace RaceDesigner
 
