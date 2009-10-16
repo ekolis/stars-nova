@@ -27,8 +27,8 @@
       <Weapons>100</Weapons>
       <Construction>100</Construction>
     </Tech>
+    <PRT>HE</PRT>
     <MineBuildCost>5</MineBuildCost>
-    <PRT>JackOfAllTrades</PRT>
     <PluralName>Humanoids</PluralName>
     <Name>Humanoid</Name>
     <Password>B2F5FF47436671B6E533D8DC3614845D</Password>

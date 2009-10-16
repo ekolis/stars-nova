@@ -202,7 +202,7 @@ namespace Nova
 
         private static void ProcessPrimaryTraits()
         {
-            switch (GUIstate.Data.RaceData.Type)
+            switch (GUIstate.Data.RaceData.Traits.Primary.Name)
             {
                 case "JackOfAllTrades":
                     GUIstate.Data.ResearchLevel = new TechLevel(3);//set all to 3

@@ -1,5 +1,4 @@
-﻿// This file needs -*- c++ -*- mode
-// ===========================================================================
+﻿// ===========================================================================
 // Nova. (c) 2009 Daniel Vale
 //
 // This module manages the Race Restriction Dialog, used for selecting any
@@ -79,7 +78,7 @@ namespace ComponentEditor
                 Restrictions = new RaceRestriction(existingRestrictions);
 
                 int n = 0;
-                foreach (String trait in RaceRestriction.TraitKeys)
+                foreach (String trait in AllTraits.TraitKeys)
                 {
                     // For each trait there are three radio buttons. We need to set one of them,
                     // which will clear the other two (as only one radio button in a set can be selected). The
@@ -101,7 +100,7 @@ namespace ComponentEditor
         private void Save_Click(object sender, EventArgs e)
         {
             int n = 0;
-            foreach (String trait in RaceRestriction.TraitKeys)
+            foreach (String trait in AllTraits.TraitKeys)
             {
                 if (RadioMap[n,0].Checked)
                     Restrictions.SetRestriction(trait, RaceAvailability.not_available);

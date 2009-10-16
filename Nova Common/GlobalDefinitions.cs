@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ===========================================================================
 // Nova. (c) 2008 Ken Reed.
 // Added GraphicsFolderKey and EvaluateRelativePath() - Daniel Vale, May 2009.
@@ -18,7 +17,7 @@ using System.IO;
 
 namespace NovaCommon
 {
-   public class Global
+   public static class Global
    {
       public const string RootRegistryKey    = "Software\\Ken Reed\\Nova";
       public const string NovaFolderKey      = "NaveFolderKey";

@@ -167,7 +167,7 @@ namespace NovaConsole {
          Race   race      = ConsoleState.Data.AllRaces[fleet.Owner] as Race;
          double resources = 0;
 
-         if (race.Traits.Contains("UR")) 
+         if (race.HasTrait("UR")) 
          {
             if (star != null) 
             {
