@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -6,7 +5,13 @@
 // terms of the GNU General Public License version 2 as published by the Free
 // Software Foundation.
 //
-// Primary racial trait selection. The race costs are:
+// Primary racial trait definitions/data. Each race has exactly one Primary 
+// racial trait.
+//
+// This data may be replaced by runtime loaded data in the future. Use AllTraits
+// to access this data.
+//
+// The race costs are:
 //
 // Hyper-Expansion     63 pts.     Space Demolition             0 pts.
 // Super-Stealth       81 pts.     Packet Physics              90 pts.
@@ -17,37 +22,17 @@
 
 using System;
 
-namespace RaceDesigner
+// The TraitData namespace should only be accessed by AllTraits. Other objects
+// should access this data through AllTraits in case it is run time loaded in
+// the future.
+namespace NovaCommon.TraitData
 {
 
-
-    // ============================================================================
-    // Class to support the format of each trait in an array 
-    // (both primary and lesser racial traits use this).
-    // ============================================================================
-    class TraitEntry
-   {
-       public string RaceType;    // e.g. "Hyper Expansion" or "Regenerating Shields" (may contain spaces)
-       public string Code;        // e.g. "HE" or "RS" (must be unique, all caps, no spaces or punctuation) - This is the code used in Race.Traits
-       public int Cost;           // in advantage points, negative cost give more points to buy other things
-       public string Description; // Detailed description (paragraph).
-
-       public TraitEntry(string r, string a, int c, string d)
-       {
-           RaceType = r;
-           Code = a;
-           Cost = c;
-           Description = d;
-       }
-   }
-
 // ============================================================================
-// Static definition of all the racial traits
+// Static definition of all the primary racial traits
 // ============================================================================
-
-   class PrimaryTraits
-   {
-       // TODO load from a data file
+    public static class PrimaryTraits
+    {
       public static TraitEntry[] Traits = new TraitEntry[10] {
 
 // ============================================================================

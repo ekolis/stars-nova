@@ -1,4 +1,16 @@
-﻿using System;
+﻿// ============================================================================
+// Nova. (c) 2009 Daniel Vale
+//
+// Ship class. Note that ships never exist in isolation, they are always part
+// of a fleet. Consequently, all the movement attributes can be found in the
+// fleet class.
+//
+// This is free software. You can redistribute it and/or modify it under the
+// terms of the GNU General Public License version 2 as published by the Free
+// Software Foundation.
+// ============================================================================
+
+using System;
 using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
@@ -16,43 +28,6 @@ namespace NovaCommon
     [Serializable]
     public class RaceRestriction
     {
-        public const int NUMBER_OF_PRIMARY_RACIAL_TRAITS = 10;
-        public static string[] TraitKeys = 
-        {
-            // 10 PRTs
-            "HE", "SS", "WM", "CA", "IS", "SD", "PP", "IT", "AR", "JOAT",
-            // 13 LRTs
-            "IFE", "TT", "ARM", "ISB", "GR", "UR", "MA", "NRSE", "OBRM", "NAS", "LSP", "BET", "RS"
-        };
-
-        public static string[] TraitString = 
-        {
-            // 10 PRTs
-            "Hyper Expansion", 
-            "Supper Stealth", 
-            "War Monger", 
-            "Claim Adjuster", 
-            "Inner Strength", 
-            "Space Demolition", 
-            "Packet Pysics", 
-            "Interstellar Traveler", 
-            "Artificial Reality", 
-            "Jack of all Trades",
-            // 13 LRTs
-            "Improved Fuel Efficiency", 
-            "Total Terraforming", 
-            "Advanced Remote Mining", 
-            "Improved Star Bases", 
-            "Generalised Research", 
-            "Ultimate Recycling", 
-            "Mineral Alchemy", 
-            "No Ram Scoop Eengines", 
-            "Only Basic Remote Mining", 
-            "No Advanced Scanners", 
-            "Low Starting Population", 
-            "Bleeding Edge Technology", 
-            "Regenerating Shields"
-        };
 
         private Hashtable Restrictions = new Hashtable();
 
@@ -61,7 +36,7 @@ namespace NovaCommon
         //============================================================================
         public RaceRestriction()
         {
-            foreach (String trait in RaceRestriction.TraitKeys)
+            foreach (String trait in AllTraits.TraitKeys)
             {
                 Restrictions[trait] = (int)RaceAvailability.not_required;
             }
@@ -74,14 +49,14 @@ namespace NovaCommon
         {
             try
             {
-                foreach (String trait in RaceRestriction.TraitKeys)
+                foreach (String trait in AllTraits.TraitKeys)
                 {
                     Restrictions[trait] = (int) existing.Restrictions[trait];
                 }
             }
             catch
             {
-                foreach (String trait in RaceRestriction.TraitKeys)
+                foreach (String trait in AllTraits.TraitKeys)
                 {
                     Restrictions[trait] = (int)RaceAvailability.not_required;
                 }
@@ -100,7 +75,7 @@ namespace NovaCommon
             {
               try
               {
-                  foreach (String key in TraitKeys)
+                  foreach (String key in AllTraits.TraitKeys)
                   {
                       if (subnode.Name.ToLower() == key.ToLower())
                       {
@@ -146,7 +121,7 @@ namespace NovaCommon
             XmlElement xmlelResource = xmldoc.CreateElement("Race_Restrictions");
             try
             {
-                foreach (string key in RaceRestriction.TraitKeys)
+                foreach (string key in AllTraits.TraitKeys)
                 {
                     // not_required is the default, only save variations
                     if (Restrictions.ContainsKey(key) && (RaceAvailability)Restrictions[key] != RaceAvailability.not_required)
@@ -179,7 +154,7 @@ namespace NovaCommon
             try
             {
                 int keyIndex = 0;
-                foreach (string key in RaceRestriction.TraitKeys)
+                foreach (string key in AllTraits.TraitKeys)
                 {
 
                     // not_required is the default, only save variations
@@ -199,7 +174,7 @@ namespace NovaCommon
 
                        inwords += " the ";
                        //<primary/secondary
-                       if (keyIndex < NUMBER_OF_PRIMARY_RACIAL_TRAITS)
+                       if (keyIndex < AllTraits.NUMBER_OF_PRIMARY_RACIAL_TRAITS)
                        {
                            inwords += "primary";
                        }
@@ -209,7 +184,7 @@ namespace NovaCommon
                        }
                        inwords += " racial trait '";
                        // <trait>
-                       inwords += TraitString[keyIndex];
+                       inwords += AllTraits.TraitString[keyIndex];
                        inwords += "'." + Environment.NewLine;
                    }
 

@@ -19,6 +19,7 @@ using System.Xml;
 using System.Windows.Forms;
 
 
+
 // ============================================================================
 // Manipulation of data that is persistent across muliple invocations of the
 // GUI.
@@ -83,6 +84,97 @@ namespace NovaCommon
          }
       }
 
+      private void DoSomeWork(object status)
+      {
+          IProgressCallback callback = status as IProgressCallback;
+
+
+          try
+          {
+
+
+
+              // blank the component data
+              AllComponents.Data = new AllComponents();
+
+              XmlDocument xmldoc = new XmlDocument();
+              FileStream fileStream = new FileStream(SaveFilePath, FileMode.Open, FileAccess.Read);
+              GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
+
+
+              xmldoc.Load(SaveFilePath);  // uncompressed
+              //xmldoc.Load(compressionStream); // compressed
+
+              XmlNode xmlnode = (XmlNode)xmldoc.DocumentElement;
+
+
+
+              while (xmlnode != null)
+              {
+                  int nodesLoaded = 0;
+
+                  if (callback.IsAborting)
+                  {
+                      return;
+                  }
+
+
+                  // Report.Information("node name = '" + xmlnode.Name + "'");
+                  if (xmlnode.Name == "ROOT")
+                  {
+                      callback.Begin(0, xmlnode.ChildNodes.Count);
+
+                      xmlnode = xmlnode.FirstChild;
+                  }
+                  else if (xmlnode.Name == "Component")
+                  {
+                      ++nodesLoaded;
+                      callback.SetText(String.Format("Loading component: {0}", nodesLoaded));
+                      callback.StepTo(nodesLoaded);
+
+                      NovaCommon.Component newComponent = new Component(xmlnode);
+                      AllComponents.Data.Components[newComponent.Name] = newComponent;
+                      xmlnode = xmlnode.NextSibling;
+
+                      //System.Threading.Thread.Sleep(10);
+                  }
+                  else
+                  {
+                      xmlnode = xmlnode.NextSibling;
+                  }
+
+                  if (callback.IsAborting)
+                  {
+                      return;
+                  }
+
+                  //result = true; // looks like we made it
+              }
+          }
+          catch (System.Threading.ThreadAbortException)
+          {
+              // We want to exit gracefully here (if we're lucky)
+              Report.Error("AllComponents: LoadComponents() - Thread Abort Exception.");
+          }
+          catch (System.Threading.ThreadInterruptedException)
+          {
+              // And here, if we can
+              Report.Error("AllComponents: LoadComponents() - Thread Interrupted Exception.");
+          }
+
+          catch (Exception e)
+          {
+              Report.Error("Failed to load file: \r\n" + e.Message);
+          }
+
+          finally
+          {
+              if (callback != null)
+              {
+                  callback.End();
+              }
+          }
+      }
 
 // ============================================================================
 // Restore the data. 
@@ -98,48 +190,16 @@ namespace NovaCommon
           }
           else
           {
+              ProgressDialog progress = new ProgressDialog();
+              progress.Text = "Work";
+              System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(AllComponents.Data.DoSomeWork), progress);
+              progress.ShowDialog();
 
-              try
-              {
-                  // blank the component data
-                  AllComponents.Data = new AllComponents();
-
-                  XmlDocument xmldoc = new XmlDocument();
-                  FileStream fileStream = new FileStream(SaveFilePath, FileMode.Open, FileAccess.Read);
-                  GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
-
-
-                  xmldoc.Load(SaveFilePath);  // uncompressed
-                  //xmldoc.Load(compressionStream); // compressed
-
-                  XmlNode xmlnode = (XmlNode)xmldoc.DocumentElement;
-
-                  while (xmlnode != null)
-                  {
-                      // Report.Information("node name = '" + xmlnode.Name + "'");
-                      if (xmlnode.Name == "ROOT")
-                          xmlnode = xmlnode.FirstChild;
-                      else if (xmlnode.Name == "Component")
-                      {
-
-                          NovaCommon.Component newComponent = new Component(xmlnode);
-                          AllComponents.Data.Components[newComponent.Name] = newComponent;
-                          xmlnode = xmlnode.NextSibling;
-                      }
-                      else
-                      {
-                          xmlnode = xmlnode.NextSibling;
-                      }
-                  }
-                  result = true; // looks like we made it
-              }
-              catch (Exception e)
-              {
-                  Report.Error("Failed to load file: \r\n" + e.Message);
-              }
               return result;
           }
       }
+
+
 
 
       // ============================================================================
