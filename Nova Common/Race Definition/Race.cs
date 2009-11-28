@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ===========================================================================
 // Nova. (c) 2008 Ken Reed.
 //
@@ -27,64 +26,6 @@ namespace NovaCommon
 {
 
 
-// ===========================================================================
-// Class to hold environmental tolerance details
-// ===========================================================================
-
-   [Serializable]
-   public sealed class EnvironmentTolerance
-   {
-      public double Minimum = 0;
-      public double Maximum = 0;
-
-      public EnvironmentTolerance() { } // required for serialization
-      public EnvironmentTolerance(double minv, double maxv)
-      {
-         Minimum = minv;
-         Maximum = maxv;
-      }
-
-      // ============================================================================
-      // Initialising Constructor from an xml node.
-      // Precondition: node is a "EnvironmentTolerance" node in a Nova compenent definition file (xml document).
-      // ============================================================================
-      public EnvironmentTolerance(XmlNode node)
-      {
-          XmlNode subnode = node.FirstChild;
-          while (subnode != null)
-          {
-              try
-              {
-                  switch (subnode.Name.ToLower())
-                  {
-                      case "min": 
-                          Minimum = double.Parse(((XmlText)subnode.FirstChild).Value); 
-                          break;
-                      case "max": 
-                          Maximum = double.Parse(((XmlText)subnode.FirstChild).Value); 
-                          break;
-                  }
-              }
-              catch
-              {
-                  // ignore incomplete or unset values
-              }
-
-              subnode = subnode.NextSibling;
-          }
-
-      }
-
-      public XmlElement ToXml(XmlDocument xmldoc)
-      {
-          XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement("EnvironmentTolerance");
-
-          Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Min", Minimum.ToString());
-          Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Max", Maximum.ToString());
-          return xmlelEnvironmentTolerance;
-      }
-   }
-
 
 // ===========================================================================
 // All of the race parameters
@@ -93,20 +34,20 @@ namespace NovaCommon
    [Serializable]
    public sealed class Race
    {
-      public EnvironmentTolerance  GravityTolerance;
-      public EnvironmentTolerance  RadiationTolerance;
-      public EnvironmentTolerance  TemperatureTolerance;
+      public EnvironmentTolerance  GravityTolerance = new EnvironmentTolerance();
+      public EnvironmentTolerance  RadiationTolerance = new EnvironmentTolerance();
+      public EnvironmentTolerance  TemperatureTolerance = new EnvironmentTolerance();
 
       public TechLevel             ResearchCosts = new TechLevel(0);
 
-      public ArrayList             Traits; // List of lesser racial traits: A list of TraitEntry.Code values
+      // public string                Type; // use this.Traits.Primary or this.Traits.SetPrimary()
+      public RacialTraits Traits = new RacialTraits(); // Collection of all the race's traits, including the primary.
       public int                   MineBuildCost;
 
-      public string                Type; // Primary racial trait.
       public string                PluralName;
       public string                Name;
       public string                Password;
-      public RaceIcon              Icon; 
+      public RaceIcon              Icon = new RaceIcon(); 
 
       // These parameters affect the production rate of each star (used in the
       // Star class Update method).
@@ -119,8 +60,8 @@ namespace NovaCommon
       public double                MaxPopulation = 1000000;
       public double                GrowthRate;
 
-
-      public Race() { } // required for searializable class
+      // required for searializable class
+      public Race() {} 
 
       /// <summary>
       /// constructor for Race. 
@@ -139,6 +80,13 @@ namespace NovaCommon
           LoadRaceFromXml(xmldoc);
 
           fileStream.Close();
+      }
+
+      public bool HasTrait(string trait)
+      {
+          if (trait == Traits.Primary) return true;
+          if (Traits == null) return false;
+          return this.Traits.Contains(trait);
       }
 
 // ===========================================================================
@@ -186,12 +134,6 @@ namespace NovaCommon
          get { return Median(GravityTolerance) * 10; }
       }
 
-      public bool HasTrait(string trait)
-      {
-          if (Type == trait) return true;
-
-          return Traits.Contains(trait);
-      }
 
       // ============================================================================
       // Return an XmlElement representation of the Race
@@ -215,17 +157,18 @@ namespace NovaCommon
           // Tech
           xmlelRace.AppendChild(this.ResearchCosts.ToXml(xmldoc));
 
+          // Type; // Primary Racial Trait.
+          Global.SaveData(xmldoc, xmlelRace, "PRT", Traits.Primary.Code); // TODO check the PRT is saved/loaded properly into Traits
           // Traits
-          foreach (String trait in Traits)
+          foreach (TraitEntry trait in Traits)
           {
-              Global.SaveData(xmldoc, xmlelRace, "LRT", trait);
+              if (AllTraits.Data.Primary.Contains(trait.Code)) continue;
+              Global.SaveData(xmldoc, xmlelRace, "LRT", trait.Code);
           }
 
           // MineBuildCost
           Global.SaveData(xmldoc, xmlelRace, "MineBuildCost", MineBuildCost.ToString());
 
-          // Type; // Primary Racial Trait.
-          Global.SaveData(xmldoc, xmlelRace, "PRT", Type);
           // Plural Name
           Global.SaveData(xmldoc, xmlelRace, "PluralName", PluralName);
           // Name
@@ -260,7 +203,7 @@ namespace NovaCommon
       /// <param name="xmldoc">produced using XmlDocument.Load(), see Race constructor</param>
       private void LoadRaceFromXml(XmlDocument xmldoc)
       {
-          Traits = new ArrayList();
+          
           GravityTolerance = new EnvironmentTolerance();
           RadiationTolerance = new EnvironmentTolerance();
           TemperatureTolerance = new EnvironmentTolerance();
@@ -283,7 +226,7 @@ namespace NovaCommon
                       case "lrt": this.Traits.Add(((XmlText)xmlnode.FirstChild).Value); break;
 
                       case "minebuildcost": this.MineBuildCost = int.Parse(((XmlText)xmlnode.FirstChild).Value); break;
-                      case "prt": this.Type = ((XmlText)xmlnode.FirstChild).Value; break;
+                      case "prt": this.Traits.SetPrimary(((XmlText)xmlnode.FirstChild).Value); break;
                       case "pluralname": this.PluralName = ((XmlText)xmlnode.FirstChild).Value; break;
                       case "name": this.Name = ((XmlText)xmlnode.FirstChild).Value; break;
                       case "password": this.Password = ((XmlText)xmlnode.FirstChild).Value; break;

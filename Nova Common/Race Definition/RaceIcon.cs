@@ -29,8 +29,12 @@ namespace NovaCommon
     public class RaceIcon 
     {
         public String Source = String.Empty;
-        public Bitmap Image = null; 
-        
+        public Bitmap Image = null;
+
+        public RaceIcon()
+        {
+        }
+
         public RaceIcon(String source, Bitmap image)
         {
             Source = source;
@@ -139,6 +143,7 @@ namespace NovaCommon
                 catch
                 {
                     Report.Error("RaceIcon: Restore() - Failed to load race icons.");
+                    return false;
                 }
 
             }

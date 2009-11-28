@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -6,7 +5,13 @@
 // terms of the GNU General Public License version 2 as published by the Free
 // Software Foundation.
 //
-// Secondary racial traits. The cost per trait is (negative numbers mean that
+// Primary racial trait definitions/data. Each race has exactly one Primary 
+// racial trait.
+//
+// This data may be replaced by runtime loaded data in the future. Use AllTraits
+// to access this data.
+//
+// The cost per trait is (negative numbers mean that
 // you gain those advantage points for selecting that trait):
 //
 // Improved Fuel Efficiency   78 pts.     No Ram Scoop Engines         -53 pts.
@@ -21,14 +26,17 @@
 
 using System;
 
-namespace RaceDesigner
+// The TraitData namespace should only be accessed by AllTraits. Other objects
+// should access this data through AllTraits in case it is run time loaded in
+// the future.
+namespace NovaCommon.TraitData
 {
 
 // ============================================================================
 // Static definition of all the secondary traits
 // ============================================================================
 
-   class SecondaryTraits
+   public static class SecondaryTraits
    {
       public static TraitEntry[] Traits = new TraitEntry[15] {
 
