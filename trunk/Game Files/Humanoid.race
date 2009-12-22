@@ -27,7 +27,7 @@
       <Weapons>100</Weapons>
       <Construction>100</Construction>
     </Tech>
-    <PRT>HE</PRT>
+    <PRT>JOAT</PRT>
     <MineBuildCost>5</MineBuildCost>
     <PluralName>Humanoids</PluralName>
     <Name>Humanoid</Name>

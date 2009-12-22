@@ -1499,11 +1499,11 @@ namespace RaceDesigner
          {
              RadioButton radioButton = (RadioButton)sender;
 
-             foreach (TraitEntry trait in AllTraits.Data.Primary)
+             foreach (DictionaryEntry dict in AllTraits.Data.Primary)
              {
+                 TraitEntry trait = (TraitEntry)dict.Value;
                  if (trait.Code == radioButton.Tag.ToString())
                  {
-
                      if (radioButton.Checked)
                      {
                          SelectedRace = AllTraits.Data.Primary[radioButton.Tag.ToString()];
