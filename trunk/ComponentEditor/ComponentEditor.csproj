@@ -45,6 +45,12 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>ComponentEditor</AssemblyName>
+    <RootNamespace>ComponentEditor</RootNamespace>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <ApplicationIcon>Nova.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -53,6 +59,13 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>ComponentEditor</AssemblyName>
+    <DebugSymbols>true</DebugSymbols>
+    <RootNamespace>ComponentEditor</RootNamespace>
+    <AllowUnsafeBlocks>false</AllowUnsafeBlocks>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+    <ApplicationIcon>Nova.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -176,20 +189,10 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Control Library\ControlLibrary.csproj">
-      <Project>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</Project>
-      <Name>ControlLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Nova Common\Nova Common.csproj">
-      <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
-      <Name>Nova Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="Resources\Nova.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Nova.ico" />
+    <None Include="Nova.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
@@ -229,5 +232,17 @@
   <PropertyGroup>
     <PostBuildEvent>
     </PostBuildEvent>
+    <ProjectGuid>{16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8}</ProjectGuid>
+    <RootNamespace>ComponentEditor</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Nova Common\Nova Common.csproj">
+      <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
+      <Name>Nova Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Control Library\ControlLibrary.csproj">
+      <Project>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</Project>
+      <Name>ControlLibrary</Name>
+    </ProjectReference>
+  </ItemGroup>
 </Project>
