@@ -150,6 +150,7 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Scores.cs" />
+    <Compile Include="StarsMapGenerator.cs" />
     <Compile Include="VictoryCheck.cs" />
     <Compile Include="VictoryConditions.cs">
       <SubType>Form</SubType>
