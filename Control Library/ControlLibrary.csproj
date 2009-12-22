@@ -51,6 +51,9 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <OutputType>Library</OutputType>
+    <AssemblyName>ControlLibrary</AssemblyName>
+    <RootNamespace>ControlLibrary</RootNamespace>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -74,6 +77,9 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <OutputType>Library</OutputType>
+    <AssemblyName>ControlLibrary</AssemblyName>
+    <RootNamespace>ControlLibrary</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
@@ -195,5 +201,7 @@
     </PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
+    <ProjectGuid>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</ProjectGuid>
+    <RootNamespace>ControlLibrary</RootNamespace>
   </PropertyGroup>
 </Project>

@@ -74,6 +74,10 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>Nova Console</AssemblyName>
+    <RootNamespace>NovaConsole</RootNamespace>
+    <ApplicationIcon>Resources\Nova.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -97,6 +101,10 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>Nova Console</AssemblyName>
+    <RootNamespace>NovaConsole</RootNamespace>
+    <ApplicationIcon>Resources\Nova.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
@@ -223,5 +231,7 @@
     </PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
+    <ProjectGuid>{BC53AE52-0F5C-4C4D-A6D9-54DF198655C9}</ProjectGuid>
+    <RootNamespace>NovaConsole</RootNamespace>
   </PropertyGroup>
 </Project>

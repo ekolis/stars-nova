@@ -69,6 +69,10 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>Nova GUI</AssemblyName>
+    <RootNamespace>Nova</RootNamespace>
+    <ApplicationIcon>App.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <OutputPath>bin\Release\</OutputPath>
@@ -92,6 +96,10 @@
     <WarningLevel>4</WarningLevel>
     <DebugType>none</DebugType>
     <ErrorReport>prompt</ErrorReport>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>Nova GUI</AssemblyName>
+    <RootNamespace>Nova</RootNamespace>
+    <ApplicationIcon>App.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System">
@@ -120,7 +128,6 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="App.ico" />
     <None Include="Resources\Nova.jpg" />
     <None Include="Resources\NovaPanel.jpg" />
     <None Include="Resources\Plasma.png" />
@@ -368,6 +375,7 @@
       <SubType>Designer</SubType>
       <DependentUpon>ScoreReport.cs</DependentUpon>
     </EmbeddedResource>
+    <None Include="App.ico" />
   </ItemGroup>
   <ItemGroup>
     <BootstrapperPackage Include="Microsoft.Net.Framework.2.0">
@@ -392,5 +400,7 @@
     </PreBuildEvent>
     <PostBuildEvent>
     </PostBuildEvent>
+    <ProjectGuid>{14CD4564-836F-4934-8B12-74F399B0F7D5}</ProjectGuid>
+    <RootNamespace>Nova</RootNamespace>
   </PropertyGroup>
 </Project>
