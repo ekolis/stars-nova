@@ -42,7 +42,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Race Designer", "Race Desig
 		{16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8} = {16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova AI", "Nova AI\Nova AI.csproj", "{8AAA8913-8678-4B69-83A2-1C8A7429411F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova_AI", "Nova AI\Nova_AI.csproj", "{8AAA8913-8678-4B69-83A2-1C8A7429411F}"
+	ProjectSection(ProjectDependencies) = postProject
+		{14CD4564-836F-4934-8B12-74F399B0F7D5} = {14CD4564-836F-4934-8B12-74F399B0F7D5}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
