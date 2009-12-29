@@ -19,13 +19,13 @@ namespace NovaCommon
 {
    public static class Global
    {
-      public const string RootRegistryKey    = "Software\\Ken Reed\\Nova";
-      public const string NovaFolderKey      = "NaveFolderKey";
-      public const string ComponentFolderKey = "ComponentFolder";
-      public const string GraphicsFolderKey  = "GraphicsFolder";
-      public const string ClientFolderKey    = "GameFilesFolder";
-      public const string ServerFolderKey    = "ConsoleGameFolder";
-      public const string RaceFolderKey      = "RaceFolder";
+      public const string RootRegistryKey    = "Software\\Ken Reed\\Nova"; // where the keys are
+      public const string NovaFolderKey      = "NovaFolderKey";            // where Nova is installed 
+      public const string ComponentFolderKey = "ComponentFolder";          // where components.xml is (possibly re-named), installation relative path is '.'. Should only change for modified game play.
+      public const string GraphicsFolderKey  = "GraphicsFolder";           // where pictures are stored, installation relative path is './Graphics'. Should only be changed for modding the game interface.
+      public const string ClientFolderKey    = "ClientFolder";             // where client side game files are, nominally './GameFiles'. Likely to be different for each active game.
+      public const string ServerFolderKey    = "ServerFolder";             // where server side game files are, nominally './GameFiles'. May be a network path.
+      public const string RaceFolderKey      = "RaceFolder";               // where player race files are stored, nominally './GameFiles'. Players may save races elswhere to create a reusable library.
        
 
       public const int    UniverseSize       =   400;
