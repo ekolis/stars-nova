@@ -190,12 +190,15 @@ namespace NovaCommon
           }
           else
           {
+              
               ProgressDialog progress = new ProgressDialog();
               progress.Text = "Work";
               System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(AllComponents.Data.DoSomeWork), progress);
               progress.ShowDialog();
+             
 
-              return result;
+              //return result;
+              return true; //FIXME need to get a result for the worker thread.
           }
       }
 
@@ -280,6 +283,7 @@ namespace NovaCommon
 // ============================================================================
       public static void MakeNew()
       {
+          // FIXME - Selecting File|New before loading an existing component definition file caused a null reference exception. - Dan 28 Dec 09.
           AllComponents.Instance.Components = new Hashtable();
           ResetPath();
       }

@@ -76,7 +76,7 @@ namespace Nova
 
             if (AllComponents.Restore() == false)
             {
-                Report.FatalError("Could not find component definition file");
+                Report.FatalError("Could not find component definition file.");
             }
 
             if (GUIstate.Data.FirstTurn)

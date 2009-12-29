@@ -106,6 +106,7 @@ namespace NovaCommon
 // Precondition - node is a "Component" node in a Nova component data save file in xml format. 
 // ============================================================================
 
+      
       public Component(XmlNode node)
       {
           Properties = new Dictionary<string, ComponentProperty>();

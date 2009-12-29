@@ -27,7 +27,7 @@
 //
 //                     TODO (low priority)
 //
-//  == BUGS ==
+//  == BUGS (FIXME) ==
 // Component->Copy seems to intermitently not copy race restrictions.
 // Component->Copy cross-links Hull maps (i.e. the one map is used by both 
 //   hulls). Suspect it is the individual modules that are x-linked not the 
@@ -37,14 +37,17 @@
 //     to make the hull map and race restrictions safe to modify.
 //
 //  == FEATURES ==
-// Healing property of fuel X-ports? - No, as it depends on other factors such as movement. Will include in the game engine code.
-// Add buttons to sort components alphabetically or by tech level (or perhaps by an id number to put in a more Stars! like order?)
+// Healing property of fuel X-ports? - No, as it depends on other factors such as 
+// movement. Will include in the game engine code.
+// Add buttons to sort components alphabetically or by tech level (or perhaps by 
+// an id number to put in a more Stars! like order?)
 //
 // == COSMETICS ==
 // Add Keyboard Shortcuts
 //  - Up/Down key to navigate Component List
 // Order of hull property tab stops
 // Display dock/cargo capacity in hull map.
+// When program starts with no component definition file all component property tabs are displayed. They should be hidden.
 //
 // ============================================================================
 
@@ -66,6 +69,7 @@ namespace ComponentEditor
 // Dialog for creating and editing components.
 // ============================================================================
 
+ 
    public partial class ComponentEditorWindow : Form
    {
        
@@ -111,6 +115,11 @@ namespace ComponentEditor
        // ----------------------------------------------------------------------------
        private void OnLoad(object sender, EventArgs e)
 	   {
+           // TODO: without this an exception is raised when trying to launch a dialog 
+           // from the non UI thread used to load the component definition file. The 
+           // exception is caught and the program continues but no component images 
+           // will be displayed. - dan_vale 28 Dec 09
+           String temp = AllComponents.Graphics; // force program to ask for the graphics path if not already defined.
 
 	   }
 
@@ -392,11 +401,13 @@ namespace ComponentEditor
        //-----------------------------------------------------------------------------
        // When the program is terminated, save the component data. This function is
        // invoked no matter which method is used to terminate the program.
-       // Saving here has been disabled - Daniel May 2009
+       // TODO Saving here has been disabled in debug mode as a quick backout for debugging - Daniel May 2009
        //-----------------------------------------------------------------------------
        private void OnFormClosing(object sender, FormClosingEventArgs e)
        {
-           /*
+#if (DEBUG)
+           return;
+#endif
            if (ComponentDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
@@ -425,9 +436,11 @@ namespace ComponentEditor
                MessageBox.Show("File not dirty.");
 #endif
            }
-            * */
        }
 
+       /// <summary>
+       /// Update the list of Hulls so that hulls this item may (only) be fitted to can be selected. (Hull affinity limits which hulls an item may be fitted to.)
+       /// </summary>
        private void ComponentHullAffinity_PopulateList()
        {
            ComponentHullAffinity.Items.Clear();
@@ -1829,18 +1842,6 @@ namespace ComponentEditor
       }
 
       #endregion
-
-
-
-
-
-
-
-
-
-
-
-
 
    }
 }
