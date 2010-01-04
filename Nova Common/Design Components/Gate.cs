@@ -85,11 +85,11 @@ namespace NovaCommon
               {
                   if (subnode.Name.ToLower() == "safehullmass")
                   {
-                      SafeHullMass = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      SafeHullMass = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "saferange")
                   {
-                      SafeRange = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      SafeRange = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
               }
               catch

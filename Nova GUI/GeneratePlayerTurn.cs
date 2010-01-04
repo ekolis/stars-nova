@@ -1,8 +1,7 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
-// This module will generate the player turn file to be sent to the Nova
+// This GUI module will generate the player turn file to be sent to the Nova
 // Console so that the turn for the next year can be generated. 
 //
 // This is free software. You can redistribute it and/or modify it under the

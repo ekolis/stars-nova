@@ -96,15 +96,15 @@ namespace NovaCommon
               {
                   if (subnode.Name.ToLower() == "maxmodifiedgravity")
                   {
-                      MaxModifiedGravity = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      MaxModifiedGravity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "maxmodifiedtemperature")
                   {
-                      MaxModifiedTemperature = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      MaxModifiedTemperature = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "maxmodifiedradiation")
                   {
-                      MaxModifiedRadiation = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      MaxModifiedRadiation = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
               }
               catch

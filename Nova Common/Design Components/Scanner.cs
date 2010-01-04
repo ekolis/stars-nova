@@ -92,11 +92,11 @@ namespace NovaCommon
               {
                   if (subnode.Name.ToLower() == "penetratingscan")
                   {
-                      PenetratingScan = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      PenetratingScan = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "normalscan")
                   {
-                      NormalScan = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      NormalScan = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
               }
               catch

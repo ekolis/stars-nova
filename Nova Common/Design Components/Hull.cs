@@ -83,15 +83,15 @@ namespace NovaCommon
               {
                   if (subnode.Name.ToLower() == "cellnumber")
                   {
-                      CellNumber = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      CellNumber = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   else if (subnode.Name.ToLower() == "componentmaximum")
                   {
-                      ComponentMaximum = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      ComponentMaximum = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   else if (subnode.Name.ToLower() == "componentcount")
                   {
-                      ComponentCount = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      ComponentCount = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   else if (subnode.Name.ToLower() == "componenttype")
                   {
@@ -240,27 +240,27 @@ namespace NovaCommon
               {
                   if (subnode.Name.ToLower() == "fuelcapacity")
                   {
-                      FuelCapacity = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      FuelCapacity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   else if (subnode.Name.ToLower() == "dockcapacity")
                   {
-                      DockCapacity = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      DockCapacity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   else if (subnode.Name.ToLower() == "basecargo")
                   {
-                      BaseCargo = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      BaseCargo = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   else if (subnode.Name.ToLower() == "armaxpop")
                   {
-                      ARMaxPop = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      ARMaxPop = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   else if (subnode.Name.ToLower() == "armorstrength")
                   {
-                      ArmorStrength = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      ArmorStrength = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   else if (subnode.Name.ToLower() == "battleinitiative")
                   {
-                      BattleInitiative = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      BattleInitiative = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   else if (subnode.Name.ToLower() == "module")
                   {

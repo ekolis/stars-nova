@@ -2,7 +2,8 @@
 // Nova. (c) 2008 Ken Reed.
 //
 // This module defines all the parameters that define the characteristics of a
-// race. These values are all set in the race designer and saved to a file.
+// race. These values are all set in the race designer. This object also manages
+// the loading ans saving of race data to a file.
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free
@@ -225,7 +226,7 @@ namespace NovaCommon
 
                       case "lrt": this.Traits.Add(((XmlText)xmlnode.FirstChild).Value); break;
 
-                      case "minebuildcost": this.MineBuildCost = int.Parse(((XmlText)xmlnode.FirstChild).Value); break;
+                      case "minebuildcost": this.MineBuildCost = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
                       case "prt": this.Traits.SetPrimary(((XmlText)xmlnode.FirstChild).Value); break;
                       case "pluralname": this.PluralName = ((XmlText)xmlnode.FirstChild).Value; break;
                       case "name": this.Name = ((XmlText)xmlnode.FirstChild).Value; break;
@@ -235,13 +236,13 @@ namespace NovaCommon
                       case "raceiconname": this.Icon.Source = ((XmlText)xmlnode.FirstChild).Value; break;
 
 
-                      case "factorybuildcost": this.FactoryBuildCost = int.Parse(((XmlText)xmlnode.FirstChild).Value); break;
-                      case "colonistsperresource": this.ColonistsPerResource = int.Parse(((XmlText)xmlnode.FirstChild).Value); break;
-                      case "factoryproduction": this.FactoryProduction = int.Parse(((XmlText)xmlnode.FirstChild).Value); break;
-                      case "operablefactories": this.OperableFactories = int.Parse(((XmlText)xmlnode.FirstChild).Value); break;
-                      case "mineproductionrate": this.MineProductionRate = int.Parse(((XmlText)xmlnode.FirstChild).Value); break;
-                      case "operablemines": this.OperableMines = int.Parse(((XmlText)xmlnode.FirstChild).Value); break;
-                      case "growthrate": this.GrowthRate = int.Parse(((XmlText)xmlnode.FirstChild).Value); break;
+                      case "factorybuildcost": this.FactoryBuildCost = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "colonistsperresource": this.ColonistsPerResource = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "factoryproduction": this.FactoryProduction = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "operablefactories": this.OperableFactories = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "mineproductionrate": this.MineProductionRate = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "operablemines": this.OperableMines = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "growthrate": this.GrowthRate = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
 
                       default: break;
                   }

@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -88,7 +87,7 @@ namespace NovaCommon
                   {
                       if (subnode.Name.ToLower() == key.ToLower())
                       {
-                          TechValues[key] = int.Parse(((XmlText)subnode.FirstChild).Value);
+                          TechValues[key] = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
 
                       }
                   }

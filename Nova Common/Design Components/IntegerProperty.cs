@@ -90,7 +90,7 @@ namespace NovaCommon
               {
                   if (subnode.Name.ToLower() == "value")
                   {
-                      Value = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      Value = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
               }
               catch

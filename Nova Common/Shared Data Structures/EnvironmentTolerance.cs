@@ -1,4 +1,13 @@
-﻿using System;
+﻿// ============================================================================
+// Nova. (c) 2009 Daniel Vale
+//
+// The resources needed to construct a game item;
+//
+// This is free software. You can redistribute it and/or modify it under the
+// terms of the GNU General Public License version 2 as published by the Free
+// Software Foundation.
+// ============================================================================
+using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
@@ -36,10 +45,10 @@ namespace NovaCommon
                     switch (subnode.Name.ToLower())
                     {
                         case "min":
-                            Minimum = double.Parse(((XmlText)subnode.FirstChild).Value);
+                            Minimum = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "max":
-                            Maximum = double.Parse(((XmlText)subnode.FirstChild).Value);
+                            Maximum = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                     }
                 }

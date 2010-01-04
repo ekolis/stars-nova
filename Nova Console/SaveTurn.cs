@@ -1,8 +1,8 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
-// This module will save the the data for the current turn.
+// This module converts the console's state into a Turn and saves it, thereby 
+// generating the next turn to be played.
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free

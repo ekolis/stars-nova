@@ -60,8 +60,8 @@ namespace NovaConsole
          stateData.ProductionCapacity = ProductionCapacity.Value;
          stateData.CapitalShips       = CapitalShips.Value;
          stateData.HighestScore       = HighestScore.Value;
-         stateData.TargetsToMeet      = Int32.Parse(TargetsToMeet.Text);
-         stateData.MinimumGameTime    = Int32.Parse(MinimumGameTime.Text);
+         stateData.TargetsToMeet = Int32.Parse(TargetsToMeet.Text, System.Globalization.CultureInfo.InvariantCulture);
+         stateData.MinimumGameTime = Int32.Parse(MinimumGameTime.Text, System.Globalization.CultureInfo.InvariantCulture);
       }
 
    }

@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -35,8 +34,6 @@ namespace Nova
 
         public static void Load(bool bPasswordNeeded)
         {
-            //GUIstate.Data = GUIstate.Data;
-
             // ----------------------------------------------------------------------------
             // Get the name of the folder where all the game files will be stored. This
             // is placed in the Registry by the Race Generator and we cache a copy in the

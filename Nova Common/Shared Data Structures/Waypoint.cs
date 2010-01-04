@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 20056 Ken Reed
 //
@@ -59,7 +58,7 @@ namespace NovaCommon
                   }
                   else if (subnode.Name.ToLower() == "warpfactor")
                   {
-                      WarpFactor = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      WarpFactor = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   else if (subnode.Name.ToLower() == "point")
                   {
