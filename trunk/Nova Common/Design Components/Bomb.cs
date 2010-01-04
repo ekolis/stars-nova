@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -130,15 +129,15 @@ namespace NovaCommon
               {
                   if (subnode.Name.ToLower() == "installations")
                   {
-                      Installations = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      Installations = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "popkill")
                   {
-                      PopKill = double.Parse(((XmlText)subnode.FirstChild).Value);
+                      PopKill = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "minimumkill")
                   {
-                      MinimumKill = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      MinimumKill = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "issmart")
                   {

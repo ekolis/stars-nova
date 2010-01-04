@@ -109,16 +109,16 @@ namespace NovaCommon
                   switch (subnode.Name.ToLower())
                   {
                       case "power":
-                          Power = int.Parse(((XmlText)subnode.FirstChild).Value);
+                          Power = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                           break;
                       case "range":
-                          Range = int.Parse(((XmlText)subnode.FirstChild).Value);
+                          Range = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                           break;
                       case "initiative":
-                          Initiative = int.Parse(((XmlText)subnode.FirstChild).Value);
+                          Initiative = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                           break;
                       case "accuracy":
-                          Accuracy = int.Parse(((XmlText)subnode.FirstChild).Value);
+                          Accuracy = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                           break;
                       case "group":
                           switch (((XmlText)subnode.FirstChild).Value.ToLower())

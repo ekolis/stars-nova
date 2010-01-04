@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 // Modified Daniel Vale 2009
@@ -124,8 +123,8 @@ namespace NovaCommon
                       case "type": 
                           this.Type = ((XmlText)subnode.FirstChild).Value; 
                           break;
-                      case "mass": 
-                          this.Mass = int.Parse(((XmlText)subnode.FirstChild).Value); 
+                      case "mass":
+                          this.Mass = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); 
                           break;
                       case "resource": 
                           this.Cost = new Resources(subnode); 

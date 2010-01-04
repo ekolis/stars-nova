@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -98,11 +97,11 @@ namespace NovaCommon
                   }
                   else if (subnode.Name.ToLower() == "fastestsafespeed")
                   {
-                      FastestSafeSpeed = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      FastestSafeSpeed = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   else if (subnode.Name.ToLower() == "optimalspeed")
                   {
-                      OptimalSpeed = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      OptimalSpeed = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   else if (subnode.Name.ToLower() == "fuelconsumption")
                   {
@@ -111,7 +110,7 @@ namespace NovaCommon
                       for (int warp = 0; warp < FuelConsumption.Length; warp++)
                       {
 
-                          FuelConsumption[warp] = int.Parse(((XmlText)subnode.SelectSingleNode("Warp" + warp.ToString()).FirstChild).Value);
+                          FuelConsumption[warp] = int.Parse(((XmlText)subnode.SelectSingleNode("Warp" + warp.ToString()).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                       }
                   }
               }

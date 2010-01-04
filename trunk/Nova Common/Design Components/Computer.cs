@@ -93,11 +93,11 @@ namespace NovaCommon
               {
                   if (subnode.Name.ToLower() == "initiative")
                   {
-                      Initiative = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      Initiative = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "accuracy")
                   {
-                      Accuracy = double.Parse(((XmlText)subnode.FirstChild).Value);
+                      Accuracy = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
               }
               catch

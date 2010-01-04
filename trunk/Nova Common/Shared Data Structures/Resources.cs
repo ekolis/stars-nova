@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -63,19 +62,19 @@ namespace NovaCommon
               {
                   if (subnode.Name.ToLower() == "ironium")
                   {
-                      Ironium = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      Ironium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "boranium")
                   {
-                      Boranium = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      Boranium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "germanium")
                   {
-                      Germanium = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      Germanium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "energy")
                   {
-                      Energy = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      Energy = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
               }
               catch

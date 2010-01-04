@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -117,10 +116,9 @@ namespace Nova
 
 // ----------------------------------------------------------------------------
 // Scan the game directory for .race files. If only one is present then that is
-// the race we will use (this will be the usual state). If more than one is
+// the race we will use (single race test bed or remote server). If more than one is
 // present then display a dialog asking the player which race he wants to use
-// (this will usually only be used as a debugging feature or when playing
-// practice games).
+// (multiplayer game with all players playing from a single game directory).
 // ----------------------------------------------------------------------------
 
          DirectoryInfo directory = new DirectoryInfo(gameFolder);

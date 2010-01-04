@@ -79,7 +79,7 @@ namespace NovaCommon
                   {
                       if (subnode.Name.ToLower() == key.ToLower())
                       {
-                          Restrictions[key] = int.Parse(((XmlText)subnode.FirstChild).Value);
+                          Restrictions[key] = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
 
                       }
                   }

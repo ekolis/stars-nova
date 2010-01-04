@@ -41,7 +41,7 @@ namespace Nova_AI
             }
 
             RaceName = args[0];
-            TurnNumber = int.Parse(args[1]);
+            TurnNumber = int.Parse(args[1], System.Globalization.CultureInfo.InvariantCulture);
 
             // read in race data
             Console.WriteLine("Playing turn {0} for race \"{1}\".", TurnNumber, RaceName);

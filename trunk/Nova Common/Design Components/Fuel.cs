@@ -103,11 +103,11 @@ namespace NovaCommon
               {
                   if (subnode.Name.ToLower() == "capacity")
                   {
-                      Capacity = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      Capacity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "generation")
                   {
-                      Generation = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      Generation = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
               }
               catch

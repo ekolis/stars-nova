@@ -114,31 +114,31 @@ namespace NovaCommon
               {
                   if (subnode.Name.ToLower() == "layerrate")
                   {
-                      LayerRate = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      LayerRate = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "safespeed")
                   {
-                      SafeSpeed = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      SafeSpeed = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "hitchance")
                   {
-                      HitChance = double.Parse(((XmlText)subnode.FirstChild).Value);
+                      HitChance = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "damageperengine")
                   {
-                      DamagePerEngine = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      DamagePerEngine = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "damageperramscoop")
                   {
-                      DamagePerRamScoop = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      DamagePerRamScoop = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "minfleetdamage")
                   {
-                      MinFleetDamage = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      MinFleetDamage = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
                   if (subnode.Name.ToLower() == "minramscoopdamage")
                   {
-                      MinRamScoopDamage = int.Parse(((XmlText)subnode.FirstChild).Value);
+                      MinRamScoopDamage = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                   }
               }
               catch
