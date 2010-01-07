@@ -100,7 +100,7 @@ namespace Nova.Controls
          // To avoid confusion when another race's fleet or planet is selected
          // grey out (disable) the detail panel.
 
-         if (item.Owner == GUIstate.Data.RaceName) {
+         if (item.Owner == GuiState.Data.RaceName) {
             DetailPanel.Enabled = true;
          }
          else {

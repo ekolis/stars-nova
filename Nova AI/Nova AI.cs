@@ -7,7 +7,7 @@
 // TODO - have the nova console recognise a computer player and call the AI
 // to take the turn - should wait until the turn files are properly re-structured.
 //
-// TODO - suggest placing wrappers around PlayerTurn.Generate and GUIdata.Load 
+// TODO - suggest placing wrappers around OrderWriter.WriteOrders and GUIdata.Load 
 //        incase these interfaces change when file formats are reworked.
 //
 // TODO - refactor this to better seperate the AI itself from the program that 
@@ -48,7 +48,7 @@ namespace Nova_AI
             try
             {
                 // TODO bypass GUI race selection (multi-player) and password entry for AI
-                GUIdata.Load(true); 
+                GuiState.Initialize(true); 
             }
             catch
             {
@@ -59,7 +59,7 @@ namespace Nova_AI
               // currently does nothing: This is where the AI propper should do its work.
 
             // save turn
-            PlayerTurn.Generate();
+            OrderWriter.WriteOrders();
 
             return;
         }

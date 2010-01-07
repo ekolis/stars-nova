@@ -1,7 +1,7 @@
 ﻿<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{14CD4564-836F-4934-8B12-74F399B0F7D5}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -198,9 +198,8 @@
     <Compile Include="Reports\FleetReport.Designer.cs">
       <DependentUpon>FleetReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="GeneratePlayerTurn.cs" />
-    <Compile Include="GUIstateData.cs" />
-    <Compile Include="GUIdata.cs" />
+    <Compile Include="OrderWriter.cs" />
+    <Compile Include="GuiState.cs" />
     <Compile Include="Dialogs\ManageFleetDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,7 +221,7 @@
     <Compile Include="Reports\PlanetReport.Designer.cs">
       <DependentUpon>PlanetReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="ProcessGlobalTurn.cs">
+    <Compile Include="IntelReader.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="NovaGUI.cs">

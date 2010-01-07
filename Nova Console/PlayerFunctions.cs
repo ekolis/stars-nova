@@ -72,12 +72,12 @@ namespace NovaConsole
 
       private static void ReadPlayerData(Race race)
       {
-         RaceTurn    inputTurn = new RaceTurn();
-         string      fileName  = Path.Combine(StateData.GameFolder, race.Name + ".turn");
+         Orders    inputTurn = new Orders();
+         string      fileName  = Path.Combine(StateData.GameFolder, race.Name + ".Orders");
 
          if (File.Exists(fileName)) {
             FileStream  turnFile  = new FileStream(fileName, FileMode.Open);
-            inputTurn = Formatter.Deserialize(turnFile) as RaceTurn;
+            inputTurn = Formatter.Deserialize(turnFile) as Orders;
             turnFile.Close();
          }
 

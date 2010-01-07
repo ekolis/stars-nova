@@ -23,8 +23,8 @@ namespace Nova
    public partial class DesignManager : Form
    {
 
-      private GUIstate   StateData = null;
-      private GlobalTurn TurnData  = null;
+      private GuiState   StateData = null;
+      private Intel TurnData  = null;
 
 // ============================================================================
 // Dialog constrution.
@@ -33,7 +33,7 @@ namespace Nova
       public DesignManager()
       {
          InitializeComponent();
-         StateData  = GUIstate.Data;
+         StateData  = GuiState.Data;
          TurnData   = StateData.InputTurn;
          HullGrid.ModuleSelected += DesignModuleSelected;
       }

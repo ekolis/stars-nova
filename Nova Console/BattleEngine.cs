@@ -768,7 +768,7 @@ namespace NovaConsole {
                   " of your ships were destroyed";
             }
 
-            GlobalTurn.Data.Messages.Add(message);
+            Intel.Data.Messages.Add(message);
          }
       }
 

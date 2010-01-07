@@ -32,8 +32,8 @@ namespace Nova
 // ----------------------------------------------------------------------------
 
       private Star       QueueStar = null;
-      private GUIstate   StateData = null;
-      private GlobalTurn TurnData  = null;
+      private GuiState   StateData = null;
+      private Intel TurnData  = null;
 
 
 // ----------------------------------------------------------------------------
@@ -66,7 +66,7 @@ namespace Nova
       public ProductionDialog(Star star)
       {
          QueueStar  = star;
-         StateData  = GUIstate.Data;
+         StateData  = GuiState.Data;
          TurnData   = StateData.InputTurn;
 
          InitializeComponent();
@@ -332,7 +332,7 @@ namespace Nova
          }
 
          foreach (Design design in TurnData.AllDesigns.Values) {
-            if (design.Owner == GUIstate.Data.RaceName || design.Owner == "*"){
+            if (design.Owner == GuiState.Data.RaceName || design.Owner == "*"){
 
                if (design.Type == "Ship") {
                   if (dockCapacity > design.Mass) {
@@ -353,7 +353,7 @@ namespace Nova
 
 
 // ============================================================================
-// Process a design being selected for possible construction.
+// ReadIntel a design being selected for possible construction.
 // ============================================================================
 
       private void AvailableSelected(object sender, System.EventArgs e)

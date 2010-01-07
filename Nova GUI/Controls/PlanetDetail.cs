@@ -729,7 +729,7 @@ namespace Nova
       {
          star = selectedStar;
          
-         List<Star> myStars = GUIstate.Data.PlayerStars;
+         List<Star> myStars = GuiState.Data.PlayerStars;
          int i;
 
          for (i = 0; i < myStars.Count; i++) {
@@ -763,7 +763,7 @@ namespace Nova
          }
 
          QueueList.Populate(ProductionQueue, star.ManufacturingQueue);
-         star.Update(GUIstate.Data.RaceData); // Debug - try to get sensible data to show - Dan 27 Aug 09
+         star.Update(GuiState.Data.RaceData); // Debug - try to get sensible data to show - Dan 27 Aug 09
          int    resources      = star.Colonists / 1000;
          string manned         = " of " + resources.ToString();
 
@@ -833,7 +833,7 @@ namespace Nova
 
       private void NextPlanet_Click(object sender, EventArgs e)
       {
-         List<Star> myStars = GUIstate.Data.PlayerStars;
+         List<Star> myStars = GuiState.Data.PlayerStars;
 
          if (myStars.Count == 1) {
             PreviousPlanet.Enabled = false;
@@ -863,7 +863,7 @@ namespace Nova
 
       private void PreviousPlanet_Click(object sender, EventArgs e)
       {
-         List<Star> myStars = GUIstate.Data.PlayerStars;
+         List<Star> myStars = GuiState.Data.PlayerStars;
 
          if (myStars.Count == 1) {
             PreviousPlanet.Enabled = false;

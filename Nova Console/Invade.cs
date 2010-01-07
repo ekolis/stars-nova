@@ -37,7 +37,7 @@ namespace NovaConsole {
             message.Audience = fleet.Owner;
             message.Text = "Fleet " + fleet.Name + " has waypoint orders to "
                + "invade but the waypoint is not a planet";
-            GlobalTurn.Data.Messages.Add(message);
+            Intel.Data.Messages.Add(message);
             return;
          }
 
@@ -51,7 +51,7 @@ namespace NovaConsole {
             message.Audience = fleet.Owner;
             message.Text = "Fleet " + fleet.Name + " has waypoint orders to "
                + "invade " + star.Name + " but there are no troops on board";
-            GlobalTurn.Data.Messages.Add(message);
+            Intel.Data.Messages.Add(message);
             return;
          }
 
@@ -68,7 +68,7 @@ namespace NovaConsole {
             message.Text = "Fleet " + fleet.Owner + " has killed " 
                + troops.ToString()  + " colonisists on " + star.Name
                + " but did not manage to capture the planet";
-            GlobalTurn.Data.Messages.Add(message);
+            Intel.Data.Messages.Add(message);
             star.Colonists -= (int) troops;
             return;
          }
@@ -78,7 +78,7 @@ namespace NovaConsole {
          captureMessage.Text = "Fleet " + fleet.Owner + " has killed " 
             + "all the colonists on " + star.Name
             + " and has captured the planet";
-         GlobalTurn.Data.Messages.Add(captureMessage);
+         Intel.Data.Messages.Add(captureMessage);
 
          star.Owner     = fleet.Owner;
          star.Colonists = (int) (troops - star.Colonists);

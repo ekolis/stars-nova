@@ -52,7 +52,7 @@ namespace Nova
          FleetImage.Image      = fleet.Image;
          FleetOwner.Text       = race;
 
-         RaceIcon.Image = GUIstate.Data.InputTurn.RaceIcons[race] as Image;
+         RaceIcon.Image = GuiState.Data.InputTurn.RaceIcons[race] as Image;
       }
 
 

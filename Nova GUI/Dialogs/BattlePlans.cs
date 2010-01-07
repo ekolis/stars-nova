@@ -32,7 +32,7 @@ namespace Nova
       {
          InitializeComponent();
 
-         foreach (BattlePlan plan in GUIstate.Data.BattlePlans.Values) {
+         foreach (BattlePlan plan in GuiState.Data.BattlePlans.Values) {
             PlanList.Items.Add(plan.Name);
          }
          
@@ -47,7 +47,7 @@ namespace Nova
 
       private void UpdatePlanDetails()
       {
-         Hashtable  battlePlans = GUIstate.Data.BattlePlans;
+         Hashtable  battlePlans = GuiState.Data.BattlePlans;
          string     selection   = PlanList.SelectedItem as string;
          BattlePlan plan        = battlePlans[selection] as BattlePlan;
 

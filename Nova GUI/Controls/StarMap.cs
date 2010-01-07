@@ -25,8 +25,8 @@ namespace Nova
    public partial class StarMap : UserControl
    {
       private Bitmap     CursorBitmap      = null;
-      private GlobalTurn TurnData          = null;
-      private GUIstate   StateData         = null;
+      private Intel TurnData          = null;
+      private GuiState   StateData         = null;
       private Point      CursorPosition    = new Point(0, 0);
       private Point      Extent            = new Point(0, 0);
       private Point      LastClick         = new Point(0, 0);
@@ -84,7 +84,7 @@ namespace Nova
 
       public void Initialise()
       {
-         StateData     = GUIstate.Data;          
+         StateData     = GuiState.Data;          
          TurnData      = StateData.InputTurn;
          IsInitialised = true;
          /*string sv = this.ZoomIn.Visible.ToString();
@@ -144,7 +144,7 @@ namespace Nova
          // (1a) Planetary long-range scanners.
 
          foreach (Star star in TurnData.AllStars.Values) {
-            if (star.Owner == GUIstate.Data.RaceName) {
+            if (star.Owner == GuiState.Data.RaceName) {
                DrawCircle(lrScanBrush, star.Position, star.ScanRange);
             }
          }
@@ -171,7 +171,7 @@ namespace Nova
              Color cb;
              Color cf;
 
-             if (Minefield.Owner == GUIstate.Data.RaceName)
+             if (Minefield.Owner == GuiState.Data.RaceName)
              {
                  cb = Color.FromArgb(0,   0,   0, 0);
                  cf = Color.FromArgb(128, 0, 128, 0);
@@ -554,7 +554,7 @@ namespace Nova
 
 
 // ============================================================================
-// Process a request to zoom in the star map.
+// ReadIntel a request to zoom in the star map.
 // ============================================================================
 
       public void ZoomInClick(object sender, System.EventArgs e)
@@ -571,7 +571,7 @@ namespace Nova
 
 
 // ============================================================================
-// Process a request to zoom out the star map.
+// ReadIntel a request to zoom out the star map.
 // ============================================================================
 
       public void ZoomOutClick(object sender, System.EventArgs e)
@@ -695,7 +695,7 @@ namespace Nova
 
 
 // ============================================================================
-// Process a mouse down event.
+// ReadIntel a mouse down event.
 // ============================================================================
 
       private void StarMapMouse(object sender, MouseEventArgs e)

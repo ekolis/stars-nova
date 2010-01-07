@@ -1,8 +1,11 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
-// This module converts the console's state into a Turn and saves it, thereby 
+// This module converts the console's state into Intel and saves it, thereby 
 // generating the next turn to be played.
+//
+// This is a static helper object that acts on ConsoleState to produce an Intel 
+// Object.
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free
@@ -23,11 +26,11 @@ using System;
 
 namespace NovaConsole
 {
-   public class Turn
+   public static class IntelWriter
    {
       private static BinaryFormatter Formatter = new BinaryFormatter();
       private static ConsoleState    StateData = null;
-      private static GlobalTurn      TurnData  = null;
+      private static Intel      TurnData  = null;
 
 
 // ============================================================================
@@ -38,10 +41,10 @@ namespace NovaConsole
 // we'll get duplicated (but separate) star objects.
 // ============================================================================
 
-      public static void BuildAndSave()
+      public static void WriteIntel()
       {
          StateData = ConsoleState.Data;
-         TurnData  = GlobalTurn.Data;
+         TurnData  = Intel.Data;
 
          TurnData.TurnYear      = StateData.TurnYear;
          TurnData.AllStars      = StateData.AllStars;
@@ -68,11 +71,11 @@ namespace NovaConsole
             TurnData.AllScores = new ArrayList();
          }
 
-         string turnFileName = Path.Combine(ConsoleState.Data.GameFolder, "Nova.turn");
+         string turnFileName = Path.Combine(ConsoleState.Data.GameFolder, "Nova.Intel");
          FileStream turnFile = new FileStream(turnFileName,FileMode.Create);
 
-         Formatter.Serialize(turnFile, GlobalTurn.Data.TurnYear);
-         Formatter.Serialize(turnFile, GlobalTurn.Data);
+         Formatter.Serialize(turnFile, Intel.Data.TurnYear);
+         Formatter.Serialize(turnFile, Intel.Data);
 
          turnFile.Close();
       }

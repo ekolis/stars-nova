@@ -32,7 +32,7 @@ namespace Nova
 
       public static int Cost(int level) 
       {
-         GUIstate stateData   = GUIstate.Data;
+         GuiState stateData   = GuiState.Data;
          int techAjustment    = 0;
          Hashtable techLevels = stateData.ResearchLevel.TechValues;
 

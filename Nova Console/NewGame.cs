@@ -55,7 +55,7 @@ namespace NovaConsole
 
          GenerateStars();
          InitialisePlayerData();
-         Turn.BuildAndSave();
+         IntelWriter.WriteIntel();
 
          return true;
       }
@@ -147,8 +147,8 @@ namespace NovaConsole
          welcome.Text     = "Your race is ready to explore the universe.";
          welcome.Audience = "*";
 
-         GlobalTurn.Data.Messages.Add(welcome);
-         GlobalTurn.Data.TurnYear = 2100;
+         Intel.Data.Messages.Add(welcome);
+         Intel.Data.TurnYear = 2100;
       }
 
 

@@ -442,7 +442,7 @@ private void InitializeComponent()
 
       public Star Value {
          set {
-            Race race    = GUIstate.Data.RaceData;
+            Race race    = GuiState.Data.RaceData;
             int habValue = (int) Math.Ceiling(value.HabitalValue(race) * 100);
             PlanetValue.Text = habValue.ToString() + "%";
 
@@ -453,7 +453,7 @@ private void InitializeComponent()
                PlanetValue.ForeColor = Color.Black;
             }
 
-            StarReport report = GUIstate.Data.StarReports[value.Name] 
+            StarReport report = GuiState.Data.StarReports[value.Name] 
                                 as StarReport;
 
             if (report.Population == 0) {

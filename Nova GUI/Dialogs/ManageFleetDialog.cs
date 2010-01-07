@@ -39,7 +39,7 @@ namespace Nova
       public ManageFleetDialog()
       {
          InitializeComponent();
-         AllFleets = GUIstate.Data.InputTurn.AllFleets;
+         AllFleets = GuiState.Data.InputTurn.AllFleets;
       }
 
 
@@ -119,7 +119,7 @@ namespace Nova
       private void MergeButton_Click(object sender, EventArgs e)
       {
          string fleetName = CoLocatedFleets.SelectedItems[0].Text;
-         string fleetKey  = GUIstate.Data.RaceName + "/" + fleetName;
+         string fleetKey  = GuiState.Data.RaceName + "/" + fleetName;
 
          Fleet fleetToMerge = AllFleets[fleetKey] as Fleet;
          foreach (Ship ship in fleetToMerge.FleetShips) {
@@ -127,7 +127,7 @@ namespace Nova
          }
 
          AllFleets.Remove(fleetKey);
-         GUIstate.Data.DeletedFleets.Add(fleetKey);
+         GuiState.Data.DeletedFleets.Add(fleetKey);
          UpdateDialogDetails();
 
          MergeButton.Enabled = false;

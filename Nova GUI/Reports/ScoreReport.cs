@@ -39,7 +39,7 @@ namespace Nova
 
       private void OnLoad(object sender, EventArgs e)
       {
-         ArrayList allScores    = GUIstate.Data.InputTurn.AllScores;
+         ArrayList allScores    = GuiState.Data.InputTurn.AllScores;
          ScoreGridView.AutoSize = true;
 
          foreach (ScoreRecord score in allScores) {

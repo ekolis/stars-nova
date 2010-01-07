@@ -26,7 +26,7 @@ namespace Nova
 {
    public class ShipDesignDialog : System.Windows.Forms.Form
    {
-      private GUIstate     StateData           = null;   
+      private GuiState     StateData           = null;   
       private Hashtable    AllComponents       = null;
       private Hashtable    AllDesigns          = null;
       private Hashtable    AvailableComponents = new Hashtable();
@@ -97,7 +97,7 @@ namespace Nova
 
           // Some abbreviations (just to save a bit of typing)
 
-          StateData = GUIstate.Data;
+          StateData = GuiState.Data;
           AllComponents = NovaCommon.AllComponents.Data.Components;
           AllDesigns = StateData.InputTurn.AllDesigns;
 
@@ -833,7 +833,7 @@ namespace Nova
       {
          int index = 0;
 
-         foreach (Component component in GUIstate.Data.AvailableComponents.Values)
+         foreach (Component component in GuiState.Data.AvailableComponents.Values)
          {
              // TODO (low priority) - work out why it sometimes is null.
              if (component != null)
@@ -936,7 +936,7 @@ namespace Nova
 
             if (component.Type == nodeType) 
             {
-               addToList = component.CheckAvailability(GUIstate.Data.RaceData);
+               addToList = component.CheckAvailability(GuiState.Data.RaceData);
             }
 
             if (addToList == true) 

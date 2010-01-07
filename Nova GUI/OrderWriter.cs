@@ -1,8 +1,11 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
-// This GUI module will generate the player turn file to be sent to the Nova
+// This GUI module will generate the player's Orders, which are written to file and sent to the Nova
 // Console so that the turn for the next year can be generated. 
+//
+// This is a static helper object that operates on GuiState and Intel to create
+// an Orders object and write the orders to file.
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free
@@ -21,38 +24,38 @@ using System;
 
 
 // ============================================================================
-// Generate the player's turn.
+// WriteOrders the player's turn.
 // ============================================================================
 
 namespace Nova
 {
-   public class PlayerTurn
+   public static class OrderWriter
    {
 
 // ---------------------------------------------------------------------------
 // Class private data. The turn data itself is stored in the class defined in
-// NovaCommon RaceTurn.cs
+// NovaCommon Orders.cs
 // ---------------------------------------------------------------------------
 
       private static BinaryFormatter Formatter  = new BinaryFormatter();
-      private static GUIstate        StateData  = null;
-      private static GlobalTurn      InputTurn  = null;
+      private static GuiState        StateData  = null;
+      private static Intel           InputTurn  = null; // TODO - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
       private static string          RaceName   = null;
 
 
 // ============================================================================
-// Generate the player's turn. We don't bother checking what's changed we just
+// WriteOrders the player's turn. We don't bother checking what's changed we just
 // send the details of everything owned by the player's race and the Nova
 // Console will update its master copy of everything.
 // ============================================================================
 
-      public static void Generate()
+      public static void WriteOrders()
       {
-         StateData  = GUIstate.Data;
+         StateData  = GuiState.Data;
          InputTurn  = StateData.InputTurn;
          RaceName   = StateData.RaceName;
 
-         RaceTurn outputTurn = new RaceTurn();
+         Orders outputTurn = new Orders();
          RaceData playerData = new RaceData();
          
          playerData.TurnYear        = StateData.TurnYear;
@@ -100,7 +103,7 @@ namespace Nova
             outputTurn.DeletedFleets.Add(designKey);
          }
 
-         string turnFileName = Path.Combine(StateData.GameFolder, RaceName + ".turn");
+         string turnFileName = Path.Combine(StateData.GameFolder, RaceName + ".Orders");
 
          FileStream turnFile=new FileStream(turnFileName, FileMode.Create);
          Formatter.Serialize(turnFile, outputTurn);
@@ -114,7 +117,7 @@ namespace Nova
 
       private static int CountTechLevels()
       {
-         StateData = GUIstate.Data;
+         StateData = GuiState.Data;
 
          int       total     = 0;
          Hashtable techLevel = StateData.ResearchLevel.TechValues;
