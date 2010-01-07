@@ -31,16 +31,16 @@ namespace Nova
 
       public static void Add(NovaCommon.Component component, bool report)
       {
-         Race race = GUIstate.Data.RaceData;
+         Race race = GuiState.Data.RaceData;
          string name = component.Name;
 
 
          if (component.CheckAvailability(race)) 
          {
-            GUIstate.Data.AvailableComponents[component.Name] = component;
+            GuiState.Data.AvailableComponents[component.Name] = component;
        
             if (report) {
-               GUIstate.Data.Messages.Add("You now have available the "
+               GuiState.Data.Messages.Add("You now have available the "
                                       + component.Name + " " + component.Type
                                       + " component");
             }
@@ -56,17 +56,17 @@ namespace Nova
       private static bool CheckEngine(Engine engine)
       {
           /* disabled for refactoring of components - Daniel Apr 09. Race restrictions to be dynamic
-         if (engine.RamScoop && GUIstate.Data.RaceData.NoRamScoopEngines) {
+         if (engine.RamScoop && GuiState.Data.RaceData.NoRamScoopEngines) {
             return false;
          }
 
          if (engine.RequiresFuelEfficiency &&
-            GUIstate.Data.RaceData.ImprovedEfficiency == false) {
+            GuiState.Data.RaceData.ImprovedEfficiency == false) {
             return false;
          }
 
          if (engine.Name == "Interspace 10") {
-            if (GUIstate.Data.RaceData.NoRamScoopEngines) {
+            if (GuiState.Data.RaceData.NoRamScoopEngines) {
                return true;
             }
             else {
@@ -87,7 +87,7 @@ namespace Nova
       {
           /* FIXME - race restrictions
          if (hull.Name == "Meta-Morph") {
-            if (GUIstate.Data.RaceData.Type == "HyperExpansion") {
+            if (GuiState.Data.RaceData.Type == "HyperExpansion") {
                return true;
             }
             else {

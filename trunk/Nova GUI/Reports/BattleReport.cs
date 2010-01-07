@@ -44,7 +44,7 @@ namespace Nova
 
          BattleGridView.AutoSize = true;
          
-         foreach (BattleReport report in GUIstate.Data.InputTurn.Battles) {
+         foreach (BattleReport report in GuiState.Data.InputTurn.Battles) {
 
             Hashtable countSides = new Hashtable();
             foreach (Fleet fleet in report.Stacks.Values) {
@@ -55,7 +55,7 @@ namespace Nova
             int theirShips = 0;
 
             foreach (Fleet fleet in report.Stacks.Values) {
-               if (fleet.Owner == GUIstate.Data.RaceName) {
+               if (fleet.Owner == GuiState.Data.RaceName) {
                   ourShips += fleet.FleetShips.Count;
                }
                else {
@@ -67,7 +67,7 @@ namespace Nova
             int theirLosses = 0;
 
             foreach (string race in report.Losses.Keys) {
-               if (race == GUIstate.Data.RaceName) {
+               if (race == GuiState.Data.RaceName) {
                   ourLosses += (int) report.Losses[race];
                }
                else {
@@ -96,17 +96,17 @@ namespace Nova
       {
           int battleRow = e.RowIndex;
 
-          if (GUIstate.Data.InputTurn.Battles.Count == 0)
+          if (GuiState.Data.InputTurn.Battles.Count == 0)
           {
               Report.Information("There are no battles to view.");
           }
-          else if (GUIstate.Data.InputTurn.Battles.Count <= battleRow)
+          else if (GuiState.Data.InputTurn.Battles.Count <= battleRow)
           {
               Report.Information("Battle "+battleRow+" does not exist.");
           }
           else
           {
-              BattleReport report = GUIstate.Data.InputTurn.Battles[battleRow] as BattleReport;
+              BattleReport report = GuiState.Data.InputTurn.Battles[battleRow] as BattleReport;
               BattleViewer battleViewer = new BattleViewer(report);
               battleViewer.ShowDialog();
               battleViewer.Dispose();

@@ -46,7 +46,7 @@ namespace NovaConsole
               message.Audience = "*";
               message.Text = "The " + race.PluralName +
                                  " have won the game";
-              GlobalTurn.Data.Messages.Add(message);
+              Intel.Data.Messages.Add(message);
               return;
           }
           else
@@ -81,7 +81,7 @@ namespace NovaConsole
                       message.Audience = "*";
                       message.Text = "The " + race.PluralName +
                                          " have won the game";
-                      GlobalTurn.Data.Messages.Add(message);
+                      Intel.Data.Messages.Add(message);
                       return;
                   }
               }

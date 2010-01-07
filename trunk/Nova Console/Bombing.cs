@@ -98,12 +98,12 @@ namespace NovaConsole
          Message lambMessage  = new Message();
          lambMessage.Text     = text.ToString();
          lambMessage.Audience = star.Owner;
-         GlobalTurn.Data.Messages.Add(lambMessage);
+         Intel.Data.Messages.Add(lambMessage);
 
          Message wolfMessage = new Message();
          wolfMessage.Audience = fleet.Owner;
          wolfMessage.Text     = text.ToString();
-         GlobalTurn.Data.Messages.Add(wolfMessage);
+         Intel.Data.Messages.Add(wolfMessage);
 
          if (star.Colonists <= 0) {
             star.Colonists = 0;
@@ -152,12 +152,12 @@ namespace NovaConsole
          Message lambDefenses  = new Message();
          lambDefenses.Text     = text.ToString();
          lambDefenses.Audience = star.Owner;
-         GlobalTurn.Data.Messages.Add(lambDefenses);
+         Intel.Data.Messages.Add(lambDefenses);
 
          Message wolfDefenses  = new Message();
          wolfDefenses.Audience = fleet.Owner;
          wolfDefenses.Text     = text.ToString();
-         GlobalTurn.Data.Messages.Add(wolfDefenses);
+         Intel.Data.Messages.Add(wolfDefenses);
 
          // Now Factories
 
@@ -171,12 +171,12 @@ namespace NovaConsole
          Message lambFactories  = new Message();
          lambFactories.Text     = text.ToString();
          lambFactories.Audience = star.Owner;
-         GlobalTurn.Data.Messages.Add(lambFactories);
+         Intel.Data.Messages.Add(lambFactories);
 
          Message wolfFactories  = new Message();
          wolfFactories.Audience = fleet.Owner;
          wolfFactories.Text     = text.ToString();
-         GlobalTurn.Data.Messages.Add(wolfFactories);
+         Intel.Data.Messages.Add(wolfFactories);
 
          // Now Mines
 
@@ -190,12 +190,12 @@ namespace NovaConsole
          Message lambMines  = new Message();
          lambMines.Text     = text.ToString();
          lambMines.Audience = star.Owner;
-         GlobalTurn.Data.Messages.Add(lambMines);
+         Intel.Data.Messages.Add(lambMines);
 
          Message wolfMines  = new Message();
          wolfMines.Text     = text.ToString();
          wolfMines.Audience = fleet.Owner;
-         GlobalTurn.Data.Messages.Add(wolfMines);
+         Intel.Data.Messages.Add(wolfMines);
       }
    }
 }     

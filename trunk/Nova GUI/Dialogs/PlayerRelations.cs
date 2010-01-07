@@ -24,7 +24,7 @@ namespace Nova
 {
    public partial class PlayerRelations : Form
    {
-      private Hashtable Relation = GUIstate.Data.PlayerRelations;
+      private Hashtable Relation = GuiState.Data.PlayerRelations;
 
 
 // ============================================================================
@@ -35,8 +35,8 @@ namespace Nova
       {
          InitializeComponent();
 
-         foreach (string raceName in GUIstate.Data.InputTurn.AllRaceNames) {
-            if (raceName != GUIstate.Data.RaceName) {
+         foreach (string raceName in GuiState.Data.InputTurn.AllRaceNames) {
+            if (raceName != GuiState.Data.RaceName) {
                RaceList.Items.Add(raceName);
             }
          }

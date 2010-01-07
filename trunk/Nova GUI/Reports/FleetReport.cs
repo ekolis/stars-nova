@@ -42,9 +42,9 @@ namespace Nova
       private void OnLoad(object sender, EventArgs e)
       {
          const int numColumns = 11;
-         Race      race       = GUIstate.Data.RaceData;
+         Race      race       = GuiState.Data.RaceData;
 
-         Hashtable allFleets = GUIstate.Data.InputTurn.AllFleets;
+         Hashtable allFleets = GuiState.Data.InputTurn.AllFleets;
          FleetGridView.Columns[6].Name = "Cargo";
          FleetGridView.AutoSize        = true;
          

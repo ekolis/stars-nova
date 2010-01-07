@@ -162,7 +162,7 @@ namespace NovaConsole
             ConsoleState.Data.AllFleets.Remove(fleet.Key);
          }
             
-         GlobalTurn.Data.Messages.Add(message);
+         Intel.Data.Messages.Add(message);
       }
    }      
 } 

@@ -363,7 +363,7 @@ private void InitializeComponent()
       static void Main() 
       {
          Application.EnableVisualStyles();
-         GUIdata.Load(true);        
+         GuiState.Initialize(true);        
          MainWindow.InitialiseControls();
          Application.Run(MainWindow.nova);
       }
@@ -375,7 +375,7 @@ private void InitializeComponent()
 
       private void MenuExit_Click(object sender, System.EventArgs e)
       {
-         GUIstate.Save();
+         GuiState.Save();
          Close();
       }
 
@@ -442,8 +442,8 @@ private void InitializeComponent()
       
       private void NovaGUI_FormClosing(object sender, FormClosingEventArgs e)
       {
-         GUIstate.Save();
-         PlayerTurn.Generate();
+         GuiState.Save();
+         OrderWriter.WriteOrders();
       }
 
 
@@ -532,13 +532,13 @@ private void InitializeComponent()
 
        private void generateTurnToolStripMenuItem_Click(object sender, EventArgs e)
        {
-          GUIstate.Save();
-          PlayerTurn.Generate();
+          GuiState.Save();
+          OrderWriter.WriteOrders();
        }
 
        private void loadNextTurnToolStripMenuItem_Click(object sender, EventArgs e)
        {
-          GUIdata.Load(false);
+          GuiState.Initialize(false);
           MainWindow.NextTurn();
        }
    }
@@ -559,18 +559,18 @@ private void InitializeComponent()
 
       public static void InitialiseControls()
       {
-         nova.messages.Year        = GUIstate.Data.TurnYear;
-         nova.messages.MessageList = GUIstate.Data.Messages;
+         nova.messages.Year        = GuiState.Data.TurnYear;
+         nova.messages.MessageList = GuiState.Data.Messages;
          
-         nova.currentTurn = GUIstate.Data.TurnYear;
-         nova.currentRace = GUIstate.Data.RaceName;
+         nova.currentTurn = GuiState.Data.TurnYear;
+         nova.currentRace = GuiState.Data.RaceName;
 
          nova.MapControl.Initialise();
 
          // Select a star owned by the player (if any) as the default display.
 
-         foreach (Star star in GUIstate.Data.InputTurn.AllStars.Values) {
-            if (star.Owner == GUIstate.Data.RaceName) {
+         foreach (Star star in GuiState.Data.InputTurn.AllStars.Values) {
+            if (star.Owner == GuiState.Data.RaceName) {
                nova.MapControl.SetCursor(star.Position);
                nova.SelectionDetail.Value  = star;
                nova.SelectionSummary.Value = star;
@@ -581,8 +581,8 @@ private void InitializeComponent()
 
       public static void NextTurn()
       {
-         nova.messages.Year = GUIstate.Data.TurnYear;
-         nova.messages.MessageList = GUIstate.Data.Messages;
+         nova.messages.Year = GuiState.Data.TurnYear;
+         nova.messages.MessageList = GuiState.Data.Messages;
          
          nova.Invalidate(true);
 
@@ -591,9 +591,9 @@ private void InitializeComponent()
 
          // Select a star owned by the player (if any) as the default display.
 
-         foreach (Star star in GUIstate.Data.InputTurn.AllStars.Values)
+         foreach (Star star in GuiState.Data.InputTurn.AllStars.Values)
          {
-            if (star.Owner == GUIstate.Data.RaceName)
+            if (star.Owner == GuiState.Data.RaceName)
             {
                nova.MapControl.SetCursor(star.Position);
                nova.SelectionDetail.Value = star;

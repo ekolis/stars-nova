@@ -1,7 +1,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
-// This module is invoked when New Turn is selected in the Nova Console. 
+// This module is invoked when New IntelWriter is selected in the Nova Console. 
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free
@@ -23,9 +23,9 @@ namespace NovaConsole {
 // Class to process a new turn.
 // ============================================================================
 
-   public class NewTurn
+   public class ProcessTurn
    {
-      private static BinaryFormatter Formatter = new BinaryFormatter();
+//      private static BinaryFormatter Formatter = new BinaryFormatter();
       private static ConsoleState    StateData = null;
 
 
@@ -39,10 +39,20 @@ namespace NovaConsole {
       {
          StateData = ConsoleState.Data;
 
-         StateData.AllTechLevels.Clear();
+         OrderReader.ReadOrders();
 
-         foreach (Race Race in StateData.AllRaces.Values) {
-            ReadPlayerTurn(Race);
+         foreach (Fleet fleet in StateData.AllFleets.Values)
+         {
+             bool destroyed = ProcessFleet(fleet);
+             if (destroyed)
+             {
+                 StateData.AllFleets.Remove(fleet.Key);
+             }
+         }
+
+         foreach (Star star in StateData.AllStars.Values)
+         {
+             ProcessStar(star);
          }
 
          // remove any destroyed fleets - TODO should be done when they are destroyed to allow bombing when a base is destroyed
@@ -90,73 +100,18 @@ namespace NovaConsole {
          VictoryCheck.Victor();
 
          StateData.TurnYear++;
-         Turn.BuildAndSave();
+         IntelWriter.WriteIntel();
       }
-
-
-// ============================================================================
-// Read in the player turns and update the relevant data stores with the
-// (possibly) new values. There is a special case where a player may decide not
-// to join the first turn so their will be no turn. So, check for this
-// condition and generate a sensible error report instead of just letting an
-// exception be thrown.
-// ============================================================================
-
-      private static void ReadPlayerTurn(Race race)
-      {
-         RaceTurn    inputTurn = new RaceTurn();
-         string      fileName  = Path.Combine(StateData.GameFolder, race.Name + ".turn");
-         
-         // Check for the special condition mentioned in the header.
-
-         if (File.Exists(fileName) == false) {
-            Report.FatalError(  "There is no turn file for the " + race.Name 
-                              + " race.\n\nYou may only generate the first "
-                              + "turn of a game when all race turn files are "
-                              + "present.");
-         }
-
-         FileStream  turnFile  = new FileStream(fileName, FileMode.Open);
-
-         inputTurn = Formatter.Deserialize(turnFile) as RaceTurn;
-         turnFile.Close();
-
-         foreach (Design design in inputTurn.RaceDesigns) {
-            StateData.AllDesigns[design.Key] = design;
-         }
-
-         foreach (string fleetKey in inputTurn.DeletedFleets) {
-            StateData.AllFleets.Remove(fleetKey);
-         }
-
-         foreach (string designKey in inputTurn.DeletedDesigns) {
-            StateData.AllDesigns.Remove(designKey);
-         }
-
-         foreach (Fleet fleet in inputTurn.RaceFleets) {
-            StateData.AllFleets[fleet.Key] = fleet;
-            bool destroyed = ProcessFleet(fleet);
-            if (destroyed) {
-               StateData.AllFleets.Remove(fleet.Key);
-            }
-         }
-
-         foreach (Star star in inputTurn.RaceStars) {
-            StateData.AllStars[star.Name] = star;
-            ProcessStar(star, race);
-         }
-
-         StateData.AllRaceData[race.Name]   = inputTurn.PlayerData;
-         StateData.AllTechLevels[race.Name] = inputTurn.TechLevel;
-      }
-
 
 // ============================================================================
 // Process the elapse of one year (turn) for a star.
 // ============================================================================
 
-      private static void ProcessStar(Star star, Race race)
+      private static void ProcessStar(Star star)
       {
+         String owner = star.Owner;
+         if (owner == null) return; // nothing to do for an empty star system.
+         Race race = StateData.AllRaces[star.Owner] as Race;
          int initialPopulation = star.Colonists;
          star.Update(race);
          int finalPopulation   = star.Colonists;
@@ -168,7 +123,7 @@ namespace NovaConsole {
             message.Text     = died.ToString() 
                + " of your colonists have been killed"
                + " by the environment on " + star.Name;
-            GlobalTurn.Data.Messages.Add(message);
+            Intel.Data.Messages.Add(message);
          }
 
          Manufacture.Items(star);
@@ -203,7 +158,7 @@ namespace NovaConsole {
             Message message  = new Message();
             message.Audience = fleet.Owner;
             message.Text     = fleet.Name + " has ran out of fuel.";
-            GlobalTurn.Data.Messages.Add(message);
+            Intel.Data.Messages.Add(message);
          }
 
          // See if we need to bomb this place.

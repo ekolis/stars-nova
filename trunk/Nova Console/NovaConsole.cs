@@ -363,7 +363,7 @@ private void InitializeComponent()
 
 
 // ============================================================================
-// Set the player list "Turn In" field.
+// Set the player list "IntelWriter In" field.
 // ============================================================================
 
       private bool SetPlayerList() //returns true if ready
@@ -465,7 +465,7 @@ private void InitializeComponent()
       }
 
       // ============================================================================
-      // This function is called when the Generate Turn button is pressed.
+      // This function is called when the Generate IntelWriter button is pressed.
       // ============================================================================
       private void GenerateTurnMenuItem_Click(object sender, EventArgs e)
       {
@@ -479,7 +479,7 @@ private void InitializeComponent()
 
       private void GenerateTurn()
       {
-          NewTurn.Generate();
+          ProcessTurn.Generate();
 
           NewGameMenuItem.Enabled = false;
           GenerateTurnMenuItem.Enabled = false;

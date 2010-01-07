@@ -21,20 +21,18 @@ namespace Nova
 // Class to deal with the input turn data
 // ============================================================================
 
-   public class InputTurnData
+   public class IntelReader
    {
-      private static GlobalTurn TurnData  = null;
-      private static GUIstate   StateData = null;
- 
+      private static Intel TurnData  = null;
+      private static GuiState   StateData = null;
 
-// ============================================================================
-// Process the data for this turn. This processing is only performed once
-// when a new turn is received.
-// ============================================================================
-
-      public static void Process()
+      /// <summary>
+      /// ReadIntel processes the console/server generated intel data for this turn. 
+      /// This processing is only performed once when a new turn is received.
+      /// </summary>
+      public static void ReadIntel()
       {
-         StateData = GUIstate.Data;
+         StateData = GuiState.Data;
          TurnData  = StateData.InputTurn;
 
          StateData.Messages.Clear();
@@ -51,7 +49,7 @@ namespace Nova
 
 
 // ============================================================================
-// Process Messages
+// ReadIntel Messages
 //
 // Run through the full list of messages and populate the message store in the
 // state data with the messages relevant to the player's selected race. The
@@ -62,7 +60,7 @@ namespace Nova
       private static void ProcessMessages()
       {
          foreach (Message message in TurnData.Messages) {
-            if ((message.Audience == GUIstate.Data.RaceName) ||
+            if ((message.Audience == GuiState.Data.RaceName) ||
                 (message.Audience == "*")) {
                StateData.Messages.Add(message);
             }
@@ -92,7 +90,7 @@ namespace Nova
 
 
 // ============================================================================
-// Process Reports
+// ReadIntel Reports
 //
 // Advance the age of all star reports by one year. Then, if a star is owned by
 // us and has colonists bring the report up to date (just by creating a new
@@ -114,7 +112,7 @@ namespace Nova
 
 
 // ============================================================================
-// Process Fleet Reports
+// ReadIntel Fleet Reports
 // ============================================================================
 
       private static void ProcessFleets()
@@ -139,7 +137,7 @@ namespace Nova
       
 
 // ============================================================================
-// Process Research
+// ReadIntel Research
 //
 // Do the research for this year. Research is performed locally once per turn.
 // ============================================================================

@@ -50,11 +50,11 @@ namespace Nova
 
       private void OKButton_Click(object sender, EventArgs e)
       {
-         Hashtable AllFleets = GUIstate.Data.InputTurn.AllFleets;
+         Hashtable AllFleets = GuiState.Data.InputTurn.AllFleets;
 
          string newName = NewName.Text;
-         string newKey  = GUIstate.Data.RaceName + "/" + newName;
-         string oldKey  = GUIstate.Data.RaceName + "/" + ExistingName.Text;
+         string newKey  = GuiState.Data.RaceName + "/" + newName;
+         string oldKey  = GuiState.Data.RaceName + "/" + ExistingName.Text;
          
          if (AllFleets.Contains(newKey)) {
             Report.Error("A fleet already has that name");
@@ -63,7 +63,7 @@ namespace Nova
 
          Fleet fleet = AllFleets[oldKey] as Fleet;
          AllFleets.Remove(oldKey);
-         GUIstate.Data.DeletedFleets.Add(oldKey);
+         GuiState.Data.DeletedFleets.Add(oldKey);
 
          fleet.Name        = newName;
          AllFleets[newKey] = fleet;

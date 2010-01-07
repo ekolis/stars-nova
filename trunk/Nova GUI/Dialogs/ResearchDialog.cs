@@ -29,7 +29,7 @@ namespace Nova
       private Hashtable Buttons           = new Hashtable();
       private Hashtable CurrentLevel      = null;
       private int       AvailableEnergy   = 0;
-      private GUIstate  StateData         = null;
+      private GuiState  StateData         = null;
       private bool      DialogInitialised = false;
 
 
@@ -41,7 +41,7 @@ namespace Nova
       {
          InitializeComponent();
 
-         StateData    = GUIstate.Data;
+         StateData    = GuiState.Data;
          CurrentLevel = StateData.ResearchLevel.TechValues;
 
          // Provide a convienient way of getting a button from it's name.
@@ -90,7 +90,7 @@ namespace Nova
          RadioButton button = sender as RadioButton;
 
          if (button.Checked == true) {
-            GUIstate.Data.ResearchTopic = button.Text;
+            GuiState.Data.ResearchTopic = button.Text;
          }
 
          ParameterChanged(null, null);
@@ -174,7 +174,7 @@ namespace Nova
       {
          double     totalEnergy = 0;
          string     raceName    = StateData.RaceName;
-         GlobalTurn turnData    = StateData.InputTurn;    
+         Intel turnData    = StateData.InputTurn;    
 
          foreach (Star star in turnData.AllStars.Values) {
             if (star.Owner == raceName) {

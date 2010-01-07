@@ -166,7 +166,7 @@
     <Compile Include="Shared Data Structures\RaceData.cs" />
     <Compile Include="Race Definition\RaceIcon.cs" />
     <Compile Include="Race Definition\RaceRestriction.cs" />
-    <Compile Include="Shared Data Structures\RaceTurn.cs" />
+    <Compile Include="Shared Data Structures\Orders.cs" />
     <Compile Include="PointUtils.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -187,7 +187,7 @@
     <Compile Include="Game Objects\Star.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Shared Data Structures\GlobalTurnData.cs" />
+    <Compile Include="Shared Data Structures\Intel.cs" />
     <Compile Include="Shared Data Structures\ScoreRecord.cs" />
     <Compile Include="Race Definition\SecondaryTraits.cs" />
     <Compile Include="Shared Data Structures\TechLevel.cs" />

@@ -191,7 +191,7 @@ namespace NovaConsole {
          Message message  = new Message();
          message.Audience = star.Owner;
          message.Text     = star.Name + " has produced a new " + design.Name;
-         GlobalTurn.Data.Messages.Add(message);
+         Intel.Data.Messages.Add(message);
 
          Fleet fleet         = new Fleet(ship, star);
          fleet.Name          = ship.Name + " #" + stateData.FleetID.ToString();

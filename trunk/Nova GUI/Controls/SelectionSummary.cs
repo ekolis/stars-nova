@@ -45,7 +45,7 @@ namespace Nova
 
       private void DisplayPlanet(Item item)
       {
-         if (GUIstate.Data.StarReports.Contains(item.Name) == false) {
+         if (GuiState.Data.StarReports.Contains(item.Name) == false) {
             SelectedItem.Text = item.Name + " is unexplored";
             summaryItem       = null;
             SelectedItem.Controls.Clear();

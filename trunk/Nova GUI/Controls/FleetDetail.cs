@@ -574,7 +574,7 @@ namespace Nova
       public void DisplayLegDetails(int index)
       {
          Waypoint thisWaypoint = SelectedFleet.Waypoints[index] as Waypoint;
-         Race     race         = GUIstate.Data.RaceData;
+         Race     race         = GuiState.Data.RaceData;
 
          WaypointTasks.Text = thisWaypoint.Task;
 
@@ -692,7 +692,7 @@ namespace Nova
       {
          SelectedFleet = fleet;
          
-         List<Fleet> myFleets = GUIstate.Data.PlayerFleets;
+         List<Fleet> myFleets = GuiState.Data.PlayerFleets;
          int i;
 
          for (i = 0; i < myFleets.Count; i++) {
@@ -809,12 +809,12 @@ namespace Nova
 
 
 // ============================================================================
-// Process the Next button being pressed.
+// ReadIntel the Next button being pressed.
 // ============================================================================
 
       private void NextFleet_Click(object sender, System.EventArgs e) 
       {
-         List<Fleet> myFleets = GUIstate.Data.PlayerFleets;
+         List<Fleet> myFleets = GuiState.Data.PlayerFleets;
 
          if (myFleets.Count == 1) {
             PreviousFleet.Enabled = false;
@@ -840,12 +840,12 @@ namespace Nova
 
 
 // ============================================================================
-// Process the previous button being pressed.
+// ReadIntel the previous button being pressed.
 // ============================================================================
 
       private void PreviousFleet_Click(object sender, EventArgs e)
       {
-         List<Fleet> myFleets = GUIstate.Data.PlayerFleets;
+         List<Fleet> myFleets = GuiState.Data.PlayerFleets;
 
          if (myFleets.Count == 1) {
             PreviousFleet.Enabled = false;

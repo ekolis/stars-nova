@@ -42,12 +42,12 @@ namespace Nova
       private void OnLoad(object sender, EventArgs e)
       {
          const int numColumns = 12;
-         Race      race       = GUIstate.Data.RaceData;
+         Race      race       = GuiState.Data.RaceData;
 
          PlanetGridView.Columns[8].Name = "Minerals";
          PlanetGridView.AutoSize        = true;
 
-         Hashtable allStars = GUIstate.Data.InputTurn.AllStars;
+         Hashtable allStars = GuiState.Data.InputTurn.AllStars;
          
          foreach (Star star in allStars.Values) {
             if (star.Owner == race.Name) {

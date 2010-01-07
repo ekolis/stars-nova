@@ -147,7 +147,7 @@ private void InitializeComponent()
 
 
 // ============================================================================
-// Process the Next button being pressed.
+// ReadIntel the Next button being pressed.
 // ============================================================================
 
       private void nextButton_Click(object sender, System.EventArgs e) 
@@ -168,7 +168,7 @@ private void InitializeComponent()
 
 
 // ============================================================================
-// Process the previous button being pressed.
+// ReadIntel the previous button being pressed.
 // ===========================================================================
 
       private void previousButton_Click(object sender, System.EventArgs e) 
