@@ -105,9 +105,9 @@ namespace Nova
 
          string turnFileName = Path.Combine(StateData.GameFolder, RaceName + ".Orders");
 
-         FileStream turnFile=new FileStream(turnFileName, FileMode.Create);
-         Formatter.Serialize(turnFile, outputTurn);
-         turnFile.Close();
+          outputTurn.ToBinary(turnFileName); // old binary serialised format
+          //outputTurn.ToXml(turnFileName); // human readable xml format
+
       }
 
 

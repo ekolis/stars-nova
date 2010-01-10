@@ -401,12 +401,11 @@ namespace ComponentEditor
        //-----------------------------------------------------------------------------
        // When the program is terminated, save the component data. This function is
        // invoked no matter which method is used to terminate the program.
-       // TODO Saving here has been disabled in debug mode as a quick backout for debugging - Daniel May 2009
        //-----------------------------------------------------------------------------
        private void OnFormClosing(object sender, FormClosingEventArgs e)
        {
 #if (DEBUG)
-           return;
+           return; // Saving here has been disabled in debug mode as a quick backout for debugging - Daniel May 2009
 #endif
            if (ComponentDirty)
            {

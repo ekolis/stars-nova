@@ -65,21 +65,29 @@ namespace NovaCommon
           {
               try
               {
-                  if (subnode.Name.ToLower() == "ironium")
+
+                  switch (subnode.Name.ToLower())
                   {
-                      Ironium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  if (subnode.Name.ToLower() == "boranium")
-                  {
-                      Boranium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  if (subnode.Name.ToLower() == "germanium")
-                  {
-                      Germanium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  if (subnode.Name.ToLower() == "colonists")
-                  {
-                      Colonists = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                      case "ironium":
+                          {
+                              Ironium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                              break;
+                          }
+                      case "boranium":
+                          {
+                              Boranium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                              break;
+                          }
+                      case "germanium":
+                          {
+                              Germanium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                              break;
+                          }
+                      case "colonists":
+                          {
+                              Colonists = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                              break;
+                          }
                   }
               }
               catch

@@ -163,7 +163,7 @@ namespace NovaCommon
           // Traits
           foreach (TraitEntry trait in Traits)
           {
-              if (AllTraits.Data.Primary.Contains(trait.Code)) continue;
+              if (AllTraits.Data.Primary.Contains(trait.Code)) continue; // Skip the PRT, just add LRTs here.
               Global.SaveData(xmldoc, xmlelRace, "LRT", trait.Code);
           }
 

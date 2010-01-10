@@ -1,7 +1,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
-// This module is invoked when New IntelWriter is selected in the Nova Console. 
+// This module is invoked when NewTurn is selected in the Nova Console. 
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free
@@ -16,16 +16,16 @@ using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
 using System;
 
-namespace NovaConsole {
+namespace NovaConsole 
+{
 
 
 // ============================================================================
 // Class to process a new turn.
 // ============================================================================
 
-   public class ProcessTurn
+   public static class ProcessTurn
    {
-//      private static BinaryFormatter Formatter = new BinaryFormatter();
       private static ConsoleState    StateData = null;
 
 

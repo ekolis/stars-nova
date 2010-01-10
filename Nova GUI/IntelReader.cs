@@ -21,7 +21,7 @@ namespace Nova
 // Class to deal with the input turn data
 // ============================================================================
 
-   public class IntelReader
+   public static class IntelReader
    {
       private static Intel TurnData  = null;
       private static GuiState   StateData = null;

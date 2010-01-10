@@ -145,7 +145,7 @@ namespace NovaConsole {
 
 
 // ============================================================================
-// Eliminate single race groupings. Note that we know there must be at lease
+// Eliminate single race groupings. Note that we know there must be at least
 // two fleets when we determined co-located fleets earlier.
 // ============================================================================
 

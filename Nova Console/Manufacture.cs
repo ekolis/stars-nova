@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -195,6 +194,7 @@ namespace NovaConsole {
 
          Fleet fleet         = new Fleet(ship, star);
          fleet.Name          = ship.Name + " #" + stateData.FleetID.ToString();
+         fleet.FleetID       = stateData.FleetID;
          fleet.CargoCapacity = ship.Design.CargoCapacity;
 
          if (design.Type == "Starbase") {
