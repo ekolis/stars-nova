@@ -45,7 +45,7 @@ namespace Nova
       public ArrayList    DeletedDesigns           = new ArrayList();
       public ArrayList    DeletedFleets            = new ArrayList();
       public ArrayList    Messages                 = new ArrayList();
-      public Intel   InputTurn                = null;
+      public Intel        InputTurn                = null;
       public Hashtable    BattlePlans              = new Hashtable();
       public Hashtable    KnownEnemyDesigns        = new Hashtable();
       public Hashtable    PlayerRelations          = new Hashtable();
@@ -53,7 +53,7 @@ namespace Nova
       public Hashtable    AvailableComponents      = new Hashtable();
       public List<Fleet>  PlayerFleets             = new List<Fleet>();
       public List<Star>   PlayerStars              = new List<Star>();
-      public Race         RaceData                 = new Race();
+      public Race         RaceData                 = new Race(); // FIXME bad name as RaceData is a different object type (for player relations, battle plans, etc.)
       public TechLevel    ResearchLevel            = new TechLevel();
       public TechLevel    ResearchResources        = new TechLevel();
       public bool         FirstTurn                = true;
@@ -236,6 +236,9 @@ namespace Nova
       // Read the race definition file into the persistent data store. If this is the
       // very first turn of a new game then process it's content to set up initial
       // race parameters (e.g. initial technology levels, etc.).
+      // FIXME - this is unsafe as the .race file may have changed since the game was
+      // generated. Current thinking is that this should be included in the .Intel file
+      // every turn. -- Dan Vale 10 Jan 10.
       // ============================================================================
 
       private static void ProcessRaceDefinition()

@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -8,6 +7,7 @@
 // ============================================================================
 
 using System;
+using System.Xml;
 using System.Collections;
 using System.Drawing;
 
@@ -258,6 +258,36 @@ namespace NovaCommon
                               ) * (1-x) * (1-y) * (1-z)
                               / Math.Sqrt(3.0);
          return h;
+      }
+
+       /// <summary>
+       /// Create an XmlElement representation of the star for saving.
+       /// </summary>
+       /// <param name="xmldoc">The parent XmlDocument</param>
+       /// <returns>An XmlElement representation of the star.</returns>
+      public XmlElement ToXml(XmlDocument xmldoc)
+      {
+          XmlElement xmlelStar = xmldoc.CreateElement("Star");
+
+          xmlelStar.AppendChild(ManufacturingQueue.ToXml(xmldoc));
+          xmlelStar.AppendChild(MineralConcentration.ToXml(xmldoc));
+          xmlelStar.AppendChild(ResourcesOnHand.ToXml(xmldoc));
+          if (Starbase != null) xmlelStar.AppendChild(Starbase.ToXml(xmldoc));
+
+          Global.SaveData(xmldoc, xmlelStar, "Colonists", Colonists.ToString());
+          Global.SaveData(xmldoc, xmlelStar, "Defenses", Defenses.ToString());
+          Global.SaveData(xmldoc, xmlelStar, "Factories", Factories.ToString());
+          Global.SaveData(xmldoc, xmlelStar, "Mines", Mines.ToString());
+          Global.SaveData(xmldoc, xmlelStar, "ResearchAllocation", ResearchAllocation.ToString());
+          Global.SaveData(xmldoc, xmlelStar, "ScanRange", ScanRange.ToString());
+          Global.SaveData(xmldoc, xmlelStar, "DefenseType", DefenseType);
+          Global.SaveData(xmldoc, xmlelStar, "ScannerType", ScannerType);
+          Global.SaveData(xmldoc, xmlelStar, "Gravity", Gravity.ToString());
+          Global.SaveData(xmldoc, xmlelStar, "Radiation", Radiation.ToString());
+          Global.SaveData(xmldoc, xmlelStar, "Temperature", Temperature.ToString());
+          if (ThisRace != null) Global.SaveData(xmldoc, xmlelStar, "ThisRace", ThisRace.Name);
+
+          return xmlelStar;
       }
 
    }

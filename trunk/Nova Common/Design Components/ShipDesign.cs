@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -11,6 +10,7 @@
 // ============================================================================
 
 using System;
+using System.Xml;
 using System.Collections.Generic;
 using System.Text;
 
@@ -46,6 +46,54 @@ namespace NovaCommon
        public MineLayer HeavyMines = new MineLayer();
        public MineLayer SpeedBumbMines = new MineLayer();
 
+       /// <summary>
+       /// Default constructor.
+       /// </summary>
+       public ShipDesign()
+       {
+       }
+
+       /// <summary>
+       /// Load: Initialising Constructor from an xml node.
+       /// </summary>
+       /// <param name="node">A "ShipDesign" node Nova save file (xml document)</param>
+      public ShipDesign(XmlNode node)
+      {
+          XmlNode subnode = node.FirstChild;
+          while (subnode != null)
+          {
+              try
+              {
+
+                  switch (subnode.Name.ToLower())
+                  {
+                      case "shipdesign":
+                          ShipHull = new Component(subnode.FirstChild);
+                          break;
+                  }
+              }
+              catch
+              {
+                  // ignore incomplete or unset values
+              }
+              subnode = subnode.NextSibling;
+          }
+      }
+
+       /// <summary>
+       /// Generate an XmlElement representation of the ShipDesign for saving to file.
+       /// Note this uses the minimal approach of storing the ship hull object 
+       /// (and recursing through all components). All figured values will need to be 
+       /// recalculated on loading.
+       /// </summary>
+       /// <param name="xmldoc">The parent XmlDocument</param>
+       /// <returns>An XmlElement representing the ShipDesign</returns>
+      public XmlElement ToXml(XmlDocument xmldoc)
+      {
+          XmlElement xmlelShipDesign = xmldoc.CreateElement("ShipDesign");
+          xmlelShipDesign.AppendChild(ShipHull.ToXml(xmldoc));
+          return xmlelShipDesign;
+      }
 
        // ============================================================================
        /// <summary>

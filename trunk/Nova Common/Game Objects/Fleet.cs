@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -30,7 +29,7 @@ namespace NovaCommon
    {
       public  ArrayList  FleetShips     = new ArrayList();
       public  ArrayList  Waypoints      = new ArrayList();
-      public  Cargo      Cargo          = new Cargo();
+      public  Cargo      Cargo          = new Cargo(); // FIXME - Cargo should be tracked by either the fleet or the ship, not both.
       public  Fleet      Target         = null;
       public  Star       InOrbit        = null;
       public  double     BattleSpeed    = 0; // used by a stack on the battle board
@@ -41,6 +40,7 @@ namespace NovaCommon
       public  double     TargetDistance = 100;
       public  int        CargoCapacity  = 0;
       public  string     BattlePlan     = "Default";
+      public  int        FleetID        = 0;
       
       public  enum       TravelStatus {Arrived, InTransit}
 
@@ -111,19 +111,18 @@ namespace NovaCommon
       {
           XmlElement xmlelFleet = xmldoc.CreateElement("Fleet");
 
-          /* TODO
-      public  Fleet      Target         = null;
-      public  Star       InOrbit        = null;
-      public  enum       TravelStatus {Arrived, InTransit}
-           * */
+          Global.SaveData(xmldoc, xmlelFleet, "FleetID", this.FleetID.ToString());
+          if (Target != null) Global.SaveData(xmldoc, xmlelFleet, "TargetID", Target.FleetID.ToString());
+          else Global.SaveData(xmldoc, xmlelFleet, "TravelStatus", "InTransit");
+          if (InOrbit != null) Global.SaveData(xmldoc, xmlelFleet, "InOrbit", InOrbit.Name);
 
-          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "BattleSpeed", this.BattleSpeed.ToString());
+          if (BattleSpeed != 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "BattleSpeed", this.BattleSpeed.ToString());
           NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "Bearing", this.Bearing.ToString());
-          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "Cloaked", this.Cloaked.ToString());
+          if (Cloaked != 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "Cloaked", this.Cloaked.ToString());
           NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "FuelAvailable", this.FuelAvailable.ToString());
           NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "FuelCapacity", this.FuelCapacity.ToString());
           NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "TargetDistance", this.TargetDistance.ToString());
-          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "CargoCapacity", this.CargoCapacity.ToString());
+          if (Cargo.Mass > 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "CargoCapacity", this.CargoCapacity.ToString());
           NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "BattlePlan", this.BattlePlan);
 
           xmlelFleet.AppendChild(this.Cargo.ToXml(xmldoc));

@@ -112,14 +112,14 @@ namespace NovaCommon
           }
 
           return sum;
-      }       
+      }
 
-// ============================================================================
-// Initialising Constructor from an xml node.
-// Precondition: node is a "Property" node with Type=="Bomb" in a Nova 
-//               compenent definition file (xml document).
-// ============================================================================
-
+      /// <summary>
+      /// Initialising Constructor from an xml node.
+      /// </summary>
+      /// <param name="node">
+      /// node is a "Property" node with Type=="Bomb" in a Nova 
+      /// compenent definition file (xml document).</param>
       public Bomb(XmlNode node)
       {
           XmlNode subnode = node.FirstChild;

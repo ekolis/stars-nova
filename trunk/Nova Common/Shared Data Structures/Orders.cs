@@ -10,8 +10,12 @@
 // Software Foundation.
 // ============================================================================
 
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Collections;
 using System;
+using System.IO;
+using System.IO.Compression;
+using System.Xml;
 
 
 // ============================================================================
@@ -24,12 +28,93 @@ namespace NovaCommon
    [Serializable]
    public sealed class Orders
    {
-      public ArrayList   RaceFleets      = new ArrayList();
-      public ArrayList   RaceDesigns     = new ArrayList();
+      public ArrayList   RaceFleets      = new ArrayList(); // For fleet orders
+      public ArrayList   RaceDesigns     = new ArrayList(); // For any new designs
+      public ArrayList   RaceStars       = new ArrayList(); // For production queues
+      public ArrayList   DeletedFleets   = new ArrayList(); // To delete fleets
+      public ArrayList   DeletedDesigns  = new ArrayList(); // To delete designs
+      public RaceData    PlayerData      = new RaceData();  // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.)
+      public int         TechLevel       = 0;               // FIXME: should send our research orders; server should control actual player tech level 
+
+       // private data
+       private static BinaryFormatter Formatter = new BinaryFormatter();
+
+       /// <summary>
+       /// Write out the orders file using binary serialization
+       /// </summary>
+       public void ToBinary(string ordersFileName)
+       {
+           FileStream ordersFile = new FileStream(ordersFileName, FileMode.Create);
+           Formatter.Serialize(ordersFile, this);
+           ordersFile.Close();
+       }
+
+       /// <summary>
+       /// Write out the orders using xml format
+       /// </summary>
+       /// <param name="ordersFileName">The path&filename to save the orders too.</param>
+       public void ToXml(string ordersFileName)
+       {
+           FileStream ordersFile = new FileStream(ordersFileName, FileMode.Create);
+           GZipStream compressionStream = new GZipStream(ordersFile, CompressionMode.Compress);
+
+           // Setup the XML document
+           XmlDocument xmldoc;
+           XmlNode xmlnode;
+           XmlElement xmlRoot;
+           xmldoc = new XmlDocument();
+           // TODO (low priority) - add the encoding attribute like UTF-8 ???
+           xmlnode = xmldoc.CreateNode(XmlNodeType.XmlDeclaration, "", "");
+           xmldoc.AppendChild(xmlnode);
+           xmlRoot = xmldoc.CreateElement("", "ROOT", "");
+           xmldoc.AppendChild(xmlRoot);
+
+           // add the orders to the document
+           XmlElement xmlelOrders = xmldoc.CreateElement("Orders");
+           xmlRoot.AppendChild(xmlelOrders);
+
+           // Place the turn year first, so it can be determined quickly
+           Global.SaveData(xmldoc, xmlelOrders, "Turn", PlayerData.TurnYear.ToString());
+
+           // Store the fleets, to pass on fleet orders
+           foreach (Fleet fleet in RaceFleets)
+           {
+               xmlelOrders.AppendChild(fleet.ToXml(xmldoc));
+           }
+           // store the designs, for any new designs
+           foreach (ShipDesign design in RaceDesigns)
+           {
+               xmlelOrders.AppendChild(design.ToXml(xmldoc));
+           }
+           // store the stars, so we can pass production orders
+           foreach (Star star in RaceStars)
+           {
+               xmlelOrders.AppendChild(star.ToXml(xmldoc));
+           }
+
+           /*
+
       public ArrayList   RaceStars       = new ArrayList();
       public ArrayList   DeletedFleets   = new ArrayList();
       public ArrayList   DeletedDesigns  = new ArrayList();
       public RaceData    PlayerData      = new RaceData();
-      public int         TechLevel       = 0;
+      public int         TechLevel       = 0;           
+           */
+
+           // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
+           // manual inspection of the save file. Generally though it can be opened by any archiving tool that
+           // reads gzip format.
+#if (DEBUG)
+           xmldoc.Save(ordersFile);                                           //  not compressed
+#else
+           xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
+#endif
+
+           ordersFile.Close();
+
+           Report.Information("Orders saved.");
+
+       }
    }
+
 }

@@ -12,6 +12,7 @@
 
 using System;
 using System.Collections;
+using System.Xml;
 
 namespace NovaCommon
 {
@@ -20,7 +21,7 @@ namespace NovaCommon
 // Ship class. Note that CargoCapacity is the amount of cargo the ship is
 // actually carrying (this is usually only relevant when a ship is transferred
 // to another fleet or is destroyed. CargoCapacity, the maximum cargo it can
-// carry, it is burried deep in the design but replicated here just
+// carry, is burried deep in the design but replicated here just
 // for convenience of access.
 // ============================================================================
 
@@ -34,14 +35,7 @@ namespace NovaCommon
       public double     Shields       = 0;
       public double     Armor         = 0;
 
-       /* FIXME Debug - trying to make armor update
-      public Ship()
-      {
-          if (Design != null && Armor == 0)
-            Armor = Design.Armor;
 
-      }
-       */
 // ============================================================================
 // Create a ship of a specified design.
 // ===========================================================================
@@ -51,7 +45,7 @@ namespace NovaCommon
          Design = shipDesign;
 
          Shields       = shipDesign.Shield;
-         Armor        = shipDesign.Armor;
+         Armor         = shipDesign.Armor;
          Cost          = shipDesign.Cost;
         
       }
@@ -69,6 +63,52 @@ namespace NovaCommon
          this.Shields = copy.Shields;
          this.Armor  = copy.Armor;
          this.Cargo   = new Cargo(copy.Cargo);
+      }
+
+      /// <summary>
+      /// Initialising Constructor from an xml node.
+      /// Precondition: node is a "Ship" node Nova save file (xml document).
+      /// </summary>
+      /// <param name="node">The XmlNode of the parent.</param>
+      public Ship(XmlNode node)
+      {
+          XmlNode subnode = node.FirstChild;
+          while (subnode != null)
+          {
+              try
+              {
+
+                  switch (subnode.Name.ToLower())
+                  {
+                      case "design":
+                          // FIXME - need to reference the actual design, this is just a placeholder for the name loaded from the file.
+                          Design = new ShipDesign();
+                          Design.Name = ((XmlText)subnode.FirstChild).Value;
+                              break;
+                      case "owner":
+                              Owner = ((XmlText)subnode.FirstChild).Value;
+                              break;
+                      case "mass":
+                              Mass = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                              break;
+                      case "shields":
+                              Shields = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                              break;
+                      case "armor":
+                              Armor = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                              break;
+                      case "cost":
+                              Cost = new Resources(subnode);
+                              break;
+
+                  }
+              }
+              catch
+              {
+                  // ignore incomplete or unset values
+              }
+              subnode = subnode.NextSibling;
+          }
       }
 
 
@@ -113,7 +153,7 @@ namespace NovaCommon
 
 
 // ============================================================================
-// Return the power rating of this ship (TBC)
+      // Return the power rating of this ship (stub - TODO) 
 // ============================================================================
 
       public int PowerRating {
@@ -176,6 +216,31 @@ namespace NovaCommon
          get {
             return Design.StandardMines.LayerRate;
          }
+      }
+
+       /// <summary>
+       /// Generate an xml representation of the ship for saving
+       /// </summary>
+       /// <param name="xmldoc">The master XmlDocument</param>
+      public XmlElement ToXml(XmlDocument xmldoc)
+      {
+          XmlElement xmlelShip = xmldoc.CreateElement("Ship");
+
+          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Design", this.Design.Name);
+          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Owner", this.Owner);
+          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Mass", this.Mass.ToString());
+          xmlelShip.AppendChild(Cost.ToXml(xmldoc));
+
+          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Shields", this.Shields.ToString());
+          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Armor", this.Armor.ToString());
+          if (Cargo.Mass > 0) xmlelShip.AppendChild(Cargo.ToXml(xmldoc));
+
+          /* These fields inherited from Item are ignored.
+           * public  string    Type     = null;
+           * public  Point     Position = new Point(0, 0);
+           */
+
+          return xmlelShip;
       }
    }
 }
