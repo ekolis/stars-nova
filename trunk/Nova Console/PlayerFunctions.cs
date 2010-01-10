@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -19,6 +18,8 @@ using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
 using System;
+using System.Xml;
+using System.IO.Compression;
 
 namespace NovaConsole 
 {
@@ -68,20 +69,43 @@ namespace NovaConsole
 // ============================================================================
 // Read in the player data from a turn file. If no player file is present then
 // an empty player data turn structure is created.
+// This differs from OrderReader.ReadOrders() in that the orders are kept seperate
+// and no further processing is done.
+// TODO (priority 4) - refactor this method into OrderReader to remove duplication.
 // ============================================================================
 
       private static void ReadPlayerData(Race race)
       {
-         Orders    inputTurn = new Orders();
-         string      fileName  = Path.Combine(StateData.GameFolder, race.Name + ".Orders");
+          string fileName = Path.Combine(StateData.GameFolder, race.Name + ".Orders");
 
-         if (File.Exists(fileName)) {
-            FileStream  turnFile  = new FileStream(fileName, FileMode.Open);
-            inputTurn = Formatter.Deserialize(turnFile) as Orders;
-            turnFile.Close();
-         }
 
-         StateData.AllRaceData[race.Name] = inputTurn.PlayerData;
+          Orders playerOrders = new Orders();
+
+          if (File.Exists(fileName))
+          {
+              // Load from a binary serialised file.
+              FileStream turnFile = new FileStream(fileName, FileMode.Open);
+              playerOrders = Formatter.Deserialize(turnFile) as Orders;
+              turnFile.Close();
+
+
+              // Load from an xml file
+              /*
+              XmlDocument xmldoc = new XmlDocument();
+              FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+              GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
+    #if (DEBUG)
+              xmldoc.Load(fileName);  // uncompressed
+    #else
+                xmldoc.Load(compressionStream); // compressed
+    #endif
+              playerOrders = new Orders(xmldoc.DocumentElement);
+              fileStream.Close();
+               */
+          }
+
+          // regardless of how playerOrders was loaded
+          StateData.AllRaceData[race.Name] = playerOrders.PlayerData;
       }
 
 

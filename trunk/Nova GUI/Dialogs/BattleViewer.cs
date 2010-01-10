@@ -158,8 +158,8 @@ namespace Nova
 
          TargetName.Text    = target.TargetShip.Name;
          TargetOwner.Text   = target.TargetShip.Owner;
-         TargetShields.Text = target.TargetShip.Shields.ToString();
-         TargetArmor.Text  = target.TargetShip.Armor.ToString();
+         TargetShields.Text = target.TargetShip.Shields.ToString(System.Globalization.CultureInfo.InvariantCulture);
+         TargetArmor.Text  = target.TargetShip.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture);
       }
 
 
@@ -177,7 +177,7 @@ namespace Nova
             return;
          }
 
-         WeaponPower.Text     = weapons.HitPower.ToString();
+         WeaponPower.Text     = weapons.HitPower.ToString(System.Globalization.CultureInfo.InvariantCulture);
          ComponentTarget.Text = weapons.Targeting;
          Damage.Text          = "Ship damaged";
 

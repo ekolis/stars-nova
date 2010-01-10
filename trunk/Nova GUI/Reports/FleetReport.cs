@@ -101,10 +101,10 @@ namespace Nova
                row[i++] = task;
                row[i++] = fleet.FuelAvailable.ToString("f1");
                row[i++] = cargoText.ToString();
-               row[i++] = fleet.FleetShips.Count.ToString();
+               row[i++] = fleet.FleetShips.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
                row[i++] = "-";
                row[i++] = fleet.BattlePlan;
-               row[i++] = fleet.TotalMass.ToString();
+               row[i++] = fleet.TotalMass.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
                FleetGridView.Rows.Add(row);
             }

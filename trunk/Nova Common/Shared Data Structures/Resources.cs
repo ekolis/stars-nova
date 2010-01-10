@@ -60,21 +60,20 @@ namespace NovaCommon
           {
               try
               {
-                  if (subnode.Name.ToLower() == "ironium")
+                  switch (subnode.Name.ToLower())
                   {
-                      Ironium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  if (subnode.Name.ToLower() == "boranium")
-                  {
-                      Boranium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  if (subnode.Name.ToLower() == "germanium")
-                  {
-                      Germanium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  if (subnode.Name.ToLower() == "energy")
-                  {
-                      Energy = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                      case "ironium":
+                          Ironium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          break;
+                      case "boranium":
+                          Boranium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          break;
+                      case "germanium":
+                          Germanium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          break;
+                      case "energy":
+                          Energy = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          break;
                   }
               }
               catch
@@ -179,22 +178,22 @@ namespace NovaCommon
 
            // Boranium
            XmlElement xmlelBoranium = xmldoc.CreateElement("Boranium");
-           XmlText xmltxtBoranium = xmldoc.CreateTextNode(this.Boranium.ToString());
+           XmlText xmltxtBoranium = xmldoc.CreateTextNode(this.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture));
            xmlelBoranium.AppendChild(xmltxtBoranium);
            xmlelResource.AppendChild(xmlelBoranium);
            // Ironium
            XmlElement xmlelIronium = xmldoc.CreateElement("Ironium");
-           XmlText xmltxtIronium = xmldoc.CreateTextNode(this.Ironium.ToString());
+           XmlText xmltxtIronium = xmldoc.CreateTextNode(this.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture));
            xmlelIronium.AppendChild(xmltxtIronium);
            xmlelResource.AppendChild(xmlelIronium);
            // Germanium
            XmlElement xmlelGermanium = xmldoc.CreateElement("Germanium");
-           XmlText xmltxtGermanium = xmldoc.CreateTextNode(this.Germanium.ToString());
+           XmlText xmltxtGermanium = xmldoc.CreateTextNode(this.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture));
            xmlelGermanium.AppendChild(xmltxtGermanium);
            xmlelResource.AppendChild(xmlelGermanium);
            // Energy
            XmlElement xmlelEnergy = xmldoc.CreateElement("Energy");
-           XmlText xmltxtEnergy = xmldoc.CreateTextNode(this.Energy.ToString());
+           XmlText xmltxtEnergy = xmldoc.CreateTextNode(this.Energy.ToString(System.Globalization.CultureInfo.InvariantCulture));
            xmlelEnergy.AppendChild(xmltxtEnergy);
            xmlelResource.AppendChild(xmlelEnergy);
 

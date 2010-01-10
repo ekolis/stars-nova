@@ -450,7 +450,7 @@ namespace Nova
 
          itemToAdd.Text = design.Name;
          itemToAdd.Tag  = design;
-         itemToAdd.SubItems.Add(quantity.ToString());
+         itemToAdd.SubItems.Add(quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
          if (QueueList.SelectedItems.Count == 0) {
             itemAdded = QueueList.Items.Add(itemToAdd);
@@ -462,7 +462,7 @@ namespace Nova
             if (design.Name == QueueList.Items[s].Text) {
                int total = quantity;
                total += Convert.ToInt32(QueueList.Items[s].SubItems[1].Text);
-               QueueList.Items[s].SubItems[1].Text = total.ToString();
+               QueueList.Items[s].SubItems[1].Text = total.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
             else {
                QueueList.Items[s].Selected = false;
@@ -480,7 +480,7 @@ namespace Nova
       /// Starbases are special in that there
       /// can ony ever be one in the production queue, no matter how many he tries to
       /// add.
-      /// TODO (low priority) ??? What if I want to build a small base first, then add 
+      /// TODO (priority 3) ??? What if I want to build a small base first, then add 
       ///   a larger base latter. I can queue two different base designs in Stars! ???
       /// ============================================================================
       private void AddStarbase(Design design)
@@ -488,16 +488,17 @@ namespace Nova
          // First run through the production queue to see if there is already a
          // starbase there. If there is remove it.
 
-         foreach (ListViewItem item in QueueList.Items) {
-            Design thisDesign = item.Tag as Design;
-            if (thisDesign != null) //factories and defenses and mines dont have a design...
-            {
-               if (thisDesign.Type == "Starbase")
-               {
-                  item.Remove();
-               }
-            }
-         }
+          foreach (ListViewItem item in QueueList.Items)
+          {
+              Design thisDesign = item.Tag as Design;
+              if (thisDesign != null) //factories and defenses and mines dont have a design...
+              {
+                  if (thisDesign.Type == "Starbase")
+                  {
+                      item.Remove();
+                  }
+              }
+          }
 
          AddDesign(design, 1);
       }

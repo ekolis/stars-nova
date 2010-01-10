@@ -159,7 +159,7 @@ namespace NovaCommon
           xmlelRace.AppendChild(this.ResearchCosts.ToXml(xmldoc));
 
           // Type; // Primary Racial Trait.
-          Global.SaveData(xmldoc, xmlelRace, "PRT", Traits.Primary.Code); // TODO check the PRT is saved/loaded properly into Traits
+          Global.SaveData(xmldoc, xmlelRace, "PRT", Traits.Primary.Code); // TODO (priority 5) check the PRT is saved/loaded properly into Traits
           // Traits
           foreach (TraitEntry trait in Traits)
           {
@@ -168,7 +168,7 @@ namespace NovaCommon
           }
 
           // MineBuildCost
-          Global.SaveData(xmldoc, xmlelRace, "MineBuildCost", MineBuildCost.ToString());
+          Global.SaveData(xmldoc, xmlelRace, "MineBuildCost", MineBuildCost.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
           // Plural Name
           Global.SaveData(xmldoc, xmlelRace, "PluralName", PluralName);
@@ -179,21 +179,21 @@ namespace NovaCommon
           // RaceIconName
           Global.SaveData(xmldoc, xmlelRace, "RaceIconName", Icon.Source);
           // Factory Build Cost
-          Global.SaveData(xmldoc, xmlelRace, "FactoryBuildCost", FactoryBuildCost.ToString());
+          Global.SaveData(xmldoc, xmlelRace, "FactoryBuildCost", FactoryBuildCost.ToString(System.Globalization.CultureInfo.InvariantCulture));
           // ColonistsPerResource
-          Global.SaveData(xmldoc, xmlelRace, "ColonistsPerResource", ColonistsPerResource.ToString());
+          Global.SaveData(xmldoc, xmlelRace, "ColonistsPerResource", ColonistsPerResource.ToString(System.Globalization.CultureInfo.InvariantCulture));
           // FactoryProduction
-          Global.SaveData(xmldoc, xmlelRace, "FactoryProduction", FactoryProduction.ToString());
+          Global.SaveData(xmldoc, xmlelRace, "FactoryProduction", FactoryProduction.ToString(System.Globalization.CultureInfo.InvariantCulture));
           // OperableFactories
-          Global.SaveData(xmldoc, xmlelRace, "OperableFactories", OperableFactories.ToString());
+          Global.SaveData(xmldoc, xmlelRace, "OperableFactories", OperableFactories.ToString(System.Globalization.CultureInfo.InvariantCulture));
           // MineProductionRate
-          Global.SaveData(xmldoc, xmlelRace, "MineProductionRate", MineProductionRate.ToString());
+          Global.SaveData(xmldoc, xmlelRace, "MineProductionRate", MineProductionRate.ToString(System.Globalization.CultureInfo.InvariantCulture));
           // OperableMines
-          Global.SaveData(xmldoc, xmlelRace, "OperableMines", OperableMines.ToString());
+          Global.SaveData(xmldoc, xmlelRace, "OperableMines", OperableMines.ToString(System.Globalization.CultureInfo.InvariantCulture));
           // MaxPopulation
-          Global.SaveData(xmldoc, xmlelRace, "MaxPopulation", MaxPopulation.ToString());
+          Global.SaveData(xmldoc, xmlelRace, "MaxPopulation", MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture));
           // GrowthRate
-          Global.SaveData(xmldoc, xmlelRace, "GrowthRate", GrowthRate.ToString());
+          Global.SaveData(xmldoc, xmlelRace, "GrowthRate", GrowthRate.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
           return xmlelRace;
       }
@@ -232,7 +232,7 @@ namespace NovaCommon
                       case "name": this.Name = ((XmlText)xmlnode.FirstChild).Value; break;
                       case "password": this.Password = ((XmlText)xmlnode.FirstChild).Value; break;
 
-                      // TODO - load the RaceIcon
+                      // TODO (priority 3) - load the RaceIcon
                       case "raceiconname": this.Icon.Source = ((XmlText)xmlnode.FirstChild).Value; break;
 
 

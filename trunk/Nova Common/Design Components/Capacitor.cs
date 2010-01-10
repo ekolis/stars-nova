@@ -116,7 +116,7 @@ namespace NovaCommon
 
             // store the value
             XmlElement xmlelValue = xmldoc.CreateElement("Value");
-            XmlText xmltxtValue = xmldoc.CreateTextNode(this.Value.ToString());
+            XmlText xmltxtValue = xmldoc.CreateTextNode(this.Value.ToString(System.Globalization.CultureInfo.InvariantCulture));
             xmlelValue.AppendChild(xmltxtValue);
             xmlelProperty.AppendChild(xmlelValue);
 

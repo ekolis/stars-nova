@@ -112,17 +112,17 @@ namespace NovaCommon
 
        // CellNumber
        XmlElement xmlelCellNumber = xmldoc.CreateElement("CellNumber");
-       XmlText xmltxtCellNumber = xmldoc.CreateTextNode(this.CellNumber.ToString());
+       XmlText xmltxtCellNumber = xmldoc.CreateTextNode(this.CellNumber.ToString(System.Globalization.CultureInfo.InvariantCulture));
        xmlelCellNumber.AppendChild(xmltxtCellNumber);
        xmlelModule.AppendChild(xmlelCellNumber);
        // ComponentCount
        XmlElement xmlelComponentCount = xmldoc.CreateElement("ComponentCount");
-       XmlText xmltxtComponentCount = xmldoc.CreateTextNode(this.ComponentCount.ToString());
+       XmlText xmltxtComponentCount = xmldoc.CreateTextNode(this.ComponentCount.ToString(System.Globalization.CultureInfo.InvariantCulture));
        xmlelComponentCount.AppendChild(xmltxtComponentCount);
        xmlelModule.AppendChild(xmlelComponentCount);
        // ComponentMaximum
        XmlElement xmlelComponentMaximum = xmldoc.CreateElement("ComponentMaximum");
-       XmlText xmltxtComponentMaximum = xmldoc.CreateTextNode(this.ComponentMaximum.ToString());
+       XmlText xmltxtComponentMaximum = xmldoc.CreateTextNode(this.ComponentMaximum.ToString(System.Globalization.CultureInfo.InvariantCulture));
        xmlelComponentMaximum.AppendChild(xmltxtComponentMaximum);
        xmlelModule.AppendChild(xmlelComponentMaximum);
        // ComponentType

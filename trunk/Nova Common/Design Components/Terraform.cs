@@ -124,17 +124,17 @@ namespace NovaCommon
 
             // MaxModifiedGravity
             XmlElement xmlelMaxModifiedGravity = xmldoc.CreateElement("MaxModifiedGravity");
-            XmlText xmltxtMaxModifiedGravity = xmldoc.CreateTextNode(this.MaxModifiedGravity.ToString());
+            XmlText xmltxtMaxModifiedGravity = xmldoc.CreateTextNode(this.MaxModifiedGravity.ToString(System.Globalization.CultureInfo.InvariantCulture));
             xmlelMaxModifiedGravity.AppendChild(xmltxtMaxModifiedGravity);
             xmlelProperty.AppendChild(xmlelMaxModifiedGravity);
             // MaxModifiedTemperature
             XmlElement xmlelMaxModifiedTemperature = xmldoc.CreateElement("MaxModifiedTemperature");
-            XmlText xmltxtMaxModifiedTemperature = xmldoc.CreateTextNode(this.MaxModifiedTemperature.ToString());
+            XmlText xmltxtMaxModifiedTemperature = xmldoc.CreateTextNode(this.MaxModifiedTemperature.ToString(System.Globalization.CultureInfo.InvariantCulture));
             xmlelMaxModifiedTemperature.AppendChild(xmltxtMaxModifiedTemperature);
             xmlelProperty.AppendChild(xmlelMaxModifiedTemperature);
             // MaxModifiedRadiation
             XmlElement xmlelMaxModifiedRadiation = xmldoc.CreateElement("MaxModifiedRadiation");
-            XmlText xmltxtMaxModifiedRadiation = xmldoc.CreateTextNode(this.MaxModifiedRadiation.ToString());
+            XmlText xmltxtMaxModifiedRadiation = xmldoc.CreateTextNode(this.MaxModifiedRadiation.ToString(System.Globalization.CultureInfo.InvariantCulture));
             xmlelMaxModifiedRadiation.AppendChild(xmltxtMaxModifiedRadiation);
             xmlelProperty.AppendChild(xmlelMaxModifiedRadiation);
 

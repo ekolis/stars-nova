@@ -1,9 +1,8 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
 // This module returns details of a planet's Defenses
-// TODO (low priority) - Transfer this to the Defense component property.
+// TODO (priority 3) - Transfer this to the Defense component property.
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free

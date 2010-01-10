@@ -39,7 +39,7 @@ namespace Nova
 
       private static BinaryFormatter Formatter  = new BinaryFormatter();
       private static GuiState        StateData  = null;
-      private static Intel           InputTurn  = null; // TODO - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
+      private static Intel           InputTurn  = null; // TODO (priority 4) - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
       private static string          RaceName   = null;
 
 
@@ -106,7 +106,7 @@ namespace Nova
          string turnFileName = Path.Combine(StateData.GameFolder, RaceName + ".Orders");
 
           outputTurn.ToBinary(turnFileName); // old binary serialised format
-          //outputTurn.ToXml(turnFileName); // human readable xml format
+          // outputTurn.ToXml(turnFileName); // human readable xml format
 
       }
 

@@ -193,7 +193,7 @@ namespace NovaConsole {
          Intel.Data.Messages.Add(message);
 
          Fleet fleet         = new Fleet(ship, star);
-         fleet.Name          = ship.Name + " #" + stateData.FleetID.ToString();
+         fleet.Name          = ship.Name + " #" + stateData.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture);
          fleet.FleetID       = stateData.FleetID;
          fleet.CargoCapacity = ship.Design.CargoCapacity;
 

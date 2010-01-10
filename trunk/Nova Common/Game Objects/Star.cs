@@ -46,8 +46,61 @@ namespace NovaCommon
 
       private Race           ThisRace = null;
 
+      /// <summary>
+      /// default constructor
+      /// </summary>
+      public Star() { }
+
+      /// <summary>
+      /// Load: Initialising constructor to read in a Star from an XmlNode (from a saved file).
+      /// </summary>
+      /// <param name="node">An XmlNode representing a Star.</param>
+      public Star(XmlNode node)
+      {
+          // Read the node
+          while (node != null)
+          {
+              try
+              {
+                  switch (node.Name.ToLower())
+                  {
+                      case "orbitingfleets": OrbitingFleets = bool.Parse(((XmlText)node.FirstChild).Value); break;
+                      case "manufacturingqueue": ManufacturingQueue = new ProductionQueue(node.FirstChild); break;
+                      case "mineralconcentration": MineralConcentration = new Resources(node.FirstChild); break;
+                      case "resourcesonhand": ResourcesOnHand = new Resources(node.FirstChild); break;
+                      case "starbase": Starbase = new Fleet(node.FirstChild); break; // ??? should this be loaded from the file, or just a reference? Is the starbase in the list of the race's fleets?
+                      case "colonists": Colonists = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "defenses": Defenses = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "factories": Factories = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "mines": Mines = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "researchallocation": ResearchAllocation = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "scanrange": ScanRange = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "defensetype": DefenseType = ((XmlText)node.FirstChild).Value; break;
+                      case "scannertype": ScannerType = ((XmlText)node.FirstChild).Value; break;
+                      case "gravity": Gravity = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "radiation": Radiation = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "temperature": Temperature = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+
+                          // TODO (priority 5) : placeholder only, need to reference the player's race object
+                      case "thisrace": ThisRace = new Race(); ThisRace.Name = ((XmlText)node.FirstChild).Value; break;
+                     
+                      default: break;
+                  }
+
+              }
+              catch
+              {
+                  // If there are blank entries null reference exemptions will be raised here. It is safe to ignore them.
+              }
+              node = node.NextSibling;
+          }
+      }
+
 // ============================================================================
 // Update a star to take into account the passing of a year.
+// FIXME (priority 5) - this should not be here as it means the GUI has access to methods 
+// that increase pop and resources - which is probably the source of the bug
+// that causes this to happen when a star is clicked in the GUI.
 // ============================================================================
 
       public void Update(Race race)
@@ -265,7 +318,7 @@ namespace NovaCommon
        /// </summary>
        /// <param name="xmldoc">The parent XmlDocument</param>
        /// <returns>An XmlElement representation of the star.</returns>
-      public XmlElement ToXml(XmlDocument xmldoc)
+      public new XmlElement ToXml(XmlDocument xmldoc)
       {
           XmlElement xmlelStar = xmldoc.CreateElement("Star");
 
@@ -274,17 +327,17 @@ namespace NovaCommon
           xmlelStar.AppendChild(ResourcesOnHand.ToXml(xmldoc));
           if (Starbase != null) xmlelStar.AppendChild(Starbase.ToXml(xmldoc));
 
-          Global.SaveData(xmldoc, xmlelStar, "Colonists", Colonists.ToString());
-          Global.SaveData(xmldoc, xmlelStar, "Defenses", Defenses.ToString());
-          Global.SaveData(xmldoc, xmlelStar, "Factories", Factories.ToString());
-          Global.SaveData(xmldoc, xmlelStar, "Mines", Mines.ToString());
-          Global.SaveData(xmldoc, xmlelStar, "ResearchAllocation", ResearchAllocation.ToString());
-          Global.SaveData(xmldoc, xmlelStar, "ScanRange", ScanRange.ToString());
+          Global.SaveData(xmldoc, xmlelStar, "Colonists", Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          Global.SaveData(xmldoc, xmlelStar, "Defenses", Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          Global.SaveData(xmldoc, xmlelStar, "Factories", Factories.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          Global.SaveData(xmldoc, xmlelStar, "Mines", Mines.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          Global.SaveData(xmldoc, xmlelStar, "ResearchAllocation", ResearchAllocation.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          Global.SaveData(xmldoc, xmlelStar, "ScanRange", ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture));
           Global.SaveData(xmldoc, xmlelStar, "DefenseType", DefenseType);
           Global.SaveData(xmldoc, xmlelStar, "ScannerType", ScannerType);
-          Global.SaveData(xmldoc, xmlelStar, "Gravity", Gravity.ToString());
-          Global.SaveData(xmldoc, xmlelStar, "Radiation", Radiation.ToString());
-          Global.SaveData(xmldoc, xmlelStar, "Temperature", Temperature.ToString());
+          Global.SaveData(xmldoc, xmlelStar, "Gravity", Gravity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          Global.SaveData(xmldoc, xmlelStar, "Radiation", Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          Global.SaveData(xmldoc, xmlelStar, "Temperature", Temperature.ToString(System.Globalization.CultureInfo.InvariantCulture));
           if (ThisRace != null) Global.SaveData(xmldoc, xmlelStar, "ThisRace", ThisRace.Name);
 
           return xmlelStar;

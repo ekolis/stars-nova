@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 // Modified Daniel Vale 2009
@@ -791,7 +790,7 @@ namespace Nova
 // Draw the seleced hull design by filling in the hull grid and the populating
 // the costs and characteristics fields on the form.
 //
-// We don't seem to have a ShipDesign at this stage, just a Hull component
+// ??? We don't seem to have a ShipDesign at this stage, just a Hull component
 // with attached modules? This makes determining summary information difficult
 // as that is what the ShipDesign is for. Need to decide if using a ShipDesign
 // from the start would be better.
@@ -803,11 +802,11 @@ namespace Nova
          HullGrid.ActiveModules = HullProperties.Modules;
          DesignResources.Value  = SelectedHull.Cost;
          DesignMass             = SelectedHull.Mass;
-         ShipMass.Text          = SelectedHull.Mass.ToString();
+         ShipMass.Text          = SelectedHull.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-          // TODO (medium priority) - get the total cargo capacity, rather than just the hull's base cargo capacity (i.e. add any pods). (see notes at top of function)
-         CargoCapacity.Text = HullProperties.BaseCargo.ToString();
-         ShipArmor.Text = HullProperties.ArmorStrength.ToString();
+          // TODO (priority 4) - get the total cargo capacity, rather than just the hull's base cargo capacity (i.e. add any pods). (see notes at top of function)
+         CargoCapacity.Text = HullProperties.BaseCargo.ToString(System.Globalization.CultureInfo.InvariantCulture);
+         ShipArmor.Text = HullProperties.ArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
          HullImage.Image        = SelectedHull.ComponentImage;
          Description.Text       = SelectedHull.Description;
 
@@ -815,12 +814,12 @@ namespace Nova
          {
             CapacityType.Text  = "Dock Capacity";
             CapacityUnits.Text = "kT";
-            MaxCapacity.Text = HullProperties.DockCapacity.ToString();
+            MaxCapacity.Text = HullProperties.DockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
          }
          else {
             CapacityType.Text  = "Fuel Capacity";
             CapacityUnits.Text = "mg";
-            MaxCapacity.Text = HullProperties.FuelCapacity.ToString();
+            MaxCapacity.Text = HullProperties.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
          }
       }
 
@@ -835,7 +834,7 @@ namespace Nova
 
          foreach (Component component in GuiState.Data.AvailableComponents.Values)
          {
-             // TODO (low priority) - work out why it sometimes is null.
+             // TODO (priority 1) - work out why it sometimes is null.
              if (component != null)
              {
                  AvailableComponents[component.Name] = component;
@@ -881,7 +880,7 @@ namespace Nova
            * name as another design, esspecialy if you keep the hull name for 
            * the ship name. However if you are edditing a design then this 
            * might be exactly what you want to do. Need to at least ask the 
-           * user. TODO (low priority).
+           * user. TODO (priority 3).
          if (AllDesigns.Contains(newDesign.Key)) 
          {
             Report.Error("Design names must be unique");
@@ -967,7 +966,7 @@ namespace Nova
          ListViewItem item   = ListView.SelectedItems[0];
          Component selection = AllComponents[item.Text] as Component;
          ComponentCost.Value = selection.Cost;
-         ComponentMass.Text  = selection.Mass.ToString();
+         ComponentMass.Text  = selection.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
          Description.Text    = selection.Description;
 
          // Call the Mouse down routine (it must have gone down to change the
@@ -1009,7 +1008,7 @@ namespace Nova
 
          DesignResources.Value += dragData.SelectedComponent.Cost;
          DesignMass            += dragData.SelectedComponent.Mass;
-         ShipMass.Text          = DesignMass.ToString();
+         ShipMass.Text          = DesignMass.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
          if (dragData.SelectedComponent.Properties.ContainsKey("Armor"))
          {
@@ -1017,7 +1016,7 @@ namespace Nova
             int    ArmorStrength = Convert.ToInt32(ShipArmor.Text);
 
             ArmorStrength += Armor.Value;
-            ShipArmor.Text = ArmorStrength.ToString();
+            ShipArmor.Text = ArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
          }
          else if (dragData.SelectedComponent.Properties.ContainsKey("Shield")) 
          {
@@ -1026,14 +1025,14 @@ namespace Nova
 
             shieldStrength  += shield.Value;
 
-            ShipShields.Text = shieldStrength.ToString();
+            ShipShields.Text = shieldStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
          }
          else if (dragData.SelectedComponent.Properties.ContainsKey("Cargo")) 
          {
             IntegerProperty pod = dragData.SelectedComponent.Properties["Cargo"] as IntegerProperty;
             ShipCargoCapacity += pod.Value;
-            CargoCapacity.Text = ShipCargoCapacity.ToString();
+            CargoCapacity.Text = ShipCargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
          }
 
       }

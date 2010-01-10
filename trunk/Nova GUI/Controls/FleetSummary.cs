@@ -46,9 +46,9 @@ namespace Nova
       private void DisplaySummary(Fleet fleet)
       {
          string race           = fleet.Owner;
-         FleetShipCount.Text   = fleet.Composition.Count.ToString();
-         FleetMass.Text        = fleet.TotalMass.ToString();
-         FleetSpeed.Text       = fleet.Speed.ToString();
+         FleetShipCount.Text   = fleet.Composition.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
+         FleetMass.Text        = fleet.TotalMass.ToString(System.Globalization.CultureInfo.InvariantCulture);
+         FleetSpeed.Text       = fleet.Speed.ToString(System.Globalization.CultureInfo.InvariantCulture);
          FleetImage.Image      = fleet.Image;
          FleetOwner.Text       = race;
 

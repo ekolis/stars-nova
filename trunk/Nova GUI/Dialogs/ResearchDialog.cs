@@ -70,7 +70,7 @@ namespace Nova
          button.Checked     = true;
 
          AvailableEnergy         = CountEnergy();
-         AvailableResources.Text = AvailableEnergy.ToString(); 
+         AvailableResources.Text = AvailableEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture); 
          ResourceBudget.Value    = StateData.ResearchBudget;
          DialogInitialised       = true;
 
@@ -133,7 +133,7 @@ namespace Nova
          resourcesRequired = target
             - (int) StateData.ResearchResources.TechValues[researchArea];
 
-         CompletionResources.Text = ((int) resourcesRequired).ToString();
+         CompletionResources.Text = ((int) resourcesRequired).ToString(System.Globalization.CultureInfo.InvariantCulture);
 
          if (percentage != 0) {
             yearsToComplete     = resourcesRequired / allocatedEnergy;
@@ -143,7 +143,7 @@ namespace Nova
             CompletionTime.Text = "Never";
          }
 
-         NumericResources.Text = allocatedEnergy.ToString();
+         NumericResources.Text = allocatedEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
          // Populate the expected research benefits list
 

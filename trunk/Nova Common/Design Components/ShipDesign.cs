@@ -57,7 +57,7 @@ namespace NovaCommon
        /// Load: Initialising Constructor from an xml node.
        /// </summary>
        /// <param name="node">A "ShipDesign" node Nova save file (xml document)</param>
-      public ShipDesign(XmlNode node)
+      public ShipDesign(XmlNode node) : base(node)
       {
           XmlNode subnode = node.FirstChild;
           while (subnode != null)
@@ -88,10 +88,11 @@ namespace NovaCommon
        /// </summary>
        /// <param name="xmldoc">The parent XmlDocument</param>
        /// <returns>An XmlElement representing the ShipDesign</returns>
-      public XmlElement ToXml(XmlDocument xmldoc)
+      public new XmlElement ToXml(XmlDocument xmldoc)
       {
           XmlElement xmlelShipDesign = xmldoc.CreateElement("ShipDesign");
           xmlelShipDesign.AppendChild(ShipHull.ToXml(xmldoc));
+          xmlelShipDesign.AppendChild(base.ToXml(xmldoc));
           return xmlelShipDesign;
       }
 
@@ -224,7 +225,7 @@ namespace NovaCommon
                    Weapons.Add(weapon * componentCount);
                    break;
 
-                   // keep one only - TODO (low priority) keep the right one
+                   // keep one of each type only - TODO (priority 3) keep the right one
                case "Colonizer":
                case "Engine":
                case "Gate":
@@ -267,7 +268,7 @@ namespace NovaCommon
        {
            get
            {
-               Update(); // TODO - too much doing this every time - need a more efficient way
+               Update(); // TODO (priority 3) - too much doing this every time - need a more efficient way
                if (Summary.Properties.ContainsKey("Armor"))
                {
                    return ((IntegerProperty)Summary.Properties["Armor"]).Value;

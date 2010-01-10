@@ -127,7 +127,7 @@ namespace NovaCommon
                     if (Restrictions.ContainsKey(key) && (RaceAvailability)Restrictions[key] != RaceAvailability.not_required)
                     {
                         XmlElement xmlelTrait = xmldoc.CreateElement(key);
-                        XmlText xmltxtTrait = xmldoc.CreateTextNode(((int)this.Restrictions[key]).ToString());
+                        XmlText xmltxtTrait = xmldoc.CreateTextNode(((int)this.Restrictions[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
                         xmlelTrait.AppendChild(xmltxtTrait);
                         xmlelResource.AppendChild(xmlelTrait);
                     }
@@ -194,7 +194,7 @@ namespace NovaCommon
             }
             catch (Exception e)
             {
-                Report.Error("Failed to display race restrictions."+Environment.NewLine+"Details: RaceRestrictions.ToString() - Exception: "+e.Message);
+                Report.Error("Failed to display race restrictions."+Environment.NewLine+"Details: RaceRestrictions.ToString(System.Globalization.CultureInfo.InvariantCulture) - Exception: "+e.Message);
             }
             
             return inwords;

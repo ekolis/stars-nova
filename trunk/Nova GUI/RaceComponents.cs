@@ -50,7 +50,7 @@ namespace Nova
 
 // ===========================================================================
 // Check if this engine is available to this race
-// TODO - Check if this function is still required
+// TODO (priority 4) - Check if this function is still required
 // ===========================================================================
 
       private static bool CheckEngine(Engine engine)
@@ -80,7 +80,7 @@ namespace Nova
 
 // ===========================================================================
 // Check if this hull is available to this race
-// TODO - Check if this function is still required
+// TODO (priority 4) - Check if this function is still required
 // ===========================================================================
 
       private static bool CheckHull(Hull hull)

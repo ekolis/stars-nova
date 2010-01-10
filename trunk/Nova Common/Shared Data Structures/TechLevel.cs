@@ -193,7 +193,7 @@ namespace NovaCommon
           foreach (string key in TechLevel.ResearchKeys)
           {
               XmlElement xmlelTech = xmldoc.CreateElement(key);
-              XmlText xmltxtTech = xmldoc.CreateTextNode(((int)this.TechValues[key]).ToString());
+              XmlText xmltxtTech = xmldoc.CreateTextNode(((int)this.TechValues[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
               xmlelTech.AppendChild(xmltxtTech);
               xmlelResource.AppendChild(xmlelTech);
           }

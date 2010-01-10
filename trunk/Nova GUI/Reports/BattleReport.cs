@@ -79,11 +79,11 @@ namespace Nova
             string[] row = new string[numColumns];
                
             row[i++] = report.Location;
-            row[i++] = countSides.Count.ToString();
-            row[i++] = ourShips.ToString();
-            row[i++] = theirShips.ToString();
-            row[i++] = ourLosses.ToString();
-            row[i++] = theirLosses.ToString();
+            row[i++] = countSides.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            row[i++] = ourShips.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            row[i++] = theirShips.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            row[i++] = ourLosses.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            row[i++] = theirLosses.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
             BattleGridView.Rows.Add(row);
          }

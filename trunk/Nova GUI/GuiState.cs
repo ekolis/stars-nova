@@ -343,7 +343,7 @@ namespace Nova
               // Improved Starbases gives a 20% discount to starbase hulls.
               foreach (Component component in GuiState.Data.AvailableComponents.Values)
               {
-                  // TODO (low priority) - work out why it sometimes is null.
+                  // TODO (priority 1) - work out why it sometimes is null.
                   if (component == null || component.Type != "Hull") continue;
                   Hull hull = component.Properties["Hull"] as Hull;
                   if (hull == null || !hull.IsStarbase) continue;

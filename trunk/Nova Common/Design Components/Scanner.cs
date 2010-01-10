@@ -116,12 +116,12 @@ namespace NovaCommon
 
           // PenetratingScan
           XmlElement xmlelPenetratingScan = xmldoc.CreateElement("PenetratingScan");
-          XmlText xmltxtPenetratingScan = xmldoc.CreateTextNode(this.PenetratingScan.ToString());
+          XmlText xmltxtPenetratingScan = xmldoc.CreateTextNode(this.PenetratingScan.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelPenetratingScan.AppendChild(xmltxtPenetratingScan);
           xmlelProperty.AppendChild(xmlelPenetratingScan);
           // NormalScan
           XmlElement xmlelNormalScan = xmldoc.CreateElement("NormalScan");
-          XmlText xmltxtNormalScan = xmldoc.CreateTextNode(this.NormalScan.ToString());
+          XmlText xmltxtNormalScan = xmldoc.CreateTextNode(this.NormalScan.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelNormalScan.AppendChild(xmltxtNormalScan);
           xmlelProperty.AppendChild(xmlelNormalScan);
 

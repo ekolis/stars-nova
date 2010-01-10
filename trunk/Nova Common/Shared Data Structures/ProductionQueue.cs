@@ -80,7 +80,7 @@ namespace NovaCommon
              XmlElement xmlelProductionOrder = xmldoc.CreateElement("ProductionOrder");
 
              Global.SaveData(xmldoc, xmlelProductionOrder, "Name", Name);
-             Global.SaveData(xmldoc, xmlelProductionOrder, "Quantity", Quantity.ToString());
+             Global.SaveData(xmldoc, xmlelProductionOrder, "Quantity", Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
              xmlelProductionOrder.AppendChild(BuildState.ToXml(xmldoc));
 
              return xmlelProductionOrder;
@@ -114,7 +114,7 @@ namespace NovaCommon
                   if (subnode.Name.ToLower() == "productionorder")
                   {
                       ProductionQueue.Item order = new ProductionQueue.Item(subnode);
-                      if (order != null) Queue.Add(order); // TODO ensure they load in the correct order.
+                      if (order != null) Queue.Add(order); // TODO (priority 4) ensure they load in the correct order.
                   }
                  
               }

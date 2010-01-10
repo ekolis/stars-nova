@@ -765,20 +765,20 @@ namespace Nova
          QueueList.Populate(ProductionQueue, star.ManufacturingQueue);
          star.Update(GuiState.Data.RaceData); // Debug - try to get sensible data to show - Dan 27 Aug 09
          int    resources      = star.Colonists / 1000;
-         string manned         = " of " + resources.ToString();
+         string manned         = " of " + resources.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
          NovaCommon.Defenses.ComputeDefenseCoverage(star);
 
          DefenseType.Text     = star.DefenseType;
-         Defenses.Text        = star.Defenses.ToString();
-         DefenseCoverage.Text = NovaCommon.Defenses.SummaryCoverage.ToString();
+         Defenses.Text        = star.Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture);
+         DefenseCoverage.Text = NovaCommon.Defenses.SummaryCoverage.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-         Factories.Text        = star.Factories.ToString() + manned;
-         Mines.Text            = star.Mines.ToString()     + manned;
-         Population.Text       = star.Colonists.ToString();
+         Factories.Text        = star.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture) + manned;
+         Mines.Text            = star.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture)     + manned;
+         Population.Text       = star.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
          ResourceDisplay.Value = star.ResourcesOnHand;         
 
-         ScannerRange.Text     = star.ScanRange.ToString();
+         ScannerRange.Text     = star.ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture);
          ScannerType.Text      = star.ScannerType;
 
          if (star.Starbase == null) {
@@ -788,8 +788,8 @@ namespace Nova
          }
 
          Fleet starbase             = star.Starbase;
-         StarbaseArmor.Text        = starbase.ArmorStrength.ToString();
-         StarbaseCapacity.Text      = starbase.CargoCapacity.ToString();
+         StarbaseArmor.Text        = starbase.ArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
+         StarbaseCapacity.Text      = starbase.CargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
          StarbaseDamage.Text        = "0";
          StarbasePanel.Enabled      = true;
          StarbasePanel.Text         = starbase.Name;

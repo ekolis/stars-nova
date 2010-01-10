@@ -162,22 +162,22 @@ namespace NovaCommon
 
           // Installations
           XmlElement xmlelInstallations = xmldoc.CreateElement("Installations");
-          XmlText xmltxtInstallations = xmldoc.CreateTextNode(this.Installations.ToString());
+          XmlText xmltxtInstallations = xmldoc.CreateTextNode(this.Installations.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelInstallations.AppendChild(xmltxtInstallations);
           xmlelProperty.AppendChild(xmlelInstallations);
           // PopKill
           XmlElement xmlelPopKill = xmldoc.CreateElement("PopKill");
-          XmlText xmltxtPopKill = xmldoc.CreateTextNode(this.PopKill.ToString());
+          XmlText xmltxtPopKill = xmldoc.CreateTextNode(this.PopKill.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelPopKill.AppendChild(xmltxtPopKill);
           xmlelProperty.AppendChild(xmlelPopKill);
           // MinimumKill
           XmlElement xmlelMinimumKill = xmldoc.CreateElement("MinimumKill");
-          XmlText xmltxtMinimumKill = xmldoc.CreateTextNode(this.MinimumKill.ToString());
+          XmlText xmltxtMinimumKill = xmldoc.CreateTextNode(this.MinimumKill.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelMinimumKill.AppendChild(xmltxtMinimumKill);
           xmlelProperty.AppendChild(xmlelMinimumKill);
           // IsSmart
           XmlElement xmlelIsSmart = xmldoc.CreateElement("IsSmart");
-          XmlText xmltxtIsSmart = xmldoc.CreateTextNode(this.IsSmart.ToString());
+          XmlText xmltxtIsSmart = xmldoc.CreateTextNode(this.IsSmart.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelIsSmart.AppendChild(xmltxtIsSmart);
           xmlelProperty.AppendChild(xmlelIsSmart);
 

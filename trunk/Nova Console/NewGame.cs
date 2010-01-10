@@ -192,9 +192,9 @@ namespace NovaConsole
          star.MineralConcentration.Germanium = random.Next(50, 100);
 
          star.Owner                          = race.Name;
-         star.ScannerType                    = "Scoper 150"; // TODO get from component list
-         star.DefenseType                    = "SDI"; // TODO get from component list
-         star.ScanRange                      = 50; // TODO get from component list
+         star.ScannerType                    = "Scoper 150"; // TODO (priority 4) get from component list
+         star.DefenseType                    = "SDI"; // TODO (priority 4) get from component list
+         star.ScanRange                      = 50; // TODO (priority 4) get from component list
          star.Mines                          = 10;
          star.Factories                      = 10;
 

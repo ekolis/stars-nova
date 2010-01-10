@@ -53,7 +53,7 @@ namespace NovaCommon
 
       public override string Key
       {
-          get { return KeyID.ToString(); }
+          get { return KeyID.ToString(System.Globalization.CultureInfo.InvariantCulture); }
       }
    }
  
