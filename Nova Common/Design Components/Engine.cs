@@ -91,28 +91,30 @@ namespace NovaCommon
           {
               try
               {
-                  if (subnode.Name.ToLower() == "ramscoop")
+                  switch (subnode.Name.ToLower())
                   {
-                      RamScoop = bool.Parse(((XmlText)subnode.FirstChild).Value);
-                  }
-                  else if (subnode.Name.ToLower() == "fastestsafespeed")
-                  {
-                      FastestSafeSpeed = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  else if (subnode.Name.ToLower() == "optimalspeed")
-                  {
-                      OptimalSpeed = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  else if (subnode.Name.ToLower() == "fuelconsumption")
-                  {
-                      // load each fuel consumption value
+                      case "ramscoop":
+                          RamScoop = bool.Parse(((XmlText)subnode.FirstChild).Value);
+                          break;
+                      case "fastestsafespeed":
+                          FastestSafeSpeed = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          break;
+                      case "optimalspeed":
+                          OptimalSpeed = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          break;
+                      case "fuelconsumption":
+                          {
+                              // load each fuel consumption value
 
-                      for (int warp = 0; warp < FuelConsumption.Length; warp++)
-                      {
+                              for (int warp = 0; warp < FuelConsumption.Length; warp++)
+                              {
 
-                          FuelConsumption[warp] = int.Parse(((XmlText)subnode.SelectSingleNode("Warp" + warp.ToString()).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                      }
+                                  FuelConsumption[warp] = int.Parse(((XmlText)subnode.SelectSingleNode("Warp" + warp.ToString(System.Globalization.CultureInfo.InvariantCulture)).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                              }
+                              break;
+                          }
                   }
+
               }
               catch
               {
@@ -133,25 +135,25 @@ namespace NovaCommon
 
           // RamScoop
           XmlElement xmlelRamScoop = xmldoc.CreateElement("RamScoop");
-          XmlText xmltxtRamScoop = xmldoc.CreateTextNode(this.RamScoop.ToString());
+          XmlText xmltxtRamScoop = xmldoc.CreateTextNode(this.RamScoop.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelRamScoop.AppendChild(xmltxtRamScoop);
           xmlelProperty.AppendChild(xmlelRamScoop);
           // FastestSafeSpeed
           XmlElement xmlelFastestSafeSpeed = xmldoc.CreateElement("FastestSafeSpeed");
-          XmlText xmltxtFastestSafeSpeed = xmldoc.CreateTextNode(this.FastestSafeSpeed.ToString());
+          XmlText xmltxtFastestSafeSpeed = xmldoc.CreateTextNode(this.FastestSafeSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelFastestSafeSpeed.AppendChild(xmltxtFastestSafeSpeed);
           xmlelProperty.AppendChild(xmlelFastestSafeSpeed);
           // Optimal Speed
           XmlElement xmlelOptimalSpeed = xmldoc.CreateElement("OptimalSpeed");
-          XmlText xmltxtOptimalSpeed = xmldoc.CreateTextNode(this.OptimalSpeed.ToString());
+          XmlText xmltxtOptimalSpeed = xmldoc.CreateTextNode(this.OptimalSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelOptimalSpeed.AppendChild(xmltxtOptimalSpeed);
           xmlelProperty.AppendChild(xmlelOptimalSpeed);
           // FuelConsumption
           XmlElement xmlelFuelConsumption = xmldoc.CreateElement("FuelConsumption");
           for (int warp = 0; warp < FuelConsumption.Length; warp++ )
           {
-              XmlElement xmlelWarp = xmldoc.CreateElement("Warp" + warp.ToString());
-              XmlText xmltextWarp = xmldoc.CreateTextNode(this.FuelConsumption[warp].ToString());
+              XmlElement xmlelWarp = xmldoc.CreateElement("Warp" + warp.ToString(System.Globalization.CultureInfo.InvariantCulture));
+              XmlText xmltextWarp = xmldoc.CreateTextNode(this.FuelConsumption[warp].ToString(System.Globalization.CultureInfo.InvariantCulture));
               xmlelWarp.AppendChild(xmltextWarp);
               xmlelFuelConsumption.AppendChild(xmlelWarp);
           }

@@ -27,7 +27,8 @@ namespace NovaCommon
    [Serializable]
    public class Fleet : Item
    {
-      public  ArrayList  FleetShips     = new ArrayList();
+       public int FleetID = 0;
+       public ArrayList FleetShips = new ArrayList();
       public  ArrayList  Waypoints      = new ArrayList();
       public  Cargo      Cargo          = new Cargo(); // FIXME - Cargo should be tracked by either the fleet or the ship, not both.
       public  Fleet      Target         = null;
@@ -40,9 +41,13 @@ namespace NovaCommon
       public  double     TargetDistance = 100;
       public  int        CargoCapacity  = 0;
       public  string     BattlePlan     = "Default";
-      public  int        FleetID        = 0;
       
       public  enum       TravelStatus {Arrived, InTransit}
+
+      /// <summary>
+      /// placeholder constructor - Fleet should be replaced by a reference to the fleet with the same ID
+      /// </summary>
+      public Fleet(int id) { FleetID = id; }
 
 // ============================================================================
 // Fleet construction for unit testing and stack creation during a battle.
@@ -103,26 +108,69 @@ namespace NovaCommon
          Owner        = star.Owner;
       }
 
+       /// <summary>
+       /// Load: Initialising constructor to load a fleet from an XmlNode (save file).
+       /// </summary>
+       /// <param name="node">An XmlNode representing the fleet.</param>
+      public Fleet(XmlNode node)
+      {
+          // Read the node
+          while (node != null)
+          {
+              try
+              {
+                  switch (node.Name.ToLower())
+                  {
+                      case "fleetid": int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "targetid": Target = new Fleet(int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture)); break;
+                      case "cargo": Cargo = new Cargo(node.FirstChild); break;
+                          
+                          // TODO (priority 5) placeholder to be replaced with reference to a complete star object
+                      case "inorbit": InOrbit = new Star(); InOrbit.Name = ((XmlText)node.FirstChild).Value; break;
+
+                      case "battlespeed": BattleSpeed = double.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "bearing": Bearing = double.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "cloaked": Cloaked = double.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "fuelavailable": FuelAvailable = double.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "fuelcapacity": FuelCapacity = double.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "targetdistance": TargetDistance = double.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "cargocapacity": CargoCapacity = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "battleplan": BattlePlan = ((XmlText)node.FirstChild).Value; break;
+                      case "ship": Ship ship = new Ship(node.FirstChild); FleetShips.Add(ship); break;
+                      case "waypoint": Waypoint waypoint = new Waypoint(node.FirstChild); Waypoints.Add(waypoint); break;
+
+                      default: break;
+                  }
+
+              }
+              catch
+              {
+                  // If there are blank entries null reference exemptions will be raised here. It is safe to ignore them.
+              }
+              node = node.NextSibling;
+          }
+      }
+
       // ============================================================================
       // Save: Return an XmlElement representation of the Fleet
       // ============================================================================
        
-      public XmlElement ToXml(XmlDocument xmldoc)
+      public new XmlElement ToXml(XmlDocument xmldoc)
       {
           XmlElement xmlelFleet = xmldoc.CreateElement("Fleet");
 
-          Global.SaveData(xmldoc, xmlelFleet, "FleetID", this.FleetID.ToString());
-          if (Target != null) Global.SaveData(xmldoc, xmlelFleet, "TargetID", Target.FleetID.ToString());
+          Global.SaveData(xmldoc, xmlelFleet, "FleetID", this.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (Target != null) Global.SaveData(xmldoc, xmlelFleet, "TargetID", Target.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
           else Global.SaveData(xmldoc, xmlelFleet, "TravelStatus", "InTransit");
           if (InOrbit != null) Global.SaveData(xmldoc, xmlelFleet, "InOrbit", InOrbit.Name);
 
-          if (BattleSpeed != 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "BattleSpeed", this.BattleSpeed.ToString());
-          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "Bearing", this.Bearing.ToString());
-          if (Cloaked != 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "Cloaked", this.Cloaked.ToString());
-          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "FuelAvailable", this.FuelAvailable.ToString());
-          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "FuelCapacity", this.FuelCapacity.ToString());
-          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "TargetDistance", this.TargetDistance.ToString());
-          if (Cargo.Mass > 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "CargoCapacity", this.CargoCapacity.ToString());
+          if (BattleSpeed != 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "BattleSpeed", this.BattleSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "Bearing", this.Bearing.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (Cloaked != 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "Cloaked", this.Cloaked.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "FuelAvailable", this.FuelAvailable.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "FuelCapacity", this.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "TargetDistance", this.TargetDistance.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (Cargo.Mass > 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "CargoCapacity", this.CargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
           NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "BattlePlan", this.BattlePlan);
 
           xmlelFleet.AppendChild(this.Cargo.ToXml(xmldoc));
@@ -131,12 +179,12 @@ namespace NovaCommon
           {
               xmlelFleet.AppendChild(waypoint.ToXml(xmldoc));
           }
-          /* TODO
+        
           foreach (Ship ship in this.FleetShips)
           {
               xmlelFleet.AppendChild(ship.ToXml(xmldoc));
           }
-           * */
+    
 
           return xmlelFleet;
       }

@@ -64,6 +64,52 @@ namespace NovaCommon
          this.Cost     = new Resources(existing.Cost);
       }
 
+       /// <summary>
+       /// Load: Initialising constructor from an XmlNode representing the Item (from a save file).
+       /// </summary>
+       /// <param name="node">An XmlNode representing the Item</param>
+      public Item(XmlNode node)
+      {
+          XmlNode subnode = node.FirstChild;
+          while (subnode != null)
+          {
+              try
+              {
+
+                  switch (subnode.Name.ToLower())
+                  {
+
+                      case "mass":
+                          Mass = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          break;
+                      case "name":
+                          Name = ((XmlText)subnode.FirstChild).Value;
+                          break;
+                      case "owner":
+                          Owner = ((XmlText)subnode.FirstChild).Value;
+                          break;
+                      case "type":
+                          Type = ((XmlText)subnode.FirstChild).Value;
+                          break;
+                      case "position":
+                              Position.X = int.Parse((((XmlText)subnode.SelectSingleNode("X")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                              Position.Y = int.Parse((((XmlText)subnode.SelectSingleNode("Y")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                              break;
+                      case "cost":
+                          Cost = new Resources(subnode);
+                          break;
+
+                  }
+              }
+              catch
+              {
+                  // ignore incomplete or unset values
+              }
+              subnode = subnode.NextSibling;
+          }
+
+      }
+
 
 // ============================================================================
 // Return a key for use in hash tables to locate items.
@@ -74,6 +120,22 @@ namespace NovaCommon
          get { return this.Owner + "/" + this.Name; }
       }
 
+      public XmlElement ToXml(XmlDocument xmldoc)
+      {
+          XmlElement xmlelItem = xmldoc.CreateElement("Item");
 
+          Global.SaveData(xmldoc, xmlelItem, "Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelItem.AppendChild(Cost.ToXml(xmldoc));
+          Global.SaveData(xmldoc, xmlelItem, "Name", Name);
+          if (Owner != null) Global.SaveData(xmldoc, xmlelItem, "Owner", Owner);
+          if (Type != null) Global.SaveData(xmldoc, xmlelItem, "Type", Type);
+
+          XmlElement xmlelPoint = xmldoc.CreateElement("Possition");
+          Global.SaveData(xmldoc, xmlelPoint, "X", Position.X.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          Global.SaveData(xmldoc, xmlelPoint, "Y", Position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelItem.AppendChild(xmlelPoint);
+
+          return xmlelItem;
+      }
    }
 }

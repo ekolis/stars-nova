@@ -25,9 +25,8 @@
 //
 // ============================================================================
 //
-//                     TODO (low priority)
 //
-//  == BUGS (FIXME) ==
+//  == BUGS (FIXME priority 4) ==
 // Component->Copy seems to intermitently not copy race restrictions.
 // Component->Copy cross-links Hull maps (i.e. the one map is used by both 
 //   hulls). Suspect it is the individual modules that are x-linked not the 
@@ -36,13 +35,13 @@
 //     Component->Copy, or to save and re-open the file after copying a component 
 //     to make the hull map and race restrictions safe to modify.
 //
-//  == FEATURES ==
+//  == FEATURES (TODO priority 3) ==
 // Healing property of fuel X-ports? - No, as it depends on other factors such as 
 // movement. Will include in the game engine code.
 // Add buttons to sort components alphabetically or by tech level (or perhaps by 
 // an id number to put in a more Stars! like order?)
 //
-// == COSMETICS ==
+// == COSMETICS (TODO priority 2) ==
 // Add Keyboard Shortcuts
 //  - Up/Down key to navigate Component List
 // Order of hull property tab stops
@@ -115,7 +114,7 @@ namespace ComponentEditor
        // ----------------------------------------------------------------------------
        private void OnLoad(object sender, EventArgs e)
 	   {
-           // TODO: without this an exception is raised when trying to launch a dialog 
+           // TODO (priority 3): without this an exception is raised when trying to launch a dialog 
            // from the non UI thread used to load the component definition file. The 
            // exception is caught and the program continues but no component images 
            // will be displayed. - dan_vale 28 Dec 09
@@ -955,12 +954,12 @@ namespace ComponentEditor
            if (isStandardBeam.Checked)
            {
                decimal minesSwept = WeaponRange.Value * WeaponPower.Value;
-               MinesSwept.Text = minesSwept.ToString() + " mines swept per year.";
+               MinesSwept.Text = minesSwept.ToString(System.Globalization.CultureInfo.InvariantCulture) + " mines swept per year.";
            }
            else if (isGattling.Checked)
            {
                decimal minesSwept = 16 * WeaponPower.Value;
-               MinesSwept.Text = minesSwept.ToString() + " mines swept per year.";
+               MinesSwept.Text = minesSwept.ToString(System.Globalization.CultureInfo.InvariantCulture) + " mines swept per year.";
            }
            else
            {
@@ -1160,7 +1159,7 @@ namespace ComponentEditor
           EditMode = true;
           ComponentName.ReadOnly = false;
           Description.ReadOnly = false;
-          // TODO (low priority) - enable all component editing fields/menu items
+          // TODO (priority 2) - enable all component editing fields/menu items
           UpdateTitleBar();
       }
 
@@ -1177,7 +1176,7 @@ namespace ComponentEditor
           EditMode = false;
           ComponentName.ReadOnly = true;
           Description.ReadOnly = true;
-          // TODO (low priority) - disable all component editing fields.
+          // TODO (priority 2) - disable all component editing fields.
           UpdateTitleBar();
 
       }

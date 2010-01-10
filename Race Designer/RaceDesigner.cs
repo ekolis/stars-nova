@@ -160,7 +160,7 @@ namespace RaceDesigner
          SelectedRace = AllTraits.Data.Primary["JOAT"];
          PrimaryTraitDescription.Text = SelectedRace.Description;
          //AdvantagePoints += trait.Cost;
-         //AvailablePoints.Text = AdvantagePoints.ToString();
+         //AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
          ParametersChanged                = false;
          UnusedPointsTarget.SelectedIndex = 0;
@@ -1516,7 +1516,7 @@ namespace RaceDesigner
                      }
 
                      ParametersChanged = true;
-                     AvailablePoints.Text = AdvantagePoints.ToString();
+                     AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
                      break;
                  }
              }
@@ -1551,7 +1551,7 @@ namespace RaceDesigner
                          AdvantagePoints += trait.Cost;
                      }
 
-                     AvailablePoints.Text = AdvantagePoints.ToString();
+                     AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
                      ParametersChanged = true;
                      break;
                  }
@@ -1595,7 +1595,7 @@ namespace RaceDesigner
                      }
 
                      parameter.Cost[0] = newValue;
-                     AvailablePoints.Text = AdvantagePoints.ToString();
+                     AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
                      ParametersChanged = true;
                      break;
                  }
@@ -1613,7 +1613,7 @@ namespace RaceDesigner
          private void ResearchCost_SelectionChanged(object sender, int value)
          {
              AdvantagePoints += value;
-             AvailablePoints.Text = AdvantagePoints.ToString();
+             AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
              ParametersChanged = true;
          }
 
@@ -1639,7 +1639,7 @@ namespace RaceDesigner
              AdvantagePoints -= Utilities.BarPositionCost(oldLeftPos, oldRightPos);
              AdvantagePoints += Utilities.BarPositionCost(newLeftPos, newRightPos);
 
-             AvailablePoints.Text = AdvantagePoints.ToString();
+             AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
              ParametersChanged = true;
          }
 
@@ -1818,7 +1818,7 @@ namespace RaceDesigner
                  XmlNode xmlnode;
                  XmlElement xmlRoot;
                  xmldoc = new XmlDocument();
-                 // TODO (low priority) - add the encoding attribute like UTF-8 ???
+                 // TODO (priority 4) - add the encoding attribute like UTF-8 ???
                  xmlnode = xmldoc.CreateNode(XmlNodeType.XmlDeclaration, "", "");
                  xmldoc.AppendChild(xmlnode);
                  xmlRoot = xmldoc.CreateElement("", "ROOT", "");
@@ -1934,7 +1934,7 @@ namespace RaceDesigner
              {
                  raceData = new Race(fileName);
 
-                 // TODO - This level of security is not good enough as the race is stored un-encrypted.
+                 // TODO (priority 4) - This level of security is not good enough as the race is stored un-encrypted.
                  ControlLibrary.CheckPassword password =
                     new ControlLibrary.CheckPassword(raceData);
 

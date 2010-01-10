@@ -10,6 +10,8 @@
 // Software Foundation.
 // ============================================================================
 using System;
+using System.Xml;
+using System.IO.Compression;
 using System.Collections.Generic;
 using System.Text;
 using System.IO;
@@ -48,7 +50,6 @@ namespace NovaConsole
 
         private static void ReadPlayerTurn(Race race)
         {
-            Orders inputTurn = new Orders();
             string fileName = Path.Combine(StateData.GameFolder, race.Name + ".Orders");
 
             // Check for the special condition mentioned in the header.
@@ -61,38 +62,57 @@ namespace NovaConsole
                                   + "present.");
             }
 
+            // Load from a binary serialised file.
+            
+            Orders playerOrders = new Orders();
             FileStream turnFile = new FileStream(fileName, FileMode.Open);
-
-            inputTurn = Formatter.Deserialize(turnFile) as Orders;
+            playerOrders = Formatter.Deserialize(turnFile) as Orders;
             turnFile.Close();
+            
 
-            foreach (Design design in inputTurn.RaceDesigns)
+            // Load from an xml file
+            /*
+            XmlDocument xmldoc = new XmlDocument();
+            FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
+            GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
+#if (DEBUG)
+            xmldoc.Load(fileName);  // uncompressed
+#else
+            xmldoc.Load(compressionStream); // compressed
+#endif
+            Orders playerOrders = new Orders(xmldoc.DocumentElement);
+            fileStream.Close();
+            */
+
+            // Regardless of how it was loaded:
+
+            foreach (Design design in playerOrders.RaceDesigns)
             {
                 StateData.AllDesigns[design.Key] = design;
             }
 
-            foreach (string fleetKey in inputTurn.DeletedFleets)
+            foreach (string fleetKey in playerOrders.DeletedFleets)
             {
                 StateData.AllFleets.Remove(fleetKey);
             }
 
-            foreach (string designKey in inputTurn.DeletedDesigns)
+            foreach (string designKey in playerOrders.DeletedDesigns)
             {
                 StateData.AllDesigns.Remove(designKey);
             }
 
-            foreach (Fleet fleet in inputTurn.RaceFleets)
+            foreach (Fleet fleet in playerOrders.RaceFleets)
             {
                 StateData.AllFleets[fleet.Key] = fleet;
             }
 
-            foreach (Star star in inputTurn.RaceStars)
+            foreach (Star star in playerOrders.RaceStars)
             {
                 StateData.AllStars[star.Name] = star;
             }
 
-            StateData.AllRaceData[race.Name] = inputTurn.PlayerData;
-            StateData.AllTechLevels[race.Name] = inputTurn.TechLevel;
+            StateData.AllRaceData[race.Name] = playerOrders.PlayerData;
+            StateData.AllTechLevels[race.Name] = playerOrders.TechLevel;
         }
 
     }

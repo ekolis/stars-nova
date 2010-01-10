@@ -128,12 +128,12 @@ namespace NovaCommon
 
             // Capacity
             XmlElement xmlelCapacity = xmldoc.CreateElement("Capacity");
-            XmlText xmltxtCapacity = xmldoc.CreateTextNode(this.Capacity.ToString());
+            XmlText xmltxtCapacity = xmldoc.CreateTextNode(this.Capacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
             xmlelCapacity.AppendChild(xmltxtCapacity);
             xmlelProperty.AppendChild(xmlelCapacity);
             // Generation
             XmlElement xmlelGeneration = xmldoc.CreateElement("Generation");
-            XmlText xmltxtGeneration = xmldoc.CreateTextNode(this.Generation.ToString());
+            XmlText xmltxtGeneration = xmldoc.CreateTextNode(this.Generation.ToString(System.Globalization.CultureInfo.InvariantCulture));
             xmlelGeneration.AppendChild(xmltxtGeneration);
             xmlelProperty.AppendChild(xmlelGeneration);
 

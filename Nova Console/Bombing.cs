@@ -86,7 +86,7 @@ namespace NovaConsole
          text.Append("Fleet " + fleet.Name + " has killed ");
 
          if (star.Colonists > 0) {
-            text.Append(killed.ToString() + "of the colonists ");
+            text.Append(killed.ToString(System.Globalization.CultureInfo.InvariantCulture) + "of the colonists ");
          }
          else {
             text.Append("all of the colonists ");
@@ -146,7 +146,7 @@ namespace NovaConsole
          star.Defenses -= loss;
 
          StringBuilder text = new StringBuilder();
-         text.Append(prefix + loss.ToString() + " Defenses " + suffix);
+         text.Append(prefix + loss.ToString(System.Globalization.CultureInfo.InvariantCulture) + " Defenses " + suffix);
 
          Message lambDefenses  = new Message();
          lambDefenses.Text     = text.ToString();
@@ -165,7 +165,7 @@ namespace NovaConsole
          
          star.Factories   -= loss;
          text              = new StringBuilder();
-         text.Append(prefix + loss.ToString() + " factories " + suffix);
+         text.Append(prefix + loss.ToString(System.Globalization.CultureInfo.InvariantCulture) + " factories " + suffix);
 
          Message lambFactories  = new Message();
          lambFactories.Text     = text.ToString();
@@ -184,7 +184,7 @@ namespace NovaConsole
          
          star.Mines       -= loss;
          text              = new StringBuilder();
-         text.Append(prefix + loss.ToString() + " mines " + suffix);
+         text.Append(prefix + loss.ToString(System.Globalization.CultureInfo.InvariantCulture) + " mines " + suffix);
 
          Message lambMines  = new Message();
          lambMines.Text     = text.ToString();

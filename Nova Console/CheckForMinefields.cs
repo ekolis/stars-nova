@@ -153,7 +153,7 @@ namespace NovaConsole
             fleet.Speed   = 0;
          }   
          else if (fleet.FleetShips.Count != 0) {
-            message.Text += shipsLost.ToString() 
+            message.Text += shipsLost.ToString(System.Globalization.CultureInfo.InvariantCulture) 
                + " of your ships were destroyed.\n";
          }
          else {

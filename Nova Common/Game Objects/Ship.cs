@@ -153,7 +153,7 @@ namespace NovaCommon
 
 
 // ============================================================================
-      // Return the power rating of this ship (stub - TODO) 
+      // Return the power rating of this ship - stub: TODO (priority 3)
 // ============================================================================
 
       public int PowerRating {
@@ -194,7 +194,7 @@ namespace NovaCommon
 
 // ============================================================================
 // Return total  bomb capability. 
-// TODO (low priority) Whatever code uses this seems to be ignoring smart bombs???
+// TODO (priority 4) Whatever code uses this seems to be ignoring smart bombs???
 // ============================================================================
 
       public Bomb BombCapability
@@ -208,7 +208,7 @@ namespace NovaCommon
 
 // ============================================================================
 // Return total mine laying capacity for this ship
-// TODO (low priority) Client code must handle heavy and speed trap mines too.
+// TODO (priority 4) Client code must handle heavy and speed trap mines too.
 // ============================================================================
 
       public int MineCount
@@ -222,17 +222,17 @@ namespace NovaCommon
        /// Generate an xml representation of the ship for saving
        /// </summary>
        /// <param name="xmldoc">The master XmlDocument</param>
-      public XmlElement ToXml(XmlDocument xmldoc)
+      public new XmlElement ToXml(XmlDocument xmldoc)
       {
           XmlElement xmlelShip = xmldoc.CreateElement("Ship");
 
           NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Design", this.Design.Name);
           NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Owner", this.Owner);
-          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Mass", this.Mass.ToString());
+          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Mass", this.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelShip.AppendChild(Cost.ToXml(xmldoc));
 
-          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Shields", this.Shields.ToString());
-          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Armor", this.Armor.ToString());
+          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Shields", this.Shields.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Armor", this.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture));
           if (Cargo.Mass > 0) xmlelShip.AppendChild(Cargo.ToXml(xmldoc));
 
           /* These fields inherited from Item are ignored.

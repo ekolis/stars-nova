@@ -66,8 +66,8 @@ namespace NovaCommon
         {
             XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement("EnvironmentTolerance");
 
-            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Min", Minimum.ToString());
-            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Max", Maximum.ToString());
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Min", Minimum.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Max", Maximum.ToString(System.Globalization.CultureInfo.InvariantCulture));
             return xmlelEnvironmentTolerance;
         }
     }

@@ -187,7 +187,7 @@ namespace NovaConsole {
             // If no stack exists for this design then create one now.
 
             if (stack == null) {
-               string name = "Stack #" + StackID++.ToString(); 
+               string name = "Stack #" + StackID++.ToString(System.Globalization.CultureInfo.InvariantCulture); 
                stack       = new Fleet(name, fleet.Owner, fleet.Position);
 
                stack.BattlePlan  = fleet.BattlePlan;
@@ -409,7 +409,7 @@ namespace NovaConsole {
       public static void MoveStacks(ArrayList zoneStacks)
       {
 		  // each turn has 3 phases
-		  // TODO - verify that a ship should be able to move 1 square per phase if it has 3 move points, or is it limited to 1 per turn?
+		  // TODO (priority 3) - verify that a ship should be able to move 1 square per phase if it has 3 move points, or is it limited to 1 per turn?
 		  var phases = 3;
 		 for (var phase = 0; phase < phases; phase++)
 		 {
@@ -438,7 +438,7 @@ namespace NovaConsole {
 					 report.Position = stack.Position;
 					 Battle.Steps.Add(report);
 				 }
-				 // TODO - shouldn't stacks without targets flee the battle if their strategy says to do so? they're sitting ducks now!
+				 // TODO (priority 3) - shouldn't stacks without targets flee the battle if their strategy says to do so? they're sitting ducks now!
 			 }
 		 }
       }
@@ -698,7 +698,7 @@ namespace NovaConsole {
                                          Weapon weapon, 
                                          Ship target)
       {
-          // TODO Stub - just return the base power of weapon
+          // TODO (priority 4) Stub - just return the base power of weapon
           return weapon.Power;
           /*
          double weaponPower = weapon.GetPower(ship);
@@ -764,7 +764,7 @@ namespace NovaConsole {
                message.Text += "None of your ships were destroyed";
             }
             else {
-               message.Text += ((int) Battle.Losses[race]).ToString() +
+               message.Text += ((int) Battle.Losses[race]).ToString(System.Globalization.CultureInfo.InvariantCulture) +
                   " of your ships were destroyed";
             }
 

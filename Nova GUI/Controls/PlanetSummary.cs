@@ -444,7 +444,7 @@ private void InitializeComponent()
          set {
             Race race    = GuiState.Data.RaceData;
             int habValue = (int) Math.Ceiling(value.HabitalValue(race) * 100);
-            PlanetValue.Text = habValue.ToString() + "%";
+            PlanetValue.Text = habValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
 
             if (habValue < 0) {
                PlanetValue.ForeColor = Color.Red;
@@ -489,9 +489,9 @@ private void InitializeComponent()
             double g = report.Gravity / 10.0;
             double t = -200 + ((400 * report.Temperature) / 100.0);
 
-            RadiationLevel.Text          = r.ToString()     + "mR";
+            RadiationLevel.Text          = r.ToString(System.Globalization.CultureInfo.InvariantCulture)     + "mR";
             GravityLevel.Text            = g.ToString("F1") + "g";
-            TemperatureLevel.Text        = t.ToString()     + "C";
+            TemperatureLevel.Text        = t.ToString(System.Globalization.CultureInfo.InvariantCulture)     + "C";
 
             RadiationGauge.TopValue      = race.RadiationTolerance.Maximum;
             RadiationGauge.BottomValue   = race.RadiationTolerance.Minimum;

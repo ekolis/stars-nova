@@ -34,10 +34,74 @@ namespace NovaCommon
       public ArrayList   DeletedFleets   = new ArrayList(); // To delete fleets
       public ArrayList   DeletedDesigns  = new ArrayList(); // To delete designs
       public RaceData    PlayerData      = new RaceData();  // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.)
-      public int         TechLevel       = 0;               // FIXME: should send our research orders; server should control actual player tech level 
+      public int         TechLevel       = 0;               // FIXME (priority 4): should send our research orders; server should control actual player tech level ??? what does this int mean? it is not a TechLevel type.
 
        // private data
        private static BinaryFormatter Formatter = new BinaryFormatter();
+
+       /// <summary>
+       /// default constructor
+       /// </summary>
+       public Orders() { }
+
+       public Orders(XmlNode xmlnode)
+       {
+           // temporary variables for reading in designs, fleets, stars
+           Design design = null; 
+           ShipDesign shipDesign = null;
+           Fleet fleet = null;
+           Star star = null;
+
+           // Read the node
+           while (xmlnode != null)
+           {
+               try
+               {
+                   switch (xmlnode.Name.ToLower())
+                   {
+                       case "root": xmlnode = xmlnode.FirstChild; continue;
+                       case "orders": xmlnode = xmlnode.FirstChild; continue;
+                       case "techlevel": TechLevel = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+
+                       case "design":
+                           string type = xmlnode.FirstChild.SelectSingleNode("Type").Value;
+                           if (type.ToLower() == "ship" || type == "starbase")
+                           {
+                               shipDesign = new ShipDesign(xmlnode.FirstChild);
+                               RaceDesigns.Add(shipDesign);
+                           }
+                           else
+                           {
+                               design = new Design(xmlnode.FirstChild);
+                               RaceDesigns.Add(design);
+                           }
+                           break;
+
+                       case "star":
+                           star = new Star(xmlnode.FirstChild);
+                           RaceStars.Add(star);
+                           break;
+
+                       case "fleet":
+                           fleet = new Fleet(xmlnode.FirstChild);
+                           RaceFleets.Add(fleet);
+                           break;
+
+                       case "racedata":
+                           PlayerData = new RaceData(xmlnode.FirstChild);
+                           break;
+
+                       default: break;
+                   }
+
+               }
+               catch
+               {
+                   // If there are blank entries null reference exemptions will be raised here. It is safe to ignore them.
+               }
+               xmlnode = xmlnode.NextSibling;
+           }
+       }
 
        /// <summary>
        /// Write out the orders file using binary serialization
@@ -63,7 +127,7 @@ namespace NovaCommon
            XmlNode xmlnode;
            XmlElement xmlRoot;
            xmldoc = new XmlDocument();
-           // TODO (low priority) - add the encoding attribute like UTF-8 ???
+           // TODO (priority 4) - add the encoding attribute like UTF-8 ???
            xmlnode = xmldoc.CreateNode(XmlNodeType.XmlDeclaration, "", "");
            xmldoc.AppendChild(xmlnode);
            xmlRoot = xmldoc.CreateElement("", "ROOT", "");
@@ -74,7 +138,7 @@ namespace NovaCommon
            xmlRoot.AppendChild(xmlelOrders);
 
            // Place the turn year first, so it can be determined quickly
-           Global.SaveData(xmldoc, xmlelOrders, "Turn", PlayerData.TurnYear.ToString());
+           Global.SaveData(xmldoc, xmlelOrders, "Turn", PlayerData.TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
            // Store the fleets, to pass on fleet orders
            foreach (Fleet fleet in RaceFleets)
@@ -82,24 +146,34 @@ namespace NovaCommon
                xmlelOrders.AppendChild(fleet.ToXml(xmldoc));
            }
            // store the designs, for any new designs
-           foreach (ShipDesign design in RaceDesigns)
+           foreach (Design design in RaceDesigns)
            {
-               xmlelOrders.AppendChild(design.ToXml(xmldoc));
+               if (design.Type == "Ship" || design.Type == "Starbase")
+                   xmlelOrders.AppendChild(((ShipDesign)design).ToXml(xmldoc));
+               else
+                   xmlelOrders.AppendChild(design.ToXml(xmldoc));
            }
            // store the stars, so we can pass production orders
            foreach (Star star in RaceStars)
            {
                xmlelOrders.AppendChild(star.ToXml(xmldoc));
            }
-
-           /*
-
-      public ArrayList   RaceStars       = new ArrayList();
-      public ArrayList   DeletedFleets   = new ArrayList();
-      public ArrayList   DeletedDesigns  = new ArrayList();
-      public RaceData    PlayerData      = new RaceData();
-      public int         TechLevel       = 0;           
-           */
+           foreach (Fleet fleet in DeletedFleets)
+           {
+               xmlelOrders.AppendChild(fleet.ToXml(xmldoc)); // TODO (priority 5) how do we tell these from the current fleets ???
+           }
+           foreach (Design design in DeletedDesigns)
+           {
+               // TODO (priority 5) how do we tell these from the current designs ???
+               if (design.Type == "Ship" || design.Type == "Starbase")
+                   xmlelOrders.AppendChild(((ShipDesign)design).ToXml(xmldoc));
+               else
+                   xmlelOrders.AppendChild(design.ToXml(xmldoc)); 
+               
+           }
+           xmlelOrders.AppendChild(PlayerData.ToXml(xmldoc));
+           Global.SaveData(xmldoc, xmlelOrders, "TechLevel", TechLevel.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           
 
            // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
            // manual inspection of the save file. Generally though it can be opened by any archiving tool that

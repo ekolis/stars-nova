@@ -379,7 +379,7 @@ namespace NovaCommon
 // Return an XmlElement representation of this Component
 // ============================================================================
 
-      public XmlElement ToXml(XmlDocument xmldoc)
+      public new XmlElement ToXml(XmlDocument xmldoc)
       {
           XmlElement xmlelComponent = xmldoc.CreateElement("Component");
           // Name
@@ -394,7 +394,7 @@ namespace NovaCommon
           xmlelComponent.AppendChild(xmlelType);
           // Mass
           XmlElement xmlelMass = xmldoc.CreateElement("Mass");
-          XmlText xmltxtMass = xmldoc.CreateTextNode(this.Mass.ToString());
+          XmlText xmltxtMass = xmldoc.CreateTextNode(this.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelMass.AppendChild(xmltxtMass);
           xmlelComponent.AppendChild(xmlelMass);
           // Resource

@@ -31,7 +31,7 @@ namespace Nova
          foreach (ProductionQueue.Item i in toMake.Queue) {
             ListViewItem item = new ListViewItem();
             item.Text         = i.Name;
-            item.SubItems.Add(i.Quantity.ToString());
+            item.SubItems.Add(i.Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             listView.Items.Add(item);
          }

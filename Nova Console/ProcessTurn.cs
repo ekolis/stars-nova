@@ -55,7 +55,7 @@ namespace NovaConsole
              ProcessStar(star);
          }
 
-         // remove any destroyed fleets - TODO should be done when they are destroyed to allow bombing when a base is destroyed
+         // remove any destroyed fleets - TODO (priority 4) should be done when they are destroyed to allow bombing when a base is destroyed
          ArrayList destroyedFleets = new ArrayList();
          foreach (Fleet fleet in ConsoleState.Data.AllFleets.Values)
          {
@@ -69,7 +69,7 @@ namespace NovaConsole
 
          BattleEngine.Run();
 
-         // remove any destroyed fleets - TODO should be done when they are destroyed to allow bombing when a base is destroyed
+         // remove any destroyed fleets - TODO (priority 4) should be done when they are destroyed to allow bombing when a base is destroyed
          destroyedFleets = new ArrayList();
          foreach (Fleet fleet in ConsoleState.Data.AllFleets.Values)
          {
@@ -81,7 +81,7 @@ namespace NovaConsole
              ConsoleState.Data.AllFleets.Remove(name);
          }
 
-         // remove destroyed space stations - TODO should be done when they are destroyed
+         // remove destroyed space stations - TODO (priority 4) should be done when they are destroyed
          ArrayList destroyedStations = new ArrayList();
          foreach (Star star in ConsoleState.Data.AllStars.Values)
          {
@@ -120,7 +120,7 @@ namespace NovaConsole
             int     died     = initialPopulation - finalPopulation;
             Message message  = new Message();
             message.Audience = star.Owner;
-            message.Text     = died.ToString() 
+            message.Text     = died.ToString(System.Globalization.CultureInfo.InvariantCulture) 
                + " of your colonists have been killed"
                + " by the environment on " + star.Name;
             Intel.Data.Messages.Add(message);
@@ -183,7 +183,7 @@ namespace NovaConsole
 // 8% orbiting own planet with starbase but 0 dock.
 // 20 orbiting own planet with dock.
 // +repair% if stopped or orbiting.
-// A starbase is not counted towards repairs if it is under attack. TODO
+// A starbase is not counted towards repairs if it is under attack. TODO (priority 4)
 // ============================================================================
 
       private static void RegenerateFleet(Fleet fleet)
@@ -192,19 +192,19 @@ namespace NovaConsole
 
           Star star = fleet.InOrbit;
           // refuel
-          if (star != null && star.Owner == fleet.Owner /* TODO or friendly*/ && star.Starbase != null && star.Starbase.CanRefuel)
+          if (star != null && star.Owner == fleet.Owner /* TODO (priority 4) or friendly*/ && star.Starbase != null && star.Starbase.CanRefuel)
           {
               fleet.FuelAvailable = fleet.FuelCapacity;
           }
 
-          // repair, TODO skip if fleet has no damage, if that is more efficient 
+          // repair, TODO (priority 3) skip if fleet has no damage, if that is more efficient 
           
           int repairRate = 0;
           if (star != null)
           {
-              if (star.Owner == fleet.Owner /* TODO or friend */)
+              if (star.Owner == fleet.Owner /* TODO (priority 4) or friend */)
               {
-                  if (star.Starbase != null /* TODO and not under attack */)
+                  if (star.Starbase != null /* TODO (priority 4) and not under attack */)
                   {
                       if (star.Starbase.CanRefuel)
                       {
@@ -225,7 +225,7 @@ namespace NovaConsole
               }
               else
               {
-                  // TODO 0% if bombing
+                  // TODO (priority 4) 0% if bombing
                   // orbiting, but not bombing an enemy planet
                   repairRate = 3;
 
@@ -233,7 +233,7 @@ namespace NovaConsole
           }
           else
           {
-              if (fleet.Waypoints.Count == 0) // TODO - check if a stopped fleet has 1 or 0 waypoints
+              if (fleet.Waypoints.Count == 0) // TODO (priority 4) - check if a stopped fleet has 1 or 0 waypoints
               {
                   // stopped in space
                   repairRate = 2;

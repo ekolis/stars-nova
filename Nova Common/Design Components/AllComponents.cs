@@ -225,7 +225,7 @@ namespace NovaCommon
               XmlNode xmlnode;
               XmlElement xmlRoot;
 			  xmldoc = new XmlDocument();
-			  // TODO - see if byte order marks emitted by .NET interfere with Mono parsing of XML files
+			  // TODO (priority 4) - see if byte order marks emitted by .NET interfere with Mono parsing of XML files
 			  xmlnode = xmldoc.CreateXmlDeclaration("1.0", "UTF-8", null);
               xmldoc.AppendChild(xmlnode);
               xmlRoot = xmldoc.CreateElement("", "ROOT", "");
@@ -298,7 +298,7 @@ namespace NovaCommon
 
           DialogResult result = fd.ShowDialog();
 
-          // MessageBox.Show("Result " + result.ToString());
+          // MessageBox.Show("Result " + result.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
           if (result == DialogResult.OK && fd.FileName != null)
           {

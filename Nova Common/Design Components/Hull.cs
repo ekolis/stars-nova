@@ -119,17 +119,17 @@ namespace NovaCommon
 
           // CellNumber
           XmlElement xmlelCellNumber = xmldoc.CreateElement("CellNumber");
-          XmlText xmltxtCellNumber = xmldoc.CreateTextNode(this.CellNumber.ToString());
+          XmlText xmltxtCellNumber = xmldoc.CreateTextNode(this.CellNumber.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelCellNumber.AppendChild(xmltxtCellNumber);
           xmlelModule.AppendChild(xmlelCellNumber);
           // ComponentCount
           XmlElement xmlelComponentCount = xmldoc.CreateElement("ComponentCount");
-          XmlText xmltxtComponentCount = xmldoc.CreateTextNode(this.ComponentCount.ToString());
+          XmlText xmltxtComponentCount = xmldoc.CreateTextNode(this.ComponentCount.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelComponentCount.AppendChild(xmltxtComponentCount);
           xmlelModule.AppendChild(xmlelComponentCount);
           // ComponentMaximum
           XmlElement xmlelComponentMaximum = xmldoc.CreateElement("ComponentMaximum");
-          XmlText xmltxtComponentMaximum = xmldoc.CreateTextNode(this.ComponentMaximum.ToString());
+          XmlText xmltxtComponentMaximum = xmldoc.CreateTextNode(this.ComponentMaximum.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelComponentMaximum.AppendChild(xmltxtComponentMaximum);
           xmlelModule.AppendChild(xmlelComponentMaximum);
           // ComponentType
@@ -305,32 +305,32 @@ namespace NovaCommon
 
           // FuelCapacity
           XmlElement xmlelFuelCapacity = xmldoc.CreateElement("FuelCapacity");
-          XmlText xmltxtFuelCapacity = xmldoc.CreateTextNode(this.FuelCapacity.ToString());
+          XmlText xmltxtFuelCapacity = xmldoc.CreateTextNode(this.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelFuelCapacity.AppendChild(xmltxtFuelCapacity);
           xmlelProperty.AppendChild(xmlelFuelCapacity);
           // DockCapacity
           XmlElement xmlelDockCapacity = xmldoc.CreateElement("DockCapacity");
-          XmlText xmltxtDockCapacity = xmldoc.CreateTextNode(this.DockCapacity.ToString());
+          XmlText xmltxtDockCapacity = xmldoc.CreateTextNode(this.DockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelDockCapacity.AppendChild(xmltxtDockCapacity);
           xmlelProperty.AppendChild(xmlelDockCapacity);
           // ARMaxPop
           XmlElement xmlelARMaxPop = xmldoc.CreateElement("ARMaxPop");
-          XmlText xmltxtARMaxPop = xmldoc.CreateTextNode(this.ARMaxPop.ToString());
+          XmlText xmltxtARMaxPop = xmldoc.CreateTextNode(this.ARMaxPop.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelARMaxPop.AppendChild(xmltxtARMaxPop);
           xmlelProperty.AppendChild(xmlelARMaxPop);
           // BaseCargo
           XmlElement xmlelBaseCargo = xmldoc.CreateElement("BaseCargo");
-          XmlText xmltxtBaseCargo = xmldoc.CreateTextNode(this.BaseCargo.ToString());
+          XmlText xmltxtBaseCargo = xmldoc.CreateTextNode(this.BaseCargo.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelBaseCargo.AppendChild(xmltxtBaseCargo);
           xmlelProperty.AppendChild(xmlelBaseCargo);
           // ArmorStrength
           XmlElement xmlelArmorStrength = xmldoc.CreateElement("ArmorStrength");
-          XmlText xmltxtArmorStrength = xmldoc.CreateTextNode(this.ArmorStrength.ToString());
+          XmlText xmltxtArmorStrength = xmldoc.CreateTextNode(this.ArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelArmorStrength.AppendChild(xmltxtArmorStrength);
           xmlelProperty.AppendChild(xmlelArmorStrength);
           // BattleInitiative
           XmlElement xmlelBattleInitiative = xmldoc.CreateElement("BattleInitiative");
-          XmlText xmltxtBattleInitiative = xmldoc.CreateTextNode(this.BattleInitiative.ToString());
+          XmlText xmltxtBattleInitiative = xmldoc.CreateTextNode(this.BattleInitiative.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelBattleInitiative.AppendChild(xmltxtBattleInitiative);
           xmlelProperty.AppendChild(xmlelBattleInitiative);
           // Modules

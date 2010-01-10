@@ -56,7 +56,7 @@ namespace NovaCommon
       // Whilst it is possible to have more than one gate on a hull, and it could
       // make sense to use the best capabilities of each gate, this is not how
       // Stars! works with gates. One gate get precedence and the other is ignored.
-      // TODO (low priority) check that the same orbital slot takes precedence as
+      // TODO (priority 3) check that the same orbital slot takes precedence as
       // in Stars!
       //============================================================================
       public static Gate operator +(Gate op1, Gate op2)
@@ -109,12 +109,12 @@ namespace NovaCommon
 
           // SafeHullMass
           XmlElement xmlelSafeHullMass = xmldoc.CreateElement("SafeHullMass");
-          XmlText xmltxtSafeHullMass = xmldoc.CreateTextNode(this.SafeHullMass.ToString());
+          XmlText xmltxtSafeHullMass = xmldoc.CreateTextNode(this.SafeHullMass.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelSafeHullMass.AppendChild(xmltxtSafeHullMass);
           xmlelProperty.AppendChild(xmlelSafeHullMass);
           // SafeRange
           XmlElement xmlelSafeRange = xmldoc.CreateElement("SafeRange");
-          XmlText xmltxtSafeRange = xmldoc.CreateTextNode(this.SafeRange.ToString());
+          XmlText xmltxtSafeRange = xmldoc.CreateTextNode(this.SafeRange.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelSafeRange.AppendChild(xmltxtSafeRange);
           xmlelProperty.AppendChild(xmlelSafeRange);
 

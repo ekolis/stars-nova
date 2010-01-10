@@ -48,15 +48,15 @@ namespace Nova
                string[] row      = new string[numColumns];
 
                row[i++] = score.Race;
-               row[i++] = score.Rank.ToString();
-               row[i++] = score.Score.ToString();
-               row[i++] = score.Planets.ToString();
-               row[i++] = score.Starbases.ToString();
-               row[i++] = score.UnarmedShips.ToString();
-               row[i++] = score.EscortShips.ToString();
-               row[i++] = score.CapitalShips.ToString();
-               row[i++] = score.TechLevel.ToString();
-               row[i++] = score.Resources.ToString();
+               row[i++] = score.Rank.ToString(System.Globalization.CultureInfo.InvariantCulture);
+               row[i++] = score.Score.ToString(System.Globalization.CultureInfo.InvariantCulture);
+               row[i++] = score.Planets.ToString(System.Globalization.CultureInfo.InvariantCulture);
+               row[i++] = score.Starbases.ToString(System.Globalization.CultureInfo.InvariantCulture);
+               row[i++] = score.UnarmedShips.ToString(System.Globalization.CultureInfo.InvariantCulture);
+               row[i++] = score.EscortShips.ToString(System.Globalization.CultureInfo.InvariantCulture);
+               row[i++] = score.CapitalShips.ToString(System.Globalization.CultureInfo.InvariantCulture);
+               row[i++] = score.TechLevel.ToString(System.Globalization.CultureInfo.InvariantCulture);
+               row[i++] = score.Resources.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
                ScoreGridView.Rows.Add(row);
          }

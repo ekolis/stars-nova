@@ -65,7 +65,7 @@ namespace NovaConsole {
             Message message = new Message();
             message.Audience = fleet.Owner;
             message.Text = "Fleet " + fleet.Owner + " has killed " 
-               + troops.ToString()  + " colonisists on " + star.Name
+               + troops.ToString(System.Globalization.CultureInfo.InvariantCulture)  + " colonisists on " + star.Name
                + " but did not manage to capture the planet";
             Intel.Data.Messages.Add(message);
             star.Colonists -= (int) troops;

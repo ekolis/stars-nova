@@ -100,7 +100,7 @@ namespace NovaCommon
 
             // Orbital
             XmlElement xmlelOrbital = xmldoc.CreateElement("Orbital");
-            XmlText xmltxtOrbital = xmldoc.CreateTextNode(this.Orbital.ToString());
+            XmlText xmltxtOrbital = xmldoc.CreateTextNode(this.Orbital.ToString(System.Globalization.CultureInfo.InvariantCulture));
             xmlelOrbital.AppendChild(xmltxtOrbital);
             xmlelProperty.AppendChild(xmlelOrbital);
 

@@ -108,7 +108,7 @@ namespace Nova
                   
          if (design.Owner == StateData.RaceName) {
             int quantity  = CountDesigns(design);
-            itemToAdd.SubItems.Add(quantity.ToString());
+            itemToAdd.SubItems.Add(quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
          }
          else {
             itemToAdd.SubItems.Add("Unknown");
@@ -150,20 +150,20 @@ namespace Nova
          HullImage.Image        = design.ShipHull.ComponentImage;
          DesignResources.Value  = design.Cost;
          DesignName.Text        = design.Name;
-         ShipMass.Text          = design.Mass.ToString();
-         ShipArmor.Text         = design.Armor.ToString();
-         ShipShields.Text       = design.Shield.ToString();
-         CargoCapacity.Text     = design.CargoCapacity.ToString();
+         ShipMass.Text          = design.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
+         ShipArmor.Text         = design.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture);
+         ShipShields.Text       = design.Shield.ToString(System.Globalization.CultureInfo.InvariantCulture);
+         CargoCapacity.Text     = design.CargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
          if (design.Type == "Starbase") {
             CapacityType.Text  = "Dock Capacity";
             CapacityUnits.Text = "kT";
-            MaxCapacity.Text   = design.DockCapacity.ToString();
+            MaxCapacity.Text   = design.DockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
          }
          else {
             CapacityType.Text  = "Fuel Capacity";
             CapacityUnits.Text = "mg";
-            MaxCapacity.Text   = design.FuelCapacity.ToString();
+            MaxCapacity.Text   = design.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
          }
       }
 

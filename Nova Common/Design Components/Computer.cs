@@ -117,12 +117,12 @@ namespace NovaCommon
 
           // Initiative
           XmlElement xmlelInitiative = xmldoc.CreateElement("Initiative");
-          XmlText xmltxtInitiative = xmldoc.CreateTextNode(this.Initiative.ToString());
+          XmlText xmltxtInitiative = xmldoc.CreateTextNode(this.Initiative.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelInitiative.AppendChild(xmltxtInitiative);
           xmlelProperty.AppendChild(xmlelInitiative);
           // Accuracy
           XmlElement xmlelAccuracy = xmldoc.CreateElement("Accuracy");
-          XmlText xmltxtAccuracy = xmldoc.CreateTextNode(this.Accuracy.ToString());
+          XmlText xmltxtAccuracy = xmldoc.CreateTextNode(this.Accuracy.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelAccuracy.AppendChild(xmltxtAccuracy);
           xmlelProperty.AppendChild(xmlelAccuracy);
 

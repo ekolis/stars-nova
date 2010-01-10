@@ -87,8 +87,8 @@ namespace Nova
          StateData     = GuiState.Data;          
          TurnData      = StateData.InputTurn;
          IsInitialised = true;
-         /*string sv = this.ZoomIn.Visible.ToString();
-         string se = this.ZoomIn.Enabled.ToString();
+         /*string sv = this.ZoomIn.Visible.ToString(System.Globalization.CultureInfo.InvariantCulture);
+         string se = this.ZoomIn.Enabled.ToString(System.Globalization.CultureInfo.InvariantCulture);
          ZoomIn.Enabled = true;
          ZoomIn.Visible = true;
          ZoomIn.Invalidate();
@@ -224,11 +224,11 @@ namespace Nova
          //quick font
          Font F = new Font(ZoomIn.Font.Name, ZoomIn.Font.Size, ZoomIn.Font.Style, ZoomIn.Font.Unit);
          
-         string s = position.X.ToString() + "," + position.Y.ToString();
+         string s = position.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
          Color      coordColour = Color.FromArgb(255, 255, 255, 0);
          SolidBrush coordBrush  = new SolidBrush(coordColour);
          graphics.DrawString(s, F, coordBrush, 0, 0);
-         string s2 = CursorPosition.X.ToString() + "," + CursorPosition.Y.ToString();
+         string s2 = CursorPosition.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + CursorPosition.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
          graphics.DrawString(s2, F, coordBrush, 0, 20);
 
 

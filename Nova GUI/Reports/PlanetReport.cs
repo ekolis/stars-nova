@@ -61,14 +61,14 @@ namespace Nova
                int  i = 0;
                row[i++] = star.Name;
                row[i++] = starbase;
-               row[i++] = star.Colonists.ToString();
-               row[i++] = star.Capacity(race).ToString();
-               row[i++] = Math.Ceiling(star.HabitalValue(race)*100).ToString();
-               row[i++] = star.Mines.ToString();
-               row[i++] = star.Factories.ToString();
+               row[i++] = star.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
+               row[i++] = star.Capacity(race).ToString(System.Globalization.CultureInfo.InvariantCulture);
+               row[i++] = Math.Ceiling(star.HabitalValue(race)*100).ToString(System.Globalization.CultureInfo.InvariantCulture);
+               row[i++] = star.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture);
+               row[i++] = star.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
                Defenses.ComputeDefenseCoverage(star);
-               row[i++] = Defenses.SummaryCoverage.ToString();
+               row[i++] = Defenses.SummaryCoverage.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
                NovaCommon.Resources resources = star.ResourcesOnHand;
                StringBuilder text             = new StringBuilder();
@@ -77,7 +77,7 @@ namespace Nova
                                                 (int) resources.Boranium,
                                                 (int) resources.Germanium);
                
-               string energy = ((int) resources.Energy).ToString();
+               string energy = ((int) resources.Energy).ToString(System.Globalization.CultureInfo.InvariantCulture);
 
                row[i++] = text.ToString();
 

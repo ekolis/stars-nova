@@ -441,8 +441,8 @@ namespace ControlLibrary
 
 // ============================================================================
 // Draw a defined but empty cell.
-// TODO (low priority) - for an engine it should say Requires N instead of Up to. Needs to be enforced also.
-// TODO (low priority) - if a cell is cleared change it back to the empty module color.
+// TODO (priority 4) - for an engine it should say Requires N instead of Up to. Needs to be enforced also.
+// TODO (priority 1) - if a cell is cleared change it back to the empty module color.
 // ============================================================================
 
       private void DrawEmptyCell(Panel panel, Graphics graphics)

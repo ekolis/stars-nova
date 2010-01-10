@@ -48,21 +48,24 @@ namespace NovaCommon
           {
               try
               {
-                  if (subnode.Name.ToLower() == "destination")
+                  switch (subnode.Name.ToLower())
                   {
-                      Destination = ((XmlText)subnode.FirstChild).Value;
-                  }
-                  else if (subnode.Name.ToLower() == "task")
-                  {
-                      Task = ((XmlText)subnode.FirstChild).Value;
-                  }
-                  else if (subnode.Name.ToLower() == "warpfactor")
-                  {
-                      WarpFactor = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  else if (subnode.Name.ToLower() == "point")
-                  {
-// TODO point
+                      case "destination":
+                          Destination = ((XmlText)subnode.FirstChild).Value;
+                          break;
+
+                      case "task":
+                          Task = ((XmlText)subnode.FirstChild).Value;
+                          break;
+
+                      case "warpfactor":
+                          WarpFactor = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          break;
+
+                      case "point":
+                          Position.X = int.Parse((((XmlText)subnode.SelectSingleNode("X")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          Position.Y = int.Parse((((XmlText)subnode.SelectSingleNode("Y")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          break;
                   }
               }
               catch
@@ -78,11 +81,11 @@ namespace NovaCommon
       // ============================================================================
       public XmlElement ToXml(XmlDocument xmldoc)
       {
-          XmlElement xmlelCargo = xmldoc.CreateElement("Cargo");
+          XmlElement xmlelCargo = xmldoc.CreateElement("Waypoint");
 
           NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Destination", this.Destination);
           NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Task", this.Task);
-          NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "WarpFactor", this.WarpFactor.ToString());
+          NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "WarpFactor", this.WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
           // point
 
           return xmlelCargo;

@@ -538,7 +538,7 @@ namespace Nova
 
       private void SpeedChanged(object sender, System.EventArgs e)
       {
-         warpText.Text = "Warp " + WarpFactor.Value.ToString();
+         warpText.Text = "Warp " + WarpFactor.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
          
          if (WayPoints.SelectedItems.Count > 0) {
             int index           = WayPoints.SelectedIndices[0];
@@ -716,7 +716,7 @@ namespace Nova
 
          foreach (string key in designs.Keys) {
             ListViewItem listItem = new ListViewItem(key);
-            listItem.SubItems.Add(((int) designs[key]).ToString());
+            listItem.SubItems.Add(((int) designs[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
             FleetComposition.Items.Add(listItem);
          }
 

@@ -143,8 +143,8 @@ namespace ControlLibrary
          if (ShowBarText) {
             RectangleF rect    = new RectangleF(Bar.Location, Bar.Size);
 
-            string description = topValue.ToString()     + " of "
-                               + maximumValue.ToString() + " " + barUnits;
+            string description = topValue.ToString(System.Globalization.CultureInfo.InvariantCulture)     + " of "
+                               + maximumValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + " " + barUnits;
 
             format.Alignment = StringAlignment.Center;
             e.Graphics.DrawString(description, font, blackBrush, rect, format);

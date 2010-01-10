@@ -55,7 +55,7 @@ namespace Nova
          FleetComposition.Items.Clear();
          foreach (string key in designs.Keys) {
             ListViewItem listItem = new ListViewItem(key);
-            listItem.SubItems.Add(((int) designs[key]).ToString());
+            listItem.SubItems.Add(((int) designs[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
             FleetComposition.Items.Add(listItem);
          }
 

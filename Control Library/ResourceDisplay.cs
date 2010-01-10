@@ -220,10 +220,10 @@ namespace ControlLibrary
 
                  Resources resources = value;
 
-                 Ironium.Text = Convert.ToInt32(resources.Ironium).ToString();
-                 Boranium.Text = Convert.ToInt32(resources.Boranium).ToString();
-                 Germanium.Text = Convert.ToInt32(resources.Germanium).ToString();
-                 Energy.Text = Convert.ToInt32(resources.Energy).ToString();
+                 Ironium.Text = Convert.ToInt32(resources.Ironium).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                 Boranium.Text = Convert.ToInt32(resources.Boranium).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                 Germanium.Text = Convert.ToInt32(resources.Germanium).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                 Energy.Text = Convert.ToInt32(resources.Energy).ToString(System.Globalization.CultureInfo.InvariantCulture);
              }
              catch
              {

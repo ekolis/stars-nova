@@ -151,11 +151,11 @@ private void InitializeComponent()
 
          cargoAmount        = requestedCargo;
          sliderBar.Value    = cargoAmount;
-         shipAmount.Text    = cargoAmount.ToString() + " kT"; 
+         shipAmount.Text    = cargoAmount.ToString(System.Globalization.CultureInfo.InvariantCulture) + " kT"; 
          cargoBay.Value     = cargoMass + cargoAmount;
 
          availableAmount    = sourceAmount + initialAmount - cargoAmount;
-         planetAmount.Text  = availableAmount.ToString() + " kT";
+         planetAmount.Text  = availableAmount.ToString(System.Globalization.CultureInfo.InvariantCulture) + " kT";
       }
 
 
@@ -183,7 +183,7 @@ private void InitializeComponent()
             cargoAmount     = value;
             initialAmount   = cargoAmount;
             sliderBar.Value = cargoAmount; 
-            shipAmount.Text = cargoAmount.ToString() + " kT"; 
+            shipAmount.Text = cargoAmount.ToString(System.Globalization.CultureInfo.InvariantCulture) + " kT"; 
          }
 
          get { return cargoAmount; }
@@ -192,7 +192,7 @@ private void InitializeComponent()
       public int Available {
          set {
             sourceAmount      = value;
-            planetAmount.Text = sourceAmount.ToString() + " kT";
+            planetAmount.Text = sourceAmount.ToString(System.Globalization.CultureInfo.InvariantCulture) + " kT";
          }
       }
 
