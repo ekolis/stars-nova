@@ -66,7 +66,7 @@ namespace Nova
 
          foreach (Fleet fleet in InputTurn.AllFleets.Values) {
             if (fleet.Owner == RaceName) {
-               outputTurn.RaceFleets.Add(fleet);
+               outputTurn.RaceFleets.Add(fleet.FleetID, fleet);
             }
          }
 
@@ -90,7 +90,7 @@ namespace Nova
 
          foreach (Design design in InputTurn.AllDesigns.Values) {
             if (design.Owner == RaceName) {
-               outputTurn.RaceDesigns.Add(design);
+               outputTurn.RaceDesigns.Add(design.Name, design);
             }
          }
          
@@ -105,8 +105,8 @@ namespace Nova
 
          string turnFileName = Path.Combine(StateData.GameFolder, RaceName + ".Orders");
 
-          outputTurn.ToBinary(turnFileName); // old binary serialised format
-          // outputTurn.ToXml(turnFileName); // human readable xml format
+          // outputTurn.ToBinary(turnFileName); // old binary serialised format
+          outputTurn.ToXml(turnFileName); // human readable xml format
 
       }
 

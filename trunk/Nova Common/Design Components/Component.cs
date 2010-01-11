@@ -132,8 +132,10 @@ namespace NovaCommon
                       case "tech": 
                           this.RequiredTech = new TechLevel(subnode); 
                           break;
-                      case "description": 
-                          this.Description = (String)((XmlText)subnode.FirstChild).Value; 
+                      case "description":
+                          XmlText xmltxtDescription = (XmlText)subnode.FirstChild;
+                          if (xmltxtDescription != null)
+                              this.Description = xmltxtDescription.Value; 
                           break;
                       case "race_restrictions": 
                           this.Restrictions = new RaceRestriction(subnode); 
@@ -363,13 +365,13 @@ namespace NovaCommon
                       }// switch on subnode.Name
 
               }//try
-              
-              
-              catch (Exception)
-              {
-                  // If there are blank entries null reference exemptions will be raised here. It is safe to ignore them.
-              }
 
+
+              catch (Exception e)
+              {
+                  Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
+              }
+              
                   subnode = subnode.NextSibling;
           }//while subnode != null
           // Report.Information("Name = '" + this.Name + "' Type = '" + this.Type + "'");
@@ -402,10 +404,7 @@ namespace NovaCommon
           // Tech
           xmlelComponent.AppendChild(this.RequiredTech.ToXml(xmldoc));
           // Description
-          XmlElement xmlelDescription = xmldoc.CreateElement("Description");
-          XmlText xmltxtDescription = xmldoc.CreateTextNode(this.Description);
-          xmlelDescription.AppendChild(xmltxtDescription);
-          xmlelComponent.AppendChild(xmlelDescription);
+          if (Description != null) Global.SaveData(xmldoc, xmlelComponent, "Description", Description);
           // Race Restrictions
           xmlelComponent.AppendChild(this.Restrictions.ToXml(xmldoc));
           // Image - convert the ImageFile to a relative path, so this program runs in other locations

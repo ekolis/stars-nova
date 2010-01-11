@@ -63,22 +63,22 @@ namespace NovaCommon
                   switch (subnode.Name.ToLower())
                   {
                       case "ironium":
-                          Ironium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          Ironium = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                           break;
                       case "boranium":
-                          Boranium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          Boranium = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                           break;
                       case "germanium":
-                          Germanium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          Germanium = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                           break;
                       case "energy":
-                          Energy = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          Energy = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                           break;
                   }
               }
-              catch
+              catch (Exception e)
               {
-                  // ignore incomplete or unset values
+                  Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
               }
               subnode = subnode.NextSibling;
           }

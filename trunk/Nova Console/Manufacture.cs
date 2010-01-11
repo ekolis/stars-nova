@@ -197,37 +197,42 @@ namespace NovaConsole {
          fleet.FleetID       = stateData.FleetID;
          fleet.CargoCapacity = ship.Design.CargoCapacity;
 
-         if (design.Type == "Starbase") {
-            if (star.Starbase != null) {
-               WaypointTasks.Scrap(star.Starbase, star, false);
-            } 
-            star.Starbase = fleet;
-            fleet.Type    = "Starbase";
-            fleet.Name = ship.Design.Name;
-            fleet.InOrbit = null;
-            fleet.CargoCapacity = ship.Design.DockCapacity; //dj this seems to be duplicate use on cargo capacity,
-            //we need to think of using shipdesign in fleet for starbases... 
-            //AND incase we want fighters etc , smaller than scout we could make like manufacturing carriers later...
-            //AND i think we need a starbase class, and a queue of them per planet because we may need more... than 1...
+         // Add the fleet to the state data so it can be tracked.
+         stateData.AllFleets[fleet.Key] = fleet;
+         stateData.FleetID++;
+
+         if (design.Type == "Starbase")
+         {
+             if (star.Starbase != null)
+             {
+                 WaypointTasks.Scrap(star.Starbase, star, false);
+             }
+             star.Starbase = fleet;
+             fleet.Type = "Starbase";
+             fleet.Name = ship.Design.Name;
+             fleet.InOrbit = null;
+             fleet.CargoCapacity = ship.Design.DockCapacity; //dj this seems to be duplicate use on cargo capacity,
+             //we need to think of using shipdesign in fleet for starbases... 
+             //AND incase we want fighters etc , smaller than scout we could make like manufacturing carriers later...
+             //AND i think we need a starbase class, and a queue of them per planet because we may need more... than 1...
 
              // Daniel Apr 09 - DockCapacity and CargoCapacity are different. A dock is for building ships and 
              // cargo capacity is for carrying minerals / colonists. A dock capacity > 0 indicates a starbase with
              // refuling capabilities (at least so long as ship producing docks produce free fuel ala Stars! 2.6/7).
-             
 
-            if (race.HasTrait("ISB"))
-            {
-               fleet.Cloaked = 20;
-            }
 
-         } 
-         else {
-            fleet.CargoCapacity = ship.Design.CargoCapacity;
-            fleet.InOrbit       = star;
+             if (race.HasTrait("ISB"))
+             {
+                 fleet.Cloaked = 20;
+             }
+
+         }
+         else
+         {
+             fleet.CargoCapacity = ship.Design.CargoCapacity;
+             fleet.InOrbit = star;
          }
 
-         stateData.AllFleets[fleet.Key] = fleet;
-         stateData.FleetID++;
       }
 
    }

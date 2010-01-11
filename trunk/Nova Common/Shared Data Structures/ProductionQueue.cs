@@ -105,7 +105,6 @@ namespace NovaCommon
        /// <param name="xmlel">A ProductionQueue XmlNode, normally read from a nova data file.</param>
       public ProductionQueue(XmlNode node)
       {
-          Queue = new ArrayList(); // ensure the queue is initialised as an empty ArrayList
           XmlNode subnode = node.FirstChild;
           while (subnode != null)
           {

@@ -39,10 +39,12 @@ namespace Nova
          {
             GuiState.Data.AvailableComponents[component.Name] = component;
        
-            if (report) {
-               GuiState.Data.Messages.Add("You now have available the "
-                                      + component.Name + " " + component.Type
-                                      + " component");
+            if (report) 
+            {
+                Message newComponentMessage = 
+                    new Message(GuiState.Data.RaceName, null, "You now have available the "
+                    + component.Name + " " + component.Type + " component");
+               GuiState.Data.Messages.Add(newComponentMessage);
             }
          }
       }

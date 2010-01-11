@@ -34,7 +34,6 @@ namespace NovaCommon
        /// <param name="xmldoc">An XmlNode containing a RaceData representation (from a save file)</param>
       public RaceData(XmlNode node)
       {
-          PlayerRelations = new Hashtable(); // Initialise an empty Hashtable
           XmlNode subnode = node.FirstChild;
           while (subnode != null)
           {
@@ -53,7 +52,7 @@ namespace NovaCommon
                               break;
                           }
                       case "battleplan":
-                          BattlePlan plan = new BattlePlan(subnode.FirstChild);
+                          BattlePlan plan = new BattlePlan(subnode);
                           BattlePlans.Add(plan.Name, plan);
                           break;
                   }

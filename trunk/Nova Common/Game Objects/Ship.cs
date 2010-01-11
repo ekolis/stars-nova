@@ -70,7 +70,7 @@ namespace NovaCommon
       /// Precondition: node is a "Ship" node Nova save file (xml document).
       /// </summary>
       /// <param name="node">The XmlNode of the parent.</param>
-      public Ship(XmlNode node)
+      public Ship(XmlNode node) : base(node)
       {
           XmlNode subnode = node.FirstChild;
           while (subnode != null)
@@ -103,9 +103,9 @@ namespace NovaCommon
 
                   }
               }
-              catch
+              catch (Exception e)
               {
-                  // ignore incomplete or unset values
+                  Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
               }
               subnode = subnode.NextSibling;
           }

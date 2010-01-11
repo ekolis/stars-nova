@@ -116,10 +116,11 @@ namespace NovaCommon
                   }
 
               }
-              catch
+              catch (Exception e)
               {
-                  // ignore incomplete or unset values
+                  Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
               }
+
               subnode = subnode.NextSibling;
           }
       }
