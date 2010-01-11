@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 // Modified Daniel Vale 2009
@@ -26,7 +25,8 @@
 // ============================================================================
 //
 //
-//  == BUGS (FIXME priority 4) ==
+//  == BUGS (FIXME priority 5) ==
+// Hull map doesn't display.
 // Component->Copy seems to intermitently not copy race restrictions.
 // Component->Copy cross-links Hull maps (i.e. the one map is used by both 
 //   hulls). Suspect it is the individual modules that are x-linked not the 

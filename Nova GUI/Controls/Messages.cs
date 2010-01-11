@@ -206,14 +206,16 @@ private void InitializeComponent()
          
          MessageForm.Text = title.ToString();
 
-         if (messages.Count > 0) {
-            NovaCommon.Message thisMessage = messages[currentMessage] 
-                                           as NovaCommon.Message;
-            messageBox.Text = thisMessage.Text;
+         if (messages.Count > 0)
+         {
+             NovaCommon.Message thisMessage = new NovaCommon.Message();
+             thisMessage = messages[currentMessage] as NovaCommon.Message;
+             messageBox.Text = thisMessage.Text;
 
-            if (thisMessage.Event != null) {
-               GotoButton.Enabled = true;
-            }
+             if (thisMessage.Event != null)
+             {
+                 GotoButton.Enabled = true;
+             }
          }
       }
 

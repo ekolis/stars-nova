@@ -33,6 +33,8 @@ namespace NovaConsole
 // ============================================================================
 // Identify the players. This is done by enumerating the race files present and
 // loading each race definition.
+// This is ok for a default setup, but it should be possible to add or remove
+// races when creating a new game. TODO (priority 3)
 // ============================================================================
 
       public static void Identify()
@@ -52,62 +54,6 @@ namespace NovaConsole
              ConsoleState.Data.AllRaces[race.Name] = race;
           }
       }
-
-
-// ============================================================================
-// Read all player turn files.
-// ============================================================================
-
-      public static void ReadData()
-      {
-         foreach (Race r in ConsoleState.Data.AllRaces.Values) {
-            ReadPlayerData(r);
-         }
-      }
-
-
-// ============================================================================
-// Read in the player data from a turn file. If no player file is present then
-// an empty player data turn structure is created.
-// This differs from OrderReader.ReadOrders() in that the orders are kept seperate
-// and no further processing is done.
-// TODO (priority 4) - refactor this method into OrderReader to remove duplication.
-// ============================================================================
-
-      private static void ReadPlayerData(Race race)
-      {
-          string fileName = Path.Combine(StateData.GameFolder, race.Name + ".Orders");
-
-
-          Orders playerOrders = new Orders();
-
-          if (File.Exists(fileName))
-          {
-              // Load from a binary serialised file.
-              FileStream turnFile = new FileStream(fileName, FileMode.Open);
-              playerOrders = Formatter.Deserialize(turnFile) as Orders;
-              turnFile.Close();
-
-
-              // Load from an xml file
-              /*
-              XmlDocument xmldoc = new XmlDocument();
-              FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-              GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
-    #if (DEBUG)
-              xmldoc.Load(fileName);  // uncompressed
-    #else
-                xmldoc.Load(compressionStream); // compressed
-    #endif
-              playerOrders = new Orders(xmldoc.DocumentElement);
-              fileStream.Close();
-               */
-          }
-
-          // regardless of how playerOrders was loaded
-          StateData.AllRaceData[race.Name] = playerOrders.PlayerData;
-      }
-
 
 // ============================================================================
 // Determine if two players are enemies

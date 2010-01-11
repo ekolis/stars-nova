@@ -42,9 +42,8 @@ namespace NovaCommon
       public int             Radiation              = 0;
       public int             Temperature            = 0;
 
-// ---------------------------------------------------------------------------
-
-      private Race           ThisRace = null;
+      // the current owner of the star, if any.
+      public Race           ThisRace = null; 
 
       /// <summary>
       /// default constructor
@@ -55,44 +54,89 @@ namespace NovaCommon
       /// Load: Initialising constructor to read in a Star from an XmlNode (from a saved file).
       /// </summary>
       /// <param name="node">An XmlNode representing a Star.</param>
-      public Star(XmlNode node)
+      public Star(XmlNode node) : base(node)
       {
+
+          XmlNode subnode = node.FirstChild;
+
           // Read the node
-          while (node != null)
+          while (subnode != null)
           {
               try
               {
-                  switch (node.Name.ToLower())
+                  switch (subnode.Name.ToLower())
                   {
-                      case "orbitingfleets": OrbitingFleets = bool.Parse(((XmlText)node.FirstChild).Value); break;
-                      case "manufacturingqueue": ManufacturingQueue = new ProductionQueue(node.FirstChild); break;
-                      case "mineralconcentration": MineralConcentration = new Resources(node.FirstChild); break;
-                      case "resourcesonhand": ResourcesOnHand = new Resources(node.FirstChild); break;
-                      case "starbase": Starbase = new Fleet(node.FirstChild); break; // ??? should this be loaded from the file, or just a reference? Is the starbase in the list of the race's fleets?
-                      case "colonists": Colonists = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "defenses": Defenses = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "factories": Factories = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "mines": Mines = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "researchallocation": ResearchAllocation = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "scanrange": ScanRange = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "defensetype": DefenseType = ((XmlText)node.FirstChild).Value; break;
-                      case "scannertype": ScannerType = ((XmlText)node.FirstChild).Value; break;
-                      case "gravity": Gravity = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "radiation": Radiation = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "temperature": Temperature = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "orbitingfleets": 
+                          OrbitingFleets = bool.Parse(((XmlText)subnode.FirstChild).Value); 
+                          break;
+                      case "productionqueue": 
+                          ManufacturingQueue = new ProductionQueue(subnode); 
+                          break;
+                      case "mineralconcentration": 
+                          MineralConcentration = new Resources(subnode.FirstChild); 
+                          break;
+                      case "resourcesonhand": 
+                          ResourcesOnHand = new Resources(subnode.FirstChild); 
+                          break;
+                      case "colonists": 
+                          Colonists = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); 
+                          break;
+                      case "defenses": 
+                          Defenses = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); 
+                          break;
+                      case "factories": 
+                          Factories = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); 
+                          break;
+                      case "mines": 
+                          Mines = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); 
+                          break;
+                      case "researchallocation": 
+                          ResearchAllocation = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); 
+                          break;
+                      case "scanrange": 
+                          ScanRange = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); 
+                          break;
+                      case "defensetype": 
+                          DefenseType = ((XmlText)subnode.FirstChild).Value; 
+                          break;
+                      case "scannertype": 
+                          ScannerType = ((XmlText)subnode.FirstChild).Value; 
+                          break;
+                      case "gravity": 
+                          Gravity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); 
+                          break;
+                      case "radiation": 
+                          Radiation = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); 
+                          break;
+                      case "temperature": 
+                          Temperature = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); 
+                          break;
 
-                          // TODO (priority 5) : placeholder only, need to reference the player's race object
-                      case "thisrace": ThisRace = new Race(); ThisRace.Name = ((XmlText)node.FirstChild).Value; break;
+                      // These are placeholder objects that will be linked to the real objects once 
+                      // loading from the file is complete (as they may not exist yet, and cannot be 
+                      // referenced from here). The node will only hold enough information to identify 
+                      // the referenced object. 
+
+                      // ThisRace will point to the Race that owns the Star, 
+                      // for now create a placeholder Race and load its Name
+                      case "thisrace": 
+                          ThisRace = new Race(); ThisRace.Name = ((XmlText)subnode.FirstChild).Value; 
+                          break; 
+
+                      // Starbase will point to the Fleet that is this planet's starbase (if any), 
+                      // for now create a placeholder Fleet and load its FleetID
+                      case "starbase": 
+                          Starbase = new Fleet(int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture)); 
+                          break;
                      
                       default: break;
                   }
-
               }
-              catch
+              catch (Exception e)
               {
-                  // If there are blank entries null reference exemptions will be raised here. It is safe to ignore them.
+                  Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
               }
-              node = node.NextSibling;
+              subnode = subnode.NextSibling;
           }
       }
 
@@ -322,23 +366,36 @@ namespace NovaCommon
       {
           XmlElement xmlelStar = xmldoc.CreateElement("Star");
 
-          xmlelStar.AppendChild(ManufacturingQueue.ToXml(xmldoc));
-          xmlelStar.AppendChild(MineralConcentration.ToXml(xmldoc));
-          xmlelStar.AppendChild(ResourcesOnHand.ToXml(xmldoc));
-          if (Starbase != null) xmlelStar.AppendChild(Starbase.ToXml(xmldoc));
+          // include inherited Item properties
+          xmlelStar.AppendChild(base.ToXml(xmldoc));
 
-          Global.SaveData(xmldoc, xmlelStar, "Colonists", Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          Global.SaveData(xmldoc, xmlelStar, "Defenses", Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          Global.SaveData(xmldoc, xmlelStar, "Factories", Factories.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          Global.SaveData(xmldoc, xmlelStar, "Mines", Mines.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          Global.SaveData(xmldoc, xmlelStar, "ResearchAllocation", ResearchAllocation.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          Global.SaveData(xmldoc, xmlelStar, "ScanRange", ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelStar.AppendChild(ManufacturingQueue.ToXml(xmldoc));
+
+          // MineralConcentraion and ResourcesOnHand need wrapper nodes so we can tell what they are (other than Resources) when we read them back in.
+          XmlElement xmlelMineralConcentration = xmldoc.CreateElement("MineralConcentration");
+          xmlelMineralConcentration.AppendChild(MineralConcentration.ToXml(xmldoc));
+          xmlelStar.AppendChild(xmlelMineralConcentration);
+
+          XmlElement xmlelResourcesOnHand = xmldoc.CreateElement("ResourcesOnHand");
+          xmlelResourcesOnHand.AppendChild(ResourcesOnHand.ToXml(xmldoc));
+          xmlelStar.AppendChild(xmlelResourcesOnHand);
+
+          // Starbase and ThisRace are stored as references only (just the name is saved).
+          if (Starbase != null) Global.SaveData(xmldoc, xmlelStar, "Starbase", Starbase.Name);
+          if (ThisRace != null) Global.SaveData(xmldoc, xmlelStar, "ThisRace", ThisRace.Name);
+
+          if (Colonists != 0) Global.SaveData(xmldoc, xmlelStar, "Colonists", Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (Defenses != 0) Global.SaveData(xmldoc, xmlelStar, "Defenses", Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (Factories != 0) Global.SaveData(xmldoc, xmlelStar, "Factories", Factories.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (Mines != 0) Global.SaveData(xmldoc, xmlelStar, "Mines", Mines.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (ResearchAllocation != 0) Global.SaveData(xmldoc, xmlelStar, "ResearchAllocation", ResearchAllocation.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (ScanRange != 0) Global.SaveData(xmldoc, xmlelStar, "ScanRange", ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture));
           Global.SaveData(xmldoc, xmlelStar, "DefenseType", DefenseType);
           Global.SaveData(xmldoc, xmlelStar, "ScannerType", ScannerType);
           Global.SaveData(xmldoc, xmlelStar, "Gravity", Gravity.ToString(System.Globalization.CultureInfo.InvariantCulture));
           Global.SaveData(xmldoc, xmlelStar, "Radiation", Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture));
           Global.SaveData(xmldoc, xmlelStar, "Temperature", Temperature.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          if (ThisRace != null) Global.SaveData(xmldoc, xmlelStar, "ThisRace", ThisRace.Name);
+
 
           return xmlelStar;
       }

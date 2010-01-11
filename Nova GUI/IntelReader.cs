@@ -171,25 +171,28 @@ namespace Nova
 
       private static void ReportLevelUpdate(string area, int level)
       {
-         StateData.Messages.Add(
-         "Your race has advanced to Tech Level " + level +
-         " in the " + StateData.ResearchTopic + " field");
-         
-         Hashtable allComponents    = AllComponents.Data.Components;
-         TechLevel oldResearchLevel = StateData.ResearchLevel;
-         TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
+          Message techAdvanceMessage =
+              new Message(GuiState.Data.RaceName, null, "Your race has advanced to Tech Level "
+              + level + " in the " + StateData.ResearchTopic + " field");
+          StateData.Messages.Add(techAdvanceMessage);
 
-         newResearchLevel.TechValues[area]      = level;
+          Hashtable allComponents = AllComponents.Data.Components;
+          TechLevel oldResearchLevel = StateData.ResearchLevel;
+          TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 
-         foreach (Component component in allComponents.Values) {
-            if (component.RequiredTech >  oldResearchLevel &&
-                component.RequiredTech <= newResearchLevel) {
+          newResearchLevel.TechValues[area] = level;
 
-               RaceComponents.Add(component, true);
-            }
-         }
+          foreach (Component component in allComponents.Values)
+          {
+              if (component.RequiredTech > oldResearchLevel &&
+                  component.RequiredTech <= newResearchLevel)
+              {
 
-         StateData.ResearchLevel = newResearchLevel;
+                  RaceComponents.Add(component, true);
+              }
+          }
+
+          StateData.ResearchLevel = newResearchLevel;
       }
 
 

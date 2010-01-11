@@ -357,7 +357,7 @@ private void InitializeComponent()
               GenerateTurnMenuItem.Enabled = true;
           }
 
-          Players.ReadData();
+          OrderReader.ReadOrders();
           SetPlayerList();
        }
 
@@ -372,19 +372,23 @@ private void InitializeComponent()
           PlayerList.Items.Clear();
           ConsoleState stateData = ConsoleState.Data;
 
-          foreach (Race race in stateData.AllRaces.Values) {
-             ListViewItem listItem = new ListViewItem(race.Name);
+          foreach (Race race in stateData.AllRaces.Values)
+          {
+              ListViewItem listItem = new ListViewItem(race.Name);
 
-             RaceData raceData = stateData.AllRaceData[race.Name] as RaceData;
-             if (raceData.TurnYear == stateData.TurnYear) {
-                listItem.SubItems.Add("Y");
-             }
-             else {
-                listItem.SubItems.Add("N");
-                result = false; //dont allow the turn to be generated
-             }
-             
-             PlayerList.Items.Add(listItem);
+              RaceData raceData = stateData.AllRaceData[race.Name] as RaceData;
+
+              if (raceData == null || raceData.TurnYear != stateData.TurnYear)
+              {
+                  listItem.SubItems.Add("N");
+                  result = false; //dont allow the turn to be generated
+              }
+              else
+              {
+                  listItem.SubItems.Add("Y");
+              }
+
+              PlayerList.Items.Add(listItem);
           }
 
           return result;
@@ -458,7 +462,8 @@ private void InitializeComponent()
       private void RefreshMenuItem_Click(object sender, EventArgs e)
       {
           Players.Identify();
-          Players.ReadData();
+          
+          OrderReader.ReadOrders();
 
           if (SetPlayerList())
               GenerateTurnMenuItem.Enabled = true;

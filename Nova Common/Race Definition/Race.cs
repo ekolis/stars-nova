@@ -248,10 +248,11 @@ namespace NovaCommon
                   }
 
               }
-              catch
+              catch (Exception e)
               {
-                  // If there are blank entries null reference exemptions will be raised here. It is safe to ignore them.
+                  Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
               }
+
               xmlnode = xmlnode.NextSibling;
           }
       }

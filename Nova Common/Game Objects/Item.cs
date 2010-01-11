@@ -70,15 +70,35 @@ namespace NovaCommon
        /// <param name="node">An XmlNode representing the Item</param>
       public Item(XmlNode node)
       {
-          XmlNode subnode = node.FirstChild;
+          // There are two acceptable entry points to this constructor. Either node is 
+          // an Item node, or it is a parent node of an Item node. The second case is allowed
+          // for loading objects which inherit from Item.
+
+          // Check if this is an Item node, or a parent of an Item
+          XmlNode itemNode;
+          if (node.Name.ToLower() == "item")
+          {
+                 itemNode = node;
+          }
+          else
+          {
+           
+              itemNode = node.SelectSingleNode("Item");
+              if (itemNode == null)
+              {
+                  Report.FatalError("Item.cs: Item(XmlNode node) - could not find Item node.");
+                  return;
+              }
+          }
+
+          XmlNode subnode = itemNode.FirstChild;
+
           while (subnode != null)
           {
               try
               {
-
                   switch (subnode.Name.ToLower())
                   {
-
                       case "mass":
                           Mass = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                           break;
@@ -92,19 +112,20 @@ namespace NovaCommon
                           Type = ((XmlText)subnode.FirstChild).Value;
                           break;
                       case "position":
-                              Position.X = int.Parse((((XmlText)subnode.SelectSingleNode("X")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                              Position.Y = int.Parse((((XmlText)subnode.SelectSingleNode("Y")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          Position.X = int.Parse(((subnode.SelectSingleNode("X")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          Position.Y = int.Parse(((subnode.SelectSingleNode("Y")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                               break;
-                      case "cost":
+                      case "resource":
                           Cost = new Resources(subnode);
                           break;
-
                   }
               }
-              catch
+                  
+              catch (Exception e)
               {
-                  // ignore incomplete or unset values
+                  Report.Error(e.Message + " \n Details: \n " + e.ToString());
               }
+                   
               subnode = subnode.NextSibling;
           }
 
@@ -124,17 +145,19 @@ namespace NovaCommon
       {
           XmlElement xmlelItem = xmldoc.CreateElement("Item");
 
-          Global.SaveData(xmldoc, xmlelItem, "Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelItem.AppendChild(Cost.ToXml(xmldoc));
-          Global.SaveData(xmldoc, xmlelItem, "Name", Name);
+          if (Mass != 0) Global.SaveData(xmldoc, xmlelItem, "Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (Cost != null) xmlelItem.AppendChild(Cost.ToXml(xmldoc));
+          if (Name != null) Global.SaveData(xmldoc, xmlelItem, "Name", Name);
           if (Owner != null) Global.SaveData(xmldoc, xmlelItem, "Owner", Owner);
           if (Type != null) Global.SaveData(xmldoc, xmlelItem, "Type", Type);
 
-          XmlElement xmlelPoint = xmldoc.CreateElement("Possition");
-          Global.SaveData(xmldoc, xmlelPoint, "X", Position.X.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          Global.SaveData(xmldoc, xmlelPoint, "Y", Position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelItem.AppendChild(xmlelPoint);
-
+          if (Position.X != 0 || Position.Y != 0)
+          {
+              XmlElement xmlelPoint = xmldoc.CreateElement("Position");
+              Global.SaveData(xmldoc, xmlelPoint, "X", Position.X.ToString(System.Globalization.CultureInfo.InvariantCulture));
+              Global.SaveData(xmldoc, xmlelPoint, "Y", Position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture));
+              xmlelItem.AppendChild(xmlelPoint);
+          }
           return xmlelItem;
       }
    }

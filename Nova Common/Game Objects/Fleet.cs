@@ -27,8 +27,8 @@ namespace NovaCommon
    [Serializable]
    public class Fleet : Item
    {
-       public int FleetID = 0;
-       public ArrayList FleetShips = new ArrayList();
+      public  int        FleetID        = 0;
+      public  ArrayList  FleetShips     = new ArrayList();
       public  ArrayList  Waypoints      = new ArrayList();
       public  Cargo      Cargo          = new Cargo(); // FIXME - Cargo should be tracked by either the fleet or the ship, not both.
       public  Fleet      Target         = null;
@@ -143,9 +143,9 @@ namespace NovaCommon
                   }
 
               }
-              catch
+              catch (Exception e)
               {
-                  // If there are blank entries null reference exemptions will be raised here. It is safe to ignore them.
+                  Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
               }
               node = node.NextSibling;
           }

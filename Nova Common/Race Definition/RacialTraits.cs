@@ -97,8 +97,9 @@ namespace NovaCommon
         /// <param name="primaryTrait">The new primary trait.</param>
         public void SetPrimary(String primaryTrait)
         {
-            foreach (TraitEntry trait in AllTraits.Data.Primary)
+            foreach (DictionaryEntry de in AllTraits.Data.Primary)
             {
+                TraitEntry trait = de.Value as TraitEntry;
                 if (trait.Code == primaryTrait || trait.Name == primaryTrait)
                 {
                     PrimaryTrait = trait;

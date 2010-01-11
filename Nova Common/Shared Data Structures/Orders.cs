@@ -28,8 +28,8 @@ namespace NovaCommon
    [Serializable]
    public sealed class Orders
    {
-      public ArrayList   RaceFleets      = new ArrayList(); // For fleet orders
-      public ArrayList   RaceDesigns     = new ArrayList(); // For any new designs
+      public Hashtable   RaceFleets      = new Hashtable(); // For fleet orders
+      public Hashtable   RaceDesigns     = new Hashtable(); // For any new designs
       public ArrayList   RaceStars       = new ArrayList(); // For production queues
       public ArrayList   DeletedFleets   = new ArrayList(); // To delete fleets
       public ArrayList   DeletedDesigns  = new ArrayList(); // To delete designs
@@ -63,41 +63,80 @@ namespace NovaCommon
                        case "orders": xmlnode = xmlnode.FirstChild; continue;
                        case "techlevel": TechLevel = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
 
+                           // When loading designs we need to know what type of design it is.
+                           // To do this we first look ahead at the Type field of the design,
+                           // then load a design of the appropriate type (currently Design or ShipDesign).
                        case "design":
-                           string type = xmlnode.FirstChild.SelectSingleNode("Type").Value;
-                           if (type.ToLower() == "ship" || type == "starbase")
                            {
-                               shipDesign = new ShipDesign(xmlnode.FirstChild);
-                               RaceDesigns.Add(shipDesign);
+                               string type = xmlnode.FirstChild.SelectSingleNode("Type").FirstChild.Value;
+                               if (type.ToLower() == "ship" || type == "starbase")
+                               {
+                                   shipDesign = new ShipDesign(xmlnode);
+                                   RaceDesigns.Add(shipDesign.Name, shipDesign);
+                               }
+                               else
+                               {
+                                   design = new Design(xmlnode);
+                                   RaceDesigns.Add(design.Name, design);
+                               }
                            }
-                           else
+                           break;
+
+                           // Deleted designs are in their own section to seperate them from 
+                           // current designs. We load this section in one loop. The comments
+                           // above for designs apply equally to deleted designs.
+                       case "deleteddesigns":
+                           XmlNode deletedDesignsNode = xmlnode.FirstChild;
+                           while (deletedDesignsNode != null)
                            {
-                               design = new Design(xmlnode.FirstChild);
-                               RaceDesigns.Add(design);
+                               string type = deletedDesignsNode.FirstChild.SelectSingleNode("Type").FirstChild.Value;
+                               if (type.ToLower() == "ship" || type == "starbase")
+                               {
+                                   shipDesign = new ShipDesign(deletedDesignsNode);
+                                   DeletedDesigns.Add(shipDesign);
+                               }
+                               else
+                               {
+                                   design = new Design(deletedDesignsNode);
+                                   DeletedDesigns.Add(design);
+                               }
+                               deletedDesignsNode = deletedDesignsNode.NextSibling;
                            }
                            break;
 
                        case "star":
-                           star = new Star(xmlnode.FirstChild);
+                           star = new Star(xmlnode);
                            RaceStars.Add(star);
                            break;
 
                        case "fleet":
-                           fleet = new Fleet(xmlnode.FirstChild);
-                           RaceFleets.Add(fleet);
+                           fleet = new Fleet(xmlnode);
+                           RaceFleets.Add(fleet.FleetID, fleet);
+                           break;
+
+                           // Deleted fleets are contained in their own section to seperate them from
+                           // current fleets. We load this section in this loop.
+                       case "deletedfleets":
+                           XmlNode deletedFleetsNode = xmlnode.FirstChild;
+                           while (deletedFleetsNode != null)
+                           {
+                               fleet = new Fleet(deletedFleetsNode);
+                               DeletedFleets.Add(fleet);
+                               deletedFleetsNode = deletedFleetsNode.NextSibling;
+                           }
                            break;
 
                        case "racedata":
-                           PlayerData = new RaceData(xmlnode.FirstChild);
+                           PlayerData = new RaceData(xmlnode);
                            break;
 
                        default: break;
                    }
 
                }
-               catch
+               catch (Exception e)
                {
-                   // If there are blank entries null reference exemptions will be raised here. It is safe to ignore them.
+                   Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
                }
                xmlnode = xmlnode.NextSibling;
            }
@@ -141,13 +180,15 @@ namespace NovaCommon
            Global.SaveData(xmldoc, xmlelOrders, "Turn", PlayerData.TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
            // Store the fleets, to pass on fleet orders
-           foreach (Fleet fleet in RaceFleets)
+           foreach (DictionaryEntry de in RaceFleets)
            {
+               Fleet fleet = de.Value as Fleet;
                xmlelOrders.AppendChild(fleet.ToXml(xmldoc));
            }
            // store the designs, for any new designs
-           foreach (Design design in RaceDesigns)
+           foreach (DictionaryEntry de in RaceDesigns)
            {
+               Design design = de.Value as Design;
                if (design.Type == "Ship" || design.Type == "Starbase")
                    xmlelOrders.AppendChild(((ShipDesign)design).ToXml(xmldoc));
                else
@@ -158,19 +199,27 @@ namespace NovaCommon
            {
                xmlelOrders.AppendChild(star.ToXml(xmldoc));
            }
+
+           // Deleted fleets and designs are wrapped in a section node
+           // so they can be told appart from current designs and fleets when
+           // loaded.
+           XmlElement xmlelDeletedFleets = xmldoc.CreateElement("DeletedFleets");
            foreach (Fleet fleet in DeletedFleets)
            {
-               xmlelOrders.AppendChild(fleet.ToXml(xmldoc)); // TODO (priority 5) how do we tell these from the current fleets ???
+               xmlelDeletedFleets.AppendChild(fleet.ToXml(xmldoc));
            }
+           xmlelOrders.AppendChild(xmlelDeletedFleets);
+
+           XmlElement xmlelDeletedDesigns = xmldoc.CreateElement("DeletedDesigns");
            foreach (Design design in DeletedDesigns)
            {
-               // TODO (priority 5) how do we tell these from the current designs ???
                if (design.Type == "Ship" || design.Type == "Starbase")
-                   xmlelOrders.AppendChild(((ShipDesign)design).ToXml(xmldoc));
+                   xmlelDeletedDesigns.AppendChild(((ShipDesign)design).ToXml(xmldoc));
                else
-                   xmlelOrders.AppendChild(design.ToXml(xmldoc)); 
-               
+                   xmlelDeletedDesigns.AppendChild(design.ToXml(xmldoc)); 
            }
+           xmlelOrders.AppendChild(xmlelDeletedDesigns);
+
            xmlelOrders.AppendChild(PlayerData.ToXml(xmldoc));
            Global.SaveData(xmldoc, xmlelOrders, "TechLevel", TechLevel.ToString(System.Globalization.CultureInfo.InvariantCulture));
            
@@ -185,10 +234,6 @@ namespace NovaCommon
 #endif
 
            ordersFile.Close();
-
-           Report.Information("Orders saved.");
-
        }
    }
-
 }
