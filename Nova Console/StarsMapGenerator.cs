@@ -16,8 +16,11 @@ namespace NovaConsole
 {
     class StarsMapGenerator
     {
-
+        //the number of failed attempts to stop after
         private const int FailuresThreshold = 5000;
+
+        //the width and height of the frame where the density values will be updated after placing the star
+        private const int UpdateFrameSize = 100;
 
         private int MapWidth;
         private int MapHeight;
@@ -148,9 +151,9 @@ namespace NovaConsole
         // ===========================================================================
         private void UpdateDensities(int x, int y)
         {
-            for (int i = 0; i < MapWidth; ++i)
+            for (int i = ((x - UpdateFrameSize / 2 > 0) ? (x - UpdateFrameSize / 2) : 0); i <= ((x + UpdateFrameSize / 2 < MapWidth) ? (x + UpdateFrameSize / 2) : (MapWidth - 1)); ++i)
             {
-                for (int j = 0; j < MapHeight; ++j)
+                for (int j = ((y - UpdateFrameSize / 2 > 0) ? (y - UpdateFrameSize / 2) : 0); j <= ((y + UpdateFrameSize / 2 < MapHeight) ? (y + UpdateFrameSize / 2) : (MapHeight - 1)); ++j)
                 {
                     double d = Math.Sqrt((x - i) * (x - i) + (y - j) * (y - j));
                     Density[i, j] -= Reduce(d);
