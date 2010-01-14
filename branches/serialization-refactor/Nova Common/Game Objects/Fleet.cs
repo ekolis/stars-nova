@@ -15,6 +15,8 @@ using System;
 using System.Xml;
 using System.Collections;
 using System.Drawing;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace NovaCommon
 {
@@ -25,7 +27,7 @@ namespace NovaCommon
 // ============================================================================
 
    [Serializable]
-   public class Fleet : Item
+   public class Fleet : Item, IXmlSerializable
    {
       public  int        FleetID        = 0;
       public  ArrayList  FleetShips     = new ArrayList();
@@ -149,44 +151,6 @@ namespace NovaCommon
               }
               node = node.NextSibling;
           }
-      }
-
-      // ============================================================================
-      // Save: Return an XmlElement representation of the Fleet
-      // ============================================================================
-       
-      public new XmlElement ToXml(XmlDocument xmldoc)
-      {
-          XmlElement xmlelFleet = xmldoc.CreateElement("Fleet");
-
-          Global.SaveData(xmldoc, xmlelFleet, "FleetID", this.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          if (Target != null) Global.SaveData(xmldoc, xmlelFleet, "TargetID", Target.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          else Global.SaveData(xmldoc, xmlelFleet, "TravelStatus", "InTransit");
-          if (InOrbit != null) Global.SaveData(xmldoc, xmlelFleet, "InOrbit", InOrbit.Name);
-
-          if (BattleSpeed != 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "BattleSpeed", this.BattleSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "Bearing", this.Bearing.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          if (Cloaked != 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "Cloaked", this.Cloaked.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "FuelAvailable", this.FuelAvailable.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "FuelCapacity", this.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "TargetDistance", this.TargetDistance.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          if (Cargo.Mass > 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "CargoCapacity", this.CargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "BattlePlan", this.BattlePlan);
-
-          xmlelFleet.AppendChild(this.Cargo.ToXml(xmldoc));
-
-          foreach (Waypoint waypoint in this.Waypoints)
-          {
-              xmlelFleet.AppendChild(waypoint.ToXml(xmldoc));
-          }
-        
-          foreach (Ship ship in this.FleetShips)
-          {
-              xmlelFleet.AppendChild(ship.ToXml(xmldoc));
-          }
-    
-
-          return xmlelFleet;
       }
         
 
@@ -544,8 +508,43 @@ namespace NovaCommon
           }
       }
 
+       public override void ReadXml(XmlReader reader)
+       {
+           throw new NotImplementedException(); // TODO XML deserialization of Fleet
+       }
 
+       public override void WriteXml(XmlWriter writer)
+       {
+           writer.WriteStartElement("Fleet");
 
+           writer.WriteElementString("FleetID", FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
+           if (Target != null) writer.WriteElementString("TargetID", Target.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           else writer.WriteElementString("TravelStatus", "InTransit");
+           if (InOrbit != null) writer.WriteElementString("InOrbit", InOrbit.Name);
+
+           if (BattleSpeed != 0) writer.WriteElementString("BattleSpeed", BattleSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("Bearing", Bearing.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           if (Cloaked != 0) writer.WriteElementString("Cloaked", Cloaked.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("FuelAvailable", FuelAvailable.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("FuelCapacity", FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("TargetDistance", TargetDistance.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           if (Cargo.Mass > 0) writer.WriteElementString("CargoCapacity", CargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("BattlePlan", BattlePlan);
+
+           Cargo.WriteXml(writer);
+
+           foreach (Waypoint waypoint in Waypoints)
+           {
+               waypoint.WriteXml(writer);
+           }
+
+           foreach (Ship ship in FleetShips)
+           {
+               ship.WriteXml(writer);
+           }
+
+           writer.WriteEndElement();
+       }
    }
 }

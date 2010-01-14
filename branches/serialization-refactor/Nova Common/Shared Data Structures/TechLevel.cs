@@ -12,6 +12,8 @@
 using System;
 using System.Xml;
 using System.Collections;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace NovaCommon
 {
@@ -21,7 +23,7 @@ namespace NovaCommon
 // ===========================================================================
 
    [Serializable]
-   public class TechLevel
+   public class TechLevel : IXmlSerializable
    {
       public Hashtable TechValues = new Hashtable();
 
@@ -183,22 +185,26 @@ namespace NovaCommon
          return true;
       }
 
-      // ============================================================================
-      // Return an XmlElement representation of the Tech Level
-      // ============================================================================
-      public XmlElement ToXml(XmlDocument xmldoc)
-      {
-          XmlElement xmlelResource = xmldoc.CreateElement("Tech");
+       public XmlSchema GetSchema()
+       {
+           return null;
+       }
 
-          foreach (string key in TechLevel.ResearchKeys)
-          {
-              XmlElement xmlelTech = xmldoc.CreateElement(key);
-              XmlText xmltxtTech = xmldoc.CreateTextNode(((int)this.TechValues[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
-              xmlelTech.AppendChild(xmltxtTech);
-              xmlelResource.AppendChild(xmlelTech);
-          }
+       public void ReadXml(XmlReader reader)
+       {
+           throw new NotImplementedException(); // TODO XML deserialization of TechLevel
+       }
 
-          return xmlelResource;
-      }
+       public void WriteXml(XmlWriter writer)
+       {
+           writer.WriteStartElement("Tech");
+
+           foreach (string key in ResearchKeys)
+           {
+               writer.WriteElementString(key, ((int)TechValues[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
+           }
+
+           writer.WriteEndElement();
+       }
    }
 }

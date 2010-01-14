@@ -10,6 +10,8 @@
 
 using System;
 using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace NovaCommon
 {
@@ -21,7 +23,7 @@ namespace NovaCommon
 // ============================================================================
 
    [Serializable]
-   public class Resources
+   public class Resources : IXmlSerializable
    {
       public double Boranium  = 0;
       public double Ironium   = 0;
@@ -169,36 +171,26 @@ namespace NovaCommon
          get { return (int) (Ironium + Boranium + Germanium); }
       }
 
-// ============================================================================
-// Return an XmlElement representation of the resource cost
-// ============================================================================
-       public XmlElement ToXml(XmlDocument xmldoc)
+       public XmlSchema GetSchema()
        {
-           XmlElement xmlelResource = xmldoc.CreateElement("Resource");
-
-           // Boranium
-           XmlElement xmlelBoranium = xmldoc.CreateElement("Boranium");
-           XmlText xmltxtBoranium = xmldoc.CreateTextNode(this.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           xmlelBoranium.AppendChild(xmltxtBoranium);
-           xmlelResource.AppendChild(xmlelBoranium);
-           // Ironium
-           XmlElement xmlelIronium = xmldoc.CreateElement("Ironium");
-           XmlText xmltxtIronium = xmldoc.CreateTextNode(this.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           xmlelIronium.AppendChild(xmltxtIronium);
-           xmlelResource.AppendChild(xmlelIronium);
-           // Germanium
-           XmlElement xmlelGermanium = xmldoc.CreateElement("Germanium");
-           XmlText xmltxtGermanium = xmldoc.CreateTextNode(this.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           xmlelGermanium.AppendChild(xmltxtGermanium);
-           xmlelResource.AppendChild(xmlelGermanium);
-           // Energy
-           XmlElement xmlelEnergy = xmldoc.CreateElement("Energy");
-           XmlText xmltxtEnergy = xmldoc.CreateTextNode(this.Energy.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           xmlelEnergy.AppendChild(xmltxtEnergy);
-           xmlelResource.AppendChild(xmlelEnergy);
-
-           return xmlelResource;
+           return null;
        }
 
+       public void ReadXml(XmlReader reader)
+       {
+           throw new NotImplementedException(); // TODO XML deserialization of Resources
+       }
+
+       public void WriteXml(XmlWriter writer)
+       {
+           writer.WriteStartElement("Resource");
+
+           writer.WriteElementString("Boranium", Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("Ironium", Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("Germanium", Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("Energy", Energy.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+           writer.WriteEndElement();
+       }
    }
 }

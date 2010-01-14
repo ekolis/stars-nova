@@ -61,6 +61,7 @@ namespace NovaCommon
         {
             return new HullAffinity(this);
         }
+
         //============================================================================
         // Provide a way to add properties in the ship design.
         // Doesn't mean anything in the context of HullAffinity
@@ -104,20 +105,14 @@ namespace NovaCommon
             }
         }
 
-        // ============================================================================
-        // Return an XmlElement representation of the Property
-        // ============================================================================
-        public override XmlElement ToXml(XmlDocument xmldoc)
+        public override void ReadXml(XmlReader reader)
         {
-            XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+            throw new NotImplementedException(); // TODO XML deserialization of HullAffinity
+        }
 
-            // store the value
-            XmlElement xmlelValue = xmldoc.CreateElement("Value");
-            XmlText xmltxtValue = xmldoc.CreateTextNode(this.Value);
-            xmlelValue.AppendChild(xmltxtValue);
-            xmlelProperty.AppendChild(xmlelValue);
-
-            return xmlelProperty;
+        public override void WriteXml(XmlWriter writer)
+        {
+            writer.WriteElementString("Value", Value);
         }
     }
 }

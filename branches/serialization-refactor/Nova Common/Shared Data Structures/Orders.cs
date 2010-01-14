@@ -16,6 +16,8 @@ using System;
 using System.IO;
 using System.IO.Compression;
 using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 
 // ============================================================================
@@ -26,7 +28,7 @@ using System.Xml;
 namespace NovaCommon
 {
    [Serializable]
-   public sealed class Orders
+   public sealed class Orders : IXmlSerializable
    {
       public Hashtable   RaceFleets      = new Hashtable(); // For fleet orders
       public Hashtable   RaceDesigns     = new Hashtable(); // For any new designs
@@ -46,6 +48,8 @@ namespace NovaCommon
 
        public Orders(XmlNode xmlnode)
        {
+
+
            // temporary variables for reading in designs, fleets, stars
            Design design = null; 
            ShipDesign shipDesign = null;
@@ -161,79 +165,86 @@ namespace NovaCommon
            FileStream ordersFile = new FileStream(ordersFileName, FileMode.Create);
            GZipStream compressionStream = new GZipStream(ordersFile, CompressionMode.Compress);
 
-           // Setup the XML document
-           XmlDocument xmldoc;
-           XmlNode xmlnode;
-           XmlElement xmlRoot;
-           xmldoc = new XmlDocument();
-           // TODO (priority 4) - add the encoding attribute like UTF-8 ???
-           xmlnode = xmldoc.CreateNode(XmlNodeType.XmlDeclaration, "", "");
-           xmldoc.AppendChild(xmlnode);
-           xmlRoot = xmldoc.CreateElement("", "ROOT", "");
-           xmldoc.AppendChild(xmlRoot);
+           XmlSerializer serializer = new XmlSerializer(typeof(Orders));
+
+           // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
+           // manual inspection of the save file. Generally though it can be opened by any archiving tool that
+           // reads gzip format.
+#if (DEBUG)
+           serializer.Serialize(ordersFile, this);                       //  not compressed
+#else
+           serializer.Serialize(compressionStream, this); compressionStream.Close();    //   compressed 
+#endif
+
+           ordersFile.Close();
+       }
+
+       public XmlSchema GetSchema()
+       {
+           return null;
+       }
+
+       public void ReadXml(XmlReader reader)
+       {
+           throw new NotImplementedException(); // TODO XML deserialization of Orders
+       }
+
+       public void WriteXml(XmlWriter writer)
+       {
+           writer.WriteStartElement("", "ROOT", "");
 
            // add the orders to the document
-           XmlElement xmlelOrders = xmldoc.CreateElement("Orders");
-           xmlRoot.AppendChild(xmlelOrders);
+           writer.WriteStartElement("Orders");
 
            // Place the turn year first, so it can be determined quickly
-           Global.SaveData(xmldoc, xmlelOrders, "Turn", PlayerData.TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("Turn", PlayerData.TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
            // Store the fleets, to pass on fleet orders
            foreach (DictionaryEntry de in RaceFleets)
            {
                Fleet fleet = de.Value as Fleet;
-               xmlelOrders.AppendChild(fleet.ToXml(xmldoc));
+               fleet.WriteXml(writer);
            }
            // store the designs, for any new designs
            foreach (DictionaryEntry de in RaceDesigns)
            {
                Design design = de.Value as Design;
                if (design.Type == "Ship" || design.Type == "Starbase")
-                   xmlelOrders.AppendChild(((ShipDesign)design).ToXml(xmldoc));
+                   ((ShipDesign) design).WriteXml(writer);
                else
-                   xmlelOrders.AppendChild(design.ToXml(xmldoc));
+                   design.WriteXml(writer);
            }
            // store the stars, so we can pass production orders
            foreach (Star star in RaceStars)
            {
-               xmlelOrders.AppendChild(star.ToXml(xmldoc));
+               star.WriteXml(writer);
            }
 
            // Deleted fleets and designs are wrapped in a section node
            // so they can be told appart from current designs and fleets when
            // loaded.
-           XmlElement xmlelDeletedFleets = xmldoc.CreateElement("DeletedFleets");
+           writer.WriteStartElement("DeletedFleets");
            foreach (Fleet fleet in DeletedFleets)
            {
-               xmlelDeletedFleets.AppendChild(fleet.ToXml(xmldoc));
+               fleet.WriteXml(writer);
            }
-           xmlelOrders.AppendChild(xmlelDeletedFleets);
+           writer.WriteEndElement();
 
-           XmlElement xmlelDeletedDesigns = xmldoc.CreateElement("DeletedDesigns");
+           writer.WriteStartElement("DeletedDesigns");
            foreach (Design design in DeletedDesigns)
            {
                if (design.Type == "Ship" || design.Type == "Starbase")
-                   xmlelDeletedDesigns.AppendChild(((ShipDesign)design).ToXml(xmldoc));
+                   ((ShipDesign)design).WriteXml(writer);
                else
-                   xmlelDeletedDesigns.AppendChild(design.ToXml(xmldoc)); 
+                   design.WriteXml(writer);
            }
-           xmlelOrders.AppendChild(xmlelDeletedDesigns);
+           writer.WriteEndElement();
 
-           xmlelOrders.AppendChild(PlayerData.ToXml(xmldoc));
-           Global.SaveData(xmldoc, xmlelOrders, "TechLevel", TechLevel.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           
+           PlayerData.WriteXml(writer);
 
-           // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
-           // manual inspection of the save file. Generally though it can be opened by any archiving tool that
-           // reads gzip format.
-#if (DEBUG)
-           xmldoc.Save(ordersFile);                                           //  not compressed
-#else
-           xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
-#endif
+           writer.WriteElementString("TechLevel", TechLevel.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
-           ordersFile.Close();
+           writer.WriteEndElement();
        }
    }
 }

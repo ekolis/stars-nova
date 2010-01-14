@@ -13,6 +13,8 @@
 using System;
 using System.Collections;
 using System.Xml;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace NovaCommon
 {
@@ -26,7 +28,7 @@ namespace NovaCommon
 // ============================================================================
 
    [Serializable]
-   public class Ship : Item
+   public class Ship : Item, IXmlSerializable
    {
       public Cargo      Cargo         = new Cargo(); // Cargo being carried.
       public ShipDesign Design        = null;
@@ -218,29 +220,30 @@ namespace NovaCommon
          }
       }
 
-       /// <summary>
-       /// Generate an xml representation of the ship for saving
-       /// </summary>
-       /// <param name="xmldoc">The master XmlDocument</param>
-      public new XmlElement ToXml(XmlDocument xmldoc)
-      {
-          XmlElement xmlelShip = xmldoc.CreateElement("Ship");
+       public override void ReadXml(XmlReader reader)
+       {
+           throw new NotImplementedException(); // TODO XML deserialization of Ship
+       }
 
-          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Design", this.Design.Name);
-          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Owner", this.Owner);
-          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Mass", this.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelShip.AppendChild(Cost.ToXml(xmldoc));
+       public override void WriteXml(XmlWriter writer)
+       {
+           writer.WriteStartElement("Ship");
 
-          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Shields", this.Shields.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Armor", this.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          if (Cargo.Mass > 0) xmlelShip.AppendChild(Cargo.ToXml(xmldoc));
+           writer.WriteElementString("Design", Design.Name);
+           writer.WriteElementString("Owner", Owner);
+           writer.WriteElementString("Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           Cost.WriteXml(writer);
 
-          /* These fields inherited from Item are ignored.
-           * public  string    Type     = null;
-           * public  Point     Position = new Point(0, 0);
-           */
+           writer.WriteElementString("Shields", Shields.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("Armor", Armor.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           if (Cargo.Mass > 0) Cargo.WriteXml(writer);
 
-          return xmlelShip;
-      }
+           /* These fields inherited from Item are ignored.
+            * public  string    Type     = null;
+            * public  Point     Position = new Point(0, 0);
+            */
+
+           writer.WriteEndElement();
+       }
    }
 }

@@ -62,7 +62,7 @@ namespace NovaCommon
           return new Engine(this);
       }
 
-      //============================================================================
+       //============================================================================
       // Provide a way to add properties in the ship design.
       // engines don't add in Nova
       //============================================================================
@@ -125,42 +125,23 @@ namespace NovaCommon
           }
       }
 
-
-
-// ============================================================================
-// Return an XmlElement representation of the Property for saving.
-// ============================================================================
-      public override XmlElement ToXml(XmlDocument xmldoc)
+      public override void ReadXml(XmlReader reader)
       {
-          XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+          throw new NotImplementedException(); // TODO XML deserialization of Engine
+      }
 
-          // RamScoop
-          XmlElement xmlelRamScoop = xmldoc.CreateElement("RamScoop");
-          XmlText xmltxtRamScoop = xmldoc.CreateTextNode(this.RamScoop.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelRamScoop.AppendChild(xmltxtRamScoop);
-          xmlelProperty.AppendChild(xmlelRamScoop);
-          // FastestSafeSpeed
-          XmlElement xmlelFastestSafeSpeed = xmldoc.CreateElement("FastestSafeSpeed");
-          XmlText xmltxtFastestSafeSpeed = xmldoc.CreateTextNode(this.FastestSafeSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelFastestSafeSpeed.AppendChild(xmltxtFastestSafeSpeed);
-          xmlelProperty.AppendChild(xmlelFastestSafeSpeed);
-          // Optimal Speed
-          XmlElement xmlelOptimalSpeed = xmldoc.CreateElement("OptimalSpeed");
-          XmlText xmltxtOptimalSpeed = xmldoc.CreateTextNode(this.OptimalSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelOptimalSpeed.AppendChild(xmltxtOptimalSpeed);
-          xmlelProperty.AppendChild(xmlelOptimalSpeed);
-          // FuelConsumption
-          XmlElement xmlelFuelConsumption = xmldoc.CreateElement("FuelConsumption");
-          for (int warp = 0; warp < FuelConsumption.Length; warp++ )
+      public override void WriteXml(XmlWriter writer)
+      {
+          writer.WriteElementString("RamScoop", RamScoop.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          writer.WriteElementString("FastestSafeSpeed", FastestSafeSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          writer.WriteElementString("OptimalSpeed", OptimalSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+          writer.WriteStartElement("FuelConsumption");
+          for (int warp = 0; warp < FuelConsumption.Length; warp++)
           {
-              XmlElement xmlelWarp = xmldoc.CreateElement("Warp" + warp.ToString(System.Globalization.CultureInfo.InvariantCulture));
-              XmlText xmltextWarp = xmldoc.CreateTextNode(this.FuelConsumption[warp].ToString(System.Globalization.CultureInfo.InvariantCulture));
-              xmlelWarp.AppendChild(xmltextWarp);
-              xmlelFuelConsumption.AppendChild(xmlelWarp);
+              writer.WriteElementString("Warp" + warp.ToString(System.Globalization.CultureInfo.InvariantCulture), FuelConsumption[warp].ToString(System.Globalization.CultureInfo.InvariantCulture));
           }
-          xmlelProperty.AppendChild(xmlelFuelConsumption);
-
-          return xmlelProperty;
+          writer.WriteEndElement();
       }
 
    }

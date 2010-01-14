@@ -53,7 +53,7 @@ namespace NovaCommon
           return new Computer(this);
       }
 
-      //============================================================================
+       //============================================================================
       // Provide a way to add properties in the ship design.
       //============================================================================
       public static Computer operator +(Computer op1, Computer op2)
@@ -108,25 +108,15 @@ namespace NovaCommon
           }
       }
 
-// ============================================================================
-// Return an XmlElement representation of the Property
-// ============================================================================
-      public override XmlElement ToXml(XmlDocument xmldoc)
+      public override void ReadXml(XmlReader reader)
       {
-          XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+          throw new NotImplementedException(); // TODO XML deserialization of Computer
+      }
 
-          // Initiative
-          XmlElement xmlelInitiative = xmldoc.CreateElement("Initiative");
-          XmlText xmltxtInitiative = xmldoc.CreateTextNode(this.Initiative.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelInitiative.AppendChild(xmltxtInitiative);
-          xmlelProperty.AppendChild(xmlelInitiative);
-          // Accuracy
-          XmlElement xmlelAccuracy = xmldoc.CreateElement("Accuracy");
-          XmlText xmltxtAccuracy = xmldoc.CreateTextNode(this.Accuracy.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelAccuracy.AppendChild(xmltxtAccuracy);
-          xmlelProperty.AppendChild(xmlelAccuracy);
-
-          return xmlelProperty;
+      public override void WriteXml(XmlWriter writer)
+      {
+          writer.WriteElementString("Initiative", Initiative.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          writer.WriteElementString("Accuracy", Accuracy.ToString(System.Globalization.CultureInfo.InvariantCulture));
       }
    }
 }

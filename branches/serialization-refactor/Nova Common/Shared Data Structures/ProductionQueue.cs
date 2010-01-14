@@ -11,12 +11,14 @@
 using System;
 using System.Xml;
 using System.Collections;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace NovaCommon
 {
 
    [Serializable]
-   public class ProductionQueue
+   public class ProductionQueue : IXmlSerializable
    {
 
 // ============================================================================
@@ -24,7 +26,7 @@ namespace NovaCommon
 // ============================================================================
 
       [Serializable]
-      public class Item // FIXME - Seems like a bad name as there is already an Item type in the NovaCommon namespace
+      public class Item : IXmlSerializable // FIXME - Seems like a bad name as there is already an Item type in the NovaCommon namespace
       {
          public string    Name;              // Design name, e.g. "Space Dock"
          public int       Quantity;          // Number to build
@@ -68,23 +70,26 @@ namespace NovaCommon
              }
          }
 
+          public XmlSchema GetSchema()
+          {
+              return null;
+          }
 
+          public void ReadXml(XmlReader reader)
+          {
+              throw new NotImplementedException(); // TODO XML deserialization of ProductionQueue.Item
+          }
 
-          /// <summary>
-          /// Save: Generate an XmlElement representation of the ProductionQueue.Item for saving.
-          /// </summary>
-          /// <param name="xmldoc">The parent XmlDocument</param>
-          /// <returns>An XmlElement representation of the ProductionQueue.Item</returns>
-         public XmlElement ToXml(XmlDocument xmldoc)
-         {
-             XmlElement xmlelProductionOrder = xmldoc.CreateElement("ProductionOrder");
+          public void WriteXml(XmlWriter writer)
+          {
+              writer.WriteStartElement("ProductionOrder");
 
-             Global.SaveData(xmldoc, xmlelProductionOrder, "Name", Name);
-             Global.SaveData(xmldoc, xmlelProductionOrder, "Quantity", Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-             xmlelProductionOrder.AppendChild(BuildState.ToXml(xmldoc));
+              writer.WriteElementString("Name", Name);
+              writer.WriteElementString("Quantity", Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+              BuildState.WriteXml(writer);
 
-             return xmlelProductionOrder;
-         }
+              writer.WriteEndElement();
+          }
       }      
 
 
@@ -125,19 +130,24 @@ namespace NovaCommon
           }
       }
 
-       /// <summary>
-       /// Save: Generate an XmlElement representation of the ProductionQueue to save to file.
-       /// </summary>
-       /// <param name="xmldoc">The parent XmlDocument</param>
-       /// <returns>An XmlElement representing the ProductionQueue</returns>
-      public XmlElement ToXml(XmlDocument xmldoc)
-      {
-          XmlElement xmlelProductionQueue = xmldoc.CreateElement("ProductionQueue");
-          foreach (ProductionQueue.Item item in Queue)
-          {
-              xmlelProductionQueue.AppendChild(item.ToXml(xmldoc));
-          }
-          return xmlelProductionQueue;
-      }
+       public XmlSchema GetSchema()
+       {
+           return null;
+       }
+
+       public void ReadXml(XmlReader reader)
+       {
+           throw new NotImplementedException(); // TODO XML deserialization of ProductionQueue
+       }
+
+       public void WriteXml(XmlWriter writer)
+       {
+           writer.WriteStartElement("ProductionQueue");
+           foreach (Item item in Queue)
+           {
+               item.WriteXml(writer);
+           }
+           writer.WriteEndElement();
+       }
    }
 }

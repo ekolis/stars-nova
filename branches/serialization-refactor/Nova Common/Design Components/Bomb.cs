@@ -10,6 +10,7 @@
 
 using System;
 using System.Xml;
+using System.Xml.Schema;
 
 // ============================================================================
 // Bomb class
@@ -55,7 +56,7 @@ namespace NovaCommon
           return new Bomb(this);
       }
 
-      //============================================================================
+       //============================================================================
       // Provide a way to add properties in the ship design.
       // Bombs do add, but you can't and smart and normal bombs and get a value 
       // that can be represented by one Bomb property.
@@ -152,36 +153,17 @@ namespace NovaCommon
           }
       }
 
-
-// ============================================================================
-// Return an XmlElement representation of the Property
-// ============================================================================
-      public override XmlElement ToXml(XmlDocument xmldoc)
+      public override void ReadXml(XmlReader reader)
       {
-          XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+          throw new NotImplementedException(); // TODO XML deserialization of Bomb
+      }
 
-          // Installations
-          XmlElement xmlelInstallations = xmldoc.CreateElement("Installations");
-          XmlText xmltxtInstallations = xmldoc.CreateTextNode(this.Installations.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelInstallations.AppendChild(xmltxtInstallations);
-          xmlelProperty.AppendChild(xmlelInstallations);
-          // PopKill
-          XmlElement xmlelPopKill = xmldoc.CreateElement("PopKill");
-          XmlText xmltxtPopKill = xmldoc.CreateTextNode(this.PopKill.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelPopKill.AppendChild(xmltxtPopKill);
-          xmlelProperty.AppendChild(xmlelPopKill);
-          // MinimumKill
-          XmlElement xmlelMinimumKill = xmldoc.CreateElement("MinimumKill");
-          XmlText xmltxtMinimumKill = xmldoc.CreateTextNode(this.MinimumKill.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelMinimumKill.AppendChild(xmltxtMinimumKill);
-          xmlelProperty.AppendChild(xmlelMinimumKill);
-          // IsSmart
-          XmlElement xmlelIsSmart = xmldoc.CreateElement("IsSmart");
-          XmlText xmltxtIsSmart = xmldoc.CreateTextNode(this.IsSmart.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelIsSmart.AppendChild(xmltxtIsSmart);
-          xmlelProperty.AppendChild(xmlelIsSmart);
-
-          return xmlelProperty;
+      public override void WriteXml(XmlWriter writer)
+      {
+          writer.WriteElementString("Installations", Installations.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          writer.WriteElementString("PopKill", PopKill.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          writer.WriteElementString("MinimumKill", MinimumKill.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          writer.WriteElementString("IsSmart", IsSmart.ToString(System.Globalization.CultureInfo.InvariantCulture));
       }
    }
 }

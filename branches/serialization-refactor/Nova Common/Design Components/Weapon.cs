@@ -68,7 +68,7 @@ namespace NovaCommon
           return new Weapon(this);
       }
 
-      //============================================================================
+       //============================================================================
       // Provide a way to add properties in the ship design.
       // only power adds, and this only makes sense if the weapons are the same
       //============================================================================
@@ -162,42 +162,19 @@ namespace NovaCommon
                 get { return (Group == WeaponType.torpedo || Group == WeaponType.missile); }
       }
 
-      // ============================================================================
-      // Return an XmlElement representation of the Property
-      // ============================================================================
-      public override XmlElement ToXml(XmlDocument xmldoc)
+      public override void ReadXml(XmlReader reader)
       {
-          XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+          throw new NotImplementedException(); // TODO XML deserialization of Weapon
+      }
 
-          // Initiative
-          XmlElement xmlelInitiative = xmldoc.CreateElement("Initiative");
-          XmlText xmltxtInitiative = xmldoc.CreateTextNode(this.Initiative.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelInitiative.AppendChild(xmltxtInitiative);
-          xmlelProperty.AppendChild(xmlelInitiative);
-          // Power
-          XmlElement xmlelPower = xmldoc.CreateElement("Power");
-          XmlText xmltxtPower = xmldoc.CreateTextNode(this.Power.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelPower.AppendChild(xmltxtPower);
-          xmlelProperty.AppendChild(xmlelPower);
-          // Accuracy
-          XmlElement xmlelAccuracy = xmldoc.CreateElement("Accuracy");
-          XmlText xmltxtAccuracy = xmldoc.CreateTextNode(this.Accuracy.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelAccuracy.AppendChild(xmltxtAccuracy);
-          xmlelProperty.AppendChild(xmlelAccuracy);
-          // Range
-          XmlElement xmlelRange = xmldoc.CreateElement("Range");
-          XmlText xmltxtRange = xmldoc.CreateTextNode(this.Range.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelRange.AppendChild(xmltxtRange);
-          xmlelProperty.AppendChild(xmlelRange);
-          // Group
-          XmlElement xmlelGroup = xmldoc.CreateElement("Group");
-          XmlText xmltxtGroup = xmldoc.CreateTextNode(this.Group.ToString());
-          xmlelGroup.AppendChild(xmltxtGroup);
-          xmlelProperty.AppendChild(xmlelGroup);
-
-
-          return xmlelProperty;
-      }       
+      public override void WriteXml(XmlWriter writer)
+      {
+          writer.WriteElementString("Initiative", Initiative.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          writer.WriteElementString("Power", Power.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          writer.WriteElementString("Accuracy", Accuracy.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          writer.WriteElementString("Range", Range.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          writer.WriteElementString("Group", Group.ToString());
+      }
    }
 }
 

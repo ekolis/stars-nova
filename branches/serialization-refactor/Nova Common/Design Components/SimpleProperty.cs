@@ -43,7 +43,7 @@ namespace NovaCommon
       public override object Clone()
       {
           return new SimpleProperty();
-      }       
+      }
 
 // ============================================================================
 // Initialising Constructor from an xml node.
@@ -61,14 +61,14 @@ namespace NovaCommon
           return op1;
       }
 
-      // ============================================================================
-      // Return an XmlElement representation of the Property
-      // ============================================================================
-      public override XmlElement ToXml(XmlDocument xmldoc)
+      public override void ReadXml(XmlReader reader)
       {
-          XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+          throw new NotImplementedException(); // TODO XML deserialization of SimpleProperty
+      }
 
-          return xmlelProperty;
+      public override void WriteXml(XmlWriter writer)
+      {
+          // Do nothing.
       }
    }
 }

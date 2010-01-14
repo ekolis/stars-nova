@@ -13,6 +13,8 @@ using System;
 using System.Xml;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace NovaCommon
 {
@@ -78,22 +80,6 @@ namespace NovaCommon
               }
               subnode = subnode.NextSibling;
           }
-      }
-
-       /// <summary>
-       /// Generate an XmlElement representation of the ShipDesign for saving to file.
-       /// Note this uses the minimal approach of storing the ship hull object 
-       /// (and recursing through all components). All figured values will need to be 
-       /// recalculated on loading.
-       /// </summary>
-       /// <param name="xmldoc">The parent XmlDocument</param>
-       /// <returns>An XmlElement representing the ShipDesign</returns>
-      public new XmlElement ToXml(XmlDocument xmldoc)
-      {
-          XmlElement xmlelShipDesign = xmldoc.CreateElement("ShipDesign");
-          xmlelShipDesign.AppendChild(ShipHull.ToXml(xmldoc));
-          xmlelShipDesign.AppendChild(base.ToXml(xmldoc));
-          return xmlelShipDesign;
       }
 
        // ============================================================================
@@ -484,6 +470,25 @@ namespace NovaCommon
                }
                return initiative;
            }
+       }
+
+       public override void ReadXml(XmlReader reader)
+       {
+           throw new NotImplementedException(); // TODO XML deserialization of ShipDesign
+       }
+
+       /// <summary>
+       /// Writes the XML representation of the ShipDesign for saving to file.
+       /// Note this uses the minimal approach of storing the ship hull object 
+       /// (and recursing through all components). All figured values will need to be 
+       /// recalculated on loading.
+       /// </summary>
+       public override void WriteXml(XmlWriter writer)
+       {
+           writer.WriteStartElement("ShipDesign");
+           ShipHull.WriteXml(writer);
+           base.WriteXml(writer);
+           writer.WriteEndElement();
        }
    }
 

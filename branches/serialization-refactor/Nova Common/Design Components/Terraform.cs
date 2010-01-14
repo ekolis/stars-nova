@@ -115,33 +115,17 @@ namespace NovaCommon
           }
       }
 
-        // ============================================================================
-        // Return an XmlElement representation of the Property
-        // ============================================================================
-        public override XmlElement ToXml(XmlDocument xmldoc)
+        public override void ReadXml(XmlReader reader)
         {
-            XmlElement xmlelProperty = xmldoc.CreateElement("Property");
-
-            // MaxModifiedGravity
-            XmlElement xmlelMaxModifiedGravity = xmldoc.CreateElement("MaxModifiedGravity");
-            XmlText xmltxtMaxModifiedGravity = xmldoc.CreateTextNode(this.MaxModifiedGravity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            xmlelMaxModifiedGravity.AppendChild(xmltxtMaxModifiedGravity);
-            xmlelProperty.AppendChild(xmlelMaxModifiedGravity);
-            // MaxModifiedTemperature
-            XmlElement xmlelMaxModifiedTemperature = xmldoc.CreateElement("MaxModifiedTemperature");
-            XmlText xmltxtMaxModifiedTemperature = xmldoc.CreateTextNode(this.MaxModifiedTemperature.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            xmlelMaxModifiedTemperature.AppendChild(xmltxtMaxModifiedTemperature);
-            xmlelProperty.AppendChild(xmlelMaxModifiedTemperature);
-            // MaxModifiedRadiation
-            XmlElement xmlelMaxModifiedRadiation = xmldoc.CreateElement("MaxModifiedRadiation");
-            XmlText xmltxtMaxModifiedRadiation = xmldoc.CreateTextNode(this.MaxModifiedRadiation.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            xmlelMaxModifiedRadiation.AppendChild(xmltxtMaxModifiedRadiation);
-            xmlelProperty.AppendChild(xmlelMaxModifiedRadiation);
-
-            return xmlelProperty;
+            throw new NotImplementedException(); // TODO XML deserialization of Terraform
         }
- 
 
+        public override void WriteXml(XmlWriter writer)
+        {
+            writer.WriteElementString("MaxModifiedGravity", MaxModifiedGravity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            writer.WriteElementString("MaxModifiedTemperature", MaxModifiedTemperature.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            writer.WriteElementString("MaxModifiedRadiation", MaxModifiedRadiation.ToString(System.Globalization.CultureInfo.InvariantCulture));
+        }
     }
 }
 

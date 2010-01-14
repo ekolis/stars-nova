@@ -20,7 +20,9 @@ using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
 using System.IO.Compression;
 using System.Web.Security;
+using System.Xml.Schema;
 using NovaCommon;
+using System.Xml.Serialization;
 
 
 namespace NovaCommon
@@ -33,7 +35,7 @@ namespace NovaCommon
 // ===========================================================================
 
    [Serializable]
-   public sealed class Race
+   public sealed class Race : IXmlSerializable
    {
       public EnvironmentTolerance  GravityTolerance = new EnvironmentTolerance();
       public EnvironmentTolerance  RadiationTolerance = new EnvironmentTolerance();
@@ -135,69 +137,6 @@ namespace NovaCommon
          get { return Median(GravityTolerance) * 10; }
       }
 
-
-      // ============================================================================
-      // Return an XmlElement representation of the Race
-      // ============================================================================
-      public XmlElement ToXml(XmlDocument xmldoc)
-      {
-          XmlElement xmlelRace = xmldoc.CreateElement("Race");
-
-          // GravityTolerance
-          XmlElement xmlelGravityTolerance = xmldoc.CreateElement("GravityTolerance");
-          xmlelGravityTolerance.AppendChild(this.GravityTolerance.ToXml(xmldoc));
-          xmlelRace.AppendChild(xmlelGravityTolerance);
-          // RadiationTolerance
-          XmlElement xmlelRadiationTolerance = xmldoc.CreateElement("RadiationTolerance");
-          xmlelRadiationTolerance.AppendChild(this.RadiationTolerance.ToXml(xmldoc));
-          xmlelRace.AppendChild(xmlelRadiationTolerance);
-          // TemperatureTolerance
-          XmlElement xmlelTemperatureTolerance = xmldoc.CreateElement("TemperatureTolerance");
-          xmlelTemperatureTolerance.AppendChild(this.TemperatureTolerance.ToXml(xmldoc));
-          xmlelRace.AppendChild(xmlelTemperatureTolerance);
-          // Tech
-          xmlelRace.AppendChild(this.ResearchCosts.ToXml(xmldoc));
-
-          // Type; // Primary Racial Trait.
-          Global.SaveData(xmldoc, xmlelRace, "PRT", Traits.Primary.Code); // TODO (priority 5) check the PRT is saved/loaded properly into Traits
-          // Traits
-          foreach (TraitEntry trait in Traits)
-          {
-              if (AllTraits.Data.Primary.Contains(trait.Code)) continue; // Skip the PRT, just add LRTs here.
-              Global.SaveData(xmldoc, xmlelRace, "LRT", trait.Code);
-          }
-
-          // MineBuildCost
-          Global.SaveData(xmldoc, xmlelRace, "MineBuildCost", MineBuildCost.ToString(System.Globalization.CultureInfo.InvariantCulture));
-
-          // Plural Name
-          Global.SaveData(xmldoc, xmlelRace, "PluralName", PluralName);
-          // Name
-          Global.SaveData(xmldoc, xmlelRace, "Name", Name);
-          // Password 
-          Global.SaveData(xmldoc, xmlelRace, "Password", Password);
-          // RaceIconName
-          Global.SaveData(xmldoc, xmlelRace, "RaceIconName", Icon.Source);
-          // Factory Build Cost
-          Global.SaveData(xmldoc, xmlelRace, "FactoryBuildCost", FactoryBuildCost.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          // ColonistsPerResource
-          Global.SaveData(xmldoc, xmlelRace, "ColonistsPerResource", ColonistsPerResource.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          // FactoryProduction
-          Global.SaveData(xmldoc, xmlelRace, "FactoryProduction", FactoryProduction.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          // OperableFactories
-          Global.SaveData(xmldoc, xmlelRace, "OperableFactories", OperableFactories.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          // MineProductionRate
-          Global.SaveData(xmldoc, xmlelRace, "MineProductionRate", MineProductionRate.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          // OperableMines
-          Global.SaveData(xmldoc, xmlelRace, "OperableMines", OperableMines.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          // MaxPopulation
-          Global.SaveData(xmldoc, xmlelRace, "MaxPopulation", MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          // GrowthRate
-          Global.SaveData(xmldoc, xmlelRace, "GrowthRate", GrowthRate.ToString(System.Globalization.CultureInfo.InvariantCulture));
-
-          return xmlelRace;
-      }
-
       /// <summary>
       /// Load a Race from an xml document 
       /// </summary>
@@ -258,6 +197,59 @@ namespace NovaCommon
       }
 
 
+       public XmlSchema GetSchema()
+       {
+           return null;
+       }
 
+       public void ReadXml(XmlReader reader)
+       {
+           throw new NotImplementedException(); // TODO XML deserialization of Race
+       }
+
+       public void WriteXml(XmlWriter writer)
+       {
+           writer.WriteStartElement("Race");
+
+           // GravityTolerance
+           writer.WriteStartElement("GravityTolerance");
+           GravityTolerance.WriteXml(writer);
+           writer.WriteEndElement();
+           // RadiationTolerance
+           writer.WriteStartElement("RadiationTolerance");
+           RadiationTolerance.WriteXml(writer);
+           writer.WriteEndElement();
+           // TemperatureTolerance
+           writer.WriteStartElement("TemperatureTolerance");
+           TemperatureTolerance.WriteXml(writer);
+           writer.WriteEndElement();
+           // Tech
+           ResearchCosts.WriteXml(writer);
+
+           // Type; // Primary Racial Trait.
+           writer.WriteElementString("PRT", Traits.Primary.Code); // TODO (priority 5) check the PRT is saved/loaded properly into Traits
+           // Traits
+           foreach (TraitEntry trait in Traits)
+           {
+               if (AllTraits.Data.Primary.Contains(trait.Code)) continue; // Skip the PRT, just add LRTs here.
+               writer.WriteElementString("LRT", trait.Code);
+           }
+
+           writer.WriteElementString("MineBuildCost", MineBuildCost.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("PluralName", PluralName);
+           writer.WriteElementString("Name", Name);
+           writer.WriteElementString("Password", Password);
+           writer.WriteElementString("RaceIconName", Icon.Source);
+           writer.WriteElementString("FactoryBuildCost", FactoryBuildCost.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("ColonistsPerResource", ColonistsPerResource.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("FactoryProduction", FactoryProduction.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("OperableFactories", OperableFactories.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("MineProductionRate", MineProductionRate.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("OperableMines", OperableMines.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("MaxPopulation", MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture));
+           writer.WriteElementString("GrowthRate", GrowthRate.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+           writer.WriteEndElement();
+       }
    }
 }

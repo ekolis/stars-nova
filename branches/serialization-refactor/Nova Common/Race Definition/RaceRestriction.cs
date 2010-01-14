@@ -15,6 +15,8 @@ using System.Xml;
 using System.Collections;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml.Schema;
+using System.Xml.Serialization;
 
 namespace NovaCommon
 {
@@ -26,7 +28,7 @@ namespace NovaCommon
     }
 
     [Serializable]
-    public class RaceRestriction
+    public class RaceRestriction : IXmlSerializable
     {
 
         private Hashtable Restrictions = new Hashtable();
@@ -111,36 +113,6 @@ namespace NovaCommon
             return RaceAvailability.not_required;
         }
 
-
-
-        // ============================================================================
-        // Return an XmlElement representation of the Race Restrictions
-        // ============================================================================
-        public XmlElement ToXml(XmlDocument xmldoc)
-        {
-            XmlElement xmlelResource = xmldoc.CreateElement("Race_Restrictions");
-            try
-            {
-                foreach (string key in AllTraits.TraitKeys)
-                {
-                    // not_required is the default, only save variations
-                    if (Restrictions.ContainsKey(key) && (RaceAvailability)Restrictions[key] != RaceAvailability.not_required)
-                    {
-                        XmlElement xmlelTrait = xmldoc.CreateElement(key);
-                        XmlText xmltxtTrait = xmldoc.CreateTextNode(((int)this.Restrictions[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
-                        xmlelTrait.AppendChild(xmltxtTrait);
-                        xmlelResource.AppendChild(xmlelTrait);
-                    }
-                }
-            }
-            catch
-            {
-                Report.Error("Failed to represent Race Restrictions in xml.");
-            }
-
-            return xmlelResource;
-        }
-
         // ============================================================================
         /// <summary>
         /// Return a printable String representation of the restrictions.
@@ -200,5 +172,37 @@ namespace NovaCommon
             return inwords;
         }
 
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            throw new NotImplementedException(); // TODO XML deserialization of RaceRestriction
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteStartElement("Race_Restrictions");
+
+            try
+            {
+                foreach (string key in AllTraits.TraitKeys)
+                {
+                    // not_required is the default, only save variations
+                    if (Restrictions.ContainsKey(key) && (RaceAvailability)Restrictions[key] != RaceAvailability.not_required)
+                    {
+                        writer.WriteElementString(key, ((int)Restrictions[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
+                    }
+                }
+            }
+            catch
+            {
+                Report.Error("Failed to represent Race Restrictions in xml.");
+            }
+
+            writer.WriteEndElement();
+        }
     }
 }

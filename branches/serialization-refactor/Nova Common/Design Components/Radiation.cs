@@ -59,6 +59,7 @@ namespace NovaCommon
         {
             return new Radiation(this);
         }
+
         //============================================================================
         // Provide a way to add properties in the ship design.
         //============================================================================
@@ -100,20 +101,14 @@ namespace NovaCommon
             }
         }
 
-        // ============================================================================
-        // Return an XmlElement representation of the Property
-        // ============================================================================
-        public override XmlElement ToXml(XmlDocument xmldoc)
+        public override void ReadXml(XmlReader reader)
         {
-            XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+            throw new NotImplementedException(); // TODO XML deserialization of Radiation
+        }
 
-            // store the value
-            XmlElement xmlelValue = xmldoc.CreateElement("Value");
-            XmlText xmltxtValue = xmldoc.CreateTextNode(this.Value.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            xmlelValue.AppendChild(xmltxtValue);
-            xmlelProperty.AppendChild(xmlelValue);
-
-            return xmlelProperty;
+        public override void WriteXml(XmlWriter writer)
+        {
+            writer.WriteElementString("Value", Value.ToString(System.Globalization.CultureInfo.InvariantCulture));
         }
     }
 }
