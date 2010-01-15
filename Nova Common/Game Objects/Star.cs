@@ -140,6 +140,26 @@ namespace NovaCommon
           }
       }
 
+      public int GetOperableFactories()
+      {
+          if (ThisRace == null)
+          {
+              throw new InvalidOperationException("no owning race found for the star");
+          }
+          
+          return Convert.ToInt32(Colonists * ThisRace.OperableFactories);
+      }
+
+      public int GetOperableMines()
+      {
+          if (ThisRace == null)
+          {
+              throw new InvalidOperationException("no owning race found for the star");
+          }
+
+          return Convert.ToInt32(Colonists * ThisRace.OperableMines);
+      }
+
 // ============================================================================
 // Update a star to take into account the passing of a year.
 // FIXME (priority 5) - this should not be here as it means the GUI has access to methods 
