@@ -102,13 +102,13 @@ namespace NovaCommon
 // See if a resource set is greater than another.
 // ============================================================================
 
-      public static bool operator>(Resources lhs, Resources rhs)
+      public static bool operator>=(Resources lhs, Resources rhs)
       {
-         if (lhs.Ironium   <= rhs.Ironium   && lhs.Boranium <= rhs.Boranium &&
-             lhs.Germanium <= rhs.Germanium && lhs.Energy   <= rhs.Energy) {
-            return false;
+         if (lhs.Ironium   >= rhs.Ironium   && lhs.Boranium >= rhs.Boranium &&
+             lhs.Germanium >= rhs.Germanium && lhs.Energy   >= rhs.Energy) {
+            return true;
          }
-         return true;
+         return false;
       }
 
 
@@ -116,13 +116,9 @@ namespace NovaCommon
 // See if a resources set is less than another.
 // ============================================================================
 
-      public static bool operator<(Resources lhs, Resources rhs)
+      public static bool operator<=(Resources lhs, Resources rhs)
       {
-         if (lhs.Ironium   >= rhs.Ironium   && lhs.Boranium >= rhs.Boranium &&
-             lhs.Germanium >= rhs.Germanium && lhs.Energy   >= rhs.Energy) {
-            return false;
-         }
-         return true;
+          return (rhs >= lhs);
       }
 
 
