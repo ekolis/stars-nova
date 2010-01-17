@@ -91,7 +91,7 @@ namespace NovaConsole {
          // a surplus in some areas and a deficit in others so we have to check
          // the individual resource components for over-payment.
 
-         if (star.ResourcesOnHand < needed) {
+         if (!(star.ResourcesOnHand >= needed)) {
             DonateResources(item.BuildState, needed, star.ResourcesOnHand);
             return true;
          }

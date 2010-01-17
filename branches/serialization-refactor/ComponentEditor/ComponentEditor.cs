@@ -1,6 +1,6 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
-// Modified Daniel Vale 2009
+// Modified Daniel Vale 2009, 2010
 //
 // This dialog allows all components to be created and edited.
 //
@@ -9,6 +9,7 @@
 // Software Foundation.
 //
 // ============================================================================
+//
 //             Checklist for Adding a New Component Property 
 //
 // 1. Add a new tab to ComponentEditor.cs [Design]
@@ -24,9 +25,7 @@
 //
 // ============================================================================
 //
-//
-//  == BUGS (FIXME priority 5) ==
-// Hull map doesn't display.
+//  == BUGS (FIXME priority 3) ==
 // Component->Copy seems to intermitently not copy race restrictions.
 // Component->Copy cross-links Hull maps (i.e. the one map is used by both 
 //   hulls). Suspect it is the individual modules that are x-linked not the 
@@ -44,10 +43,7 @@
 // == COSMETICS (TODO priority 2) ==
 // Add Keyboard Shortcuts
 //  - Up/Down key to navigate Component List
-// Order of hull property tab stops
 // Display dock/cargo capacity in hull map.
-// When program starts with no component definition file all component property tabs are displayed. They should be hidden.
-//
 // ============================================================================
 
 using NovaCommon;
@@ -119,6 +115,12 @@ namespace ComponentEditor
            // exception is caught and the program continues but no component images 
            // will be displayed. - dan_vale 28 Dec 09
            String temp = AllComponents.Graphics; // force program to ask for the graphics path if not already defined.
+
+           // Tidy up the tab control:
+           // Incase I forget to shrink it to fit when adding controls.
+           PropertyTabs.Width = 479; 
+           // Start showing no property tabs, until some property is loaded.
+           PropertyTabs.TabPages.Clear();
 
 	   }
 
@@ -911,7 +913,6 @@ namespace ComponentEditor
            // Make the tab background 'Control' grey. 
            // Everytime I change the colection they are reset, so easiest to do it programatically here.
            _TabPage.BackColor = Color.FromKnownColor(KnownColor.Control);
-           PropertyTabs.Width = 479; // Incase I forget to shrink it to fit when adding controls.
 
            // Get the real bounds for the tab rectangle.
            Rectangle _TabBounds = PropertyTabs.GetTabRect(e.Index);
@@ -968,9 +969,11 @@ namespace ComponentEditor
        }
 
 
-       // -------------------------------------------------------------------------
-       // Update the display of the engine free speed - the highest warp speed with fuel cost of 0.
-       // -------------------------------------------------------------------------
+       /// <summary>
+       /// Update the display of the engine free speed - the highest warp speed with fuel cost of 0.
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
        private void UpdateFastestFreeSpeed(object sender, EventArgs e)
        {
            if (W10Fuel.Value == 0)
@@ -1418,13 +1421,11 @@ namespace ComponentEditor
 
 
 
-    // -------------------------------------------------------------------------
     /// <summary><para>
     /// Menu->Component->New
     /// </para><para>
     /// Create a new component.
     /// </para> </summary>
-    // -------------------------------------------------------------------------
       private void menuItem_NewComponent_Click(object sender, EventArgs e)
       {
           if (ComponentDirty)
@@ -1454,14 +1455,11 @@ namespace ComponentEditor
           EditModeOn();
       }
 
-// -------------------------------------------------------------------------
-/// <summary><para>
-/// Menu->Component->Copy
-/// </para><para>
-/// Take a copy of a component to use for a template for a new component.
-/// </para></summary>
-/// 
-// -------------------------------------------------------------------------
+      /// <summary><para>
+      /// Menu->Component->Copy
+      /// </para><para>
+      /// Take a copy of a component to use for a template for a new component.
+      /// </para></summary>
       private void copyToolStripMenuItem_Click(object sender, EventArgs e)
       {
           EditModeOn();

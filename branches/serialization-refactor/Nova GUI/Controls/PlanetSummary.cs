@@ -442,7 +442,7 @@ private void InitializeComponent()
 
       public Star Value {
          set {
-            Race race    = GuiState.Data.RaceData;
+            Race race    = GuiState.Data.PlayerRace;
             int habValue = (int) Math.Ceiling(value.HabitalValue(race) * 100);
             PlanetValue.Text = habValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
 

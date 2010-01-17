@@ -42,7 +42,7 @@ namespace Nova
       private void OnLoad(object sender, EventArgs e)
       {
          const int numColumns = 12;
-         Race      race       = GuiState.Data.RaceData;
+         Race      race       = GuiState.Data.PlayerRace;
 
          PlanetGridView.Columns[8].Name = "Minerals";
          PlanetGridView.AutoSize        = true;

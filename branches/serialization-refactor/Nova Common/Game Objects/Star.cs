@@ -1,5 +1,8 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// Modified 2010 Daniel Vale
+//
+// This object represents a Star system, the basic unit of stars-nova settlement/expansion.
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free
@@ -140,11 +143,33 @@ namespace NovaCommon
           }
       }
 
+      public int GetOperableFactories()
+      {
+          if (ThisRace == null)
+          {
+              throw new InvalidOperationException("no owning race found for the star");
+          }
+          
+          return Convert.ToInt32(Colonists * ThisRace.OperableFactories);
+      }
+
+      public int GetOperableMines()
+      {
+          if (ThisRace == null)
+          {
+              throw new InvalidOperationException("no owning race found for the star");
+          }
+
+          return Convert.ToInt32(Colonists * ThisRace.OperableMines);
+      }
+
 // ============================================================================
 // Update a star to take into account the passing of a year.
 // FIXME (priority 5) - this should not be here as it means the GUI has access to methods 
 // that increase pop and resources - which is probably the source of the bug
 // that causes this to happen when a star is clicked in the GUI.
+// ... Turns out that bug was calling this function when it should not have been,
+// still the above comment applies. Suggest refactor into ProcessTurn. - Dan 16 Jan 10
 // ============================================================================
 
       public void Update(Race race)

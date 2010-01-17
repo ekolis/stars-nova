@@ -83,6 +83,17 @@ namespace NovaCommon
           fileStream.Close();
       }
 
+      public Resources GetFactoryResources()
+      {
+          int factoryBuildCostGerm = (HasTrait("CF") ? 3 : 4);
+          return new Resources(0, 0, factoryBuildCostGerm, FactoryBuildCost);
+      }
+
+      public Resources GetMineResources()
+      {
+          return new Resources(0, 0, 0, MineBuildCost);
+      }
+
       public bool HasTrait(string trait)
       {
           if (trait == Traits.Primary) return true;
