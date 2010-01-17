@@ -45,7 +45,7 @@ namespace Nova
          // fields is added. Finally, the cost factor specified in the Race
          // Designer is then added.
 
-         Hashtable   costFactors = stateData.RaceData.ResearchCosts.TechValues;
+         Hashtable   costFactors = stateData.PlayerRace.ResearchCosts.TechValues;
          int         baseCost    = (Fibonacci(level + 5) * 10) + techAjustment;
          int         costFactor  = (int) costFactors[stateData.ResearchTopic];
          

@@ -31,7 +31,7 @@ namespace Nova
 
       public static void Add(NovaCommon.Component component, bool report)
       {
-         Race race = GuiState.Data.RaceData;
+         Race race = GuiState.Data.PlayerRace;
          string name = component.Name;
 
 

@@ -22,6 +22,8 @@ using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
 using System.Windows.Forms;
 using System;
+using System.Xml;
+using System.IO.Compression;
 
 
 // ============================================================================
@@ -53,7 +55,7 @@ namespace Nova
       public Hashtable    AvailableComponents      = new Hashtable();
       public List<Fleet>  PlayerFleets             = new List<Fleet>();
       public List<Star>   PlayerStars              = new List<Star>();
-      public Race         RaceData                 = new Race(); // FIXME bad name as RaceData is a different object type (for player relations, battle plans, etc.)
+      public Race         PlayerRace               = new Race(); 
       public TechLevel    ResearchLevel            = new TechLevel();
       public TechLevel    ResearchResources        = new TechLevel();
       public bool         FirstTurn                = true;
@@ -165,7 +167,7 @@ namespace Nova
           // ----------------------------------------------------------------------------
 
           ControlLibrary.CheckPassword password =
-             new ControlLibrary.CheckPassword(GuiState.Data.RaceData);
+             new ControlLibrary.CheckPassword(GuiState.Data.PlayerRace);
 
           if (bPasswordNeeded)
           {
@@ -246,9 +248,9 @@ namespace Nova
           string raceFileName = Path.Combine(GuiState.Data.GameFolder,
                                              GuiState.Data.RaceName + ".race");
 
-          GuiState.Data.RaceData = new Race(raceFileName);
+          GuiState.Data.PlayerRace = new Race(raceFileName);
 
-          MainWindow.nova.Text = "Nova - " + GuiState.Data.RaceData.PluralName;
+          MainWindow.nova.Text = "Nova - " + GuiState.Data.PlayerRace.PluralName;
 
           ProcessPrimaryTraits();
           ProcessSecondaryTraits();
@@ -280,7 +282,7 @@ namespace Nova
 
       private static void ProcessPrimaryTraits()
       {
-          switch (GuiState.Data.RaceData.Traits.Primary.Name)
+          switch (GuiState.Data.PlayerRace.Traits.Primary.Name)
           {
               case "JackOfAllTrades":
                   GuiState.Data.ResearchLevel = new TechLevel(3);//set all to 3
@@ -327,18 +329,18 @@ namespace Nova
       }
 
       // ============================================================================
-      // ReadIntel the Secondary Traits for this race.
+      // Read the Secondary Traits for this race.
       // ============================================================================
 
       private static void ProcessSecondaryTraits()
       {
-          if (GuiState.Data.RaceData.Traits.Contains("IFE"))
+          if (GuiState.Data.PlayerRace.Traits.Contains("IFE"))
           {
               int level = (int)GuiState.Data.ResearchLevel.TechValues["Propulsion"];
               level++;
               GuiState.Data.ResearchLevel.TechValues["Propulsion"] = level;
           }
-          if (GuiState.Data.RaceData.Traits.Contains("ISB"))
+          if (GuiState.Data.PlayerRace.Traits.Contains("ISB"))
           {
               // Improved Starbases gives a 20% discount to starbase hulls.
               foreach (Component component in GuiState.Data.AvailableComponents.Values)
@@ -395,10 +397,15 @@ namespace Nova
 
          StatePathName = Path.Combine(gameFolder, raceName + ".state");
 
-         if (File.Exists(StatePathName)) {
+         if (File.Exists(StatePathName)) 
+         {
+
+            // Read in binary state file
             FileStream stateFile = new FileStream(StatePathName,FileMode.Open);
             GuiState.Data        = Formatter.Deserialize(stateFile)as GuiState;
             stateFile.Close();
+
+
          }
 
          // Copy the race and game folder names into the state data store. This
@@ -407,7 +414,7 @@ namespace Nova
          Data.RaceName   = raceName;
          Data.GameFolder = gameFolder;
 
-         MainWindow.nova.Text = "Nova - " + Data.RaceData.PluralName;
+         MainWindow.nova.Text = "Nova - " + Data.PlayerRace.PluralName;
       }
 
 
@@ -435,7 +442,7 @@ namespace Nova
          Data.RaceName = raceName;
          Data.GameFolder = gameFolder;
 
-         MainWindow.nova.Text = "Nova - " + Data.RaceData.PluralName;
+         MainWindow.nova.Text = "Nova - " + Data.PlayerRace.PluralName;
       }
 
 // ============================================================================
@@ -444,9 +451,77 @@ namespace Nova
 
       public static void Save()
       {
+
+
          FileStream stateFile = new FileStream(StatePathName,FileMode.Create);
+
+         // Binary Serialization (old)
          Formatter.Serialize(stateFile, GuiState.Data);
+
+         // Xml Serialization - incomplete - Dan 16 Jan 09
+          /*
+         GZipStream compressionStream = new GZipStream(stateFile, CompressionMode.Compress);
+
+         // Setup the XML document
+         XmlDocument xmldoc = new XmlDocument();
+         XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
+
+         // add the GuiState to the document
+         XmlElement xmlelGuiState = xmldoc.CreateElement("GuiState");
+         xmlRoot.AppendChild(xmlelGuiState);
+
+          // Deleted Fleets
+         XmlElement xmlelDeletedFleets = xmldoc.CreateElement("DeletedFleets");
+         foreach (Fleet fleet in Data.DeletedFleets)
+         {
+             xmlelDeletedFleets.AppendChild(fleet.ToXml(xmldoc));
+         }
+         xmlelGuiState.AppendChild(xmlelDeletedFleets);
+
+          // Deleted Designs
+         XmlElement xmlelDeletedDesigns = xmldoc.CreateElement("DeletedDesigns");
+         foreach (Design design in Data.DeletedDesigns)
+         {
+             if (design.Type == "Ship" || design.Type == "Starbase")
+                 xmlelDeletedDesigns.AppendChild(((ShipDesign)design).ToXml(xmldoc));
+             else
+                 xmlelDeletedDesigns.AppendChild(design.ToXml(xmldoc));
+         }
+         xmlelGuiState.AppendChild(xmlelDeletedDesigns);
+
+          // Messages
+         foreach (NovaCommon.Message message in Data.Messages)
+         {
+             xmlelGuiState.AppendChild(message.ToXml(xmldoc));
+         }
+
+          // Battle Plans
+         foreach (DictionaryEntry de in Data.BattlePlans)
+         {
+             BattlePlan plan = de.Value;
+             xmlelGuiState.AppendChild(plan.ToXml());
+         }
+
+          // Player Relations
+         foreach (DictionaryEntry de in Data.PlayerRelations)
+         {
+             XmlElement Relation = xmldoc.CreateElement("Relation");
+
+         }
+
+         // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
+         // manual inspection of the save file. Generally though it can be opened by any archiving tool that
+         // reads gzip format.
+#if (DEBUG)
+         xmldoc.Save(stateFile);                                           //  not compressed
+#else
+           xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
+#endif
+
+      */
          stateFile.Close();
+
+
       }
 
 

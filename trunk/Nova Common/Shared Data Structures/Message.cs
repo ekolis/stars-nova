@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ===========================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -10,6 +9,7 @@
 // ===========================================================================
 
 using System;
+using System.Xml;
 
 namespace NovaCommon
 {
@@ -22,9 +22,9 @@ namespace NovaCommon
    [Serializable]
    public class Message
    {
-       public string Text = null; //The text to display in the message box.
+       public string Text = null; // The text to display in the message box.
        public string Audience = null; // A string representing the destination of the message. Either a race name or and asterix. 
-       public Object Event = null; //An object used with the Goto button to display more information to the player. See Messages.GotoButton_Click
+       public Object Event = null; // An object used with the Goto button to display more information to the player. See Messages.GotoButton_Click
 
        /// <summary>
        /// default constructor
@@ -44,5 +44,29 @@ namespace NovaCommon
            Text = text;
 
        }
+
+       public XmlElement ToXml(XmlDocument xmldoc)
+       {
+           XmlElement xmlelMessage = xmldoc.CreateElement("Message");
+           Global.SaveData(xmldoc, xmlelMessage, "Text", Text);
+           Global.SaveData(xmldoc, xmlelMessage, "Audience", Audience);
+           // TODO (priority 5) workout what forms Event can take so it can be saved.
+           if (Event != null)
+           {
+               if (Event is BattleReport)
+               {
+                   // save just a reference to the full report
+                   BattleReport battle = Event as BattleReport;
+                   if (battle.Location != null)
+                       Global.SaveData(xmldoc, xmlelMessage, "BattleReport", battle.Location);
+               }
+               else
+                   Report.FatalError("Message.ToXml() - Unable to convert Message.Event of type " + Event.ToString());
+           }
+
+           return xmlelMessage;
+
+       }
+
    }
 }

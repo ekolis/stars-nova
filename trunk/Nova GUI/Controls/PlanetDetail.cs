@@ -763,7 +763,6 @@ namespace Nova
          }
 
          QueueList.Populate(ProductionQueue, star.ManufacturingQueue);
-         star.Update(GuiState.Data.RaceData); // Debug - try to get sensible data to show - Dan 27 Aug 09
          int    resources      = star.Colonists / 1000;
          string manned         = " of " + resources.ToString(System.Globalization.CultureInfo.InvariantCulture);
 

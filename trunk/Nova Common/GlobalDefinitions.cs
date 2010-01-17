@@ -39,6 +39,25 @@ namespace NovaCommon
       public const double TemperatureMinimum = -200;
       public const double TemperatureMaximum =  200;
 
+      /// <summary>
+      /// Do some common setup work for creating a new xml document.
+      /// </summary>
+      /// <param name="xmldoc">An XmlDocument variable, may be null, which will be the new document.</param>
+      /// <returns>An XmlElement that is the root node of xmldoc.</returns>
+      public static XmlElement InitializeXmlDocument(XmlDocument xmldoc)
+      {
+          if (xmldoc == null) xmldoc = new XmlDocument();
+
+          // Write down the XML declaration
+          XmlDeclaration xmlDeclaration = xmldoc.CreateXmlDeclaration("1.0", "utf-8", null);
+
+          // Create the root element
+          XmlElement xmlRoot = xmldoc.CreateElement("ROOT");
+          xmldoc.InsertBefore(xmlDeclaration, xmldoc.DocumentElement);
+          xmldoc.AppendChild(xmlRoot);
+
+          return xmlRoot;
+      }
 
       // ============================================================================
       /// <summary>Create an xml node for a save file.</summary>

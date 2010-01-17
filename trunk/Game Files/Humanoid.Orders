@@ -1,7 +1,7 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ROOT>
   <Orders>
-    <Turn>2100</Turn>
+    <Turn>2101</Turn>
     <Design>
       <Item>
         <Resource>
@@ -49,35 +49,35 @@
           <Germanium>0</Germanium>
           <Energy>0</Energy>
         </Resource>
-        <Name>Bones</Name>
+        <Name>Sherman</Name>
         <Owner>Humanoid</Owner>
         <Position>
-          <X>289</X>
-          <Y>38</Y>
+          <X>117</X>
+          <Y>339</Y>
         </Position>
       </Item>
       <ProductionQueue />
       <MineralConcentration>
         <Resource>
-          <Boranium>55.7501277102112</Boranium>
-          <Ironium>92.3126839733918</Ironium>
-          <Germanium>86.3982506647218</Germanium>
+          <Boranium>77.951328</Boranium>
+          <Ironium>71.958528</Ironium>
+          <Germanium>78.950072</Germanium>
           <Energy>0</Energy>
         </Resource>
       </MineralConcentration>
       <ResourcesOnHand>
         <Resource>
-          <Boranium>358.887373053143</Boranium>
-          <Ironium>506.689866230031</Ironium>
-          <Germanium>577.728523429308</Germanium>
-          <Energy>199.524</Energy>
+          <Boranium>309.8</Boranium>
+          <Ironium>430.2</Ironium>
+          <Germanium>348.9</Germanium>
+          <Energy>126.704</Energy>
         </Resource>
       </ResourcesOnHand>
       <ThisRace>Humanoid</ThisRace>
-      <Colonists>99524</Colonists>
+      <Colonists>28704</Colonists>
       <Factories>10</Factories>
       <Mines>10</Mines>
-      <ResearchAllocation>19</ResearchAllocation>
+      <ResearchAllocation>12</ResearchAllocation>
       <ScanRange>50</ScanRange>
       <DefenseType>SDI</DefenseType>
       <ScannerType>Scoper 150</ScannerType>
@@ -88,7 +88,7 @@
     <DeletedFleets />
     <DeletedDesigns />
     <RaceData>
-      <TurnYear>2100</TurnYear>
+      <TurnYear>2101</TurnYear>
       <Relation>
         <Race>Humanoid</Race>
         <Status>Neutral</Status>
