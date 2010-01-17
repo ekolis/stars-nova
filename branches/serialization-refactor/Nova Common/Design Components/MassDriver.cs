@@ -59,7 +59,6 @@ namespace NovaCommon
         {
             return new MassDriver(this);
         }
-
         //============================================================================
         // Provide a way to add properties in the ship design.
         //============================================================================
@@ -105,14 +104,20 @@ namespace NovaCommon
             }
         }
 
-        public override void ReadXml(XmlReader reader)
+        // ============================================================================
+        // Return an XmlElement representation of the Property
+        // ============================================================================
+        public override XmlElement ToXml(XmlDocument xmldoc)
         {
-            throw new NotImplementedException(); // TODO XML deserialization of MassDriver
-        }
+            XmlElement xmlelProperty = xmldoc.CreateElement("Property");
 
-        public override void WriteXml(XmlWriter writer)
-        {
-            writer.WriteElementString("Value", Value.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            // store the value
+            XmlElement xmlelValue = xmldoc.CreateElement("Value");
+            XmlText xmltxtValue = xmldoc.CreateTextNode(this.Value.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            xmlelValue.AppendChild(xmltxtValue);
+            xmlelProperty.AppendChild(xmlelValue);
+
+            return xmlelProperty;
         }
     }
 }

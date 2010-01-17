@@ -13,13 +13,11 @@ using System;
 using System.Xml;
 using System.Collections;
 using System.Text;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace NovaCommon
 {
    [Serializable]
-   public class RaceData : IXmlSerializable
+   public class RaceData
    {
       public int       TurnYear          = 0;
       public Hashtable PlayerRelations   = new Hashtable();
@@ -67,35 +65,29 @@ namespace NovaCommon
           }
       }
 
-       public XmlSchema GetSchema()
-       {
-           return null;
-       }
+       /// <summary>
+       /// Save: Generate an XmlElement representation of the RaceData
+       /// </summary>
+       /// <param name="xmldoc">The parent XmlDocument</param>
+       /// <returns>An XmlElement reprsenting the RaceData (to be written to file)</returns>
+      public XmlElement ToXml(XmlDocument xmldoc)
+      {
+          XmlElement xmlelRaceData = xmldoc.CreateElement("RaceData");
+          Global.SaveData(xmldoc, xmlelRaceData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          foreach (string key in PlayerRelations.Keys)
+          {
+              XmlElement xmlelRelation = xmldoc.CreateElement("Relation");
+              Global.SaveData(xmldoc, xmlelRelation, "Race", key);
+              Global.SaveData(xmldoc, xmlelRelation, "Status", PlayerRelations[key] as String);
+              xmlelRaceData.AppendChild(xmlelRelation);
+          }
+          foreach (string key in BattlePlans.Keys)
+          {
+              xmlelRaceData.AppendChild((BattlePlans[key] as BattlePlan).ToXml(xmldoc));
+          }
 
-       public void ReadXml(XmlReader reader)
-       {
-           throw new NotImplementedException(); // TODO XML deserialization of RaceData
-       }
-
-       public void WriteXml(XmlWriter writer)
-       {
-           writer.WriteStartElement("RaceData");
-
-           writer.WriteElementString("TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           foreach (string key in PlayerRelations.Keys)
-           {
-               writer.WriteStartElement("Relation");
-               writer.WriteElementString("Race", key);
-               writer.WriteElementString("Status", PlayerRelations[key] as String);
-               writer.WriteEndElement();
-           }
-           foreach (string key in BattlePlans.Keys)
-           {
-               (BattlePlans[key] as BattlePlan).WriteXml(writer);
-           }
-
-           writer.WriteEndElement();
-       }
+          return xmlelRaceData;
+      }
    }
 }
 

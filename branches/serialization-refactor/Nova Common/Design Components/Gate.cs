@@ -51,7 +51,7 @@ namespace NovaCommon
           return new Gate(this);
       }
 
-       //============================================================================
+      //============================================================================
       // Provide a way to add properties in the ship design.
       // Whilst it is possible to have more than one gate on a hull, and it could
       // make sense to use the best capabilities of each gate, this is not how
@@ -100,15 +100,25 @@ namespace NovaCommon
           }
       }
 
-      public override void ReadXml(XmlReader reader)
+      // ============================================================================
+      // Return an XmlElement representation of the Property
+      // ============================================================================
+      public override XmlElement ToXml(XmlDocument xmldoc)
       {
-          throw new NotImplementedException(); // TODO XML deserialization of Gate
-      }
+          XmlElement xmlelProperty = xmldoc.CreateElement("Property");
 
-      public override void WriteXml(XmlWriter writer)
-      {
-          writer.WriteElementString("SafeHullMass", SafeHullMass.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("SafeRange", SafeRange.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          // SafeHullMass
+          XmlElement xmlelSafeHullMass = xmldoc.CreateElement("SafeHullMass");
+          XmlText xmltxtSafeHullMass = xmldoc.CreateTextNode(this.SafeHullMass.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelSafeHullMass.AppendChild(xmltxtSafeHullMass);
+          xmlelProperty.AppendChild(xmlelSafeHullMass);
+          // SafeRange
+          XmlElement xmlelSafeRange = xmldoc.CreateElement("SafeRange");
+          XmlText xmltxtSafeRange = xmldoc.CreateTextNode(this.SafeRange.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelSafeRange.AppendChild(xmltxtSafeRange);
+          xmlelProperty.AppendChild(xmlelSafeRange);
+
+          return xmlelProperty;
       }
    }
 }

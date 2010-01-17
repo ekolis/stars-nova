@@ -69,8 +69,7 @@ namespace NovaCommon
       {
           return new MineLayer(this);
       }
-
-       //============================================================================
+      //============================================================================
       // Provide a way to add properties in the ship design.
       // Only laying rates sum up, and this only makes sense if the mine layers produce
       // the same mines. For Stars! like mines they are the same if HitChance is the 
@@ -150,20 +149,50 @@ namespace NovaCommon
           }
       }
 
-      public override void ReadXml(XmlReader reader)
+      // ============================================================================
+      // Return an XmlElement representation of the Property
+      // ============================================================================
+      public override XmlElement ToXml(XmlDocument xmldoc)
       {
-          throw new NotImplementedException(); // TODO XML deserialization of MineLayer
-      }
+          XmlElement xmlelProperty = xmldoc.CreateElement("Property");
 
-      public override void WriteXml(XmlWriter writer)
-      {
-          writer.WriteElementString("LayerRate", LayerRate.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("SafeSpeed", SafeSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("HitChance", HitChance.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("DamagePerEngine", DamagePerEngine.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("DamagePerRamScoop", DamagePerRamScoop.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("MinFleetDamage", MinFleetDamage.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("MinRamScoopDamage", MinRamScoopDamage.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          // LayerRate
+          XmlElement xmlelLayerRate = xmldoc.CreateElement("LayerRate");
+          XmlText xmltxtLayerRate = xmldoc.CreateTextNode(this.LayerRate.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelLayerRate.AppendChild(xmltxtLayerRate);
+          xmlelProperty.AppendChild(xmlelLayerRate);
+          // SafeSpeed
+          XmlElement xmlelSafeSpeed = xmldoc.CreateElement("SafeSpeed");
+          XmlText xmltxtSafeSpeed = xmldoc.CreateTextNode(this.SafeSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelSafeSpeed.AppendChild(xmltxtSafeSpeed);
+          xmlelProperty.AppendChild(xmlelSafeSpeed);
+          // HitChance
+          XmlElement xmlelHitChance = xmldoc.CreateElement("HitChance");
+          XmlText xmltxtHitChance = xmldoc.CreateTextNode(this.HitChance.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelHitChance.AppendChild(xmltxtHitChance);
+          xmlelProperty.AppendChild(xmlelHitChance);
+          // DamagePerEngine
+          XmlElement xmlelDamagePerEngine = xmldoc.CreateElement("DamagePerEngine");
+          XmlText xmltxtDamagePerEngine = xmldoc.CreateTextNode(this.DamagePerEngine.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelDamagePerEngine.AppendChild(xmltxtDamagePerEngine);
+          xmlelProperty.AppendChild(xmlelDamagePerEngine);
+          // DamagePerRamScoop
+          XmlElement xmlelDamagePerRamScoop = xmldoc.CreateElement("DamagePerRamScoop");
+          XmlText xmltxtDamagePerRamScoop = xmldoc.CreateTextNode(this.DamagePerRamScoop.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelDamagePerRamScoop.AppendChild(xmltxtDamagePerRamScoop);
+          xmlelProperty.AppendChild(xmlelDamagePerRamScoop);
+          // MinFleetDamage
+          XmlElement xmlelMinFleetDamage = xmldoc.CreateElement("MinFleetDamage");
+          XmlText xmltxtMinFleetDamage = xmldoc.CreateTextNode(this.MinFleetDamage.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelMinFleetDamage.AppendChild(xmltxtMinFleetDamage);
+          xmlelProperty.AppendChild(xmlelMinFleetDamage);
+          // MinRamScoopDamage
+          XmlElement xmlelMinRamScoopDamage = xmldoc.CreateElement("MinRamScoopDamage");
+          XmlText xmltxtMinRamScoopDamage = xmldoc.CreateTextNode(this.MinRamScoopDamage.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelMinRamScoopDamage.AppendChild(xmltxtMinRamScoopDamage);
+          xmlelProperty.AppendChild(xmlelMinRamScoopDamage);
+
+          return xmlelProperty;
       }
    }
 }

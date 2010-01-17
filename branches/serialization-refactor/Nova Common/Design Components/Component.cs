@@ -16,8 +16,6 @@ using System.Xml;
 using System.Drawing;
 using System.Collections;
 using System.Collections.Generic;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 
 namespace NovaCommon
@@ -379,40 +377,63 @@ namespace NovaCommon
           // Report.Information("Name = '" + this.Name + "' Type = '" + this.Type + "'");
       }// component constructor
 
-       public override void ReadXml(XmlReader reader)
-       {
-           throw new NotImplementedException(); // TODO XML deserialization of Component
-       }
+// ============================================================================
+// Return an XmlElement representation of this Component
+// ============================================================================
 
-       public override void WriteXml(XmlWriter writer)
-       {
-           writer.WriteStartElement("Component");
+      public new XmlElement ToXml(XmlDocument xmldoc)
+      {
+          XmlElement xmlelComponent = xmldoc.CreateElement("Component");
+          // Name
+          XmlElement xmlelName = xmldoc.CreateElement("Name");
+          XmlText xmltxtName = xmldoc.CreateTextNode(this.Name);
+          xmlelName.AppendChild(xmltxtName);
+          xmlelComponent.AppendChild(xmlelName);
+          // Type
+          XmlElement xmlelType = xmldoc.CreateElement("Type");
+          XmlText xmltxtType = xmldoc.CreateTextNode(this.Type);
+          xmlelType.AppendChild(xmltxtType);
+          xmlelComponent.AppendChild(xmlelType);
+          // Mass
+          XmlElement xmlelMass = xmldoc.CreateElement("Mass");
+          XmlText xmltxtMass = xmldoc.CreateTextNode(this.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelMass.AppendChild(xmltxtMass);
+          xmlelComponent.AppendChild(xmlelMass);
+          // Resource
+          xmlelComponent.AppendChild(this.Cost.ToXml(xmldoc));
+          // Tech
+          xmlelComponent.AppendChild(this.RequiredTech.ToXml(xmldoc));
+          // Description
+          if (Description != null) Global.SaveData(xmldoc, xmlelComponent, "Description", Description);
+          // Race Restrictions
+          xmlelComponent.AppendChild(this.Restrictions.ToXml(xmldoc));
+          // Image - convert the ImageFile to a relative path, so this program runs in other locations
+          XmlElement xmlelImage = xmldoc.CreateElement("Image");
+          // Paths are always stored in external files using forward slashes.
+          XmlText xmltxtImage = xmldoc.CreateTextNode(Global.EvaluateRelativePath(AllComponents.Graphics, this.ImageFile).Replace(Path.DirectorySeparatorChar, '/'));
+          xmlelImage.AppendChild(xmltxtImage);
+          xmlelComponent.AppendChild(xmlelImage);
 
-           writer.WriteElementString("Name", Name);
-           writer.WriteElementString("Type", Type);
-           writer.WriteElementString("Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           Cost.WriteXml(writer);
-           RequiredTech.WriteXml(writer);
-           if (Description != null) writer.WriteElementString("Description", Description);
-           Restrictions.WriteXml(writer);
-           // Image - convert the ImageFile to a relative path, so this program runs in other locations
-           writer.WriteElementString("Image", Global.EvaluateRelativePath(AllComponents.Graphics, ImageFile).Replace(Path.DirectorySeparatorChar, '/'));
+          // Properties
+          foreach (String key in this.Properties.Keys)
+          {
+              XmlElement xmlelPropertyType = xmldoc.CreateElement("Type");
+              XmlText xmltxtPropertyType = xmldoc.CreateTextNode(key);
+              xmlelPropertyType.AppendChild(xmltxtPropertyType);
 
-           // Properties
-           foreach (String key in Properties.Keys)
-           {
-               // Property written here instead of inside each property object
-               // to allow us to append the Type element.
-               writer.WriteStartElement("Property");
+              XmlElement xmlelProperty = this.Properties[key].ToXml(xmldoc);
+              xmlelProperty.AppendChild(xmlelPropertyType);
 
-               Properties[key].WriteXml(writer);
+              xmlelComponent.AppendChild(xmlelProperty);
+          }
+          
 
-               writer.WriteElementString("Type", key);
-               writer.WriteEndElement();
-           }
+          
+          return xmlelComponent;
 
-           writer.WriteEndElement();
-       }
+      }
+
+
    }
 }
 

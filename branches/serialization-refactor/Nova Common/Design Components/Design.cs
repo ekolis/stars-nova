@@ -11,8 +11,6 @@ using System.Xml;
 using System.Drawing;
 using System.Collections;
 using System.Diagnostics;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace NovaCommon
 {
@@ -31,7 +29,7 @@ namespace NovaCommon
 // ============================================================================
 
    [Serializable]
-   public class Design : Item
+   public class Design : Item 
    {
        /// <summary>
        /// default constructor
@@ -48,18 +46,19 @@ namespace NovaCommon
            // nothing to do but load the base class Item.
        }
 
-       public override void ReadXml(XmlReader reader)
+       /// <summary>
+       /// Save: Generate an XmlElement representing the Design.
+       /// </summary>
+       /// <param name="xmldoc">The parent XmlDocument</param>
+       /// <returns>An XmlElement representing the Design</returns>
+       public new XmlElement ToXml(XmlDocument xmldoc)
        {
-           throw new NotImplementedException(); // TODO XML deserialization of Design
+           XmlElement xmlelDesign = xmldoc.CreateElement("Design");
+
+           xmlelDesign.AppendChild(base.ToXml(xmldoc));
+
+           return xmlelDesign;
        }
-
-       public override void WriteXml(XmlWriter writer)
-       {
-           writer.WriteStartElement("Design");
-
-           base.WriteXml(writer);
-
-           writer.WriteEndElement();
-       }
+       
    }
 }

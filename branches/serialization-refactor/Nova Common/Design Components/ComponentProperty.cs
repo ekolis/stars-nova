@@ -21,14 +21,12 @@ using System;
 using System.Xml;
 using System.Collections.Generic;
 using System.Text;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace NovaCommon
 {
 
     [Serializable]
-    public abstract class ComponentProperty : ICloneable, IXmlSerializable
+    public abstract class ComponentProperty : ICloneable
     {
 
 
@@ -78,12 +76,15 @@ namespace NovaCommon
         {
         }
 
-        public virtual XmlSchema GetSchema()
+        // ============================================================================
+        // Return an XmlElement representation of the Property
+        // ============================================================================
+        public virtual XmlElement ToXml(XmlDocument xmldoc)
         {
-            return null;
+            XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+
+            return xmlelProperty;
         }
 
-        public abstract void ReadXml(XmlReader reader); // TODO XML deserialization of ComponentProperty
-        public abstract void WriteXml(XmlWriter writer);
     }
 }

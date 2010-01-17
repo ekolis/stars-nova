@@ -12,8 +12,6 @@ using System;
 using System.Drawing;
 using System.Xml;
 using System.Runtime.Serialization;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace NovaCommon
 {
@@ -31,7 +29,7 @@ namespace NovaCommon
 // ===========================================================================
 
    [Serializable]
-   public class Item : IXmlSerializable
+   public class Item
    {
       public  int       Mass     = 0;
       public  Resources Cost     = new Resources();
@@ -143,35 +141,24 @@ namespace NovaCommon
          get { return this.Owner + "/" + this.Name; }
       }
 
-       public virtual XmlSchema GetSchema()
-       {
-           return null;
-       }
+      public XmlElement ToXml(XmlDocument xmldoc)
+      {
+          XmlElement xmlelItem = xmldoc.CreateElement("Item");
 
-       public virtual void ReadXml(XmlReader reader)
-       {
-           throw new NotImplementedException(); // TODO XML deserialization of Item
-       }
+          if (Mass != 0) Global.SaveData(xmldoc, xmlelItem, "Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (Cost != null) xmlelItem.AppendChild(Cost.ToXml(xmldoc));
+          if (Name != null) Global.SaveData(xmldoc, xmlelItem, "Name", Name);
+          if (Owner != null) Global.SaveData(xmldoc, xmlelItem, "Owner", Owner);
+          if (Type != null) Global.SaveData(xmldoc, xmlelItem, "Type", Type);
 
-       public virtual void WriteXml(XmlWriter writer)
-       {
-           writer.WriteStartElement("Item");
-
-           if (Mass != 0) writer.WriteElementString("Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           if (Cost != null) Cost.WriteXml(writer);
-           if (Name != null) writer.WriteElementString("Name", Name);
-           if (Owner != null) writer.WriteElementString("Owner", Owner);
-           if (Type != null) writer.WriteElementString("Type", Type);
-
-           if (Position.X != 0 || Position.Y != 0)
-           {
-               writer.WriteStartElement("Position");
-               writer.WriteElementString("X", Position.X.ToString(System.Globalization.CultureInfo.InvariantCulture));
-               writer.WriteElementString("Y", Position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture));
-               writer.WriteEndElement();
-           }
-
-           writer.WriteEndElement();
-       }
+          if (Position.X != 0 || Position.Y != 0)
+          {
+              XmlElement xmlelPoint = xmldoc.CreateElement("Position");
+              Global.SaveData(xmldoc, xmlelPoint, "X", Position.X.ToString(System.Globalization.CultureInfo.InvariantCulture));
+              Global.SaveData(xmldoc, xmlelPoint, "Y", Position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture));
+              xmlelItem.AppendChild(xmlelPoint);
+          }
+          return xmlelItem;
+      }
    }
 }

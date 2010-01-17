@@ -55,8 +55,7 @@ namespace NovaCommon
       {
           return new Scanner(this);
       }
-
-       //============================================================================
+      //============================================================================
       // Provide a way to add properties in the ship design.
       //============================================================================
       public static Scanner operator +(Scanner op1, Scanner op2)
@@ -108,15 +107,25 @@ namespace NovaCommon
           }
       }
 
-      public override void ReadXml(XmlReader reader)
+// ============================================================================
+// Return an XmlElement representation of the Property
+// ============================================================================
+      public override XmlElement ToXml(XmlDocument xmldoc)
       {
-          throw new NotImplementedException(); // TODO XML deserialization of Scanner
-      }
+          XmlElement xmlelProperty = xmldoc.CreateElement("Property");
 
-      public override void WriteXml(XmlWriter writer)
-      {
-          writer.WriteElementString("PenetratingScan", PenetratingScan.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("NormalScan", NormalScan.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          // PenetratingScan
+          XmlElement xmlelPenetratingScan = xmldoc.CreateElement("PenetratingScan");
+          XmlText xmltxtPenetratingScan = xmldoc.CreateTextNode(this.PenetratingScan.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelPenetratingScan.AppendChild(xmltxtPenetratingScan);
+          xmlelProperty.AppendChild(xmlelPenetratingScan);
+          // NormalScan
+          XmlElement xmlelNormalScan = xmldoc.CreateElement("NormalScan");
+          XmlText xmltxtNormalScan = xmldoc.CreateTextNode(this.NormalScan.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelNormalScan.AppendChild(xmltxtNormalScan);
+          xmlelProperty.AppendChild(xmlelNormalScan);
+
+          return xmlelProperty;
       }
 
    }

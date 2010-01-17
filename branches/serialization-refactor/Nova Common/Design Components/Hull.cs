@@ -18,8 +18,6 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Runtime.Serialization;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace NovaCommon
 {
@@ -30,7 +28,7 @@ namespace NovaCommon
 // ============================================================================
 
    [Serializable]
-   public class HullModule : ICloneable, IXmlSerializable
+   public class HullModule : ICloneable
    {
       public Component AllocatedComponent  = null;
       public Image     ComponentImage      = null;
@@ -111,27 +109,39 @@ namespace NovaCommon
           }
       }
 
-       public XmlSchema GetSchema()
-       {
-           return null;
-       }
 
-       public void ReadXml(XmlReader reader)
-       {
-           throw new NotImplementedException(); // TODO XML deserialization of HullModule
-       }
+// ============================================================================
+// Return an XmlElement representation of the Property
+// ============================================================================
+      public XmlElement ToXml(XmlDocument xmldoc)
+      {
+          XmlElement xmlelModule = xmldoc.CreateElement("Module");
 
-       public void WriteXml(XmlWriter writer)
-       {
-           writer.WriteStartElement("Module");
+          // CellNumber
+          XmlElement xmlelCellNumber = xmldoc.CreateElement("CellNumber");
+          XmlText xmltxtCellNumber = xmldoc.CreateTextNode(this.CellNumber.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelCellNumber.AppendChild(xmltxtCellNumber);
+          xmlelModule.AppendChild(xmlelCellNumber);
+          // ComponentCount
+          XmlElement xmlelComponentCount = xmldoc.CreateElement("ComponentCount");
+          XmlText xmltxtComponentCount = xmldoc.CreateTextNode(this.ComponentCount.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelComponentCount.AppendChild(xmltxtComponentCount);
+          xmlelModule.AppendChild(xmlelComponentCount);
+          // ComponentMaximum
+          XmlElement xmlelComponentMaximum = xmldoc.CreateElement("ComponentMaximum");
+          XmlText xmltxtComponentMaximum = xmldoc.CreateTextNode(this.ComponentMaximum.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelComponentMaximum.AppendChild(xmltxtComponentMaximum);
+          xmlelModule.AppendChild(xmlelComponentMaximum);
+          // ComponentType
+          XmlElement xmlelComponentType = xmldoc.CreateElement("ComponentType");
+          XmlText xmltxtComponentType = xmldoc.CreateTextNode(this.ComponentType);
+          xmlelComponentType.AppendChild(xmltxtComponentType);
+          xmlelModule.AppendChild(xmlelComponentType);
 
-           writer.WriteElementString("CellNumber", CellNumber.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           writer.WriteElementString("ComponentCount", ComponentCount.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           writer.WriteElementString("ComponentMaximum", ComponentMaximum.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           writer.WriteElementString("ComponentType", ComponentType);
 
-           writer.WriteEndElement();
-       }
+
+          return xmlelModule;
+      }
    }
    
 
@@ -197,7 +207,7 @@ namespace NovaCommon
           return new Hull(this);
       }
 
-       //============================================================================
+      //============================================================================
       // Provide a way to add properties in the ship design.
       // Has no meaning in the context of a Hull.
       //============================================================================
@@ -286,25 +296,50 @@ namespace NovaCommon
           get { return (FuelCapacity == 0 && DockCapacity > 0); }
       }
 
-      public override void ReadXml(XmlReader reader)
+// ============================================================================
+// Save: Return an XmlElement representation of the Property
+// ============================================================================
+      public override XmlElement ToXml(XmlDocument xmldoc)
       {
-          throw new NotImplementedException(); // TODO XML deserialization of Hull
-      }
+          XmlElement xmlelProperty = xmldoc.CreateElement("Property");
 
-      public override void WriteXml(XmlWriter writer)
-      {
-          writer.WriteElementString("FuelCapacity", FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("DockCapacity", DockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("ARMaxPop", ARMaxPop.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("BaseCargo", BaseCargo.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("ArmorStrength", ArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("BattleInitiative", BattleInitiative.ToString(System.Globalization.CultureInfo.InvariantCulture));
-
+          // FuelCapacity
+          XmlElement xmlelFuelCapacity = xmldoc.CreateElement("FuelCapacity");
+          XmlText xmltxtFuelCapacity = xmldoc.CreateTextNode(this.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelFuelCapacity.AppendChild(xmltxtFuelCapacity);
+          xmlelProperty.AppendChild(xmlelFuelCapacity);
+          // DockCapacity
+          XmlElement xmlelDockCapacity = xmldoc.CreateElement("DockCapacity");
+          XmlText xmltxtDockCapacity = xmldoc.CreateTextNode(this.DockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelDockCapacity.AppendChild(xmltxtDockCapacity);
+          xmlelProperty.AppendChild(xmlelDockCapacity);
+          // ARMaxPop
+          XmlElement xmlelARMaxPop = xmldoc.CreateElement("ARMaxPop");
+          XmlText xmltxtARMaxPop = xmldoc.CreateTextNode(this.ARMaxPop.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelARMaxPop.AppendChild(xmltxtARMaxPop);
+          xmlelProperty.AppendChild(xmlelARMaxPop);
+          // BaseCargo
+          XmlElement xmlelBaseCargo = xmldoc.CreateElement("BaseCargo");
+          XmlText xmltxtBaseCargo = xmldoc.CreateTextNode(this.BaseCargo.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelBaseCargo.AppendChild(xmltxtBaseCargo);
+          xmlelProperty.AppendChild(xmlelBaseCargo);
+          // ArmorStrength
+          XmlElement xmlelArmorStrength = xmldoc.CreateElement("ArmorStrength");
+          XmlText xmltxtArmorStrength = xmldoc.CreateTextNode(this.ArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelArmorStrength.AppendChild(xmltxtArmorStrength);
+          xmlelProperty.AppendChild(xmlelArmorStrength);
+          // BattleInitiative
+          XmlElement xmlelBattleInitiative = xmldoc.CreateElement("BattleInitiative");
+          XmlText xmltxtBattleInitiative = xmldoc.CreateTextNode(this.BattleInitiative.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          xmlelBattleInitiative.AppendChild(xmltxtBattleInitiative);
+          xmlelProperty.AppendChild(xmlelBattleInitiative);
           // Modules
-          foreach (HullModule module in Modules)
+          foreach (HullModule module in this.Modules)
           {
-              module.WriteXml(writer);
+              xmlelProperty.AppendChild(module.ToXml(xmldoc));
           }
+
+          return xmlelProperty;
       }
    }
 }

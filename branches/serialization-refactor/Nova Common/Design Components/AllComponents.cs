@@ -8,8 +8,6 @@
 // Software Foundation.
 // ============================================================================
 
-using System.Xml.Schema;
-using System.Xml.Serialization;
 using Microsoft.Win32;
 using NovaCommon;
 using System.Collections;
@@ -222,9 +220,30 @@ namespace NovaCommon
               FileStream saveFile = new FileStream(SaveFilePath, FileMode.Create);
               GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
 
-              ComponentList components = new ComponentList(Data.Components.Values);
-              XmlSerializer serializer = new XmlSerializer(typeof(ComponentList));
-              serializer.Serialize(saveFile, components);
+              // Setup the XML document
+              XmlDocument xmldoc;
+              XmlNode xmlnode;
+              XmlElement xmlRoot;
+			  xmldoc = new XmlDocument();
+			  // TODO (priority 4) - see if byte order marks emitted by .NET interfere with Mono parsing of XML files
+			  xmlnode = xmldoc.CreateXmlDeclaration("1.0", "UTF-8", null);
+              xmldoc.AppendChild(xmlnode);
+              xmlRoot = xmldoc.CreateElement("", "ROOT", "");
+              xmldoc.AppendChild(xmlRoot);
+
+              // add the components to the document
+              foreach (NovaCommon.Component thing in AllComponents.Data.Components.Values)
+              {
+                  xmldoc.ChildNodes.Item(1).AppendChild(thing.ToXml(xmldoc));
+              }
+
+              // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
+              // manual inspection of the save file. Generally though it can be opened by any archiving tool that
+              // reads gzip format.
+              // xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
+                                                                               //       or
+              xmldoc.Save(saveFile);                                           //  not compressed
+
               saveFile.Close();
 
               Report.Information("Component data has been saved to " + SaveFilePath);
@@ -243,41 +262,7 @@ namespace NovaCommon
               return false;
           }
           
-      }
-
-       public class ComponentList : IXmlSerializable
-       {
-           private readonly IEnumerable components;
-
-           public ComponentList(IEnumerable components)
-           {
-               this.components = components;
-           }
-
-           public XmlSchema GetSchema()
-           {
-               return null;
-           }
-
-           public void ReadXml(XmlReader reader)
-           {
-               throw new NotImplementedException(); // TODO XML deserialization of ComponentList
-           }
-
-           public void WriteXml(XmlWriter writer)
-           {
-               writer.WriteStartElement("", "ROOT", "");
-
-               // add the components to the document
-               foreach (Component thing in components)
-               {
-                   thing.WriteXml(writer);
-               }
-               writer.WriteEndElement();
-           }
-       }
-
-// Save
+      } // Save
 
 
 // ============================================================================

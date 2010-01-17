@@ -357,46 +357,48 @@ namespace NovaCommon
          return h;
       }
 
-      public override void ReadXml(XmlReader reader)
+       /// <summary>
+       /// Create an XmlElement representation of the star for saving.
+       /// </summary>
+       /// <param name="xmldoc">The parent XmlDocument</param>
+       /// <returns>An XmlElement representation of the star.</returns>
+      public new XmlElement ToXml(XmlDocument xmldoc)
       {
-          throw new NotImplementedException(); // TODO XML deserialization of Star
-      }
-
-      public override void WriteXml(XmlWriter writer)
-      {
-          writer.WriteStartElement("Star");
+          XmlElement xmlelStar = xmldoc.CreateElement("Star");
 
           // include inherited Item properties
-          base.WriteXml(writer);
+          xmlelStar.AppendChild(base.ToXml(xmldoc));
 
-          ManufacturingQueue.WriteXml(writer);
+          xmlelStar.AppendChild(ManufacturingQueue.ToXml(xmldoc));
 
           // MineralConcentraion and ResourcesOnHand need wrapper nodes so we can tell what they are (other than Resources) when we read them back in.
-          writer.WriteStartElement("MineralConcentration");
-          MineralConcentration.WriteXml(writer);
-          writer.WriteEndElement();
+          XmlElement xmlelMineralConcentration = xmldoc.CreateElement("MineralConcentration");
+          xmlelMineralConcentration.AppendChild(MineralConcentration.ToXml(xmldoc));
+          xmlelStar.AppendChild(xmlelMineralConcentration);
 
-          writer.WriteStartElement("ResourcesOnHand");
-          ResourcesOnHand.WriteXml(writer);
-          writer.WriteEndElement();
+          XmlElement xmlelResourcesOnHand = xmldoc.CreateElement("ResourcesOnHand");
+          xmlelResourcesOnHand.AppendChild(ResourcesOnHand.ToXml(xmldoc));
+          xmlelStar.AppendChild(xmlelResourcesOnHand);
 
           // Starbase and ThisRace are stored as references only (just the name is saved).
-          if (Starbase != null) writer.WriteElementString("Starbase", Starbase.Name);
-          if (ThisRace != null) writer.WriteElementString("ThisRace", ThisRace.Name);
+          if (Starbase != null) Global.SaveData(xmldoc, xmlelStar, "Starbase", Starbase.Name);
+          if (ThisRace != null) Global.SaveData(xmldoc, xmlelStar, "ThisRace", ThisRace.Name);
 
-          if (Colonists != 0) writer.WriteElementString("Colonists", Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          if (Defenses != 0) writer.WriteElementString("Defenses", Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          if (Factories != 0) writer.WriteElementString("Factories", Factories.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          if (Mines != 0) writer.WriteElementString("Mines", Mines.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          if (ResearchAllocation != 0) writer.WriteElementString("ResearchAllocation", ResearchAllocation.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          if (ScanRange != 0) writer.WriteElementString("ScanRange", ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("DefenseType", DefenseType);
-          writer.WriteElementString("ScannerType", ScannerType);
-          writer.WriteElementString("Gravity", Gravity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("Radiation", Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          writer.WriteElementString("Temperature", Temperature.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (Colonists != 0) Global.SaveData(xmldoc, xmlelStar, "Colonists", Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (Defenses != 0) Global.SaveData(xmldoc, xmlelStar, "Defenses", Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (Factories != 0) Global.SaveData(xmldoc, xmlelStar, "Factories", Factories.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (Mines != 0) Global.SaveData(xmldoc, xmlelStar, "Mines", Mines.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (ResearchAllocation != 0) Global.SaveData(xmldoc, xmlelStar, "ResearchAllocation", ResearchAllocation.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          if (ScanRange != 0) Global.SaveData(xmldoc, xmlelStar, "ScanRange", ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          Global.SaveData(xmldoc, xmlelStar, "DefenseType", DefenseType);
+          Global.SaveData(xmldoc, xmlelStar, "ScannerType", ScannerType);
+          Global.SaveData(xmldoc, xmlelStar, "Gravity", Gravity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          Global.SaveData(xmldoc, xmlelStar, "Radiation", Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          Global.SaveData(xmldoc, xmlelStar, "Temperature", Temperature.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
-          writer.WriteEndElement();
+
+          return xmlelStar;
       }
+
    }
 }

@@ -48,7 +48,6 @@ namespace NovaCommon
         {
             return new Colonizer(this);
         }
-
         //============================================================================
         // Provide a way to add properties in the ship design.
         // Colonizer's don't add.
@@ -92,15 +91,20 @@ namespace NovaCommon
               subnode = subnode.NextSibling;
           }
       }
-
-        public override void ReadXml(XmlReader reader)
+        // ============================================================================
+        // Return an XmlElement representation of the Property
+        // ============================================================================
+        public override XmlElement ToXml(XmlDocument xmldoc)
         {
-            throw new NotImplementedException(); // TODO XML deserialization of Colonizer
-        }
+            XmlElement xmlelProperty = xmldoc.CreateElement("Property");
 
-        public override void WriteXml(XmlWriter writer)
-        {
-            writer.WriteElementString("Orbital", Orbital.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            // Orbital
+            XmlElement xmlelOrbital = xmldoc.CreateElement("Orbital");
+            XmlText xmltxtOrbital = xmldoc.CreateTextNode(this.Orbital.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            xmlelOrbital.AppendChild(xmltxtOrbital);
+            xmlelProperty.AppendChild(xmlelOrbital);
+
+            return xmlelProperty;
         }
     }
 }

@@ -118,15 +118,26 @@ namespace NovaCommon
           }
       }
 
-        public override void ReadXml(XmlReader reader)
-        {
-            throw new NotImplementedException(); // TODO XML deserialization of Fuel
-        }
 
-        public override void WriteXml(XmlWriter writer)
+        // ============================================================================
+        // Return an XmlElement representation of the Property
+        // ============================================================================
+        public override XmlElement ToXml(XmlDocument xmldoc)
         {
-            writer.WriteElementString("Capacity", Capacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            writer.WriteElementString("Generation", Generation.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+
+            // Capacity
+            XmlElement xmlelCapacity = xmldoc.CreateElement("Capacity");
+            XmlText xmltxtCapacity = xmldoc.CreateTextNode(this.Capacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            xmlelCapacity.AppendChild(xmltxtCapacity);
+            xmlelProperty.AppendChild(xmlelCapacity);
+            // Generation
+            XmlElement xmlelGeneration = xmldoc.CreateElement("Generation");
+            XmlText xmltxtGeneration = xmldoc.CreateTextNode(this.Generation.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            xmlelGeneration.AppendChild(xmltxtGeneration);
+            xmlelProperty.AppendChild(xmlelGeneration);
+
+            return xmlelProperty;
         }
 
     }

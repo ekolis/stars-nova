@@ -10,7 +10,6 @@
 
 using System;
 using System.Xml;
-using System.Xml.Schema;
 using System.Xml.Serialization;
 using System.Drawing;
 using System.Runtime.Serialization;
@@ -26,7 +25,7 @@ namespace NovaCommon
 // ============================================================================
 
    [Serializable]
-   public class Waypoint : IXmlSerializable
+   public class Waypoint
    {
       public Point  Position;
       public string Destination = null;
@@ -78,25 +77,20 @@ namespace NovaCommon
           }
       }
 
-       public XmlSchema GetSchema()
-       {
-           return null;
-       }
+      // ============================================================================
+      // Save: Return an XmlElement representation of the Waypoint
+      // ============================================================================
+      public XmlElement ToXml(XmlDocument xmldoc)
+      {
+          XmlElement xmlelCargo = xmldoc.CreateElement("Waypoint");
 
-       public void ReadXml(XmlReader reader)
-       {
-           throw new NotImplementedException(); // TODO XML deserialization of Waypoint
-       }
+          NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Destination", this.Destination);
+          NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Task", this.Task);
+          NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "WarpFactor", this.WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          // point
 
-       public void WriteXml(XmlWriter writer)
-       {
-           writer.WriteStartElement("Waypoint");
+          return xmlelCargo;
+      }
 
-           writer.WriteElementString("Destination", Destination);
-           writer.WriteElementString("Task", Task);
-           writer.WriteElementString("WarpFactor", WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
-
-           writer.WriteEndElement();
-       }
    }
 }

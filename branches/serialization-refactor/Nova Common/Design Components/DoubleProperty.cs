@@ -103,14 +103,20 @@ namespace NovaCommon
             }
         }
 
-        public override void ReadXml(XmlReader reader)
+// ============================================================================
+// Return an XmlElement representation of the Property
+// ============================================================================
+        public override XmlElement ToXml(XmlDocument xmldoc)
         {
-            throw new NotImplementedException(); // TODO XML deserialization of DoubleProperty
-        }
+            XmlElement xmlelProperty = xmldoc.CreateElement("Property");
 
-        public override void WriteXml(XmlWriter writer)
-        {
-            writer.WriteElementString("Value", Value.ToString(""));
+            // store the value
+            XmlElement xmlelValue = xmldoc.CreateElement("Value");
+            XmlText xmltxtValue = xmldoc.CreateTextNode(this.Value.ToString(""));
+            xmlelValue.AppendChild(xmltxtValue);
+            xmlelProperty.AppendChild(xmlelValue);
+
+            return xmlelProperty;
         }
     }
 }

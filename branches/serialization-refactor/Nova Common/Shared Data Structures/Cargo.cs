@@ -10,8 +10,6 @@
 
 using System;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 // ============================================================================
 // Cargo class
@@ -20,7 +18,7 @@ using System.Xml.Serialization;
 namespace NovaCommon
 {
    [Serializable]
-   public class Cargo : IXmlSerializable
+   public class Cargo
    {
       public int Ironium   = 0;
       public int Boranium  = 0;
@@ -100,26 +98,21 @@ namespace NovaCommon
           }
       }
 
-       public XmlSchema GetSchema()
-       {
-           return null;
-       }
+      // ============================================================================
+      // Save: Return an XmlElement representation of the Cargo
+      // ============================================================================
+      public XmlElement ToXml(XmlDocument xmldoc)
+      {
+          XmlElement xmlelCargo = xmldoc.CreateElement("Cargo");
 
-       public void ReadXml(XmlReader reader)
-       {
-           throw new NotImplementedException(); // TODO XML deserialization of Cargo
-       }
+          NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Ironium", this.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Boranium", this.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Germanium", this.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Colonists", this.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
-       public void WriteXml(XmlWriter writer)
-       {
-           writer.WriteStartElement("Cargo");
+          return xmlelCargo;
+      }
+ 
 
-           writer.WriteElementString("Ironium", Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           writer.WriteElementString("Boranium", Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           writer.WriteElementString("Germanium", Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-           writer.WriteElementString("Colonists", Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
-
-           writer.WriteEndElement();
-       }
    }
 }

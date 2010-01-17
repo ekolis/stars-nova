@@ -12,13 +12,11 @@ using System;
 using System.Xml;
 using System.Collections;
 using System.Text;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace NovaCommon
 {
    [Serializable]
-   public class BattlePlan : IXmlSerializable
+   public class BattlePlan
    {
       public string Name            = "Default";
       public string PrimaryTarget   = "Armed Ships";
@@ -69,27 +67,23 @@ namespace NovaCommon
               subnode = subnode.NextSibling;
           }
       }
-       public XmlSchema GetSchema()
-       {
-           return null;
-       }
 
-       public void ReadXml(XmlReader reader)
-       {
-           throw new NotImplementedException(); // TODO XML deserialization of BattlePlan
-       }
+       /// <summary>
+       /// Save: Generate an XmlElement representation of a battle plan for saving.
+       /// </summary>
+       /// <param name="xmldoc">The parent XmlDocument</param>
+       /// <returns>An XmlElement representaion of the BattlePlan</returns>
+      public XmlElement ToXml(XmlDocument xmldoc)
+      {
+          XmlElement xmlelBattlePlan = xmldoc.CreateElement("BattlePlan");
 
-       public void WriteXml(XmlWriter writer)
-       {
-           writer.WriteStartElement("BattlePlan");
+          Global.SaveData(xmldoc, xmlelBattlePlan, "Name", Name);
+          Global.SaveData(xmldoc, xmlelBattlePlan, "PrimaryTarget", PrimaryTarget);
+          Global.SaveData(xmldoc, xmlelBattlePlan, "SecondaryTarget", SecondaryTarget);
+          Global.SaveData(xmldoc, xmlelBattlePlan, "Tactic", Tactic);
+          Global.SaveData(xmldoc, xmlelBattlePlan, "Attack", Attack);
 
-           writer.WriteElementString("Name", Name);
-           writer.WriteElementString("PrimaryTarget", PrimaryTarget);
-           writer.WriteElementString("SecondaryTarget", SecondaryTarget);
-           writer.WriteElementString("Tactic", Tactic);
-           writer.WriteElementString("Attack", Attack);
-
-           writer.WriteEndElement();
-       }
+          return xmlelBattlePlan;
+      }
    }
 }

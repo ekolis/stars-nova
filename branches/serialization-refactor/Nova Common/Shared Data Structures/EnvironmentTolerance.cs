@@ -11,8 +11,6 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
 
 namespace NovaCommon
 {
@@ -21,7 +19,7 @@ namespace NovaCommon
     // ===========================================================================
 
     [Serializable]
-    public sealed class EnvironmentTolerance : IXmlSerializable
+    public sealed class EnvironmentTolerance
     {
         public double Minimum = 0;
         public double Maximum = 0;
@@ -64,24 +62,13 @@ namespace NovaCommon
 
         }
 
-        public XmlSchema GetSchema()
+        public XmlElement ToXml(XmlDocument xmldoc)
         {
-            return null;
-        }
+            XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement("EnvironmentTolerance");
 
-        public void ReadXml(XmlReader reader)
-        {
-            throw new NotImplementedException(); // TODO XML deserialization of EnvironmentTolerance
-        }
-
-        public void WriteXml(XmlWriter writer)
-        {
-            writer.WriteStartElement("EnvironmentTolerance");
-
-            writer.WriteElementString("Min", Minimum.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            writer.WriteElementString("Max", Maximum.ToString(System.Globalization.CultureInfo.InvariantCulture));
-
-            writer.WriteEndElement();
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Min", Minimum.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Max", Maximum.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            return xmlelEnvironmentTolerance;
         }
     }
 

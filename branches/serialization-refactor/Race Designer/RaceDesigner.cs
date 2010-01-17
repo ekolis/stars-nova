@@ -9,8 +9,6 @@
 // Nova main game.
 // ============================================================================
 
-using System.Xml.Schema;
-using System.Xml.Serialization;
 using Microsoft.Win32;
 using NovaCommon;
 using ControlLibrary;
@@ -1815,9 +1813,28 @@ namespace RaceDesigner
                  FileStream saveFile = new FileStream(RaceFilePath, FileMode.Create);
                  GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
 
-                 RaceDocument race = new RaceDocument(RaceParameters);
-                 XmlSerializer serializer = new XmlSerializer(typeof(RaceDocument));
-                 serializer.Serialize(saveFile, race);
+                 // Setup the XML document
+                 XmlDocument xmldoc;
+                 XmlNode xmlnode;
+                 XmlElement xmlRoot;
+                 xmldoc = new XmlDocument();
+                 // TODO (priority 4) - add the encoding attribute like UTF-8 ???
+                 xmlnode = xmldoc.CreateNode(XmlNodeType.XmlDeclaration, "", "");
+                 xmldoc.AppendChild(xmlnode);
+                 xmlRoot = xmldoc.CreateElement("", "ROOT", "");
+                 xmldoc.AppendChild(xmlRoot);
+
+                 // add the components to the document
+                 xmldoc.ChildNodes.Item(1).AppendChild(RaceParameters.ToXml(xmldoc));
+
+
+                 // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
+                 // manual inspection of the save file. Generally though it can be opened by any archiving tool that
+                 // reads gzip format.
+                 // xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
+                 //       or
+                 xmldoc.Save(saveFile);                                           //  not compressed
+
                  saveFile.Close();
 
                  Report.Information("The " + RaceParameters.PluralName + " have been saved to " + RaceFilePath);
@@ -1847,33 +1864,6 @@ namespace RaceDesigner
 
          }//Finish_Click (save&close the race)
 
-
-         public class RaceDocument : IXmlSerializable
-         {
-             private readonly Race race;
-
-             public RaceDocument(Race race)
-             {
-                 this.race = race;
-             }
-
-             public XmlSchema GetSchema()
-             {
-                 return null;
-             }
-
-             public void ReadXml(XmlReader reader)
-             {
-                 throw new NotImplementedException(); // TODO XML deserialization of RaceDocument
-             }
-
-             public void WriteXml(XmlWriter writer)
-             {
-                 writer.WriteStartElement("", "ROOT", "");
-                 race.WriteXml(writer);
-                 writer.WriteEndElement();
-             }
-         }
 
          /// <summary>
          /// Display the about box
