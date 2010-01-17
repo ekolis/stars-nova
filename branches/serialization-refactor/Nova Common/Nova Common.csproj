@@ -201,7 +201,7 @@
     <Compile Include="Shared Data Structures\Waypoint.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="XmlConversion.cs" />
+    <Compile Include="Serialization\XmlConversion.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProgressDialog.resx">
