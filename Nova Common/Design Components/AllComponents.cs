@@ -221,15 +221,8 @@ namespace NovaCommon
               GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
 
               // Setup the XML document
-              XmlDocument xmldoc;
-              XmlNode xmlnode;
-              XmlElement xmlRoot;
-			  xmldoc = new XmlDocument();
-			  // TODO (priority 4) - see if byte order marks emitted by .NET interfere with Mono parsing of XML files
-			  xmlnode = xmldoc.CreateXmlDeclaration("1.0", "UTF-8", null);
-              xmldoc.AppendChild(xmlnode);
-              xmlRoot = xmldoc.CreateElement("", "ROOT", "");
-              xmldoc.AppendChild(xmlRoot);
+              XmlDocument xmldoc = new XmlDocument();
+              XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
 
               // add the components to the document
               foreach (NovaCommon.Component thing in AllComponents.Data.Components.Values)

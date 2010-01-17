@@ -1175,7 +1175,7 @@ namespace ComponentEditor
           this.PropertyTabs.Multiline = true;
           this.PropertyTabs.Name = "PropertyTabs";
           this.PropertyTabs.SelectedIndex = 0;
-          this.PropertyTabs.Size = new System.Drawing.Size(489, 238);
+          this.PropertyTabs.Size = new System.Drawing.Size(780, 238);
           this.PropertyTabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
           this.PropertyTabs.TabIndex = 4;
           this.PropertyTabs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.PropertyTabs_DrawItem);
@@ -1187,7 +1187,7 @@ namespace ComponentEditor
           this.tabArmor.Location = new System.Drawing.Point(4, 4);
           this.tabArmor.Name = "tabArmor";
           this.tabArmor.Padding = new System.Windows.Forms.Padding(3);
-          this.tabArmor.Size = new System.Drawing.Size(81, 230);
+          this.tabArmor.Size = new System.Drawing.Size(372, 230);
           this.tabArmor.TabIndex = 0;
           this.tabArmor.Text = "Armor";
           // 
@@ -1200,7 +1200,7 @@ namespace ComponentEditor
           this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
           this.groupBox8.Location = new System.Drawing.Point(3, 3);
           this.groupBox8.Name = "groupBox8";
-          this.groupBox8.Size = new System.Drawing.Size(75, 224);
+          this.groupBox8.Size = new System.Drawing.Size(366, 224);
           this.groupBox8.TabIndex = 2;
           this.groupBox8.TabStop = false;
           this.groupBox8.Text = "Armor Properties";
@@ -1248,7 +1248,7 @@ namespace ComponentEditor
           this.tabMovement.Location = new System.Drawing.Point(4, 4);
           this.tabMovement.Name = "tabMovement";
           this.tabMovement.Padding = new System.Windows.Forms.Padding(3);
-          this.tabMovement.Size = new System.Drawing.Size(81, 230);
+          this.tabMovement.Size = new System.Drawing.Size(372, 230);
           this.tabMovement.TabIndex = 1;
           this.tabMovement.Text = "Battle Movement";
           // 
@@ -1303,7 +1303,7 @@ namespace ComponentEditor
           this.tabBomb.Location = new System.Drawing.Point(4, 4);
           this.tabBomb.Name = "tabBomb";
           this.tabBomb.Padding = new System.Windows.Forms.Padding(3);
-          this.tabBomb.Size = new System.Drawing.Size(81, 230);
+          this.tabBomb.Size = new System.Drawing.Size(372, 230);
           this.tabBomb.TabIndex = 2;
           this.tabBomb.Text = "Bomb";
           // 
@@ -1406,7 +1406,7 @@ namespace ComponentEditor
           this.tabCapacitor.Controls.Add(this.groupBox11);
           this.tabCapacitor.Location = new System.Drawing.Point(4, 4);
           this.tabCapacitor.Name = "tabCapacitor";
-          this.tabCapacitor.Size = new System.Drawing.Size(81, 230);
+          this.tabCapacitor.Size = new System.Drawing.Size(372, 230);
           this.tabCapacitor.TabIndex = 3;
           this.tabCapacitor.Text = "Capacitor";
           // 
@@ -1469,7 +1469,7 @@ namespace ComponentEditor
           this.tabCargo.Controls.Add(this.groupBox12);
           this.tabCargo.Location = new System.Drawing.Point(4, 4);
           this.tabCargo.Name = "tabCargo";
-          this.tabCargo.Size = new System.Drawing.Size(81, 230);
+          this.tabCargo.Size = new System.Drawing.Size(372, 230);
           this.tabCargo.TabIndex = 4;
           this.tabCargo.Text = "Cargo";
           // 
@@ -1527,7 +1527,7 @@ namespace ComponentEditor
           this.tabCloak.Controls.Add(this.groupBox13);
           this.tabCloak.Location = new System.Drawing.Point(4, 4);
           this.tabCloak.Name = "tabCloak";
-          this.tabCloak.Size = new System.Drawing.Size(81, 230);
+          this.tabCloak.Size = new System.Drawing.Size(372, 230);
           this.tabCloak.TabIndex = 5;
           this.tabCloak.Text = "Cloak";
           // 
@@ -1580,7 +1580,7 @@ namespace ComponentEditor
           this.tabColonization.Controls.Add(this.groupBox14);
           this.tabColonization.Location = new System.Drawing.Point(4, 4);
           this.tabColonization.Name = "tabColonization";
-          this.tabColonization.Size = new System.Drawing.Size(81, 230);
+          this.tabColonization.Size = new System.Drawing.Size(372, 230);
           this.tabColonization.TabIndex = 6;
           this.tabColonization.Text = "Colonization";
           // 
@@ -1623,7 +1623,7 @@ namespace ComponentEditor
           this.tabComputer.Controls.Add(this.groupBox15);
           this.tabComputer.Location = new System.Drawing.Point(4, 4);
           this.tabComputer.Name = "tabComputer";
-          this.tabComputer.Size = new System.Drawing.Size(81, 230);
+          this.tabComputer.Size = new System.Drawing.Size(372, 230);
           this.tabComputer.TabIndex = 7;
           this.tabComputer.Text = "Computer";
           // 
@@ -1695,7 +1695,7 @@ namespace ComponentEditor
           this.tabDefense.Controls.Add(this.groupBox16);
           this.tabDefense.Location = new System.Drawing.Point(4, 4);
           this.tabDefense.Name = "tabDefense";
-          this.tabDefense.Size = new System.Drawing.Size(81, 230);
+          this.tabDefense.Size = new System.Drawing.Size(372, 230);
           this.tabDefense.TabIndex = 8;
           this.tabDefense.Text = "Defense";
           // 
@@ -1838,7 +1838,7 @@ namespace ComponentEditor
           this.tabDeflector.Controls.Add(this.groupBox32);
           this.tabDeflector.Location = new System.Drawing.Point(4, 4);
           this.tabDeflector.Name = "tabDeflector";
-          this.tabDeflector.Size = new System.Drawing.Size(81, 230);
+          this.tabDeflector.Size = new System.Drawing.Size(372, 230);
           this.tabDeflector.TabIndex = 28;
           this.tabDeflector.Text = "Deflector";
           // 
@@ -1886,7 +1886,7 @@ namespace ComponentEditor
           this.tabEnergyDampener.Controls.Add(this.groupBox31);
           this.tabEnergyDampener.Location = new System.Drawing.Point(4, 4);
           this.tabEnergyDampener.Name = "tabEnergyDampener";
-          this.tabEnergyDampener.Size = new System.Drawing.Size(81, 230);
+          this.tabEnergyDampener.Size = new System.Drawing.Size(372, 230);
           this.tabEnergyDampener.TabIndex = 29;
           this.tabEnergyDampener.Text = "Energy Dampener";
           // 
@@ -1946,7 +1946,7 @@ namespace ComponentEditor
           this.tabEngine.Controls.Add(this.groupBox6);
           this.tabEngine.Location = new System.Drawing.Point(4, 4);
           this.tabEngine.Name = "tabEngine";
-          this.tabEngine.Size = new System.Drawing.Size(81, 230);
+          this.tabEngine.Size = new System.Drawing.Size(372, 230);
           this.tabEngine.TabIndex = 9;
           this.tabEngine.Text = "Engine";
           // 
@@ -2329,7 +2329,7 @@ namespace ComponentEditor
           this.tabFuel.Controls.Add(this.groupBox18);
           this.tabFuel.Location = new System.Drawing.Point(4, 4);
           this.tabFuel.Name = "tabFuel";
-          this.tabFuel.Size = new System.Drawing.Size(81, 230);
+          this.tabFuel.Size = new System.Drawing.Size(372, 230);
           this.tabFuel.TabIndex = 10;
           this.tabFuel.Text = "Fuel";
           // 
@@ -2416,7 +2416,7 @@ namespace ComponentEditor
           this.tabGate.Controls.Add(this.groupBox7);
           this.tabGate.Location = new System.Drawing.Point(4, 4);
           this.tabGate.Name = "tabGate";
-          this.tabGate.Size = new System.Drawing.Size(81, 230);
+          this.tabGate.Size = new System.Drawing.Size(372, 230);
           this.tabGate.TabIndex = 11;
           this.tabGate.Text = "Gate";
           // 
@@ -2535,7 +2535,7 @@ namespace ComponentEditor
           this.tabHull.Controls.Add(this.groupBox19);
           this.tabHull.Location = new System.Drawing.Point(4, 4);
           this.tabHull.Name = "tabHull";
-          this.tabHull.Size = new System.Drawing.Size(81, 230);
+          this.tabHull.Size = new System.Drawing.Size(372, 230);
           this.tabHull.TabIndex = 12;
           this.tabHull.Text = "Hull";
           // 
@@ -2573,7 +2573,7 @@ namespace ComponentEditor
           this.InfiniteDock.Location = new System.Drawing.Point(181, 133);
           this.InfiniteDock.Name = "InfiniteDock";
           this.InfiniteDock.Size = new System.Drawing.Size(130, 17);
-          this.InfiniteDock.TabIndex = 32;
+          this.InfiniteDock.TabIndex = 20;
           this.InfiniteDock.Text = "Infinite Dock Capacity";
           this.InfiniteDock.UseVisualStyleBackColor = true;
           // 
@@ -2596,7 +2596,7 @@ namespace ComponentEditor
             0});
           this.ARMaxPop.Name = "ARMaxPop";
           this.ARMaxPop.Size = new System.Drawing.Size(50, 20);
-          this.ARMaxPop.TabIndex = 29;
+          this.ARMaxPop.TabIndex = 21;
           this.ARMaxPop.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
           // 
           // label87
@@ -2613,9 +2613,10 @@ namespace ComponentEditor
           this.buttonEditHull.Location = new System.Drawing.Point(253, 187);
           this.buttonEditHull.Name = "buttonEditHull";
           this.buttonEditHull.Size = new System.Drawing.Size(98, 23);
-          this.buttonEditHull.TabIndex = 28;
+          this.buttonEditHull.TabIndex = 22;
           this.buttonEditHull.Text = "Hull Map";
           this.buttonEditHull.UseVisualStyleBackColor = true;
+          this.buttonEditHull.Click += new System.EventHandler(this.buttonEditHull_Click);
           // 
           // label50
           // 
@@ -2650,7 +2651,7 @@ namespace ComponentEditor
             0});
           this.HullCargoCapacity.Name = "HullCargoCapacity";
           this.HullCargoCapacity.Size = new System.Drawing.Size(50, 20);
-          this.HullCargoCapacity.TabIndex = 19;
+          this.HullCargoCapacity.TabIndex = 18;
           this.HullCargoCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
           // 
           // label48
@@ -2716,7 +2717,7 @@ namespace ComponentEditor
           this.HullInitiative.Location = new System.Drawing.Point(89, 80);
           this.HullInitiative.Name = "HullInitiative";
           this.HullInitiative.Size = new System.Drawing.Size(50, 20);
-          this.HullInitiative.TabIndex = 21;
+          this.HullInitiative.TabIndex = 17;
           this.HullInitiative.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
           // 
           // HullDockCapacity
@@ -2734,7 +2735,7 @@ namespace ComponentEditor
             -2147483648});
           this.HullDockCapacity.Name = "HullDockCapacity";
           this.HullDockCapacity.Size = new System.Drawing.Size(50, 20);
-          this.HullDockCapacity.TabIndex = 17;
+          this.HullDockCapacity.TabIndex = 19;
           this.HullDockCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
           // 
           // HullArmor
@@ -2747,7 +2748,7 @@ namespace ComponentEditor
             0});
           this.HullArmor.Name = "HullArmor";
           this.HullArmor.Size = new System.Drawing.Size(50, 20);
-          this.HullArmor.TabIndex = 20;
+          this.HullArmor.TabIndex = 16;
           this.HullArmor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
           // 
           // label45
@@ -2774,7 +2775,7 @@ namespace ComponentEditor
           this.tabHullAffinity.Controls.Add(this.groupBox29);
           this.tabHullAffinity.Location = new System.Drawing.Point(4, 4);
           this.tabHullAffinity.Name = "tabHullAffinity";
-          this.tabHullAffinity.Size = new System.Drawing.Size(81, 230);
+          this.tabHullAffinity.Size = new System.Drawing.Size(372, 230);
           this.tabHullAffinity.TabIndex = 24;
           this.tabHullAffinity.Text = "Hull Affinity";
           // 
@@ -2814,7 +2815,7 @@ namespace ComponentEditor
           this.tabJammer.Controls.Add(this.groupBox20);
           this.tabJammer.Location = new System.Drawing.Point(4, 4);
           this.tabJammer.Name = "tabJammer";
-          this.tabJammer.Size = new System.Drawing.Size(81, 230);
+          this.tabJammer.Size = new System.Drawing.Size(372, 230);
           this.tabJammer.TabIndex = 13;
           this.tabJammer.Text = "Jammer";
           // 
@@ -2867,7 +2868,7 @@ namespace ComponentEditor
           this.tabLayerEfficiency.Controls.Add(this.ImprovedMineLayingEfficiency);
           this.tabLayerEfficiency.Location = new System.Drawing.Point(4, 4);
           this.tabLayerEfficiency.Name = "tabLayerEfficiency";
-          this.tabLayerEfficiency.Size = new System.Drawing.Size(81, 230);
+          this.tabLayerEfficiency.Size = new System.Drawing.Size(372, 230);
           this.tabLayerEfficiency.TabIndex = 27;
           this.tabLayerEfficiency.Text = "Layer Efficiency";
           // 
@@ -2923,7 +2924,7 @@ namespace ComponentEditor
           this.tabDriver.Controls.Add(this.groupBox21);
           this.tabDriver.Location = new System.Drawing.Point(4, 4);
           this.tabDriver.Name = "tabDriver";
-          this.tabDriver.Size = new System.Drawing.Size(81, 230);
+          this.tabDriver.Size = new System.Drawing.Size(372, 230);
           this.tabDriver.TabIndex = 14;
           this.tabDriver.Text = "Mass Driver";
           // 
@@ -2966,7 +2967,7 @@ namespace ComponentEditor
           this.tabMineLayer.Controls.Add(this.groupBox22);
           this.tabMineLayer.Location = new System.Drawing.Point(4, 4);
           this.tabMineLayer.Name = "tabMineLayer";
-          this.tabMineLayer.Size = new System.Drawing.Size(81, 230);
+          this.tabMineLayer.Size = new System.Drawing.Size(372, 230);
           this.tabMineLayer.TabIndex = 16;
           this.tabMineLayer.Text = "Mine Layer";
           // 
@@ -3214,7 +3215,7 @@ namespace ComponentEditor
           this.tabRadiation.Controls.Add(this.groupBox28);
           this.tabRadiation.Location = new System.Drawing.Point(4, 4);
           this.tabRadiation.Name = "tabRadiation";
-          this.tabRadiation.Size = new System.Drawing.Size(81, 230);
+          this.tabRadiation.Size = new System.Drawing.Size(372, 230);
           this.tabRadiation.TabIndex = 23;
           this.tabRadiation.Text = "Radiation";
           // 
@@ -3273,7 +3274,7 @@ namespace ComponentEditor
           this.tabRobot.Controls.Add(this.groupBox23);
           this.tabRobot.Location = new System.Drawing.Point(4, 4);
           this.tabRobot.Name = "tabRobot";
-          this.tabRobot.Size = new System.Drawing.Size(81, 230);
+          this.tabRobot.Size = new System.Drawing.Size(372, 230);
           this.tabRobot.TabIndex = 17;
           this.tabRobot.Text = "Mining Robot";
           // 
@@ -3335,7 +3336,7 @@ namespace ComponentEditor
           this.tabOrbitalAdjuster.Controls.Add(this.groupBox24);
           this.tabOrbitalAdjuster.Location = new System.Drawing.Point(4, 4);
           this.tabOrbitalAdjuster.Name = "tabOrbitalAdjuster";
-          this.tabOrbitalAdjuster.Size = new System.Drawing.Size(81, 230);
+          this.tabOrbitalAdjuster.Size = new System.Drawing.Size(372, 230);
           this.tabOrbitalAdjuster.TabIndex = 18;
           this.tabOrbitalAdjuster.Text = "Orbital Adjuster";
           // 
@@ -3388,7 +3389,7 @@ namespace ComponentEditor
           this.tabScanner.Controls.Add(this.groupBox17);
           this.tabScanner.Location = new System.Drawing.Point(4, 4);
           this.tabScanner.Name = "tabScanner";
-          this.tabScanner.Size = new System.Drawing.Size(81, 230);
+          this.tabScanner.Size = new System.Drawing.Size(372, 230);
           this.tabScanner.TabIndex = 19;
           this.tabScanner.Text = "Scanner";
           // 
@@ -3485,7 +3486,7 @@ namespace ComponentEditor
           this.tabShield.Controls.Add(this.groupBox25);
           this.tabShield.Location = new System.Drawing.Point(4, 4);
           this.tabShield.Name = "tabShield";
-          this.tabShield.Size = new System.Drawing.Size(81, 230);
+          this.tabShield.Size = new System.Drawing.Size(372, 230);
           this.tabShield.TabIndex = 20;
           this.tabShield.Text = "Shield";
           // 
@@ -3543,7 +3544,7 @@ namespace ComponentEditor
           this.tabTachyonDetector.Controls.Add(this.groupBox30);
           this.tabTachyonDetector.Location = new System.Drawing.Point(4, 4);
           this.tabTachyonDetector.Name = "tabTachyonDetector";
-          this.tabTachyonDetector.Size = new System.Drawing.Size(81, 230);
+          this.tabTachyonDetector.Size = new System.Drawing.Size(372, 230);
           this.tabTachyonDetector.TabIndex = 30;
           this.tabTachyonDetector.Text = "Tachyon Detector";
           // 
@@ -3591,7 +3592,7 @@ namespace ComponentEditor
           this.tabTerraforming.Controls.Add(this.groupBox26);
           this.tabTerraforming.Location = new System.Drawing.Point(4, 4);
           this.tabTerraforming.Name = "tabTerraforming";
-          this.tabTerraforming.Size = new System.Drawing.Size(81, 230);
+          this.tabTerraforming.Size = new System.Drawing.Size(372, 230);
           this.tabTerraforming.TabIndex = 21;
           this.tabTerraforming.Text = "Terraforming";
           // 
@@ -3709,7 +3710,7 @@ namespace ComponentEditor
           this.tabTransportShipsOnly.Controls.Add(this.textBox4);
           this.tabTransportShipsOnly.Location = new System.Drawing.Point(4, 4);
           this.tabTransportShipsOnly.Name = "tabTransportShipsOnly";
-          this.tabTransportShipsOnly.Size = new System.Drawing.Size(81, 230);
+          this.tabTransportShipsOnly.Size = new System.Drawing.Size(372, 230);
           this.tabTransportShipsOnly.TabIndex = 26;
           this.tabTransportShipsOnly.Text = "Transport Ships Only";
           // 
@@ -3730,7 +3731,7 @@ namespace ComponentEditor
           this.tabWeapon.Controls.Add(this.groupBox27);
           this.tabWeapon.Location = new System.Drawing.Point(4, 4);
           this.tabWeapon.Name = "tabWeapon";
-          this.tabWeapon.Size = new System.Drawing.Size(81, 230);
+          this.tabWeapon.Size = new System.Drawing.Size(372, 230);
           this.tabWeapon.TabIndex = 22;
           this.tabWeapon.Text = "Weapon";
           // 

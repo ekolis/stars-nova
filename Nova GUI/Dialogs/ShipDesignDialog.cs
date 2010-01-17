@@ -112,7 +112,7 @@ namespace Nova
           HullList.Items.Clear();
           foreach (Component component in AvailableComponents.Values)
           {
-              if (component.Properties.ContainsKey("Hull") && component.CheckAvailability(StateData.RaceData))
+              if (component.Properties.ContainsKey("Hull") && component.CheckAvailability(StateData.PlayerRace))
               {
                   HullList.Items.Add(component.Name);
               }
@@ -935,7 +935,7 @@ namespace Nova
 
             if (component.Type == nodeType) 
             {
-               addToList = component.CheckAvailability(GuiState.Data.RaceData);
+               addToList = component.CheckAvailability(GuiState.Data.PlayerRace);
             }
 
             if (addToList == true) 

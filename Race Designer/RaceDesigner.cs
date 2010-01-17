@@ -1814,15 +1814,8 @@ namespace RaceDesigner
                  GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
 
                  // Setup the XML document
-                 XmlDocument xmldoc;
-                 XmlNode xmlnode;
-                 XmlElement xmlRoot;
-                 xmldoc = new XmlDocument();
-                 // TODO (priority 4) - add the encoding attribute like UTF-8 ???
-                 xmlnode = xmldoc.CreateNode(XmlNodeType.XmlDeclaration, "", "");
-                 xmldoc.AppendChild(xmlnode);
-                 xmlRoot = xmldoc.CreateElement("", "ROOT", "");
-                 xmldoc.AppendChild(xmlRoot);
+                 XmlDocument xmldoc = new XmlDocument();
+                 XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
 
                  // add the components to the document
                  xmldoc.ChildNodes.Item(1).AppendChild(RaceParameters.ToXml(xmldoc));

@@ -574,7 +574,7 @@ namespace Nova
       public void DisplayLegDetails(int index)
       {
          Waypoint thisWaypoint = SelectedFleet.Waypoints[index] as Waypoint;
-         Race     race         = GuiState.Data.RaceData;
+         Race     race         = GuiState.Data.PlayerRace;
 
          WaypointTasks.Text = thisWaypoint.Task;
 
