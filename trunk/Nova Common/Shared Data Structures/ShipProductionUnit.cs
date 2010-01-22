@@ -37,6 +37,12 @@ namespace NovaCommon.Shared_Data_Structures
             throw new NotImplementedException();
         }
 
+
+        public Resources NeededResources()
+        {
+            return shipDesign.Cost;
+        }
+
         #endregion
     }
 }

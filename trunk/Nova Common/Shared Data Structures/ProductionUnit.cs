@@ -38,5 +38,11 @@ namespace NovaCommon.Shared_Data_Structures
         /// Method which performs actual construction
         /// </summary>
         void Construct();
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns>Resources needed to construct this unit</returns>
+        Resources NeededResources();
     }
 }

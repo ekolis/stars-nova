@@ -11,6 +11,7 @@
 using System;
 using System.Xml;
 using System.Collections;
+using NovaCommon.Shared_Data_Structures;
 
 namespace NovaCommon
 {
@@ -29,11 +30,25 @@ namespace NovaCommon
          public string    Name;              // Design name, e.g. "Space Dock"
          public int       Quantity;          // Number to build
          public Resources BuildState;        // Resources need to build item // ??? just the next 1 or the whole lot? - Dan 10 Jan 10
+                                             // Should be removed in favor of Unit.ResourcesNeeded * Quantity
+         public bool      Autobuild;
+         private ProductionUnit Unit;
 
           /// <summary>
           /// default constructor
           /// </summary>
          public Item() { }
+
+
+         public Resources NeededResources()
+         {
+             Resources unitResources = Unit.NeededResources();
+             return new Resources((int) unitResources.Ironium * Quantity,
+                                              (int) unitResources.Boranium * Quantity,
+                                              (int) unitResources.Germanium * Quantity,
+                                              (int) unitResources.Energy * Quantity);
+         }
+
 
          /// <summary>
          /// Load: Read in a ProductionQueue.Item from and XmlNode representation.
