@@ -83,12 +83,20 @@ namespace NovaCommon
           fileStream.Close();
       }
 
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <returns>Resources needed to construct factory</returns>
       public Resources GetFactoryResources()
       {
           int factoryBuildCostGerm = (HasTrait("CF") ? 3 : 4);
           return new Resources(0, 0, factoryBuildCostGerm, FactoryBuildCost);
       }
 
+      /// <summary>
+      /// 
+      /// </summary>
+      /// <returns>Resources needed to construct mine</returns>
       public Resources GetMineResources()
       {
           return new Resources(0, 0, 0, MineBuildCost);
