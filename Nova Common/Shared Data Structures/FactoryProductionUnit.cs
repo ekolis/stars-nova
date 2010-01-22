@@ -39,7 +39,7 @@ namespace NovaCommon.Shared_Data_Structures
                 return true;
             }
 
-            if (!(star.ResourcesOnHand >= star.ThisRace.GetFactoryResources()))
+            if (!(star.ResourcesOnHand >= NeededResources()))
             {
                 return true;
             }
@@ -54,8 +54,14 @@ namespace NovaCommon.Shared_Data_Structures
                 return;
             }
 
-            star.ResourcesOnHand = star.ResourcesOnHand - star.ThisRace.GetFactoryResources();
+            star.ResourcesOnHand = star.ResourcesOnHand - NeededResources();
             star.Factories++;
+        }
+
+
+        public Resources NeededResources()
+        {
+            return star.ThisRace.GetFactoryResources();
         }
 
         #endregion
