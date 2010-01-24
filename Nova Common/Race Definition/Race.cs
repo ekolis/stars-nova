@@ -1,5 +1,6 @@
 // ===========================================================================
 // Nova. (c) 2008 Ken Reed.
+// Modified 2009, 2010 Daniel Vale.
 //
 // This module defines all the parameters that define the characteristics of a
 // race. These values are all set in the race designer. This object also manages
@@ -41,8 +42,8 @@ namespace NovaCommon
 
       public TechLevel             ResearchCosts = new TechLevel(0);
 
-      // public string                Type; // use this.Traits.Primary or this.Traits.SetPrimary()
-      public RacialTraits Traits = new RacialTraits(); // Collection of all the race's traits, including the primary.
+      // public string             Type; // depreciated - use this.Traits.Primary or this.Traits.SetPrimary()
+      public RacialTraits          Traits = new RacialTraits(); // Collection of all the race's traits, including the primary.
       public int                   MineBuildCost;
 
       public string                PluralName;
@@ -178,7 +179,7 @@ namespace NovaCommon
           xmlelRace.AppendChild(this.ResearchCosts.ToXml(xmldoc));
 
           // Type; // Primary Racial Trait.
-          Global.SaveData(xmldoc, xmlelRace, "PRT", Traits.Primary.Code); // TODO (priority 5) check the PRT is saved/loaded properly into Traits
+          Global.SaveData(xmldoc, xmlelRace, "PRT", Traits.Primary.Code); 
           // Traits
           foreach (TraitEntry trait in Traits)
           {

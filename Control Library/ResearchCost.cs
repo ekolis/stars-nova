@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ===========================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -179,7 +178,28 @@ namespace ControlLibrary
 
       public int Cost {
           get { return ResearchFactor; }
-          set { ResearchFactor = value; }
+          set 
+          {
+              switch (value)
+              {
+                  case 50:
+                      LessCost.Checked = true;
+                      StandardCost.Checked = false;
+                      ExtraCost.Checked = false;
+                      break;
+                  case 100:
+                      LessCost.Checked = false;
+                      StandardCost.Checked = true;
+                      ExtraCost.Checked = false;
+                      break;
+                  case 150:
+                      LessCost.Checked = false;
+                      StandardCost.Checked = false;
+                      ExtraCost.Checked = true;
+                      break;
+              }
+              ResearchFactor = value; 
+          }
       }
 
 

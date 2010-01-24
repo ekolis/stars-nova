@@ -52,8 +52,9 @@ namespace NovaCommon
         public void Add(String NewTrait)
         {
 
-            foreach (TraitEntry trait in AllTraits.Data.Secondary)
+            foreach (DictionaryEntry de in AllTraits.Data.Secondary)
             {
+                TraitEntry trait = de.Value as TraitEntry;
                 if (trait.Code == NewTrait)
                 {
                     Dictionary.Add(trait.Code, trait);

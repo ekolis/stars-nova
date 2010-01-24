@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ===========================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -6,7 +5,13 @@
 // terms of the GNU General Public License version 2 as published by the Free
 // Software Foundation.
 //
-// This file implements a range bar class.
+// This file implements a range control class, used for representing a race's
+// environmental tolerances. The control is 'dumb' and knows nothing about
+// environmental tolerances. It simply shows a bar in a box which can
+// expand from 1 to 100, as well as a title and caption.
+//
+// (RaceDesigner sets the title to the environment variable being changed,
+// and uses the caption to show the race's tolerance range.)
 // ===========================================================================
 
 using System;
@@ -51,18 +56,22 @@ namespace ControlLibrary {
 
       private Color        BoxColor            = Color.Yellow;
       private SolidBrush   BoxBrush            = new SolidBrush(Color.Yellow);
-      private double       BoxMinimum          = 1;
-      private double       BoxMaximum          = 100;
+      private int          BoxMinimum          = 0;
+      private int          BoxMaximum          = 100;
       private int          BoxLeftPosition     = 15;
       private int          BoxRightPosition    = 85;
       private int          BoxOldLeftPosition  = 15;
       private int          BoxOldRightPosition = 85;
-      private int          BoxMoveIncrement    = 2;
-      private string       Units               = "Units";
+      private int          BoxMoveIncrement    = 1; 
       private TimerOptions TimerAction;
 
-      // Event and delegate definition for when the range is changed.
+       // values used in converting the bar position to environment values
+      private double EnvironmentMinimum = 0.0; // Temp -200; Rad 0.0; Grav 0.0;
+      private double EnvironmentMaximum = 100.0; // Temp 200; Rad 100; Grav 10;
+      private string Units = "Units";
 
+      // Event and delegate definition for when the range is changed.
+      // This event tells RaceDesigner to modify the race's advantage points
       public delegate void RangeChangedHandler(Object sender, 
                                                int newLeftValue,
                                                int newRightValue,
@@ -223,48 +232,35 @@ namespace ControlLibrary {
    }
 #endregion
 
- 
-// ===========================================================================
-// Function to convert a value on the bar indicator (%) into the real values
-// expressed by the BoxMinimum and BoxMaximum bounds.
-// ===========================================================================
-
-      public double ConvertToRealUnits(int barValue) 
-      {
-         double rangeSpan = BoxMaximum - BoxMinimum;
-         double realValue = BoxMinimum + ((rangeSpan * barValue) / 100.0);
-
-         return realValue;
-      }
-
 
 // ===========================================================================
 // Paint the indicator part of the Bar control and the label displaying the
-// numeric values. The bar itself works in integer units of 0 to 100 (%)
-// (scaled to suit the bar physical size). Real bar units are only computed
-// when required.
+// numeric values. 
 // ===========================================================================
 
       private void Bar_Paint(object sender, PaintEventArgs e) 
       {
          int fillHeight = Bar.Size.Height;
          int fillY      = 0;
-         int fillLeft   = (BoxLeftPosition  * Bar.Size.Width) / 100;
-         int fillRight  = (BoxRightPosition * Bar.Size.Width) / 100;
+
+         // Need to convert the values from actual environment values to drawing co-ordinates.
+         int boxRange = BoxMaximum - BoxMinimum;
+         if (boxRange == 0) boxRange = 100; // gaurd against div by 0
+         int fillLeft = (int) ((BoxLeftPosition * Bar.Size.Width) / boxRange);
+         int fillRight = (int) ((BoxRightPosition * Bar.Size.Width) / boxRange);
          int fillWidth  = fillRight - fillLeft;
+
+
+         string realRange = String.Format("{0} to {1} {2}",
+                             BarPositionToEnvironmentValue(BoxLeftPosition).ToString("F1"),
+                             BarPositionToEnvironmentValue(BoxRightPosition).ToString("F1"),
+                             Units);
+
+         BoxSpan.Text = realRange;
 
          e.Graphics.FillRectangle(BoxBrush, fillLeft, fillY, 
                                   fillWidth, fillHeight);
 
-         double From = ConvertToRealUnits(BoxLeftPosition);
-         double To   = ConvertToRealUnits(BoxRightPosition);
-
-         string realRange = String.Format("{0} to {1} {2}", 
-                                          From.ToString("F1"), 
-                                          To.ToString("F1"),
-                                          Units);
-
-         BoxSpan.Text = realRange;
       }
 
 
@@ -311,14 +307,14 @@ namespace ControlLibrary {
                break;
 
             case TimerOptions.Expand:
-               if (BoxRightPosition + increment > 100) {
-                  increment         = 100 - BoxRightPosition;
+               if (BoxRightPosition + increment > BoxMaximum) {
+                   increment = BoxMaximum - BoxRightPosition;
                }
 
                BoxRightPosition += increment;
                increment         = BoxMoveIncrement;
 
-               if (BoxLeftPosition - increment < 0) {
+               if (BoxLeftPosition - increment < BoxMinimum) {
                   increment = BoxLeftPosition;
                }
 
@@ -387,27 +383,76 @@ namespace ControlLibrary {
          timer1.Start();
       }
 
+      /// <summary>
+      /// Conversion from bar position (1-100 scale) to environment value (EnvironmentMinimum - EnvironmentMaximum)
+      /// </summary>
+      /// <param name="pos">A bar position value from 1-100.</param>
+      /// <returns>An environment value.</returns>
+      private double BarPositionToEnvironmentValue(int pos)
+      {
+          double env = 0; // the environment value to be calculated.
+          double environmentRange = EnvironmentMaximum - EnvironmentMinimum;
+          double boxRange = (double)(BoxMaximum - BoxMinimum);
+          if (boxRange == 0)
+          {
+              environmentRange = 1000; // gaurd against div by 0
+          }
+          else
+          {
+              env = ((double)(pos - BoxMinimum)) * environmentRange / boxRange + EnvironmentMinimum;
+          }
+          return env;
+      }
+
+      /// <summary>
+      /// Conversion from an environment value (EnvironmentMinimum - EnvironmentMaximum) to a bar position (1-100)
+      /// </summary>
+      /// <param name="env">An environment value.</param>
+      /// <returns>A bar position (1-100)</returns>
+      private int EnvironmentValueToBarPosition(double env)
+      {
+          int pos = 0;
+          double environmentRange = EnvironmentMaximum - EnvironmentMinimum;
+          if (environmentRange == 0)
+          {
+              pos = 100; // gaurd against div by 0
+          }
+          else
+          {
+              double boxRange = (double)(BoxMaximum - BoxMinimum);
+              pos = (int)((((env - EnvironmentMinimum) * boxRange) / environmentRange) + BoxMinimum);
+          }
+          return pos;
+      }
 
 // ===========================================================================
 // Return or set the range minimum and maxium values and the upper and lower bounds
-// of the current selection in real units.
+// of the current selection (in real environment units).
 // ===========================================================================
-
-       public EnvironmentTolerance Values
+       
+       public EnvironmentTolerance EnvironmentValues
        {
            get
            {
-               double MinimumValue = ConvertToRealUnits(BoxLeftPosition);
-               double MaximumValue = ConvertToRealUnits(BoxRightPosition);
+               double MinimumValue = BarPositionToEnvironmentValue(BoxLeftPosition);
+               double MaximumValue = BarPositionToEnvironmentValue(BoxRightPosition);
                return new EnvironmentTolerance(MinimumValue, MaximumValue);
            }
            set
            {
-               BoxMinimum = value.Minimum;
-               BoxMaximum = value.Maximum;
+               BoxOldRightPosition = BoxRightPosition;
+               BoxOldLeftPosition = BoxLeftPosition;
+
+               BoxLeftPosition = EnvironmentValueToBarPosition(value.Minimum);
+               BoxRightPosition = EnvironmentValueToBarPosition(value.Maximum);
+
+               if (RangeChanged != null)
+                   RangeChanged(this, BoxLeftPosition, BoxRightPosition, BoxOldLeftPosition, BoxOldRightPosition);
+
+               Bar.Invalidate();
            }
        }
-
+       
 
 // ===========================================================================
 // Units for range display numeric values. The call to Bar.Invalidate just
@@ -433,20 +478,56 @@ namespace ControlLibrary {
       }
 
 
-// ===========================================================================
-// Range Maxium and Minimum values (in real units)
-// ===========================================================================
+      // ===========================================================================
+      // Range Maxium and Minimum values (in real units)
+      // ===========================================================================
 
       [Description("Maximum value of range bar."), Category("Nova")]
-      public double RangeMaximum {
-         get { return BoxMaximum;  }
-         set { BoxMaximum = value; Bar.Invalidate(); } 
+      public double RangeMaximum
+      {
+          
+          get { return EnvironmentMaximum; }
+          set { EnvironmentMaximum = value; Bar.Invalidate(); }
       }
 
       [Description("Minimum value of range bar."), Category("Nova")]
-      public double RangeMinimum {
-         get { return BoxMinimum;  }
-         set { BoxMinimum = value; Bar.Invalidate(); } 
+      public double RangeMinimum
+      {
+          get { return EnvironmentMinimum; }
+          set { EnvironmentMinimum = value; Bar.Invalidate(); }
+      }
+
+      // ===========================================================================
+      // Bar Lower and Upper values (in real units)
+      // ===========================================================================
+
+      [Description("Upper value of range bar."), Category("Nova")]
+      public double BarUpper
+      {
+          get { return BarPositionToEnvironmentValue(BoxRightPosition); }
+          set 
+          {
+
+              BoxOldRightPosition = BoxRightPosition;
+              BoxRightPosition = EnvironmentValueToBarPosition(value);
+              if (RangeChanged != null)
+                  RangeChanged(this, BoxLeftPosition, BoxRightPosition, BoxOldLeftPosition, BoxOldRightPosition);
+              Bar.Invalidate(); 
+          }
+      }
+
+      [Description("Lower value of range bar."), Category("Nova")]
+      public double BarLower
+      {
+          get { return BarPositionToEnvironmentValue(BoxLeftPosition); }
+          set 
+          {
+              BoxOldLeftPosition = BoxLeftPosition;
+              BoxLeftPosition = EnvironmentValueToBarPosition(value);
+              if (RangeChanged != null) 
+                  RangeChanged(this, BoxLeftPosition, BoxRightPosition, BoxOldLeftPosition, BoxOldRightPosition);
+              Bar.Invalidate(); 
+          }
       }
 
 
@@ -455,7 +536,7 @@ namespace ControlLibrary {
 // ===========================================================================
 
       [Description("Colour of range bar."), Category("Nova")]
-      public Color RangeBarColuor {
+      public Color RangeBarColor {
          get { return BoxColor; }
 
          set { 
