@@ -1,22 +1,22 @@
-<?xml version="1.0"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <ROOT>
   <Race>
     <GravityTolerance>
       <EnvironmentTolerance>
-        <Min>2.70858</Min>
-        <Max>5.41142</Max>
+        <Min>1.5</Min>
+        <Max>8.5</Max>
       </EnvironmentTolerance>
     </GravityTolerance>
     <RadiationTolerance>
       <EnvironmentTolerance>
-        <Min>33.5215</Min>
-        <Max>67.4785</Max>
+        <Min>15</Min>
+        <Max>85</Max>
       </EnvironmentTolerance>
     </RadiationTolerance>
     <TemperatureTolerance>
       <EnvironmentTolerance>
-        <Min>-68.6</Min>
-        <Max>68.6</Max>
+        <Min>-140</Min>
+        <Max>140</Max>
       </EnvironmentTolerance>
     </TemperatureTolerance>
     <Tech>

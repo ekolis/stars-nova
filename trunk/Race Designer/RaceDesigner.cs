@@ -45,7 +45,6 @@ namespace RaceDesigner
       private int AdvantagePoints = 53;   
       private TraitEntry          SelectedRace      = AllTraits.Data.All["JOAT"];
       private bool            ParametersChanged = false;
-      private Race            RaceParameters    = new Race();
 
       //---------------------------------------------------------------------------- 
       //    Designer generated variables
@@ -179,6 +178,22 @@ namespace RaceDesigner
           CurrentRaceIcon = (RaceIcon)AllRaceIcons.Data.IconList[0];
           PictureBox.Image = CurrentRaceIcon.Image;
           IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source);
+
+          // Can't trust the windows designer generate code to set the environment range before setting the environment value, so set it here to be sure.
+          // TODO - put all these literal values somewhere sensible (EnvironmentTolerance object?)
+          TemperatureTolerance.RangeMinimum = -200;
+          TemperatureTolerance.RangeMaximum = 200;
+          TemperatureTolerance.BarLower = -140;
+          TemperatureTolerance.BarUpper = 140;
+          GravityTolerance.RangeMinimum = 0;
+          GravityTolerance.RangeMaximum = 10;
+          GravityTolerance.BarLower = 1.5;
+          GravityTolerance.BarUpper = 8.5;
+          RadiationTolerance.RangeMinimum = 0;
+          RadiationTolerance.RangeMaximum = 100;
+          RadiationTolerance.BarLower = 15;
+          RadiationTolerance.BarUpper = 85;
+
       }
 
       /// <summary>
@@ -208,7 +223,6 @@ namespace RaceDesigner
        /// </summary>
          private void InitializeComponent()
 		{
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RaceDesignerForm));
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -282,16 +296,7 @@ namespace RaceDesigner
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.MaxGrowth = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.RadiationTolerance = new ControlLibrary.Range();
-            this.TemperatureTolerance = new ControlLibrary.Range();
-            this.GravityTolerance = new ControlLibrary.Range();
             this.ResearchTab = new System.Windows.Forms.TabPage();
-            this.BiotechnologyResearch = new ControlLibrary.ResearchCost();
-            this.ElectronicsResearch = new ControlLibrary.ResearchCost();
-            this.ConstructionResearch = new ControlLibrary.ResearchCost();
-            this.PropulsionResearch = new ControlLibrary.ResearchCost();
-            this.WeaponsResearch = new ControlLibrary.ResearchCost();
-            this.EnergyResearch = new ControlLibrary.ResearchCost();
             this.Finish = new System.Windows.Forms.Button();
             this.Exit = new System.Windows.Forms.Button();
             this.MainMenu = new System.Windows.Forms.MenuStrip();
@@ -301,6 +306,15 @@ namespace RaceDesigner
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.RadiationTolerance = new ControlLibrary.Range();
+            this.TemperatureTolerance = new ControlLibrary.Range();
+            this.GravityTolerance = new ControlLibrary.Range();
+            this.BiotechnologyResearch = new ControlLibrary.ResearchCost();
+            this.ElectronicsResearch = new ControlLibrary.ResearchCost();
+            this.ConstructionResearch = new ControlLibrary.ResearchCost();
+            this.PropulsionResearch = new ControlLibrary.ResearchCost();
+            this.WeaponsResearch = new ControlLibrary.ResearchCost();
+            this.EnergyResearch = new ControlLibrary.ResearchCost();
             this.groupBox1.SuspendLayout();
             this.TabConrol.SuspendLayout();
             this.RaceTab.SuspendLayout();
@@ -1227,48 +1241,6 @@ namespace RaceDesigner
             this.label4.TabIndex = 3;
             this.label4.Text = "Maximum Colinists Growth Per Year";
             // 
-            // RadiationTolerance
-            // 
-            this.RadiationTolerance.Location = new System.Drawing.Point(14, 220);
-            this.RadiationTolerance.Name = "RadiationTolerance";
-            this.RadiationTolerance.RangeBarColuor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.RadiationTolerance.RangeMaximum = 85.15;
-            this.RadiationTolerance.RangeMinimum = 15.85;
-            this.RadiationTolerance.RangeTitle = "Radiation";
-            this.RadiationTolerance.RangeUnits = "mR";
-            this.RadiationTolerance.Size = new System.Drawing.Size(324, 95);
-            this.RadiationTolerance.TabIndex = 2;
-            this.RadiationTolerance.Values = ((NovaCommon.EnvironmentTolerance)(resources.GetObject("RadiationTolerance.Values")));
-            this.RadiationTolerance.RangeChanged += new ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
-            // 
-            // TemperatureTolerance
-            // 
-            this.TemperatureTolerance.Location = new System.Drawing.Point(14, 118);
-            this.TemperatureTolerance.Name = "TemperatureTolerance";
-            this.TemperatureTolerance.RangeBarColuor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.TemperatureTolerance.RangeMaximum = 140;
-            this.TemperatureTolerance.RangeMinimum = -140;
-            this.TemperatureTolerance.RangeTitle = "Temperature";
-            this.TemperatureTolerance.RangeUnits = "C";
-            this.TemperatureTolerance.Size = new System.Drawing.Size(324, 95);
-            this.TemperatureTolerance.TabIndex = 1;
-            this.TemperatureTolerance.Values = ((NovaCommon.EnvironmentTolerance)(resources.GetObject("TemperatureTolerance.Values")));
-            this.TemperatureTolerance.RangeChanged += new ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
-            // 
-            // GravityTolerance
-            // 
-            this.GravityTolerance.Location = new System.Drawing.Point(14, 19);
-            this.GravityTolerance.Name = "GravityTolerance";
-            this.GravityTolerance.RangeBarColuor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.GravityTolerance.RangeMaximum = 6.818;
-            this.GravityTolerance.RangeMinimum = 1.302;
-            this.GravityTolerance.RangeTitle = "Gravity";
-            this.GravityTolerance.RangeUnits = "g";
-            this.GravityTolerance.Size = new System.Drawing.Size(324, 95);
-            this.GravityTolerance.TabIndex = 0;
-            this.GravityTolerance.Values = ((NovaCommon.EnvironmentTolerance)(resources.GetObject("GravityTolerance.Values")));
-            this.GravityTolerance.RangeChanged += new ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
-            // 
             // ResearchTab
             // 
             this.ResearchTab.Controls.Add(this.BiotechnologyResearch);
@@ -1282,66 +1254,6 @@ namespace RaceDesigner
             this.ResearchTab.Size = new System.Drawing.Size(392, 392);
             this.ResearchTab.TabIndex = 3;
             this.ResearchTab.Text = "Research";
-            // 
-            // BiotechnologyResearch
-            // 
-            this.BiotechnologyResearch.Cost = 100;
-            this.BiotechnologyResearch.Location = new System.Drawing.Point(193, 259);
-            this.BiotechnologyResearch.Name = "BiotechnologyResearch";
-            this.BiotechnologyResearch.Size = new System.Drawing.Size(200, 128);
-            this.BiotechnologyResearch.TabIndex = 5;
-            this.BiotechnologyResearch.Title = "Biotechnology Research";
-            this.BiotechnologyResearch.SelectionChanged += new ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
-            // 
-            // ElectronicsResearch
-            // 
-            this.ElectronicsResearch.Cost = 100;
-            this.ElectronicsResearch.Location = new System.Drawing.Point(193, 133);
-            this.ElectronicsResearch.Name = "ElectronicsResearch";
-            this.ElectronicsResearch.Size = new System.Drawing.Size(200, 128);
-            this.ElectronicsResearch.TabIndex = 4;
-            this.ElectronicsResearch.Title = "Electronics Research";
-            this.ElectronicsResearch.SelectionChanged += new ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
-            // 
-            // ConstructionResearch
-            // 
-            this.ConstructionResearch.Cost = 100;
-            this.ConstructionResearch.Location = new System.Drawing.Point(193, 9);
-            this.ConstructionResearch.Name = "ConstructionResearch";
-            this.ConstructionResearch.Size = new System.Drawing.Size(200, 128);
-            this.ConstructionResearch.TabIndex = 3;
-            this.ConstructionResearch.Title = "Construction Research";
-            this.ConstructionResearch.SelectionChanged += new ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
-            // 
-            // PropulsionResearch
-            // 
-            this.PropulsionResearch.Cost = 100;
-            this.PropulsionResearch.Location = new System.Drawing.Point(3, 259);
-            this.PropulsionResearch.Name = "PropulsionResearch";
-            this.PropulsionResearch.Size = new System.Drawing.Size(200, 128);
-            this.PropulsionResearch.TabIndex = 2;
-            this.PropulsionResearch.Title = "Propulsion Research";
-            this.PropulsionResearch.SelectionChanged += new ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
-            // 
-            // WeaponsResearch
-            // 
-            this.WeaponsResearch.Cost = 100;
-            this.WeaponsResearch.Location = new System.Drawing.Point(3, 133);
-            this.WeaponsResearch.Name = "WeaponsResearch";
-            this.WeaponsResearch.Size = new System.Drawing.Size(200, 128);
-            this.WeaponsResearch.TabIndex = 1;
-            this.WeaponsResearch.Title = "Weapons Research";
-            this.WeaponsResearch.SelectionChanged += new ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
-            // 
-            // EnergyResearch
-            // 
-            this.EnergyResearch.Cost = 100;
-            this.EnergyResearch.Location = new System.Drawing.Point(3, 9);
-            this.EnergyResearch.Name = "EnergyResearch";
-            this.EnergyResearch.Size = new System.Drawing.Size(200, 128);
-            this.EnergyResearch.TabIndex = 0;
-            this.EnergyResearch.Title = "Energy Research";
-            this.EnergyResearch.SelectionChanged += new ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
             // Finish
             // 
@@ -1420,6 +1332,111 @@ namespace RaceDesigner
             this.OpenFileDialog.FileName = "OpenFileDialog";
             this.OpenFileDialog.Filter = "Race Definition File | *.race";
             this.OpenFileDialog.Title = "Nova - Specify Race Definition File";
+            // 
+            // RadiationTolerance
+            // 
+            this.RadiationTolerance.Location = new System.Drawing.Point(14, 220);
+            this.RadiationTolerance.Name = "RadiationTolerance";
+            this.RadiationTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.RadiationTolerance.RangeMaximum = 100;
+            this.RadiationTolerance.RangeMinimum = 0;
+            this.RadiationTolerance.BarLower = 15;
+            this.RadiationTolerance.BarUpper = 85;
+            this.RadiationTolerance.RangeTitle = "Radiation";
+            this.RadiationTolerance.RangeUnits = "mR";
+            this.RadiationTolerance.Size = new System.Drawing.Size(324, 95);
+            this.RadiationTolerance.TabIndex = 2;
+            this.RadiationTolerance.RangeChanged += new ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
+            // 
+            // TemperatureTolerance
+            // 
+            this.TemperatureTolerance.Location = new System.Drawing.Point(14, 118);
+            this.TemperatureTolerance.Name = "TemperatureTolerance";
+            this.TemperatureTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.TemperatureTolerance.RangeMaximum = 200;
+            this.TemperatureTolerance.RangeMinimum = -200;
+            this.TemperatureTolerance.BarLower = -140;
+            this.TemperatureTolerance.BarUpper = 140;
+            this.TemperatureTolerance.RangeTitle = "Temperature";
+            this.TemperatureTolerance.RangeUnits = "C";
+            this.TemperatureTolerance.Size = new System.Drawing.Size(324, 95);
+            this.TemperatureTolerance.TabIndex = 1;
+            this.TemperatureTolerance.RangeChanged += new ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
+            // 
+            // GravityTolerance
+            // 
+            this.GravityTolerance.Location = new System.Drawing.Point(14, 19);
+            this.GravityTolerance.Name = "GravityTolerance";
+            this.GravityTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.GravityTolerance.RangeMaximum = 10;
+            this.GravityTolerance.RangeMinimum = 0;
+            this.GravityTolerance.BarLower = 1.5;
+            this.GravityTolerance.BarUpper = 8.5;
+            this.GravityTolerance.RangeTitle = "Gravity";
+            this.GravityTolerance.RangeUnits = "g";
+            this.GravityTolerance.Size = new System.Drawing.Size(324, 95);
+            this.GravityTolerance.TabIndex = 0;
+            this.GravityTolerance.RangeChanged += new ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
+            // 
+            // BiotechnologyResearch
+            // 
+            this.BiotechnologyResearch.Cost = 100;
+            this.BiotechnologyResearch.Location = new System.Drawing.Point(193, 259);
+            this.BiotechnologyResearch.Name = "BiotechnologyResearch";
+            this.BiotechnologyResearch.Size = new System.Drawing.Size(200, 128);
+            this.BiotechnologyResearch.TabIndex = 5;
+            this.BiotechnologyResearch.Title = "Biotechnology Research";
+            this.BiotechnologyResearch.SelectionChanged += new ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
+            // 
+            // ElectronicsResearch
+            // 
+            this.ElectronicsResearch.Cost = 100;
+            this.ElectronicsResearch.Location = new System.Drawing.Point(193, 133);
+            this.ElectronicsResearch.Name = "ElectronicsResearch";
+            this.ElectronicsResearch.Size = new System.Drawing.Size(200, 128);
+            this.ElectronicsResearch.TabIndex = 4;
+            this.ElectronicsResearch.Title = "Electronics Research";
+            this.ElectronicsResearch.SelectionChanged += new ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
+            // 
+            // ConstructionResearch
+            // 
+            this.ConstructionResearch.Cost = 100;
+            this.ConstructionResearch.Location = new System.Drawing.Point(193, 9);
+            this.ConstructionResearch.Name = "ConstructionResearch";
+            this.ConstructionResearch.Size = new System.Drawing.Size(200, 128);
+            this.ConstructionResearch.TabIndex = 3;
+            this.ConstructionResearch.Title = "Construction Research";
+            this.ConstructionResearch.SelectionChanged += new ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
+            // 
+            // PropulsionResearch
+            // 
+            this.PropulsionResearch.Cost = 100;
+            this.PropulsionResearch.Location = new System.Drawing.Point(3, 259);
+            this.PropulsionResearch.Name = "PropulsionResearch";
+            this.PropulsionResearch.Size = new System.Drawing.Size(200, 128);
+            this.PropulsionResearch.TabIndex = 2;
+            this.PropulsionResearch.Title = "Propulsion Research";
+            this.PropulsionResearch.SelectionChanged += new ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
+            // 
+            // WeaponsResearch
+            // 
+            this.WeaponsResearch.Cost = 100;
+            this.WeaponsResearch.Location = new System.Drawing.Point(3, 133);
+            this.WeaponsResearch.Name = "WeaponsResearch";
+            this.WeaponsResearch.Size = new System.Drawing.Size(200, 128);
+            this.WeaponsResearch.TabIndex = 1;
+            this.WeaponsResearch.Title = "Weapons Research";
+            this.WeaponsResearch.SelectionChanged += new ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
+            // 
+            // EnergyResearch
+            // 
+            this.EnergyResearch.Cost = 100;
+            this.EnergyResearch.Location = new System.Drawing.Point(3, 9);
+            this.EnergyResearch.Name = "EnergyResearch";
+            this.EnergyResearch.Size = new System.Drawing.Size(200, 128);
+            this.EnergyResearch.TabIndex = 0;
+            this.EnergyResearch.Title = "Energy Research";
+            this.EnergyResearch.SelectionChanged += new ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
             // RaceDesignerForm
             // 
@@ -1536,8 +1553,9 @@ namespace RaceDesigner
          {
              CheckBox checkBox = (CheckBox)sender;
 
-             foreach (TraitEntry trait in AllTraits.Data.Secondary)
+             foreach (DictionaryEntry de in AllTraits.Data.Secondary)
              {
+                 TraitEntry trait = de.Value as TraitEntry;
                  if (trait.Code == checkBox.Tag.ToString())
                  {
 
@@ -1633,6 +1651,7 @@ namespace RaceDesigner
                                              int oldLeftPos,
                                              int oldRightPos)
          {
+
              AdvantagePoints -= Utilities.BarWidthCost(oldLeftPos, oldRightPos);
              AdvantagePoints += Utilities.BarWidthCost(newLeftPos, newRightPos);
 
@@ -1704,7 +1723,8 @@ namespace RaceDesigner
                               "are case-sensitive.");
                  return;
              }
-
+             
+             Race            RaceParameters    = new Race();
              RaceParameters.Traits.SetPrimary(SelectedRace);
              RaceParameters.Name = RaceName.Text;
              RaceParameters.PluralName = PluralRaceName.Text;
@@ -1718,7 +1738,6 @@ namespace RaceDesigner
              // ----------------------------------------------------------------------------
              // Secondary Racial Traits
              // ----------------------------------------------------------------------------
-             RaceParameters.Traits = new RacialTraits();
              if (ImprovedFuelEfficiency.Checked) RaceParameters.Traits.Add("IFE");
              if (NoRAMEngines.Checked) RaceParameters.Traits.Add("NRS");
              if (TotalTerraforming.Checked) RaceParameters.Traits.Add("TT");
@@ -1751,9 +1770,9 @@ namespace RaceDesigner
              // Environmental Tolerance
              // ----------------------------------------------------------------------------
 
-             RaceParameters.GravityTolerance = GravityTolerance.Values;
-             RaceParameters.RadiationTolerance = RadiationTolerance.Values;
-             RaceParameters.TemperatureTolerance = TemperatureTolerance.Values;
+             RaceParameters.GravityTolerance = GravityTolerance.EnvironmentValues;
+             RaceParameters.RadiationTolerance = RadiationTolerance.EnvironmentValues;
+             RaceParameters.TemperatureTolerance = TemperatureTolerance.EnvironmentValues;
              RaceParameters.GrowthRate = (double)MaxGrowth.Value;
 
              // ----------------------------------------------------------------------------
@@ -1922,24 +1941,23 @@ namespace RaceDesigner
 
              string fileName = OpenFileDialog.FileName;
 
-             Race raceData;
+             Race RaceParameters;
              try
              {
-                 raceData = new Race(fileName);
+                 RaceParameters = new Race(fileName);
 
                  // TODO (priority 4) - This level of security is not good enough as the race is stored un-encrypted.
                  ControlLibrary.CheckPassword password =
-                    new ControlLibrary.CheckPassword(raceData);
+                    new ControlLibrary.CheckPassword(RaceParameters);
 
                  password.ShowDialog();
                  if (password.DialogResult == DialogResult.OK)
                  {
-                     RaceParameters = raceData;
-                     reloadRace();
-                     reloadSecondaryTraits();
-                     reloadBuildCosts();
-                     reloadEnvironmentalTolerance();
-                     reloadResearchCosts();
+                     reloadRace(RaceParameters);
+                     reloadSecondaryTraits(RaceParameters);
+                     reloadBuildCosts(RaceParameters);
+                     reloadEnvironmentalTolerance(RaceParameters);
+                     reloadResearchCosts(RaceParameters);
                  }
 
                  password.Dispose();
@@ -1955,7 +1973,7 @@ namespace RaceDesigner
          /// Brute force and ignorance reload of a file. There must be a bettter way of
          /// doing this.
          /// </summary>
-         void reloadRace()
+         void reloadRace(Race RaceParameters)
          {
 
              SelectedRace = RaceParameters.Traits.Primary;
@@ -2000,7 +2018,7 @@ namespace RaceDesigner
          /// <summary>
          /// Reload seconday traits
          /// </summary>
-         void reloadSecondaryTraits()
+         void reloadSecondaryTraits(Race RaceParameters)
          {
              ImprovedFuelEfficiency.Checked  = RaceParameters.Traits.Contains("IFE");
              NoRAMEngines.Checked            = RaceParameters.Traits.Contains("NRS");
@@ -2023,7 +2041,7 @@ namespace RaceDesigner
          /// <summary>
          /// Reload build cost parameters
          /// </summary>
-         void reloadBuildCosts()
+         void reloadBuildCosts(Race RaceParameters)
          {
              ColonistProduction.Value  = (decimal)RaceParameters.ColonistsPerResource;
              OperableFactories.Value   = (decimal)RaceParameters.OperableFactories;
@@ -2038,11 +2056,12 @@ namespace RaceDesigner
          /// <summary>
          /// Reload Environmental Tolerance
          /// </summary>
-         void reloadEnvironmentalTolerance()
+         void reloadEnvironmentalTolerance(Race RaceParameters)
          {
-             GravityTolerance.Values      = RaceParameters.GravityTolerance;
-             RadiationTolerance.Values    = RaceParameters.RadiationTolerance;
-             TemperatureTolerance.Values  = RaceParameters.TemperatureTolerance;
+
+             GravityTolerance.EnvironmentValues = RaceParameters.GravityTolerance;
+             RadiationTolerance.EnvironmentValues = RaceParameters.RadiationTolerance;
+             TemperatureTolerance.EnvironmentValues = RaceParameters.TemperatureTolerance;
              MaxGrowth.Value              = (decimal)RaceParameters.GrowthRate;
          }
 
@@ -2050,7 +2069,7 @@ namespace RaceDesigner
          /// <summary>
          /// Reload Research Costs
          /// </summary>
-         void reloadResearchCosts()
+         void reloadResearchCosts(Race RaceParameters)
          {
              Hashtable researchCosts     = RaceParameters.ResearchCosts.TechValues;
 

@@ -49,39 +49,39 @@
           <Germanium>0</Germanium>
           <Energy>0</Energy>
         </Resource>
-        <Name>Sherman</Name>
+        <Name>Scorpius</Name>
         <Owner>Humanoid</Owner>
         <Position>
-          <X>117</X>
-          <Y>339</Y>
+          <X>138</X>
+          <Y>322</Y>
         </Position>
       </Item>
       <ProductionQueue />
       <MineralConcentration>
         <Resource>
-          <Boranium>77.951328</Boranium>
-          <Ironium>71.958528</Ironium>
-          <Germanium>78.950072</Germanium>
+          <Boranium>66.964088</Boranium>
+          <Ironium>60.970232</Ironium>
+          <Germanium>67.963008</Germanium>
           <Energy>0</Energy>
         </Resource>
       </MineralConcentration>
       <ResourcesOnHand>
         <Resource>
-          <Boranium>309.8</Boranium>
-          <Ironium>430.2</Ironium>
-          <Germanium>348.9</Germanium>
-          <Energy>126.704</Energy>
+          <Boranium>485.7</Boranium>
+          <Ironium>366.1</Ironium>
+          <Germanium>340.8</Germanium>
+          <Energy>126.75</Energy>
         </Resource>
       </ResourcesOnHand>
       <ThisRace>Humanoid</ThisRace>
-      <Colonists>28704</Colonists>
+      <Colonists>28750</Colonists>
       <Factories>10</Factories>
       <Mines>10</Mines>
       <ResearchAllocation>12</ResearchAllocation>
       <ScanRange>50</ScanRange>
       <DefenseType>SDI</DefenseType>
       <ScannerType>Scoper 150</ScannerType>
-      <Gravity>40</Gravity>
+      <Gravity>50</Gravity>
       <Radiation>50</Radiation>
       <Temperature>50</Temperature>
     </Star>
