@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows.Forms;
 
 namespace NovaCommon
 {
@@ -60,6 +61,11 @@ namespace NovaCommon
         {
             get;
         }
+
+        /// <summary>
+        /// This property is used to indicate if the operation being progressed was successful.
+        /// </summary>
+        bool Success { get; set; }
 
         /// <summary>
         /// Call this method from the worker thread to finalize the progress meter

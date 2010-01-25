@@ -49,27 +49,27 @@
           <Germanium>0</Germanium>
           <Energy>0</Energy>
         </Resource>
-        <Name>Scorpius</Name>
+        <Name>Rye</Name>
         <Owner>Humanoid</Owner>
         <Position>
-          <X>138</X>
-          <Y>322</Y>
+          <X>17</X>
+          <Y>288</Y>
         </Position>
       </Item>
       <ProductionQueue />
       <MineralConcentration>
         <Resource>
-          <Boranium>66.964088</Boranium>
-          <Ironium>60.970232</Ironium>
-          <Germanium>67.963008</Germanium>
+          <Boranium>91.932288</Boranium>
+          <Ironium>59.9712</Ironium>
+          <Germanium>65.965152</Germanium>
           <Energy>0</Energy>
         </Resource>
       </MineralConcentration>
       <ResourcesOnHand>
         <Resource>
-          <Boranium>485.7</Boranium>
-          <Ironium>366.1</Ironium>
-          <Germanium>340.8</Germanium>
+          <Boranium>428.2</Boranium>
+          <Ironium>484</Ironium>
+          <Germanium>366.6</Germanium>
           <Energy>126.75</Energy>
         </Resource>
       </ResourcesOnHand>
