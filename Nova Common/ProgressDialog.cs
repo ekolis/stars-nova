@@ -19,6 +19,8 @@ namespace NovaCommon
 		private System.Threading.ManualResetEvent initEvent = new System.Threading.ManualResetEvent(false);
 		private System.Threading.ManualResetEvent abortEvent = new System.Threading.ManualResetEvent(false);
 		private bool requiresClose = true;
+        private bool OpSuccess = false; // shadow for property Success
+
 
         public ProgressDialog()
 		{
@@ -26,7 +28,7 @@ namespace NovaCommon
 			// Required for Windows Form Designer support
 			//
 			InitializeComponent();
-		}
+        }
 
 		#region Implementation of IProgressCallback
 		/// <summary>
@@ -102,12 +104,24 @@ namespace NovaCommon
 			}
 		}
 
+        public bool Success
+        {
+            get
+            {
+                return OpSuccess;
+            }
+            set
+            {
+                OpSuccess = value;
+            }
+        }
+
 		/// <summary>
 		/// Call this method from the worker thread to finalize the progress meter
 		/// </summary>
 		public void End()
 		{
-			if( requiresClose )
+			if ( requiresClose )
 			{
 				Invoke( new MethodInvoker( DoEnd ) );
 			}
@@ -198,6 +212,7 @@ namespace NovaCommon
 			AbortWork();
 			base.OnClosing( e );
 		}
+
 		#endregion
 		
 		#region Implementation Utilities

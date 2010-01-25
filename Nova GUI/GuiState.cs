@@ -151,9 +151,13 @@ namespace Nova
               GuiState.Restore(gameFolder, GuiState.Data.RaceName);
           }
 
-          if (AllComponents.Restore() == false)
+          try
           {
-              Report.FatalError("Could not find component definition file.");
+              AllComponents.Restore();
+          }
+          catch
+          {
+              Report.FatalError("Could not restore component definition file.");
           }
 
           if (GuiState.Data.FirstTurn)

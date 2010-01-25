@@ -84,15 +84,12 @@ namespace NovaCommon
          }
       }
 
-      private void DoSomeWork(object status)
+      private void LoadComponents(object status)
       {
           IProgressCallback callback = status as IProgressCallback;
 
-
           try
           {
-
-
 
               // blank the component data
               AllComponents.Data = new AllComponents();
@@ -107,17 +104,9 @@ namespace NovaCommon
 
               XmlNode xmlnode = (XmlNode)xmldoc.DocumentElement;
 
-
-
+              int nodesLoaded = 0;
               while (xmlnode != null)
               {
-                  int nodesLoaded = 0;
-
-                  if (callback.IsAborting)
-                  {
-                      return;
-                  }
-
 
                   // Report.Information("node name = '" + xmlnode.Name + "'");
                   if (xmlnode.Name == "ROOT")
@@ -131,25 +120,24 @@ namespace NovaCommon
                       ++nodesLoaded;
                       callback.SetText(String.Format("Loading component: {0}", nodesLoaded));
                       callback.StepTo(nodesLoaded);
-
                       NovaCommon.Component newComponent = new Component(xmlnode);
                       AllComponents.Data.Components[newComponent.Name] = newComponent;
                       xmlnode = xmlnode.NextSibling;
-
-                      //System.Threading.Thread.Sleep(10);
                   }
                   else
                   {
                       xmlnode = xmlnode.NextSibling;
                   }
 
+                  // check for user Cancel
                   if (callback.IsAborting)
                   {
                       return;
                   }
 
-                  //result = true; // looks like we made it
-              }
+              }//while loading nodes
+              callback.Success = true;
+
           }
           catch (System.Threading.ThreadAbortException)
           {
@@ -178,27 +166,27 @@ namespace NovaCommon
 
 // ============================================================================
 // Restore the data. 
+       
 // ============================================================================
 
-      public static bool Restore()
+       /// <summary>
+       /// Resotre the component definitions.
+       /// </summary>
+      /// <exception cref="System.Data.OperationAbortedException">The loading of the component definition was aborted.</exception>
+      public static void Restore()
       {
-          bool result = false;
           GetPath();
           if (SaveFilePath == null || SaveFilePath == "?" || SaveFilePath == "")
           {
-              return false;
+              throw new System.Exception();
           }
           else
           {
-              
               ProgressDialog progress = new ProgressDialog();
               progress.Text = "Work";
-              System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(AllComponents.Data.DoSomeWork), progress);
+              System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(AllComponents.Data.LoadComponents), progress);
               progress.ShowDialog();
-             
-
-              //return result;
-              return true; //FIXME need to get a result for the worker thread.
+              if (!progress.Success) throw new System.Exception();
           }
       }
 

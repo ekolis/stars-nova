@@ -117,7 +117,7 @@ namespace ComponentEditor
            String temp = AllComponents.Graphics; // force program to ask for the graphics path if not already defined.
 
            // Tidy up the tab control:
-           // Incase I forget to shrink it to fit when adding controls.
+           // In case I forget to shrink it to fit when adding controls.
            PropertyTabs.Width = 479; 
            // Start showing no property tabs, until some property is loaded.
            PropertyTabs.TabPages.Clear();
@@ -1250,19 +1250,33 @@ namespace ComponentEditor
           if (result == DialogResult.OK)
           {
               AllComponents.ComponentFile = fd.FileName;
-              AllComponents.Restore();
+              try
+              {
+                  AllComponents.Restore();
+                  PropertyTabs.TabPages.Clear();
 
-              PropertyTabs.TabPages.Clear();
-
-              // start with something showing
-              ComponentType.Text = "Armor";
-              UpdateListBox("Armor");
-              if (ComponentList.Items.Count > 0)
-                ComponentList.SelectedIndex = 0; // pick the first item in the list
-              FileDirty = false;
-              ComponentDirty = false;
-              EditModeOff();
-              UpdateTitleBar();
+                  // start with something showing
+                  ComponentType.Text = "Armor";
+                  UpdateListBox("Armor");
+                  if (ComponentList.Items.Count > 0)
+                      ComponentList.SelectedIndex = 0; // pick the first item in the list
+                  FileDirty = false;
+                  ComponentDirty = false;
+                  EditModeOff();
+                  UpdateTitleBar();
+              }
+              catch
+              {
+                  Report.Error("There was an error loading the component definition file. Current component definitions have been cleared.");
+                  // If there were any problems restoring the components we may have a partial list of components
+                  AllComponents.Data.Components.Clear();
+                  PropertyTabs.TabPages.Clear();
+                  FileDirty = false;
+                  ComponentDirty = false;
+                  EditModeOff();
+                  UpdateTitleBar();
+                  ComponentList.Items.Clear();
+              }
 
           }
 
