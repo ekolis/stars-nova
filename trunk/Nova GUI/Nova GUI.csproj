@@ -238,7 +238,6 @@
       <DependentUpon>ResearchDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="QueueList.cs" />
-    <Compile Include="RaceComponents.cs" />
     <Compile Include="Research.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>

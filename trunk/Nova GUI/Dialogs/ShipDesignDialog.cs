@@ -28,7 +28,6 @@ namespace Nova
       private GuiState     StateData           = null;   
       private Hashtable    AllComponents       = null;
       private Hashtable    AllDesigns          = null;
-      private Hashtable    AvailableComponents = new Hashtable();
       private Hashtable    ImageIndices        = new Hashtable();
       private NovaCommon.Component SelectedHull = null;
       
@@ -103,16 +102,16 @@ namespace Nova
           ComponentImages.ImageSize = new Size(64, 64);
           ComponentImages.ColorDepth = ColorDepth.Depth32Bit;
 
-          DetermineAvailableComponents();
+          PopulateComponentList();
           TreeView.ExpandAll();
 
           // Populate the combo-box control with the available hulls, select the
           // first one in the list as the default. Also, make the default design
           // name the same as the hull name as a first guess. 
           HullList.Items.Clear();
-          foreach (Component component in AvailableComponents.Values)
+          foreach (Component component in StateData.AvailableComponents.Values)
           {
-              if (component.Properties.ContainsKey("Hull") && component.CheckAvailability(StateData.PlayerRace))
+              if (component.Properties.ContainsKey("Hull"))
               {
                   HullList.Items.Add(component.Name);
               }
@@ -122,7 +121,7 @@ namespace Nova
           {
               HullList.SelectedIndex = 0;
               string selectedHullName = HullList.SelectedItem as string;
-              SelectedHull = AvailableComponents[selectedHullName] as NovaCommon.Component;
+              SelectedHull = StateData.AvailableComponents[selectedHullName];
               SelectedHull.Name = selectedHullName;
               UpdateHullFields();
               SaveButton.Enabled = true;
@@ -135,7 +134,7 @@ namespace Nova
           // Populate the tree view control from the AvailableComponents
           ArrayList techList = new ArrayList();
 
-          foreach (Component component in AvailableComponents.Values)
+          foreach (Component component in StateData.AvailableComponents.Values)
           {
               if (component.Type.Contains("Planetary")) continue;
               if (component.Type.Contains("Defenses")) continue;
@@ -828,16 +827,15 @@ namespace Nova
 // Build a table of components available. Note that some components are only
 // availble if certain racial traits are selected,
 // ============================================================================
-      private void DetermineAvailableComponents()
+      private void PopulateComponentList()
       {
          int index = 0;
 
-         foreach (Component component in GuiState.Data.AvailableComponents.Values)
+         foreach (Component component in StateData.AvailableComponents.Values)
          {
              // TODO (priority 1) - work out why it sometimes is null.
              if (component != null)
              {
-                 AvailableComponents[component.Name] = component;
                  ImageIndices[component.Name] = index;
                  ComponentImages.Images.Add(component.ComponentImage);
                  index++;
@@ -929,16 +927,9 @@ namespace Nova
 
          ListView.LargeImageList = ComponentImages;
 
-         foreach (Component component in AvailableComponents.Values) 
+         foreach (Component component in StateData.AvailableComponents.Values) 
          {
-            bool addToList = false;
-
             if (component.Type == nodeType) 
-            {
-               addToList = component.CheckAvailability(GuiState.Data.PlayerRace);
-            }
-
-            if (addToList == true) 
             {
                ListViewItem item = new ListViewItem();
                item.Text         = component.Name;
@@ -1048,7 +1039,7 @@ namespace Nova
          string selectedHullName = HullList.SelectedItem as string;
 
          DesignName.Text   = selectedHullName;
-         NovaCommon.Component hull = AvailableComponents[selectedHullName] as NovaCommon.Component;
+         NovaCommon.Component hull = StateData.AvailableComponents[selectedHullName];
          SelectedHull = new NovaCommon.Component(hull);
          SelectedHull.Name = selectedHullName;
 

@@ -88,6 +88,7 @@ namespace NovaCommon
       /// <param name="race">The race to test for availability.</param>
       /// <returns>true if the component is available to this race.</returns>
       /// ============================================================================
+      /* TODO delete (commented out for refactoring)
       public bool CheckAvailability(Race race)
       {
           foreach (String trait in AllTraits.TraitKeys)
@@ -99,6 +100,7 @@ namespace NovaCommon
           }
           return true;
       }
+       */
 
 // ============================================================================
 // Construction from an Xml node
