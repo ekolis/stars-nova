@@ -23,12 +23,20 @@ namespace NovaCommon
    [Serializable]
    public class TechLevel
    {
-      public Hashtable TechValues = new Hashtable();
 
+      public enum ResearchField { Biotechnology, Electronics, Energy, Propulsion, Weapons, Construction };
+
+//----------------------------------------------------------------------------
+
+       // TODO (priority 3) - Make these members private to hide the 
+       // implementaion of the hashtable and force access through the enums, 
+       // in order to prevent errors due to using string literals (e.g. "Biotech" vs "Biotechnology")
+      public Hashtable TechValues = new Hashtable();
+      // used for internal access to the Hashtable
       public static string[] ResearchKeys = {
          "Biotechnology", "Electronics", "Energy", 
          "Propulsion",    "Weapons",     "Construction" };
-      
+
 
 //============================================================================
 // Default Constructor
@@ -41,14 +49,7 @@ namespace NovaCommon
          }
       }
 
-//============================================================================
-// Default Constructor
-//============================================================================
 
-      public void SetIndividualTechLevel(string strTechName, int iLevel)
-      {
-            TechValues[strTechName] = iLevel;
-      }
 
 //============================================================================
 // Constructor setting all levels to a specified value
@@ -70,6 +71,8 @@ namespace NovaCommon
       {
          TechValues = copy.TechValues.Clone() as Hashtable;
       }
+
+
 
 // ============================================================================
 // Initialising Constructor from an xml node.
@@ -100,6 +103,24 @@ namespace NovaCommon
           }
       }
 
+      /// <summary>
+      /// Provide a new TechLevel instance which is a copy of the current instance.
+      /// </summary>
+      /// <returns></returns>
+      public TechLevel Copy()
+      {
+          return new TechLevel(this);
+      }
+
+      /// <summary>
+      /// Set the level of an individual technology, without affecting the others.
+      /// </summary>
+      /// <param name="strTechName">The technology that is to be changed.</param>
+      /// <param name="iLevel">The new level for that technology.</param>
+      public void SetIndividualTechLevel(string strTechName, int iLevel)
+      {
+          TechValues[strTechName] = iLevel;
+      }
 
 //============================================================================
 // See if a TechLevel set is greater than, or equal to, another.

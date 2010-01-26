@@ -52,7 +52,7 @@ namespace Nova
       public Hashtable    KnownEnemyDesigns        = new Hashtable();
       public Hashtable    PlayerRelations          = new Hashtable();
       public Hashtable    StarReports              = new Hashtable();
-      public Hashtable    AvailableComponents      = new Hashtable();
+      public RaceComponents AvailableComponents = null;
       public List<Fleet>  PlayerFleets             = new List<Fleet>();
       public List<Star>   PlayerStars              = new List<Star>();
       public Race         PlayerRace               = new Race(); 
@@ -74,6 +74,7 @@ namespace Nova
       private static GuiState        Instance      = null;
       private static BinaryFormatter Formatter     = new BinaryFormatter();
       private static string          StatePathName = null;
+      private static AllComponents   ComponentData = AllComponents.Data;
 
 
 // ============================================================================
@@ -242,7 +243,7 @@ namespace Nova
       // Read the race definition file into the persistent data store. If this is the
       // very first turn of a new game then process it's content to set up initial
       // race parameters (e.g. initial technology levels, etc.).
-      // FIXME - this is unsafe as the .race file may have changed since the game was
+      // FIXME (priority 4) - this is unsafe as the .race file may have changed since the game was
       // generated. Current thinking is that this should be included in the .Intel file
       // every turn. -- Dan Vale 10 Jan 10.
       // ============================================================================
@@ -260,77 +261,78 @@ namespace Nova
           ProcessSecondaryTraits();
       }
 
-
-      // ============================================================================
-      // Determine the components available to this race according to the starting
-      // tech levels. Race-specific adjustments will be made in ProcessPrimaryTraits.
-      // This processing is only performed once per game.
-      // ============================================================================
-
-      public static void DetermineAvailableComponents()
-      {
-          foreach (NovaCommon.Component component in
-                   AllComponents.Data.Components.Values)
-          {
-              if (GuiState.Data.ResearchLevel >= component.RequiredTech)
-              {
-                  RaceComponents.Add(component, false);
-              }
-          }
-      }
-
-
-      // ============================================================================
-      // ReadIntel the Primary Traits for this race.
-      // ============================================================================
-
+       /// <summary>
+       /// Process the Primary Traits for this race.
+       /// </summary>
       private static void ProcessPrimaryTraits()
       {
-          switch (GuiState.Data.PlayerRace.Traits.Primary.Name)
-          {
-              case "JackOfAllTrades":
-                  GuiState.Data.ResearchLevel = new TechLevel(3);//set all to 3
-                  //GuiState.Data.ResearchLevel = new TechLevel(26); //set all to 26
-                  //AddComponent("Chameleon Scanner");//obsolete but will be rejected now...
-                  break;
-
-              case "HyperExpansion":
-                  //GuiState.Data.ResearchLevel = new TechLevel(26);
-                  GuiState.Data.ResearchLevel = new TechLevel(1); // set all to 1
-                  AddComponent("Settler's Delight");
-                  AddComponent("Mini-Colony Ship");
-                  break;
-          }
 #if (DEBUG)
           // Just for testing
+          // TODO (priority 3) get this from a settings file, or other central location for convenience.
           GuiState.Data.ResearchLevel = new TechLevel(26);
 #endif
 
-          DetermineAvailableComponents();
-      }
+          // TODO (priority 3) Special Components
+          // Races are granted access to components currently based on tech level and primary/secondary traits.
+          // Need to grant special access in a few circumstances
+          // 1. JOAT Hulls with pen scans. (either make a different hull with a built in pen scan, of the same name and layout; or modify scanning and scan display functions)
+          // 2. Mystery Trader Items - probably need to implement the idea of 'hidden' technology to cover this.
 
+          // TODO (priority 4) Starting Tech
+          // Need to specify starting tech levels. These must be checked by the server/console.
 
-      // ============================================================================
-      // Add a named component, will now check if it exists
-      // ============================================================================
+          // TODO (priority 4) Implement Starting Items
 
-      private static void AddComponent(string componentName)
-      {
-          if (ComponentExists(componentName))
+          // TODO (priority 4) Unfinished. Want to refactor TechLevel to avoid the use of string literals for access. See comments in TechLevel - Dan 26 Jan 10
+          GuiState.Data.ResearchLevel = new TechLevel(3);
+          /*
+          switch (GuiState.Data.PlayerRace.Traits.Primary.Code)
           {
-              GuiState.Data.AvailableComponents[componentName] = AllComponents.Data.Components[componentName];
+              case "HE":
+                  // Start with one armed scout + 3 mini-colony ships
+              break;
+              case "SS":
+              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Electronics", 5);
+                  // Start with one scout + one colony ship.
+              break;
+              case "WM":
+              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Weapons", 5);
+              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Propulsion", 1);
+              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Energy", 1);
+                  // Start with one armed scout + one colony ship.
+              break;
+              case "CA":
+              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Weapons", 1);
+              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Propulsion", 1);
+              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Energy", 1);
+              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Biotech", 6);
+
+              break;
+              case "IS":
+              break;
+              case "SD":
+              break;
+              case "PP":
+              break;
+              case "IT":
+              break;
+              case "AR":
+              break; 
+              case "JOAT":
+              break;
+              default:
+              Report.Error("GuiState.cs - ProcessPrimaryTraits() - Unknown Primary Trait \"" + GuiState.Data.PlayerRace.Traits.Primary.Code + "\"");
+              break;
           }
+          */
+
+          if (GuiState.Data.AvailableComponents == null)
+              GuiState.Data.AvailableComponents = new RaceComponents(GuiState.Data.PlayerRace, GuiState.Data.ResearchLevel);
           else
-          {
-              string s = "Error: The " + componentName + " component does not exist!";
-              MessageBox.Show(s);
-          }
+              GuiState.Data.AvailableComponents.DetermineRaceComponents(GuiState.Data.PlayerRace, GuiState.Data.ResearchLevel);
       }
 
-      private static bool ComponentExists(string componentName)
-      {
-          return AllComponents.Data.Components.ContainsKey(componentName);
-      }
+
 
       // ============================================================================
       // Read the Secondary Traits for this race.
@@ -338,6 +340,8 @@ namespace Nova
 
       private static void ProcessSecondaryTraits()
       {
+          // TODO (priority 3) finish the rest of the LRTs.
+
           if (GuiState.Data.PlayerRace.Traits.Contains("IFE"))
           {
               int level = (int)GuiState.Data.ResearchLevel.TechValues["Propulsion"];

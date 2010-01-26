@@ -84,6 +84,28 @@ namespace NovaCommon
          }
       }
 
+
+
+      /// <summary>
+      /// Check if AllComponents contains a particular Component.
+      /// </summary>
+      /// <param name="ComponentName">The Name of the Component to look for.</param>
+      /// <returns></returns>
+      public bool Contains(String ComponentName)
+      {
+          return Data.Components.ContainsKey(ComponentName);
+      }
+
+      /// <summary>
+      /// Check if AllComponents contains a particular Component.
+      /// </summary>
+      /// <param name="Component">The Component to look for.</param>
+      /// <returns></returns>
+      public bool Contains(Component component)
+      {
+          return Data.Components.ContainsValue(component);
+      }
+
       private void LoadComponents(object status)
       {
           IProgressCallback callback = status as IProgressCallback;

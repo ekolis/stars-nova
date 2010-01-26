@@ -49,7 +49,7 @@ namespace Nova
 
 
 // ============================================================================
-// ReadIntel Messages
+// Process Messages
 //
 // Run through the full list of messages and populate the message store in the
 // state data with the messages relevant to the player's selected race. The
@@ -90,7 +90,7 @@ namespace Nova
 
 
 // ============================================================================
-// ReadIntel Reports
+// Process Reports
 //
 // Advance the age of all star reports by one year. Then, if a star is owned by
 // us and has colonists bring the report up to date (just by creating a new
@@ -111,10 +111,9 @@ namespace Nova
       }
 
 
-// ============================================================================
-// ReadIntel Fleet Reports
-// ============================================================================
-
+      /// <summary>
+      ///  Process Fleet Reports
+      /// </summary>
       private static void ProcessFleets()
       {
          foreach (Fleet fleet in StateData.PlayerFleets) {
@@ -134,33 +133,37 @@ namespace Nova
             }
          }
       }
-      
 
-// ============================================================================
-// ReadIntel Research
-//
-// Do the research for this year. Research is performed locally once per turn.
-// ============================================================================
 
+      /// <summary>
+      /// Do the research for this year. Research is performed locally once per turn.
+      /// </summary>
+      /// <remarks>
+      /// FIXME (priority 4) Console should determine the results of research and tell
+      /// the Nova GUI, not the other way around.      
+      /// </remarks>
       private static void ProcessResearch()
       {
-         string area      = StateData.ResearchTopic;
-         int areaResource = (int) StateData.ResearchResources.TechValues[area];
-         int areaLevel    = (int) StateData.ResearchLevel.TechValues[area];
-         areaResource    += (int) StateData.ResearchAllocation;
+          string area = StateData.ResearchTopic;
+          int areaResource = (int)StateData.ResearchResources.TechValues[area];
+          int areaLevel = (int)StateData.ResearchLevel.TechValues[area];
+          areaResource += (int)StateData.ResearchAllocation;
 
-         StateData.ResearchAllocation                 = 0;
-         StateData.ResearchResources.TechValues[area] = areaResource;
+          StateData.ResearchAllocation = 0;
+          StateData.ResearchResources.TechValues[area] = areaResource;
 
-         while (true) {
-            if (areaResource >= Research.Cost(areaLevel + 1)) {
-               areaLevel++;
-               ReportLevelUpdate(area, areaLevel);
-            }
-            else {
-               break;
-            }
-         }
+          while (true)
+          {
+              if (areaResource >= Research.Cost(areaLevel + 1))
+              {
+                  areaLevel++;
+                  ReportLevelUpdate(area, areaLevel);
+              }
+              else
+              {
+                  break;
+              }
+          }
       }
 
 
@@ -188,7 +191,11 @@ namespace Nova
                   component.RequiredTech <= newResearchLevel)
               {
 
-                  RaceComponents.Add(component, true);
+                  GuiState.Data.AvailableComponents.Add(component);
+                  Message newComponentMessage =
+                      new Message(GuiState.Data.RaceName, null, "You now have available the "
+                      + component.Name + " " + component.Type + " component");
+                  GuiState.Data.Messages.Add(newComponentMessage);
               }
           }
 

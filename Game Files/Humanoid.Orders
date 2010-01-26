@@ -49,27 +49,27 @@
           <Germanium>0</Germanium>
           <Energy>0</Energy>
         </Resource>
-        <Name>Rye</Name>
+        <Name>Angst</Name>
         <Owner>Humanoid</Owner>
         <Position>
-          <X>17</X>
-          <Y>288</Y>
+          <X>169</X>
+          <Y>27</Y>
         </Position>
       </Item>
       <ProductionQueue />
       <MineralConcentration>
         <Resource>
-          <Boranium>91.932288</Boranium>
-          <Ironium>59.9712</Ironium>
-          <Germanium>65.965152</Germanium>
+          <Boranium>94.9278</Boranium>
+          <Ironium>60.970232</Ironium>
+          <Germanium>52.977528</Germanium>
           <Energy>0</Energy>
         </Resource>
       </MineralConcentration>
       <ResourcesOnHand>
         <Resource>
-          <Boranium>428.2</Boranium>
-          <Ironium>484</Ironium>
-          <Germanium>366.6</Germanium>
+          <Boranium>344.5</Boranium>
+          <Ironium>355.1</Ironium>
+          <Germanium>467.3</Germanium>
           <Energy>126.75</Energy>
         </Resource>
       </ResourcesOnHand>
@@ -101,6 +101,6 @@
         <Attack>Enemies</Attack>
       </BattlePlan>
     </RaceData>
-    <TechLevel>158</TechLevel>
+    <TechLevel>18</TechLevel>
   </Orders>
 </ROOT>
