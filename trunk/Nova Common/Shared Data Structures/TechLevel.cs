@@ -1,5 +1,6 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// Modified Daniel Vale 2010
 //
 // Class defining the set of technology levels required before a component is
 // required to gain access to a component.
@@ -31,9 +32,9 @@ namespace NovaCommon
        // TODO (priority 3) - Make these members private to hide the 
        // implementaion of the hashtable and force access through the enums, 
        // in order to prevent errors due to using string literals (e.g. "Biotech" vs "Biotechnology")
-      public Hashtable TechValues = new Hashtable();
+      private Hashtable TechValues = new Hashtable();
       // used for internal access to the Hashtable
-      public static string[] ResearchKeys = {
+      private static string[] ResearchKeys = {
          "Biotechnology", "Electronics", "Energy", 
          "Propulsion",    "Weapons",     "Construction" };
 
@@ -72,7 +73,54 @@ namespace NovaCommon
          TechValues = copy.TechValues.Clone() as Hashtable;
       }
 
+      /// <summary>
+      /// Index operator to allow array type indexing to a TechLevel.
+      /// </summary>
+      /// <param name="index">A TechLevel.ResearchField</param>
+      /// <returns>The current tech level.</returns>
+      public int this[ResearchField index]
+      {
+          get
+          {
+              if (TechValues == null)
+              {
+                  throw new System.NullReferenceException("TechLevel.cs : index operator - attempt to index with no TechValues defined.");
+              }
+              int techLevel = -1;
+              switch (index)
+              {
+                  case ResearchField.Biotechnology: techLevel = (int)TechValues["Biotechnology"]; break;
+                  case ResearchField.Construction: techLevel = (int)TechValues["Construction"]; break;
+                  case ResearchField.Electronics: techLevel = (int)TechValues["Electronics"]; break;
+                  case ResearchField.Energy: techLevel = (int)TechValues["Energy"]; break;
+                  case ResearchField.Propulsion: techLevel = (int)TechValues["Propulsion"]; break;
+                  case ResearchField.Weapons: techLevel = (int)TechValues["Weapons"]; break;
+              }
+              if (techLevel == -1)
+                throw new System.ArgumentException("TechLevel.cs: indexing operator - Unknown field of research", index.ToString());
+              return techLevel;
+          }
+          set 
+          {
+              switch (index)
+              {
+                  case ResearchField.Biotechnology: TechValues["Biotechnology"] = value; break;
+                  case ResearchField.Construction: TechValues["Construction"] = value; break;
+                  case ResearchField.Electronics: TechValues["Electronics"] = value; break;
+                  case ResearchField.Energy: TechValues["Energy"] = value; break;
+                  case ResearchField.Propulsion: TechValues["Propulsion"] = value; break;
+                  case ResearchField.Weapons: TechValues["Weapons"] = value; break;
+              }          
+          }
+      }
 
+      public IEnumerator GetEnumerator()
+      {
+          foreach (int level in TechValues.Values)
+          {
+              yield return level;
+          }
+      }
 
 // ============================================================================
 // Initialising Constructor from an xml node.
@@ -107,7 +155,7 @@ namespace NovaCommon
       /// Provide a new TechLevel instance which is a copy of the current instance.
       /// </summary>
       /// <returns></returns>
-      public TechLevel Copy()
+      public TechLevel Clone()
       {
           return new TechLevel(this);
       }

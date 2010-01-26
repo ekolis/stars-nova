@@ -52,7 +52,7 @@ namespace Nova
       public Hashtable    KnownEnemyDesigns        = new Hashtable();
       public Hashtable    PlayerRelations          = new Hashtable();
       public Hashtable    StarReports              = new Hashtable();
-      public RaceComponents AvailableComponents = null;
+      public RaceComponents AvailableComponents    = null;
       public List<Fleet>  PlayerFleets             = new List<Fleet>();
       public List<Star>   PlayerStars              = new List<Star>();
       public Race         PlayerRace               = new Race(); 
@@ -64,7 +64,7 @@ namespace Nova
       public int          TurnYear                 = 0; 
       public string       GameFolder               = null;
       public string       RaceName                 = null;
-      public string       ResearchTopic            = "Energy";
+      public TechLevel.ResearchField ResearchTopic = TechLevel.ResearchField.Energy;
 
 
 // ============================================================================
@@ -344,9 +344,9 @@ namespace Nova
 
           if (GuiState.Data.PlayerRace.Traits.Contains("IFE"))
           {
-              int level = (int)GuiState.Data.ResearchLevel.TechValues["Propulsion"];
+              int level = (int)GuiState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion];
               level++;
-              GuiState.Data.ResearchLevel.TechValues["Propulsion"] = level;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion] = level;
           }
           if (GuiState.Data.PlayerRace.Traits.Contains("ISB"))
           {

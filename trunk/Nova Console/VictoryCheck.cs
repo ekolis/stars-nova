@@ -147,10 +147,10 @@ namespace NovaConsole
          TechLevel raceTechLevels = StateData.AllTechLevels[raceName]
                                     as TechLevel;
 
-         foreach (string key in TechLevel.ResearchKeys) { 
-             if ((int) raceTechLevels.TechValues[key] >= targetLevel){
+         foreach (int level in raceTechLevels)
+         {
+             if (level >= targetLevel)
                  highestFields++;
-             }
          }
 
          if (highestFields >= numberOfFields) return 1;
