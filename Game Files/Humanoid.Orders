@@ -49,35 +49,35 @@
           <Germanium>0</Germanium>
           <Energy>0</Energy>
         </Resource>
-        <Name>Angst</Name>
+        <Name>Horselover Fat</Name>
         <Owner>Humanoid</Owner>
         <Position>
-          <X>169</X>
-          <Y>27</Y>
+          <X>223</X>
+          <Y>374</Y>
         </Position>
       </Item>
       <ProductionQueue />
       <MineralConcentration>
         <Resource>
-          <Boranium>94.9278</Boranium>
-          <Ironium>60.970232</Ironium>
-          <Germanium>52.977528</Germanium>
+          <Boranium>78.950072</Boranium>
+          <Ironium>98.921592</Ironium>
+          <Germanium>81.946208</Germanium>
           <Energy>0</Energy>
         </Resource>
       </MineralConcentration>
       <ResourcesOnHand>
         <Resource>
-          <Boranium>344.5</Boranium>
-          <Ironium>355.1</Ironium>
-          <Germanium>467.3</Germanium>
-          <Energy>126.75</Energy>
+          <Boranium>324.9</Boranium>
+          <Ironium>463.9</Ironium>
+          <Germanium>495.2</Germanium>
+          <Energy>146.616</Energy>
         </Resource>
       </ResourcesOnHand>
       <ThisRace>Humanoid</ThisRace>
-      <Colonists>28750</Colonists>
+      <Colonists>28616</Colonists>
       <Factories>10</Factories>
       <Mines>10</Mines>
-      <ResearchAllocation>12</ResearchAllocation>
+      <ResearchAllocation>14</ResearchAllocation>
       <ScanRange>50</ScanRange>
       <DefenseType>SDI</DefenseType>
       <ScannerType>Scoper 150</ScannerType>
@@ -101,6 +101,6 @@
         <Attack>Enemies</Attack>
       </BattlePlan>
     </RaceData>
-    <TechLevel>18</TechLevel>
+    <TechLevel>19</TechLevel>
   </Orders>
 </ROOT>

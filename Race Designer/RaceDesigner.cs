@@ -1779,14 +1779,12 @@ namespace RaceDesigner
              // Research Costs
              // ----------------------------------------------------------------------------
 
-             Hashtable researchCosts = RaceParameters.ResearchCosts.TechValues;
-
-             researchCosts["Energy"] = EnergyResearch.Cost;
-             researchCosts["Weapons"] = WeaponsResearch.Cost;
-             researchCosts["Propulsion"] = PropulsionResearch.Cost;
-             researchCosts["Construction"] = ConstructionResearch.Cost;
-             researchCosts["Electronics"] = ElectronicsResearch.Cost;
-             researchCosts["Biotechnology"] = BiotechnologyResearch.Cost;
+             RaceParameters.ResearchCosts[TechLevel.ResearchField.Energy] = EnergyResearch.Cost;
+             RaceParameters.ResearchCosts[TechLevel.ResearchField.Weapons] = WeaponsResearch.Cost;
+             RaceParameters.ResearchCosts[TechLevel.ResearchField.Propulsion] = PropulsionResearch.Cost;
+             RaceParameters.ResearchCosts[TechLevel.ResearchField.Construction] = ConstructionResearch.Cost;
+             RaceParameters.ResearchCosts[TechLevel.ResearchField.Electronics] = ElectronicsResearch.Cost;
+             RaceParameters.ResearchCosts[TechLevel.ResearchField.Biotechnology] = BiotechnologyResearch.Cost;
 
              // ----------------------------------------------------------------------------
              // Generate the race definition file
@@ -2071,14 +2069,12 @@ namespace RaceDesigner
          /// </summary>
          void reloadResearchCosts(Race RaceParameters)
          {
-             Hashtable researchCosts     = RaceParameters.ResearchCosts.TechValues;
-
-             EnergyResearch.Cost         = (int)researchCosts["Energy"];
-             WeaponsResearch.Cost        = (int)researchCosts["Weapons"];
-             PropulsionResearch.Cost     = (int)researchCosts["Propulsion"];
-             ConstructionResearch.Cost   = (int)researchCosts["Construction"];
-             ElectronicsResearch.Cost    = (int)researchCosts["Electronics"];
-             BiotechnologyResearch.Cost  = (int)researchCosts["Biotechnology"];
+             EnergyResearch.Cost = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Energy];
+             WeaponsResearch.Cost = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Weapons];
+             PropulsionResearch.Cost = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Propulsion];
+             ConstructionResearch.Cost = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Construction];
+             ElectronicsResearch.Cost = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Electronics];
+             BiotechnologyResearch.Cost = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Biotechnology];
          }
 
    }//RaceDesignerForm

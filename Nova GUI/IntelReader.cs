@@ -144,13 +144,13 @@ namespace Nova
       /// </remarks>
       private static void ProcessResearch()
       {
-          string area = StateData.ResearchTopic;
-          int areaResource = (int)StateData.ResearchResources.TechValues[area];
-          int areaLevel = (int)StateData.ResearchLevel.TechValues[area];
+          TechLevel.ResearchField area = StateData.ResearchTopic;
+          int areaResource = (int)StateData.ResearchResources[area];
+          int areaLevel = (int)StateData.ResearchLevel[area];
           areaResource += (int)StateData.ResearchAllocation;
 
           StateData.ResearchAllocation = 0;
-          StateData.ResearchResources.TechValues[area] = areaResource;
+          StateData.ResearchResources[area] = areaResource;
 
           while (true)
           {
@@ -172,7 +172,7 @@ namespace Nova
 // available.
 // ============================================================================
 
-      private static void ReportLevelUpdate(string area, int level)
+      private static void ReportLevelUpdate(TechLevel.ResearchField area, int level)
       {
           Message techAdvanceMessage =
               new Message(GuiState.Data.RaceName, null, "Your race has advanced to Tech Level "
@@ -183,7 +183,7 @@ namespace Nova
           TechLevel oldResearchLevel = StateData.ResearchLevel;
           TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 
-          newResearchLevel.TechValues[area] = level;
+          newResearchLevel[area] = level;
 
           foreach (Component component in allComponents.Values)
           {

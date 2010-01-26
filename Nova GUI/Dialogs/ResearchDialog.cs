@@ -27,7 +27,7 @@ namespace Nova
    public partial class ResearchDialog : Form
    {
       private Hashtable Buttons           = new Hashtable();
-      private Hashtable CurrentLevel      = null;
+      private TechLevel CurrentLevel      = null;
       private int       AvailableEnergy   = 0;
       private GuiState  StateData         = null;
       private bool      DialogInitialised = false;
@@ -42,7 +42,7 @@ namespace Nova
          InitializeComponent();
 
          StateData    = GuiState.Data;
-         CurrentLevel = StateData.ResearchLevel.TechValues;
+         CurrentLevel = StateData.ResearchLevel;
 
          // Provide a convienient way of getting a button from it's name.
 
@@ -54,19 +54,20 @@ namespace Nova
          Buttons.Add("Biotechnology" , BiotechButton);
 
          // Set the currently attained research levels
-         
-         EnergyLevel.Text       = CurrentLevel["Energy"]       .ToString();
-         WeaponsLevel.Text      = CurrentLevel["Weapons"]      .ToString();
-         PropulsionLevel.Text   = CurrentLevel["Propulsion"]   .ToString();
-         ConstructionLevel.Text = CurrentLevel["Construction"] .ToString();
-         ElectronicsLevel.Text  = CurrentLevel["Electronics"]  .ToString();
-         BiotechLevel.Text      = CurrentLevel["Biotechnology"].ToString();
+
+         EnergyLevel.Text       = CurrentLevel[TechLevel.ResearchField.Energy]       .ToString();
+         WeaponsLevel.Text      = CurrentLevel[TechLevel.ResearchField.Weapons]      .ToString();
+         PropulsionLevel.Text   = CurrentLevel[TechLevel.ResearchField.Propulsion]   .ToString();
+         ConstructionLevel.Text = CurrentLevel[TechLevel.ResearchField.Construction] .ToString();
+         ElectronicsLevel.Text  = CurrentLevel[TechLevel.ResearchField.Electronics]  .ToString();
+         BiotechLevel.Text      = CurrentLevel[TechLevel.ResearchField.Biotechnology].ToString();
 
          // Ensure that the correct RadioButton is checked to reflect the
          // current research selection and the budget up-down control is
          // initialised with the correct value.
 
-         RadioButton button = Buttons[StateData.ResearchTopic] as RadioButton;
+         RadioButton button = Buttons[Enum.GetName(typeof(TechLevel.ResearchField), StateData.ResearchTopic)] as RadioButton;
+         
          button.Checked     = true;
 
          AvailableEnergy         = CountEnergy();
@@ -89,8 +90,17 @@ namespace Nova
 
          RadioButton button = sender as RadioButton;
 
-         if (button.Checked == true) {
-            GuiState.Data.ResearchTopic = button.Text;
+         if (button.Checked == true) 
+         {
+             try
+             {
+                 GuiState.Data.ResearchTopic = (TechLevel.ResearchField)Enum.Parse(typeof(TechLevel.ResearchField), button.Text, true);
+             }
+             catch (System.ArgumentException)
+             {
+                 Report.Error("ResearchDialog.cs : CheckChanged() - unrecognised field of research.");
+             }
+
          }
 
          ParameterChanged(null, null);
@@ -122,16 +132,16 @@ namespace Nova
          double resourcesRequired = 0;
          double yearsToComplete   = 0;
 
-         Hashtable researchLevels    = StateData.ResearchLevel.TechValues;
-         Hashtable researchResources = StateData.ResearchResources.TechValues;
-         string    researchArea      = StateData.ResearchTopic;
+         TechLevel researchLevels    = StateData.ResearchLevel;
+         TechLevel researchResources = StateData.ResearchResources;
+         TechLevel.ResearchField    researchArea      = StateData.ResearchTopic;
 
          int current = (int) researchResources[researchArea];
          int level   = (int) researchLevels[researchArea];
          int target  = Research.Cost(level+1);
 
          resourcesRequired = target
-            - (int) StateData.ResearchResources.TechValues[researchArea];
+            - (int) StateData.ResearchResources[researchArea];
 
          CompletionResources.Text = ((int) resourcesRequired).ToString(System.Globalization.CultureInfo.InvariantCulture);
 
@@ -151,7 +161,7 @@ namespace Nova
          TechLevel oldResearchLevel = StateData.ResearchLevel;
          TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 
-         newResearchLevel.TechValues[researchArea] = level + 1;
+         newResearchLevel[researchArea] = level + 1;
          ResearchBenefits.Items.Clear();
 
          foreach (NovaCommon.Component component in allComponents.Values) {

@@ -118,16 +118,12 @@ namespace Nova
       private static int CountTechLevels()
       {
          StateData = GuiState.Data;
+         int total = 0;
 
-         int       total     = 0;
-         Hashtable techLevel = StateData.ResearchLevel.TechValues;
-         
-         total += (int) techLevel["Energy"];
-         total += (int) techLevel["Weapons"];
-         total += (int) techLevel["Propulsion"];
-         total += (int) techLevel["Construction"];
-         total += (int) techLevel["Electronics"];
-         total += (int) techLevel["Biotechnology"];
+         foreach (int techLevel in StateData.ResearchLevel)
+         {
+             total += techLevel;
+         }
 
          return total;
       }

@@ -41,14 +41,13 @@ namespace ComponentEditor
       public TechLevel Value {
          get { 
             TechLevel techLevel = new TechLevel();
-            Hashtable values    = techLevel.TechValues;
 
-            values["Biotechnology"] = (int) BioTechLevel.Value;
-            values["Electronics"]   = (int) ElectronicsTechLevel.Value;
-            values["Energy"]        = (int) EnergyTechLevel.Value;
-            values["Propulsion"]    = (int) PropulsionTechLevel.Value;
-            values["Weapons"]       = (int) WeaponsTechLevel.Value;
-            values["Construction"]  = (int) ConstructionTechLevel.Value;
+            techLevel[TechLevel.ResearchField.Biotechnology] = (int)BioTechLevel.Value;
+            techLevel[TechLevel.ResearchField.Construction] = (int)ConstructionTechLevel.Value;
+            techLevel[TechLevel.ResearchField.Electronics] = (int)ElectronicsTechLevel.Value;
+            techLevel[TechLevel.ResearchField.Energy] = (int)EnergyTechLevel.Value;
+            techLevel[TechLevel.ResearchField.Propulsion] = (int)PropulsionTechLevel.Value;
+            techLevel[TechLevel.ResearchField.Weapons] = (int)WeaponsTechLevel.Value;
 
             return techLevel;
          }
@@ -59,15 +58,12 @@ namespace ComponentEditor
 // ============================================================================
 
          set { 
-            Hashtable levels = value.TechValues;
-            if (levels == null) return;
-
-            BioTechLevel.Value          = (int) levels["Biotechnology"];
-            ElectronicsTechLevel.Value  = (int) levels["Electronics"];
-            EnergyTechLevel.Value       = (int) levels["Energy"];
-            PropulsionTechLevel.Value   = (int) levels["Propulsion"];
-            WeaponsTechLevel.Value      = (int) levels["Weapons"];
-            ConstructionTechLevel.Value = (int) levels["Construction"];
+            BioTechLevel.Value          = (int) value[TechLevel.ResearchField.Biotechnology];
+            ElectronicsTechLevel.Value  = (int) value[TechLevel.ResearchField.Electronics];
+            EnergyTechLevel.Value       = (int) value[TechLevel.ResearchField.Energy];
+            PropulsionTechLevel.Value   = (int) value[TechLevel.ResearchField.Propulsion];
+            WeaponsTechLevel.Value      = (int) value[TechLevel.ResearchField.Weapons];
+            ConstructionTechLevel.Value = (int) value[TechLevel.ResearchField.Construction]; 
          }
 
       }

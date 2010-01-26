@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -22,6 +21,7 @@ namespace Nova
 
    public class Research
    {
+       private static GuiState StateData = GuiState.Data;
  
 
 // ============================================================================
@@ -32,11 +32,10 @@ namespace Nova
 
       public static int Cost(int level) 
       {
-         GuiState stateData   = GuiState.Data;
          int techAjustment    = 0;
-         Hashtable techLevels = stateData.ResearchLevel.TechValues;
 
-         foreach (int levelAttained in techLevels.Values) {
+         foreach (int levelAttained in StateData.ResearchLevel)
+         {
             techAjustment += levelAttained * 10;
          }
  
@@ -45,9 +44,8 @@ namespace Nova
          // fields is added. Finally, the cost factor specified in the Race
          // Designer is then added.
 
-         Hashtable   costFactors = stateData.PlayerRace.ResearchCosts.TechValues;
          int         baseCost    = (Fibonacci(level + 5) * 10) + techAjustment;
-         int         costFactor  = (int) costFactors[stateData.ResearchTopic];
+         int costFactor = (int)StateData.PlayerRace.ResearchCosts[StateData.ResearchTopic];
          
          return (baseCost * costFactor) / 100;
       }

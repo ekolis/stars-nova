@@ -40,7 +40,7 @@ namespace NovaCommon
         public void DetermineRaceComponents(Race newRace, TechLevel newTech)
         {
             race = newRace;
-            tech = newTech.Copy();
+            tech = newTech.Clone();
             if (race == null) throw new System.NullReferenceException();
             if (tech == null) throw new System.NullReferenceException();
 
