@@ -74,8 +74,8 @@ namespace NovaCommon
         {
             // 10 PRTs
             "HE", "SS", "WM", "CA", "IS", "SD", "PP", "IT", "AR", "JOAT",
-            // 13 LRTs
-            "IFE", "TT", "ARM", "ISB", "GR", "UR", "MA", "NRSE", "OBRM", "NAS", "LSP", "BET", "RS"
+            // 14 LRTs
+            "IFE", "TT", "ARM", "ISB", "GR", "UR", "MA", "NRSE", "OBRM", "CE", "NAS", "LSP", "BET", "RS"
         };
 
         public static string[] TraitString = 
@@ -91,7 +91,7 @@ namespace NovaCommon
             "Interstellar Traveler", 
             "Artificial Reality", 
             "Jack of all Trades",
-            // 13 LRTs
+            // 14 LRTs
             "Improved Fuel Efficiency", 
             "Total Terraforming", 
             "Advanced Remote Mining", 
@@ -100,6 +100,7 @@ namespace NovaCommon
             "Ultimate Recycling", 
             "Mineral Alchemy", 
             "No Ram Scoop Eengines", 
+            "Cheap Engines",
             "Only Basic Remote Mining", 
             "No Advanced Scanners", 
             "Low Starting Population", 

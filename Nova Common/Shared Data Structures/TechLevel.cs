@@ -160,16 +160,6 @@ namespace NovaCommon
           return new TechLevel(this);
       }
 
-      /// <summary>
-      /// Set the level of an individual technology, without affecting the others.
-      /// </summary>
-      /// <param name="strTechName">The technology that is to be changed.</param>
-      /// <param name="iLevel">The new level for that technology.</param>
-      public void SetIndividualTechLevel(string strTechName, int iLevel)
-      {
-          TechValues[strTechName] = iLevel;
-      }
-
 //============================================================================
 // See if a TechLevel set is greater than, or equal to, another.
 // ============================================================================

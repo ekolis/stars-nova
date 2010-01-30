@@ -266,65 +266,92 @@ namespace Nova
        /// </summary>
       private static void ProcessPrimaryTraits()
       {
-#if (DEBUG)
-          // Just for testing
-          // TODO (priority 3) get this from a settings file, or other central location for convenience.
-          GuiState.Data.ResearchLevel = new TechLevel(26);
-#endif
+
 
           // TODO (priority 3) Special Components
-          // Races are granted access to components currently based on tech level and primary/secondary traits.
+          // Races are granted access to components currently based on tech level and primary/secondary traits (not tested).
           // Need to grant special access in a few circumstances
           // 1. JOAT Hulls with pen scans. (either make a different hull with a built in pen scan, of the same name and layout; or modify scanning and scan display functions)
           // 2. Mystery Trader Items - probably need to implement the idea of 'hidden' technology to cover this.
 
           // TODO (priority 4) Starting Tech
-          // Need to specify starting tech levels. These must be checked by the server/console.
+          // Need to specify starting tech levels. These must be checked by the server/console. Started below - Dan 26 Jan 10
 
           // TODO (priority 4) Implement Starting Items
 
-          // TODO (priority 4) Unfinished. Want to refactor TechLevel to avoid the use of string literals for access. See comments in TechLevel - Dan 26 Jan 10
-          GuiState.Data.ResearchLevel = new TechLevel(3);
-          /*
+          GuiState.Data.ResearchLevel = new TechLevel(0);
+          
           switch (GuiState.Data.PlayerRace.Traits.Primary.Code)
           {
               case "HE":
                   // Start with one armed scout + 3 mini-colony ships
               break;
+
               case "SS":
-              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Electronics", 5);
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Electronics] = 5;
                   // Start with one scout + one colony ship.
               break;
+
               case "WM":
-              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Weapons", 5);
-              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Propulsion", 1);
-              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Energy", 1);
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Weapons] = 5;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion] = 1;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Energy] = 1;
                   // Start with one armed scout + one colony ship.
               break;
-              case "CA":
-              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Weapons", 1);
-              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Propulsion", 1);
-              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Energy", 1);
-              GuiState.Data.ResearchLevel.SetIndividualTechLevel("Biotech", 6);
 
+              case "CA":
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Weapons] = 1;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion] = 1;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Energy] = 1;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Biotechnology] = 6;
+                    // Start with an orbital terraforming ship
               break;
+
               case "IS":
+                  // Start with one scout and one colony ship
               break;
+
               case "SD":
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion] = 2;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Biotechnology] = 2;
+                  // Start with one scout, one colony ship, Two mine layers (one standard, one speed trap)
               break;
+
               case "PP":
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Energy] = 4;
+                  // Two shielded scouts, one colony ship, two starting planets in a non-tiny universe
               break;
+
               case "IT":
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion] = 5;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Construction] = 5;
+                  // one scout, one colony ship, one destroyer, one privateer, 2 planets with 100/250 stargates (in non-tiny universe)
               break;
+
               case "AR":
+                  // starts with ???
               break; 
+
               case "JOAT":
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion] = 3;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Construction] = 3;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Biotechnology] = 3;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Electronics] = 3;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Energy] = 3;
+              GuiState.Data.ResearchLevel[TechLevel.ResearchField.Weapons] = 3;
+                  // two scouts, one colony ship, one medium freighter, one mini miner, one destroyer
               break;
+
               default:
               Report.Error("GuiState.cs - ProcessPrimaryTraits() - Unknown Primary Trait \"" + GuiState.Data.PlayerRace.Traits.Primary.Code + "\"");
               break;
-          }
-          */
+          } // switch on PRT
+
+#if (DEBUG)
+          // Just for testing
+          // TODO (priority 3) get this from a settings file, or other central location for convenience.
+          GuiState.Data.ResearchLevel = new TechLevel(26);
+#endif          
 
           if (GuiState.Data.AvailableComponents == null)
               GuiState.Data.AvailableComponents = new RaceComponents(GuiState.Data.PlayerRace, GuiState.Data.ResearchLevel);
@@ -341,15 +368,36 @@ namespace Nova
       private static void ProcessSecondaryTraits()
       {
           // TODO (priority 3) finish the rest of the LRTs.
+          // Not all of these properties are fully implemented here, as they may require changes elsewhere in the game engine.
+          // Where a trait is listed as 'TODO ???' this means it first needs to be checked if it has been implemented elsewhere.
 
           if (GuiState.Data.PlayerRace.Traits.Contains("IFE"))
           {
+              // Ships burn 15% less fuel : (implemeted ???)
+
+              // Fuel Mizer and Galaxy Scoop engines available : Implemented in component definitions.
+
+              // propulsion tech starts one level higher
               int level = (int)GuiState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion];
               level++;
               GuiState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion] = level;
           }
+          if (GuiState.Data.PlayerRace.Traits.Contains("TT"))
+          {
+              // Begin the game able to adjust each environment attribute up to 3%
+              // Higher levels of terraforming are available : implemented in component definitions.
+              // Total Terraforming requires 30% fewer resources : implemented in component definitions.
+          }
+          if (GuiState.Data.PlayerRace.Traits.Contains("ARM"))
+          {
+              // Grants access to three additional mining hulls and two new robots : implemented in component definitions.
+              // Start the game with two midget miners : TODO (priority 3)
+          }
           if (GuiState.Data.PlayerRace.Traits.Contains("ISB"))
           {
+              // Two additional starbase designs (space dock & ultra station) : implemented in component definitions.
+              // Starbases have built in 20% cloacking : TODO (priority 3)
+
               // Improved Starbases gives a 20% discount to starbase hulls.
               foreach (Component component in GuiState.Data.AvailableComponents.Values)
               {
@@ -365,6 +413,56 @@ namespace Nova
                   cost.Energy *= 0.8;
               }
           }
+          
+          if (GuiState.Data.PlayerRace.Traits.Contains("GR"))
+          {
+              // 50% resources go to selected research field. 15% to each other field. 115% total. TODO ??? (priority 3)
+          }
+          if (GuiState.Data.PlayerRace.Traits.Contains("UR"))
+          {
+              // Affects minerals and resources returned due to scrapping. TODO ??? (priority 3).
+          }
+          if (GuiState.Data.PlayerRace.Traits.Contains("MA"))
+          {
+              // One instance of mineral alchemy costs 25 resources instead of 100. TODO (priority 3)
+          }
+          if (GuiState.Data.PlayerRace.Traits.Contains("NRSE"))
+          {
+              // affects which engines are available : implemented in component definitions.
+          }
+          if (GuiState.Data.PlayerRace.Traits.Contains("OBRM"))
+          {
+              // affects which mining robots will be available : implemented in component definitions.
+          }
+          if (GuiState.Data.PlayerRace.Traits.Contains("CE"))
+          {
+              // Engines cost 50% less TODO (priority 3)
+              // Engines have a 10% chance of not engaging above warp 6 : TODO ??? (priority 3)
+          }
+          if (GuiState.Data.PlayerRace.Traits.Contains("NAS"))
+          {
+              // No access to standard penetrating scanners : implemented in component definitions.
+              // Ranges of conventional scanners are doubled : TODO ??? (priority 3)
+          }
+          if (GuiState.Data.PlayerRace.Traits.Contains("LSP"))
+          {
+              // Starting population is 17500 instead of 25000 : TODO ??? (priority 3)
+          }
+          if (GuiState.Data.PlayerRace.Traits.Contains("BET"))
+          {
+              // TODO ??? (priority 3)
+              // New technologies initially cost twice as much to build. 
+              // Once all tech requirements are exceeded cost is normal. 
+              // Miniaturization occurs at 5% per level up to 80% (instead of 4% per level up to 75%)
+          }
+          if (GuiState.Data.PlayerRace.Traits.Contains("RS"))
+          {
+              // TODO ??? (priority 3)
+              // All shields are 40% stronger than the listed rating.
+              // Shields regenrate at 10% of max strength each round of combat.
+              // All armors are 50% of their rated strength.
+          }
+
       }
 
 
@@ -466,7 +564,7 @@ namespace Nova
          // Binary Serialization (old)
          Formatter.Serialize(stateFile, GuiState.Data);
 
-         // Xml Serialization - incomplete - Dan 16 Jan 09
+         // Xml Serialization - incomplete - Dan 16 Jan 09 - deferred while alternate means are investigated
           /*
          GZipStream compressionStream = new GZipStream(stateFile, CompressionMode.Compress);
 
