@@ -3,8 +3,8 @@
   <Race>
     <GravityTolerance>
       <EnvironmentTolerance>
-        <Min>2.9</Min>
-        <Max>8.3</Max>
+        <Min>1.5</Min>
+        <Max>8.5</Max>
       </EnvironmentTolerance>
     </GravityTolerance>
     <RadiationTolerance>
@@ -22,14 +22,12 @@
     <Tech>
       <Biotechnology>100</Biotechnology>
       <Electronics>100</Electronics>
-      <Energy>150</Energy>
+      <Energy>100</Energy>
       <Propulsion>100</Propulsion>
-      <Weapons>50</Weapons>
+      <Weapons>100</Weapons>
       <Construction>100</Construction>
     </Tech>
     <PRT>JOAT</PRT>
-    <LRT>IFE</LRT>
-    <LRT>NRS</LRT>
     <MineBuildCost>5</MineBuildCost>
     <PluralName>Humanoids</PluralName>
     <Name>Humanoid</Name>
@@ -37,8 +35,8 @@
     <RaceIconName>00.jpg</RaceIconName>
     <FactoryBuildCost>10</FactoryBuildCost>
     <ColonistsPerResource>1000</ColonistsPerResource>
-    <FactoryProduction>12</FactoryProduction>
-    <OperableFactories>12</OperableFactories>
+    <FactoryProduction>10</FactoryProduction>
+    <OperableFactories>10</OperableFactories>
     <MineProductionRate>10</MineProductionRate>
     <OperableMines>10</OperableMines>
     <MaxPopulation>1000000</MaxPopulation>
