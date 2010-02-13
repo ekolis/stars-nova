@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -9,7 +8,6 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -19,6 +17,8 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
+using NovaCommon;
+using NovaClient;
 
 // ============================================================================
 // The fleet summary panel.
@@ -52,7 +52,7 @@ namespace Nova
          FleetImage.Image      = fleet.Image;
          FleetOwner.Text       = race;
 
-         RaceIcon.Image = GuiState.Data.InputTurn.RaceIcons[race] as Image;
+         RaceIcon.Image = ClientState.Data.InputTurn.RaceIcons[race] as Image;
       }
 
 

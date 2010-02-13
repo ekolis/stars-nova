@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2007 Ken Reed
 //
@@ -9,14 +8,18 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using NUnit.Framework;
 
-namespace NovaConsole {
+using NovaCommon;
+using NovaServer;
+using NovaConsole;
+
+namespace Testing 
+{
 
 
 // ============================================================================
@@ -106,10 +109,10 @@ namespace NovaConsole {
          fleet3.FleetShips.Add(ship3);
          fleet4.FleetShips.Add(ship4);
 
-         ConsoleState.Data.AllFleets["fleet1"] = fleet1;
-         ConsoleState.Data.AllFleets["fleet2"] = fleet2;
-         ConsoleState.Data.AllFleets["fleet3"] = fleet3;
-         ConsoleState.Data.AllFleets["fleet4"] = fleet4;
+         ServerState.Data.AllFleets["fleet1"] = fleet1;
+         ServerState.Data.AllFleets["fleet2"] = fleet2;
+         ServerState.Data.AllFleets["fleet3"] = fleet3;
+         ServerState.Data.AllFleets["fleet4"] = fleet4;
       }
 
 
@@ -165,10 +168,10 @@ namespace NovaConsole {
 
          raceData.PlayerRelations["Dick"]      = "Enemy"; 
          raceData.BattlePlans["Default"]       = new BattlePlan();
-         ConsoleState.Data.AllRaceData["Tom"]  = raceData;
+         ServerState.Data.AllRaceData["Tom"]  = raceData;
 
          raceData.PlayerRelations["Tom"]       = "Enemy"; 
-         ConsoleState.Data.AllRaceData["Dick"] = raceData;
+         ServerState.Data.AllRaceData["Dick"] = raceData;
 
          int numberOfTargets = BattleEngine.SelectTargets(zoneStacks);
 

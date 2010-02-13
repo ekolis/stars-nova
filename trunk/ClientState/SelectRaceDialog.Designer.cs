@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -7,7 +6,7 @@
 // Software Foundation.
 // ============================================================================
 
-namespace Nova
+namespace NovaClient
 {
    partial class SelectRaceDialog
    {

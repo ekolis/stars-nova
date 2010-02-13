@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ===========================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -16,8 +15,10 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
+
 using NovaCommon;
 using ControlLibrary;
+using NovaClient;
 
 namespace Nova
 {
@@ -729,7 +730,7 @@ namespace Nova
       {
          star = selectedStar;
          
-         List<Star> myStars = GuiState.Data.PlayerStars;
+         List<Star> myStars = ClientState.Data.PlayerStars;
          int i;
 
          for (i = 0; i < myStars.Count; i++) {
@@ -832,7 +833,7 @@ namespace Nova
 
       private void NextPlanet_Click(object sender, EventArgs e)
       {
-         List<Star> myStars = GuiState.Data.PlayerStars;
+         List<Star> myStars = ClientState.Data.PlayerStars;
 
          if (myStars.Count == 1) {
             PreviousPlanet.Enabled = false;
@@ -862,7 +863,7 @@ namespace Nova
 
       private void PreviousPlanet_Click(object sender, EventArgs e)
       {
-         List<Star> myStars = GuiState.Data.PlayerStars;
+         List<Star> myStars = ClientState.Data.PlayerStars;
 
          if (myStars.Count == 1) {
             PreviousPlanet.Enabled = false;

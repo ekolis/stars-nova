@@ -19,13 +19,14 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
+
 using NovaCommon;
 
-namespace NovaConsole
+namespace NovaServer
 {
     public static class OrderReader
     {
-        static ConsoleState StateData = ConsoleState.Data;
+        static ServerState StateData = ServerState.Data;
         private static BinaryFormatter Formatter = new BinaryFormatter();
 
         /// <summary>
@@ -43,35 +44,28 @@ namespace NovaConsole
             }
         
         }
-        // ============================================================================
-        // Read in the player turns and update the relevant data stores with the
-        // (possibly) new values. There is a special case where a player may decide not
-        // to join the first turn so their will be no turn. So, check for this
-        // condition and generate a sensible error report instead of just letting an
-        // exception be thrown.
-        // What if the player misses the deadline for the first turn in a multiplayer
-        // game??? TODO (priority 3) make it possible to force the generation of the 
-        // turn or explain why it is impossible. What is the behaviour of Stars! in
-        // this case ???
-        // ============================================================================
 
+
+        /// <summary>
+        /// Read in the player turns and update the relevant data stores with the
+        /// (possibly) new values. 
+        /// </summary>
+        /// <param name="race">The race who's orders are to be loaded.</param>
         private static void ReadPlayerTurn(Race race)
         {
             string fileName = Path.Combine(StateData.GameFolder, race.Name + ".Orders");
 
-            // Check for the special condition mentioned in the header.
-
             if (File.Exists(fileName) == false)
             {
                 return;
-                // TODO (priority 5) check this only before generating a new year.
-                Report.FatalError("There is no turn file for the " + race.Name
+                // TODO (priority 5) move this to a warning when generating a new turn.
+                Report.Error("There is no turn file for the " + race.Name
                                   + " race.\n\nYou may only generate the first "
                                   + "turn of a game when all race turn files are "
                                   + "present.");
             }
 
-            // Load from a binary serialised file (older format, still in use).
+            // Load from a binary serialised file (old format).
             /*
             Orders playerOrders = new Orders();
             FileStream turnFile = new FileStream(fileName, FileMode.Open);
@@ -96,8 +90,8 @@ namespace NovaConsole
             // Regardless of how it was loaded:
             LinkOrderReferences(playerOrders);
 
-            // TODO - check we are on the right turn before processing, and perhaps flag when we have processed the orders
-
+            // TODO (priority 4) - check we are on the right turn before processing, and perhaps flag when we have processed the orders
+            // TODO (priority 4) fine tune so the client can't modify things like a star's position, i.e. treat the data as orders only.
             foreach (DictionaryEntry de in playerOrders.RaceDesigns)
             {
                 Design design = de.Value as Design;
@@ -120,6 +114,7 @@ namespace NovaConsole
                 StateData.AllFleets[fleet.Key] = fleet;
             }
 
+            // load the orders for each star. 
             foreach (Star star in playerOrders.RaceStars)
             {
                 StateData.AllStars[star.Name] = star;

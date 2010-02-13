@@ -19,6 +19,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
 using System;
+using System.Windows.Forms;
 using Microsoft.Win32;
 using ControlLibrary;
 
@@ -28,7 +29,7 @@ using ControlLibrary;
 // Nova Console.
 // ============================================================================
 
-namespace NovaConsole
+namespace NovaServer
 {
 
 // ============================================================================
@@ -37,9 +38,10 @@ namespace NovaConsole
 // ============================================================================
 
    [Serializable]
-   public sealed class ConsoleState
+   public sealed class ServerState
    {
       public ArrayList AllBattles     = new ArrayList();
+      public ArrayList AllPlayers     = new ArrayList(); // collection of PlayerSettings (player number, race, ai (program name or "Default AI" or "Human")
       public Hashtable AllTechLevels  = new Hashtable();
       public Hashtable AllDesigns     = new Hashtable();
       public Hashtable AllFleets      = new Hashtable();
@@ -51,27 +53,15 @@ namespace NovaConsole
       public bool      GameInProgress = false;
       public int       FleetID        = 1;
       public int       TurnYear       = 2100;
-      public string    GameFolder     = null;
-      public string    StatePathName  = null;
+      public string    GameFolder     = null; // The path&folder where game files are held.
+      public string    StatePathName  = null; // path&file name to the saved state data
 
-      // Victory conditions (with initial default values)
-
-      public EnabledValue PlanetsOwned       = new EnabledValue(true, 60);
-      public EnabledValue TechLevels         = new EnabledValue(false, 22);
-      public EnabledValue NumberOfFields     = new EnabledValue(false, 4);
-      public EnabledValue TotalScore         = new EnabledValue(false, 1000);
-      public EnabledValue SecondPlaceScore   = new EnabledValue(false, 0);
-      public EnabledValue ProductionCapacity = new EnabledValue(false, 1000);
-      public EnabledValue CapitalShips       = new EnabledValue(false, 100);
-      public EnabledValue HighestScore       = new EnabledValue(false, 100);
-      public int          TargetsToMeet      = 1;
-      public int          MinimumGameTime    = 50;
 
 // ============================================================================
 // Data private to this module.
 // ============================================================================
 
-      private static ConsoleState    instance      = null;
+      private static ServerState    instance      = null;
       private static Object          padlock       = new Object();
       private static BinaryFormatter formatter     = new BinaryFormatter();
 
@@ -80,7 +70,7 @@ namespace NovaConsole
 // Private constructor to prevent anyone else creating instances of this class.
 // ============================================================================
 
-      private ConsoleState() {}
+      private ServerState() {}
 
 
 // ============================================================================
@@ -88,13 +78,13 @@ namespace NovaConsole
 // will create locally. Creation of the data is thread-safe.
 // ============================================================================
 
-      public static ConsoleState Data
+      public static ServerState Data
       {
          get {
             if (instance == null) {
                lock(padlock) {
                   if (instance == null) {
-                     instance = new ConsoleState();
+                     instance = new ServerState();
                   }
                }
             }
@@ -118,7 +108,7 @@ namespace NovaConsole
          string fileName = Data.StatePathName;
          if (File.Exists(fileName)) {
             FileStream state  = new FileStream(fileName, FileMode.Open);
-            ConsoleState.Data = formatter.Deserialize(state) as ConsoleState;
+            ServerState.Data = formatter.Deserialize(state) as ServerState;
             state.Close();
          }
       }
@@ -130,9 +120,27 @@ namespace NovaConsole
 
       public static void Save()
       {
-         FileStream state = new FileStream(Data.StatePathName,FileMode.Create);
-         formatter.Serialize(state, ConsoleState.Data);
-         state.Close();
+          if (Data.StatePathName == null)
+          {
+              // TODO (priority 4) add the nicities. Update the game files location.
+              SaveFileDialog fd = new SaveFileDialog();
+              fd.Title = "Choose a location to save the game.";
+              
+              DialogResult result = fd.ShowDialog();
+              if (result == DialogResult.OK)
+              {
+                  Data.StatePathName = fd.FileName;
+              }
+              else
+              {
+                  throw new System.IO.IOException("File dialog cancelled");
+              }
+
+          }
+          FileStream state = new FileStream(Data.StatePathName, FileMode.Create);
+          formatter.Serialize(state, ServerState.Data);
+          state.Close();
+
       }
 
 

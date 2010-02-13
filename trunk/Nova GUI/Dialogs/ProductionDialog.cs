@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -14,7 +13,9 @@ using System.Drawing;
 using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
+
 using NovaCommon;
+using NovaClient;
 
 namespace Nova
 {
@@ -32,7 +33,7 @@ namespace Nova
 // ----------------------------------------------------------------------------
 
       private Star       QueueStar = null;
-      private GuiState   StateData = null;
+      private ClientState   StateData = null;
       private Intel TurnData  = null;
 
 
@@ -66,7 +67,7 @@ namespace Nova
       public ProductionDialog(Star star)
       {
          QueueStar  = star;
-         StateData  = GuiState.Data;
+         StateData  = ClientState.Data;
          TurnData   = StateData.InputTurn;
 
          InitializeComponent();
@@ -332,7 +333,7 @@ namespace Nova
          }
 
          foreach (Design design in TurnData.AllDesigns.Values) {
-            if (design.Owner == GuiState.Data.RaceName || design.Owner == "*"){
+            if (design.Owner == ClientState.Data.RaceName || design.Owner == "*"){
 
                if (design.Type == "Ship") {
                   if (dockCapacity > design.Mass) {

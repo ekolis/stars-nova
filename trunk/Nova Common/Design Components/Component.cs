@@ -83,24 +83,6 @@ namespace NovaCommon
              this.Restrictions = null;
       }
 
-      /// ============================================================================
-      /// <summary> Check if this coponent is available to some race.</summary>
-      /// <param name="race">The race to test for availability.</param>
-      /// <returns>true if the component is available to this race.</returns>
-      /// ============================================================================
-      /* TODO delete (commented out for refactoring)
-      public bool CheckAvailability(Race race)
-      {
-          foreach (String trait in AllTraits.TraitKeys)
-          {
-              bool hasTrait = race.HasTrait(trait);
-              RaceAvailability availability = this.Restrictions.Availability(trait);
-              if (availability == RaceAvailability.not_available && hasTrait) return false;
-              if (availability == RaceAvailability.required && !hasTrait) return false;
-          }
-          return true;
-      }
-       */
 
 // ============================================================================
 // Construction from an Xml node

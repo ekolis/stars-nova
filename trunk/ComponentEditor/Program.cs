@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -12,18 +11,21 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using NovaCommon;
 
 namespace ComponentEditor
 {
    static class Program
    {
+       [STAThread]
+       static void Main()
+       {
+           // ensure registry keys are initialised
+           FileSearcher.SetKeys();
 
-      [STAThread]
-      static void Main()
-      {
-         Application.EnableVisualStyles();
-         Application.SetCompatibleTextRenderingDefault(false);
-         Application.Run(new ComponentEditorWindow());
-      }
+           Application.EnableVisualStyles();
+           Application.SetCompatibleTextRenderingDefault(false);
+           Application.Run(new ComponentEditorWindow());
+       }
    }
 }

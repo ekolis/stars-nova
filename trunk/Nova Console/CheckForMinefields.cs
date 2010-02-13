@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -10,12 +9,14 @@
 // Free Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
+
+using NovaCommon;
+using NovaServer;
 
 namespace NovaConsole
 {
@@ -27,7 +28,7 @@ namespace NovaConsole
       public static bool Check(Fleet fleet)
       { 
          foreach (Minefield Minefield in 
-                  ConsoleState.Data.AllMinefields.Values) {
+                  ServerState.Data.AllMinefields.Values) {
 
             if (IsInField(fleet, Minefield)) {
                bool hit = CheckForHit(fleet, Minefield);
@@ -41,7 +42,7 @@ namespace NovaConsole
 
             Minefield.NumberOfMines -= Minefield.NumberOfMines / 100;
             if (Minefield.NumberOfMines <= 10) {
-               ConsoleState.Data.AllMinefields.Remove(Minefield);
+               ServerState.Data.AllMinefields.Remove(Minefield);
             }
          }
 
@@ -159,7 +160,7 @@ namespace NovaConsole
          else {
             message.Text += "All of your ships were destroyed.\n";
             message.Text += "You lost this fleet.";
-            ConsoleState.Data.AllFleets.Remove(fleet.Key);
+            ServerState.Data.AllFleets.Remove(fleet.Key);
          }
             
          Intel.Data.Messages.Add(message);

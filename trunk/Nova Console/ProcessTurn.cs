@@ -8,13 +8,15 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
 using System;
+
+using NovaCommon;
+using NovaServer;
 
 namespace NovaConsole 
 {
@@ -26,7 +28,7 @@ namespace NovaConsole
 
    public static class ProcessTurn
    {
-      private static ConsoleState    StateData = null;
+      private static ServerState    StateData = null;
 
 
 // ============================================================================
@@ -37,7 +39,7 @@ namespace NovaConsole
 
       public static void Generate()
       {
-         StateData = ConsoleState.Data;
+         StateData = ServerState.Data;
 
          OrderReader.ReadOrders();
 
@@ -57,40 +59,40 @@ namespace NovaConsole
 
          // remove any destroyed fleets - TODO (priority 4) should be done when they are destroyed to allow bombing when a base is destroyed
          ArrayList destroyedFleets = new ArrayList();
-         foreach (Fleet fleet in ConsoleState.Data.AllFleets.Values)
+         foreach (Fleet fleet in ServerState.Data.AllFleets.Values)
          {
              if (fleet.FleetShips.Count == 0)
                  destroyedFleets.Add(fleet.Key);
          }
          foreach (String name in destroyedFleets)
          {
-             ConsoleState.Data.AllFleets.Remove(name);
+             ServerState.Data.AllFleets.Remove(name);
          }
 
          BattleEngine.Run();
 
          // remove any destroyed fleets - TODO (priority 4) should be done when they are destroyed to allow bombing when a base is destroyed
          destroyedFleets = new ArrayList();
-         foreach (Fleet fleet in ConsoleState.Data.AllFleets.Values)
+         foreach (Fleet fleet in ServerState.Data.AllFleets.Values)
          {
              if (fleet.FleetShips.Count == 0)
                  destroyedFleets.Add(fleet.Key);
          }
          foreach (String name in destroyedFleets)
          {
-             ConsoleState.Data.AllFleets.Remove(name);
+             ServerState.Data.AllFleets.Remove(name);
          }
 
          // remove destroyed space stations - TODO (priority 4) should be done when they are destroyed
          ArrayList destroyedStations = new ArrayList();
-         foreach (Star star in ConsoleState.Data.AllStars.Values)
+         foreach (Star star in ServerState.Data.AllStars.Values)
          {
              if (star.Starbase != null && star.Starbase.FleetShips.Count == 0)
                  destroyedStations.Add(star.Name);
          }
          foreach (String name in destroyedStations)
          {
-             ((Star)(ConsoleState.Data.AllStars[name])).Starbase = null;
+             ((Star)(ServerState.Data.AllStars[name])).Starbase = null;
              
          }
           
@@ -267,7 +269,7 @@ namespace NovaConsole
 
       private static bool UpdateFleet(Fleet fleet)
       {
-         Race race = ConsoleState.Data.AllRaces[fleet.Owner] as Race;
+         Race race = ServerState.Data.AllRaces[fleet.Owner] as Race;
 
          Waypoint currentPosition = new Waypoint();
          double   availableTime   = 1.0;

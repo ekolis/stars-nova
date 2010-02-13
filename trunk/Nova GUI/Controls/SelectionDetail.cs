@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -10,7 +9,6 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,6 +16,9 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+
+using NovaCommon;
+using NovaClient;
 
 namespace Nova.Controls
 {
@@ -100,7 +101,7 @@ namespace Nova.Controls
          // To avoid confusion when another race's fleet or planet is selected
          // grey out (disable) the detail panel.
 
-         if (item.Owner == GuiState.Data.RaceName) {
+         if (item.Owner == ClientState.Data.RaceName) {
             DetailPanel.Enabled = true;
          }
          else {

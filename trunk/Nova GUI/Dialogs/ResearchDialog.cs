@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 // 
@@ -10,13 +9,14 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System.Collections;
 using System.ComponentModel;
 using System.Data;
 using System.Windows.Forms;
 using System;
 
+using NovaCommon;
+using NovaClient;
 
 // ============================================================================
 // Research Dialog
@@ -29,7 +29,7 @@ namespace Nova
       private Hashtable Buttons           = new Hashtable();
       private TechLevel CurrentLevel      = null;
       private int       AvailableEnergy   = 0;
-      private GuiState  StateData         = null;
+      private ClientState  StateData         = null;
       private bool      DialogInitialised = false;
 
 
@@ -41,7 +41,7 @@ namespace Nova
       {
          InitializeComponent();
 
-         StateData    = GuiState.Data;
+         StateData    = ClientState.Data;
          CurrentLevel = StateData.ResearchLevel;
 
          // Provide a convienient way of getting a button from it's name.
@@ -94,7 +94,7 @@ namespace Nova
          {
              try
              {
-                 GuiState.Data.ResearchTopic = (TechLevel.ResearchField)Enum.Parse(typeof(TechLevel.ResearchField), button.Text, true);
+                 ClientState.Data.ResearchTopic = (TechLevel.ResearchField)Enum.Parse(typeof(TechLevel.ResearchField), button.Text, true);
              }
              catch (System.ArgumentException)
              {

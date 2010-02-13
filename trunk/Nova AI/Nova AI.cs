@@ -7,20 +7,23 @@
 // TODO - have the nova console recognise a computer player and call the AI
 // to take the turn - should wait until the turn files are properly re-structured.
 //
-// TODO - suggest placing wrappers around OrderWriter.WriteOrders and GUIdata.Load 
+// TODO - suggest placing wrappers around OrderWriter.WriteOrders and GuiState.Initialize 
 //        incase these interfaces change when file formats are reworked.
 //
-// TODO - refactor this to better seperate the AI itself from the program that 
+// TODO - suggest refactor this to better seperate the AI itself from the program that 
 //        interfaces with the console and data files.
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free
 // Software Foundation.
 // ============================================================================
+
 using System;
 using System.Collections.Generic;
 using System.Text;
-using Nova;
+
+using NovaCommon;
+using NovaClient;
 
 namespace Nova_AI
 {
@@ -30,25 +33,28 @@ namespace Nova_AI
         {
             String RaceName = null;
             int TurnNumber = -1;
+
+            // ensure registry keys are initialised
+            FileSearcher.SetKeys();
+            
             // read paramaters for race and turn to play
-            // TODO: parse the parameters with options to make it less dependant 
-            //       on order and number of parameters. e.g.: -r<race_name> -t<turn_number> -p<password>
+            CommandArguments commandArguments = new CommandArguments(args);
             Console.WriteLine("Nova AI");
-            if (args.Length < 2)
+            if (commandArguments.Count < 2)
             {
                 Console.WriteLine("Usage: Nova_AI <race_name> <turn_number>");
                 return;
             }
 
-            RaceName = args[0];
-            TurnNumber = int.Parse(args[1], System.Globalization.CultureInfo.InvariantCulture);
+            RaceName = commandArguments[CommandArguments.Option.RaceName];
+            TurnNumber = int.Parse(commandArguments[CommandArguments.Option.Turn], System.Globalization.CultureInfo.InvariantCulture);
 
             // read in race data
             Console.WriteLine("Playing turn {0} for race \"{1}\".", TurnNumber, RaceName);
             try
             {
-                // TODO bypass GUI race selection (multi-player) and password entry for AI
-                GuiState.Initialize(true); 
+                // TODO (priority 4) - bypass password entry for AI. 
+                ClientState.Initialize(commandArguments.ToArray()); 
             }
             catch
             {

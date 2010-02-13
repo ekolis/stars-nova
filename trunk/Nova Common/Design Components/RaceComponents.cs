@@ -80,7 +80,19 @@ namespace NovaCommon
         /// <param name="newComponent">The Component to add.</param>
         public void Add(Component newComponent)
         {
-            Dictionary.Add(newComponent.Name, newComponent);
+            if (!Dictionary.Contains(newComponent.Name))
+            {
+                Dictionary.Add(newComponent.Name, newComponent);
+            }
+            else
+            {
+                Component current = Dictionary[newComponent.Name] as Component;
+                if (current != newComponent)
+                {
+                    Report.Error("RaceComponents.cs : Add() - attempted to add a new component with the same name as an existing component.");
+                }
+                // else, they are the same component and can be safely ignored
+            }
         }
 
        

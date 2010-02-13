@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -14,7 +13,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
+
 using NovaCommon;
+using NovaClient;
 
 namespace Nova
 {
@@ -442,7 +443,7 @@ private void InitializeComponent()
 
       public Star Value {
          set {
-            Race race    = GuiState.Data.PlayerRace;
+            Race race    = ClientState.Data.PlayerRace;
             int habValue = (int) Math.Ceiling(value.HabitalValue(race) * 100);
             PlanetValue.Text = habValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
 
@@ -453,7 +454,7 @@ private void InitializeComponent()
                PlanetValue.ForeColor = Color.Black;
             }
 
-            StarReport report = GuiState.Data.StarReports[value.Name] 
+            StarReport report = ClientState.Data.StarReports[value.Name] 
                                 as StarReport;
 
             if (report.Population == 0) {

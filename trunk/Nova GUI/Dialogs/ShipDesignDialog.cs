@@ -13,9 +13,10 @@ using System;
 using System.Drawing;
 using System.Collections;
 using System.Windows.Forms;
+
 using NovaCommon;
 using ControlLibrary;
-
+using NovaClient;
 
 // ============================================================================
 // Ship Design Dialog
@@ -25,7 +26,7 @@ namespace Nova
 {
    public class ShipDesignDialog : System.Windows.Forms.Form
    {
-      private GuiState     StateData           = null;   
+      private ClientState     StateData           = null;   
       private Hashtable    AllComponents       = null;
       private Hashtable    AllDesigns          = null;
       private Hashtable    ImageIndices        = new Hashtable();
@@ -95,7 +96,7 @@ namespace Nova
 
           // Some abbreviations (just to save a bit of typing)
 
-          StateData = GuiState.Data;
+          StateData = ClientState.Data;
           AllComponents = NovaCommon.AllComponents.Data.Components;
           AllDesigns = StateData.InputTurn.AllDesigns;
 

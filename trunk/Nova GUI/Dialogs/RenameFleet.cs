@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -9,7 +8,7 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +17,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+
+using NovaCommon;
+using NovaClient;
 
 namespace Nova
 {
@@ -50,11 +52,11 @@ namespace Nova
 
       private void OKButton_Click(object sender, EventArgs e)
       {
-         Hashtable AllFleets = GuiState.Data.InputTurn.AllFleets;
+         Hashtable AllFleets = ClientState.Data.InputTurn.AllFleets;
 
          string newName = NewName.Text;
-         string newKey  = GuiState.Data.RaceName + "/" + newName;
-         string oldKey  = GuiState.Data.RaceName + "/" + ExistingName.Text;
+         string newKey  = ClientState.Data.RaceName + "/" + newName;
+         string oldKey  = ClientState.Data.RaceName + "/" + ExistingName.Text;
          
          if (AllFleets.Contains(newKey)) {
             Report.Error("A fleet already has that name");
@@ -63,7 +65,7 @@ namespace Nova
 
          Fleet fleet = AllFleets[oldKey] as Fleet;
          AllFleets.Remove(oldKey);
-         GuiState.Data.DeletedFleets.Add(oldKey);
+         ClientState.Data.DeletedFleets.Add(oldKey);
 
          fleet.Name        = newName;
          AllFleets[newKey] = fleet;

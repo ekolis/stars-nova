@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -17,8 +16,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using NovaCommon;
 
+using NovaCommon;
+using NovaClient;
 
 // ============================================================================
 // Fleet summary report dialog class
@@ -42,9 +42,9 @@ namespace Nova
       private void OnLoad(object sender, EventArgs e)
       {
          const int numColumns = 11;
-         Race      race       = GuiState.Data.PlayerRace;
+         Race      race       = ClientState.Data.PlayerRace;
 
-         Hashtable allFleets = GuiState.Data.InputTurn.AllFleets;
+         Hashtable allFleets = ClientState.Data.InputTurn.AllFleets;
          FleetGridView.Columns[6].Name = "Cargo";
          FleetGridView.AutoSize        = true;
          

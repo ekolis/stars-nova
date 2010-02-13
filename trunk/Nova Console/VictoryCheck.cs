@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -11,14 +10,16 @@
 
 using System;
 using System.Collections;
+
 using NovaCommon;
+using NovaServer;
 
 namespace NovaConsole
 {
    public static class VictoryCheck
    {
 
-      static ConsoleState StateData   = ConsoleState.Data;
+      static ServerState StateData   = ServerState.Data;
       static bool         messageSent = false;
 
 // ============================================================================
@@ -55,7 +56,7 @@ namespace NovaConsole
 
               int gameTime = StateData.TurnYear - 2100;
 
-              if (gameTime < StateData.MinimumGameTime)
+              if (gameTime < GameSettings.Data.MinimumGameTime)
               {
                   return;
               }
@@ -73,7 +74,7 @@ namespace NovaConsole
                   targetsMet += ExceedsSecondPlace(race.Name);
 
                   if (messageSent == false &&
-                      targetsMet >= StateData.TargetsToMeet)
+                      targetsMet >= GameSettings.Data.TargetsToMeet)
                   {
 
                       messageSent = true;
@@ -97,7 +98,8 @@ namespace NovaConsole
       {
          // See if this option has been turned on
 
-         if (StateData.PlanetsOwned.IsChecked == false) {
+          if (GameSettings.Data.PlanetsOwned.IsChecked == false)
+          {
             return 0;
          }
 
@@ -112,7 +114,8 @@ namespace NovaConsole
          int percentage = (starsOwned * 100) 
                         / StateData.AllStars.Count;
 
-         if (percentage >= StateData.PlanetsOwned.NumericValue) {
+         if (percentage >= GameSettings.Data.PlanetsOwned.NumericValue)
+         {
             return 1;
          }
 
@@ -129,17 +132,19 @@ namespace NovaConsole
       {
          // See if this tech level option has been turned on
 
-         if (StateData.TechLevels.IsChecked == false) {
+          if (GameSettings.Data.TechLevels.IsChecked == false)
+          {
             return 0;
          }
 
-         int targetLevel     = StateData.TechLevels.NumericValue;
-         int numberOfFields  = StateData.NumberOfFields.NumericValue;
+          int targetLevel = GameSettings.Data.TechLevels.NumericValue;
+          int numberOfFields = GameSettings.Data.NumberOfFields.NumericValue;
 
          // See if a number of fields sub-option has been turned on.
          // If it hasn't, just use one.
 
-         if (StateData.NumberOfFields.IsChecked == false) {
+          if (GameSettings.Data.NumberOfFields.IsChecked == false)
+          {
             numberOfFields = 1;
          }
 
@@ -163,7 +168,8 @@ namespace NovaConsole
 
       private static int ScoreExceeded(string raceName)
       {
-         if (StateData.TotalScore.IsChecked == false) {
+          if (GameSettings.Data.TotalScore.IsChecked == false)
+          {
             return 0;
          }
 
@@ -171,7 +177,8 @@ namespace NovaConsole
 
          foreach (ScoreRecord scoreDetail in allScores) {
             if (scoreDetail.Race == raceName) {
-               if (scoreDetail.Score >= StateData.TotalScore.NumericValue) {
+                if (scoreDetail.Score >= GameSettings.Data.TotalScore.NumericValue)
+                {
                   return 1;
                }
                break;
@@ -187,8 +194,9 @@ namespace NovaConsole
 // ============================================================================
 
       private static int ProductionCapacity(string raceName)
-      { 
-         if (StateData.ProductionCapacity.IsChecked == false) {
+      {
+          if (GameSettings.Data.ProductionCapacity.IsChecked == false)
+          {
             return 0;
          }
 
@@ -200,7 +208,8 @@ namespace NovaConsole
             }
          }
 
-         if (capacity >= StateData.ProductionCapacity.NumericValue) {
+         if (capacity >= GameSettings.Data.ProductionCapacity.NumericValue)
+         {
             return 1;
          }
 
@@ -215,7 +224,8 @@ namespace NovaConsole
 
       private static int CapitalShips(string raceName)
       {
-         if (StateData.CapitalShips.IsChecked == false) {
+          if (GameSettings.Data.CapitalShips.IsChecked == false)
+          {
             return 0;
          }
 
@@ -223,8 +233,9 @@ namespace NovaConsole
 
          foreach (ScoreRecord scoreDetail in allScores) {
             if (scoreDetail.Race == raceName) {
-               if (scoreDetail.CapitalShips >= 
-                   StateData.CapitalShips.NumericValue) {
+               if (scoreDetail.CapitalShips >=
+                   GameSettings.Data.CapitalShips.NumericValue)
+               {
                   return 1;
                }
                break;
@@ -242,11 +253,13 @@ namespace NovaConsole
 
       private static int HighestScore(string raceName, int years)
       {
-         if (StateData.HighestScore.IsChecked == false) {
+          if (GameSettings.Data.HighestScore.IsChecked == false)
+          {
             return 0;
          }
 
-         if (years < StateData.HighestScore.NumericValue) {
+          if (years < GameSettings.Data.HighestScore.NumericValue)
+          {
             return 0;
          }
 
@@ -277,7 +290,8 @@ namespace NovaConsole
 
       private static int ExceedsSecondPlace(string raceName)
       {
-         if (StateData.CapitalShips.IsChecked == false) {
+          if (GameSettings.Data.CapitalShips.IsChecked == false)
+          {
             return 0;
          }
 
@@ -297,7 +311,7 @@ namespace NovaConsole
             }
          }
 
-         secondPlaceScore *= StateData.SecondPlaceScore.NumericValue;
+         secondPlaceScore *= GameSettings.Data.SecondPlaceScore.NumericValue;
 
          if (ourScore > secondPlaceScore) return 1;
          return 0;

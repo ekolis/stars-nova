@@ -99,7 +99,7 @@ namespace NovaCommon
         {
             get
             {
-                return (TraitEntry) Dictionary[index];
+                return Dictionary[index] as TraitEntry;
             }
         }
 
