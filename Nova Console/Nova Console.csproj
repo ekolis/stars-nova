@@ -140,41 +140,19 @@
     <Compile Include="BattleEngine.cs" />
     <Compile Include="Bombing.cs" />
     <Compile Include="CheckForMinefields.cs" />
-    <Compile Include="ConsoleState.cs" />
     <Compile Include="Invade.cs" />
     <Compile Include="LayMines.cs" />
     <Compile Include="Manufacture.cs" />
-    <Compile Include="OrderReader.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Scores.cs" />
-    <Compile Include="StarsMapGenerator.cs" />
     <Compile Include="VictoryCheck.cs" />
-    <Compile Include="VictoryConditions.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="VictoryConditions.Designer.cs">
-      <DependentUpon>VictoryConditions.cs</DependentUpon>
-    </Compile>
-    <Compile Include="GameFolder.cs" />
-    <Compile Include="NewGame.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="NameGenerator.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="NovaConsole.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="ProcessTurn.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="PlayerFunctions.cs" />
-    <Compile Include="IntelWriter.cs" />
-    <Compile Include="SpaceAllocator.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="WaypointTasks.cs" />
@@ -191,10 +169,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="VictoryConditions.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>VictoryConditions.cs</DependentUpon>
-    </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Control Library\ControlLibrary.csproj">
@@ -208,6 +182,10 @@
     <ProjectReference Include="..\Race Designer\Race Designer.csproj">
       <Project>{BFDEE889-6F24-4014-A719-DDA9A9596D70}</Project>
       <Name>Race Designer</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ServerState\ServerState.csproj">
+      <Project>{057D68CC-97A3-4296-A66B-1D3A5C00134E}</Project>
+      <Name>ServerState</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -9,7 +8,6 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +16,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+
+using NovaCommon;
+using NovaClient;
 
 namespace Nova
 {
@@ -32,7 +33,7 @@ namespace Nova
       {
          InitializeComponent();
 
-         foreach (BattlePlan plan in GuiState.Data.BattlePlans.Values) {
+         foreach (BattlePlan plan in ClientState.Data.BattlePlans.Values) {
             PlanList.Items.Add(plan.Name);
          }
          
@@ -47,7 +48,7 @@ namespace Nova
 
       private void UpdatePlanDetails()
       {
-         Hashtable  battlePlans = GuiState.Data.BattlePlans;
+         Hashtable  battlePlans = ClientState.Data.BattlePlans;
          string     selection   = PlanList.SelectedItem as string;
          BattlePlan plan        = battlePlans[selection] as BattlePlan;
 

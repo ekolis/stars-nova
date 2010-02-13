@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -17,7 +16,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+
 using NovaCommon;
+using NovaClient;
 
 // ============================================================================
 // Score summary report dialog class
@@ -39,7 +40,7 @@ namespace Nova
 
       private void OnLoad(object sender, EventArgs e)
       {
-         ArrayList allScores    = GuiState.Data.InputTurn.AllScores;
+         ArrayList allScores    = ClientState.Data.InputTurn.AllScores;
          ScoreGridView.AutoSize = true;
 
          foreach (ScoreRecord score in allScores) {

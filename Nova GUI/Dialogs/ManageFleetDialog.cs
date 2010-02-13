@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -9,7 +8,6 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +16,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+
+using NovaCommon;
+using NovaClient;
 
 namespace Nova
 {
@@ -39,7 +40,7 @@ namespace Nova
       public ManageFleetDialog()
       {
          InitializeComponent();
-         AllFleets = GuiState.Data.InputTurn.AllFleets;
+         AllFleets = ClientState.Data.InputTurn.AllFleets;
       }
 
 
@@ -119,7 +120,7 @@ namespace Nova
       private void MergeButton_Click(object sender, EventArgs e)
       {
          string fleetName = CoLocatedFleets.SelectedItems[0].Text;
-         string fleetKey  = GuiState.Data.RaceName + "/" + fleetName;
+         string fleetKey  = ClientState.Data.RaceName + "/" + fleetName;
 
          Fleet fleetToMerge = AllFleets[fleetKey] as Fleet;
          foreach (Ship ship in fleetToMerge.FleetShips) {
@@ -127,7 +128,7 @@ namespace Nova
          }
 
          AllFleets.Remove(fleetKey);
-         GuiState.Data.DeletedFleets.Add(fleetKey);
+         ClientState.Data.DeletedFleets.Add(fleetKey);
          UpdateDialogDetails();
 
          MergeButton.Enabled = false;

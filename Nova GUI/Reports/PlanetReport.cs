@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -17,7 +16,9 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
+
 using NovaCommon;
+using NovaClient;
 
 namespace Nova
 {
@@ -42,12 +43,12 @@ namespace Nova
       private void OnLoad(object sender, EventArgs e)
       {
          const int numColumns = 12;
-         Race      race       = GuiState.Data.PlayerRace;
+         Race      race       = ClientState.Data.PlayerRace;
 
          PlanetGridView.Columns[8].Name = "Minerals";
          PlanetGridView.AutoSize        = true;
 
-         Hashtable allStars = GuiState.Data.InputTurn.AllStars;
+         Hashtable allStars = ClientState.Data.InputTurn.AllStars;
          
          foreach (Star star in allStars.Values) {
             if (star.Owner == race.Name) {

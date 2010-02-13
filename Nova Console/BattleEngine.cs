@@ -14,6 +14,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+using NovaServer;
 
 namespace NovaConsole {
 
@@ -24,7 +25,7 @@ namespace NovaConsole {
 
    public static class BattleEngine
    {
-      private static ConsoleState StateData      = ConsoleState.Data;
+      private static ServerState StateData      = ServerState.Data;
       private static double       MaxBattleTime  = 16;
       private static BattleReport Battle         = new BattleReport();
       private static int          StackID        = 0;
@@ -107,7 +108,7 @@ namespace NovaConsole {
             DoBattle(zoneStacks);
             ReportLosses();
 
-            ConsoleState.Data.AllBattles.Add(Battle);
+            ServerState.Data.AllBattles.Add(Battle);
          }
       }
 

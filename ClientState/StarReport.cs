@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -14,9 +13,8 @@ using System.Collections;
 using System.Drawing;
 using NovaCommon;
 
-namespace Nova
+namespace NovaClient
 {
-
 
 // ============================================================================
 /// Report class.

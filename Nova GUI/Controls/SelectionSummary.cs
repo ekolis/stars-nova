@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -9,7 +8,6 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -18,6 +16,9 @@ using System.Drawing;
 using System.Data;
 using System.Text;
 using System.Windows.Forms;
+
+using NovaCommon;
+using NovaClient;
 
 namespace Nova
 {
@@ -45,7 +46,7 @@ namespace Nova
 
       private void DisplayPlanet(Item item)
       {
-         if (GuiState.Data.StarReports.Contains(item.Name) == false) {
+         if (ClientState.Data.StarReports.Contains(item.Name) == false) {
             SelectedItem.Text = item.Name + " is unexplored";
             summaryItem       = null;
             SelectedItem.Controls.Clear();

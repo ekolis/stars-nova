@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -9,7 +8,6 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System.Collections.Generic;
 using System.Collections;
 using System.ComponentModel;
@@ -20,13 +18,16 @@ using System.Text;
 using System.Windows.Forms;
 using System;
 
+using NovaCommon;
+using NovaClient;
+
 namespace Nova
 {   
    public partial class StarMap : UserControl
    {
       private Bitmap     CursorBitmap      = null;
       private Intel TurnData          = null;
-      private GuiState   StateData         = null;
+      private ClientState   StateData         = null;
       private Point      CursorPosition    = new Point(0, 0);
       private Point      Extent            = new Point(0, 0);
       private Point      LastClick         = new Point(0, 0);
@@ -58,10 +59,10 @@ namespace Nova
 
          InitializeComponent();
 
-         Extent.X  = Global.UniverseSize;
-         Extent.Y  = Global.UniverseSize;
-         Logical.X = Global.UniverseSize;
-         Logical.Y = Global.UniverseSize;
+         Extent.X = GameSettings.Data.MapWidth;
+         Extent.Y = GameSettings.Data.MapHeight;
+         Logical.X = GameSettings.Data.MapWidth;
+         Logical.Y = GameSettings.Data.MapHeight;
 
          CursorBitmap = Nova.Resources.Cursor;
          CursorBitmap.MakeTransparent(Color.Black);
@@ -84,7 +85,7 @@ namespace Nova
 
       public void Initialise()
       {
-         StateData     = GuiState.Data;          
+         StateData     = ClientState.Data;          
          TurnData      = StateData.InputTurn;
          IsInitialised = true;
          /*string sv = this.ZoomIn.Visible.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -144,7 +145,7 @@ namespace Nova
          // (1a) Planetary long-range scanners.
 
          foreach (Star star in TurnData.AllStars.Values) {
-            if (star.Owner == GuiState.Data.RaceName) {
+            if (star.Owner == ClientState.Data.RaceName) {
                DrawCircle(lrScanBrush, star.Position, star.ScanRange);
             }
          }
@@ -171,7 +172,7 @@ namespace Nova
              Color cb;
              Color cf;
 
-             if (Minefield.Owner == GuiState.Data.RaceName)
+             if (Minefield.Owner == ClientState.Data.RaceName)
              {
                  cb = Color.FromArgb(0,   0,   0, 0);
                  cf = Color.FromArgb(128, 0, 128, 0);
@@ -695,7 +696,7 @@ namespace Nova
 
 
 // ============================================================================
-// ReadIntel a mouse down event.
+// Process a mouse down event.
 // ============================================================================
 
       private void StarMapMouse(object sender, MouseEventArgs e)

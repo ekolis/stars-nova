@@ -146,23 +146,24 @@ namespace RaceDesigner
 
       #endregion Designer Generated Variables
 
-      // ============================================================================
-      // Construction and dynamic initialisation which consists of ensuring
-      // that there is a default primary racial trait selected and that what to
-      // spend unused advantage points on has a default.
-      // ============================================================================
-      public RaceDesignerForm() 
+      /// <summary>
+      /// Construction and dynamic initialisation which consists of ensuring
+      /// that there is a default primary racial trait selected and that what to
+      /// spend unused advantage points on has a default.
+      /// </summary>
+      public RaceDesignerForm()
       {
-         InitializeComponent();
+          InitializeComponent();
 
-         JackOfAllTrades.Checked = true;
-         SelectedRace = AllTraits.Data.Primary["JOAT"];
-         PrimaryTraitDescription.Text = SelectedRace.Description;
-         //AdvantagePoints += trait.Cost;
-         //AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+          // Initialize the Nova registry keys
+          FileSearcher.SetKeys();
 
-         ParametersChanged                = false;
-         UnusedPointsTarget.SelectedIndex = 0;
+          JackOfAllTrades.Checked = true;
+          SelectedRace = AllTraits.Data.Primary["JOAT"];
+          PrimaryTraitDescription.Text = SelectedRace.Description;
+
+          ParametersChanged = false;
+          UnusedPointsTarget.SelectedIndex = 0;
       }
 
 

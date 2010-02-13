@@ -8,11 +8,14 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System.Collections;
 using System;
 
-namespace NovaConsole {
+using NovaCommon;
+using NovaServer;
+
+namespace NovaConsole 
+{
 
 
 // ============================================================================
@@ -23,7 +26,7 @@ namespace NovaConsole {
    {
 
       private static ArrayList    deletions = new ArrayList();
-      private static ConsoleState stateData = ConsoleState.Data;
+      private static ServerState stateData = ServerState.Data;
 
 
 // ============================================================================
@@ -180,7 +183,7 @@ namespace NovaConsole {
 
       private static void CreateShip(ShipDesign design, Star star)
       {
-         ConsoleState stateData = ConsoleState.Data;
+         ServerState stateData = ServerState.Data;
          Race         race      = stateData.AllRaces[star.Owner] as Race;
 
          Ship ship  = new Ship(design);

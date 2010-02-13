@@ -12,7 +12,6 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System.Collections;
 using System.IO;
 using System.Reflection;
@@ -22,12 +21,13 @@ using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
 using System;
 
+using NovaCommon;
 
 // ============================================================================
 // WriteOrders the player's turn.
 // ============================================================================
 
-namespace Nova
+namespace NovaClient
 {
    public static class OrderWriter
    {
@@ -38,7 +38,7 @@ namespace Nova
 // ---------------------------------------------------------------------------
 
       private static BinaryFormatter Formatter  = new BinaryFormatter();
-      private static GuiState        StateData  = null;
+      private static ClientState        StateData  = null;
       private static Intel           InputTurn  = null; // TODO (priority 4) - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
       private static string          RaceName   = null;
 
@@ -51,7 +51,7 @@ namespace Nova
 
       public static void WriteOrders()
       {
-         StateData  = GuiState.Data;
+         StateData  = ClientState.Data;
          InputTurn  = StateData.InputTurn;
          RaceName   = StateData.RaceName;
 
@@ -117,7 +117,7 @@ namespace Nova
 
       private static int CountTechLevels()
       {
-         StateData = GuiState.Data;
+         StateData = ClientState.Data;
          int total = 0;
 
          foreach (int techLevel in StateData.ResearchLevel)

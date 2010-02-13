@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -7,8 +6,6 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
-using ControlLibrary;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -16,6 +13,10 @@ using System.Data;
 using System.Drawing;
 using System.Windows.Forms;
 using System;
+
+using NovaCommon;
+using ControlLibrary;
+using NovaClient;
 
 namespace Nova
 {
@@ -574,7 +575,7 @@ namespace Nova
       public void DisplayLegDetails(int index)
       {
          Waypoint thisWaypoint = SelectedFleet.Waypoints[index] as Waypoint;
-         Race     race         = GuiState.Data.PlayerRace;
+         Race     race         = ClientState.Data.PlayerRace;
 
          WaypointTasks.Text = thisWaypoint.Task;
 
@@ -692,7 +693,7 @@ namespace Nova
       {
          SelectedFleet = fleet;
          
-         List<Fleet> myFleets = GuiState.Data.PlayerFleets;
+         List<Fleet> myFleets = ClientState.Data.PlayerFleets;
          int i;
 
          for (i = 0; i < myFleets.Count; i++) {
@@ -814,7 +815,7 @@ namespace Nova
 
       private void NextFleet_Click(object sender, System.EventArgs e) 
       {
-         List<Fleet> myFleets = GuiState.Data.PlayerFleets;
+         List<Fleet> myFleets = ClientState.Data.PlayerFleets;
 
          if (myFleets.Count == 1) {
             PreviousFleet.Enabled = false;
@@ -845,7 +846,7 @@ namespace Nova
 
       private void PreviousFleet_Click(object sender, EventArgs e)
       {
-         List<Fleet> myFleets = GuiState.Data.PlayerFleets;
+         List<Fleet> myFleets = ClientState.Data.PlayerFleets;
 
          if (myFleets.Count == 1) {
             PreviousFleet.Enabled = false;

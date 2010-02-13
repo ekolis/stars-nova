@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -10,12 +9,9 @@
 // ============================================================================
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
+
+using NovaCommon;
 
 namespace ControlLibrary
 {
@@ -97,28 +93,5 @@ namespace ControlLibrary
    }
 
 
-// ============================================================================
-// Type used by control.
-// ============================================================================
-      
-   [Serializable]
-   public class EnabledValue
-   {
-      public bool IsChecked    = false;
-      public int  NumericValue = 0;
-
-// ============================================================================
-// Construction (iniialising and non-initialising)
-// ============================================================================
-
-      public EnabledValue(bool check, int value)
-      {
-         IsChecked    = check;
-         NumericValue = value;
-      }
-
-      public EnabledValue() { }
-      
-   }
 
 }

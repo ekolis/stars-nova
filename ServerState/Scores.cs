@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -9,20 +8,21 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System.Collections;
 using System;
 
+using NovaCommon;
+using NovaServer;
 
 // ============================================================================
 // Manipulation of the turn data that is shared between the Console and GUI.
 // ============================================================================
 
-namespace NovaConsole
+namespace NovaServer
 {
    public class Scores
    {
-      private static ConsoleState    StateData = null;
+      private static ServerState    StateData = null;
 
 // ============================================================================
 // Return a list of all scores 
@@ -32,7 +32,7 @@ namespace NovaConsole
       {
          ArrayList scores   = new ArrayList();
 
-         foreach (Race race in ConsoleState.Data.AllRaces.Values) {
+         foreach (Race race in ServerState.Data.AllRaces.Values) {
             scores.Add(GetScoreRecord(race.Name));
          }
 
@@ -50,7 +50,7 @@ namespace NovaConsole
       {
          double TotalScore = 0;
          ScoreRecord Score = new ScoreRecord();
-         StateData         = ConsoleState.Data;
+         StateData         = ServerState.Data;
          
 // ----------------------------------------------------------------------------
 // Count star-specific values

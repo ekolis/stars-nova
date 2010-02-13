@@ -12,24 +12,24 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System.Collections;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization;
 using System;
 
+using NovaCommon;
 
 // ============================================================================
 // Manipulation of the turn data that is shared between the Console and GUI.
 // ============================================================================
 
-namespace NovaConsole
+namespace NovaServer
 {
    public static class IntelWriter
    {
       private static BinaryFormatter Formatter = new BinaryFormatter();
-      private static ConsoleState    StateData = null;
+      private static ServerState    StateData = null;
       private static Intel      TurnData  = null;
 
 
@@ -43,7 +43,7 @@ namespace NovaConsole
 
       public static void WriteIntel()
       {
-         StateData = ConsoleState.Data;
+         StateData = ServerState.Data;
          TurnData  = Intel.Data;
 
          TurnData.TurnYear      = StateData.TurnYear;
@@ -71,7 +71,13 @@ namespace NovaConsole
             TurnData.AllScores = new ArrayList();
          }
 
-         string turnFileName = Path.Combine(ConsoleState.Data.GameFolder, "Nova.Intel");
+         ServerState.Data.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, "Game Files");
+         if (ServerState.Data.GameFolder == null)
+         {
+             Report.Error("Intel Writer: WriteIntel() - Unable to create file \"Nova.Intel\".");
+             return;
+         }
+         string turnFileName = Path.Combine(ServerState.Data.GameFolder, "Nova.Intel");
          FileStream turnFile = new FileStream(turnFileName,FileMode.Create);
 
          Formatter.Serialize(turnFile, Intel.Data.TurnYear);

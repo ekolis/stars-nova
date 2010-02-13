@@ -27,7 +27,7 @@
     </UpgradeBackupLocation>
     <ManifestCertificateThumbprint>966956BA12919747BF16AFC02094A4D9AC245946</ManifestCertificateThumbprint>
     <ManifestKeyFile>Nova GUI_TemporaryKey.pfx</ManifestKeyFile>
-    <GenerateManifests>true</GenerateManifests>
+    <GenerateManifests>false</GenerateManifests>
     <SignManifests>false</SignManifests>
     <IsWebBootstrapper>false</IsWebBootstrapper>
     <OldToolsVersion>2.0</OldToolsVersion>
@@ -46,6 +46,8 @@
     <ApplicationVersion>0.0.0.3</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetZone>LocalIntranet</TargetZone>
+    <ApplicationManifest>Properties\app.manifest</ApplicationManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -117,6 +119,10 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
+    <ProjectReference Include="..\ClientState\ClientState.csproj">
+      <Project>{F497309F-FC52-4431-962B-F6B813010080}</Project>
+      <Name>ClientState</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Control Library\ControlLibrary.csproj">
       <Name>ControlLibrary</Name>
       <Project>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</Project>
@@ -129,6 +135,11 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\app.manifest" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\Nova.jpg" />
     <None Include="Resources\NovaPanel.jpg" />
     <None Include="Resources\Plasma.png" />
@@ -138,6 +149,11 @@
     </Compile>
     <Compile Include="Dialogs\BattleViewer.Designer.cs">
       <DependentUpon>BattleViewer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
     <Compile Include="Reports\BattleReport.cs">
       <SubType>Form</SubType>
@@ -199,8 +215,6 @@
     <Compile Include="Reports\FleetReport.Designer.cs">
       <DependentUpon>FleetReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="OrderWriter.cs" />
-    <Compile Include="GuiState.cs" />
     <Compile Include="Dialogs\ManageFleetDialog.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -222,9 +236,6 @@
     <Compile Include="Reports\PlanetReport.Designer.cs">
       <DependentUpon>PlanetReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="IntelReader.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="NovaGUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -238,17 +249,10 @@
       <DependentUpon>ResearchDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="QueueList.cs" />
-    <Compile Include="Research.cs" />
     <Compile Include="Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
-    </Compile>
-    <Compile Include="Dialogs\SelectRaceDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Dialogs\SelectRaceDialog.Designer.cs">
-      <DependentUpon>SelectRaceDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="Dialogs\ShipDesignDialog.cs">
       <SubType>Form</SubType>
@@ -271,7 +275,6 @@
     <Compile Include="Reports\ScoreReport.Designer.cs">
       <DependentUpon>ScoreReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="StarReport.cs" />
     <Compile Include="utilities.cs" />
     <EmbeddedResource Include="Reports\BattleReport.resx">
       <SubType>Designer</SubType>
@@ -353,10 +356,6 @@
       <SubType>Designer</SubType>
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Dialogs\SelectRaceDialog.resx">
-      <SubType>Designer</SubType>
-      <DependentUpon>SelectRaceDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Dialogs\ShipDesignDialog.resx">
       <DependentUpon>ShipDesignDialog.cs</DependentUpon>

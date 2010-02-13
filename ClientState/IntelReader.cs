@@ -12,9 +12,10 @@
 
 using System;
 using System.Collections;
+
 using NovaCommon;
 
-namespace Nova
+namespace NovaClient
 {
  
 // ============================================================================
@@ -24,7 +25,7 @@ namespace Nova
    public static class IntelReader
    {
       private static Intel TurnData  = null;
-      private static GuiState   StateData = null;
+      private static ClientState   StateData = null;
 
       /// <summary>
       /// ReadIntel processes the console/server generated intel data for this turn. 
@@ -32,7 +33,7 @@ namespace Nova
       /// </summary>
       public static void ReadIntel()
       {
-         StateData = GuiState.Data;
+         StateData = ClientState.Data;
          TurnData  = StateData.InputTurn;
 
          StateData.Messages.Clear();
@@ -60,7 +61,7 @@ namespace Nova
       private static void ProcessMessages()
       {
          foreach (Message message in TurnData.Messages) {
-            if ((message.Audience == GuiState.Data.RaceName) ||
+            if ((message.Audience == ClientState.Data.RaceName) ||
                 (message.Audience == "*")) {
                StateData.Messages.Add(message);
             }
@@ -175,7 +176,7 @@ namespace Nova
       private static void ReportLevelUpdate(TechLevel.ResearchField area, int level)
       {
           Message techAdvanceMessage =
-              new Message(GuiState.Data.RaceName, null, "Your race has advanced to Tech Level "
+              new Message(ClientState.Data.RaceName, null, "Your race has advanced to Tech Level "
               + level + " in the " + StateData.ResearchTopic + " field");
           StateData.Messages.Add(techAdvanceMessage);
 
@@ -191,11 +192,11 @@ namespace Nova
                   component.RequiredTech <= newResearchLevel)
               {
 
-                  GuiState.Data.AvailableComponents.Add(component);
+                  ClientState.Data.AvailableComponents.Add(component);
                   Message newComponentMessage =
-                      new Message(GuiState.Data.RaceName, null, "You now have available the "
+                      new Message(ClientState.Data.RaceName, null, "You now have available the "
                       + component.Name + " " + component.Type + " component");
-                  GuiState.Data.Messages.Add(newComponentMessage);
+                  ClientState.Data.Messages.Add(newComponentMessage);
               }
           }
 

@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -16,9 +15,12 @@ using System.Drawing;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
-using NovaCommon;
 
-namespace NovaConsole {
+using NovaCommon;
+using NovaServer;
+
+namespace NovaConsole 
+{
 
 
 // ============================================================================
@@ -64,7 +66,7 @@ namespace NovaConsole {
          message.Text = fleet.Name 
                       + " attempted to colonise " + waypoint.Destination;
 
-         Star target = ConsoleState.Data.AllStars[waypoint.Destination]
+         Star target = ServerState.Data.AllStars[waypoint.Destination]
                        as Star;
 
          if (target.Colonists != 0) {
@@ -76,7 +78,7 @@ namespace NovaConsole {
          else {
             message.Text  = "You have colonised " + waypoint.Destination;
             waypoint.Task = "None";
-            Star star     = ConsoleState.Data.AllStars[waypoint.Destination]
+            Star star     = ServerState.Data.AllStars[waypoint.Destination]
                             as Star;
 
             star.ResourcesOnHand.Ironium   = fleet.Cargo.Ironium;
@@ -108,7 +110,7 @@ namespace NovaConsole {
             return;
          }
 
-         Star target = ConsoleState.Data.AllStars[waypoint.Destination]
+         Star target = ServerState.Data.AllStars[waypoint.Destination]
                      as Star;
 
          message.Text  = "Fleet " + fleet.Name + " has unloaded its cargo at "
@@ -117,7 +119,7 @@ namespace NovaConsole {
          Intel.Data.Messages.Add(message);
          
          waypoint.Task = "None";
-         Star star     = ConsoleState.Data.AllStars[waypoint.Destination]
+         Star star     = ServerState.Data.AllStars[waypoint.Destination]
                          as Star;
 
          star.ResourcesOnHand.Ironium   = fleet.Cargo.Ironium;
@@ -164,7 +166,7 @@ namespace NovaConsole {
       public static void Scrap(Fleet fleet, Star star, bool colonise)
       {
          double amount    = 0;
-         Race   race      = ConsoleState.Data.AllRaces[fleet.Owner] as Race;
+         Race   race      = ServerState.Data.AllRaces[fleet.Owner] as Race;
          double resources = 0;
 
          if (race.HasTrait("UR")) 
@@ -207,7 +209,7 @@ namespace NovaConsole {
              Scrap(ship, star, amount, resources);
          }
 
-         ConsoleState.Data.AllFleets.Remove(fleet.Key);
+         ServerState.Data.AllFleets.Remove(fleet.Key);
          Message message  = new Message();
          message.Audience = fleet.Owner;
          message.Text     = fleet.Name + " has been scrapped";

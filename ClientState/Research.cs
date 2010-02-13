@@ -10,9 +10,10 @@
 
 using System;
 using System.Collections;
+
 using NovaCommon;
 
-namespace Nova
+namespace NovaClient
 {
  
 // ============================================================================
@@ -21,7 +22,7 @@ namespace Nova
 
    public class Research
    {
-       private static GuiState StateData = GuiState.Data;
+       private static ClientState StateData = ClientState.Data;
  
 
 // ============================================================================
@@ -43,6 +44,7 @@ namespace Nova
          // multimplied by 10 then 10 points per tech-level reached in all
          // fields is added. Finally, the cost factor specified in the Race
          // Designer is then added.
+          // ??? (priority 3) is this the Stars! costs, or some approximation?
 
          int         baseCost    = (Fibonacci(level + 5) * 10) + techAjustment;
          int costFactor = (int)StateData.PlayerRace.ResearchCosts[StateData.ResearchTopic];

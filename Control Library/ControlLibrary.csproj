@@ -135,6 +135,12 @@
     <Compile Include="HullGrid.Designer.cs">
       <DependentUpon>HullGrid.cs</DependentUpon>
     </Compile>
+    <Compile Include="PlayerSelector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="PlayerSelector.Designer.cs">
+      <DependentUpon>PlayerSelector.cs</DependentUpon>
+    </Compile>
     <Compile Include="Range.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -172,6 +178,10 @@
     <EmbeddedResource Include="HullGrid.resx">
       <SubType>Designer</SubType>
       <DependentUpon>HullGrid.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="PlayerSelector.resx">
+      <DependentUpon>PlayerSelector.cs</DependentUpon>
+      <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="Range.resx">
       <DependentUpon>Range.cs</DependentUpon>

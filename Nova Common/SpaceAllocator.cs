@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -11,12 +10,11 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System;
 using System.Collections;
 using System.Drawing;
 
-namespace NovaConsole
+namespace NovaCommon
 {
 
 /// ===========================================================================
@@ -39,22 +37,17 @@ namespace NovaConsole
 // If the requested number of items does not naturally allow a square grid of
 // boxes to be created (e.g. 2, 3, 5, etc. don't - 4, 9, etc. do) then the
 // requested number is rounded up to a number that does.
-//
-// We do this by the BFI method (Brute Force and Ignorance) - must talk to a
-// mathematician about a better way to do this. 
 // ============================================================================
 
       public SpaceAllocator(int numberOfItems)
       {
-         while (true) {
-            GridAxisCount = (int) Math.Sqrt(numberOfItems);
-            if ((GridAxisCount * GridAxisCount) == numberOfItems) {
-               break;
-            }
-            else {
-               numberOfItems++;
-            }
-         }
+          GridAxisCount = (int)Math.Sqrt(numberOfItems);
+          if ((GridAxisCount * GridAxisCount) != numberOfItems)
+          {
+              GridAxisCount++;
+              numberOfItems = GridAxisCount * GridAxisCount;
+          }
+          if (GridAxisCount <= 0) GridAxisCount = 1;
       }
 
 
@@ -65,23 +58,26 @@ namespace NovaConsole
    
       public void AllocateSpace(int spaceSize)
       {
-         // Find the size of a box side. This will allow us to find the
-         // position of the top left corner of each box and, as we know the
-         // length of the side we can determine the rectangle details.
+          // Find the size of a box side. This will allow us to find the
+          // position of the top left corner of each box and, as we know the
+          // length of the side we can determine the rectangle details.
 
-         int   boxSide         = spaceSize / GridAxisCount;
-         Size  boxSize         = new Size(boxSide, boxSide);
-         Point currentPosition = new Point();
+          if (GridAxisCount <= 0) GridAxisCount = 1;
+          int boxSide = spaceSize / GridAxisCount;
+          Size boxSize = new Size(boxSide, boxSide);
+          Point currentPosition = new Point();
 
-         for (int y = 0; y < GridAxisCount; y++) {
-            currentPosition.Y = y * boxSide;
+          for (int y = 0; y < GridAxisCount; y++)
+          {
+              currentPosition.Y = y * boxSide;
 
-            for (int x = 0; x < GridAxisCount; x++) {
-               currentPosition.X = x * boxSide;
-               Rectangle box = new Rectangle(currentPosition, boxSize);
-               AvailableBoxes.Add(box);               
-            }
-         }
+              for (int x = 0; x < GridAxisCount; x++)
+              {
+                  currentPosition.X = x * boxSide;
+                  Rectangle box = new Rectangle(currentPosition, boxSize);
+                  AvailableBoxes.Add(box);
+              }
+          }
       }
 
 

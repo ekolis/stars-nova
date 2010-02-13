@@ -107,6 +107,7 @@
     <Compile Include="AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="CommandArguments.cs" />
     <Compile Include="Defenses.cs" />
     <Compile Include="Design Components\RaceComponents.cs" />
     <Compile Include="Design Components\Bomb.cs" />
@@ -132,6 +133,7 @@
     <Compile Include="Design Components\Weapon.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="FileSearcher.cs" />
     <Compile Include="IProgress.cs" />
     <Compile Include="ProgressDialog.cs">
       <SubType>Form</SubType>
@@ -159,8 +161,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Shared Data Structures\DefenseProductionUnit.cs" />
+    <Compile Include="Shared Data Structures\EnabledValue.cs" />
     <Compile Include="Shared Data Structures\EnvironmentTolerance.cs" />
     <Compile Include="Shared Data Structures\FactoryProductionUnit.cs" />
+    <Compile Include="Shared Data Structures\GameSettings.cs" />
     <Compile Include="Shared Data Structures\Message.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -168,6 +172,7 @@
     <Compile Include="Race Definition\PrimaryTraits.cs" />
     <Compile Include="Shared Data Structures\MineProductionUnit.cs" />
     <Compile Include="Shared Data Structures\AlchemyProductionUnit.cs" />
+    <Compile Include="Shared Data Structures\PlayerSettings.cs" />
     <Compile Include="Shared Data Structures\ProductionUnit.cs" />
     <Compile Include="Shared Data Structures\RaceData.cs" />
     <Compile Include="Race Definition\RaceIcon.cs" />
@@ -202,6 +207,7 @@
     <Compile Include="Shared Data Structures\Waypoint.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="SpaceAllocator.cs" />
     <Compile Include="XmlConversion.cs" />
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -9,11 +8,13 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System.Collections.Generic;
 using System.Collections;
 using System.Text;
 using System;
+
+using NovaCommon;
+using NovaServer;
 
 namespace NovaConsole
 {
@@ -41,7 +42,7 @@ namespace NovaConsole
          // certaintolerance in distance because it is unlikely that the
          // waypoint has been set exactly right.
 
-         foreach (Minefield Minefield in ConsoleState.Data.AllMinefields.Values) {
+         foreach (Minefield Minefield in ServerState.Data.AllMinefields.Values) {
             if (PointUtilities.IsNear(fleet.Position, Minefield.Position)) {
                if (Minefield.Owner == fleet.Owner) {
                   Minefield.NumberOfMines += fleet.NumberOfMines;
@@ -58,7 +59,7 @@ namespace NovaConsole
          newField.Owner = fleet.Owner;
          newField.NumberOfMines =fleet.NumberOfMines;
 
-         ConsoleState.Data.AllMinefields[newField] = newField;
+         ServerState.Data.AllMinefields[newField] = newField;
       }
      
 

@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -10,7 +9,6 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -20,11 +18,14 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using NovaCommon;
+using NovaClient;
+
 namespace Nova
 {
    public partial class PlayerRelations : Form
    {
-      private Hashtable Relation = GuiState.Data.PlayerRelations;
+      private Hashtable Relation = ClientState.Data.PlayerRelations;
 
 
 // ============================================================================
@@ -35,8 +36,8 @@ namespace Nova
       {
          InitializeComponent();
 
-         foreach (string raceName in GuiState.Data.InputTurn.AllRaceNames) {
-            if (raceName != GuiState.Data.RaceName) {
+         foreach (string raceName in ClientState.Data.InputTurn.AllRaceNames) {
+            if (raceName != ClientState.Data.RaceName) {
                RaceList.Items.Add(raceName);
             }
          }

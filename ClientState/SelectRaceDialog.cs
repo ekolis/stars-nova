@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -18,7 +17,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-namespace Nova
+namespace NovaClient
 {
    public partial class SelectRaceDialog : Form
    {

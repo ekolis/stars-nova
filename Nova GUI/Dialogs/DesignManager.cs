@@ -8,7 +8,6 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,12 +16,15 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
+using NovaCommon;
+using NovaClient;
+
 namespace Nova
 {
    public partial class DesignManager : Form
    {
 
-      private GuiState   StateData = null;
+      private ClientState   StateData = null;
       private Intel TurnData  = null;
 
 // ============================================================================
@@ -32,7 +34,7 @@ namespace Nova
       public DesignManager()
       {
          InitializeComponent();
-         StateData  = GuiState.Data;
+         StateData  = ClientState.Data;
          TurnData   = StateData.InputTurn;
          HullGrid.ModuleSelected += DesignModuleSelected;
       }

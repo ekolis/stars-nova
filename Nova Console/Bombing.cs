@@ -8,11 +8,13 @@
 // Software Foundation.
 // ============================================================================
 
-using NovaCommon;
 using System.Collections.Generic;
 using System.Collections;
 using System.Text;
 using System;
+
+using NovaCommon;
+using NovaServer;
 
 namespace NovaConsole
 {

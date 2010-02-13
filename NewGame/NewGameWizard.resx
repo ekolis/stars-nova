@@ -117,60 +117,60 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="ExceedsSecondPlace.Value" mimetype="application/x-microsoft.net.object.binary.base64">
+  <data name="TotalScore.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEVDb250cm9sTGlicmFyeSwgVmVyc2lvbj0wLjAuMC4xLCBDdWx0
-        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGwFAQAAABtDb250cm9sTGlicmFyeS5FbmFibGVk
-        VmFsdWUCAAAACUlzQ2hlY2tlZAxOdW1lcmljVmFsdWUAAAEIAgAAAABkAAAACw==
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
+        AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAZAAAAAs=
+</value>
+  </data>
+  <data name="ExceedSecondPlace.Value" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
+        AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAZAAAAAs=
 </value>
   </data>
   <data name="HighestScore.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEVDb250cm9sTGlicmFyeSwgVmVyc2lvbj0wLjAuMC4xLCBDdWx0
-        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGwFAQAAABtDb250cm9sTGlicmFyeS5FbmFibGVk
-        VmFsdWUCAAAACUlzQ2hlY2tlZAxOdW1lcmljVmFsdWUAAAEIAgAAAABkAAAACw==
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
+        AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAZAAAAAs=
 </value>
   </data>
   <data name="CapitalShips.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEVDb250cm9sTGlicmFyeSwgVmVyc2lvbj0wLjAuMC4xLCBDdWx0
-        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGwFAQAAABtDb250cm9sTGlicmFyeS5FbmFibGVk
-        VmFsdWUCAAAACUlzQ2hlY2tlZAxOdW1lcmljVmFsdWUAAAEIAgAAAABkAAAACw==
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
+        AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAZAAAAAs=
 </value>
   </data>
   <data name="ProductionCapacity.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEVDb250cm9sTGlicmFyeSwgVmVyc2lvbj0wLjAuMC4xLCBDdWx0
-        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGwFAQAAABtDb250cm9sTGlicmFyeS5FbmFibGVk
-        VmFsdWUCAAAACUlzQ2hlY2tlZAxOdW1lcmljVmFsdWUAAAEIAgAAAABkAAAACw==
-</value>
-  </data>
-  <data name="TotalScore.Value" mimetype="application/x-microsoft.net.object.binary.base64">
-    <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEVDb250cm9sTGlicmFyeSwgVmVyc2lvbj0wLjAuMC4xLCBDdWx0
-        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGwFAQAAABtDb250cm9sTGlicmFyeS5FbmFibGVk
-        VmFsdWUCAAAACUlzQ2hlY2tlZAxOdW1lcmljVmFsdWUAAAEIAgAAAABkAAAACw==
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
+        AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAZAAAAAs=
 </value>
   </data>
   <data name="NumberOfFields.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEVDb250cm9sTGlicmFyeSwgVmVyc2lvbj0wLjAuMC4xLCBDdWx0
-        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGwFAQAAABtDb250cm9sTGlicmFyeS5FbmFibGVk
-        VmFsdWUCAAAACUlzQ2hlY2tlZAxOdW1lcmljVmFsdWUAAAEIAgAAAAAEAAAACw==
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
+        AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAABAAAAAs=
 </value>
   </data>
   <data name="TechLevels.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEVDb250cm9sTGlicmFyeSwgVmVyc2lvbj0wLjAuMC4xLCBDdWx0
-        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGwFAQAAABtDb250cm9sTGlicmFyeS5FbmFibGVk
-        VmFsdWUCAAAACUlzQ2hlY2tlZAxOdW1lcmljVmFsdWUAAAEIAgAAAAAWAAAACw==
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
+        AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAFgAAAAs=
 </value>
   </data>
   <data name="PlanetsOwned.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEVDb250cm9sTGlicmFyeSwgVmVyc2lvbj0wLjAuMC4xLCBDdWx0
-        dXJlPW5ldXRyYWwsIFB1YmxpY0tleVRva2VuPW51bGwFAQAAABtDb250cm9sTGlicmFyeS5FbmFibGVk
-        VmFsdWUCAAAACUlzQ2hlY2tlZAxOdW1lcmljVmFsdWUAAAEIAgAAAAA8AAAACw==
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
+        AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAPAAAAAs=
 </value>
   </data>
 </root>
