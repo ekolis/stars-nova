@@ -192,7 +192,6 @@
     <None Include="Resources\Nova.jpg" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="ClassDiagram1.cd" />
     <None Include="Nova.ico" />
   </ItemGroup>
   <ItemGroup>
