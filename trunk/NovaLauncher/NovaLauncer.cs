@@ -8,19 +8,18 @@
 // terms of the GNU General Public License version 2 as published by the Free
 // Software Foundation.
 // ============================================================================
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using System.Diagnostics;
-using NovaCommon;
 
 namespace NovaLauncher
 {
+    #region Using Statements
+    using System;
+    using System.Reflection;
+    using System.Windows.Forms;
+    using NovaCommon;
+    using System.Diagnostics;
+    using System.Globalization;
+    #endregion
+
     public partial class NovaLauncher : Form
     {
         String ServerStateFile = null;
@@ -39,6 +38,29 @@ namespace NovaLauncher
             if (ServerStateFile == null && ClientStateFile == null)
                 continueGameButton.Enabled = false;
         }
+
+        #region Methods
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Raises the <see cref="Shown"/> event.
+        /// </summary>
+        /// <param name="eventArgs">
+        /// A <see cref="EventArgs"/> that contains the event data.
+        /// </param>
+        //-------------------------------------------------------------------
+        protected override void OnShown( EventArgs eventArgs )
+        {
+            base.OnShown( eventArgs );
+
+            //
+            //  When the form is first displayed, determe the version number.
+            //
+            Assembly assembly = Assembly.GetEntryAssembly();
+            AssemblyName name = assembly.GetName();
+            Version version = name.Version;
+            this.versionNumber.Text = version.ToString( 3 );
+        }
+        #endregion
 
         private void exitButton_Click(object sender, EventArgs e)
         {
