@@ -45,6 +45,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="..\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
     <EmbeddedResource Include="NovaLauncer.resx">
       <DependentUpon>NovaLauncer.cs</DependentUpon>
       <SubType>Designer</SubType>
