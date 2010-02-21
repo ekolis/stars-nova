@@ -18,25 +18,8 @@ using System.Runtime.InteropServices;
 //
 [assembly: AssemblyTitle("Control Library")]
 [assembly: AssemblyDescription("Control Library for Nova")]
-[assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
 [assembly: AssemblyProduct("Control Library")]
-[assembly: AssemblyCopyright("Copyright © Ken Reed 2007")]
-[assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]		
-
-
-// Version information for an assembly consists of the following four values:
-//
-//      Major Version
-//      Minor Version 
-//      Build Number
-//      Revision
-//
-// You can specify all the values or you can default the Revision and Build
-// Numbers by using the '*' as shown below:
-
-[assembly: AssemblyVersion("0.0.0.1")]
 
 //
 // In order to sign your assembly you must specify a key to use. Refer to the 
@@ -66,5 +49,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyDelaySign(false)]
 [assembly: AssemblyKeyFile("")]
 [assembly: AssemblyKeyName("")]
-[assembly: ComVisibleAttribute(false)]
-[assembly: AssemblyFileVersionAttribute("0.0.0.1")]

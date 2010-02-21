@@ -127,6 +127,9 @@
   <ItemGroup>
     <Content Include="Resources\Nova.ico" />
     <None Include="Properties\app.manifest" />
+    <Compile Include="..\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
     <None Include="Resources\Nova.jpg" />
     <Compile Include="AboutBox.cs">
       <SubType>Form</SubType>

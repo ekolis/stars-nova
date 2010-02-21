@@ -73,6 +73,9 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <Compile Include="..\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
     <Compile Include="StarsMapGenerator.cs" />
     <Compile Include="NewGameWizard.cs">
       <SubType>Form</SubType>

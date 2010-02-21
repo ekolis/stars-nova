@@ -209,6 +209,9 @@
     </Compile>
     <Compile Include="SpaceAllocator.cs" />
     <Compile Include="XmlConversion.cs" />
+    <Compile Include="..\VersionInfo.cs">
+      <Link>Properties\VersionInfo.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProgressDialog.resx">
