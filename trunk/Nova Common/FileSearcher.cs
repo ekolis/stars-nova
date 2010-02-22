@@ -18,11 +18,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Text;
-using Microsoft.Win32;
 using System.IO;
-using System.Windows.Forms;
+using System.Text;
 using System.Text.RegularExpressions;
+using System.Windows.Forms;
+using Microsoft.Win32;
 
 namespace NovaCommon
 {
@@ -33,6 +33,7 @@ namespace NovaCommon
         // 
         // ============================================================================
 
+        #region Methods
         /// <summary>
         /// Identify the player race's. 
         // This is done by enumerating the race files present and
@@ -225,17 +226,16 @@ namespace NovaCommon
         /// <returns>The value of the key, or null if invalid / not set.</returns>
         private static string GetRegistryValue(String registryKey)
         {
-            RegistryKey regKey = Registry.CurrentUser;
-            RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-            String Path = subKey.GetValue
-                                    (registryKey, "?").ToString();
-
-            if (Path == "?" || Path == "")
+            string path = null;
+            using( RegistryKey regKey = Registry.CurrentUser.CreateSubKey( Global.RootRegistryKey ) )
             {
-                Path = null;
+                object obj = regKey.GetValue( registryKey );
+                if( null != obj )
+                {
+                    path = obj.ToString();
+                }
             }
-
-            return Path;
+            return path;
 
         }//GetRegistryValue
 
@@ -294,5 +294,6 @@ namespace NovaCommon
             
             return fileDialog.FileName;
         }
+        #endregion
     }
 }

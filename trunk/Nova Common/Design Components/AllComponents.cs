@@ -46,7 +46,7 @@ namespace NovaCommon
       private static AllComponents   Instance      = null;
       private static Object          Padlock       = new Object();
       private static String         saveFilePath;
-      private static String GraphicsFilePath       = null;
+      private static String         graphicsFilePath;
       private static bool DisableComponentGraphics = false; // if we can't find them
 
 
@@ -271,18 +271,22 @@ namespace NovaCommon
           
       } // Save
 
-
-// ============================================================================
-// Reset the location of the component definition file.
-// equivelent to ComponentFile = ""
-// ============================================================================
-      public static void ResetPath()
-      {
-         saveFilePath = "";
-         RegistryKey regKey = Registry.CurrentUser;
-         RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-         subKey.SetValue(Global.ComponentFolderKey, "");
-      }
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Reset the location of the component definition file.
+        /// </summary>
+        /// <remarks>
+        /// Equivelent to ComponentFile = "".
+        /// </remarks>
+        //-------------------------------------------------------------------
+        public static void ResetPath()
+        {
+             saveFilePath = string.Empty;
+             using( RegistryKey regKey = Registry.CurrentUser.CreateSubKey( Global.RootRegistryKey ) )
+             {
+                 regKey.SetValue( Global.ComponentFolderKey, string.Empty );
+             }
+        }
 
 // ============================================================================
 // Start a new component definition set. This simply wipes all components from
@@ -424,7 +428,7 @@ namespace NovaCommon
 
           Graphics = folderDialog.SelectedPath;
 
-          return GraphicsFilePath;
+          return graphicsFilePath;
       }// GetNewGraphicsPath
 
 // ============================================================================
@@ -436,13 +440,13 @@ namespace NovaCommon
 
           RegistryKey regKey = Registry.CurrentUser;
           RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-          GraphicsFilePath = subKey.GetValue
+          graphicsFilePath = subKey.GetValue
                                   (Global.GraphicsFolderKey, "?").ToString();
 
-          if (GraphicsFilePath == "?" || GraphicsFilePath == "")
+          if (graphicsFilePath == "?" || graphicsFilePath == "")
           {
-              GraphicsFilePath = GetNewGraphicsPath();
-              if (GraphicsFilePath == "?" || GraphicsFilePath == "")
+              graphicsFilePath = GetNewGraphicsPath();
+              if (graphicsFilePath == "?" || graphicsFilePath == "")
               {
                   // In case we are in a loop loading lots of component images, don't keep trying endlessly.
                   Report.Error("Unable to locate component graphics. All component graphics will be dissabled.");
@@ -450,27 +454,33 @@ namespace NovaCommon
               }
           }
 
-          return GraphicsFilePath;
+          return graphicsFilePath;
 
       }//GetPath
 
-// ============================================================================
-// Access to the path where the graphics files are stored.
-// ============================================================================
-      public static string Graphics
-      {
-          get { GetGraphicsPath(); return GraphicsFilePath; }
-
-          // ----------------------------------------------------------------------------
-
-          set
-          {
-              GraphicsFilePath = value;
-              RegistryKey key = Registry.CurrentUser;
-              RegistryKey subKey = key.CreateSubKey(Global.RootRegistryKey);
-              subKey.SetValue(Global.GraphicsFolderKey, GraphicsFilePath);
+        #region Properties
+       //-------------------------------------------------------------------
+       /// <summary>
+       /// Gets or sets the path where the graphics files are stored.
+       /// </summary>
+       //-------------------------------------------------------------------
+       public static string Graphics
+       {
+           get
+           {
+               GetGraphicsPath();
+               return graphicsFilePath;
+           }
+           private set
+           {
+               graphicsFilePath = value;
+               using( RegistryKey key = Registry.CurrentUser.CreateSubKey( Global.RootRegistryKey ) )
+               {
+                   key.SetValue( Global.GraphicsFolderKey, graphicsFilePath );
+               }
               // Report.Debug("Registry key set to: " + SaveFilePath);
-          }
-      }
+           }
+       }
+        #endregion
    }
 }

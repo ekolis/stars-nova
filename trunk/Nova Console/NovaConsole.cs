@@ -522,23 +522,27 @@ private void InitializeComponent()
          aboutBox.Dispose();
       }
 
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Select a new Game Folder
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="eventArgs">
+        /// A <see cref="EventArgs"/> that contains the event data.
+        /// </param>
+        //-------------------------------------------------------------------
+        private void SelectNewFolder(object sender, EventArgs eventArgs )
+        {
+            using( RegistryKey regKey = Registry.CurrentUser.CreateSubKey( Global.RootRegistryKey ) )
+            {
+                regKey.SetValue( Global.ServerFolderKey, "" );
+            }
 
-// ============================================================================
-// Select a new Game Folder
-// ============================================================================
-
-      private void SelectNewFolder(object sender, EventArgs e)
-      {
-         RegistryKey regKey    = null;
-         RegistryKey regSubKey = null;
-         
-         regKey      = Registry.CurrentUser;
-         regSubKey   = regKey.CreateSubKey(Global.RootRegistryKey);
-         regSubKey.SetValue(Global.ServerFolderKey, "");
-
-         ServerState.Clear();
-         OnFirstShow(null, null);
-      }
+            ServerState.Clear();
+            this.OnFirstShow(null, null);
+        }
 
       private void NewGameMenuItem_Click(object sender, EventArgs e)
       {
