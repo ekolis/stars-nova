@@ -23,8 +23,11 @@ namespace NovaCommon
 {
     static class XmlConversion
     {
-        static String SaveFilePath;
+        #region Fields
+        private static String saveFilePath;
+        #endregion
 
+        #region Methods
         // a refactoring of AllComponents.Save
         public static bool WriteComponentDefinition()
         {
@@ -35,7 +38,7 @@ namespace NovaCommon
                 {
                     throw (new System.IO.FileNotFoundException());
                 }
-                FileStream saveFile = new FileStream(SaveFilePath, FileMode.Create);
+                FileStream saveFile = new FileStream(saveFilePath, FileMode.Create);
                 GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
 
                 // Setup the XML document
@@ -64,7 +67,7 @@ namespace NovaCommon
 
                 saveFile.Close();
 
-                Report.Information("Component data has been saved to " + SaveFilePath);
+                Report.Information("Component data has been saved to " + saveFilePath);
                 return true;
             }
             catch (System.IO.FileNotFoundException)
@@ -81,29 +84,27 @@ namespace NovaCommon
             }
         }
 
-        // ============================================================================
-        // A refactoring of AllComponents.GetPath
-        // Extract the path to the component file from the registry
-        // FIXME - The GUI and Console programs used this version but expect the GetPathOrDie() behaviour. Need to upadate their calls.
-        // ============================================================================
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Extract the path to the component file from the registry.
+        /// </summary>
+        /// <remarks>
+        /// A refactoring of AllComponents.GetPath
+        /// FIXME - The GUI and Console programs used this version but expect the GetPathOrDie() behaviour. Need to upadate their calls.
+        /// </remarks>
+        //-------------------------------------------------------------------
         public static string GetPath()
-      {
-          RegistryKey regKey = Registry.CurrentUser;
-          RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-          SaveFilePath = subKey.GetValue
-                                  (Global.ComponentFolderKey, "?").ToString();
-
-          if (SaveFilePath == "?" || SaveFilePath == "")
-          {
-              SaveFilePath = null;
-          }
-          else if (File.Exists(SaveFilePath) == false)
-          {
-              SaveFilePath = null;
-          }
-
-          return SaveFilePath;
-      }//GetPath
+        {
+            using( RegistryKey regKey = Registry.CurrentUser.CreateSubKey( Global.RootRegistryKey ) )
+            {
+                object obj = regKey.GetValue( Global.ComponentFolderKey );
+                if( null != obj )
+                {
+                    saveFilePath = obj.ToString();
+                }
+            }
+            return saveFilePath;
+        }
 
 
 
@@ -189,9 +190,9 @@ namespace NovaCommon
 
           return xmlelComponent;
       } // ComponentToXml
+        #endregion
 
-
-      // Add the other 23 ToXml functions here...
+        // Add the other 23 ToXml functions here...
 
     }// class XmlConversion
 }// namespace NovaCommon

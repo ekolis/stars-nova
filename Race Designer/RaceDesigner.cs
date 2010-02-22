@@ -1794,83 +1794,81 @@ namespace RaceDesigner
              // Nova Console files it is possible to play a game with multiple races using
              // the same log-in name. This is a useful debugging aid.
              // ----------------------------------------------------------------------------
+             RegistryKey regKey = null;
              try
              {
                  // If a race file has been saved before, suggest saving this race in the same location
-                 RegistryKey regKey = Registry.CurrentUser;
-                 RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-                 String RaceFilePath = subKey.GetValue(Global.RaceFolderKey, "?").ToString();
-
-                 if (RaceFilePath == "?" || RaceFilePath == "")
+                 regKey = Registry.CurrentUser.CreateSubKey( Global.RootRegistryKey );
+                 string raceFilePath = regKey.GetValue( Global.RaceFolderKey, string.Empty ).ToString();
+                 if( true == string.IsNullOrEmpty( raceFilePath ) )
                  {
                      // failing that, start in the nova install path
-                     RaceFilePath = subKey.GetValue(Global.NovaFolderKey, "?").ToString();
-                 }
-                 if (RaceFilePath == "?" || RaceFilePath == "")
-                 {
-                     // still no joy? just let the user pick
-                     RaceFilePath = "";
+                     raceFilePath = regKey.GetValue( Global.NovaFolderKey, string.Empty ).ToString();
                  }
 
                  SaveFileDialog fd = new SaveFileDialog();
                  fd.Title = "Save Race - " + RaceParameters.Name;
                  fd.FileName = RaceParameters.Name + ".race";
                  DialogResult result = fd.ShowDialog();
-                 if (result == DialogResult.OK)
+                 if( result == DialogResult.OK )
                  {
-                     RaceFilePath = fd.FileName;
-
+                     raceFilePath = fd.FileName;
                  }
                  else
                  {
-                     Report.Error("Race has not been saved.");
+                     Report.Error( "Race has not been saved." );
                      return;
                  }
 
-
-                 FileStream saveFile = new FileStream(RaceFilePath, FileMode.Create);
-                 GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
+                 FileStream saveFile = new FileStream( raceFilePath, FileMode.Create );
+                 GZipStream compressionStream = new GZipStream( saveFile, CompressionMode.Compress );
 
                  // Setup the XML document
                  XmlDocument xmldoc = new XmlDocument();
-                 XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
+                 XmlElement xmlRoot = Global.InitializeXmlDocument( xmldoc );
 
                  // add the components to the document
-                 xmldoc.ChildNodes.Item(1).AppendChild(RaceParameters.ToXml(xmldoc));
-
+                 xmldoc.ChildNodes.Item( 1 ).AppendChild( RaceParameters.ToXml( xmldoc ) );
 
                  // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
                  // manual inspection of the save file. Generally though it can be opened by any archiving tool that
                  // reads gzip format.
                  // xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
                  //       or
-                 xmldoc.Save(saveFile);                                           //  not compressed
+                 xmldoc.Save( saveFile );                                           //  not compressed
 
                  saveFile.Close();
 
-                 Report.Information("The " + RaceParameters.PluralName + " have been saved to " + RaceFilePath);
+                 Report.Information( "The " + RaceParameters.PluralName + " have been saved to " + raceFilePath );
 
-                 subKey.SetValue(Global.RaceFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
+                 regKey.SetValue( Global.RaceFolderKey, System.IO.Path.GetDirectoryName( raceFilePath ) );
 
                  // FIXME This is a work-around as the GUI doesn't currently ask and the console doesn't set it - Dan 09 Aug 09
-                 subKey.SetValue(Global.ClientFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
+                 regKey.SetValue( Global.ClientFolderKey, System.IO.Path.GetDirectoryName( raceFilePath ) );
 
                  // Remove the warning message for exiting with unsaved changes.
                  ParametersChanged = false;
 
                  return;
              }
-             catch (System.IO.FileNotFoundException)
+             catch( System.IO.FileNotFoundException )
              {
 
-                 Report.Error("File path not specified.");
+                 Report.Error( "File path not specified." );
                  return;
 
              }
-             catch (Exception exception)
+             catch( Exception exception )
              {
-                 Report.Error("Failed to save race file. " + exception.Message);
+                 Report.Error( "Failed to save race file. " + exception.Message );
                  return;
+             }
+             finally
+             {
+                 if( null != regKey )
+                 {
+                     regKey.Close();
+                 }
              }
 
          }//Finish_Click (save&close the race)
