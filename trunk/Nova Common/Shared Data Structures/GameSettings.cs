@@ -23,6 +23,7 @@ using System.Windows.Forms;
 
 namespace NovaCommon
 {
+    [Serializable]
     public class GameSettings
     {
 
@@ -96,39 +97,32 @@ namespace NovaCommon
 
       public static void Restore()
       {
-          string fileName = Data.SettingsPathName;
-          if (File.Exists(fileName))
+          Data.SettingsPathName = FileSearcher.GetFile(Global.SettingsKey, false, null, null, null, true);
+
+          if (File.Exists(Data.SettingsPathName))
           {
-              FileStream state = new FileStream(fileName, FileMode.Open);
+              FileStream state = new FileStream(Data.SettingsPathName, FileMode.Open);
               Data = formatter.Deserialize(state) as GameSettings;
               state.Close();
           }
       }
 
 
-// ============================================================================
-// Save the console persistent data.
-// ============================================================================
-
-      public static void Save()
+        
+        // TODO (priority 4) - save the game settings as xml
+        /// <summary>
+        /// Save the game settings.
+        /// </summary>
+        /// <param name="gameFilename">The path&filename of the server/console.state file</param>
+      public static void Save(String gameFilename)
       {
-          if (Data.SettingsPathName == null)
-          {
-              // TODO (priority 4) add the nicities. Update the game files location.
-              SaveFileDialog fd = new SaveFileDialog();
-              fd.Title = "Choose a location to save the game settings.";
-              
-              DialogResult result = fd.ShowDialog();
-              if (result == DialogResult.OK)
-              {
-                  Data.SettingsPathName = fd.FileName;
-              }
-              else
-              {
-                  throw new System.IO.IOException("File dialog cancelled.");
-              }
+          // change the extension from .state to .settings
+          int extensionIndex = gameFilename.Length - 1;
+          while (gameFilename[extensionIndex] != '.' && extensionIndex > 0) extensionIndex--;
 
-          }
+          Data.SettingsPathName = gameFilename.Substring(0, extensionIndex) + ".settings";
+          FileSearcher.SetNovaRegistryValue(Global.SettingsKey, Data.SettingsPathName);
+
           FileStream state = new FileStream(Data.SettingsPathName, FileMode.Create);
           formatter.Serialize(state, GameSettings.Data);
           state.Close();
