@@ -29,6 +29,7 @@ namespace NovaCommon
        public const string RaceFolderKey = "RaceFolder";                 // where player race files are stored, nominally './GameFiles'. Players may save races elswhere to create a reusable library.
        public const string ServerStateKey = "ServerStateFile";           // the server's saved data from the most recent game, if any. Nominally ./GameFiles/Constole.state. Players may save game files anywhere, e.g. My Document\Saved Games\Nova\A Bare Foot Jay-Walk\
        public const string ClientStateKey = "ClientStateFile";           // the client's saved data from the most recent game, if any. Nominally ./GameFiles/RaceName.state. Players may save game files anywhere, e.g. My Document\Saved Games\Nova\A Bare Foot Jay-Walk\
+       public const string SettingsKey = "GameSettingsFile";             // where the game settings are stored (on the server, but a copy should be avaialble to the client).
 
        // default folder names, used with FileSearcher.GetFolder(). 
        // Follows the above naming conventions
@@ -45,6 +46,7 @@ namespace NovaCommon
        public const string RaceDesignerKey = "RaceDesigner";  // where the Race Designer application is installed
        public const string NovaConsoleKey = "NovaConsole";    // where the Nova Console application is installed
        public const string NovaGuiKey = "NovaGui";            // where the NovaLauncher application is installed
+       public const string NovaAiKey = "NovaAi";              // where the Nova_AI application is installed
        
        // paths, relative to the 'current' application (it doesn't actully matter which application that is, due to the way the nova directory is structured)
        // note these are only likely to be valid when the application launches, as any file/folder browser dialog will change the current working directory
@@ -59,6 +61,8 @@ namespace NovaCommon
        public const string NovaLauncherPath_Deployed = "../NovaLauncher";
        public const string NovaGuiPath_Development = "../../../Nova Gui/bin/Debug";
        public const string NovaGuiPath_Deployed = "../Nova Gui";
+       public const string NovaAiPath_Development = "../../../Nova_AI/bin/Debug";
+       public const string NovaAiPath_Deployed = "../Nova_AI";
        
 
        public const int MaxWeaponRange = 10;

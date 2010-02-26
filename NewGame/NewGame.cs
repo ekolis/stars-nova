@@ -87,6 +87,7 @@ namespace NewGame
                 {
                     IntelWriter.WriteIntel();
                     ServerState.Save();
+                    GameSettings.Save(ServerState.Data.StatePathName);
                 }
                 catch
                 {

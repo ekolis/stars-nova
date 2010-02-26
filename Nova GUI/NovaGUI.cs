@@ -74,6 +74,7 @@ namespace Nova
 
             // ensure registry keys are initialised
             FileSearcher.SetKeys();
+
         }
 
 

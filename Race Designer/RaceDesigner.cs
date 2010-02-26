@@ -1797,18 +1797,13 @@ namespace RaceDesigner
              RegistryKey regKey = null;
              try
              {
-                 // If a race file has been saved before, suggest saving this race in the same location
-                 regKey = Registry.CurrentUser.CreateSubKey( Global.RootRegistryKey );
-                 string raceFilePath = regKey.GetValue( Global.RaceFolderKey, string.Empty ).ToString();
-                 if( true == string.IsNullOrEmpty( raceFilePath ) )
-                 {
-                     // failing that, start in the nova install path
-                     raceFilePath = regKey.GetValue( Global.NovaFolderKey, string.Empty ).ToString();
-                 }
+
+                 String RaceFilePath = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
 
                  SaveFileDialog fd = new SaveFileDialog();
                  fd.Title = "Save Race - " + RaceParameters.Name;
                  fd.FileName = RaceParameters.Name + ".race";
+                 fd.InitialDirectory = RaceFilePath;
                  DialogResult result = fd.ShowDialog();
                  if( result == DialogResult.OK )
                  {

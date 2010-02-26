@@ -28,8 +28,7 @@ namespace NovaConsole
 
    public class NovaConsoleMain : System.Windows.Forms.Form
    {
-      private GroupBox groupBox1;
-      private Label StatusBox;
+       private GroupBox groupBox1;
       private GroupBox groupBox2;
       private MenuStrip MainMenu;
       private ToolStripMenuItem fileToolStripMenuItem;
@@ -53,7 +52,12 @@ namespace NovaConsole
       private Label turnYearLabel;
       private Label yearLabel;
       private Label GuiLaunchLabel;
-      private System.ComponentModel.Container components = null;
+      private ToolStripMenuItem openGameToolStripMenuItem;
+      private TextBox StatusBox;
+      private CheckBox autoGenerateCheckBox;
+      private CheckBox runAiCheckBox;
+      private Timer consoleTimer;
+      private IContainer components;
 
 
 // ============================================================================
@@ -87,19 +91,25 @@ namespace NovaConsole
       /// </summary>
 private void InitializeComponent()
       {
+          this.components = new System.ComponentModel.Container();
           System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaConsoleMain));
           this.groupBox1 = new System.Windows.Forms.GroupBox();
           this.PlayerList = new System.Windows.Forms.ListView();
           this.AI = new System.Windows.Forms.ColumnHeader();
           this.RaceName = new System.Windows.Forms.ColumnHeader();
           this.TurnIn = new System.Windows.Forms.ColumnHeader();
-          this.StatusBox = new System.Windows.Forms.Label();
           this.groupBox2 = new System.Windows.Forms.GroupBox();
+          this.runAiCheckBox = new System.Windows.Forms.CheckBox();
+          this.autoGenerateCheckBox = new System.Windows.Forms.CheckBox();
+          this.StatusBox = new System.Windows.Forms.TextBox();
           this.FolderPath = new System.Windows.Forms.Label();
+          this.yearLabel = new System.Windows.Forms.Label();
+          this.turnYearLabel = new System.Windows.Forms.Label();
           this.label1 = new System.Windows.Forms.Label();
           this.MainMenu = new System.Windows.Forms.MenuStrip();
           this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.NewGameMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+          this.openGameToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.SelectNewFolderMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
           this.ExitMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -110,9 +120,8 @@ private void InitializeComponent()
           this.RefreshMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-          this.turnYearLabel = new System.Windows.Forms.Label();
-          this.yearLabel = new System.Windows.Forms.Label();
           this.GuiLaunchLabel = new System.Windows.Forms.Label();
+          this.consoleTimer = new System.Windows.Forms.Timer(this.components);
           this.groupBox1.SuspendLayout();
           this.groupBox2.SuspendLayout();
           this.MainMenu.SuspendLayout();
@@ -120,17 +129,16 @@ private void InitializeComponent()
           // 
           // groupBox1
           // 
-          this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                      | System.Windows.Forms.AnchorStyles.Left)
+          this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
           this.groupBox1.AutoSize = true;
           this.groupBox1.Controls.Add(this.PlayerList);
-          this.groupBox1.Location = new System.Drawing.Point(12, 112);
+          this.groupBox1.Location = new System.Drawing.Point(12, 40);
           this.groupBox1.Name = "groupBox1";
-          this.groupBox1.Size = new System.Drawing.Size(477, 178);
+          this.groupBox1.Size = new System.Drawing.Size(450, 254);
           this.groupBox1.TabIndex = 3;
           this.groupBox1.TabStop = false;
-          this.groupBox1.Text = "Races";
+          this.groupBox1.Text = "Players";
           // 
           // PlayerList
           // 
@@ -143,7 +151,7 @@ private void InitializeComponent()
           this.PlayerList.Location = new System.Drawing.Point(3, 16);
           this.PlayerList.MultiSelect = false;
           this.PlayerList.Name = "PlayerList";
-          this.PlayerList.Size = new System.Drawing.Size(471, 159);
+          this.PlayerList.Size = new System.Drawing.Size(444, 235);
           this.PlayerList.Sorting = System.Windows.Forms.SortOrder.Ascending;
           this.PlayerList.TabIndex = 0;
           this.PlayerList.UseCompatibleStateImageBehavior = false;
@@ -153,61 +161,107 @@ private void InitializeComponent()
           // AI
           // 
           this.AI.Text = "AI";
-          this.AI.Width = 31;
+          this.AI.Width = 112;
           // 
           // RaceName
           // 
           this.RaceName.Text = "Race Name";
-          this.RaceName.Width = 181;
+          this.RaceName.Width = 209;
           // 
           // TurnIn
           // 
-          this.TurnIn.Text = "Turn In";
+          this.TurnIn.Text = "Last Turned In";
           this.TurnIn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-          this.TurnIn.Width = 85;
-          // 
-          // StatusBox
-          // 
-          this.StatusBox.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
-          this.StatusBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-          this.StatusBox.Location = new System.Drawing.Point(6, 16);
-          this.StatusBox.Name = "StatusBox";
-          this.StatusBox.Size = new System.Drawing.Size(465, 18);
-          this.StatusBox.TabIndex = 4;
-          this.StatusBox.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+          this.TurnIn.Width = 108;
           // 
           // groupBox2
           // 
-          this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+          this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                      | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
-          this.groupBox2.Controls.Add(this.FolderPath);
-          this.groupBox2.Controls.Add(this.label1);
+          this.groupBox2.Controls.Add(this.runAiCheckBox);
+          this.groupBox2.Controls.Add(this.autoGenerateCheckBox);
           this.groupBox2.Controls.Add(this.StatusBox);
-          this.groupBox2.Location = new System.Drawing.Point(12, 40);
+          this.groupBox2.Controls.Add(this.FolderPath);
+          this.groupBox2.Controls.Add(this.yearLabel);
+          this.groupBox2.Controls.Add(this.turnYearLabel);
+          this.groupBox2.Controls.Add(this.label1);
+          this.groupBox2.Location = new System.Drawing.Point(15, 299);
           this.groupBox2.Name = "groupBox2";
-          this.groupBox2.Size = new System.Drawing.Size(477, 66);
+          this.groupBox2.Size = new System.Drawing.Size(447, 167);
           this.groupBox2.TabIndex = 5;
           this.groupBox2.TabStop = false;
-          this.groupBox2.Text = "Game Control";
+          this.groupBox2.Text = "Game Information";
+          // 
+          // runAiCheckBox
+          // 
+          this.runAiCheckBox.AutoSize = true;
+          this.runAiCheckBox.Location = new System.Drawing.Point(236, 63);
+          this.runAiCheckBox.Name = "runAiCheckBox";
+          this.runAiCheckBox.Size = new System.Drawing.Size(59, 17);
+          this.runAiCheckBox.TabIndex = 12;
+          this.runAiCheckBox.Text = "Run AI";
+          this.runAiCheckBox.UseVisualStyleBackColor = true;
+          this.runAiCheckBox.CheckedChanged += new System.EventHandler(this.runAiCheckBox_CheckedChanged);
+          // 
+          // autoGenerateCheckBox
+          // 
+          this.autoGenerateCheckBox.AutoSize = true;
+          this.autoGenerateCheckBox.Location = new System.Drawing.Point(10, 63);
+          this.autoGenerateCheckBox.Name = "autoGenerateCheckBox";
+          this.autoGenerateCheckBox.Size = new System.Drawing.Size(125, 17);
+          this.autoGenerateCheckBox.TabIndex = 11;
+          this.autoGenerateCheckBox.Text = "Auto Generate Turns";
+          this.autoGenerateCheckBox.UseVisualStyleBackColor = true;
+          // 
+          // StatusBox
+          // 
+          this.StatusBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                      | System.Windows.Forms.AnchorStyles.Left)
+                      | System.Windows.Forms.AnchorStyles.Right)));
+          this.StatusBox.Location = new System.Drawing.Point(9, 86);
+          this.StatusBox.Multiline = true;
+          this.StatusBox.Name = "StatusBox";
+          this.StatusBox.ReadOnly = true;
+          this.StatusBox.ScrollBars = System.Windows.Forms.ScrollBars.Both;
+          this.StatusBox.Size = new System.Drawing.Size(431, 69);
+          this.StatusBox.TabIndex = 9;
           // 
           // FolderPath
           // 
           this.FolderPath.AutoSize = true;
-          this.FolderPath.Location = new System.Drawing.Point(75, 42);
+          this.FolderPath.Location = new System.Drawing.Point(76, 19);
           this.FolderPath.Name = "FolderPath";
           this.FolderPath.Size = new System.Drawing.Size(76, 13);
           this.FolderPath.TabIndex = 6;
           this.FolderPath.Text = "None selected";
           this.FolderPath.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
           // 
+          // yearLabel
+          // 
+          this.yearLabel.AutoSize = true;
+          this.yearLabel.Location = new System.Drawing.Point(7, 42);
+          this.yearLabel.Name = "yearLabel";
+          this.yearLabel.Size = new System.Drawing.Size(94, 13);
+          this.yearLabel.TabIndex = 8;
+          this.yearLabel.Text = "Now Playing Year:";
+          // 
+          // turnYearLabel
+          // 
+          this.turnYearLabel.AutoSize = true;
+          this.turnYearLabel.Location = new System.Drawing.Point(107, 42);
+          this.turnYearLabel.Name = "turnYearLabel";
+          this.turnYearLabel.Size = new System.Drawing.Size(35, 13);
+          this.turnYearLabel.TabIndex = 7;
+          this.turnYearLabel.Text = "YYYY";
+          // 
           // label1
           // 
-          this.label1.Location = new System.Drawing.Point(5, 43);
+          this.label1.Location = new System.Drawing.Point(7, 20);
           this.label1.Name = "label1";
           this.label1.Size = new System.Drawing.Size(73, 13);
           this.label1.TabIndex = 5;
-          this.label1.Text = "Game Folder: ";
+          this.label1.Text = "Game Name: ";
           this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
           // 
           // MainMenu
@@ -219,7 +273,7 @@ private void InitializeComponent()
             this.helpToolStripMenuItem});
           this.MainMenu.Location = new System.Drawing.Point(0, 0);
           this.MainMenu.Name = "MainMenu";
-          this.MainMenu.Size = new System.Drawing.Size(499, 24);
+          this.MainMenu.Size = new System.Drawing.Size(472, 24);
           this.MainMenu.TabIndex = 6;
           this.MainMenu.Text = "menuStrip1";
           // 
@@ -227,38 +281,45 @@ private void InitializeComponent()
           // 
           this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.NewGameMenuItem,
+            this.openGameToolStripMenuItem,
             this.SelectNewFolderMenuItem,
             this.toolStripSeparator1,
             this.ExitMenuItem});
           this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-          this.fileToolStripMenuItem.Size = new System.Drawing.Size(35, 20);
+          this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
           this.fileToolStripMenuItem.Text = "&File";
           // 
           // NewGameMenuItem
           // 
           this.NewGameMenuItem.Name = "NewGameMenuItem";
           this.NewGameMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
-          this.NewGameMenuItem.Size = new System.Drawing.Size(211, 22);
+          this.NewGameMenuItem.Size = new System.Drawing.Size(180, 22);
           this.NewGameMenuItem.Text = "&New Game";
           this.NewGameMenuItem.Click += new System.EventHandler(this.NewGameMenuItem_Click);
+          // 
+          // openGameToolStripMenuItem
+          // 
+          this.openGameToolStripMenuItem.Name = "openGameToolStripMenuItem";
+          this.openGameToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
+          this.openGameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+          this.openGameToolStripMenuItem.Text = "&Open Game";
           // 
           // SelectNewFolderMenuItem
           // 
           this.SelectNewFolderMenuItem.Name = "SelectNewFolderMenuItem";
-          this.SelectNewFolderMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-          this.SelectNewFolderMenuItem.Size = new System.Drawing.Size(211, 22);
+          this.SelectNewFolderMenuItem.Size = new System.Drawing.Size(180, 22);
           this.SelectNewFolderMenuItem.Text = "&Select New Folder";
           this.SelectNewFolderMenuItem.Click += new System.EventHandler(this.SelectNewFolder);
           // 
           // toolStripSeparator1
           // 
           this.toolStripSeparator1.Name = "toolStripSeparator1";
-          this.toolStripSeparator1.Size = new System.Drawing.Size(208, 6);
+          this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
           // 
           // ExitMenuItem
           // 
           this.ExitMenuItem.Name = "ExitMenuItem";
-          this.ExitMenuItem.Size = new System.Drawing.Size(211, 22);
+          this.ExitMenuItem.Size = new System.Drawing.Size(180, 22);
           this.ExitMenuItem.Text = "E&xit";
           this.ExitMenuItem.Click += new System.EventHandler(this.ExitMenuItem_Click);
           // 
@@ -270,14 +331,14 @@ private void InitializeComponent()
             this.toolStripSeparator2,
             this.RefreshMenuItem});
           this.turnToolStripMenuItem.Name = "turnToolStripMenuItem";
-          this.turnToolStripMenuItem.Size = new System.Drawing.Size(41, 20);
+          this.turnToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
           this.turnToolStripMenuItem.Text = "&Turn";
           // 
           // GenerateTurnMenuItem
           // 
           this.GenerateTurnMenuItem.Name = "GenerateTurnMenuItem";
           this.GenerateTurnMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
-          this.GenerateTurnMenuItem.Size = new System.Drawing.Size(188, 22);
+          this.GenerateTurnMenuItem.Size = new System.Drawing.Size(183, 22);
           this.GenerateTurnMenuItem.Text = "&Generate";
           this.GenerateTurnMenuItem.Click += new System.EventHandler(this.GenerateTurnMenuItem_Click);
           // 
@@ -285,20 +346,20 @@ private void InitializeComponent()
           // 
           this.ForceMenuItem.Name = "ForceMenuItem";
           this.ForceMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
-          this.ForceMenuItem.Size = new System.Drawing.Size(188, 22);
+          this.ForceMenuItem.Size = new System.Drawing.Size(183, 22);
           this.ForceMenuItem.Text = "&Force Next Turn";
           this.ForceMenuItem.Click += new System.EventHandler(this.ForceMenuItem_Click);
           // 
           // toolStripSeparator2
           // 
           this.toolStripSeparator2.Name = "toolStripSeparator2";
-          this.toolStripSeparator2.Size = new System.Drawing.Size(185, 6);
+          this.toolStripSeparator2.Size = new System.Drawing.Size(180, 6);
           // 
           // RefreshMenuItem
           // 
           this.RefreshMenuItem.Name = "RefreshMenuItem";
           this.RefreshMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
-          this.RefreshMenuItem.Size = new System.Drawing.Size(188, 22);
+          this.RefreshMenuItem.Size = new System.Drawing.Size(183, 22);
           this.RefreshMenuItem.Text = "&Refresh";
           this.RefreshMenuItem.Click += new System.EventHandler(this.RefreshMenuItem_Click);
           // 
@@ -307,53 +368,37 @@ private void InitializeComponent()
           this.helpToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.aboutToolStripMenuItem});
           this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
-          this.helpToolStripMenuItem.Size = new System.Drawing.Size(40, 20);
+          this.helpToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
           this.helpToolStripMenuItem.Text = "&Help";
           // 
           // aboutToolStripMenuItem
           // 
           this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
-          this.aboutToolStripMenuItem.Size = new System.Drawing.Size(114, 22);
+          this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
           this.aboutToolStripMenuItem.Text = "&About";
           this.aboutToolStripMenuItem.Click += new System.EventHandler(this.OnAboutClick);
           // 
-          // turnYearLabel
-          // 
-          this.turnYearLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-          this.turnYearLabel.AutoSize = true;
-          this.turnYearLabel.Location = new System.Drawing.Point(276, 24);
-          this.turnYearLabel.Name = "turnYearLabel";
-          this.turnYearLabel.Size = new System.Drawing.Size(35, 13);
-          this.turnYearLabel.TabIndex = 7;
-          this.turnYearLabel.Text = "YYYY";
-          // 
-          // yearLabel
-          // 
-          this.yearLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
-          this.yearLabel.AutoSize = true;
-          this.yearLabel.Location = new System.Drawing.Point(176, 24);
-          this.yearLabel.Name = "yearLabel";
-          this.yearLabel.Size = new System.Drawing.Size(94, 13);
-          this.yearLabel.TabIndex = 8;
-          this.yearLabel.Text = "Now Playing Year:";
-          // 
           // GuiLaunchLabel
           // 
-          this.GuiLaunchLabel.Anchor = System.Windows.Forms.AnchorStyles.Bottom;
+          this.GuiLaunchLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
           this.GuiLaunchLabel.AutoSize = true;
-          this.GuiLaunchLabel.Location = new System.Drawing.Point(171, 293);
+          this.GuiLaunchLabel.Location = new System.Drawing.Point(154, 26);
           this.GuiLaunchLabel.Name = "GuiLaunchLabel";
-          this.GuiLaunchLabel.Size = new System.Drawing.Size(174, 13);
+          this.GuiLaunchLabel.Size = new System.Drawing.Size(136, 13);
           this.GuiLaunchLabel.TabIndex = 9;
-          this.GuiLaunchLabel.Text = "Double Click a Race to Play a Turn";
+          this.GuiLaunchLabel.Text = "Double Click to Play a Turn";
+          // 
+          // consoleTimer
+          // 
+          this.consoleTimer.Enabled = true;
+          this.consoleTimer.Interval = 5000;
+          this.consoleTimer.Tick += new System.EventHandler(this.consoleTimer_Tick);
           // 
           // NovaConsoleMain
           // 
           this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-          this.ClientSize = new System.Drawing.Size(499, 315);
+          this.ClientSize = new System.Drawing.Size(472, 474);
           this.Controls.Add(this.GuiLaunchLabel);
-          this.Controls.Add(this.yearLabel);
-          this.Controls.Add(this.turnYearLabel);
           this.Controls.Add(this.groupBox2);
           this.Controls.Add(this.groupBox1);
           this.Controls.Add(this.MainMenu);
@@ -417,8 +462,10 @@ private void InitializeComponent()
           if (stateData.StatePathName != null && File.Exists(stateData.StatePathName))
           {
               stateData.GameInProgress = true;
+              turnYearLabel.Text = stateData.TurnYear.ToString();
+              // load the game settings also
+              GameSettings.Restore();
           }
-
           
           if (stateData.AllRaces.Count == 0)
           {
@@ -438,6 +485,7 @@ private void InitializeComponent()
           }
 
           OrderReader.ReadOrders();
+          
           SetPlayerList();
       }
 
@@ -453,19 +501,24 @@ private void InitializeComponent()
           ServerState stateData = ServerState.Data;
           if (stateData.GameInProgress) turnYearLabel.Text = stateData.TurnYear.ToString();
 
-          foreach (Race race in stateData.AllRaces.Values)
+
+
+
+
+          foreach (PlayerSettings settings in ServerState.Data.AllPlayers)
           {
+              ListViewItem listItem = new ListViewItem();
+
               // show if it is an AI player
-              // TODO (priority 4) get if it is an AI player
-              ListViewItem listItem = new ListViewItem("N");
+              listItem.Text = settings.AiProgram; 
 
               // Show the race name
-              listItem.SubItems.Add(race.Name); 
+              listItem.SubItems.Add(settings.RaceName); 
 
               // Show what turn the race/player last submitted, 
               // and color code to highlight which races we are waiting on (if we wait).
 
-              RaceData raceData = stateData.AllRaceData[race.Name] as RaceData;
+              RaceData raceData = stateData.AllRaceData[settings.RaceName] as RaceData;
 
               ListViewItem.ListViewSubItem yearItem = new ListViewItem.ListViewSubItem();
               if (raceData == null)
@@ -593,6 +646,14 @@ private void InitializeComponent()
           GenerateTurn();
       }
 
+      private void AddStatusMessage(String message)
+      {
+          StatusBox.Text += Environment.NewLine + message;
+          StatusBox.SelectionStart = StatusBox.Text.Length;
+          StatusBox.ScrollToCaret();
+          StatusBox.Refresh();
+      }
+
       private void GenerateTurn()
       {
           /* FIXME (priority 4) This gives a flase negative indication, i.e. GameInProgress is false even when a game is in progress.
@@ -612,8 +673,8 @@ private void InitializeComponent()
           NewGameMenuItem.Enabled = false;
           GenerateTurnMenuItem.Enabled = false;
 
-          StatusBox.Text = "New turn generated for year "
-                         + ServerState.Data.TurnYear;
+          AddStatusMessage("New turn generated for year " + ServerState.Data.TurnYear);
+          turnYearLabel.Text = ServerState.Data.TurnYear.ToString();
 
           SetPlayerList();
       }
@@ -636,6 +697,95 @@ private void InitializeComponent()
           }
       }
 
+       private void RunAI()
+       {
+           if (runAiCheckBox.Checked)
+           {
+               // MessageBox.Show("Run AI");
+
+               foreach (PlayerSettings settings in ServerState.Data.AllPlayers)
+               {
+                   if (settings.AiProgram == "Human")
+                   {
+                       continue;
+                   }
+
+                   RaceData raceData = ServerState.Data.AllRaceData[settings.RaceName] as RaceData;
+                   if (raceData == null || raceData.TurnYear != ServerState.Data.TurnYear)
+                   {
+
+                       if (settings.AiProgram == "Default AI")
+                       {
+                           // run the default AI
+                           String NovaAI;
+                           NovaAI = FileSearcher.GetFile(Global.NovaAiKey, false, Global.NovaAiPath_Development, Global.NovaAiPath_Deployed, "Nova_AI.exe", true);
+                           CommandArguments args = new CommandArguments();
+                           args.Add(CommandArguments.Option.RaceName, settings.RaceName);
+                           args.Add(CommandArguments.Option.Turn, ServerState.Data.TurnYear);
+                           try
+                           {
+                               Process.Start(NovaAI, args.ToString());
+
+                           }
+                           catch
+                           {
+                               Report.Error("Failed to launch Nova AI.");
+                           }
+                           
+                       }
+                       else
+                       {
+                           // run a custom AI. The AI name is the AI program.
+                           // run the default AI
+                           CommandArguments args = new CommandArguments();
+                           args.Add(CommandArguments.Option.RaceName, settings.RaceName);
+                           args.Add(CommandArguments.Option.Turn, ServerState.Data.TurnYear);
+                           try
+                           {
+                               Process.Start(settings.AiProgram, args.ToString());
+
+                               // FIXME (priority 3) - there must be a smarter way to do this than guessing how long the AI will take to run.
+                               System.Threading.Thread.Sleep(3000); // prevent multiple AI's trying to access the same files at the same time, and crashing. 
+
+                           }
+                           catch
+                           {
+                               Report.Error("Failed to launch AI program \"" + settings.AiProgram + "\".");
+                           }
+                       }
+                       // don't process any more than one AI at a time. It will crash if multiple AI's try to access the same files at the same time. FIXME (priority 3).
+                       return;
+                   }
+                       
+               }
+           }
+       }
+
+       private void runAiCheckBox_CheckedChanged(object sender, EventArgs e)
+       {
+           // Commented out as it is controlled by a timmer for now.
+           // RunAI();
+       }
+
+       private void consoleTimer_Tick(object sender, EventArgs e)
+       {
+           ServerState.Data.AllRaces = FileSearcher.GetAvailableRaces();
+
+           OrderReader.ReadOrders();
+
+           if (SetPlayerList())
+           {
+               GenerateTurnMenuItem.Enabled = true;
+               if (autoGenerateCheckBox.Checked)
+               {
+                   GenerateTurn();
+               }
+           }
+           else
+           {
+               if (runAiCheckBox.Checked) RunAI();
+           }
+       }
    }
 
 }
