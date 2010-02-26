@@ -18,11 +18,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
-using System.Text.RegularExpressions;
-using System.Windows.Forms;
 using Microsoft.Win32;
+using System.IO;
+using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace NovaCommon
 {
@@ -33,7 +33,6 @@ namespace NovaCommon
         // 
         // ============================================================================
 
-        #region Methods
         /// <summary>
         /// Identify the player race's. 
         // This is done by enumerating the race files present and
@@ -77,7 +76,7 @@ namespace NovaCommon
             GetFile(Global.RaceDesignerKey, false, Global.RaceDesignerPath_Development, Global.RaceDesignerPath_Deployed, "RaceDesigner.exe", false);
             GetFile(Global.NewGameKey, false, Global.NewGamePath_Development, Global.NewGamePath_Deployed, "NewGame.exe", false);
             GetFile(Global.NovaGuiKey, false, Global.NovaGuiPath_Development, Global.NovaGuiPath_Deployed, "NewGame.exe", false);
-
+            GetFile(Global.NovaAiKey, false, Global.NovaAiPath_Development, Global.NovaAiPath_Deployed, "Nova_AI.exe", true);
             GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
             GetFolder(Global.ClientFolderKey, Global.ClientFolderName);
             GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
@@ -226,16 +225,17 @@ namespace NovaCommon
         /// <returns>The value of the key, or null if invalid / not set.</returns>
         private static string GetRegistryValue(String registryKey)
         {
-            string path = null;
-            using( RegistryKey regKey = Registry.CurrentUser.CreateSubKey( Global.RootRegistryKey ) )
+            RegistryKey regKey = Registry.CurrentUser;
+            RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
+            String Path = subKey.GetValue
+                                    (registryKey, "?").ToString();
+
+            if (Path == "?" || Path == "")
             {
-                object obj = regKey.GetValue( registryKey );
-                if( null != obj )
-                {
-                    path = obj.ToString();
-                }
+                Path = null;
             }
-            return path;
+
+            return Path;
 
         }//GetRegistryValue
 
@@ -294,6 +294,5 @@ namespace NovaCommon
             
             return fileDialog.FileName;
         }
-        #endregion
     }
 }

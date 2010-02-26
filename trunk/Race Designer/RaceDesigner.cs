@@ -1807,7 +1807,7 @@ namespace RaceDesigner
                  DialogResult result = fd.ShowDialog();
                  if( result == DialogResult.OK )
                  {
-                     raceFilePath = fd.FileName;
+                     RaceFilePath = fd.FileName;
                  }
                  else
                  {
@@ -1815,7 +1815,7 @@ namespace RaceDesigner
                      return;
                  }
 
-                 FileStream saveFile = new FileStream( raceFilePath, FileMode.Create );
+                 FileStream saveFile = new FileStream(RaceFilePath, FileMode.Create);
                  GZipStream compressionStream = new GZipStream( saveFile, CompressionMode.Compress );
 
                  // Setup the XML document
@@ -1834,12 +1834,12 @@ namespace RaceDesigner
 
                  saveFile.Close();
 
-                 Report.Information( "The " + RaceParameters.PluralName + " have been saved to " + raceFilePath );
+                 Report.Information("The " + RaceParameters.PluralName + " have been saved to " + RaceFilePath);
 
-                 regKey.SetValue( Global.RaceFolderKey, System.IO.Path.GetDirectoryName( raceFilePath ) );
+                 regKey.SetValue(Global.RaceFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
 
                  // FIXME This is a work-around as the GUI doesn't currently ask and the console doesn't set it - Dan 09 Aug 09
-                 regKey.SetValue( Global.ClientFolderKey, System.IO.Path.GetDirectoryName( raceFilePath ) );
+                 regKey.SetValue(Global.ClientFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
 
                  // Remove the warning message for exiting with unsaved changes.
                  ParametersChanged = false;

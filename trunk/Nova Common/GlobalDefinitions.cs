@@ -61,8 +61,8 @@ namespace NovaCommon
        public const string NovaLauncherPath_Deployed = "../NovaLauncher";
        public const string NovaGuiPath_Development = "../../../Nova Gui/bin/Debug";
        public const string NovaGuiPath_Deployed = "../Nova Gui";
-       public const string NovaAiPath_Development = "../../../Nova_AI/bin/Debug";
-       public const string NovaAiPath_Deployed = "../Nova_AI";
+       public const string NovaAiPath_Development = "../../../Nova AI/bin/Debug";
+       public const string NovaAiPath_Deployed = "../Nova AI";
        
 
        public const int MaxWeaponRange = 10;
