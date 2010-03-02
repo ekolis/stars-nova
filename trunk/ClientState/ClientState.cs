@@ -71,43 +71,52 @@ namespace NovaClient
 // Data private to this module.
 // ============================================================================
 
-      private static ClientState     Instance      = null;
+      private static ClientState     instance;
       private static BinaryFormatter Formatter     = new BinaryFormatter();
       private static string          StatePathName = null; // path&filename
       private static AllComponents   ComponentData = AllComponents.Data;
 
+        #region Constructors
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Private Constructor for static-only class preventing an instance of this class to be created.
+        /// </summary>
+        /// <remarks>
+        /// Use a private constructor so the default constructor is not created since all methods are static.
+        /// </remarks>
+        //-------------------------------------------------------------------
+        private ClientState() { }
+        #endregion
 
-// ============================================================================
-// Private constructor to prevent anyone else creating instances of this class.
-// ============================================================================
+        #region Properties
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Gets the a single instance of this class. Access to the data is thread-safe.
+        /// </summary>
+        //-------------------------------------------------------------------
+        public static ClientState Data
+        {
+            get
+            {
+                Object padlock = new Object();
 
-      private ClientState() {}
-
-
-// ============================================================================
-// Provide a mechanism of accessing the single instance of this class that we
-// will create locally. Access to the data is thread-safe.
-// ============================================================================
-
-      public static ClientState Data
-      {
-         get {
-            Object padlock = new Object();
-
-            lock(padlock) {
-               if (Instance == null) {
-                  Instance = new ClientState();
-               }
+                lock( padlock )
+                {
+                    if( instance == null )
+                    {
+                        instance = new ClientState();
+                    }
+                }
+                return instance;
             }
-            return Instance;
-         }
+            private set
+            {
+                instance = value;
+            }
+        }
+        #endregion
 
-         set {
-            Instance = value;
-         }
-      }
-
-      // ============================================================================
+        // ============================================================================
       // Initialise the data needed for the GUI to run.
       // ============================================================================
 
