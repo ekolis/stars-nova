@@ -12,7 +12,7 @@
 using System;
 using System.Collections;
 
-namespace NewGame
+namespace Nova.NewGame
 {
 
 
