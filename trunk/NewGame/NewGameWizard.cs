@@ -1,3 +1,4 @@
+#region Copyright
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -7,6 +8,7 @@
 // terms of the GNU General Public License version 2 as published by the Free
 // Software Foundation.
 // ============================================================================
+#endregion
 
 using System;
 using System.Windows.Forms;
@@ -16,7 +18,7 @@ using System.Diagnostics;
 using NovaCommon;
 using NovaServer;
 
-namespace NewGame
+namespace Nova.NewGame
 {
    public partial class NewGameWizard : Form
    {
@@ -64,25 +66,49 @@ namespace NewGame
 
       }
 
+        #region Methods
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Occurs when the OK button is clicked.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="eventArgs">
+        /// A <see cref="EventArgs"/> that contains the event data.
+        /// </param>
+        //-------------------------------------------------------------------
+        private void okButton_Click( object sender, EventArgs e )
+        {
+            GameSettings.Data.PlanetsOwned = PlanetsOwned.Value;
+            GameSettings.Data.TechLevels = TechLevels.Value;
+            GameSettings.Data.NumberOfFields = NumberOfFields.Value;
+            GameSettings.Data.TotalScore = TotalScore.Value;
+            GameSettings.Data.ProductionCapacity = ProductionCapacity.Value;
+            GameSettings.Data.CapitalShips = CapitalShips.Value;
+            GameSettings.Data.HighestScore = HighestScore.Value;
+            GameSettings.Data.TargetsToMeet = Int32.Parse( TargetsToMeet.Text, System.Globalization.CultureInfo.InvariantCulture );
+            GameSettings.Data.MinimumGameTime = Int32.Parse( MinimumGameTime.Text, System.Globalization.CultureInfo.InvariantCulture );
+        }
 
-
-
-// ============================================================================
-// OK button pressed. Read the form fields and save them.
-// ============================================================================
-
-      private void OKSelected_Click(object sender, EventArgs e)
-      {
-          GameSettings.Data.PlanetsOwned = PlanetsOwned.Value;
-          GameSettings.Data.TechLevels = TechLevels.Value;
-          GameSettings.Data.NumberOfFields = NumberOfFields.Value;
-          GameSettings.Data.TotalScore = TotalScore.Value;
-          GameSettings.Data.ProductionCapacity = ProductionCapacity.Value;
-          GameSettings.Data.CapitalShips = CapitalShips.Value;
-          GameSettings.Data.HighestScore = HighestScore.Value;
-          GameSettings.Data.TargetsToMeet = Int32.Parse(TargetsToMeet.Text, System.Globalization.CultureInfo.InvariantCulture);
-          GameSettings.Data.MinimumGameTime = Int32.Parse(MinimumGameTime.Text, System.Globalization.CultureInfo.InvariantCulture);
-      }
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Occurs when the Tutorial button is clicked.
+        /// </summary>
+        /// <param name="sender">
+        /// The source of the event.
+        /// </param>
+        /// <param name="eventArgs">
+        /// A <see cref="EventArgs"/> that contains the event data.
+        /// </param>
+        //-------------------------------------------------------------------
+        private void TutorialButton_Click( object sender, EventArgs eventArgs )
+        {
+            //
+            //  TODO: Load or create the tutorial client data.
+            //
+        }
+        #endregion
 
       private void mapHeight_ValueChanged(object sender, EventArgs e)
       {
@@ -302,6 +328,8 @@ namespace NewGame
               return players;
           }
       }
+
+
 
    }
 

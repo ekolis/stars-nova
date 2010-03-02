@@ -7,6 +7,7 @@ using System.Drawing;
 
 using NovaCommon;
 using NovaServer;
+using Nova.NewGame;
 
 namespace NewGame
 {
