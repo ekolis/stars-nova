@@ -119,58 +119,64 @@
   </resheader>
   <data name="TotalScore.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMS4wLjAsIEN1bHR1cmU9
         bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
         AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAZAAAAAs=
 </value>
   </data>
   <data name="ExceedSecondPlace.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMS4wLjAsIEN1bHR1cmU9
         bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
         AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAZAAAAAs=
 </value>
   </data>
   <data name="HighestScore.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMS4wLjAsIEN1bHR1cmU9
         bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
         AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAZAAAAAs=
 </value>
   </data>
   <data name="CapitalShips.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMS4wLjAsIEN1bHR1cmU9
         bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
         AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAZAAAAAs=
 </value>
   </data>
   <data name="ProductionCapacity.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMS4wLjAsIEN1bHR1cmU9
         bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
         AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAZAAAAAs=
 </value>
   </data>
   <data name="NumberOfFields.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMS4wLjAsIEN1bHR1cmU9
         bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
         AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAABAAAAAs=
 </value>
   </data>
   <data name="TechLevels.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMS4wLjAsIEN1bHR1cmU9
         bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
         AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAFgAAAAs=
 </value>
   </data>
   <data name="PlanetsOwned.Value" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMC4wLjAsIEN1bHR1cmU9
+        AAEAAAD/////AQAAAAAAAAAMAgAAAEFOb3ZhQ29tbW9uLCBWZXJzaW9uPTAuMS4wLjAsIEN1bHR1cmU9
         bmV1dHJhbCwgUHVibGljS2V5VG9rZW49bnVsbAUBAAAAF05vdmFDb21tb24uRW5hYmxlZFZhbHVlAgAA
         AAlJc0NoZWNrZWQMTnVtZXJpY1ZhbHVlAAABCAIAAAAAPAAAAAs=
 </value>
   </data>
+  <metadata name="tutorialButton.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="okButton.Locked" type="System.Boolean, mscorlib, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
 </root>
