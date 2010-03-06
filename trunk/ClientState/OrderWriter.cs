@@ -12,16 +12,17 @@
 // Software Foundation.
 // ============================================================================
 
+#region Using Statements
+using System;
 using System.Collections;
 using System.IO;
 using System.Reflection;
 using System.Resources;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
-using System;
-
+using System.Runtime.Serialization.Formatters;
+using System.Runtime.Serialization.Formatters.Binary;
 using NovaCommon;
+#endregion
 
 // ============================================================================
 // WriteOrders the player's turn.
@@ -37,7 +38,6 @@ namespace NovaClient
 // NovaCommon Orders.cs
 // ---------------------------------------------------------------------------
 
-      private static BinaryFormatter Formatter  = new BinaryFormatter();
       private static ClientState        StateData  = null;
       private static Intel           InputTurn  = null; // TODO (priority 4) - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
       private static string          RaceName   = null;

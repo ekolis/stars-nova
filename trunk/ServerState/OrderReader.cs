@@ -9,6 +9,8 @@
 // terms of the GNU General Public License version 2 as published by the Free
 // Software Foundation.
 // ============================================================================
+
+#region Using Statements
 using System;
 using System.Xml;
 using System.IO.Compression;
@@ -19,15 +21,14 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
-
 using NovaCommon;
+#endregion
 
 namespace NovaServer
 {
     public static class OrderReader
     {
         static ServerState StateData = ServerState.Data;
-        private static BinaryFormatter Formatter = new BinaryFormatter();
 
         /// <summary>
         ///  Read in all the race orders

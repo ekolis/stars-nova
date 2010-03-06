@@ -10,13 +10,15 @@
 // Software Foundation.
 // ============================================================================
 
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Collections;
+#region Using Statements
 using System;
+using System.Collections;
 using System.IO;
 using System.IO.Compression;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Xml;
-
+using Nova;
+#endregion
 
 // ============================================================================
 // Definition of the orders that are created by the Nova GUI and read by the
@@ -37,7 +39,7 @@ namespace NovaCommon
       public int         TechLevel       = 0;               // FIXME (priority 4): should send our research orders; server should control actual player tech level ??? what does this int mean? it is not a TechLevel type.
 
        // private data
-       private static BinaryFormatter Formatter = new BinaryFormatter();
+       //private static BinaryFormatter Formatter = new BinaryFormatter();
 
        /// <summary>
        /// default constructor
@@ -142,15 +144,18 @@ namespace NovaCommon
            }
        }
 
+       #region Methods
        /// <summary>
-       /// Write out the orders file using binary serialization
+       /// Write out the orders file using binary serialization.
        /// </summary>
        public void ToBinary(string ordersFileName)
        {
-           FileStream ordersFile = new FileStream(ordersFileName, FileMode.Create);
-           Formatter.Serialize(ordersFile, this);
-           ordersFile.Close();
+           using( FileStream ordersFile = new FileStream( ordersFileName, FileMode.Create ) )
+           {
+               Serializer.Serialize( ordersFile, this );
+           }
        }
+       #endregion
 
        /// <summary>
        /// Write out the orders using xml format

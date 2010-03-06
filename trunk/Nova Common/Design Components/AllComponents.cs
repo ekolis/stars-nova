@@ -8,16 +8,17 @@
 // Software Foundation.
 // ============================================================================
 
-using Microsoft.Win32;
-using NovaCommon;
+#region Using Statements
+using System;
 using System.Collections;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization;
-using System;
-using System.Xml;
 using System.Windows.Forms;
-
+using System.Xml;
+using Microsoft.Win32;
+using NovaCommon;
+#endregion
 
 
 // ============================================================================
@@ -202,7 +203,7 @@ namespace NovaCommon
             GetPath();
             if( saveFilePath == null || saveFilePath == "?" || saveFilePath == "" )
             {
-            throw new Exception();
+                throw new Exception();
             }
 
 
@@ -322,33 +323,29 @@ namespace NovaCommon
 
       }// Get New Save File
 
+        #region Methods
         //-------------------------------------------------------------------
         /// <summary>
         /// Extract the path to the component file from the registry.
         /// FIXME - The GUI and Console programs used this version but expect the GetPathOrDie() behaviour. Need to upadate their calls.
         /// </summary>
         //-------------------------------------------------------------------
-        public static string GetPath()
+        private static string GetPath()
         {
             using( RegistryKey regKey = Registry.CurrentUser.CreateSubKey( Global.RootRegistryKey ) )
             {
-                saveFilePath = regKey.GetValue( Global.ComponentFolderKey, "?" ).ToString();
-
-                if( saveFilePath == "?" || saveFilePath == "" )
-                {
-                    saveFilePath = null;
-                }
-                else if( File.Exists( saveFilePath ) == false )
+                saveFilePath = regKey.GetValue( Global.ComponentFolderKey, string.Empty ).ToString();
+                if( 0 == saveFilePath.Length )
                 {
                     saveFilePath = null;
                 }
             }
 
             return saveFilePath;
-
         }
+        #endregion
 
-// ============================================================================
+        // ============================================================================
 // Extract the path to the component file from the registry, failing that
 // from the user and failing that terminate the program.
 // FIXME - doesn't actually check that the user specified a valid file, which 

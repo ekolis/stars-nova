@@ -13,13 +13,16 @@
 // Software Foundation.
 // ===========================================================================
 
+#region Using Statements
 using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Text;
-using System.Runtime.Serialization.Formatters.Binary;
+using System.IO;
 using System.Runtime.Serialization.Formatters;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Text;
 using System.Windows.Forms;
+using Nova;
+#endregion
 
 namespace NovaCommon
 {
@@ -54,7 +57,6 @@ namespace NovaCommon
 
         private static GameSettings instance = null;
         private static Object padlock = new Object();
-        private static BinaryFormatter formatter = new BinaryFormatter();
 
 
 // ============================================================================
@@ -89,52 +91,50 @@ namespace NovaCommon
          }
       }
 
+        #region Methods
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Restore the persistent data.
+        /// </summary>
+        //-------------------------------------------------------------------
+        public static void Restore()
+        {
+            string fileName = Data.SettingsPathName;
+            using( FileStream stream = new FileStream( fileName, FileMode.Open ) )
+            {
+                Data = (GameSettings)Serializer.Deserialize( stream );
+            }
+        }
 
-// ============================================================================
-// Restore the persistent data. 
-// ============================================================================
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Save the console persistent data.
+        /// </summary>
+        //-------------------------------------------------------------------
+        public static void Save()
+        {
+            if( Data.SettingsPathName == null )
+            {
+                // TODO (priority 4) add the nicities. Update the game files location.
+                SaveFileDialog fd = new SaveFileDialog();
+                fd.Title = "Choose a location to save the game settings.";
 
-      public static void Restore()
-      {
-          string fileName = Data.SettingsPathName;
-          if (File.Exists(fileName))
-          {
-              FileStream state = new FileStream(fileName, FileMode.Open);
-              Data = formatter.Deserialize(state) as GameSettings;
-              state.Close();
-          }
-      }
+                DialogResult result = fd.ShowDialog();
+                if( result == DialogResult.OK )
+                {
+                    Data.SettingsPathName = fd.FileName;
+                }
+                else
+                {
+                    throw new System.IO.IOException( "File dialog cancelled." );
+                }
 
-
-// ============================================================================
-// Save the console persistent data.
-// ============================================================================
-
-      public static void Save()
-      {
-          if (Data.SettingsPathName == null)
-          {
-              // TODO (priority 4) add the nicities. Update the game files location.
-              SaveFileDialog fd = new SaveFileDialog();
-              fd.Title = "Choose a location to save the game settings.";
-              
-              DialogResult result = fd.ShowDialog();
-              if (result == DialogResult.OK)
-              {
-                  Data.SettingsPathName = fd.FileName;
-              }
-              else
-              {
-                  throw new System.IO.IOException("File dialog cancelled.");
-              }
-
-          }
-          FileStream state = new FileStream(Data.SettingsPathName, FileMode.Create);
-          formatter.Serialize(state, GameSettings.Data);
-          state.Close();
-
-      }
-
-
+            }
+            using( Stream stream = new FileStream( Data.SettingsPathName, FileMode.Create ) )
+            {
+                Serializer.Serialize( stream, GameSettings.Data );
+            }
+        }
+        #endregion
     }
 }

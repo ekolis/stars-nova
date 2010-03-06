@@ -9,22 +9,24 @@
 // Software Foundation.
 // ============================================================================
 
-using Microsoft.Win32;
+#region Using Statements
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using System.Drawing;
 using System.IO;
+using System.IO.Compression;
 using System.Reflection;
 using System.Resources;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using System.Xml;
-using System.IO.Compression;
-
+using Microsoft.Win32;
+using Nova;
 using NovaCommon;
+#endregion
 
 // ============================================================================
 // Manipulation of data that is persistent across muliple invocations of the
@@ -72,7 +74,6 @@ namespace NovaClient
 // ============================================================================
 
       private static ClientState     instance;
-      private static BinaryFormatter Formatter     = new BinaryFormatter();
       private static string          StatePathName = null; // path&filename
       private static AllComponents   ComponentData = AllComponents.Data;
 
@@ -398,20 +399,17 @@ namespace NovaClient
               ("The Nova GUI cannot start unless a turn file is present");
           }
 
-          FileStream turnFile = new FileStream(turnFileName, FileMode.Open);
-          int turnYearInFile = (int)Formatter.Deserialize(turnFile);
-
-          if (turnYearInFile != ClientState.Data.TurnYear)
+          using( Stream turnFile = new FileStream( turnFileName, FileMode.Open ) )
           {
-              ClientState.Data.InputTurn = Formatter.Deserialize(turnFile)
-                                        as Intel;
-              turnFile.Close();
-
-              ClientState.Data.TurnYear = turnYearInFile;
-              ClientState.Data.DeletedFleets.Clear();
-              ClientState.Data.DeletedDesigns.Clear();
-
-              IntelReader.ReadIntel();
+              int turnYearInFile = (int)Serializer.Deserialize( turnFile );
+              if( turnYearInFile != ClientState.Data.TurnYear )
+              {
+                  ClientState.Data.InputTurn = (Intel)Serializer.Deserialize( turnFile );
+                  ClientState.Data.TurnYear = turnYearInFile;
+                  ClientState.Data.DeletedFleets.Clear();
+                  ClientState.Data.DeletedDesigns.Clear();
+                  IntelReader.ReadIntel();
+              }
           }
       }
 
@@ -642,114 +640,81 @@ namespace NovaClient
       }
 
 
-// ============================================================================
-// Restore the GUI persistent data if the state store file exists (it typically
-// will not on the very first turn of a new game). Later on, when we read the
-// file Nova.Intel we will reset the persistent data fields if the turn file
-// indicates the first turn of a new game.
-// ============================================================================
 
-      public static void Restore(string gameFolder)
-      {
+        #region Methods
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Restore the GUI persistent data if the state store file exists (it typically will not on the very first turn of a new game).
+        /// </summary>
+        /// <remarks>
+        /// Later on, when we read the file Nova.Intel we will reset the persistent data fields if the turn file indicates the first turn of a new game.
+        /// </remarks>
+        //-------------------------------------------------------------------
+        public static void Restore()
+        {
+            Restore( ClientState.Data.GameFolder, ClientState.Data.RaceName );
+        }
 
-// ----------------------------------------------------------------------------
-// Scan the game directory for .race files. If only one is present then that is
-// the race we will use (single race test bed or remote server). If more than one is
-// present then display a dialog asking the player which race he wants to use
-// (multiplayer game with all players playing from a single game directory).
-// ----------------------------------------------------------------------------
-
-         String raceName = SelectRace(gameFolder);
-
-         StatePathName = Path.Combine(gameFolder, raceName + ".state");
-
-         if (File.Exists(StatePathName)) 
-         {
-
-            // Read in binary state file
-            FileStream stateFile = new FileStream(StatePathName,FileMode.Open);
-            ClientState.Data        = Formatter.Deserialize(stateFile)as ClientState;
-            stateFile.Close();
-
-
-         }
-
-         // Copy the race and game folder names into the state data store. This
-         // is just a convenient way of making them globally available.
-
-         Data.RaceName   = raceName;
-         Data.GameFolder = gameFolder;
-
-      }
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Restore the GUI persistent data if the state store file exists (it typically will not on the very first turn of a new game).
+        /// </summary>
+        /// <param name="gameFolder"></param>
+        /// <remarks>
+        /// Later on, when we read the file Nova.Intel we will reset the persistent data fields if the turn file indicates the first turn of a new game.
+        /// </remarks>
+        //-------------------------------------------------------------------
+        public static void Restore( string gameFolder )
+        {
+            //
+            // Scan the game directory for .race files. If only one is present then that is
+            // the race we will use (single race test bed or remote server). If more than one is
+            // present then display a dialog asking the player which race he wants to use
+            // (multiplayer game with all players playing from a single game directory).
+            //
+            String raceName = SelectRace( gameFolder );
+            Restore( gameFolder, raceName );
+        }
 
 
-      // ============================================================================
-      // Restore the GUI persistent data if the state store file exists (it typically
-      // will not on the very first turn of a new game). Later on, when we read the
-      // file Nova.Intel we will reset the persistent data fields if the turn file
-      // indicates the first turn of a new game.
-      // ============================================================================
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Restore the GUI persistent data if the state store file exists (it typically will not on the very first turn of a new game).
+        /// </summary>
+        /// <param name="gameFolder"></param>
+        /// <param name="raceName"></param>
+        /// <remarks>
+        /// Later on, when we read the file Nova.Intel we will reset the persistent data fields if the turn file indicates the first turn of a new game.
+        /// </remarks>
+        //-------------------------------------------------------------------
+        public static void Restore( string gameFolder, string raceName )
+        {
+            StatePathName = Path.Combine( gameFolder, raceName + ".state" );
+            using( Stream stateFile = new FileStream( StatePathName, FileMode.Open ) )
+            {
+                ClientState.Data = (ClientState)Serializer.Deserialize( stateFile );
+            }
 
-      public static void Restore(string gameFolder, string raceName)
-      {
-          StatePathName = Path.Combine(gameFolder, raceName + ".state");
-
-          if (File.Exists(StatePathName))
-          {
-              FileStream stateFile = new FileStream(StatePathName, FileMode.Open);
-              ClientState.Data = Formatter.Deserialize(stateFile) as ClientState;
-              stateFile.Close();
-          }
-
-          // Copy the race and game folder names into the state data store. This
-          // is just a convenient way of making them globally available.
-
-          Data.RaceName = raceName;
-          Data.GameFolder = gameFolder;
-
-      }
-      // ============================================================================
-      // Restore the GUI persistent data if the state store file exists (it typically
-      // will not on the very first turn of a new game). Later on, when we read the
-      // file Nova.Intel we will reset the persistent data fields if the turn file
-      // indicates the first turn of a new game.
-      // ============================================================================
-
-      public static void Restore()
-      {
-          FileStream stateFile;
-
-          // Find the StateFileName
-          if (StatePathName != null && File.Exists(StatePathName))
-          {
-              // nothing to do
-          }
-          else
-          {
-              StatePathName = Path.Combine(ClientState.Data.GameFolder, ClientState.Data.RaceName + ".state");
-          }
-
-          // Load it
-          if (StatePathName != null && File.Exists(StatePathName))
-          {
-              stateFile = new FileStream(StatePathName, FileMode.Open);
-              ClientState.Data = Formatter.Deserialize(stateFile) as ClientState;
-              stateFile.Close();
-          }
-      }
-
-// ============================================================================
-// Save the GUI global data and flag that we should now be able to restore it.
-// ============================================================================
-
-      public static void Save()
-      {
+            // Copy the race and game folder names into the state data store. This
+            // is just a convenient way of making them globally available.
+            Data.RaceName = raceName;
+            Data.GameFolder = gameFolder;
+        }
 
 
-         FileStream stateFile = new FileStream(StatePathName,FileMode.Create);
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Save the GUI global data and flag that we should now be able to restore it.
+        /// </summary>
+        //-------------------------------------------------------------------
+        public static void Save()
+        {
+            using( Stream stateFile = new FileStream( StatePathName, FileMode.Create ) )
+            {
+                // Binary Serialization (old)
+                Serializer.Serialize( stateFile, ClientState.Data );
+            }
 
-         // Binary Serialization (old)
-         Formatter.Serialize(stateFile, ClientState.Data);
 
          // Xml Serialization - incomplete - Dan 16 Jan 09 - deferred while alternate means are investigated
           /*
@@ -812,13 +777,11 @@ namespace NovaClient
 #endif
 
       */
-         stateFile.Close();
+        }
+        #endregion
 
 
-      }
-
-
-// ============================================================================
+        // ============================================================================
 // Pop up a dialog to select the race to play
 // ============================================================================
 

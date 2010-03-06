@@ -1,3 +1,4 @@
+#region Copyright
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 //
@@ -9,20 +10,23 @@
 // terms of the GNU General Public License version 2 as published by the Free
 // Software Foundation.
 // ============================================================================
+#endregion
 
-using NovaCommon;
+#region Using Statements
+using System;
 using System.Collections;
 using System.IO;
 using System.Reflection;
 using System.Resources;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
-using System;
+using System.Runtime.Serialization.Formatters;
+using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
-using Microsoft.Win32;
 using ControlLibrary;
-
+using Microsoft.Win32;
+using Nova;
+using NovaCommon;
+#endregion
 
 // ============================================================================
 // Manipulation of data that is persistent across muliple invocations of the
@@ -63,7 +67,6 @@ namespace NovaServer
 
       private static ServerState    instance      = null;
       private static Object          padlock       = new Object();
-      private static BinaryFormatter formatter     = new BinaryFormatter();
 
 
 // ============================================================================
@@ -98,53 +101,54 @@ namespace NovaServer
          }
       }
 
+        #region Methods
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Restore the persistent data. 
+        /// </summary>
+        //-------------------------------------------------------------------
+        public static void Restore()
+        {
+            string fileName = Data.StatePathName;
+            using( FileStream stream = new FileStream( fileName, FileMode.Open ) )
+            {
+                ServerState.Data = (ServerState)Serializer.Deserialize( stream );
+            }
+        }
 
-// ============================================================================
-// Restore the persistent data. 
-// ============================================================================
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Save the console persistent data.
+        /// </summary>
+        //-------------------------------------------------------------------
+        public static void Save()
+        {
+            if( Data.StatePathName == null )
+            {
+                // TODO (priority 4) add the nicities. Update the game files location.
+                SaveFileDialog fd = new SaveFileDialog();
+                fd.Title = "Choose a location to save the game.";
 
-      public static void Restore()
-      {
-         string fileName = Data.StatePathName;
-         if (File.Exists(fileName)) {
-            FileStream state  = new FileStream(fileName, FileMode.Open);
-            ServerState.Data = formatter.Deserialize(state) as ServerState;
-            state.Close();
-         }
-      }
+                DialogResult result = fd.ShowDialog();
+                if( result == DialogResult.OK )
+                {
+                    Data.StatePathName = fd.FileName;
+                }
+                else
+                {
+                    throw new System.IO.IOException( "File dialog cancelled" );
+                }
+            }
 
-
-// ============================================================================
-// Save the console persistent data.
-// ============================================================================
-
-      public static void Save()
-      {
-          if (Data.StatePathName == null)
-          {
-              // TODO (priority 4) add the nicities. Update the game files location.
-              SaveFileDialog fd = new SaveFileDialog();
-              fd.Title = "Choose a location to save the game.";
-              
-              DialogResult result = fd.ShowDialog();
-              if (result == DialogResult.OK)
-              {
-                  Data.StatePathName = fd.FileName;
-              }
-              else
-              {
-                  throw new System.IO.IOException("File dialog cancelled");
-              }
-
-          }
-          FileStream state = new FileStream(Data.StatePathName, FileMode.Create);
-          formatter.Serialize(state, ServerState.Data);
-          state.Close();
-
-      }
+            using( FileStream stream = new FileStream( Data.StatePathName, FileMode.Create ) )
+            {
+                Serializer.Serialize( stream, ServerState.Data );
+            }
+        }
+        #endregion
 
 
-// ============================================================================
+        // ============================================================================
 // Reset all values to the defaults
 // ============================================================================
 
