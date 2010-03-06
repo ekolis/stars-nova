@@ -1,4 +1,4 @@
-﻿namespace Nova
+﻿namespace NovaCommon
 {
     #region Using Statements
     using System.Diagnostics;

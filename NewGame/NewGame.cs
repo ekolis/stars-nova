@@ -1,7 +1,18 @@
-﻿using System;
+﻿// ============================================================================
+// Nova. (c) 2010 stars-nova
+//
+// This program is used to generate a new Nova game, primarily using the 
+// NewGameWizard, GameSettings and ServerState objects.
+//
+// This is free software. You can redistribute it and/or modify it under the
+// terms of the GNU General Public License version 2 as published by the Free
+// Software Foundation.
+// ============================================================================
+using System;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Drawing;
+using System.IO;
 
 using NovaCommon;
 using NovaServer;
@@ -53,45 +64,65 @@ namespace NewGame
                 }
 
                 // New game dialog was OK, create a game
-                SaveFileDialog gameNameDialog = new SaveFileDialog();
-                gameNameDialog.Title = "Choose New Game Name";
-                gameNameDialog.FileName = "NovaServer.state"; // give it a default name
-                DialogResult gameNameDialogResult = gameNameDialog.ShowDialog();
+                // Get a location to save the game:
+                FolderBrowserDialog gameFolderBrowser = new FolderBrowserDialog();
+                gameFolderBrowser.Description = "Choose New Game Folder";
+
+                // gameFolderBrowser.RootFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName); // FIXME (priority 3) - how do I set the starting folder???
+                // trying this instead - Dan 02 Mar 10
+                Directory.SetCurrentDirectory( FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName));
+
+                DialogResult gameFolderBrowserResult = gameFolderBrowser.ShowDialog();
 
                 // Check for cancel being pressed (in the new game save file dialog).
-                if (gameNameDialogResult != DialogResult.OK)
+                if (gameFolderBrowserResult != DialogResult.OK)
                 {
                     // return to the new game wizard
                     continue;
                 }
 
-                ServerState.Data.StatePathName = gameNameDialog.FileName;
-                FileSearcher.SetNovaRegistryValue(Global.ServerStateKey, gameNameDialog.FileName);
-                System.IO.FileInfo newGameFile = new System.IO.FileInfo(gameNameDialog.FileName);
-                ServerState.Data.GameFolder = newGameFile.DirectoryName;
+                // store the updated Game Folder information
+                FileSearcher.SetNovaRegistryValue(Global.ServerFolderKey, gameFolderBrowser.SelectedPath);
+                ServerState.Data.GameFolder = gameFolderBrowser.SelectedPath;
+                // Don't set ClientFolderKey in case we want to simulate a LAN game 
+                // on one PC for testing. 
+                // Should be set when the ClientState is initialised. If that is by 
+                // launching Nova GUI from the console then the GameFolder will be 
+                // passed as the path to the .intel and the ClientFolderKey will then 
+                // be updated.
+                // FileSearcher.SetNovaRegistryValue(Global.ClientFolderKey, gameFolderBrowser.SelectedPath);  
 
-                //ServerState.Data.AllRaces 
+                // Construct appropriate state and settings file names
+                ServerState.Data.StatePathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar + GameSettings.Data.GameName + ".state";
+                GameSettings.Data.SettingsPathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar + GameSettings.Data.GameName + ".settings";
+                FileSearcher.SetNovaRegistryValue(Global.ServerStateKey, ServerState.Data.StatePathName);
+
+                // Copy the player & race data to the ServerState
                 ServerState.Data.AllPlayers = newGameWizard.Players;
                 foreach (PlayerSettings settings in ServerState.Data.AllPlayers)
                 {
                     // TODO (priority 4) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
+                    // Stars! solution is to rename the race using a list of standard names. 
                     if ( ! ServerState.Data.AllRaces.Contains(settings.RaceName))
                         ServerState.Data.AllRaces.Add(settings.RaceName, newGameWizard.KnownRaces[settings.RaceName]);
                 }
 
-
                 GenerateStars();
+
                 InitialisePlayerData();
+
                 try
                 {
                     IntelWriter.WriteIntel();
                     ServerState.Save();
+                    GameSettings.Save();
                 }
                 catch
                 {
                     Report.Error("Creation of new game failed.");
                     continue;
                 }
+
                 // start the server
                 String NovaConsole = FileSearcher.GetFile(Global.NovaConsoleKey, false, Global.NovaConsolePath_Development, Global.NovaConsolePath_Deployed, "Nova Console.exe", false);
                 try
@@ -104,9 +135,10 @@ namespace NewGame
                 {
                     Report.FatalError("Unable to launch \"Nova Console.exe\".");
                 }
-            } while (true);
 
-        }
+            } while (true); // keep trying to make a new game
+
+        } // Main
 
         /// <summary>
         /// Generate all the stars. We have two helper classes to assist in doing this:

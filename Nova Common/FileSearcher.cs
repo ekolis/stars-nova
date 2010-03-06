@@ -43,7 +43,7 @@ namespace NovaCommon
         {
             Hashtable AllRaces = new Hashtable();
 
-            String RaceFolder = GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
+            String RaceFolder = GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
             DirectoryInfo directory = new DirectoryInfo
                                            (RaceFolder);
 
@@ -213,6 +213,8 @@ namespace NovaCommon
             RegistryKey key = Registry.CurrentUser;
             RegistryKey subKey = key.CreateSubKey(Global.RootRegistryKey);
             subKey.SetValue(registryKey, value);
+            key.Close();
+            subKey.Close();
         }
 
 

@@ -24,9 +24,10 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
 using ControlLibrary;
 using Microsoft.Win32;
-using Nova;
+
 using NovaCommon;
 #endregion
+
 
 // ============================================================================
 // Manipulation of data that is persistent across muliple invocations of the
@@ -49,15 +50,15 @@ namespace NovaServer
       public Hashtable AllTechLevels  = new Hashtable();
       public Hashtable AllDesigns     = new Hashtable();
       public Hashtable AllFleets      = new Hashtable();
-      public Hashtable AllRaceData    = new Hashtable(); // Data about the race (traits etc) 
-      public Hashtable AllRaces       = new Hashtable(); // Data about the race's relations and battle plans, see RaceData
+      public Hashtable AllRaceData    = new Hashtable(); // Data about the race's relations and battle plans, see RaceData
+      public Hashtable AllRaces       = new Hashtable(); // Data about the race (traits etc)
       public Hashtable AllStars       = new Hashtable();
       public Hashtable AllMinefields  = new Hashtable();
 
       public bool      GameInProgress = false;
       public int       FleetID        = 1;
       public int       TurnYear       = 2100;
-      public string    GameFolder     = null; // The path&folder where game files are held.
+      public string    GameFolder     = null; // The path&folder where client files are held.
       public string    StatePathName  = null; // path&file name to the saved state data
 
 
@@ -65,40 +66,43 @@ namespace NovaServer
 // Data private to this module.
 // ============================================================================
 
-      private static ServerState    instance      = null;
+      private static ServerState     instance      = null;
       private static Object          padlock       = new Object();
 
 
-// ============================================================================
-// Private constructor to prevent anyone else creating instances of this class.
-// ============================================================================
+      /// <summary>
+      /// Private constructor to prevent anyone else creating instances of this class.
+      /// </summary>
+      private ServerState() { }
 
-      private ServerState() {}
 
-
-// ============================================================================
-// Provide a mechanism of accessing the single instance of this class that we
-// will create locally. Creation of the data is thread-safe.
-// ============================================================================
-
+      /// <summary>
+      /// Provide a mechanism of accessing the single instance of this class that we
+      /// will create locally. Creation of the data is thread-safe.
+      /// </summary>
       public static ServerState Data
       {
-         get {
-            if (instance == null) {
-               lock(padlock) {
-                  if (instance == null) {
-                     instance = new ServerState();
+          get
+          {
+              if (instance == null)
+              {
+                  lock (padlock)
+                  {
+                      if (instance == null)
+                      {
+                          instance = new ServerState();
+                      }
                   }
-               }
-            }
-            return instance;
-         }
+              }
+              return instance;
+          }
 
-// ----------------------------------------------------------------------------
+          // ----------------------------------------------------------------------------
 
-         set {
-            instance = value;
-         }
+          set
+          {
+              instance = value;
+          }
       }
 
         #region Methods
@@ -110,9 +114,12 @@ namespace NovaServer
         public static void Restore()
         {
             string fileName = Data.StatePathName;
-            using( FileStream stream = new FileStream( fileName, FileMode.Open ) )
+            if (File.Exists(fileName))
             {
-                ServerState.Data = (ServerState)Serializer.Deserialize( stream );
+                using (FileStream stream = new FileStream(fileName, FileMode.Open))
+                {
+                    ServerState.Data = (ServerState)Serializer.Deserialize(stream);
+                }
             }
         }
 
@@ -147,24 +154,26 @@ namespace NovaServer
         }
         #endregion
 
-
+      /// <summary>
+      /// Save the console persistent data.
+      /// </summary>
         // ============================================================================
 // Reset all values to the defaults
 // ============================================================================
 
       public static void Clear()
       {
-         Data.GameFolder     = null;
-         Data.AllRaces       = new Hashtable();
-         Data.AllRaceData    = new Hashtable();
-         Data.AllStars       = new Hashtable();
-         Data.AllDesigns     = new Hashtable();
-         Data.AllFleets      = new Hashtable();
-         Data.AllTechLevels  = new Hashtable();
-         Data.TurnYear       = 2100;
-         Data.FleetID        = 1;
-         Data.StatePathName  = null;
-         Data.GameInProgress = false;
+          Data.GameFolder = null;
+          Data.AllRaces = new Hashtable();
+          Data.AllRaceData = new Hashtable();
+          Data.AllStars = new Hashtable();
+          Data.AllDesigns = new Hashtable();
+          Data.AllFleets = new Hashtable();
+          Data.AllTechLevels = new Hashtable();
+          Data.TurnYear = 2100;
+          Data.FleetID = 1;
+          Data.StatePathName = null;
+          Data.GameInProgress = false;
       }
 
    }

@@ -520,6 +520,11 @@ namespace Nova
             Design design = TurnData.AllDesigns
                             [StateData.RaceName + "/" + name] as Design;
 
+            if (design == null)
+            {
+                Report.FatalError("ProducationDialog.cs UpdateProducionCost() - Design \"" + StateData.RaceName + "/" + name + "\" no longer exists.");
+            }
+
             int quantity  = Convert.ToInt32(item.SubItems[1].Text);
 
             cost.Ironium   += design.Cost.Ironium   * quantity;

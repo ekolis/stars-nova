@@ -19,15 +19,20 @@ namespace Nova
 {
     static class Program
     {
+
+
+        /*
         [STAThread]
         static void Main(string[] args)
         {
+            Application.SetCompatibleTextRenderingDefault(false);
 
             Application.EnableVisualStyles();
             ClientState.Initialize(args);
 
-            Application.SetCompatibleTextRenderingDefault(false);
             Application.Run(new NovaGUI());
         }
+         * */
+
     }
 }

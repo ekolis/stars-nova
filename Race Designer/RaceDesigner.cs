@@ -1,5 +1,6 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010 stars-nova
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free
@@ -181,7 +182,7 @@ namespace RaceDesigner
           IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source);
 
           // Can't trust the windows designer generate code to set the environment range before setting the environment value, so set it here to be sure.
-          // TODO - put all these literal values somewhere sensible (EnvironmentTolerance object?)
+          // TODO (priority 3) - put all these literal values somewhere sensible (EnvironmentTolerance object?)
           TemperatureTolerance.RangeMinimum = -200;
           TemperatureTolerance.RangeMaximum = 200;
           TemperatureTolerance.BarLower = -140;
@@ -1794,7 +1795,7 @@ namespace RaceDesigner
              // Nova Console files it is possible to play a game with multiple races using
              // the same log-in name. This is a useful debugging aid.
              // ----------------------------------------------------------------------------
-             RegistryKey regKey = null;
+             
              try
              {
 
@@ -1836,10 +1837,7 @@ namespace RaceDesigner
 
                  Report.Information("The " + RaceParameters.PluralName + " have been saved to " + RaceFilePath);
 
-                 regKey.SetValue(Global.RaceFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
-
-                 // FIXME This is a work-around as the GUI doesn't currently ask and the console doesn't set it - Dan 09 Aug 09
-                 regKey.SetValue(Global.ClientFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
+                 FileSearcher.SetNovaRegistryValue(Global.RaceFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
 
                  // Remove the warning message for exiting with unsaved changes.
                  ParametersChanged = false;
@@ -1857,13 +1855,6 @@ namespace RaceDesigner
              {
                  Report.Error( "Failed to save race file. " + exception.Message );
                  return;
-             }
-             finally
-             {
-                 if( null != regKey )
-                 {
-                     regKey.Close();
-                 }
              }
 
          }//Finish_Click (save&close the race)

@@ -87,10 +87,10 @@ namespace NovaClient
                outputTurn.RaceStars.Add(star);
             }
          }
-
+          
          foreach (Design design in InputTurn.AllDesigns.Values) {
             if (design.Owner == RaceName) {
-               outputTurn.RaceDesigns.Add(design.Name, design);
+               outputTurn.RaceDesigns.Add(design.Key, design);
             }
          }
          

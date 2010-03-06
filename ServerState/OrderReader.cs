@@ -93,9 +93,8 @@ namespace NovaServer
 
             // TODO (priority 4) - check we are on the right turn before processing, and perhaps flag when we have processed the orders
             // TODO (priority 4) fine tune so the client can't modify things like a star's position, i.e. treat the data as orders only.
-            foreach (DictionaryEntry de in playerOrders.RaceDesigns)
+            foreach (Design design in playerOrders.RaceDesigns.Values)
             {
-                Design design = de.Value as Design;
                 StateData.AllDesigns[design.Key] = design;
             }
 
@@ -155,6 +154,7 @@ namespace NovaServer
                 if (star.Starbase != null)
                     star.Starbase = playerOrders.RaceFleets[star.Starbase.Name] as Fleet;
             }
+
 
         }
 

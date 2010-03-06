@@ -38,6 +38,7 @@ namespace NovaCommon
 // ============================================================================
 
       public int       TurnYear      = 2100;
+      public Race      MyRace        = new Race();
       public ArrayList Messages      = new ArrayList();
       public ArrayList Battles       = new ArrayList();
       public ArrayList AllRaceNames  = new ArrayList();
@@ -52,7 +53,7 @@ namespace NovaCommon
 // Data private to this module.
 // ============================================================================
 
-      private static Intel      instance  = null;
+      private static Intel           instance  = null;
       private static Object          padlock   = new Object();
 
 
@@ -91,6 +92,7 @@ namespace NovaCommon
 
       public void Clear()
       {
+          Data.MyRace = null;
          Data.AllDesigns.Clear();
          Data.AllFleets.Clear();
          Data.AllRaceNames.Clear();

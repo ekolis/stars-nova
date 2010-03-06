@@ -19,6 +19,15 @@ namespace NovaCommon
 {
    public static class Global
    {
+       // Note: Client/SeverState.GameFolder vs ServerFolder vs ClientFolder
+       // In a single player game the ServerFolder == ClientFolder == "Game Files"
+       // The only reason to save seperate keys for ServerFolder and ClientFolder
+       // is so that we can simulate a network game on a single PC. When this
+       // is done it will be necessary to transfer the game files from one
+       // folder to the other. In Stars! this is done manually. Nova may (eventually)
+       // implement an automated solution (e.g. using TCP/IP sockets to conect the
+       // client and server.)
+
        // registry keys - game resources
        public const string RootRegistryKey = "Software\\Ken Reed\\Nova"; // where the keys are
        public const string NovaFolderKey = "NovaFolderKey";              // where Nova is installed 
@@ -30,6 +39,7 @@ namespace NovaCommon
        public const string ServerStateKey = "ServerStateFile";           // the server's saved data from the most recent game, if any. Nominally ./GameFiles/Constole.state. Players may save game files anywhere, e.g. My Document\Saved Games\Nova\A Bare Foot Jay-Walk\
        public const string ClientStateKey = "ClientStateFile";           // the client's saved data from the most recent game, if any. Nominally ./GameFiles/RaceName.state. Players may save game files anywhere, e.g. My Document\Saved Games\Nova\A Bare Foot Jay-Walk\
        public const string SettingsKey = "GameSettingsFile";             // where the game settings are stored (on the server, but a copy should be avaialble to the client).
+
 
        // default folder names, used with FileSearcher.GetFolder(). 
        // Follows the above naming conventions
