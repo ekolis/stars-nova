@@ -10,16 +10,17 @@
 // Software Foundation.
 // ============================================================================
 
+#region Using Statements
+using System;
 using System.Collections;
+using System.Drawing;
 using System.IO;
 using System.Reflection;
 using System.Resources;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
-using System;
-using System.Drawing;
-
+using System.Runtime.Serialization.Formatters;
+using System.Runtime.Serialization.Formatters.Binary;
+#endregion
 
 // ============================================================================
 // Manipulation of the turn data that is created by the Nova Console and read
@@ -53,7 +54,6 @@ namespace NovaCommon
 
       private static Intel      instance  = null;
       private static Object          padlock   = new Object();
-      private static BinaryFormatter formatter = new BinaryFormatter();
 
 
 // ============================================================================

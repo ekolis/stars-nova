@@ -28,7 +28,9 @@
     </UpgradeBackupLocation>
     <SignAssembly>false</SignAssembly>
     <OldToolsVersion>2.0</OldToolsVersion>
-    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v2.0</TargetFrameworkVersion>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <OutputPath>bin\Debug\</OutputPath>
@@ -145,6 +147,7 @@
     <Compile Include="Race Definition\TraitEntry.cs" />
     <Compile Include="Race Definition\TraitList.cs" />
     <Compile Include="Report.cs" />
+    <Compile Include="Serializer.cs" />
     <Compile Include="Shared Data Structures\BattlePlan.cs" />
     <Compile Include="Shared Data Structures\BattleReport.cs" />
     <Compile Include="Shared Data Structures\Cargo.cs" />

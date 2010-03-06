@@ -10,29 +10,26 @@
 // Software Foundation.
 // ============================================================================
 
-using Microsoft.Win32;
-using System.Collections;
-using System.Drawing;
-using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization;
-using System.Windows.Forms;
+#region Using Statement
 using System;
-using System.Xml;
+using System.Collections;
+using System.IO;
 using System.IO.Compression;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Formatters;
+using System.Runtime.Serialization.Formatters.Binary;
+using System.Windows.Forms;
+using System.Xml;
+using Microsoft.Win32;
 using NovaCommon;
+#endregion
 
 namespace NovaServer
 {
 
    public static class Players
    {
-      private static BinaryFormatter Formatter = new BinaryFormatter();
       private static ServerState    StateData = ServerState.Data;
-
-
-
 
       /// <summary>
       /// Determine if wolf wishes to treat lamb as an enemy.
