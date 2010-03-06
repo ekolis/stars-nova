@@ -1,5 +1,5 @@
 ﻿// ============================================================================
-// Nova. (c) 2010 Daniel Vale
+// Nova. (c) 2010 stars-nova
 //
 // An object for managing creation, passing and digesting of command line
 // arguments.

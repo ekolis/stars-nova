@@ -1,5 +1,6 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010 stars-nova
 //
 // This module converts the console's state into Intel and saves it, thereby 
 // generating the next turn to be played.
@@ -18,7 +19,7 @@ using System.Collections;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
-using Nova;
+
 using NovaCommon;
 #endregion
 
@@ -30,8 +31,8 @@ namespace NovaServer
 {
     public static class IntelWriter
     {
-        private static ServerState    StateData = null;
-        private static Intel      TurnData  = null;
+        private static ServerState StateData = null;
+        private static Intel TurnData = null;
 
 
         #region Methods
@@ -46,47 +47,54 @@ namespace NovaServer
         public static void WriteIntel()
         {
             StateData = ServerState.Data;
-            TurnData  = Intel.Data;
-
-            TurnData.TurnYear      = StateData.TurnYear;
-            TurnData.AllStars      = StateData.AllStars;
-            TurnData.AllMinefields = StateData.AllMinefields;
-            TurnData.AllFleets     = StateData.AllFleets;
-            TurnData.AllDesigns = StateData.AllDesigns;
-
-            foreach (Race race in StateData.AllRaces.Values) {
-                TurnData.AllRaceNames.Add(race.Name);
-                TurnData.RaceIcons[race.Name] = race.Icon;
-            }
-
-            foreach (BattleReport report in StateData.AllBattles) {
-                TurnData.Battles.Add(report);
-            }
-
-            // Don't try and generate a scores report on the very start of a new
-            // game.
-
-            if (StateData.AllTechLevels.Count != 0) {
-                TurnData.AllScores = Scores.GetScores();
-            }
-            else {
-                TurnData.AllScores = new ArrayList();
-            }
-
-            ServerState.Data.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, "Game Files");
-            if (ServerState.Data.GameFolder == null)
+            foreach (PlayerSettings player in StateData.AllPlayers)
             {
-                Report.Error("Intel Writer: WriteIntel() - Unable to create file \"Nova.Intel\".");
-                return;
+                TurnData = Intel.Data;
+                TurnData.MyRace = ServerState.Data.AllRaces[player.RaceName] as Race;
+                TurnData.TurnYear = StateData.TurnYear;
+                TurnData.AllStars = StateData.AllStars;
+                TurnData.AllMinefields = StateData.AllMinefields;
+                TurnData.AllFleets = StateData.AllFleets;
+                TurnData.AllDesigns = StateData.AllDesigns;
+
+                foreach (Race race in StateData.AllRaces.Values)
+                {
+                    TurnData.AllRaceNames.Add(race.Name);
+                    TurnData.RaceIcons[race.Name] = race.Icon;
+                }
+
+                foreach (BattleReport report in StateData.AllBattles)
+                {
+                    TurnData.Battles.Add(report);
+                }
+
+                // Don't try and generate a scores report on the very start of a new
+                // game.
+
+                if (StateData.TurnYear > 2100)
+                {
+                    TurnData.AllScores = Scores.GetScores();
+                }
+                else
+                {
+                    TurnData.AllScores = new ArrayList();
+                }
+
+                ServerState.Data.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, "Game Files");
+                if (ServerState.Data.GameFolder == null)
+                {
+                    Report.Error("Intel Writer: WriteIntel() - Unable to create file \"Nova.Intel\".");
+                    return;
+                }
+                string turnFileName = Path.Combine(ServerState.Data.GameFolder, player.RaceName + ".Intel");
+                using (Stream turnFile = new FileStream(turnFileName, FileMode.Create))
+                {
+                    Serializer.Serialize(turnFile, Intel.Data.TurnYear);
+                    Serializer.Serialize(turnFile, Intel.Data);
+                }
             }
-            string turnFileName = Path.Combine(ServerState.Data.GameFolder, "Nova.Intel");
-            using( Stream turnFile = new FileStream( turnFileName, FileMode.Create ) )
-            {
-                Serializer.Serialize( turnFile, Intel.Data.TurnYear );
-                Serializer.Serialize( turnFile, Intel.Data );
-            }
-        }
         #endregion
+        }
     }
 }
 

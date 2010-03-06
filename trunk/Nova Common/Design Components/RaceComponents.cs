@@ -35,6 +35,7 @@ namespace NovaCommon
         /// <param name="newTech">The current tech level of the race.</param>
         public RaceComponents(Race newRace, TechLevel newTech)
         {
+            DetermineRaceComponents(newRace, newTech);
         }// RaceComponents constructor
 
         public void DetermineRaceComponents(Race newRace, TechLevel newTech)
@@ -49,6 +50,8 @@ namespace NovaCommon
             {
                 // first check the required tech level
                 if (tech < component.RequiredTech)
+                    continue;
+                if (Dictionary.Contains(component.Name))
                     continue;
 
                 // check if the component is restricted by this race's Primary or Secondary traits.

@@ -1,11 +1,9 @@
 ﻿// ============================================================================
-// Nova. (c) 2009 Daniel Vale
+// Nova. (c) 2009, 2010, stars-nova
 //
 // A simple AI harness.
 // This runs as a command line application to have the computer play a nova
 // turn.
-// TODO - have the nova console recognise a computer player and call the AI
-// to take the turn - should wait until the turn files are properly re-structured.
 //
 // TODO - suggest placing wrappers around OrderWriter.WriteOrders and GuiState.Initialize 
 //        incase these interfaces change when file formats are reworked.
@@ -53,19 +51,28 @@ namespace Nova_AI
             Console.WriteLine("Playing turn {0} for race \"{1}\".", TurnNumber, RaceName);
             try
             {
-                // TODO (priority 4) - bypass password entry for AI. 
+                // TODO (priority 4) - bypass password entry for AI.
+                // Note: passwords have currently been disabled completely, awaiting a new more effective implementation - Dan 02 Mar 10
                 ClientState.Initialize(commandArguments.ToArray()); 
             }
             catch
             {
-                Console.WriteLine("Nova_AI encountered an error.");
+                Console.WriteLine("Nova_AI encountered an error reading its intel.");
+                return;
             }
 
             // play turn
               // currently does nothing: This is where the AI propper should do its work.
 
             // save turn
-            OrderWriter.WriteOrders();
+            try
+            {
+                OrderWriter.WriteOrders();
+            }
+            catch
+            {
+                Console.WriteLine("Nova_AI encountered an error writing its orders.");
+            }
 
             return;
         }

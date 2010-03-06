@@ -1,6 +1,7 @@
 #region Copyright
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010 stars-nova
 //
 // This dialog will determine the objectives of the game.
 //
@@ -329,7 +330,10 @@ namespace Nova.NewGame
           }
       }
 
-
+      private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+      {
+          GameSettings.Data.NumberOfStars = (int) numberOfStars.Value;
+      }
 
    }
 

@@ -32,8 +32,9 @@ namespace NovaServer
       {
          ArrayList scores   = new ArrayList();
 
-         foreach (Race race in ServerState.Data.AllRaces.Values) {
-            scores.Add(GetScoreRecord(race.Name));
+         foreach (PlayerSettings player in ServerState.Data.AllPlayers) 
+         {
+            scores.Add(GetScoreRecord(player.RaceName));
          }
 
          SetRanks(scores);

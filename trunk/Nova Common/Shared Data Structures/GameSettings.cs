@@ -21,12 +21,13 @@ using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Windows.Forms;
-using Nova;
+
 #endregion
 
 namespace NovaCommon
 {
-    public class GameSettings
+    [Serializable]
+    public sealed class GameSettings
     {
 
         // Map settings
@@ -50,6 +51,7 @@ namespace NovaCommon
         public int MinimumGameTime = 50;
 
         public String SettingsPathName = null;
+        public String GameName = "Feel the Nova";
 
         // ============================================================================
         // Data private to this module.
@@ -97,14 +99,17 @@ namespace NovaCommon
         /// Restore the persistent data.
         /// </summary>
         //-------------------------------------------------------------------
-        public static void Restore()
-        {
-            string fileName = Data.SettingsPathName;
-            using( FileStream stream = new FileStream( fileName, FileMode.Open ) )
-            {
-                Data = (GameSettings)Serializer.Deserialize( stream );
-            }
-        }
+      public static void Restore()
+      {
+          string fileName = Data.SettingsPathName;
+          if (File.Exists(fileName))
+          {
+              using (FileStream state = new FileStream(fileName, FileMode.Open))
+              {
+                  Data = Serializer.Deserialize(state) as GameSettings;
+              }
+          }
+      }
 
         //-------------------------------------------------------------------
         /// <summary>
