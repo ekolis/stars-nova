@@ -764,6 +764,7 @@ namespace NovaConsole
             // debug - commented this out as console is searching for files each time the timer goes off
             // ServerState.Data.AllRaces = FileSearcher.GetAvailableRaces();
 
+            // TODO (priority 4) - reading all the .orders files is overkill. Only really want to read orders for races that aren't turned in yet, and only if they have changed.
             OrderReader.ReadOrders();
 
             if (SetPlayerList())

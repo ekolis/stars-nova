@@ -84,6 +84,13 @@ namespace NovaCommon
                            }
                            break;
 
+                       case "shipdesign":
+                           {
+                               shipDesign = new ShipDesign(xmlnode);
+                               RaceDesigns.Add(shipDesign.Name, shipDesign);
+                           }
+                           break;
+
                            // Deleted designs are in their own section to seperate them from 
                            // current designs. We load this section in one loop. The comments
                            // above for designs apply equally to deleted designs.

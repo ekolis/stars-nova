@@ -57,7 +57,7 @@ namespace NovaCommon
        /// Load: Initialising Constructor from an xml node.
        /// </summary>
        /// <param name="node">A "ShipDesign" node Nova save file (xml document)</param>
-      public ShipDesign(XmlNode node) : base(node)
+      public ShipDesign(XmlNode node) : base(node.SelectSingleNode("Design"))
       {
           XmlNode subnode = node.FirstChild;
           while (subnode != null)
@@ -67,8 +67,8 @@ namespace NovaCommon
 
                   switch (subnode.Name.ToLower())
                   {
-                      case "shipdesign":
-                          ShipHull = new Component(subnode.FirstChild);
+                      case "component":
+                          ShipHull = new Component(subnode);
                           break;
                   }
               }

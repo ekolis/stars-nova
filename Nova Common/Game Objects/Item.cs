@@ -70,9 +70,16 @@ namespace NovaCommon
        /// <param name="node">An XmlNode representing the Item</param>
       public Item(XmlNode node)
       {
+          if (node == null)
+          {
+              Report.FatalError("Item.cs: Item(XmlNode node) - node is null - no Item found.");
+              return;
+          }
+          
           // There are two acceptable entry points to this constructor. Either node is 
           // an Item node, or it is a parent node of an Item node. The second case is allowed
           // for loading objects which inherit from Item.
+
 
           // Check if this is an Item node, or a parent of an Item
           XmlNode itemNode;
