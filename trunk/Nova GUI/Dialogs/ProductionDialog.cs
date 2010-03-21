@@ -329,7 +329,7 @@ namespace Nova
          int  dockCapacity = 0;
 
          if (starbase != null) {
-            dockCapacity = starbase.CargoCapacity;
+             dockCapacity = starbase.DockCapacity;
          }
 
          foreach (Design design in TurnData.AllDesigns.Values) {
