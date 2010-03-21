@@ -72,9 +72,9 @@ namespace NovaCommon
                           break;
                   }
               }
-              catch
+              catch (Exception e)
               {
-                  // ignore incomplete or unset values
+                  Report.Error("Error loading Ship Design : " + e.Message);
               }
               subnode = subnode.NextSibling;
           }

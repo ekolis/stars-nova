@@ -297,6 +297,7 @@ namespace NovaCommon
 
 // ============================================================================
 // Return the long range scan capability of the fleet.
+// FIXME (priority 3) - scanning capability can be addative (but the formula is non-linear)
 // ============================================================================
 
       public int LongRangeScan
@@ -316,6 +317,7 @@ namespace NovaCommon
 
 // ============================================================================
 // Return the short range scan capability of the fleet.
+// FIXME (priority 3) - scanning capability can be addative (but the formula is non-linear)
 // ============================================================================
 
       public int ShortRangeScan
@@ -542,6 +544,9 @@ namespace NovaCommon
          }
       }
 
+       /// <summary>
+       /// Property to determine if a fleet is a starbase.
+       /// </summary>
       public bool IsStarbase
       {
           get
@@ -554,6 +559,9 @@ namespace NovaCommon
           }
       }
 
+       /// <summary>
+       /// Property to determine if a fleet can re-fuel
+       /// </summary>
       public bool CanRefuel
       {
           get
@@ -566,6 +574,18 @@ namespace NovaCommon
           }
       }
 
+      public int DockCapacity
+      {
+          get
+          {
+              int dockCapacity = 0;
+              foreach (Ship ship in FleetShips)
+              {
+                  dockCapacity += ship.Design.DockCapacity;
+              }
+              return dockCapacity;
+          }
+      }
 
 
 

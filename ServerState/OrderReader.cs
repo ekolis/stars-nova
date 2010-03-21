@@ -129,7 +129,8 @@ namespace NovaServer
         /// up these references once the file is fully loaded and all objects exist.
         /// In most cases a placeholder object has been created with the Name set from the file,
         /// and we need to find the actual reference using this Name.
-        /// Objects can't do this themselves as they don't have access to the state data.
+        /// Objects can't do this themselves as they don't have access to the state data, 
+        /// so we do it here.
         /// </summary>
         private static void LinkOrderReferences(Orders playerOrders)
         {

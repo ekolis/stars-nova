@@ -87,11 +87,26 @@ namespace NovaServer
                     return;
                 }
                 string turnFileName = Path.Combine(ServerState.Data.GameFolder, player.RaceName + ".Intel");
-                using (Stream turnFile = new FileStream(turnFileName, FileMode.Create))
+
+                bool locked = false;
+                do
                 {
-                    Serializer.Serialize(turnFile, Intel.Data.TurnYear);
-                    Serializer.Serialize(turnFile, Intel.Data);
+                    locked = false;
+                    try
+                    {
+                        using (Stream turnFile = new FileStream(turnFileName, FileMode.Create))
+                        {
+                            Serializer.Serialize(turnFile, Intel.Data.TurnYear);
+                            Serializer.Serialize(turnFile, Intel.Data);
+                        }
+                    }
+                    catch (System.IO.IOException)
+                    {
+                        locked = true;
+                        System.Threading.Thread.Sleep(100);
+                    }
                 }
+                while (locked);
             }
         #endregion
         }

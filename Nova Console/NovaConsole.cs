@@ -680,11 +680,16 @@ namespace NovaConsole
         /// </summary>
         private void PlayerList_DoubleClick(object sender, EventArgs e)
         {
-            String raceName = PlayerList.SelectedItems[0].SubItems[1].Text;
-            String NovaGuiApp;
-            NovaGuiApp = FileSearcher.GetFile(Global.NovaGuiKey, false, Global.NovaGuiPath_Development, Global.NovaGuiPath_Deployed, "Nova GUI.exe", true);
-            try
-            {
+                // Find what was clicked
+                String raceName = PlayerList.SelectedItems[0].SubItems[1].Text;
+                try
+                {
+
+                // Find the Nova GUI
+                String NovaGuiApp;
+                NovaGuiApp = FileSearcher.GetFile(Global.NovaGuiKey, false, Global.NovaGuiPath_Development, Global.NovaGuiPath_Deployed, "Nova GUI.exe", true);
+
+                // Launch the nova GUI
                 CommandArguments args = new CommandArguments();
                 args.Add(CommandArguments.Option.RaceName, raceName);
                 args.Add(CommandArguments.Option.Turn, ServerState.Data.TurnYear + 1);
