@@ -56,7 +56,7 @@ namespace NovaClient
         public Hashtable StarReports = new Hashtable();
         public RaceComponents AvailableComponents = null;
         public List<Fleet> PlayerFleets = new List<Fleet>();
-        public List<Star> PlayerStars = new List<Star>();
+        public StarList PlayerStars = new StarList(); 
         public Race PlayerRace = new Race();
         public TechLevel ResearchLevel = new TechLevel(); // current level of technology
         public TechLevel ResearchResources = new TechLevel();
@@ -639,15 +639,24 @@ namespace NovaClient
         {
 
             StatePathName = Path.Combine(gameFolder, raceName + ".state");
+
             if (File.Exists(StatePathName))
             {
-                using (Stream stateFile = new FileStream(StatePathName, FileMode.Open))
+                try
                 {
+                    using (Stream stateFile = new FileStream(StatePathName, FileMode.Open))
+                    {
 
-                    // Read in binary state file
-                    ClientState.Data = Serializer.Deserialize(stateFile) as ClientState;
+                        // Read in binary state file
+                        ClientState.Data = Serializer.Deserialize(stateFile) as ClientState;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Report.Error("Unable to read state file, race history will not be available." + Environment.NewLine + "Details: " + e.Message);
                 }
             }
+
 
             // Copy the race and game folder names into the state data store. This
             // is just a convenient way of making them globally available.

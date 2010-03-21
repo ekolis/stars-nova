@@ -62,9 +62,9 @@ namespace NovaCommon
                           WarpFactor = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                           break;
 
-                      case "point":
-                          Position.X = int.Parse((((XmlText)subnode.SelectSingleNode("X")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                          Position.Y = int.Parse((((XmlText)subnode.SelectSingleNode("Y")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                      case "position":
+                          Position.X = int.Parse(((subnode.SelectSingleNode("X")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                          Position.Y = int.Parse(((subnode.SelectSingleNode("Y")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                           break;
                   }
               }
@@ -82,14 +82,22 @@ namespace NovaCommon
       // ============================================================================
       public XmlElement ToXml(XmlDocument xmldoc)
       {
-          XmlElement xmlelCargo = xmldoc.CreateElement("Waypoint");
+          XmlElement xmlelWaypoint = xmldoc.CreateElement("Waypoint");
 
-          NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Destination", this.Destination);
-          NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Task", this.Task);
-          NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "WarpFactor", this.WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          NovaCommon.Global.SaveData(xmldoc, xmlelWaypoint, "Destination", this.Destination);
+          NovaCommon.Global.SaveData(xmldoc, xmlelWaypoint, "Task", this.Task);
+          NovaCommon.Global.SaveData(xmldoc, xmlelWaypoint, "WarpFactor", this.WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
           // point
+          if (Position.X != 0 || Position.Y != 0)
+          {
+              XmlElement xmlelPoint = xmldoc.CreateElement("Position");
+              Global.SaveData(xmldoc, xmlelPoint, "X", Position.X.ToString(System.Globalization.CultureInfo.InvariantCulture));
+              Global.SaveData(xmldoc, xmlelPoint, "Y", Position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture));
+              xmlelWaypoint.AppendChild(xmlelPoint);
+          }
 
-          return xmlelCargo;
+
+          return xmlelWaypoint;
       }
 
    }

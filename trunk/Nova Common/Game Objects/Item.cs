@@ -93,7 +93,7 @@ namespace NovaCommon
               itemNode = node.SelectSingleNode("Item");
               if (itemNode == null)
               {
-                  Report.FatalError("Item.cs: Item(XmlNode node) - could not find Item node.");
+                  Report.FatalError("Item.cs: Item(XmlNode node) - could not find Item node, input file may be corrupt.");
                   return;
               }
           }

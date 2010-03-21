@@ -41,6 +41,8 @@ namespace NovaConsole
       {
          StateData = ServerState.Data;
 
+         BackupTurn();
+
          OrderReader.ReadOrders();
 
          foreach (Fleet fleet in StateData.AllFleets.Values)
@@ -57,45 +59,56 @@ namespace NovaConsole
              ProcessStar(star);
          }
 
-         // remove any destroyed fleets - TODO (priority 4) should be done when they are destroyed to allow bombing when a base is destroyed
+          //-----------------------------------------------------------------------------------------------------------------------
+          // FIXME (priority 4) - Fix up the removal of destroyed fleets and space stations.
+          // currently this is done multiple times to ensure the fleets are removed. This is done out of ignorance.
+          // need to analyse the way the turn is procecessed and ensure fleets are removed as soon as possible after being destroyed.
+          // NB: may need to generate player messages or some other action before the fleet removed from the game.
+
+         // First shot at removing fleets in order to make sure dead fleets are gone before running the battle engine.
          ArrayList destroyedFleets = new ArrayList();
          foreach (Fleet fleet in ServerState.Data.AllFleets.Values)
          {
              if (fleet.FleetShips.Count == 0)
                  destroyedFleets.Add(fleet.Key);
          }
-         foreach (String name in destroyedFleets)
+         foreach (String key in destroyedFleets)
          {
-             ServerState.Data.AllFleets.Remove(name);
+             ServerState.Data.AllFleets.Remove(key);
          }
+
+
 
          BattleEngine.Run();
 
-         // remove any destroyed fleets - TODO (priority 4) should be done when they are destroyed to allow bombing when a base is destroyed
+
+
+         // Second shot at removing fleets post battle.
          destroyedFleets = new ArrayList();
          foreach (Fleet fleet in ServerState.Data.AllFleets.Values)
          {
              if (fleet.FleetShips.Count == 0)
                  destroyedFleets.Add(fleet.Key);
          }
-         foreach (String name in destroyedFleets)
+         foreach (String key in destroyedFleets)
          {
-             ServerState.Data.AllFleets.Remove(name);
+             ServerState.Data.AllFleets.Remove(key);
          }
 
-         // remove destroyed space stations - TODO (priority 4) should be done when they are destroyed
+         // And remove stations too.
          ArrayList destroyedStations = new ArrayList();
          foreach (Star star in ServerState.Data.AllStars.Values)
          {
              if (star.Starbase != null && star.Starbase.FleetShips.Count == 0)
                  destroyedStations.Add(star.Name);
          }
-         foreach (String name in destroyedStations)
+         foreach (String key in destroyedStations)
          {
-             ((Star)(ServerState.Data.AllStars[name])).Starbase = null;
+             ((Star)(ServerState.Data.AllStars[key])).Starbase = null;
              
          }
           
+          // END OF FIX ME--------------------------------------------------------------------------------------------------------------------------
 
 
 
@@ -104,6 +117,46 @@ namespace NovaConsole
          StateData.TurnYear++;
          IntelWriter.WriteIntel();
       }
+
+
+       /// <summary>
+       /// Copy all turn files to a sub-directory prior to generating the new turn.
+       /// </summary>
+       private static void BackupTurn()
+       {
+           // TODO (priority 3) - Add a setting to control the number of backups.
+           int currentTurn = ServerState.Data.TurnYear;
+           String gameFolder = ServerState.Data.GameFolder;
+
+
+           try
+           {
+               String backupFolder = Path.Combine(gameFolder, currentTurn.ToString());
+               DirectoryInfo source = new DirectoryInfo(gameFolder);
+               DirectoryInfo target = new DirectoryInfo(backupFolder);
+
+               // Check if the target directory exists, if not, create it.
+               if (Directory.Exists(target.FullName) == false)
+               {
+                   Directory.CreateDirectory(target.FullName);
+               }
+
+               // Copy each file into it’s new directory.
+               foreach (FileInfo fi in source.GetFiles())
+               {
+                   //Console.WriteLine(”Copying {0}\\{1}”, target.FullName, fi.Name);
+                   fi.CopyTo(Path.Combine(target.ToString(), fi.Name), true);
+               }
+
+
+           }
+           catch (Exception e)
+           {
+               Report.Error("There was a problem backing up the game files: " + Environment.NewLine + e.Message);
+           }
+
+
+       }
 
 // ============================================================================
 // Process the elapse of one year (turn) for a star.

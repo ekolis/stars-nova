@@ -30,7 +30,7 @@ namespace NovaCommon
       public  int        FleetID        = 0;
       public  ArrayList  FleetShips     = new ArrayList();
       public  ArrayList  Waypoints      = new ArrayList();
-      public  Cargo      Cargo          = new Cargo(); // FIXME - Cargo should be tracked by either the fleet or the ship, not both.
+      public  Cargo      Cargo          = new Cargo(); // FIXME (priority 4) - Cargo should be tracked by either the fleet or the ship, not both. Need to decide on a design for cargo management and document it.
       public  Fleet      Target         = null;
       public  Star       InOrbit        = null;
       public  double     BattleSpeed    = 0; // used by a stack on the battle board
@@ -94,10 +94,11 @@ namespace NovaCommon
 
          // Have one waypoint to reflect the fleet's current position and the
          // planet it is in orbit around.
-
+         
          Waypoint w    = new Waypoint();      
          w.Position    = star.Position;
-         w.Destination = star.Name;   
+         w.Destination = star.Name;
+         w.WarpFactor = 0;
 
          Waypoints.Add(w);
 
@@ -112,32 +113,34 @@ namespace NovaCommon
        /// Load: Initialising constructor to load a fleet from an XmlNode (save file).
        /// </summary>
        /// <param name="node">An XmlNode representing the fleet.</param>
-      public Fleet(XmlNode node)
+      public Fleet(XmlNode node) : base (node)
       {
           // Read the node
-          while (node != null)
+          XmlNode subnode = node.FirstChild;
+
+          while (subnode != null)
           {
               try
               {
-                  switch (node.Name.ToLower())
+                  switch (subnode.Name.ToLower())
                   {
-                      case "fleetid": int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "targetid": Target = new Fleet(int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture)); break;
-                      case "cargo": Cargo = new Cargo(node.FirstChild); break;
+                      case "fleetid": FleetID = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "targetid": Target = new Fleet(int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture)); break;
+                      case "cargo": Cargo = new Cargo(subnode); break;
                           
                           // TODO (priority 5) placeholder to be replaced with reference to a complete star object
-                      case "inorbit": InOrbit = new Star(); InOrbit.Name = ((XmlText)node.FirstChild).Value; break;
+                      case "inorbit": InOrbit = new Star(); InOrbit.Name = ((XmlText)subnode.FirstChild).Value; break;
 
-                      case "battlespeed": BattleSpeed = double.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "bearing": Bearing = double.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "cloaked": Cloaked = double.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "fuelavailable": FuelAvailable = double.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "fuelcapacity": FuelCapacity = double.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "targetdistance": TargetDistance = double.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "cargocapacity": CargoCapacity = int.Parse(((XmlText)node.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                      case "battleplan": BattlePlan = ((XmlText)node.FirstChild).Value; break;
-                      case "ship": Ship ship = new Ship(node.FirstChild); FleetShips.Add(ship); break;
-                      case "waypoint": Waypoint waypoint = new Waypoint(node.FirstChild); Waypoints.Add(waypoint); break;
+                      case "battlespeed": BattleSpeed = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "bearing": Bearing = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "cloaked": Cloaked = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "fuelavailable": FuelAvailable = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "fuelcapacity": FuelCapacity = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "targetdistance": TargetDistance = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "cargocapacity": CargoCapacity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                      case "battleplan": BattlePlan = ((XmlText)subnode.FirstChild).Value; break;
+                      case "ship": Ship ship = new Ship(subnode); FleetShips.Add(ship); break;
+                      case "waypoint": Waypoint waypoint = new Waypoint(subnode); Waypoints.Add(waypoint); break;
 
                       default: break;
                   }
@@ -147,7 +150,7 @@ namespace NovaCommon
               {
                   Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
               }
-              node = node.NextSibling;
+              subnode = subnode.NextSibling;
           }
       }
 
@@ -158,6 +161,8 @@ namespace NovaCommon
       public new XmlElement ToXml(XmlDocument xmldoc)
       {
           XmlElement xmlelFleet = xmldoc.CreateElement("Fleet");
+
+          xmlelFleet.AppendChild(base.ToXml(xmldoc));
 
           Global.SaveData(xmldoc, xmlelFleet, "FleetID", this.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
           if (Target != null) Global.SaveData(xmldoc, xmlelFleet, "TargetID", Target.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
@@ -188,7 +193,15 @@ namespace NovaCommon
 
           return xmlelFleet;
       }
-        
+
+      // ============================================================================
+      // Return a key for use in hash tables to locate items.
+      // ============================================================================
+
+      public override string Key
+      {
+          get { return this.Owner + "/" + this.FleetID; }
+      }
 
 // ============================================================================
 // Move the fleet towards the waypoint at the top of the list. Fuel is consumed
@@ -237,6 +250,15 @@ namespace NovaCommon
          if (arrived == TravelStatus.Arrived) {
             Position          = target.Position;
             target.WarpFactor = 0;
+
+             // TODO (priority 5) - If we have arrived at a planet, update the InOrbit
+             // need to refactor this out of fleet so that a) we have access to a StarList; and b) because only the server should move a fleet.
+             /*
+            if (target.Destination != null)
+            {
+                Star star = 
+            }
+              * */
          }
          else {
             double travelled  = speed * travelTime;

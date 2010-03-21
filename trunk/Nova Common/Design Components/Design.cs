@@ -25,7 +25,7 @@ namespace NovaCommon
 // A design is not yet an item, but an Item has all the properties of its Design. 
 // Does it make sense for a Design to have a Position? It currently does because 
 // it inherits one from Item. 
-// TODO (priority 3) investigate refactoring this to reverse the current inheritance. - Dan 10 Jan 10
+// TODO (priority 4) refactor this to reverse the current inheritance. 
 // ============================================================================
 
    [Serializable]
