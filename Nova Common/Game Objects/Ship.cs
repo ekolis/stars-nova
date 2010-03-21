@@ -127,6 +127,7 @@ namespace NovaCommon
       public double FuelConsumption(int warp, Race race)
       {
          if (warp == 0) return 0;
+         if (Design.Engine == null) return 0; // may be a star base
 
          double fuelFactor      = Design.Engine.FuelConsumption[warp - 1];
          double efficiency      = fuelFactor / 100.0;
@@ -227,18 +228,18 @@ namespace NovaCommon
           XmlElement xmlelShip = xmldoc.CreateElement("Ship");
 
           NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Design", this.Design.Name);
-          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Owner", this.Owner);
-          NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Mass", this.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelShip.AppendChild(Cost.ToXml(xmldoc));
+          
+          // Item base class
+          xmlelShip.AppendChild(base.ToXml(xmldoc));
+
+          // TODO (priority 3) - remove these after testing the serialisation via the base class. - Dan 19 Mar 10
+          // NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Owner", this.Owner);
+          // NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Mass", this.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
+          // xmlelShip.AppendChild(Cost.ToXml(xmldoc));
 
           NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Shields", this.Shields.ToString(System.Globalization.CultureInfo.InvariantCulture));
           NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Armor", this.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture));
           if (Cargo.Mass > 0) xmlelShip.AppendChild(Cargo.ToXml(xmldoc));
-
-          /* These fields inherited from Item are ignored.
-           * public  string    Type     = null;
-           * public  Point     Position = new Point(0, 0);
-           */
 
           return xmlelShip;
       }

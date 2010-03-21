@@ -213,7 +213,7 @@ namespace NovaConsole
              star.Starbase = fleet;
              fleet.Type = "Starbase";
              fleet.Name = ship.Design.Name;
-             fleet.InOrbit = null;
+             fleet.InOrbit = star;
              fleet.CargoCapacity = ship.Design.DockCapacity; //dj this seems to be duplicate use on cargo capacity,
              //we need to think of using shipdesign in fleet for starbases... 
              //AND incase we want fighters etc , smaller than scout we could make like manufacturing carriers later...

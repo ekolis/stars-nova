@@ -407,7 +407,7 @@ namespace NovaCommon
           xmlelStar.AppendChild(xmlelResourcesOnHand);
 
           // Starbase and ThisRace are stored as references only (just the name is saved).
-          if (Starbase != null) Global.SaveData(xmldoc, xmlelStar, "Starbase", Starbase.Name);
+          if (Starbase != null) Global.SaveData(xmldoc, xmlelStar, "Starbase", Starbase.FleetID.ToString());
           if (ThisRace != null) Global.SaveData(xmldoc, xmlelStar, "ThisRace", ThisRace.Name);
 
           if (Colonists != 0) Global.SaveData(xmldoc, xmlelStar, "Colonists", Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));

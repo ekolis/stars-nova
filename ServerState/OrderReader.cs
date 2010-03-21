@@ -108,9 +108,8 @@ namespace NovaServer
                 StateData.AllDesigns.Remove(designKey);
             }
 
-            foreach (DictionaryEntry de in playerOrders.RaceFleets)
+            foreach (Fleet fleet in playerOrders.RaceFleets.Values)
             {
-                Fleet fleet = de.Value as Fleet;
                 StateData.AllFleets[fleet.Key] = fleet;
             }
 
@@ -135,7 +134,7 @@ namespace NovaServer
         private static void LinkOrderReferences(Orders playerOrders)
         {
             // Fleet reference to Star
-            foreach (Fleet fleet in playerOrders.RaceFleets)
+            foreach (Fleet fleet in playerOrders.RaceFleets.Values)
             {
                 if (fleet.InOrbit != null)
                     fleet.InOrbit = StateData.AllStars[fleet.InOrbit.Name] as Star;
@@ -152,7 +151,7 @@ namespace NovaServer
                 if (star.Owner != null)
                     star.ThisRace = StateData.AllRaces[star.Owner] as Race;
                 if (star.Starbase != null)
-                    star.Starbase = playerOrders.RaceFleets[star.Starbase.Name] as Fleet;
+                    star.Starbase = playerOrders.RaceFleets[star.Starbase.FleetID] as Fleet;
             }
 
 

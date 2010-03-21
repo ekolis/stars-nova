@@ -185,15 +185,13 @@ namespace NovaCommon
            Global.SaveData(xmldoc, xmlelOrders, "Turn", PlayerData.TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
            // Store the fleets, to pass on fleet orders
-           foreach (DictionaryEntry de in RaceFleets)
+           foreach (Fleet fleet in RaceFleets.Values)
            {
-               Fleet fleet = de.Value as Fleet;
                xmlelOrders.AppendChild(fleet.ToXml(xmldoc));
            }
            // store the designs, for any new designs
-           foreach (DictionaryEntry de in RaceDesigns)
+           foreach (Design design in RaceDesigns.Values)
            {
-               Design design = de.Value as Design;
                if (design.Type == "Ship" || design.Type == "Starbase")
                    xmlelOrders.AppendChild(((ShipDesign)design).ToXml(xmldoc));
                else

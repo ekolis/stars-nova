@@ -30,8 +30,6 @@ namespace Nova
    public class PlanetDetail : System.Windows.Forms.UserControl
    {
       private Star       star        = null;
-      private int        currentStar = 0;
-
 
 // ----------------------------------------------------------------------------
 // Designer generated variables
@@ -728,28 +726,20 @@ namespace Nova
 
       void SetStarDetails(Star selectedStar)
       {
-         star = selectedStar;
-         
-         List<Star> myStars = ClientState.Data.PlayerStars;
-         int i;
+          star = selectedStar;
 
-         for (i = 0; i < myStars.Count; i++) {
-            if (star.Name == myStars[i].Name) {
-               currentStar = i;
-               break;
-            }
-         }
+          UpdateFields();
 
-         UpdateFields();
-
-         if (myStars.Count > 1 ) {
-            PreviousPlanet.Enabled = true;
-            NextPlanet.Enabled     = true;
-         }
-         else {
-           PreviousPlanet.Enabled = false;
-           PreviousPlanet.Enabled = false;
-         }
+          if (ClientState.Data.PlayerStars.Count > 1)
+          {
+              PreviousPlanet.Enabled = true;
+              NextPlanet.Enabled = true;
+          }
+          else
+          {
+              PreviousPlanet.Enabled = false;
+              PreviousPlanet.Enabled = false;
+          }
       }
 
 
@@ -833,9 +823,10 @@ namespace Nova
 
       private void NextPlanet_Click(object sender, EventArgs e)
       {
-         List<Star> myStars = ClientState.Data.PlayerStars;
+         StarList myStars = ClientState.Data.PlayerStars;
 
-         if (myStars.Count == 1) {
+         if (myStars.Count == 1) 
+         {
             PreviousPlanet.Enabled = false;
             NextPlanet.Enabled     = false;
             return;
@@ -844,14 +835,9 @@ namespace Nova
          PreviousPlanet.Enabled = true;
          NextPlanet.Enabled     = true;
 
-         if (currentStar < myStars.Count - 1) {
-            currentStar++;
-         }
-         else {
-            currentStar = 0;
-         }            
+         star = myStars.GetNext(star);         
 
-         MainWindow.nova.SelectionDetail.Value  = myStars[currentStar];
+         MainWindow.nova.SelectionDetail.Value  = star;
          MainWindow.nova.SelectionSummary.Value = star;
          MainWindow.nova.MapControl.SetCursor(star.Position);
       }
@@ -863,7 +849,7 @@ namespace Nova
 
       private void PreviousPlanet_Click(object sender, EventArgs e)
       {
-         List<Star> myStars = ClientState.Data.PlayerStars;
+         StarList myStars = ClientState.Data.PlayerStars;
 
          if (myStars.Count == 1) {
             PreviousPlanet.Enabled = false;
@@ -873,15 +859,10 @@ namespace Nova
 
          PreviousPlanet.Enabled = true;
          NextPlanet.Enabled     = true;
-  
-         if (currentStar > 0) {
-            currentStar--;
-         }
-         else {
-            currentStar = myStars.Count - 1;
-         }
 
-         MainWindow.nova.SelectionDetail.Value  = myStars[currentStar];
+         star = myStars.GetPrevious(star);
+
+         MainWindow.nova.SelectionDetail.Value  = star;
          MainWindow.nova.SelectionSummary.Value = star;
          MainWindow.nova.MapControl.SetCursor(star.Position);
       }

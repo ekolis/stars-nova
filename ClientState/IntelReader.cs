@@ -171,7 +171,7 @@ namespace NovaClient
             report.Age++;
          }
 
-         foreach (Star star in StateData.PlayerStars) {
+         foreach (Star star in StateData.PlayerStars.Values) {
             if (star.Colonists != 0) {
                StateData.StarReports[star.Name] = new StarReport(star);
             }
@@ -184,23 +184,57 @@ namespace NovaClient
       /// </summary>
       private static void ProcessFleets()
       {
-         foreach (Fleet fleet in StateData.PlayerFleets) {
+          // update the state data with the current fleets
+          foreach (Fleet fleet in StateData.InputTurn.AllFleets.Values)
+          {
+              if (fleet.Owner == StateData.PlayerRace.Name)
+              {
+                  StateData.PlayerFleets.Add(fleet);
 
-            if ((fleet.InOrbit != null) && (fleet.LongRangeScan != 0)) {
-               Star star = fleet.InOrbit;
-               StateData.StarReports[star.Name] = new StarReport(star);
-            }
-                  
-            if (fleet.ShortRangeScan != 0) {
-               foreach (Star star in TurnData.AllStars.Values) {
-                  if (PointUtilities.Distance(star.Position, fleet.Position)
-                      < fleet.ShortRangeScan) {
-                     StateData.StarReports[star.Name] = new StarReport(star);
+
+                  if (fleet.IsStarbase)
+                  {
+                      // update the reference from the star to its starbase and vice versa (the fleet should know the name of the star, but the reference is a dummy)
+                      if ((fleet.InOrbit == null) || (fleet.InOrbit.Name == null))
+                      {
+                          Report.FatalError("Starbase doesn't know what planet it is orbiting!");
+                      }
+                      Star star = ClientState.Data.PlayerStars[fleet.InOrbit.Name] as Star;
+                      Verify.NotNull(star);
+                      star.Starbase = fleet;
+                      fleet.InOrbit = star;
                   }
-               }
-            }
-         }
-      }
+
+                  //--------------------------------------------------------------------------------
+                  // FIXME (priority 3) - discovery of planetary information should be done by the server. It should not be possible for a hacked client to get this information.
+
+                  if ((fleet.InOrbit != null) && ( ! fleet.IsStarbase))
+                  {
+
+                      // add to orbiting fleets list
+                      Star star = fleet.InOrbit;
+                      StateData.StarReports[star.Name] = new StarReport(star);
+
+
+                  }
+
+                  if (fleet.ShortRangeScan != 0)
+                  {
+                      foreach (Star star in TurnData.AllStars.Values)
+                      {
+                          if (PointUtilities.Distance(star.Position, fleet.Position)
+                              <= fleet.ShortRangeScan)
+                          {
+                              StateData.StarReports[star.Name] = new StarReport(star);
+                          }
+                      }
+                  }// if it can scan planets
+                  //END OF FIX ME --------------------------------------------------------------------------------
+
+
+              }// if belongs to this race
+          }// foreach fleet in intel
+      }//ProcessFleets
 
 
       /// <summary>
@@ -279,15 +313,18 @@ namespace NovaClient
 
       private static void DeterminePlayerFleets()
       {
-         StateData.PlayerFleets.Clear();
+          StateData.PlayerFleets.Clear();
 
-         foreach (Fleet fleet in TurnData.AllFleets.Values) {
-            if (fleet.Owner == StateData.RaceName) {
-               if (fleet.Type != "Starbase") {
-                  StateData.PlayerFleets.Add(fleet);
-               }
-            }
-         }
+          foreach (Fleet fleet in TurnData.AllFleets.Values)
+          {
+              if (fleet.Owner == StateData.RaceName)
+              {
+                  if (fleet.Type != "Starbase")
+                  {
+                      StateData.PlayerFleets.Add(fleet);
+                  }
+              }
+          }
       }
 
 
@@ -299,13 +336,15 @@ namespace NovaClient
 
       private static void DeterminePlayerStars()
       {
-         StateData.PlayerStars.Clear();
+          StateData.PlayerStars.Clear();
 
-         foreach (Star star in TurnData.AllStars.Values) {
-            if (star.Owner == StateData.RaceName) {
-               StateData.PlayerStars.Add(star);
-            }
-         }
+          foreach (Star star in TurnData.AllStars.Values)
+          {
+              if (star.Owner == StateData.RaceName)
+              {
+                  StateData.PlayerStars.Add(star);
+              }
+          }
       }
 
    }

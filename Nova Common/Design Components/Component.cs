@@ -90,7 +90,7 @@ namespace NovaCommon
 // ============================================================================
 
       
-      public Component(XmlNode node)
+      public Component(XmlNode node) : base (node)
       {
           Properties = new Dictionary<string, ComponentProperty>();
 
@@ -368,6 +368,10 @@ namespace NovaCommon
       public new XmlElement ToXml(XmlDocument xmldoc)
       {
           XmlElement xmlelComponent = xmldoc.CreateElement("Component");
+
+          xmlelComponent.AppendChild(base.ToXml(xmldoc));
+
+          /* TODO (priority 3) - Remove these after testing serialisation via base class.
           // Name
           XmlElement xmlelName = xmldoc.CreateElement("Name");
           XmlText xmltxtName = xmldoc.CreateTextNode(this.Name);
@@ -383,6 +387,7 @@ namespace NovaCommon
           XmlText xmltxtMass = xmldoc.CreateTextNode(this.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
           xmlelMass.AppendChild(xmltxtMass);
           xmlelComponent.AppendChild(xmlelMass);
+           */
           // Resource
           xmlelComponent.AppendChild(this.Cost.ToXml(xmldoc));
           // Tech
