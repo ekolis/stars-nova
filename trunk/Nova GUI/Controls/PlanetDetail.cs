@@ -779,7 +779,7 @@ namespace Nova
 
          Fleet starbase             = star.Starbase;
          StarbaseArmor.Text        = starbase.ArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
-         StarbaseCapacity.Text      = starbase.CargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
+         StarbaseCapacity.Text      = starbase.DockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
          StarbaseDamage.Text        = "0";
          StarbasePanel.Enabled      = true;
          StarbasePanel.Text         = starbase.Name;
