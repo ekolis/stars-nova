@@ -213,6 +213,8 @@ namespace NovaCommon
 
 // ============================================================================
 // Update the resources available to a star system.
+// FIXME - (priority 4) A star should be able to give it's current resources,
+// but generating new minerals should only be done by the server/console.       
 // ===========================================================================
 
       private void UpdateResources(Race race)
@@ -232,7 +234,7 @@ namespace NovaCommon
          double potentialFactories = Colonists / race.OperableFactories;
          double factoriesInUse     = Math.Min(Factories, potentialFactories); 
 
-         ResourcesOnHand.Energy    += factoriesInUse * race.FactoryProduction;
+         ResourcesOnHand.Energy    += factoriesInUse * race.FactoryProduction / Global.FactoriesPerFactoryProductionUnit;
 
          ThisRace = race;
          ResourcesOnHand.Ironium   += Mine(ref MineralConcentration.Ironium);
@@ -262,25 +264,27 @@ namespace NovaCommon
          // The potential number of mines that might be capable of being used
          // is a race parameter which determines how many mines may be
          // operated by 10K colonists.
-  
 
-         double potentialMines = (Colonists / 10000) * ThisRace.OperableMines;
-         double minesInUse     = Math.Min(Mines, potentialMines); 
 
-         double mined = ((minesInUse / 10) * ThisRace.MineProductionRate) 
-                      * (concentration / 100);
+          double potentialMines = (Colonists / Global.ColonistsPerOperableMiningUnit) * ThisRace.OperableMines;
+          double minesInUse = Math.Min(Mines, potentialMines);
 
-         // Reduce the mineral concentration. This is just an approximation of
-         // the Stars! algorithm for now. Concentration will drop by 1 point
-         // after 12500/concentration kT have been mined. So we just reduce the
-         // concentration by a proportion according to how much has been mined
-         // this year.
+          double mined = ((minesInUse / Global.MinesPerMineProductionUnit) * ThisRace.MineProductionRate)
+                       * (concentration / 100);
 
-         concentration -= mined / (12500.0 / concentration);
+          // Reduce the mineral concentration. This is just an approximation of
+          // the Stars! algorithm for now. Concentration will drop by 1 point
+          // after 12500/concentration kT have been mined. So we just reduce the
+          // concentration by a proportion according to how much has been mined
+          // this year.
+          // TODO (priority 3) - implement the Stars! algorithm for concentration reduction.
 
-         if (concentration < 1) {
-            concentration = 1;
-         }
+          concentration -= mined / (12500.0 / concentration);
+
+          if (concentration < 1)
+          {
+              concentration = 1;
+          }
 
          return mined;
       }

@@ -77,12 +77,18 @@ namespace NovaCommon
 
        public const int MaxWeaponRange = 10;
 
-       public const double GravityMinimum = 0; // FIXME (priority 3) - Stars! gravity range is 0.2 - 6.0 with 1.0 in the middle!
+       public const double GravityMinimum = 0; // FIXME (priority 3) - Stars! gravity range is 0.2 - 6.0 with 1.0 in the middle! Will need to revise all current race builds once changed.
        public const double GravityMaximum = 8;
        public const double RadiationMinimum = 0;
        public const double RadiationMaximum = 100;
        public const double TemperatureMinimum = -200;
        public const double TemperatureMaximum = 200;
+
+       // Production constants
+       public const int FactoriesPerFactoryProductionUnit = 10;
+       public const int ColonistsPerOperableMiningUnit = 1000;
+       public const int MinesPerMineProductionUnit = 10;
+
 
        /// <summary>
        /// Do some common setup work for creating a new xml document.
