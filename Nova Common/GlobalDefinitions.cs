@@ -1,6 +1,7 @@
 // ===========================================================================
 // Nova. (c) 2008 Ken Reed.
-// Added GraphicsFolderKey and EvaluateRelativePath() - Daniel Vale, May 2009.
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This module holds definitions that are global across all Nova application
 // programs. E.g. Registry key names, etc.

@@ -54,6 +54,7 @@ namespace NovaServer
       public Hashtable AllRaces       = new Hashtable(); // Data about the race (traits etc)
       public Hashtable AllStars       = new Hashtable();
       public Hashtable AllMinefields  = new Hashtable();
+      public ArrayList AllMessages    = new ArrayList(); // ArrayList containing all messages generated this turn.
 
       public bool      GameInProgress = false;
       public int       FleetID        = 1;

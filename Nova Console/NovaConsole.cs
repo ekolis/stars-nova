@@ -1,7 +1,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
-// (c) 2009, 2020 stars-nova project
-// see www.stars-nova.sourceforge.net for details
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This is the main entry point for the Windows form for the Nova Console.
 //
@@ -488,10 +488,6 @@ namespace NovaConsole
             PlayerList.Items.Clear();
             ServerState stateData = ServerState.Data;
             if (stateData.GameInProgress) turnYearLabel.Text = stateData.TurnYear.ToString();
-
-
-
-
 
             foreach (PlayerSettings settings in ServerState.Data.AllPlayers)
             {

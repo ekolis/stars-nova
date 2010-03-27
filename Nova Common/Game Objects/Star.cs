@@ -1,6 +1,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
-// Modified 2010 Daniel Vale
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This object represents a Star system, the basic unit of stars-nova settlement/expansion.
 //

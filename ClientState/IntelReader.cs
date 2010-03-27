@@ -1,6 +1,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
-// (c) 2009, 2010 stats-nova
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This module is invoked (once) when a new turn has been received from the
 // Nova Console. All the appropriate fields in the GUI state data are updated

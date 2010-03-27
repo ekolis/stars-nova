@@ -769,7 +769,7 @@ namespace NovaConsole {
                   " of your ships were destroyed";
             }
 
-            Intel.Data.Messages.Add(message);
+            ServerState.Data.AllMessages.Add(message);
          }
       }
 
