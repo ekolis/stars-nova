@@ -66,12 +66,9 @@ namespace NewGame
                 // New game dialog was OK, create a game
                 // Get a location to save the game:
                 FolderBrowserDialog gameFolderBrowser = new FolderBrowserDialog();
+                gameFolderBrowser.RootFolder = Environment.SpecialFolder.Desktop;
+                gameFolderBrowser.SelectedPath = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
                 gameFolderBrowser.Description = "Choose New Game Folder";
-
-                // gameFolderBrowser.RootFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName); // FIXME (priority 3) - how do I set the starting folder???
-                // trying this instead - Dan 02 Mar 10
-                Directory.SetCurrentDirectory( FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName));
-
                 DialogResult gameFolderBrowserResult = gameFolderBrowser.ShowDialog();
 
                 // Check for cancel being pressed (in the new game save file dialog).
