@@ -716,6 +716,7 @@ namespace Nova.NewGame
           this.Controls.Add(this.okButton);
           this.Controls.Add(this.cancelButton);
           this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+          this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
           this.MaximizeBox = false;
           this.MinimizeBox = false;
           this.Name = "NewGameWizard";
