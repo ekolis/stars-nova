@@ -1,5 +1,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This module is invoked when NewTurn is selected in the Nova Console. 
 //
@@ -21,43 +23,39 @@ using NovaServer;
 namespace NovaConsole 
 {
 
-
-// ============================================================================
-// Class to process a new turn.
-// ============================================================================
-
+    /// <summary>
+    /// Class to process a new turn.
+    /// </summary>
    public static class ProcessTurn
    {
       private static ServerState    StateData = null;
 
-
-// ============================================================================
-// Generate a new turn by reading in the player turn files to update the master
-// copy of stars, ships, etc. Then do the processing required to take in the
-// passage of one year of time and, finally, write out the new turn file.
-// ============================================================================
-
+      /// <summary>
+      /// Generate a new turn by reading in the player turn files to update the master
+      // copy of stars, ships, etc. Then do the processing required to take in the
+      // passage of one year of time and, finally, write out the new turn file.
+      /// </summary>
       public static void Generate()
       {
-         StateData = ServerState.Data;
+          StateData = ServerState.Data;
 
-         BackupTurn();
+          BackupTurn();
 
-         OrderReader.ReadOrders();
+          OrderReader.ReadOrders();
 
-         foreach (Fleet fleet in StateData.AllFleets.Values)
-         {
-             bool destroyed = ProcessFleet(fleet);
-             if (destroyed)
-             {
-                 StateData.AllFleets.Remove(fleet.Key);
-             }
-         }
+          foreach (Fleet fleet in StateData.AllFleets.Values)
+          {
+              bool destroyed = ProcessFleet(fleet);
+              if (destroyed)
+              {
+                  StateData.AllFleets.Remove(fleet.Key);
+              }
+          }
 
-         foreach (Star star in StateData.AllStars.Values)
-         {
-             ProcessStar(star);
-         }
+          foreach (Star star in StateData.AllStars.Values)
+          {
+              ProcessStar(star);
+          }
 
           //-----------------------------------------------------------------------------------------------------------------------
           // FIXME (priority 4) - Fix up the removal of destroyed fleets and space stations.
@@ -65,57 +63,55 @@ namespace NovaConsole
           // need to analyse the way the turn is procecessed and ensure fleets are removed as soon as possible after being destroyed.
           // NB: may need to generate player messages or some other action before the fleet removed from the game.
 
-         // First shot at removing fleets in order to make sure dead fleets are gone before running the battle engine.
-         ArrayList destroyedFleets = new ArrayList();
-         foreach (Fleet fleet in ServerState.Data.AllFleets.Values)
-         {
-             if (fleet.FleetShips.Count == 0)
-                 destroyedFleets.Add(fleet.Key);
-         }
-         foreach (String key in destroyedFleets)
-         {
-             ServerState.Data.AllFleets.Remove(key);
-         }
+          // First shot at removing fleets in order to make sure dead fleets are gone before running the battle engine.
+          ArrayList destroyedFleets = new ArrayList();
+          foreach (Fleet fleet in ServerState.Data.AllFleets.Values)
+          {
+              if (fleet.FleetShips.Count == 0)
+                  destroyedFleets.Add(fleet.Key);
+          }
+          foreach (String key in destroyedFleets)
+          {
+              ServerState.Data.AllFleets.Remove(key);
+          }
 
+          BattleEngine.Run();
 
+          // Second shot at removing fleets post battle.
+          destroyedFleets = new ArrayList();
+          foreach (Fleet fleet in ServerState.Data.AllFleets.Values)
+          {
+              if (fleet.FleetShips.Count == 0)
+                  destroyedFleets.Add(fleet.Key);
+          }
+          foreach (String key in destroyedFleets)
+          {
+              ServerState.Data.AllFleets.Remove(key);
+          }
 
-         BattleEngine.Run();
+          // And remove stations too.
+          ArrayList destroyedStations = new ArrayList();
+          foreach (Star star in ServerState.Data.AllStars.Values)
+          {
+              if (star.Starbase != null && star.Starbase.FleetShips.Count == 0)
+                  destroyedStations.Add(star.Name);
+          }
+          foreach (String key in destroyedStations)
+          {
+              ((Star)(ServerState.Data.AllStars[key])).Starbase = null;
 
+          }
 
-
-         // Second shot at removing fleets post battle.
-         destroyedFleets = new ArrayList();
-         foreach (Fleet fleet in ServerState.Data.AllFleets.Values)
-         {
-             if (fleet.FleetShips.Count == 0)
-                 destroyedFleets.Add(fleet.Key);
-         }
-         foreach (String key in destroyedFleets)
-         {
-             ServerState.Data.AllFleets.Remove(key);
-         }
-
-         // And remove stations too.
-         ArrayList destroyedStations = new ArrayList();
-         foreach (Star star in ServerState.Data.AllStars.Values)
-         {
-             if (star.Starbase != null && star.Starbase.FleetShips.Count == 0)
-                 destroyedStations.Add(star.Name);
-         }
-         foreach (String key in destroyedStations)
-         {
-             ((Star)(ServerState.Data.AllStars[key])).Starbase = null;
-             
-         }
-          
           // END OF FIX ME--------------------------------------------------------------------------------------------------------------------------
 
+          VictoryCheck.Victor();
 
+          StateData.TurnYear++;
+          IntelWriter.WriteIntel();
 
-         VictoryCheck.Victor();
+          // remove old messages, do this last so that the 1st turn intro message is not removed before it is delivered.
+          StateData.AllMessages = new ArrayList();
 
-         StateData.TurnYear++;
-         IntelWriter.WriteIntel();
       }
 
 
@@ -178,7 +174,7 @@ namespace NovaConsole
             message.Text     = died.ToString(System.Globalization.CultureInfo.InvariantCulture) 
                + " of your colonists have been killed"
                + " by the environment on " + star.Name;
-            Intel.Data.Messages.Add(message);
+            ServerState.Data.AllMessages.Add(message);
          }
 
          Manufacture.Items(star);
@@ -213,7 +209,7 @@ namespace NovaConsole
             Message message  = new Message();
             message.Audience = fleet.Owner;
             message.Text     = fleet.Name + " has ran out of fuel.";
-            Intel.Data.Messages.Add(message);
+            ServerState.Data.AllMessages.Add(message);
          }
 
          // See if we need to bomb this place.

@@ -1,5 +1,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // Some error reporting utilities.
 //

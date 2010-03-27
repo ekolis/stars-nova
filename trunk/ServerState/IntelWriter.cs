@@ -1,6 +1,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
-// (c) 2009, 2010 stars-nova
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This module converts the console's state into Intel and saves it, thereby 
 // generating the next turn to be played.
@@ -49,7 +50,8 @@ namespace NovaServer
             StateData = ServerState.Data;
             foreach (PlayerSettings player in StateData.AllPlayers)
             {
-                TurnData = Intel.Data;
+                TurnData = new Intel();
+                TurnData.TurnYear = StateData.TurnYear;
                 TurnData.MyRace = ServerState.Data.AllRaces[player.RaceName] as Race;
                 TurnData.TurnYear = StateData.TurnYear;
                 TurnData.AllStars = StateData.AllStars;
@@ -57,12 +59,23 @@ namespace NovaServer
                 TurnData.AllFleets = StateData.AllFleets;
                 TurnData.AllDesigns = StateData.AllDesigns;
 
+                // Copy any messages
+                foreach (Message message in StateData.AllMessages)
+                {
+                    if (message.Audience == "*" || message.Audience == player.RaceName)
+                    {
+                        TurnData.Messages.Add(message);
+                    }
+                }
+
+                // Copy the list of player races
                 foreach (Race race in StateData.AllRaces.Values)
                 {
                     TurnData.AllRaceNames.Add(race.Name);
                     TurnData.RaceIcons[race.Name] = race.Icon;
                 }
 
+                // Copy any battle reports
                 foreach (BattleReport report in StateData.AllBattles)
                 {
                     TurnData.Battles.Add(report);
@@ -96,8 +109,8 @@ namespace NovaServer
                     {
                         using (Stream turnFile = new FileStream(turnFileName, FileMode.Create))
                         {
-                            Serializer.Serialize(turnFile, Intel.Data.TurnYear);
-                            Serializer.Serialize(turnFile, Intel.Data);
+                            Serializer.Serialize(turnFile, TurnData.TurnYear);
+                            Serializer.Serialize(turnFile, TurnData);
                         }
                     }
                     catch (System.IO.IOException)

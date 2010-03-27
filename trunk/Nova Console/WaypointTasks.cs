@@ -90,7 +90,7 @@ namespace NovaConsole
             Scrap(fleet, star, true);
          }
 
-         Intel.Data.Messages.Add(message);
+         ServerState.Data.AllMessages.Add(message);
       }
 
 
@@ -106,7 +106,7 @@ namespace NovaConsole
          if (fleet.InOrbit == null) {
             message.Text = fleet.Name 
                + " attempted to unload cargo while not in orbit.";
-            Intel.Data.Messages.Add(message);
+            ServerState.Data.AllMessages.Add(message);
             return;
          }
 
@@ -116,7 +116,7 @@ namespace NovaConsole
          message.Text  = "Fleet " + fleet.Name + " has unloaded its cargo at "
                        + target.Name;
 
-         Intel.Data.Messages.Add(message);
+         ServerState.Data.AllMessages.Add(message);
          
          waypoint.Task = "None";
          Star star     = ServerState.Data.AllStars[waypoint.Destination]
@@ -213,7 +213,7 @@ namespace NovaConsole
          Message message  = new Message();
          message.Audience = fleet.Owner;
          message.Text     = fleet.Name + " has been scrapped";
-         Intel.Data.Messages.Add(message);
+         ServerState.Data.AllMessages.Add(message);
       }
    }
 }

@@ -1,5 +1,6 @@
 ﻿// ============================================================================
-// Nova. (c) 2010 stars-nova
+// (c) 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This program is used to generate a new Nova game, primarily using the 
 // NewGameWizard, GameSettings and ServerState objects.
@@ -225,8 +226,7 @@ namespace NewGame
          welcome.Text     = "Your race is ready to explore the universe.";
          welcome.Audience = "*";
 
-         Intel.Data.Messages.Add(welcome);
-         Intel.Data.TurnYear = 2100;
+         ServerState.Data.AllMessages.Add(welcome);
       }
 
 

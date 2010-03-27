@@ -162,8 +162,8 @@ namespace NovaConsole
             message.Text += "You lost this fleet.";
             ServerState.Data.AllFleets.Remove(fleet.Key);
          }
-            
-         Intel.Data.Messages.Add(message);
+
+         ServerState.Data.AllMessages.Add(message);
       }
    }      
 } 

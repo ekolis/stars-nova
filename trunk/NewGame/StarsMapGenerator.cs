@@ -1,4 +1,7 @@
 ﻿// ============================================================================
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
+//
 // This class is used to generate stars map. The approach is based on emulation 
 // of two-dimensional random value with the specified probability density 
 // function. After each star is placed the density function is changed 

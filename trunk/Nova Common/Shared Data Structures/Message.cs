@@ -1,5 +1,7 @@
 // ===========================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This class defines the format of messages sent to one or more players.
 //

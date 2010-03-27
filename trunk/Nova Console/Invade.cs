@@ -15,9 +15,12 @@ using System.Drawing;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
-using NovaCommon;
 
-namespace NovaConsole {
+using NovaCommon;
+using NovaServer;
+
+namespace NovaConsole 
+{
 
 
 // ============================================================================
@@ -36,7 +39,7 @@ namespace NovaConsole {
             message.Audience = fleet.Owner;
             message.Text = "Fleet " + fleet.Name + " has waypoint orders to "
                + "invade but the waypoint is not a planet";
-            Intel.Data.Messages.Add(message);
+            ServerState.Data.AllMessages.Add(message);
             return;
          }
 
@@ -50,7 +53,7 @@ namespace NovaConsole {
             message.Audience = fleet.Owner;
             message.Text = "Fleet " + fleet.Name + " has waypoint orders to "
                + "invade " + star.Name + " but there are no troops on board";
-            Intel.Data.Messages.Add(message);
+            ServerState.Data.AllMessages.Add(message);
             return;
          }
 
@@ -67,7 +70,7 @@ namespace NovaConsole {
             message.Text = "Fleet " + fleet.Owner + " has killed " 
                + troops.ToString(System.Globalization.CultureInfo.InvariantCulture)  + " colonisists on " + star.Name
                + " but did not manage to capture the planet";
-            Intel.Data.Messages.Add(message);
+            ServerState.Data.AllMessages.Add(message);
             star.Colonists -= (int) troops;
             return;
          }
@@ -77,7 +80,7 @@ namespace NovaConsole {
          captureMessage.Text = "Fleet " + fleet.Owner + " has killed " 
             + "all the colonists on " + star.Name
             + " and has captured the planet";
-         Intel.Data.Messages.Add(captureMessage);
+         ServerState.Data.AllMessages.Add(captureMessage);
 
          star.Owner     = fleet.Owner;
          star.Colonists = (int) (troops - star.Colonists);

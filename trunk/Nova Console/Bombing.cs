@@ -1,5 +1,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This module deals with fleets bombing a planet. 
 //
@@ -99,12 +101,12 @@ namespace NovaConsole
          Message lambMessage  = new Message();
          lambMessage.Text     = text.ToString();
          lambMessage.Audience = star.Owner;
-         Intel.Data.Messages.Add(lambMessage);
+         ServerState.Data.AllMessages.Add(lambMessage);
 
          Message wolfMessage = new Message();
          wolfMessage.Audience = fleet.Owner;
          wolfMessage.Text     = text.ToString();
-         Intel.Data.Messages.Add(wolfMessage);
+         ServerState.Data.AllMessages.Add(wolfMessage);
 
          if (star.Colonists <= 0) {
             star.Colonists = 0;
@@ -153,12 +155,12 @@ namespace NovaConsole
          Message lambDefenses  = new Message();
          lambDefenses.Text     = text.ToString();
          lambDefenses.Audience = star.Owner;
-         Intel.Data.Messages.Add(lambDefenses);
+         ServerState.Data.AllMessages.Add(lambDefenses);
 
          Message wolfDefenses  = new Message();
          wolfDefenses.Audience = fleet.Owner;
          wolfDefenses.Text     = text.ToString();
-         Intel.Data.Messages.Add(wolfDefenses);
+         ServerState.Data.AllMessages.Add(wolfDefenses);
 
          // Now Factories
 
@@ -172,12 +174,12 @@ namespace NovaConsole
          Message lambFactories  = new Message();
          lambFactories.Text     = text.ToString();
          lambFactories.Audience = star.Owner;
-         Intel.Data.Messages.Add(lambFactories);
+         ServerState.Data.AllMessages.Add(lambFactories);
 
          Message wolfFactories  = new Message();
          wolfFactories.Audience = fleet.Owner;
          wolfFactories.Text     = text.ToString();
-         Intel.Data.Messages.Add(wolfFactories);
+         ServerState.Data.AllMessages.Add(wolfFactories);
 
          // Now Mines
 
@@ -191,12 +193,12 @@ namespace NovaConsole
          Message lambMines  = new Message();
          lambMines.Text     = text.ToString();
          lambMines.Audience = star.Owner;
-         Intel.Data.Messages.Add(lambMines);
+         ServerState.Data.AllMessages.Add(lambMines);
 
          Message wolfMines  = new Message();
          wolfMines.Text     = text.ToString();
          wolfMines.Audience = fleet.Owner;
-         Intel.Data.Messages.Add(wolfMines);
+         ServerState.Data.AllMessages.Add(wolfMines);
       }
    }
 }     
