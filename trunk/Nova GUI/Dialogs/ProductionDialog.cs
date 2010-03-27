@@ -314,42 +314,48 @@ namespace Nova
       #endregion
 
 
-// ============================================================================
-// Populate the available designs items list box with the things we can build.
-// Generally, we can build designs created by the player. However, we only
-// include ships in the list if the star has a starbase with enough dock
-// capacity to build the design. 
-// ============================================================================
-
+      /// <summary>
+      /// Populate the available designs items list box with the things we can build.
+      // Generally, we can build designs created by the player. However, we only
+      // include ships in the list if the star has a starbase with enough dock
+      // capacity to build the design. 
+      /// </summary>
       private void OnLoad(object sender, System.EventArgs e)
       {
-         DesignList.BeginUpdate();
+          DesignList.BeginUpdate();
 
-         Fleet starbase     = QueueStar.Starbase;
-         int  dockCapacity = 0;
+          Fleet starbase = QueueStar.Starbase;
+          int dockCapacity = 0;
 
-         if (starbase != null) {
-             dockCapacity = starbase.DockCapacity;
-         }
+          if (starbase != null)
+          {
+              dockCapacity = starbase.DockCapacity;
+          }
 
-         foreach (Design design in TurnData.AllDesigns.Values) {
-            if (design.Owner == ClientState.Data.RaceName || design.Owner == "*"){
+          foreach (Design design in TurnData.AllDesigns.Values)
+          {
+              if (design.Owner == ClientState.Data.RaceName || design.Owner == "*")
+              {
+                  if (starbase != null && starbase.Composition.ContainsKey(design.Name)) continue;
 
-               if (design.Type == "Ship") {
-                  if (dockCapacity > design.Mass) {
-                     DesignList.Items.Add(new ListViewItem(design.Name));
+                  if (design.Type == "Ship")
+                  {
+                      if (dockCapacity > design.Mass)
+                      {
+                          DesignList.Items.Add(new ListViewItem(design.Name));
+                      }
                   }
-               }
-               else {
-                  DesignList.Items.Add(new ListViewItem(design.Name));
-               }
-            }
-         }
+                  else
+                  {
+                      DesignList.Items.Add(new ListViewItem(design.Name));
+                  }
+              }
+          }
 
-        DesignList.EndUpdate();
+          DesignList.EndUpdate();
 
-        Nova.QueueList.Populate(this.QueueList, QueueStar.ManufacturingQueue);
-        UpdateProductionCost();
+          Nova.QueueList.Populate(this.QueueList, QueueStar.ManufacturingQueue);
+          UpdateProductionCost();
       }
 
 
