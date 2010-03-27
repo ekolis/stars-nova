@@ -49,7 +49,6 @@ namespace Nova.NewGame
               ListViewItem player = new ListViewItem("  " + NumberOfPlayers.ToString());
               player.SubItems.Add(raceName);
               player.SubItems.Add("Human");
-              // playerList.Items.Add(raceName);
               playerList.Items.Add(player);
 
           }
@@ -59,12 +58,8 @@ namespace Nova.NewGame
           }
 
           // Setup initial button states
-          playerUpButton.Enabled = false;
-          playerDownButton.Enabled = false;
-          playerDeleteButton.Enabled = false;
-
-
-
+          UpdatePlayerDetails();
+          UpdatePlayerListButtons();
       }
 
         #region Methods
@@ -121,12 +116,17 @@ namespace Nova.NewGame
           GameSettings.Data.MapWidth = (int)mapWidth.Value;
       }
 
+       /// <summary>
+       /// Add a new player to the player list
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
       private void addPlayerButton_Click(object sender, EventArgs e)
       {
           // Add player (with a dummy number)
           ListViewItem player = new ListViewItem("  ##");
           player.SubItems.Add(raceSelectionBox.SelectedItem.ToString());
-          player.SubItems.Add(aiSelectionBox.SelectedItem.ToString());
+          player.SubItems.Add("Human");
           playerList.Items.Add(player);
 
           RenumberPlayers();
@@ -151,12 +151,33 @@ namespace Nova.NewGame
           }
       }
 
+       /// <summary>
+       /// Update the GUI when the currently selected player changes.
+       /// </summary>
       private void playerList_SelectedIndexChanged(object sender, EventArgs e)
       {
-
+          UpdatePlayerDetails();
           UpdatePlayerListButtons();
       }
 
+       /// <summary>
+       /// Update the New/Modify Player details based on the selected player.
+       /// </summary>
+      private void UpdatePlayerDetails()
+      {
+          foreach (int selection in playerList.SelectedIndices)
+          {
+              playerNumberLabel.Text = "Player #" + (selection + 1).ToString();
+             
+              raceSelectionBox.SelectedItem = playerList.Items[selection].SubItems[1].Text;
+              aiSelectionBox.SelectedItem = playerList.Items[selection].SubItems[2].Text;
+              break; // only one player can be selected.
+          }
+      }
+
+       /// <summary>
+       /// Enable/Disable the Up/Down/Delete player buttons depending on the selected player.
+       /// </summary>
       private void UpdatePlayerListButtons()
       {
           NumberOfPlayers = playerList.Items.Count;
@@ -198,7 +219,7 @@ namespace Nova.NewGame
           if (selectedIndex != -1 && NumberOfPlayers > 0)
           {
               playerList.SelectedIndices.Clear();
-              playerList.SelectedIndices.Add(selectedIndex);
+              playerList.SelectedIndices.Add(playerList.Items.Count - 1);
           }
           UpdatePlayerListButtons();
       }
@@ -333,6 +354,26 @@ namespace Nova.NewGame
       private void numericUpDown1_ValueChanged(object sender, EventArgs e)
       {
           GameSettings.Data.NumberOfStars = (int) numberOfStars.Value;
+      }
+
+
+       /// <summary>
+       /// Change the race of the currently selected player to the race chosen from the drop down.
+       /// </summary>
+      private void raceSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
+      {
+          if (playerList.SelectedIndices.Count < 1) return;
+          playerList.Items[playerList.SelectedIndices[0]].SubItems[1].Text = raceSelectionBox.SelectedItem.ToString();
+      }
+
+      /// <summary>
+      /// Change the ai/human status of the currently selected player to the ai/human chosen from the drop down.
+      /// </summary>
+      private void aiSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
+      {
+          if (playerList.SelectedIndices.Count < 1) return;
+          playerList.Items[playerList.SelectedIndices[0]].SubItems[2].Text = aiSelectionBox.SelectedItem.ToString();
+
       }
 
    }

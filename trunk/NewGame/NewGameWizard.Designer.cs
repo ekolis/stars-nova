@@ -81,6 +81,7 @@ namespace Nova.NewGame
           this.label8 = new System.Windows.Forms.Label();
           this.label7 = new System.Windows.Forms.Label();
           this.tabVictoryConditions = new System.Windows.Forms.TabPage();
+          this.playerNumberLabel = new System.Windows.Forms.Label();
           this.groupBox1.SuspendLayout();
           this.groupBox2.SuspendLayout();
           ((System.ComponentModel.ISupportInitialize)(this.MinimumGameTime)).BeginInit();
@@ -509,7 +510,9 @@ namespace Nova.NewGame
           // 
           // tabPlayers
           // 
+          this.tabPlayers.Controls.Add(this.newRaceButton);
           this.tabPlayers.Controls.Add(this.groupBox5);
+          this.tabPlayers.Controls.Add(this.addPlayerButton);
           this.tabPlayers.Controls.Add(this.groupBox4);
           this.tabPlayers.Location = new System.Drawing.Point(4, 22);
           this.tabPlayers.Name = "tabPlayers";
@@ -595,26 +598,25 @@ namespace Nova.NewGame
           // 
           // groupBox4
           // 
-          this.groupBox4.Controls.Add(this.newRaceButton);
-          this.groupBox4.Controls.Add(this.addPlayerButton);
+          this.groupBox4.Controls.Add(this.playerNumberLabel);
           this.groupBox4.Controls.Add(this.aiBrowseButton);
           this.groupBox4.Controls.Add(this.raceBrowseButton);
           this.groupBox4.Controls.Add(this.aiSelectionBox);
           this.groupBox4.Controls.Add(this.raceSelectionBox);
           this.groupBox4.Controls.Add(this.label8);
           this.groupBox4.Controls.Add(this.label7);
-          this.groupBox4.Location = new System.Drawing.Point(6, 279);
+          this.groupBox4.Location = new System.Drawing.Point(6, 311);
           this.groupBox4.Name = "groupBox4";
-          this.groupBox4.Size = new System.Drawing.Size(369, 128);
+          this.groupBox4.Size = new System.Drawing.Size(369, 96);
           this.groupBox4.TabIndex = 5;
           this.groupBox4.TabStop = false;
-          this.groupBox4.Text = "Add Player";
+          this.groupBox4.Text = "Modify Player";
           // 
           // newRaceButton
           // 
-          this.newRaceButton.Location = new System.Drawing.Point(46, 99);
+          this.newRaceButton.Location = new System.Drawing.Point(264, 282);
           this.newRaceButton.Name = "newRaceButton";
-          this.newRaceButton.Size = new System.Drawing.Size(156, 23);
+          this.newRaceButton.Size = new System.Drawing.Size(101, 23);
           this.newRaceButton.TabIndex = 7;
           this.newRaceButton.Text = "Race Designer";
           this.newRaceButton.UseVisualStyleBackColor = true;
@@ -623,7 +625,7 @@ namespace Nova.NewGame
           // addPlayerButton
           // 
           this.addPlayerButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-          this.addPlayerButton.Location = new System.Drawing.Point(285, 99);
+          this.addPlayerButton.Location = new System.Drawing.Point(9, 279);
           this.addPlayerButton.Name = "addPlayerButton";
           this.addPlayerButton.Size = new System.Drawing.Size(75, 23);
           this.addPlayerButton.TabIndex = 6;
@@ -634,7 +636,7 @@ namespace Nova.NewGame
           // aiBrowseButton
           // 
           this.aiBrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-          this.aiBrowseButton.Location = new System.Drawing.Point(285, 66);
+          this.aiBrowseButton.Location = new System.Drawing.Point(284, 63);
           this.aiBrowseButton.Name = "aiBrowseButton";
           this.aiBrowseButton.Size = new System.Drawing.Size(75, 23);
           this.aiBrowseButton.TabIndex = 5;
@@ -645,7 +647,7 @@ namespace Nova.NewGame
           // raceBrowseButton
           // 
           this.raceBrowseButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-          this.raceBrowseButton.Location = new System.Drawing.Point(284, 20);
+          this.raceBrowseButton.Location = new System.Drawing.Point(284, 36);
           this.raceBrowseButton.Name = "raceBrowseButton";
           this.raceBrowseButton.Size = new System.Drawing.Size(75, 23);
           this.raceBrowseButton.TabIndex = 4;
@@ -660,26 +662,28 @@ namespace Nova.NewGame
           this.aiSelectionBox.Items.AddRange(new object[] {
             "Human",
             "Default AI"});
-          this.aiSelectionBox.Location = new System.Drawing.Point(76, 66);
+          this.aiSelectionBox.Location = new System.Drawing.Point(76, 65);
           this.aiSelectionBox.Name = "aiSelectionBox";
           this.aiSelectionBox.Size = new System.Drawing.Size(202, 21);
           this.aiSelectionBox.TabIndex = 3;
           this.aiSelectionBox.Text = "Human";
+          this.aiSelectionBox.SelectedIndexChanged += new System.EventHandler(this.aiSelectionBox_SelectedIndexChanged);
           // 
           // raceSelectionBox
           // 
           this.raceSelectionBox.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
           this.raceSelectionBox.FormattingEnabled = true;
-          this.raceSelectionBox.Location = new System.Drawing.Point(76, 22);
+          this.raceSelectionBox.Location = new System.Drawing.Point(76, 38);
           this.raceSelectionBox.Name = "raceSelectionBox";
           this.raceSelectionBox.Size = new System.Drawing.Size(202, 21);
           this.raceSelectionBox.TabIndex = 2;
+          this.raceSelectionBox.SelectedIndexChanged += new System.EventHandler(this.raceSelectionBox_SelectedIndexChanged);
           // 
           // label8
           // 
           this.label8.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
           this.label8.AutoSize = true;
-          this.label8.Location = new System.Drawing.Point(6, 69);
+          this.label8.Location = new System.Drawing.Point(6, 68);
           this.label8.Name = "label8";
           this.label8.Size = new System.Drawing.Size(62, 13);
           this.label8.TabIndex = 1;
@@ -689,7 +693,7 @@ namespace Nova.NewGame
           // 
           this.label7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
           this.label7.AutoSize = true;
-          this.label7.Location = new System.Drawing.Point(6, 25);
+          this.label7.Location = new System.Drawing.Point(6, 41);
           this.label7.Name = "label7";
           this.label7.Size = new System.Drawing.Size(64, 13);
           this.label7.TabIndex = 0;
@@ -705,6 +709,15 @@ namespace Nova.NewGame
           this.tabVictoryConditions.TabIndex = 2;
           this.tabVictoryConditions.Text = "Victory Conditions";
           this.tabVictoryConditions.UseVisualStyleBackColor = true;
+          // 
+          // playerNumberLabel
+          // 
+          this.playerNumberLabel.AutoSize = true;
+          this.playerNumberLabel.Location = new System.Drawing.Point(6, 16);
+          this.playerNumberLabel.Name = "playerNumberLabel";
+          this.playerNumberLabel.Size = new System.Drawing.Size(46, 13);
+          this.playerNumberLabel.TabIndex = 7;
+          this.playerNumberLabel.Text = "Player #";
           // 
           // NewGameWizard
           // 
@@ -795,5 +808,6 @@ namespace Nova.NewGame
        private System.Windows.Forms.TextBox gameName;
        private System.Windows.Forms.Label label9;
        private System.Windows.Forms.NumericUpDown numberOfStars;
+       private System.Windows.Forms.Label playerNumberLabel;
    }
 }
