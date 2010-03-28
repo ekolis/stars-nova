@@ -1,5 +1,6 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010 stars-nova
 //
 // Fleet class. A fleet is a container for one or more ships (which may be of
 // different designs). Ship instances do not exist by themselves, they are
@@ -49,40 +50,45 @@ namespace NovaCommon
       /// </summary>
       public Fleet(int id) { FleetID = id; }
 
-// ============================================================================
-// Fleet construction for unit testing and stack creation during a battle.
-// ============================================================================
-
-      public Fleet(string n, string o, Point p) 
+      /// <summary>
+      /// Fleet construction for unit testing and stack creation during a battle.
+      /// </summary>
+      /// <param name="n"></param>
+      /// <param name="o"></param>
+      /// <param name="p"></param>
+      public Fleet(string n, string o, Point p)
       {
-         Name     = n;
-         Owner    = o;
-         Position = p;
+          Name = n;
+          Owner = o;
+          Position = p;
       }
 
 
-// ============================================================================
-// Copy constructor. This is only used by the battle engine so only the fields
-// used by it in creating stacks need to be copied. Note that we copy the
-// ships as well. Be careful when using the copy. It is a different object.
-// ============================================================================
-      
-      public Fleet(Fleet copy) : base(copy)
+      /// <summary>
+      /// Copy constructor. This is only used by the battle engine so only the fields
+      /// used by it in creating stacks need to be copied. Note that we copy the
+      /// ships as well. Be careful when using the copy. It is a different object.
+      /// </summary>
+      /// <param name="copy">The fleet to copy.</param>
+      public Fleet(Fleet copy)
+          : base(copy)
       {
-         this.BattleSpeed = copy.BattleSpeed;
-         this.BattlePlan  = copy.BattlePlan;
+          this.BattleSpeed = copy.BattleSpeed;
+          this.BattlePlan = copy.BattlePlan;
 
-         foreach (Ship ship in copy.FleetShips) {
-            this.FleetShips.Add(new Ship(ship));
-         }
+          foreach (Ship ship in copy.FleetShips)
+          {
+              this.FleetShips.Add(new Ship(ship));
+          }
       }
 
 
-// ============================================================================
-// Fleet construction based on a ship and some parameters from a star (this is
-// the usual case for most fleets when a new ship is manufactured at a star).
-// ===========================================================================
-
+      /// <summary>
+      /// Fleet construction based on a ship and some parameters from a star (this is
+      /// the usual case for most fleets when a new ship is manufactured at a star).
+      /// </summary>
+      /// <param name="ship">The ship being constructed.</param>
+      /// <param name="star">The star constructing the ship.</param>
       public Fleet(Ship ship, Star star)
       {
          FleetShips.Add(ship);
@@ -127,10 +133,7 @@ namespace NovaCommon
                       case "fleetid": FleetID = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
                       case "targetid": Target = new Fleet(int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture)); break;
                       case "cargo": Cargo = new Cargo(subnode); break;
-                          
-                          // TODO (priority 5) placeholder to be replaced with reference to a complete star object
                       case "inorbit": InOrbit = new Star(); InOrbit.Name = ((XmlText)subnode.FirstChild).Value; break;
-
                       case "battlespeed": BattleSpeed = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
                       case "bearing": Bearing = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
                       case "cloaked": Cloaked = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
@@ -154,10 +157,11 @@ namespace NovaCommon
           }
       }
 
-      // ============================================================================
-      // Save: Return an XmlElement representation of the Fleet
-      // ============================================================================
-       
+      /// <summary>
+      /// Save: Return an XmlElement representation of the Fleet
+      /// </summary>
+      /// <param name="xmldoc">The parent xml document.</param>
+      /// <returns>An XmlElement representation of the Fleet.</returns>
       public new XmlElement ToXml(XmlDocument xmldoc)
       {
           XmlElement xmlelFleet = xmldoc.CreateElement("Fleet");
@@ -194,21 +198,22 @@ namespace NovaCommon
           return xmlelFleet;
       }
 
-      // ============================================================================
-      // Return a key for use in hash tables to locate items.
-      // ============================================================================
-
+      /// <summary>
+      /// Return a key for use in hash tables to locate items.
+      /// </summary>
       public override string Key
       {
           get { return this.Owner + "/" + this.FleetID; }
       }
 
-// ============================================================================
-// Move the fleet towards the waypoint at the top of the list. Fuel is consumed
-// at the rate of the sum of each of the individual ships (i.e. available fuel
-// is automatically "pooled" between the ships).
-// ===========================================================================
-
+      /// <summary>
+      /// Move the fleet towards the waypoint at the top of the list. Fuel is consumed
+      /// at the rate of the sum of each of the individual ships (i.e. available fuel
+      /// is automatically "pooled" between the ships).
+      /// </summary>
+      /// <param name="availableTime">The portion of a year left for travel.</param>
+      /// <param name="race">The race this fleet belongs to.</param>
+      /// <returns>A TravelStatus indicating arrival or in-transit.</returns>
       public TravelStatus Move(ref double availableTime, Race race)
       {
          Waypoint target = Waypoints[0] as Waypoint;
@@ -233,12 +238,14 @@ namespace NovaCommon
 
          TravelStatus arrived = TravelStatus.Arrived;
 
-         if (travelTime > availableTime) {
+         if (travelTime > availableTime) 
+         {
             travelTime  = availableTime;
             arrived     = TravelStatus.InTransit;
          }
          
-         if (travelTime > fuelTime) {
+         if (travelTime > fuelTime) 
+         {
             travelTime  = fuelTime ;
             arrived     = TravelStatus.InTransit;
          }
@@ -247,7 +254,8 @@ namespace NovaCommon
          // target. Otherwise the position is determined by how far we got
          // in the time or fuel available.
 
-         if (arrived == TravelStatus.Arrived) {
+         if (arrived == TravelStatus.Arrived) 
+         {
             Position          = target.Position;
             target.WarpFactor = 0;
 
@@ -260,7 +268,8 @@ namespace NovaCommon
             }
               * */
          }
-         else {
+         else 
+         {
             double travelled  = speed * travelTime;
             Position          = PointUtilities.MoveTo
                                (Position, target.Position, travelled);
@@ -276,17 +285,19 @@ namespace NovaCommon
       }
 
 
-
-// ============================================================================
-// Return the fuel consumption (mg per year) of the fleet at the specified
-// warp factor.
-// ============================================================================
-
+      /// <summary>
+      /// Return the fuel consumption (mg per year) of the fleet at the specified
+      /// warp factor.
+      /// </summary>
+      /// <param name="warpFactor">The warp speed of the fleet.</param>
+      /// <param name="race">The race this fleet belongs too.</param>
+      /// <returns>The mass of fuel consumed.</returns>
       public double FuelConsumption(int warpFactor, Race race)
       {
          double fuelConsumption = 0;
 
-         foreach (Ship ship in FleetShips) {
+         foreach (Ship ship in FleetShips) 
+         {
             fuelConsumption += ship.FuelConsumption(warpFactor, race);
          }
 
@@ -294,259 +305,275 @@ namespace NovaCommon
       }
 
 
-
-// ============================================================================
-// Return the long range scan capability of the fleet.
-// FIXME (priority 3) - scanning capability can be addative (but the formula is non-linear)
-// ============================================================================
-
+      /// <summary>
+      /// Return the long range scan capability of the fleet.
+      // FIXME (priority 3) - scanning capability can be addative (but the formula is non-linear)
+      /// </summary>
       public int LongRangeScan
       {
-         get {
-            int scanRange = 0;
+          get
+          {
+              int scanRange = 0;
 
-            foreach (Ship ship in FleetShips) {
-               if (ship.Design.NormalScan > scanRange) {
-                   scanRange = ship.Design.NormalScan;
-               }
-            }
-            return scanRange;
-         }
+              foreach (Ship ship in FleetShips)
+              {
+                  if (ship.Design.NormalScan > scanRange)
+                  {
+                      scanRange = ship.Design.NormalScan;
+                  }
+              }
+              return scanRange;
+          }
       }
 
 
-// ============================================================================
-// Return the short range scan capability of the fleet.
-// FIXME (priority 3) - scanning capability can be addative (but the formula is non-linear)
-// ============================================================================
-
+      /// <summary>
+      /// // Return the short range scan capability of the fleet.
+      // FIXME (priority 3) - scanning capability can be addative (but the formula is non-linear)
+      /// </summary>
       public int ShortRangeScan
       {
-         get {
-            int scanRange = 0;
+          get
+          {
+              int scanRange = 0;
 
-            foreach (Ship ship in FleetShips) {
-               if (ship.Design.NormalScan > scanRange) {
-                   scanRange = ship.Design.NormalScan;
-               }
-            }
-            return scanRange;
-         }
+              foreach (Ship ship in FleetShips)
+              {
+                  if (ship.Design.NormalScan > scanRange)
+                  {
+                      scanRange = ship.Design.NormalScan;
+                  }
+              }
+              return scanRange;
+          }
       }
 
 
-// ============================================================================
-// Return the composition of a fleet (ship design and number of ships of that
-// design).
-// ============================================================================
-
-      public Hashtable Composition 
+      /// <summary>
+      /// // Return the composition of a fleet (ship design and number of ships of that
+      /// design).
+      /// </summary>
+      public Hashtable Composition
       {
-         get {
-            Hashtable fleetComposition = new Hashtable();
+          get
+          {
+              Hashtable fleetComposition = new Hashtable();
 
-            foreach (Ship ship in FleetShips) {
-               fleetComposition[ship.Design.Name] = 0;
-            }
+              foreach (Ship ship in FleetShips)
+              {
+                  fleetComposition[ship.Design.Name] = 0;
+              }
 
-            foreach (Ship ship in FleetShips) {
-               int count = (int) fleetComposition[ship.Design.Name];
-               
-               count++;
-               fleetComposition[ship.Design.Name] = count;
-            }
+              foreach (Ship ship in FleetShips)
+              {
+                  int count = (int)fleetComposition[ship.Design.Name];
 
-            return fleetComposition;
-         }
+                  count++;
+                  fleetComposition[ship.Design.Name] = count;
+              }
+
+              return fleetComposition;
+          }
       }
 
 
-// ============================================================================
-// Return the mass of a fleet.
-// ============================================================================
-
+      /// <summary>
+      /// Return the mass of a fleet.
+      /// </summary>
       public int TotalMass
       {
-         get {
-            double totalMass = 0;
-            
-            foreach (Ship ship in FleetShips) {
-               totalMass += ship.TotalMass;
-            }
+          get
+          {
+              double totalMass = 0;
 
-            return (int) totalMass;
-         }
+              foreach (Ship ship in FleetShips)
+              {
+                  totalMass += ship.TotalMass;
+              }
+
+              return (int)totalMass;
+          }
       }
 
 
-// ============================================================================
-// Return the cost of a fleet.
-// ============================================================================
-
+      /// <summary>
+      /// Return the cost of a fleet. 
+      /// </summary>
       public Resources TotalCost
       {
-         get {
-            Resources cost = new Resources();
-            
-            foreach (Ship ship in FleetShips) {
-               cost = cost + ship.Design.Cost;
-            }
+          get
+          {
+              Resources cost = new Resources();
 
-            return cost;
-         }
+              foreach (Ship ship in FleetShips)
+              {
+                  cost = cost + ship.Design.Cost;
+              }
+
+              return cost;
+          }
       }
 
 
-// ============================================================================
-// Return the current speed of the fleet
-// ============================================================================
-
+      /// <summary>
+      /// Return the current speed of the fleet
+      /// </summary>
       public int Speed
       {
-         get {
-            Waypoint target = Waypoints[0] as Waypoint;
-            return target.WarpFactor;
-         }
+          get
+          {
+              Waypoint target = Waypoints[0] as Waypoint;
+              return target.WarpFactor;
+          }
 
-         set {
-            Waypoint target   = Waypoints[0] as Waypoint;
-            target.WarpFactor = 0;
-         }
-            
+          set
+          {
+              Waypoint target = Waypoints[0] as Waypoint;
+              target.WarpFactor = 0;
+          }
+
       }
-            
 
-// ============================================================================
-// Report if a fleet is armed
-// ============================================================================
 
+      /// <summary>
+      /// Report if a fleet is armed
+      /// </summary>
       public bool IsArmed
       {
-         get {
-            foreach (Ship ship in FleetShips) {
-               if (ship.HasWeapons) {
-                  return true;
-               }
-            }
-            return false;
-         }
+          get
+          {
+              foreach (Ship ship in FleetShips)
+              {
+                  if (ship.HasWeapons)
+                  {
+                      return true;
+                  }
+              }
+              return false;
+          }
       }
 
-// ============================================================================
-// Return the current Defense capability of a fleet 
-// ============================================================================
 
+      /// <summary>
+      /// Return the current Defense capability of a fleet 
+      /// </summary>
       public double Defenses
       {
-         get {
-            double totalDefenses = 0;
+          get
+          {
+              double totalDefenses = 0;
 
-            foreach (Ship ship in FleetShips) {
-               totalDefenses += ship.Armor;
-               totalDefenses += ship.Shields;
-            }
-            return totalDefenses;
-         }
+              foreach (Ship ship in FleetShips)
+              {
+                  totalDefenses += ship.Armor;
+                  totalDefenses += ship.Shields;
+              }
+              return totalDefenses;
+          }
       }
 
 
-// ============================================================================
-// Choose an image from one of the ships in the fleet
-// ============================================================================
-
+      /// <summary>
+      /// Choose an image from one of the ships in the fleet
+      /// </summary>
       public Image Image
       {
-         get 
-         {
-             try
-             {
-                 Ship ship = FleetShips[0] as Ship;
-                 return ship.Design.ShipHull.ComponentImage;
-             }
-             catch
-             {
-                 Report.Error("Fleet.cs Fleet.Image (get): unable to get ship image.");
-             }
-             return null;
-         }
+          get
+          {
+              try
+              {
+                  Ship ship = FleetShips[0] as Ship;
+                  return ship.Design.ShipHull.ComponentImage;
+              }
+              catch
+              {
+                  Report.Error("Fleet.cs Fleet.Image (get): unable to get ship image.");
+              }
+              return null;
+          }
       }
 
 
-// ============================================================================
-// Determine if the fleet has bombers
-// ============================================================================
-
+      /// <summary>
+      /// Determine if the fleet has bombers
+      /// </summary>
       public bool HasBombers
       {
-         get {
-            bool bombers = false;
-            foreach (Ship ship in FleetShips) {
-               if (ship.IsBomber) {
-                  bombers = true;
-               }
-            }
-            return bombers;
-         }
+          get
+          {
+              bool bombers = false;
+              foreach (Ship ship in FleetShips)
+              {
+                  if (ship.IsBomber)
+                  {
+                      bombers = true;
+                  }
+              }
+              return bombers;
+          }
       }
 
 
-// ============================================================================
-// Return the total normal bombing capability
-// ============================================================================
-
+      /// <summary>
+      /// Return the total normal bombing capability
+      /// </summary>
       public Bomb BombCapability
       {
-         get {
-            Bomb totalBombs = new Bomb();
-            foreach (Ship ship in FleetShips) {
-               Bomb bomb = ship.BombCapability;
-               totalBombs.PopKill        += bomb.PopKill;
-               totalBombs.Installations += bomb.Installations;
-               totalBombs.MinimumKill += bomb.MinimumKill;
-            }
-            return totalBombs;
-         }
+          get
+          {
+              Bomb totalBombs = new Bomb();
+              foreach (Ship ship in FleetShips)
+              {
+                  Bomb bomb = ship.BombCapability;
+                  totalBombs.PopKill += bomb.PopKill;
+                  totalBombs.Installations += bomb.Installations;
+                  totalBombs.MinimumKill += bomb.MinimumKill;
+              }
+              return totalBombs;
+          }
       }
 
 
-// ============================================================================
-// Return the the number of mines this fleet can lay.
-// ============================================================================
-
+      /// <summary>
+      /// Return the the number of mines this fleet can lay.
+      /// </summary>
       public int NumberOfMines
       {
-         get {
-            int mineCount = 0;
+          get
+          {
+              int mineCount = 0;
 
-            foreach (Ship ship in FleetShips) {
-               mineCount += ship.MineCount;
-            }
+              foreach (Ship ship in FleetShips)
+              {
+                  mineCount += ship.MineCount;
+              }
 
-            return mineCount;
-         }
+              return mineCount;
+          }
       }
 
 
-// ============================================================================
-// Return the total amour strength of the fleet
-// ============================================================================
-
+      /// <summary>
+      /// Return the total amour strength of the fleet
+      /// </summary>
       public double ArmorStrength
       {
-         get {
-            double Armor = 0;
+          get
+          {
+              double Armor = 0;
 
-            foreach (Ship ship in FleetShips) {
-               Armor += ship.Armor;
-            }
+              foreach (Ship ship in FleetShips)
+              {
+                  Armor += ship.Armor;
+              }
 
-            return Armor;
-         }
+              return Armor;
+          }
       }
 
-       /// <summary>
-       /// Property to determine if a fleet is a starbase.
-       /// </summary>
+      /// <summary>
+      /// Property to determine if a fleet is a starbase.
+      /// </summary>
       public bool IsStarbase
       {
           get
@@ -559,9 +586,9 @@ namespace NovaCommon
           }
       }
 
-       /// <summary>
-       /// Property to determine if a fleet can re-fuel
-       /// </summary>
+      /// <summary>
+      /// Property to determine if a fleet can re-fuel
+      /// </summary>
       public bool CanRefuel
       {
           get
@@ -574,6 +601,10 @@ namespace NovaCommon
           }
       }
 
+
+      /// <summary>
+      /// Return the dock capacity of the fleet. This is used as a shortcut for a starbase which is normally the only 'ship' in its fleet.
+      /// </summary>
       public int DockCapacity
       {
           get
@@ -586,8 +617,6 @@ namespace NovaCommon
               return dockCapacity;
           }
       }
-
-
 
    }
 }
