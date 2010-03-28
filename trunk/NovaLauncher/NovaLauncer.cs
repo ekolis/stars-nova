@@ -1,5 +1,5 @@
 ﻿// ============================================================================
-// Nova. (c) 2010 Daniel Vale
+// (c) 2009, 2010 stars-nova
 //
 // The splash screen and launcher application for starting Nova. Nova should
 // normally be started by running the NovaLauncher application.
@@ -8,6 +8,7 @@
 // terms of the GNU General Public License version 2 as published by the Free
 // Software Foundation.
 // ============================================================================
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -28,6 +29,11 @@ namespace NovaLauncher
         String ServerStateFile = null;
         String ClientStateFile = null;
 
+        #region Initialisation
+
+        /// <summary>
+        /// Construction and initialisation
+        /// </summary>
         public NovaLauncher()
         {
             InitializeComponent();
@@ -54,11 +60,26 @@ namespace NovaLauncher
                 continueGameButton.Enabled = false;
         }
 
+        #endregion
+
+        #region Event Methods
+
+        /// <summary>
+        /// When the 'exit' button is pressed, terminate the Nova Launcher
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
+
+        /// <summary>
+        /// When the 'Race Designer' button is pressed, launch the Race Designer application.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         private void raceDesignerButton_Click(object sender, EventArgs e)
         {
             String RaceDesigner;
@@ -74,6 +95,12 @@ namespace NovaLauncher
             }
         }
 
+
+        /// <summary>
+        /// When the 'New Game' button is pressed, launch the New Game Wizard.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         private void newGameButton_Click(object sender, EventArgs e)
         {
             String NewGameApp;
@@ -89,6 +116,11 @@ namespace NovaLauncher
             }
         }
 
+        /// <summary>
+        /// When the 'Open Game' button is pressed, open a file browser to locate the game and open it.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         private void openGameButton_Click(object sender, EventArgs e)
         {
             String NovaGuiApp;
@@ -127,6 +159,12 @@ namespace NovaLauncher
             }
         }
 
+
+        /// <summary>
+        /// When the 'Continue Game' button is pressed, continue the last opened game.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         private void continueGameButton_Click(object sender, EventArgs e)
         {
             // start the GUI
@@ -165,6 +203,12 @@ namespace NovaLauncher
             }
         }
 
+
+        /// <summary>
+        /// When the 'Nova Website' link is clicked, go to the nova website with the default browser, if allowed.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         private void webLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
@@ -177,6 +221,13 @@ namespace NovaLauncher
             }
         }
 
+        #endregion
+
+        #region Utility Methods
+
+        /// <summary>
+        /// Support funtion to open the Nova Website
+        /// </summary>
         private void VisitLink()
         {
             // Change the color of the link text by setting LinkVisited 
@@ -187,5 +238,8 @@ namespace NovaLauncher
             System.Diagnostics.Process.Start(Global.NovaWebSite);
         }
 
-    }
-}
+        #endregion
+
+    }//NovaLauncher
+
+}//namespace

@@ -1,4 +1,6 @@
-﻿using System.Reflection;
+﻿// (c) 2009, 2010 stars-nova
+
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
