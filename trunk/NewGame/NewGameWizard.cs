@@ -182,13 +182,13 @@ namespace Nova.NewGame
       {
           NumberOfPlayers = playerList.Items.Count;
           // Up button
-          if (playerList.SelectedIndices.Contains(0) || NumberOfPlayers == 0)
+          if (NumberOfPlayers == 0 || playerList.SelectedIndices.Contains(0))
               playerUpButton.Enabled = false;
           else
               playerUpButton.Enabled = true;
 
           // Down button
-          if (playerList.SelectedIndices.Contains(NumberOfPlayers - 1) || NumberOfPlayers == 0)
+          if ( NumberOfPlayers == 0 || playerList.SelectedIndices.Contains(NumberOfPlayers - 1))
               playerDownButton.Enabled = false;
           else
               playerDownButton.Enabled = true;
@@ -219,7 +219,10 @@ namespace Nova.NewGame
           if (selectedIndex != -1 && NumberOfPlayers > 0)
           {
               playerList.SelectedIndices.Clear();
-              playerList.SelectedIndices.Add(playerList.Items.Count - 1);
+              if (selectedIndex >= playerList.Items.Count)
+                  playerList.SelectedIndices.Add(playerList.Items.Count - 1);
+              else
+                  playerList.SelectedIndices.Add(selectedIndex);
           }
           UpdatePlayerListButtons();
       }
