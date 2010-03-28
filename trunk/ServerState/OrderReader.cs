@@ -1,5 +1,6 @@
 ﻿// ============================================================================
-// Nova. (c) 2010 Daniel Vale
+// Nova (c) 2009, 2010 stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This module processes the reading of race orders.
 //
@@ -148,6 +149,7 @@ namespace NovaServer
         /// Objects can't do this themselves as they don't have access to the state data, 
         /// so we do it here.
         /// </summary>
+        /// <param name="playerOrders">The <see cref="Orders"/> object to undergo post load linking.</param>
         private static void LinkOrderReferences(Orders playerOrders)
         {
             // Fleet reference to Star
@@ -187,5 +189,5 @@ namespace NovaServer
 
         }
 
-    }
-}
+    }//OrderReader
+}//namespace

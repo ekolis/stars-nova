@@ -2,6 +2,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 // (c) 2009, 2010 stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This dialog will determine the objectives of the game.
 //

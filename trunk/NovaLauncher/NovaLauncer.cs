@@ -1,5 +1,6 @@
 ﻿// ============================================================================
-// (c) 2009, 2010 stars-nova
+// Nova (c) 2009, 2010 stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // The splash screen and launcher application for starting Nova. Nova should
 // normally be started by running the NovaLauncher application.
