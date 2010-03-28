@@ -109,6 +109,7 @@
             this.webLink.TabIndex = 6;
             this.webLink.TabStop = true;
             this.webLink.Text = "Nova Webpage";
+            this.webLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.webLink_LinkClicked);
             // 
             // continueGameButton
             // 
