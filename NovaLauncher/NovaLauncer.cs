@@ -17,6 +17,8 @@ using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
+using System.Reflection;
+
 using NovaCommon;
 
 namespace NovaLauncher
@@ -29,6 +31,18 @@ namespace NovaLauncher
         public NovaLauncher()
         {
             InitializeComponent();
+
+            // Show the Nova version
+            Assembly myAssembly = Assembly.GetExecutingAssembly();
+            AssemblyName myAssemblyName = myAssembly.GetName();
+            versionNumber.Text = myAssemblyName.Version.ToString();
+            string version = Assembly.GetCallingAssembly().FullName.Split(',')[1];
+            DateTime start = new DateTime(2000, 1, 1);
+            int buildNumber = Convert.ToInt32(version.Split('.')[2]);
+            int revision = Convert.ToInt32(version.Split('.')[3]);
+            DateTime buildDate = start.Add(new TimeSpan(buildNumber, 0, 0, 2 * revision, 0));
+
+            versionNumber.Text += " " + buildDate.ToShortDateString();
 
             // ensure registry keys are initialised
             FileSearcher.SetKeys();
@@ -150,5 +164,28 @@ namespace NovaLauncher
                 }
             }
         }
+
+        private void webLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                VisitLink();
+            }
+            catch 
+            {
+                MessageBox.Show("Unable to open link that was clicked.");
+            }
+        }
+
+        private void VisitLink()
+        {
+            // Change the color of the link text by setting LinkVisited 
+            // to true.
+            webLink.LinkVisited = true;
+            //Call the Process.Start method to open the default browser 
+            //with a URL:
+            System.Diagnostics.Process.Start(Global.NovaWebSite);
+        }
+
     }
 }

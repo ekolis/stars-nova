@@ -78,6 +78,8 @@ namespace NovaCommon
 
        public const int MaxWeaponRange = 10;
 
+       public const string NovaWebSite = "https://sourceforge.net/projects/stars-nova/";
+
        public const double GravityMinimum = 0; // FIXME (priority 3) - Stars! gravity range is 0.2 - 6.0 with 1.0 in the middle! Will need to revise all current race builds once changed.
        public const double GravityMaximum = 8;
        public const double RadiationMinimum = 0;
