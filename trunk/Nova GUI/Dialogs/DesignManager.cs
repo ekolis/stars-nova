@@ -223,6 +223,7 @@ namespace Nova
                                MessageBoxButtons.YesNo,
                                MessageBoxIcon.Warning);
 
+         if (result != DialogResult.Yes) return;
 
          Design design = DesignList.SelectedItems[0].Tag as Design;
 
