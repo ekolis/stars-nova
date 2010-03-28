@@ -52,7 +52,6 @@ namespace NovaClient
       /// ClientState.Data (which is subsequently used to generate <RaceName>.orders.
       /// </summary>
       /// <param name="turnFileName">Path and file name of the RaceName.intel file.</param>
-
       public static void ReadIntel(String turnFileName)
       {
           if (File.Exists(turnFileName) == false)
@@ -117,66 +116,67 @@ namespace NovaClient
       }
 
 
-// ============================================================================
-// Process Messages
-//
-// Run through the full list of messages and populate the message store in the
-// state data with the messages relevant to the player's selected race. The
-// actual message control will be populated within the main window
-// initialisation.
-// ============================================================================
-
+      /// <summary>
+      /// Run through the full list of messages and populate the message store in the
+      /// state data with the messages relevant to the player's selected race. The
+      /// actual message control will be populated within the main window
+      /// initialisation.
+      /// </summary>
       private static void ProcessMessages()
       {
-         foreach (Message message in TurnData.Messages) {
-            if ((message.Audience == ClientState.Data.RaceName) ||
-                (message.Audience == "*")) {
-               StateData.Messages.Add(message);
-            }
-         }
+          foreach (Message message in TurnData.Messages)
+          {
+              if ((message.Audience == ClientState.Data.RaceName) ||
+                  (message.Audience == "*"))
+              {
+                  StateData.Messages.Add(message);
+              }
+          }
       }
 
 
-// ============================================================================
-// So that we can put an indication of fleets orbiting a star run through all
-// the fleets and, if they are in orbit around a star, set the OrbitingFleets
-// flag in the star.
-// ============================================================================
-
+      /// <summary>
+      /// So that we can put an indication of fleets orbiting a star run through all
+      // the fleets and, if they are in orbit around a star, set the OrbitingFleets
+      // flag in the star.
+      /// </summary>
       private static void DetermineOrbitingFleets()
       {
-         foreach (Star star in TurnData.AllStars.Values) {
-            star.OrbitingFleets = false;
-         }
+          foreach (Star star in TurnData.AllStars.Values)
+          {
+              star.OrbitingFleets = false;
+          }
 
-         foreach (Fleet fleet in TurnData.AllFleets.Values) {
-            if (fleet.InOrbit != null && fleet.Type != "Starbase") {
-               Star star           = fleet.InOrbit;
-               star.OrbitingFleets = true;
-            }
-         }
+          foreach (Fleet fleet in TurnData.AllFleets.Values)
+          {
+              if (fleet.InOrbit != null && fleet.Type != "Starbase")
+              {
+                  Star star = fleet.InOrbit;
+                  star.OrbitingFleets = true;
+              }
+          }
       }
 
 
-// ============================================================================
-// Process Reports
-//
-// Advance the age of all star reports by one year. Then, if a star is owned by
-// us and has colonists bring the report up to date (just by creating a new
-// report).
-// ============================================================================
-
+      /// <summary>
+      /// Advance the age of all star reports by one year. Then, if a star is owned by
+      /// us and has colonists bring the report up to date (just by creating a new
+      /// report).
+      /// </summary>
       private static void ProcessReports()
       {
-         foreach (StarReport report in StateData.StarReports.Values) {
-            report.Age++;
-         }
+          foreach (StarReport report in StateData.StarReports.Values)
+          {
+              report.Age++;
+          }
 
-         foreach (Star star in StateData.PlayerStars.Values) {
-            if (star.Colonists != 0) {
-               StateData.StarReports[star.Name] = new StarReport(star);
-            }
-         }
+          foreach (Star star in StateData.PlayerStars.Values)
+          {
+              if (star.Colonists != 0)
+              {
+                  StateData.StarReports[star.Name] = new StarReport(star);
+              }
+          }
       }
 
 
@@ -270,11 +270,12 @@ namespace NovaClient
       }
 
 
-// ============================================================================
-// Report an update in tech level and any new components that have became
-// available.
-// ============================================================================
-
+      /// <summary>
+      /// Report an update in tech level and any new components that have became
+      /// available.
+      /// </summary>
+      /// <param name="area">The field of research.</param>
+      /// <param name="level">The new level obtained.</param>
       private static void ReportLevelUpdate(TechLevel.ResearchField area, int level)
       {
           Message techAdvanceMessage =
@@ -306,12 +307,11 @@ namespace NovaClient
       }
 
 
-// ============================================================================
-// Determine the fleets owned by the player (this is a convenience function so
-// that buttons such as "Next" and "Previous" on the ship detail panel are easy
-// to code,
-// ============================================================================
-
+      /// <summary>
+      /// Determine the fleets owned by the player (this is a convenience function so
+      /// that buttons such as "Next" and "Previous" on the ship detail panel are easy
+      /// to code,
+      /// </summary>
       private static void DeterminePlayerFleets()
       {
           StateData.PlayerFleets.Clear();
@@ -329,12 +329,11 @@ namespace NovaClient
       }
 
 
-// ============================================================================
-// Determine the star systems owned by the player (this is a convenience
-// function so that buttons such as "Next" and "Previous" on the star detail
-// panel are easy to code,
-// ============================================================================
-
+      /// <summary>
+      /// Determine the star systems owned by the player (this is a convenience
+      // function so that buttons such as "Next" and "Previous" on the star detail
+      // panel are easy to code,
+      /// </summary>
       private static void DeterminePlayerStars()
       {
           StateData.PlayerStars.Clear();

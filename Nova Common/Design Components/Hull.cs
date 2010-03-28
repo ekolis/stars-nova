@@ -23,11 +23,9 @@ using System.Runtime.Serialization;
 namespace NovaCommon
 {
 
-
-// ============================================================================
-// The definition of a hull object.
-// ============================================================================
-
+    /// <summary>
+    /// The definition of a hull object.
+    /// </summary>
    [Serializable]
    public class Hull : ComponentProperty
    {
@@ -45,21 +43,16 @@ namespace NovaCommon
       public int       BattleInitiative = 0;
 
 
-
-// ============================================================================
-// Construction
-// ============================================================================
-
-      public Hull ()
-      {
-         
-      }
+      /// <summary>
+      /// Default constructor.
+      /// </summary>
+      public Hull() { }
 
 
-// ============================================================================
-// Copy constructor for the hull itself
-// ============================================================================
-
+      /// <summary>
+      /// Copy constructor for the hull
+      /// </summary>
+      /// <param name="existing">The <see cref="Hull"/> to be copied.</param>
       public Hull(Hull existing) 
       {
          
@@ -67,48 +60,60 @@ namespace NovaCommon
          DockCapacity     = existing.DockCapacity;
          BaseCargo        = existing.BaseCargo;
          ARMaxPop         = existing.ARMaxPop;
-         ArmorStrength   = existing.ArmorStrength;
+         ArmorStrength    = existing.ArmorStrength;
          BattleInitiative = existing.BattleInitiative;
          
-
          Modules = new ArrayList();
 
-         foreach (HullModule module in existing.Modules) {
+         foreach (HullModule module in existing.Modules) 
+         {
             Modules.Add(module.Clone());
          }
       }
 
-      //============================================================================
-      // Implement the ICloneable interface so properties can be cloned.
-      //============================================================================
+
+      /// <summary>
+      /// Implement the ICloneable interface so properties can be cloned.
+      /// </summary>
+      /// <returns></returns>
       public override object Clone()
       {
           return new Hull(this);
       }
 
-      //============================================================================
-      // Provide a way to add properties in the ship design.
-      // Has no meaning in the context of a Hull.
-      //============================================================================
+
+      /// <summary>
+      /// Provide a way to add properties in the ship design.
+      /// Has no meaning in the context of a Hull.
+      /// </summary>
+      /// <param name="op1">First operand.</param>
+      /// <param name="op2">Second operand.</param>
+      /// <returns>The first operand.</returns>
       public static Hull operator +(Hull op1, Hull op2)
       {
           return op1;
       }
 
-      //============================================================================
-      // Operator* to scale (multiply) properties in the ship design.
-      // Has no meaning in the context of a Hull.
-      //============================================================================
+
+      /// <summary>
+      /// Operator* to scale (multiply) properties in the ship design.
+      /// Has no meaning in the context of a Hull.
+      /// </summary>
+      /// <param name="op1"></param>
+      /// <param name="scalar"></param>
+      /// <returns>The first operand.</returns>
       public static Hull operator *(Hull op1, int scalar)
       {
           return op1;
       }
 
-      // ============================================================================
-      // Load: Initialising Constructor from an xml node.
-      // Precondition: node is a "Property" node with Type=="Hull" in a Nova 
-      //               compenent definition file (xml document).
-      // ============================================================================
+
+      /// <summary>
+      /// Load: Initialising Constructor from an xml node.
+      /// </summary>
+      /// <param name="node">
+      /// A "Property" node with Type=="Hull" in a Nova 
+      ///  compenent definition file (xml document).</param>
       public Hull(XmlNode node)
       {
           Modules = new ArrayList();
@@ -148,38 +153,38 @@ namespace NovaCommon
                   }
                   
               }
-              catch
+              catch (Exception e)
               {
-                  // ignore incomplete or unset values
+                  Report.Error(e.Message);
               }
               subnode = subnode.NextSibling;
           }
       }
 
 
-// ============================================================================
-// Determine if this is a starbase hull
-// ============================================================================
-
+      /// <summary>
+      /// Determine if this is a starbase hull
+      /// </summary>
       public bool IsStarbase
       {
-         get { return (FuelCapacity == 0); }
+          get { return (FuelCapacity == 0); }
       }
 
-// ============================================================================
-// Determine if this is a starbase that can refuel
-// ============================================================================
 
+      /// <summary>
+      /// Determine if this is a starbase that can refuel
+      /// </summary>
       public bool CanRefuel
       {
           get { return (FuelCapacity == 0 && DockCapacity > 0); }
       }
 
 
-
-// ============================================================================
-// Save: Return an XmlElement representation of the Property
-// ============================================================================
+      /// <summary>
+      /// Save: Return an XmlElement representation of the Property
+      /// </summary>
+      /// <param name="xmldoc">The parent <see cref=XmlDocument/>.</param>
+      /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
       public override XmlElement ToXml(XmlDocument xmldoc)
       {
           XmlElement xmlelProperty = xmldoc.CreateElement("Property");

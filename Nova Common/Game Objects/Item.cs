@@ -1,5 +1,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // Base class for most game items.
 //
@@ -24,7 +26,7 @@ namespace NovaCommon
 // Mass     The mass of the item (in kT).
 // Name     The name of the derived item, for example the name of a star.
 // Owner    The race name of the owner of this item (null if no owner). 
-// Type     The type of the derived item (e.g. "ship", "star", etc.
+// Type     The type of the derived item (e.g. "ship", "star", etc.)
 // Position Position of the Item (if any)
 // ===========================================================================
 
@@ -37,21 +39,18 @@ namespace NovaCommon
       public  string    Owner    = null;
       public  string    Type     = null;
       public  Point     Position = new Point(0, 0);
-   
-
-// ===========================================================================
-// Default Construction
-// ===========================================================================
-
-      public Item()
-      {
-      }
 
 
-// ===========================================================================
-// Copy (initialising) constructor
-// ===========================================================================
+      /// <summary>
+      /// Default Construction
+      /// </summary>
+      public Item() { }
 
+
+      /// <summary>
+      /// Copy (initialising) constructor
+      /// </summary>
+      /// <param name="existing">An existing <see cref="Item"/>.</param>
       public Item(Item existing)
       {
          if (existing == null) return;
@@ -64,10 +63,10 @@ namespace NovaCommon
          this.Cost     = new Resources(existing.Cost);
       }
 
-       /// <summary>
-       /// Load: Initialising constructor from an XmlNode representing the Item (from a save file).
-       /// </summary>
-       /// <param name="node">An XmlNode representing the Item</param>
+      /// <summary>
+      /// Load: Initialising constructor from an XmlNode representing the Item (from a save file).
+      /// </summary>
+      /// <param name="node">An XmlNode representing the Item</param>
       public Item(XmlNode node)
       {
           if (node == null)
@@ -75,7 +74,7 @@ namespace NovaCommon
               Report.FatalError("Item.cs: Item(XmlNode node) - node is null - no Item found.");
               return;
           }
-          
+
           // There are two acceptable entry points to this constructor. Either node is 
           // an Item node, or it is a parent node of an Item node. The second case is allowed
           // for loading objects which inherit from Item.
@@ -85,11 +84,11 @@ namespace NovaCommon
           XmlNode itemNode;
           if (node.Name.ToLower() == "item")
           {
-                 itemNode = node;
+              itemNode = node;
           }
           else
           {
-           
+
               itemNode = node.SelectSingleNode("Item");
               if (itemNode == null)
               {
@@ -121,33 +120,29 @@ namespace NovaCommon
                       case "position":
                           Position.X = int.Parse(((subnode.SelectSingleNode("X")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                           Position.Y = int.Parse(((subnode.SelectSingleNode("Y")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                              break;
+                          break;
                       case "resource":
                           Cost = new Resources(subnode);
                           break;
                   }
               }
-                  
+
               catch (Exception e)
               {
                   Report.Error(e.Message + " \n Details: \n " + e.ToString());
               }
-                   
+
               subnode = subnode.NextSibling;
           }
 
       }
 
 
-// ============================================================================
-// Return a key for use in hash tables to locate items.
-// ============================================================================
-
-      public virtual string Key 
-      {
-         get { return this.Owner + "/" + this.Name; }
-      }
-
+      /// <summary>
+      /// Save: Return an XmlElement representation of the <see cref="Item"/>.
+      /// </summary>
+      /// <param name="xmldoc">The parent <see cref=XmlDocument/>.</param>
+      /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
       public XmlElement ToXml(XmlDocument xmldoc)
       {
           XmlElement xmlelItem = xmldoc.CreateElement("Item");
@@ -167,5 +162,14 @@ namespace NovaCommon
           }
           return xmlelItem;
       }
-   }
-}
+
+      /// <summary>
+      /// Return a key for use in hash tables to locate items.
+      /// </summary>
+      public virtual string Key
+      {
+          get { return this.Owner + "/" + this.Name; }
+      }
+
+   }//Item
+}//namespace
