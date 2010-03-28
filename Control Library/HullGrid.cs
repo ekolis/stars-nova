@@ -1,6 +1,7 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 // 
 // A component for displaying or editing a ship hull design.
 //

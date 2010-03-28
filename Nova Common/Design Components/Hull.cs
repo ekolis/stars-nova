@@ -1,6 +1,7 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This file defines the hull component. Always take a copy of a hull before
 // populating it in the ship designer (otherwise the "master" version will end
@@ -22,128 +23,6 @@ using System.Runtime.Serialization;
 namespace NovaCommon
 {
 
-// ============================================================================
-// The definition of the individual modules that make up a hull.
-// These are the slots which define what components may be fitted.
-// ============================================================================
-
-   [Serializable]
-   public class HullModule : ICloneable
-   {
-      public Component AllocatedComponent  = null;
-      public Image     ComponentImage      = null;
-      public int       CellNumber          = -1;
-      public int       ComponentCount      = 0;
-      public int       ComponentMaximum    = 1;
-      public string    ComponentType       = null;
-
-// ============================================================================
-// Construction
-// ============================================================================
-      
-      public HullModule()
-      {
-      }
-
-
-      // ============================================================================
-      // Copy constructor 
-      // ============================================================================
-
-      public HullModule(HullModule existing)
-      {
-         AllocatedComponent = existing.AllocatedComponent;
-         CellNumber         = existing.CellNumber;
-         ComponentCount     = existing.ComponentCount;
-         ComponentImage     = existing.ComponentImage;
-         ComponentMaximum   = existing.ComponentMaximum;
-         ComponentType      = existing.ComponentType;
-
-      }
-
-      //============================================================================
-      // Implement the ICloneable interface so modules can be cloned.
-      //============================================================================
-      public object Clone()
-      {
-          return new HullModule(this);
-      }
-
-      // ============================================================================
-      // Initialising Constructor from an xml node.
-      // Precondition: node is named "Module" within a "Property" node with Type=="Hull" 
-      //               in a Nova compenent definition file (xml document).
-      // ============================================================================
-      public HullModule(XmlNode node)
-      {
-          XmlNode subnode = node.FirstChild;
-          while (subnode != null)
-          {
-              try
-              {
-                  if (subnode.Name.ToLower() == "cellnumber")
-                  {
-                      CellNumber = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  else if (subnode.Name.ToLower() == "componentmaximum")
-                  {
-                      ComponentMaximum = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  else if (subnode.Name.ToLower() == "componentcount")
-                  {
-                      ComponentCount = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  else if (subnode.Name.ToLower() == "componenttype")
-                  {
-                      ComponentType = ((XmlText)subnode.FirstChild).Value;
-                  }
-
-                  
-                 
-              }
-              catch
-              {
-                  // ignore incomplete or unset values
-              }
-              subnode = subnode.NextSibling;
-          }
-      }
-
-
-// ============================================================================
-// Return an XmlElement representation of the Property
-// ============================================================================
-      public XmlElement ToXml(XmlDocument xmldoc)
-      {
-          XmlElement xmlelModule = xmldoc.CreateElement("Module");
-
-          // CellNumber
-          XmlElement xmlelCellNumber = xmldoc.CreateElement("CellNumber");
-          XmlText xmltxtCellNumber = xmldoc.CreateTextNode(this.CellNumber.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelCellNumber.AppendChild(xmltxtCellNumber);
-          xmlelModule.AppendChild(xmlelCellNumber);
-          // ComponentCount
-          XmlElement xmlelComponentCount = xmldoc.CreateElement("ComponentCount");
-          XmlText xmltxtComponentCount = xmldoc.CreateTextNode(this.ComponentCount.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelComponentCount.AppendChild(xmltxtComponentCount);
-          xmlelModule.AppendChild(xmlelComponentCount);
-          // ComponentMaximum
-          XmlElement xmlelComponentMaximum = xmldoc.CreateElement("ComponentMaximum");
-          XmlText xmltxtComponentMaximum = xmldoc.CreateTextNode(this.ComponentMaximum.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelComponentMaximum.AppendChild(xmltxtComponentMaximum);
-          xmlelModule.AppendChild(xmlelComponentMaximum);
-          // ComponentType
-          XmlElement xmlelComponentType = xmldoc.CreateElement("ComponentType");
-          XmlText xmltxtComponentType = xmldoc.CreateTextNode(this.ComponentType);
-          xmlelComponentType.AppendChild(xmltxtComponentType);
-          xmlelModule.AppendChild(xmlelComponentType);
-
-
-
-          return xmlelModule;
-      }
-   }
-   
 
 // ============================================================================
 // The definition of a hull object.
@@ -295,6 +174,8 @@ namespace NovaCommon
       {
           get { return (FuelCapacity == 0 && DockCapacity > 0); }
       }
+
+
 
 // ============================================================================
 // Save: Return an XmlElement representation of the Property

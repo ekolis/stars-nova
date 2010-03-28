@@ -676,10 +676,19 @@ namespace NovaConsole
         /// </summary>
         private void PlayerList_DoubleClick(object sender, EventArgs e)
         {
-                // Find what was clicked
-                String raceName = PlayerList.SelectedItems[0].SubItems[1].Text;
-                try
-                {
+            // Find what was clicked
+            String raceName;
+            try
+            {
+                raceName = PlayerList.SelectedItems[0].SubItems[1].Text;
+            }
+            catch
+            {
+                // On occasion this fires but SelectedItems is empty. Ignore and let the user re-click. See issue 2974019.
+                return;
+            }
+            try
+            {
 
                 // Find the Nova GUI
                 String NovaGuiApp;
