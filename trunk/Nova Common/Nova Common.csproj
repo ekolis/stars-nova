@@ -111,6 +111,7 @@
     </Compile>
     <Compile Include="CommandArguments.cs" />
     <Compile Include="Defenses.cs" />
+    <Compile Include="Design Components\HullModule.cs" />
     <Compile Include="Design Components\RaceComponents.cs" />
     <Compile Include="Design Components\Bomb.cs" />
     <Compile Include="Design Components\Capacitor.cs" />
