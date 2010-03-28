@@ -343,8 +343,10 @@ namespace NovaConsole
             else {
                Star star=StateData.AllStars[thisWaypoint.Destination] as Star;
 
-               if (star != null) {
+               if (star != null) 
+               {
                   fleet.InOrbit = star;
+                  star.OrbitingFleets = true;
                }
 
                WaypointTasks.Perform(fleet, thisWaypoint);

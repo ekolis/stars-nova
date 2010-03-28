@@ -626,6 +626,12 @@ namespace NovaConsole
         /// </summary>
         private void ForceMenuItem_Click(object sender, EventArgs e)
         {
+            DialogResult result = MessageBox.Show("One or more races have not yet turned in. Are you sure you want to generate the next turn?", "Nova - Warning",
+                      MessageBoxButtons.YesNo,
+                      MessageBoxIcon.Warning);
+
+            if (result != DialogResult.Yes) return;
+
             GenerateTurn();
         }
 
@@ -653,6 +659,7 @@ namespace NovaConsole
                 return;
             }
              */
+
             if (ServerState.Data.StatePathName == null || !File.Exists(ServerState.Data.StatePathName))
             {
                 Report.Error("There is no game open. Open a current game or create a new game.");

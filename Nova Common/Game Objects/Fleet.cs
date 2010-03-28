@@ -261,15 +261,6 @@ namespace NovaCommon
             {
                 Position = target.Position;
                 target.WarpFactor = 0;
-
-                // TODO (priority 5) - If we have arrived at a planet, update the InOrbit
-                // need to refactor this out of fleet so that a) we have access to a StarList; and b) because only the server should move a fleet.
-                /*
-               if (target.Destination != null)
-               {
-                   Star star = 
-               }
-                 * */
             }
             else
             {

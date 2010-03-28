@@ -63,11 +63,6 @@ namespace NovaServer
                 if (File.Exists(fileName) == false)
                 {
                     return;
-                    // TODO (priority 5) move this to a warning when generating a new turn.
-                    Report.Error("There is no turn file for the " + race.Name
-                                      + " race.\n\nYou may only generate the first "
-                                      + "turn of a game when all race turn files are "
-                                      + "present.");
                 }
 
                 // Load from a binary serialised file (old format).
