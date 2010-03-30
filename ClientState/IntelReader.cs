@@ -12,6 +12,8 @@
 // Software Foundation.
 // ============================================================================
 
+#region Using Statements
+
 using System;
 using System.IO;
 using System.Collections;
@@ -21,12 +23,10 @@ using System.Runtime.Serialization;
 
 using NovaCommon;
 
+#endregion
+
 namespace NovaClient
 {
- 
-// ============================================================================
-// Class to deal with the input turn data
-// ============================================================================
 
    public static class IntelReader
    {
@@ -310,7 +310,7 @@ namespace NovaClient
       /// <summary>
       /// Determine the fleets owned by the player (this is a convenience function so
       /// that buttons such as "Next" and "Previous" on the ship detail panel are easy
-      /// to code,
+      /// to code.
       /// </summary>
       private static void DeterminePlayerFleets()
       {

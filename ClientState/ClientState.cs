@@ -1,8 +1,11 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
-// This file contains data that are persistent across multiple invokations of
-// dialogs and even muliple inovcations of the GUI itself. 
+// This module brings together references to all the data which the GUI needs
+// and provides the means to persist that data between sessions. This is also
+// used by the AI, hence it is applicable to any Nova client.
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free
@@ -27,12 +30,6 @@ using Microsoft.Win32;
 
 using NovaCommon;
 #endregion
-
-// ============================================================================
-// Manipulation of data that is persistent across muliple invocations of the
-// GUI. Some things don't need to be persistent but it's convenient to keep all
-// "global" data in one place.
-// ============================================================================
 
 namespace NovaClient
 {
@@ -116,11 +113,12 @@ namespace NovaClient
         }
         #endregion
 
+        #region Methods
 
-        // ============================================================================
-        // Initialise the data needed for the GUI to run.
-        // ============================================================================
-
+        /// <summary>
+        /// Initialise the data needed for the GUI to run.
+        /// </summary>
+        /// <param name="argArray">The command line arguments.</param>
         public static void Initialize(string[] argArray)
         {
             // Need to identify the RaceName so we can load the correct race's intel.
@@ -347,18 +345,16 @@ namespace NovaClient
             ClientState.Data.FirstTurn = false;
         }
 
-
-
-
-        // ============================================================================
-        // Read the race definition file into the persistent data store. If this is the
-        // very first turn of a new game then process it's content to set up initial
-        // race parameters (e.g. initial technology levels, etc.).
-        // FIXME (priority 4) - this is unsafe as the .race file may have changed since the game was
-        // generated. Current thinking is that this should be included in the .Intel file
-        // every turn. -- Dan Vale 10 Jan 10.
-        // ============================================================================
-
+        /// <summary>
+        /// Read the race definition file into the persistent data store. If this is the
+        /// very first turn of a new game then process it's content to set up initial
+        /// race parameters (e.g. initial technology levels, etc.).
+        /// </summary>
+        /// <remarks>
+        /// FIXME (priority 4) - this is unsafe as the .race file may have changed since the game was
+        /// generated. Current thinking is that this should be included in the .Intel file
+        /// every turn. -- Dan Vale 10 Jan 10.
+        /// </remarks>
         private static void ProcessRaceDefinition()
         {
             string raceFileName = Path.Combine(FileSearcher.GetFolder( Global.RaceFolderKey, Global.RaceFolderName),
@@ -381,8 +377,6 @@ namespace NovaClient
         /// </summary>
         private static void ProcessPrimaryTraits()
         {
-
-
             // TODO (priority 3) Special Components
             // Races are granted access to components currently based on tech level and primary/secondary traits (not tested).
             // Need to grant special access in a few circumstances
@@ -476,11 +470,9 @@ namespace NovaClient
         }
 
 
-
-        // ============================================================================
-        // Read the Secondary Traits for this race.
-        // ============================================================================
-
+        /// <summary>
+        /// Read the Secondary Traits for this race.
+        /// </summary>
         private static void ProcessSecondaryTraits()
         {
             // TODO (priority 3) finish the rest of the LRTs.
@@ -581,7 +573,6 @@ namespace NovaClient
 
         }
 
-        #region Methods
 
         /// <summary>
         /// Restore the GUI persistent data if the state store file exists (it typically
@@ -742,12 +733,15 @@ namespace NovaClient
         */
         }
 
-        #endregion
 
-        // ============================================================================
-        // Pop up a dialog to select the race to play
-        // ============================================================================
-
+        /// <summary>
+        /// Pop up a dialog to select the race to play
+        /// </summary>
+        /// <param name="gameFolder">The folder to look in for races.</param>
+        /// <remarks>
+        /// FIXME (priority 4) - This is unsafe as these may not be the races playing.
+        /// </remarks>
+        /// <returns>The name of the race to play.</returns>
         private static string SelectRace(String gameFolder)
         {
             string raceName = null;
@@ -796,6 +790,7 @@ namespace NovaClient
             return raceName;
         }
 
+        #endregion
     }
 }
 
