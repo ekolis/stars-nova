@@ -1,5 +1,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This GUI module will generate the player's Orders, which are written to file and sent to the Nova
 // Console so that the turn for the next year can be generated. 
@@ -24,10 +26,6 @@ using System.Runtime.Serialization.Formatters.Binary;
 using NovaCommon;
 #endregion
 
-// ============================================================================
-// WriteOrders the player's turn.
-// ============================================================================
-
 namespace NovaClient
 {
    public static class OrderWriter
@@ -38,17 +36,15 @@ namespace NovaClient
 // NovaCommon Orders.cs
 // ---------------------------------------------------------------------------
 
-      private static ClientState        StateData  = null;
+      private static ClientState     StateData  = null;
       private static Intel           InputTurn  = null; // TODO (priority 4) - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
       private static string          RaceName   = null;
 
-
-// ============================================================================
-// WriteOrders the player's turn. We don't bother checking what's changed we just
-// send the details of everything owned by the player's race and the Nova
-// Console will update its master copy of everything.
-// ============================================================================
-
+      /// <summary>
+      /// WriteOrders the player's turn. We don't bother checking what's changed we just
+      /// send the details of everything owned by the player's race and the Nova
+      /// Console will update its master copy of everything.
+      /// </summary>
       public static void WriteOrders()
       {
          StateData  = ClientState.Data;
@@ -64,10 +60,12 @@ namespace NovaClient
          outputTurn.PlayerData      = playerData;
          outputTurn.TechLevel       = CountTechLevels();
 
-         foreach (Fleet fleet in InputTurn.AllFleets.Values) {
-            if (fleet.Owner == RaceName) {
-               outputTurn.RaceFleets.Add(fleet.FleetID, fleet);
-            }
+         foreach (Fleet fleet in InputTurn.AllFleets.Values)
+         {
+             if (fleet.Owner == RaceName)
+             {
+                 outputTurn.RaceFleets.Add(fleet.FleetID, fleet);
+             }
          }
 
          // While adding the details of the stars owned by the player's race
@@ -78,54 +76,59 @@ namespace NovaClient
 
          StateData.ResearchAllocation = 0;
 
-         foreach (Star star in InputTurn.AllStars.Values) {
-            if (star.Owner == RaceName) {
-               star.ResearchAllocation = (int) ((star.ResourcesOnHand.Energy
-                                          *  StateData.ResearchBudget) / 100);
+         foreach (Star star in InputTurn.AllStars.Values)
+         {
+             if (star.Owner == RaceName)
+             {
+                 star.ResearchAllocation = (int)((star.ResourcesOnHand.Energy
+                                            * StateData.ResearchBudget) / 100);
 
-               StateData.ResearchAllocation += star.ResearchAllocation;
-               outputTurn.RaceStars.Add(star);
-            }
+                 StateData.ResearchAllocation += star.ResearchAllocation;
+                 outputTurn.RaceStars.Add(star);
+             }
          }
-          
-         foreach (Design design in InputTurn.AllDesigns.Values) {
-            if (design.Owner == RaceName) {
-               outputTurn.RaceDesigns.Add(design.Key, design);
-            }
+
+         foreach (Design design in InputTurn.AllDesigns.Values)
+         {
+             if (design.Owner == RaceName)
+             {
+                 outputTurn.RaceDesigns.Add(design.Key, design);
+             }
          }
-         
-         foreach (string fleetName in StateData.DeletedFleets) {
-            outputTurn.DeletedFleets.Add(fleetName);
+
+         foreach (string fleetName in StateData.DeletedFleets)
+         {
+             outputTurn.DeletedFleets.Add(fleetName);
          }
 
          foreach (string designKey in StateData.DeletedDesigns)
          {
-            outputTurn.DeletedFleets.Add(designKey);
+             outputTurn.DeletedFleets.Add(designKey);
          }
 
          string turnFileName = Path.Combine(StateData.GameFolder, RaceName + ".Orders");
 
-          // outputTurn.ToBinary(turnFileName); // old binary serialised format
-          outputTurn.ToXml(turnFileName); // human readable xml format
+         // outputTurn.ToBinary(turnFileName); // old binary serialised format
+         outputTurn.ToXml(turnFileName); // human readable xml format
 
       }
 
 
-// ============================================================================
-// Return the sum of the levels reached in all research areas
-// ============================================================================
-
+      /// <summary>
+      /// Return the sum of the levels reached in all research areas
+      /// </summary>
+      /// <returns>The sum of all tech levels.</returns>
       private static int CountTechLevels()
       {
-         StateData = ClientState.Data;
-         int total = 0;
+          StateData = ClientState.Data;
+          int total = 0;
 
-         foreach (int techLevel in StateData.ResearchLevel)
-         {
-             total += techLevel;
-         }
+          foreach (int techLevel in StateData.ResearchLevel)
+          {
+              total += techLevel;
+          }
 
-         return total;
+          return total;
       }
 
    }
