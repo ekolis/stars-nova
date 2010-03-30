@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" >
+<head>
+    <title>Nova Console</title>
+    <link href="./StyleSheet.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+  <script src="./Scripts/Header.js" type="text/javascript"> </script> 
+    <h1>
+        Nova Console<br />
+    </h1>
+    This is the main console or server program. It only has two functions: Generate
+    a fresh new game and generate the turns for each subsequent year. The console program
+    generates a single "turn file" which is distributed to all game players. This file
+    is read by the <em>Nova</em> GUI program to allow each player to see the state of
+    the game.<br />
+    <br />
+    Each player generates his turn for the next year which are all gathered into a single
+    place where the console program uses them to generate the turn for the next year.<br />
+    <br />
+    Consequently, having only two functions, the program appears very simple to the
+    user but it actually contains most of the "guts" behind the game play. Here is
+    a screen shot:<br />
+    <br />
+    <img src="./Graphics/NovaConsole.jpg" />&nbsp;<br />
+    When a new game is started there is the expected dialog to define the victory conditions:<br />
+    <br />
+    <img src="./Graphics/VictoryConditions.jpg" />
+    
+       <script src="./Scripts/Footer.js" type="text/javascript"> </script> 
+</body>
+</html>
