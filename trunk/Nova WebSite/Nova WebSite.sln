@@ -1,8 +1,9 @@
 ﻿
-Microsoft Visual Studio Solution File, Format Version 9.00
-# Visual Web Developer Express 2005
-Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\Ken\Nova WebSite\", ".", "{96696EAD-F7A1-41C1-ADF9-9BA2FC45109B}"
+Microsoft Visual Studio Solution File, Format Version 10.00
+# Visual Studio 2008
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "Nova WebSite", ".", "{96696EAD-F7A1-41C1-ADF9-9BA2FC45109B}"
 	ProjectSection(WebsiteProperties) = preProject
+		TargetFramework = "3.5"
 		Debug.AspNetCompiler.VirtualPath = "/Nova WebSite"
 		Debug.AspNetCompiler.PhysicalPath = "..\Nova WebSite\"
 		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Nova WebSite\"
