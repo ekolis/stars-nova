@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 9.00
+# Visual Web Developer Express 2005
+Project("{E24C65DC-7377-472B-9ABA-BC803B73C61A}") = "C:\Ken\Nova WebSite\", ".", "{96696EAD-F7A1-41C1-ADF9-9BA2FC45109B}"
+	ProjectSection(WebsiteProperties) = preProject
+		Debug.AspNetCompiler.VirtualPath = "/Nova WebSite"
+		Debug.AspNetCompiler.PhysicalPath = "..\Nova WebSite\"
+		Debug.AspNetCompiler.TargetPath = "PrecompiledWeb\Nova WebSite\"
+		Debug.AspNetCompiler.Updateable = "true"
+		Debug.AspNetCompiler.ForceOverwrite = "true"
+		Debug.AspNetCompiler.FixedNames = "false"
+		Debug.AspNetCompiler.Debug = "True"
+		Release.AspNetCompiler.VirtualPath = "/Nova WebSite"
+		Release.AspNetCompiler.PhysicalPath = "..\Nova WebSite\"
+		Release.AspNetCompiler.TargetPath = "PrecompiledWeb\Nova WebSite\"
+		Release.AspNetCompiler.Updateable = "true"
+		Release.AspNetCompiler.ForceOverwrite = "true"
+		Release.AspNetCompiler.FixedNames = "false"
+		Release.AspNetCompiler.Debug = "False"
+		VWDPort = "49431"
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|.NET = Debug|.NET
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{96696EAD-F7A1-41C1-ADF9-9BA2FC45109B}.Debug|.NET.ActiveCfg = Debug|.NET
+		{96696EAD-F7A1-41C1-ADF9-9BA2FC45109B}.Debug|.NET.Build.0 = Debug|.NET
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
