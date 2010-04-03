@@ -1,8 +1,11 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // Randomly pick a star name from a list of star names and remove that name so
-// that it doesn't get allocated again.
+// that it doesn't get allocated again. This is really just a case of putting a
+// fixed set of names into a hat and pulling them out one by one.
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free
@@ -15,62 +18,58 @@ using System.Collections;
 namespace Nova.NewGame
 {
 
-
-// ============================================================================
-// Randomly generate star names. This is really just a case of putting a
-// fixed set of names into a hat and pulling them out one by one.
-// ============================================================================
-
-   public class NameGenerator
-   {
-      Random    RandomGenerator = new Random();
-      ArrayList NamePool        = new ArrayList();
+    public class NameGenerator
+    {
+        Random RandomGenerator = new Random();
+        ArrayList NamePool = new ArrayList();
 
 
-// ============================================================================
-// Construction, put all of our star names into our hat.
-// ============================================================================
-
-      public NameGenerator()
-      {
-         foreach (string name in StarNames) {
-            NamePool.Add(name);
-         }
-      }
-
-
-// ============================================================================
-// Randomly pull a star name out of our hat.
-// ============================================================================
-
-      public string NextName {
-         get {
-            int    index = RandomGenerator.Next(0, NamePool.Count - 1);
-            string name  = (string) NamePool[index];
-      
-            NamePool.RemoveAt(index);
-      
-            return name;
-         }
-      }
+        /// <summary>
+        /// Construction, put all of our star names into our hat.
+        /// </summary>
+        public NameGenerator()
+        {
+            foreach (string name in StarNames)
+            {
+                NamePool.Add(name);
+            }
+        }
 
 
-// ============================================================================
-// Return the number of star names we can generate.
-// ============================================================================
+        /// <summary>
+        /// Randomly pull a star name out of our hat.
+        /// </summary>
+        public string NextName
+        {
+            get
+            {
+                int index = RandomGenerator.Next(0, NamePool.Count - 1);
+                string name = (string)NamePool[index];
 
-      public int Capacity {
-         get {
-            return NamePool.Count;
-         }
-      }
+                NamePool.RemoveAt(index);
+
+                return name;
+            }
+        }
 
 
-// ============================================================================
-// The list of star names we can return.
-// ============================================================================
+        /// <summary>
+        /// Return the number of star names we can generate.
+        /// </summary>
+        public int Capacity
+        {
+            get
+            {
+                return NamePool.Count;
+            }
+        }
 
-      private string[] StarNames = {
+
+        /// <summary>
+        /// The list of star names we can return.
+        /// </summary>
+        private string[] StarNames = 
+        {
          "A'po",
          "Abacus",
          "Abbott",
@@ -1283,5 +1282,5 @@ namespace Nova.NewGame
          "Zulu"
       };
 
-   }
+    }
 }
