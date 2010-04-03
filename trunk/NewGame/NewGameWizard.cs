@@ -68,6 +68,7 @@ namespace Nova.NewGame
 
 
       #region Event Methods
+
       /// <summary>
       /// Occurs when the OK button is clicked.
       /// </summary>
@@ -85,6 +86,7 @@ namespace Nova.NewGame
           GameSettings.Data.TargetsToMeet = Int32.Parse(TargetsToMeet.Text, System.Globalization.CultureInfo.InvariantCulture);
           GameSettings.Data.MinimumGameTime = Int32.Parse(MinimumGameTime.Text, System.Globalization.CultureInfo.InvariantCulture);
       }
+
 
       /// <summary>
       /// Occurs when the Tutorial button is clicked.
@@ -109,6 +111,7 @@ namespace Nova.NewGame
       {
           GameSettings.Data.MapHeight = (int)mapHeight.Value;
       }
+
 
       /// <summary>
       /// Update the MapWidth when the user changes the NumericUpDown

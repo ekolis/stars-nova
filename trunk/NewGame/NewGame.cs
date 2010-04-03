@@ -101,7 +101,7 @@ namespace NewGame
                 {
                     // TODO (priority 4) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
                     // Stars! solution is to rename the race using a list of standard names. 
-                    if ( ! ServerState.Data.AllRaces.Contains(settings.RaceName))
+                    if (!ServerState.Data.AllRaces.Contains(settings.RaceName))
                         ServerState.Data.AllRaces.Add(settings.RaceName, newGameWizard.KnownRaces[settings.RaceName]);
                 }
 
@@ -138,6 +138,8 @@ namespace NewGame
 
         } // Main
 
+        #region Methods
+
         /// <summary>
         /// Generate all the stars. We have two helper classes to assist in doing this:
         /// a name generator to allocate star names and a space generator to ensure
@@ -155,21 +157,22 @@ namespace NewGame
 
             for (int count = 0; count < numberOfStars; count++)
             {
-                Star star = new Star();
+                Star star      = new Star();
 
                 Rectangle area = spaceAllocator.GetBox();
-                star.Position = PointUtilities.GetPositionInBox(area, 10);
+                star.Position  = PointUtilities.GetPositionInBox(area, 10);
 
-                star.Name = nameGenerator.NextName;
-                star.MineralConcentration.Boranium = random.Next(1, 99);
-                star.MineralConcentration.Ironium = random.Next(1, 99);
+                star.Name      = nameGenerator.NextName;
+
+                star.MineralConcentration.Boranium  = random.Next(1, 99);
+                star.MineralConcentration.Ironium   = random.Next(1, 99);
                 star.MineralConcentration.Germanium = random.Next(1, 99);
 
                 // The following values are percentages of the permissable range of
                 // each environment parameter expressed as a percentage.
 
-                star.Radiation = random.Next(1, 99);
-                star.Gravity = random.Next(1, 99);
+                star.Radiation   = random.Next(1, 99);
+                star.Gravity     = random.Next(1, 99);
                 star.Temperature = random.Next(1, 99);
 
                 ServerState.Data.AllStars[star.Name] = star;
@@ -177,122 +180,127 @@ namespace NewGame
         }
 
 
-// ===========================================================================
-// Initialise the general game data for each player. E,g, picking a home
-// planet, allocating initial resources, etc.
-// ===========================================================================
+        /// <summary>
+        /// Initialise the general game data for each player. E,g, picking a home
+        /// planet, allocating initial resources, etc.
+        /// </summary>
+        private static void InitialisePlayerData()
+        {
+            SpaceAllocator spaceAllocator = new SpaceAllocator
+                           (ServerState.Data.AllRaces.Count);
 
-      private static void InitialisePlayerData()
-      {
-         SpaceAllocator spaceAllocator = new SpaceAllocator
-                        (ServerState.Data.AllRaces.Count);
+            // FIXME (priority 4) ignores map height
+            spaceAllocator.AllocateSpace(GameSettings.Data.MapWidth);
 
-          // FIXME (priority 4) ignores map height
-         spaceAllocator.AllocateSpace(GameSettings.Data.MapWidth);
+            foreach (Race race in ServerState.Data.AllRaces.Values)
+            {
+                string player = race.Name;
 
-         foreach (Race race in ServerState.Data.AllRaces.Values) {
-            string player  = race.Name;
+                Design mine     = new Design();
+                Design factory  = new Design();
+                Design Defense  = new Design();
 
-            Design mine    = new Design();
-            Design factory = new Design();
-            Design Defense = new Design();
+                mine.Cost       = new NovaCommon.Resources(0, 0, 0, race.MineBuildCost);
+                mine.Name       = "Mine";
+                mine.Type       = "Mine";
+                mine.Owner      = player;
 
-            mine.Cost      = new NovaCommon.Resources(0, 0, 0, race.MineBuildCost);
-            mine.Name      = "Mine";
-            mine.Type      = "Mine";
-            mine.Owner     = player;
+                // If we have the secondary racial trait Cheap Factories they need 1K
+                // less germanium to build.
+                int factoryBuildCostGerm = (race.HasTrait("CF") ? 3 : 4);
+                factory.Cost    = new NovaCommon.Resources(0, 0, factoryBuildCostGerm, race.FactoryBuildCost);
+                factory.Name    = "Factory";
+                factory.Type    = "Factory";
+                factory.Owner   = player;
 
-            // If we have the secondary racial trait Cheap Factories they need 1K
-            // less germanium to build.
-            int factoryBuildCostGerm = (race.HasTrait("CF") ? 3 : 4);
-            factory.Cost   = new NovaCommon.Resources(0, 0, factoryBuildCostGerm, race.FactoryBuildCost);
-            factory.Name   = "Factory";
-            factory.Type   = "Factory";
-            factory.Owner  = player;
+                Defense.Cost    = new NovaCommon.Resources(5, 5, 5, 15);
+                Defense.Name    = "Defenses";
+                Defense.Type    = "Defenses";
+                Defense.Owner   = player;
 
-            Defense.Cost   = new NovaCommon.Resources(5, 5, 5, 15);
-            Defense.Name   = "Defenses";
-            Defense.Type   = "Defenses";
-            Defense.Owner  = player;
+                ServerState.Data.AllDesigns[player + "/Mine"]     = mine;
+                ServerState.Data.AllDesigns[player + "/Factory"]  = factory;
+                ServerState.Data.AllDesigns[player + "/Defenses"] = Defense;
 
-            ServerState.Data.AllDesigns[player + "/Mine"]     = mine;
-            ServerState.Data.AllDesigns[player + "/Factory"]  = factory; 
-            ServerState.Data.AllDesigns[player + "/Defenses"] = Defense;
-
-            InitialiseHomeStar(race, spaceAllocator);
-         }
-         
-         NovaCommon.Message welcome = new NovaCommon.Message();
-         welcome.Text     = "Your race is ready to explore the universe.";
-         welcome.Audience = "*";
-
-         ServerState.Data.AllMessages.Add(welcome);
-      }
-
-
-// ============================================================================
-// Allocate a "home" star system for each player giving it some colonists and
-// initial resources. We use the space allocater helper class to ensure that
-// the home systems for each race are not too close together.
-// ============================================================================
-
-      private static void InitialiseHomeStar(Race           race, 
-                                             SpaceAllocator spaceAllocator)
-      {
-         ServerState stateData = ServerState.Data;
-
-         Rectangle box = spaceAllocator.GetBox(); 
-         foreach (Star star in stateData.AllStars.Values) {
-            if (PointUtilities.InBox(star.Position, box)) {
-               AllocateHomeStarResources(star, race);
-               return;
+                InitialiseHomeStar(race, spaceAllocator);
             }
-         }
 
-         Report.FatalError("Could not allocate home star");
-      }
+            NovaCommon.Message welcome = new NovaCommon.Message();
+            welcome.Text = "Your race is ready to explore the universe.";
+            welcome.Audience = "*";
 
-
-// ============================================================================
-// Allocate an initial set of resources to a player's "home" star system. for
-// each player giving it some colonists and initial resources. 
-// ============================================================================
-
-      private static void AllocateHomeStarResources(Star star, Race race)
-      {
-         star.ResourcesOnHand.Boranium       = random.Next(300, 500);
-         star.ResourcesOnHand.Ironium        = random.Next(300, 500);
-         star.ResourcesOnHand.Germanium      = random.Next(300, 500);
-         star.ResourcesOnHand.Energy         = 25;
-
-         star.MineralConcentration.Boranium  = random.Next(50, 100);
-         star.MineralConcentration.Ironium   = random.Next(50, 100);
-         star.MineralConcentration.Germanium = random.Next(50, 100);
-
-         star.Owner                          = race.Name;
-         star.ScannerType                    = "Scoper 150"; // TODO (priority 4) get from component list
-         star.DefenseType                    = "SDI"; // TODO (priority 4) get from component list
-         star.ScanRange                      = 50; // TODO (priority 4) get from component list
-         star.Mines                          = 10;
-         star.Factories                      = 10;
-
-         // Set the habital values for this star to the optimum for each race.
-         // This should result in a planet value of 100% for this race's home
-         // world.
-
-         star.Radiation   = race.OptimumRadiationLevel;
-         star.Temperature = race.OptimumTemperatureLevel;
-         star.Gravity     = race.OptimumGravityLevel;
-
-         if (race.HasTrait("LSP"))
-         {
-            star.Colonists = 17500;
-         }
-         else {
-            star.Colonists = 25000;
-         }
-      }
+            ServerState.Data.AllMessages.Add(welcome);
+        }
 
 
+        /// <summary>
+        /// Allocate a "home" star system for each player giving it some colonists and
+        /// initial resources. We use the space allocater helper class to ensure that
+        /// the home systems for each race are not too close together.
+        /// </summary>
+        /// <param name="race"></param>
+        /// <param name="spaceAllocator"></param>
+        private static void InitialiseHomeStar(Race race,
+                                               SpaceAllocator spaceAllocator)
+        {
+            ServerState stateData = ServerState.Data;
+
+            Rectangle box = spaceAllocator.GetBox();
+            foreach (Star star in stateData.AllStars.Values)
+            {
+                if (PointUtilities.InBox(star.Position, box))
+                {
+                    AllocateHomeStarResources(star, race);
+                    return;
+                }
+            }
+
+            Report.FatalError("Could not allocate home star");
+        }
+
+
+        /// <summary>
+        /// Allocate an initial set of resources to a player's "home" star system. for
+        /// each player giving it some colonists and initial resources. 
+        /// </summary>
+        /// <param name="star"></param>
+        /// <param name="race"></param>
+        private static void AllocateHomeStarResources(Star star, Race race)
+        {
+            star.ResourcesOnHand.Boranium  = random.Next(300, 500);
+            star.ResourcesOnHand.Ironium   = random.Next(300, 500);
+            star.ResourcesOnHand.Germanium = random.Next(300, 500);
+            star.ResourcesOnHand.Energy    = 25;
+
+            star.MineralConcentration.Boranium  = random.Next(50, 100);
+            star.MineralConcentration.Ironium   = random.Next(50, 100);
+            star.MineralConcentration.Germanium = random.Next(50, 100);
+
+            star.Owner       = race.Name;
+            star.ScannerType = "Scoper 150"; // TODO (priority 4) get from component list
+            star.DefenseType = "SDI"; // TODO (priority 4) get from component list
+            star.ScanRange   = 50; // TODO (priority 4) get from component list
+            star.Mines       = 10;
+            star.Factories   = 10;
+
+            // Set the habital values for this star to the optimum for each race.
+            // This should result in a planet value of 100% for this race's home
+            // world.
+
+            star.Radiation   = race.OptimumRadiationLevel;
+            star.Temperature = race.OptimumTemperatureLevel;
+            star.Gravity     = race.OptimumGravityLevel;
+
+            if (race.HasTrait("LSP"))
+            {
+                star.Colonists = 17500;
+            }
+            else
+            {
+                star.Colonists = 25000;
+            }
+        }
+
+        #endregion
     }
 }
