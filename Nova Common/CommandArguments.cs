@@ -1,10 +1,11 @@
 ﻿// ============================================================================
-// Nova. (c) 2010 stars-nova
+// Nova. 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // An object for managing creation, passing and digesting of command line
 // arguments.
 //
-// arguments are stored as option/argument pairs in the Dictionary
+// arguments are stored as option/argument pairs in a Dictionary
 // use ToString() to get the argument list as a single string (the format need for Process.Start() )
 // ust ToArray() to get the argument list as a string[] (the format recieved by main() )
 //
