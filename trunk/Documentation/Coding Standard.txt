@@ -1,0 +1,46 @@
+Not much of a standard yet!
+
+
+
+HEADERS
+-------
+
+// ============================================================================
+// Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
+//
+// <Description>
+//
+// This is free software. You can redistribute it and/or modify it under the
+// terms of the GNU General Public License version 2 as published by the Free
+// Software Foundation.
+// ===========================================================================
+or 
+
+// ============================================================================
+// Nova. 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
+//
+// <Description>
+//
+// This is free software. You can redistribute it and/or modify it under the
+// terms of the GNU General Public License version 2 as published by the Free
+// Software Foundation.
+// ===========================================================================
+
+Event Functions
+---------------
+
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+
+
+When refering to types in function headers, use the 'see cref=""' form:
+
+        /// <param name="star">The <see cref="Star"/> being reported</param>
+
+
+INDENTING
+----------
+Use Visual Studio defaults for indenting. This can be acheived by cutting an object or function and then pasting it back in (Ctrl-X, Ctrl-v).
