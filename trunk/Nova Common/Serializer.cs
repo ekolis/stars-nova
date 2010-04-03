@@ -1,4 +1,14 @@
-﻿namespace NovaCommon
+﻿// ============================================================================
+// Nova. 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
+//
+// <Description>
+//
+// This is free software. You can redistribute it and/or modify it under the
+// terms of the GNU General Public License version 2 as published by the Free
+// Software Foundation.
+// ===========================================================================
+namespace NovaCommon
 {
     #region Using Statements
     using System.IO;

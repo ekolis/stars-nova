@@ -1,4 +1,9 @@
-﻿using System;
+﻿// ============================================================================
+// (c) Mathew Adams, 2001
+// The Code Project
+// http://www.codeproject.com/KB/miscctrl/progressdialog.aspx
+// ===========================================================================
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;

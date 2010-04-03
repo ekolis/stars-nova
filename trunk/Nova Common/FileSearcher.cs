@@ -1,7 +1,7 @@
 ﻿// ============================================================================
 // Nova. (c) 2010 Daniel Vale
 //
-// The FileSearch object is used to find a file that is part of Nova. It uses
+// The FileSearcher object is used to find a file that is part of Nova. It uses
 // the following stratergy:
 // First, check if the file path is defined by a registry key, else
 // see if the file is in the expected relative path location, else
@@ -28,15 +28,12 @@ namespace NovaCommon
 {
     public static class FileSearcher
     {
-
-        // ============================================================================
-        // 
-        // ============================================================================
+        #region Public Methods
 
         /// <summary>
         /// Identify the player race's. 
-        // This is done by enumerating the race files present and
-        // loading each race definition.
+        /// This is done by enumerating the race files present and
+        /// loading each race definition.
         /// </summary>
         /// <returns>An Hashtable containing all the races</returns>
         public static Hashtable GetAvailableRaces()
@@ -217,8 +214,10 @@ namespace NovaCommon
             subKey.Close();
         }
 
+        #endregion
 
-// --------------------- Private Implementation Functions -------------------------------------------------
+        // --------------------- Private Implementation Functions -------------------------------------------------
+        #region Private Methods
 
         /// <summary>
         /// Look up a registry key and get its value, if any.
@@ -296,5 +295,7 @@ namespace NovaCommon
             
             return fileDialog.FileName;
         }
+
+        #endregion
     }
 }

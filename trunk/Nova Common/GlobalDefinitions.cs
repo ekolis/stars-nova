@@ -20,6 +20,8 @@ namespace NovaCommon
 {
    public static class Global
    {
+       public const string NovaWebSite = "https://sourceforge.net/projects/stars-nova/";
+
        // Note: Client/SeverState.GameFolder vs ServerFolder vs ClientFolder
        // In a single player game the ServerFolder == ClientFolder == "Game Files"
        // The only reason to save seperate keys for ServerFolder and ClientFolder
@@ -29,7 +31,20 @@ namespace NovaCommon
        // implement an automated solution (e.g. using TCP/IP sockets to conect the
        // client and server.)
 
-       // registry keys - game resources
+       #region Nova Resources
+
+       // These registry keys are used to locate the various application files that form Nova
+       #region Application Files
+       public const string NovaLauncherKey = "NovaLauncher";  // where the NovaLauncher application is installed
+       public const string NewGameKey = "NewGame";            // where the NewGame application is installed
+       public const string RaceDesignerKey = "RaceDesigner";  // where the Race Designer application is installed
+       public const string NovaConsoleKey = "NovaConsole";    // where the Nova Console application is installed
+       public const string NovaGuiKey = "NovaGui";            // where the NovaLauncher application is installed
+       public const string NovaAiKey = "NovaAi";              // where the Nova_AI application is installed
+       #endregion Application Files
+
+       // These registry keys are used to loacte files and folders where Nova stores game data.
+       #region Files and Folders
        public const string RootRegistryKey = "Software\\Ken Reed\\Nova"; // where the keys are
        public const string NovaFolderKey = "NovaFolderKey";              // where Nova is installed 
        public const string ComponentFolderKey = "ComponentFolder";       // where components.xml is (possibly re-named), installation relative path is '.'. Should only change for modified game play.
@@ -40,9 +55,10 @@ namespace NovaCommon
        public const string ServerStateKey = "ServerStateFile";           // the server's saved data from the most recent game, if any. Nominally ./GameFiles/Constole.state. Players may save game files anywhere, e.g. My Document\Saved Games\Nova\A Bare Foot Jay-Walk\
        public const string ClientStateKey = "ClientStateFile";           // the client's saved data from the most recent game, if any. Nominally ./GameFiles/RaceName.state. Players may save game files anywhere, e.g. My Document\Saved Games\Nova\A Bare Foot Jay-Walk\
        public const string SettingsKey = "GameSettingsFile";             // where the game settings are stored (on the server, but a copy should be avaialble to the client).
-
+       #endregion Files and Folders
 
        // default folder names, used with FileSearcher.GetFolder(). 
+       #region Default Folders
        // Follows the above naming conventions
        public const string NovaFolderName = ".";
        public const string ComponentFolderName = ".";
@@ -50,18 +66,12 @@ namespace NovaCommon
        public const string ClientFolderName = "Game Files";
        public const string ServerFolderName = "Game Files";
        public const string RaceFolderName = "Game Files";
-       
-       // registry keys - application files 
-       public const string NovaLauncherKey = "NovaLauncher";  // where the NovaLauncher application is installed
-       public const string NewGameKey = "NewGame";            // where the NewGame application is installed
-       public const string RaceDesignerKey = "RaceDesigner";  // where the Race Designer application is installed
-       public const string NovaConsoleKey = "NovaConsole";    // where the Nova Console application is installed
-       public const string NovaGuiKey = "NovaGui";            // where the NovaLauncher application is installed
-       public const string NovaAiKey = "NovaAi";              // where the Nova_AI application is installed
-       
+       #endregion Default Folders
+
        // paths, relative to the 'current' application (it doesn't actully matter which application that is, due to the way the nova directory is structured)
        // note these are only likely to be valid when the application launches, as any file/folder browser dialog will change the current working directory
        // hence the reason we call FileSearcher.GetKeys() at application launch.
+       #region Search Paths
        public const string NewGamePath_Development = "../../../NewGame/bin/Debug";
        public const string NewGamePath_Deployed = "../NewGame";
        public const string RaceDesignerPath_Development = "../../../Race Designer/bin/Debug";
@@ -74,12 +84,14 @@ namespace NovaCommon
        public const string NovaGuiPath_Deployed = "../Nova Gui";
        public const string NovaAiPath_Development = "../../../Nova AI/bin/Debug";
        public const string NovaAiPath_Deployed = "../Nova AI";
-       
+       #endregion Search Paths
+
+       #endregion Nova Resources
+
+       #region Numeric Constants
 
        public const int MaxWeaponRange = 10;
-
-       public const string NovaWebSite = "https://sourceforge.net/projects/stars-nova/";
-
+       
        public const double GravityMinimum = 0; // FIXME (priority 3) - Stars! gravity range is 0.2 - 6.0 with 1.0 in the middle! Will need to revise all current race builds once changed.
        public const double GravityMaximum = 8;
        public const double RadiationMinimum = 0;
@@ -92,6 +104,11 @@ namespace NovaCommon
        public const int ColonistsPerOperableMiningUnit = 1000;
        public const int MinesPerMineProductionUnit = 10;
 
+       #endregion
+
+       #region Methods
+
+       #region Xml
 
        /// <summary>
        /// Do some common setup work for creating a new xml document.
@@ -126,6 +143,10 @@ namespace NovaCommon
            parent.AppendChild(xmlelData);
        }
 
+       #endregion Xml
+
+       #region Paths
+
        /// <summary>Derive a relative path from two absolute paths.</summary>
        /// <param name="baseDir">The path from which the relative path will start.</param>
        /// <param name="targetPath">The absolute or relative path to be converted to a relative path.</param>
@@ -151,6 +172,10 @@ namespace NovaCommon
            }
            return path;
        }
+
+       #endregion Paths
+
+       #endregion Methods
 
    }
 }
