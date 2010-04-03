@@ -1,6 +1,9 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
+//
+// This module controls the checking of passwords.
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free
@@ -20,55 +23,66 @@ using System.Web.Security;
 
 namespace ControlLibrary
 {
-   public partial class CheckPassword : Form
-   {
+    public partial class CheckPassword : Form
+    {
 
-      Race RaceData = null;
+        Race RaceData = null;
 
-// ============================================================================
-// Construction
-// ============================================================================
+        #region Construction and Dispose
 
-      public CheckPassword(Race raceData)
-      {
-         InitializeComponent();
-         RaceData = raceData;
-         AcceptButton = OKButton;
-      }
-
-
-// ============================================================================
-// Cancel Button Pressed.
-// ============================================================================
-
-      private void CancelButton_Click(object sender, EventArgs e)
-      {
-         Dispose();
-      }
+        /// <summary>
+        /// Construction
+        /// </summary>
+        /// <param name="raceData">The <see cref="Race"/> whose password is being checked.</param>
+        public CheckPassword(Race raceData)
+        {
+            InitializeComponent();
+            RaceData = raceData;
+            AcceptButton = OKButton;
+        }
 
 
-// ============================================================================
-// OK Button Pressed.
-// ============================================================================
+        /// <summary>
+        /// Cancel Button Pressed.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void CancelButton_Click(object sender, EventArgs e)
+        {
+            Dispose();
+        }
 
-      private void OKButton_Click(object sender, EventArgs e)
-      {
-         string enteredPassword = PassWord.Text;
-         string oldPasswordHash = RaceData.Password;
+        #endregion
 
-         string newPasswordHash = FormsAuthentication.
-            HashPasswordForStoringInConfigFile(enteredPassword, "MD5");
+        #region Event Methods
 
-         if (newPasswordHash != oldPasswordHash) {
-            Report.Information("Incorrect password - Access denied");
-            DialogResult = DialogResult.Cancel;
-         }
-         else {
-            DialogResult = DialogResult.OK;
-         }
+        /// <summary>
+        /// OK Button Pressed.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void OKButton_Click(object sender, EventArgs e)
+        {
+            string enteredPassword = PassWord.Text;
+            string oldPasswordHash = RaceData.Password;
 
-         Dispose();
-      }
+            string newPasswordHash = FormsAuthentication.
+               HashPasswordForStoringInConfigFile(enteredPassword, "MD5");
 
-   }
+            if (newPasswordHash != oldPasswordHash)
+            {
+                Report.Information("Incorrect password - Access denied");
+                DialogResult = DialogResult.Cancel;
+            }
+            else
+            {
+                DialogResult = DialogResult.OK;
+            }
+
+            Dispose();
+        }
+
+        #endregion
+
+    }
 }
