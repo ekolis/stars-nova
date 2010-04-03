@@ -1,6 +1,6 @@
-// This file needs -*- c++ -*- mode
-// ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This module contains the basic properties of the component.
 //
@@ -28,43 +28,38 @@ namespace ComponentEditor
       }
 
 
-// ============================================================================
-// Get the resource build cost from the control
-// ============================================================================
+      // Get the resource build cost from the control
+      public NovaCommon.Resources Cost
+      {
+          get
+          {
+              NovaCommon.Resources cost = new NovaCommon.Resources();
 
-      public NovaCommon.Resources Cost {
-         get { 
-            NovaCommon.Resources cost = new NovaCommon.Resources();
+              cost.Ironium = (int)IroniumAmount.Value;
+              cost.Boranium = (int)BoraniumAmount.Value;
+              cost.Germanium = (int)GermaniumAmount.Value;
+              cost.Energy = (int)EnergyAmount.Value;
 
-            cost.Ironium   = (int) IroniumAmount.Value;
-            cost.Boranium  = (int) BoraniumAmount.Value;
-            cost.Germanium = (int) GermaniumAmount.Value;
-            cost.Energy    = (int) EnergyAmount.Value;
-
-            return cost;
-         }
+              return cost;
+          }
 
 
-// ============================================================================
-// Set the resource build cost in the control
-// ============================================================================
-
-         set { 
-            IroniumAmount.Value   = (int) value.Ironium;
-            BoraniumAmount.Value  = (int) value.Boranium;
-            GermaniumAmount.Value = (int) value.Germanium;
-            EnergyAmount.Value    = (int) value.Energy;
-         }
+          // Set the resource build cost in the control
+          set
+          {
+              IroniumAmount.Value = (int)value.Ironium;
+              BoraniumAmount.Value = (int)value.Boranium;
+              GermaniumAmount.Value = (int)value.Germanium;
+              EnergyAmount.Value = (int)value.Energy;
+          }
       }
 
 
-// ============================================================================
-// Get and set the mass of the component
-// ============================================================================
-
-      public int Mass {
-         get { return (int) ComponentMass.Value; }
-         set { ComponentMass.Value = value; }
+      // Get and set the mass of the component
+      public int Mass
+      {
+          get { return (int)ComponentMass.Value; }
+          set { ComponentMass.Value = value; }
       }
 
    }
