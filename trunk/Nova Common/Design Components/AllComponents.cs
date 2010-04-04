@@ -148,7 +148,13 @@ namespace NovaCommon
         /// </summary>
         public static void MakeNew()
         {
-            // FIXME (priority 5) - Selecting File|New before loading an existing component definition file caused a null reference exception. - Dan 28 Dec 09.
+            lock (Padlock)
+            {
+                if (Instance == null)
+                {
+                    Instance = new AllComponents();
+                }
+            }
             AllComponents.Instance.Components = new Hashtable();
             ResetPath();
         }
