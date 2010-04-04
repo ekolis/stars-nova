@@ -1,11 +1,11 @@
-﻿// This file needs -*- c++ -*- mode
-// ============================================================================
+﻿// ============================================================================
 // Nova. (c) 2008 Ken Reed
-// Modified Daniel Vale Apr 2009
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
-// This class defines a simple property used for any one value property.
-// Possible uses are shield, armor, cargoPod, Jammer, 
-// Capacitor, Cloak (or Tachyon Detector), Mass Driver or Mining Robot.
+// This module defines a property for components which can are restricted to 
+// certain hulls. For example an Orbital Construction Module can only be fitted
+// to a coloniser hull.
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free
@@ -16,55 +16,60 @@ using System;
 using System.Xml;
 using System.Runtime.Serialization;
 
-// ============================================================================
-// Simple Property Class
-// ============================================================================
-
 namespace NovaCommon
 {
     [Serializable]
     public class HullAffinity : ComponentProperty
     {
+        // The name of a hull this can be fitted too. 
+        // Multiple instances of this property can be used if more than one.
         public String Value = String.Empty;
-        // public string Name = null; // not required - use the dictionary key to identify the property.
 
-        // ============================================================================
-        // Construction from scratch
-        // ============================================================================
-
-        public HullAffinity()
-        {
-
-        }
+        /// <summary>
+        /// Construction from scratch
+        /// </summary>
+        public HullAffinity() { }
 
 
-        // ============================================================================
-        // Construction from a ComponentProperty object
-        // ============================================================================
-
+        /// <summary>
+        /// Copy constructor.
+        /// </summary>
+        /// <param name="existing">An existing <see cref="HullAffinity"/> object.</param>
         public HullAffinity(HullAffinity existing)
         {
             this.Value = existing.Value;
         }
 
-        // ============================================================================
-        // Construction from an int
-        // ============================================================================
+
+        /// <summary>
+        /// Initialising constructor.
+        /// </summary>
+        /// <param name="existing">The name of the hull type this affinity is for.</param>
         public HullAffinity(String existing)
         {
             this.Value = existing;
         }
-        //============================================================================
-        // Implement the ICloneable interface so properties can be cloned.
-        //============================================================================
+
+
+        /// <summary>
+        /// Implement the ICloneable interface so properties can be cloned.
+        /// </summary>
+        /// <returns>A copy of this object.</returns>
         public override object Clone()
         {
             return new HullAffinity(this);
         }
-        //============================================================================
-        // Provide a way to add properties in the ship design.
-        // Doesn't mean anything in the context of HullAffinity
-        //============================================================================
+
+
+        /// <summary><para>
+        /// Operator+ 
+        /// </para><para>
+        /// Provide a way to sum up properties in the ship design.
+        /// Doesn't mean anything in the context of HullAffinity
+        /// </para></summary>
+        /// <param name="op1">The LHS parameter.</param>
+        /// <param name="op2">The RHS parameter.</param>
+        /// <returns>The LHS parameter.</returns>
         public static HullAffinity operator +(HullAffinity op1, HullAffinity op2)
         {
             return op1;

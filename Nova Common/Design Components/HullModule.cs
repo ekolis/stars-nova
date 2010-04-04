@@ -21,34 +21,33 @@ using System.Runtime.Serialization;
 
 namespace NovaCommon
 {
-
-    // ============================================================================
-    // The definition of the individual modules that make up a hull.
-    // These are the slots which define what components may be fitted.
-    // ============================================================================
-
+    /// <summary>
+    /// The definition of the individual modules that make up a hull.
+    /// These are the slots which define what components may be fitted.
+    /// </summary>
     [Serializable]
     public class HullModule : ICloneable
     {
         public Component AllocatedComponent = null;
-        public int CellNumber = -1;
-        public int ComponentCount = 0;
-        public int ComponentMaximum = 1;
-        public string ComponentType = null;
+        public int       CellNumber         = -1;
+        public int       ComponentCount     = 0;
+        public int       ComponentMaximum   = 1;
+        public string    ComponentType      = null;
 
-        // ============================================================================
-        // Construction
-        // ============================================================================
+        #region Construction
 
+        /// <summary>
+        /// Construction
+        /// </summary>
         public HullModule()
         {
         }
 
 
-        // ============================================================================
-        // Copy constructor 
-        // ============================================================================
-
+        /// <summary>
+        /// Copy constructor 
+        /// </summary>
+        /// <param name="existing">The existing <see cref="HullModule"/> to copy.</param>
         public HullModule(HullModule existing)
         {
             AllocatedComponent = existing.AllocatedComponent;
@@ -59,19 +58,30 @@ namespace NovaCommon
 
         }
 
-        //============================================================================
-        // Implement the ICloneable interface so modules can be cloned.
-        //============================================================================
+        #endregion Construction
+
+        #region Methods
+
+        /// <summary>
+        /// Implement the ICloneable interface so modules can be cloned.
+        /// </summary>
+        /// <returns></returns>
         public object Clone()
         {
             return new HullModule(this);
         }
 
-        // ============================================================================
-        // Initialising Constructor from an xml node.
-        // Precondition: node is named "Module" within a "Property" node with Type=="Hull" 
-        //               in a Nova compenent definition file (xml document).
-        // ============================================================================
+        #endregion
+
+        // Save or Load using Xml
+        #region Xml
+
+        /// <summary>
+        /// Initialising Constructor from an xml node.
+        /// </summary>
+        /// <param name="node">node is an <see cref="XmlNode"/> named "Module" within a "Property" node with Type=="Hull" 
+        /// in a Nova compenent definition file (xml document).
+        /// </param>
         public HullModule(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -115,9 +125,11 @@ namespace NovaCommon
         }
 
 
-        // ============================================================================
-        // Return an XmlElement representation of the HullModule
-        // ============================================================================
+        /// <summary>
+        /// Serialise a <see cref="HullModule"/> to xml.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument/>.</param>
+        /// <returns>an XmlElement representation of the HullModule</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelModule = xmldoc.CreateElement("Module");
@@ -127,25 +139,31 @@ namespace NovaCommon
             XmlText xmltxtCellNumber = xmldoc.CreateTextNode(this.CellNumber.ToString(System.Globalization.CultureInfo.InvariantCulture));
             xmlelCellNumber.AppendChild(xmltxtCellNumber);
             xmlelModule.AppendChild(xmlelCellNumber);
+
             // ComponentCount
             XmlElement xmlelComponentCount = xmldoc.CreateElement("ComponentCount");
             XmlText xmltxtComponentCount = xmldoc.CreateTextNode(this.ComponentCount.ToString(System.Globalization.CultureInfo.InvariantCulture));
             xmlelComponentCount.AppendChild(xmltxtComponentCount);
             xmlelModule.AppendChild(xmlelComponentCount);
+
             // ComponentMaximum
             XmlElement xmlelComponentMaximum = xmldoc.CreateElement("ComponentMaximum");
             XmlText xmltxtComponentMaximum = xmldoc.CreateTextNode(this.ComponentMaximum.ToString(System.Globalization.CultureInfo.InvariantCulture));
             xmlelComponentMaximum.AppendChild(xmltxtComponentMaximum);
             xmlelModule.AppendChild(xmlelComponentMaximum);
+
             // ComponentType
             XmlElement xmlelComponentType = xmldoc.CreateElement("ComponentType");
             XmlText xmltxtComponentType = xmldoc.CreateTextNode(this.ComponentType);
             xmlelComponentType.AppendChild(xmltxtComponentType);
             xmlelModule.AppendChild(xmlelComponentType);
+
             // Allocated Component
             if (AllocatedComponent != null && AllocatedComponent.Name != null) Global.SaveData(xmldoc, xmlelModule, "AllocatedComponent", AllocatedComponent.Name);
 
             return xmlelModule;
         }
+
+        #endregion
     }
 }
