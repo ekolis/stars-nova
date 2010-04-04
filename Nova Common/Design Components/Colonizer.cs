@@ -1,6 +1,7 @@
 ﻿// ============================================================================
 // Nova. (c) 2008 Ken Reed
-// Modified 2009 Daniel Vale dan_vale@sourceforge.net
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This class defines a Colonizer property. 
 //
@@ -13,87 +14,111 @@ using System;
 using System.Xml;
 using NovaCommon;
 
-// ============================================================================
-// Colonizer class
-// ============================================================================
-
 namespace NovaCommon
 {
-
+    /// <summary>
+    /// Colonizer class
+    /// </summary>
     [Serializable]
     public class Colonizer : ComponentProperty
     {
         public bool Orbital = false;
 
-        // ============================================================================
-        // Construction from scratch
-        // ============================================================================
 
+        #region Construction
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public Colonizer()
         {
 
         }
 
-        // ============================================================================
-        // Construction from an ComponentProperty object
-        // ============================================================================
+
+        /// <summary>
+        /// Copy constructor.
+        /// </summary>
+        /// <param name="existing">An existing <see cref="Colonizer"/> property to copy.</param>
         public Colonizer(Colonizer existing)
         {
             this.Orbital = existing.Orbital;
         }
-        //============================================================================
-        // Implement the ICloneable interface so properties can be cloned.
-        //============================================================================
+
+        #endregion
+
+        #region Interface ICloneable
+
+        /// <summary>
+        /// Implement the ICloneable interface so properties can be cloned.
+        /// </summary>
+        /// <returns>Clone of this object.</returns>
         public override object Clone()
         {
             return new Colonizer(this);
         }
-        //============================================================================
-        // Provide a way to add properties in the ship design.
-        // Colonizer's don't add.
-        //============================================================================
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// Provide a way to add properties in the ship design.
+        /// </summary>
+        /// <param name="op1">LHS operand</param>
+        /// <param name="op2">RHS operand</param>
+        /// <returns>Sum of the properties.</returns>
         public static Colonizer operator +(Colonizer op1, Colonizer op2)
         {
             return op1;
         }
 
-        //============================================================================
-        // Operator* to scale (multiply) properties in the ship design.
-        // Colonizer's don't scale.
-        //============================================================================
+        /// <summary>
+        /// Operator* to scale (multiply) properties in the ship design.
+        /// </summary>
+        /// <param name="op1">Property to scale.</param>
+        /// <param name="scalar">Number of instances of this property.</param>
+        /// <returns>A single property that represents all these instances.</returns>
         public static Colonizer operator *(Colonizer op1, int scalar)
         {
             return op1;
         }
 
-// ============================================================================
-// Initialising Constructor from an xml node.
-// Precondition: node is a "Property" node with Type=="Colonizer" in a Nova 
-//               compenent definition file (xml document).
-// ============================================================================
+        #endregion
 
+        #region Load Save Xml
+
+        /// <summary>
+        /// Load from XML: Initialising constructor from an XML node.
+        /// </summary>
+        /// <param name="node">An <see cref="XmlNode"/> within 
+        /// a Nova compenent definition file (xml document).
+        /// </param>
         public Colonizer(XmlNode node)
-      {
-          XmlNode subnode = node.FirstChild;
-          while (subnode != null)
-          {
-              try
-              {
-                  if (subnode.Name.ToLower() == "orbital")
-                  {
-                      Orbital = bool.Parse(((XmlText)subnode.FirstChild).Value);
-                  }
-              }
-              catch
-              {
-                  // ignore incomplete or unset values
-              }
-              subnode = subnode.NextSibling;
-          }
-      }
-        // ============================================================================
-        // Return an XmlElement representation of the Property
-        // ============================================================================
+        {
+            XmlNode subnode = node.FirstChild;
+            while (subnode != null)
+            {
+                try
+                {
+                    if (subnode.Name.ToLower() == "orbital")
+                    {
+                        Orbital = bool.Parse(((XmlText)subnode.FirstChild).Value);
+                    }
+                }
+                catch
+                {
+                    // ignore incomplete or unset values
+                }
+                subnode = subnode.NextSibling;
+            }
+        }
+
+        /// <summary>
+        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -106,6 +131,9 @@ namespace NovaCommon
 
             return xmlelProperty;
         }
+
+        #endregion
+
     }
 }
 

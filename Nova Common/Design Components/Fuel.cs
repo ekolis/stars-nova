@@ -1,7 +1,7 @@
-﻿// This file needs -*- c++ -*- mode
-// ============================================================================
+﻿// ============================================================================
 // Nova. (c) 2008 Ken Reed
-// Modified 2009 Daniel Vale dan_vale@sourceforge.net
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This class defines a Fuel property.
 //
@@ -14,15 +14,12 @@ using System;
 using System.Xml;
 using NovaCommon;
 
-// ============================================================================
-// Fuel class
-// ============================================================================
-
 namespace NovaCommon
 {
 
-
-
+    /// <summary>
+    /// Fuel Property
+    /// </summary>
     [Serializable]
     public class Fuel : ComponentProperty
     {
@@ -30,56 +27,76 @@ namespace NovaCommon
         public int Generation = 0;
 
 
-        // ============================================================================
-        // Construction from scratch
-        // ============================================================================
+        #region Construction
 
+        /// <summary>
+        /// Default constructor
+        /// </summary>
         public Fuel()
         {
 
         }
 
-        // ============================================================================
-        // Construction from capacity and generation.
-        // ============================================================================
+        /// <summary>
+        /// Initialising constructor
+        /// </summary>
+        /// <param name="capacity">Fuel capacity added by this property.</param>
+        /// <param name="generation">Fuel generation per year added by this property.</param>
         public Fuel(int capacity, int generation)
         {
             this.Capacity = capacity;
             this.Generation = generation;
         }
 
-        // ============================================================================
-        // Copy constructor
-        // ============================================================================
 
+        /// <summary>
+        /// Copy constructor
+        /// </summary>
+        /// <param name="existing">An existing <see cref="Fuel"/> property to copy.</param>
         public Fuel(Fuel existing)
         {
             this.Capacity = existing.Capacity;
             this.Generation = existing.Generation;
         }
 
-        //============================================================================
-        // Implement the ICloneable interface so properties can be cloned.
-        //============================================================================
+        #endregion
+
+        #region Interface ICloneable
+
+        /// <summary>
+        /// Implementation of the ICloneable interface so properties can be cloned.
+        /// </summary>
+        /// <returns>A copy of this <see cref="Fuel"/> property.</returns>
         public override object Clone()
         {
             return new Fuel(this);
         }
 
-        //============================================================================
-        // Provide a way to add properties in the ship design.
-        //============================================================================
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// Provide a way to add properties in the ship design.
+        /// </summary>
+        /// <param name="op1">LHS operator</param>
+        /// <param name="op2">RHS operator</param>
+        /// <returns>A new <see cref="Fuel"/> property with total capacity and fuel generation of both operands.</returns>
         public static Fuel operator +(Fuel op1, Fuel op2)
         {
-            Fuel sum = new Fuel(op1);
+            Fuel sum = new Fuel();
             sum.Capacity = op1.Capacity + op2.Capacity;
             sum.Generation = op1.Generation + op2.Generation;
             return sum;
         }
 
-        //============================================================================
-        // Operator* to scale (multiply) properties in the ship design.
-        //============================================================================
+
+        /// <summary>
+        /// Operator* to scale (multiply) properties in the ship design.
+        /// </summary>
+        /// <param name="op1">The property to be scaled.</param>
+        /// <param name="scalar">The number of instances of the property.</param>
+        /// <returns>The scaled property.</returns>
         public static Fuel operator *(Fuel op1, int scalar)
         {
             Fuel sum = new Fuel(op1);
@@ -87,41 +104,47 @@ namespace NovaCommon
             sum.Generation = op1.Generation * scalar;
             return sum;
         }
-       
-// ============================================================================
-// Initialising Constructor from an xml node.
-// Precondition: node is a "Property" node with Type=="Fuel" in a Nova 
-//               compenent definition file (xml document).
-// ============================================================================
 
+        #endregion
+
+        #region Load Save Xml
+
+        /// <summary>
+        /// Load from XML: Initialising constructor from an XML node.
+        /// </summary>
+        /// <param name="node">An <see cref="XmlNode"/> within 
+        /// a Nova compenent definition file (xml document).
+        /// </param>
         public Fuel(XmlNode node)
-      {
-          XmlNode subnode = node.FirstChild;
-          while (subnode != null)
-          {
-              try
-              {
-                  if (subnode.Name.ToLower() == "capacity")
-                  {
-                      Capacity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  if (subnode.Name.ToLower() == "generation")
-                  {
-                      Generation = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-              }
-              catch
-              {
-                  // ignore incomplete or unset values
-              }
-              subnode = subnode.NextSibling;
-          }
-      }
+        {
+            XmlNode subnode = node.FirstChild;
+            while (subnode != null)
+            {
+                try
+                {
+                    if (subnode.Name.ToLower() == "capacity")
+                    {
+                        Capacity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                    if (subnode.Name.ToLower() == "generation")
+                    {
+                        Generation = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Report.Error(e.Message);
+                }
+                subnode = subnode.NextSibling;
+            }
+        }
 
 
-        // ============================================================================
-        // Return an XmlElement representation of the Property
-        // ============================================================================
+        /// <summary>
+        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -140,6 +163,7 @@ namespace NovaCommon
             return xmlelProperty;
         }
 
+        #endregion
     }
 }
 

@@ -25,8 +25,10 @@ namespace NovaCommon
         // Multiple instances of this property can be used if more than one.
         public String Value = String.Empty;
 
+        #region Construction and Initialisation
+
         /// <summary>
-        /// Construction from scratch
+        /// Construction 
         /// </summary>
         public HullAffinity() { }
 
@@ -50,6 +52,9 @@ namespace NovaCommon
             this.Value = existing;
         }
 
+        #endregion
+
+        #region IColoneable
 
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
@@ -60,35 +65,50 @@ namespace NovaCommon
             return new HullAffinity(this);
         }
 
+        #endregion
+
+        #region Operators
 
         /// <summary><para>
         /// Operator+ 
         /// </para><para>
         /// Provide a way to sum up properties in the ship design.
+        /// </para><para>
         /// Doesn't mean anything in the context of HullAffinity
         /// </para></summary>
         /// <param name="op1">The LHS parameter.</param>
         /// <param name="op2">The RHS parameter.</param>
-        /// <returns>The LHS parameter.</returns>
+        /// <returns>op1</returns>
         public static HullAffinity operator +(HullAffinity op1, HullAffinity op2)
         {
             return op1;
         }
 
-        //============================================================================
-        // Operator* to scale (multiply) properties in the ship design.
-        // Doesn't mean anything in the context of HullAffinity
-        //============================================================================
+
+        /// <summary><para>
+        /// Operator*
+        /// </para><para>
+        /// Used to scale (multiply) properties in the ship design.
+        /// </para><para>
+        /// Doesn't mean anything in the context of HullAffinity.
+        /// </para></summary>
+        /// <param name="op1">Propertie to be scaled.</param>
+        /// <param name="scalar">Scaling factor.</param>
+        /// <returns>op1</returns>
         public static HullAffinity operator *(HullAffinity op1, int scalar)
         {
             return op1;
         }
 
-        // ============================================================================
-        // Initialising Constructor from an xml node.
-        // Precondition: node is a "Property" node with Type equal to one of the simple 
-        //               property types in a Nova compenent definition file (xml document).
-        // ============================================================================
+        #endregion
+
+        #region Load Save Xml
+
+        /// <summary>
+        /// Load: Initialising Constructor from an xml node.
+        /// </summary>
+        /// <param name="node">A "Property" <see cref="XmlNode"/> with Type equal 
+        /// to "Hull Affinity" in a Nova compenent definition file (xml document).</param>
         public HullAffinity(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -109,9 +129,12 @@ namespace NovaCommon
             }
         }
 
-        // ============================================================================
-        // Return an XmlElement representation of the Property
-        // ============================================================================
+
+        /// <summary>
+        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -124,6 +147,8 @@ namespace NovaCommon
 
             return xmlelProperty;
         }
+
+        #endregion
     }
 }
 

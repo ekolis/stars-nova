@@ -30,7 +30,7 @@ namespace NovaCommon
     [Serializable]
     public sealed class AllComponents
     {
-
+        #region Data
 
         // ============================================================================
         // All component data
@@ -43,12 +43,16 @@ namespace NovaCommon
         // Data private to this module.
         // ============================================================================
 
-        private static AllComponents Instance = null;
-        private static Object Padlock = new Object();
         private static String saveFilePath;
         private static String graphicsFilePath;
         private static bool DisableComponentGraphics = false; // if we can't find them
 
+        #endregion
+
+        #region Singleton Setup
+
+        private static AllComponents Instance = null;
+        private static Object Padlock = new Object();
 
         /// <summary>
         /// Private constructor to prevent anyone else creating instances of this class.
@@ -56,7 +60,6 @@ namespace NovaCommon
         private AllComponents()
         {
         }
-
 
         /// <summary>
         /// Provide a mechanism of accessing the single instance of this class that we
@@ -87,7 +90,9 @@ namespace NovaCommon
             }
         }
 
+        #endregion
 
+        #region Methods
 
         /// <summary>
         /// Check if AllComponents contains a particular Component.
@@ -99,6 +104,7 @@ namespace NovaCommon
             return Data.Components.ContainsKey(ComponentName);
         }
 
+
         /// <summary>
         /// Check if AllComponents contains a particular Component.
         /// </summary>
@@ -109,6 +115,47 @@ namespace NovaCommon
             return Data.Components.ContainsValue(component);
         }
 
+
+        /// <summary>
+        /// Restore the component definitions.
+        /// </summary>
+        /// <exception cref="System.Data.OperationAbortedException">
+        /// The loading of the component definition was aborted.
+        /// </exception>
+        public static void Restore()
+        {
+            GetPath();
+            if (saveFilePath == null || saveFilePath == "?" || saveFilePath == "")
+            {
+                throw new Exception();
+            }
+
+
+            ProgressDialog progress = new ProgressDialog();
+            progress.Text = "Work";
+            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(AllComponents.Data.LoadComponents), progress);
+            progress.ShowDialog();
+            if (!progress.Success)
+            {
+                throw new System.Exception();
+            }
+        }
+
+
+        /// <summary>
+        /// Start a new component definition set. This simply wipes all components from
+        /// the in memory component definitions.
+        /// </summary>
+        public static void MakeNew()
+        {
+            // FIXME (priority 5) - Selecting File|New before loading an existing component definition file caused a null reference exception. - Dan 28 Dec 09.
+            AllComponents.Instance.Components = new Hashtable();
+            ResetPath();
+        }
+
+        #endregion
+
+        #region Load Save Xml
 
         /// <summary>
         /// Load all the components form the component definition file, nominally components.xml.
@@ -195,34 +242,6 @@ namespace NovaCommon
         }
 
 
-        /// <summary>
-        /// Restore the component definitions.
-        /// </summary>
-        /// <exception cref="System.Data.OperationAbortedException">
-        /// The loading of the component definition was aborted.
-        /// </exception>
-        public static void Restore()
-        {
-            GetPath();
-            if (saveFilePath == null || saveFilePath == "?" || saveFilePath == "")
-            {
-                throw new Exception();
-            }
-
-
-            ProgressDialog progress = new ProgressDialog();
-            progress.Text = "Work";
-            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(AllComponents.Data.LoadComponents), progress);
-            progress.ShowDialog();
-            if (!progress.Success)
-            {
-                throw new System.Exception();
-            }
-        }
-
-
-
-
         /// <summary> Save the component data. </summary>
         public static bool Save()
         {
@@ -273,6 +292,10 @@ namespace NovaCommon
 
         } // Save
 
+        #endregion
+
+        #region File Paths
+
         //-------------------------------------------------------------------
         /// <summary>
         /// Reset the location of the component definition file.
@@ -288,18 +311,6 @@ namespace NovaCommon
             {
                 regKey.SetValue(Global.ComponentFolderKey, string.Empty);
             }
-        }
-
-
-        /// <summary>
-        /// Start a new component definition set. This simply wipes all components from
-        /// the in memory component definitions.
-        /// </summary>
-        public static void MakeNew()
-        {
-            // FIXME (priority 5) - Selecting File|New before loading an existing component definition file caused a null reference exception. - Dan 28 Dec 09.
-            AllComponents.Instance.Components = new Hashtable();
-            ResetPath();
         }
 
 
@@ -422,7 +433,7 @@ namespace NovaCommon
         /// <summary>
         /// Ask the user for the graphics directory.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>The path to the graphics directory if found or ""</returns>
         public static string GetNewGraphicsPath()
         {
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
@@ -446,7 +457,7 @@ namespace NovaCommon
         /// <summary>
         /// Extract the path to the component graphics from the registry
         /// </summary>
-        /// <returns></returns>
+        /// <returns>Path to the Graphics folder if found or ""</returns>
         public static string GetGraphicsPath()
         {
             if (DisableComponentGraphics) return "";
@@ -471,7 +482,6 @@ namespace NovaCommon
 
         }//GetPath
 
-        #region Properties
         //-------------------------------------------------------------------
         /// <summary>
         /// Gets or sets the path where the graphics files are stored.
@@ -494,6 +504,7 @@ namespace NovaCommon
                 // Report.Debug("Registry key set to: " + SaveFilePath);
             }
         }
+
         #endregion
-    }
-}
+    }//AllComponents
+}//namespace

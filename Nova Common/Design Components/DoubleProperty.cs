@@ -1,7 +1,7 @@
-﻿// This file needs -*- c++ -*- mode
-// ============================================================================
+﻿// ============================================================================
 // Nova. (c) 2008 Ken Reed
-// Modified 2009 Daniel Vale dan_vale@sourceforge.net
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This class defines a DoubleProperty property. That is a property that contains
 // a double precision floating point number only. This property is used for
@@ -16,73 +16,95 @@ using System;
 using System.Xml;
 using NovaCommon;
 
-// ============================================================================
-// DoubleProperty class
-// ============================================================================
-
 namespace NovaCommon
 {
-
+    /// <summary>
+    /// DoubleProperty class
+    /// </summary>
     [Serializable]
     public class DoubleProperty : ComponentProperty
     {
-        public double Value = 0.00;
+        public double Value = 0.0;
 
-        // ============================================================================
-        // Construction from scratch
-        // ============================================================================
 
+        #region Construction
+
+/// <summary>
+/// Default constructor
+/// </summary>
         public DoubleProperty()
         {
 
         }
 
-        // ============================================================================
-        // Construction from a double
-        // ============================================================================
 
+        /// <summary>
+        /// Initialising constructor.
+        /// </summary>
+        /// <param name="existing">The value of this property (e.g. BattleSpeed).</param>
         public DoubleProperty(double existing)
         {
             this.Value = existing;
         }
-        // ============================================================================
-        // Construction from an ComponentProperty object
-        // ============================================================================
 
+
+        /// <summary>
+        /// Copy constructor.
+        /// </summary>
+        /// <param name="existing">A <see cref="DoubleProperty"/> to copy.</param>
         public DoubleProperty(DoubleProperty existing)
         {
             this.Value = existing.Value;
         }
 
-        //============================================================================
-        // Implement the ICloneable interface so properties can be cloned.
-        //============================================================================
+        #endregion
+
+        #region Interface ICloneable
+
+
+        /// <summary>
+        /// Implement the ICloneable interface so properties can be cloned.
+        /// </summary>
+        /// <returns>A clone of this object.</returns>
         public override object Clone()
         {
             return new DoubleProperty(this);
         }
 
-        //============================================================================
-        // Provide a way to add properties in the ship design.
-        //============================================================================
+
+        /// <summary>
+        /// Provide a way to add properties in the ship design.
+        /// </summary>
+        /// <param name="op1">LHS operand.</param>
+        /// <param name="op2">RHS operand.</param>
+        /// <returns>Sum of both operands.</returns>
         public static DoubleProperty operator +(DoubleProperty op1, DoubleProperty op2)
         {
             return new DoubleProperty(op1.Value + op2.Value);
         }
 
-        //============================================================================
-        // Operator* to scale (multiply) properties in the ship design.
-        //============================================================================
+
+        /// <summary>
+        /// Operator* to scale (multiply) properties in the ship design.
+        /// </summary>
+        /// <param name="op1">Property to scale.</param>
+        /// <param name="scalar">Number of instnaces of the property.</param>
+        /// <returns>A single property representing all the instances.</returns>
         public static DoubleProperty operator *(DoubleProperty op1, int scalar)
         {
             return new DoubleProperty(op1.Value * scalar);
         }
 
-// ============================================================================
-// Initialising Constructor from an xml node.
-// Precondition: node is a "Property" node with Type equal to one of the double 
-//               property types in a Nova compenent definition file (xml document).
-// ============================================================================
+        #endregion
+
+        #region Load Save Xml
+
+        /// <summary>
+        /// Load from XML: Initialising constructor from an XML node.
+        /// </summary>
+        /// <param name="node">An <see cref="XmlNode"/> within 
+        /// a Nova compenent definition file (xml document).
+        /// </param>
         public DoubleProperty(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -95,17 +117,19 @@ namespace NovaCommon
                         Value = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                     }
                 }
-                catch
+                catch (Exception e)
                 {
-                    // ignore incomplete or unset values
+                    Report.Error(e.Message);
                 }
                 subnode = subnode.NextSibling;
             }
         }
 
-// ============================================================================
-// Return an XmlElement representation of the Property
-// ============================================================================
+        /// <summary>
+        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -118,6 +142,9 @@ namespace NovaCommon
 
             return xmlelProperty;
         }
+
+        #endregion
+
     }
 }
 

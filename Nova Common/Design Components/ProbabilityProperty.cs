@@ -7,7 +7,10 @@
 // which sums as the sum of independant probabilities. This includes beam deflectors, 
 // cloaking, tachyon detectors & jammers.
 // Defenses are treated separately as they have additional complications (see Defense).
-// Capacitors sum geometrically, (see Capacitor).
+// Capacitors sum geometrically, (see Capacitor). 
+//
+// Computers have their own class because they also add Initiative.
+// (Could have made Initiative a seperate property.)
 //
 // This is free software. You can redistribute it and/or modify it under the
 // terms of the GNU General Public License version 2 as published by the Free

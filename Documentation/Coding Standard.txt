@@ -2,10 +2,13 @@ Not much of a standard yet!
 
 INDENTING
 ----------
-Use Visual Studio defaults for indenting. This can be acheived by cutting an object or function and then pasting it back in (Ctrl-X, Ctrl-v).
+
+Use Visual Studio defaults for indenting. This can be acheived by cutting an object or function and then pasting it back in (Ctrl-X, Ctrl-v). 
 
 HEADERS
 -------
+
+Header for files with original copyright to Ken:
 
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
@@ -18,7 +21,10 @@ HEADERS
 // terms of the GNU General Public License version 2 as published by the Free
 // Software Foundation.
 // ===========================================================================
+
 or 
+
+Header for files produced as part of the stars-nova project:
 
 // ============================================================================
 // Nova. 2009, 2010, stars-nova
@@ -31,8 +37,25 @@ or
 // Software Foundation.
 // ===========================================================================
 
+or
+
+Code sourced elsewhere must state clearly in the header the source and licence terms.
+
+Regions
+-------
+
+Files should be broken up by #region / #endregion statements. Suggested regions are:
+ - Construction Initialisation Disposal
+ - Event Methods
+ - Interfaces
+ - Operators
+ - Load Save Xml
+ - Utility Methods
+ - Properties
+
 Event Functions
 ---------------
+Event functions should include the following parameter descriptions:
 
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
@@ -45,6 +68,7 @@ When refering to types in function headers, use the 'see cref=""' form:
 
 Xml Serialisation Functions 
 ---------------------------
+Use this format for function headers:
 
 FromXml() - implemented as an initialising constructor
         /// <summary>
@@ -52,7 +76,6 @@ FromXml() - implemented as an initialising constructor
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
-        /// Where named "property_type" a "Property" node with Type=="key_name" 
         /// </param>
 
 ToXml()
