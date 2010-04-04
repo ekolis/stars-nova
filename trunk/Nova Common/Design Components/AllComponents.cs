@@ -369,53 +369,6 @@ namespace NovaCommon
         }
        
 
-
-        /// <summary>
-        /// Extract the path to the component file from the registry, failing that
-        /// from the user and failing that terminate the program.
-        /// </summary>
-        /// <remarks>
-        /// FIXME (priority 5) - doesn't actually check that the user specified a valid file, which 
-        /// may cause an unexpected termination. 
-        /// Use of this is depreciated, see FileSearcher.cs.
-        /// </remarks>
-        public static void GetPathOrDie()
-        {
-            RegistryKey regKey = Registry.CurrentUser;
-            RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-            saveFilePath = subKey.GetValue
-                                    (Global.ComponentFolderKey, "?").ToString();
-
-            bool askForFolder = false;
-
-            if (saveFilePath == "?" || saveFilePath == "")
-            {
-                askForFolder = true;
-            }
-            else if (File.Exists(saveFilePath) == false)
-            {
-                askForFolder = true;
-            }
-
-            if (askForFolder)
-            {
-                FolderBrowserDialog folderDialog = new FolderBrowserDialog();
-                folderDialog.Description =
-                "Select the folder where the component definitions are located.";
-
-                DialogResult result = folderDialog.ShowDialog();
-                if (result == DialogResult.Cancel)
-                {
-                    Report.FatalError("You must specify a component folder.");
-                }
-
-                saveFilePath = Path.Combine(folderDialog.SelectedPath, "components.xml");
-                subKey.SetValue(Global.ComponentFolderKey, saveFilePath);
-            }
-
-        }//GetPathOrDie
-
-
         /// <summary>
         /// Get or Set the path where the component data is stored.
         /// </summary>
