@@ -267,7 +267,7 @@ namespace ComponentEditor
 
                System.IO.FileInfo info = new System.IO.FileInfo(fd.FileName);
 
-               // FIXME - Create the selected file, if it doesn't already exist. This is a workaround for the FIXME below.
+               // FIXME (priority 3) - Create the selected file, if it doesn't already exist. This is a workaround for the FIXME below.
                if (!info.Exists)
                {
                    System.IO.FileStream saveFile = new System.IO.FileStream(fd.FileName, System.IO.FileMode.Create);
@@ -276,8 +276,8 @@ namespace ComponentEditor
 
                if (result == DialogResult.OK && fd.FileName != null)
                {
-                   // FIXME- somehow the following line does not work! 
-                   // The FileName gets stored and then imediately returned to what it was before ??? 
+                   // FIXME (priority 3) - somehow the following line does not work! 
+                   // The FileName gets stored and then imediately returned to what it was before? 
                    // Works only if the file selected already exists.
                    // See the workaround above which creates the file first.
                    AllComponents.ComponentFile = fd.FileName;
