@@ -93,7 +93,7 @@ namespace NovaCommon
         /// </summary>
         /// <remarks>
         /// A refactoring of AllComponents.GetPath
-        /// FIXME - The GUI and Console programs used this version but expect the GetPathOrDie() behaviour. Need to upadate their calls.
+        /// FIXME (priority 3) - The GUI and Console programs used this version but expect the GetPathOrDie() behaviour. Need to upadate their calls.
         /// </remarks>
         //-------------------------------------------------------------------
         public static string GetPath()

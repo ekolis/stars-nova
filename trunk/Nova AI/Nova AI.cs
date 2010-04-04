@@ -5,10 +5,10 @@
 // This runs as a command line application to have the computer play a nova
 // turn.
 //
-// TODO - suggest placing wrappers around OrderWriter.WriteOrders and GuiState.Initialize 
+// TODO (priority 3) - suggest placing wrappers around OrderWriter.WriteOrders and GuiState.Initialize 
 //        incase these interfaces change when file formats are reworked.
 //
-// TODO - suggest refactor this to better seperate the AI itself from the program that 
+// TODO (priority 3) - suggest refactor this to better seperate the AI itself from the program that 
 //        interfaces with the console and data files.
 //
 // This is free software. You can redistribute it and/or modify it under the

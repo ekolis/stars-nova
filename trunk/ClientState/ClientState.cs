@@ -477,11 +477,11 @@ namespace NovaClient
         {
             // TODO (priority 3) finish the rest of the LRTs.
             // Not all of these properties are fully implemented here, as they may require changes elsewhere in the game engine.
-            // Where a trait is listed as 'TODO ???' this means it first needs to be checked if it has been implemented elsewhere.
+            // Where a trait is listed as 'TODO ??? (priority 3)' this means it first needs to be checked if it has been implemented elsewhere.
 
             if (ClientState.Data.PlayerRace.Traits.Contains("IFE"))
             {
-                // Ships burn 15% less fuel : (implemeted ???)
+                // Ships burn 15% less fuel : TODO ??? (priority 3)
 
                 // Fuel Mizer and Galaxy Scoop engines available : Implemented in component definitions.
 
@@ -499,12 +499,12 @@ namespace NovaClient
             if (ClientState.Data.PlayerRace.Traits.Contains("ARM"))
             {
                 // Grants access to three additional mining hulls and two new robots : implemented in component definitions.
-                // Start the game with two midget miners : TODO (priority 3)
+                // Start the game with two midget miners : TODO ??? (priority 3)
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("ISB"))
             {
                 // Two additional starbase designs (space dock & ultra station) : implemented in component definitions.
-                // Starbases have built in 20% cloacking : TODO (priority 3)
+                // Starbases have built in 20% cloacking : TODO ??? (priority 3)
 
                 // Improved Starbases gives a 20% discount to starbase hulls.
                 foreach (Component component in ClientState.Data.AvailableComponents.Values)
@@ -532,7 +532,7 @@ namespace NovaClient
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("MA"))
             {
-                // One instance of mineral alchemy costs 25 resources instead of 100. TODO (priority 3)
+                // One instance of mineral alchemy costs 25 resources instead of 100. TODO ??? (priority 3)
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("NRSE"))
             {

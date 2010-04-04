@@ -25,11 +25,11 @@ namespace NovaCommon
 // ============================================================================
 
       [Serializable]
-      public class Item // FIXME - Seems like a bad name as there is already an Item type in the NovaCommon namespace
+      public class Item // FIXME (priority 3) - Seems like a bad name as there is already an Item type in the NovaCommon namespace
       {
          public string    Name;              // Design name, e.g. "Space Dock"
          public int       Quantity;          // Number to build
-         public Resources BuildState;        // Resources need to build item // ??? just the next 1 or the whole lot? - Dan 10 Jan 10
+         public Resources BuildState;        // Resources need to build item // ??? (priority 3) just the next 1 or the whole lot? - Dan 10 Jan 10
                                              // Should be removed in favor of Unit.ResourcesNeeded * Quantity
          public bool      Autobuild;
          private ProductionUnit Unit;

@@ -81,7 +81,7 @@ namespace NovaCommon
                   switch (subnode.Name.ToLower())
                   {
                       case "design":
-                          // FIXME - need to reference the actual design, this is just a placeholder for the name loaded from the file.
+                          // FIXME (priority 5) - need to reference the actual design, this is just a placeholder for the name loaded from the file.
                           Design = new ShipDesign();
                           Design.Name = ((XmlText)subnode.FirstChild).Value;
                               break;

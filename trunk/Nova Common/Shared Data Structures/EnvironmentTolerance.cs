@@ -3,7 +3,7 @@
 //
 // The environmental range a race can tollerate.
 //
-// TODO - What are the full environment ranges? Min&Max for each variable.
+// TODO (priority 3) - What are the full environment ranges? Min&Max for each variable. Need a reference to where this is documented.
 
 /* From http://www.starsfaq.com/advfaq/guts2.htm#4.11
  * 4.11) Guts of Planet Values

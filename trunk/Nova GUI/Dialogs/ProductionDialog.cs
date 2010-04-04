@@ -489,8 +489,8 @@ namespace Nova
       /// Starbases are special in that there
       /// can ony ever be one in the production queue, no matter how many he tries to
       /// add.
-      /// TODO (priority 3) ??? What if I want to build a small base first, then add 
-      ///   a larger base latter. I can queue two different base designs in Stars! ???
+      /// TODO (priority 3) - What if I want to build a small base first, then add 
+      ///   a larger base latter. I can queue two different base designs in Stars! 
       /// ============================================================================
       private void AddStarbase(Design design)
       {
