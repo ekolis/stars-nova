@@ -1,5 +1,7 @@
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This module maintains a (singleton) list of all components.
 //
@@ -20,177 +22,178 @@ using Microsoft.Win32;
 using NovaCommon;
 #endregion
 
-
-// ============================================================================
-// Manipulation of data that is persistent across muliple invocations of the
-// GUI.
-// ============================================================================
-
 namespace NovaCommon
 {
-   [Serializable]
-   public sealed class AllComponents
-   {
+    /// <summary>
+    /// Provides singleton access (via AllComponents.Data) to a <see cref="Hashtable"/> containing all <see cref="Component"/>s indexed on the component's name.
+    /// </summary>
+    [Serializable]
+    public sealed class AllComponents
+    {
 
 
-// ============================================================================
-// All component data
-// ============================================================================
+        // ============================================================================
+        // All component data
+        // ============================================================================
 
-      public Hashtable Components = new Hashtable();
-
-
-// ============================================================================
-// Data private to this module.
-// ============================================================================
-
-      private static AllComponents   Instance      = null;
-      private static Object          Padlock       = new Object();
-      private static String         saveFilePath;
-      private static String         graphicsFilePath;
-      private static bool DisableComponentGraphics = false; // if we can't find them
+        public Hashtable Components = new Hashtable();
 
 
-// ============================================================================
-// Private constructor to prevent anyone else creating instances of this class.
-// ============================================================================
+        // ============================================================================
+        // Data private to this module.
+        // ============================================================================
 
-      private AllComponents() 
-      {
-      }
+        private static AllComponents Instance = null;
+        private static Object Padlock = new Object();
+        private static String saveFilePath;
+        private static String graphicsFilePath;
+        private static bool DisableComponentGraphics = false; // if we can't find them
 
 
-// ============================================================================
-// Provide a mechanism of accessing the single instance of this class that we
-// will create locally. Creation of the data is thread-safe.
-// ============================================================================
+        /// <summary>
+        /// Private constructor to prevent anyone else creating instances of this class.
+        /// </summary>
+        private AllComponents()
+        {
+        }
 
-      public static AllComponents Data
-      {
-         get {
-            if (Instance == null) {
-               lock(Padlock) {
-                  if (Instance == null) {
-                     Instance = new AllComponents();
-                  }
-               }
+
+        /// <summary>
+        /// Provide a mechanism of accessing the single instance of this class that we
+        /// will create locally. Creation of the data is thread-safe.
+        /// </summary>
+        public static AllComponents Data
+        {
+            get
+            {
+                if (Instance == null)
+                {
+                    lock (Padlock)
+                    {
+                        if (Instance == null)
+                        {
+                            Instance = new AllComponents();
+                        }
+                    }
+                }
+                return Instance;
             }
-            return Instance;
-         }
 
-// ----------------------------------------------------------------------------
+            // ----------------------------------------------------------------------------
 
-         set {
-            Instance = value;
-         }
-      }
-
+            set
+            {
+                Instance = value;
+            }
+        }
 
 
-      /// <summary>
-      /// Check if AllComponents contains a particular Component.
-      /// </summary>
-      /// <param name="ComponentName">The Name of the Component to look for.</param>
-      /// <returns></returns>
-      public bool Contains(String ComponentName)
-      {
-          return Data.Components.ContainsKey(ComponentName);
-      }
 
-      /// <summary>
-      /// Check if AllComponents contains a particular Component.
-      /// </summary>
-      /// <param name="Component">The Component to look for.</param>
-      /// <returns></returns>
-      public bool Contains(Component component)
-      {
-          return Data.Components.ContainsValue(component);
-      }
+        /// <summary>
+        /// Check if AllComponents contains a particular Component.
+        /// </summary>
+        /// <param name="ComponentName">The Name of the Component to look for.</param>
+        /// <returns>True if the component is included.</returns>
+        public bool Contains(String ComponentName)
+        {
+            return Data.Components.ContainsKey(ComponentName);
+        }
 
-      private void LoadComponents(object status)
-      {
-          IProgressCallback callback = status as IProgressCallback;
-
-          try
-          {
-
-              // blank the component data
-              AllComponents.Data = new AllComponents();
-
-              XmlDocument xmldoc = new XmlDocument();
-              FileStream fileStream = new FileStream(saveFilePath, FileMode.Open, FileAccess.Read);
-              GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
+        /// <summary>
+        /// Check if AllComponents contains a particular Component.
+        /// </summary>
+        /// <param name="Component">The Component to look for.</param>
+        /// <returns>True if the component is included.</returns>
+        public bool Contains(Component component)
+        {
+            return Data.Components.ContainsValue(component);
+        }
 
 
-              xmldoc.Load(saveFilePath);  // uncompressed
-              //xmldoc.Load(compressionStream); // compressed
+        /// <summary>
+        /// Load all the components form the component definition file, nominally components.xml.
+        /// </summary>
+        /// <param name="status">An <see cref="IProgressCallback"/> used for updating the progress dialog.</param>
+        private void LoadComponents(object status)
+        {
+            IProgressCallback callback = status as IProgressCallback;
 
-              XmlNode xmlnode = (XmlNode)xmldoc.DocumentElement;
+            try
+            {
 
-              int nodesLoaded = 0;
-              while (xmlnode != null)
-              {
+                // blank the component data
+                AllComponents.Data = new AllComponents();
 
-                  // Report.Information("node name = '" + xmlnode.Name + "'");
-                  if (xmlnode.Name == "ROOT")
-                  {
-                      callback.Begin(0, xmlnode.ChildNodes.Count);
+                XmlDocument xmldoc = new XmlDocument();
+                FileStream fileStream = new FileStream(saveFilePath, FileMode.Open, FileAccess.Read);
+                GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
 
-                      xmlnode = xmlnode.FirstChild;
-                  }
-                  else if (xmlnode.Name == "Component")
-                  {
-                      ++nodesLoaded;
-                      callback.SetText(String.Format("Loading component: {0}", nodesLoaded));
-                      callback.StepTo(nodesLoaded);
-                      NovaCommon.Component newComponent = new Component(xmlnode);
-                      AllComponents.Data.Components[newComponent.Name] = newComponent;
-                      xmlnode = xmlnode.NextSibling;
-                  }
-                  else
-                  {
-                      xmlnode = xmlnode.NextSibling;
-                  }
 
-                  // check for user Cancel
-                  if (callback.IsAborting)
-                  {
-                      return;
-                  }
+                xmldoc.Load(saveFilePath);  // uncompressed
+                //xmldoc.Load(compressionStream); // compressed
 
-              }//while loading nodes
-              callback.Success = true;
+                XmlNode xmlnode = (XmlNode)xmldoc.DocumentElement;
 
-          }
-          catch (System.Threading.ThreadAbortException)
-          {
-              // We want to exit gracefully here (if we're lucky)
-              Report.Error("AllComponents: LoadComponents() - Thread Abort Exception.");
-          }
-          catch (System.Threading.ThreadInterruptedException)
-          {
-              // And here, if we can
-              Report.Error("AllComponents: LoadComponents() - Thread Interrupted Exception.");
-          }
+                int nodesLoaded = 0;
+                while (xmlnode != null)
+                {
 
-          catch (Exception e)
-          {
-              Report.Error("Failed to load file: \r\n" + e.Message);
-          }
+                    // Report.Information("node name = '" + xmlnode.Name + "'");
+                    if (xmlnode.Name == "ROOT")
+                    {
+                        callback.Begin(0, xmlnode.ChildNodes.Count);
 
-          finally
-          {
-              if (callback != null)
-              {
-                  callback.End();
-              }
-          }
-      }
+                        xmlnode = xmlnode.FirstChild;
+                    }
+                    else if (xmlnode.Name == "Component")
+                    {
+                        ++nodesLoaded;
+                        callback.SetText(String.Format("Loading component: {0}", nodesLoaded));
+                        callback.StepTo(nodesLoaded);
+                        NovaCommon.Component newComponent = new Component(xmlnode);
+                        AllComponents.Data.Components[newComponent.Name] = newComponent;
+                        xmlnode = xmlnode.NextSibling;
+                    }
+                    else
+                    {
+                        xmlnode = xmlnode.NextSibling;
+                    }
 
-// ============================================================================
-// Restore the data. 
-       
-// ============================================================================
+                    // check for user Cancel
+                    if (callback.IsAborting)
+                    {
+                        return;
+                    }
+
+                }//while loading nodes
+                callback.Success = true;
+
+            }
+            catch (System.Threading.ThreadAbortException)
+            {
+                // We want to exit gracefully here (if we're lucky)
+                Report.Error("AllComponents: LoadComponents() - Thread Abort Exception.");
+            }
+            catch (System.Threading.ThreadInterruptedException)
+            {
+                // And here, if we can
+                Report.Error("AllComponents: LoadComponents() - Thread Interrupted Exception.");
+            }
+
+            catch (Exception e)
+            {
+                Report.Error("Failed to load file: \r\n" + e.Message);
+            }
+
+            finally
+            {
+                if (callback != null)
+                {
+                    callback.End();
+                }
+            }
+        }
+
 
         /// <summary>
         /// Restore the component definitions.
@@ -201,7 +204,7 @@ namespace NovaCommon
         public static void Restore()
         {
             GetPath();
-            if( saveFilePath == null || saveFilePath == "?" || saveFilePath == "" )
+            if (saveFilePath == null || saveFilePath == "?" || saveFilePath == "")
             {
                 throw new Exception();
             }
@@ -209,9 +212,9 @@ namespace NovaCommon
 
             ProgressDialog progress = new ProgressDialog();
             progress.Text = "Work";
-            System.Threading.ThreadPool.QueueUserWorkItem( new System.Threading.WaitCallback( AllComponents.Data.LoadComponents ), progress );
+            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(AllComponents.Data.LoadComponents), progress);
             progress.ShowDialog();
-            if( !progress.Success )
+            if (!progress.Success)
             {
                 throw new System.Exception();
             }
@@ -220,57 +223,55 @@ namespace NovaCommon
 
 
 
-      // ============================================================================
-      /// <summary> Save the component data. </summary>
-      // ============================================================================
-      public static bool Save()
-      {
-          try
-          {
-              // Setup the save location, stream and compression.
-              if (GetPath() == null && GetNewSaveFile() == null)
-              {
-                  throw (new System.IO.FileNotFoundException());
-              }
-              FileStream saveFile = new FileStream(saveFilePath, FileMode.Create);
-              GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
+        /// <summary> Save the component data. </summary>
+        public static bool Save()
+        {
+            try
+            {
+                // Setup the save location, stream and compression.
+                if (GetPath() == null && GetNewSaveFile() == null)
+                {
+                    throw (new System.IO.FileNotFoundException());
+                }
+                FileStream saveFile = new FileStream(saveFilePath, FileMode.Create);
+                GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
 
-              // Setup the XML document
-              XmlDocument xmldoc = new XmlDocument();
-              XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
+                // Setup the XML document
+                XmlDocument xmldoc = new XmlDocument();
+                XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
 
-              // add the components to the document
-              foreach (NovaCommon.Component thing in AllComponents.Data.Components.Values)
-              {
-                  xmldoc.ChildNodes.Item(1).AppendChild(thing.ToXml(xmldoc));
-              }
+                // add the components to the document
+                foreach (NovaCommon.Component thing in AllComponents.Data.Components.Values)
+                {
+                    xmldoc.ChildNodes.Item(1).AppendChild(thing.ToXml(xmldoc));
+                }
 
-              // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
-              // manual inspection of the save file. Generally though it can be opened by any archiving tool that
-              // reads gzip format.
-              // xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
-                                                                               //       or
-              xmldoc.Save(saveFile);                                           //  not compressed
+                // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
+                // manual inspection of the save file. Generally though it can be opened by any archiving tool that
+                // reads gzip format.
+                // xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
+                //       or
+                xmldoc.Save(saveFile);                                           //  not compressed
 
-              saveFile.Close();
+                saveFile.Close();
 
-              Report.Information("Component data has been saved to " + saveFilePath);
-              return true;
-          }
-          catch (System.IO.FileNotFoundException)
-          {
-              
-              Report.Error("Error: File path not specified.");
-              return false;
+                Report.Information("Component data has been saved to " + saveFilePath);
+                return true;
+            }
+            catch (System.IO.FileNotFoundException)
+            {
 
-          }
-          catch (Exception e)
-          {
-              Report.Error("Error: Failed to save component definition file. " + e.Message);
-              return false;
-          }
-          
-      } // Save
+                Report.Error("Error: File path not specified.");
+                return false;
+
+            }
+            catch (Exception e)
+            {
+                Report.Error("Error: Failed to save component definition file. " + e.Message);
+                return false;
+            }
+
+        } // Save
 
         //-------------------------------------------------------------------
         /// <summary>
@@ -282,60 +283,66 @@ namespace NovaCommon
         //-------------------------------------------------------------------
         public static void ResetPath()
         {
-             saveFilePath = string.Empty;
-             using( RegistryKey regKey = Registry.CurrentUser.CreateSubKey( Global.RootRegistryKey ) )
-             {
-                 regKey.SetValue( Global.ComponentFolderKey, string.Empty );
-             }
+            saveFilePath = string.Empty;
+            using (RegistryKey regKey = Registry.CurrentUser.CreateSubKey(Global.RootRegistryKey))
+            {
+                regKey.SetValue(Global.ComponentFolderKey, string.Empty);
+            }
         }
 
-// ============================================================================
-// Start a new component definition set. This simply wipes all components from
-// the in memory component definitions.
-// ============================================================================
-      public static void MakeNew()
-      {
-          // FIXME - Selecting File|New before loading an existing component definition file caused a null reference exception. - Dan 28 Dec 09.
-          AllComponents.Instance.Components = new Hashtable();
-          ResetPath();
-      }
 
-// ============================================================================
-// Ask the user for a location to save the file.
-// ============================================================================
-      public static string GetNewSaveFile()
-      {
-          SaveFileDialog fd = new SaveFileDialog();
-          fd.Title = "Save component definition file";
+        /// <summary>
+        /// Start a new component definition set. This simply wipes all components from
+        /// the in memory component definitions.
+        /// </summary>
+        public static void MakeNew()
+        {
+            // FIXME (priority 5) - Selecting File|New before loading an existing component definition file caused a null reference exception. - Dan 28 Dec 09.
+            AllComponents.Instance.Components = new Hashtable();
+            ResetPath();
+        }
 
-          DialogResult result = fd.ShowDialog();
 
-          // MessageBox.Show("Result " + result.ToString(System.Globalization.CultureInfo.InvariantCulture));
+        /// <summary>
+        /// Ask the user for a location to save the file.
+        /// </summary>
+        /// <returns>Path and file name to save too.</returns>
+        public static string GetNewSaveFile()
+        {
+            SaveFileDialog fd = new SaveFileDialog();
+            fd.Title = "Save component definition file";
 
-          if (result == DialogResult.OK && fd.FileName != null)
-          {
-              AllComponents.ComponentFile = fd.FileName;  // store FileName and set registry key
-              Report.Debug("AllComponents.cs: GetNewSaveFile() - Saving to: " + AllComponents.ComponentFile);
+            DialogResult result = fd.ShowDialog();
 
-              return fd.FileName;
-          }
-          return null;
+            // MessageBox.Show("Result " + result.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
-      }// Get New Save File
+            if (result == DialogResult.OK && fd.FileName != null)
+            {
+                AllComponents.ComponentFile = fd.FileName;  // store FileName and set registry key
+                Report.Debug("AllComponents.cs: GetNewSaveFile() - Saving to: " + AllComponents.ComponentFile);
 
-        #region Methods
+                return fd.FileName;
+            }
+            return null;
+
+        }// Get New Save File
+
+        
         //-------------------------------------------------------------------
         /// <summary>
         /// Extract the path to the component file from the registry.
-        /// FIXME - The GUI and Console programs used this version but expect the GetPathOrDie() behaviour. Need to upadate their calls.
-        /// </summary>
+        /// </summary><remarks>
+        /// FIXME (priority 4) - The GUI and Console programs use this version but previously it behaved like GetPathOrDie(). Need to determine how they should get the path. 
+        /// Use of this is depreciated, see FileSearcher.cs.
+        /// </remarks>
+        /// <returns>The path to the component definition file.</returns>
         //-------------------------------------------------------------------
         private static string GetPath()
         {
-            using( RegistryKey regKey = Registry.CurrentUser.CreateSubKey( Global.RootRegistryKey ) )
+            using (RegistryKey regKey = Registry.CurrentUser.CreateSubKey(Global.RootRegistryKey))
             {
-                saveFilePath = regKey.GetValue( Global.ComponentFolderKey, string.Empty ).ToString();
-                if( 0 == saveFilePath.Length )
+                saveFilePath = regKey.GetValue(Global.ComponentFolderKey, string.Empty).ToString();
+                if (0 == saveFilePath.Length)
                 {
                     saveFilePath = null;
                 }
@@ -343,141 +350,150 @@ namespace NovaCommon
 
             return saveFilePath;
         }
-        #endregion
+       
 
-        // ============================================================================
-// Extract the path to the component file from the registry, failing that
-// from the user and failing that terminate the program.
-// FIXME - doesn't actually check that the user specified a valid file, which 
-// may cause an unexpected termination.
-// ============================================================================
-      public static void GetPathOrDie()
-      {
-          RegistryKey regKey = Registry.CurrentUser;
-          RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-          saveFilePath = subKey.GetValue
-                                  (Global.ComponentFolderKey, "?").ToString();
 
-          bool askForFolder = false;
+        /// <summary>
+        /// Extract the path to the component file from the registry, failing that
+        /// from the user and failing that terminate the program.
+        /// </summary>
+        /// <remarks>
+        /// FIXME (priority 5) - doesn't actually check that the user specified a valid file, which 
+        /// may cause an unexpected termination. 
+        /// Use of this is depreciated, see FileSearcher.cs.
+        /// </remarks>
+        public static void GetPathOrDie()
+        {
+            RegistryKey regKey = Registry.CurrentUser;
+            RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
+            saveFilePath = subKey.GetValue
+                                    (Global.ComponentFolderKey, "?").ToString();
 
-          if (saveFilePath == "?" || saveFilePath == "")
-          {
-              askForFolder = true;
-          }
-          else if (File.Exists(saveFilePath) == false)
-          {
-              askForFolder = true;
-          }
+            bool askForFolder = false;
 
-          if (askForFolder)
-          {
-              FolderBrowserDialog folderDialog = new FolderBrowserDialog();
-              folderDialog.Description =
-              "Select the folder where the component definitions are located.";
+            if (saveFilePath == "?" || saveFilePath == "")
+            {
+                askForFolder = true;
+            }
+            else if (File.Exists(saveFilePath) == false)
+            {
+                askForFolder = true;
+            }
 
-              DialogResult result = folderDialog.ShowDialog();
-              if (result == DialogResult.Cancel)
-              {
-                  Report.FatalError("You must specify a component folder.");
-              }
+            if (askForFolder)
+            {
+                FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+                folderDialog.Description =
+                "Select the folder where the component definitions are located.";
 
-              saveFilePath = Path.Combine(folderDialog.SelectedPath, "components.xml");
-              subKey.SetValue(Global.ComponentFolderKey, saveFilePath);
-          }
+                DialogResult result = folderDialog.ShowDialog();
+                if (result == DialogResult.Cancel)
+                {
+                    Report.FatalError("You must specify a component folder.");
+                }
 
-      }//GetPathOrDie
+                saveFilePath = Path.Combine(folderDialog.SelectedPath, "components.xml");
+                subKey.SetValue(Global.ComponentFolderKey, saveFilePath);
+            }
 
-// ============================================================================
-// Access to the path where the component data is stored.
-// ============================================================================
-      public static string ComponentFile
-      {
-          get { GetPath(); return saveFilePath; }
+        }//GetPathOrDie
 
-          // ----------------------------------------------------------------------------
 
-          set
-          {
-              saveFilePath = value;
-              RegistryKey key = Registry.CurrentUser;
-              RegistryKey subKey = key.CreateSubKey(Global.RootRegistryKey);
-              subKey.SetValue(Global.ComponentFolderKey, saveFilePath);
-              // MessageBox.Show("Registry key set to: " + SaveFilePath);
-          }
-      }
+        /// <summary>
+        /// Get or Set the path where the component data is stored.
+        /// </summary>
+        public static string ComponentFile
+        {
+            get { GetPath(); return saveFilePath; }
 
-      // ============================================================================
-      // Ask the user for the graphics directory.
-      // ============================================================================
-      public static string GetNewGraphicsPath()
-      {
-          FolderBrowserDialog folderDialog = new FolderBrowserDialog();
-          folderDialog.Description =
-          @"Select the folder where the component graphics images are located (normally Nova\Graphics\)";
+            // ----------------------------------------------------------------------------
 
-          DialogResult result = folderDialog.ShowDialog();
-          if (result == DialogResult.Cancel)
-          {
-              Report.Error("Unable to load images.");
-              Graphics = "";
-              return "";
-          }
+            set
+            {
+                saveFilePath = value;
+                RegistryKey key = Registry.CurrentUser;
+                RegistryKey subKey = key.CreateSubKey(Global.RootRegistryKey);
+                subKey.SetValue(Global.ComponentFolderKey, saveFilePath);
+                // MessageBox.Show("Registry key set to: " + SaveFilePath);
+            }
+        }
 
-          Graphics = folderDialog.SelectedPath;
 
-          return graphicsFilePath;
-      }// GetNewGraphicsPath
+        /// <summary>
+        /// Ask the user for the graphics directory.
+        /// </summary>
+        /// <returns></returns>
+        public static string GetNewGraphicsPath()
+        {
+            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+            folderDialog.Description =
+            @"Select the folder where the component graphics images are located (normally Nova\Graphics\)";
 
-// ============================================================================
-// Extract the path to the component graphics from the registry
-// ============================================================================
-      public static string GetGraphicsPath()
-      {
-          if (DisableComponentGraphics) return "";
+            DialogResult result = folderDialog.ShowDialog();
+            if (result == DialogResult.Cancel)
+            {
+                Report.Error("Unable to load images.");
+                Graphics = "";
+                return "";
+            }
 
-          RegistryKey regKey = Registry.CurrentUser;
-          RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-          graphicsFilePath = subKey.GetValue
-                                  (Global.GraphicsFolderKey, "?").ToString();
+            Graphics = folderDialog.SelectedPath;
 
-          if (graphicsFilePath == "?" || graphicsFilePath == "")
-          {
-              graphicsFilePath = GetNewGraphicsPath();
-              if (graphicsFilePath == "?" || graphicsFilePath == "")
-              {
-                  // In case we are in a loop loading lots of component images, don't keep trying endlessly.
-                  Report.Error("Unable to locate component graphics. All component graphics will be dissabled.");
-                  DisableComponentGraphics = true;
-              }
-          }
+            return graphicsFilePath;
+        }// GetNewGraphicsPath
 
-          return graphicsFilePath;
 
-      }//GetPath
+        /// <summary>
+        /// Extract the path to the component graphics from the registry
+        /// </summary>
+        /// <returns></returns>
+        public static string GetGraphicsPath()
+        {
+            if (DisableComponentGraphics) return "";
+
+            RegistryKey regKey = Registry.CurrentUser;
+            RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
+            graphicsFilePath = subKey.GetValue
+                                    (Global.GraphicsFolderKey, "?").ToString();
+
+            if (graphicsFilePath == "?" || graphicsFilePath == "")
+            {
+                graphicsFilePath = GetNewGraphicsPath();
+                if (graphicsFilePath == "?" || graphicsFilePath == "")
+                {
+                    // In case we are in a loop loading lots of component images, don't keep trying endlessly.
+                    Report.Error("Unable to locate component graphics. All component graphics will be dissabled.");
+                    DisableComponentGraphics = true;
+                }
+            }
+
+            return graphicsFilePath;
+
+        }//GetPath
 
         #region Properties
-       //-------------------------------------------------------------------
-       /// <summary>
-       /// Gets or sets the path where the graphics files are stored.
-       /// </summary>
-       //-------------------------------------------------------------------
-       public static string Graphics
-       {
-           get
-           {
-               GetGraphicsPath();
-               return graphicsFilePath;
-           }
-           private set
-           {
-               graphicsFilePath = value;
-               using( RegistryKey key = Registry.CurrentUser.CreateSubKey( Global.RootRegistryKey ) )
-               {
-                   key.SetValue( Global.GraphicsFolderKey, graphicsFilePath );
-               }
-              // Report.Debug("Registry key set to: " + SaveFilePath);
-           }
-       }
+        //-------------------------------------------------------------------
+        /// <summary>
+        /// Gets or sets the path where the graphics files are stored.
+        /// </summary>
+        //-------------------------------------------------------------------
+        public static string Graphics
+        {
+            get
+            {
+                GetGraphicsPath();
+                return graphicsFilePath;
+            }
+            private set
+            {
+                graphicsFilePath = value;
+                using (RegistryKey key = Registry.CurrentUser.CreateSubKey(Global.RootRegistryKey))
+                {
+                    key.SetValue(Global.GraphicsFolderKey, graphicsFilePath);
+                }
+                // Report.Debug("Registry key set to: " + SaveFilePath);
+            }
+        }
         #endregion
-   }
+    }
 }

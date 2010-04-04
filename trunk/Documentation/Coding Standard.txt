@@ -1,6 +1,8 @@
 Not much of a standard yet!
 
-
+INDENTING
+----------
+Use Visual Studio defaults for indenting. This can be acheived by cutting an object or function and then pasting it back in (Ctrl-X, Ctrl-v).
 
 HEADERS
 -------
@@ -41,6 +43,22 @@ When refering to types in function headers, use the 'see cref=""' form:
         /// <param name="star">The <see cref="Star"/> being reported</param>
 
 
-INDENTING
-----------
-Use Visual Studio defaults for indenting. This can be acheived by cutting an object or function and then pasting it back in (Ctrl-X, Ctrl-v).
+Xml Serialisation Functions 
+---------------------------
+
+FromXml() - implemented as an initialising constructor
+        /// <summary>
+        /// Load from XML: Initialising constructor from an XML node.
+        /// </summary>
+        /// <param name="node">An <see cref="XmlNode"/> within 
+        /// a Nova compenent definition file (xml document).
+        /// Where named "property_type" a "Property" node with Type=="key_name" 
+        /// </param>
+
+ToXml()
+
+        /// <summary>
+        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
