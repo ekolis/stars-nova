@@ -77,9 +77,9 @@ namespace NovaCommon
         #region Xml
 
         /// <summary>
-        /// Initialising Constructor from an xml node.
+        /// Load: Initialising Constructor from an xml node.
         /// </summary>
-        /// <param name="node">node is an <see cref="XmlNode"/> named "Module" within a "Property" node with Type=="Hull" 
+        /// <param name="node">An <see cref="XmlNode"/> named "Module" within a "Property" node with Type=="Hull" 
         /// in a Nova compenent definition file (xml document).
         /// </param>
         public HullModule(XmlNode node)
