@@ -1,6 +1,7 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // Definition of a Minefield. Note that it over-rides the Key method to provide
 // a simple incrementing number each time a new minefield is created. This
@@ -18,43 +19,56 @@ using System.Drawing;
 
 namespace NovaCommon
 {
-   [Serializable]
-   public class Minefield : Item
-   {
-      public         int NumberOfMines = 0;
-      public         int SafeSpeed     = 4;
-      private static int KeyID         = 0;
+    [Serializable]
+    public class Minefield : Item
+    {
+        public int NumberOfMines = 0;
+        public int SafeSpeed = 4;
+        private static int KeyID = 0;
 
 
-// ============================================================================
-// Constructor
-// ============================================================================
+        #region Construction
 
-      public Minefield()
-      {
-         KeyID++;
-      }
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public Minefield()
+        {
+            KeyID++;
+        }
+
+        #endregion
+
+        #region Properties
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Determine the spacial radius of a Minefield. 
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public int Radius
+        {
+            get
+            {
+                return (int) Math.Sqrt(NumberOfMines);
+            }
+
+        }
 
 
-// ============================================================================
-// Determine the spacial radius of a Minefield. (To be improved.)
-// ============================================================================
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Override the Key method of Item
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public override string Key
+        {
+            get { return KeyID.ToString(System.Globalization.CultureInfo.InvariantCulture); }
+        }
 
-      public int Radius {
-         get {
-            return NumberOfMines;
-         }
-         
-      }
+        #endregion
 
-// ============================================================================
-// Override the Key method of Item
-// ============================================================================
-
-      public override string Key
-      {
-          get { return KeyID.ToString(System.Globalization.CultureInfo.InvariantCulture); }
-      }
-   }
- 
+    }
 }
