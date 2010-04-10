@@ -6,15 +6,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova GUI", "Nova GUI\Nova G
 		{16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8} = {16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8}
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common Tests", "Nova Common\Common Tests\Common Tests.csproj", "{53C6BA3F-E76A-4845-BAD2-0128BEA70615}"
-	ProjectSection(ProjectDependencies) = postProject
-		{BC53AE52-0F5C-4C4D-A6D9-54DF198655C9} = {BC53AE52-0F5C-4C4D-A6D9-54DF198655C9}
-		{14CD4564-836F-4934-8B12-74F399B0F7D5} = {14CD4564-836F-4934-8B12-74F399B0F7D5}
-		{BFDEE889-6F24-4014-A719-DDA9A9596D70} = {BFDEE889-6F24-4014-A719-DDA9A9596D70}
-		{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F} = {AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}
-		{16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8} = {16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8}
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ControlLibrary", "Control Library\ControlLibrary.csproj", "{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}"
 	ProjectSection(ProjectDependencies) = postProject
 		{EF679930-F4C9-4D62-9A6A-DE29F8D328C0} = {EF679930-F4C9-4D62-9A6A-DE29F8D328C0}
@@ -35,8 +26,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova Common", "Nova Common\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics", "Graphics\Graphics.csproj", "{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Console Tests", "Nova Console\Console Tests\Console Tests.csproj", "{FB20AE47-F2D0-414F-A550-244FA127C866}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Race Designer", "Race Designer\Race Designer.csproj", "{BFDEE889-6F24-4014-A719-DDA9A9596D70}"
 	ProjectSection(ProjectDependencies) = postProject
 		{16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8} = {16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8}
@@ -55,7 +44,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerState", "ServerState\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientState", "ClientState\ClientState.csproj", "{F497309F-FC52-4431-962B-F6B813010080}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\UnitTests.csproj", "{86291ACF-4BAD-4926-B647-8BCDBB5E8EF7}"
+EndProject
 Global
+	GlobalSection(SubversionScc) = preSolution
+		Svn-Managed = True
+		Manager = AnkhSVN - Subversion Support for Visual Studio
+	EndGlobalSection
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
@@ -65,9 +60,6 @@ Global
 		{14CD4564-836F-4934-8B12-74F399B0F7D5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14CD4564-836F-4934-8B12-74F399B0F7D5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14CD4564-836F-4934-8B12-74F399B0F7D5}.Release|Any CPU.Build.0 = Release|Any CPU
-		{53C6BA3F-E76A-4845-BAD2-0128BEA70615}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{53C6BA3F-E76A-4845-BAD2-0128BEA70615}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{53C6BA3F-E76A-4845-BAD2-0128BEA70615}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -88,10 +80,6 @@ Global
 		{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FB20AE47-F2D0-414F-A550-244FA127C866}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{FB20AE47-F2D0-414F-A550-244FA127C866}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{FB20AE47-F2D0-414F-A550-244FA127C866}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{FB20AE47-F2D0-414F-A550-244FA127C866}.Release|Any CPU.Build.0 = Release|Any CPU
 		{BFDEE889-6F24-4014-A719-DDA9A9596D70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BFDEE889-6F24-4014-A719-DDA9A9596D70}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BFDEE889-6F24-4014-A719-DDA9A9596D70}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -116,12 +104,12 @@ Global
 		{F497309F-FC52-4431-962B-F6B813010080}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F497309F-FC52-4431-962B-F6B813010080}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F497309F-FC52-4431-962B-F6B813010080}.Release|Any CPU.Build.0 = Release|Any CPU
+		{86291ACF-4BAD-4926-B647-8BCDBB5E8EF7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{86291ACF-4BAD-4926-B647-8BCDBB5E8EF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{86291ACF-4BAD-4926-B647-8BCDBB5E8EF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{86291ACF-4BAD-4926-B647-8BCDBB5E8EF7}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
-	EndGlobalSection
-	GlobalSection(SubversionScc) = preSolution
-		Svn-Managed = True
-		Manager = AnkhSVN - Subversion Support for Visual Studio
 	EndGlobalSection
 EndGlobal
