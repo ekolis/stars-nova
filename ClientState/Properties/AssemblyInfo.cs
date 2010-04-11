@@ -8,6 +8,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Client State")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyProduct("Client State")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("11a05517-440d-4e9d-8209-b3edecb478d1")]

@@ -17,6 +17,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Nova GUI")]
 [assembly: AssemblyDescription("The user interface to the game")]
 [assembly: AssemblyProduct("Nova GUI")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("14cd4564-836f-4934-8b12-74f399b0f7d5")]
