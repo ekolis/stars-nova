@@ -17,7 +17,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Nova Console")]
 [assembly: AssemblyDescription("The main component that runs the game")]
 [assembly: AssemblyProduct("Nova Console")]
-[assembly: AssemblyCulture("")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("bc53ae52-0f5c-4c4d-a6d9-54df198655c9")]

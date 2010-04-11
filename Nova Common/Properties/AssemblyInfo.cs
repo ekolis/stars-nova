@@ -18,7 +18,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Nova Common")]
 [assembly: AssemblyDescription("Nova Common")]
 [assembly: AssemblyProduct("Nova Common")]
-[assembly: AssemblyCulture("")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("ef679930-f4c9-4d62-9a6a-de29f8d328c0")]

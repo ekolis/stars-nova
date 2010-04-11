@@ -17,7 +17,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Nova Race Designer")]
 [assembly: AssemblyDescription("Designs races for the Nova game")]
 [assembly: AssemblyProduct("Nova Race Designer")]
-[assembly: AssemblyCulture("")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("bfdee889-6f24-4014-a719-dda9a9596d70")]
