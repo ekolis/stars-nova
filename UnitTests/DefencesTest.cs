@@ -16,7 +16,7 @@ using System.Collections;
 using System.Text;
 using System;
 
-namespace NovaCommon
+namespace Nova.UnitTests
 {
 
 // ============================================================================

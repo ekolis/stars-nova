@@ -8,7 +8,7 @@
     <ProjectGuid>{86291ACF-4BAD-4926-B647-8BCDBB5E8EF7}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nova</RootNamespace>
+    <RootNamespace>Nova.UnitTests</RootNamespace>
     <AssemblyName>Nova.UnitTests</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
