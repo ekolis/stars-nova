@@ -8,6 +8,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Nova Component Editor")]
 [assembly: AssemblyDescription("Edits Nova Components")]
 [assembly: AssemblyProduct("Nova Component Editor")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("6502f938-5259-40b5-afe2-40cbf24bca8b")]

@@ -8,6 +8,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("New Game")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyProduct("New Game")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("7469feef-9335-4eb3-98fb-d69ea54bc666")]

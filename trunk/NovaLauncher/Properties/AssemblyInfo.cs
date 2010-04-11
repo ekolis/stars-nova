@@ -8,6 +8,3 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Nova Launcher")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyProduct("Nova Launcher")]
-
-// The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("c27ca3da-2522-4338-b1e1-dd28ce7a2e9f")]
