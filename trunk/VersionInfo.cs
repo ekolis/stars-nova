@@ -29,7 +29,7 @@ using System.Security.Permissions;
 [assembly: AssemblyCompany( "Nova" )]
 [assembly: AssemblyCopyright( "Copyright © Nova 2010" )]
 [assembly: AssemblyTrademark( "TODO" )]
-//[assembly: AssemblyCulture( "TODO" )]
+[assembly: AssemblyCulture( "" )]
 
 // Version information for an assembly consists of the following four values:
 //

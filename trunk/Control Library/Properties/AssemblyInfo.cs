@@ -17,7 +17,6 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Control Library")]
 [assembly: AssemblyDescription("Control Library for Nova")]
 [assembly: AssemblyProduct("Control Library")]
-[assembly: AssemblyCulture("")]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
 [assembly: Guid("aa9c1aa7-ab64-4560-91c7-95bb2a88fa1f")]
