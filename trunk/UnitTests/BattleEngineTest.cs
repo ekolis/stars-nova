@@ -18,7 +18,7 @@ using NovaCommon;
 using NovaServer;
 using NovaConsole;
 
-namespace Testing 
+namespace Nova.UnitTests 
 {
 
 
