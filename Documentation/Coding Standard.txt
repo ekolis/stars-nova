@@ -15,7 +15,7 @@ Header for files with original copyright to Ken:
 // Copyright (C) 2008 Ken Reed
 // Copyright (C) 2009, 2010 The Stars-Nova Project
 //
-// This file is part of Stars-Nova.
+// This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
 //
 // This program is free software; you can redistribute it and/or modify
@@ -40,7 +40,7 @@ Header for files produced as part of the Stars-Nova project:
 // ============================================================================
 // Copyright (C) 2009, 2010 The Stars-Nova Project
 //
-// This file is part of Stars-Nova.
+// This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
 //
 // This program is free software; you can redistribute it and/or modify
