@@ -13,9 +13,9 @@ Header for files with original copyright to Ken:
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 The Stars-Nova Project
+// Copyright (C) 2009, 2010 stars-nova
 //
-// This file is part of Stars! Nova.
+// This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
 //
 // This program is free software; you can redistribute it and/or modify
@@ -24,11 +24,11 @@ Header for files with original copyright to Ken:
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program. If not, see <http://www.gnu.org/licenses/>
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
 // ===========================================================================
 #endregion
 
@@ -72,6 +72,12 @@ Files should be broken up by #region / #endregion statements. Suggested regions 
  - Load Save Xml
  - Utility Methods
  - Properties
+
+Dividers
+--------
+
+/// ----------------------------------------------------------------------------
+// =============================================================================
 
 Event Functions
 ---------------

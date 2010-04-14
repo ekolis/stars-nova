@@ -1,7 +1,7 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
-// Modified Daniel Vale Apr 2009
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This class defines a simple property used for any property which has no 
 // value - it simply exists or not. For example 'Transport Ships Only' or
@@ -16,60 +16,93 @@ using System;
 using System.Xml;
 using System.Runtime.Serialization;
 
-// ============================================================================
-// Simple Property Class
-// ============================================================================
-
 namespace NovaCommon
 {
-   [Serializable]
-   public class SimpleProperty : ComponentProperty
-   {
+    /// <summary>
+    /// Simple Property Class
+    /// </summary>
+    [Serializable]
+    public class SimpleProperty : ComponentProperty
+    {
         // This property has no data!
 
-// ============================================================================
-// Construction from scratch
-// ============================================================================
-      public SimpleProperty() {}
+        #region Construction
 
-// ============================================================================
-// Construction from a ComponentProperty object
-// ============================================================================
-      public SimpleProperty(SimpleProperty existing) {}
+        /// ----------------------------------------------------------------------------
+        /// /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public SimpleProperty() { }
 
-      //============================================================================
-      // Implement the ICloneable interface so properties can be cloned.
-      //============================================================================
-      public override object Clone()
-      {
-          return new SimpleProperty();
-      }       
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Copy constructor
+        /// </summary>
+        /// <param name="existing">Existing property to copy.</param>
+        /// ----------------------------------------------------------------------------
+        public SimpleProperty(SimpleProperty existing) { }
 
-// ============================================================================
-// Initialising Constructor from an xml node.
-// Precondition: node is a "Property" node with Type equal to one of the simple 
-//               property types in a Nova compenent definition file (xml document).
-// ============================================================================
-      public SimpleProperty(XmlNode node) {}
+        #endregion
+
+        #region Interface ICloneable
 
 
-      //============================================================================
-      // Provide a way to add properties in the ship design.
-      //============================================================================
-      public static SimpleProperty operator +(SimpleProperty op1, SimpleProperty op2)
-      {
-          return op1;
-      }
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Implement the ICloneable interface so properties can be cloned.
+        /// </summary>
+        /// <returns>A clone of this object.</returns>
+        /// ----------------------------------------------------------------------------
+        public override object Clone()
+        {
+            return new SimpleProperty();
+        }
 
-      // ============================================================================
-      // Return an XmlElement representation of the Property
-      // ============================================================================
-      public override XmlElement ToXml(XmlDocument xmldoc)
-      {
-          XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+        #endregion
 
-          return xmlelProperty;
-      }
-   }
+        #region Operators
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Provide a way to add properties in the ship design.
+        /// </summary>
+        /// <param name="op1">LHS operator.</param>
+        /// <param name="op2">RHS operator.</param>
+        /// <returns>op1</returns>
+        /// ----------------------------------------------------------------------------
+        public static SimpleProperty operator +(SimpleProperty op1, SimpleProperty op2)
+        {
+            return op1;
+        }
+
+        #endregion
+
+        #region Load Save Xml
+
+        /// <summary>
+        /// Load from XML: Initialising constructor from an XML node.
+        /// </summary>
+        /// <param name="node">An <see cref="XmlNode"/> within 
+        /// a Nova compenent definition file (xml document).
+        /// </param>
+        public SimpleProperty(XmlNode node) { }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// ----------------------------------------------------------------------------
+        public override XmlElement ToXml(XmlDocument xmldoc)
+        {
+            XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+
+            return xmlelProperty;
+        }
+
+        #endregion
+    }
 }
 

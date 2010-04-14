@@ -19,7 +19,6 @@ using NovaServer;
 namespace NovaConsole 
 {
 
-
 // ============================================================================
 // Class to manufacture new items.
 // ============================================================================
@@ -179,8 +178,7 @@ namespace NovaConsole
 
 // ============================================================================
 // Create a new ship or starbase at the specified location. Starbases are
-// handled just like ships except that they cannot move and are not placed in a
-// fleet.
+// handled just like ships except that they cannot move.
 // ============================================================================
 
       private static void CreateShip(ShipDesign design, Star star)

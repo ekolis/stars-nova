@@ -1,7 +1,7 @@
-﻿// This file needs -*- c++ -*- mode
-// ============================================================================
+﻿// ============================================================================
 // Nova. (c) 2008 Ken Reed
-// Modified 2009 Daniel Vale dan_vale@sourceforge.net
+// (c) 2009, 2010, stars-nova
+// See https://sourceforge.net/projects/stars-nova/
 //
 // This class defines a terraforming property.
 //
@@ -14,36 +14,37 @@ using System;
 using System.Xml;
 using NovaCommon;
 
-// ============================================================================
-// Terraform class
-// ============================================================================
-
 namespace NovaCommon
 {
-
-
-
+    /// <summary>
+    /// Terraform class
+    /// </summary>
     [Serializable]
     public class Terraform : ComponentProperty
     {
-        public int MaxModifiedGravity = 0;
+        public int MaxModifiedGravity     = 0;
         public int MaxModifiedTemperature = 0;
-        public int MaxModifiedRadiation = 0;
+        public int MaxModifiedRadiation   = 0;
 
+        #region Construction
 
-        // ============================================================================
-        // Construction from scratch
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
         public Terraform()
         {
-            
+
         }
 
-        // ============================================================================
-        // Construction from an ComponentProperty object
-        // ============================================================================
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Copy constructor.
+        /// </summary>
+        /// <param name="existing">The object to copy.</param>
+        /// ----------------------------------------------------------------------------
         public Terraform(Terraform existing)
         {
             this.MaxModifiedGravity = existing.MaxModifiedGravity;
@@ -51,73 +52,109 @@ namespace NovaCommon
             this.MaxModifiedRadiation = existing.MaxModifiedRadiation;
         }
 
-        //============================================================================
-        // Implement the ICloneable interface so properties can be cloned.
-        //============================================================================
+        #endregion
+
+        #region Interface ICloneable
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Implement the ICloneable interface so properties can be cloned.
+        /// </summary>
+        /// <returns>A clone of this object.</returns>
+        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new Terraform(this);
         }
 
-        //============================================================================
-        // Provide a way to add properties in the ship design.
-        //============================================================================
+        #endregion
+
+        #region Operators
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Provide a way to add properties in the ship design.
+        /// </summary>
+        /// <param name="op1">LHS operator</param>
+        /// <param name="op2">RHS operator</param>
+        /// <returns>A single terraform property that represents the stack.</returns>
+        /// ----------------------------------------------------------------------------
         public static Terraform operator +(Terraform op1, Terraform op2)
         {
             Terraform sum = new Terraform(op1);
             sum.MaxModifiedGravity = Math.Max(op1.MaxModifiedGravity, op2.MaxModifiedGravity);
-            sum.MaxModifiedRadiation = Math.Max(op1.MaxModifiedRadiation, op2.MaxModifiedRadiation); 
+            sum.MaxModifiedRadiation = Math.Max(op1.MaxModifiedRadiation, op2.MaxModifiedRadiation);
             sum.MaxModifiedTemperature = Math.Max(op1.MaxModifiedTemperature, op2.MaxModifiedTemperature);
             return sum;
         }
 
-        //============================================================================
-        // Operator* to scale (multiply) properties in the ship design.
-        // Terraformers don't scale, as the modifications represent maximums.
-        // Note this represents the terraforming capability of a component,
-        // not multiple terraforming units produced by a planet, which work differently (1% each).
-        //============================================================================
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Operator* to scale (multiply) properties in the ship design.
+        /// Terraformers don't scale, as the modifications represent maximums.
+        /// Note this represents the terraforming capability of a component,
+        /// not multiple terraforming units produced by a planet, which work differently (1% each).
+        /// </summary>
+        /// <param name="op1">Property to be scaled.</param>
+        /// <param name="scalar">Number of components in the stack.</param>
+        /// <returns>A single property that represents the stack.</returns>
+        /// ----------------------------------------------------------------------------
         public static Terraform operator *(Terraform op1, int scalar)
         {
             return op1;
-        }     
-  
-// ============================================================================
-// Initialising Constructor from an xml node.
-// Precondition: node is a "Property" node with Type=="Terraform" in a Nova 
-//               compenent definition file (xml document).
-// ============================================================================
-        public Terraform(XmlNode node)
-      {
-          XmlNode subnode = node.FirstChild;
-          while (subnode != null)
-          {
-              try
-              {
-                  if (subnode.Name.ToLower() == "maxmodifiedgravity")
-                  {
-                      MaxModifiedGravity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  if (subnode.Name.ToLower() == "maxmodifiedtemperature")
-                  {
-                      MaxModifiedTemperature = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  if (subnode.Name.ToLower() == "maxmodifiedradiation")
-                  {
-                      MaxModifiedRadiation = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-              }
-              catch
-              {
-                  // ignore incomplete or unset values
-              }
-              subnode = subnode.NextSibling;
-          }
-      }
+        }
 
-        // ============================================================================
-        // Return an XmlElement representation of the Property
-        // ============================================================================
+        #endregion
+
+        #region Load Save Xml
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Load from Xml
+        /// </summary>
+        /// <param name="node">
+        /// node is a "Property" node with Type=="Terraform" in a Nova 
+        /// compenent definition file (xml document).
+        /// </param>
+        /// ----------------------------------------------------------------------------
+        public Terraform(XmlNode node)
+        {
+            XmlNode subnode = node.FirstChild;
+            while (subnode != null)
+            {
+                try
+                {
+                    if (subnode.Name.ToLower() == "maxmodifiedgravity")
+                    {
+                        MaxModifiedGravity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                    if (subnode.Name.ToLower() == "maxmodifiedtemperature")
+                    {
+                        MaxModifiedTemperature = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                    if (subnode.Name.ToLower() == "maxmodifiedradiation")
+                    {
+                        MaxModifiedRadiation = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                }
+                catch (Exception e)
+                {
+                    Report.Error("Unable to load terraforming property: " + Environment.NewLine + e.Message);
+                }
+                subnode = subnode.NextSibling;
+            }
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -140,8 +177,8 @@ namespace NovaCommon
 
             return xmlelProperty;
         }
- 
 
+        #endregion
     }
 }
 
