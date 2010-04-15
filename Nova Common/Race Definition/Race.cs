@@ -74,11 +74,8 @@ namespace NovaCommon
       {
           XmlDocument xmldoc = new XmlDocument();
           FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-          GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
 
-          xmldoc.Load(fileName);  // uncompressed
-          //xmldoc.Load(compressionStream); // compressed
-
+          xmldoc.Load(fileName);
           LoadRaceFromXml(xmldoc);
 
           fileStream.Close();
