@@ -1817,7 +1817,6 @@ namespace RaceDesigner
                  }
 
                  FileStream saveFile = new FileStream(RaceFilePath, FileMode.Create);
-                 GZipStream compressionStream = new GZipStream( saveFile, CompressionMode.Compress );
 
                  // Setup the XML document
                  XmlDocument xmldoc = new XmlDocument();
@@ -1826,13 +1825,7 @@ namespace RaceDesigner
                  // add the components to the document
                  xmldoc.ChildNodes.Item( 1 ).AppendChild( RaceParameters.ToXml( xmldoc ) );
 
-                 // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
-                 // manual inspection of the save file. Generally though it can be opened by any archiving tool that
-                 // reads gzip format.
-                 // xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
-                 //       or
-                 xmldoc.Save( saveFile );                                           //  not compressed
-
+                 xmldoc.Save( saveFile );
                  saveFile.Close();
 
                  Report.Information("The " + RaceParameters.PluralName + " have been saved to " + RaceFilePath);

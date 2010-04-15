@@ -178,12 +178,8 @@ namespace NovaCommon
                 AllComponents.Data = new AllComponents();
 
                 XmlDocument xmldoc = new XmlDocument();
-                FileStream fileStream = new FileStream(saveFilePath, FileMode.Open, FileAccess.Read);
-                GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
 
-
-                xmldoc.Load(saveFilePath);  // uncompressed
-                //xmldoc.Load(compressionStream); // compressed
+                xmldoc.Load(saveFilePath);
 
                 XmlNode xmlnode = (XmlNode)xmldoc.DocumentElement;
 
@@ -253,13 +249,12 @@ namespace NovaCommon
         {
             try
             {
-                // Setup the save location, stream and compression.
+                // Setup the save location and stream.
                 if (GetPath() == null && GetNewSaveFile() == null)
                 {
                     throw (new System.IO.FileNotFoundException());
                 }
                 FileStream saveFile = new FileStream(saveFilePath, FileMode.Create);
-                GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
 
                 // Setup the XML document
                 XmlDocument xmldoc = new XmlDocument();
@@ -271,13 +266,7 @@ namespace NovaCommon
                     xmldoc.ChildNodes.Item(1).AppendChild(thing.ToXml(xmldoc));
                 }
 
-                // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
-                // manual inspection of the save file. Generally though it can be opened by any archiving tool that
-                // reads gzip format.
-                // xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
-                //       or
-                xmldoc.Save(saveFile);                                           //  not compressed
-
+                xmldoc.Save(saveFile);
                 saveFile.Close();
 
                 Report.Information("Component data has been saved to " + saveFilePath);

@@ -76,15 +76,16 @@ namespace NovaServer
                 // Load from an xml file
 
                 XmlDocument xmldoc = new XmlDocument();
+#if (DEBUG)
+                xmldoc.Load(fileName);
+                playerOrders = new Orders(xmldoc.DocumentElement);
+#else
                 FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
-#if (DEBUG)
-                xmldoc.Load(fileName);  // uncompressed
-#else
-            xmldoc.Load(compressionStream); // compressed
-#endif
+                xmldoc.Load(compressionStream);
                 playerOrders = new Orders(xmldoc.DocumentElement);
                 fileStream.Close();
+#endif
 
             }
             catch (Exception e)

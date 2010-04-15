@@ -171,7 +171,9 @@ namespace NovaCommon
        public void ToXml(string ordersFileName)
        {
            FileStream ordersFile = new FileStream(ordersFileName, FileMode.Create);
+#if (!DEBUG)
            GZipStream compressionStream = new GZipStream(ordersFile, CompressionMode.Compress);
+#endif
 
            // Setup the XML document
            XmlDocument xmldoc = new XmlDocument();
@@ -231,9 +233,10 @@ namespace NovaCommon
            // manual inspection of the save file. Generally though it can be opened by any archiving tool that
            // reads gzip format.
 #if (DEBUG)
-           xmldoc.Save(ordersFile);                                           //  not compressed
+           xmldoc.Save(ordersFile);
 #else
-           xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
+           xmldoc.Save(compressionStream);
+           compressionStream.Close();
 #endif
 
            ordersFile.Close();

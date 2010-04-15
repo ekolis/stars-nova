@@ -59,7 +59,6 @@ namespace NovaCommon
                     throw (new System.IO.FileNotFoundException());
                 }
                 FileStream saveFile = new FileStream(saveFilePath, FileMode.Create);
-                GZipStream compressionStream = new GZipStream(saveFile, CompressionMode.Compress);
 
                 // Setup the XML document
                 XmlDocument xmldoc;
@@ -78,13 +77,7 @@ namespace NovaCommon
                     xmldoc.ChildNodes.Item(1).AppendChild(ComponentToXml(xmldoc, thing));
                 }
 
-                // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
-                // manual inspection of the save file. Generally though it can be opened by any archiving tool that
-                // reads gzip format.
-                // xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
-                //       or
-                xmldoc.Save(saveFile);                                           //  not compressed
-
+                xmldoc.Save(saveFile);
                 saveFile.Close();
 
                 Report.Information("Component data has been saved to " + saveFilePath);
