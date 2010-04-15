@@ -339,7 +339,7 @@ namespace Nova.NewGame
           this.tutorialButton.Name = "tutorialButton";
           this.tutorialButton.Size = new System.Drawing.Size(75, 23);
           this.tutorialButton.TabIndex = 2;
-          this.tutorialButton.Text = "Start Tuturial";
+          this.tutorialButton.Text = "Start Tutorial";
           this.tutorialButton.UseVisualStyleBackColor = true;
           this.tutorialButton.Click += new System.EventHandler(this.TutorialButton_Click);
           // 
