@@ -3,6 +3,13 @@
 // The Code Project
 // http://www.codeproject.com/KB/miscctrl/progressdialog.aspx
 // ===========================================================================
+
+#region Module Description
+// ===========================================================================
+// A progress dialog box.
+// ===========================================================================
+#endregion
+
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

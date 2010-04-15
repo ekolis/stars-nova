@@ -3,6 +3,15 @@
 // The Code Project
 // http://www.codeproject.com/KB/miscctrl/progressdialog.aspx
 // ===========================================================================
+
+#region Module Description
+// ===========================================================================
+// This defines an interface which can be implemented by UI elements
+// which indicate the progress of a long operation.
+// (See ProgressWindow for a typical implementation)
+// ===========================================================================
+#endregion
+
 using System;
 using System.Windows.Forms;
 

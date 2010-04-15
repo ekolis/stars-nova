@@ -1,6 +1,26 @@
-﻿// ============================================================================
-// Nova. (c) 2010 Daniel Vale
+﻿#region Copyright Notice
+// ============================================================================
+// Copyright (C) 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // The FileSearcher object is used to find a file that is part of Nova. It uses
 // the following stratergy:
 // First, check if the file path is defined by a registry key, else
@@ -9,11 +29,8 @@
 // ask the user to locate the file, else
 // let the calling function know that we can't find the file and have it decide 
 // what to do.
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
 
 using System;
 using System.Collections;
