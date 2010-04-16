@@ -129,7 +129,7 @@
       <Project>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
     </ProjectReference>
-    <ProjectReference Include="..\Nova Common\Nova Common.csproj">
+    <ProjectReference Include="..\Common\Common.csproj">
       <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
       <Name>Nova Common</Name>
     </ProjectReference>

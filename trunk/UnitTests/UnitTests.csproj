@@ -60,7 +60,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Nova Common\Nova Common.csproj">
+    <ProjectReference Include="..\Common\Common.csproj">
       <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
       <Name>Nova Common</Name>
     </ProjectReference>
