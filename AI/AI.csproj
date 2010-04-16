@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8AAA8913-8678-4B69-83A2-1C8A7429411F}</ProjectGuid>
     <OutputType>Exe</OutputType>
@@ -56,7 +56,7 @@
       <Project>{F497309F-FC52-4431-962B-F6B813010080}</Project>
       <Name>ClientState</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nova Common\Nova Common.csproj">
+    <ProjectReference Include="..\Common\Common.csproj">
       <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
       <Name>Nova Common</Name>
     </ProjectReference>
