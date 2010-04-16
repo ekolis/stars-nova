@@ -182,7 +182,7 @@
       <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
       <Name>Nova Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Race Designer\Race Designer.csproj">
+    <ProjectReference Include="..\RaceDesigner\RaceDesigner.csproj">
       <Project>{BFDEE889-6F24-4014-A719-DDA9A9596D70}</Project>
       <Name>Race Designer</Name>
     </ProjectReference>
