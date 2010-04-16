@@ -64,20 +64,20 @@
     <Compile Include="StarReport.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
-      <Project>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</Project>
-      <Name>ControlLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
-      <Name>Nova Common</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <EmbeddedResource Include="SelectRaceDialog.resx">
       <DependentUpon>SelectRaceDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
+      <Project>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</Project>
+      <Name>ControlLibrary</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

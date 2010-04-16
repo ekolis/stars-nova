@@ -74,13 +74,13 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
       <Project>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</Project>
       <Name>ControlLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Common\Common.csproj">
-      <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
-      <Name>Nova Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\ServerState\ServerState.csproj">
       <Project>{057D68CC-97A3-4296-A66B-1D3A5C00134E}</Project>
