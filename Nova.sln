@@ -26,7 +26,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics", "Graphics\Graphics.csproj", "{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Race Designer", "Race Designer\Race Designer.csproj", "{BFDEE889-6F24-4014-A719-DDA9A9596D70}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RaceDesigner", "RaceDesigner\RaceDesigner.csproj", "{BFDEE889-6F24-4014-A719-DDA9A9596D70}"
 	ProjectSection(ProjectDependencies) = postProject
 		{16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8} = {16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8}
 	EndProjectSection
