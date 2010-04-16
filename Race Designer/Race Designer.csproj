@@ -122,7 +122,7 @@
     <Reference Include="System.Xml">
       <Name>System.XML</Name>
     </Reference>
-    <ProjectReference Include="..\Control Library\ControlLibrary.csproj">
+    <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
       <Name>ControlLibrary</Name>
       <Project>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</Project>
       <Package>{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</Package>
