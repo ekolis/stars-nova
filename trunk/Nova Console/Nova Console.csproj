@@ -174,7 +174,7 @@
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Control Library\ControlLibrary.csproj">
+    <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
       <Project>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</Project>
       <Name>ControlLibrary</Name>
     </ProjectReference>
