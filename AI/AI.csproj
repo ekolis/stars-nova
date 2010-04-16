@@ -60,7 +60,7 @@
       <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
       <Name>Nova Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nova GUI\Nova GUI.csproj">
+    <ProjectReference Include="..\GUI\GUI.csproj">
       <Project>{14CD4564-836F-4934-8B12-74F399B0F7D5}</Project>
       <Name>Nova GUI</Name>
     </ProjectReference>

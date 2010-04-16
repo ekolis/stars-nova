@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 10.00
 # Visual Studio 2008
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova GUI", "Nova GUI\Nova GUI.csproj", "{14CD4564-836F-4934-8B12-74F399B0F7D5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GUI", "GUI\GUI.csproj", "{14CD4564-836F-4934-8B12-74F399B0F7D5}"
 	ProjectSection(ProjectDependencies) = postProject
 		{16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8} = {16CB85C6-8A03-4C8D-B0D0-EFD883B6DED8}
 	EndProjectSection
