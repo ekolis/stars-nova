@@ -64,7 +64,7 @@
       <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
       <Name>Nova Common</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Nova Console\Nova Console.csproj">
+    <ProjectReference Include="..\Console\Console.csproj">
       <Project>{BC53AE52-0F5C-4C4D-A6D9-54DF198655C9}</Project>
       <Name>Nova Console</Name>
     </ProjectReference>
