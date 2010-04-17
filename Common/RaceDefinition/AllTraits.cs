@@ -1,15 +1,33 @@
-﻿// ============================================================================
-// Nova. (c) 2009 Daniel Vale
+﻿#region Copyright Notice
+// ============================================================================
+// Copyright (C) 2009, 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // This module maintains a (singleton) list of all Traits.
 // Currently trait data is staticly defined in PrimaryTraits and SecondaryTraits
 // but may later be loaded at run time. All access to this data should be through
 // this object.
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
+
 
 using System;
 using System.Collections.Generic;
@@ -24,9 +42,14 @@ namespace NovaCommon
         public TraitList Primary = new TraitList();
         public TraitList Secondary = new TraitList();
 
+        #region Singleton
+
         private static AllTraits Instance = null;
         private static Object Padlock = new Object();
 
+        /// <summary>
+        /// Private constructor to prevent anyone else creating instances of this class.
+        /// </summary>
         private AllTraits()
         {
             foreach (TraitEntry trait in PrimaryTraits.Traits)
@@ -42,6 +65,10 @@ namespace NovaCommon
             }
         }
 
+        /// <summary>
+        /// Provide a mechanism of accessing the single instance of this class that we
+        /// will create locally. Creation of the data is thread-safe.
+        /// </summary>
         public static AllTraits Data
         {
             get
@@ -67,9 +94,17 @@ namespace NovaCommon
             }
         }
 
+        #endregion
+
+        #region Constants
+
         public const int NUMBER_OF_PRIMARY_RACIAL_TRAITS = 10;
         public const int NUMBER_OF_SECONDARY_RACIAL_TRAITS = 13;
-       
+      
+        /// <summary>
+        /// Provide a list of all trait keys. 
+        /// These can be used to index AllTraits.Data.All or in a foreach loop.
+        /// </summary>
         public static string[] TraitKeys = 
         {
             // 10 PRTs
@@ -78,6 +113,9 @@ namespace NovaCommon
             "IFE", "TT", "ARM", "ISB", "GR", "UR", "MA", "NRSE", "OBRM", "CE", "NAS", "LSP", "BET", "RS"
         };
 
+        /// <summary>
+        /// Provide a list of all the trait names. This can be used to get the printable name of a trait.
+        /// </summary>
         public static string[] TraitString = 
         {
             // 10 PRTs
@@ -107,6 +145,8 @@ namespace NovaCommon
             "Bleeding Edge Technology", 
             "Regenerating Shields"
         };
+
+        #endregion
 
     }
 

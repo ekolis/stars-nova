@@ -1,14 +1,30 @@
+#region Copyright Notice
 // ============================================================================
-// Nova. (c) 2008 Ken Reed
-// (c) 2009, 2010, stars-nova
-// See https://sourceforge.net/projects/stars-nova/
+// Copyright (C) 2008 Ken Reed
+// Copyright (C) 2009, 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // This module maintains a (singleton) list of all components.
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
 
 #region Using Statements
 using System;
@@ -54,17 +70,21 @@ namespace NovaCommon
         private static AllComponents Instance = null;
         private static Object Padlock = new Object();
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Private constructor to prevent anyone else creating instances of this class.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         private AllComponents()
         {
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a mechanism of accessing the single instance of this class that we
         /// will create locally. Creation of the data is thread-safe.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public static AllComponents Data
         {
             get
@@ -94,34 +114,40 @@ namespace NovaCommon
 
         #region Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check if AllComponents contains a particular Component.
         /// </summary>
         /// <param name="ComponentName">The Name of the Component to look for.</param>
         /// <returns>True if the component is included.</returns>
+        /// ----------------------------------------------------------------------------
         public bool Contains(String ComponentName)
         {
             return Data.Components.ContainsKey(ComponentName);
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check if AllComponents contains a particular Component.
         /// </summary>
         /// <param name="Component">The Component to look for.</param>
         /// <returns>True if the component is included.</returns>
+        /// ----------------------------------------------------------------------------
         public bool Contains(Component component)
         {
             return Data.Components.ContainsValue(component);
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Restore the component definitions.
         /// </summary>
         /// <exception cref="System.Data.OperationAbortedException">
         /// The loading of the component definition was aborted.
         /// </exception>
+        /// ----------------------------------------------------------------------------
         public static void Restore()
         {
             GetPath();
@@ -142,10 +168,12 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Start a new component definition set. This simply wipes all components from
         /// the in memory component definitions.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public static void MakeNew()
         {
             lock (Padlock)
@@ -163,10 +191,12 @@ namespace NovaCommon
 
         #region Load Save Xml
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load all the components form the component definition file, nominally components.xml.
         /// </summary>
         /// <param name="status">An <see cref="IProgressCallback"/> used for updating the progress dialog.</param>
+        /// ----------------------------------------------------------------------------
         private void LoadComponents(object status)
         {
             IProgressCallback callback = status as IProgressCallback;
@@ -244,7 +274,9 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary> Save the component data. </summary>
+        /// ----------------------------------------------------------------------------
         public static bool Save()
         {
             try
@@ -309,10 +341,12 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Ask the user for a location to save the file.
         /// </summary>
         /// <returns>Path and file name to save too.</returns>
+        /// ----------------------------------------------------------------------------
         public static string GetNewSaveFile()
         {
             SaveFileDialog fd = new SaveFileDialog();
@@ -356,11 +390,13 @@ namespace NovaCommon
 
             return saveFilePath;
         }
-       
 
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the path where the component data is stored.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public static string ComponentFile
         {
             get { GetPath(); return saveFilePath; }
@@ -378,10 +414,12 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Ask the user for the graphics directory.
         /// </summary>
         /// <returns>The path to the graphics directory if found or ""</returns>
+        /// ----------------------------------------------------------------------------
         public static string GetNewGraphicsPath()
         {
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
@@ -402,10 +440,12 @@ namespace NovaCommon
         }// GetNewGraphicsPath
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Extract the path to the component graphics from the registry
         /// </summary>
         /// <returns>Path to the Graphics folder if found or ""</returns>
+        /// ----------------------------------------------------------------------------
         public static string GetGraphicsPath()
         {
             if (DisableComponentGraphics) return "";
@@ -430,11 +470,11 @@ namespace NovaCommon
 
         }//GetPath
 
-        //-------------------------------------------------------------------
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Gets or sets the path where the graphics files are stored.
         /// </summary>
-        //-------------------------------------------------------------------
+        /// ----------------------------------------------------------------------------
         public static string Graphics
         {
             get

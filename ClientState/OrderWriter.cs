@@ -57,11 +57,13 @@ namespace NovaClient
       private static Intel           InputTurn  = null; // TODO (priority 4) - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
       private static string          RaceName   = null;
 
+      /// ----------------------------------------------------------------------------
       /// <summary>
       /// WriteOrders the player's turn. We don't bother checking what's changed we just
       /// send the details of everything owned by the player's race and the Nova
       /// Console will update its master copy of everything.
       /// </summary>
+      /// ----------------------------------------------------------------------------
       public static void WriteOrders()
       {
          StateData  = ClientState.Data;
@@ -131,10 +133,12 @@ namespace NovaClient
       }
 
 
+      /// ----------------------------------------------------------------------------
       /// <summary>
       /// Return the sum of the levels reached in all research areas
       /// </summary>
       /// <returns>The sum of all tech levels.</returns>
+      /// ----------------------------------------------------------------------------
       private static int CountTechLevels()
       {
           StateData = ClientState.Data;
