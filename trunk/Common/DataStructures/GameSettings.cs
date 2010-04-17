@@ -1,17 +1,30 @@
-﻿// ===========================================================================
-// Nova. (c) 2010 Daniel Vale
+﻿#region Copyright Notice
+// ============================================================================
+// Copyright (C) 2010 stars-nova
 //
-// This module holds information about the game settup as determined when a 
-// new game is created. The information in this module shall only be changed
-// when setting up a new game, but may be read by all applications during 
-// game play.
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
 //
-// This module is implemented as a singleton.
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
 //
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
 // ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
+// Records the settings specific to a running game (map, victory conditions)
+// This module is implemented as a singleton.
+// ===========================================================================
+#endregion
 
 #region Using Statements
 using System;
@@ -53,6 +66,8 @@ namespace NovaCommon
         public String SettingsPathName = null;
         public String GameName = "Feel the Nova";
 
+        #region Singleton
+
         // ============================================================================
         // Data private to this module.
         // ============================================================================
@@ -61,55 +76,63 @@ namespace NovaCommon
         private static Object padlock = new Object();
 
 
-// ============================================================================
-// Private constructor to prevent anyone else creating instances of this class.
-// ============================================================================
+        // ============================================================================
+        // Private constructor to prevent anyone else creating instances of this class.
+        // ============================================================================
 
-      private GameSettings() {}
+        private GameSettings() { }
 
 
-// ============================================================================
-// Provide a mechanism of accessing the single instance of this class that we
-// will create locally. Creation of the data is thread-safe.
-// ============================================================================
+        // ============================================================================
+        // Provide a mechanism of accessing the single instance of this class that we
+        // will create locally. Creation of the data is thread-safe.
+        // ============================================================================
 
-      public static GameSettings Data
-      {
-         get {
-            if (instance == null) {
-               lock(padlock) {
-                  if (instance == null) {
-                      instance = new GameSettings();
-                  }
-               }
+        public static GameSettings Data
+        {
+            get
+            {
+                if (instance == null)
+                {
+                    lock (padlock)
+                    {
+                        if (instance == null)
+                        {
+                            instance = new GameSettings();
+                        }
+                    }
+                }
+                return instance;
             }
-            return instance;
-         }
 
-// ----------------------------------------------------------------------------
+            // ----------------------------------------------------------------------------
 
-         set {
-            instance = value;
-         }
-      }
+            set
+            {
+                instance = value;
+            }
+        }
+
+        #endregion
 
         #region Methods
+
         //-------------------------------------------------------------------
         /// <summary>
         /// Restore the persistent data.
         /// </summary>
         //-------------------------------------------------------------------
-      public static void Restore()
-      {
-          string fileName = Data.SettingsPathName;
-          if (File.Exists(fileName))
-          {
-              using (FileStream state = new FileStream(fileName, FileMode.Open))
-              {
-                  Data = Serializer.Deserialize(state) as GameSettings;
-              }
-          }
-      }
+        public static void Restore()
+        {
+            string fileName = Data.SettingsPathName;
+            if (File.Exists(fileName))
+            {
+                using (FileStream state = new FileStream(fileName, FileMode.Open))
+                {
+                    Data = Serializer.Deserialize(state) as GameSettings;
+                }
+            }
+        }
 
         //-------------------------------------------------------------------
         /// <summary>
@@ -118,28 +141,29 @@ namespace NovaCommon
         //-------------------------------------------------------------------
         public static void Save()
         {
-            if( Data.SettingsPathName == null )
+            if (Data.SettingsPathName == null)
             {
                 // TODO (priority 4) add the nicities. Update the game files location.
                 SaveFileDialog fd = new SaveFileDialog();
                 fd.Title = "Choose a location to save the game settings.";
 
                 DialogResult result = fd.ShowDialog();
-                if( result == DialogResult.OK )
+                if (result == DialogResult.OK)
                 {
                     Data.SettingsPathName = fd.FileName;
                 }
                 else
                 {
-                    throw new System.IO.IOException( "File dialog cancelled." );
+                    throw new System.IO.IOException("File dialog cancelled.");
                 }
 
             }
-            using( Stream stream = new FileStream( Data.SettingsPathName, FileMode.Create ) )
+            using (Stream stream = new FileStream(Data.SettingsPathName, FileMode.Create))
             {
-                Serializer.Serialize( stream, GameSettings.Data );
+                Serializer.Serialize(stream, GameSettings.Data);
             }
         }
+
         #endregion
     }
 }

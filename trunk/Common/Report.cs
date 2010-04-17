@@ -33,16 +33,20 @@ using System.Windows.Forms;
 
 namespace NovaCommon
 {
+    /// ----------------------------------------------------------------------------
     /// <summary>
     /// Provides a variety of message pop ups.
     /// </summary>
+    /// ----------------------------------------------------------------------------
     public static class Report
     {
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Report an error
         /// </summary>
         /// <param name="text">Message to display.</param>
+        /// ----------------------------------------------------------------------------
         public static void Error(string text)
         {
             MessageBox.Show("Nova has encountered an error, but will continue anyway." + Environment.NewLine +

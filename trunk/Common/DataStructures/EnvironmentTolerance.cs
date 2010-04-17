@@ -1,6 +1,26 @@
-﻿// ============================================================================
-// Nova. (c) 2009 Daniel Vale
+﻿#region Copyright Notice
+// ============================================================================
+// Copyright (C) 2009, 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // The environmental range a race can tollerate.
 //
 // TODO (priority 3) - What are the full environment ranges? Min&Max for each variable. Need a reference to where this is documented.
@@ -26,11 +46,10 @@ The farther habs are from center, the less accurate the result of this equation 
 
 Thanks to Bill Butler for the mathematical wizardry. 
  * */
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
+
+
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -38,27 +57,50 @@ using System.Xml;
 
 namespace NovaCommon
 {
-    // ===========================================================================
-    // Class to hold environmental tolerance details
-    // ===========================================================================
 
+    /// <summary>
+    /// Class to hold environmental tolerance details
+    /// </summary>
     [Serializable]
     public sealed class EnvironmentTolerance
     {
         public double Minimum = 0;
         public double Maximum = 0;
 
-        public EnvironmentTolerance() { } // required for serialization
+        #region Construction
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Default constructor, required for serialization.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public EnvironmentTolerance() { }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="minv"></param>
+        /// <param name="maxv"></param>
+        /// ----------------------------------------------------------------------------
         public EnvironmentTolerance(double minv, double maxv)
         {
             Minimum = minv;
             Maximum = maxv;
         }
 
-        // ============================================================================
-        // Initialising Constructor from an xml node.
-        // Precondition: node is a "EnvironmentTolerance" node in a Nova compenent definition file (xml document).
-        // ============================================================================
+        #endregion
+
+        #region Load Save Xml
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Load from XML: Initialising constructor from an XML node.
+        /// </summary>
+        /// <param name="node">node is a "EnvironmentTolerance" <see cref="XmlNode"/> in 
+        /// a Nova compenent definition file (xml document).
+        /// </param>
+        /// ----------------------------------------------------------------------------
         public EnvironmentTolerance(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -86,6 +128,14 @@ namespace NovaCommon
 
         }
 
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Save: Serialise this EnvironmentTolerance to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the EnvironmentTolerance</returns>
+        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement("EnvironmentTolerance");
@@ -94,7 +144,8 @@ namespace NovaCommon
             Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Max", Maximum.ToString(System.Globalization.CultureInfo.InvariantCulture));
             return xmlelEnvironmentTolerance;
         }
+
+        #endregion
+
     }
-
-
 }

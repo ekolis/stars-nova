@@ -34,10 +34,12 @@ using System.Drawing;
 
 namespace NovaCommon
 {
+    /// ----------------------------------------------------------------------------
     /// <summary>
     /// SpaceAllocator chops up the available space into a number of boxes which
     /// can be given out one-by-one.
     /// </summary>
+    /// ----------------------------------------------------------------------------
     public class SpaceAllocator
     {
         public int GridAxisCount = 0;
@@ -46,6 +48,7 @@ namespace NovaCommon
         private Random RandomNumber = new Random();
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// <para>Construction
         /// </para><para>
@@ -57,6 +60,7 @@ namespace NovaCommon
         /// requested number is rounded up to a number that does.
         /// </para></summary>
         /// <param name="numberOfItems">The number of items to be distributed in the allocatable space.</param>
+        /// ----------------------------------------------------------------------------
         public SpaceAllocator(int numberOfItems)
         {
             GridAxisCount = (int)Math.Sqrt(numberOfItems);
@@ -69,11 +73,13 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         ///  Create the requested number of boxes. The boxes are stored as rectangles in
         /// the available list of boxes.
         /// </summary>
         /// <param name="spaceSize">The length of one side of the allocatable space (assumed to be a square).</param>
+        /// ----------------------------------------------------------------------------
         public void AllocateSpace(int spaceSize)
         {
             // Find the size of a box side. This will allow us to find the
@@ -99,11 +105,13 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return one of the allocated boxes and remove the box from the list of
         /// available boxes.
         /// </summary>
         /// <returns></returns>
+        /// ----------------------------------------------------------------------------
         public Rectangle GetBox()
         {
             int boxNumber = RandomNumber.Next(0, AvailableBoxes.Count - 1);

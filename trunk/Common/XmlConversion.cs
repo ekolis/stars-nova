@@ -48,7 +48,13 @@ namespace NovaCommon
         #endregion
 
         #region Methods
-        // a refactoring of AllComponents.Save
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// a refactoring of AllComponents.Save
+        /// </summary>
+        /// <returns>true on success.</returns>
+        /// ----------------------------------------------------------------------------
         public static bool WriteComponentDefinition()
         {
             try
@@ -120,11 +126,13 @@ namespace NovaCommon
         }
 
 
-
-        // ============================================================================
-        // A refactoring of AllComponents.GetNewSaveFile
-        // Ask the user for a location to save the file.
-        // ============================================================================
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// A refactoring of AllComponents.GetNewSaveFile
+        /// Ask the user for a location to save the file.
+        /// </summary>
+        /// <returns></returns>
+        /// ----------------------------------------------------------------------------
         public static string GetNewSaveFile()
         {
             SaveFileDialog fd = new SaveFileDialog();
@@ -143,18 +151,24 @@ namespace NovaCommon
 
         }// Get New Save File
 
+
+        // =============================================================================
         // The following is the first object in the component hirachy that would need to be
         // refactored. To have all xml writing placed here, all the ToXml functions for all 
         // objects need to be reafactored in this way.
+        // =============================================================================
 
-        // A refactoring of Component.ToXml. Note the dependent object ToXml calls still 
-        // need to be replaced with similar functions.
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
+        /// A refactoring of Component.ToXml. Note the dependent object ToXml calls still 
+        /// need to be replaced with similar functions.
         /// Save: Return an XmlElement representation of a Component
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument</param>
         /// <param name="component">The Component to be converted to xml (saved)</param>
         /// <returns>An XmlElement representation of component.</returns>
+        /// ----------------------------------------------------------------------------
         public static XmlElement ComponentToXml(XmlDocument xmldoc, Component component)
         {
             XmlElement xmlelComponent = xmldoc.CreateElement("Component");

@@ -37,7 +37,8 @@ namespace NovaClient
    public class Research
    {
        private static ClientState StateData = ClientState.Data;
- 
+
+       /// ----------------------------------------------------------------------------
        /// <summary>
        /// Return the total energy cost for researching a level (taking into account
        /// the cost factor specified in the race designer). Note that we skip the first
@@ -45,6 +46,7 @@ namespace NovaClient
        /// </summary>
        /// <param name="level">The level to be researched.</param>
        /// <returns>The energy cost to reach that level.</returns>
+       /// ----------------------------------------------------------------------------
        public static int Cost(int level)
        {
            int techAjustment = 0;
@@ -67,6 +69,7 @@ namespace NovaClient
        }
 
 
+       /// ----------------------------------------------------------------------------
        /// <summary>
        /// The resources required for each level are based on a Fibonacci series (the
        /// result of which is multiplied by a factor (TBD) to get the actual number
@@ -74,6 +77,7 @@ namespace NovaClient
        /// </summary>
        /// <param name="n">The Nth term of the series.</param>
        /// <returns>The value of the Nth term.</returns>
+       /// ----------------------------------------------------------------------------
        private static int Fibonacci(int n)
        {
            if (n < 2) return n;

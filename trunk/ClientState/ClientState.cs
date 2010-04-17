@@ -92,20 +92,24 @@ namespace NovaClient
 
 
         #region Constructors
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Private constructor for static only class preventing external object from instantiating this class directly.
         /// </summary>
         /// <remarks>
         /// Use a private constructor so the default constructor is not created since all methods are static.
         /// </remarks>
+        /// ----------------------------------------------------------------------------
         private ClientState() { }
         #endregion
 
 
         #region Properties
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Gets the single instance of this class. Access to the data is thread-safe.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public static ClientState Data
         {
             get
@@ -131,10 +135,12 @@ namespace NovaClient
 
         #region Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialise the data needed for the GUI to run.
         /// </summary>
         /// <param name="argArray">The command line arguments.</param>
+        /// ----------------------------------------------------------------------------
         public static void Initialize(string[] argArray)
         {
             // Need to identify the RaceName so we can load the correct race's intel.
@@ -361,6 +367,7 @@ namespace NovaClient
             ClientState.Data.FirstTurn = false;
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Read the race definition file into the persistent data store. If this is the
         /// very first turn of a new game then process it's content to set up initial
@@ -371,6 +378,7 @@ namespace NovaClient
         /// generated. Current thinking is that this should be included in the .Intel file
         /// every turn. -- Dan Vale 10 Jan 10.
         /// </remarks>
+        /// ----------------------------------------------------------------------------
         private static void ProcessRaceDefinition()
         {
             string raceFileName = Path.Combine(FileSearcher.GetFolder( Global.RaceFolderKey, Global.RaceFolderName),
@@ -388,9 +396,12 @@ namespace NovaClient
             }
         }
 
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Process the Primary Traits for this race.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         private static void ProcessPrimaryTraits()
         {
             // TODO (priority 3) Special Components
@@ -486,9 +497,11 @@ namespace NovaClient
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Read the Secondary Traits for this race.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         private static void ProcessSecondaryTraits()
         {
             // TODO (priority 3) finish the rest of the LRTs.
@@ -590,6 +603,7 @@ namespace NovaClient
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Restore the GUI persistent data if the state store file exists (it typically
         /// will not on the very first turn of a new game). 
@@ -599,11 +613,13 @@ namespace NovaClient
         /// file Nova.Intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
+        /// ----------------------------------------------------------------------------
         public static void Restore()
         {
             Restore(ClientState.Data.GameFolder, ClientState.Data.RaceName);
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Restore the GUI persistent data if the state store file exists (it typically
         /// will not on the very first turn of a new game). 
@@ -614,6 +630,7 @@ namespace NovaClient
         /// file Nova.Intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
+        /// ----------------------------------------------------------------------------
         public static void Restore(string gameFolder)
         {
 
@@ -631,6 +648,7 @@ namespace NovaClient
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Restore the GUI persistent data if the state store file exists (it typically
         /// will not on the very first turn of a new game). 
@@ -642,6 +660,7 @@ namespace NovaClient
         /// file Nova.Intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
+        /// ----------------------------------------------------------------------------
         public static void Restore(string gameFolder, string raceName)
         {
 
@@ -674,9 +693,11 @@ namespace NovaClient
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save the GUI global data and flag that we should now be able to restore it.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public static void Save()
         {
 
@@ -750,6 +771,7 @@ namespace NovaClient
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Pop up a dialog to select the race to play
         /// </summary>
@@ -758,6 +780,7 @@ namespace NovaClient
         /// FIXME (priority 4) - This is unsafe as these may not be the races playing.
         /// </remarks>
         /// <returns>The name of the race to play.</returns>
+        /// ----------------------------------------------------------------------------
         private static string SelectRace(String gameFolder)
         {
             string raceName = null;
