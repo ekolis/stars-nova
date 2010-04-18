@@ -3927,7 +3927,7 @@ namespace ComponentEditor
           // 
           this.BasicProperties.AutoSize = true;
           this.BasicProperties.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-          this.BasicProperties.Cost = ((NovaCommon.Resources)(resources.GetObject("BasicProperties.Cost")));
+          this.BasicProperties.Cost = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
           this.BasicProperties.Location = new System.Drawing.Point(203, 266);
           this.BasicProperties.Mass = 0;
           this.BasicProperties.Name = "BasicProperties";
