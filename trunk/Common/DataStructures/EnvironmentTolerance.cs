@@ -49,11 +49,10 @@ Thanks to Bill Butler for the mathematical wizardry.
 // ===========================================================================
 #endregion
 
-
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
 using System.Xml;
+using NovaCommon.Converters;
 
 namespace NovaCommon
 {
@@ -62,6 +61,7 @@ namespace NovaCommon
     /// Class to hold environmental tolerance details
     /// </summary>
     [Serializable]
+    [TypeConverter(typeof(EnvironmentToleranceConverter))]
     public sealed class EnvironmentTolerance
     {
         public double Minimum = 0;

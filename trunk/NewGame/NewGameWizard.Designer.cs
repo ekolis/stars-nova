@@ -138,7 +138,7 @@ namespace Nova.NewGame
           this.TotalScore.Name = "TotalScore";
           this.TotalScore.Size = new System.Drawing.Size(338, 23);
           this.TotalScore.TabIndex = 11;
-          this.TotalScore.Value = ((NovaCommon.EnabledValue)(resources.GetObject("TotalScore.Value")));
+          this.TotalScore.Value = new NovaCommon.EnabledValue(false, 100);
           // 
           // ExceedSecondPlace
           // 
@@ -151,7 +151,7 @@ namespace Nova.NewGame
           this.ExceedSecondPlace.Name = "ExceedSecondPlace";
           this.ExceedSecondPlace.Size = new System.Drawing.Size(339, 23);
           this.ExceedSecondPlace.TabIndex = 10;
-          this.ExceedSecondPlace.Value = ((NovaCommon.EnabledValue)(resources.GetObject("ExceedSecondPlace.Value")));
+          this.ExceedSecondPlace.Value = new NovaCommon.EnabledValue(false, 100);
           // 
           // HighestScore
           // 
@@ -164,7 +164,7 @@ namespace Nova.NewGame
           this.HighestScore.Name = "HighestScore";
           this.HighestScore.Size = new System.Drawing.Size(339, 23);
           this.HighestScore.TabIndex = 9;
-          this.HighestScore.Value = ((NovaCommon.EnabledValue)(resources.GetObject("HighestScore.Value")));
+          this.HighestScore.Value = new NovaCommon.EnabledValue(false, 100);
           // 
           // CapitalShips
           // 
@@ -177,7 +177,7 @@ namespace Nova.NewGame
           this.CapitalShips.Name = "CapitalShips";
           this.CapitalShips.Size = new System.Drawing.Size(339, 23);
           this.CapitalShips.TabIndex = 8;
-          this.CapitalShips.Value = ((NovaCommon.EnabledValue)(resources.GetObject("CapitalShips.Value")));
+          this.CapitalShips.Value = new NovaCommon.EnabledValue(false, 100);
           // 
           // ProductionCapacity
           // 
@@ -190,7 +190,7 @@ namespace Nova.NewGame
           this.ProductionCapacity.Name = "ProductionCapacity";
           this.ProductionCapacity.Size = new System.Drawing.Size(339, 23);
           this.ProductionCapacity.TabIndex = 7;
-          this.ProductionCapacity.Value = ((NovaCommon.EnabledValue)(resources.GetObject("ProductionCapacity.Value")));
+          this.ProductionCapacity.Value = new NovaCommon.EnabledValue(false, 100);
           // 
           // NumberOfFields
           // 
@@ -203,7 +203,7 @@ namespace Nova.NewGame
           this.NumberOfFields.Name = "NumberOfFields";
           this.NumberOfFields.Size = new System.Drawing.Size(339, 23);
           this.NumberOfFields.TabIndex = 6;
-          this.NumberOfFields.Value = ((NovaCommon.EnabledValue)(resources.GetObject("NumberOfFields.Value")));
+          this.NumberOfFields.Value = new NovaCommon.EnabledValue(false, 4);
           // 
           // TechLevels
           // 
@@ -216,7 +216,7 @@ namespace Nova.NewGame
           this.TechLevels.Name = "TechLevels";
           this.TechLevels.Size = new System.Drawing.Size(339, 23);
           this.TechLevels.TabIndex = 5;
-          this.TechLevels.Value = ((NovaCommon.EnabledValue)(resources.GetObject("TechLevels.Value")));
+          this.TechLevels.Value = new NovaCommon.EnabledValue(false, 22);
           // 
           // PlanetsOwned
           // 
@@ -229,7 +229,7 @@ namespace Nova.NewGame
           this.PlanetsOwned.Name = "PlanetsOwned";
           this.PlanetsOwned.Size = new System.Drawing.Size(339, 23);
           this.PlanetsOwned.TabIndex = 4;
-          this.PlanetsOwned.Value = ((NovaCommon.EnabledValue)(resources.GetObject("PlanetsOwned.Value")));
+          this.PlanetsOwned.Value = new NovaCommon.EnabledValue(false, 60);
           // 
           // label1
           // 

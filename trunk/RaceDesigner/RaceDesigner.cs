@@ -1344,6 +1344,7 @@ namespace RaceDesigner
             this.RadiationTolerance.RangeMinimum = 0;
             this.RadiationTolerance.BarLower = 15;
             this.RadiationTolerance.BarUpper = 85;
+            this.RadiationTolerance.EnvironmentValues = new NovaCommon.EnvironmentTolerance(15, 85);
             this.RadiationTolerance.RangeTitle = "Radiation";
             this.RadiationTolerance.RangeUnits = "mR";
             this.RadiationTolerance.Size = new System.Drawing.Size(324, 95);
@@ -1359,6 +1360,7 @@ namespace RaceDesigner
             this.TemperatureTolerance.RangeMinimum = -200;
             this.TemperatureTolerance.BarLower = -140;
             this.TemperatureTolerance.BarUpper = 140;
+            this.TemperatureTolerance.EnvironmentValues = new NovaCommon.EnvironmentTolerance(-140, 140);
             this.TemperatureTolerance.RangeTitle = "Temperature";
             this.TemperatureTolerance.RangeUnits = "C";
             this.TemperatureTolerance.Size = new System.Drawing.Size(324, 95);
@@ -1374,6 +1376,7 @@ namespace RaceDesigner
             this.GravityTolerance.RangeMinimum = 0;
             this.GravityTolerance.BarLower = 1.5;
             this.GravityTolerance.BarUpper = 8.5;
+            this.GravityTolerance.EnvironmentValues = new NovaCommon.EnvironmentTolerance(1.5, 8.5);
             this.GravityTolerance.RangeTitle = "Gravity";
             this.GravityTolerance.RangeUnits = "g";
             this.GravityTolerance.Size = new System.Drawing.Size(324, 95);

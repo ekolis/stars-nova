@@ -137,7 +137,7 @@ namespace ComponentEditor
           // 
           // BasicProperties
           // 
-          this.BasicProperties.Cost = ((NovaCommon.Resources)(resources.GetObject("BasicProperties.Cost")));
+          this.BasicProperties.Cost = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
           this.BasicProperties.Location = new System.Drawing.Point(199, 185);
           this.BasicProperties.Mass = 0;
           this.BasicProperties.Name = "BasicProperties";

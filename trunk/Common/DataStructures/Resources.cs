@@ -28,6 +28,8 @@
 
 using System;
 using System.Xml;
+using System.ComponentModel;
+using NovaCommon.Converters;
 
 namespace NovaCommon
 {
@@ -37,6 +39,7 @@ namespace NovaCommon
     /// or percent (mineral concentrations).
     /// </summary>
     [Serializable]
+    [TypeConverter(typeof(ResourcesConverter))]
     public class Resources
     {
         public double Boranium = 0;

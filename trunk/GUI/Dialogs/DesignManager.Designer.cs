@@ -396,7 +396,7 @@ namespace Nova
           this.DesignResources.Name = "DesignResources";
           this.DesignResources.Size = new System.Drawing.Size(150, 64);
           this.DesignResources.TabIndex = 10;
-          this.DesignResources.Value = ((NovaCommon.Resources)(resources.GetObject("DesignResources.Value")));
+          this.DesignResources.Value = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
           // 
           // DesignName
           // 
