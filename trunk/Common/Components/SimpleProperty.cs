@@ -96,12 +96,14 @@ namespace NovaCommon
 
         #region Load Save Xml
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
         /// </param>
+        /// ----------------------------------------------------------------------------
         public SimpleProperty(XmlNode node) { }
 
         /// ----------------------------------------------------------------------------

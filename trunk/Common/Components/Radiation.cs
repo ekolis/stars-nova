@@ -37,65 +37,104 @@ using System.Runtime.Serialization;
 
 namespace NovaCommon
 {
+    /// <summary>
+    /// This class defines a radiation property such as that on the Radiating Hydro-Ram Scoop.
+    /// </summary>
     [Serializable]
     public class Radiation : ComponentProperty
     {
         public double Value = 0;
 
-        // ============================================================================
-        // Construction from scratch
-        // ============================================================================
+        #region Construction
 
-        public Radiation()
-        {
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public Radiation() { }
 
-        }
 
-
-        // ============================================================================
-        // Construction from a Radiation object
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Copy constructor.
+        /// </summary>
+        /// <param name="existing">Existing <see cref="Radiation"/> to copy.</param>
+        /// ----------------------------------------------------------------------------
         public Radiation(Radiation existing)
         {
             this.Value = existing.Value;
         }
 
-        // ============================================================================
-        // Construction from a double
-        // ============================================================================
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Initialising constructor.
+        /// </summary>
+        /// <param name="existing">Initial radiation value.</param>
+        /// ----------------------------------------------------------------------------
         public Radiation(double existing)
         {
             this.Value = existing;
         }
-        //============================================================================
-        // Implement the ICloneable interface so properties can be cloned.
-        //============================================================================
+
+        #endregion
+
+        #region Interface ICloneable
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Return a copy of this object.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new Radiation(this);
         }
-        //============================================================================
-        // Provide a way to add properties in the ship design.
-        //============================================================================
+
+        #endregion
+
+        #region Operators
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Provide a way to add properties in the ship design.
+        /// </summary>
+        /// <param name="op1">LHS operand.</param>
+        /// <param name="op2">RHS operand.</param>
+        /// <returns>A single Radiation property with a value equal to the max of op1 and op2.</returns>
+        /// ----------------------------------------------------------------------------
         public static Radiation operator +(Radiation op1, Radiation op2)
         {
             return new Radiation(Math.Max(op1.Value, op2.Value));
         }
 
-        //============================================================================
-        // Operator* to scale (multiply) properties in the ship design.
-        //============================================================================
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Operator* to scale (multiply) properties in the ship design.
+        /// </summary>
+        /// <param name="op1">Property in a stack to be scaled.</param>
+        /// <param name="scalar">Number of items in the stack.</param>
+        /// <returns>A <see cref="Radiation"/> property equal to op1.</returns>
+        /// ----------------------------------------------------------------------------
         public static Radiation operator *(Radiation op1, int scalar)
         {
             return new Radiation(op1.Value);
         }
 
-        // ============================================================================
-        // Initialising Constructor from an xml node.
-        // Precondition: node is a "Property" node with Type equal to one of the simple 
-        //               property types in a Nova compenent definition file (xml document).
-        // ============================================================================
+        #endregion
+
+        #region Load Save Xml
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Load from XML: Initialising constructor from an XML node.
+        /// </summary>
+        /// <param name="node">An <see cref="XmlNode"/> within 
+        /// a Nova compenent definition file (xml document).
+        /// </param>
+        /// ----------------------------------------------------------------------------
         public Radiation(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -116,9 +155,13 @@ namespace NovaCommon
             }
         }
 
-        // ============================================================================
-        // Return an XmlElement representation of the Property
-        // ============================================================================
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -131,6 +174,9 @@ namespace NovaCommon
 
             return xmlelProperty;
         }
+
+        #endregion
+
     }
 }
 
