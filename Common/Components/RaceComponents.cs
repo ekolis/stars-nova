@@ -1,10 +1,26 @@
-﻿// ============================================================================
-// Nova. (c) 2010 Daniel Vale
+﻿#region Copyright Notice
+// ============================================================================
+// Copyright (C) 2010 stars-nova
 //
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
 //
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // RaceComponents: 
 // Defines a colletion of Component objects using DictionaryBase to represent
 // the components which are available to a given race.
@@ -12,7 +28,8 @@
 // Component.Name acting as the dictionary key. A Component can be added or
 // removed from RaceComponents using its Name or by using the
 // AllComponents reference.
-// ============================================================================
+// ===========================================================================
+#endregion
 
 using System;
 using System.Collections.Generic;
@@ -21,23 +38,44 @@ using System.Text;
 
 namespace NovaCommon
 {
+    /// <summary>
+    /// RaceComponents: 
+    /// Defines a colletion of Component objects using DictionaryBase to represent
+    /// the components which are available to a given race.
+    /// </summary>
     [Serializable]
     public class RaceComponents : DictionaryBase
     {
         private Race race = null;
         private TechLevel tech = null;
 
+        #region Construction
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Constructor. Generates the list of available components at construction for the 
         /// given race from AllComponents.
         /// </summary>
         /// <param name="newRace">The race these RaceComponents are available too.</param>
         /// <param name="newTech">The current tech level of the race.</param>
+        /// ----------------------------------------------------------------------------
         public RaceComponents(Race newRace, TechLevel newTech)
         {
             DetermineRaceComponents(newRace, newTech);
         }// RaceComponents constructor
 
+        #endregion
+
+        #region Methods
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Updates the collection for the given race and tech level.
+        /// Note this does not remove any existing components from the collection.
+        /// </summary>
+        /// <param name="newRace"></param>
+        /// <param name="newTech"></param>
+        /// ----------------------------------------------------------------------------
         public void DetermineRaceComponents(Race newRace, TechLevel newTech)
         {
             race = newRace;
@@ -77,10 +115,16 @@ namespace NovaCommon
             }
         }//DetermineRaceComponents
 
+        #endregion
+
+        #region Interfaces
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Add a componenent to the list of available components.
         /// </summary>
         /// <param name="newComponent">The Component to add.</param>
+        /// ----------------------------------------------------------------------------
         public void Add(Component newComponent)
         {
             if (!Dictionary.Contains(newComponent.Name))
@@ -98,11 +142,13 @@ namespace NovaCommon
             }
         }
 
-       
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Add a Component to the list of available components.
         /// </summary>
         /// <param name="NewTrait">The Name of the Component to add.</param>
+        /// ----------------------------------------------------------------------------
         public void Add(String ComponentName)
         {
             if (AllComponents.Data.Contains(ComponentName))
@@ -119,47 +165,64 @@ namespace NovaCommon
 
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Remove a Component from the race's RaceComponents list.
         /// </summary>
         /// <param name="ComponentToRemove">The Component to remove.</param>
+        /// ----------------------------------------------------------------------------
         public void Remove(TraitEntry ComponentToRemove)
         {
             Dictionary.Remove(ComponentToRemove.Name);
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Remove a Component from the race's RaceComponents list.
         /// </summary>
         /// <param name="TraitToRemove">The Name of the Component to remove.</param>
+        /// ----------------------------------------------------------------------------
         public void Remove(String ComponentToRemove)
         {
             Dictionary.Remove(ComponentToRemove);
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check if the race's RaceComponents contains a particular Component.
         /// </summary>
         /// <param name="ComponentName">The Name of the Component to look for.</param>
         /// <returns></returns>
+        /// ----------------------------------------------------------------------------
         public bool Contains(String ComponentName)
         {
             return Dictionary.Contains(ComponentName);
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Allow array type indexing to an RaceComponents list.
         /// </summary>
         /// <param name="index">The Name of the Component</param>
         /// <returns></returns>
+        /// ----------------------------------------------------------------------------
         public Component this[String index]
         {
             get
             {
                 return Dictionary[index] as Component;
             }
+            
         }
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Get the Values in the collection.
+        /// <para>
+        /// Use: <c>foreach (Component c in this.Values)</c>
+        /// </para>
+        /// </summary>
+        /// ----------------------------------------------------------------------------
         public ICollection Values
         {
             get
@@ -167,6 +230,8 @@ namespace NovaCommon
                 return Dictionary.Values;
             }
         }
+
+        #endregion
 
     }
 }
