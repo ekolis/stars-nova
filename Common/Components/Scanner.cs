@@ -35,115 +35,153 @@ using System.Diagnostics;
 namespace NovaCommon
 {
 
-// ============================================================================
-// Scanner class.
-// ============================================================================
+    /// <summary>
+    /// Scanner class (a component property).
+    /// </summary>
+    [Serializable]
+    public class Scanner : ComponentProperty
+    {
+        public int PenetratingScan = 0;
+        public int NormalScan      = 0;
+        
+        #region Construction
 
-   [Serializable]
-   public class Scanner : ComponentProperty
-   {
-      public int PenetratingScan = 0;
-      public int NormalScan  = 0;
-
-
-// ============================================================================
-// Construction
-// ============================================================================
-
-      public Scanner ()
-      {
-
-      }
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public Scanner() { }
 
 
-// ============================================================================
-// Construction from an Component object
-// ============================================================================
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Copy constructor.
+        /// </summary>
+        /// <param name="existing">An existing Scanner to copy.</param>
+        /// ----------------------------------------------------------------------------
+        public Scanner(Scanner existing)
+        {
+            this.PenetratingScan = existing.PenetratingScan;
+            this.NormalScan = existing.NormalScan;
+        }
 
-      public Scanner(Scanner existing)
-      {
-          this.PenetratingScan = existing.PenetratingScan;
-          this.NormalScan = existing.NormalScan;
-      }
-      //============================================================================
-      // Implement the ICloneable interface so properties can be cloned.
-      //============================================================================
-      public override object Clone()
-      {
-          return new Scanner(this);
-      }
-      //============================================================================
-      // Provide a way to add properties in the ship design.
-      //============================================================================
-      public static Scanner operator +(Scanner op1, Scanner op2)
-      {
-          Scanner sum = new Scanner(op1);
-          // 4th root of the sum of 4th powers (Manual section 9-7)
-          sum.NormalScan = (int)Math.Pow(Math.Pow(op1.NormalScan, 4) + Math.Pow(op2.NormalScan, 4), 0.25);
-          sum.PenetratingScan = (int) Math.Pow(Math.Pow(op1.PenetratingScan, 4) + Math.Pow(op2.PenetratingScan, 4), 0.25);
-          return sum;
-      }
+        #endregion
 
-      //============================================================================
-      // Operator* to scale (multiply) properties in the ship design.
-      //============================================================================
-      public static Scanner operator *(Scanner op1, int scalar)
-      {
-          Scanner sum = new Scanner(op1);
-          // 4th root of the sum of 4th powers (Manual section 9-7)
-          sum.NormalScan = (int)Math.Pow(Math.Pow(op1.NormalScan, 4) * scalar, 0.25);
-          sum.PenetratingScan = (int)Math.Pow(Math.Pow(op1.PenetratingScan, 4) * scalar, 0.25);
-          return sum;
-      }
-// ============================================================================
-// Initialising Constructor from an xml node.
-// Precondition: node is a "Property" node with Type=="Scanner" in a Nova 
-//               compenent definition file (xml document).
-// ============================================================================
-      public Scanner(XmlNode node)
-      {
-          XmlNode subnode = node.FirstChild;
-          while (subnode != null)
-          {
-              try
-              {
-                  if (subnode.Name.ToLower() == "penetratingscan")
-                  {
-                      PenetratingScan = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-                  if (subnode.Name.ToLower() == "normalscan")
-                  {
-                      NormalScan = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                  }
-              }
-              catch
-              {
-                  // ignore incomplete or unset values
-              }
-              subnode = subnode.NextSibling;
-          }
-      }
+        #region Interface ICloneable
 
-// ============================================================================
-// Return an XmlElement representation of the Property
-// ============================================================================
-      public override XmlElement ToXml(XmlDocument xmldoc)
-      {
-          XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Implement the ICloneable interface so properties can be cloned.
+        /// </summary>
+        /// <returns>Clone of this object.</returns>
+        /// ----------------------------------------------------------------------------
+        public override object Clone()
+        {
+            return new Scanner(this);
+        }
 
-          // PenetratingScan
-          XmlElement xmlelPenetratingScan = xmldoc.CreateElement("PenetratingScan");
-          XmlText xmltxtPenetratingScan = xmldoc.CreateTextNode(this.PenetratingScan.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelPenetratingScan.AppendChild(xmltxtPenetratingScan);
-          xmlelProperty.AppendChild(xmlelPenetratingScan);
-          // NormalScan
-          XmlElement xmlelNormalScan = xmldoc.CreateElement("NormalScan");
-          XmlText xmltxtNormalScan = xmldoc.CreateTextNode(this.NormalScan.ToString(System.Globalization.CultureInfo.InvariantCulture));
-          xmlelNormalScan.AppendChild(xmltxtNormalScan);
-          xmlelProperty.AppendChild(xmlelNormalScan);
+        #endregion
 
-          return xmlelProperty;
-      }
+        #region Operators
 
-   }
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Provide a way to add properties in the ship design.
+        /// </summary>
+        /// <param name="op1">LHS operand.</param>
+        /// <param name="op2">RHS operand.</param>
+        /// <returns>A single Scanner property with the scanning ability of both op1 and op2 scanners.</returns>
+        /// ----------------------------------------------------------------------------
+        public static Scanner operator +(Scanner op1, Scanner op2)
+        {
+            Scanner sum = new Scanner(op1);
+            // 4th root of the sum of 4th powers (Manual section 9-7)
+            sum.NormalScan = (int)Math.Pow(Math.Pow(op1.NormalScan, 4) + Math.Pow(op2.NormalScan, 4), 0.25);
+            sum.PenetratingScan = (int)Math.Pow(Math.Pow(op1.PenetratingScan, 4) + Math.Pow(op2.PenetratingScan, 4), 0.25);
+            return sum;
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Operator* to scale (multiply) properties in the ship design.
+        /// </summary>
+        /// <param name="op1">Scanner property to scale.</param>
+        /// <param name="scalar">Number of items in the stack.</param>
+        /// <returns>A single Scanner property with the scanning ability of the stack.</returns>
+        /// ----------------------------------------------------------------------------
+        public static Scanner operator *(Scanner op1, int scalar)
+        {
+            Scanner sum = new Scanner(op1);
+            // 4th root of the sum of 4th powers (Manual section 9-7)
+            sum.NormalScan = (int)Math.Pow(Math.Pow(op1.NormalScan, 4) * scalar, 0.25);
+            sum.PenetratingScan = (int)Math.Pow(Math.Pow(op1.PenetratingScan, 4) * scalar, 0.25);
+            return sum;
+        }
+
+        #endregion
+
+        #region Load Save Xml
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Load from XML: Initialising constructor from an XML node.
+        /// </summary>
+        /// <param name="node">An <see cref="XmlNode"/> within 
+        /// a Nova compenent definition file (xml document).
+        /// </param>
+        /// ----------------------------------------------------------------------------
+        public Scanner(XmlNode node)
+        {
+            XmlNode subnode = node.FirstChild;
+            while (subnode != null)
+            {
+                try
+                {
+                    if (subnode.Name.ToLower() == "penetratingscan")
+                    {
+                        PenetratingScan = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                    if (subnode.Name.ToLower() == "normalscan")
+                    {
+                        NormalScan = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                    }
+                }
+                catch
+                {
+                    // ignore incomplete or unset values
+                }
+                subnode = subnode.NextSibling;
+            }
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// ----------------------------------------------------------------------------
+        public override XmlElement ToXml(XmlDocument xmldoc)
+        {
+            XmlElement xmlelProperty = xmldoc.CreateElement("Property");
+
+            // PenetratingScan
+            XmlElement xmlelPenetratingScan = xmldoc.CreateElement("PenetratingScan");
+            XmlText xmltxtPenetratingScan = xmldoc.CreateTextNode(this.PenetratingScan.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            xmlelPenetratingScan.AppendChild(xmltxtPenetratingScan);
+            xmlelProperty.AppendChild(xmlelPenetratingScan);
+            // NormalScan
+            XmlElement xmlelNormalScan = xmldoc.CreateElement("NormalScan");
+            XmlText xmltxtNormalScan = xmldoc.CreateTextNode(this.NormalScan.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            xmlelNormalScan.AppendChild(xmltxtNormalScan);
+            xmlelProperty.AppendChild(xmlelNormalScan);
+
+            return xmlelProperty;
+        }
+
+        #endregion
+
+    }
 }
