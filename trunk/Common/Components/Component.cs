@@ -1,14 +1,30 @@
+#region Copyright Notice
 // ============================================================================
-// Nova. (c) 2008 Ken Reed
-// (c) 2009, 2010, stars-nova
-// See https://sourceforge.net/projects/stars-nova/
+// Copyright (C) 2008 Ken Reed
+// Copyright (C) 2009, 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // This file defines all of the component types known (engines, scanners, etc.)
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
 
 using System;
 using System.IO;
@@ -30,11 +46,11 @@ namespace NovaCommon
     [Serializable]
     public class Component : Item
     {
-        public TechLevel       RequiredTech   = new TechLevel();
-        public Image           ComponentImage = null;
-        public String          ImageFile      = null;
-        public String          Description    = null;
-        public RaceRestriction Restrictions   = new RaceRestriction();
+        public TechLevel       RequiredTech    = new TechLevel();
+        public Image           ComponentImage  = null;
+        public String          ImageFile       = null;
+        public String          Description     = null;
+        public RaceRestriction Restrictions    = new RaceRestriction();
 
         public Dictionary<String, ComponentProperty> Properties = null;
 
@@ -43,7 +59,7 @@ namespace NovaCommon
         // They are defined here such that the component can locate or load its properties
         // into the dictionary.
         public static String[] propertyKeys =
-      {   
+        {   
           "Armor", "Beam Deflector", "Bomb", "Battle Movement", "Capacitor", "Cargo", "Cloak", 
           "Colonizer", "Computer", "Defense", "Deflector", "Energy Dampener", "Engine", "Fuel",
           "Gate", "Hull", "Hull Affinity", "Jammer", "Mass Driver", "Mine Layer", 
@@ -51,13 +67,15 @@ namespace NovaCommon
           "Orbital Adjuster", "Radiation", "Scanner", "Shield", "Tachyon Detector", "Terraforming",
           "Transport Ships Only", "Weapon"
 
-      };
+        };
 
         #region Construction
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public Component()
         {
             Properties = new Dictionary<string, ComponentProperty>();
@@ -90,12 +108,14 @@ namespace NovaCommon
 
         #region Load Save Xml
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
         /// </param>
+        /// ----------------------------------------------------------------------------
         public Component(XmlNode node)
             : base(node)
         {
@@ -368,11 +388,14 @@ namespace NovaCommon
 
         }// component constructor
 
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelComponent = xmldoc.CreateElement("Component");
