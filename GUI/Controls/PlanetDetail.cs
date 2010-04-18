@@ -314,7 +314,7 @@ namespace Nova
           this.ResourceDisplay.Name = "ResourceDisplay";
           this.ResourceDisplay.Size = new System.Drawing.Size(150, 68);
           this.ResourceDisplay.TabIndex = 20;
-          this.ResourceDisplay.Value = ((NovaCommon.Resources)(resources.GetObject("ResourceDisplay.Value")));
+          this.ResourceDisplay.Value = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
           // 
           // groupBox2
           // 

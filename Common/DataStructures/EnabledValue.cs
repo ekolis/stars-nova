@@ -27,8 +27,8 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Text;
+using System.ComponentModel;
+using NovaCommon.Converters;
 
 namespace NovaCommon
 {
@@ -37,6 +37,7 @@ namespace NovaCommon
     /// A type used by an EnabledCounter control.
     /// </summary>
     [Serializable]
+    [TypeConverter(typeof(EnabledValueConverter))]
     public class EnabledValue
     {
         public bool IsChecked = false;

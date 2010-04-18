@@ -453,7 +453,7 @@ namespace Nova
             this.DesignResources.Name = "DesignResources";
             this.DesignResources.Size = new System.Drawing.Size(150, 64);
             this.DesignResources.TabIndex = 10;
-            this.DesignResources.Value = ((NovaCommon.Resources)(resources.GetObject("DesignResources.Value")));
+            this.DesignResources.Value = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
             // 
             // DesignName
             // 
@@ -559,7 +559,7 @@ namespace Nova
             this.ComponentCost.Name = "ComponentCost";
             this.ComponentCost.Size = new System.Drawing.Size(150, 64);
             this.ComponentCost.TabIndex = 0;
-            this.ComponentCost.Value = ((NovaCommon.Resources)(resources.GetObject("ComponentCost.Value")));
+            this.ComponentCost.Value = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
             // 
             // panel1
             // 

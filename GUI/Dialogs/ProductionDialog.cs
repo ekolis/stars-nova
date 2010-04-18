@@ -255,7 +255,7 @@ namespace Nova
          this.DesignCost.Name = "DesignCost";
          this.DesignCost.Size = new System.Drawing.Size(240, 64);
          this.DesignCost.TabIndex = 0;
-         this.DesignCost.Value = ((NovaCommon.Resources)(resources.GetObject("DesignCost.Value")));
+         this.DesignCost.Value = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
          // 
          // groupBox4
          // 
@@ -274,7 +274,7 @@ namespace Nova
          this.ProductionCost.Name = "ProductionCost";
          this.ProductionCost.Size = new System.Drawing.Size(240, 64);
          this.ProductionCost.TabIndex = 0;
-         this.ProductionCost.Value = ((NovaCommon.Resources)(resources.GetObject("ProductionCost.Value")));
+         this.ProductionCost.Value = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
          // 
          // RemoveFromQueue
          // 
