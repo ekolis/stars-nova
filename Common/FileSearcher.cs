@@ -65,7 +65,7 @@ namespace NovaCommon
 
             if (raceFiles.Length == 0)
             {
-                Report.Error("No race files found in game folder");
+                Report.Error("No race files found in game folder: \"" + RaceFolder  + "\"");
 
             }
             else

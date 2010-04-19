@@ -39,7 +39,7 @@ namespace NovaCommon
        public const string NovaWebSite = "https://sourceforge.net/projects/stars-nova/";
 
        // Note: Client/SeverState.GameFolder vs ServerFolder vs ClientFolder
-       // In a single player game the ServerFolder == ClientFolder == "Game Files"
+       // In a single player game the ServerFolder == ClientFolder == "GameFiles"
        // The only reason to save seperate keys for ServerFolder and ClientFolder
        // is so that we can simulate a network game on a single PC. When this
        // is done it will be necessary to transfer the game files from one
@@ -79,9 +79,9 @@ namespace NovaCommon
        public const string NovaFolderName = ".";
        public const string ComponentFolderName = ".";
        public const string GraphicsFolderName = "Graphics";
-       public const string ClientFolderName = "Game Files";
-       public const string ServerFolderName = "Game Files";
-       public const string RaceFolderName = "Game Files";
+       public const string ClientFolderName = "GameFiles";
+       public const string ServerFolderName = "GameFiles";
+       public const string RaceFolderName = "GameFiles/Races";
        #endregion Default Folders
 
        // paths, relative to the 'current' application (it doesn't actully matter which application that is, due to the way the nova directory is structured)
@@ -90,16 +90,16 @@ namespace NovaCommon
        #region Search Paths
        public const string NewGamePath_Development = "../../../NewGame/bin/Debug";
        public const string NewGamePath_Deployed = "../NewGame";
-       public const string RaceDesignerPath_Development = "../../../Race Designer/bin/Debug";
-       public const string RaceDesignerPath_Deployed = "../Race Designer";
-       public const string NovaConsolePath_Development = "../../../Nova Console/bin/Debug";
-       public const string NovaConsolePath_Deployed = "../Nova Console";
+       public const string RaceDesignerPath_Development = "../../../RaceDesigner/bin/Debug";
+       public const string RaceDesignerPath_Deployed = "../RaceDesigner";
+       public const string NovaConsolePath_Development = "../../../Console/bin/Debug";
+       public const string NovaConsolePath_Deployed = "../Console";
        public const string NovaLauncherPath_Development = "../../../NovaLauncher/bin/Debug";
        public const string NovaLauncherPath_Deployed = "../NovaLauncher";
-       public const string NovaGuiPath_Development = "../../../Nova Gui/bin/Debug";
-       public const string NovaGuiPath_Deployed = "../Nova Gui";
-       public const string NovaAiPath_Development = "../../../Nova AI/bin/Debug";
-       public const string NovaAiPath_Deployed = "../Nova AI";
+       public const string NovaGuiPath_Development = "../../../GUI/bin/Debug";
+       public const string NovaGuiPath_Deployed = "../GUI";
+       public const string NovaAiPath_Development = "../../../AI/bin/Debug";
+       public const string NovaAiPath_Deployed = "../AI";
        #endregion Search Paths
 
        #endregion Nova Resources

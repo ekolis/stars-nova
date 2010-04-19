@@ -93,7 +93,7 @@ namespace NovaServer
                     TurnData.AllScores = new ArrayList();
                 }
 
-                ServerState.Data.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, "Game Files");
+                ServerState.Data.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
                 if (ServerState.Data.GameFolder == null)
                 {
                     Report.Error("Intel Writer: WriteIntel() - Unable to create file \"Nova.Intel\".");

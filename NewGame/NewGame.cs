@@ -10,6 +10,7 @@
 // Software Foundation.
 // ============================================================================
 using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.Windows.Forms;
 using System.Drawing;
@@ -150,17 +151,24 @@ namespace NewGame
         {
             NameGenerator nameGenerator = new NameGenerator();
             int numberOfStars = GameSettings.Data.NumberOfStars;
-            SpaceAllocator spaceAllocator = new SpaceAllocator(numberOfStars);
+
+
+
+            // SpaceAllocator spaceAllocator = new SpaceAllocator(numberOfStars);
+
+            StarsMapGenerator map = new StarsMapGenerator(GameSettings.Data.MapWidth, GameSettings.Data.MapHeight);
+            List<int[]> allStarPositions = map.Generate();
 
             // FIXME (priority 4) - ignores map Height
-            spaceAllocator.AllocateSpace(GameSettings.Data.MapWidth);
+            // spaceAllocator.AllocateSpace(GameSettings.Data.MapWidth);
 
-            for (int count = 0; count < numberOfStars; count++)
+            foreach (int[] starPosition in allStarPositions)
             {
                 Star star      = new Star();
 
-                Rectangle area = spaceAllocator.GetBox();
-                star.Position  = PointUtilities.GetPositionInBox(area, 10);
+                // Rectangle area = spaceAllocator.GetBox();
+                star.Position.X = starPosition[0];
+                star.Position.Y = starPosition[1];
 
                 star.Name      = nameGenerator.NextName;
 

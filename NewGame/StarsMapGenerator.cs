@@ -29,11 +29,14 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
-namespace NovaConsole
+using NovaCommon;
+
+namespace NewGame
 {
-    class StarsMapGenerator
+    public class StarsMapGenerator 
     {
         //the number of failed attempts to stop after
         private const int FailuresThreshold = 5000;
