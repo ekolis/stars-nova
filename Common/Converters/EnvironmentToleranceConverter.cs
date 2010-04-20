@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
-using System.Globalization;
 using System.Reflection;
 
 namespace NovaCommon.Converters
@@ -30,30 +29,12 @@ namespace NovaCommon.Converters
     /// <summary>
     /// <see cref="TypeConverter"/> for <see cref="EnvironmentTolerance"/>.
     /// </summary>
-    public class EnvironmentToleranceConverter : TypeConverter
+    public class EnvironmentToleranceConverter : InstanceDescriptorConverter<EnvironmentTolerance>
     {
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        protected override InstanceDescriptor ConvertToInstanceDescriptor(EnvironmentTolerance value)
         {
-            if (destinationType == typeof(InstanceDescriptor))
-            {
-                return true;
-            }
-
-            return base.CanConvertTo(context, destinationType);
+            ConstructorInfo constructor = typeof(EnvironmentTolerance).GetConstructor(new Type[] { typeof(double), typeof(double) });
+            return new InstanceDescriptor(constructor, new object[] { value.Minimum, value.Maximum });
         }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (destinationType == typeof(InstanceDescriptor))
-            {
-                ConstructorInfo constructor =
-                    typeof(EnvironmentTolerance).GetConstructor(new Type[] { typeof(double), typeof(double) });
-                EnvironmentTolerance source = (EnvironmentTolerance)value;
-                return new InstanceDescriptor(constructor, new object[] { source.Minimum, source.Maximum });
-            }
-
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
-
     }
 }

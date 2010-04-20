@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
-using System.Globalization;
 using System.Reflection;
 
 namespace NovaCommon.Converters
@@ -30,30 +29,12 @@ namespace NovaCommon.Converters
     /// <summary>
     /// <see cref="TypeConverter"/> for <see cref="Resources"/>.
     /// </summary>
-    public class ResourcesConverter : TypeConverter
+    public class ResourcesConverter : InstanceDescriptorConverter<Resources>
     {
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        protected override InstanceDescriptor ConvertToInstanceDescriptor(Resources value)
         {
-            if (destinationType == typeof(InstanceDescriptor))
-            {
-                return true;
-            }
-
-            return base.CanConvertTo(context, destinationType);
+            ConstructorInfo constructor = typeof(Resources).GetConstructor(new Type[] { typeof(int), typeof(int), typeof(int), typeof(int) });
+            return new InstanceDescriptor(constructor, new object[] { value.Ironium, value.Boranium, value.Germanium, value.Energy });
         }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (destinationType == typeof(InstanceDescriptor))
-            {
-                ConstructorInfo constructor =
-                    typeof(Resources).GetConstructor(new Type[] { typeof(int), typeof(int), typeof(int), typeof(int) });
-                Resources source = (Resources)value;
-                return new InstanceDescriptor(constructor, new object[] { source.Ironium, source.Boranium, source.Germanium, source.Energy });
-            }
-
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
-
     }
 }

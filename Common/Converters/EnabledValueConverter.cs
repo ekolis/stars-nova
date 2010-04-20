@@ -22,7 +22,6 @@
 using System;
 using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
-using System.Globalization;
 using System.Reflection;
 
 namespace NovaCommon.Converters
@@ -30,30 +29,12 @@ namespace NovaCommon.Converters
     /// <summary>
     /// <see cref="TypeConverter"/> for <see cref="EnabledValue"/>.
     /// </summary>
-    public class EnabledValueConverter : TypeConverter
+    public class EnabledValueConverter : InstanceDescriptorConverter<EnabledValue>
     {
-        public override bool CanConvertTo(ITypeDescriptorContext context, Type destinationType)
+        protected override InstanceDescriptor ConvertToInstanceDescriptor(EnabledValue value)
         {
-            if (destinationType == typeof(InstanceDescriptor))
-            {
-                return true;
-            }
-
-            return base.CanConvertTo(context, destinationType);
+            ConstructorInfo constructor = typeof(EnabledValue).GetConstructor(new Type[] { typeof(bool), typeof(int) });
+            return new InstanceDescriptor(constructor, new object[] { value.IsChecked, value.NumericValue });
         }
-
-        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
-        {
-            if (destinationType == typeof(InstanceDescriptor))
-            {
-                ConstructorInfo constructor =
-                    typeof (EnabledValue).GetConstructor(new Type[] {typeof (bool), typeof (int)});
-                EnabledValue source = (EnabledValue) value;
-                return new InstanceDescriptor(constructor, new object[] {source.IsChecked, source.NumericValue});
-            }
-            
-            return base.ConvertTo(context, culture, value, destinationType);
-        }
-
     }
 }
