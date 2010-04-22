@@ -33,6 +33,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Windows.Forms;
 using System.Reflection;
+using ComponentEditor.Properties;
+
 #endregion
 
 namespace ComponentEditor
@@ -46,7 +48,7 @@ namespace ComponentEditor
         {
             InitializeComponent();
 
-            this.logoPictureBox.Image = ComponentEditor.Resources.Nova;
+            this.logoPictureBox.Image = Resources.Nova;
 
             //  Initialize the AboutBox to display the product information from
             //  the assembly information.  Change assembly information settings
