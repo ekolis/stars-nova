@@ -89,6 +89,28 @@ namespace NovaCommon
 
         //----------------------------------------------------------------------------
         /// <summary>
+        /// Constructor setting all levels to individual values.
+        /// </summary>
+        /// <param name="biotechnology">Level to set the biotechnology.</param>
+        /// <param name="electronics">Level to set the electronics.</param>
+        /// <param name="energy">Level to set the energy.</param>
+        /// <param name="propulsion">Level to set the propulsion.</param>
+        /// <param name="weapons">Level to set the weapons.</param>
+        /// <param name="construction">Level to set the construction.</param>
+        //----------------------------------------------------------------------------
+        public TechLevel(int biotechnology, int electronics, int energy, int propulsion, int weapons, int construction)
+        {
+            TechValues["Biotechnology"] = biotechnology;
+            TechValues["Electronics"] = electronics;
+            TechValues["Energy"] = energy;
+            TechValues["Propulsion"] = propulsion;
+            TechValues["Weapons"] = weapons;
+            TechValues["Construction"] = construction;
+        }
+
+
+        //----------------------------------------------------------------------------
+        /// <summary>
         /// Copy Constructor
         /// </summary>
         /// <param name="copy">object to copy</param>
