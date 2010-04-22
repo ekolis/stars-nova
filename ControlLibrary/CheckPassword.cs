@@ -54,18 +54,8 @@ namespace ControlLibrary
         {
             InitializeComponent();
             RaceData = raceData;
+            CancelButton = Cancel;
             AcceptButton = OKButton;
-        }
-
-
-        /// <summary>
-        /// Cancel Button Pressed.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-        private void CancelButton_Click(object sender, EventArgs e)
-        {
-            Dispose();
         }
 
         #endregion
@@ -94,8 +84,6 @@ namespace ControlLibrary
             {
                 DialogResult = DialogResult.OK;
             }
-
-            Dispose();
         }
 
         #endregion
