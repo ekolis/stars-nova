@@ -3921,7 +3921,7 @@ namespace ComponentEditor
           this.tableLayoutPanel1.SetRowSpan(this.TechRequirements, 2);
           this.TechRequirements.Size = new System.Drawing.Size(171, 190);
           this.TechRequirements.TabIndex = 0;
-          this.TechRequirements.Value = ((NovaCommon.TechLevel)(resources.GetObject("TechRequirements.Value")));
+          this.TechRequirements.Value = new NovaCommon.TechLevel(0, 0, 0, 0, 0, 0);
           // 
           // BasicProperties
           // 
