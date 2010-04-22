@@ -56,7 +56,7 @@ namespace ControlLibrary
           this.PassWord.Location = new System.Drawing.Point(12, 44);
           this.PassWord.Name = "PassWord";
           this.PassWord.Size = new System.Drawing.Size(228, 20);
-          this.PassWord.TabIndex = 3;
+          this.PassWord.TabIndex = 1;
           // 
           // label1
           // 
@@ -64,7 +64,7 @@ namespace ControlLibrary
           this.label1.Location = new System.Drawing.Point(12, 22);
           this.label1.Name = "label1";
           this.label1.Size = new System.Drawing.Size(198, 13);
-          this.label1.TabIndex = 2;
+          this.label1.TabIndex = 0;
           this.label1.Text = "Please Enter The Password For This File";
           // 
           // OKButton
@@ -73,7 +73,7 @@ namespace ControlLibrary
           this.OKButton.Location = new System.Drawing.Point(155, 81);
           this.OKButton.Name = "OKButton";
           this.OKButton.Size = new System.Drawing.Size(75, 23);
-          this.OKButton.TabIndex = 1;
+          this.OKButton.TabIndex = 3;
           this.OKButton.Text = "OK";
           this.OKButton.UseVisualStyleBackColor = true;
           this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
@@ -84,7 +84,7 @@ namespace ControlLibrary
           this.Cancel.Location = new System.Drawing.Point(27, 81);
           this.Cancel.Name = "Cancel";
           this.Cancel.Size = new System.Drawing.Size(75, 23);
-          this.Cancel.TabIndex = 0;
+          this.Cancel.TabIndex = 2;
           this.Cancel.Text = "Cancel";
           this.Cancel.UseVisualStyleBackColor = true;
           // 
