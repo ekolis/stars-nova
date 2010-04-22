@@ -28,8 +28,10 @@
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Xml;
 using System.Collections;
+using NovaCommon.Converters;
 
 namespace NovaCommon
 {
@@ -38,6 +40,7 @@ namespace NovaCommon
     /// TechLevels Class.
     /// </summary>
     [Serializable]
+    [TypeConverter(typeof(TechLevelConverter))]
     public class TechLevel
     {
         /// <summary>
