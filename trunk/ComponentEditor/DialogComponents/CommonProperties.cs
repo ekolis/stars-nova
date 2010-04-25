@@ -47,9 +47,12 @@ namespace ComponentEditor
         private Hashtable AllComponents = null;
 
         #region Construction
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construction
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public CommonProperties()
         {
             InitializeComponent();
@@ -59,12 +62,15 @@ namespace ComponentEditor
 
 
         #region Event Methods
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// List box selection changed. Delegate the processing of this event to the
         /// appropriate dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void ComponentList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComponentList.SelectedItem == null)
@@ -77,14 +83,18 @@ namespace ComponentEditor
                 ListBoxChanged(sender, e);
             }
         }
+
         #endregion
 
 
         #region Suporting Methods
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Populate the list box wih all components of a specified type.
         /// </summary>
         /// <param name="objectType">The component <see cref="Type"/>.</param>
+        /// ----------------------------------------------------------------------------
         public void UpdateListBox(Type objectType)
         {
             ComponentList.Items.Clear();
@@ -99,11 +109,13 @@ namespace ComponentEditor
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Populate the list box wih all components of a specified type name (used when
         /// the actual type isn't known.
         /// </summary>
         /// <param name="objectName">The type name.</param>
+        /// ----------------------------------------------------------------------------
         public void UpdateListBox(string objectName)
         {
             ComponentList.Items.Clear();
@@ -118,9 +130,11 @@ namespace ComponentEditor
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Delete the currently selected component.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public void DeleteComponent()
         {
             string componentName = ComponentName.Text;
@@ -141,9 +155,11 @@ namespace ComponentEditor
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get and set the properties common to all components.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public NovaCommon.Component Value
         {
             get

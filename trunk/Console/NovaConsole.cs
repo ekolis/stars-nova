@@ -1,14 +1,30 @@
+#region Copyright Notice
 // ============================================================================
-// Nova. (c) 2008 Ken Reed
-// (c) 2009, 2010, stars-nova
-// See https://sourceforge.net/projects/stars-nova/
+// Copyright (C) 2008 Ken Reed
+// Copyright (C) 2009, 2010 The Stars-Nova Project
 //
+// This file is part of Stars! Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // This is the main entry point for the Windows form for the Nova Console.
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
 
 using Microsoft.Win32;
 using System.Collections;
@@ -28,6 +44,7 @@ namespace NovaConsole
     /// </summary>
     public class NovaConsoleMain : System.Windows.Forms.Form
     {
+        #region Windows Form Data
         private GroupBox groupBox1;
         private GroupBox groupBox2;
         private MenuStrip MainMenu;
@@ -58,20 +75,27 @@ namespace NovaConsole
         private CheckBox runAiCheckBox;
         private Timer consoleTimer;
         private IContainer components;
+        #endregion
 
+        #region Construction Destruction
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Nova Console construction (and any dynamic initialisation required).
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public NovaConsoleMain()
         {
             InitializeComponent();
         }
 
-
+    
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
+        /// <param name="disposing">???</param>
+        /// ----------------------------------------------------------------------------
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -84,6 +108,7 @@ namespace NovaConsole
             base.Dispose(disposing);
         }
 
+        #endregion
 
         #region Windows Form Designer generated code
         /// <summary>
@@ -421,10 +446,13 @@ namespace NovaConsole
         }
         #endregion
 
+        #region Main Function
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [STAThread]
         static void Main()
         {
@@ -435,10 +463,17 @@ namespace NovaConsole
             Application.Run(new NovaConsoleMain());
         }
 
+        #endregion
 
+        #region Event Methods
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Populate the nova console form when first loaded.
         /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void OnFirstShow(object sender, EventArgs e)
         {
             /// This function is called when the Nova Console form is loaded. 
@@ -478,10 +513,239 @@ namespace NovaConsole
         }
 
 
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Save console persistent data on exit.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void ConsoleFormClosing(object sender, FormClosingEventArgs e)
+        {
+            try
+            {
+                if (ServerState.Data.GameInProgress) ServerState.Save();
+            }
+            catch
+            {
+                Report.Error("Error saving Nova Console data.");
+            }
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Display the About box dialog
+        /// <summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void OnAboutClick(object sender, EventArgs e)
+        {
+            AboutBox aboutBox = new AboutBox();
+            aboutBox.ShowDialog();
+            aboutBox.Dispose();
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Select a new Game Folder
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void SelectNewFolder(object sender, EventArgs eventArgs)
+        {
+            using (RegistryKey regKey = Registry.CurrentUser.CreateSubKey(Global.RootRegistryKey))
+            {
+                regKey.SetValue(Global.ServerFolderKey, "");
+            }
+
+            ServerState.Clear();
+            this.OnFirstShow(null, null);
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// This function is called when the New Game menu item is selected.
+        /// Launches the New Game wizard.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void NewGameMenuItem_Click(object sender, EventArgs e)
+        {
+            String NewGameApp;
+            NewGameApp = FileSearcher.GetFile(Global.NewGameKey, false, Global.NewGamePath_Development, Global.NewGamePath_Deployed, "NewGame.exe", true);
+            try
+            {
+                Process.Start(NewGameApp);
+                Application.Exit();
+            }
+            catch
+            {
+                Report.Error("Failed to launch \"NewGame.exe\".");
+            }
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// This function is called when the Exit button is pressed.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        private void ExitMenuItem_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Refresh the turn in fields...
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void RefreshMenuItem_Click(object sender, EventArgs e)
+        {
+            // debug - commented this out as console is searching for files each time the timer goes off
+            // ServerState.Data.AllRaces = FileSearcher.GetAvailableRaces();
+
+            OrderReader.ReadOrders();
+
+            if (SetPlayerList())
+                GenerateTurnMenuItem.Enabled = true;
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// This function is called when the Generate Turn button is pressed. 
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void GenerateTurnMenuItem_Click(object sender, EventArgs e)
+        {
+            GenerateTurn();
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// This function is called when the Force Generate Turn button is pressed. 
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void ForceMenuItem_Click(object sender, EventArgs e)
+        {
+            DialogResult result = MessageBox.Show("One or more races have not yet turned in. Are you sure you want to generate the next turn?", "Nova - Warning",
+                      MessageBoxButtons.YesNo,
+                      MessageBoxIcon.Warning);
+
+            if (result != DialogResult.Yes) return;
+
+            GenerateTurn();
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Launch the Nova GUI to play a turn for a give player.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void PlayerList_DoubleClick(object sender, EventArgs e)
+        {
+            // Find what was clicked
+            String raceName;
+            try
+            {
+                raceName = PlayerList.SelectedItems[0].SubItems[1].Text;
+            }
+            catch
+            {
+                // On occasion this fires but SelectedItems is empty. Ignore and let the user re-click. See issue 2974019.
+                return;
+            }
+            try
+            {
+
+                // Find the Nova GUI
+                String NovaGuiApp;
+                NovaGuiApp = FileSearcher.GetFile(Global.NovaGuiKey, false, Global.NovaGuiPath_Development, Global.NovaGuiPath_Deployed, "Nova GUI.exe", true);
+
+                // Launch the nova GUI
+                CommandArguments args = new CommandArguments();
+                args.Add(CommandArguments.Option.RaceName, raceName);
+                args.Add(CommandArguments.Option.Turn, ServerState.Data.TurnYear + 1);
+                args.Add(CommandArguments.Option.IntelFileName, Path.Combine(ServerState.Data.GameFolder, raceName + ".intel"));
+                Process.Start(NovaGuiApp, args.ToString());
+            }
+            catch
+            {
+                Report.Error("NovaConsole.cs : PlayerList_DoubleClick() - Failed to launch \"Nova GUI.exe\".");
+            }
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void runAiCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            // Commented out as it is controlled by a timmer for now.
+            // RunAI();
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Process the timer event, used to determine how often the console,
+        /// checks if the AI needs to run or a new turn can be generated.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void consoleTimer_Tick(object sender, EventArgs e)
+        {
+            // debug - commented this out as console is searching for files each time the timer goes off
+            // ServerState.Data.AllRaces = FileSearcher.GetAvailableRaces();
+
+            // TODO (priority 4) - reading all the .orders files is overkill. Only really want to read orders for races that aren't turned in yet, and only if they have changed.
+            OrderReader.ReadOrders();
+
+            if (SetPlayerList())
+            {
+                GenerateTurnMenuItem.Enabled = true;
+                if (autoGenerateCheckBox.Checked)
+                {
+                    GenerateTurn();
+                }
+            }
+            else
+            {
+                if (runAiCheckBox.Checked) RunAI();
+            }
+        }
+
+        #endregion
+
+        #region Utility Methods
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Set the player list "Turn In" field.
         /// </summary>
         /// <returns>true if all players are turned in</returns>
+        /// ----------------------------------------------------------------------------
         private bool SetPlayerList()
         {
             bool result = true;
@@ -531,114 +795,12 @@ namespace NovaConsole
         }
 
 
-        /// <summary>
-        /// Save console persistent data on exit.
-        /// </summary>
-        private void ConsoleFormClosing(object sender, FormClosingEventArgs e)
-        {
-            try
-            {
-                if (ServerState.Data.GameInProgress) ServerState.Save();
-            }
-            catch
-            {
-                Report.Error("Error saving Nova Console data.");
-            }
-        }
-
-
-        /// <summary>
-        /// Display the About box dialog
-        /// <summary>
-        private void OnAboutClick(object sender, EventArgs e)
-        {
-            AboutBox aboutBox = new AboutBox();
-            aboutBox.ShowDialog();
-            aboutBox.Dispose();
-        }
-
-        /// <summary>
-        /// Select a new Game Folder
-        /// </summary>
-        private void SelectNewFolder(object sender, EventArgs eventArgs)
-        {
-            using (RegistryKey regKey = Registry.CurrentUser.CreateSubKey(Global.RootRegistryKey))
-            {
-                regKey.SetValue(Global.ServerFolderKey, "");
-            }
-
-            ServerState.Clear();
-            this.OnFirstShow(null, null);
-        }
-
-        /// <summary>
-        /// This function is called when the New Game menu item is selected.
-        /// Launches the New Game wizard.
-        /// </summary>
-        private void NewGameMenuItem_Click(object sender, EventArgs e)
-        {
-            String NewGameApp;
-            NewGameApp = FileSearcher.GetFile(Global.NewGameKey, false, Global.NewGamePath_Development, Global.NewGamePath_Deployed, "NewGame.exe", true);
-            try
-            {
-                Process.Start(NewGameApp);
-                Application.Exit();
-            }
-            catch
-            {
-                Report.Error("Failed to launch \"NewGame.exe\".");
-            }
-        }
-
-        /// <summary>
-        /// This function is called when the Exit button is pressed.
-        /// </summary>
-        private void ExitMenuItem_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-
-        /// <summary>
-        /// Refresh the turn in fields...
-        /// </summary>
-        private void RefreshMenuItem_Click(object sender, EventArgs e)
-        {
-            // debug - commented this out as console is searching for files each time the timer goes off
-            // ServerState.Data.AllRaces = FileSearcher.GetAvailableRaces();
-
-            OrderReader.ReadOrders();
-
-            if (SetPlayerList())
-                GenerateTurnMenuItem.Enabled = true;
-        }
-
-        /// <summary>
-        /// This function is called when the Generate Turn button is pressed. 
-        /// </summary>
-        private void GenerateTurnMenuItem_Click(object sender, EventArgs e)
-        {
-            GenerateTurn();
-        }
-
-        /// <summary>
-        /// This function is called when the Force Generate Turn button is pressed. 
-        /// </summary>
-        private void ForceMenuItem_Click(object sender, EventArgs e)
-        {
-            DialogResult result = MessageBox.Show("One or more races have not yet turned in. Are you sure you want to generate the next turn?", "Nova - Warning",
-                      MessageBoxButtons.YesNo,
-                      MessageBoxIcon.Warning);
-
-            if (result != DialogResult.Yes) return;
-
-            GenerateTurn();
-        }
-
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Add a new message to the scrolling status window on the console.
         /// </summary>
         /// <param name="message">The message to be displayed.</param>
+        /// ----------------------------------------------------------------------------
         private void AddStatusMessage(String message)
         {
             StatusBox.Text += Environment.NewLine + message;
@@ -647,9 +809,12 @@ namespace NovaConsole
             StatusBox.Refresh();
         }
 
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate a new turn, if able, and update the Nova Console UI
         /// </summary>
+        /// ----------------------------------------------------------------------------
         private void GenerateTurn()
         {
             /* FIXME (priority 4) This gives a flase negative indication, i.e. GameInProgress is false even when a game is in progress.
@@ -678,45 +843,13 @@ namespace NovaConsole
             SetPlayerList();
         }
 
-        /// <summary>
-        /// Launch the Nova GUI to play a turn for a give player.
-        /// </summary>
-        private void PlayerList_DoubleClick(object sender, EventArgs e)
-        {
-            // Find what was clicked
-            String raceName;
-            try
-            {
-                raceName = PlayerList.SelectedItems[0].SubItems[1].Text;
-            }
-            catch
-            {
-                // On occasion this fires but SelectedItems is empty. Ignore and let the user re-click. See issue 2974019.
-                return;
-            }
-            try
-            {
 
-                // Find the Nova GUI
-                String NovaGuiApp;
-                NovaGuiApp = FileSearcher.GetFile(Global.NovaGuiKey, false, Global.NovaGuiPath_Development, Global.NovaGuiPath_Deployed, "Nova GUI.exe", true);
 
-                // Launch the nova GUI
-                CommandArguments args = new CommandArguments();
-                args.Add(CommandArguments.Option.RaceName, raceName);
-                args.Add(CommandArguments.Option.Turn, ServerState.Data.TurnYear + 1);
-                args.Add(CommandArguments.Option.IntelFileName, Path.Combine(ServerState.Data.GameFolder, raceName + ".intel"));
-                Process.Start(NovaGuiApp, args.ToString());
-            }
-            catch
-            {
-                Report.Error("NovaConsole.cs : PlayerList_DoubleClick() - Failed to launch \"Nova GUI.exe\".");
-            }
-        }
-
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Launch the AI program to take any turns for AI players.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         private void RunAI()
         {
             if (runAiCheckBox.Checked)
@@ -766,37 +899,8 @@ namespace NovaConsole
             }
         }
 
-        private void runAiCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            // Commented out as it is controlled by a timmer for now.
-            // RunAI();
-        }
+        #endregion
 
-        /// <summary>
-        /// Process the timer event, used to determine how often the console,
-        /// checks if the AI needs to run or a new turn can be generated.
-        /// </summary>
-        private void consoleTimer_Tick(object sender, EventArgs e)
-        {
-            // debug - commented this out as console is searching for files each time the timer goes off
-            // ServerState.Data.AllRaces = FileSearcher.GetAvailableRaces();
-
-            // TODO (priority 4) - reading all the .orders files is overkill. Only really want to read orders for races that aren't turned in yet, and only if they have changed.
-            OrderReader.ReadOrders();
-
-            if (SetPlayerList())
-            {
-                GenerateTurnMenuItem.Enabled = true;
-                if (autoGenerateCheckBox.Checked)
-                {
-                    GenerateTurn();
-                }
-            }
-            else
-            {
-                if (runAiCheckBox.Checked) RunAI();
-            }
-        }
     }
 
 }

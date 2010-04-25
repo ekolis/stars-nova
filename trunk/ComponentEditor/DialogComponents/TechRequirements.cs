@@ -43,18 +43,22 @@ namespace ComponentEditor
     public partial class TechRequirements : UserControl
     {
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construction
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public TechRequirements()
         {
             InitializeComponent();
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Property for getting/setting the Tech levels in the control.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public TechLevel Value
         {
             // Get the tech levels from the control

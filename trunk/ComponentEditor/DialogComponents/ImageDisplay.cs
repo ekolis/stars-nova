@@ -47,11 +47,13 @@ namespace ComponentEditor
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Select an Image for loading into the picture control
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void OnImageButtonClick(object sender, EventArgs e)
         {
             OpenFileDialog dialog = new OpenFileDialog();
@@ -68,9 +70,11 @@ namespace ComponentEditor
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get and set the value in the Image Box
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public Image Image
         {
             get { return ComponentImage.Image; }

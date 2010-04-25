@@ -40,6 +40,7 @@ namespace NovaCommon
         private static Random RandomNumber = new Random();
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return a random position within a Rectangle. A border (which may be zero) is
         /// applied to the area where point positions will not be allocated. This
@@ -49,6 +50,7 @@ namespace NovaCommon
         /// <param name="box">A <see cref="Rectangle"/> which will contain the point.</param>
         /// <param name="boxBorder">The minimum distance between the point and the edge of the box.</param>
         /// <returns>A <see cref="Point"/> within the box.</returns>
+        /// ----------------------------------------------------------------------------
         public static Point GetPositionInBox(Rectangle box, int boxBorder)
         {
             int boxSize = box.Width;
@@ -61,12 +63,14 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine if a point is within a bounding box. 
         /// </summary>
         /// <param name="p">The <see cref="Point"/> in question.</param>
         /// <param name="box">The <see cref="Rectangle"/> defining the space to check.</param>
         /// <returns>True if point p is in the box.</returns>
+        /// ----------------------------------------------------------------------------
         public static bool InBox(Point p, Rectangle box)
         {
             Point upperLeft = box.Location;
@@ -84,6 +88,7 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine if two circles overlap.
         /// </summary>
@@ -97,6 +102,7 @@ namespace NovaCommon
         /// <param name="r1">Radius of the first circle.</param>
         /// <param name="r2">Radius of the second circle.</param>
         /// <returns></returns>
+        /// ----------------------------------------------------------------------------
         public static bool CirclesOverlap(Point p1,
                                           Point p2,
                                           double r1,
@@ -120,12 +126,14 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine if two positions are "near".
         /// </summary>
         /// <param name="position1">The first position.</param>
         /// <param name="position2">The second position.</param>
-        /// <returns></returns>
+        /// <returns>true if position 2 is within a 40x40 box around position 1.</returns>
+        /// ----------------------------------------------------------------------------
         public static bool IsNear(Point position1, Point position2)
         {
             Point topCorner = position1;
@@ -141,15 +149,18 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate the distance between two points.
         /// </summary>
         /// <remarks>
         /// If comparing distances consider using DistanceSquare - it is much faster.
         /// </remarks>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
+        /// <param name="start">A point.</param>
+        /// <param name="end">Another point.</param>
+        /// <returns>Distance between the start and end points.</returns>
+        /// TODO (priority 3) - Find calls to this function that could use DistanceSquare instead (for speed).
+        /// ----------------------------------------------------------------------------
         public static double Distance(Point start, Point end)
         {
             double xo = start.X - end.X;
@@ -160,15 +171,17 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Find the square of the distance between two points. 
+        /// <para>
+        /// This is much faster than finding the actual distance (as it avoids a sqare root calculation) and just as useful when making distance comparisons.
+        /// </para>
         /// </summary>
-        /// <remarks>
-        /// This is much faster than finding the actual distance and just as useful when making comparisons.
-        /// </remarks>
-        /// <param name="start"></param>
-        /// <param name="end"></param>
-        /// <returns></returns>
+        /// <param name="start">A point.</param>
+        /// <param name="end">Another point.</param>
+        /// <returns>The distance between start and end, squared.</returns>
+        /// ----------------------------------------------------------------------------
         public static double DistanceSquare(Point start, Point end)
         {
             double xo = start.X - end.X;
@@ -178,6 +191,7 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Move a position some distance nearer to another point.
         /// </summary>
@@ -188,7 +202,9 @@ namespace NovaCommon
         /// <param name="from">The stating <see cref="Point"/></param>
         /// <param name="to">The destination <see cref="Point"/></param>
         /// <param name="distance">The actual distance to move.</param>
-        /// <returns></returns>
+        /// <returns>If the distance between from and to is less than 'distance' then returns 'to.
+        /// Otherwise a point 'distance' away from 'from' in the direction of 'to'.</returns>
+        /// ----------------------------------------------------------------------------
         public static Point MoveTo(Point from, Point to, double distance)
         {
             Point result = new Point();
@@ -220,15 +236,17 @@ namespace NovaCommon
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Move one square towards 'to' from 'from'.
         /// </summary>
         /// <remarks>
         /// Ships on the battle board always move one square at a time.
         /// </remarks>
-        /// <param name="from"></param>
-        /// <param name="to"></param>
-        /// <returns></returns>
+        /// <param name="from">A starting position.</param>
+        /// <param name="to">The destingation position.</param>
+        /// <returns>A position 1 square closer to the destination (diagonal movement counts as 1).</returns>
+        /// ----------------------------------------------------------------------------
         public static Point BattleMoveTo(Point from, Point to)
         {
             Point result = new Point();
