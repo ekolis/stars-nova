@@ -37,47 +37,68 @@ using System.Windows.Forms;
 
 namespace ComponentEditor
 {
-   public partial class BasicProperties : UserControl
-   {
-      public BasicProperties()
-      {
-         InitializeComponent();
-      }
+    public partial class BasicProperties : UserControl
+    {
+        #region Construction
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public BasicProperties()
+        {
+            InitializeComponent();
+        }
+
+        #endregion
 
 
-      // Get the resource build cost from the control
-      public NovaCommon.Resources Cost
-      {
-          get
-          {
-              NovaCommon.Resources cost = new NovaCommon.Resources();
+        #region Properties
 
-              cost.Ironium = (int)IroniumAmount.Value;
-              cost.Boranium = (int)BoraniumAmount.Value;
-              cost.Germanium = (int)GermaniumAmount.Value;
-              cost.Energy = (int)EnergyAmount.Value;
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Get the resource build cost from the control
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public NovaCommon.Resources Cost
+        {
+            get
+            {
+                NovaCommon.Resources cost = new NovaCommon.Resources();
 
-              return cost;
-          }
+                cost.Ironium = (int)IroniumAmount.Value;
+                cost.Boranium = (int)BoraniumAmount.Value;
+                cost.Germanium = (int)GermaniumAmount.Value;
+                cost.Energy = (int)EnergyAmount.Value;
 
-
-          // Set the resource build cost in the control
-          set
-          {
-              IroniumAmount.Value = (int)value.Ironium;
-              BoraniumAmount.Value = (int)value.Boranium;
-              GermaniumAmount.Value = (int)value.Germanium;
-              EnergyAmount.Value = (int)value.Energy;
-          }
-      }
+                return cost;
+            }
 
 
-      // Get and set the mass of the component
-      public int Mass
-      {
-          get { return (int)ComponentMass.Value; }
-          set { ComponentMass.Value = value; }
-      }
+            // Set the resource build cost in the control
+            set
+            {
+                IroniumAmount.Value = (int)value.Ironium;
+                BoraniumAmount.Value = (int)value.Boranium;
+                GermaniumAmount.Value = (int)value.Germanium;
+                EnergyAmount.Value = (int)value.Energy;
+            }
+        }
 
-   }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Get and set the mass of the component
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public int Mass
+        {
+            get { return (int)ComponentMass.Value; }
+            set { ComponentMass.Value = value; }
+        }
+
+        #endregion
+
+    }
 }
