@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Graphics</RootNamespace>
+    <AssemblyName>Graphics</AssemblyName>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <OutputType>Library</OutputType>
+    <RootNamespace>Graphics</RootNamespace>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <OutputType>Library</OutputType>
+    <DebugSymbols>true</DebugSymbols>
+    <RootNamespace>Graphics</RootNamespace>
+    <CheckForOverflowUnderflow>true</CheckForOverflowUnderflow>
+  </PropertyGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+  <ItemGroup>
+    <Content Include="Armor\Carbonic_Armor.png" />
+    <Content Include="Armor\Crobmnium.png" />
+    <Content Include="Armor\Depleted_Neutronium.png" />
+    <Content Include="Armor\Fielded_Kelarium.png" />
+    <Content Include="Armor\Kelarium.png" />
+    <Content Include="Armor\Mega_Poly_Shell.png" />
+    <Content Include="Armor\Neutronium.png" />
+    <Content Include="Armor\Organic_Armor.png" />
+    <Content Include="Armor\Strobnium.png" />
+    <Content Include="Armor\Superlatanium.png" />
+    <Content Include="Armor\Tritanium.png" />
+    <Content Include="Armor\Valanium.png" />
+    <Content Include="Base\Death_Star.png" />
+    <Content Include="Base\Orbital_Fort.png" />
+    <Content Include="Base\Space_Dock.png" />
+    <Content Include="Base\Space_Station.png" />
+    <Content Include="Base\Ultra_Station.png" />
+    <Content Include="Beam\Anti-Matter_Pulverizer.png" />
+    <Content Include="Beam\Big_Mutha_Cannon.png" />
+    <Content Include="Beam\Blackjack.png" />
+    <Content Include="Beam\Bludgeon.png" />
+    <Content Include="Beam\Blunderbuss.png" />
+    <Content Include="Beam\Collodial_Phaser.png" />
+    <Content Include="Beam\Disruptor.png" />
+    <Content Include="Beam\Gatling_Gun.png" />
+    <Content Include="Beam\Gatling_Neutrino_Cannon.png" />
+    <Content Include="Beam\Heavy_Blaster.png" />
+    <Content Include="Beam\Laser.png" />
+    <Content Include="Beam\Mark_IV_Blaster.png" />
+    <Content Include="Beam\Mega_Disruptor.png" />
+    <Content Include="Beam\Mini_Blaster.png" />
+    <Content Include="Beam\Mini_Gun.png" />
+    <Content Include="Beam\Multi_Contained_Munition.png" />
+    <Content Include="Beam\Myopic_Disruptor.png" />
+    <Content Include="Beam\Phased_Sapper.png" />
+    <Content Include="Beam\Phaser_Bazooka.png" />
+    <Content Include="Beam\Pulsed_Sapper.png" />
+    <Content Include="Beam\Streaming_Pulverizer.png" />
+    <Content Include="Beam\Syncro_Sapper.png" />
+    <Content Include="Beam\X-Ray_Laser.png" />
+    <Content Include="Beam\Yakimora_Light_Phaser.png" />
+    <Content Include="Bomb\Annihilator_Bomb.png" />
+    <Content Include="Bomb\Black_Cat_Bomb.png" />
+    <Content Include="Bomb\Cherry_Bomb.png" />
+    <Content Include="Bomb\Enriched_Neutron_Bomb.png" />
+    <Content Include="Bomb\Hush-a-Boom.png" />
+    <Content Include="Bomb\Lady_Finger_Bomb.png" />
+    <Content Include="Bomb\LBU-17_Bomb.png" />
+    <Content Include="Bomb\LBU-32_Bomb.png" />
+    <Content Include="Bomb\LBU-74_Bomb.png" />
+    <Content Include="Bomb\M-70_Bomb.png" />
+    <Content Include="Bomb\M-80_Bomb.png" />
+    <Content Include="Bomb\Neutron_Bomb.png" />
+    <Content Include="Bomb\Peerless_Bomb.png" />
+    <Content Include="Bomb\Retro_Bomb.png" />
+    <Content Include="Bomb\Smart_Bomb.png" />
+    <Content Include="Defense\Laser_Battery.png" />
+    <Content Include="Defense\Missile_Battery.png" />
+    <Content Include="Defense\Neutron_Shield.png" />
+    <Content Include="Defense\Planetary_Shield.png" />
+    <Content Include="Defense\SDI.png" />
+    <Content Include="Electrical\Anti-Matter_Generator.png" />
+    <Content Include="Electrical\Battle_Computer.png" />
+    <Content Include="Electrical\Battle_Nexus.png" />
+    <Content Include="Electrical\Battle_Super_Computer.png" />
+    <Content Include="Electrical\Energy_Capacitor.png" />
+    <Content Include="Electrical\Energy_Dampener.png" />
+    <Content Include="Electrical\Flux_Capacitor.png" />
+    <Content Include="Electrical\Jammer_10.png" />
+    <Content Include="Electrical\Jammer_20.png" />
+    <Content Include="Electrical\Jammer_30.png" />
+    <Content Include="Electrical\Jammer_50.png" />
+    <Content Include="Electrical\Multi_Function_Pod.png" />
+    <Content Include="Electrical\Stealth_Cloak.png" />
+    <Content Include="Electrical\Super-Stealth_Cloak.png" />
+    <Content Include="Electrical\Tachyon_Detector.png" />
+    <Content Include="Electrical\Transport_Cloak.png" />
+    <Content Include="Electrical\Ultra-Stealth_Cloak.png" />
+    <Content Include="Engine\Alpha_Drive_8.png" />
+    <Content Include="Engine\Daddy_Long_Legs_7.png" />
+    <Content Include="Engine\Enigma_Pulsar.png" />
+    <Content Include="Engine\Fuel_Mizer.png" />
+    <Content Include="Engine\Galaxy_Scoop.png" />
+    <Content Include="Engine\Interspace-10.png" />
+    <Content Include="Engine\Long_Hump_6.png" />
+    <Content Include="Engine\Quick_Jump_5.png" />
+    <Content Include="Engine\Radiating_Hydro-Ram_Scoop.png" />
+    <Content Include="Engine\Settler%27s_Delight.png" />
+    <Content Include="Engine\Sub-Galactic_Fuel_Scoop.png" />
+    <Content Include="Engine\Trans-Galactic_Drive.png" />
+    <Content Include="Engine\Trans-Galactic_Fuel_Scoop.png" />
+    <Content Include="Engine\Trans-Galactic_Mizer_Scoop.png" />
+    <Content Include="Engine\Trans-Galactic_Super_Scoop.png" />
+    <Content Include="Engine\Trans-Star_10.png" />
+    <Content Include="Gate\Gate.png" />
+    <Content Include="Gate\Gate_100_250.png" />
+    <Content Include="Gate\Gate_100_Any.png" />
+    <Content Include="Gate\Gate_150_600.png" />
+    <Content Include="Gate\Gate_300_500.png" />
+    <Content Include="Gate\Gate_Any_300.png" />
+    <Content Include="Gate\Gate_Any_800.png" />
+    <Content Include="Gate\Gate_Any_Any.png" />
+    <Content Include="Mass_Driver\Mass Driver 5.png" />
+    <Content Include="Mass_Driver\Mass Driver 6.png" />
+    <Content Include="Mass_Driver\Mass Driver 7.png" />
+    <Content Include="Mass_Driver\Mass Driver 8.png" />
+    <Content Include="Mass_Driver\Mass Driver 9.png" />
+    <Content Include="Mass_Driver\Mass.png" />
+    <Content Include="Mass_Driver\Ultra Driver 10.png" />
+    <Content Include="Mass_Driver\Ultra Driver 11.png" />
+    <Content Include="Mass_Driver\Ultra Driver 12.png" />
+    <Content Include="Mass_Driver\Ultra Driver 13.png" />
+    <Content Include="Mass_Driver\Ultra.png" />
+    <Content Include="Mechanical\Beam_Deflector.png" />
+    <Content Include="Mechanical\Cargo_Pod.png" />
+    <Content Include="Mechanical\Colonization_Module.png" />
+    <Content Include="Mechanical\Fuel_Tank.png" />
+    <Content Include="Mechanical\Jump_Gate.png" />
+    <Content Include="Mechanical\Maneuvering_Jet.png" />
+    <Content Include="Mechanical\Multi_Cargo_Pod.png" />
+    <Content Include="Mechanical\Orbital_Construction_Module.png" />
+    <Content Include="Mechanical\Overthruster.png" />
+    <Content Include="Mechanical\Super_Cargo_Pod.png" />
+    <Content Include="Mechanical\Super_Fuel_Tank.png" />
+    <Content Include="Mine_Layer\Heavy Dispenser 110.png" />
+    <Content Include="Mine_Layer\Heavy Dispenser 200.png" />
+    <Content Include="Mine_Layer\Heavy Dispenser 50.png" />
+    <Content Include="Mine_Layer\Heavy.png" />
+    <Content Include="Mine_Layer\Mine Dispenser 130.png" />
+    <Content Include="Mine_Layer\Mine Dispenser 40.png" />
+    <Content Include="Mine_Layer\Mine Dispenser 50.png" />
+    <Content Include="Mine_Layer\Mine Dispenser 80.png" />
+    <Content Include="Mine_Layer\Speed Trap 20.png" />
+    <Content Include="Mine_Layer\Speed Trap 30.png" />
+    <Content Include="Mine_Layer\Speed Trap 50.png" />
+    <Content Include="Mine_Layer\Speed_Trap.png" />
+    <Content Include="Mine_Layer\Standard.png" />
+    <Content Include="Mining_Robot\Alien_Miner.png" />
+    <Content Include="Mining_Robot\Orbital_Adjuster.png" />
+    <Content Include="Mining_Robot\Robo-Maxi_Miner.png" />
+    <Content Include="Mining_Robot\Robo-Midget_Miner.png" />
+    <Content Include="Mining_Robot\Robo-Miner.png" />
+    <Content Include="Mining_Robot\Robo-Mini_Miner.png" />
+    <Content Include="Mining_Robot\Robo-Super_Miner.png" />
+    <Content Include="Mining_Robot\Robo-Ultra_Miner.png" />
+    <Content Include="Planetary\Genesis_Device.png" />
+    <Content Include="Planetary_Scanner\Scoper_150.png" />
+    <Content Include="Planetary_Scanner\Scoper_220.png" />
+    <Content Include="Planetary_Scanner\Scoper_280.png" />
+    <Content Include="Planetary_Scanner\Snooper_320X.png" />
+    <Content Include="Planetary_Scanner\Snooper_400X.png" />
+    <Content Include="Planetary_Scanner\Snooper_500X.png" />
+    <Content Include="Planetary_Scanner\Snooper_620X.png" />
+    <Content Include="Planetary_Scanner\Viewer_50.png" />
+    <Content Include="Planetary_Scanner\Viewer_90.png" />
+    <Content Include="Race\00.jpg" />
+    <Content Include="Race\01.jpg" />
+    <Content Include="Race\02.jpg" />
+    <Content Include="Race\03.jpg" />
+    <Content Include="Race\04.jpg" />
+    <Content Include="Race\05.jpg" />
+    <Content Include="Race\06.jpg" />
+    <Content Include="Race\07.jpg" />
+    <Content Include="Race\08.jpg" />
+    <Content Include="Race\09.jpg" />
+    <Content Include="Race\10.jpg" />
+    <Content Include="Race\11.jpg" />
+    <Content Include="Race\12.jpg" />
+    <Content Include="Race\13.jpg" />
+    <Content Include="Race\14.jpg" />
+    <Content Include="Race\15.jpg" />
+    <Content Include="Race\16.jpg" />
+    <Content Include="Race\17.jpg" />
+    <Content Include="Race\18.jpg" />
+    <Content Include="Race\19.jpg" />
+    <Content Include="Race\20.jpg" />
+    <Content Include="Race\21.jpg" />
+    <Content Include="Race\22.jpg" />
+    <Content Include="Race\23.jpg" />
+    <Content Include="Race\24.jpg" />
+    <Content Include="Race\25.jpg" />
+    <Content Include="Race\26.jpg" />
+    <Content Include="Race\27.jpg" />
+    <Content Include="Race\28.jpg" />
+    <Content Include="Race\29.jpg" />
+    <Content Include="Race\30.jpg" />
+    <Content Include="Race\31.jpg" />
+    <Content Include="Scanner\Bat_Scanner.png" />
+    <Content Include="Scanner\Chameleon_Scanner.png" />
+    <Content Include="Scanner\Cheetah_Scanner.png" />
+    <Content Include="Scanner\DNA_Scanner.png" />
+    <Content Include="Scanner\Dolphin_Scanner.png" />
+    <Content Include="Scanner\Eagle_Eye_Scanner.png" />
+    <Content Include="Scanner\Elephant_Scanner.png" />
+    <Content Include="Scanner\Ferret_Scanner.png" />
+    <Content Include="Scanner\Gazelle_Scanner.png" />
+    <Content Include="Scanner\Mole_Scanner.png" />
+    <Content Include="Scanner\Peerless_Scanner.png" />
+    <Content Include="Scanner\Pick_Pocket_Scanner.png" />
+    <Content Include="Scanner\Possum_Scanner.png" />
+    <Content Include="Scanner\Rhino_Scanner.png" />
+    <Content Include="Scanner\RNA_Scanner.png" />
+    <Content Include="Scanner\Robber_Baron_Scanner.png" />
+    <Content Include="Shield\Bear_Neutrino_Shield.png" />
+    <Content Include="Shield\Complete_Phase_Shield.png" />
+    <Content Include="Shield\Cow-hide_Shield.png" />
+    <Content Include="Shield\Croby_Sharmor.png" />
+    <Content Include="Shield\Elephant_Hide_Fortress.png" />
+    <Content Include="Shield\Gorilla_Delagator.png" />
+    <Content Include="Shield\Langston_Shell.png" />
+    <Content Include="Shield\Mole-skin_Shield.png" />
+    <Content Include="Shield\Shadow_Shield.png" />
+    <Content Include="Shield\Wolverine_Diffuse_Shield.png" />
+    <Content Include="Ship\B-17_Bomber.png" />
+    <Content Include="Ship\B-52_Bomber.png" />
+    <Content Include="Ship\Battleship.png" />
+    <Content Include="Ship\Battle_Cruiser.png" />
+    <Content Include="Ship\Colony_Ship.png" />
+    <Content Include="Ship\Cruiser.png" />
+    <Content Include="Ship\Destroyer.png" />
+    <Content Include="Ship\Dreadnought.png" />
+    <Content Include="Ship\Frigate.png" />
+    <Content Include="Ship\Fuel_Transport.png" />
+    <Content Include="Ship\Galleon.png" />
+    <Content Include="Ship\Large_Freighter.png" />
+    <Content Include="Ship\Maxi-Miner.png" />
+    <Content Include="Ship\Medium_Freighter.png" />
+    <Content Include="Ship\Meta_Morph.png" />
+    <Content Include="Ship\Midget_Miner.png" />
+    <Content Include="Ship\Miner.png" />
+    <Content Include="Ship\Mini-Colony_Ship.png" />
+    <Content Include="Ship\Mini-Miner.png" />
+    <Content Include="Ship\Mini_Bomber.png" />
+    <Content Include="Ship\Mini_Mine_Layer.png" />
+    <Content Include="Ship\Mini_Morph.png" />
+    <Content Include="Ship\Nubian.png" />
+    <Content Include="Ship\Privateer.png" />
+    <Content Include="Ship\Rogue.png" />
+    <Content Include="Ship\Scout.png" />
+    <Content Include="Ship\Small_Freighter.png" />
+    <Content Include="Ship\Stealth_Bomber.png" />
+    <Content Include="Ship\Super-Fuel_Transport.png" />
+    <Content Include="Ship\Super_Freighter.png" />
+    <Content Include="Ship\Super_Mine_Layer.png" />
+    <Content Include="Ship\Ultra-Miner.png" />
+    <Content Include="Terraforming\Gravity.png" />
+    <Content Include="Terraforming\Gravity_11.png" />
+    <Content Include="Terraforming\Gravity_15.png" />
+    <Content Include="Terraforming\Gravity_3.png" />
+    <Content Include="Terraforming\Gravity_7.png" />
+    <Content Include="Terraforming\Radiation.png" />
+    <Content Include="Terraforming\Radiation_11.png" />
+    <Content Include="Terraforming\Radiation_15.png" />
+    <Content Include="Terraforming\Radiation_3.png" />
+    <Content Include="Terraforming\Radiation_7.png" />
+    <Content Include="Terraforming\Temperature.png" />
+    <Content Include="Terraforming\Temperature_11.png" />
+    <Content Include="Terraforming\Temperature_15.png" />
+    <Content Include="Terraforming\Temperature_3.png" />
+    <Content Include="Terraforming\Temperature_7.png" />
+    <Content Include="Terraforming\Total.png" />
+    <Content Include="Terraforming\Total_10.png" />
+    <Content Include="Terraforming\Total_15.png" />
+    <Content Include="Terraforming\Total_20.png" />
+    <Content Include="Terraforming\Total_25.png" />
+    <Content Include="Terraforming\Total_3.png" />
+    <Content Include="Terraforming\Total_30.png" />
+    <Content Include="Terraforming\Total_5.png" />
+    <Content Include="Terraforming\Total_7.png" />
+    <Content Include="Torpedo\Alpha_Torpedo.png" />
+    <Content Include="Torpedo\Anti_Matter_Torpedo.png" />
+    <Content Include="Torpedo\Armageddon_Missile.png" />
+    <Content Include="Torpedo\Beta_Torpedo.png" />
+    <Content Include="Torpedo\Delta_Torpedo.png" />
+    <Content Include="Torpedo\Doomsday_Missile.png" />
+    <Content Include="Torpedo\Epsilon_Torpedo.png" />
+    <Content Include="Torpedo\Jihad_Missile.png" />
+    <Content Include="Torpedo\Juggernaut_Missile.png" />
+    <Content Include="Torpedo\Omega_Torpedo.png" />
+    <Content Include="Torpedo\Rho_Torpedo.png" />
+    <Content Include="Torpedo\Upsilon_Torpedo.png" />
+  </ItemGroup>
+</Project>
