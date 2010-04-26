@@ -53,19 +53,23 @@ namespace ControlLibrary
 
         #region Construction and Disposal
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construction.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public ResourceDisplay()
         {
             InitializeComponent();
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing"></param>
+        /// ----------------------------------------------------------------------------
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -81,10 +85,13 @@ namespace ControlLibrary
         #endregion
 
         #region Component Designer generated code
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         private void InitializeComponent()
         {
             this.label1 = new System.Windows.Forms.Label();
@@ -225,9 +232,11 @@ namespace ControlLibrary
 
         #region Properties
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the resources in the resource display.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public Resources Value
         {
             set

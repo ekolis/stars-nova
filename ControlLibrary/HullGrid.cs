@@ -50,9 +50,11 @@ namespace ControlLibrary
         private RectangleF textRect     = new RectangleF(0, 0, 58, 58);
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Data dragged and (possibly) dropped while designing a ship.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public class DragDropData
         {
             public NovaCommon.Component SelectedComponent;
@@ -62,9 +64,11 @@ namespace ControlLibrary
 
         #region Construction
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construction
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public HullGrid()
         {
             InitializeComponent();
@@ -90,12 +94,14 @@ namespace ControlLibrary
 
         #region Event Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Right-click context menu has selected an item (only available when cell
         /// editing is enabled). 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void CellContextMenuItem(object sender, ToolStripItemClickedEventArgs e)
         {
             ContextMenuStrip contextMenu = sender as ContextMenuStrip;
@@ -222,6 +228,8 @@ namespace ControlLibrary
             hullCell.Invalidate();
         }
 
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Process a drag entering a cell and see if we are willing to accept the
         /// data. The component must be of the correct type and must be allowed on the
@@ -230,6 +238,7 @@ namespace ControlLibrary
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void Grid_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.None;
@@ -311,11 +320,13 @@ namespace ControlLibrary
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Process a drop event
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void Grid_DragDrop(object sender, DragEventArgs e)
         {
             DragDropData data = e.Data.GetData(typeof(DragDropData))
@@ -339,12 +350,14 @@ namespace ControlLibrary
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Draw a cell. 
         /// </summary>
         /// <remarks>There are three cases as shown in the code.</remarks>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void Grid0_Paint(object sender, PaintEventArgs e)
         {
             Panel panel = sender as Panel;
@@ -376,12 +389,14 @@ namespace ControlLibrary
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// A grid cell has been clicked. If anyone has registered an interest tell
         /// them.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         public void GridCell_Click(object sender, EventArgs e)
         {
             if (ModuleSelected != null)
@@ -391,6 +406,7 @@ namespace ControlLibrary
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Draw a defined but empty cell.
         /// </summary>
@@ -400,6 +416,7 @@ namespace ControlLibrary
         /// </remarks>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void DrawEmptyCell(Panel panel, Graphics graphics)
         {
             panel.BackColor = Color.Silver;
@@ -424,10 +441,12 @@ namespace ControlLibrary
 
         #region Utility Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clear out the grid
         /// </summary>
         /// <param name="panelVisible">True if this panel is visible for this hull type.</param>
+        /// ----------------------------------------------------------------------------
         public void Clear(bool panelVisible)
         {
             foreach (Panel panel in panelMap)
@@ -441,11 +460,13 @@ namespace ControlLibrary
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Draw an allocated cell.
         /// </summary>
         /// <param name="panel">The <see cref="Panel"/> to draw on.</param>
         /// <param name="graphics">The <see cref="Graphics"/> to place on the panel.</param>
+        /// ----------------------------------------------------------------------------
         private void DrawAllocatedCell(Panel panel, Graphics graphics)
         {
             HullModule cell = panel.Tag as HullModule;
@@ -466,9 +487,11 @@ namespace ControlLibrary
 
         #region Properties
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the active modules as an ArrayList of HullModule.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public ArrayList ActiveModules
         {
 
@@ -529,11 +552,13 @@ namespace ControlLibrary
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Property to hide (Nova GUI case) or show (Component Designer case) empty
         /// hull modules. For the Nova GUI case we also shut down the editing context
         /// menu for each cell.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public bool HideEmptyModules
         {
             get { return emptyModulesHidden; }

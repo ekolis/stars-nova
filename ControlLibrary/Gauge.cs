@@ -57,9 +57,11 @@ namespace ControlLibrary
 
 
         #region Construction and Dispose
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construction.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public Gauge()
         {
             InitializeComponent();
@@ -122,11 +124,13 @@ namespace ControlLibrary
 
         #region Event Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Draw the gauge.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void OnPaint(object sender, PaintEventArgs e)
         {
             base.OnPaint(e); //added
@@ -178,9 +182,11 @@ namespace ControlLibrary
         // ============================================================================
         #region Properties
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the value to display
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Value to display."), Category("Nova")]
         public double Value
         {
@@ -188,9 +194,11 @@ namespace ControlLibrary
             set { topValue = value; Bar.Invalidate(); }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the top value of the bar display.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Top value of bar display."), Category("Nova")]
         public double TopValue
         {
@@ -198,9 +206,11 @@ namespace ControlLibrary
             set { topValue = value; Bar.Invalidate(); }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or set the bottom value of the bar display.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Botton value of bar display."), Category("Nova")]
         public double BottomValue
         {
@@ -208,9 +218,11 @@ namespace ControlLibrary
             set { bottomValue = value; Bar.Invalidate(); }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the marker position.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Marker position (%)."), Category("Nova")]
         public int Marker
         {
@@ -218,9 +230,11 @@ namespace ControlLibrary
             set { markerValue = value; Bar.Invalidate(); }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the displayed text.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Display textual value of bar."), Category("Nova")]
         public bool ShowText
         {
@@ -228,9 +242,11 @@ namespace ControlLibrary
             set { ShowBarText = value; }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the maximum value.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Maximum value."), Category("Nova")]
         public double Maximum
         {
@@ -238,9 +254,11 @@ namespace ControlLibrary
             set { maximumValue = value; }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the minimum value.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Minimum value."), Category("Nova")]
         public double Minimum
         {
@@ -248,9 +266,11 @@ namespace ControlLibrary
             set { minimumValue = value; }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the units to display.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Units to display."), Category("Nova")]
         public String Units
         {
@@ -258,9 +278,11 @@ namespace ControlLibrary
             set { barUnits = value; }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the bar colour
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Bar Colour."), Category("Nova")]
         public Color BarColour
         {
@@ -268,9 +290,11 @@ namespace ControlLibrary
             set { BarBrush = new SolidBrush(value); }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Set or Get the Marker Colour
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Marker Colour."), Category("Nova")]
         public Color MarkerColour
         {

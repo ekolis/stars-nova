@@ -52,19 +52,23 @@ namespace ControlLibrary
 
         #region Construction and Dispose
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construction.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public CargoTransfer()
         {
             InitializeComponent();
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used
         /// </summary>
         /// <param name="disposing"></param>
+        /// ----------------------------------------------------------------------------
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -144,11 +148,13 @@ namespace ControlLibrary
 
         #region Event Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// This function is invoked when the slider bar is moved.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void sliderBar_Scroll(object sender, System.EventArgs e)
         {
             // Get the cargo mass excluding the contribution made by this slider
@@ -185,9 +191,11 @@ namespace ControlLibrary
 
         #region Properties
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Set or Get the slider title.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Slider Title."), Category("User Data")]
         public string Title
         {
@@ -195,19 +203,23 @@ namespace ControlLibrary
             set { sliderTitle.Text = value; }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Set of Get the Maximum slider value.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public int Maximum
         {
             set { sliderBar.Maximum = value; }
             get { return sliderBar.Maximum; }
         }
 
-        
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Set or Get Slider value.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public int Value
         {
             set
@@ -221,9 +233,11 @@ namespace ControlLibrary
             get { return cargoAmount; }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Set the amount available.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public int Available
         {
             set
@@ -233,9 +247,11 @@ namespace ControlLibrary
             }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Set the cargo bay capacity of the control.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public Gauge Limit
         {
             set
@@ -244,9 +260,11 @@ namespace ControlLibrary
             }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the amount of cargo taken.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public int Taken
         {
             get { return cargoAmount - initialAmount; }

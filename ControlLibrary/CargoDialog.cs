@@ -53,19 +53,23 @@ public class CargoDialog : System.Windows.Forms.Form
 
     #region Construction Dispose
 
+    /// ----------------------------------------------------------------------------
     /// <summary>
     /// Construction.
     /// </summary>
+    /// ----------------------------------------------------------------------------
     public CargoDialog()
     {
         InitializeComponent();
     }
 
 
+    /// ----------------------------------------------------------------------------
     /// <summary>
     /// Clean up any resources being used.
     /// </summary>
     /// <param name="disposing"></param>
+    /// ----------------------------------------------------------------------------
     protected override void Dispose(bool disposing)
     {
         if (disposing)
@@ -230,22 +234,27 @@ public class CargoDialog : System.Windows.Forms.Form
 
 
     #region Event Methods
+
+    /// ----------------------------------------------------------------------------
     /// <summary>
     /// Process cancel button.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+    /// ----------------------------------------------------------------------------
     private void cancelButton_Click(object sender, System.EventArgs e)
     {
         Close();
     }
 
 
+    /// ----------------------------------------------------------------------------
     /// <summary>
     /// Process the OK button being pressed.
     /// </summary>
     /// <param name="sender">The source of the event.</param>
     /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+    /// ----------------------------------------------------------------------------
     private void okButton_Click(object sender, System.EventArgs e)
     {
         fleet.Cargo.Ironium   = IroniumTransfer.Value;
@@ -266,10 +275,12 @@ public class CargoDialog : System.Windows.Forms.Form
 
     #region Utility Methods
 
+    /// ----------------------------------------------------------------------------
     /// <summary>
     /// Initialise the various fields in the dialog.
     /// </summary>
     /// <param name="targetFleet">The <see cref="Fleet"/> transferring cargo.</param>
+    /// ----------------------------------------------------------------------------
     public void SetTarget(Fleet targetFleet)
     {
         fleet = targetFleet;

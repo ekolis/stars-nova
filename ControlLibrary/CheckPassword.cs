@@ -46,10 +46,12 @@ namespace ControlLibrary
 
         #region Construction and Dispose
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construction
         /// </summary>
         /// <param name="raceData">The <see cref="Race"/> whose password is being checked.</param>
+        /// ----------------------------------------------------------------------------
         public CheckPassword(Race raceData)
         {
             InitializeComponent();
@@ -62,11 +64,13 @@ namespace ControlLibrary
 
         #region Event Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// OK Button Pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void OKButton_Click(object sender, EventArgs e)
         {
             string enteredPassword = PassWord.Text;

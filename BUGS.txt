@@ -20,7 +20,7 @@
 [57]      private static Intel           InputTurn  = null; // TODO (priority 4) - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\COMMON\POINTUTILS.CS
-[185]        /// FIXME (priority 4) - rounding can cause no movement to occur. 
+[199]        /// FIXME (priority 4) - rounding can cause no movement to occur. 
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\COMMON\XMLCONVERSION.CS
 [74]                // TODO (priority 4) - see if byte order marks emitted by .NET interfere with Mono parsing of XML files
@@ -57,40 +57,45 @@
 [234]        /// FIXME (priority 4) - this should not be here as it means the GUI has access to methods 
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONSOLE\BATTLEENGINE.CS
-[702]          // TODO (priority 4) Stub - just return the base power of weapon
+[834]            // TODO (priority 4) Stub - just return the base power of weapon. Also need to comment the return value of this function with what defences have been considered by this (when done).
+
+---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONSOLE\CHECKFORMINEFIELDS.CS
+[73]                // FIXME (priority 4) - Minefiled decay has nothing to do with moving fleets and should be processed seperately.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONSOLE\NOVACONSOLE.CS
-[655]            /* FIXME (priority 4) This gives a flase negative indication, i.e. GameInProgress is false even when a game is in progress.
-[784]            // TODO (priority 4) - reading all the .orders files is overkill. Only really want to read orders for races that aren't turned in yet, and only if they have changed.
+[722]            // TODO (priority 4) - reading all the .orders files is overkill. Only really want to read orders for races that aren't turned in yet, and only if they have changed.
+[820]            /* FIXME (priority 4) This gives a flase negative indication, i.e. GameInProgress is false even when a game is in progress.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONSOLE\PROCESSTURN.CS
-[61]          // FIXME (priority 4) - Fix up the removal of destroyed fleets and space stations.
-[237]// A starbase is not counted towards repairs if it is under attack. TODO (priority 4)
-[246]          if (star != null && star.Owner == fleet.Owner /* TODO (priority 4) or friendly*/ && star.Starbase != null && star.Starbase.CanRefuel)
-[256]              if (star.Owner == fleet.Owner /* TODO (priority 4) or friend */)
-[258]                  if (star.Starbase != null /* TODO (priority 4) and not under attack */)
-[279]                  // TODO (priority 4) 0% if bombing
-[287]              if (fleet.Waypoints.Count == 0) // TODO (priority 4) - check if a stopped fleet has 1 or 0 waypoints
+[79]            // FIXME (priority 4) - Fix up the removal of destroyed fleets and space stations.
+[282]            if (star != null && star.Owner == fleet.Owner /* TODO (priority 4) or friendly*/ && star.Starbase != null && star.Starbase.CanRefuel)
+[292]                if (star.Owner == fleet.Owner /* TODO (priority 4) or friend */)
+[294]                    if (star.Starbase != null /* TODO (priority 4) and not under attack */)
+[315]                    // TODO (priority 4) 0% if bombing
+[323]                if (fleet.Waypoints.Count == 0) // TODO (priority 4) - check if a stopped fleet has 1 or 0 waypoints
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONTROLLIBRARY\HULLGRID.CS
-[398]        /// TODO (priority 4) - for an engine it should say Requires N instead of Up to. Needs to be enforced also.
+[414]        /// TODO (priority 4) - for an engine it should say Requires N instead of Up to. Needs to be enforced also.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\NOVAGUI.CS
 [437]                // TODO (priority 4) The rest of the keys (function keys).
+
+---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\CONTROLS\FLEETDETAIL.CS
+[629]        /// FIXME (priority 4) - doesn't work with my keyboard - Dan 25/4/10
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\DIALOGS\SHIPDESIGNDIALOG.CS
 [1025]            // TODO (priority 4) - get the total cargo capacity, rather than just the hull's base cargo capacity (i.e. add any pods). (see notes at top of function)
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\NEWGAME\NEWGAME.CS
-[102]                    // TODO (priority 4) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
-[155]            // FIXME (priority 4) - ignores map Height
-[192]            // FIXME (priority 4) ignores map height
-[280]            star.ScannerType = "Scoper 150"; // TODO (priority 4) get from component list
-[281]            star.DefenseType = "SDI"; // TODO (priority 4) get from component list
-[282]            star.ScanRange   = 50; // TODO (priority 4) get from component list
+[103]                    // TODO (priority 4) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
+[162]            // FIXME (priority 4) - ignores map Height
+[200]            // FIXME (priority 4) ignores map height
+[288]            star.ScannerType = "Scoper 150"; // TODO (priority 4) get from component list
+[289]            star.DefenseType = "SDI"; // TODO (priority 4) get from component list
+[290]            star.ScanRange   = 50; // TODO (priority 4) get from component list
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\RACEDESIGNER\RACEDESIGNER.CS
-[1925]                 // TODO (priority 4) - This level of security is not good enough as the race is stored un-encrypted.
+[1928]                 // TODO (priority 4) - This level of security is not good enough as the race is stored un-encrypted.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\SERVERSTATE\ORDERREADER.CS
 [102]                // TODO (priority 4) - check we are on the right turn before processing, and perhaps flag when we have processed the orders
@@ -136,6 +141,9 @@
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\COMMON\GLOBALDEFINITIONS.CS
 [111]       public const double GravityMinimum = 0; // FIXME (priority 3) - Stars! gravity range is 0.2 - 6.0 with 1.0 in the middle! Will need to revise all current race builds once changed.
 
+---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\COMMON\POINTUTILS.CS
+[162]        /// TODO (priority 3) - Find calls to this function that could use DistanceSquare instead (for speed).
+
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\COMMON\XMLCONVERSION.CS
 [112]        /// FIXME (priority 3) - The GUI and Console programs used this version but expect the GetPathOrDie() behaviour. Need to upadate their calls.
 
@@ -159,7 +167,7 @@
 [49]            public Resources        BuildState;        // Resources need to build item // ??? (priority 3) just the next 1 or the whole lot? - Dan 10 Jan 10
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\COMMON\DATASTRUCTURES\TECHLEVEL.CS
-[192]        //       TODO (priority 3) - Given the complexity here some unit tests would be nice.
+[217]        //       TODO (priority 3) - Given the complexity here some unit tests would be nice.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\COMMON\GAMEOBJECTS\FLEET.CS
 [255]        /// FIXME (priority 3) - scanning capability can be addative (but the formula is non-linear)
@@ -186,22 +194,36 @@
 [295]                   // FIXME (priority 3) - somehow the following line does not work! 
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONSOLE\BATTLEENGINE.CS
-[413]		  // TODO (priority 3) - verify that a ship should be able to move 1 square per phase if it has 3 move points, or is it limited to 1 per turn?
-[442]				 // TODO (priority 3) - shouldn't stacks without targets flee the battle if their strategy says to do so? they're sitting ducks now!
+[430]        /// FIXME (priority 3) - Implement the Stars! attractiveness modle (and possibly others as options).
+[493]            // TODO (priority 3) - verify that a ship should be able to move 1 square per phase if it has 3 move points, or is it limited to 1 per turn?
+[522]                    // TODO (priority 3) - shouldn't stacks without targets flee the battle if their strategy says to do so? they're sitting ducks now!
+[569]        /// FIXME (priority 3) - It seems this allows one ship to fire each of its weapons 
+[593]        /// FIXME (priority 3) - implement the stars system of targeting stacks (posibly with targeting ships as an optional rule).
+[738]        /// FIXME (priority 3) - Missile accuracy is not calculated this way in Stars! The effect of computers and jammers must be considered at the same time.
+[747]            // FIXME (priority 3) - This algorithm for determining hit or miss is crude. We need a better one.
+[785]            hitPower -= initialShields - target.Shields; // FIXME (priority 3) - This seems wrong, has it been tested? Why reduce the hitPowe twice? - Dan 25/4/10
+[882]                // TODO (priority 3) - computers and jammer stuff needs to go here *************
+
+---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONSOLE\CHECKFORMINEFIELDS.CS
+[74]                // FIXME (priority 3) - Minefield decay rates depend on what is in the field (stars).
+[82]            // FIXME (priority 3) - always returns false.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONSOLE\NOVACONSOLE.CS
-[515]                    // FIXME (priority 3) - Display the turn year color coded - red for waiting, green for turned in.
-[760]                        // FIXME (priority 3) - can not process any more than one AI at a time. 
+[779]                    // FIXME (priority 3) - Display the turn year color coded - red for waiting, green for turned in.
+[893]                        // FIXME (priority 3) - can not process any more than one AI at a time. 
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONSOLE\PROCESSTURN.CS
-[123]           // TODO (priority 3) - Add a setting to control the number of backups.
-[251]          // repair, TODO (priority 3) skip if fleet has no damage, if that is more efficient 
+[143]            // TODO (priority 3) - Add a setting to control the number of backups.
+[272]        /// TODO (priority 3) - A starbase is not counted towards repairs if it is under attack. 
+[287]            // repair, TODO (priority 3) skip if fleet has no damage, if that is more efficient 
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\CONTROLS\STARMAP.CS
-[62]            // FIXME (priority 3) - added a factor of two because some stars were beyond the viewable area. 
+[85]            // FIXME (priority 3) - added a factor of two because some stars were beyond the viewable area. 
+[819]        /// FIXME (priority 3) - this class shouldn't be hidden inside this module.
+[820]        /// ??? (priority 3) - Is there any reason not to implement this via inheritance or make Item itself sortable?
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\DIALOGS\PRODUCTIONDIALOG.CS
-[492]      /// TODO (priority 3) - What if I want to build a small base first, then add 
+[568]        /// FIXME (priority 3) - Dan - What if I want to build a small base first, then add a larger base latter. I can queue two different base designs in Stars! 
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\DIALOGS\SHIPDESIGNDIALOG.CS
 [828]             * user. TODO (priority 3).
@@ -223,11 +245,22 @@
 [1828]          // TODO (priority 2) - enable all component editing fields/menu items
 [1844]          // TODO (priority 2) - disable all component editing fields.
 
+---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONSOLE\BATTLEENGINE.CS
+[250]            // TODO (priority 2) - historical and could be removed
+
+---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONSOLE\CHECKFORMINEFIELDS.CS
+[124]        /// TODO (priority 2) - reference required.
+
+---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONSOLE\PROCESSTURN.CS
+[214]        /// ??? (priority 2) - why does this always return false?
+[273]        /// TODO (priority 2) - reference where these rules are from.
+[357]        /// ??? (priority 2) - why does this always return false
+
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CLIENTSTATE\CLIENTSTATE.CS
 [541]                    // TODO (priority 1) - work out why it sometimes is null.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CONTROLLIBRARY\HULLGRID.CS
-[399]        /// TODO (priority 1) - if a cell is cleared change it back to the empty module color.
+[415]        /// TODO (priority 1) - if a cell is cleared change it back to the empty module color.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\DIALOGS\SHIPDESIGNDIALOG.CS
 [1056]                // TODO (priority 1) - work out why it sometimes is null.
