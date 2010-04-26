@@ -14,7 +14,7 @@ using NUnit.Framework;
 
 using NovaCommon;
 using NovaServer;
-using NovaConsole;
+using Nova.Console;
 
 namespace Nova.UnitTests 
 {
