@@ -58,55 +58,67 @@ namespace ControlLibrary
         // ============================================================================
         #region Properties
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the current value of the counter.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public int ControlCounter
         {
             get { return (int)UpDownCounter.Value; }
             set { UpDownCounter.Value = value; }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the text displayed on the control.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public string ControlText
         {
             get { return CheckBox.Text; }
             set { CheckBox.Text = value; }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the selection checkbox within the control.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public bool ControlSelected
         {
             get { return CheckBox.Checked; }
             set { CheckBox.Checked = value; }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the maximum value of the counter.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public int Minimum
         {
             get { return (int)UpDownCounter.Minimum; }
             set { UpDownCounter.Minimum = value; }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the maximum value of the counter.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public int Maximum
         {
             get { return (int)UpDownCounter.Maximum; }
             set { UpDownCounter.Maximum = value; }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get and set control value as an EnabledValue. This interface is meant to be
         /// used at run-time.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public EnabledValue Value
         {
             get

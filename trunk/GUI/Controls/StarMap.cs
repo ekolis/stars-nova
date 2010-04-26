@@ -1,12 +1,30 @@
+#region Copyright Notice
 // ============================================================================
-// Nova. (c) 2008 Ken Reed
+// Copyright (C) 2008 Ken Reed
+// Copyright (C) 2009, 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // This module maintains the star map.
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
 
 using System.Collections.Generic;
 using System.Collections;
@@ -25,6 +43,7 @@ namespace Nova
 {
     public partial class StarMap : UserControl
     {
+        #region VS-Generated Variables
         private Bitmap CursorBitmap = null;
         private Intel TurnData = null;
         private ClientState StateData = null;
@@ -44,15 +63,19 @@ namespace Nova
         private Hashtable VisibleMinefields = new Hashtable();
         private Font NameFont = null;
         System.Drawing.BufferedGraphicsContext bg_ctxt = null;
+        #endregion
 
         private Point[] triangle = {new Point(0,   0), new Point(-5, -10),
                                    new Point(5, -10)};
 
 
-        // ============================================================================
-        // Construction 
-        // ============================================================================
+        #region Construction and Initialization
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// ----------------------------------------------------------------------------
         public StarMap()
         {
             bg_ctxt = new BufferedGraphicsContext();
@@ -83,10 +106,11 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Post-construction initialisation.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Post-construction initialisation.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
         public void Initialise()
         {
             StateData = ClientState.Data;
@@ -104,21 +128,41 @@ namespace Nova
             DetermineVisibleMinefields();
         }
 
+        #endregion
 
-        // ============================================================================
-        // Paint the star map window.
-        //
-        // We just do simple painting so the order that things are drawn is important
-        // (otherwise items may get overwritten and become invisible):
-        //
-        // (1) All long-range scanners (planets and ships) owned by the player.
-        // (2) All short-range scanners (ships only) owned by the player.
-        // (3) Minefields visible to the player (with transparency)
-        // (4) All fleets visible to the player.
-        // (5) Stars (including a starbase and orbiting fleets indication).
-        // (6) The selection cursor.
-        // ============================================================================
+        #region Drawing Methods
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Utility function to instigate a display refresh
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public void MapRefresh()
+        {
+            //MapPanel.SuspendLayout();
+            MapPanel.Invalidate();
+            //MapPanel.ResumeLayout();
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Paint the star map window.
+        /// </summary>
+        /// <remarks>
+        /// We just do simple painting so the order that things are drawn is important
+        /// (otherwise items may get overwritten and become invisible):
+        ///
+        /// (1) All long-range scanners (planets and ships) owned by the player.
+        /// (2) All short-range scanners (ships only) owned by the player.
+        /// (3) Minefields visible to the player (with transparency)
+        /// (4) All fleets visible to the player.
+        /// (5) Stars (including a starbase and orbiting fleets indication).
+        /// (6) The selection cursor.
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="eventData"></param>
+        /// ----------------------------------------------------------------------------
         private void OnPaint(object sender, PaintEventArgs eventData)
         {
             base.OnPaint(eventData); //added
@@ -254,10 +298,14 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Draw a filled circle using device coordinates.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Draw a filled circle using device coordinates.
+        /// </summary>
+        /// <param name="brush"></param>
+        /// <param name="position"></param>
+        /// <param name="radius"></param>
+        /// ----------------------------------------------------------------------------
         private void FillCircle(Brush brush, Point position, int radius)
         {
             graphics.FillEllipse(brush, position.X - radius, position.Y - radius,
@@ -265,10 +313,14 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Draw a filled circle using logical coordinates.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Draw a filled circle using logical coordinates.
+        /// </summary>
+        /// <param name="brush"></param>
+        /// <param name="where"></param>
+        /// <param name="radius"></param>
+        /// ----------------------------------------------------------------------------
         private void DrawCircle(Brush brush, Point where, int radius)
         {
             if (radius == 0) return;
@@ -281,11 +333,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Draw a fleet. We only draw fleets that are not in orbit. Indications of
-        // orbiting fleets are handled in the drawing of the star.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Draw a fleet. We only draw fleets that are not in orbit. Indications of
+        /// orbiting fleets are handled in the drawing of the star.
+        /// </summary>
+        /// <param name="fleet">The fleet to draw.</param>
+        /// ----------------------------------------------------------------------------
         private void DrawFleet(Fleet fleet)
         {
             if (fleet.InOrbit == null)
@@ -322,16 +376,19 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Draw a star. The star is just a small circle which is a bit bigger if we've
-        // explored it. 
-        //
-        // The colour of the star symbol is based on its star report (reports for stars
-        // owned by the current player are always up-to-date). Unoccupied stars are
-        // white. Stars colonised by the player are green. Stars owned by other races
-        // are red.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Draw a star. The star is just a small circle which is a bit bigger if we've
+        /// explored it. 
+        /// </summary>
+        /// <remarks>
+        /// The colour of the star symbol is based on its star report (reports for stars
+        /// owned by the current player are always up-to-date). Unoccupied stars are
+        /// white. Stars colonised by the player are green. Stars owned by other races
+        /// are red.
+        /// </remarks>
+        /// <param name="star">The star sytem to draw.</param>
+        /// ----------------------------------------------------------------------------
         private void DrawStar(Star star)
         {
             StarReport report = StateData.StarReports[star.Name] as StarReport;
@@ -377,11 +434,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Add an indication of a starbase (circle) or orbiting fleets (smaller
-        // circle) or both.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Add an indication of a starbase (circle) or orbiting fleets (smaller
+        /// circle) or both.
+        /// </summary>
+        /// <param name="star">The star being drawn.</param>
+        /// ----------------------------------------------------------------------------
         private void DrawOrbitingFleets(Star star)
         {
             StarReport report = StateData.StarReports[star.Name] as StarReport;
@@ -407,15 +466,21 @@ namespace Nova
             }
         }
 
+        #endregion
 
-        // ============================================================================
-        // Build a list of all fleets that are visible to the player. This consists of:
-        //
-        // (1) Fleets owned by the player
-        // (2) Fleets within the range of scanners on ships owned by the player
-        // (3) Fleets within the range of scanners on planets owned by the player
-        // ============================================================================
+        #region Determine Visible
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Build a list of all fleets that are visible to the player.
+        /// </summary>
+        /// <remarks>
+        /// This consists of:
+        /// (1) Fleets owned by the player
+        /// (2) Fleets within the range of scanners on ships owned by the player
+        /// (3) Fleets within the range of scanners on planets owned by the player
+        /// </remarks>
+        /// ----------------------------------------------------------------------------
         private void DetermineVisibleFleets()
         {
             ArrayList playersFleets = new ArrayList();
@@ -473,15 +538,19 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Build a list of all Minefields that are visible to the player. This consists
-        // of:
-        //
-        // (1) Minefields owned by the player
-        // (2) Minefiels within the range of scanners on ships owned by the player
-        // (3) Minefields within the range of scanners on planets owned by the player
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Build a list of all Minefields that are visible to the player.
+        /// </summary>
+        /// <remarks>
+        /// This consists
+        /// of:
+        ///
+        /// (1) Minefields owned by the player
+        /// (2) Minefiels within the range of scanners on ships owned by the player
+        /// (3) Minefields within the range of scanners on planets owned by the player
+        /// </remarks>
+        /// ----------------------------------------------------------------------------
         private void DetermineVisibleMinefields()
         {
             ArrayList playersFleets = new ArrayList();
@@ -555,11 +624,17 @@ namespace Nova
             }
         }
 
+        #endregion
 
-        // ============================================================================
-        // Convert logical coordinates to device coordintes.
-        // ============================================================================
+        #region Coordinate conversions
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Convert logical coordinates to device coordintes.
+        /// </summary>
+        /// <param name="p">The point to convert.</param>
+        /// <returns>A converted point.</returns>
+        /// ----------------------------------------------------------------------------
         private Point LogicalToDevice(Point p)
         {
             Point result = new Point();
@@ -571,10 +646,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Convert logical coordinates to device coordinates.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Convert logical coordinates to device coordinates.
+        /// </summary>
+        /// <param name="p">The point to convert.</param>
+        /// <returns>The converted point.</returns>
+        /// ----------------------------------------------------------------------------
         private Point LogicalToDeviceRelative(Point p)
         {
             Point result = new Point();
@@ -586,10 +664,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Convert device coordinates to logical coordinates.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Convert device coordinates to logical coordinates.
+        /// </summary>
+        /// <param name="p">The point to convert.</param>
+        /// <returns>The converted point.</returns>
+        /// ----------------------------------------------------------------------------
         private Point DeviceToLogical(Point p)
         {
             Point result = new Point();
@@ -600,11 +681,17 @@ namespace Nova
             return result;
         }
 
+        #endregion
 
-        // ============================================================================
-        // ReadIntel a request to zoom in the star map.
-        // ============================================================================
+        #region Zoom
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Process a request to zoom in the star map.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         public void ZoomInClick(object sender, System.EventArgs e)
         {
             ZoomFactor *= 2;
@@ -619,10 +706,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // ReadIntel a request to zoom out the star map.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Process a request to zoom out the star map.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         public void ZoomOutClick(object sender, System.EventArgs e)
         {
             if (ZoomFactor == 1)
@@ -642,10 +732,11 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Zoom in or out of the star map.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Zoom in or out of the star map.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
         private void SetZoom()
         {
             Extent.X = Logical.X / ZoomFactor;
@@ -659,31 +750,42 @@ namespace Nova
 
         }
 
+        #endregion
 
-        // ============================================================================
-        // Horizontally scroll the star map.
-        // ============================================================================
+        #region Scroll
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Horizontally scroll the star map.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void MapScrollH(object sender, ScrollEventArgs e)
         {
             MapHorizontalScroll(e.NewValue * 3);
         }
 
 
-        // ============================================================================
-        // Vertically scroll the star map.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Vertically scroll the star map.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void MapScrollV(object sender, ScrollEventArgs e)
         {
             MapVerticalScroll(e.NewValue * 3);
         }
 
 
-        // ============================================================================
-        // Scroll the star map horizontally.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Scroll the star map horizontally.
+        /// </summary>
+        /// <param name="value">new Hscroll position</param>
+        /// ----------------------------------------------------------------------------
         private void MapHorizontalScroll(int value)
         {
             Hscroll = value;
@@ -692,10 +794,12 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Scroll the star map vertically.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Scroll the star map vertically.
+        /// </summary>
+        /// <param name="value">New Vscroll position.</param>
+        /// ----------------------------------------------------------------------------
         private void MapVerticalScroll(int value)
         {
             Vscroll = value;
@@ -703,11 +807,19 @@ namespace Nova
             MapPanel.Invalidate();
         }
 
+        #endregion
 
-        // ============================================================================
-        // A sortable (by distance) version of the Item class.
-        // ============================================================================
+        #region Interface IComparable
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// A sortable (by distance) version of the Item class.
+        /// </summary>
+        /// <remarks>
+        /// FIXME (priority 3) - this class shouldn't be hidden inside this module.
+        /// ??? (priority 3) - Is there any reason not to implement this via inheritance or make Item itself sortable?
+        /// </remarks>
+        /// ----------------------------------------------------------------------------
         public class SortableItem : IComparable
         {
             public double Distance;
@@ -720,35 +832,17 @@ namespace Nova
             }
         }
 
+        #endregion
 
-        // ============================================================================
-        // Set the position of the star map selection cursor.
-        // ============================================================================
+        #region Mouse Events
 
-        public void SetCursor(Point position)
-        {
-            CursorPosition = position;
-
-            // Set the scroll position so that the selected position of the cursor
-            // in is the centre of the screen.
-
-            float fractionX = position.X;
-            float fractionY = position.Y;
-
-            fractionX /= Logical.X;
-            fractionY /= Logical.Y;
-
-            Hscroll = (int)(fractionX * 100.0);
-            Vscroll = (int)(fractionY * 100.0);
-
-            MapPanel.Invalidate();
-        }
-
-
-        // ============================================================================
-        // Process a mouse down event.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Process a mouse down event.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// ----------------------------------------------------------------------------
         private void StarMapMouse(object sender, MouseEventArgs e)
         {
             if (e.Button == MouseButtons.Left)
@@ -772,10 +866,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Left Shift Mouse: Set Waypoints.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Left Shift Mouse: Set Waypoints.
+        /// </summary>
+        /// <param name="e"></param>
+        /// <param name="snapToObject"></param>
+        /// ----------------------------------------------------------------------------
         private void LeftShiftMouse(MouseEventArgs e, bool snapToObject)
         {
             Item item = MainWindow.nova.SelectionDetail.Value;
@@ -847,10 +944,12 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Left mouse button: select objects.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Left mouse button: select objects.
+        /// </summary>
+        /// <param name="e"></param>
+        /// ----------------------------------------------------------------------------
         private void LeftMouse(MouseEventArgs e)
         {
             Point position = new Point();
@@ -894,12 +993,44 @@ namespace Nova
             MainWindow.nova.SelectionDetail.Value = item;
         }
 
+        #endregion
 
-        // ============================================================================
-        // Provides a list of objects within a certain distance from a position,
-        // ordered by distance. 
-        // ============================================================================
+        #region Misc Methods
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Set the position of the star map selection cursor.
+        /// </summary>
+        /// <param name="position">Whete the cursor is to be put.</param>
+        /// ----------------------------------------------------------------------------
+        public void SetCursor(Point position)
+        {
+            CursorPosition = position;
+
+            // Set the scroll position so that the selected position of the cursor
+            // in is the centre of the screen.
+
+            float fractionX = position.X;
+            float fractionY = position.Y;
+
+            fractionX /= Logical.X;
+            fractionY /= Logical.Y;
+
+            Hscroll = (int)(fractionX * 100.0);
+            Vscroll = (int)(fractionY * 100.0);
+
+            MapPanel.Invalidate();
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Provides a list of objects within a certain distance from a position,
+        /// ordered by distance.
+        /// </summary>
+        /// <param name="position">Starting point for the search.</param>
+        /// <returns>ArrayList of Fleet and Star objects.</returns>
+        /// ----------------------------------------------------------------------------
         private ArrayList FindNearObjects(Point position)
         {
             ArrayList nearObjects = new ArrayList();
@@ -938,10 +1069,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Toggle the display of the star names.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Toggle the display of the star names.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// ----------------------------------------------------------------------------
         private void ToggleNames_CheckedChanged(object sender, EventArgs e)
         {
             CheckBox toggleNames = sender as CheckBox;
@@ -958,16 +1092,6 @@ namespace Nova
             MapPanel.Invalidate();
         }
 
-
-        // ============================================================================
-        // Utility function to instigate a display refresh
-        // ============================================================================
-
-        public void MapRefresh()
-        {
-            //MapPanel.SuspendLayout();
-            MapPanel.Invalidate();
-            //MapPanel.ResumeLayout();
-        }
+        #endregion
     }
 }

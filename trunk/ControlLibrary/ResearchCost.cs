@@ -51,19 +51,23 @@ namespace ControlLibrary
 
         #region Construction and Disposal
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construtor
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public ResearchCost()
         {
             InitializeComponent();
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing"></param>
+        /// ----------------------------------------------------------------------------
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -151,6 +155,7 @@ namespace ControlLibrary
 
         #region Event Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         ///  Called when one of the control radio button changes. Note that this 
         /// function relies on it subtracting the previous points value when a button
@@ -158,6 +163,7 @@ namespace ControlLibrary
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void Research_CheckChanged(object sender, EventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
@@ -199,9 +205,11 @@ namespace ControlLibrary
 
         #region Properties
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Set or Get the research cost.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public int Cost
         {
             get { return ResearchFactor; }
@@ -230,9 +238,11 @@ namespace ControlLibrary
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the control title.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Title of component box."), Category("Misc")]
         public string Title
         {

@@ -49,6 +49,7 @@ namespace ControlLibrary
             IllegalValue, MoveLeft, MoveRight, Shrink, Expand
         }
 
+        #region Non-VS variables
         // ----------------------------------------------------------------------------
         // Non-VS variables:
         //
@@ -93,11 +94,11 @@ namespace ControlLibrary
                                                  int oldRightValue);
 
         public event RangeChangedHandler RangeChanged;
+        
+        #endregion
 
-        // ----------------------------------------------------------------------------
-        // VS-created variables
-        // ----------------------------------------------------------------------------
 
+        #region VS-created variables
         private System.Windows.Forms.Button LeftScroll;
         private System.Windows.Forms.Label Bar;
         private System.Windows.Forms.Button RightScroll;
@@ -107,22 +108,27 @@ namespace ControlLibrary
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label BoxSpan;
         private System.ComponentModel.IContainer components;
+        #endregion
 
         #region Construction and Disposal
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construction (and initialisation)
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public Range()
         {
             InitializeComponent();
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing"></param>
+        /// ----------------------------------------------------------------------------
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -137,7 +143,7 @@ namespace ControlLibrary
 
         #endregion
 
-        // ===========================================================================
+      
         #region Component Designer generated code
         /// <summary> Required method for Designer support - do not
         /// modify the contents of this method with the code editor.
@@ -254,12 +260,14 @@ namespace ControlLibrary
 
         #region Event Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Paint the indicator part of the Bar control and the label displaying the
         /// numeric values. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void Bar_Paint(object sender, PaintEventArgs e)
         {
             int fillHeight = Bar.Size.Height;
@@ -286,6 +294,7 @@ namespace ControlLibrary
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Called when the timer ticks. As only one button can be held down at a time
         /// we use the same timer rourine to process all four buttons with the desired
@@ -293,6 +302,7 @@ namespace ControlLibrary
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void timer1_Tick(object sender, System.EventArgs e)
         {
             int increment = BoxMoveIncrement;
@@ -358,44 +368,41 @@ namespace ControlLibrary
         }
 
 
-        // ===========================================================================
-        // Mouse down on the move indicator left button
-        // ===========================================================================
+        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// 
+        /// Mouse down on the move indicator left button
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void LeftScroll_MouseDown(object sender, MouseEventArgs e)
         {
             TimerAction = TimerOptions.MoveLeft;
             timer1.Start();
         }
 
-        ///
-        // ===========================================================================
-        // Use this route for MouseUp on all four buttons. The action is always the
-        // same, just stop the timer.
-        // ===========================================================================
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// 
+        /// Use this route for MouseUp on all four buttons. The action is always the
+        /// same, just stop the timer.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void RangeMouseUp(object sender, MouseEventArgs e)
         {
             timer1.Stop();
         }
 
 
-        // ===========================================================================
-        // Mouse down on the move indicator left button
-        // ===========================================================================
+        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// 
+        /// Mouse down on the move indicator left button
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void RightScroll_MouseDown(object sender, MouseEventArgs e)
         {
             TimerAction = TimerOptions.MoveRight;
@@ -403,14 +410,13 @@ namespace ControlLibrary
         }
 
 
-        // ===========================================================================
-        // Shrink the range covered by the indicator bar
-        // ===========================================================================
+        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// 
+        /// Shrink the range covered by the indicator bar
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void Contract_MouseDown(object sender, MouseEventArgs e)
         {
             TimerAction = TimerOptions.Shrink;
@@ -418,14 +424,13 @@ namespace ControlLibrary
         }
 
 
-        // ===========================================================================
-        // Expand the range covered by the indicator bar.
-        // ===========================================================================
+        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// 
+        /// Expand the range covered by the indicator bar.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
+        /// ----------------------------------------------------------------------------
         private void Expand_MouseDown(object sender, MouseEventArgs e)
         {
             TimerAction = TimerOptions.Expand;
@@ -436,11 +441,13 @@ namespace ControlLibrary
 
         #region Utility Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Conversion from bar position (1-100 scale) to environment value (EnvironmentMinimum - EnvironmentMaximum)
         /// </summary>
         /// <param name="pos">A bar position value from 1-100.</param>
         /// <returns>An environment value.</returns>
+        /// ----------------------------------------------------------------------------
         private double BarPositionToEnvironmentValue(int pos)
         {
             double env = 0; // the environment value to be calculated.
@@ -457,11 +464,14 @@ namespace ControlLibrary
             return env;
         }
 
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Conversion from an environment value (EnvironmentMinimum - EnvironmentMaximum) to a bar position (1-100)
         /// </summary>
         /// <param name="env">An environment value.</param>
         /// <returns>A bar position (1-100)</returns>
+        /// ----------------------------------------------------------------------------
         private int EnvironmentValueToBarPosition(double env)
         {
             int pos = 0;
@@ -483,10 +493,12 @@ namespace ControlLibrary
         #region Properties
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return or set the range minimum and maxium values and the upper and lower bounds
         /// of the current selection (in real environment units).
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public EnvironmentTolerance EnvironmentValues
         {
             get
@@ -511,6 +523,7 @@ namespace ControlLibrary
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Units for range display numeric values. 
         /// </summary>
@@ -518,6 +531,7 @@ namespace ControlLibrary
         /// The call to Bar.Invalidate just ensures the control gets updated as we haven't changed any form
         /// components that would trigger a refresh.
         /// </remarks>
+        /// ----------------------------------------------------------------------------
         [Description("Units of range display."), Category("Nova")]
         public string RangeUnits
         {
@@ -526,9 +540,11 @@ namespace ControlLibrary
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set range control title.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Title of range display."), Category("Nova")]
         public string RangeTitle
         {
@@ -537,9 +553,11 @@ namespace ControlLibrary
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set range control maximum value.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Maximum value of range bar."), Category("Nova")]
         public double RangeMaximum
         {
@@ -548,9 +566,11 @@ namespace ControlLibrary
             set { EnvironmentMaximum = value; Bar.Invalidate(); }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set range control minimum value.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Minimum value of range bar."), Category("Nova")]
         public double RangeMinimum
         {
@@ -558,9 +578,12 @@ namespace ControlLibrary
             set { EnvironmentMinimum = value; Bar.Invalidate(); }
         }
 
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set range control uper value.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Upper value of range bar."), Category("Nova")]
         public double BarUpper
         {
@@ -576,9 +599,12 @@ namespace ControlLibrary
             }
         }
 
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set range control lower bar value.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Lower value of range bar."), Category("Nova")]
         public double BarLower
         {
@@ -593,9 +619,12 @@ namespace ControlLibrary
             }
         }
 
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set range control bar colour
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [Description("Colour of range bar."), Category("Nova")]
         public Color RangeBarColor
         {
