@@ -16,7 +16,7 @@ using System;
 using System.Windows.Forms;
 using System.Collections;
 using System.Diagnostics;
-
+using Nova.RaceDesigner;
 using NovaCommon;
 using NovaServer;
 
@@ -153,16 +153,8 @@ namespace Nova.NewGame
       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
       private void newRaceButton_Click(object sender, EventArgs e)
       {
-          String RaceDesigner;
-          RaceDesigner = FileSearcher.GetFile(Global.RaceDesignerKey, false, Global.RaceDesignerPath_Development, Global.RaceDesignerPath_Deployed, "RaceDesigner.exe", true);
-          try
-          {
-              Process.Start(RaceDesigner);
-          }
-          catch
-          {
-              Report.Error("Failed to launch Nova Race Designer.");
-          }
+          Form raceDesigner = new RaceDesignerForm();
+          raceDesigner.Show();
       }
 
 
