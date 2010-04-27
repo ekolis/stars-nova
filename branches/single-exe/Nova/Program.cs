@@ -17,9 +17,9 @@ namespace Nova
         [STAThread]
         public static void Main(string[] args)
         {
-            Form mainForm = FindMainForm(args);
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+            Form mainForm = FindMainForm(args);
             Application.Run(mainForm);
         }
 
