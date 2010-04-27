@@ -52,9 +52,6 @@ namespace NovaCommon
        // These registry keys are used to locate the various application files that form Nova
        #region Application Files
        public const string NovaLauncherKey = "NovaLauncher";  // where the NovaLauncher application is installed
-       public const string NewGameKey = "NewGame";            // where the NewGame application is installed
-       public const string RaceDesignerKey = "RaceDesigner";  // where the Race Designer application is installed
-       public const string NovaConsoleKey = "NovaConsole";    // where the Nova Console application is installed
        public const string NovaGuiKey = "NovaGui";            // where the NovaLauncher application is installed
        public const string NovaAiKey = "NovaAi";              // where the Nova_AI application is installed
        #endregion Application Files
@@ -88,12 +85,6 @@ namespace NovaCommon
        // note these are only likely to be valid when the application launches, as any file/folder browser dialog will change the current working directory
        // hence the reason we call FileSearcher.GetKeys() at application launch.
        #region Search Paths
-       public const string NewGamePath_Development = "../../../NewGame/bin/Debug";
-       public const string NewGamePath_Deployed = "../NewGame";
-       public const string RaceDesignerPath_Development = "../../../RaceDesigner/bin/Debug";
-       public const string RaceDesignerPath_Deployed = "../RaceDesigner";
-       public const string NovaConsolePath_Development = "../../../Console/bin/Debug";
-       public const string NovaConsolePath_Deployed = "../Console";
        public const string NovaLauncherPath_Development = "../../../NovaLauncher/bin/Debug";
        public const string NovaLauncherPath_Deployed = "../NovaLauncher";
        public const string NovaGuiPath_Development = "../../../GUI/bin/Debug";

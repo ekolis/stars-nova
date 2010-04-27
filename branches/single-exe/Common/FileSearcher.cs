@@ -86,9 +86,6 @@ namespace NovaCommon
         /// </summary>
         public static void SetKeys()
         {
-            GetFile(Global.NovaConsoleKey, false, Global.NovaConsolePath_Development, Global.NovaConsolePath_Deployed, "Nova Console.exe", false);
-            GetFile(Global.RaceDesignerKey, false, Global.RaceDesignerPath_Development, Global.RaceDesignerPath_Deployed, "RaceDesigner.exe", false);
-            GetFile(Global.NewGameKey, false, Global.NewGamePath_Development, Global.NewGamePath_Deployed, "NewGame.exe", false);
             GetFile(Global.NovaGuiKey, false, Global.NovaGuiPath_Development, Global.NovaGuiPath_Deployed, "NewGame.exe", false);
             GetFile(Global.NovaAiKey, false, Global.NovaAiPath_Development, Global.NovaAiPath_Deployed, "Nova_AI.exe", true);
             GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
