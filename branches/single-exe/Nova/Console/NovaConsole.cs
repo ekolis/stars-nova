@@ -36,6 +36,7 @@ using System.Diagnostics;
 
 using NovaCommon;
 using NovaServer;
+using Nova.NewGame;
 
 namespace Nova.Console
 {
@@ -578,17 +579,10 @@ namespace Nova.Console
         /// ----------------------------------------------------------------------------
         private void NewGameMenuItem_Click(object sender, EventArgs e)
         {
-            String NewGameApp;
-            NewGameApp = FileSearcher.GetFile(Global.NewGameKey, false, Global.NewGamePath_Development, Global.NewGamePath_Deployed, "NewGame.exe", true);
-            try
-            {
-                Process.Start(NewGameApp);
-                Application.Exit();
-            }
-            catch
-            {
-                Report.Error("Failed to launch \"NewGame.exe\".");
-            }
+            Form newGame = new NewGameWizard();
+            Hide();
+            newGame.ShowDialog(null);
+            Application.Exit();
         }
 
 
