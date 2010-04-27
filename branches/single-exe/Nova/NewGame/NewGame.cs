@@ -19,6 +19,7 @@ using System.IO;
 using NovaCommon;
 using NovaServer;
 using Nova.NewGame;
+using Nova.Console;
 
 namespace Nova.NewGame
 {
@@ -123,17 +124,9 @@ namespace Nova.NewGame
                 }
 
                 // start the server
-                String NovaConsole = FileSearcher.GetFile(Global.NovaConsoleKey, false, Global.NovaConsolePath_Development, Global.NovaConsolePath_Deployed, "Nova Console.exe", false);
-                try
-                {
-                    Process.Start(NovaConsole);
-                    Application.Exit();
-                    return;
-                }
-                catch
-                {
-                    Report.FatalError("Unable to launch \"Nova Console.exe\".");
-                }
+                Form console = new NovaConsoleMain();
+                console.ShowDialog(null);
+                Application.Exit();
 
             } while (true); // keep trying to make a new game
 
