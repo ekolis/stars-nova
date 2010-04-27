@@ -20,8 +20,10 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Reflection;
-
+using Nova.RaceDesigner;
 using NovaCommon;
+using Nova.NewGame;
+using Nova.Console;
 
 namespace Nova.Launcher
 {
@@ -83,17 +85,10 @@ namespace Nova.Launcher
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         private void raceDesignerButton_Click(object sender, EventArgs e)
         {
-            String RaceDesigner;
-            RaceDesigner = FileSearcher.GetFile(Global.RaceDesignerKey, false, Global.RaceDesignerPath_Development, Global.RaceDesignerPath_Deployed, "RaceDesigner.exe", true);
-            try
-            {
-                Process.Start(RaceDesigner);
-                Application.Exit();
-            }
-            catch
-            {
-                Report.Error("Failed to launch Nova Race Designer.");
-            }
+            Form raceDesigner = new RaceDesignerForm();
+            Hide();
+            raceDesigner.ShowDialog(null);
+            Application.Exit();
         }
 
 
@@ -104,17 +99,10 @@ namespace Nova.Launcher
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         private void newGameButton_Click(object sender, EventArgs e)
         {
-            String NewGameApp;
-            NewGameApp = FileSearcher.GetFile(Global.NewGameKey, false, Global.NewGamePath_Development, Global.NewGamePath_Deployed, "NewGame.exe", true);
-            try
-            {
-                Process.Start(NewGameApp);
-                Application.Exit();
-            }
-            catch
-            {
-                Report.Error("Failed to launch \"NewGame.exe\".");
-            }
+            Form newGame = new NewGameWizard();
+            Hide();
+            newGame.ShowDialog(null);
+            Application.Exit();
         }
 
         /// <summary>
@@ -168,6 +156,8 @@ namespace Nova.Launcher
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         private void continueGameButton_Click(object sender, EventArgs e)
         {
+            Hide();
+
             // start the GUI
             if (ClientStateFile != null)
             {
@@ -190,17 +180,8 @@ namespace Nova.Launcher
             // start the server
             if (ServerStateFile != null)
             {
-                String NovaConsole = FileSearcher.GetFile(Global.NovaConsoleKey, false, Global.NovaConsolePath_Development, Global.NovaConsolePath_Deployed, "Nova Console.exe", false);
-                try
-                {
-                    Process.Start(NovaConsole);
-                    Application.Exit();
-                    return;
-                }
-                catch
-                {
-                    Report.FatalError("Unable to launch \"Nova Console.exe\".");
-                }
+                Form console = new NovaConsoleMain();
+                console.Show();
             }
         }
 
