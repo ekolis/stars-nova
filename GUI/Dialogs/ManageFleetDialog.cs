@@ -1,12 +1,30 @@
+#region Copyright Notice
 // ============================================================================
-// Nova. (c) 2008 Ken Reed
+// Copyright (C) 2008 Ken Reed
+// Copyright (C) 2009, 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // Manage an individual fleet
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
 
 using System;
 using System.Collections;
@@ -22,117 +40,144 @@ using NovaClient;
 
 namespace Nova
 {
+    /// <summary>
+    /// Manage the details of a fleet (composition, etc.).
+    /// </summary>
+    public partial class ManageFleetDialog : Form
+    {
+        private Fleet SelectedFleet = null;
+        private Hashtable AllFleets = null;
 
-// ============================================================================
-// Manage the details of a fleet (composition, etc.).
-// ============================================================================
+        #region Construction
 
-   public partial class ManageFleetDialog : Form
-   {
-      private Fleet       SelectedFleet = null;
-      private Hashtable   AllFleets     = null;
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public ManageFleetDialog()
+        {
+            InitializeComponent();
+            AllFleets = ClientState.Data.InputTurn.AllFleets;
+        }
+
+        #endregion
+
+        #region Event Methods
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Rename a fleet. The rename is only allowed if the fleet access key is
+        /// unique.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void RenameButton_Click(object sender, EventArgs e)
+        {
+            RenameFleet renameDialog = new RenameFleet();
+            renameDialog.ExistingName.Text = FleetName.Text;
+
+            renameDialog.ShowDialog();
+            renameDialog.Dispose();
+
+            FleetName.Text = SelectedFleet.Name;
 
 
-// ============================================================================
-// Construction
-// ============================================================================
-
-      public ManageFleetDialog()
-      {
-         InitializeComponent();
-         AllFleets = ClientState.Data.InputTurn.AllFleets;
-      }
+        }
 
 
-// ============================================================================
-// Update the dialog fields
-// ============================================================================
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// A co-located fleet is selected, activate the merge facility
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void CoLocatedFleets_SelectedIndexChanged(object sender,
+                                                          EventArgs e)
+        {
+            MergeButton.Enabled = true;
+        }
 
-      private void UpdateDialogDetails()
-      {
-         FleetName.Text    = SelectedFleet.Name;
-         Hashtable designs = SelectedFleet.Composition;
 
-         FleetComposition.Items.Clear();
-         foreach (string key in designs.Keys) {
-            ListViewItem listItem = new ListViewItem(key);
-            listItem.SubItems.Add(((int) designs[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
-            FleetComposition.Items.Add(listItem);
-         }
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Merge the ships from a co-located fleet into the selected fleet
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void MergeButton_Click(object sender, EventArgs e)
+        {
+            string fleetName = CoLocatedFleets.SelectedItems[0].Text;
+            string fleetKey = ClientState.Data.RaceName + "/" + fleetName;
 
-         CoLocatedFleets.Items.Clear();
-
-         foreach (Fleet fleet in AllFleets.Values) {
-            if (fleet.Name != SelectedFleet.Name) {
-               if (fleet.Position == SelectedFleet.Position) {
-                  CoLocatedFleets.Items.Add(fleet.Name);
-               }
+            Fleet fleetToMerge = AllFleets[fleetKey] as Fleet;
+            foreach (Ship ship in fleetToMerge.FleetShips)
+            {
+                SelectedFleet.FleetShips.Add(ship);
             }
-         }
-      }
 
+            AllFleets.Remove(fleetKey);
+            ClientState.Data.DeletedFleets.Add(fleetKey);
+            UpdateDialogDetails();
 
-// ============================================================================
-// Rename a fleet. The rename is only allowed if the fleet access key is
-// unique.
-// ============================================================================
+            MergeButton.Enabled = false;
+        }
 
-      private void RenameButton_Click(object sender, EventArgs e)
-      {
-         RenameFleet renameDialog       = new RenameFleet();
-         renameDialog.ExistingName.Text = FleetName.Text;
+        #endregion
 
-         renameDialog.ShowDialog();
-         renameDialog.Dispose();
+        #region Utility Methods
 
-         FleetName.Text = SelectedFleet.Name;
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Update the dialog fields
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        private void UpdateDialogDetails()
+        {
+            FleetName.Text = SelectedFleet.Name;
+            Hashtable designs = SelectedFleet.Composition;
 
+            FleetComposition.Items.Clear();
+            foreach (string key in designs.Keys)
+            {
+                ListViewItem listItem = new ListViewItem(key);
+                listItem.SubItems.Add(((int)designs[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
+                FleetComposition.Items.Add(listItem);
+            }
 
-      }
+            CoLocatedFleets.Items.Clear();
 
+            foreach (Fleet fleet in AllFleets.Values)
+            {
+                if (fleet.Name != SelectedFleet.Name)
+                {
+                    if (fleet.Position == SelectedFleet.Position)
+                    {
+                        CoLocatedFleets.Items.Add(fleet.Name);
+                    }
+                }
+            }
+        }
 
-// ============================================================================
-// Select the fleet to be managed.
-// ============================================================================
+        #endregion
 
-      public Fleet ManagedFleet
-      {
-         set {SelectedFleet = value; UpdateDialogDetails(); }
-         get {return SelectedFleet; }
-      }
+        #region Properties
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Select the fleet to be managed.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public Fleet ManagedFleet
+        {
+            set { SelectedFleet = value; UpdateDialogDetails(); }
+            get { return SelectedFleet; }
+        }
 
-// ============================================================================
-// A co-located fleet is selected, activate the merge facility
-// ============================================================================
+        #endregion
 
-      private void CoLocatedFleets_SelectedIndexChanged(object sender,
-                                                        EventArgs e)
-      {
-         MergeButton.Enabled = true;
-      }
-
-
-// ============================================================================
-// Merge the ships from a co-located fleet into the selected fleet
-// ============================================================================
-
-      private void MergeButton_Click(object sender, EventArgs e)
-      {
-         string fleetName = CoLocatedFleets.SelectedItems[0].Text;
-         string fleetKey  = ClientState.Data.RaceName + "/" + fleetName;
-
-         Fleet fleetToMerge = AllFleets[fleetKey] as Fleet;
-         foreach (Ship ship in fleetToMerge.FleetShips) {
-            SelectedFleet.FleetShips.Add(ship);
-         }
-
-         AllFleets.Remove(fleetKey);
-         ClientState.Data.DeletedFleets.Add(fleetKey);
-         UpdateDialogDetails();
-
-         MergeButton.Enabled = false;
-      }
-
-   }
+    }
 }

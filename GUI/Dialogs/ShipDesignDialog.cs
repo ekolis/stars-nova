@@ -1,13 +1,30 @@
+#region Copyright Notice
 // ============================================================================
-// Nova. (c) 2008 Ken Reed
-// (c) 2009, 2010 stars-nova
-// 
-// Dialog for designing a ship or starbase.
+// Copyright (C) 2008 Ken Reed
+// Copyright (C) 2009, 2010 stars-nova
 //
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
+// Dialog for designing a ship or starbase.
+// ===========================================================================
+#endregion
 
 using System;
 using System.Drawing;
@@ -685,9 +702,11 @@ namespace Nova
         #region Initialisation and Disposal
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construction and initialisation
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public ShipDesignDialog()
         {
             InitializeComponent();
@@ -766,10 +785,12 @@ namespace Nova
         }//ShipDesignDialog
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing"></param>
+        /// ----------------------------------------------------------------------------
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -788,11 +809,13 @@ namespace Nova
         #region Event Methods
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save the the design when the OK button is pressed
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void OK_Click(object sender, System.EventArgs e)
         {
             ShipDesign newDesign = new ShipDesign();
@@ -839,6 +862,7 @@ namespace Nova
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Build a WeaponSystem. We have a simplification that only weapons of the
         /// same type can be in the module.
@@ -846,6 +870,7 @@ namespace Nova
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// <returns>Returns a <see cref="Weapon"/> representing all the weapon components in a single module.</returns>
+        /// ----------------------------------------------------------------------------
         private Weapon BuildWeaponSystem(int number, NovaCommon.Component component)
         {
             if (component == null) return null;
@@ -858,11 +883,13 @@ namespace Nova
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// A new tree node has been selected. Update the list control
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void TreeNodeSelected(object sender, TreeViewEventArgs e)
         {
             Description.Text = null;
@@ -892,11 +919,13 @@ namespace Nova
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// A new item has been selected. Update the cost box and description.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void ListSelectionChanged(object sender, EventArgs e)
         {
             if (ListView.SelectedItems.Count <= 0) return;
@@ -915,11 +944,13 @@ namespace Nova
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Instigate Drag and Drop of the selected ListView item
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void ListView_MouseDown(object sender, MouseEventArgs e)
         {
             if (ListView.SelectedItems.Count <= 0) return;
@@ -979,12 +1010,14 @@ namespace Nova
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Hull selection changed. Ensure we take a copy of the hull design so that we
         /// don't end up messing with the master copy.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void HullList_SelectedValueChanged(object sender, EventArgs e)
         {
             string selectedHullName = HullList.SelectedItem as string;
@@ -1003,16 +1036,18 @@ namespace Nova
 
         #region Utility Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Draw the seleced hull design by filling in the hull grid and the populating
         /// the costs and characteristics fields on the form.
         /// </summary>
         /// <remarks>
-        // ??? (priority 3) We don't seem to have a ShipDesign at this stage, just a Hull component
-        // with attached modules? This makes determining summary information difficult
-        // as that is what the ShipDesign is for. Need to decide if using a ShipDesign
-        // from the start would be better.
+        /// ??? (priority 3) We don't seem to have a ShipDesign at this stage, just a Hull component
+        /// with attached modules? This makes determining summary information difficult
+        /// as that is what the ShipDesign is for. Need to decide if using a ShipDesign
+        /// from the start would be better.
         /// </remarks>
+        /// ----------------------------------------------------------------------------
         private void UpdateHullFields()
         {
 
@@ -1043,10 +1078,12 @@ namespace Nova
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Build a table of components available. Note that some components are only
         /// availble if certain racial traits are selected.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         private void PopulateComponentList()
         {
             int index = 0;
@@ -1062,8 +1099,6 @@ namespace Nova
                 }
             }
         }
-
-
 
         #endregion
     }
