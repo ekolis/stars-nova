@@ -1,7 +1,27 @@
+#region Copyright Notice
 // ============================================================================
-// Nova. (c) 2008 Ken Reed
-// (c) 2009, 2010 stars-nova
+// Copyright (C) 2008 Ken Reed
+// Copyright (C) 2009, 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // The Nova GUI is the program used to play a turn of nova. In a multiplayer/network
 // game it is the main client side program. The Nova GUI reads in a .intel
 // file to determine what the player race knows about the universe and when a 
@@ -10,11 +30,8 @@
 //
 // This module holds the program entry point and handles all things related to
 // the main GUI window.
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
 
 using System.Collections;
 using System.ComponentModel;
@@ -29,18 +46,26 @@ using NovaClient;
 namespace Nova
 {
 
-    // ============================================================================
-    // Main Windows form class.
-    // ============================================================================
-
+    /// <summary>
+    /// Main Windows form class.
+    /// </summary>
     public class NovaGUI : System.Windows.Forms.Form
     {
+
+        public Messages messages;
+        public SelectionSummary SelectionSummary;
+        public Nova.Controls.SelectionDetail SelectionDetail;
+        public StarMap MapControl;
+
+        public int currentTurn;      //control turnvar used for to decide to load new turn... (Thread)
+        public string currentRace; //control var used for to decide to load new turn... (Thread)
+
+        #region VS-Designer Generated Variables
+
         private System.ComponentModel.IContainer components;
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.ToolTip ToolTips;
 
-        public Messages messages;
-        public SelectionSummary SelectionSummary;
         private MenuStrip MainMenu;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
@@ -51,7 +76,6 @@ namespace Nova
         private ToolStripMenuItem aboutToolStripMenuItem;
         private ToolStripMenuItem playerRelationslMenuItem;
         private ToolStripMenuItem BattlePlansMenu;
-        public Nova.Controls.SelectionDetail SelectionDetail;
         private ToolStripMenuItem designManagerMenuItem;
         private ToolStripMenuItem reportsToolStripMenuItem;
         private ToolStripMenuItem PlanetReportMenu;
@@ -60,15 +84,16 @@ namespace Nova
         private ToolStripMenuItem ScoresMenuItem;
         private ToolStripMenuItem generateTurnToolStripMenuItem;
         private ToolStripMenuItem loadNextTurnToolStripMenuItem;
-        public StarMap MapControl;
 
-        public int currentTurn;      //control turnvar used for to decide to load new turn... (Thread)
-        public string currentRace; //control var used for to decide to load new turn... (Thread)
+        #endregion
 
+        #region Construction and Disposal
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construct the main window.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public NovaGUI()
         {
             InitializeComponent();
@@ -79,10 +104,12 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Clean up any resources being used.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing"></param>
+        /// ----------------------------------------------------------------------------
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -94,6 +121,8 @@ namespace Nova
             }
             base.Dispose(disposing);
         }
+
+        #endregion
 
         #region Windows Form Designer generated code
         /// <summary>
@@ -361,26 +390,32 @@ namespace Nova
         }
         #endregion
 
+        #region Main
 
-        // ============================================================================
-        // The main entry point for the application. Initialise the Nova GUI state data
-        // (this will be a partial initialisation on the very first run of the GUI in a
-        // new game). Initialise the components of the main GUI window and and then
-        // start the Windows message processing.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
         /// <summary>
+        /// <para>
         /// Start the Nova GUI.
+        /// </para><para>
+        /// The main entry point for the application. Initialise the Nova GUI state data
+        /// (this will be a partial initialisation on the very first run of the GUI in a
+        /// new game). Initialise the components of the main GUI window and and then
+        /// start the Windows message processing.
+        /// </para><para>
         /// Players should not normally start the Nova GUI directly. 
+        /// </para><para>
         /// The NovaLauncher will launch the Nova GUI either to continue
         /// a current game (based on registry settings) or once the player has
         /// selected a race.state to open.
+        /// </para><para>
         /// The Nova Console wil launch the Nova GUI when the player 
         /// selects a race from the PlayerList for the current game.
         /// In any of the above circumstances the appropriate parameters
         /// need to be passed to Nova GUI to identify the race.state to be played.
+        /// </para>
         /// </summary>
-        /// <param name="args"></param>
+        /// <param name="args">Command line arguments.</param>
+        /// ----------------------------------------------------------------------------
         [STAThread]
         static void Main(string[] args)
         {
@@ -393,10 +428,17 @@ namespace Nova
 
         }
 
-        // ============================================================================
-        // Exit menu item selected.
-        // ============================================================================
+        #endregion
 
+        #region Event Methods
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Exit menu item selected.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void MenuExit_Click(object sender, System.EventArgs e)
         {
             ClientState.Save();
@@ -404,10 +446,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Pop up the ship design dialog.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Pop up the ship design dialog.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void MenuShipDesign(object sender, System.EventArgs e)
         {
             ShipDesignDialog ShipDesignDialog = new ShipDesignDialog();
@@ -416,10 +461,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Deal with keys being pressed.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Deal with keys being pressed.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             switch (e.KeyChar)
@@ -439,10 +487,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Display the "About" dialog
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Display the "About" dialog
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void MenuAbout(object sender, EventArgs e)
         {
             AboutBox aboutBox = new AboutBox();
@@ -451,10 +502,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Display the research dialog
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Display the research dialog
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void MenuResearch(object sender, EventArgs e)
         {
             ResearchDialog pResearchDialog = new ResearchDialog();
@@ -463,12 +517,17 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Main Window is closing (i.e. the "X" button has been pressed on the frame of
-        // the form. Save the local state data.
-        // NB: Don't generate the orders file unless Save&Submit is selected.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Main Window is closing (i.e. the "X" button has been pressed on the frame of
+        /// the form. Save the local state data.
+        /// </summary><remarks>
+        /// NB: Don't generate the orders file unless Save&Submit is selected.
+        /// TODO (priority 4) - ask the user if they want to submit the current turn before closing.
+        /// </remarks>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void NovaGUI_FormClosing(object sender, FormClosingEventArgs e)
         {
             ClientState.Save();
@@ -476,10 +535,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Pop up the player relations dialog.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Pop up the player relations dialog.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void playerRelationsMenuItem_Click(object sender, EventArgs e)
         {
             PlayerRelations relationshipDialog = new PlayerRelations();
@@ -487,11 +549,13 @@ namespace Nova
             relationshipDialog.Dispose();
         }
 
-
-        // ============================================================================
-        // Pop up the battle plans dialog.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Pop up the battle plans dialog.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void BattlePlansMenuItem(object sender, EventArgs e)
         {
             BattlePlans battlePlans = new BattlePlans();
@@ -500,10 +564,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Pop up the Design Manager Dialog
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Pop up the Design Manager Dialog
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void designManagerMenuItem_Click(object sender, EventArgs e)
         {
             DesignManager designManager = new DesignManager();
@@ -512,10 +579,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Pop up the Planet Report Dialog
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Pop up the Planet Report Dialog
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void PlanetReportMenu_Click(object sender, EventArgs e)
         {
             PlanetReport planetReport = new PlanetReport();
@@ -524,10 +594,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Pop up the Fleet Report Dialog
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Pop up the Fleet Report Dialog
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void FleetReportMenu_Click(object sender, EventArgs e)
         {
             FleetReport fleetReport = new FleetReport();
@@ -536,10 +609,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Pop up the Battle Report Dialog
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Pop up the Battle Report Dialog
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void BattlesReportMenu_Click(object sender, EventArgs e)
         {
             BattleReportDialog battleReport = new BattleReportDialog();
@@ -548,10 +624,13 @@ namespace Nova
         }
 
 
-        // ============================================================================
-        // Pop up the score report dialog.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Pop up the score report dialog.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void ScoresMenuItem_Click(object sender, EventArgs e)
         {
             ScoreReport scoreReport = new ScoreReport();
@@ -559,6 +638,15 @@ namespace Nova
             scoreReport.Dispose();
         }
 
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Generate Turn
+        /// FIXME (priority 5) - How is this different to save and submit? 
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void generateTurnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClientState.Save();
@@ -566,6 +654,14 @@ namespace Nova
             Application.Exit();
         }
 
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Load Next Turn
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void loadNextTurnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // prepare the arguments that will tell how to re-initialise.
@@ -576,22 +672,27 @@ namespace Nova
             ClientState.Initialize(commandArguments.ToArray());
             MainWindow.NextTurn();
         }
+
+        #endregion
+
     }
 
 
-    // ============================================================================
-    // The main window.
-    // ============================================================================
-
+    /// ----------------------------------------------------------------------------
+    /// <summary>
+    /// The main window.
+    /// </summary>
+    /// ----------------------------------------------------------------------------
     public static class MainWindow
     {
         public static NovaGUI nova = new NovaGUI();
 
 
-        // ============================================================================
-        // Load controls with any data we may have for them.
-        // ============================================================================
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Load controls with any data we may have for them.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
         public static void InitialiseControls()
         {
             nova.messages.Year = ClientState.Data.TurnYear;
@@ -616,6 +717,12 @@ namespace Nova
             }
         }
 
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Refresh the display for a new turn.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
         public static void NextTurn()
         {
             nova.messages.Year = ClientState.Data.TurnYear;
