@@ -1,16 +1,32 @@
+#region Copyright Notice
 // ============================================================================
-// Nova. (c) 2008 Ken Reed
-// (c) 2009, 2010, stars-nova
-// See https://sourceforge.net/projects/stars-nova/
+// Copyright (C) 2008 Ken Reed
+// Copyright (C) 2009, 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // Randomly pick a star name from a list of star names and remove that name so
 // that it doesn't get allocated again. This is really just a case of putting a
 // fixed set of names into a hat and pulling them out one by one.
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
 
 using System;
 using System.Collections;
@@ -23,10 +39,13 @@ namespace Nova.NewGame
         Random RandomGenerator = new Random();
         ArrayList NamePool = new ArrayList();
 
+        #region Construction
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construction, put all of our star names into our hat.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public NameGenerator()
         {
             foreach (string name in StarNames)
@@ -35,10 +54,15 @@ namespace Nova.NewGame
             }
         }
 
+        #endregion
 
+        #region Methods
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Randomly pull a star name out of our hat.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public string NextName
         {
             get
@@ -53,9 +77,11 @@ namespace Nova.NewGame
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the number of star names we can generate.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public int Capacity
         {
             get
@@ -65,9 +91,11 @@ namespace Nova.NewGame
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// The list of star names we can return.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         private string[] StarNames = 
         {
          "A'po",
@@ -1281,6 +1309,6 @@ namespace Nova.NewGame
          "Zucchini",
          "Zulu"
       };
-
+        #endregion
     }
 }

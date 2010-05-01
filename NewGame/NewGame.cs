@@ -1,14 +1,32 @@
-﻿// ============================================================================
-// (c) 2010, stars-nova
-// See https://sourceforge.net/projects/stars-nova/
+﻿#region Copyright Notice
+// ============================================================================
+// Copyright (C) 2009, 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // This program is used to generate a new Nova game, primarily using the 
 // NewGameWizard, GameSettings and ServerState objects.
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
+
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -26,9 +44,13 @@ namespace NewGame
     {
         static Random random = new Random();
 
+        #region Main
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         [STAThread]
         static void Main()
         {
@@ -139,14 +161,18 @@ namespace NewGame
 
         } // Main
 
+        #endregion
+
         #region Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate all the stars. We have two helper classes to assist in doing this:
         /// a name generator to allocate star names and a space generator to ensure
         /// stars have a reasonable separation. Beyond that, all we need to do is
         /// allocate some random mineral concentrations.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         private static void GenerateStars()
         {
             NameGenerator nameGenerator = new NameGenerator();
@@ -188,10 +214,12 @@ namespace NewGame
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialise the general game data for each player. E,g, picking a home
         /// planet, allocating initial resources, etc.
         /// </summary>
+        /// ----------------------------------------------------------------------------
         private static void InitialisePlayerData()
         {
             SpaceAllocator spaceAllocator = new SpaceAllocator
@@ -241,13 +269,15 @@ namespace NewGame
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Allocate a "home" star system for each player giving it some colonists and
         /// initial resources. We use the space allocater helper class to ensure that
         /// the home systems for each race are not too close together.
         /// </summary>
-        /// <param name="race"></param>
-        /// <param name="spaceAllocator"></param>
+        /// <param name="race"><see cref="Race"/> to be positioned.</param>
+        /// <param name="spaceAllocator">The <see cref="SpaceAllocator"/> being used to allocate positions.</param>
+        /// ----------------------------------------------------------------------------
         private static void InitialiseHomeStar(Race race,
                                                SpaceAllocator spaceAllocator)
         {
@@ -267,12 +297,14 @@ namespace NewGame
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Allocate an initial set of resources to a player's "home" star system. for
         /// each player giving it some colonists and initial resources. 
         /// </summary>
-        /// <param name="star"></param>
-        /// <param name="race"></param>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private static void AllocateHomeStarResources(Star star, Race race)
         {
             star.ResourcesOnHand.Boranium  = random.Next(300, 500);

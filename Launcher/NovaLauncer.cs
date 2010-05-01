@@ -1,14 +1,30 @@
-﻿// ============================================================================
-// Nova (c) 2009, 2010 stars-nova
-// See https://sourceforge.net/projects/stars-nova/
+﻿#region Copyright Notice
+// ============================================================================
+// Copyright (C) 2009, 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // The splash screen and launcher application for starting Nova. Nova should
 // normally be started by running the NovaLauncher application.
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
 
 using System;
 using System.Collections.Generic;
@@ -25,6 +41,9 @@ using NovaCommon;
 
 namespace NovaLauncher
 {
+    /// <summary>
+    /// The Stars! Nova - Launcher <see cref="Form"/>
+    /// </summary>
     public partial class NovaLauncher : Form
     {
         String ServerStateFile = null;
@@ -32,9 +51,11 @@ namespace NovaLauncher
 
         #region Initialisation
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construction and initialisation
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public NovaLauncher()
         {
             InitializeComponent();
@@ -65,22 +86,26 @@ namespace NovaLauncher
 
         #region Event Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// When the 'exit' button is pressed, terminate the Nova Launcher
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void exitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// When the 'Race Designer' button is pressed, launch the Race Designer application.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void raceDesignerButton_Click(object sender, EventArgs e)
         {
             String RaceDesigner;
@@ -97,11 +122,13 @@ namespace NovaLauncher
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// When the 'New Game' button is pressed, launch the New Game Wizard.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void newGameButton_Click(object sender, EventArgs e)
         {
             String NewGameApp;
@@ -117,11 +144,14 @@ namespace NovaLauncher
             }
         }
 
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// When the 'Open Game' button is pressed, open a file browser to locate the game and open it.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void openGameButton_Click(object sender, EventArgs e)
         {
             String NovaGuiApp;
@@ -161,11 +191,13 @@ namespace NovaLauncher
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// When the 'Continue Game' button is pressed, continue the last opened game.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void continueGameButton_Click(object sender, EventArgs e)
         {
             // start the GUI
@@ -205,11 +237,13 @@ namespace NovaLauncher
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// When the 'Nova Website' link is clicked, go to the nova website with the default browser, if allowed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
         private void webLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
@@ -226,9 +260,11 @@ namespace NovaLauncher
 
         #region Utility Methods
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Support funtion to open the Nova Website
         /// </summary>
+        /// ----------------------------------------------------------------------------
         private void VisitLink()
         {
             // Change the color of the link text by setting LinkVisited 
