@@ -1,13 +1,29 @@
-// This file needs -*- c++ -*- mode
+#region Copyright Notice
 // ============================================================================
-// Nova. (c) 2009 Jan Magne Tjensvold
+// Copyright (C) 2009, 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // Test of global definition code.
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
 
 using System.IO;
 using NUnit.Framework;
@@ -16,13 +32,17 @@ using NovaCommon;
 namespace Nova.UnitTests
 {
 
-    // ============================================================================
-    // Unit test for global definition code.
-    // ============================================================================
-
+    /// <summary>
+    /// Unit test for global definition code.
+    /// </summary>
     [TestFixture]
     public class GlobalTests
     {
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Relative path test.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
         [Test]
         public void RelativePathTest()
         {
@@ -41,6 +61,15 @@ namespace Nova.UnitTests
             AssertEqualRelativePath(@"d:\Harry\Tom\Bill\fred.txt", @"c:\fred\Tom\Bill", @"d:\Harry\Tom\Bill\fred.txt");
         }
 
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Assert that the expected relative path is generated from a base directory and a target file.
+        /// </summary>
+        /// <param name="expected">Expected relative path.</param>
+        /// <param name="baseDir">Starting directory.</param>
+        /// <param name="targetPath">Target.</param>
+        /// ----------------------------------------------------------------------------
         private static void AssertEqualRelativePath(string expected, string baseDir, string targetPath)
         {
             expected = expected.Replace('\\', Path.DirectorySeparatorChar);
