@@ -1,15 +1,31 @@
-﻿// ============================================================================
-// Nova (c) 2009, 2010 stars-nova
-// See https://sourceforge.net/projects/stars-nova/
+﻿#region Copyright Notice
+// ============================================================================
+// Copyright (C) 2009, 2010 stars-nova
 //
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
 // This module processes the reading of race orders.
 //
 // This is a static helper object that reads Orders and does processing on ConsoleState.
-//
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// ===========================================================================
+#endregion
 
 #region Using Statements
 using System;
@@ -31,9 +47,13 @@ namespace NovaServer
     {
         static ServerState StateData = ServerState.Data;
 
+        #region Methods
+
+        /// ----------------------------------------------------------------------------
         /// <summary>
         ///  Read in all the race orders
         /// </summary>
+        /// ----------------------------------------------------------------------------
         public static void ReadOrders()
         {
             
@@ -48,11 +68,13 @@ namespace NovaServer
         }
 
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Read in the player turns and update the relevant data stores with the
         /// (possibly) new values. 
         /// </summary>
         /// <param name="race">The race who's orders are to be loaded.</param>
+        /// ----------------------------------------------------------------------------
         private static void ReadPlayerTurn(Race race)
         {
             Orders playerOrders;
@@ -136,6 +158,7 @@ namespace NovaServer
             }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// When orders are loaded from file, objects may contain references to other objects.
         /// As these may be loaded in any order (or be cross linked) it is necessary to tidy
@@ -146,6 +169,7 @@ namespace NovaServer
         /// so we do it here.
         /// </summary>
         /// <param name="playerOrders">The <see cref="Orders"/> object to undergo post load linking.</param>
+        /// ----------------------------------------------------------------------------
         private static void LinkOrderReferences(Orders playerOrders)
         {
             // Fleet reference to Star
@@ -184,6 +208,8 @@ namespace NovaServer
 
 
         }
+
+        #endregion
 
     }//OrderReader
 }//namespace
