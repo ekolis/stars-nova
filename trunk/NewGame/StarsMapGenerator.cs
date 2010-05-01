@@ -36,6 +36,15 @@ using NovaCommon;
 
 namespace NewGame
 {
+    /// <summary>
+    /// This class is used to generate stars map.
+    /// </summary>
+    /// <remarks>
+    /// The approach is based on emulation 
+    /// of two-dimensional random value with the specified probability density 
+    /// function. After each star is placed the density function is changed 
+    /// accordingly to reduce function.
+    /// </remarks>
     public class StarsMapGenerator 
     {
         //the number of failed attempts to stop after
@@ -57,6 +66,13 @@ namespace NewGame
         private List<int[]> Stars = new List<int[]>();
 
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Constructor
+        /// </summary>
+        /// <param name="mapWidth">Width of the map in ly.</param>
+        /// <param name="mapHeight">Height of the map in ly.</param>
+        /// ----------------------------------------------------------------------------
         public StarsMapGenerator(int mapWidth, int mapHeight)
         {
             this.MapWidth = mapWidth;
@@ -65,10 +81,13 @@ namespace NewGame
         }
 
 
-        // ===========================================================================
-        // Generate stars and return them as List of int[2]; int[0] - x, int[1] - y
-        // Note that the number of generated stars will be a random value.
-        // ===========================================================================
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Generate stars and return them as List of int[2]; int[0] - x, int[1] - y
+        /// Note that the number of generated stars will be a random value.
+        /// </summary>
+        /// <returns></returns>
+        /// ----------------------------------------------------------------------------
         public List<int[]> Generate()
         {
             DoGeneration();
@@ -76,15 +95,19 @@ namespace NewGame
         }
 
 
-        // ===========================================================================
-        // This function defines the amount the density function value should be 
-        // reduced by at current point based on the distance between current point and
-        // the star.
-        // Returning 1 means the density function value will be reduced down to zero 
-        // at the current point. Returning 0 means value will not be changed.
-        // ===========================================================================
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// This function defines the amount the density function value should be 
+        /// reduced by at current point based on the distance between current point and
+        /// the star.
+        /// </summary>
+        /// <param name="distance">Distance between the current point and the star.</param>
+        /// <returns>Returning 1 means the density function value will be reduced down to zero 
+        /// at the current point. Returning 0 means value will not be changed.</returns>
+        /// ----------------------------------------------------------------------------
         private double Reduce(double distance)
-        {   //current implementation produces map with no clumping
+        {   
+            //current implementation produces map with no clumping
             if (distance < 5)   //no stars allowed closer than 5 l.y.
             {
                 return 1.0;
@@ -103,8 +126,20 @@ namespace NewGame
             }
         }
 
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// This function defines the amount the density function value should be 
+        /// reduced by at current point based on the distance between current point and
+        /// the star.
+        /// </summary>
+        /// <param name="distance">Distance between the current point and the star.</param>
+        /// <returns>Returning 1 means the density function value will be reduced down to zero 
+        /// at the current point. Returning 0 means value will not be changed.</returns>
+        /// ----------------------------------------------------------------------------
         private double Reduce2(double distance)
-        {   //an example of reduce function which produces clumped stars
+        {   
+            //an example of reduce function which produces clumped stars
             if (distance < 5)
             {
                 return 1.0;
@@ -124,10 +159,16 @@ namespace NewGame
 
         }
 
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Genetate a star map.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
         private void DoGeneration()
         {
-            //initialize density function
-            //the initial values can influence the shape of generated map
+            // initialize density function
+            // the initial values can influence the shape of generated map
             for (int i = 0; i < MapWidth; ++i)
             {
                 for (int j = 0; j < MapHeight; ++j)
@@ -168,9 +209,14 @@ namespace NewGame
             }
         }
 
-        // ===========================================================================
-        // Update Density after the star has been placed at (x,y)
-        // ===========================================================================
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Update Density after the star has been placed at co-ordinate (x,y).
+        /// </summary>
+        /// <param name="x">x ordinate of newly place star.</param>
+        /// <param name="y">y ordinate of newly place star.</param>
+        /// ----------------------------------------------------------------------------
         private void UpdateDensities(int x, int y)
         {
             for (int i = ((x - UpdateFrameSize / 2 > 0) ? (x - UpdateFrameSize / 2) : 0); i <= ((x + UpdateFrameSize / 2 < MapWidth) ? (x + UpdateFrameSize / 2) : (MapWidth - 1)); ++i)
