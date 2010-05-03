@@ -16,6 +16,7 @@ using System;
 using System.Windows.Forms;
 using System.Collections;
 using System.Diagnostics;
+using Nova.Console;
 using Nova.RaceDesigner;
 using NovaCommon;
 using NovaServer;
@@ -85,6 +86,14 @@ namespace Nova.NewGame
           GameSettings.Data.HighestScore = HighestScore.Value;
           GameSettings.Data.TargetsToMeet = Int32.Parse(TargetsToMeet.Text, System.Globalization.CultureInfo.InvariantCulture);
           GameSettings.Data.MinimumGameTime = Int32.Parse(MinimumGameTime.Text, System.Globalization.CultureInfo.InvariantCulture);
+
+          if (NewGame.StartNewGame(this))
+          {
+              Form console = new NovaConsoleMain();
+              Hide();
+              console.ShowDialog(null);
+              Application.Exit();
+          }
       }
 
 
