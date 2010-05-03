@@ -6,6 +6,7 @@ using Nova.ComponentEditor;
 using Nova.Gui;
 using Nova.NewGame;
 using Nova.RaceDesigner;
+using NovaCommon;
 
 namespace Nova
 {
@@ -19,6 +20,10 @@ namespace Nova
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
+
+            // Find files we may need
+            FileSearcher.SetKeys();
+
             Form mainForm = FindMainForm(args);
             Application.Run(mainForm);
         }
