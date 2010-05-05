@@ -20,6 +20,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Reflection;
+using Nova.Gui;
 using Nova.RaceDesigner;
 using NovaCommon;
 using Nova.NewGame;
@@ -112,8 +113,6 @@ namespace Nova.Launcher
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         private void openGameButton_Click(object sender, EventArgs e)
         {
-            String NovaGuiApp;
-            NovaGuiApp = FileSearcher.GetFile(Global.NovaGuiKey, false, Global.NovaGuiPath_Development, Global.NovaGuiPath_Deployed, "Nova GUI.exe", true);
             String IntelFile = "";
 
             // have the user identify the game to open
@@ -137,15 +136,9 @@ namespace Nova.Launcher
             CommandArguments args = new CommandArguments();
             args.Add(CommandArguments.Option.IntelFileName, IntelFile);
 
-            try
-            {
-                Process.Start(NovaGuiApp, args.ToString());
-                Application.Exit();
-            }
-            catch
-            {
-                Report.Error("NovaLauncher.cs: openGameButton_Click() - Failed to launch \"Nova GUI.exe\".");
-            }
+            Hide();
+            NovaGUI.LaunchModal(args);
+            Application.Exit();
         }
 
 
@@ -156,19 +149,17 @@ namespace Nova.Launcher
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         private void continueGameButton_Click(object sender, EventArgs e)
         {
+            if (ClientStateFile == null && ServerStateFile == null) return;
             Hide();
 
             // start the GUI
             if (ClientStateFile != null)
             {
-                String NovaGuiApp;
-
-                NovaGuiApp = FileSearcher.GetFile(Global.NovaGuiKey, false, Global.NovaGuiPath_Development, Global.NovaGuiPath_Deployed, "Nova GUI.exe", true);
                 CommandArguments args = new CommandArguments();
                 args.Add(CommandArguments.Option.StateFileName, ClientStateFile);
                 try
                 {
-                    Process.Start(NovaGuiApp, args.ToString());
+                    NovaGUI.LaunchModal(args);
                     Application.Exit();
                 }
                 catch

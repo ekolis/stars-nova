@@ -74,10 +74,22 @@ namespace Nova.Gui
         public NovaGUI()
         {
             InitializeComponent();
+        }
 
-            // ensure registry keys are initialised
-            FileSearcher.SetKeys();
+        public static void Launch(CommandArguments arguments)
+        {
+            ClientState.Initialize(arguments);
+            MainWindow.nova.Text = "Nova - " + ClientState.Data.PlayerRace.PluralName;
+            MainWindow.InitialiseControls();
+            MainWindow.nova.Show(null);
+        }
 
+        public static void LaunchModal(CommandArguments arguments)
+        {
+            ClientState.Initialize(arguments);
+            MainWindow.nova.Text = "Nova - " + ClientState.Data.PlayerRace.PluralName;
+            MainWindow.InitialiseControls();
+            MainWindow.nova.ShowDialog(null);
         }
 
 
@@ -383,17 +395,17 @@ namespace Nova.Gui
         /// need to be passed to Nova GUI to identify the race.state to be played.
         /// </summary>
         /// <param name="args"></param>
-        [STAThread]
-        static void Main(string[] args)
-        {
+        //[STAThread]
+        //static void Main(string[] args)
+        //{
 
-            Application.EnableVisualStyles();
-            ClientState.Initialize(args);
-            MainWindow.nova.Text = "Nova - " + ClientState.Data.PlayerRace.PluralName;
-            MainWindow.InitialiseControls();
-            Application.Run(MainWindow.nova);
+        //    Application.EnableVisualStyles();
+        //    ClientState.Initialize(args);
+        //    MainWindow.nova.Text = "Nova - " + ClientState.Data.PlayerRace.PluralName;
+        //    MainWindow.InitialiseControls();
+        //    Application.Run(MainWindow.nova);
 
-        }
+        //}
 
         // ============================================================================
         // Exit menu item selected.
@@ -575,7 +587,7 @@ namespace Nova.Gui
             commandArguments.Add(CommandArguments.Option.RaceName, ClientState.Data.RaceName);
             commandArguments.Add(CommandArguments.Option.Turn, ClientState.Data.TurnYear + 1);
 
-            ClientState.Initialize(commandArguments.ToArray());
+            ClientState.Initialize(commandArguments);
             MainWindow.NextTurn();
         }
     }

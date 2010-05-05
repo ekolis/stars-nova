@@ -33,7 +33,7 @@ using System.IO;
 using System.Windows.Forms;
 using System;
 using System.Diagnostics;
-
+using Nova.Gui;
 using NovaCommon;
 using NovaServer;
 using Nova.NewGame;
@@ -667,24 +667,12 @@ namespace Nova.Console
                 // On occasion this fires but SelectedItems is empty. Ignore and let the user re-click. See issue 2974019.
                 return;
             }
-            try
-            {
 
-                // Find the Nova GUI
-                String NovaGuiApp;
-                NovaGuiApp = FileSearcher.GetFile(Global.NovaGuiKey, false, Global.NovaGuiPath_Development, Global.NovaGuiPath_Deployed, "Nova GUI.exe", true);
-
-                // Launch the nova GUI
-                CommandArguments args = new CommandArguments();
-                args.Add(CommandArguments.Option.RaceName, raceName);
-                args.Add(CommandArguments.Option.Turn, ServerState.Data.TurnYear + 1);
-                args.Add(CommandArguments.Option.IntelFileName, Path.Combine(ServerState.Data.GameFolder, raceName + ".intel"));
-                Process.Start(NovaGuiApp, args.ToString());
-            }
-            catch
-            {
-                Report.Error("NovaConsole.cs : PlayerList_DoubleClick() - Failed to launch \"Nova GUI.exe\".");
-            }
+            CommandArguments args = new CommandArguments();
+            args.Add(CommandArguments.Option.RaceName, raceName);
+            args.Add(CommandArguments.Option.Turn, ServerState.Data.TurnYear + 1);
+            args.Add(CommandArguments.Option.IntelFileName, Path.Combine(ServerState.Data.GameFolder, raceName + ".intel"));
+            NovaGUI.Launch(args);
         }
 
         /// ----------------------------------------------------------------------------

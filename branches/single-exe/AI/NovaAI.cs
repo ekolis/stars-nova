@@ -70,7 +70,7 @@ namespace Nova_AI
             {
                 // TODO (priority 4) - bypass password entry for AI.
                 // Note: passwords have currently been disabled completely, awaiting a new more effective implementation - Dan 02 Mar 10
-                ClientState.Initialize(commandArguments.ToArray()); 
+                ClientState.Initialize(commandArguments); 
             }
             catch
             {

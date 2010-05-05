@@ -51,8 +51,6 @@ namespace NovaCommon
 
        // These registry keys are used to locate the various application files that form Nova
        #region Application Files
-       public const string NovaLauncherKey = "NovaLauncher";  // where the NovaLauncher application is installed
-       public const string NovaGuiKey = "NovaGui";            // where the NovaLauncher application is installed
        public const string NovaAiKey = "NovaAi";              // where the Nova_AI application is installed
        #endregion Application Files
 
@@ -62,21 +60,15 @@ namespace NovaCommon
        public const string NovaFolderKey = "NovaFolderKey";              // where Nova is installed 
        public const string ComponentFolderKey = "ComponentFolder";       // where components.xml is (possibly re-named), installation relative path is '.'. Should only change for modified game play.
        public const string GraphicsFolderKey = "GraphicsFolder";         // where pictures are stored, installation relative path is './Graphics'. Should only be changed for modding the game interface.
-       public const string ClientFolderKey = "ClientFolder";             // where client side game files are, nominally './GameFiles'. Likely to be different for each active game.
        public const string ServerFolderKey = "ServerFolder";             // where server side game files are, nominally './GameFiles'. May be a network path.
        public const string RaceFolderKey = "RaceFolder";                 // where player race files are stored, nominally './GameFiles'. Players may save races elswhere to create a reusable library.
        public const string ServerStateKey = "ServerStateFile";           // the server's saved data from the most recent game, if any. Nominally ./GameFiles/Constole.state. Players may save game files anywhere, e.g. My Document\Saved Games\Nova\A Bare Foot Jay-Walk\
        public const string ClientStateKey = "ClientStateFile";           // the client's saved data from the most recent game, if any. Nominally ./GameFiles/RaceName.state. Players may save game files anywhere, e.g. My Document\Saved Games\Nova\A Bare Foot Jay-Walk\
-       public const string SettingsKey = "GameSettingsFile";             // where the game settings are stored (on the server, but a copy should be avaialble to the client).
        #endregion Files and Folders
 
        // default folder names, used with FileSearcher.GetFolder(). 
        #region Default Folders
        // Follows the above naming conventions
-       public const string NovaFolderName = ".";
-       public const string ComponentFolderName = ".";
-       public const string GraphicsFolderName = "Graphics";
-       public const string ClientFolderName = "GameFiles";
        public const string ServerFolderName = "GameFiles";
        public const string RaceFolderName = "GameFiles/Races";
        #endregion Default Folders
@@ -85,10 +77,6 @@ namespace NovaCommon
        // note these are only likely to be valid when the application launches, as any file/folder browser dialog will change the current working directory
        // hence the reason we call FileSearcher.GetKeys() at application launch.
        #region Search Paths
-       public const string NovaLauncherPath_Development = "../../../NovaLauncher/bin/Debug";
-       public const string NovaLauncherPath_Deployed = "../NovaLauncher";
-       public const string NovaGuiPath_Development = "../../../GUI/bin/Debug";
-       public const string NovaGuiPath_Deployed = "../GUI";
        public const string NovaAiPath_Development = "../../../AI/bin/Debug";
        public const string NovaAiPath_Deployed = "../AI";
        #endregion Search Paths

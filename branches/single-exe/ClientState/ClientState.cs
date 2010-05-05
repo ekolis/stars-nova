@@ -141,7 +141,7 @@ namespace NovaClient
         /// </summary>
         /// <param name="argArray">The command line arguments.</param>
         /// ----------------------------------------------------------------------------
-        public static void Initialize(string[] argArray)
+        public static void Initialize(CommandArguments commandArguments)
         {
             // Need to identify the RaceName so we can load the correct race's intel.
             // We also want to identify the ClientState data store, if any, so we
@@ -173,8 +173,6 @@ namespace NovaClient
             int TurnToPlay = -1;
 
             // process the arguments
-            CommandArguments commandArguments = new CommandArguments(argArray);
-
             if (commandArguments.Contains(CommandArguments.Option.RaceName))
             {
                 ClientState.Data.RaceName = commandArguments[CommandArguments.Option.RaceName];
@@ -226,7 +224,7 @@ namespace NovaClient
             // 1. the Nova GUI was started directly (e.g. in the debugger). 
             //    There will be zero options/arguments in the argArray.
             //    We will continue an existing game, if any. 
-            if (argArray.Length == 0)
+            if (commandArguments.Count == 0)
             {
                 //     - get GameFolder from the registry - already done.
 
@@ -375,7 +373,7 @@ namespace NovaClient
         /// </summary>
         /// <remarks>
         /// FIXME (priority 4) - this is unsafe as the .race file may have changed since the game was
-        /// generated. Current thinking is that this should be included in the .Intel file
+        /// generated. Current thinking is that this should be included in the .intel file
         /// every turn. -- Dan Vale 10 Jan 10.
         /// </remarks>
         /// ----------------------------------------------------------------------------
@@ -610,7 +608,7 @@ namespace NovaClient
         /// </summary>
         /// <remarks>
         /// Later on, when we read the
-        /// file Nova.Intel we will reset the persistent data fields if the turn file
+        /// file Nova.intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
         /// ----------------------------------------------------------------------------
@@ -627,7 +625,7 @@ namespace NovaClient
         /// <param name="gameFolder">The path where the game files (specifically RaceName.state can be found.</param>
         /// <remarks>
         /// Later on, when we read the
-        /// file Nova.Intel we will reset the persistent data fields if the turn file
+        /// file Nova.intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
         /// ----------------------------------------------------------------------------
@@ -657,7 +655,7 @@ namespace NovaClient
         /// <param name="raceName">Name of the race to load.</param>
         /// <remarks>
         /// Later on, when we read the
-        /// file Nova.Intel we will reset the persistent data fields if the turn file
+        /// file Nova.intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
         /// ----------------------------------------------------------------------------

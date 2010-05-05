@@ -99,7 +99,7 @@ namespace NovaCommon
         /// <param name="argument">any string, such as a file name or race name</param>
         public void Add(string option, string argument)
         {
-            Dictionary.Add(option, "\"" + argument + "\"");
+            Dictionary.Add(option, argument);
         }
 
         /// <summary>
