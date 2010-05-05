@@ -447,25 +447,6 @@ namespace Nova.Console
         }
         #endregion
 
-        #region Main Function
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        [STAThread]
-        static void Main()
-        {
-            Application.EnableVisualStyles();
-
-            // ensure registry keys are initialised
-            FileSearcher.SetKeys();
-            Application.Run(new NovaConsoleMain());
-        }
-
-        #endregion
-
         #region Event Methods
 
         /// ----------------------------------------------------------------------------

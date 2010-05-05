@@ -1496,16 +1496,6 @@ namespace Nova.RaceDesigner
          }
 #endregion
 
-         /// <summary>
-         /// The main entry point for the application.
-         /// </summary>
-         [STAThread]
-         static void Main()
-         {
-             Application.EnableVisualStyles();
-             Application.Run(new RaceDesignerForm());
-         }
-
 
          /// <summary>
          /// This funtion is invoked whenever a primary racial traits radio button
