@@ -487,6 +487,7 @@ namespace NovaConsole
             FolderPath.Text = ServerState.Data.GameFolder;
             ServerState.Restore();
 
+            AllComponents.Restore();
 
             if (ServerState.Data.StatePathName != null && File.Exists(ServerState.Data.StatePathName))
             {

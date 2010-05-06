@@ -2,6 +2,9 @@
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\COMMON\DATASTRUCTURES\MESSAGE.CS
 [101]                            // TODO (priority 5) - when messages are being saved as xml, this will need to be converted into a link to the actual battle report.
 
+---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\NOVAGUI.CS
+[645]        /// FIXME (priority 5) - How is this different to save and submit? 
+
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\AI\NOVAAI.CS
 [71]                // TODO (priority 4) - bypass password entry for AI.
 
@@ -78,31 +81,32 @@
 [414]        /// TODO (priority 4) - for an engine it should say Requires N instead of Up to. Needs to be enforced also.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\NOVAGUI.CS
-[437]                // TODO (priority 4) The rest of the keys (function keys).
+[485]                // TODO (priority 4) The rest of the keys (function keys).
+[526]        /// TODO (priority 4) - ask the user if they want to submit the current turn before closing.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\CONTROLS\FLEETDETAIL.CS
 [629]        /// FIXME (priority 4) - doesn't work with my keyboard - Dan 25/4/10
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\DIALOGS\SHIPDESIGNDIALOG.CS
-[1025]            // TODO (priority 4) - get the total cargo capacity, rather than just the hull's base cargo capacity (i.e. add any pods). (see notes at top of function)
+[1060]            // TODO (priority 4) - get the total cargo capacity, rather than just the hull's base cargo capacity (i.e. add any pods). (see notes at top of function)
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\NEWGAME\NEWGAME.CS
-[103]                    // TODO (priority 4) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
-[162]            // FIXME (priority 4) - ignores map Height
-[200]            // FIXME (priority 4) ignores map height
-[288]            star.ScannerType = "Scoper 150"; // TODO (priority 4) get from component list
-[289]            star.DefenseType = "SDI"; // TODO (priority 4) get from component list
-[290]            star.ScanRange   = 50; // TODO (priority 4) get from component list
+[125]                    // TODO (priority 4) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
+[188]            // FIXME (priority 4) - ignores map Height
+[228]            // FIXME (priority 4) ignores map height
+[320]            star.ScannerType = "Scoper 150"; // TODO (priority 4) get from component list
+[321]            star.DefenseType = "SDI"; // TODO (priority 4) get from component list
+[322]            star.ScanRange   = 50; // TODO (priority 4) get from component list
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\RACEDESIGNER\RACEDESIGNER.CS
-[1928]                 // TODO (priority 4) - This level of security is not good enough as the race is stored un-encrypted.
+[1985]                // TODO (priority 4) - This level of security is not good enough as the race is stored un-encrypted.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\SERVERSTATE\ORDERREADER.CS
-[102]                // TODO (priority 4) - check we are on the right turn before processing, and perhaps flag when we have processed the orders
-[103]                // TODO (priority 4) fine tune so the client can't modify things like a star's position, i.e. treat the data as orders only.
+[124]                // TODO (priority 4) - check we are on the right turn before processing, and perhaps flag when we have processed the orders
+[125]                // TODO (priority 4) fine tune so the client can't modify things like a star's position, i.e. treat the data as orders only.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\SERVERSTATE\SERVERSTATE.CS
-[136]                // TODO (priority 4) add the nicities. Update the game files location.
+[158]                // TODO (priority 4) add the nicities. Update the game files location.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\AI\NOVAAI.CS
 [28]// TODO (priority 3) - suggest placing wrappers around OrderWriter.WriteOrders and GuiState.Initialize 
@@ -217,6 +221,9 @@
 [272]        /// TODO (priority 3) - A starbase is not counted towards repairs if it is under attack. 
 [287]            // repair, TODO (priority 3) skip if fleet has no damage, if that is more efficient 
 
+---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\PROGRAM.CS
+[25]// FIXME (priority 3) - this class is empty.
+
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\CONTROLS\STARMAP.CS
 [85]            // FIXME (priority 3) - added a factor of two because some stars were beyond the viewable area. 
 [819]        /// FIXME (priority 3) - this class shouldn't be hidden inside this module.
@@ -226,20 +233,20 @@
 [568]        /// FIXME (priority 3) - Dan - What if I want to build a small base first, then add a larger base latter. I can queue two different base designs in Stars! 
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\DIALOGS\SHIPDESIGNDIALOG.CS
-[828]             * user. TODO (priority 3).
-[1011]        // ??? (priority 3) We don't seem to have a ShipDesign at this stage, just a Hull component
+[851]             * user. TODO (priority 3).
+[1045]        /// ??? (priority 3) We don't seem to have a ShipDesign at this stage, just a Hull component
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\NEWGAME\NEWGAMEWIZARD.CS
-[100]          //  TODO (priority 3): Load or create the tutorial client data.
+[122]            //  TODO (priority 3): Load or create the tutorial client data.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\RACEDESIGNER\RACEDESIGNER.CS
-[185]          // TODO (priority 3) - put all these literal values somewhere sensible (EnvironmentTolerance object?)
+[205]            // TODO (priority 3) - put all these literal values somewhere sensible (EnvironmentTolerance object?)
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\SERVERSTATE\ORDERREADER.CS
-[44]                // TODO (priority 3) only load those that are not yet turned in.
+[64]                // TODO (priority 3) only load those that are not yet turned in.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\SERVERSTATE\PLAYERFUNCTIONS.CS
-[6]// TODO (priority 3) - Refactor AreEnemies to be a member of Race and remove this object.
+[27]// TODO (priority 3) - Refactor AreEnemies to be a member of Race and remove this object.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\COMPONENTEDITOR\COMPONENTEDITOR.CS
 [1828]          // TODO (priority 2) - enable all component editing fields/menu items
@@ -256,6 +263,9 @@
 [273]        /// TODO (priority 2) - reference where these rules are from.
 [357]        /// ??? (priority 2) - why does this always return false
 
+---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\UTILITIES.CS
+[38]    /// FIXME (priority 2) - doesn't save much as there is only one reference to this, for which we use a whole code file! 
+
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\CLIENTSTATE\CLIENTSTATE.CS
 [541]                    // TODO (priority 1) - work out why it sometimes is null.
 
@@ -263,4 +273,4 @@
 [415]        /// TODO (priority 1) - if a cell is cleared change it back to the empty module color.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\TRUNK\GUI\DIALOGS\SHIPDESIGNDIALOG.CS
-[1056]                // TODO (priority 1) - work out why it sometimes is null.
+[1093]                // TODO (priority 1) - work out why it sometimes is null.

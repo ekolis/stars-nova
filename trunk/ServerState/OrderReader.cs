@@ -154,7 +154,7 @@ namespace NovaServer
             }
             catch (Exception e)
             {
-                Report.Error(Environment.NewLine + "There was a problem processing the orders for " + race.Name + Environment.NewLine + "Details: " + e.Message);
+                Report.FatalError(Environment.NewLine + "There was a problem processing the orders for " + race.Name + Environment.NewLine + "Details: " + e.Message);
             }
         }
 
@@ -201,7 +201,8 @@ namespace NovaServer
                     ShipDesign ship = design as ShipDesign;
                     foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)
                     {
-                        module.AllocatedComponent = AllComponents.Data.Components[module.AllocatedComponent.Name] as Component;
+                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null) 
+                            module.AllocatedComponent = AllComponents.Data.Components[module.AllocatedComponent.Name] as Component;
                     }
                 }
             }
