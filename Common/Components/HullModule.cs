@@ -164,10 +164,21 @@ namespace NovaCommon
             xmlelModule.AppendChild(xmlelCellNumber);
 
             // ComponentCount
-            XmlElement xmlelComponentCount = xmldoc.CreateElement("ComponentCount");
-            XmlText xmltxtComponentCount = xmldoc.CreateTextNode(this.ComponentCount.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            xmlelComponentCount.AppendChild(xmltxtComponentCount);
-            xmlelModule.AppendChild(xmlelComponentCount);
+            Global.SaveData(xmldoc, xmlelModule, "ComponentCount", ComponentCount.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            if (ComponentCount > 0)
+            {
+                // Allocated Component
+                if (AllocatedComponent != null && AllocatedComponent.Name != null)
+                {
+                    Global.SaveData(xmldoc, xmlelModule, "AllocatedComponent", AllocatedComponent.Name);
+
+                }
+                else
+                {
+                    Report.Error("Error saving hull module: data is inconsistent.");
+                    throw new SerializationException("Error saving hull module: data is inconsistent.");
+                }
+            }
 
             // ComponentMaximum
             XmlElement xmlelComponentMaximum = xmldoc.CreateElement("ComponentMaximum");
@@ -180,9 +191,6 @@ namespace NovaCommon
             XmlText xmltxtComponentType = xmldoc.CreateTextNode(this.ComponentType);
             xmlelComponentType.AppendChild(xmltxtComponentType);
             xmlelModule.AppendChild(xmlelComponentType);
-
-            // Allocated Component
-            if (AllocatedComponent != null && AllocatedComponent.Name != null) Global.SaveData(xmldoc, xmlelModule, "AllocatedComponent", AllocatedComponent.Name);
 
             return xmlelModule;
         }
