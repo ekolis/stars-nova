@@ -329,6 +329,7 @@ namespace NovaConsole
             this.openGameToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openGameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openGameToolStripMenuItem.Text = "&Open Game";
+            this.openGameToolStripMenuItem.Click += new System.EventHandler(this.openGameToolStripMenuItem_Click);
             // 
             // SelectNewFolderMenuItem
             // 
@@ -901,6 +902,62 @@ namespace NovaConsole
         }
 
         #endregion
+
+        private void openGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            String NovaGuiApp;
+            NovaGuiApp = FileSearcher.GetFile(Global.NovaGuiKey, false, Global.NovaGuiPath_Development, Global.NovaGuiPath_Deployed, "Nova GUI.exe", true);
+            String IntelFile = "";
+
+            // have the user identify the game to open
+            try
+            {
+                OpenFileDialog fd = new OpenFileDialog();
+                fd.Title = "Open Game";
+                fd.FileName = "NovaServer.state";
+                DialogResult result = fd.ShowDialog();
+                if (result != DialogResult.OK)
+                {
+                    return;
+                }
+                ServerState.Data.StatePathName = fd.FileName;
+            }
+            catch
+            {
+                Report.FatalError("Unable to open a game.");
+            }
+
+            // TODO (priority 3) - This code is a repeat of what we do when the console is normally opened. Consider consolodating these sections.
+            ServerState.Data.GameFolder = System.IO.Path.GetDirectoryName(ServerState.Data.StatePathName);
+            FolderPath.Text = ServerState.Data.GameFolder;
+            ServerState.Restore();
+
+            AllComponents.Restore(); 
+
+            if (ServerState.Data.StatePathName != null && File.Exists(ServerState.Data.StatePathName))
+            {
+                // We have a known game in progress. Load it:
+                ServerState.Data.GameInProgress = true;
+                turnYearLabel.Text = ServerState.Data.TurnYear.ToString();
+                // load the game settings also
+                GameSettings.Restore();
+                GenerateTurnMenuItem.Enabled = true;
+                turnYearLabel.Text = ServerState.Data.TurnYear.ToString();
+                OrderReader.ReadOrders();
+                SetPlayerList();
+                Invalidate();
+            }
+            else
+            {
+                /// If nothing is defined then the only option is to enable the 
+                /// "New Game" button. 
+                ServerState.Data.GameInProgress = false;
+                NewGameMenuItem.Enabled = true;
+                turnYearLabel.Text = "Create a new game.";
+            }
+
+
+        }
 
     }
 
