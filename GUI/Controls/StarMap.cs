@@ -43,21 +43,22 @@ namespace Nova
 {
     public partial class StarMap : UserControl
     {
-        #region VS-Generated Variables
+        public static int BorderBuffer = 35;
+        #region Variables
         private Bitmap CursorBitmap = null;
         private Intel TurnData = null;
         private ClientState StateData = null;
         private Point CursorPosition = new Point(0, 0);
-        private Point Extent = new Point(0, 0);
+        private Point Extent = new Point(0, 0);   // Point representing the current amount of map to show
         private Point LastClick = new Point(0, 0);
-        private Point Logical = new Point(0, 0);
+        private Point Logical = new Point(0, 0); // Point representing the full size of the map.
         private Point Origin = new Point(0, 0);
         private Graphics graphics = null;
         private bool IsInitialised = false;
         private bool DisplayStarNames = true;
-        private int Hscroll = 0;
-        private int Vscroll = 0;
-        private int ZoomFactor = 1;
+        private int Hscroll = 10;
+        private int Vscroll = 10;
+        private double ZoomFactor = 1;
         private int Selection = 0;
         private Hashtable VisibleFleets = new Hashtable();
         private Hashtable VisibleMinefields = new Hashtable();
@@ -86,10 +87,10 @@ namespace Nova
             // Need to do more work on the scroll/zoom functions. 
             // Would like to be able to zoom out enough to always ensure we can see 
             // all the stars (zoom factor < 1).
-            Extent.X = GameSettings.Data.MapWidth * 2;
-            Extent.Y = GameSettings.Data.MapHeight * 2;
-            Logical.X = GameSettings.Data.MapWidth * 2;
-            Logical.Y = GameSettings.Data.MapHeight * 2;
+            Extent.X  = (int) (GameSettings.Data.MapWidth  * 1.2);
+            Extent.Y  = (int) (GameSettings.Data.MapHeight * 1.2);
+            Logical.X = (int) (GameSettings.Data.MapWidth  * 1.2);
+            Logical.Y = (int) (GameSettings.Data.MapHeight * 1.2);
 
             CursorBitmap = Nova.Resources.Cursor;
             CursorBitmap.MakeTransparent(Color.Black);
@@ -639,8 +640,8 @@ namespace Nova
         {
             Point result = new Point();
 
-            result.X = ((p.X - Origin.X) * MapPanel.Size.Width) / Extent.X;
-            result.Y = ((p.Y - Origin.Y) * MapPanel.Size.Height) / Extent.Y;
+            result.X = ((p.X - Origin.X) * MapPanel.Size.Width) / Extent.X + BorderBuffer;
+            result.Y = ((p.Y - Origin.Y) * MapPanel.Size.Height) / Extent.Y + BorderBuffer;
 
             return result;
         }
@@ -648,7 +649,7 @@ namespace Nova
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Convert logical coordinates to device coordinates.
+        /// Convert logical coordinates to device coordinates, ignoring offset.
         /// </summary>
         /// <param name="p">The point to convert.</param>
         /// <returns>The converted point.</returns>
@@ -675,8 +676,8 @@ namespace Nova
         {
             Point result = new Point();
 
-            result.X = Origin.X + ((Extent.X * p.X) / MapPanel.Size.Width);
-            result.Y = Origin.Y + ((Extent.Y * p.Y) / MapPanel.Size.Height);
+            result.X = Origin.X + ((Extent.X * p.X) / MapPanel.Size.Width) - BorderBuffer;
+            result.Y = Origin.Y + ((Extent.Y * p.Y) / MapPanel.Size.Height) - BorderBuffer;
 
             return result;
         }
@@ -694,8 +695,8 @@ namespace Nova
         /// ----------------------------------------------------------------------------
         public void ZoomInClick(object sender, System.EventArgs e)
         {
-            ZoomFactor *= 2;
-            if (ZoomFactor == 2)
+            ZoomFactor *= 1.5;
+            if (ZoomFactor > 1.2)
             {
                 HScrollBar.Enabled = true;
                 VScrollBar.Enabled = true;
@@ -715,13 +716,13 @@ namespace Nova
         /// ----------------------------------------------------------------------------
         public void ZoomOutClick(object sender, System.EventArgs e)
         {
-            if (ZoomFactor == 1)
+            if (ZoomFactor < 0.01)
             {
                 return;
             }
 
-            ZoomFactor /= 2;
-            if (ZoomFactor == 1)
+            ZoomFactor /= 1.5;
+            if (ZoomFactor <= 1.2)
             {
                 HScrollBar.Enabled = false;
                 VScrollBar.Enabled = false;
@@ -739,8 +740,8 @@ namespace Nova
         /// ----------------------------------------------------------------------------
         private void SetZoom()
         {
-            Extent.X = Logical.X / ZoomFactor;
-            Extent.Y = Logical.Y / ZoomFactor;
+            Extent.X = (int) (Logical.X / ZoomFactor);
+            Extent.Y = (int) (Logical.Y / ZoomFactor);
 
             MapHorizontalScroll(Hscroll);
             MapVerticalScroll(Vscroll);
