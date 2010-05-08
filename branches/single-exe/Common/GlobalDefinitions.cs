@@ -49,11 +49,6 @@ namespace NovaCommon
 
        #region Nova Resources
 
-       // These registry keys are used to locate the various application files that form Nova
-       #region Application Files
-       public const string NovaAiKey = "NovaAi";              // where the Nova_AI application is installed
-       #endregion Application Files
-
        // These registry keys are used to loacte files and folders where Nova stores game data.
        #region Files and Folders
        public const string RootRegistryKey = "Software\\Ken Reed\\Nova"; // where the keys are
@@ -72,14 +67,6 @@ namespace NovaCommon
        public const string ServerFolderName = "GameFiles";
        public const string RaceFolderName = "GameFiles/Races";
        #endregion Default Folders
-
-       // paths, relative to the 'current' application (it doesn't actully matter which application that is, due to the way the nova directory is structured)
-       // note these are only likely to be valid when the application launches, as any file/folder browser dialog will change the current working directory
-       // hence the reason we call FileSearcher.GetKeys() at application launch.
-       #region Search Paths
-       public const string NovaAiPath_Development = "../../../AI/bin/Debug";
-       public const string NovaAiPath_Deployed = "../AI";
-       #endregion Search Paths
 
        #endregion Nova Resources
 

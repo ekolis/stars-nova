@@ -86,7 +86,6 @@ namespace NovaCommon
         /// </summary>
         public static void SetKeys()
         {
-            GetFile(Global.NovaAiKey, false, Global.NovaAiPath_Development, Global.NovaAiPath_Deployed, "Nova_AI.exe", true);
             GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
             GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
         }
