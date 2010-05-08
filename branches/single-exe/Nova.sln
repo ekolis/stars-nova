@@ -10,8 +10,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Graphics", "Graphics\Graphics.csproj", "{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AI", "AI\AI.csproj", "{8AAA8913-8678-4B69-83A2-1C8A7429411F}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerState", "ServerState\ServerState.csproj", "{057D68CC-97A3-4296-A66B-1D3A5C00134E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientState", "ClientState\ClientState.csproj", "{F497309F-FC52-4431-962B-F6B813010080}"
@@ -42,10 +40,6 @@ Global
 		{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8AAA8913-8678-4B69-83A2-1C8A7429411F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8AAA8913-8678-4B69-83A2-1C8A7429411F}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8AAA8913-8678-4B69-83A2-1C8A7429411F}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8AAA8913-8678-4B69-83A2-1C8A7429411F}.Release|Any CPU.Build.0 = Release|Any CPU
 		{057D68CC-97A3-4296-A66B-1D3A5C00134E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{057D68CC-97A3-4296-A66B-1D3A5C00134E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{057D68CC-97A3-4296-A66B-1D3A5C00134E}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -66,5 +60,4 @@ Global
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
-
 EndGlobal

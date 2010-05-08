@@ -37,6 +37,7 @@ using Nova.Gui;
 using NovaCommon;
 using NovaServer;
 using Nova.NewGame;
+using Nova.AI;
 
 namespace Nova.Console
 {
@@ -829,30 +830,15 @@ namespace Nova.Console
                     RaceData raceData = ServerState.Data.AllRaceData[settings.RaceName] as RaceData;
                     if (raceData == null || raceData.TurnYear != ServerState.Data.TurnYear)
                     {
-                        String AiProgram;
-
-                        if (settings.AiProgram == "Default AI")
-                        {
-                            // run the default AI
-                            AiProgram = FileSearcher.GetFile(Global.NovaAiKey, false, Global.NovaAiPath_Development, Global.NovaAiPath_Deployed, "Nova_AI.exe", true);
-                        }
-                        else
-                        {
-                            // use a custom AI
-                            AiProgram = settings.AiProgram;
-                        }
                         CommandArguments args = new CommandArguments();
                         args.Add(CommandArguments.Option.RaceName, settings.RaceName);
                         args.Add(CommandArguments.Option.Turn, ServerState.Data.TurnYear);
                         args.Add(CommandArguments.Option.IntelFileName, Path.Combine(ServerState.Data.GameFolder, settings.RaceName + ".intel"));
-                        try
-                        {
-                            Process.Start(AiProgram, args.ToString());
-                        }
-                        catch
-                        {
-                            Report.Error("Failed to launch Nova AI.");
-                        }
+
+                        // TODO: Add possibility to run custom AIs based on settings.AiProgram.
+                        DummyAi ai = new DummyAi();
+                        ai.Run(args);
+
                         // FIXME (priority 3) - can not process any more than one AI at a time. 
                         // It will crash if multiple AI's try to access the same files at the same time. 
                         return;

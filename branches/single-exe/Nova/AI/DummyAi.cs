@@ -40,24 +40,20 @@ using System.Text;
 using NovaCommon;
 using NovaClient;
 
-namespace Nova_AI
+namespace Nova.AI
 {
-    class Program
+    public class DummyAi
     {
-        static void Main(string[] args)
+        public void Run(CommandArguments commandArguments)
         {
             String RaceName = null;
             int TurnNumber = -1;
-
-            // ensure registry keys are initialised
-            FileSearcher.SetKeys();
             
             // read paramaters for race and turn to play
-            CommandArguments commandArguments = new CommandArguments(args);
-            Console.WriteLine("Nova AI");
+            System.Console.WriteLine("Nova AI");
             if (commandArguments.Count < 2)
             {
-                Console.WriteLine("Usage: Nova_AI <race_name> <turn_number>");
+                System.Console.WriteLine("Usage: Nova_AI <race_name> <turn_number>");
                 return;
             }
 
@@ -65,7 +61,7 @@ namespace Nova_AI
             TurnNumber = int.Parse(commandArguments[CommandArguments.Option.Turn], System.Globalization.CultureInfo.InvariantCulture);
 
             // read in race data
-            Console.WriteLine("Playing turn {0} for race \"{1}\".", TurnNumber, RaceName);
+            System.Console.WriteLine("Playing turn {0} for race \"{1}\".", TurnNumber, RaceName);
             try
             {
                 // TODO (priority 4) - bypass password entry for AI.
@@ -74,12 +70,12 @@ namespace Nova_AI
             }
             catch
             {
-                Console.WriteLine("Nova_AI encountered an error reading its intel.");
+                System.Console.WriteLine("Nova_AI encountered an error reading its intel.");
                 return;
             }
 
             // play turn
-              // currently does nothing: This is where the AI propper should do its work.
+            // currently does nothing: This is where the AI propper should do its work.
 
             // save turn
             try
@@ -88,7 +84,7 @@ namespace Nova_AI
             }
             catch
             {
-                Console.WriteLine("Nova_AI encountered an error writing its orders.");
+                System.Console.WriteLine("Nova_AI encountered an error writing its orders.");
             }
 
             return;
