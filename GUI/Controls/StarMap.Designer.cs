@@ -61,8 +61,7 @@ namespace Nova
       private void InitializeComponent()
       {
           this.components = new System.ComponentModel.Container();
-          //this.MapPanel = new System.Windows.Forms.Panel();
-          this.MapPanel = new MyPanel();
+          this.MapPanel = new Nova.MyPanel();
           this.VScrollBar = new System.Windows.Forms.VScrollBar();
           this.HScrollBar = new System.Windows.Forms.HScrollBar();
           this.ZoomIn = new System.Windows.Forms.Button();
@@ -85,31 +84,31 @@ namespace Nova
           this.MapPanel.TabIndex = 6;
           this.MapPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
           this.MapPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StarMapMouse);
-
-        
           // 
           // VScrollBar
           // 
           this.VScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                       | System.Windows.Forms.AnchorStyles.Right)));
-          this.VScrollBar.Enabled = false; //added true replaced false
+          this.VScrollBar.Enabled = false;
           this.VScrollBar.LargeChange = 1;
           this.VScrollBar.Location = new System.Drawing.Point(537, 32);
           this.VScrollBar.Name = "VScrollBar";
           this.VScrollBar.Size = new System.Drawing.Size(16, 611);
           this.VScrollBar.TabIndex = 5;
+          this.VScrollBar.Value = 50;
           this.VScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.MapScrollV);
           // 
           // HScrollBar
           // 
           this.HScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
-          this.HScrollBar.Enabled = false;//added true replaced false
+          this.HScrollBar.Enabled = false;
           this.HScrollBar.LargeChange = 1;
           this.HScrollBar.Location = new System.Drawing.Point(3, 652);
           this.HScrollBar.Name = "HScrollBar";
           this.HScrollBar.Size = new System.Drawing.Size(533, 16);
           this.HScrollBar.TabIndex = 3;
+          this.HScrollBar.Value = 50;
           this.HScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.MapScrollH);
           // 
           // ZoomIn
@@ -117,7 +116,6 @@ namespace Nova
           this.ZoomIn.FlatStyle = System.Windows.Forms.FlatStyle.System;
           this.ZoomIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
           this.ZoomIn.Location = new System.Drawing.Point(3, 4);
-          //this.ZoomIn.Enabled = true;//added completely 
           this.ZoomIn.Name = "ZoomIn";
           this.ZoomIn.Size = new System.Drawing.Size(32, 24);
           this.ZoomIn.TabIndex = 7;
@@ -128,11 +126,9 @@ namespace Nova
           // 
           // ZoomOut
           // 
-          //this.ZoomOut.Enabled = false;
           this.ZoomOut.FlatStyle = System.Windows.Forms.FlatStyle.System;
           this.ZoomOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
           this.ZoomOut.Location = new System.Drawing.Point(35, 4);
-          //this.ZoomOut.Enabled = true;//added completely 
           this.ZoomOut.Name = "ZoomOut";
           this.ZoomOut.Size = new System.Drawing.Size(32, 24);
           this.ZoomOut.TabIndex = 4;
@@ -160,7 +156,7 @@ namespace Nova
           // 
           this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
           this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-          this.Controls.Add(this.ToggleNames);          
+          this.Controls.Add(this.ToggleNames);
           this.Controls.Add(this.VScrollBar);
           this.Controls.Add(this.HScrollBar);
           this.Controls.Add(this.ZoomIn);
@@ -168,9 +164,7 @@ namespace Nova
           this.Controls.Add(this.MapPanel);
           this.Name = "StarMap";
           this.Size = new System.Drawing.Size(555, 670);
-          this.ResumeLayout(true);//from false
-          this.PerformLayout();
-          this.Refresh();
+          this.ResumeLayout(false);
 
       }
 

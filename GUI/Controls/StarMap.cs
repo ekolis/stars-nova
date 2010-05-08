@@ -26,6 +26,7 @@
 // ===========================================================================
 #endregion
 
+#region Using
 using System.Collections.Generic;
 using System.Collections;
 using System.ComponentModel;
@@ -38,31 +39,34 @@ using System;
 
 using NovaCommon;
 using NovaClient;
+#endregion
 
 namespace Nova
 {
     public partial class StarMap : UserControl
     {
-        public static int BorderBuffer = 35;
+        public const int BorderBuffer = 35;
+
         #region Variables
-        private Bitmap CursorBitmap = null;
-        private Intel TurnData = null;
-        private ClientState StateData = null;
-        private Point CursorPosition = new Point(0, 0);
-        private Point Extent = new Point(0, 0);   // Point representing the current amount of map to show
-        private Point LastClick = new Point(0, 0);
-        private Point Logical = new Point(0, 0); // Point representing the full size of the map.
-        private Point Origin = new Point(0, 0);
-        private Graphics graphics = null;
-        private bool IsInitialised = false;
-        private bool DisplayStarNames = true;
-        private int Hscroll = 10;
-        private int Vscroll = 10;
-        private double ZoomFactor = 1;
-        private int Selection = 0;
-        private Hashtable VisibleFleets = new Hashtable();
-        private Hashtable VisibleMinefields = new Hashtable();
-        private Font NameFont = null;
+        private Bitmap      CursorBitmap   = null;
+        private Intel       TurnData       = null;
+        private ClientState StateData      = null;
+        private Point       CursorPosition = new Point(0, 0);
+        private Point       LastClick      = new Point(0, 0);
+        private Point       Logical        = new Point(0, 0);  // Size of the logical co-ordinate system (size of the game universe).
+        private Point       Origin         = new Point(0, 0);  // Top left starting point of the displayed map within the logical map.
+        private Point       Center         = new Point(0, 0);  // Focal point of the displayed map.
+        private Point       Extent         = new Point(0, 0);  // Extent of the currently displayed map, from Origin.
+        private double      ZoomFactor     = 0.8;              // Is used to adjust the Extent of the map.
+        private Graphics    graphics       = null;
+        private bool        IsInitialised  = false;
+        private bool        DisplayStarNames = true;
+        private int         Hscroll        = 50; // 0 to 100, used to position the Center, initially centered
+        private int         Vscroll        = 50; // 0 to 100, used to position the Center, initially centered
+        private int         Selection      = 0;
+        private Hashtable   VisibleFleets  = new Hashtable();
+        private Hashtable   VisibleMinefields = new Hashtable();
+        private Font        NameFont = null;
         System.Drawing.BufferedGraphicsContext bg_ctxt = null;
         #endregion
 
@@ -83,14 +87,12 @@ namespace Nova
 
             InitializeComponent();
 
-            // FIXME (priority 3) - added a factor of two because some stars were beyond the viewable area. 
-            // Need to do more work on the scroll/zoom functions. 
-            // Would like to be able to zoom out enough to always ensure we can see 
-            // all the stars (zoom factor < 1).
-            Extent.X  = (int) (GameSettings.Data.MapWidth  * 1.2);
-            Extent.Y  = (int) (GameSettings.Data.MapHeight * 1.2);
-            Logical.X = (int) (GameSettings.Data.MapWidth  * 1.2);
-            Logical.Y = (int) (GameSettings.Data.MapHeight * 1.2);
+            // Initial map size
+            Logical.X = (int)(GameSettings.Data.MapWidth);
+            Logical.Y = (int)(GameSettings.Data.MapHeight);
+
+            Extent.X = (int) (Logical.X * ZoomFactor);
+            Extent.Y = (int) (Logical.Y * ZoomFactor);
 
             CursorBitmap = Nova.Resources.Cursor;
             CursorBitmap.MakeTransparent(Color.Black);
@@ -101,9 +103,10 @@ namespace Nova
             MapPanel.BackgroundImage = Nova.Resources.Plasma;
             MapPanel.BackgroundImageLayout = ImageLayout.Stretch;
 
-            //SetStyle(ControlStyles.UserPaint, true);
-            //SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            //UpdateStyles();         
+            SetStyle(ControlStyles.UserPaint, true);
+            SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            UpdateStyles();  
+
         }
 
 
@@ -118,15 +121,26 @@ namespace Nova
             TurnData = StateData.InputTurn;
             IsInitialised = true;
             /*string sv = this.ZoomIn.Visible.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            string se = this.ZoomIn.Enabled.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            string se = this.ZoomIn.Enabled.ToString(System.Globalization.CultureInfo.InvariantCulture);*/
+
+            HScrollBar.Enabled = true;
+            VScrollBar.Enabled = true;
+
             ZoomIn.Enabled = true;
             ZoomIn.Visible = true;
             ZoomIn.Invalidate();
-            ZoomIn.Refresh();*/
-
+            ZoomIn.Refresh();
 
             DetermineVisibleFleets();
             DetermineVisibleMinefields();
+
+            // center the view
+            Hscroll = 50;
+            Vscroll = 50;
+            Center.X = Logical.X / 2;
+            Center.Y = Logical.Y / 2;
+            ZoomFactor = 0.8; // ensure the whole map can be seen.
+            SetZoom();
         }
 
         #endregion
@@ -284,16 +298,24 @@ namespace Nova
             position.X -= (CursorBitmap.Width / 2) + 1;
             position.Y += 2;
             graphics.DrawImage(CursorBitmap, position);
-            //quick font
+
+            // (7) Zoom/Scroll/Cursor info for debugging.
+#if (DEBUG)
             Font F = new Font(ZoomIn.Font.Name, ZoomIn.Font.Size, ZoomIn.Font.Style, ZoomIn.Font.Unit);
 
-            string s = position.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            string s = "Cursor Location (logical): " + position.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
             Color coordColour = Color.FromArgb(255, 255, 255, 0);
             SolidBrush coordBrush = new SolidBrush(coordColour);
             graphics.DrawString(s, F, coordBrush, 0, 0);
-            string s2 = CursorPosition.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + CursorPosition.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            string s2 = "Cursor Location (device): " + CursorPosition.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + CursorPosition.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
             graphics.DrawString(s2, F, coordBrush, 0, 20);
-
+            string zoomDebugMsg = "Zoom Facor: " + ZoomFactor.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            graphics.DrawString(zoomDebugMsg, F, coordBrush, 0, 40);
+            string HScrollDebugMsg = "Hscroll: " + Hscroll.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            graphics.DrawString(HScrollDebugMsg, F, coordBrush, 0, 60);
+            string VScrollDebugMsg = "Vscroll: " + Vscroll.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            graphics.DrawString(VScrollDebugMsg, F, coordBrush, 0, 80);
+#endif
 
             bg.Render();
         }
@@ -640,8 +662,8 @@ namespace Nova
         {
             Point result = new Point();
 
-            result.X = ((p.X - Origin.X) * MapPanel.Size.Width) / Extent.X + BorderBuffer;
-            result.Y = ((p.Y - Origin.Y) * MapPanel.Size.Height) / Extent.Y + BorderBuffer;
+            result.X = ( (p.X - Origin.X) * MapPanel.Size.Width / Extent.X);
+            result.Y = ( (p.Y - Origin.Y) * MapPanel.Size.Height / Extent.Y);
 
             return result;
         }
@@ -649,7 +671,7 @@ namespace Nova
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Convert logical coordinates to device coordinates, ignoring offset.
+        /// Convert logical coordinates to device coordinates by scaling only (all offsets are ignored).
         /// </summary>
         /// <param name="p">The point to convert.</param>
         /// <returns>The converted point.</returns>
@@ -658,8 +680,8 @@ namespace Nova
         {
             Point result = new Point();
 
-            result.X = (p.X * MapPanel.Size.Width) / Extent.X;
-            result.Y = (p.Y * MapPanel.Size.Height) / Extent.Y;
+            result.X = (p.X * MapPanel.Size.Width) / Extent.X /* + BorderBuffer */;
+            result.Y = (p.Y * MapPanel.Size.Height) / Extent.Y /* + BorderBuffer */;
 
             return result;
         }
@@ -676,8 +698,8 @@ namespace Nova
         {
             Point result = new Point();
 
-            result.X = Origin.X + ((Extent.X * p.X) / MapPanel.Size.Width) - BorderBuffer;
-            result.Y = Origin.Y + ((Extent.Y * p.Y) / MapPanel.Size.Height) - BorderBuffer;
+            result.X = ((p.X/* - BorderBuffer*/) * Extent.X / MapPanel.Size.Width) + Origin.X;
+            result.Y = ((p.Y/* - BorderBuffer*/) * Extent.Y / MapPanel.Size.Height) + Origin.Y;
 
             return result;
         }
@@ -695,14 +717,8 @@ namespace Nova
         /// ----------------------------------------------------------------------------
         public void ZoomInClick(object sender, System.EventArgs e)
         {
-            ZoomFactor *= 1.5;
-            if (ZoomFactor > 1.2)
-            {
-                HScrollBar.Enabled = true;
-                VScrollBar.Enabled = true;
-                ZoomOut.Enabled = true;
-            }
-
+            ZoomFactor *= 1.6;
+            ZoomOut.Enabled = true;
             SetZoom();
         }
 
@@ -716,16 +732,10 @@ namespace Nova
         /// ----------------------------------------------------------------------------
         public void ZoomOutClick(object sender, System.EventArgs e)
         {
-            if (ZoomFactor < 0.01)
+            ZoomFactor /= 1.6;
+            if (ZoomFactor < 0.5)
             {
-                return;
-            }
-
-            ZoomFactor /= 1.5;
-            if (ZoomFactor <= 1.2)
-            {
-                HScrollBar.Enabled = false;
-                VScrollBar.Enabled = false;
+                ZoomFactor = 0.5;
                 ZoomOut.Enabled = false;
             }
 
@@ -764,7 +774,7 @@ namespace Nova
         /// ----------------------------------------------------------------------------
         private void MapScrollH(object sender, ScrollEventArgs e)
         {
-            MapHorizontalScroll(e.NewValue * 3);
+            MapHorizontalScroll(e.NewValue);
         }
 
 
@@ -777,7 +787,7 @@ namespace Nova
         /// ----------------------------------------------------------------------------
         private void MapScrollV(object sender, ScrollEventArgs e)
         {
-            MapVerticalScroll(e.NewValue * 3);
+            MapVerticalScroll(e.NewValue);
         }
 
 
@@ -790,7 +800,10 @@ namespace Nova
         private void MapHorizontalScroll(int value)
         {
             Hscroll = value;
-            Origin.X = ((Logical.X - Extent.X) * Hscroll) / 100;
+
+            Center.X = Logical.X * Hscroll / 100;
+            Origin.X = Center.X - (Extent.X / 2);
+            
             MapPanel.Invalidate();
         }
 
@@ -804,7 +817,9 @@ namespace Nova
         private void MapVerticalScroll(int value)
         {
             Vscroll = value;
-            Origin.Y = ((Logical.Y - Extent.Y) * Vscroll) / 100;
+            Center.Y = Logical.Y * Vscroll / 100;
+            Origin.Y = Center.Y - (Extent.Y / 2);
+
             MapPanel.Invalidate();
         }
 
@@ -1010,6 +1025,8 @@ namespace Nova
 
             // Set the scroll position so that the selected position of the cursor
             // in is the centre of the screen.
+            /* removed this as I found it annoying - Dan 08 may 10. Would be Ok if it only moved when the selected object was out of view.
+            // FIXME (priority 2) - The scroll bar position indicator doesn't move.
 
             float fractionX = position.X;
             float fractionY = position.Y;
@@ -1019,7 +1036,11 @@ namespace Nova
 
             Hscroll = (int)(fractionX * 100.0);
             Vscroll = (int)(fractionY * 100.0);
-
+            MapPanel.VerticalScroll.Value = Hscroll;
+            MapPanel.HorizontalScroll.Value = Vscroll;
+            
+            SetZoom();
+            */
             MapPanel.Invalidate();
         }
 
