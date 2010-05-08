@@ -3,43 +3,47 @@
   <Race>
     <GravityTolerance>
       <EnvironmentTolerance>
-        <Min>1.5</Min>
-        <Max>8.5</Max>
+        <Min>3.2</Min>
+        <Max>6.8</Max>
       </EnvironmentTolerance>
     </GravityTolerance>
     <RadiationTolerance>
       <EnvironmentTolerance>
-        <Min>15</Min>
-        <Max>85</Max>
+        <Min>32</Min>
+        <Max>68</Max>
       </EnvironmentTolerance>
     </RadiationTolerance>
     <TemperatureTolerance>
       <EnvironmentTolerance>
-        <Min>-140</Min>
-        <Max>140</Max>
+        <Min>-68</Min>
+        <Max>68</Max>
       </EnvironmentTolerance>
     </TemperatureTolerance>
     <Tech>
-      <Biotechnology>100</Biotechnology>
-      <Electronics>100</Electronics>
-      <Energy>100</Energy>
-      <Propulsion>100</Propulsion>
-      <Weapons>100</Weapons>
+      <Biotechnology>150</Biotechnology>
+      <Electronics>150</Electronics>
+      <Energy>150</Energy>
+      <Propulsion>150</Propulsion>
+      <Weapons>50</Weapons>
       <Construction>100</Construction>
     </Tech>
     <PRT>JOAT</PRT>
-    <MineBuildCost>5</MineBuildCost>
+    <LRT>CF</LRT>
+    <LRT>IFE</LRT>
+    <LRT>RS</LRT>
+    <LRT>ISB</LRT>
+    <MineBuildCost>3</MineBuildCost>
     <PluralName>Googlies</PluralName>
     <Name>Googly</Name>
     <Password>B2F5FF47436671B6E533D8DC3614845D</Password>
     <RaceIconName>00.jpg</RaceIconName>
-    <FactoryBuildCost>10</FactoryBuildCost>
+    <FactoryBuildCost>9</FactoryBuildCost>
     <ColonistsPerResource>1000</ColonistsPerResource>
-    <FactoryProduction>10</FactoryProduction>
-    <OperableFactories>10</OperableFactories>
-    <MineProductionRate>10</MineProductionRate>
-    <OperableMines>10</OperableMines>
+    <FactoryProduction>12</FactoryProduction>
+    <OperableFactories>15</OperableFactories>
+    <MineProductionRate>12</MineProductionRate>
+    <OperableMines>14</OperableMines>
     <MaxPopulation>1000000</MaxPopulation>
-    <GrowthRate>15</GrowthRate>
+    <GrowthRate>19</GrowthRate>
   </Race>
 </ROOT>
