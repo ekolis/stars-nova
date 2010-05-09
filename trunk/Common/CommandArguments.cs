@@ -92,7 +92,7 @@ namespace NovaCommon
         }
 
         /// <summary>
-        /// WARNING : not implemented, will throw exception
+        /// Add an option without a value.
         /// </summary>
         /// <param name="argument"></param>
         public void Add(string argument)
