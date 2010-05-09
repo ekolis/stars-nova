@@ -21,7 +21,7 @@
 
 #region Module Description
 // ===========================================================================
-// Version information for the Nova Console
+// Global version information
 // ===========================================================================
 #endregion
 
@@ -42,9 +42,10 @@ using System.Security.Permissions;
 [assembly: AssemblyConfiguration( "Retail" )]
 #endif
 
-[assembly: AssemblyCompany( "Nova" )]
-[assembly: AssemblyCopyright( "Copyright © Nova 2010" )]
-[assembly: AssemblyTrademark( "TODO" )]
+[assembly: AssemblyProduct( "Stars! Nova" )]
+[assembly: AssemblyCompany( "The Stars-Nova Project" )]
+[assembly: AssemblyCopyright( "Copyright © 2009, 2010 The Stars-Nova Project" )]
+//[assembly: AssemblyTrademark( "TODO" )]
 [assembly: AssemblyCulture( "" )]
 
 // Version information for an assembly consists of the following four values:
