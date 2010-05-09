@@ -36,7 +36,7 @@ using System.Text;
 using System.Windows.Forms;
 using NovaCommon;
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
     // ============================================================================
     // Dialog for viewing battle progress and outcome.

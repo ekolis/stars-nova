@@ -46,7 +46,7 @@ using System.Web.Security;
 using System.Windows.Forms;
 #endregion
 
-namespace RaceDesigner
+namespace Nova.WinForms.RaceDesigner
 {
 
     /// <summary>

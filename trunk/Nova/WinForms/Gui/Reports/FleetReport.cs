@@ -39,7 +39,7 @@ using NovaCommon;
 using NovaClient;
 
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
     /// <summary>
     /// Fleet summary report dialog class

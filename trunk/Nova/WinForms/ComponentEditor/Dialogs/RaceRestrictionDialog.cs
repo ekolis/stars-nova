@@ -39,7 +39,7 @@ using System.Windows.Forms;
 using NovaCommon;
 #endregion
 
-namespace ComponentEditor
+namespace Nova.WinForms.ComponentEditor
 {
     public partial class RaceRestrictionDialog : Form
     {

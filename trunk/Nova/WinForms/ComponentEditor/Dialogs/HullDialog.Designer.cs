@@ -9,7 +9,7 @@
 // Software Foundation.
 // ============================================================================
 
-namespace ComponentEditor
+namespace Nova.WinForms.ComponentEditor
 {
    partial class HullDialog
    {

@@ -79,7 +79,7 @@ using System.Data;
 using System.Text;
 #endregion
 
-namespace ComponentEditor
+namespace Nova.WinForms.ComponentEditor
 {
    public partial class ComponentEditorWindow : Form
    {

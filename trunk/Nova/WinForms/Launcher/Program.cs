@@ -30,7 +30,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace NovaLauncher
+namespace Nova.WinForms.Launcher
 {
     static class Program
     {

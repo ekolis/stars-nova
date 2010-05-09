@@ -35,7 +35,7 @@ using System.Windows.Forms;
 using NovaCommon;
 using NovaClient;
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
     /// <summary>
     /// Production queue dialog.
@@ -373,7 +373,7 @@ namespace Nova
 
             DesignList.EndUpdate();
 
-            Nova.QueueList.Populate(this.QueueList, QueueStar.ManufacturingQueue);
+            Gui.QueueList.Populate(this.QueueList, QueueStar.ManufacturingQueue);
             UpdateProductionCost();
         }
 

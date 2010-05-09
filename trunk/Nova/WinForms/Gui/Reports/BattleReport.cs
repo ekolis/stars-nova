@@ -39,7 +39,7 @@ using NovaCommon;
 using NovaClient;
 
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
     /// <summary>
     /// Battle report dialog class

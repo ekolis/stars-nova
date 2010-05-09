@@ -1,4 +1,4 @@
-namespace Nova.Controls
+namespace Nova.WinForms.Gui
 {
    partial class SelectionDetail
    {

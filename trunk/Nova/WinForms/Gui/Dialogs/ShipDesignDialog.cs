@@ -36,7 +36,7 @@ using ControlLibrary;
 using NovaClient;
 
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
 
     /// <summary>

@@ -34,7 +34,7 @@ using System.Collections.Generic;
 
 using NovaCommon;
 
-namespace NewGame
+namespace Nova.WinForms.NewGame
 {
     /// <summary>
     /// This class is used to generate stars map.

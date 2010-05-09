@@ -34,7 +34,7 @@ using System.Windows.Forms;
 using System.Reflection;
 
 
-namespace NovaConsole
+namespace Nova.WinForms.Console
 {
     /// <summary>
     /// This module displays an about box.

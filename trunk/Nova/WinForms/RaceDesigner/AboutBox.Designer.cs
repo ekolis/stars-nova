@@ -1,4 +1,4 @@
-namespace RaceDesigner
+namespace Nova.WinForms.RaceDesigner
 {
    partial class AboutBox
    {

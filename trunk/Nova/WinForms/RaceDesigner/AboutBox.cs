@@ -35,7 +35,7 @@ using System.Windows.Forms;
 using System.Reflection;
 #endregion
 
-namespace RaceDesigner
+namespace Nova.WinForms.RaceDesigner
 {
     /// <summary>
     /// An About dialog.

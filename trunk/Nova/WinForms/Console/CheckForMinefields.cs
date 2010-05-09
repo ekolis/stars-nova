@@ -36,7 +36,7 @@ using System.Text;
 using NovaCommon;
 using NovaServer;
 
-namespace NovaConsole
+namespace Nova.WinForms.Console
 {
     /// <summary>
     /// Handle fleets hitting minefields.

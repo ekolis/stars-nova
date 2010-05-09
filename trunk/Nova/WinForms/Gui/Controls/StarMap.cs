@@ -41,7 +41,7 @@ using NovaCommon;
 using NovaClient;
 #endregion
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
     public partial class StarMap : UserControl
     {

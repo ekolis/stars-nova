@@ -31,7 +31,7 @@ using System.Collections.Generic;
 using System.Windows.Forms;
 using NovaCommon;
 
-namespace ComponentEditor
+namespace Nova.WinForms.ComponentEditor
 {
    static class Program
    {

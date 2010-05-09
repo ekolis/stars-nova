@@ -36,7 +36,7 @@ using System.Reflection;
 
 #endregion
 
-namespace ComponentEditor
+namespace Nova.WinForms.ComponentEditor
 {
     partial class AboutBox : Form
     {

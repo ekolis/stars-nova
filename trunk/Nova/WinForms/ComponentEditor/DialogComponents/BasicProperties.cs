@@ -35,7 +35,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ComponentEditor
+namespace Nova.WinForms.ComponentEditor
 {
     public partial class BasicProperties : UserControl
     {

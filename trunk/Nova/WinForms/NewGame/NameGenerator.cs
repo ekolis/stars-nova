@@ -31,7 +31,7 @@
 using System;
 using System.Collections;
 
-namespace Nova.NewGame
+namespace Nova.WinForms.NewGame
 {
 
     public class NameGenerator

@@ -33,7 +33,7 @@ using System.Drawing;
 using System.Windows.Forms;
 using System.Reflection;
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
     /// <summary>
     /// The "About" dialog box.
