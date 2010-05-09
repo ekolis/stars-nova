@@ -49,16 +49,6 @@ namespace NovaCommon
 
        #region Nova Resources
 
-       // These registry keys are used to locate the various application files that form Nova
-       #region Application Files
-       public const string NovaLauncherKey = "NovaLauncher";  // where the NovaLauncher application is installed
-       public const string NewGameKey = "NewGame";            // where the NewGame application is installed
-       public const string RaceDesignerKey = "RaceDesigner";  // where the Race Designer application is installed
-       public const string NovaConsoleKey = "NovaConsole";    // where the Nova Console application is installed
-       public const string NovaGuiKey = "NovaGui";            // where the NovaLauncher application is installed
-       public const string NovaAiKey = "NovaAi";              // where the Nova_AI application is installed
-       #endregion Application Files
-
        // These registry keys are used to loacte files and folders where Nova stores game data.
        #region Files and Folders
        public const string RootRegistryKey = "Software\\Ken Reed\\Nova"; // where the keys are
@@ -83,24 +73,6 @@ namespace NovaCommon
        public const string ServerFolderName = "GameFiles";
        public const string RaceFolderName = "GameFiles/Races";
        #endregion Default Folders
-
-       // paths, relative to the 'current' application (it doesn't actully matter which application that is, due to the way the nova directory is structured)
-       // note these are only likely to be valid when the application launches, as any file/folder browser dialog will change the current working directory
-       // hence the reason we call FileSearcher.GetKeys() at application launch.
-       #region Search Paths
-       public const string NewGamePath_Development = "../../../NewGame/bin/Debug";
-       public const string NewGamePath_Deployed = "../NewGame";
-       public const string RaceDesignerPath_Development = "../../../RaceDesigner/bin/Debug";
-       public const string RaceDesignerPath_Deployed = "../RaceDesigner";
-       public const string NovaConsolePath_Development = "../../../Console/bin/Debug";
-       public const string NovaConsolePath_Deployed = "../Console";
-       public const string NovaLauncherPath_Development = "../../../NovaLauncher/bin/Debug";
-       public const string NovaLauncherPath_Deployed = "../NovaLauncher";
-       public const string NovaGuiPath_Development = "../../../GUI/bin/Debug";
-       public const string NovaGuiPath_Deployed = "../GUI";
-       public const string NovaAiPath_Development = "../../../AI/bin/Debug";
-       public const string NovaAiPath_Deployed = "../AI";
-       #endregion Search Paths
 
        #endregion Nova Resources
 

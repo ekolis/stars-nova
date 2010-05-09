@@ -890,10 +890,6 @@ namespace NovaConsole
 
         private void openGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            String NovaGuiApp;
-            NovaGuiApp = FileSearcher.GetFile(Global.NovaGuiKey, false, Global.NovaGuiPath_Development, Global.NovaGuiPath_Deployed, "Nova GUI.exe", true);
-            String IntelFile = "";
-
             // have the user identify the game to open
             try
             {
