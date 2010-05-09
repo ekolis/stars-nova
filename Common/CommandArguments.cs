@@ -31,11 +31,10 @@
 // Known Limitations:
 // (functionality not currently required by Nova)
 // * Currently only handles commandlines containing the form:
-//   [-option argument [-option argument]...]
+//   [-[-]option [argument] [-[-]option [argument]]...]
 //   where option is a single character
 //     e.g.: -r MyRace -t 2055
-// * Order of option&argument pairs is not gauranteed. You will get an option 
-//   then its argument, but the pairs may be re-arranged.
+//       or: --components
 // * Some unimplented functions will throw a System.NotImplementedException.
 // ===========================================================================
 #endregion
@@ -43,12 +42,40 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Text;
 
 namespace NovaCommon
 {
     public class CommandArguments : DictionaryBase
     {
+        private readonly List<Argument> argumentList = new List<Argument>();
+
+        private class Argument
+        {
+            public Argument(string option, string value)
+            {
+                Option = option;
+                Value = value;
+            }
+            public string Option { get; private set; }
+            public string Value { get; private set; }
+
+            public override string ToString()
+            {
+                if (string.IsNullOrEmpty(Value))
+                {
+                    return Option;
+                }
+                if (Value.IndexOf(' ') < 0)
+                {
+                    return Option + " " + Value;
+                }
+                // Only quote value if it contains space(s).
+                return Option + " \"" + Value + "\"";
+            }
+        }
+
         // 'enumerate' some common options
         public static class Option 
         {
@@ -92,12 +119,12 @@ namespace NovaCommon
         }
 
         /// <summary>
-        /// Add an option without a value.
+        /// Add an option without a value (single option flag).
         /// </summary>
         /// <param name="argument"></param>
         public void Add(string argument)
         {
-            Dictionary.Add(argument, "");
+            AddOption(argument, "");
         }
 
         /// <summary>
@@ -107,7 +134,7 @@ namespace NovaCommon
         /// <param name="argument">any string, such as a file name or race name</param>
         public void Add(string option, string argument)
         {
-            Dictionary.Add(option, "\"" + argument + "\"");
+            AddOption(option, argument);
         }
 
         /// <summary>
@@ -117,7 +144,7 @@ namespace NovaCommon
         /// <param name="argument">any integer argument, such as a turn year</param>
         public void Add(string option, int argument)
         {
-            Dictionary.Add(option, argument.ToString());
+            AddOption(option, argument.ToString());
         }
 
         /// <summary>
@@ -155,47 +182,70 @@ namespace NovaCommon
         /// <summary>
         /// Allow array type indexing to a Command Argument.
         /// </summary>
-        /// <param name="index">The option, as defined in CommandArguments.Option</param>
+        /// <param name="option">The option, as defined in CommandArguments.Option</param>
         /// <returns></returns>
-        public String this[String index]
+        public String this[String option]
         {
             get
             {
-                return Dictionary[index] as String;
+                return Dictionary[option] as String;
             }
         }
 
         /// <summary>
         /// Convert the CommandArguments to a single string as they would appear on the command line. Use for parsing the options&arguments to Process.Start()
+        /// The arguments are returned in the same order that they were added.
         /// </summary>
         /// <returns>a single string representing the option&argument pairs</returns>
         public override String ToString()
         {
-            String commandLine = "";
-            foreach (DictionaryEntry de in Dictionary)
+            StringBuilder sb = new StringBuilder();
+            int argumentCount = argumentList.Count;
+            for (int i = 0; i < argumentCount; i++)
             {
-                commandLine += " " + de.Key as String;
-                commandLine += " " + de.Value as String;
+                sb.Append(argumentList[i]);
+                if (i + 1 < argumentCount) sb.Append(' ');
             }
-            return commandLine;
+            return sb.ToString();
         }
 
         /// <summary>
         /// Convert the CommandArguments to an array of strings as they would be recieved by a main function.
+        /// The arguments are returned in the same order that they were added.
         /// </summary>
         /// <returns>an array of strings containing all the option&argument pairs</returns>
         public string[] ToArray()
         {
-            ArrayList commandLine = new ArrayList();
-            foreach (DictionaryEntry de in Dictionary)
+            List<string> commandLine = new List<string>();
+            foreach (Argument argument in argumentList)
             {
-                commandLine.Add(de.Key as String);
-                commandLine.Add(de.Value as String);
+                commandLine.Add(argument.Option);
+                commandLine.Add(argument.Value);
             }
-            return commandLine.ToArray(typeof(string)) as string[];
+            return commandLine.ToArray();
         }
 
+        protected override void OnClear()
+        {
+            // Ensure that the ordered argument list is also cleared.
+            argumentList.Clear();
+        }
 
+        protected override void OnRemoveComplete(object key, object value)
+        {
+            // Ensure that the ordered argument list is also updated.
+            string option = key as string;
+            string optionValue = value as string;
+            Argument argument = argumentList.Find(x => x.Option == option && x.Value == optionValue);
+            Trace.Assert(argument != null, "argument == null");
+            argumentList.Remove(argument);
+        }
+
+        private void AddOption(string option, string value)
+        {
+            Dictionary.Add(option, value);
+            argumentList.Add(new Argument(option, value));
+        }
 
         /// <summary>
         /// WARNING : not implemented, will throw an exception.
@@ -208,46 +258,38 @@ namespace NovaCommon
             // if this needs to be implemented, consider quoted arguments containing spaces, e.g. "Game Folder"
         }
 
-
         /// <summary>
         /// process one or more arguments passed as a string[]
         /// </summary>
         /// <param name="argument"></param>
         private void Parse(string[] args)
         {
-            for (int i = 0; i < args.Length; i++)
+            Queue<string> arguments = new Queue<string>(args);
+            while (arguments.Count > 0)
             {
-                if (args[i] == null) continue;
-                if (args[i][0] == '-')
+                string option = arguments.Dequeue();
+                if (!option.StartsWith("-")) Report.Error("Error processing argument list.");
+
+                string value;
+                if (arguments.Count > 0)
                 {
-                    // process an option
-                    if (i + 1 >= args.Length)
+                    value = arguments.Peek();
+                    if (value.StartsWith("-"))
                     {
-                        // doesn't handle multiple option groups (-vfxt) 
-                        // or long option formats --race-name
-                        Report.Error("Error processing argument list.");
-                        return;
+                        AddOption(option, "");
                     }
                     else
                     {
-                        Dictionary.Add(args[i], args[i+1]);
-                        i++;
-                        continue;
-                        
+                        arguments.Dequeue();
+                        AddOption(option, value);
                     }
-
                 }
                 else
                 {
-                    // doesn't handle single option flags or
-                    // arguments without options
-                    Report.Error("Error processing argument list.");
-                    return;
+                    AddOption(option, "");
                 }
             }
-
         }
-
 
     }
 }
