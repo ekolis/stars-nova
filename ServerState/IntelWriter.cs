@@ -112,10 +112,10 @@ namespace NovaServer
                 ServerState.Data.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
                 if (ServerState.Data.GameFolder == null)
                 {
-                    Report.Error("Intel Writer: WriteIntel() - Unable to create file \"Nova.Intel\".");
+                    Report.Error("Intel Writer: WriteIntel() - Unable to create file \"Nova.intel\".");
                     return;
                 }
-                string turnFileName = Path.Combine(ServerState.Data.GameFolder, player.RaceName + ".Intel");
+                string turnFileName = Path.Combine(ServerState.Data.GameFolder, player.RaceName + ".intel");
 
                 bool locked = false;
                 do
