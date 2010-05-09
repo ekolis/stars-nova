@@ -106,6 +106,13 @@ namespace Nova.WinForms.NewGame
             GameSettings.Data.HighestScore = HighestScore.Value;
             GameSettings.Data.TargetsToMeet = Int32.Parse(TargetsToMeet.Text, System.Globalization.CultureInfo.InvariantCulture);
             GameSettings.Data.MinimumGameTime = Int32.Parse(MinimumGameTime.Text, System.Globalization.CultureInfo.InvariantCulture);
+
+            GameSettings.Data.MapHeight = (int)mapHeight.Value;
+            GameSettings.Data.MapWidth = (int)mapWidth.Value;
+
+            GameSettings.Data.StarSeparation = (int) starSeparation.Value;
+            GameSettings.Data.StarDensity = (int) starDensity.Value;
+            GameSettings.Data.StarUniformity = (int) starUniformity.Value;
         }
 
 
@@ -122,32 +129,6 @@ namespace Nova.WinForms.NewGame
             //
             //  TODO (priority 3): Load or create the tutorial client data.
             //
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Update the MapHeight when the user changes the NumericUpDown
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
-        private void mapHeight_ValueChanged(object sender, EventArgs e)
-        {
-            GameSettings.Data.MapHeight = (int)mapHeight.Value;
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Update the MapWidth when the user changes the NumericUpDown
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
-        private void mapWidth_ValueChanged(object sender, EventArgs e)
-        {
-            GameSettings.Data.MapWidth = (int)mapWidth.Value;
         }
 
 
@@ -510,6 +491,11 @@ namespace Nova.WinForms.NewGame
         }
 
         #endregion
+
+        private void mapDensity_ValueChanged(object sender, EventArgs e)
+        {
+
+        }
 
     }//NewGameWizard
 
