@@ -82,7 +82,7 @@ namespace Nova.Server
             Orders playerOrders;
             try
             {
-                string fileName = Path.Combine(StateData.GameFolder, race.Name + ".Orders");
+                string fileName = Path.Combine(StateData.GameFolder, race.Name + ".orders");
 
                 if (File.Exists(fileName) == false)
                 {
