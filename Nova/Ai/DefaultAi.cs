@@ -40,7 +40,7 @@ using System.Text;
 using NovaCommon;
 using NovaClient;
 
-namespace Nova_AI
+namespace Nova.Ai
 {
     class Program
     {
