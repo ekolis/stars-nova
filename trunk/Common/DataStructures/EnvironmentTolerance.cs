@@ -52,9 +52,9 @@ Thanks to Bill Butler for the mathematical wizardry.
 using System;
 using System.ComponentModel;
 using System.Xml;
-using NovaCommon.Converters;
+using Nova.Common.Converters;
 
-namespace NovaCommon
+namespace Nova.Common
 {
 
     /// <summary>

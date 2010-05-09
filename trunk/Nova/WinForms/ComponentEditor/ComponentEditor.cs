@@ -67,7 +67,7 @@
 // ============================================================================
 
 #region Using Statements
-using NovaCommon;
+using Nova.Common;
 using System.Windows.Forms;
 using System;
 using System.Collections;
@@ -77,6 +77,8 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Text;
+using Nova.Common.Components;
+
 #endregion
 
 namespace Nova.WinForms.ComponentEditor
@@ -234,7 +236,7 @@ namespace Nova.WinForms.ComponentEditor
            // Tidy up the UI
            ComponentName.Text = "";
            Description.Text = "";
-           BasicProperties.Cost = new NovaCommon.Resources(0, 0, 0, 0);
+           BasicProperties.Cost = new Nova.Common.Resources(0, 0, 0, 0);
            BasicProperties.Mass = 0;
            ComponentImage.Image = null;
            TechRequirements.Value = new TechLevel(0);
@@ -816,7 +818,7 @@ namespace Nova.WinForms.ComponentEditor
 
            string selectedComponentName = ComponentList.SelectedItem as string;
 
-           NovaCommon.Component selectedComponent = AllComponents.Data.Components[selectedComponentName] as NovaCommon.Component;
+           Nova.Common.Components.Component selectedComponent = AllComponents.Data.Components[selectedComponentName] as Nova.Common.Components.Component;
 
            CommonProperties = selectedComponent;
            Restrictions = selectedComponent.Restrictions;
@@ -1187,7 +1189,7 @@ namespace Nova.WinForms.ComponentEditor
                {
                    // Blank the component information
                    PropertyTabs.TabPages.Clear();
-                   BasicProperties.Cost = new NovaCommon.Resources(0, 0, 0, 0);
+                   BasicProperties.Cost = new Nova.Common.Resources(0, 0, 0, 0);
                    BasicProperties.Mass = 0;
                    ComponentImage.Image = null;
                    ComponentName.Text = "";
@@ -1477,7 +1479,7 @@ namespace Nova.WinForms.ComponentEditor
                return;
            }
 
-           NovaCommon.Component newComponent = new NovaCommon.Component(CommonProperties);
+           Nova.Common.Components.Component newComponent = new Nova.Common.Components.Component(CommonProperties);
            newComponent.Type = ComponentType.Text;
            newComponent.Restrictions = new RaceRestriction(Restrictions);
            newComponent.ImageFile = ComponentImage.ImageFile;
@@ -1709,7 +1711,7 @@ namespace Nova.WinForms.ComponentEditor
                newComponent.Properties.Add("Weapon", weaponProperty);
            }
 
-           NovaCommon.AllComponents.Data.Components[newComponent.Name] = newComponent;
+           Nova.Common.Components.AllComponents.Data.Components[newComponent.Name] = newComponent;
 
            EditModeOff();
            FileDirty = true;
@@ -1755,7 +1757,7 @@ namespace Nova.WinForms.ComponentEditor
        {
            ComponentList.Items.Clear();
 
-           foreach (NovaCommon.Component thing in AllComponents.Data.Components.Values)
+           foreach (Nova.Common.Components.Component thing in AllComponents.Data.Components.Values)
            {
                if (thing.Type == ComponentTypeSelected)
                {
@@ -1864,7 +1866,7 @@ namespace Nova.WinForms.ComponentEditor
       private void ClearForm()
       {
           PropertyTabs.TabPages.Clear();
-          BasicProperties.Cost = new NovaCommon.Resources(0, 0, 0, 0);
+          BasicProperties.Cost = new Nova.Common.Resources(0, 0, 0, 0);
           BasicProperties.Mass = 0;
           ComponentImage.Image = null;
           ComponentName.Text = "";
@@ -1883,7 +1885,7 @@ namespace Nova.WinForms.ComponentEditor
       private void ComponentHullAffinity_PopulateList()
       {
           ComponentHullAffinity.Items.Clear();
-          foreach (NovaCommon.Component thing in NovaCommon.AllComponents.Data.Components.Values)
+          foreach (Nova.Common.Components.Component thing in Nova.Common.Components.AllComponents.Data.Components.Values)
           {
               if (thing.Type == "Hull")
               {
@@ -1907,11 +1909,11 @@ namespace Nova.WinForms.ComponentEditor
       /// <summary>
       /// Get and set the properties common to all components.
       /// </summary>
-      public NovaCommon.Component CommonProperties
+      public Nova.Common.Components.Component CommonProperties
       {
           get
           {
-              NovaCommon.Component component = new NovaCommon.Component();
+              Nova.Common.Components.Component component = new Nova.Common.Components.Component();
 
               component.ComponentImage = ComponentImage.Image;
               component.Cost = BasicProperties.Cost;

@@ -26,13 +26,12 @@
 // ===========================================================================
 #endregion
 
-using NovaCommon;
 using System.Collections.Generic;
 using System.Collections;
 using System.Text;
 using System;
 
-namespace NovaCommon
+namespace Nova.Common
 {
 
     public static class Defenses

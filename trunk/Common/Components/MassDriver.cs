@@ -35,7 +35,7 @@ using System.Runtime.Serialization;
 // Simple Property Class
 // ============================================================================
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
     [Serializable]
     public class MassDriver : ComponentProperty

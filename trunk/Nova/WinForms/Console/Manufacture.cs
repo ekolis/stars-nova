@@ -29,8 +29,9 @@
 using System.Collections;
 using System;
 
-using NovaCommon;
-using NovaServer;
+using Nova.Common;
+using Nova.Common.Components;
+using Nova.Server;
 
 namespace Nova.WinForms.Console
 {
@@ -118,7 +119,7 @@ namespace Nova.WinForms.Console
         {
             String designName = star.Owner + "/" + item.Name;
             Design design = stateData.AllDesigns[designName] as Design;
-            NovaCommon.Resources needed = item.BuildState;
+            Nova.Common.Resources needed = item.BuildState;
             Race race = stateData.AllRaces[star.Owner] as Race;
 
             // If we've ran out of resources then give up. Note that there may be
@@ -183,12 +184,12 @@ namespace Nova.WinForms.Console
         /// <param name="neededResources">???</param>
         /// <param name="availableResources">???</param>
         /// ----------------------------------------------------------------------------
-        private static void DonateResources(NovaCommon.Resources currentResources,
-                                            NovaCommon.Resources neededResources,
-                                            NovaCommon.Resources availableResources)
+        private static void DonateResources(Nova.Common.Resources currentResources,
+                                            Nova.Common.Resources neededResources,
+                                            Nova.Common.Resources availableResources)
         {
             neededResources -= availableResources;
-            availableResources = new NovaCommon.Resources();
+            availableResources = new Nova.Common.Resources();
 
             if (neededResources.Ironium < 0)
             {

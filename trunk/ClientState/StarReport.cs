@@ -30,9 +30,9 @@
 using System;
 using System.Collections;
 using System.Drawing;
-using NovaCommon;
+using Nova.Common;
 
-namespace NovaClient
+namespace Nova.Client
 {
 
     /// <summary>
@@ -41,8 +41,8 @@ namespace NovaClient
     [Serializable]
     public class StarReport
     {
-        public NovaCommon.Resources StarResources = null;
-        public NovaCommon.Resources Concentration = null;
+        public Nova.Common.Resources StarResources = null;
+        public Nova.Common.Resources Concentration = null;
         public int Population;
         public int Age;
         public string StarName;
@@ -62,8 +62,8 @@ namespace NovaClient
         /// ----------------------------------------------------------------------------
         public StarReport(Star star)
         {
-            StarResources  = new NovaCommon.Resources(star.ResourcesOnHand);
-            Concentration  = new NovaCommon.Resources(star.MineralConcentration);
+            StarResources  = new Nova.Common.Resources(star.ResourcesOnHand);
+            Concentration  = new Nova.Common.Resources(star.MineralConcentration);
             Population     = star.Colonists;
             StarName       = star.Name;
             Radiation      = star.Radiation;

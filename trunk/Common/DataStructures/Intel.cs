@@ -45,7 +45,7 @@ using System.Runtime.Serialization.Formatters.Binary;
 // by the Nova GUI.
 // ============================================================================
 
-namespace NovaCommon
+namespace Nova.Common
 {
    [Serializable]
    public sealed class Intel

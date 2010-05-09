@@ -37,11 +37,12 @@ using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
 
-using NovaCommon;
+using Nova.Common;
+using Nova.Common.Components;
 
 #endregion
 
-namespace NovaClient
+namespace Nova.Client
 {
 
    public static class IntelReader

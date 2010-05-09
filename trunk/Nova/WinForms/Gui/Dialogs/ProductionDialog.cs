@@ -32,8 +32,9 @@ using System.Collections;
 using System.ComponentModel;
 using System.Windows.Forms;
 
-using NovaCommon;
-using NovaClient;
+using Nova.Common;
+using Nova.Client;
+using Nova.Common.Components;
 
 namespace Nova.WinForms.Gui
 {
@@ -267,7 +268,7 @@ namespace Nova.WinForms.Gui
             this.DesignCost.Name = "DesignCost";
             this.DesignCost.Size = new System.Drawing.Size(240, 64);
             this.DesignCost.TabIndex = 0;
-            this.DesignCost.Value = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+            this.DesignCost.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
             // 
             // groupBox4
             // 
@@ -286,7 +287,7 @@ namespace Nova.WinForms.Gui
             this.ProductionCost.Name = "ProductionCost";
             this.ProductionCost.Size = new System.Drawing.Size(240, 64);
             this.ProductionCost.TabIndex = 0;
-            this.ProductionCost.Value = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+            this.ProductionCost.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
             // 
             // RemoveFromQueue
             // 
@@ -596,7 +597,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void UpdateProductionCost()
         {
-            NovaCommon.Resources cost = new NovaCommon.Resources();
+            Nova.Common.Resources cost = new Nova.Common.Resources();
 
             foreach (ListViewItem item in QueueList.Items)
             {

@@ -36,7 +36,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using NovaCommon;
+using Nova.Common;
 #endregion
 
 namespace Nova.WinForms.ComponentEditor

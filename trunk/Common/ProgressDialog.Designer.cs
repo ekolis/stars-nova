@@ -1,4 +1,4 @@
-﻿namespace NovaCommon
+﻿namespace Nova.Common
 {
     partial class ProgressDialog
     {

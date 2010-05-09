@@ -29,9 +29,9 @@
 using System;
 using System.Xml;
 using System.ComponentModel;
-using NovaCommon.Converters;
+using Nova.Common.Converters;
 
-namespace NovaCommon
+namespace Nova.Common
 {
 
     /// <summary>

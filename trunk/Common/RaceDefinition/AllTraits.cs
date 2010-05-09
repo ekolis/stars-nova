@@ -32,9 +32,8 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using NovaCommon.TraitData;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     public sealed class AllTraits 
     {

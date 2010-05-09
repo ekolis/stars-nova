@@ -34,9 +34,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using System;
 
-using NovaCommon;
-using ControlLibrary;
-using NovaClient;
+using Nova.Common;
+using Nova.ControlLibrary;
+using Nova.Client;
 
 namespace Nova.WinForms.Gui
 {

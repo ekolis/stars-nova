@@ -37,8 +37,8 @@ using System.Text;
 using System.Windows.Forms;
 using System;
 
-using NovaCommon;
-using NovaClient;
+using Nova.Common;
+using Nova.Client;
 #endregion
 
 namespace Nova.WinForms.Gui

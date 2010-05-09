@@ -41,7 +41,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     public static class FileSearcher
     {

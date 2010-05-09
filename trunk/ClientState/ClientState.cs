@@ -44,10 +44,12 @@ using System.Xml;
 using System.IO.Compression;
 using Microsoft.Win32;
 
-using NovaCommon;
+using Nova.Common;
+using Nova.Common.Components;
+
 #endregion
 
-namespace NovaClient
+namespace Nova.Client
 {
     [Serializable]
     public sealed class ClientState
@@ -543,7 +545,7 @@ namespace NovaClient
                     Hull hull = component.Properties["Hull"] as Hull;
                     if (hull == null || !hull.IsStarbase) continue;
 
-                    NovaCommon.Resources cost = component.Cost;
+                    Resources cost = component.Cost;
                     cost.Boranium *= 0.8;
                     cost.Ironium *= 0.8;
                     cost.Germanium *= 0.8;
@@ -739,7 +741,7 @@ namespace NovaClient
            xmlelGuiState.AppendChild(xmlelDeletedDesigns);
 
             // Messages
-           foreach (NovaCommon.Message message in Data.Messages)
+           foreach (Nova.Common.Message message in Data.Messages)
            {
                xmlelGuiState.AppendChild(message.ToXml(xmldoc));
            }

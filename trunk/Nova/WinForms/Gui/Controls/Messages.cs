@@ -33,7 +33,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using System;
-using NovaCommon;
+using Nova.Common;
 
 
 namespace Nova.WinForms.Gui
@@ -232,8 +232,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void GotoButton_Click(object sender, EventArgs e)
         {
-            NovaCommon.Message thisMessage = messages[currentMessage]
-                                            as NovaCommon.Message;
+            Nova.Common.Message thisMessage = messages[currentMessage]
+                                            as Nova.Common.Message;
 
             if (thisMessage.Event is BattleReport)
             {
@@ -272,8 +272,8 @@ namespace Nova.WinForms.Gui
 
             if (messages.Count > 0)
             {
-                NovaCommon.Message thisMessage = new NovaCommon.Message();
-                thisMessage = messages[currentMessage] as NovaCommon.Message;
+                Nova.Common.Message thisMessage = new Nova.Common.Message();
+                thisMessage = messages[currentMessage] as Nova.Common.Message;
                 messageBox.Text = thisMessage.Text;
 
                 if (thisMessage.Event != null)

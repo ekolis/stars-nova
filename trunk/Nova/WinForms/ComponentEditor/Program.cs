@@ -29,7 +29,7 @@
 using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
-using NovaCommon;
+using Nova.Common;
 
 namespace Nova.WinForms.ComponentEditor
 {

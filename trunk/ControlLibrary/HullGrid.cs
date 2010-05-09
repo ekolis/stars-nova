@@ -26,7 +26,8 @@
 // ===========================================================================
 #endregion
 
-using NovaCommon;
+using Nova.Common;
+using Nova.Common.Components;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -36,7 +37,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ControlLibrary
+namespace Nova.ControlLibrary
 {
 
     public partial class HullGrid : UserControl
@@ -57,7 +58,7 @@ namespace ControlLibrary
         /// ----------------------------------------------------------------------------
         public class DragDropData
         {
-            public NovaCommon.Component SelectedComponent;
+            public Nova.Common.Components.Component SelectedComponent;
             public int ComponentCount;
             public string HullName;
         }

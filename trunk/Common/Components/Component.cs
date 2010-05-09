@@ -35,7 +35,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
 
     /// <summary>

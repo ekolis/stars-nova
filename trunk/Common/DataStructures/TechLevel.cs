@@ -31,9 +31,9 @@ using System;
 using System.ComponentModel;
 using System.Xml;
 using System.Collections;
-using NovaCommon.Converters;
+using Nova.Common.Converters;
 
-namespace NovaCommon
+namespace Nova.Common
 {
 
     /// <summary>

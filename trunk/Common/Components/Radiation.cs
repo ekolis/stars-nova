@@ -35,7 +35,7 @@ using System.Runtime.Serialization;
 // Simple Property Class
 // ============================================================================
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
     /// <summary>
     /// This class defines a radiation property such as that on the Radiating Hydro-Ram Scoop.

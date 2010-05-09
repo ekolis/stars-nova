@@ -28,12 +28,9 @@
 
 using System.Collections;
 using System;
+using Nova.Common;
 
-using NovaCommon;
-using NovaServer;
-
-
-namespace NovaServer
+namespace Nova.Server
 {
     /// <summary>
     /// Manipulation of the turn data that is shared between the Console and GUI.

@@ -36,7 +36,7 @@ using System.Collections.Generic;
 using System.Collections;
 using System.Text;
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
     /// <summary>
     /// RaceComponents: 
@@ -84,7 +84,7 @@ namespace NovaCommon
             if (tech == null) throw new System.NullReferenceException();
 
             // go through the AllCompoents list
-            foreach (NovaCommon.Component component in AllComponents.Data.Components.Values)
+            foreach (Component component in AllComponents.Data.Components.Values)
             {
                 // first check the required tech level
                 if (tech < component.RequiredTech)

@@ -26,12 +26,13 @@
 // ===========================================================================
 #endregion
 
-using NovaCommon;
+using Nova.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using NovaServer;
+using Nova.Common.Components;
+using Nova.Server;
 
 namespace Nova.WinForms.Console
 {

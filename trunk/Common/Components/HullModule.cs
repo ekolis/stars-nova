@@ -35,7 +35,7 @@ using System.Drawing;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
     /// <summary>
     /// The definition of the individual modules that make up a hull.

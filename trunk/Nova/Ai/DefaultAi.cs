@@ -37,8 +37,8 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-using NovaCommon;
-using NovaClient;
+using Nova.Common;
+using Nova.Client;
 
 namespace Nova.Ai
 {

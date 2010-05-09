@@ -26,8 +26,9 @@
 // ===========================================================================
 #endregion
 
+using Nova.Common.Components;
 using NUnit.Framework;
-using NovaCommon;
+using Nova.Common;
 using System.Collections;
 using System;
 
@@ -84,7 +85,7 @@ namespace Nova.UnitTests
             // M70s
 
             AllComponents.Restore();
-            Hashtable allComponents = NovaCommon.AllComponents.Data.Components;
+            Hashtable allComponents = AllComponents.Data.Components;
             Bomb totalBombs = new Bomb();
             Component cherryComponent = allComponents["Cherry Bomb"] as Component;
             Bomb cherry = cherryComponent.Properties["Bomb"] as Bomb;

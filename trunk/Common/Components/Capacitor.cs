@@ -31,7 +31,7 @@ using System;
 using System.Xml;
 using System.Runtime.Serialization;
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
     [Serializable]
     public class CapacitorProperty : ComponentProperty

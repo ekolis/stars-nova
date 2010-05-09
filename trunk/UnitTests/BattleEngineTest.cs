@@ -28,11 +28,12 @@
 
 using System.Collections;
 using System.Drawing;
+using Nova.Common.Components;
 using Nova.WinForms.Console;
 using NUnit.Framework;
 
-using NovaCommon;
-using NovaServer;
+using Nova.Common;
+using Nova.Server;
 
 namespace Nova.UnitTests
 {

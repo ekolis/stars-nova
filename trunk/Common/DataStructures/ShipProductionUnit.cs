@@ -28,8 +28,9 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using Nova.Common.Components;
 
-namespace NovaCommon.Shared_Data_Structures
+namespace Nova.Common
 {
     /// <summary>
     /// ShipProductionUnit class.

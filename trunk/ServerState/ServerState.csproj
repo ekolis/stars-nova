@@ -8,7 +8,7 @@
     <ProjectGuid>{057D68CC-97A3-4296-A66B-1D3A5C00134E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Nova.ServerState</RootNamespace>
+    <RootNamespace>Nova.Server</RootNamespace>
     <AssemblyName>Nova.ServerState</AssemblyName>
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

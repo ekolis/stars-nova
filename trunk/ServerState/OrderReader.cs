@@ -38,10 +38,12 @@ using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
-using NovaCommon;
+using Nova.Common;
+using Nova.Common.Components;
+
 #endregion
 
-namespace NovaServer
+namespace Nova.Server
 {
     public static class OrderReader
     {

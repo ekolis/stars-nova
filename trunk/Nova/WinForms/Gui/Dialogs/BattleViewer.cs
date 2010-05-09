@@ -34,7 +34,7 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using NovaCommon;
+using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
@@ -57,7 +57,7 @@ namespace Nova.WinForms.Gui
         /// Constructor
         /// </summary>
         /// <param name="thisBattle">The <see cref="BattleReport"/> to be displayed.</param>
-        public BattleViewer(NovaCommon.BattleReport thisBattle)
+        public BattleViewer(Nova.Common.BattleReport thisBattle)
         {
             InitializeComponent();
             TheBattle = thisBattle;

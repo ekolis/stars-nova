@@ -27,7 +27,7 @@
 
 using System.IO;
 using NUnit.Framework;
-using NovaCommon;
+using Nova.Common;
 
 namespace Nova.UnitTests
 {

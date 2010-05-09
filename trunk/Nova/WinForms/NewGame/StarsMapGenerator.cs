@@ -32,7 +32,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 
-using NovaCommon;
+using Nova.Common;
 
 namespace Nova.WinForms.NewGame
 {

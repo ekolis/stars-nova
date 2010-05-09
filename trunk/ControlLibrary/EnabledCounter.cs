@@ -28,10 +28,9 @@
 
 using System;
 using System.Windows.Forms;
+using Nova.Common;
 
-using NovaCommon;
-
-namespace ControlLibrary
+namespace Nova.ControlLibrary
 {
 
     public partial class EnabledCounter : UserControl

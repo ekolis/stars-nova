@@ -28,9 +28,9 @@
 
 using System;
 using System.Xml;
-using NovaCommon;
+using Nova.Common;
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
 
     /// <summary>

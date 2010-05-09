@@ -37,8 +37,9 @@
 using System;
 using System.Collections;
 using System.Xml;
+using Nova.Common.Components;
 
-namespace NovaCommon
+namespace Nova.Common
 {
 
     /// <summary>
@@ -289,13 +290,13 @@ namespace NovaCommon
             XmlElement xmlelShip = xmldoc.CreateElement("Ship");
 
             // Design
-            NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Design", this.Design.Name);
+            Global.SaveData(xmldoc, xmlelShip, "Design", this.Design.Name);
 
             // Item base class
             xmlelShip.AppendChild(base.ToXml(xmldoc));
 
-            NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Shields", this.Shields.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            NovaCommon.Global.SaveData(xmldoc, xmlelShip, "Armor", this.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelShip, "Shields", this.Shields.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelShip, "Armor", this.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture));
             if (Cargo.Mass > 0) xmlelShip.AppendChild(Cargo.ToXml(xmldoc));
 
             return xmlelShip;

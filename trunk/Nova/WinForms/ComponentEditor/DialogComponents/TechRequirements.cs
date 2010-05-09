@@ -27,7 +27,7 @@
 #endregion
 
 #region Using Statements
-using NovaCommon;
+using Nova.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;

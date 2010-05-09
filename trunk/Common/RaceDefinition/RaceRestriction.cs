@@ -37,7 +37,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     /// <summary>
     /// Enumeration of the ways a given trait can affect the availability of a component.

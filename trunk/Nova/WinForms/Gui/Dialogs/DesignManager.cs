@@ -34,8 +34,9 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using NovaCommon;
-using NovaClient;
+using Nova.Common;
+using Nova.Client;
+using Nova.Common.Components;
 
 namespace Nova.WinForms.Gui
 {
@@ -141,7 +142,7 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            NovaCommon.Component component = module.AllocatedComponent;
+            Nova.Common.Components.Component component = module.AllocatedComponent;
 
             ComponentSummary.Text = component.Description;
         }
@@ -235,7 +236,7 @@ namespace Nova.WinForms.Gui
             ListDesigns(DesignOwner.SelectedItem.ToString());
             HullGrid.Clear(true);
             DesignName.Text = null;
-            DesignResources.Value = new NovaCommon.Resources();
+            DesignResources.Value = new Nova.Common.Resources();
             ShipMass.Text = "0";
             MaxCapacity.Text = "0";
             ShipArmor.Text = "0";

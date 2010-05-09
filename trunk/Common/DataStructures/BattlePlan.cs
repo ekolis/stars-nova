@@ -31,7 +31,7 @@ using System.Xml;
 using System.Collections;
 using System.Text;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     [Serializable]
     public class BattlePlan

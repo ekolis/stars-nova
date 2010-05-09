@@ -27,7 +27,7 @@
 #endregion
 
 #region Using Statements
-using NovaCommon;
+using Nova.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -56,7 +56,7 @@ namespace Nova.WinForms.ComponentEditor
         public CommonProperties()
         {
             InitializeComponent();
-            AllComponents = NovaCommon.AllComponents.Data.Components;
+            AllComponents = Nova.Common.Components.AllComponents.Data.Components;
         }
         #endregion
 
@@ -99,7 +99,7 @@ namespace Nova.WinForms.ComponentEditor
         {
             ComponentList.Items.Clear();
 
-            foreach (NovaCommon.Component thing in AllComponents.Values)
+            foreach (Nova.Common.Components.Component thing in AllComponents.Values)
             {
                 if (thing.GetType() == objectType)
                 {
@@ -120,7 +120,7 @@ namespace Nova.WinForms.ComponentEditor
         {
             ComponentList.Items.Clear();
 
-            foreach (NovaCommon.Component thing in AllComponents.Values)
+            foreach (Nova.Common.Components.Component thing in AllComponents.Values)
             {
                 if (thing.Type == objectName)
                 {
@@ -160,11 +160,11 @@ namespace Nova.WinForms.ComponentEditor
         /// Get and set the properties common to all components.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public NovaCommon.Component Value
+        public Nova.Common.Components.Component Value
         {
             get
             {
-                NovaCommon.Component component = new NovaCommon.Component();
+                Nova.Common.Components.Component component = new Nova.Common.Components.Component();
 
                 component.ComponentImage = ComponentImage.Image;
                 component.Cost           = BasicProperties.Cost;

@@ -34,7 +34,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     [Serializable]
     public class StarList : DictionaryBase

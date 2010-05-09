@@ -31,8 +31,8 @@ using System.Collections;
 using System.Text;
 using System;
 
-using NovaCommon;
-using NovaServer;
+using Nova.Common;
+using Nova.Server;
 
 namespace Nova.WinForms.Console
 {

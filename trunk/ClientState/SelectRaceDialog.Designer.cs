@@ -6,7 +6,7 @@
 // Software Foundation.
 // ============================================================================
 
-namespace NovaClient
+namespace Nova.Client
 {
    partial class SelectRaceDialog
    {

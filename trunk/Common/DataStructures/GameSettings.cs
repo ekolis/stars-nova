@@ -37,7 +37,7 @@ using System.Windows.Forms;
 
 #endregion
 
-namespace NovaCommon
+namespace Nova.Common
 {
     [Serializable]
     public sealed class GameSettings

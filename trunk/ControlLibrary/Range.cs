@@ -38,9 +38,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
-using NovaCommon;
+using Nova.Common;
 
-namespace ControlLibrary
+namespace Nova.ControlLibrary
 {
     public class Range : System.Windows.Forms.UserControl
     {

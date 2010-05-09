@@ -41,7 +41,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     /// <summary>
     /// Maintains a collection of TraitEntry objects.

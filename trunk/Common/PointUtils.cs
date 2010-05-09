@@ -29,7 +29,7 @@
 using System;
 using System.Drawing;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     /// <summary>
     /// Point Utility Functions.

@@ -33,8 +33,8 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 
-using NovaCommon;
-using NovaServer;
+using Nova.Common;
+using Nova.Server;
 
 namespace Nova.WinForms.Console
 {

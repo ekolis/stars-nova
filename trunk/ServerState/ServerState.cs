@@ -38,14 +38,13 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
-using ControlLibrary;
+using Nova.ControlLibrary;
 using Microsoft.Win32;
-
-using NovaCommon;
+using Nova.Common;
 #endregion
 
 
-namespace NovaServer
+namespace Nova.Server
 {
 
     /// <summary>

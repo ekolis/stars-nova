@@ -35,8 +35,9 @@ using System.Windows.Forms;
 using System.Drawing;
 using System.IO;
 
-using NovaCommon;
-using NovaServer;
+using Nova.Common;
+using Nova.Common.Components;
+using Nova.Server;
 
 namespace Nova.WinForms.NewGame
 {
@@ -233,7 +234,7 @@ namespace Nova.WinForms.NewGame
                 Design factory  = new Design();
                 Design Defense  = new Design();
 
-                mine.Cost       = new NovaCommon.Resources(0, 0, 0, race.MineBuildCost);
+                mine.Cost       = new Nova.Common.Resources(0, 0, 0, race.MineBuildCost);
                 mine.Name       = "Mine";
                 mine.Type       = "Mine";
                 mine.Owner      = player;
@@ -241,12 +242,12 @@ namespace Nova.WinForms.NewGame
                 // If we have the secondary racial trait Cheap Factories they need 1K
                 // less germanium to build.
                 int factoryBuildCostGerm = (race.HasTrait("CF") ? 3 : 4);
-                factory.Cost    = new NovaCommon.Resources(0, 0, factoryBuildCostGerm, race.FactoryBuildCost);
+                factory.Cost    = new Nova.Common.Resources(0, 0, factoryBuildCostGerm, race.FactoryBuildCost);
                 factory.Name    = "Factory";
                 factory.Type    = "Factory";
                 factory.Owner   = player;
 
-                Defense.Cost    = new NovaCommon.Resources(5, 5, 5, 15);
+                Defense.Cost    = new Nova.Common.Resources(5, 5, 5, 15);
                 Defense.Name    = "Defenses";
                 Defense.Type    = "Defenses";
                 Defense.Owner   = player;
@@ -258,7 +259,7 @@ namespace Nova.WinForms.NewGame
                 InitialiseHomeStar(race, spaceAllocator);
             }
 
-            NovaCommon.Message welcome = new NovaCommon.Message();
+            Nova.Common.Message welcome = new Nova.Common.Message();
             welcome.Text = "Your race is ready to explore the universe.";
             welcome.Audience = "*";
 

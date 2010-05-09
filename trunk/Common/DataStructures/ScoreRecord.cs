@@ -31,7 +31,7 @@ using System.Collections.Generic;
 using System.Text;
 
 
-namespace NovaCommon
+namespace Nova.Common
 {
     /// <summary>
     /// Keeps details of the data needed for the Score report

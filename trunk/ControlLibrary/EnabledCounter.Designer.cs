@@ -1,4 +1,4 @@
-namespace ControlLibrary
+namespace Nova.ControlLibrary
 {
    partial class EnabledCounter
    {
