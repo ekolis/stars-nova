@@ -38,7 +38,7 @@ using System.Windows.Forms;
 using NovaCommon;
 using NovaClient;
 
-namespace Nova.Controls
+namespace Nova.WinForms.Gui
 {
     /// <summary>
     /// Control to act as a container to hold the appropriate detail control of a

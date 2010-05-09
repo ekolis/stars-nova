@@ -43,7 +43,7 @@ using System;
 using NovaCommon;
 using NovaClient;
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
 
     /// <summary>
@@ -54,7 +54,7 @@ namespace Nova
 
         public Messages messages;
         public SelectionSummary SelectionSummary;
-        public Nova.Controls.SelectionDetail SelectionDetail;
+        public SelectionDetail SelectionDetail;
         public StarMap MapControl;
 
         public int currentTurn;      //control turnvar used for to decide to load new turn... (Thread)
@@ -134,7 +134,7 @@ namespace Nova
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaGUI));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.MapControl = new Nova.StarMap();
+            this.MapControl = new StarMap();
             this.ToolTips = new System.Windows.Forms.ToolTip(this.components);
             this.MainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -154,9 +154,9 @@ namespace Nova
             this.ScoresMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SelectionDetail = new Nova.Controls.SelectionDetail();
-            this.SelectionSummary = new Nova.SelectionSummary();
-            this.messages = new Nova.Messages();
+            this.SelectionDetail = new SelectionDetail();
+            this.SelectionSummary = new SelectionSummary();
+            this.messages = new Messages();
             this.groupBox2.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();

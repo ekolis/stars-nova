@@ -33,7 +33,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using NovaServer;
 
-namespace NovaConsole
+namespace Nova.WinForms.Console
 {
 
     /// <summary>

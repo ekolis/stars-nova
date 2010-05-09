@@ -34,7 +34,7 @@ using System;
 using NovaCommon;
 using NovaServer;
 
-namespace NovaConsole
+namespace Nova.WinForms.Console
 {
 
     /// <summary>

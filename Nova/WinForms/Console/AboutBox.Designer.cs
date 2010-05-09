@@ -9,7 +9,7 @@
 // Software Foundation.
 // ============================================================================
 
-namespace NovaConsole
+namespace Nova.WinForms.Console
 {
    partial class AboutBox
    {

@@ -38,7 +38,7 @@ using System.Windows.Forms;
 using NovaCommon;
 using NovaClient;
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
     /// <summary>
     /// Control to display a summary of the selected map item.

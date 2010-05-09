@@ -7,7 +7,7 @@
 // Software Foundation.
 // ============================================================================
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
     partial class ResearchDialog
     {

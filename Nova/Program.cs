@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Linq;
 using NovaCommon;
-using NewGameNs=NewGame;
 
 namespace Nova
 {
@@ -23,13 +22,13 @@ namespace Nova
             args = args.Skip(1).ToArray();
             switch (firstArgument)
             {
-                case CommandArguments.Option.ConsoleSwitch: NovaConsole.NovaConsoleMain.Main(); break;
-                case CommandArguments.Option.ComponentEditorSwitch: ComponentEditor.Program.Main(); break;
-                case CommandArguments.Option.RaceDesignerSwitch: RaceDesigner.RaceDesignerForm.Main(); break;
-                case CommandArguments.Option.GuiSwitch: NovaGUI.Main(args); break;
-                case CommandArguments.Option.NewGameSwitch: NewGameNs.NewGame.Main(); break;
+                case CommandArguments.Option.ConsoleSwitch: WinForms.Console.NovaConsoleMain.Main(); break;
+                case CommandArguments.Option.ComponentEditorSwitch: WinForms.ComponentEditor.Program.Main(); break;
+                case CommandArguments.Option.RaceDesignerSwitch: WinForms.RaceDesigner.RaceDesignerForm.Main(); break;
+                case CommandArguments.Option.GuiSwitch: WinForms.Gui.NovaGUI.Main(args); break;
+                case CommandArguments.Option.NewGameSwitch: WinForms.NewGame.NewGame.Main(); break;
                 case CommandArguments.Option.AiSwitch: Ai.Program.Main(args); break;
-                default: NovaLauncher.Program.Main(); break;
+                default: WinForms.Launcher.Program.Main(); break;
             }
         }
     }

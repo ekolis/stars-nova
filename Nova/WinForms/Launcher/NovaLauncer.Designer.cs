@@ -1,4 +1,4 @@
-﻿namespace NovaLauncher
+﻿namespace Nova.WinForms.Launcher
 {
     partial class NovaLauncher
     {

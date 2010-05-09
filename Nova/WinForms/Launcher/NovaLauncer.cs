@@ -39,7 +39,7 @@ using System.Reflection;
 
 using NovaCommon;
 
-namespace NovaLauncher
+namespace Nova.WinForms.Launcher
 {
     /// <summary>
     /// The Stars! Nova - Launcher <see cref="Form"/>

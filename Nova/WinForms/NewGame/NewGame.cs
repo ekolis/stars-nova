@@ -37,9 +37,8 @@ using System.IO;
 
 using NovaCommon;
 using NovaServer;
-using Nova.NewGame;
 
-namespace NewGame
+namespace Nova.WinForms.NewGame
 {
     public static class NewGame
     {

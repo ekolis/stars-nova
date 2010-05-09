@@ -34,7 +34,7 @@ using System.Diagnostics;
 using NovaCommon;
 using NovaServer;
 
-namespace Nova.NewGame
+namespace Nova.WinForms.NewGame
 {
     /// <summary>
     /// The Stars! Nova - New Game Wizard <see cref="Form"/>.

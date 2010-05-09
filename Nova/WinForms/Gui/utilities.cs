@@ -30,7 +30,7 @@ using System;
 using System.Collections;
 using NovaCommon;
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
 
     /// <summary>

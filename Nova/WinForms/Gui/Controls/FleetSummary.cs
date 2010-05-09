@@ -38,7 +38,7 @@ using System.Windows.Forms;
 using NovaCommon;
 using NovaClient;
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
     /// <summary>
     /// The fleet summary panel.

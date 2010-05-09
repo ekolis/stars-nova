@@ -33,7 +33,7 @@ using System.Collections;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
     /// <summary>
     /// Populate a list control with the details of a production queue.

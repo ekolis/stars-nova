@@ -38,7 +38,7 @@ using System.Diagnostics;
 using NovaCommon;
 using NovaServer;
 
-namespace NovaConsole
+namespace Nova.WinForms.Console
 {
     /// <summary>
     /// Nova console application class.

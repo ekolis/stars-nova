@@ -32,7 +32,7 @@ using System.Collections;
 using NovaCommon;
 using NovaServer;
 
-namespace NovaConsole
+namespace Nova.WinForms.Console
 {
     /// <summary>
     /// Check for victor.

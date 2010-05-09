@@ -36,7 +36,7 @@ using System;
 using NovaCommon;
 
 
-namespace Nova
+namespace Nova.WinForms.Gui
 {
     /// <summary>
     /// A control to display user messages.

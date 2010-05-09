@@ -38,7 +38,7 @@ using System.Text;
 using System.Windows.Forms;
 #endregion
 
-namespace ComponentEditor
+namespace Nova.WinForms.ComponentEditor
 {
 
     public partial class CommonProperties : UserControl

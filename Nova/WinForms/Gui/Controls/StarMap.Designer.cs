@@ -1,4 +1,4 @@
-namespace Nova
+namespace Nova.WinForms.Gui
 {
    public class MyPanel : System.Windows.Forms.Panel
    {
@@ -61,7 +61,7 @@ namespace Nova
       private void InitializeComponent()
       {
           this.components = new System.ComponentModel.Container();
-          this.MapPanel = new Nova.MyPanel();
+          this.MapPanel = new Nova.WinForms.Gui.MyPanel();
           this.VScrollBar = new System.Windows.Forms.VScrollBar();
           this.HScrollBar = new System.Windows.Forms.HScrollBar();
           this.ZoomIn = new System.Windows.Forms.Button();

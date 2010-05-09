@@ -30,7 +30,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace RaceDesigner
+namespace Nova.WinForms.RaceDesigner
 {
     /// <summary>
     /// Race Designer utilities.
