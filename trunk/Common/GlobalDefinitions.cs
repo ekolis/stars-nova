@@ -51,7 +51,7 @@ namespace Nova.Common
 
        // These registry keys are used to loacte files and folders where Nova stores game data.
        #region Files and Folders
-       public const string RootRegistryKey = "Software\\Ken Reed\\Nova"; // where the keys are
+       public const string RootRegistryKey = "Software\\Stars-Nova\\Nova"; // where the keys are
        public const string NovaFolderKey = "NovaFolderKey";              // where Nova is installed 
        public const string ComponentFolderKey = "ComponentFolder";       // where components.xml is (possibly re-named), installation relative path is '.'. Should only change for modified game play.
        public const string GraphicsFolderKey = "GraphicsFolder";         // where pictures are stored, installation relative path is './Graphics'. Should only be changed for modding the game interface.
