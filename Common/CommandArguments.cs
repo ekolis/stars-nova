@@ -82,10 +82,11 @@ namespace Nova.Common
             public const string AiSwitch = "--ai";
             public const string ConsoleSwitch = "--console";
             public const string ComponentEditorSwitch = "--components";
-            public const string RaceDesignerSwitch = "--races";
+            public const string RaceDesignerSwitch = "--race";
             public const string GuiSwitch = "--gui";
             public const string NewGameSwitch = "--new";
             public const string LauncherSwitch = "--launch";
+            public const string HelpSwitch = "--help";
 
             public static string IntelFileName = "-i";
             public static string Password = "-p";
@@ -243,7 +244,15 @@ namespace Nova.Common
 
         private void AddOption(string option, string value)
         {
-            Dictionary.Add(option, value);
+            if (Dictionary.Contains(option))
+            {
+                // Duplicated option: Last value overwrites previous.
+                Dictionary[option] = value;
+            }
+            else
+            {
+                Dictionary.Add(option, value);
+            }
             argumentList.Add(new Argument(option, value));
         }
 
@@ -268,7 +277,7 @@ namespace Nova.Common
             while (arguments.Count > 0)
             {
                 string option = arguments.Dequeue();
-                if (!option.StartsWith("-")) Report.Error("Error processing argument list.");
+                if (!option.StartsWith("-")) continue;
 
                 string value;
                 if (arguments.Count > 0)
