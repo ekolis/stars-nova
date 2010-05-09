@@ -121,25 +121,6 @@ namespace Nova.WinForms.NewGame
           this.label2.Size = new System.Drawing.Size(0, 13);
           this.label2.TabIndex = 3;
           // 
-          // groupBox1
-          // 
-          this.groupBox1.Controls.Add(this.TotalScore);
-          this.groupBox1.Controls.Add(this.ExceedSecondPlace);
-          this.groupBox1.Controls.Add(this.HighestScore);
-          this.groupBox1.Controls.Add(this.CapitalShips);
-          this.groupBox1.Controls.Add(this.ProductionCapacity);
-          this.groupBox1.Controls.Add(this.NumberOfFields);
-          this.groupBox1.Controls.Add(this.TechLevels);
-          this.groupBox1.Controls.Add(this.PlanetsOwned);
-          this.groupBox1.Controls.Add(this.label1);
-          this.groupBox1.Controls.Add(this.label2);
-          this.groupBox1.Location = new System.Drawing.Point(14, 20);
-          this.groupBox1.Name = "groupBox1";
-          this.groupBox1.Size = new System.Drawing.Size(352, 285);
-          this.groupBox1.TabIndex = 20;
-          this.groupBox1.TabStop = false;
-          this.groupBox1.Text = "Victory Conditions";
-          // 
           // TotalScore
           // 
           this.TotalScore.ControlCounter = 100;
@@ -253,6 +234,25 @@ namespace Nova.WinForms.NewGame
           this.label1.Size = new System.Drawing.Size(165, 13);
           this.label1.TabIndex = 2;
           this.label1.Text = "Victory is declared when a player:";
+          // 
+          // groupBox1
+          // 
+          this.groupBox1.Controls.Add(this.TotalScore);
+          this.groupBox1.Controls.Add(this.ExceedSecondPlace);
+          this.groupBox1.Controls.Add(this.HighestScore);
+          this.groupBox1.Controls.Add(this.CapitalShips);
+          this.groupBox1.Controls.Add(this.ProductionCapacity);
+          this.groupBox1.Controls.Add(this.NumberOfFields);
+          this.groupBox1.Controls.Add(this.TechLevels);
+          this.groupBox1.Controls.Add(this.PlanetsOwned);
+          this.groupBox1.Controls.Add(this.label1);
+          this.groupBox1.Controls.Add(this.label2);
+          this.groupBox1.Location = new System.Drawing.Point(14, 20);
+          this.groupBox1.Name = "groupBox1";
+          this.groupBox1.Size = new System.Drawing.Size(352, 285);
+          this.groupBox1.TabIndex = 20;
+          this.groupBox1.TabStop = false;
+          this.groupBox1.Text = "Victory Conditions";
           // 
           // groupBox2
           // 
