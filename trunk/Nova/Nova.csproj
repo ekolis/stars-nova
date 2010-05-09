@@ -13,6 +13,7 @@
     <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <StartupObject>Nova.Program</StartupObject>
+    <ApplicationIcon>Resources\Nova.ico</ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -451,6 +452,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\Cursor.bmp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nova.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

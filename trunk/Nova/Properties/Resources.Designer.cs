@@ -74,6 +74,13 @@ namespace Nova.Properties {
             }
         }
         
+        internal static System.Drawing.Icon NovaIcon {
+            get {
+                object obj = ResourceManager.GetObject("NovaIcon", resourceCulture);
+                return ((System.Drawing.Icon)(obj));
+            }
+        }
+        
         internal static System.Drawing.Bitmap Plasma {
             get {
                 object obj = ResourceManager.GetObject("Plasma", resourceCulture);
