@@ -664,17 +664,12 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private void PlayerList_DoubleClick(object sender, EventArgs e)
         {
+            // On occasion this fires but SelectedItems is empty. Ignore and let the user re-click. See issue #2974019.
+            if (PlayerList.SelectedItems.Count == 0) return;
+
             // Find what was clicked
-            String raceName;
-            try
-            {
-                raceName = PlayerList.SelectedItems[0].SubItems[1].Text;
-            }
-            catch
-            {
-                // On occasion this fires but SelectedItems is empty. Ignore and let the user re-click. See issue 2974019.
-                return;
-            }
+            String raceName = PlayerList.SelectedItems[0].SubItems[1].Text;
+
             try
             {
                 // Launch the nova GUI
