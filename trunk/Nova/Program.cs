@@ -28,7 +28,7 @@ namespace Nova
                 case CommandArguments.Option.RaceDesignerSwitch: RaceDesigner.RaceDesignerForm.Main(); break;
                 case CommandArguments.Option.GuiSwitch: NovaGUI.Main(args); break;
                 case CommandArguments.Option.NewGameSwitch: NewGameNs.NewGame.Main(); break;
-                case CommandArguments.Option.AiSwitch: Nova_AI.Program.Main(args); break;
+                case CommandArguments.Option.AiSwitch: Ai.Program.Main(args); break;
                 default: NovaLauncher.Program.Main(); break;
             }
         }
