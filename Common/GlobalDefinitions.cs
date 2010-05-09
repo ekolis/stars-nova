@@ -36,7 +36,7 @@ namespace Nova.Common
 {
    public static class Global
    {
-       public const string NovaWebSite = "https://sourceforge.net/projects/stars-nova/";
+       public const string NovaWebSite = "http://sourceforge.net/projects/stars-nova/";
 
        // Note: Client/SeverState.GameFolder vs ServerFolder vs ClientFolder
        // In a single player game the ServerFolder == ClientFolder == "GameFiles"
