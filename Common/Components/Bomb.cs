@@ -29,7 +29,7 @@
 using System;
 using System.Xml;
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
     /// <summary>
     /// Bomb class

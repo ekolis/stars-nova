@@ -38,7 +38,7 @@ using System.Collections.Generic;
 using System.Text;
 using System.Xml;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     /// <summary>
     ///  Class to store and compare a Race's traits.

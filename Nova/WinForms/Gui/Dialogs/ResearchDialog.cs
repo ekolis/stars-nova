@@ -33,8 +33,9 @@ using System.Data;
 using System.Windows.Forms;
 using System;
 
-using NovaCommon;
-using NovaClient;
+using Nova.Common;
+using Nova.Client;
+using Nova.Common.Components;
 
 
 namespace Nova.WinForms.Gui
@@ -198,7 +199,7 @@ namespace Nova.WinForms.Gui
             newResearchLevel[researchArea] = level + 1;
             ResearchBenefits.Items.Clear();
 
-            foreach (NovaCommon.Component component in allComponents.Values)
+            foreach (Nova.Common.Components.Component component in allComponents.Values)
             {
                 if (component.RequiredTech > oldResearchLevel &&
                     component.RequiredTech <= newResearchLevel)

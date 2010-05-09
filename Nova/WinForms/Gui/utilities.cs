@@ -28,7 +28,7 @@
 
 using System;
 using System.Collections;
-using NovaCommon;
+using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {

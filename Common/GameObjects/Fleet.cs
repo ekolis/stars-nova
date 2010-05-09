@@ -34,8 +34,9 @@ using System;
 using System.Xml;
 using System.Collections;
 using System.Drawing;
+using Nova.Common.Components;
 
-namespace NovaCommon
+namespace Nova.Common
 {
 
     /// <summary>
@@ -673,14 +674,14 @@ namespace NovaCommon
             else Global.SaveData(xmldoc, xmlelFleet, "TravelStatus", "InTransit");
             if (InOrbit != null) Global.SaveData(xmldoc, xmlelFleet, "InOrbit", InOrbit.Name);
 
-            if (BattleSpeed != 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "BattleSpeed", this.BattleSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "Bearing", this.Bearing.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Cloaked != 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "Cloaked", this.Cloaked.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "FuelAvailable", this.FuelAvailable.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "FuelCapacity", this.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "TargetDistance", this.TargetDistance.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Cargo.Mass > 0) NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "CargoCapacity", this.CargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            NovaCommon.Global.SaveData(xmldoc, xmlelFleet, "BattlePlan", this.BattlePlan);
+            if (BattleSpeed != 0) Global.SaveData(xmldoc, xmlelFleet, "BattleSpeed", this.BattleSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelFleet, "Bearing", this.Bearing.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            if (Cloaked != 0) Global.SaveData(xmldoc, xmlelFleet, "Cloaked", this.Cloaked.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelFleet, "FuelAvailable", this.FuelAvailable.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelFleet, "FuelCapacity", this.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelFleet, "TargetDistance", this.TargetDistance.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            if (Cargo.Mass > 0) Global.SaveData(xmldoc, xmlelFleet, "CargoCapacity", this.CargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelFleet, "BattlePlan", this.BattlePlan);
 
             xmlelFleet.AppendChild(this.Cargo.ToXml(xmldoc));
 

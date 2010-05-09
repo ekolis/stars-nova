@@ -37,7 +37,7 @@ using System.Windows.Forms;
 using System.IO;
 
 
-namespace NovaCommon
+namespace Nova.Common
 {
     /// <summary>
     /// A race's icon image.

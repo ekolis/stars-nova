@@ -35,8 +35,8 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using NovaCommon;
-using NovaClient;
+using Nova.Common;
+using Nova.Client;
 
 namespace Nova.WinForms.Gui
 {
@@ -105,7 +105,7 @@ namespace Nova.WinForms.Gui
                     Defenses.ComputeDefenseCoverage(star);
                     row[i++] = Defenses.SummaryCoverage.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-                    NovaCommon.Resources resources = star.ResourcesOnHand;
+                    Nova.Common.Resources resources = star.ResourcesOnHand;
                     StringBuilder text = new StringBuilder();
 
                     text.AppendFormat("{0} {1} {2}", (int)resources.Ironium,

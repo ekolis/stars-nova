@@ -34,9 +34,10 @@ using System.Drawing;
 using System.Xml;
 using System.Windows.Forms;
 using System.IO;
+using Nova.Common.Components;
 
 
-namespace NovaCommon
+namespace Nova.Common
 {
     /// <summary>
     /// A singleton containing all the useable race icons.

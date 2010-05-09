@@ -34,7 +34,7 @@ using System;
 using System.Text;
 using System.Drawing;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     [Serializable]
     public class Minefield : Item

@@ -37,14 +37,14 @@ using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
 
-using NovaCommon;
+using Nova.Common;
 #endregion
 
 // ============================================================================
 // Manipulation of the turn data that is shared between the Console and GUI.
 // ============================================================================
 
-namespace NovaServer
+namespace Nova.Server
 {
     public static class IntelWriter
     {

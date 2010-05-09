@@ -33,7 +33,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace ControlLibrary
+namespace Nova.ControlLibrary
 {
 
     public class Gauge : System.Windows.Forms.UserControl

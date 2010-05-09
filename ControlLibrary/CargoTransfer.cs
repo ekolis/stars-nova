@@ -33,7 +33,7 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-namespace ControlLibrary
+namespace Nova.ControlLibrary
 {
 
     public class CargoTransfer : System.Windows.Forms.UserControl

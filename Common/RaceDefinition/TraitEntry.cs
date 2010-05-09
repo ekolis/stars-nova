@@ -32,7 +32,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     /// <summary>
     /// Class to support the format of each trait. Static definitions of all the 

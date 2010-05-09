@@ -33,11 +33,11 @@ using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
-using NovaCommon;
+using Nova.Common;
 using System.Web.Security;
 
 
-namespace ControlLibrary
+namespace Nova.ControlLibrary
 {
     public partial class CheckPassword : Form
     {

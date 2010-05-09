@@ -26,7 +26,7 @@
 // ===========================================================================
 #endregion
 
-using NovaCommon;
+using Nova.Common;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -61,11 +61,11 @@ namespace Nova.WinForms.ComponentEditor
         /// Get the resource build cost from the control
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public NovaCommon.Resources Cost
+        public Nova.Common.Resources Cost
         {
             get
             {
-                NovaCommon.Resources cost = new NovaCommon.Resources();
+                Nova.Common.Resources cost = new Nova.Common.Resources();
 
                 cost.Ironium = (int)IroniumAmount.Value;
                 cost.Boranium = (int)BoraniumAmount.Value;

@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using System.Reflection;
 
-namespace NovaCommon.Converters
+namespace Nova.Common.Converters
 {
     /// <summary>
     /// <see cref="TypeConverter"/> for <see cref="Resources"/>.

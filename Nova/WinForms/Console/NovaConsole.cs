@@ -35,8 +35,9 @@ using System.Windows.Forms;
 using System;
 using System.Diagnostics;
 
-using NovaCommon;
-using NovaServer;
+using Nova.Common;
+using Nova.Common.Components;
+using Nova.Server;
 
 namespace Nova.WinForms.Console
 {

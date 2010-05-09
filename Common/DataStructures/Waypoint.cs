@@ -32,7 +32,7 @@ using System.Xml.Serialization;
 using System.Drawing;
 using System.Runtime.Serialization;
 
-namespace NovaCommon
+namespace Nova.Common
 {
 
     /// <summary>
@@ -114,9 +114,9 @@ namespace NovaCommon
         {
             XmlElement xmlelWaypoint = xmldoc.CreateElement("Waypoint");
 
-            NovaCommon.Global.SaveData(xmldoc, xmlelWaypoint, "Destination", this.Destination);
-            NovaCommon.Global.SaveData(xmldoc, xmlelWaypoint, "Task", this.Task);
-            NovaCommon.Global.SaveData(xmldoc, xmlelWaypoint, "WarpFactor", this.WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelWaypoint, "Destination", this.Destination);
+            Global.SaveData(xmldoc, xmlelWaypoint, "Task", this.Task);
+            Global.SaveData(xmldoc, xmlelWaypoint, "WarpFactor", this.WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
             // point
             if (Position.X != 0 || Position.Y != 0)
             {

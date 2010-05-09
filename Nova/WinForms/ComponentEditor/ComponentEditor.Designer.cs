@@ -3921,13 +3921,13 @@ namespace Nova.WinForms.ComponentEditor
           this.tableLayoutPanel1.SetRowSpan(this.TechRequirements, 2);
           this.TechRequirements.Size = new System.Drawing.Size(171, 190);
           this.TechRequirements.TabIndex = 0;
-          this.TechRequirements.Value = new NovaCommon.TechLevel(0, 0, 0, 0, 0, 0);
+          this.TechRequirements.Value = new Nova.Common.TechLevel(0, 0, 0, 0, 0, 0);
           // 
           // BasicProperties
           // 
           this.BasicProperties.AutoSize = true;
           this.BasicProperties.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-          this.BasicProperties.Cost = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+          this.BasicProperties.Cost = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
           this.BasicProperties.Location = new System.Drawing.Point(203, 266);
           this.BasicProperties.Mass = 0;
           this.BasicProperties.Name = "BasicProperties";

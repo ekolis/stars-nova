@@ -33,7 +33,7 @@ using System.Collections;
 using System.Diagnostics;
 using System.Runtime.Serialization;
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
 
     /// <summary>

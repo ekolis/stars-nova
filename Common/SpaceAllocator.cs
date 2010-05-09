@@ -32,7 +32,7 @@ using System;
 using System.Collections;
 using System.Drawing;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     /// ----------------------------------------------------------------------------
     /// <summary>

@@ -32,7 +32,7 @@ using System.Drawing;
 using System.Text;
 using System;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     [Serializable]
     public class BattleReport

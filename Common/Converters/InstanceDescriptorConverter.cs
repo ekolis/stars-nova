@@ -24,7 +24,7 @@ using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using System.Globalization;
 
-namespace NovaCommon.Converters
+namespace Nova.Common.Converters
 {
     /// <summary>
     /// Generic <see cref="TypeConverter"/> for conversions to <see cref="InstanceDescriptor"/>.

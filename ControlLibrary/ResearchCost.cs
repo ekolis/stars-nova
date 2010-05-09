@@ -32,9 +32,9 @@ using System.ComponentModel;
 using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
-using NovaCommon;
+using Nova.Common;
 
-namespace ControlLibrary
+namespace Nova.ControlLibrary
 {
     public class ResearchCost : System.Windows.Forms.UserControl
     {

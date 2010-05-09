@@ -34,9 +34,9 @@ using System.Drawing;
 using System.Data;
 using System.Windows.Forms;
 
-using NovaCommon;
-using ControlLibrary;
-using NovaClient;
+using Nova.Common;
+using Nova.ControlLibrary;
+using Nova.Client;
 
 namespace Nova.WinForms.Gui
 {
@@ -337,7 +337,7 @@ namespace Nova.WinForms.Gui
             this.ResourceDisplay.Name = "ResourceDisplay";
             this.ResourceDisplay.Size = new System.Drawing.Size(150, 68);
             this.ResourceDisplay.TabIndex = 20;
-            this.ResourceDisplay.Value = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+            this.ResourceDisplay.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
             // 
             // groupBox2
             // 
@@ -864,11 +864,11 @@ namespace Nova.WinForms.Gui
             int resources = star.Colonists / 1000;
             string manned = " of " + resources.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-            NovaCommon.Defenses.ComputeDefenseCoverage(star);
+            Nova.Common.Defenses.ComputeDefenseCoverage(star);
 
             DefenseType.Text = star.DefenseType;
             Defenses.Text = star.Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            DefenseCoverage.Text = NovaCommon.Defenses.SummaryCoverage.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            DefenseCoverage.Text = Nova.Common.Defenses.SummaryCoverage.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
             Factories.Text = star.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture) + manned;
             Mines.Text = star.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture) + manned;

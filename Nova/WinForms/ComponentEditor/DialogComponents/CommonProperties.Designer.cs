@@ -133,11 +133,11 @@ namespace Nova.WinForms.ComponentEditor
           this.TechRequirements.Name = "TechRequirements";
           this.TechRequirements.Size = new System.Drawing.Size(189, 180);
           this.TechRequirements.TabIndex = 14;
-          this.TechRequirements.Value = new NovaCommon.TechLevel(0, 0, 0, 0, 0, 0);
+          this.TechRequirements.Value = new Nova.Common.TechLevel(0, 0, 0, 0, 0, 0);
           // 
           // BasicProperties
           // 
-          this.BasicProperties.Cost = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+          this.BasicProperties.Cost = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
           this.BasicProperties.Location = new System.Drawing.Point(199, 185);
           this.BasicProperties.Mass = 0;
           this.BasicProperties.Name = "BasicProperties";

@@ -37,7 +37,7 @@ using System.Windows.Forms;
 using System.Diagnostics;
 using System.Reflection;
 
-using NovaCommon;
+using Nova.Common;
 
 namespace Nova.WinForms.Launcher
 {

@@ -40,17 +40,19 @@ using System.Resources;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
-using NovaCommon;
+using Nova.Common;
+using Nova.Common.Components;
+
 #endregion
 
-namespace NovaClient
+namespace Nova.Client
 {
    public static class OrderWriter
    {
 
 // ---------------------------------------------------------------------------
 // Class private data. The turn data itself is stored in the class defined in
-// NovaCommon Orders.cs
+// Nova.Common Orders.cs
 // ---------------------------------------------------------------------------
 
       private static ClientState     StateData  = null;

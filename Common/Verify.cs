@@ -26,7 +26,7 @@
 // ===========================================================================
 #endregion
 
-namespace NovaCommon
+namespace Nova.Common
 {
     #region Using Statements
     using System.Diagnostics;

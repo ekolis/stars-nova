@@ -33,7 +33,7 @@ using System.Xml;
 // 
 // ============================================================================
 
-namespace NovaCommon
+namespace Nova.Common
 {
     /// <summary>
     /// Cargo class
@@ -148,10 +148,10 @@ namespace NovaCommon
         {
             XmlElement xmlelCargo = xmldoc.CreateElement("Cargo");
 
-            NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Ironium", this.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Boranium", this.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Germanium", this.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            NovaCommon.Global.SaveData(xmldoc, xmlelCargo, "Colonists", this.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelCargo, "Ironium", this.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelCargo, "Boranium", this.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelCargo, "Germanium", this.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelCargo, "Colonists", this.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             return xmlelCargo;
         }

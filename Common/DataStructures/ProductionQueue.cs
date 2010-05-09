@@ -29,9 +29,8 @@
 using System;
 using System.Xml;
 using System.Collections;
-using NovaCommon.Shared_Data_Structures;
 
-namespace NovaCommon
+namespace Nova.Common
 {
 
     [Serializable]
@@ -42,7 +41,7 @@ namespace NovaCommon
         /// Details of a design in the queue.
         /// </summary>
         [Serializable]
-        public class Item // FIXME (priority 3) - Seems like a bad name as there is already an Item type in the NovaCommon namespace
+        public class Item // FIXME (priority 3) - Seems like a bad name as there is already an Item type in the Nova.Common namespace
         {
             public string           Name;              // Design name, e.g. "Space Dock"
             public int              Quantity;          // Number to build

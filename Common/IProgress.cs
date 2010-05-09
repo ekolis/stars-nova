@@ -15,7 +15,7 @@
 using System;
 using System.Windows.Forms;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     /// <summary>
     /// This defines an interface which can be implemented by UI elements

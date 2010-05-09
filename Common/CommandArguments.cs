@@ -45,7 +45,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Text;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     public class CommandArguments : DictionaryBase
     {

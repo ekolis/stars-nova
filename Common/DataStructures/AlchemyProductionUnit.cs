@@ -12,7 +12,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NovaCommon.Shared_Data_Structures
+namespace Nova.Common
 {
     class AlchemyProductionUnit : ProductionUnit
     {

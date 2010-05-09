@@ -34,8 +34,8 @@ using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
 
-using NovaCommon;
-using NovaServer;
+using Nova.Common;
+using Nova.Server;
 
 namespace Nova.WinForms.Console
 {

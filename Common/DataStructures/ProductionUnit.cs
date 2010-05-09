@@ -30,7 +30,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NovaCommon.Shared_Data_Structures
+namespace Nova.Common
 {
     /// <summary>
     /// Generic interface for any single production unit: 1 ship, 1 factory, 

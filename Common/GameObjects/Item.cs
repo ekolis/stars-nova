@@ -32,7 +32,7 @@ using System.Drawing;
 using System.Xml;
 using System.Runtime.Serialization;
 
-namespace NovaCommon
+namespace Nova.Common
 {
 
     // ===========================================================================

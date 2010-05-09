@@ -38,8 +38,9 @@ using System.Collections.Generic;
 using System.Text;
 using Microsoft.Win32;
 using System.Windows.Forms;
+using Nova.Common.Components;
 
-namespace NovaCommon
+namespace Nova.Common
 {
     static class XmlConversion
     {
@@ -78,7 +79,7 @@ namespace NovaCommon
                 xmldoc.AppendChild(xmlRoot);
 
                 // add the components to the document
-                foreach (NovaCommon.Component thing in AllComponents.Data.Components.Values)
+                foreach (Component thing in AllComponents.Data.Components.Values)
                 {
                     xmldoc.ChildNodes.Item(1).AppendChild(ComponentToXml(xmldoc, thing));
                 }

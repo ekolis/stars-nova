@@ -35,10 +35,10 @@ using System.Runtime.Serialization;
 using System.Windows.Forms;
 using System.Xml;
 using Microsoft.Win32;
-using NovaCommon;
+using Nova.Common;
 #endregion
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
     /// <summary>
     /// Provides singleton access (via AllComponents.Data) to a <see cref="Hashtable"/> containing all <see cref="Component"/>s indexed on the component's name.
@@ -229,7 +229,7 @@ namespace NovaCommon
                         ++nodesLoaded;
                         callback.SetText(String.Format("Loading component: {0}", nodesLoaded));
                         callback.StepTo(nodesLoaded);
-                        NovaCommon.Component newComponent = new Component(xmlnode);
+                        Component newComponent = new Component(xmlnode);
                         AllComponents.Data.Components[newComponent.Name] = newComponent;
                         xmlnode = xmlnode.NextSibling;
                     }
@@ -293,7 +293,7 @@ namespace NovaCommon
                 XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
 
                 // add the components to the document
-                foreach (NovaCommon.Component thing in AllComponents.Data.Components.Values)
+                foreach (Component thing in AllComponents.Data.Components.Values)
                 {
                     xmldoc.ChildNodes.Item(1).AppendChild(thing.ToXml(xmldoc));
                 }

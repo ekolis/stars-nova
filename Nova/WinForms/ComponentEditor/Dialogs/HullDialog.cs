@@ -27,7 +27,7 @@
 #endregion
 
 #region Using Statements
-using NovaCommon;
+using Nova.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -50,7 +50,7 @@ namespace Nova.WinForms.ComponentEditor
         public HullDialog()
         {
             InitializeComponent();
-            AllComponents = NovaCommon.AllComponents.Data.Components;
+            AllComponents = Nova.Common.Components.AllComponents.Data.Components;
         }
 
 

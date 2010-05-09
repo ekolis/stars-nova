@@ -28,9 +28,8 @@
 
 using System;
 using System.Xml;
-using NovaCommon;
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
     /// <summary>
     /// Colonizer class

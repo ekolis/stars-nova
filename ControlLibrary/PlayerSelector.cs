@@ -34,7 +34,7 @@ using System.Data;
 using System.Text;
 using System.Windows.Forms;
 
-namespace ControlLibrary
+namespace Nova.ControlLibrary
 {
     public partial class PlayerSelector : UserControl
     {

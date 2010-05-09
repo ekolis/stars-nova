@@ -40,7 +40,7 @@ using System.Drawing;
 using System.Collections;
 using System.Diagnostics;
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
     /// <summary>
     /// A design.

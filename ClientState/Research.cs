@@ -29,9 +29,9 @@
 using System;
 using System.Collections;
 
-using NovaCommon;
+using Nova.Common;
 
-namespace NovaClient
+namespace Nova.Client
 {
  
    public class Research

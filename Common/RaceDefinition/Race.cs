@@ -38,10 +38,10 @@ using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization;
 using System.IO.Compression;
 using System.Web.Security;
-using NovaCommon;
+using Nova.Common;
 
 
-namespace NovaCommon
+namespace Nova.Common
 {
 
     /// ----------------------------------------------------------------------------

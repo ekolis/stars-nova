@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ControlLibrary {
+namespace Nova.ControlLibrary {
     using System;
     
     

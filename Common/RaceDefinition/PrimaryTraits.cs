@@ -47,7 +47,7 @@ using System;
 // The TraitData namespace should only be accessed by AllTraits. Other objects
 // should access this data through AllTraits in case it is run time loaded in
 // the future.
-namespace NovaCommon.TraitData
+namespace Nova.Common
 {
 
 // ============================================================================

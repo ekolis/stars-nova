@@ -32,7 +32,7 @@ using System.Xml;
 using System.Collections.Generic;
 using System.Text;
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
     /// <summary>
     /// The blueprint for building a ship.

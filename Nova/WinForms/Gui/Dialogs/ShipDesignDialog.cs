@@ -31,9 +31,10 @@ using System.Drawing;
 using System.Collections;
 using System.Windows.Forms;
 
-using NovaCommon;
-using ControlLibrary;
-using NovaClient;
+using Nova.Common;
+using Nova.Common.Components;
+using Nova.ControlLibrary;
+using Nova.Client;
 
 
 namespace Nova.WinForms.Gui
@@ -48,7 +49,7 @@ namespace Nova.WinForms.Gui
         private Hashtable AllComponents = null;
         private Hashtable AllDesigns = null;
         private Hashtable ImageIndices = new Hashtable();
-        private NovaCommon.Component SelectedHull = null;
+        private Nova.Common.Components.Component SelectedHull = null;
 
         private ImageList ComponentImages = new ImageList();
         private int DesignMass = 0;
@@ -470,7 +471,7 @@ namespace Nova.WinForms.Gui
             this.DesignResources.Name = "DesignResources";
             this.DesignResources.Size = new System.Drawing.Size(150, 64);
             this.DesignResources.TabIndex = 10;
-            this.DesignResources.Value = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+            this.DesignResources.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
             // 
             // DesignName
             // 
@@ -576,7 +577,7 @@ namespace Nova.WinForms.Gui
             this.ComponentCost.Name = "ComponentCost";
             this.ComponentCost.Size = new System.Drawing.Size(150, 64);
             this.ComponentCost.TabIndex = 0;
-            this.ComponentCost.Value = new NovaCommon.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+            this.ComponentCost.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
             // 
             // panel1
             // 
@@ -714,7 +715,7 @@ namespace Nova.WinForms.Gui
             // Some abbreviations (just to save a bit of typing)
 
             StateData = ClientState.Data;
-            AllComponents = NovaCommon.AllComponents.Data.Components;
+            AllComponents = Nova.Common.Components.AllComponents.Data.Components;
             AllDesigns = StateData.InputTurn.AllDesigns;
 
             ComponentImages.ImageSize = new Size(64, 64);
@@ -871,7 +872,7 @@ namespace Nova.WinForms.Gui
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// <returns>Returns a <see cref="Weapon"/> representing all the weapon components in a single module.</returns>
         /// ----------------------------------------------------------------------------
-        private Weapon BuildWeaponSystem(int number, NovaCommon.Component component)
+        private Weapon BuildWeaponSystem(int number, Nova.Common.Components.Component component)
         {
             if (component == null) return null;
 
@@ -961,7 +962,7 @@ namespace Nova.WinForms.Gui
             dragData.HullName = SelectedHull.Name;
             dragData.ComponentCount = 1;
             dragData.SelectedComponent = AllComponents[item.Text]
-                                         as NovaCommon.Component;
+                                         as Nova.Common.Components.Component;
 
             if ((Control.ModifierKeys & Keys.Shift) != 0)
             {
@@ -1023,8 +1024,8 @@ namespace Nova.WinForms.Gui
             string selectedHullName = HullList.SelectedItem as string;
 
             DesignName.Text = selectedHullName;
-            NovaCommon.Component hull = StateData.AvailableComponents[selectedHullName];
-            SelectedHull = new NovaCommon.Component(hull);
+            Nova.Common.Components.Component hull = StateData.AvailableComponents[selectedHullName];
+            SelectedHull = new Nova.Common.Components.Component(hull);
             SelectedHull.Name = selectedHullName;
 
             UpdateHullFields();

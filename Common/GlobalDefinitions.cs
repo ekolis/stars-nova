@@ -32,7 +32,7 @@ using System.Xml;
 using System.Collections;
 using System.IO;
 
-namespace NovaCommon
+namespace Nova.Common
 {
    public static class Global
    {

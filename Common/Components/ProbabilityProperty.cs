@@ -37,7 +37,7 @@ using System.Xml;
 using System.Runtime.Serialization;
 
 
-namespace NovaCommon
+namespace Nova.Common.Components
 {
     /// <summary>
     /// Probability property.
