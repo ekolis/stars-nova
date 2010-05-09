@@ -53,8 +53,12 @@ namespace Nova.WinForms.NewGame
         //the width and height of the frame where the density values will be updated after placing the star
         private const int UpdateFrameSize = 100;
 
+        // map settings
         private int MapWidth;
         private int MapHeight;
+        private int StarSeparation;
+        private int StarDensity;
+        private int StarUniformity;
 
         //non-normalized probability density function
         //values are between 0 and 1
@@ -73,10 +77,22 @@ namespace Nova.WinForms.NewGame
         /// <param name="mapWidth">Width of the map in ly.</param>
         /// <param name="mapHeight">Height of the map in ly.</param>
         /// ----------------------------------------------------------------------------
-        public StarsMapGenerator(int mapWidth, int mapHeight)
+        public StarsMapGenerator(int mapWidth, int mapHeight, int starSeparation, int starDensity, int starUniformity)
         {
             this.MapWidth = mapWidth;
             this.MapHeight = mapHeight;
+
+            this.StarSeparation = starSeparation;
+            this.StarDensity = starDensity;
+            this.StarUniformity = starUniformity;
+
+#if(DEBUG)
+            // Just to test that the form data has been passed in successfully - Dan 9 May 10
+            System.Windows.Forms.MessageBox.Show("Star Separation = " + StarSeparation.ToString() +
+                " Star Density = " + StarDensity.ToString() +
+                " Star Uniformity = " + StarUniformity.ToString());
+#endif
+
             Density = new double[mapWidth, mapHeight];
         }
 
