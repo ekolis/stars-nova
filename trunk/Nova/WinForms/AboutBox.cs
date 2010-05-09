@@ -1,9 +1,9 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010 The Stars-Nova Project
 //
-// This file is part of Stars-Nova.
+// This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
 //
 // This program is free software; you can redistribute it and/or modify
@@ -12,43 +12,31 @@
 //
 // This program is distributed in the hope that it will be useful,
 // but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
 // GNU General Public License for more details.
 //
 // You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// along with this program. If not, see <http://www.gnu.org/licenses/>
 // ===========================================================================
 #endregion
 
 #region Module Description
 // ===========================================================================
-// This module provides an About dialog.
+// This dialog displays the "About" box.
 // ===========================================================================
 #endregion
 
-#region Using Statements
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
 using System.Reflection;
-#endregion
 
-namespace Nova.WinForms.RaceDesigner
+namespace Nova.WinForms
 {
-    /// <summary>
-    /// An About dialog.
-    /// </summary>
     partial class AboutBox : Form
     {
-        #region Construction
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Consturctor
+        /// Constructor
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public AboutBox()
         {
             InitializeComponent();
@@ -66,17 +54,26 @@ namespace Nova.WinForms.RaceDesigner
             this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
             this.labelCopyright.Text = AssemblyCopyright;
             this.labelCompanyName.Text = AssemblyCompany;
+            this.Description.Text =
+                "This program is free software; you can redistribute it and/or modify " +
+                "it under the terms of the GNU General Public License version 2 as " +
+                "published by the Free Software Foundation." + Environment.NewLine +
+                Environment.NewLine +
+                "This program is distributed in the hope that it will be useful, " +
+                "but WITHOUT ANY WARRANTY; without even the implied warranty of " +
+                "MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the " +
+                "GNU General Public License for more details. " + Environment.NewLine +
+                Environment.NewLine +
+                "You should have received a copy of the GNU General Public License " +
+                "along with this program. If not, see <http://www.gnu.org/licenses/>";
         }
-
-        #endregion
 
         #region Assembly Attribute Accessors
 
-        /// ----------------------------------------------------------------------------
+
         /// <summary>
-        /// Get assembly title
+        /// Get the assembly title.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public string AssemblyTitle
         {
             get
@@ -97,11 +94,10 @@ namespace Nova.WinForms.RaceDesigner
             }
         }
 
-        /// ----------------------------------------------------------------------------
+
         /// <summary>
-        /// Get assembly version.
+        /// Get the assembly version.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public string AssemblyVersion
         {
             get
@@ -110,11 +106,10 @@ namespace Nova.WinForms.RaceDesigner
             }
         }
 
-        /// ----------------------------------------------------------------------------
+
         /// <summary>
-        /// Get assembly description.
+        /// Get the assembly description.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public string AssemblyDescription
         {
             get
@@ -129,11 +124,10 @@ namespace Nova.WinForms.RaceDesigner
             }
         }
 
-        /// ----------------------------------------------------------------------------
+
         /// <summary>
-        /// Get assembly product.
+        /// Get the assembly product.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public string AssemblyProduct
         {
             get
@@ -148,11 +142,10 @@ namespace Nova.WinForms.RaceDesigner
             }
         }
 
-        /// ----------------------------------------------------------------------------
+
         /// <summary>
-        /// Get assembly copyright.
+        /// Get the assembly copyright.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public string AssemblyCopyright
         {
             get
@@ -167,11 +160,10 @@ namespace Nova.WinForms.RaceDesigner
             }
         }
 
-        /// ----------------------------------------------------------------------------
+
         /// <summary>
-        /// Get assembly company.
+        /// Get the assembly company
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public string AssemblyCompany
         {
             get
@@ -185,7 +177,8 @@ namespace Nova.WinForms.RaceDesigner
                 return ((AssemblyCompanyAttribute)attributes[0]).Company;
             }
         }
-
         #endregion
-    }
-}
+    
+    }//AboutBox
+
+}//namespace
