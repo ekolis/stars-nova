@@ -253,7 +253,10 @@ namespace Nova.WinForms.Console
                 Scrap(ship, star, amount, resources);
             }
 
-            ServerState.Data.AllFleets.Remove(fleet.Key);
+            // ServerState.Data.AllFleets.Remove(fleet.Key); // issue 2998887 - causes a crash on colonising due to modification of the itterator list
+            fleet.FleetShips.Clear(); // disapear the ships. The (now empty) fleet will be cleaned up latter.
+
+
             Message message = new Message();
             message.Audience = fleet.Owner;
             message.Text = fleet.Name + " has been scrapped";
