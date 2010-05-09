@@ -50,8 +50,16 @@ namespace NovaCommon
     public class CommandArguments : DictionaryBase
     {
         // 'enumerate' some common options
-        public class Option 
+        public static class Option 
         {
+            public const string AiSwitch = "--ai";
+            public const string ConsoleSwitch = "--console";
+            public const string ComponentEditorSwitch = "--components";
+            public const string RaceDesignerSwitch = "--races";
+            public const string GuiSwitch = "--gui";
+            public const string NewGameSwitch = "--newgame";
+            public const string LauncherSwitch = "--launch";
+
             public static string IntelFileName = "-i";
             public static string Password = "-p";
             public static string RaceName = "-r";
@@ -89,7 +97,7 @@ namespace NovaCommon
         /// <param name="argument"></param>
         public void Add(string argument)
         {
-            throw new System.NotImplementedException();
+            Dictionary.Add(argument, "");
         }
 
         /// <summary>
