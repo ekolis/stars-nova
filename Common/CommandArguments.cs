@@ -84,7 +84,7 @@ namespace Nova.Common
             public const string ComponentEditorSwitch = "--components";
             public const string RaceDesignerSwitch = "--races";
             public const string GuiSwitch = "--gui";
-            public const string NewGameSwitch = "--newgame";
+            public const string NewGameSwitch = "--new";
             public const string LauncherSwitch = "--launch";
 
             public static string IntelFileName = "-i";
