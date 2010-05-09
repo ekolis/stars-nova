@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -9,7 +9,7 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <AssemblyKeyContainerName>
     </AssemblyKeyContainerName>
-    <AssemblyName>ControlLibrary</AssemblyName>
+    <AssemblyName>Nova.ControlLibrary</AssemblyName>
     <AssemblyOriginatorKeyFile>
     </AssemblyOriginatorKeyFile>
     <DefaultClientScript>JScript</DefaultClientScript>
@@ -179,6 +179,6 @@
     <PostBuildEvent>
     </PostBuildEvent>
     <ProjectGuid>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</ProjectGuid>
-    <RootNamespace>ControlLibrary</RootNamespace>
+    <RootNamespace>Nova.ControlLibrary</RootNamespace>
   </PropertyGroup>
 </Project>
