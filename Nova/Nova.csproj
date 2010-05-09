@@ -88,10 +88,10 @@
     <Compile Include="WinForms\ComponentEditor\DialogComponents\TechRequirements.Designer.cs">
       <DependentUpon>TechRequirements.cs</DependentUpon>
     </Compile>
-    <Compile Include="WinForms\ComponentEditor\Dialogs\AboutBox.cs">
+    <Compile Include="WinForms\AboutBox.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WinForms\ComponentEditor\Dialogs\AboutBox.Designer.cs">
+    <Compile Include="WinForms\AboutBox.Designer.cs">
       <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\ComponentEditor\Dialogs\HullDialog.cs">
@@ -107,12 +107,6 @@
       <DependentUpon>RaceRestrictionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\ComponentEditor\Program.cs" />
-    <Compile Include="WinForms\Console\AboutBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WinForms\Console\AboutBox.Designer.cs">
-      <DependentUpon>AboutBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="WinForms\Console\BattleEngine.cs" />
     <Compile Include="WinForms\Console\Bombing.cs" />
     <Compile Include="WinForms\Console\CheckForMinefields.cs" />
@@ -160,12 +154,6 @@
     </Compile>
     <Compile Include="WinForms\Gui\Controls\StarMap.Designer.cs">
       <DependentUpon>StarMap.cs</DependentUpon>
-    </Compile>
-    <Compile Include="WinForms\Gui\Dialogs\AboutBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WinForms\Gui\Dialogs\AboutBox.Designer.cs">
-      <DependentUpon>AboutBox.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\Gui\Dialogs\BattlePlans.cs">
       <SubType>Form</SubType>
@@ -260,12 +248,6 @@
       <DependentUpon>NewGameWizard.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\NewGame\StarsMapGenerator.cs" />
-    <Compile Include="WinForms\RaceDesigner\AboutBox.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WinForms\RaceDesigner\AboutBox.Designer.cs">
-      <DependentUpon>AboutBox.cs</DependentUpon>
-    </Compile>
     <Compile Include="WinForms\RaceDesigner\ParameterCosts.cs" />
     <Compile Include="WinForms\RaceDesigner\RaceDesigner.cs">
       <SubType>Form</SubType>
@@ -297,7 +279,7 @@
       <DependentUpon>TechRequirements.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\ComponentEditor\Dialogs\AboutBox.resx">
+    <EmbeddedResource Include="WinForms\AboutBox.resx">
       <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -307,10 +289,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\ComponentEditor\Dialogs\RaceRestrictionDialog.resx">
       <DependentUpon>RaceRestrictionDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\Console\AboutBox.resx">
-      <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\Console\NovaConsole.resx">
@@ -347,10 +325,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\Gui\Controls\StarMap.resx">
       <DependentUpon>StarMap.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\Gui\Dialogs\AboutBox.resx">
-      <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\Gui\Dialogs\BattlePlans.resx">
@@ -415,10 +389,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\NewGame\NewGameWizard.resx">
       <DependentUpon>NewGameWizard.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\RaceDesigner\AboutBox.resx">
-      <DependentUpon>AboutBox.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\RaceDesigner\RaceDesigner.resx">

@@ -1,15 +1,26 @@
-// This file needs -*- c++ -*- mode
+#region Copyright Notice
 // ============================================================================
-// Nova. (c) 2008 Ken Reed
+// Copyright (C) 2008 Ken Reed
+// Copyright (C) 2009, 2010 The Stars-Nova Project
 //
-// This module deals with fleets bombing a planet. 
+// This file is part of Stars! Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
 //
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
 
-namespace Nova.WinForms.Console
+namespace Nova.WinForms
 {
    partial class AboutBox
    {
@@ -77,6 +88,7 @@ namespace Nova.WinForms.Console
           // 
           // logoPictureBox
           // 
+          this.logoPictureBox.Dock = System.Windows.Forms.DockStyle.Fill;
           this.logoPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("logoPictureBox.Image")));
           this.logoPictureBox.Location = new System.Drawing.Point(3, 3);
           this.logoPictureBox.Name = "logoPictureBox";
@@ -146,9 +158,7 @@ namespace Nova.WinForms.Console
           this.Description.Size = new System.Drawing.Size(271, 126);
           this.Description.TabIndex = 23;
           this.Description.TabStop = false;
-          this.Description.Text = "Nova Console\r\n\r\nThis is free software. You can redistribute it and/or modify it u" +
-              "nder the terms of the GNU General Public License version 2 as published by the F" +
-              "reeSoftware Foundation.";
+          this.Description.Text = "Description";
           // 
           // okButton
           // 
@@ -175,7 +185,7 @@ namespace Nova.WinForms.Console
           this.ShowIcon = false;
           this.ShowInTaskbar = false;
           this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-          this.Text = "Nova Race Designer";
+          this.Text = "AboutBox";
           this.tableLayoutPanel.ResumeLayout(false);
           this.tableLayoutPanel.PerformLayout();
           ((System.ComponentModel.ISupportInitialize)(this.logoPictureBox)).EndInit();
