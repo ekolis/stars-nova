@@ -150,12 +150,10 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static void Restore()
         {
-            GetPath();
-            if (saveFilePath == null || saveFilePath == "?" || saveFilePath == "")
+            if (ComponentFile == null)
             {
                 throw new Exception();
             }
-
 
             ProgressDialog progress = new ProgressDialog();
             progress.Text = "Work";
@@ -184,7 +182,7 @@ namespace Nova.Common.Components
                 }
             }
             AllComponents.Instance.Components = new Hashtable();
-            ResetPath();
+            ComponentFile = null;
         }
 
         #endregion
@@ -209,7 +207,7 @@ namespace Nova.Common.Components
 
                 XmlDocument xmldoc = new XmlDocument();
 
-                xmldoc.Load(saveFilePath);
+                xmldoc.Load(ComponentFile);
 
                 XmlNode xmlnode = (XmlNode)xmldoc.DocumentElement;
 
@@ -323,31 +321,13 @@ namespace Nova.Common.Components
 
         #region File Paths
 
-        //-------------------------------------------------------------------
-        /// <summary>
-        /// Reset the location of the component definition file.
-        /// </summary>
-        /// <remarks>
-        /// Equivelent to ComponentFile = "".
-        /// </remarks>
-        //-------------------------------------------------------------------
-        public static void ResetPath()
-        {
-            saveFilePath = string.Empty;
-            using (RegistryKey regKey = Registry.CurrentUser.CreateSubKey(Global.RootRegistryKey))
-            {
-                regKey.SetValue(Global.ComponentFolderKey, string.Empty);
-            }
-        }
-
-
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Ask the user for a location to save the file.
         /// </summary>
         /// <returns>Path and file name to save too.</returns>
         /// ----------------------------------------------------------------------------
-        public static string GetNewSaveFile()
+        private static string GetNewSaveFile()
         {
             SaveFileDialog fd = new SaveFileDialog();
             fd.Title = "Save component definition file";
@@ -379,16 +359,21 @@ namespace Nova.Common.Components
         //-------------------------------------------------------------------
         private static string GetPath()
         {
-            using (RegistryKey regKey = Registry.CurrentUser.CreateSubKey(Global.RootRegistryKey))
+            RegistryKey regKey = Registry.CurrentUser;
+            RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
+            object registryValue = subKey.GetValue(Global.ComponentFolderKey);
+            if (registryValue != null && File.Exists(registryValue.ToString()))
             {
-                saveFilePath = regKey.GetValue(Global.ComponentFolderKey, string.Empty).ToString();
-                if (0 == saveFilePath.Length)
-                {
-                    saveFilePath = null;
-                }
+                return registryValue.ToString();
             }
 
-            return saveFilePath;
+            string startupPath = Path.Combine(Application.StartupPath, Global.ComponentFileName);
+            if (File.Exists(startupPath))
+            {
+                return startupPath;
+            }
+
+            return null;
         }
 
 
@@ -399,7 +384,12 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static string ComponentFile
         {
-            get { GetPath(); return saveFilePath; }
+            get {
+                if (File.Exists(saveFilePath)) return saveFilePath;
+
+                ComponentFile = GetPath();
+                return saveFilePath;
+            }
 
             // ----------------------------------------------------------------------------
 
@@ -408,8 +398,17 @@ namespace Nova.Common.Components
                 saveFilePath = value;
                 RegistryKey key = Registry.CurrentUser;
                 RegistryKey subKey = key.CreateSubKey(Global.RootRegistryKey);
-                subKey.SetValue(Global.ComponentFolderKey, saveFilePath);
-                // MessageBox.Show("Registry key set to: " + SaveFilePath);
+                if (saveFilePath == null)
+                {
+                    if (subKey.GetValue(Global.ComponentFolderKey) != null)
+                    {
+                        subKey.DeleteValue(Global.ComponentFolderKey);
+                    }
+                }
+                else
+                {
+                    subKey.SetValue(Global.ComponentFolderKey, saveFilePath);
+                }
             }
         }
 
