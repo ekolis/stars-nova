@@ -71,7 +71,7 @@ namespace Nova.Common
        public const string GraphicsFolderName = "Graphics";
        public const string ClientFolderName = "GameFiles";
        public const string ServerFolderName = "GameFiles";
-       public const string RaceFolderName = "GameFiles/Races";
+       public static readonly string RaceFolderName = "GameFiles" + Path.DirectorySeparatorChar + "Races";
        #endregion Default Folders
 
        #endregion Nova Resources
