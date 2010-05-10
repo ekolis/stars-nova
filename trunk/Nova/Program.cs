@@ -64,18 +64,15 @@ namespace Nova
                 case CommandArguments.Option.HelpSwitch:
                     ShowHelpDialog(null, false); break;
                 default:
-                    ShowErrorDialog(args); break;
+                    ShowErrorDialog(); break;
             }
         }
 
-        private static void ShowErrorDialog(string[] args)
+        private static void ShowErrorDialog()
         {
-            string commandArguments = CommandArgumentsToString(args);
-            string fileName = Path.GetFileName(Assembly.GetExecutingAssembly().Location);
-
             string message = string.Format(
-                "Invalid command line arguments{0}{1} {2}",
-                Environment.NewLine, fileName, commandArguments);
+                "Invalid command line arguments:{0}{1}",
+                Environment.NewLine, Environment.CommandLine);
 
             ShowHelpDialog(message, true);
         }
@@ -122,26 +119,6 @@ namespace Nova
             MessageBox.Show(message, "Stars! Nova " + (error ? "Error" : "Information"), MessageBoxButtons.OK,
                 (error ? MessageBoxIcon.Error : MessageBoxIcon.Information),
                 MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
-        }
-
-        private static string CommandArgumentsToString(string[] args)
-        {
-            StringBuilder sb = new StringBuilder();
-            foreach (string argument in args)
-            {
-                if (argument.IndexOf(' ') < 0)
-                {
-                    sb.Append(argument);
-                    sb.Append(" ");
-                }
-                else
-                {
-                    sb.Append("\"");
-                    sb.Append(argument);
-                    sb.Append("\" ");
-                }
-            }
-            return sb.ToString();
         }
     }
 }
