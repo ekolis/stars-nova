@@ -471,12 +471,11 @@ namespace Nova.Common.Components
             Report.Error("Unable to locate component graphics. All component graphics will be dissabled.");
             DisableComponentGraphics = true;
             return null;
-
         }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Gets or sets the path where the graphics files are stored.
+        /// Get the path where the graphics files are stored.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public static string Graphics
@@ -484,17 +483,15 @@ namespace Nova.Common.Components
             get
             {
                 if (Directory.Exists(graphicsFilePath)) return graphicsFilePath;
-                Graphics = GetGraphicsPath();
-                return graphicsFilePath;
-            }
-            private set
-            {
-                graphicsFilePath = value;
+                
+                graphicsFilePath = GetGraphicsPath();
+                if (graphicsFilePath == null) return null;
+
                 using (RegistryKey key = Registry.CurrentUser.CreateSubKey(Global.RootRegistryKey))
                 {
                     key.SetValue(Global.GraphicsFolderKey, graphicsFilePath);
                 }
-                // Report.Debug("Registry key set to: " + SaveFilePath);
+                return graphicsFilePath;
             }
         }
 
