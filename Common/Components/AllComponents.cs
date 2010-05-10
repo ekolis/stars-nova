@@ -418,57 +418,61 @@ namespace Nova.Common.Components
         /// <summary>
         /// Ask the user for the graphics directory.
         /// </summary>
-        /// <returns>The path to the graphics directory if found or ""</returns>
+        /// <returns>The path to the graphics directory if found or null</returns>
         /// ----------------------------------------------------------------------------
-        public static string GetNewGraphicsPath()
+        private static string GetNewGraphicsPath()
         {
             FolderBrowserDialog folderDialog = new FolderBrowserDialog();
+            folderDialog.ShowNewFolderButton = false;
             folderDialog.Description =
             @"Select the folder where the component graphics images are located (normally Nova\Graphics\)";
 
             DialogResult result = folderDialog.ShowDialog();
             if (result == DialogResult.Cancel)
             {
-                Report.Error("Unable to load images.");
-                Graphics = "";
-                return "";
+                return null;
             }
 
-            Graphics = folderDialog.SelectedPath;
-
-            return graphicsFilePath;
-        }// GetNewGraphicsPath
+            return folderDialog.SelectedPath;
+        }
 
 
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Extract the path to the component graphics from the registry
         /// </summary>
-        /// <returns>Path to the Graphics folder if found or ""</returns>
+        /// <returns>Path to the Graphics folder if found or null</returns>
         /// ----------------------------------------------------------------------------
-        public static string GetGraphicsPath()
+        private static string GetGraphicsPath()
         {
-            if (DisableComponentGraphics) return "";
+            if (DisableComponentGraphics) return null;
 
             RegistryKey regKey = Registry.CurrentUser;
             RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-            graphicsFilePath = subKey.GetValue
-                                    (Global.GraphicsFolderKey, "?").ToString();
-
-            if (graphicsFilePath == "?" || graphicsFilePath == "")
+            object registryValue = subKey.GetValue(Global.GraphicsFolderKey);
+            if (registryValue != null && Directory.Exists(registryValue.ToString()))
             {
-                graphicsFilePath = GetNewGraphicsPath();
-                if (graphicsFilePath == "?" || graphicsFilePath == "")
-                {
-                    // In case we are in a loop loading lots of component images, don't keep trying endlessly.
-                    Report.Error("Unable to locate component graphics. All component graphics will be dissabled.");
-                    DisableComponentGraphics = true;
-                }
+                return registryValue.ToString();
             }
 
-            return graphicsFilePath;
+            string startupPath = Path.Combine(Application.StartupPath, Global.GraphicsFolderName);
+            if (Directory.Exists(startupPath))
+            {
+                return startupPath;
+            }
 
-        }//GetPath
+            string newPath = GetNewGraphicsPath();
+            if (Directory.Exists(newPath))
+            {
+                return newPath;
+            }
+
+            // In case we are in a loop loading lots of component images, don't keep trying endlessly.
+            Report.Error("Unable to locate component graphics. All component graphics will be dissabled.");
+            DisableComponentGraphics = true;
+            return null;
+
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -479,7 +483,8 @@ namespace Nova.Common.Components
         {
             get
             {
-                GetGraphicsPath();
+                if (Directory.Exists(graphicsFilePath)) return graphicsFilePath;
+                Graphics = GetGraphicsPath();
                 return graphicsFilePath;
             }
             private set
