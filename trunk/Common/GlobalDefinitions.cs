@@ -68,6 +68,7 @@ namespace Nova.Common
        // Follows the above naming conventions
        public const string NovaFolderName = ".";
        public const string ComponentFolderName = ".";
+       public const string ComponentFileName = "components.xml";
        public const string GraphicsFolderName = "Graphics";
        public const string ClientFolderName = "GameFiles";
        public const string ServerFolderName = "GameFiles";
