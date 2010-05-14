@@ -492,7 +492,7 @@ namespace Nova.WinForms.Console
 
             AllComponents.Restore();
 
-            if (ServerState.Data.StatePathName != null && File.Exists(ServerState.Data.StatePathName))
+            if (File.Exists(ServerState.Data.StatePathName))
             {
                 // We have a known game in progress. Load it:
                 ServerState.Data.GameInProgress = true;
@@ -818,7 +818,7 @@ namespace Nova.WinForms.Console
             }
              */
 
-            if (ServerState.Data.StatePathName == null || !File.Exists(ServerState.Data.StatePathName))
+            if (!File.Exists(ServerState.Data.StatePathName))
             {
                 Report.Error("There is no game open. Open a current game or create a new game.");
                 return;
@@ -911,7 +911,7 @@ namespace Nova.WinForms.Console
 
             AllComponents.Restore(); 
 
-            if (ServerState.Data.StatePathName != null && File.Exists(ServerState.Data.StatePathName))
+            if (File.Exists(ServerState.Data.StatePathName))
             {
                 // We have a known game in progress. Load it:
                 ServerState.Data.GameInProgress = true;

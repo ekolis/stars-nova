@@ -73,10 +73,9 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       public static void ReadIntel(String turnFileName)
       {
-          if (File.Exists(turnFileName) == false)
+          if (!File.Exists(turnFileName))
           {
-              Report.FatalError
-              ("The Nova GUI cannot start unless a turn file is present");
+              Report.FatalError("The Nova GUI cannot start unless a turn file is present");
           }
 
           using (Stream turnFile = new FileStream(turnFileName, FileMode.Open))
