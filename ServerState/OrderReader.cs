@@ -84,7 +84,7 @@ namespace Nova.Server
             {
                 string fileName = Path.Combine(StateData.GameFolder, race.Name + ".orders");
 
-                if (File.Exists(fileName) == false)
+                if (!File.Exists(fileName))
                 {
                     return;
                 }

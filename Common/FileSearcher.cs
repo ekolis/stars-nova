@@ -117,7 +117,7 @@ namespace Nova.Common
             }
 
             // did we find it?
-            if (AbsoluteReference == null || !File.Exists(AbsoluteReference))
+            if (!File.Exists(AbsoluteReference))
             {
                 registryOK = false;
                 // Try the deployed path
@@ -126,7 +126,7 @@ namespace Nova.Common
                 AbsoluteReference = Path.Combine(AbsoluteReference, fileName);
             }
 
-            if (AbsoluteReference == null || !File.Exists(AbsoluteReference))
+            if (!File.Exists(AbsoluteReference))
             {
                 registryOK = false;
                 // Try the development path
@@ -137,14 +137,14 @@ namespace Nova.Common
             // Try searching the nova tree (brute force)
             // TODO (priority 3)
 
-            if (AbsoluteReference == null || !File.Exists(AbsoluteReference))
+            if (!File.Exists(AbsoluteReference))
             {
                 // Ask the user for help
                 if (askUser) AbsoluteReference = AskUserForFile(fileName);
             }
 
             // Finish up
-            if (AbsoluteReference == null || !File.Exists(AbsoluteReference))
+            if (!File.Exists(AbsoluteReference))
             {
                 AbsoluteReference = null;
             }
