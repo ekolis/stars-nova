@@ -114,7 +114,7 @@ namespace Nova.WinForms.NewGame
 
                 // Construct appropriate state and settings file names
                 ServerState.Data.StatePathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar + GameSettings.Data.GameName + Global.ServerStateExtension;
-                GameSettings.Data.SettingsPathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar + GameSettings.Data.GameName + ".settings";
+                GameSettings.Data.SettingsPathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar + GameSettings.Data.GameName + Global.SettingsExtension;
                 FileSearcher.SetNovaRegistryValue(Global.ServerStateKey, ServerState.Data.StatePathName);
 
                 // Copy the player & race data to the ServerState

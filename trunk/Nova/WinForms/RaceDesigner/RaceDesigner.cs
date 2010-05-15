@@ -1355,7 +1355,7 @@ namespace Nova.WinForms.RaceDesigner
             // OpenFileDialog
             // 
             this.OpenFileDialog.FileName = "OpenFileDialog";
-            this.OpenFileDialog.Filter = "Race Definition File | *.race";
+            this.OpenFileDialog.Filter = "Race Definition File | *" + Global.RaceExtension;
             this.OpenFileDialog.Title = "Nova - Specify Race Definition File";
             // 
             // RadiationTolerance
@@ -1859,7 +1859,7 @@ namespace Nova.WinForms.RaceDesigner
 
                 SaveFileDialog fd = new SaveFileDialog();
                 fd.Title = "Save Race - " + RaceParameters.Name;
-                fd.FileName = RaceParameters.Name + ".race";
+                fd.FileName = RaceParameters.Name + Global.RaceExtension;
                 fd.InitialDirectory = RaceFilePath;
                 DialogResult result = fd.ShowDialog();
                 if (result == DialogResult.OK)
@@ -1969,7 +1969,7 @@ namespace Nova.WinForms.RaceDesigner
 
 
             OpenFileDialog.CheckFileExists = true;
-            OpenFileDialog.FileName = "Humanoid.race";
+            OpenFileDialog.FileName = "Humanoid" + Global.RaceExtension;
             if (OpenFileDialog.ShowDialog() != DialogResult.OK)
             {
                 return;
