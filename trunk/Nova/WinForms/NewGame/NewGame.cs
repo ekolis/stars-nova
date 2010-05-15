@@ -113,7 +113,7 @@ namespace Nova.WinForms.NewGame
                 // FileSearcher.SetNovaRegistryValue(Global.ClientFolderKey, gameFolderBrowser.SelectedPath);  
 
                 // Construct appropriate state and settings file names
-                ServerState.Data.StatePathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar + GameSettings.Data.GameName + ".state";
+                ServerState.Data.StatePathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar + GameSettings.Data.GameName + Global.ServerStateExtension;
                 GameSettings.Data.SettingsPathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar + GameSettings.Data.GameName + ".settings";
                 FileSearcher.SetNovaRegistryValue(Global.ServerStateKey, ServerState.Data.StatePathName);
 

@@ -63,6 +63,16 @@ namespace Nova.Common
        public const string SettingsKey = "GameSettingsFile";             // where the game settings are stored (on the server, but a copy should be avaialble to the client).
        #endregion Files and Folders
 
+       #region File Extensions
+       // TODO (priority 3) - Ensure consistent use of these rather than string litterals.
+       public const string ClientStateExtension = ".cstate";
+       public const string ServerStateExtension = ".sstate";
+       public const string OrdersExtension = ".orders";
+       public const string RaceExtension = ".race";
+       public const string IntelExtension = ".intel";
+       public const string SettingsExtension = ".settings";
+       #endregion
+
        // default folder names, used with FileSearcher.GetFolder(). 
        #region Default Folders
        // Follows the above naming conventions
