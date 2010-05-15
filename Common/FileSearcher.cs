@@ -88,9 +88,16 @@ namespace Nova.Common
         /// </summary>
         public static void SetKeys()
         {
-            GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
-            GetFolder(Global.ClientFolderKey, Global.ClientFolderName);
-            GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
+            try
+            {
+                GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
+                GetFolder(Global.ClientFolderKey, Global.ClientFolderName);
+                GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
+            }
+            catch (Exception e)
+            {
+                Report.FatalError("Unable to locate essential application folders: " + e.Message);
+            }
         }
 
 
@@ -188,7 +195,7 @@ namespace Nova.Common
             }
 
             // If the default folder doesn't exist, create it.
-            if (FolderPath == null || !Directory.Exists(FolderPath))
+            if (!Directory.Exists(FolderPath))
             {
                 try
                 {
@@ -196,6 +203,7 @@ namespace Nova.Common
                 }
                 catch
                 {
+                    Report.Error("Unable to create directory: " + FolderPath);
                     FolderPath = null;
                 }
             }
@@ -203,6 +211,7 @@ namespace Nova.Common
             // Finish Up
             if (FolderPath == null || !Directory.Exists(FolderPath))
             {
+                Report.Error("Folder does not exist: " + FolderPath);
                 FolderPath = null;
             }
             else
@@ -268,13 +277,13 @@ namespace Nova.Common
 
             if (NovaRoot == null || ! Directory.Exists(NovaRoot))
             {
-                NovaRoot = Assembly.GetExecutingAssembly().Location;
+                NovaRoot = (new System.IO.FileInfo(Assembly.GetExecutingAssembly().Location)).DirectoryName;
             }
 
             if (NovaRoot == null || ! Directory.Exists(NovaRoot))
             {
                 // try working upward from the working directory
-                // two likely structure - the installation structure (deployed) (e.g. Program Files/nova/AppName/AppName.exe)
+                // two likely structure - the installation structure (deployed) (e.g. Program Files/Stars! Nova/AppName/AppName.exe)
                 // or the development structure (development) (e.g. stars-nova/trunk/AppName/bin/debug/AppName.exe)
                 String WorkingDirectory = Directory.GetCurrentDirectory();
                 string[] folders = WorkingDirectory.Split(Path.DirectorySeparatorChar);
@@ -290,7 +299,7 @@ namespace Nova.Common
                 }
                 else
                 {
-                    NovaRoot = Path.Combine(WorkingDirectory, "..");
+                    NovaRoot = WorkingDirectory;
                 }
                 
             }
