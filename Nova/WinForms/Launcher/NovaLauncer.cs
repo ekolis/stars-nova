@@ -26,7 +26,9 @@
 // ===========================================================================
 #endregion
 
+#region Using Statements
 using System;
+using System.IO;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -38,6 +40,7 @@ using System.Diagnostics;
 using System.Reflection;
 
 using Nova.Common;
+#endregion
 
 namespace Nova.WinForms.Launcher
 {
@@ -150,7 +153,8 @@ namespace Nova.WinForms.Launcher
         /// ----------------------------------------------------------------------------
         private void openGameButton_Click(object sender, EventArgs e)
         {
-            String IntelFile = "";
+            String IntelFileName = "";
+            bool GameLaunched = false;
 
             // have the user identify the game to open
             try
@@ -163,26 +167,64 @@ namespace Nova.WinForms.Launcher
                 {
                     return;
                 }
-                IntelFile = fd.FileName;
+                IntelFileName = fd.FileName;
             }
             catch
             {
                 Report.FatalError("Unable to open a game.");
             }
 
+            // Launch the GUI
             CommandArguments args = new CommandArguments();
             args.Add(CommandArguments.Option.GuiSwitch);
-            args.Add(CommandArguments.Option.IntelFileName, IntelFile);
+            args.Add(CommandArguments.Option.IntelFileName, IntelFileName);
 
             try
             {
                 Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());
-                Application.Exit();
+                GameLaunched = true;
             }
             catch
             {
                 Report.Error("NovaLauncher.cs: openGameButton_Click() - Failed to launch GUI.");
             }
+
+            // Launch the Console if this is a local game, i.e. if the console.state is in the same directory.
+            String ServerStateFileName = "";
+            FileInfo IntelFileInfo = new FileInfo(IntelFileName);
+            String GamePathName = IntelFileInfo.DirectoryName;
+            DirectoryInfo GameDirectoryInfo = new DirectoryInfo(GamePathName);
+            FileInfo[] GameFilesInfo = GameDirectoryInfo.GetFiles();
+            foreach (FileInfo file in GameFilesInfo)
+            {
+                if (file.Extension == Global.ServerStateExtension)
+                {
+                    ServerStateFileName = file.FullName;
+                }
+            }
+
+            if (ServerStateFileName != "")
+            {
+                args.Clear();
+                args.Add(CommandArguments.Option.ConsoleSwitch);
+                args.Add(CommandArguments.Option.StateFileName, ServerStateFileName);
+
+                try
+                {
+                    Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());
+                    GameLaunched = true;
+                }
+                catch
+                {
+                    Report.Error("NovaLauncher.cs: openGameButton_Click() - Failed to launch GUI.");
+                }
+            }
+
+            if (GameLaunched)
+            {
+                Application.Exit();
+            }
+           
         }
 
 

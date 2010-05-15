@@ -891,7 +891,7 @@ namespace Nova.WinForms.Console
             {
                 OpenFileDialog fd = new OpenFileDialog();
                 fd.Title = "Open Game";
-                fd.FileName = "NovaServer.state";
+                fd.FileName = "NovaServer" + Global.ServerStateExtension;
                 DialogResult result = fd.ShowDialog();
                 if (result != DialogResult.OK)
                 {

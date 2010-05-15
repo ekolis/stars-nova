@@ -666,7 +666,7 @@ namespace Nova.Client
         public static void Restore(string gameFolder, string raceName)
         {
 
-            StatePathName = Path.Combine(gameFolder, raceName + ".state");
+            StatePathName = Path.Combine(gameFolder, raceName + Global.ClientStateExtension);
 
             if (File.Exists(StatePathName))
             {

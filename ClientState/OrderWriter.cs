@@ -127,7 +127,7 @@ namespace Nova.Client
              outputTurn.DeletedFleets.Add(designKey);
          }
 
-         string turnFileName = Path.Combine(StateData.GameFolder, RaceName + ".orders");
+         string turnFileName = Path.Combine(StateData.GameFolder, RaceName + Global.OrdersExtension);
 
          // outputTurn.ToBinary(turnFileName); // old binary serialised format
          outputTurn.ToXml(turnFileName); // human readable xml format
