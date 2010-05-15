@@ -40,6 +40,8 @@ using Microsoft.Win32;
 using System.IO;
 using System.Windows.Forms;
 using System.Text.RegularExpressions;
+using System.Diagnostics;
+using System.Reflection;
 
 namespace Nova.Common
 {
@@ -266,6 +268,11 @@ namespace Nova.Common
 
             if (NovaRoot == null || ! Directory.Exists(NovaRoot))
             {
+                NovaRoot = Assembly.GetExecutingAssembly().Location;
+            }
+
+            if (NovaRoot == null || ! Directory.Exists(NovaRoot))
+            {
                 // try working upward from the working directory
                 // two likely structure - the installation structure (deployed) (e.g. Program Files/nova/AppName/AppName.exe)
                 // or the development structure (development) (e.g. stars-nova/trunk/AppName/bin/debug/AppName.exe)
@@ -288,7 +295,11 @@ namespace Nova.Common
                 
             }
 
-            if (!Directory.Exists(NovaRoot)) NovaRoot = null;
+            if (!Directory.Exists(NovaRoot))
+            {
+                Report.FatalError("Unable to locate the installation path to Nova.");
+            }
+
 
             return NovaRoot;
         }
