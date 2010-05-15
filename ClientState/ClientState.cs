@@ -247,7 +247,7 @@ namespace Nova.Client
                     {
                         OpenFileDialog fd = new OpenFileDialog();
                         fd.Title = "Open Game";
-                        fd.FileName = "*.intel";
+                        fd.FileName = "*." + Global.IntelExtension;
                         DialogResult result = fd.ShowDialog();
                         if (result != DialogResult.OK)
                         {
@@ -296,7 +296,7 @@ namespace Nova.Client
                 {
                     ClientState.Restore();
                     String newIntelFileName = Path.GetDirectoryName(StatePathName) +
-                        ClientState.Data.RaceName + ".intel";
+                        ClientState.Data.RaceName + Global.IntelExtension;
                     IntelReader.ReadIntel(IntelFileName);
                     bLoaded = true;
                 }
@@ -384,7 +384,7 @@ namespace Nova.Client
         private static void ProcessRaceDefinition()
         {
             string raceFileName = Path.Combine(FileSearcher.GetFolder( Global.RaceFolderKey, Global.RaceFolderName),
-                                               ClientState.Data.RaceName + ".race");
+                                               ClientState.Data.RaceName + Global.RaceExtension);
             if (File.Exists(raceFileName))
             {
                 ClientState.Data.PlayerRace = new Race(raceFileName);
@@ -788,7 +788,7 @@ namespace Nova.Client
             string raceName = null;
 
             DirectoryInfo directory = new DirectoryInfo(gameFolder);
-            FileInfo[] raceFiles = directory.GetFiles("*.race");
+            FileInfo[] raceFiles = directory.GetFiles("*" + Global.RaceExtension);
 
             if (raceFiles.Length == 0)
             {

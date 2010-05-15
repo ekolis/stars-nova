@@ -115,7 +115,7 @@ namespace Nova.Server
                     Report.Error("Intel Writer: WriteIntel() - Unable to create file \"Nova.intel\".");
                     return;
                 }
-                string turnFileName = Path.Combine(ServerState.Data.GameFolder, player.RaceName + ".intel");
+                string turnFileName = Path.Combine(ServerState.Data.GameFolder, player.RaceName + Global.IntelExtension);
 
                 bool locked = false;
                 do

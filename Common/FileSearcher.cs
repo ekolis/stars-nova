@@ -61,7 +61,7 @@ namespace Nova.Common
             DirectoryInfo directory = new DirectoryInfo
                                            (RaceFolder);
 
-            FileInfo[] raceFiles = directory.GetFiles("*.race");
+            FileInfo[] raceFiles = directory.GetFiles("*" + Global.RaceExtension);
 
             if (raceFiles.Length == 0)
             {

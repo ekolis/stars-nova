@@ -677,7 +677,7 @@ namespace Nova.WinForms.Console
                 args.Add(CommandArguments.Option.GuiSwitch);
                 args.Add(CommandArguments.Option.RaceName, raceName);
                 args.Add(CommandArguments.Option.Turn, ServerState.Data.TurnYear + 1);
-                args.Add(CommandArguments.Option.IntelFileName, Path.Combine(ServerState.Data.GameFolder, raceName + ".intel"));
+                args.Add(CommandArguments.Option.IntelFileName, Path.Combine(ServerState.Data.GameFolder, raceName + Global.IntelExtension));
                 Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());
             }
             catch
@@ -864,7 +864,7 @@ namespace Nova.WinForms.Console
                         args.Add(CommandArguments.Option.AiSwitch);
                         args.Add(CommandArguments.Option.RaceName, settings.RaceName);
                         args.Add(CommandArguments.Option.Turn, ServerState.Data.TurnYear);
-                        args.Add(CommandArguments.Option.IntelFileName, Path.Combine(ServerState.Data.GameFolder, settings.RaceName + ".intel"));
+                        args.Add(CommandArguments.Option.IntelFileName, Path.Combine(ServerState.Data.GameFolder, settings.RaceName + Global.IntelExtension));
                         try
                         {
                             Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());

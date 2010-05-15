@@ -161,7 +161,7 @@ namespace Nova.WinForms.Launcher
             {
                 OpenFileDialog fd = new OpenFileDialog();
                 fd.Title = "Open Game";
-                fd.FileName = "*.intel";
+                fd.FileName = "*" + Global.IntelExtension;
                 DialogResult result = fd.ShowDialog();
                 if (result != DialogResult.OK)
                 {

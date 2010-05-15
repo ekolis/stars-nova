@@ -64,7 +64,6 @@ namespace Nova.Common
        #endregion Files and Folders
 
        #region File Extensions
-       // TODO (priority 3) - Ensure consistent use of these rather than string litterals.
        public const string ClientStateExtension = ".cstate";
        public const string ServerStateExtension = ".sstate";
        public const string OrdersExtension = ".orders";
