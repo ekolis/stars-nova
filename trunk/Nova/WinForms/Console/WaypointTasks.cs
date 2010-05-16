@@ -92,31 +92,38 @@ namespace Nova.WinForms.Console
             message.Text = fleet.Name
                          + " attempted to colonise " + waypoint.Destination;
 
-            Star target = ServerState.Data.AllStars[waypoint.Destination]
-                          as Star;
-
-            if (target.Colonists != 0)
+            if (!ServerState.Data.AllStars.Contains(waypoint.Destination))
             {
-                message.Text += " but it is already occupied.";
-            }
-            else if (fleet.Cargo.Colonists == 0)
-            {
-                message.Text += " but no colonists were on board.";
+                message.Text += " but " + waypoint.Destination + " is not a star.";
             }
             else
             {
-                message.Text = "You have colonised " + waypoint.Destination;
-                waypoint.Task = "None";
-                Star star = ServerState.Data.AllStars[waypoint.Destination]
-                                as Star;
+                Star target = ServerState.Data.AllStars[waypoint.Destination]
+                              as Star;
 
-                star.ResourcesOnHand.Ironium = fleet.Cargo.Ironium;
-                star.ResourcesOnHand.Boranium = fleet.Cargo.Boranium;
-                star.ResourcesOnHand.Germanium = fleet.Cargo.Germanium;
-                star.Colonists = fleet.Cargo.Colonists * 1000;
-                star.Owner = fleet.Owner;
-                fleet.Cargo = new Cargo();
-                Scrap(fleet, star, true);
+                if (target.Colonists != 0)
+                {
+                    message.Text += " but it is already occupied.";
+                }
+                else if (fleet.Cargo.Colonists == 0)
+                {
+                    message.Text += " but no colonists were on board.";
+                }
+                else
+                {
+                    message.Text = "You have colonised " + waypoint.Destination;
+                    waypoint.Task = "None";
+                    Star star = ServerState.Data.AllStars[waypoint.Destination]
+                                    as Star;
+
+                    star.ResourcesOnHand.Ironium = fleet.Cargo.Ironium;
+                    star.ResourcesOnHand.Boranium = fleet.Cargo.Boranium;
+                    star.ResourcesOnHand.Germanium = fleet.Cargo.Germanium;
+                    star.Colonists = fleet.Cargo.Colonists * 1000;
+                    star.Owner = fleet.Owner;
+                    fleet.Cargo = new Cargo();
+                    Scrap(fleet, star, true);
+                }
             }
 
             ServerState.Data.AllMessages.Add(message);
