@@ -18,8 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UnitTests", "UnitTests\Unit
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova", "Nova\Nova.csproj", "{184F17D9-28F2-4784-B5F0-8E9538A31BF7}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Windows Setup", "Setup\Windows\Setup.vdproj", "{FE6DE6B5-4181-4869-ABB6-6DABF4E3134B}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -54,10 +52,6 @@ Global
 		{184F17D9-28F2-4784-B5F0-8E9538A31BF7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{184F17D9-28F2-4784-B5F0-8E9538A31BF7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{184F17D9-28F2-4784-B5F0-8E9538A31BF7}.Release|Any CPU.Build.0 = Release|Any CPU
-		{FE6DE6B5-4181-4869-ABB6-6DABF4E3134B}.Debug|Any CPU.ActiveCfg = Debug
-		{FE6DE6B5-4181-4869-ABB6-6DABF4E3134B}.Debug|Any CPU.Build.0 = Debug
-		{FE6DE6B5-4181-4869-ABB6-6DABF4E3134B}.Release|Any CPU.ActiveCfg = Release
-		{FE6DE6B5-4181-4869-ABB6-6DABF4E3134B}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
