@@ -63,12 +63,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_791CBD31A3D34C79B6F2F201D3F40D43"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_9394113AA2C215742EC7A51F7A54B5D2"
         "OwnerKey" = "8:_AD039140FFA34D41B04E42107A0E91D0"
         "MsmSig" = "8:_UNDEFINED"
@@ -100,6 +94,12 @@
         "Entry"
         {
         "MsmKey" = "8:_AF1C69A9ACB24F00A5E9D525B761160D"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_B4DDB2AED6EE4A8BB39773634E853E9F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -430,7 +430,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.3788.20755, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_77AF68B3E2315981EC932637827E0C49"
@@ -457,31 +457,11 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_791CBD31A3D34C79B6F2F201D3F40D43"
-            {
-            "SourcePath" = "8:..\\..\\LICENSE.rtf"
-            "TargetName" = "8:LICENSE.rtf"
-            "Tag" = "8:"
-            "Folder" = "8:_AC801D23DA1C46C5B95B810890051C30"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9394113AA2C215742EC7A51F7A54B5D2"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.3788.20755, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_9394113AA2C215742EC7A51F7A54B5D2"
@@ -552,7 +532,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.3788.20755, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_A3A4FB7397B3BB4B89262CCDFEE74A06"
@@ -583,6 +563,26 @@
             {
             "SourcePath" = "8:..\\..\\components.xml"
             "TargetName" = "8:components.xml"
+            "Tag" = "8:"
+            "Folder" = "8:_AC801D23DA1C46C5B95B810890051C30"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B4DDB2AED6EE4A8BB39773634E853E9F"
+            {
+            "SourcePath" = "8:LICENSE.rtf"
+            "TargetName" = "8:LICENSE.rtf"
             "Tag" = "8:"
             "Folder" = "8:_AC801D23DA1C46C5B95B810890051C30"
             "Condition" = "8:"
@@ -683,7 +683,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.0.0, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.3788.20755, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_F8869E6C297AD17CFCD68A9EB660535D"
@@ -811,7 +811,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Stars! Nova"
         "ProductCode" = "8:{6004376B-5CCF-4C70-9FE1-FB05BB325454}"
-        "PackageCode" = "8:{5C227687-D133-4286-A223-FAA006B165BC}"
+        "PackageCode" = "8:{ED4E5F8D-FDFC-41F0-B0C5-0725A9EB97B6}"
         "UpgradeCode" = "8:{0669EC41-507F-4D34-8077-38BF7A216402}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -1026,7 +1026,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_791CBD31A3D34C79B6F2F201D3F40D43"
+                            "Value" = "8:_B4DDB2AED6EE4A8BB39773634E853E9F"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
@@ -1459,7 +1459,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_791CBD31A3D34C79B6F2F201D3F40D43"
+                            "Value" = "8:_B4DDB2AED6EE4A8BB39773634E853E9F"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
