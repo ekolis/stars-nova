@@ -110,12 +110,9 @@ namespace Nova.WinForms.NewGame
             GameSettings.Data.MapHeight = (int)mapHeight.Value;
             GameSettings.Data.MapWidth = (int)mapWidth.Value;
 
-            GameSettings.Data.StarMinSeparation = (int) starSeparation.Value;
+            GameSettings.Data.StarSeparation = (int) starSeparation.Value;
             GameSettings.Data.StarDensity = (int) starDensity.Value;
-            GameSettings.Data.StarGalaxyCount = (int) starGalaxyCount.Value;
-            GameSettings.Data.StarGalaxySize = (int) starGalaxySize.Value;
-            GameSettings.Data.StarGalaxySeparation = (int)starGalaxySeparation.Value;
-
+            GameSettings.Data.StarUniformity = (int) starUniformity.Value;
         }
 
 
