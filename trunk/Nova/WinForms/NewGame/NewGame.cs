@@ -180,14 +180,7 @@ namespace Nova.WinForms.NewGame
 
             // SpaceAllocator spaceAllocator = new SpaceAllocator(numberOfStars);
 
-            StarsMapGenerator map = new StarsMapGenerator(GameSettings.Data.MapWidth, 
-                                                            GameSettings.Data.MapHeight,
-                                                            GameSettings.Data.StarMinSeparation,
-                                                            GameSettings.Data.StarDensity,
-                                                            GameSettings.Data.StarGalaxyCount,
-                                                            GameSettings.Data.StarGalaxySize,
-                                                            GameSettings.Data.StarGalaxySeparation);
-
+            StarsMapGenerator map = new StarsMapGenerator(GameSettings.Data.MapWidth, GameSettings.Data.MapHeight, GameSettings.Data.StarSeparation, GameSettings.Data.StarDensity, GameSettings.Data.StarUniformity);
             List<int[]> allStarPositions = map.Generate();
 
             // FIXME (priority 4) - ignores map Height
