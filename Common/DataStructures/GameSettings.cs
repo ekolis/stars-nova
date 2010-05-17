@@ -48,9 +48,12 @@ namespace Nova.Common
         public int MapWidth = 400;
         public int MapHeight = 400;
 
-        public int StarSeparation = 10;
+        public int StarMinSeparation = 10;
         public int StarDensity = 40;
-        public int StarUniformity = 60;
+        public int StarGalaxyCount = 60;
+        public int StarGalaxySize = 40;
+        public int StarGalaxySeparation = 100;
+
 
         public int NumberOfStars = 50;
 

@@ -56,9 +56,7 @@ namespace Nova.WinForms.NewGame
         // map settings
         private int MapWidth;
         private int MapHeight;
-        private int StarSeparation;
-        private int StarDensity;
-        private int StarUniformity;
+        private double MinSeperation, GalaxyCount, GalaxySize, DensityFactor, GalaxySeperation;
 
         //non-normalized probability density function
         //values are between 0 and 1
@@ -77,21 +75,16 @@ namespace Nova.WinForms.NewGame
         /// <param name="mapWidth">Width of the map in ly.</param>
         /// <param name="mapHeight">Height of the map in ly.</param>
         /// ----------------------------------------------------------------------------
-        public StarsMapGenerator(int mapWidth, int mapHeight, int starSeparation, int starDensity, int starUniformity)
+        public StarsMapGenerator(int mapWidth, int mapHeight, double minSeperation, double galaxyCount, double galaxySize, double densityFactor, double galaxySeperation)
         {
             this.MapWidth = mapWidth;
             this.MapHeight = mapHeight;
 
-            this.StarSeparation = starSeparation;
-            this.StarDensity = starDensity;
-            this.StarUniformity = starUniformity;
-
-#if(DEBUG)
-            // Just to test that the form data has been passed in successfully - Dan 9 May 10
-            System.Windows.Forms.MessageBox.Show("Star Separation = " + StarSeparation.ToString() +
-                " Star Density = " + StarDensity.ToString() +
-                " Star Uniformity = " + StarUniformity.ToString());
-#endif
+            this.MinSeperation = minSeperation;
+            this.GalaxyCount = galaxyCount;
+            this.GalaxySize = galaxySize;
+            this.DensityFactor = densityFactor;
+            this.GalaxySeperation = galaxySeperation;
 
             Density = new double[mapWidth, mapHeight];
         }
@@ -178,6 +171,38 @@ namespace Nova.WinForms.NewGame
 
         /// ----------------------------------------------------------------------------
         /// <summary>
+        /// This function defines the amount the density function value should be 
+        /// reduced by at current point based on the distance between current point and
+        /// the star.
+        /// </summary>
+        /// <param name="distance">Distance between the current point and the star.</param>
+        /// <returns>Returning 1 means the density function value will be reduced down to zero 
+        /// at the current point. Returning 0 means value will not be changed.</returns>
+        /// ----------------------------------------------------------------------------
+        private double ParameterisedReduce(double distance, double minSeperation, double galaxyCount, double galaxySize, double densityFactor, double galaxySeperation)
+        {
+            //an example of reduce function which produces clumped stars
+            if (distance < minSeperation)
+            {
+                return 1.0;
+            }
+            else if (distance < galaxySize) //this is clumping area - (5;20)
+            {                       //the value here is small
+                return 1.0 / galaxyCount;
+            }
+            else if (distance < galaxySeperation)
+            {
+                return (galaxySeperation - distance) / densityFactor;
+            }
+            else
+            {
+                return 0.0;
+            }
+
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
         /// Genetate a star map.
         /// </summary>
         /// ----------------------------------------------------------------------------
@@ -240,7 +265,7 @@ namespace Nova.WinForms.NewGame
                 for (int j = ((y - UpdateFrameSize / 2 > 0) ? (y - UpdateFrameSize / 2) : 0); j <= ((y + UpdateFrameSize / 2 < MapHeight) ? (y + UpdateFrameSize / 2) : (MapHeight - 1)); ++j)
                 {
                     double d = Math.Sqrt((x - i) * (x - i) + (y - j) * (y - j));
-                    Density[i, j] -= Reduce(d);
+                    Density[i, j] -= ParameterisedReduce(d, 10, 5, 40, 200, 100);
                 }
             }
         }
