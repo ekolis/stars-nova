@@ -51,7 +51,7 @@ namespace Nova.WinForms.NewGame
         private const int FailuresThreshold = 5000;
 
         //the width and height of the frame where the density values will be updated after placing the star
-        private const int UpdateFrameSize = 100;
+        private int UpdateFrameSize;
 
         // map settings
         private int MapWidth;
@@ -59,6 +59,10 @@ namespace Nova.WinForms.NewGame
         private int StarSeparation;
         private int StarDensity;
         private int StarUniformity;
+
+        //values calculated from map parameters, which define the shape of reduce function
+        private double BaseDensity;
+        private double MaxRadius;
 
         //non-normalized probability density function
         //values are between 0 and 1
@@ -106,6 +110,22 @@ namespace Nova.WinForms.NewGame
         /// ----------------------------------------------------------------------------
         public List<int[]> Generate()
         {
+            BaseDensity = (2.0 * (StarUniformity - 1) + 0.11 * (100 - StarUniformity)) / 99.0;
+            MaxRadius = (100.0 * (StarUniformity - 1) + 400 * (100 - StarUniformity)) / 99.0;
+
+            //middle value of uniformity produces low density (~ x0.63), so equalizing this a bit with border values
+            double DensityBalancer = 1 * Math.Abs(50.0 - StarUniformity) / 50.0 + 0.63 * (1 - Math.Abs(50.0 - StarUniformity) / 50.0);
+
+            BaseDensity *= DensityBalancer;
+            MaxRadius *= DensityBalancer;
+
+            double DensityApplied = 0.5 * (StarDensity - 1) / 99.0 + 2.0 * (100 - StarDensity) / 99.0;
+
+            BaseDensity *= DensityApplied;
+            MaxRadius *= DensityApplied;
+
+            UpdateFrameSize = (int) Math.Ceiling(MaxRadius);
+
             DoGeneration();
             return Stars;
         }
@@ -123,56 +143,16 @@ namespace Nova.WinForms.NewGame
         /// ----------------------------------------------------------------------------
         private double Reduce(double distance)
         {   
-            //current implementation produces map with no clumping
-            if (distance < 5)   //no stars allowed closer than 5 l.y.
+            if (distance < StarSeparation) 
             {
                 return 1.0;
             }
-            else if (distance < 10)
+            else if (distance < MaxRadius)
             {
-                return (distance - 5) / 20 + (10 - distance) / 5;
+                return (MaxRadius - distance) / (MaxRadius - StarSeparation) * BaseDensity;
             }
-            else if (distance < 100)
-            {
-                return (100 - distance) / 360;
-            }
-            else
-            {
-                return 0.0;
-            }
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// This function defines the amount the density function value should be 
-        /// reduced by at current point based on the distance between current point and
-        /// the star.
-        /// </summary>
-        /// <param name="distance">Distance between the current point and the star.</param>
-        /// <returns>Returning 1 means the density function value will be reduced down to zero 
-        /// at the current point. Returning 0 means value will not be changed.</returns>
-        /// ----------------------------------------------------------------------------
-        private double Reduce2(double distance)
-        {   
-            //an example of reduce function which produces clumped stars
-            if (distance < 5)
-            {
-                return 1.0;
-            }
-            else if (distance < 20) //this is clumping area - (5;20)
-            {                       //the value here is small
-                return 0.1;
-            }
-            else if (distance < 100)
-            {
-                return (100 - distance) / 320;
-            }
-            else
-            {
-                return 0.0;
-            }
-
+            
+            return 0.0;
         }
 
 
