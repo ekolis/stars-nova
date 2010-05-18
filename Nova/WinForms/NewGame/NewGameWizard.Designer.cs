@@ -745,7 +745,7 @@ namespace Nova.WinForms.NewGame
           // 
           this.starSeparation.Location = new System.Drawing.Point(101, 71);
           this.starSeparation.Maximum = new decimal(new int[] {
-            90,
+            50,
             0,
             0,
             0});
