@@ -6,8 +6,8 @@ includes images, music, sounds, text and game content such as components
 and races.
 
 Everything else is licensed under the GNU General Public License
-version 2. This includes, but is not limited to, source code, executable
-and object code.
+version 2. This includes, but is not limited to, source, executable and
+object code.
 
 Below is the full license text for the GNU General Public License
 version 2 followed by the Creative Commons Attribution-ShareAlike 3.0
