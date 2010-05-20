@@ -21,12 +21,6 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_14296212B5D044A39067ED817552D7A3"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_15D74C07BB714B8C96785A85E6682937"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -39,19 +33,7 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_35B08715D4B8421F91C5A70002E8120D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
         "MsmKey" = "8:_41E3869EACE948EF8D27F17D9C30732C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_64E0B532A35F48D28FC90E6536DF03FB"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -65,18 +47,6 @@
         {
         "MsmKey" = "8:_9394113AA2C215742EC7A51F7A54B5D2"
         "OwnerKey" = "8:_AD039140FFA34D41B04E42107A0E91D0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_9556642156C741EC8E8853CC1109F43C"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_96609DD75ABC489098610D3C8A5419EB"
-        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -112,12 +82,6 @@
         "Entry"
         {
         "MsmKey" = "8:_D48B16273ED54926A32D49328E1A0A9D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_D7891CFFE4984187A6B1379FFB2C94B4"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -306,26 +270,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_14296212B5D044A39067ED817552D7A3"
-            {
-            "SourcePath" = "8:..\\..\\GameFiles\\Humanoid.state"
-            "TargetName" = "8:Humanoid.state"
-            "Tag" = "8:"
-            "Folder" = "8:_A291FF4F85134029ADEF4CD184B0B2CD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_15D74C07BB714B8C96785A85E6682937"
             {
             "SourcePath" = "8:..\\..\\GameFiles\\Races\\RACE-PASSWORDS.txt"
@@ -366,26 +310,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_35B08715D4B8421F91C5A70002E8120D"
-            {
-            "SourcePath" = "8:..\\..\\GameFiles\\NovaServer.state"
-            "TargetName" = "8:NovaServer.state"
-            "Tag" = "8:"
-            "Folder" = "8:_A291FF4F85134029ADEF4CD184B0B2CD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_41E3869EACE948EF8D27F17D9C30732C"
             {
             "SourcePath" = "8:..\\..\\LICENSE.txt"
@@ -406,31 +330,11 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_64E0B532A35F48D28FC90E6536DF03FB"
-            {
-            "SourcePath" = "8:..\\..\\GameFiles\\Test.state"
-            "TargetName" = "8:Test.state"
-            "Tag" = "8:"
-            "Folder" = "8:_A291FF4F85134029ADEF4CD184B0B2CD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_77AF68B3E2315981EC932637827E0C49"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.3788.20769, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.3791.38347, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_77AF68B3E2315981EC932637827E0C49"
@@ -461,7 +365,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.3788.20769, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.3791.38347, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_9394113AA2C215742EC7A51F7A54B5D2"
@@ -488,51 +392,11 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_9556642156C741EC8E8853CC1109F43C"
-            {
-            "SourcePath" = "8:..\\..\\GameFiles\\Humanoid.orders"
-            "TargetName" = "8:Humanoid.orders"
-            "Tag" = "8:"
-            "Folder" = "8:_A291FF4F85134029ADEF4CD184B0B2CD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_96609DD75ABC489098610D3C8A5419EB"
-            {
-            "SourcePath" = "8:..\\..\\GameFiles\\Nova.intel"
-            "TargetName" = "8:Nova.intel"
-            "Tag" = "8:"
-            "Folder" = "8:_A291FF4F85134029ADEF4CD184B0B2CD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A3A4FB7397B3BB4B89262CCDFEE74A06"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.3788.20769, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.3791.38347, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_A3A4FB7397B3BB4B89262CCDFEE74A06"
@@ -639,26 +503,6 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_D7891CFFE4984187A6B1379FFB2C94B4"
-            {
-            "SourcePath" = "8:..\\..\\GameFiles\\Test.orders"
-            "TargetName" = "8:Test.orders"
-            "Tag" = "8:"
-            "Folder" = "8:_A291FF4F85134029ADEF4CD184B0B2CD"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_EB7B6E47027C4899AAAA19E3582A0A32"
             {
             "SourcePath" = "8:..\\..\\GameFiles\\Races\\Googly.race"
@@ -683,7 +527,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.3788.20768, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.3791.38346, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_F8869E6C297AD17CFCD68A9EB660535D"
