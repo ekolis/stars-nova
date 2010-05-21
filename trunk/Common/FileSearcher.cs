@@ -277,29 +277,24 @@ namespace Nova.Common
 
             if (NovaRoot == null || ! Directory.Exists(NovaRoot))
             {
-                NovaRoot = (new System.IO.FileInfo(Assembly.GetExecutingAssembly().Location)).DirectoryName;
-            }
-
-            if (NovaRoot == null || ! Directory.Exists(NovaRoot))
-            {
-                // try working upward from the working directory
-                // two likely structure - the installation structure (deployed) (e.g. Program Files/Stars! Nova/AppName/AppName.exe)
-                // or the development structure (development) (e.g. stars-nova/trunk/AppName/bin/debug/AppName.exe)
-                String WorkingDirectory = Directory.GetCurrentDirectory();
-                string[] folders = WorkingDirectory.Split(Path.DirectorySeparatorChar);
+                // try working upward from the application directory
+                // two likely structures - the installation structure (deployed) (e.g. Program Files/Stars! Nova/Nova.exe)
+                // or the development structure (development) (e.g. stars-nova/trunk/AppName/bin/<debug|release>/AppName.exe)
+                String ApplicationDirectory = (new System.IO.FileInfo(Assembly.GetExecutingAssembly().Location)).DirectoryName;
+                string[] folders = ApplicationDirectory.Split(Path.DirectorySeparatorChar);
                 String upThree = "../../..";
                 upThree = upThree.Replace('/', Path.DirectorySeparatorChar);
                 if (folders[folders.Length - 1].ToLower() == "debug")
                 {
-                    NovaRoot = Path.Combine(WorkingDirectory, upThree);
+                    NovaRoot = Path.Combine(ApplicationDirectory, upThree);
                 }
                 else if (folders[folders.Length - 1].ToLower() == "release")
                 {
-                    NovaRoot = Path.Combine(WorkingDirectory, upThree);
+                    NovaRoot = Path.Combine(ApplicationDirectory, upThree);
                 }
                 else
                 {
-                    NovaRoot = WorkingDirectory;
+                    NovaRoot = ApplicationDirectory;
                 }
                 
             }
