@@ -86,6 +86,7 @@ namespace Nova.WinForms.Gui
             bg_ctxt = new BufferedGraphicsContext();
 
             InitializeComponent();
+            GameSettings.Restore();
 
             // Initial map size
             Logical.X = (int)(GameSettings.Data.MapWidth);
@@ -194,7 +195,10 @@ namespace Nova.WinForms.Gui
             graphics = bg.Graphics;
             //graphics = eventData.Graphics;
 
-            graphics.DrawImage(Nova.Properties.Resources.Plasma, 0, 0);
+            //graphics.DrawImage(Nova.Properties.Resources.Plasma, 0, 0);
+            Point backgroundOrigin = LogicalToDevice(new Point(0, 0));
+            Point backgroundExtent = LogicalToDeviceRelative(new Point(800, 800));
+            graphics.DrawImage(Nova.Properties.Resources.Plasma, backgroundOrigin.X, backgroundOrigin.Y, backgroundExtent.X, backgroundExtent.Y);
 
             MapPanel.BackgroundImage = Nova.Properties.Resources.Plasma;
             MapPanel.BackgroundImageLayout = ImageLayout.Stretch;
@@ -303,12 +307,12 @@ namespace Nova.WinForms.Gui
 #if (DEBUG)
             Font F = new Font(ZoomIn.Font.Name, ZoomIn.Font.Size, ZoomIn.Font.Style, ZoomIn.Font.Unit);
 
-            string s = "Cursor Location (logical): " + position.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
             Color coordColour = Color.FromArgb(255, 255, 255, 0);
             SolidBrush coordBrush = new SolidBrush(coordColour);
-            graphics.DrawString(s, F, coordBrush, 0, 0);
-            string s2 = "Cursor Location (device): " + CursorPosition.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + CursorPosition.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            string s2 = "Cursor Location (logical): " + CursorPosition.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + CursorPosition.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
             graphics.DrawString(s2, F, coordBrush, 0, 20);
+            string s = "Cursor Location (device): " + position.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            graphics.DrawString(s, F, coordBrush, 0, 0);
             string zoomDebugMsg = "Zoom Facor: " + ZoomFactor.ToString(System.Globalization.CultureInfo.InvariantCulture);
             graphics.DrawString(zoomDebugMsg, F, coordBrush, 0, 40);
             string HScrollDebugMsg = "Hscroll: " + Hscroll.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -662,8 +666,10 @@ namespace Nova.WinForms.Gui
         {
             Point result = new Point();
 
-            result.X = ( (p.X - Origin.X) * MapPanel.Size.Width / Extent.X);
-            result.Y = ( (p.Y - Origin.Y) * MapPanel.Size.Height / Extent.Y);
+            int MinLength = Math.Min(MapPanel.Size.Width, MapPanel.Size.Height); // maintain 1:1 aspect ratio
+
+            result.X = ( (p.X - Origin.X) * MinLength / Extent.X);
+            result.Y = ((p.Y - Origin.Y) * MinLength / Extent.Y);
 
             return result;
         }
@@ -680,8 +686,10 @@ namespace Nova.WinForms.Gui
         {
             Point result = new Point();
 
-            result.X = (p.X * MapPanel.Size.Width) / Extent.X /* + BorderBuffer */;
-            result.Y = (p.Y * MapPanel.Size.Height) / Extent.Y /* + BorderBuffer */;
+            int MinLength = Math.Min(MapPanel.Size.Width, MapPanel.Size.Height); // maintain 1:1 aspect ratio
+
+            result.X = (p.X * MinLength) / Extent.X /* + BorderBuffer */;
+            result.Y = (p.Y * MinLength) / Extent.Y /* + BorderBuffer */;
 
             return result;
         }
@@ -698,8 +706,10 @@ namespace Nova.WinForms.Gui
         {
             Point result = new Point();
 
-            result.X = ((p.X/* - BorderBuffer*/) * Extent.X / MapPanel.Size.Width) + Origin.X;
-            result.Y = ((p.Y/* - BorderBuffer*/) * Extent.Y / MapPanel.Size.Height) + Origin.Y;
+            int MinLength = Math.Min(MapPanel.Size.Width, MapPanel.Size.Height); // maintain 1:1 aspect ratio
+
+            result.X = ((p.X/* - BorderBuffer*/) * Extent.X / MinLength) + Origin.X;
+            result.Y = ((p.Y/* - BorderBuffer*/) * Extent.Y / MinLength) + Origin.Y;
 
             return result;
         }

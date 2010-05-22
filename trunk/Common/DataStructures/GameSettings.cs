@@ -129,6 +129,10 @@ namespace Nova.Common
         public static void Restore()
         {
             string fileName = Data.SettingsPathName;
+            if (fileName == null)
+            {
+                fileName = FileSearcher.GetFile(Global.SettingsKey, false, "", "", "Your Game Name.settings", true);
+            }
             if (File.Exists(fileName))
             {
                 using (FileStream state = new FileStream(fileName, FileMode.Open))
