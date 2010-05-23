@@ -130,7 +130,7 @@ namespace Nova.WinForms.Gui
             this.WaypointTasks = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.Fuel = new ControlLibrary.Gauge();
+            this.Fuel = new Nova.ControlLibrary.Gauge();
             this.warpText = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -143,7 +143,7 @@ namespace Nova.WinForms.Gui
             this.label5 = new System.Windows.Forms.Label();
             this.routeFuelUse = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.Cargo = new ControlLibrary.Gauge();
+            this.Cargo = new Nova.ControlLibrary.Gauge();
             this.CargoButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.legTime = new System.Windows.Forms.Label();
@@ -349,7 +349,6 @@ namespace Nova.WinForms.Gui
             // CargoButton
             // 
             this.CargoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.CargoButton.Enabled = false;
             this.CargoButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.CargoButton.Location = new System.Drawing.Point(9, 88);
             this.CargoButton.Name = "CargoButton";
@@ -919,7 +918,7 @@ namespace Nova.WinForms.Gui
                 }
                 else
                 {
-                    CargoButton.Enabled = false;
+                    // CargoButton.Enabled = false; // FIXME (priority 4) - disabled due to it sometimes being disabled when it shouldn't be Dan 22 May 10 
                 }
             }
         }
