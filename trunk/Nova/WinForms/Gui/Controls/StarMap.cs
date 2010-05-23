@@ -197,7 +197,7 @@ namespace Nova.WinForms.Gui
 
             //graphics.DrawImage(Nova.Properties.Resources.Plasma, 0, 0);
             Point backgroundOrigin = LogicalToDevice(new Point(0, 0));
-            Point backgroundExtent = LogicalToDeviceRelative(new Point(800, 800));
+            Point backgroundExtent = LogicalToDeviceRelative(new Point(Logical.X, Logical.Y));
             graphics.DrawImage(Nova.Properties.Resources.Plasma, backgroundOrigin.X, backgroundOrigin.Y, backgroundExtent.X, backgroundExtent.Y);
 
             MapPanel.BackgroundImage = Nova.Properties.Resources.Plasma;
