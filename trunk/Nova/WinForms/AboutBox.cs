@@ -38,12 +38,13 @@ namespace Nova.WinForms
         {
             InitializeComponent();
 
-            this.logoPictureBox.Image = Nova.Properties.Resources.Nova;
+            logoPictureBox.Image = Properties.Resources.Nova;
 
-            this.Text = String.Format("About {0}", AssemblyTitle);
-            this.labelProductName.Text = AssemblyProduct;
-            this.labelVersion.Text = String.Format("Version {0}", AssemblyVersion);
-            this.Description.Text =
+
+            Text = String.Format("About {0}", AssemblyTitle);
+            labelProductName.Text = AssemblyProduct;
+            labelVersion.Text = String.Format("Version {0} - Build date {1}", ApplicationProductVersion, BuildDate.ToShortDateString());
+            Description.Text =
                 "Copyright © 2008 Ken Reed" + Environment.NewLine +
                 "Copyright © 2009, 2010 The Stars-Nova Project" + Environment.NewLine +
                 "" + Environment.NewLine +
@@ -78,7 +79,7 @@ namespace Nova.WinForms
         /// <summary>
         /// Get the assembly title.
         /// </summary>
-        public string AssemblyTitle
+        private string AssemblyTitle
         {
             get
             {
@@ -100,39 +101,36 @@ namespace Nova.WinForms
 
 
         /// <summary>
-        /// Get the assembly version.
+        /// Get the assembly file version.
         /// </summary>
-        public string AssemblyVersion
+        private string ApplicationProductVersion
         {
             get
             {
-                return Assembly.GetExecutingAssembly().GetName().Version.ToString();
+                string version = Application.ProductVersion;
+                string[] versionParts = version.Split('.');
+                return string.Join(".", versionParts, 0, 3);
             }
         }
 
-
-        /// <summary>
-        /// Get the assembly description.
-        /// </summary>
-        public string AssemblyDescription
+        private DateTime BuildDate
         {
             get
             {
-                // Get all Description attributes on this assembly
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyDescriptionAttribute), false);
-                // If there aren't any Description attributes, return an empty string
-                if (attributes.Length == 0)
-                    return "";
-                // If there is a Description attribute, return its value
-                return ((AssemblyDescriptionAttribute)attributes[0]).Description;
+                AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
+                int buildNumber = assemblyName.Version.Build;
+                int revision = assemblyName.Version.Revision;
+                DateTime start = new DateTime(2000, 1, 1);
+                DateTime buildDate = start.Add(new TimeSpan(buildNumber, 0, 0, 2 * revision, 0));
+
+                return buildDate;
             }
         }
-
 
         /// <summary>
         /// Get the assembly product.
         /// </summary>
-        public string AssemblyProduct
+        private string AssemblyProduct
         {
             get
             {
@@ -146,41 +144,6 @@ namespace Nova.WinForms
             }
         }
 
-
-        /// <summary>
-        /// Get the assembly copyright.
-        /// </summary>
-        public string AssemblyCopyright
-        {
-            get
-            {
-                // Get all Copyright attributes on this assembly
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCopyrightAttribute), false);
-                // If there aren't any Copyright attributes, return an empty string
-                if (attributes.Length == 0)
-                    return "";
-                // If there is a Copyright attribute, return its value
-                return ((AssemblyCopyrightAttribute)attributes[0]).Copyright;
-            }
-        }
-
-
-        /// <summary>
-        /// Get the assembly company
-        /// </summary>
-        public string AssemblyCompany
-        {
-            get
-            {
-                // Get all Company attributes on this assembly
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyCompanyAttribute), false);
-                // If there aren't any Company attributes, return an empty string
-                if (attributes.Length == 0)
-                    return "";
-                // If there is a Company attribute, return its value
-                return ((AssemblyCompanyAttribute)attributes[0]).Company;
-            }
-        }
         #endregion
     
     }//AboutBox
