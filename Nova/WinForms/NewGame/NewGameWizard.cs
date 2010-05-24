@@ -97,6 +97,7 @@ namespace Nova.WinForms.NewGame
         /// ----------------------------------------------------------------------------
         private void okButton_Click(object sender, EventArgs e)
         {
+            GameSettings.Data.GameName = gameName.Text;
             GameSettings.Data.PlanetsOwned = PlanetsOwned.Value;
             GameSettings.Data.TechLevels = TechLevels.Value;
             GameSettings.Data.NumberOfFields = NumberOfFields.Value;
