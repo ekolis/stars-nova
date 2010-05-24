@@ -41,14 +41,14 @@ namespace Nova.WinForms
             logoPictureBox.Image = Properties.Resources.Nova;
 
 
-            Text = String.Format("About {0}", AssemblyTitle);
-            labelProductName.Text = AssemblyProduct;
-            labelVersion.Text = String.Format("Version {0} - Build date {1}", ApplicationProductVersion, BuildDate.ToShortDateString());
+            Text = String.Format("About {0}", GetAssemblyTitle());
+            labelProductName.Text = GetAssemblyProduct();
+            labelVersion.Text = String.Format("Version {0} - Build date {1}", GetApplicationProductVersion(), GetBuildDate().ToShortDateString());
             Description.Text =
                 "Copyright © 2008 Ken Reed" + Environment.NewLine +
                 "Copyright © 2009, 2010 The Stars-Nova Project" + Environment.NewLine +
                 "" + Environment.NewLine +
-                AssemblyProduct + " is licensed under two separate licenses for code and content." + Environment.NewLine +
+                GetAssemblyProduct() + " is licensed under two separate licenses for code and content." + Environment.NewLine +
                 "" + Environment.NewLine +
                 "Content (images, documentation and other media) is licensed under the " +
                 "Creative Commons Attribution-ShareAlike 3.0 Unported license. Content " +
@@ -60,9 +60,9 @@ namespace Nova.WinForms
                 "California 94305, USA." + Environment.NewLine +
                 "" + Environment.NewLine +
                 "Everything else is licensed under the GNU General Public License " +
-                "version 2. This includes, but is not limited to, source code, executable " +
-                "and object code. You should have received a copy of the GNU General " +
-                "Public License version 2 along with this program. If not, visit " +
+                "version 2. This includes, but is not limited to, source, executable and " +
+                "object code. You should have received a copy of the GNU General Public " +
+                "License version 2 along with this program. If not, visit " +
                 "<http://www.gnu.org/licenses/> or send a letter to the " +
                 "Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, " +
                 "MA 02110-1301, USA." + Environment.NewLine +
@@ -73,78 +73,44 @@ namespace Nova.WinForms
                 "Public License version 2 for more details.";
         }
 
-        #region Assembly Attribute Accessors
-
-
-        /// <summary>
-        /// Get the assembly title.
-        /// </summary>
-        private string AssemblyTitle
+        private string GetAssemblyTitle()
         {
-            get
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
+            if (attributes.Length > 0)
             {
-                // Get all Title attributes on this assembly
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyTitleAttribute), false);
-                // If there is at least one Title attribute
-                if (attributes.Length > 0)
-                {
-                    // Select the first one
-                    AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
-                    // If it is not an empty string, return it
-                    if (titleAttribute.Title != "")
-                        return titleAttribute.Title;
-                }
-                // If there was no Title attribute, or if the Title attribute was the empty string, return the .exe name
-                return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
+                AssemblyTitleAttribute titleAttribute = (AssemblyTitleAttribute)attributes[0];
+                if (titleAttribute.Title != "")
+                    return titleAttribute.Title;
             }
+            // If there was no Title attribute, or if the Title attribute was the empty string, return the .exe name
+            return System.IO.Path.GetFileNameWithoutExtension(Assembly.GetExecutingAssembly().CodeBase);
         }
 
-
-        /// <summary>
-        /// Get the assembly file version.
-        /// </summary>
-        private string ApplicationProductVersion
+        private string GetApplicationProductVersion()
         {
-            get
-            {
-                string version = Application.ProductVersion;
-                string[] versionParts = version.Split('.');
-                return string.Join(".", versionParts, 0, 3);
-            }
+            string version = Application.ProductVersion;
+            string[] versionParts = version.Split('.');
+            return string.Join(".", versionParts, 0, 3);
         }
 
-        private DateTime BuildDate
+        private DateTime GetBuildDate()
         {
-            get
-            {
-                AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
-                int buildNumber = assemblyName.Version.Build;
-                int revision = assemblyName.Version.Revision;
-                DateTime start = new DateTime(2000, 1, 1);
-                DateTime buildDate = start.Add(new TimeSpan(buildNumber, 0, 0, 2 * revision, 0));
+            AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
+            int buildNumber = assemblyName.Version.Build;
+            int revision = assemblyName.Version.Revision;
+            DateTime start = new DateTime(2000, 1, 1);
+            DateTime buildDate = start.Add(new TimeSpan(buildNumber, 0, 0, 2 * revision, 0));
 
-                return buildDate;
-            }
+            return buildDate;
         }
 
-        /// <summary>
-        /// Get the assembly product.
-        /// </summary>
-        private string AssemblyProduct
+        private string GetAssemblyProduct()
         {
-            get
-            {
-                // Get all Product attributes on this assembly
-                object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
-                // If there aren't any Product attributes, return an empty string
-                if (attributes.Length == 0)
-                    return "";
-                // If there is a Product attribute, return its value
-                return ((AssemblyProductAttribute)attributes[0]).Product;
-            }
+            object[] attributes = Assembly.GetExecutingAssembly().GetCustomAttributes(typeof(AssemblyProductAttribute), false);
+            if (attributes.Length == 0)
+                return "";
+            return ((AssemblyProductAttribute)attributes[0]).Product;
         }
-
-        #endregion
     
     }//AboutBox
 
