@@ -62,14 +62,13 @@ namespace Nova.WinForms.Launcher
             string[] versionParts = version.Split('.');
             string productVersion = string.Join(".", versionParts, 0, 3);
 
-            versionNumber.Text = productVersion;
             AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
             int buildNumber = assemblyName.Version.Build;
             int revision = assemblyName.Version.Revision;
             DateTime start = new DateTime(2000, 1, 1);
             DateTime buildDate = start.Add(new TimeSpan(buildNumber, 0, 0, 2 * revision, 0));
 
-            versionNumber.Text += "  -  " + buildDate.ToShortDateString();
+            versionNumber.Text = string.Format("{0}  -  {1}", productVersion, buildDate.ToShortDateString());
 
             // ensure registry keys are initialised
             FileSearcher.SetKeys();
