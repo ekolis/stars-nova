@@ -29,12 +29,6 @@
 #region Using Statements
 using System;
 using System.IO;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
 using System.Windows.Forms;
 using System.Diagnostics;
 using System.Reflection;
@@ -64,16 +58,18 @@ namespace Nova.WinForms.Launcher
             InitializeComponent();
 
             // Show the Nova version
-            Assembly myAssembly = Assembly.GetExecutingAssembly();
-            AssemblyName myAssemblyName = myAssembly.GetName();
-            versionNumber.Text = myAssemblyName.Version.ToString();
-            string version = Assembly.GetCallingAssembly().FullName.Split(',')[1];
+            string version = Application.ProductVersion;
+            string[] versionParts = version.Split('.');
+            string productVersion = string.Join(".", versionParts, 0, 3);
+
+            versionNumber.Text = productVersion;
+            AssemblyName assemblyName = Assembly.GetExecutingAssembly().GetName();
+            int buildNumber = assemblyName.Version.Build;
+            int revision = assemblyName.Version.Revision;
             DateTime start = new DateTime(2000, 1, 1);
-            int buildNumber = Convert.ToInt32(version.Split('.')[2]);
-            int revision = Convert.ToInt32(version.Split('.')[3]);
             DateTime buildDate = start.Add(new TimeSpan(buildNumber, 0, 0, 2 * revision, 0));
 
-            versionNumber.Text += " " + buildDate.ToShortDateString();
+            versionNumber.Text += "  -  " + buildDate.ToShortDateString();
 
             // ensure registry keys are initialised
             FileSearcher.SetKeys();
