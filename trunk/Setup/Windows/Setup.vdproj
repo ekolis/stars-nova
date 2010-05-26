@@ -520,7 +520,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.3798.40471, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.3799.503, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_77AF68B3E2315981EC932637827E0C49"
@@ -551,7 +551,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.3798.40471, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.3799.503, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_9394113AA2C215742EC7A51F7A54B5D2"
@@ -582,7 +582,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.3798.40471, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.3799.503, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_A3A4FB7397B3BB4B89262CCDFEE74A06"
@@ -813,7 +813,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.3798.40470, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.3799.502, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_F8869E6C297AD17CFCD68A9EB660535D"
@@ -974,7 +974,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Stars! Nova"
         "ProductCode" = "8:{6004376B-5CCF-4C70-9FE1-FB05BB325454}"
-        "PackageCode" = "8:{D6A9F007-ADE7-43E7-8659-7980AA5C27AB}"
+        "PackageCode" = "8:{9703DB0F-7964-44D1-972C-B292825141A8}"
         "UpgradeCode" = "8:{0669EC41-507F-4D34-8077-38BF7A216402}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -1093,6 +1093,34 @@
         }
         "Shortcut"
         {
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1F2D17C4324D47B7B4EF1D6B06CE1A6B"
+            {
+            "Name" = "8:LICENSE"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_41E3869EACE948EF8D27F17D9C30732C"
+            "Folder" = "8:_64AB6BC1C30744D0800E79EB7C1865EA"
+            "WorkingFolder" = "8:_AC801D23DA1C46C5B95B810890051C30"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2822C4A4A7BB4AD58DB061375267EFA3"
+            {
+            "Name" = "8:NOTICE"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_1A8CF0AB7A274819869A7D7FAF373428"
+            "Folder" = "8:_64AB6BC1C30744D0800E79EB7C1865EA"
+            "WorkingFolder" = "8:_AC801D23DA1C46C5B95B810890051C30"
+            "Icon" = "8:"
+            "Feature" = "8:"
+            }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_30E372F4D647448C8EB769BA30217428"
             {
             "Name" = "8:Stars! Nova"
