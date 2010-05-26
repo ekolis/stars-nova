@@ -13,7 +13,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova", "Nova\Nova.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServerState", "ServerState\ServerState.csproj", "{057D68CC-97A3-4296-A66B-1D3A5C00134E}"
 EndProject
-Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Windows\Setup.vdproj", "{CDBD330A-33E2-4EC3-B97F-1B85F348EA60}"
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Windows Setup", "Setup\Windows\Setup.vdproj", "{CDBD330A-33E2-4EC3-B97F-1B85F348EA60}"
 EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
@@ -50,7 +50,9 @@ Global
 		{057D68CC-97A3-4296-A66B-1D3A5C00134E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{057D68CC-97A3-4296-A66B-1D3A5C00134E}.Release|Any CPU.Build.0 = Release|Any CPU
 		{CDBD330A-33E2-4EC3-B97F-1B85F348EA60}.Debug|Any CPU.ActiveCfg = Debug
+		{CDBD330A-33E2-4EC3-B97F-1B85F348EA60}.Debug|Any CPU.Build.0 = Debug
 		{CDBD330A-33E2-4EC3-B97F-1B85F348EA60}.Release|Any CPU.ActiveCfg = Release
+		{CDBD330A-33E2-4EC3-B97F-1B85F348EA60}.Release|Any CPU.Build.0 = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
