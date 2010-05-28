@@ -131,7 +131,7 @@ namespace Nova.Common
             string fileName = Data.SettingsPathName;
             if (fileName == null)
             {
-                fileName = FileSearcher.GetFile(Global.SettingsKey, false, "", "", "Your Game Name.settings", true);
+                fileName = FileSearcher.GetSettingsFile();
             }
             if (File.Exists(fileName))
             {

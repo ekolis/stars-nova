@@ -387,7 +387,7 @@ namespace Nova.Common.Components
             get {
                 if (File.Exists(saveFilePath)) return saveFilePath;
 
-                ComponentFile = GetPath();
+                ComponentFile = FileSearcher.GetFile(Global.ComponentFolderKey, false, "../../..", Global.ComponentFolderName, Global.ComponentFileName, true);
                 return saveFilePath;
             }
 
@@ -421,18 +421,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         private static string GetNewGraphicsPath()
         {
-            FolderBrowserDialog folderDialog = new FolderBrowserDialog();
-            folderDialog.ShowNewFolderButton = false;
-            folderDialog.Description =
-            @"Select the folder where the component graphics images are located (normally Nova\Graphics\)";
-
-            DialogResult result = folderDialog.ShowDialog();
-            if (result == DialogResult.Cancel)
-            {
-                return null;
-            }
-
-            return folderDialog.SelectedPath;
+            return FileSearcher.GetFolder(Global.GraphicsFolderKey, Global.GraphicsFolderName);
         }
 
 

@@ -101,6 +101,41 @@ namespace Nova.Common
         }
 
 
+        /// <summary>
+        /// Get the game settings file.
+        /// </summary>
+        /// <returns>The full path&name of the game settings file or null.</returns>
+        public static String GetSettingsFile()
+        {
+            String settings = null;
+
+            // try the registry first
+            settings = GetFile(Global.SettingsKey, false, "", "", "", false);
+
+            if (!File.Exists(settings))
+            {
+                // if the settings file itself is not registered, look for any settings file in the ServerFolder
+                String serverFolder = GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
+                DirectoryInfo ServerFolderInfo = new DirectoryInfo(serverFolder);
+                foreach (FileInfo file in ServerFolderInfo.GetFiles())
+                {
+                    if (file.Extension == Global.SettingsExtension)
+                    {
+                        settings = file.FullName;
+                        break;
+                    }
+                }
+            }
+
+            if (!File.Exists(settings))
+            {
+                // if all else fails, ask the user
+                settings = AskUserForFile("Your Game Name.settings");
+
+            }
+
+            return settings;
+        }
 
         /// <summary>
         /// Find the file 'fileName'. Use registryKey if possible, or look
