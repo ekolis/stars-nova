@@ -72,7 +72,7 @@ namespace Nova.Common
        public const string SettingsExtension = ".settings";
        #endregion
 
-       // default folder names, used with FileSearcher.GetFolder(). 
+       // default folder and file names, used with FileSearcher.GetFolder(). 
        #region Default Folders
        // Follows the above naming conventions
        public const string NovaFolderName = ".";
