@@ -1,0 +1,32 @@
+Stars! Nova
+Copyright (C) 2008 Ken Reed
+Copyright (C) 2009, 2010 The Stars-Nova Project
+
+Stars! Nova is licensed under two separate licenses for code and content.
+
+Content (images, documentation and other media) is licensed under the
+Creative Commons Attribution-ShareAlike 3.0 Unported license.  Content
+includes images, music, sounds, text and game content such as components
+and races.  You should have received a copy of the Creative Commons
+Attribution-ShareAlike 3.0 Unported license along with this program.
+If not, visit <http://creativecommons.org/licenses/by-sa/3.0/> or send a
+letter to Creative Commons, 559 Nathan Abbott Way, Stanford,
+California 94305, USA.
+
+Everything else is licensed under the GNU General Public License
+version 2.  This includes, but is not limited to, source, executable and
+object code.  You should have received a copy of the GNU General Public
+License version 2 along with this program.  If not, visit
+<http://www.gnu.org/licenses/> or send a letter to the
+Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
+MA 02110-1301, USA.
+
+This program is distributed in the hope that it will be useful, but
+WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU General
+Public License version 2 for more details.
+
+----------
+
+NUnit 2.4.0 (included in the source distribution)
+Portions Copyright © 2002-2007 Charlie Poole or Copyright © 2002-2004 James W. Newkirk, Michael C. Two, Alexei A. Vorontsov or Copyright © 2000-2002 Philip A. Craig
