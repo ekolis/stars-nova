@@ -116,7 +116,7 @@ namespace Nova.Common.Components
         {
             if (op1.HitChance != op2.HitChance)
             {
-                Report.Error("MineLayer.operator+ Attempted to add together differnet types of mine layers.");
+                Report.Error("MineLayer.operator+ Attempted to add together different types of mine layers.");
                 return op1;
             }
             MineLayer sum = new MineLayer(op1);
