@@ -256,12 +256,6 @@ namespace Nova.ControlLibrary
                                 as DragDropData;
 
 
-            // No room for any more to be added to this cell.
-            if (cell.ComponentCount == cell.ComponentMaximum)
-            {
-                return;
-            }
-
             // Not the right component for this cell.
             if (!cell.ComponentType.Contains(data.SelectedComponent.Type) &&
                   !(cell.ComponentType.Contains("Weapon") && (data.SelectedComponent.Type == "Beam Weapons" || data.SelectedComponent.Type == "Torpedoes")) &&
@@ -276,16 +270,6 @@ namespace Nova.ControlLibrary
                 return;
             }
 
-
-            // Wrong (additional) component for this cell
-
-            if (cell.ComponentCount > 0)
-            {
-                if (cell.AllocatedComponent != data.SelectedComponent)
-                {
-                    return;
-                }
-            }
 
             // The Settler's Delight engine is only allowed on a min-coloniser
             // hull.
@@ -336,9 +320,10 @@ namespace Nova.ControlLibrary
             Panel panel = sender as Panel;
             HullModule cell = panel.Tag as HullModule;
 
-            if (cell.ComponentCount == 0)
+            if (cell.AllocatedComponent != data.SelectedComponent)
             {
                 cell.AllocatedComponent = data.SelectedComponent;
+                cell.ComponentCount = 0;
             }
 
             cell.ComponentCount += data.ComponentCount;
