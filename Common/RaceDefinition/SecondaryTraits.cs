@@ -147,7 +147,7 @@ namespace Nova.Common
 // Cheap Engines
 // ============================================================================
 
-         new TraitEntry("Cheap Engines", "CE", 80,
+         new TraitEntry("Cheap Engines", "CE", -80,
            "You can throw together engines at half cost. However, at speeds "
          + "greater than wap 6 there is a 10% chance the engines will not "
          + "engage. You start with a propulsion one level higher than you "
