@@ -1010,17 +1010,17 @@ namespace Nova.WinForms.Gui
                 if (component.Properties.ContainsKey("Shield"))
                 {
                     IntegerProperty shieldProperty = component.Properties["Shield"] as IntegerProperty;
-                    shield += shieldProperty.Value;
+                    shield += module.ComponentCount * shieldProperty.Value;
                 }
                 if (component.Properties.ContainsKey("Cargo"))
                 {
                     IntegerProperty cargoProperty = component.Properties["Cargo"] as IntegerProperty;
-                    cargo += cargoProperty.Value;
+                    cargo += module.ComponentCount * cargoProperty.Value;
                 }
                 if (component.Properties.ContainsKey("Fuel"))
                 {
                     Fuel fuelProperty = component.Properties["Fuel"] as Fuel;
-                    fuel += fuelProperty.Capacity;
+                    fuel += module.ComponentCount * fuelProperty.Capacity;
                 }
             }
 
