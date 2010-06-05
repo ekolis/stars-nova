@@ -2,6 +2,55 @@
 <ROOT>
   <Component>
     <Item>
+      <Mass>19</Mass>
+      <Resource>
+        <Boranium>2</Boranium>
+        <Ironium>5</Ironium>
+        <Germanium>13</Germanium>
+        <Energy>20</Energy>
+      </Resource>
+      <Name>Trans-Galactic Mizer Scoop</Name>
+      <Type>Engine</Type>
+    </Item>
+    <Resource>
+      <Boranium>2</Boranium>
+      <Ironium>5</Ironium>
+      <Germanium>13</Germanium>
+      <Energy>20</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>0</Electronics>
+      <Energy>4</Energy>
+      <Propulsion>16</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>0</Construction>
+    </Tech>
+    <Race_Restrictions>
+      <NRSE>0</NRSE>
+    </Race_Restrictions>
+    <Image>Engine/Trans-Galactic_Mizer_Scoop.png</Image>
+    <Property>
+      <RamScoop>True</RamScoop>
+      <FastestSafeSpeed>10</FastestSafeSpeed>
+      <OptimalSpeed>10</OptimalSpeed>
+      <FuelConsumption>
+        <Warp0>0</Warp0>
+        <Warp1>0</Warp1>
+        <Warp2>0</Warp2>
+        <Warp3>0</Warp3>
+        <Warp4>0</Warp4>
+        <Warp5>0</Warp5>
+        <Warp6>0</Warp6>
+        <Warp7>0</Warp7>
+        <Warp8>70</Warp8>
+        <Warp9>84</Warp9>
+      </FuelConsumption>
+      <Type>Engine</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
       <Resource>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
@@ -63,7 +112,7 @@
     <Property>
       <RamScoop>True</RamScoop>
       <FastestSafeSpeed>9</FastestSafeSpeed>
-      <OptimalSpeed>9</OptimalSpeed>
+      <OptimalSpeed>10</OptimalSpeed>
       <FuelConsumption>
         <Warp0>0</Warp0>
         <Warp1>0</Warp1>
@@ -119,34 +168,6 @@
       <MinRamScoopDamage>2500</MinRamScoopDamage>
       <Type>Mine Layer</Type>
     </Property>
-  </Component>
-  <Component>
-    <Item>
-      <Resource>
-        <Boranium>0</Boranium>
-        <Ironium>0</Ironium>
-        <Germanium>0</Germanium>
-        <Energy>100</Energy>
-      </Resource>
-      <Name>Radiation ±3</Name>
-      <Type>Terraforming</Type>
-    </Item>
-    <Resource>
-      <Boranium>0</Boranium>
-      <Ironium>0</Ironium>
-      <Germanium>0</Germanium>
-      <Energy>100</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>1</Biotechnology>
-      <Electronics>0</Electronics>
-      <Energy>0</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>1</Weapons>
-      <Construction>0</Construction>
-    </Tech>
-    <Race_Restrictions />
-    <Image>Terraforming/Radiation_3.png</Image>
   </Component>
   <Component>
     <Item>
@@ -210,8 +231,6 @@
       <Weapons>0</Weapons>
       <Construction>11</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <OBRM>0</OBRM>
     </Race_Restrictions>
@@ -288,8 +307,6 @@
       <Weapons>0</Weapons>
       <Construction>4</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions />
     <Image>Mining_Robot/Robo-Miner.png</Image>
     <Property>
@@ -435,8 +452,6 @@
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <PP>2</PP>
     </Race_Restrictions>
@@ -471,8 +486,6 @@
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <PP>2</PP>
     </Race_Restrictions>
@@ -484,40 +497,31 @@
   </Component>
   <Component>
     <Item>
-      <Mass>1</Mass>
       <Resource>
-        <Boranium>6</Boranium>
+        <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
-        <Energy>5</Energy>
+        <Energy>100</Energy>
       </Resource>
-      <Name>Laser</Name>
-      <Type>Beam Weapons</Type>
+      <Name>Radiation ±3</Name>
+      <Type>Terraforming</Type>
     </Item>
     <Resource>
-      <Boranium>6</Boranium>
+      <Boranium>0</Boranium>
       <Ironium>0</Ironium>
       <Germanium>0</Germanium>
-      <Energy>5</Energy>
+      <Energy>100</Energy>
     </Resource>
     <Tech>
-      <Biotechnology>0</Biotechnology>
+      <Biotechnology>1</Biotechnology>
       <Electronics>0</Electronics>
       <Energy>0</Energy>
       <Propulsion>0</Propulsion>
-      <Weapons>0</Weapons>
+      <Weapons>1</Weapons>
       <Construction>0</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Beam/Laser.png</Image>
-    <Property>
-      <Initiative>9</Initiative>
-      <Power>10</Power>
-      <Accuracy>100</Accuracy>
-      <Range>1</Range>
-      <Group>standardBeam</Group>
-      <Type>Weapon</Type>
-    </Property>
+    <Image>Terraforming/Radiation_3.png</Image>
   </Component>
   <Component>
     <Item>
@@ -598,52 +602,38 @@
   </Component>
   <Component>
     <Item>
-      <Mass>19</Mass>
+      <Mass>45</Mass>
       <Resource>
-        <Boranium>2</Boranium>
-        <Ironium>4</Ironium>
-        <Germanium>9</Germanium>
-        <Energy>12</Energy>
+        <Boranium>15</Boranium>
+        <Ironium>15</Ironium>
+        <Germanium>10</Germanium>
+        <Energy>50</Energy>
       </Resource>
-      <Name>Galaxy Scoop</Name>
-      <Type>Engine</Type>
+      <Name>Retro Bomb</Name>
+      <Type>Bomb</Type>
     </Item>
     <Resource>
-      <Boranium>2</Boranium>
-      <Ironium>4</Ironium>
-      <Germanium>9</Germanium>
-      <Energy>12</Energy>
+      <Boranium>15</Boranium>
+      <Ironium>15</Ironium>
+      <Germanium>10</Germanium>
+      <Energy>50</Energy>
     </Resource>
     <Tech>
-      <Biotechnology>0</Biotechnology>
+      <Biotechnology>12</Biotechnology>
       <Electronics>0</Electronics>
-      <Energy>5</Energy>
-      <Propulsion>20</Propulsion>
-      <Weapons>0</Weapons>
+      <Energy>0</Energy>
+      <Propulsion>0</Propulsion>
+      <Weapons>10</Weapons>
       <Construction>0</Construction>
     </Tech>
+    <Description>This bomb does not damage installations or population directly. Instead it reverse terraforms another race's planet, reducing it's habitability.</Description>
     <Race_Restrictions>
-      <IFE>2</IFE>
-      <NRSE>0</NRSE>
+      <CA>2</CA>
     </Race_Restrictions>
-    <Image>Engine/Galaxy_Scoop.png</Image>
+    <Image>Bomb/Retro_Bomb.png</Image>
     <Property>
-      <RamScoop>True</RamScoop>
-      <FastestSafeSpeed>10</FastestSafeSpeed>
-      <OptimalSpeed>10</OptimalSpeed>
-      <FuelConsumption>
-        <Warp0>0</Warp0>
-        <Warp1>0</Warp1>
-        <Warp2>0</Warp2>
-        <Warp3>0</Warp3>
-        <Warp4>0</Warp4>
-        <Warp5>0</Warp5>
-        <Warp6>0</Warp6>
-        <Warp7>0</Warp7>
-        <Warp8>0</Warp8>
-        <Warp9>60</Warp9>
-      </FuelConsumption>
-      <Type>Engine</Type>
+      <Value>-1</Value>
+      <Type>Orbital Adjuster</Type>
     </Property>
   </Component>
   <Component>
@@ -699,8 +689,6 @@
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <PP>2</PP>
     </Race_Restrictions>
@@ -763,8 +751,6 @@
       <Weapons>0</Weapons>
       <Construction>12</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <ISB>2</ISB>
     </Race_Restrictions>
@@ -907,8 +893,6 @@
       <Weapons>0</Weapons>
       <Construction>15</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <SD>2</SD>
     </Race_Restrictions>
@@ -1062,6 +1046,73 @@
   </Component>
   <Component>
     <Item>
+      <Mass>4</Mass>
+      <Resource>
+        <Boranium>2</Boranium>
+        <Ironium>3</Ironium>
+        <Germanium>30</Germanium>
+        <Energy>90</Energy>
+      </Resource>
+      <Name>Peerless Scanner</Name>
+      <Type>Scanner</Type>
+    </Item>
+    <Resource>
+      <Boranium>2</Boranium>
+      <Ironium>3</Ironium>
+      <Germanium>30</Germanium>
+      <Energy>90</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>24</Electronics>
+      <Energy>7</Energy>
+      <Propulsion>0</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>0</Construction>
+    </Tech>
+    <Description>This scanner is capable of detecting ships up to 500 ly away.
+
+This scanner is capable of determining planetary statistics whilst in orbit.</Description>
+    <Race_Restrictions />
+    <Image>Scanner/Peerless_Scanner.png</Image>
+    <Property>
+      <PenetratingScan>0</PenetratingScan>
+      <NormalScan>500</NormalScan>
+      <Type>Scanner</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
+      <Resource>
+        <Boranium>0</Boranium>
+        <Ironium>0</Ironium>
+        <Germanium>0</Germanium>
+        <Energy>70</Energy>
+      </Resource>
+      <Name>Total ±10</Name>
+      <Type>Terraforming</Type>
+    </Item>
+    <Resource>
+      <Boranium>0</Boranium>
+      <Ironium>0</Ironium>
+      <Germanium>0</Germanium>
+      <Energy>70</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>9</Biotechnology>
+      <Electronics>0</Electronics>
+      <Energy>0</Energy>
+      <Propulsion>0</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>0</Construction>
+    </Tech>
+    <Race_Restrictions>
+      <TT>2</TT>
+    </Race_Restrictions>
+    <Image>Terraforming/Total_10.png</Image>
+  </Component>
+  <Component>
+    <Item>
       <Resource>
         <Boranium>20</Boranium>
         <Ironium>50</Ironium>
@@ -1121,11 +1172,13 @@
       <Weapons>14</Weapons>
       <Construction>0</Construction>
     </Tech>
+    <Description>
+    </Description>
     <Race_Restrictions />
     <Image>Bomb/Cherry_Bomb.png</Image>
     <Property>
       <Installations>10</Installations>
-      <PopKill>0</PopKill>
+      <PopKill>2.5</PopKill>
       <MinimumKill>300</MinimumKill>
       <IsSmart>False</IsSmart>
       <Type>Bomb</Type>
@@ -1225,43 +1278,6 @@
   </Component>
   <Component>
     <Item>
-      <Mass>2</Mass>
-      <Resource>
-        <Boranium>30</Boranium>
-        <Ironium>0</Ironium>
-        <Germanium>0</Germanium>
-        <Energy>33</Energy>
-      </Resource>
-      <Name>Mega Disruptor</Name>
-      <Type>Beam Weapons</Type>
-    </Item>
-    <Resource>
-      <Boranium>30</Boranium>
-      <Ironium>0</Ironium>
-      <Germanium>0</Germanium>
-      <Energy>33</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>0</Biotechnology>
-      <Electronics>0</Electronics>
-      <Energy>0</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>22</Weapons>
-      <Construction>0</Construction>
-    </Tech>
-    <Race_Restrictions />
-    <Image>Beam/Mega_Disruptor.png</Image>
-    <Property>
-      <Initiative>6</Initiative>
-      <Power>169</Power>
-      <Accuracy>100</Accuracy>
-      <Range>3</Range>
-      <Group>standardBeam</Group>
-      <Type>Weapon</Type>
-    </Property>
-  </Component>
-  <Component>
-    <Item>
       <Mass>17</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -1309,39 +1325,35 @@
   </Component>
   <Component>
     <Item>
-      <Mass>2</Mass>
+      <Mass>25</Mass>
       <Resource>
-        <Boranium>1</Boranium>
-        <Ironium>1</Ironium>
-        <Germanium>1</Germanium>
-        <Energy>5</Energy>
+        <Boranium>0</Boranium>
+        <Ironium>0</Ironium>
+        <Germanium>5</Germanium>
+        <Energy>15</Energy>
       </Resource>
-      <Name>DNA Scanner</Name>
-      <Type>Scanner</Type>
+      <Name>Carbonic Armor</Name>
+      <Type>Armor</Type>
     </Item>
     <Resource>
-      <Boranium>1</Boranium>
-      <Ironium>1</Ironium>
-      <Germanium>1</Germanium>
-      <Energy>5</Energy>
+      <Boranium>0</Boranium>
+      <Ironium>0</Ironium>
+      <Germanium>5</Germanium>
+      <Energy>15</Energy>
     </Resource>
     <Tech>
-      <Biotechnology>6</Biotechnology>
+      <Biotechnology>4</Biotechnology>
       <Electronics>0</Electronics>
       <Energy>0</Energy>
-      <Propulsion>3</Propulsion>
+      <Propulsion>0</Propulsion>
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>This scanner is capable of detecting ships up to 125 ly away.
-
-This scanner is capable of determining planetary statistics whilst in orbit.</Description>
     <Race_Restrictions />
-    <Image>Scanner/DNA_Scanner.png</Image>
+    <Image>Armor/Carbonic_Armor.png</Image>
     <Property>
-      <PenetratingScan>0</PenetratingScan>
-      <NormalScan>125</NormalScan>
-      <Type>Scanner</Type>
+      <Value>100</Value>
+      <Type>Armor</Type>
     </Property>
   </Component>
   <Component>
@@ -1473,8 +1485,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <WM>0</WM>
       <AR>0</AR>
@@ -1552,59 +1562,40 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
-      <Mass>12</Mass>
+      <Mass>35</Mass>
       <Resource>
-        <Boranium>0</Boranium>
-        <Ironium>10</Ironium>
-        <Germanium>5</Germanium>
-        <Energy>50</Energy>
+        <Boranium>33</Boranium>
+        <Ironium>1</Ironium>
+        <Germanium>12</Germanium>
+        <Energy>14</Energy>
       </Resource>
-      <Name>Fuel Transport</Name>
-      <Type>Hull</Type>
+      <Name>LBU-74 Bomb</Name>
+      <Type>Bomb</Type>
     </Item>
     <Resource>
-      <Boranium>0</Boranium>
-      <Ironium>10</Ironium>
-      <Germanium>5</Germanium>
-      <Energy>50</Energy>
+      <Boranium>33</Boranium>
+      <Ironium>1</Ironium>
+      <Germanium>12</Germanium>
+      <Energy>14</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
-      <Electronics>0</Electronics>
+      <Electronics>12</Electronics>
       <Energy>0</Energy>
       <Propulsion>0</Propulsion>
-      <Weapons>0</Weapons>
-      <Construction>4</Construction>
+      <Weapons>15</Weapons>
+      <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions>
-      <IS>2</IS>
-    </Race_Restrictions>
-    <Image>Ship/Fuel_Transport.png</Image>
+    <Description>
+    </Description>
+    <Race_Restrictions />
+    <Image>Bomb/LBU-74_Bomb.png</Image>
     <Property>
-      <Capacity>0</Capacity>
-      <Generation>200</Generation>
-      <Type>Fuel</Type>
-    </Property>
-    <Property>
-      <FuelCapacity>750</FuelCapacity>
-      <DockCapacity>0</DockCapacity>
-      <ARMaxPop>0</ARMaxPop>
-      <BaseCargo>0</BaseCargo>
-      <ArmorStrength>5</ArmorStrength>
-      <BattleInitiative>0</BattleInitiative>
-      <Module>
-        <CellNumber>11</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Engine</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>12</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Shield</ComponentType>
-      </Module>
-      <Type>Hull</Type>
+      <Installations>45</Installations>
+      <PopKill>0.4</PopKill>
+      <MinimumKill>0</MinimumKill>
+      <IsSmart>False</IsSmart>
+      <Type>Bomb</Type>
     </Property>
   </Component>
   <Component>
@@ -1731,11 +1722,13 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>5</Weapons>
       <Construction>0</Construction>
     </Tech>
+    <Description>
+    </Description>
     <Race_Restrictions />
     <Image>Bomb/Black_Cat_Bomb.png</Image>
     <Property>
       <Installations>4</Installations>
-      <PopKill>0</PopKill>
+      <PopKill>0.9</PopKill>
       <MinimumKill>300</MinimumKill>
       <IsSmart>False</IsSmart>
       <Type>Bomb</Type>
@@ -1782,42 +1775,6 @@ This scanner is capable of determining a planets basics statistics at a range up
   </Component>
   <Component>
     <Item>
-      <Resource>
-        <Boranium>20</Boranium>
-        <Ironium>24</Ironium>
-        <Germanium>20</Germanium>
-        <Energy>484</Energy>
-      </Resource>
-      <Name>Ultra Driver 11</Name>
-      <Type>Orbital</Type>
-    </Item>
-    <Resource>
-      <Boranium>20</Boranium>
-      <Ironium>24</Ironium>
-      <Germanium>20</Germanium>
-      <Energy>484</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>0</Biotechnology>
-      <Electronics>0</Electronics>
-      <Energy>17</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>0</Weapons>
-      <Construction>0</Construction>
-    </Tech>
-    <Description>
-    </Description>
-    <Race_Restrictions>
-      <PP>2</PP>
-    </Race_Restrictions>
-    <Image>Mass_Driver/Ultra Driver 11.png</Image>
-    <Property>
-      <Value>11</Value>
-      <Type>Mass Driver</Type>
-    </Property>
-  </Component>
-  <Component>
-    <Item>
       <Mass>25</Mass>
       <Resource>
         <Boranium>25</Boranium>
@@ -1842,7 +1799,9 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions />
+    <Race_Restrictions>
+      <NRSE>2</NRSE>
+    </Race_Restrictions>
     <Image>Engine/Interspace-10.png</Image>
     <Property>
       <RamScoop>False</RamScoop>
@@ -1861,68 +1820,6 @@ This scanner is capable of determining a planets basics statistics at a range up
         <Warp9>100</Warp9>
       </FuelConsumption>
       <Type>Engine</Type>
-    </Property>
-  </Component>
-  <Component>
-    <Item>
-      <Mass>100</Mass>
-      <Resource>
-        <Boranium>0</Boranium>
-        <Ironium>35</Ironium>
-        <Germanium>21</Germanium>
-        <Energy>100</Energy>
-      </Resource>
-      <Name>Large Freighter</Name>
-      <Type>Hull</Type>
-    </Item>
-    <Resource>
-      <Boranium>0</Boranium>
-      <Ironium>35</Ironium>
-      <Germanium>21</Germanium>
-      <Energy>100</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>0</Biotechnology>
-      <Electronics>0</Electronics>
-      <Energy>0</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>0</Weapons>
-      <Construction>8</Construction>
-    </Tech>
-    <Race_Restrictions />
-    <Image>Ship/Large_Freighter.png</Image>
-    <Property>
-      <FuelCapacity>2600</FuelCapacity>
-      <DockCapacity>0</DockCapacity>
-      <ARMaxPop>0</ARMaxPop>
-      <BaseCargo>1200</BaseCargo>
-      <ArmorStrength>150</ArmorStrength>
-      <BattleInitiative>0</BattleInitiative>
-      <Module>
-        <CellNumber>7</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Scanner Electrical Mechanical</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>10</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Engine</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>11</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Base Cargo</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>17</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Shield or Armor</ComponentType>
-      </Module>
-      <Type>Hull</Type>
     </Property>
   </Component>
   <Component>
@@ -1951,7 +1848,9 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions />
+    <Race_Restrictions>
+      <IFE>2</IFE>
+    </Race_Restrictions>
     <Image>Engine/Fuel_Mizer.png</Image>
     <Property>
       <RamScoop>True</RamScoop>
@@ -2005,7 +1904,7 @@ This scanner is capable of determining a planets basics statistics at a range up
     <Property>
       <RamScoop>True</RamScoop>
       <FastestSafeSpeed>9</FastestSafeSpeed>
-      <OptimalSpeed>0</OptimalSpeed>
+      <OptimalSpeed>8</OptimalSpeed>
       <FuelConsumption>
         <Warp0>0</Warp0>
         <Warp1>0</Warp1>
@@ -2052,39 +1951,6 @@ This scanner is capable of determining a planets basics statistics at a range up
     <Property>
       <Value>60</Value>
       <Type>Shield</Type>
-    </Property>
-  </Component>
-  <Component>
-    <Item>
-      <Mass>1</Mass>
-      <Resource>
-        <Boranium>0</Boranium>
-        <Ironium>1</Ironium>
-        <Germanium>6</Germanium>
-        <Energy>20</Energy>
-      </Resource>
-      <Name>Jammer 30</Name>
-      <Type>Electrical</Type>
-    </Item>
-    <Resource>
-      <Boranium>0</Boranium>
-      <Ironium>1</Ironium>
-      <Germanium>6</Germanium>
-      <Energy>20</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>0</Biotechnology>
-      <Electronics>16</Electronics>
-      <Energy>8</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>0</Weapons>
-      <Construction>0</Construction>
-    </Tech>
-    <Race_Restrictions />
-    <Image>Electrical/Jammer_30.png</Image>
-    <Property>
-      <Value>30</Value>
-      <Type>Jammer</Type>
     </Property>
   </Component>
   <Component>
@@ -2256,11 +2122,13 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Weapons>8</Weapons>
       <Construction>0</Construction>
     </Tech>
+    <Description>
+    </Description>
     <Race_Restrictions />
     <Image>Bomb/M-70_Bomb.png</Image>
     <Property>
       <Installations>6</Installations>
-      <PopKill>0</PopKill>
+      <PopKill>1.2</PopKill>
       <MinimumKill>300</MinimumKill>
       <IsSmart>False</IsSmart>
       <Type>Bomb</Type>
@@ -2330,7 +2198,7 @@ This scanner is capable of determining a planets basics statistics at a range up
     <Property>
       <RamScoop>False</RamScoop>
       <FastestSafeSpeed>9</FastestSafeSpeed>
-      <OptimalSpeed>0</OptimalSpeed>
+      <OptimalSpeed>9</OptimalSpeed>
       <FuelConsumption>
         <Warp0>0</Warp0>
         <Warp1>15</Warp1>
@@ -2778,6 +2646,43 @@ This scanner is capable of determining a planets basics statistics at a range up
   </Component>
   <Component>
     <Item>
+      <Mass>2</Mass>
+      <Resource>
+        <Boranium>1</Boranium>
+        <Ironium>1</Ironium>
+        <Germanium>1</Germanium>
+        <Energy>5</Energy>
+      </Resource>
+      <Name>DNA Scanner</Name>
+      <Type>Scanner</Type>
+    </Item>
+    <Resource>
+      <Boranium>1</Boranium>
+      <Ironium>1</Ironium>
+      <Germanium>1</Germanium>
+      <Energy>5</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>6</Biotechnology>
+      <Electronics>0</Electronics>
+      <Energy>0</Energy>
+      <Propulsion>3</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>0</Construction>
+    </Tech>
+    <Description>This scanner is capable of detecting ships up to 125 ly away.
+
+This scanner is capable of determining planetary statistics whilst in orbit.</Description>
+    <Race_Restrictions />
+    <Image>Scanner/DNA_Scanner.png</Image>
+    <Property>
+      <PenetratingScan>0</PenetratingScan>
+      <NormalScan>125</NormalScan>
+      <Type>Scanner</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
       <Mass>30</Mass>
       <Resource>
         <Boranium>18</Boranium>
@@ -2842,8 +2747,6 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <PP>2</PP>
     </Race_Restrictions>
@@ -2879,8 +2782,6 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Weapons>0</Weapons>
       <Construction>2</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions />
     <Image>Mining_Robot/Robo-Mini_Miner.png</Image>
     <Property>
@@ -3136,8 +3037,6 @@ This scanner alows you to steal minerals from other races planets.</Description>
       <Weapons>0</Weapons>
       <Construction>10</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <WM>2</WM>
     </Race_Restrictions>
@@ -3282,68 +3181,6 @@ This scanner alows you to steal minerals from other races planets.</Description>
         <ComponentCount>0</ComponentCount>
         <ComponentMaximum>2</ComponentMaximum>
         <ComponentType>Electrical or Mechanical</ComponentType>
-      </Module>
-      <Type>Hull</Type>
-    </Property>
-  </Component>
-  <Component>
-    <Item>
-      <Mass>255</Mass>
-      <Resource>
-        <Boranium>0</Boranium>
-        <Ironium>12</Ironium>
-        <Germanium>17</Germanium>
-        <Energy>20</Energy>
-      </Resource>
-      <Name>Small Freighter</Name>
-      <Type>Hull</Type>
-    </Item>
-    <Resource>
-      <Boranium>0</Boranium>
-      <Ironium>12</Ironium>
-      <Germanium>17</Germanium>
-      <Energy>20</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>0</Biotechnology>
-      <Electronics>0</Electronics>
-      <Energy>0</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>0</Weapons>
-      <Construction>0</Construction>
-    </Tech>
-    <Race_Restrictions />
-    <Image>Ship/Small_Freighter.png</Image>
-    <Property>
-      <FuelCapacity>130</FuelCapacity>
-      <DockCapacity>0</DockCapacity>
-      <ARMaxPop>0</ARMaxPop>
-      <BaseCargo>70</BaseCargo>
-      <ArmorStrength>25</ArmorStrength>
-      <BattleInitiative>0</BattleInitiative>
-      <Module>
-        <CellNumber>10</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Engine</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>11</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Base Cargo</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>12</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Shield or Armor</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>13</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Scanner Electrical Mechanical</ComponentType>
       </Module>
       <Type>Hull</Type>
     </Property>
@@ -3587,8 +3424,6 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <PP>2</PP>
     </Race_Restrictions>
@@ -3808,13 +3643,13 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
       <Weapons>15</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions>
-      <IS>0</IS>
-    </Race_Restrictions>
+    <Description>
+    </Description>
+    <Race_Restrictions />
     <Image>Bomb/Enriched_Neutron_Bomb.png</Image>
     <Property>
       <Installations>0</Installations>
-      <PopKill>0</PopKill>
+      <PopKill>3.5</PopKill>
       <MinimumKill>0</MinimumKill>
       <IsSmart>True</IsSmart>
       <Type>Bomb</Type>
@@ -3846,7 +3681,9 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions />
+    <Race_Restrictions>
+      <NRSE>0</NRSE>
+    </Race_Restrictions>
     <Image>Engine/Radiating_Hydro-Ram_Scoop.png</Image>
     <Property>
       <RamScoop>True</RamScoop>
@@ -3867,43 +3704,8 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
       <Type>Engine</Type>
     </Property>
     <Property>
-      <Value>0</Value>
+      <Value>70</Value>
       <Type>Radiation</Type>
-    </Property>
-  </Component>
-  <Component>
-    <Item>
-      <Resource>
-        <Boranium>5</Boranium>
-        <Ironium>5</Ironium>
-        <Germanium>5</Germanium>
-        <Energy>15</Energy>
-      </Resource>
-      <Name>Planetary Shield</Name>
-      <Type>Planetary Installations</Type>
-    </Item>
-    <Resource>
-      <Boranium>5</Boranium>
-      <Ironium>5</Ironium>
-      <Germanium>5</Germanium>
-      <Energy>15</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>0</Biotechnology>
-      <Electronics>0</Electronics>
-      <Energy>16</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>0</Weapons>
-      <Construction>0</Construction>
-    </Tech>
-    <Race_Restrictions>
-      <WM>0</WM>
-      <AR>0</AR>
-    </Race_Restrictions>
-    <Image>Defense/Planetary_Shield.png</Image>
-    <Property>
-      <Value>3</Value>
-      <Type>Defense</Type>
     </Property>
   </Component>
   <Component>
@@ -3943,6 +3745,117 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
   </Component>
   <Component>
     <Item>
+      <Resource>
+        <Boranium>5</Boranium>
+        <Ironium>5</Ironium>
+        <Germanium>5</Germanium>
+        <Energy>15</Energy>
+      </Resource>
+      <Name>Planetary Shield</Name>
+      <Type>Planetary Installations</Type>
+    </Item>
+    <Resource>
+      <Boranium>5</Boranium>
+      <Ironium>5</Ironium>
+      <Germanium>5</Germanium>
+      <Energy>15</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>0</Electronics>
+      <Energy>16</Energy>
+      <Propulsion>0</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>0</Construction>
+    </Tech>
+    <Race_Restrictions>
+      <WM>0</WM>
+      <AR>0</AR>
+    </Race_Restrictions>
+    <Image>Defense/Planetary_Shield.png</Image>
+    <Property>
+      <Value>3</Value>
+      <Type>Defense</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
+      <Mass>110</Mass>
+      <Resource>
+        <Boranium>0</Boranium>
+        <Ironium>32</Ironium>
+        <Germanium>6</Germanium>
+        <Energy>110</Energy>
+      </Resource>
+      <Name>Miner</Name>
+      <Type>Hull</Type>
+    </Item>
+    <Resource>
+      <Boranium>0</Boranium>
+      <Ironium>32</Ironium>
+      <Germanium>6</Germanium>
+      <Energy>110</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>0</Electronics>
+      <Energy>0</Energy>
+      <Propulsion>0</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>6</Construction>
+    </Tech>
+    <Race_Restrictions>
+      <ARM>2</ARM>
+    </Race_Restrictions>
+    <Image>Ship/Miner.png</Image>
+    <Property>
+      <FuelCapacity>500</FuelCapacity>
+      <DockCapacity>0</DockCapacity>
+      <ARMaxPop>0</ARMaxPop>
+      <BaseCargo>0</BaseCargo>
+      <ArmorStrength>475</ArmorStrength>
+      <BattleInitiative>0</BattleInitiative>
+      <Module>
+        <CellNumber>6</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>2</ComponentMaximum>
+        <ComponentType>Robot Miner</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>7</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Robot Miner</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>10</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>2</ComponentMaximum>
+        <ComponentType>Engine</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>13</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>2</ComponentMaximum>
+        <ComponentType>Armor Scanner Elect Mech</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>16</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>2</ComponentMaximum>
+        <ComponentType>Robot Miner</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>17</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Robot Miner</ComponentType>
+      </Module>
+      <Type>Hull</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
       <Mass>1</Mass>
       <Resource>
         <Boranium>5</Boranium>
@@ -3967,8 +3880,6 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <IS>2</IS>
     </Race_Restrictions>
@@ -4017,6 +3928,53 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
   </Component>
   <Component>
     <Item>
+      <Mass>5</Mass>
+      <Resource>
+        <Boranium>0</Boranium>
+        <Ironium>3</Ironium>
+        <Germanium>3</Germanium>
+        <Energy>10</Energy>
+      </Resource>
+      <Name>Trans-Star 10</Name>
+      <Type>Engine</Type>
+    </Item>
+    <Resource>
+      <Boranium>0</Boranium>
+      <Ironium>3</Ironium>
+      <Germanium>3</Germanium>
+      <Energy>10</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>0</Electronics>
+      <Energy>0</Energy>
+      <Propulsion>23</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>0</Construction>
+    </Tech>
+    <Race_Restrictions />
+    <Image>Engine/Trans-Star_10.png</Image>
+    <Property>
+      <RamScoop>False</RamScoop>
+      <FastestSafeSpeed>10</FastestSafeSpeed>
+      <OptimalSpeed>10</OptimalSpeed>
+      <FuelConsumption>
+        <Warp0>0</Warp0>
+        <Warp1>5</Warp1>
+        <Warp2>15</Warp2>
+        <Warp3>20</Warp3>
+        <Warp4>25</Warp4>
+        <Warp5>30</Warp5>
+        <Warp6>35</Warp6>
+        <Warp7>40</Warp7>
+        <Warp8>45</Warp8>
+        <Warp9>50</Warp9>
+      </FuelConsumption>
+      <Type>Engine</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
       <Mass>2</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -4057,37 +4015,39 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
   </Component>
   <Component>
     <Item>
-      <Mass>1</Mass>
+      <Mass>10</Mass>
       <Resource>
-        <Boranium>0</Boranium>
+        <Boranium>16</Boranium>
         <Ironium>0</Ironium>
-        <Germanium>8</Germanium>
-        <Energy>5</Energy>
+        <Germanium>0</Germanium>
+        <Energy>7</Energy>
       </Resource>
-      <Name>Flux Capacitor</Name>
-      <Type>Electrical</Type>
+      <Name>Blackjack</Name>
+      <Type>Beam Weapons</Type>
     </Item>
     <Resource>
-      <Boranium>0</Boranium>
+      <Boranium>16</Boranium>
       <Ironium>0</Ironium>
-      <Germanium>8</Germanium>
-      <Energy>5</Energy>
+      <Germanium>0</Germanium>
+      <Energy>7</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
-      <Electronics>8</Electronics>
-      <Energy>14</Energy>
+      <Electronics>0</Electronics>
+      <Energy>0</Energy>
       <Propulsion>0</Propulsion>
-      <Weapons>0</Weapons>
+      <Weapons>7</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions>
-      <HE>2</HE>
-    </Race_Restrictions>
-    <Image>Electrical/Flux_Capacitor.png</Image>
+    <Race_Restrictions />
+    <Image>Beam/Blackjack.png</Image>
     <Property>
-      <Value>20</Value>
-      <Type>Capacitor</Type>
+      <Initiative>10</Initiative>
+      <Power>90</Power>
+      <Accuracy>100</Accuracy>
+      <Range>0</Range>
+      <Group>standardBeam</Group>
+      <Type>Weapon</Type>
     </Property>
   </Component>
   <Component>
@@ -4149,8 +4109,6 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <WM>0</WM>
     </Race_Restrictions>
@@ -4224,8 +4182,6 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions />
     <Image>Mining_Robot/Robo-Midget_Miner.png</Image>
     <Property>
@@ -4264,39 +4220,6 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
     <Property>
       <Value>175</Value>
       <Type>Shield</Type>
-    </Property>
-  </Component>
-  <Component>
-    <Item>
-      <Mass>2</Mass>
-      <Resource>
-        <Boranium>0</Boranium>
-        <Ironium>2</Ironium>
-        <Germanium>2</Germanium>
-        <Energy>3</Energy>
-      </Resource>
-      <Name>Stealth Cloak</Name>
-      <Type>Electrical</Type>
-    </Item>
-    <Resource>
-      <Boranium>0</Boranium>
-      <Ironium>2</Ironium>
-      <Germanium>2</Germanium>
-      <Energy>3</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>0</Biotechnology>
-      <Electronics>5</Electronics>
-      <Energy>2</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>0</Weapons>
-      <Construction>0</Construction>
-    </Tech>
-    <Race_Restrictions />
-    <Image>Electrical/Stealth_Cloak.png</Image>
-    <Property>
-      <Value>35</Value>
-      <Type>Cloak</Type>
     </Property>
   </Component>
   <Component>
@@ -4383,13 +4306,46 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
       <Weapons>0</Weapons>
       <Construction>12</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions />
     <Image>Mining_Robot/Robo-Super_Miner.png</Image>
     <Property>
       <Value>27</Value>
       <Type>Mining Robot</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
+      <Resource>
+        <Boranium>20</Boranium>
+        <Ironium>50</Ironium>
+        <Germanium>20</Germanium>
+        <Energy>700</Energy>
+      </Resource>
+      <Name>Stargate 100/any</Name>
+      <Type>Orbital</Type>
+    </Item>
+    <Resource>
+      <Boranium>20</Boranium>
+      <Ironium>50</Ironium>
+      <Germanium>20</Germanium>
+      <Energy>700</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>0</Electronics>
+      <Energy>0</Energy>
+      <Propulsion>16</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>12</Construction>
+    </Tech>
+    <Race_Restrictions>
+      <IT>2</IT>
+    </Race_Restrictions>
+    <Image>Gate/Gate_100_Any.png</Image>
+    <Property>
+      <SafeHullMass>100</SafeHullMass>
+      <SafeRange>-1</SafeRange>
+      <Type>Gate</Type>
     </Property>
   </Component>
   <Component>
@@ -4455,13 +4411,13 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>10</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions>
-      <IS>0</IS>
-    </Race_Restrictions>
+    <Description>
+    </Description>
+    <Race_Restrictions />
     <Image>Bomb/Neutron_Bomb.png</Image>
     <Property>
       <Installations>0</Installations>
-      <PopKill>0</PopKill>
+      <PopKill>2.2</PopKill>
       <MinimumKill>0</MinimumKill>
       <IsSmart>True</IsSmart>
       <Type>Bomb</Type>
@@ -4751,41 +4707,51 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
-      <Mass>50</Mass>
+      <Mass>20</Mass>
       <Resource>
-        <Boranium>15</Boranium>
-        <Ironium>20</Ironium>
-        <Germanium>15</Germanium>
-        <Energy>20</Energy>
+        <Boranium>4</Boranium>
+        <Ironium>4</Ironium>
+        <Germanium>7</Germanium>
+        <Energy>12</Energy>
       </Resource>
-      <Name>Orbital Construction Module</Name>
-      <Type>Mechanical</Type>
+      <Name>Sub-Galactic Fuel Scoop</Name>
+      <Type>Engine</Type>
     </Item>
     <Resource>
-      <Boranium>15</Boranium>
-      <Ironium>20</Ironium>
-      <Germanium>15</Germanium>
-      <Energy>20</Energy>
+      <Boranium>4</Boranium>
+      <Ironium>4</Ironium>
+      <Germanium>7</Germanium>
+      <Energy>12</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
       <Electronics>0</Electronics>
-      <Energy>0</Energy>
-      <Propulsion>0</Propulsion>
+      <Energy>2</Energy>
+      <Propulsion>8</Propulsion>
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
     <Race_Restrictions>
-      <AR>2</AR>
+      <NRSE>0</NRSE>
     </Race_Restrictions>
-    <Image>Mechanical/Orbital_Construction_Module.png</Image>
+    <Image>Engine/Sub-Galactic_Fuel_Scoop.png</Image>
     <Property>
-      <Orbital>True</Orbital>
-      <Type>Colonizer</Type>
-    </Property>
-    <Property>
-      <Value>Colony Ship</Value>
-      <Type>Hull Affinity</Type>
+      <RamScoop>True</RamScoop>
+      <FastestSafeSpeed>9</FastestSafeSpeed>
+      <OptimalSpeed>7</OptimalSpeed>
+      <FuelConsumption>
+        <Warp0>0</Warp0>
+        <Warp1>0</Warp1>
+        <Warp2>0</Warp2>
+        <Warp3>0</Warp3>
+        <Warp4>0</Warp4>
+        <Warp5>85</Warp5>
+        <Warp6>105</Warp6>
+        <Warp7>210</Warp7>
+        <Warp8>380</Warp8>
+        <Warp9>456</Warp9>
+      </FuelConsumption>
+      <Type>Engine</Type>
     </Property>
   </Component>
   <Component>
@@ -4814,8 +4780,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <SD>2</SD>
     </Race_Restrictions>
@@ -4856,6 +4820,41 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Property>
       <Value>2</Value>
       <Type>Mine Layer Efficiency</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
+      <Mass>1</Mass>
+      <Resource>
+        <Boranium>0</Boranium>
+        <Ironium>0</Ironium>
+        <Germanium>8</Germanium>
+        <Energy>5</Energy>
+      </Resource>
+      <Name>Flux Capacitor</Name>
+      <Type>Electrical</Type>
+    </Item>
+    <Resource>
+      <Boranium>0</Boranium>
+      <Ironium>0</Ironium>
+      <Germanium>8</Germanium>
+      <Energy>5</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>8</Electronics>
+      <Energy>14</Energy>
+      <Propulsion>0</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>0</Construction>
+    </Tech>
+    <Race_Restrictions>
+      <HE>2</HE>
+    </Race_Restrictions>
+    <Image>Electrical/Flux_Capacitor.png</Image>
+    <Property>
+      <Value>20</Value>
+      <Type>Capacitor</Type>
     </Property>
   </Component>
   <Component>
@@ -4904,36 +4903,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       </FuelConsumption>
       <Type>Engine</Type>
     </Property>
-  </Component>
-  <Component>
-    <Item>
-      <Resource>
-        <Boranium>0</Boranium>
-        <Ironium>0</Ironium>
-        <Germanium>0</Germanium>
-        <Energy>70</Energy>
-      </Resource>
-      <Name>Total ±3</Name>
-      <Type>Terraforming</Type>
-    </Item>
-    <Resource>
-      <Boranium>0</Boranium>
-      <Ironium>0</Ironium>
-      <Germanium>0</Germanium>
-      <Energy>70</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>0</Biotechnology>
-      <Electronics>0</Electronics>
-      <Energy>0</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>0</Weapons>
-      <Construction>0</Construction>
-    </Tech>
-    <Race_Restrictions>
-      <TT>2</TT>
-    </Race_Restrictions>
-    <Image>Terraforming/Total_3.png</Image>
   </Component>
   <Component>
     <Item>
@@ -5011,35 +4980,47 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
-      <Mass>25</Mass>
+      <Mass>6</Mass>
       <Resource>
-        <Boranium>0</Boranium>
-        <Ironium>0</Ironium>
-        <Germanium>5</Germanium>
-        <Energy>15</Energy>
+        <Boranium>6</Boranium>
+        <Ironium>4</Ironium>
+        <Germanium>4</Germanium>
+        <Energy>25</Energy>
       </Resource>
-      <Name>Carbonic Armor</Name>
-      <Type>Armor</Type>
+      <Name>Chameleon Scanner</Name>
+      <Type>Scanner</Type>
     </Item>
     <Resource>
-      <Boranium>0</Boranium>
-      <Ironium>0</Ironium>
-      <Germanium>5</Germanium>
-      <Energy>15</Energy>
+      <Boranium>6</Boranium>
+      <Ironium>4</Ironium>
+      <Germanium>4</Germanium>
+      <Energy>25</Energy>
     </Resource>
     <Tech>
-      <Biotechnology>4</Biotechnology>
-      <Electronics>0</Electronics>
-      <Energy>0</Energy>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>6</Electronics>
+      <Energy>3</Energy>
       <Propulsion>0</Propulsion>
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions />
-    <Image>Armor/Carbonic_Armor.png</Image>
+    <Description>This scanner is capable of detecting ships up to 160 ly away.
+
+This scanner is capable of determining planetary statistics up to 45 ly away.
+
+This scanner has an intrinsic 20% cloaking ability.</Description>
+    <Race_Restrictions>
+      <SS>2</SS>
+    </Race_Restrictions>
+    <Image>Scanner/Chameleon_Scanner.png</Image>
     <Property>
-      <Value>100</Value>
-      <Type>Armor</Type>
+      <Value>20</Value>
+      <Type>Cloak</Type>
+    </Property>
+    <Property>
+      <PenetratingScan>45</PenetratingScan>
+      <NormalScan>160</NormalScan>
+      <Type>Scanner</Type>
     </Property>
   </Component>
   <Component>
@@ -5068,8 +5049,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <SD>2</SD>
     </Race_Restrictions>
@@ -5148,11 +5127,13 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>11</Weapons>
       <Construction>0</Construction>
     </Tech>
+    <Description>
+    </Description>
     <Race_Restrictions />
     <Image>Bomb/M-80_Bomb.png</Image>
     <Property>
       <Installations>7</Installations>
-      <PopKill>0</PopKill>
+      <PopKill>1.7</PopKill>
       <MinimumKill>300</MinimumKill>
       <IsSmart>False</IsSmart>
       <Type>Bomb</Type>
@@ -5232,38 +5213,38 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
-      <Mass>25</Mass>
+      <Mass>2</Mass>
       <Resource>
-        <Boranium>18</Boranium>
-        <Ironium>52</Ironium>
-        <Germanium>12</Germanium>
-        <Energy>18</Energy>
+        <Boranium>30</Boranium>
+        <Ironium>0</Ironium>
+        <Germanium>0</Germanium>
+        <Energy>33</Energy>
       </Resource>
-      <Name>Omega Torpedo</Name>
-      <Type>Torpedoes</Type>
+      <Name>Mega Disruptor</Name>
+      <Type>Beam Weapons</Type>
     </Item>
     <Resource>
-      <Boranium>18</Boranium>
-      <Ironium>52</Ironium>
-      <Germanium>12</Germanium>
-      <Energy>18</Energy>
+      <Boranium>30</Boranium>
+      <Ironium>0</Ironium>
+      <Germanium>0</Germanium>
+      <Energy>33</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
       <Electronics>0</Electronics>
       <Energy>0</Energy>
-      <Propulsion>6</Propulsion>
-      <Weapons>26</Weapons>
+      <Propulsion>0</Propulsion>
+      <Weapons>22</Weapons>
       <Construction>0</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Torpedo/Omega_Torpedo.png</Image>
+    <Image>Beam/Mega_Disruptor.png</Image>
     <Property>
-      <Initiative>4</Initiative>
-      <Power>316</Power>
-      <Accuracy>80</Accuracy>
-      <Range>5</Range>
-      <Group>torpedo</Group>
+      <Initiative>6</Initiative>
+      <Power>169</Power>
+      <Accuracy>100</Accuracy>
+      <Range>3</Range>
+      <Group>standardBeam</Group>
       <Type>Weapon</Type>
     </Property>
   </Component>
@@ -5333,6 +5314,42 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Resource>
+        <Boranium>10</Boranium>
+        <Ironium>10</Ironium>
+        <Germanium>70</Germanium>
+        <Energy>100</Energy>
+      </Resource>
+      <Name>Scoper 150</Name>
+      <Type>Planetary Installations</Type>
+    </Item>
+    <Resource>
+      <Boranium>10</Boranium>
+      <Ironium>10</Ironium>
+      <Germanium>70</Germanium>
+      <Energy>100</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>3</Electronics>
+      <Energy>0</Energy>
+      <Propulsion>0</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>0</Construction>
+    </Tech>
+    <Description>This scanner is capable of detecting enemy ships not orbiting a planet at a range up to 150 ly.</Description>
+    <Race_Restrictions>
+      <AR>0</AR>
+    </Race_Restrictions>
+    <Image>Planetary_Scanner/Scoper_150.png</Image>
+    <Property>
+      <PenetratingScan>0</PenetratingScan>
+      <NormalScan>150</NormalScan>
+      <Type>Scanner</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
+      <Resource>
         <Boranium>20</Boranium>
         <Ironium>50</Ironium>
         <Germanium>20</Germanium>
@@ -5390,8 +5407,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <WM>0</WM>
       <AR>0</AR>
@@ -5428,13 +5443,13 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>5</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions>
-      <IS>0</IS>
-    </Race_Restrictions>
+    <Description>
+    </Description>
+    <Race_Restrictions />
     <Image>Bomb/Smart_Bomb.png</Image>
     <Property>
       <Installations>0</Installations>
-      <PopKill>0</PopKill>
+      <PopKill>1.3</PopKill>
       <MinimumKill>0</MinimumKill>
       <IsSmart>True</IsSmart>
       <Type>Bomb</Type>
@@ -5481,6 +5496,39 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
+      <Mass>40</Mass>
+      <Resource>
+        <Boranium>0</Boranium>
+        <Ironium>15</Ironium>
+        <Germanium>0</Germanium>
+        <Energy>50</Energy>
+      </Resource>
+      <Name>Valanium</Name>
+      <Type>Armor</Type>
+    </Item>
+    <Resource>
+      <Boranium>0</Boranium>
+      <Ironium>15</Ironium>
+      <Germanium>0</Germanium>
+      <Energy>50</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>0</Electronics>
+      <Energy>0</Energy>
+      <Propulsion>0</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>16</Construction>
+    </Tech>
+    <Race_Restrictions />
+    <Image>Armor/Valanium.png</Image>
+    <Property>
+      <Value>500</Value>
+      <Type>Armor</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
       <Mass>1</Mass>
       <Resource>
         <Boranium>10</Boranium>
@@ -5518,37 +5566,39 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
+      <Mass>1</Mass>
       <Resource>
-        <Boranium>20</Boranium>
-        <Ironium>50</Ironium>
-        <Germanium>20</Germanium>
-        <Energy>700</Energy>
+        <Boranium>6</Boranium>
+        <Ironium>0</Ironium>
+        <Germanium>0</Germanium>
+        <Energy>5</Energy>
       </Resource>
-      <Name>Stargate 100/any</Name>
-      <Type>Orbital</Type>
+      <Name>Laser</Name>
+      <Type>Beam Weapons</Type>
     </Item>
     <Resource>
-      <Boranium>20</Boranium>
-      <Ironium>50</Ironium>
-      <Germanium>20</Germanium>
-      <Energy>700</Energy>
+      <Boranium>6</Boranium>
+      <Ironium>0</Ironium>
+      <Germanium>0</Germanium>
+      <Energy>5</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
       <Electronics>0</Electronics>
       <Energy>0</Energy>
-      <Propulsion>16</Propulsion>
+      <Propulsion>0</Propulsion>
       <Weapons>0</Weapons>
-      <Construction>12</Construction>
+      <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions>
-      <IT>2</IT>
-    </Race_Restrictions>
-    <Image>Gate/Gate_100_Any.png</Image>
+    <Race_Restrictions />
+    <Image>Beam/Laser.png</Image>
     <Property>
-      <SafeHullMass>100</SafeHullMass>
-      <SafeRange>-1</SafeRange>
-      <Type>Gate</Type>
+      <Initiative>9</Initiative>
+      <Power>10</Power>
+      <Accuracy>100</Accuracy>
+      <Range>1</Range>
+      <Group>standardBeam</Group>
+      <Type>Weapon</Type>
     </Property>
   </Component>
   <Component>
@@ -5627,72 +5677,36 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
-      <Mass>40</Mass>
       <Resource>
-        <Boranium>0</Boranium>
-        <Ironium>15</Ironium>
-        <Germanium>0</Germanium>
-        <Energy>50</Energy>
+        <Boranium>20</Boranium>
+        <Ironium>24</Ironium>
+        <Germanium>20</Germanium>
+        <Energy>484</Energy>
       </Resource>
-      <Name>Valanium</Name>
-      <Type>Armor</Type>
+      <Name>Ultra Driver 11</Name>
+      <Type>Orbital</Type>
     </Item>
     <Resource>
-      <Boranium>0</Boranium>
-      <Ironium>15</Ironium>
-      <Germanium>0</Germanium>
-      <Energy>50</Energy>
+      <Boranium>20</Boranium>
+      <Ironium>24</Ironium>
+      <Germanium>20</Germanium>
+      <Energy>484</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
       <Electronics>0</Electronics>
-      <Energy>0</Energy>
+      <Energy>17</Energy>
       <Propulsion>0</Propulsion>
       <Weapons>0</Weapons>
-      <Construction>16</Construction>
-    </Tech>
-    <Race_Restrictions />
-    <Image>Armor/Valanium.png</Image>
-    <Property>
-      <Value>500</Value>
-      <Type>Armor</Type>
-    </Property>
-  </Component>
-  <Component>
-    <Item>
-      <Mass>35</Mass>
-      <Resource>
-        <Boranium>13</Boranium>
-        <Ironium>37</Ironium>
-        <Germanium>9</Germanium>
-        <Energy>13</Energy>
-      </Resource>
-      <Name>Jihad Missile</Name>
-      <Type>Torpedoes</Type>
-    </Item>
-    <Resource>
-      <Boranium>13</Boranium>
-      <Ironium>37</Ironium>
-      <Germanium>9</Germanium>
-      <Energy>13</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>0</Biotechnology>
-      <Electronics>0</Electronics>
-      <Energy>0</Energy>
-      <Propulsion>6</Propulsion>
-      <Weapons>12</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions />
-    <Image>Torpedo/Jihad_Missile.png</Image>
+    <Race_Restrictions>
+      <PP>2</PP>
+    </Race_Restrictions>
+    <Image>Mass_Driver/Ultra Driver 11.png</Image>
     <Property>
-      <Initiative>0</Initiative>
-      <Power>85</Power>
-      <Accuracy>20</Accuracy>
-      <Range>5</Range>
-      <Group>missile</Group>
-      <Type>Weapon</Type>
+      <Value>11</Value>
+      <Type>Mass Driver</Type>
     </Property>
   </Component>
   <Component>
@@ -5843,42 +5857,6 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Range>5</Range>
       <Group>torpedo</Group>
       <Type>Weapon</Type>
-    </Property>
-  </Component>
-  <Component>
-    <Item>
-      <Mass>45</Mass>
-      <Resource>
-        <Boranium>15</Boranium>
-        <Ironium>15</Ironium>
-        <Germanium>10</Germanium>
-        <Energy>50</Energy>
-      </Resource>
-      <Name>Retro Bomb</Name>
-      <Type>Bomb</Type>
-    </Item>
-    <Resource>
-      <Boranium>15</Boranium>
-      <Ironium>15</Ironium>
-      <Germanium>10</Germanium>
-      <Energy>50</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>12</Biotechnology>
-      <Electronics>0</Electronics>
-      <Energy>0</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>10</Weapons>
-      <Construction>0</Construction>
-    </Tech>
-    <Description>This bomb does not damage installations or population directly. Instead it reverse terraforms another race's planet, reducing it's habitability.</Description>
-    <Race_Restrictions>
-      <CA>2</CA>
-    </Race_Restrictions>
-    <Image>Bomb/Retro_Bomb.png</Image>
-    <Property>
-      <Value>-1</Value>
-      <Type>Orbital Adjuster</Type>
     </Property>
   </Component>
   <Component>
@@ -6265,8 +6243,6 @@ This scanner alows you to steal minerals from other races ships.</Description>
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions />
     <Image>Mine_Layer/Speed Trap 20.png</Image>
     <Property>
@@ -6347,78 +6323,52 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
-      <Mass>110</Mass>
+      <Mass>19</Mass>
       <Resource>
-        <Boranium>0</Boranium>
-        <Ironium>32</Ironium>
-        <Germanium>6</Germanium>
-        <Energy>110</Energy>
+        <Boranium>2</Boranium>
+        <Ironium>4</Ironium>
+        <Germanium>9</Germanium>
+        <Energy>12</Energy>
       </Resource>
-      <Name>Miner</Name>
-      <Type>Hull</Type>
+      <Name>Galaxy Scoop</Name>
+      <Type>Engine</Type>
     </Item>
     <Resource>
-      <Boranium>0</Boranium>
-      <Ironium>32</Ironium>
-      <Germanium>6</Germanium>
-      <Energy>110</Energy>
+      <Boranium>2</Boranium>
+      <Ironium>4</Ironium>
+      <Germanium>9</Germanium>
+      <Energy>12</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
       <Electronics>0</Electronics>
-      <Energy>0</Energy>
-      <Propulsion>0</Propulsion>
+      <Energy>5</Energy>
+      <Propulsion>20</Propulsion>
       <Weapons>0</Weapons>
-      <Construction>6</Construction>
+      <Construction>0</Construction>
     </Tech>
     <Race_Restrictions>
-      <ARM>2</ARM>
+      <IFE>2</IFE>
+      <NRSE>0</NRSE>
     </Race_Restrictions>
-    <Image>Ship/Miner.png</Image>
+    <Image>Engine/Galaxy_Scoop.png</Image>
     <Property>
-      <FuelCapacity>500</FuelCapacity>
-      <DockCapacity>0</DockCapacity>
-      <ARMaxPop>0</ARMaxPop>
-      <BaseCargo>0</BaseCargo>
-      <ArmorStrength>475</ArmorStrength>
-      <BattleInitiative>0</BattleInitiative>
-      <Module>
-        <CellNumber>6</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>7</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>10</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Engine</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>13</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Armor Scanner Elect Mech</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>16</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>17</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Robot Miner</ComponentType>
-      </Module>
-      <Type>Hull</Type>
+      <RamScoop>True</RamScoop>
+      <FastestSafeSpeed>10</FastestSafeSpeed>
+      <OptimalSpeed>10</OptimalSpeed>
+      <FuelConsumption>
+        <Warp0>0</Warp0>
+        <Warp1>0</Warp1>
+        <Warp2>0</Warp2>
+        <Warp3>0</Warp3>
+        <Warp4>0</Warp4>
+        <Warp5>0</Warp5>
+        <Warp6>0</Warp6>
+        <Warp7>0</Warp7>
+        <Warp8>0</Warp8>
+        <Warp9>60</Warp9>
+      </FuelConsumption>
+      <Type>Engine</Type>
     </Property>
   </Component>
   <Component>
@@ -6446,8 +6396,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>4</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <ISB>2</ISB>
     </Race_Restrictions>
@@ -6622,8 +6570,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>7</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions />
     <Image>Mining_Robot/Robo-Maxi_Miner.png</Image>
     <Property>
@@ -6662,42 +6608,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Property>
       <Value>75</Value>
       <Type>Armor</Type>
-    </Property>
-  </Component>
-  <Component>
-    <Item>
-      <Mass>35</Mass>
-      <Resource>
-        <Boranium>33</Boranium>
-        <Ironium>1</Ironium>
-        <Germanium>12</Germanium>
-        <Energy>14</Energy>
-      </Resource>
-      <Name>LBU-74 Bomb</Name>
-      <Type>Bomb</Type>
-    </Item>
-    <Resource>
-      <Boranium>33</Boranium>
-      <Ironium>1</Ironium>
-      <Germanium>12</Germanium>
-      <Energy>14</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>0</Biotechnology>
-      <Electronics>12</Electronics>
-      <Energy>0</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>15</Weapons>
-      <Construction>0</Construction>
-    </Tech>
-    <Race_Restrictions />
-    <Image>Bomb/LBU-74_Bomb.png</Image>
-    <Property>
-      <Installations>45</Installations>
-      <PopKill>0</PopKill>
-      <MinimumKill>0</MinimumKill>
-      <IsSmart>False</IsSmart>
-      <Type>Bomb</Type>
     </Property>
   </Component>
   <Component>
@@ -6856,8 +6766,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>17</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <AR>2</AR>
     </Race_Restrictions>
@@ -7038,38 +6946,94 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
+      <Mass>12</Mass>
       <Resource>
-        <Boranium>5</Boranium>
-        <Ironium>5</Ironium>
+        <Boranium>0</Boranium>
+        <Ironium>10</Ironium>
         <Germanium>5</Germanium>
-        <Energy>15</Energy>
+        <Energy>50</Energy>
       </Resource>
-      <Name>Missile Battery</Name>
-      <Type>Planetary Installations</Type>
+      <Name>Fuel Transport</Name>
+      <Type>Hull</Type>
     </Item>
     <Resource>
-      <Boranium>5</Boranium>
-      <Ironium>5</Ironium>
+      <Boranium>0</Boranium>
+      <Ironium>10</Ironium>
       <Germanium>5</Germanium>
-      <Energy>15</Energy>
+      <Energy>50</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
       <Electronics>0</Electronics>
-      <Energy>5</Energy>
+      <Energy>0</Energy>
       <Propulsion>0</Propulsion>
       <Weapons>0</Weapons>
-      <Construction>0</Construction>
+      <Construction>4</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
-      <AR>0</AR>
+      <IS>2</IS>
     </Race_Restrictions>
-    <Image>Defense/Missile_Battery.png</Image>
+    <Image>Ship/Fuel_Transport.png</Image>
     <Property>
-      <Value>2</Value>
-      <Type>Defense</Type>
+      <Capacity>0</Capacity>
+      <Generation>200</Generation>
+      <Type>Fuel</Type>
+    </Property>
+    <Property>
+      <FuelCapacity>750</FuelCapacity>
+      <DockCapacity>0</DockCapacity>
+      <ARMaxPop>0</ARMaxPop>
+      <BaseCargo>0</BaseCargo>
+      <ArmorStrength>5</ArmorStrength>
+      <BattleInitiative>0</BattleInitiative>
+      <Module>
+        <CellNumber>11</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Engine</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>12</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Shield</ComponentType>
+      </Module>
+      <Type>Hull</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
+      <Resource>
+        <Boranium>20</Boranium>
+        <Ironium>50</Ironium>
+        <Germanium>20</Germanium>
+        <Energy>250</Energy>
+      </Resource>
+      <Name>Stargate any/300</Name>
+      <Type>Orbital</Type>
+    </Item>
+    <Resource>
+      <Boranium>20</Boranium>
+      <Ironium>50</Ironium>
+      <Germanium>20</Germanium>
+      <Energy>250</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>0</Electronics>
+      <Energy>0</Energy>
+      <Propulsion>6</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>10</Construction>
+    </Tech>
+    <Race_Restrictions>
+      <IT>2</IT>
+    </Race_Restrictions>
+    <Image>Gate/Gate_Any_300.png</Image>
+    <Property>
+      <SafeHullMass>-1</SafeHullMass>
+      <SafeRange>300</SafeRange>
+      <Type>Gate</Type>
     </Property>
   </Component>
   <Component>
@@ -7406,38 +7370,38 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
-      <Mass>10</Mass>
+      <Mass>35</Mass>
       <Resource>
-        <Boranium>16</Boranium>
-        <Ironium>0</Ironium>
-        <Germanium>0</Germanium>
-        <Energy>7</Energy>
+        <Boranium>13</Boranium>
+        <Ironium>37</Ironium>
+        <Germanium>9</Germanium>
+        <Energy>13</Energy>
       </Resource>
-      <Name>Blackjack</Name>
-      <Type>Beam Weapons</Type>
+      <Name>Jihad Missile</Name>
+      <Type>Torpedoes</Type>
     </Item>
     <Resource>
-      <Boranium>16</Boranium>
-      <Ironium>0</Ironium>
-      <Germanium>0</Germanium>
-      <Energy>7</Energy>
+      <Boranium>13</Boranium>
+      <Ironium>37</Ironium>
+      <Germanium>9</Germanium>
+      <Energy>13</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
       <Electronics>0</Electronics>
       <Energy>0</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>7</Weapons>
+      <Propulsion>6</Propulsion>
+      <Weapons>12</Weapons>
       <Construction>0</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Beam/Blackjack.png</Image>
+    <Image>Torpedo/Jihad_Missile.png</Image>
     <Property>
-      <Initiative>10</Initiative>
-      <Power>90</Power>
-      <Accuracy>100</Accuracy>
-      <Range>0</Range>
-      <Group>standardBeam</Group>
+      <Initiative>0</Initiative>
+      <Power>85</Power>
+      <Accuracy>20</Accuracy>
+      <Range>5</Range>
+      <Group>missile</Group>
       <Type>Weapon</Type>
     </Property>
   </Component>
@@ -7504,12 +7468,10 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions>
-      <HE>2</HE>
-    </Race_Restrictions>
+    <Race_Restrictions />
     <Image>Engine/Settler's_Delight.png</Image>
     <Property>
-      <RamScoop>False</RamScoop>
+      <RamScoop>True</RamScoop>
       <FastestSafeSpeed>9</FastestSafeSpeed>
       <OptimalSpeed>6</OptimalSpeed>
       <FuelConsumption>
@@ -7557,8 +7519,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <SD>2</SD>
     </Race_Restrictions>
@@ -7638,6 +7598,40 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Property>
       <Value>1</Value>
       <Type>Energy Dampener</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
+      <Resource>
+        <Boranium>5</Boranium>
+        <Ironium>5</Ironium>
+        <Germanium>5</Germanium>
+        <Energy>15</Energy>
+      </Resource>
+      <Name>Missile Battery</Name>
+      <Type>Planetary Installations</Type>
+    </Item>
+    <Resource>
+      <Boranium>5</Boranium>
+      <Ironium>5</Ironium>
+      <Germanium>5</Germanium>
+      <Energy>15</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>0</Electronics>
+      <Energy>5</Energy>
+      <Propulsion>0</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>0</Construction>
+    </Tech>
+    <Race_Restrictions>
+      <AR>0</AR>
+    </Race_Restrictions>
+    <Image>Defense/Missile_Battery.png</Image>
+    <Property>
+      <Value>2</Value>
+      <Type>Defense</Type>
     </Property>
   </Component>
   <Component>
@@ -7785,11 +7779,13 @@ This scanner is capable of determining planetary statistics up to 100 ly away.</
       <Weapons>10</Weapons>
       <Construction>0</Construction>
     </Tech>
+    <Description>
+    </Description>
     <Race_Restrictions />
     <Image>Bomb/LBU-32_Bomb.png</Image>
     <Property>
       <Installations>28</Installations>
-      <PopKill>0</PopKill>
+      <PopKill>0.3</PopKill>
       <MinimumKill>0</MinimumKill>
       <IsSmart>False</IsSmart>
       <Type>Bomb</Type>
@@ -7797,37 +7793,101 @@ This scanner is capable of determining planetary statistics up to 100 ly away.</
   </Component>
   <Component>
     <Item>
+      <Mass>25</Mass>
       <Resource>
-        <Boranium>20</Boranium>
-        <Ironium>50</Ironium>
-        <Germanium>20</Germanium>
-        <Energy>250</Energy>
+        <Boranium>18</Boranium>
+        <Ironium>52</Ironium>
+        <Germanium>12</Germanium>
+        <Energy>18</Energy>
       </Resource>
-      <Name>Stargate any/300</Name>
-      <Type>Orbital</Type>
+      <Name>Omega Torpedo</Name>
+      <Type>Torpedoes</Type>
     </Item>
     <Resource>
-      <Boranium>20</Boranium>
-      <Ironium>50</Ironium>
-      <Germanium>20</Germanium>
-      <Energy>250</Energy>
+      <Boranium>18</Boranium>
+      <Ironium>52</Ironium>
+      <Germanium>12</Germanium>
+      <Energy>18</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
       <Electronics>0</Electronics>
       <Energy>0</Energy>
       <Propulsion>6</Propulsion>
-      <Weapons>0</Weapons>
-      <Construction>10</Construction>
+      <Weapons>26</Weapons>
+      <Construction>0</Construction>
     </Tech>
-    <Race_Restrictions>
-      <IT>2</IT>
-    </Race_Restrictions>
-    <Image>Gate/Gate_Any_300.png</Image>
+    <Race_Restrictions />
+    <Image>Torpedo/Omega_Torpedo.png</Image>
     <Property>
-      <SafeHullMass>-1</SafeHullMass>
-      <SafeRange>300</SafeRange>
-      <Type>Gate</Type>
+      <Initiative>4</Initiative>
+      <Power>316</Power>
+      <Accuracy>80</Accuracy>
+      <Range>5</Range>
+      <Group>torpedo</Group>
+      <Type>Weapon</Type>
+    </Property>
+  </Component>
+  <Component>
+    <Item>
+      <Mass>255</Mass>
+      <Resource>
+        <Boranium>0</Boranium>
+        <Ironium>12</Ironium>
+        <Germanium>17</Germanium>
+        <Energy>20</Energy>
+      </Resource>
+      <Name>Small Freighter</Name>
+      <Type>Hull</Type>
+    </Item>
+    <Resource>
+      <Boranium>0</Boranium>
+      <Ironium>12</Ironium>
+      <Germanium>17</Germanium>
+      <Energy>20</Energy>
+    </Resource>
+    <Tech>
+      <Biotechnology>0</Biotechnology>
+      <Electronics>0</Electronics>
+      <Energy>0</Energy>
+      <Propulsion>0</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>0</Construction>
+    </Tech>
+    <Race_Restrictions />
+    <Image>Ship/Small_Freighter.png</Image>
+    <Property>
+      <FuelCapacity>130</FuelCapacity>
+      <DockCapacity>0</DockCapacity>
+      <ARMaxPop>0</ARMaxPop>
+      <BaseCargo>70</BaseCargo>
+      <ArmorStrength>25</ArmorStrength>
+      <BattleInitiative>0</BattleInitiative>
+      <Module>
+        <CellNumber>10</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Engine</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>11</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Base Cargo</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>12</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Shield or Armor</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>13</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Scanner Electrical Mechanical</ComponentType>
+      </Module>
+      <Type>Hull</Type>
     </Property>
   </Component>
   <Component>
@@ -7938,39 +7998,48 @@ This scanner is capable of determining planetary statistics up to 100 ly away.</
   </Component>
   <Component>
     <Item>
-      <Mass>4</Mass>
+      <Mass>50</Mass>
       <Resource>
-        <Boranium>2</Boranium>
-        <Ironium>3</Ironium>
-        <Germanium>30</Germanium>
-        <Energy>90</Energy>
+        <Boranium>15</Boranium>
+        <Ironium>20</Ironium>
+        <Germanium>15</Germanium>
+        <Energy>20</Energy>
       </Resource>
-      <Name>Peerless Scanner</Name>
-      <Type>Scanner</Type>
+      <Name>Orbital Construction Module</Name>
+      <Type>Mechanical</Type>
     </Item>
     <Resource>
-      <Boranium>2</Boranium>
-      <Ironium>3</Ironium>
-      <Germanium>30</Germanium>
-      <Energy>90</Energy>
+      <Boranium>15</Boranium>
+      <Ironium>20</Ironium>
+      <Germanium>15</Germanium>
+      <Energy>20</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
-      <Electronics>24</Electronics>
-      <Energy>7</Energy>
+      <Electronics>0</Electronics>
+      <Energy>0</Energy>
       <Propulsion>0</Propulsion>
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>This scanner is capable of detecting ships up to 500 ly away.
-
-This scanner is capable of determining planetary statistics whilst in orbit.</Description>
+    <Description>
+    </Description>
     <Race_Restrictions />
-    <Image>Scanner/Peerless_Scanner.png</Image>
+    <Image>Mechanical/Orbital_Construction_Module.png</Image>
     <Property>
-      <PenetratingScan>0</PenetratingScan>
-      <NormalScan>500</NormalScan>
-      <Type>Scanner</Type>
+      <Installations>0</Installations>
+      <PopKill>0</PopKill>
+      <MinimumKill>1000</MinimumKill>
+      <IsSmart>True</IsSmart>
+      <Type>Bomb</Type>
+    </Property>
+    <Property>
+      <Orbital>True</Orbital>
+      <Type>Colonizer</Type>
+    </Property>
+    <Property>
+      <Value>Colony Ship</Value>
+      <Type>Hull Affinity</Type>
     </Property>
   </Component>
   <Component>
@@ -8035,8 +8104,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <AR>0</AR>
     </Race_Restrictions>
@@ -8048,77 +8115,35 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
+      <Mass>2</Mass>
       <Resource>
         <Boranium>0</Boranium>
-        <Ironium>0</Ironium>
-        <Germanium>0</Germanium>
-        <Energy>70</Energy>
+        <Ironium>2</Ironium>
+        <Germanium>2</Germanium>
+        <Energy>3</Energy>
       </Resource>
-      <Name>Total ±10</Name>
-      <Type>Terraforming</Type>
+      <Name>Stealth Cloak</Name>
+      <Type>Electrical</Type>
     </Item>
     <Resource>
       <Boranium>0</Boranium>
-      <Ironium>0</Ironium>
-      <Germanium>0</Germanium>
-      <Energy>70</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>9</Biotechnology>
-      <Electronics>0</Electronics>
-      <Energy>0</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>0</Weapons>
-      <Construction>0</Construction>
-    </Tech>
-    <Race_Restrictions>
-      <TT>2</TT>
-    </Race_Restrictions>
-    <Image>Terraforming/Total_10.png</Image>
-  </Component>
-  <Component>
-    <Item>
-      <Mass>6</Mass>
-      <Resource>
-        <Boranium>6</Boranium>
-        <Ironium>4</Ironium>
-        <Germanium>4</Germanium>
-        <Energy>25</Energy>
-      </Resource>
-      <Name>Chameleon Scanner</Name>
-      <Type>Scanner</Type>
-    </Item>
-    <Resource>
-      <Boranium>6</Boranium>
-      <Ironium>4</Ironium>
-      <Germanium>4</Germanium>
-      <Energy>25</Energy>
+      <Ironium>2</Ironium>
+      <Germanium>2</Germanium>
+      <Energy>3</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
-      <Electronics>6</Electronics>
-      <Energy>3</Energy>
+      <Electronics>5</Electronics>
+      <Energy>2</Energy>
       <Propulsion>0</Propulsion>
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>This scanner is capable of detecting ships up to 160 ly away.
-
-This scanner is capable of determining planetary statistics up to 45 ly away.
-
-This scanner has an intrinsic 20% cloaking ability.</Description>
-    <Race_Restrictions>
-      <SS>2</SS>
-    </Race_Restrictions>
-    <Image>Scanner/Chameleon_Scanner.png</Image>
+    <Race_Restrictions />
+    <Image>Electrical/Stealth_Cloak.png</Image>
     <Property>
-      <Value>20</Value>
+      <Value>35</Value>
       <Type>Cloak</Type>
-    </Property>
-    <Property>
-      <PenetratingScan>45</PenetratingScan>
-      <NormalScan>160</NormalScan>
-      <Type>Scanner</Type>
     </Property>
   </Component>
   <Component>
@@ -8225,11 +8250,13 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>2</Weapons>
       <Construction>0</Construction>
     </Tech>
+    <Description>
+    </Description>
     <Race_Restrictions />
     <Image>Bomb/Lady_Finger_Bomb.png</Image>
     <Property>
       <Installations>2</Installations>
-      <PopKill>0</PopKill>
+      <PopKill>0.2</PopKill>
       <MinimumKill>300</MinimumKill>
       <IsSmart>False</IsSmart>
       <Type>Bomb</Type>
@@ -8312,38 +8339,35 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
+      <Mass>1</Mass>
       <Resource>
-        <Boranium>10</Boranium>
-        <Ironium>10</Ironium>
-        <Germanium>70</Germanium>
-        <Energy>100</Energy>
+        <Boranium>0</Boranium>
+        <Ironium>1</Ironium>
+        <Germanium>6</Germanium>
+        <Energy>20</Energy>
       </Resource>
-      <Name>Scoper 150</Name>
-      <Type>Planetary Installations</Type>
+      <Name>Jammer 30</Name>
+      <Type>Electrical</Type>
     </Item>
     <Resource>
-      <Boranium>10</Boranium>
-      <Ironium>10</Ironium>
-      <Germanium>70</Germanium>
-      <Energy>100</Energy>
+      <Boranium>0</Boranium>
+      <Ironium>1</Ironium>
+      <Germanium>6</Germanium>
+      <Energy>20</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
-      <Electronics>3</Electronics>
-      <Energy>0</Energy>
+      <Electronics>16</Electronics>
+      <Energy>8</Energy>
       <Propulsion>0</Propulsion>
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>This scanner is capable of detecting enemy ships not orbiting a planet at a range up to 150 ly.</Description>
-    <Race_Restrictions>
-      <AR>0</AR>
-    </Race_Restrictions>
-    <Image>Planetary_Scanner/Scoper_150.png</Image>
+    <Race_Restrictions />
+    <Image>Electrical/Jammer_30.png</Image>
     <Property>
-      <PenetratingScan>0</PenetratingScan>
-      <NormalScan>150</NormalScan>
-      <Type>Scanner</Type>
+      <Value>30</Value>
+      <Type>Jammer</Type>
     </Property>
   </Component>
   <Component>
@@ -8446,8 +8470,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>15</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions />
     <Image>Mining_Robot/Robo-Ultra_Miner.png</Image>
     <Property>
@@ -8531,52 +8553,33 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
-      <Mass>19</Mass>
       <Resource>
-        <Boranium>2</Boranium>
-        <Ironium>5</Ironium>
-        <Germanium>13</Germanium>
-        <Energy>20</Energy>
+        <Boranium>0</Boranium>
+        <Ironium>0</Ironium>
+        <Germanium>0</Germanium>
+        <Energy>70</Energy>
       </Resource>
-      <Name>Trans-Galactic Mizer Scoop</Name>
-      <Type>Engine</Type>
+      <Name>Total ±3</Name>
+      <Type>Terraforming</Type>
     </Item>
     <Resource>
-      <Boranium>2</Boranium>
-      <Ironium>5</Ironium>
-      <Germanium>13</Germanium>
-      <Energy>20</Energy>
+      <Boranium>0</Boranium>
+      <Ironium>0</Ironium>
+      <Germanium>0</Germanium>
+      <Energy>70</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
       <Electronics>0</Electronics>
-      <Energy>4</Energy>
-      <Propulsion>16</Propulsion>
+      <Energy>0</Energy>
+      <Propulsion>0</Propulsion>
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
     <Race_Restrictions>
-      <NRSE>0</NRSE>
+      <TT>2</TT>
     </Race_Restrictions>
-    <Image>Engine/Trans-Galactic_Mizer_Scoop.png</Image>
-    <Property>
-      <RamScoop>True</RamScoop>
-      <FastestSafeSpeed>10</FastestSafeSpeed>
-      <OptimalSpeed>10</OptimalSpeed>
-      <FuelConsumption>
-        <Warp0>0</Warp0>
-        <Warp1>0</Warp1>
-        <Warp2>0</Warp2>
-        <Warp3>0</Warp3>
-        <Warp4>0</Warp4>
-        <Warp5>0</Warp5>
-        <Warp6>0</Warp6>
-        <Warp7>0</Warp7>
-        <Warp8>70</Warp8>
-        <Warp9>84</Warp9>
-      </FuelConsumption>
-      <Type>Engine</Type>
-    </Property>
+    <Image>Terraforming/Total_3.png</Image>
   </Component>
   <Component>
     <Item>
@@ -8673,8 +8676,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>0</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <PP>2</PP>
     </Race_Restrictions>
@@ -8686,49 +8687,39 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
-      <Mass>20</Mass>
+      <Mass>35</Mass>
       <Resource>
-        <Boranium>4</Boranium>
-        <Ironium>4</Ironium>
-        <Germanium>7</Germanium>
-        <Energy>12</Energy>
+        <Boranium>23</Boranium>
+        <Ironium>67</Ironium>
+        <Germanium>16</Germanium>
+        <Energy>24</Energy>
       </Resource>
-      <Name>Sub-Galactic Fuel Scoop</Name>
-      <Type>Engine</Type>
+      <Name>Armegeddon Missile</Name>
+      <Type>Torpedoes</Type>
     </Item>
     <Resource>
-      <Boranium>4</Boranium>
-      <Ironium>4</Ironium>
-      <Germanium>7</Germanium>
-      <Energy>12</Energy>
+      <Boranium>23</Boranium>
+      <Ironium>67</Ironium>
+      <Germanium>16</Germanium>
+      <Energy>24</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
       <Electronics>0</Electronics>
-      <Energy>2</Energy>
-      <Propulsion>8</Propulsion>
-      <Weapons>0</Weapons>
+      <Energy>0</Energy>
+      <Propulsion>10</Propulsion>
+      <Weapons>24</Weapons>
       <Construction>0</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Engine/Sub-Galactic_Fuel_Scoop.png</Image>
+    <Image>Torpedo/Armageddon_Missile.png</Image>
     <Property>
-      <RamScoop>True</RamScoop>
-      <FastestSafeSpeed>9</FastestSafeSpeed>
-      <OptimalSpeed>7</OptimalSpeed>
-      <FuelConsumption>
-        <Warp0>0</Warp0>
-        <Warp1>0</Warp1>
-        <Warp2>0</Warp2>
-        <Warp3>0</Warp3>
-        <Warp4>0</Warp4>
-        <Warp5>85</Warp5>
-        <Warp6>105</Warp6>
-        <Warp7>210</Warp7>
-        <Warp8>380</Warp8>
-        <Warp9>456</Warp9>
-      </FuelConsumption>
-      <Type>Engine</Type>
+      <Initiative>3</Initiative>
+      <Power>525</Power>
+      <Accuracy>30</Accuracy>
+      <Range>6</Range>
+      <Group>missile</Group>
+      <Type>Weapon</Type>
     </Property>
   </Component>
   <Component>
@@ -8757,8 +8748,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>16</Construction>
     </Tech>
-    <Description>
-    </Description>
     <Race_Restrictions>
       <WM>2</WM>
     </Race_Restrictions>
@@ -9091,49 +9080,64 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
-      <Mass>5</Mass>
+      <Mass>100</Mass>
       <Resource>
         <Boranium>0</Boranium>
-        <Ironium>3</Ironium>
-        <Germanium>3</Germanium>
-        <Energy>10</Energy>
+        <Ironium>35</Ironium>
+        <Germanium>21</Germanium>
+        <Energy>100</Energy>
       </Resource>
-      <Name>Trans-Star 10</Name>
-      <Type>Engine</Type>
+      <Name>Large Freighter</Name>
+      <Type>Hull</Type>
     </Item>
     <Resource>
       <Boranium>0</Boranium>
-      <Ironium>3</Ironium>
-      <Germanium>3</Germanium>
-      <Energy>10</Energy>
+      <Ironium>35</Ironium>
+      <Germanium>21</Germanium>
+      <Energy>100</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
       <Electronics>0</Electronics>
       <Energy>0</Energy>
-      <Propulsion>23</Propulsion>
+      <Propulsion>0</Propulsion>
       <Weapons>0</Weapons>
-      <Construction>0</Construction>
+      <Construction>8</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Engine/Interspace-10.png</Image>
+    <Image>Ship/Large_Freighter.png</Image>
     <Property>
-      <RamScoop>False</RamScoop>
-      <FastestSafeSpeed>10</FastestSafeSpeed>
-      <OptimalSpeed>0</OptimalSpeed>
-      <FuelConsumption>
-        <Warp0>0</Warp0>
-        <Warp1>5</Warp1>
-        <Warp2>15</Warp2>
-        <Warp3>20</Warp3>
-        <Warp4>25</Warp4>
-        <Warp5>30</Warp5>
-        <Warp6>35</Warp6>
-        <Warp7>40</Warp7>
-        <Warp8>45</Warp8>
-        <Warp9>50</Warp9>
-      </FuelConsumption>
-      <Type>Engine</Type>
+      <FuelCapacity>2600</FuelCapacity>
+      <DockCapacity>0</DockCapacity>
+      <ARMaxPop>0</ARMaxPop>
+      <BaseCargo>1200</BaseCargo>
+      <ArmorStrength>150</ArmorStrength>
+      <BattleInitiative>0</BattleInitiative>
+      <Module>
+        <CellNumber>7</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>2</ComponentMaximum>
+        <ComponentType>Scanner Electrical Mechanical</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>10</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>2</ComponentMaximum>
+        <ComponentType>Engine</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>11</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Base Cargo</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>17</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>2</ComponentMaximum>
+        <ComponentType>Shield or Armor</ComponentType>
+      </Module>
+      <Type>Hull</Type>
     </Property>
   </Component>
   <Component>
@@ -9202,86 +9206,6 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     </Tech>
     <Race_Restrictions />
     <Image>Terraforming/Temperature_3.png</Image>
-  </Component>
-  <Component>
-    <Item>
-      <Mass>30</Mass>
-      <Resource>
-        <Boranium>3</Boranium>
-        <Ironium>15</Ironium>
-        <Germanium>5</Germanium>
-        <Energy>35</Energy>
-      </Resource>
-      <Name>Destroyer</Name>
-      <Type>Hull</Type>
-    </Item>
-    <Resource>
-      <Boranium>3</Boranium>
-      <Ironium>15</Ironium>
-      <Germanium>5</Germanium>
-      <Energy>35</Energy>
-    </Resource>
-    <Tech>
-      <Biotechnology>0</Biotechnology>
-      <Electronics>0</Electronics>
-      <Energy>0</Energy>
-      <Propulsion>0</Propulsion>
-      <Weapons>0</Weapons>
-      <Construction>3</Construction>
-    </Tech>
-    <Race_Restrictions />
-    <Image>Ship/Destroyer.png</Image>
-    <Property>
-      <FuelCapacity>280</FuelCapacity>
-      <DockCapacity>0</DockCapacity>
-      <ARMaxPop>0</ARMaxPop>
-      <BaseCargo>0</BaseCargo>
-      <ArmorStrength>200</ArmorStrength>
-      <BattleInitiative>3</BattleInitiative>
-      <Module>
-        <CellNumber>2</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Weapon</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>6</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Mechanical</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>10</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Engine</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>11</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>2</ComponentMaximum>
-        <ComponentType>Armor</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>12</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>General Purpose</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>16</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Electrical</ComponentType>
-      </Module>
-      <Module>
-        <CellNumber>22</CellNumber>
-        <ComponentCount>0</ComponentCount>
-        <ComponentMaximum>1</ComponentMaximum>
-        <ComponentType>Weapon</ComponentType>
-      </Module>
-      <Type>Hull</Type>
-    </Property>
   </Component>
   <Component>
     <Item>
@@ -9452,11 +9376,13 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>5</Weapons>
       <Construction>0</Construction>
     </Tech>
+    <Description>
+    </Description>
     <Race_Restrictions />
     <Image>Bomb/LBU-17_Bomb.png</Image>
     <Property>
       <Installations>16</Installations>
-      <PopKill>0</PopKill>
+      <PopKill>0.2</PopKill>
       <MinimumKill>0</MinimumKill>
       <IsSmart>False</IsSmart>
       <Type>Bomb</Type>
@@ -9765,39 +9691,82 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   </Component>
   <Component>
     <Item>
-      <Mass>35</Mass>
+      <Mass>30</Mass>
       <Resource>
-        <Boranium>23</Boranium>
-        <Ironium>67</Ironium>
-        <Germanium>16</Germanium>
-        <Energy>24</Energy>
+        <Boranium>3</Boranium>
+        <Ironium>15</Ironium>
+        <Germanium>5</Germanium>
+        <Energy>35</Energy>
       </Resource>
-      <Name>Armegeddon Missile</Name>
-      <Type>Torpedoes</Type>
+      <Name>Destroyer</Name>
+      <Type>Hull</Type>
     </Item>
     <Resource>
-      <Boranium>23</Boranium>
-      <Ironium>67</Ironium>
-      <Germanium>16</Germanium>
-      <Energy>24</Energy>
+      <Boranium>3</Boranium>
+      <Ironium>15</Ironium>
+      <Germanium>5</Germanium>
+      <Energy>35</Energy>
     </Resource>
     <Tech>
       <Biotechnology>0</Biotechnology>
       <Electronics>0</Electronics>
       <Energy>0</Energy>
-      <Propulsion>10</Propulsion>
-      <Weapons>24</Weapons>
-      <Construction>0</Construction>
+      <Propulsion>0</Propulsion>
+      <Weapons>0</Weapons>
+      <Construction>3</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Torpedo/Armageddon_Missile.png</Image>
+    <Image>Ship/Destroyer.png</Image>
     <Property>
-      <Initiative>3</Initiative>
-      <Power>525</Power>
-      <Accuracy>30</Accuracy>
-      <Range>6</Range>
-      <Group>missile</Group>
-      <Type>Weapon</Type>
+      <FuelCapacity>280</FuelCapacity>
+      <DockCapacity>0</DockCapacity>
+      <ARMaxPop>0</ARMaxPop>
+      <BaseCargo>0</BaseCargo>
+      <ArmorStrength>200</ArmorStrength>
+      <BattleInitiative>3</BattleInitiative>
+      <Module>
+        <CellNumber>2</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Weapon</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>6</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Mechanical</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>10</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Engine</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>11</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>2</ComponentMaximum>
+        <ComponentType>Armor</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>12</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>General Purpose</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>16</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Electrical</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>22</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Weapon</ComponentType>
+      </Module>
+      <Type>Hull</Type>
     </Property>
   </Component>
 </ROOT>
