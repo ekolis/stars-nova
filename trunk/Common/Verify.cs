@@ -100,8 +100,8 @@ namespace Nova.Common
         [Conditional( "DEBUG" )]
         private static void ValidateName( string name )
         {
-            Debug.Assert( null != name );
-            Debug.Assert( 0 < name.Length );
+            Debug.Assert( null != name , "Verify.cs ValidateName() detected a null reference");
+            Debug.Assert( 0 < name.Length , "Verify.cs ValidateName() detected a zero length string");
         }
         #endregion
     }
