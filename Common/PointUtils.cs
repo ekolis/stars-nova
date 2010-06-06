@@ -196,7 +196,7 @@ namespace Nova.Common
         /// Move a position some distance nearer to another point.
         /// </summary>
         /// <remarks>
-        /// FIXME (priority 4) - rounding can cause no movement to occur. 
+        /// FIXME (priority 6) - rounding can cause no movement to occur. 
         /// Fix added, requires testing - Dan 4 Apr 10
         /// </remarks>
         /// <param name="from">The stating <see cref="Point"/></param>

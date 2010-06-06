@@ -76,7 +76,7 @@ namespace Nova.WinForms.Console
             }
 
             // ------------------------------------------------------------------------------------------------------------------------------
-            // FIXME (priority 4) - Fix up the removal of destroyed fleets and space stations.
+            // FIXME (priority 6) - Fix up the removal of destroyed fleets and space stations.
             // currently this is done multiple times to ensure the fleets are removed. This is done out of ignorance.
             // need to analyse the way the turn is procecessed and ensure fleets are removed as soon as possible after being destroyed.
             // NB: may need to generate player messages or some other action before the fleet removed from the game.
@@ -211,7 +211,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="fleet">The fleet to process a turn for.</param>
         /// <returns>false</returns>
-        /// ??? (priority 2) - why does this always return false?
+        /// ??? (priority 4) - why does this always return false?
         /// ----------------------------------------------------------------------------
         private static bool ProcessFleet(Fleet fleet)
         {
@@ -270,7 +270,7 @@ namespace Nova.WinForms.Console
         /// 20 orbiting own planet with dock.
         /// +repair% if stopped or orbiting.
         /// TODO (priority 3) - A starbase is not counted towards repairs if it is under attack. 
-        /// TODO (priority 2) - reference where these rules are from.
+        /// TODO (priority 3) - reference where these rules are from.
         /// </remarks>
         /// ----------------------------------------------------------------------------
         private static void RegenerateFleet(Fleet fleet)
@@ -279,7 +279,7 @@ namespace Nova.WinForms.Console
 
             Star star = fleet.InOrbit;
             // refuel
-            if (star != null && star.Owner == fleet.Owner /* TODO (priority 4) or friendly*/ && star.Starbase != null && star.Starbase.CanRefuel)
+            if (star != null && star.Owner == fleet.Owner /* TODO (priority 6) or friendly*/ && star.Starbase != null && star.Starbase.CanRefuel)
             {
                 fleet.FuelAvailable = fleet.FuelCapacity;
             }
@@ -289,9 +289,9 @@ namespace Nova.WinForms.Console
             int repairRate = 0;
             if (star != null)
             {
-                if (star.Owner == fleet.Owner /* TODO (priority 4) or friend */)
+                if (star.Owner == fleet.Owner /* TODO (priority 6) or friend */)
                 {
-                    if (star.Starbase != null /* TODO (priority 4) and not under attack */)
+                    if (star.Starbase != null /* TODO (priority 6) and not under attack */)
                     {
                         if (star.Starbase.CanRefuel)
                         {
@@ -312,7 +312,7 @@ namespace Nova.WinForms.Console
                 }
                 else
                 {
-                    // TODO (priority 4) 0% if bombing
+                    // TODO (priority 6) 0% if bombing
                     // orbiting, but not bombing an enemy planet
                     repairRate = 3;
 
@@ -354,7 +354,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="fleet"></param>
         /// <returns>false</returns>
-        /// ??? (priority 2) - why does this always return false
+        /// ??? (priority 4) - why does this always return false
         /// ----------------------------------------------------------------------------
         private static bool UpdateFleet(Fleet fleet)
         {

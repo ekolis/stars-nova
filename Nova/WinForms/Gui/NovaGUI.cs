@@ -483,7 +483,7 @@ namespace Nova.WinForms.Gui
                     MapControl.ZoomOutClick(null, null);
                     break;
 
-                // TODO (priority 4) The rest of the keys (function keys).
+                // TODO (priority 6) The rest of the keys (function keys).
             }
         }
 
@@ -524,7 +524,7 @@ namespace Nova.WinForms.Gui
         /// the form. Save the local state data.
         /// </summary><remarks>
         /// NB: Don't generate the orders file unless Save&Submit is selected.
-        /// TODO (priority 4) - ask the user if they want to submit the current turn before closing.
+        /// TODO (priority 7) - ask the user if they want to submit the current turn before closing.
         /// </remarks>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
@@ -662,7 +662,7 @@ namespace Nova.WinForms.Gui
         /// <remarks>
         /// This menu item has been disabled as it does not currently detect if there is
         /// a valid next turn.
-        /// TODO (priority 4) - detect when a new turn is available.
+        /// TODO (priority 6) - detect when a new turn is available.
         /// </remarks>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>

@@ -22,7 +22,7 @@
 #region Module Description
 // ===========================================================================
 // This module returns details of a planet's Defenses
-// TODO (priority 3) - Transfer this to the Defense component property.
+// TODO (priority 5) - Transfer this to the Defense component property.
 // ===========================================================================
 #endregion
 

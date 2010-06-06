@@ -98,7 +98,7 @@ namespace Nova.Common
                             Audience = ((XmlText)subnode.FirstChild).Value;
                             break;
                         case "BattleReport":
-                            // TODO (priority 5) - when messages are being saved as xml, this will need to be converted into a link to the actual battle report.
+                            // TODO (priority 6) - when messages are being saved as xml, this will need to be converted into a link to the actual battle report.
                             Event = ((XmlText)subnode.FirstChild).Value;
                             break;
                         case "Minefield":

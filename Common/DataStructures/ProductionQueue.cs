@@ -41,11 +41,11 @@ namespace Nova.Common
         /// Details of a design in the queue.
         /// </summary>
         [Serializable]
-        public class Item // FIXME (priority 3) - Seems like a bad name as there is already an Item type in the Nova.Common namespace
+        public class Item // FIXME (priority 5) - Seems like a bad name as there is already an Item type in the Nova.Common namespace
         {
             public string           Name;              // Design name, e.g. "Space Dock"
             public int              Quantity;          // Number to build
-            public Resources        BuildState;        // Resources need to build item // ??? (priority 3) just the next 1 or the whole lot? - Dan 10 Jan 10
+            public Resources        BuildState;        // Resources need to build item // ??? (priority 6) just the next 1 or the whole lot? - Dan 10 Jan 10
             // Should be removed in favor of Unit.ResourcesNeeded * Quantity
             public bool             Autobuild;
             private ProductionUnit  Unit;
@@ -163,7 +163,7 @@ namespace Nova.Common
                     if (subnode.Name.ToLower() == "productionorder")
                     {
                         ProductionQueue.Item order = new ProductionQueue.Item(subnode);
-                        if (order != null) Queue.Add(order); // TODO (priority 4) ensure they load in the correct order.
+                        if (order != null) Queue.Add(order); // TODO (priority 6) ensure they load in the correct order.
                     }
 
                 }

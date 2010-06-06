@@ -91,7 +91,7 @@ namespace Nova.Common
             if (Dictionary == null)
             {
                 Report.Error("RacialTraits: Contains() - Dictionary is null.");
-                return false; // FIXME (priority 3) - should never be null. Should be fixed now that this is based on DictionaryBase (requires testing) ---Dan 16 Oct 09
+                return false; // FIXME (priority 4) - should never be null. Should be fixed now that this is based on DictionaryBase (requires testing) ---Dan 16 Oct 09
             }
             return Dictionary.Contains(trait);
         }

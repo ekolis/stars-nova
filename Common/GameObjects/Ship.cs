@@ -148,7 +148,7 @@ namespace Nova.Common
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Get the power rating of this ship - stub: TODO (priority 3)
+        /// Get the power rating of this ship - stub: TODO (priority 6)
         /// </summary>
         /// ----------------------------------------------------------------------------
         public int PowerRating
@@ -198,7 +198,7 @@ namespace Nova.Common
         /// Get total bomb capability. 
         /// </summary>
         /// <remarks>
-        /// TODO (priority 4) Whatever code uses this seems to be ignoring smart bombs?
+        /// TODO (priority 6) Whatever code uses this seems to be ignoring smart bombs?
         /// </remarks>
         /// ----------------------------------------------------------------------------
         public Bomb BombCapability
@@ -215,7 +215,7 @@ namespace Nova.Common
         /// Get total mine laying capacity for this ship
         /// </summary>
         /// <remarks>
-        /// TODO (priority 4) Client code must handle heavy and speed trap mines too.
+        /// TODO (priority 6) Client code must handle heavy and speed trap mines too.
         /// </remarks>
         /// ----------------------------------------------------------------------------
         public int MineCount
