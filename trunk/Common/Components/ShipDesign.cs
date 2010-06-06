@@ -431,7 +431,7 @@ namespace Nova.Common.Components
                 if (speed < 0.5)
                     speed = 0.5; // Set a minimum ship speed.
                 if (speed > 2.5) speed = 2.5;
-                speed = ((double)((int)(speed * 4.0 + 0.5))) / 4.0;
+                speed = ((double)((int)((speed * 4.0) + 0.5))) / 4.0;
                 return speed;
 
             }

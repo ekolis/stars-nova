@@ -106,7 +106,7 @@ namespace Nova.Common.Components
             {
                 sum.Installations = 0;
                 sum.MinimumKill = 0;
-                sum.PopKill = (1 - ((1 - op1.PopKill) * (1 - op2.PopKill)));
+                sum.PopKill = 1 - ((1 - op1.PopKill) * (1 - op2.PopKill));
             }
             else
             {
@@ -135,7 +135,7 @@ namespace Nova.Common.Components
             {
                 sum.Installations = 0;
                 sum.MinimumKill = 0;
-                sum.PopKill = (1 - (Math.Pow(1 - bomb.PopKill, bombCount)));
+                sum.PopKill = 1 - Math.Pow(1 - bomb.PopKill, bombCount);
             }
             else
             {

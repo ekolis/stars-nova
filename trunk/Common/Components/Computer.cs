@@ -110,7 +110,7 @@ namespace Nova.Common.Components
             Computer sum = new Computer(op1);
             sum.Initiative = op1.Initiative * scalar;
             // Sum of independant probabilities: (1 - ( (1-Accuracy1 )^scalar )
-            sum.Accuracy = (1.0 - (Math.Pow(1.0 - (op1.Accuracy / 100.0), scalar))) * 100.0;
+            sum.Accuracy = (1.0 - Math.Pow(1.0 - (op1.Accuracy / 100.0), scalar)) * 100.0;
             return sum;
         }
 

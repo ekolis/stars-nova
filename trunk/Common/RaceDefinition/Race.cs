@@ -114,7 +114,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public Resources GetFactoryResources()
         {
-            int factoryBuildCostGerm = (HasTrait("CF") ? 3 : 4);
+            int factoryBuildCostGerm = HasTrait("CF") ? 3 : 4;
             return new Resources(0, 0, factoryBuildCostGerm, FactoryBuildCost);
         }
 

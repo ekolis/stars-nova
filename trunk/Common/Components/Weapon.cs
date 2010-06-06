@@ -258,13 +258,13 @@ namespace Nova.Common.Components
 
         public bool IsBeam
         {
-            get { return (Group == WeaponType.standardBeam || Group == WeaponType.shieldSapper || Group == WeaponType.gatlingGun); }
+            get { return Group == WeaponType.standardBeam || Group == WeaponType.shieldSapper || Group == WeaponType.gatlingGun; }
         }
 
         public bool IsMissile
         {
 
-            get { return (Group == WeaponType.torpedo || Group == WeaponType.missile); }
+            get { return Group == WeaponType.torpedo || Group == WeaponType.missile; }
         }
 
         #endregion

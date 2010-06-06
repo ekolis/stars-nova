@@ -89,8 +89,8 @@ namespace Nova.WinForms.Gui
             GameSettings.Restore();
 
             // Initial map size
-            Logical.X = (int)(GameSettings.Data.MapWidth);
-            Logical.Y = (int)(GameSettings.Data.MapHeight);
+            Logical.X = GameSettings.Data.MapWidth;
+            Logical.Y = GameSettings.Data.MapHeight;
 
             Extent.X = (int) (Logical.X * ZoomFactor);
             Extent.Y = (int) (Logical.Y * ZoomFactor);
@@ -668,8 +668,8 @@ namespace Nova.WinForms.Gui
 
             int MinLength = Math.Min(MapPanel.Size.Width, MapPanel.Size.Height); // maintain 1:1 aspect ratio
 
-            result.X = ( (p.X - Origin.X) * MinLength / Extent.X);
-            result.Y = ((p.Y - Origin.Y) * MinLength / Extent.Y);
+            result.X = (p.X - Origin.X) * MinLength / Extent.X;
+            result.Y = (p.Y - Origin.Y) * MinLength / Extent.Y;
 
             return result;
         }
@@ -708,8 +708,8 @@ namespace Nova.WinForms.Gui
 
             int MinLength = Math.Min(MapPanel.Size.Width, MapPanel.Size.Height); // maintain 1:1 aspect ratio
 
-            result.X = ((p.X/* - BorderBuffer*/) * Extent.X / MinLength) + Origin.X;
-            result.Y = ((p.Y/* - BorderBuffer*/) * Extent.Y / MinLength) + Origin.Y;
+            result.X = (p.X * Extent.X / MinLength) + Origin.X;
+            result.Y = (p.Y * Extent.Y / MinLength) + Origin.Y;
 
             return result;
         }

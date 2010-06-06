@@ -158,8 +158,8 @@ namespace Nova.Common
                             Type = ((XmlText)subnode.FirstChild).Value;
                             break;
                         case "position":
-                            Position.X = int.Parse(((subnode.SelectSingleNode("X")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                            Position.Y = int.Parse(((subnode.SelectSingleNode("Y")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Position.X = int.Parse(subnode.SelectSingleNode("X").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Position.Y = int.Parse(subnode.SelectSingleNode("Y").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "resource":
                             Cost = new Resources(subnode);

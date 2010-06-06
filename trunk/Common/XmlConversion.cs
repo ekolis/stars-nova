@@ -63,7 +63,7 @@ namespace Nova.Common
                 // Setup the save location, stream and compression.
                 if (GetPath() == null && GetNewSaveFile() == null)
                 {
-                    throw (new System.IO.FileNotFoundException());
+                    throw new System.IO.FileNotFoundException();
                 }
                 FileStream saveFile = new FileStream(saveFilePath, FileMode.Create);
 

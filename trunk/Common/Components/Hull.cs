@@ -151,7 +151,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public bool IsStarbase
         {
-            get { return (FuelCapacity == 0); }
+            get { return FuelCapacity == 0; }
         }
 
 
@@ -162,7 +162,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public bool CanRefuel
         {
-            get { return (FuelCapacity == 0 && DockCapacity > 0); }
+            get { return FuelCapacity == 0 && DockCapacity > 0; }
         }
 
         #endregion
