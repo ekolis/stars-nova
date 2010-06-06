@@ -116,7 +116,7 @@ namespace Nova.WinForms.Console
             }
             foreach (String key in destroyedStations)
             {
-                ((Star)(ServerState.Data.AllStars[key])).Starbase = null;
+                ((Star)ServerState.Data.AllStars[key]).Starbase = null;
 
             }
 

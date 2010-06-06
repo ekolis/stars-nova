@@ -241,7 +241,7 @@ namespace Nova.WinForms.NewGame
 
                 // If we have the secondary racial trait Cheap Factories they need 1K
                 // less germanium to build.
-                int factoryBuildCostGerm = (race.HasTrait("CF") ? 3 : 4);
+                int factoryBuildCostGerm = race.HasTrait("CF") ? 3 : 4;
                 factory.Cost    = new Nova.Common.Resources(0, 0, factoryBuildCostGerm, race.FactoryBuildCost);
                 factory.Name    = "Factory";
                 factory.Type    = "Factory";

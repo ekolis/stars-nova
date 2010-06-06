@@ -96,7 +96,7 @@ namespace Nova.Common.Components
             this.Description = existing.Description;
             foreach (String key in existing.Properties.Keys)
             {
-                this.Properties.Add(key, (ComponentProperty)((ComponentProperty)(existing.Properties[key])).Clone());
+                this.Properties.Add(key, (ComponentProperty)existing.Properties[key].Clone());
             }
             if (existing.Restrictions != null)
                 this.Restrictions = new RaceRestriction(existing.Restrictions);
