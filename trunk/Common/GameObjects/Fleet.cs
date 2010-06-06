@@ -48,7 +48,7 @@ namespace Nova.Common
         public  int        FleetID        = 0;
         public  ArrayList  FleetShips     = new ArrayList();
         public  ArrayList  Waypoints      = new ArrayList();
-        public  Cargo      Cargo          = new Cargo(); // FIXME (priority 4) - Cargo should be tracked by either the fleet or the ship, not both. Need to decide on a design for cargo management and document it.
+        public  Cargo      Cargo          = new Cargo(); // FIXME (priority 6) - Cargo should be tracked by either the fleet or the ship, not both. Need to decide on a design for cargo management and document it.
         public  Fleet      Target         = null;
         public  Star       InOrbit        = null;
         public  double     BattleSpeed    = 0; // used by a stack on the battle board
@@ -253,7 +253,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the long range scan capability of the fleet.
-        /// FIXME (priority 3) - scanning capability can be addative (but the formula is non-linear)
+        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
         /// </summary>
         /// ----------------------------------------------------------------------------
         public int LongRangeScan
@@ -277,7 +277,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the short range scan capability of the fleet.
-        /// FIXME (priority 3) - scanning capability can be addative (but the formula is non-linear)
+        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
         /// </summary>
         /// ----------------------------------------------------------------------------
         public int ShortRangeScan

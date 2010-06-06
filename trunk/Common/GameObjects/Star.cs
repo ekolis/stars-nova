@@ -228,10 +228,10 @@ namespace Nova.Common
         /// </summary>
         /// <param name="race"></param>
         /// <remarks>
-        /// FIXME (priority 3) why pass the race in? The race occupying this star system is this.ThisRace.
+        /// FIXME (priority 4) why pass the race in? The race occupying this star system is this.ThisRace.
         /// 
         /// Update a star to take into account the passing of a year.
-        /// FIXME (priority 4) - this should not be here as it means the GUI has access to methods 
+        /// FIXME (priority 5) - this should not be here as it means the GUI has access to methods 
         /// that increase pop and resources - which is probably the source of the bug
         /// that causes this to happen when a star is clicked in the GUI.
         /// ... Turns out that bug was calling this function when it should not have been,

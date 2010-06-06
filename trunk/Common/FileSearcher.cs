@@ -178,8 +178,8 @@ namespace Nova.Common
                 AbsoluteReference = Path.Combine(AbsoluteReference, fileName);
             }
 
-            // Try searching the nova tree (brute force)
-            // TODO (priority 3)
+            // Try searching the nova tree (brute force) - TODO (priority 4)
+            // 
 
             if (!File.Exists(AbsoluteReference))
             {

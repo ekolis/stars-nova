@@ -27,7 +27,7 @@
 // (Type is inherited from Item)
 // Other Designs include "Mine", "Factory" and "Defense".
 //
-// TODO (priority 4) refactor this to reverse the current inheritance. 
+// TODO (priority 5) refactor this to reverse the current inheritance. 
 // A design is not yet an item, but an Item has all the properties of its Design. 
 // Does it make sense for a Design to have a Position? It currently does because 
 // it inherits one from Item. 

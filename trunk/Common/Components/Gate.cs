@@ -95,7 +95,7 @@ namespace Nova.Common.Components
         /// Whilst it is possible to have more than one gate on a hull, and it could
         /// make sense to use the best capabilities of each gate, this is not how
         /// Stars! works with gates. One gate gets precedence and the other is ignored.
-        /// TODO (priority 3) check that the same orbital slot takes precedence as
+        /// TODO (priority 2) check that the same orbital slot takes precedence as
         /// in Stars!
         /// TODO (priority 3) add a game option to modify this behaviour so gates
         /// can add in a ?meaningful? way (or allow the best gate for the 

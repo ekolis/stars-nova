@@ -78,7 +78,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construct one factory.
-        /// FIXME (priority 4) - doesn't account for partial construction.
+        /// FIXME (priority 5) - doesn't account for partial construction.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public void Construct()

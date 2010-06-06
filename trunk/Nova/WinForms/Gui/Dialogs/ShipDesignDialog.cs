@@ -849,7 +849,7 @@ namespace Nova.WinForms.Gui
              * name as another design, esspecialy if you keep the hull name for 
              * the ship name. However if you are edditing a design then this 
              * might be exactly what you want to do. Need to at least ask the 
-             * user. TODO (priority 3).
+             * user. TODO (priority 6).
            if (AllDesigns.Contains(newDesign.Key)) 
            {
               Report.Error("Design names must be unique");
@@ -1071,7 +1071,7 @@ namespace Nova.WinForms.Gui
         /// the costs and characteristics fields on the form.
         /// </summary>
         /// <remarks>
-        /// ??? (priority 3) We don't seem to have a ShipDesign at this stage, just a Hull component
+        /// ??? (priority 5) We don't seem to have a ShipDesign at this stage, just a Hull component
         /// with attached modules? This makes determining summary information difficult
         /// as that is what the ShipDesign is for. Need to decide if using a ShipDesign
         /// from the start would be better.
@@ -1114,7 +1114,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Component component in StateData.AvailableComponents.Values)
             {
-                // TODO (priority 1) - work out why it sometimes is null.
+                // TODO (priority 4) - work out why it sometimes is null.
                 if (component != null)
                 {
                     ImageIndices[component.Name] = index;

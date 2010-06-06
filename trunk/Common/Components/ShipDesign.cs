@@ -214,7 +214,7 @@ namespace Nova.Common.Components
                     Weapons.Add(weapon * componentCount);
                     break;
 
-                // keep one of each type only - TODO (priority 3) keep the right one
+                // keep one of each type only - TODO (priority 2) keep the right one
                 case "Colonizer":
                 case "Engine":
                 case "Gate":
@@ -271,7 +271,7 @@ namespace Nova.Common.Components
         {
             get
             {
-                Update(); // TODO (priority 3) - too much doing this every time - need a more efficient way
+                Update(); // TODO (priority 4) - too much doing this every time - need a more efficient way
                 if (Summary.Properties.ContainsKey("Armor"))
                 {
                     return ((IntegerProperty)Summary.Properties["Armor"]).Value;

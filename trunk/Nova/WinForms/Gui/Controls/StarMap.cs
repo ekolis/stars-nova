@@ -842,8 +842,7 @@ namespace Nova.WinForms.Gui
         /// A sortable (by distance) version of the Item class.
         /// </summary>
         /// <remarks>
-        /// FIXME (priority 3) - this class shouldn't be hidden inside this module.
-        /// ??? (priority 3) - Is there any reason not to implement this via inheritance or make Item itself sortable?
+        /// FIXME (priority 5) - this class shouldn't be hidden inside this module. Is there any reason not to implement this via inheritance or make Item itself sortable?
         /// </remarks>
         /// ----------------------------------------------------------------------------
         public class SortableItem : IComparable

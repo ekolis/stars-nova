@@ -159,7 +159,7 @@ namespace Nova.Common
 
             if (Data.SettingsPathName == null)
             {
-                // TODO (priority 4) add the nicities. Update the game files location.
+                // TODO (priority 5) add the nicities. Update the game files location.
                 SaveFileDialog fd = new SaveFileDialog();
                 fd.Title = "Choose a location to save the game settings.";
 
