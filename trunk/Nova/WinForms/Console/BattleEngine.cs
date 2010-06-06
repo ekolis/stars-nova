@@ -917,26 +917,5 @@ namespace Nova.WinForms.Console
         }
 
     }
-
-
-    /// ----------------------------------------------------------------------------
-    /// <summary>
-    /// Class to identify weapon capability and their targets which is sortable by
-    /// weapon system initiative.
-    /// </summary>
-    /// ----------------------------------------------------------------------------
-    public class WeaponDetails : IComparable
-    {
-        public Fleet TargetStack = null;
-        public Fleet SourceStack = null;
-        public Weapon Weapon = null;
-
-        public int CompareTo(Object rightHandSide)
-        {
-            WeaponDetails rhs = (WeaponDetails)rightHandSide;
-            return this.Weapon.Initiative.CompareTo(rhs.Weapon.Initiative);
-        }
-
-    }
 }
 
