@@ -110,6 +110,7 @@
     <Compile Include="WinForms\Console\BattleEngine.cs" />
     <Compile Include="WinForms\Console\Bombing.cs" />
     <Compile Include="WinForms\Console\CheckForMinefields.cs" />
+    <Compile Include="WinForms\Console\WeaponDetails.cs" />
     <Compile Include="WinForms\Console\Invade.cs" />
     <Compile Include="WinForms\Console\LayMines.cs" />
     <Compile Include="WinForms\Console\Manufacture.cs" />
@@ -248,6 +249,7 @@
       <DependentUpon>NewGameWizard.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\NewGame\StarsMapGenerator.cs" />
+    <Compile Include="WinForms\RaceDesigner\ParameterEntry.cs" />
     <Compile Include="WinForms\RaceDesigner\ParameterCosts.cs" />
     <Compile Include="WinForms\RaceDesigner\RaceDesigner.cs">
       <SubType>Form</SubType>

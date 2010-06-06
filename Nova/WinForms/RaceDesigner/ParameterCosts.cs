@@ -32,22 +32,6 @@ using System;
 namespace Nova.WinForms.RaceDesigner
 {
 
-    /// <summary>
-    /// Class to support the format of each array entry (note that element 0
-    /// of the Cost array is used to hold previous counter values).
-    /// </summary>
-    class ParameterEntry
-    {
-        public string ParameterName;
-        public int[] Cost;
-
-        public ParameterEntry(string p, int[] c)
-        {
-            ParameterName = p;
-            Cost = c;
-        }
-    }
-
 
     /// <summary>
     /// Static definition of all the advantage point costs for each parameter
