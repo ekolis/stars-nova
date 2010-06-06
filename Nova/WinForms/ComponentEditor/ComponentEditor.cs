@@ -1416,9 +1416,6 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
        private void OnFormClosing(object sender, FormClosingEventArgs e)
        {
-#if (DEBUG)
-           return; // Saving here has been disabled in debug mode as a quick backout for debugging - Daniel May 2009
-#endif
            if (ComponentDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
@@ -1427,7 +1424,10 @@ namespace Nova.WinForms.ComponentEditor
                    SaveComponent();
            }
 #if (DEBUG)
-           else MessageBox.Show("Component not dirty.");
+           else
+           {
+               MessageBox.Show("Component not dirty.");
+           }
 #endif
            if (FileDirty)
            {
