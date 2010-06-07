@@ -350,9 +350,9 @@ namespace Nova.WinForms.ComponentEditor
           this.label74 = new System.Windows.Forms.Label();
           this.label75 = new System.Windows.Forms.Label();
           this.label76 = new System.Windows.Forms.Label();
-          this.ComponentImage = new ComponentEditor.ImageDisplay();
-          this.TechRequirements = new ComponentEditor.TechRequirements();
-          this.BasicProperties = new ComponentEditor.BasicProperties();
+          this.ComponentImage = new Nova.WinForms.ComponentEditor.ImageDisplay();
+          this.TechRequirements = new Nova.WinForms.ComponentEditor.TechRequirements();
+          this.BasicProperties = new Nova.WinForms.ComponentEditor.BasicProperties();
           this.MainMenu.SuspendLayout();
           this.tableLayoutPanel1.SuspendLayout();
           this.groupBox3.SuspendLayout();
@@ -1341,7 +1341,7 @@ namespace Nova.WinForms.ComponentEditor
             131072});
           this.MinimumPopKill.Location = new System.Drawing.Point(112, 53);
           this.MinimumPopKill.Maximum = new decimal(new int[] {
-            1000,
+            10000,
             0,
             0,
             0});

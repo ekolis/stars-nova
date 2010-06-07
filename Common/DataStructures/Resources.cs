@@ -160,6 +160,23 @@ namespace Nova.Common
             return result;
         }
 
+        public static Resources operator *(Resources lhs, int rhs)
+        {
+            Resources result = new Resources();
+
+            result.Ironium = lhs.Ironium * rhs;
+            result.Boranium = lhs.Boranium * rhs;
+            result.Germanium = lhs.Germanium * rhs;
+            result.Energy = lhs.Energy * rhs;
+
+            return result;
+        }
+
+        public static Resources operator *(int lhs, Resources rhs)
+        {
+            return rhs * lhs;
+        }
+
         #endregion
 
         #region Properties
