@@ -92,7 +92,7 @@ namespace Nova.WinForms.Console
                 Message message = new Message();
                 message.Audience = fleet.Owner;
                 message.Text = "Fleet " + fleet.Owner + " has killed "
-                   + troops.ToString(System.Globalization.CultureInfo.InvariantCulture) + " colonisists on " + star.Name
+                   + troops.ToString(System.Globalization.CultureInfo.InvariantCulture) + " colonists on " + star.Name
                    + " but did not manage to capture the planet";
                 ServerState.Data.AllMessages.Add(message);
                 star.Colonists -= (int)troops;
