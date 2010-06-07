@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</ProjectGuid>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Nova.Common</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NovaCommon</RootNamespace>
+    <RunPostBuildEvent>OnBuildSuccess</RunPostBuildEvent>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SignAssembly>false</SignAssembly>
+    <OldToolsVersion>2.0</OldToolsVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
+    <TargetFrameworkSubset>
+    </TargetFrameworkSubset>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\Debug\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <DebugSymbols>true</DebugSymbols>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>3</WarningLevel>
+    <DebugType>full</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NovaCommon</RootNamespace>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\Release\</OutputPath>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>TRACE</DefineConstants>
+    <DocumentationFile>
+    </DocumentationFile>
+    <FileAlignment>4096</FileAlignment>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <WarningLevel>4</WarningLevel>
+    <DebugType>none</DebugType>
+    <ErrorReport>prompt</ErrorReport>
+    <OutputType>Library</OutputType>
+    <RootNamespace>NovaCommon</RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization.Formatters.Soap" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Converters\EnabledValueConverter.cs" />
+    <Compile Include="Converters\EnvironmentToleranceConverter.cs" />
+    <Compile Include="Converters\InstanceDescriptorConverter.cs" />
+    <Compile Include="Converters\ResourcesConverter.cs" />
+    <Compile Include="Converters\TechLevelConverter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="CommandArguments.cs" />
+    <Compile Include="Defenses.cs" />
+    <Compile Include="Components\HullModule.cs" />
+    <Compile Include="Components\RaceComponents.cs" />
+    <Compile Include="Components\Bomb.cs" />
+    <Compile Include="Components\Capacitor.cs" />
+    <Compile Include="Components\Colonizer.cs" />
+    <Compile Include="Components\ComponentProperty.cs" />
+    <Compile Include="Components\Defense.cs" />
+    <Compile Include="Components\MassDriver.cs" />
+    <Compile Include="Components\Radiation.cs" />
+    <Compile Include="Components\SimpleProperty.cs" />
+    <Compile Include="Components\DoubleProperty.cs" />
+    <Compile Include="Components\Design.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\Computer.cs" />
+    <Compile Include="Components\Fuel.cs" />
+    <Compile Include="Components\HullAffinity.cs" />
+    <Compile Include="Components\MineLayer.cs" />
+    <Compile Include="Components\Gate.cs" />
+    <Compile Include="Components\IntegerProperty.cs" />
+    <Compile Include="Components\ProbabilityProperty.cs" />
+    <Compile Include="Components\Terraform.cs" />
+    <Compile Include="Components\Weapon.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="FileSearcher.cs" />
+    <Compile Include="GameObjects\StarList.cs" />
+    <Compile Include="IProgress.cs" />
+    <Compile Include="ProgressDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ProgressDialog.Designer.cs">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+    </Compile>
+    <Compile Include="RaceDefinition\AllRaceIcons.cs" />
+    <Compile Include="RaceDefinition\AllTraits.cs" />
+    <Compile Include="RaceDefinition\TraitEntry.cs" />
+    <Compile Include="RaceDefinition\TraitList.cs" />
+    <Compile Include="Report.cs" />
+    <Compile Include="Serializer.cs" />
+    <Compile Include="DataStructures\BattlePlan.cs" />
+    <Compile Include="DataStructures\BattleReport.cs" />
+    <Compile Include="DataStructures\Cargo.cs" />
+    <Compile Include="Components\AllComponents.cs" />
+    <Compile Include="Components\Component.cs" />
+    <Compile Include="Components\Engine.cs" />
+    <Compile Include="Components\Hull.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\Scanner.cs" />
+    <Compile Include="GameObjects\Fleet.cs" />
+    <Compile Include="GlobalDefinitions.cs" />
+    <Compile Include="GameObjects\Item.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataStructures\DefenseProductionUnit.cs" />
+    <Compile Include="DataStructures\EnabledValue.cs" />
+    <Compile Include="DataStructures\EnvironmentTolerance.cs" />
+    <Compile Include="DataStructures\FactoryProductionUnit.cs" />
+    <Compile Include="DataStructures\GameSettings.cs" />
+    <Compile Include="DataStructures\Message.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GameObjects\MineField.cs" />
+    <Compile Include="RaceDefinition\PrimaryTraits.cs" />
+    <Compile Include="DataStructures\MineProductionUnit.cs" />
+    <Compile Include="DataStructures\AlchemyProductionUnit.cs" />
+    <Compile Include="DataStructures\PlayerSettings.cs" />
+    <Compile Include="DataStructures\ProductionUnit.cs" />
+    <Compile Include="DataStructures\RaceData.cs" />
+    <Compile Include="RaceDefinition\RaceIcon.cs" />
+    <Compile Include="RaceDefinition\RaceRestriction.cs" />
+    <Compile Include="DataStructures\Orders.cs" />
+    <Compile Include="PointUtils.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataStructures\ProductionQueue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RaceDefinition\Race.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="RaceDefinition\RacialTraits.cs" />
+    <Compile Include="DataStructures\Resources.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="GameObjects\Ship.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Components\ShipDesign.cs" />
+    <Compile Include="GameObjects\Star.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataStructures\Intel.cs" />
+    <Compile Include="DataStructures\ScoreRecord.cs" />
+    <Compile Include="RaceDefinition\SecondaryTraits.cs" />
+    <Compile Include="DataStructures\ShipProductionUnit.cs" />
+    <Compile Include="DataStructures\TechLevel.cs" />
+    <Compile Include="DataStructures\TerraformProductionUnit.cs" />
+    <Compile Include="DataStructures\Waypoint.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="SpaceAllocator.cs" />
+    <Compile Include="Verify.cs" />
+    <Compile Include="XmlConversion.cs" />
+    <Compile Include="..\VersionInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="ProgressDialog.resx">
+      <DependentUpon>ProgressDialog.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\Nova.ico" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="..\components.xml">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>if exist "$(TargetPath).locked" del "$(TargetPath).locked"
+if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)" "$(TargetPath).locked"</PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+    <ProjectGuid>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</ProjectGuid>
+    <RootNamespace>Nova.Common</RootNamespace>
+  </PropertyGroup>
+</Project>

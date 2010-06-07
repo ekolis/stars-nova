@@ -1,0 +1,6 @@
+@echo off
+:: Example configuration for the Windows/DOS batch scripts.
+:: Copy this file to script.conf.bat and modify the settings.
+
+SET SRCDIR="C:\Projects\Nova"
+SET DISTDIR="C:\Users\Hulk\Desktop\Nova"
