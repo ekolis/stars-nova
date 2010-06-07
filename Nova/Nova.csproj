@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.21022</ProductVersion>
+    <ProductVersion>9.0.30729</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{184F17D9-28F2-4784-B5F0-8E9538A31BF7}</ProjectGuid>
     <OutputType>WinExe</OutputType>
@@ -132,6 +132,9 @@
     <Compile Include="WinForms\Gui\Controls\Messages.cs">
       <SubType>UserControl</SubType>
     </Compile>
+    <Compile Include="WinForms\Gui\Controls\StarMapPanel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WinForms\Gui\Controls\PlanetDetail.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -204,6 +207,7 @@
     <Compile Include="WinForms\Gui\Dialogs\ShipDesignDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="WinForms\Gui\MainWindow.cs" />
     <Compile Include="WinForms\Gui\NovaGUI.cs">
       <SubType>Form</SubType>
     </Compile>
