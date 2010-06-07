@@ -114,7 +114,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public Resources GetFactoryResources()
         {
-            int factoryBuildCostGerm = HasTrait("CF") ? 3 : 4;
+            int factoryBuildCostGerm = (HasTrait("CF") ? 3 : 4);
             return new Resources(0, 0, factoryBuildCostGerm, FactoryBuildCost);
         }
 
@@ -309,7 +309,7 @@ namespace Nova.Common
                         case "name": this.Name = ((XmlText)xmlnode.FirstChild).Value; break;
                         case "password": this.Password = ((XmlText)xmlnode.FirstChild).Value; break;
 
-                        // TODO (priority 5) - load the RaceIcon
+                        // TODO (priority 3) - load the RaceIcon
                         case "raceiconname": this.Icon.Source = ((XmlText)xmlnode.FirstChild).Value; break;
 
                         case "factorybuildcost": this.FactoryBuildCost = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;

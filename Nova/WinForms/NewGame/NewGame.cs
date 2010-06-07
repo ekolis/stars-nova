@@ -121,7 +121,7 @@ namespace Nova.WinForms.NewGame
                 ServerState.Data.AllPlayers = newGameWizard.Players;
                 foreach (PlayerSettings settings in ServerState.Data.AllPlayers)
                 {
-                    // TODO (priority 7) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
+                    // TODO (priority 4) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
                     // Stars! solution is to rename the race using a list of standard names. 
                     if (!ServerState.Data.AllRaces.Contains(settings.RaceName))
                         ServerState.Data.AllRaces.Add(settings.RaceName, newGameWizard.KnownRaces[settings.RaceName]);
@@ -241,7 +241,7 @@ namespace Nova.WinForms.NewGame
 
                 // If we have the secondary racial trait Cheap Factories they need 1K
                 // less germanium to build.
-                int factoryBuildCostGerm = race.HasTrait("CF") ? 3 : 4;
+                int factoryBuildCostGerm = (race.HasTrait("CF") ? 3 : 4);
                 factory.Cost    = new Nova.Common.Resources(0, 0, factoryBuildCostGerm, race.FactoryBuildCost);
                 factory.Name    = "Factory";
                 factory.Type    = "Factory";

@@ -214,7 +214,7 @@ namespace Nova.Common
         //       is less than or equal to A and at least one field in A is greater than the
         //       corresponding field in B.
         //
-        //       TODO (priority 5) - Given the complexity here some unit tests would be nice.
+        //       TODO (priority 3) - Given the complexity here some unit tests would be nice.
         // =============================================================================
 
         //----------------------------------------------------------------------------

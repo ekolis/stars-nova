@@ -25,10 +25,10 @@
 // This runs as a command line application to have the computer play a nova
 // turn.
 //
-// TODO (priority 5) - suggest placing wrappers around OrderWriter.WriteOrders and GuiState.Initialize 
+// TODO (priority 3) - suggest placing wrappers around OrderWriter.WriteOrders and GuiState.Initialize 
 //        incase these interfaces change when file formats are reworked.
 //
-// TODO (priority 5) - suggest refactor this to better seperate the AI itself from the program that 
+// TODO (priority 3) - suggest refactor this to better seperate the AI itself from the program that 
 //        interfaces with the console and data files.
 // ===========================================================================
 #endregion
@@ -68,7 +68,7 @@ namespace Nova.Ai
             Console.WriteLine("Playing turn {0} for race \"{1}\".", TurnNumber, RaceName);
             try
             {
-                // TODO (priority 6) - bypass password entry for AI.
+                // TODO (priority 4) - bypass password entry for AI.
                 // Note: passwords have currently been disabled completely, awaiting a new more effective implementation - Dan 02 Mar 10
                 ClientState.Initialize(commandArguments.ToArray()); 
             }

@@ -625,7 +625,7 @@ namespace Nova.WinForms.Gui
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// FIXME (priority 7) - doesn't work with my keyboard, Vista 64 bit environment - Dan 25/4/10
+        /// FIXME (priority 4) - doesn't work with my keyboard - Dan 25/4/10
         /// ----------------------------------------------------------------------------
         private void OnKeyPress(object sender, KeyPressEventArgs e)
         {

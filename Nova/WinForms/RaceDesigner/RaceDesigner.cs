@@ -202,7 +202,7 @@ namespace Nova.WinForms.RaceDesigner
             IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source);
 
             // Can't trust the windows designer generate code to set the environment range before setting the environment value, so set it here to be sure.
-            // TODO (priority 6) - put all these literal values somewhere sensible (EnvironmentTolerance object?)
+            // TODO (priority 3) - put all these literal values somewhere sensible (EnvironmentTolerance object?)
             TemperatureTolerance.RangeMinimum = -200;
             TemperatureTolerance.RangeMaximum = 200;
             TemperatureTolerance.BarLower = -140;
@@ -1982,7 +1982,7 @@ namespace Nova.WinForms.RaceDesigner
             {
                 RaceParameters = new Race(fileName);
 
-                // TODO (priority 6) - This level of security is not good enough as the race is stored un-encrypted.
+                // TODO (priority 4) - This level of security is not good enough as the race is stored un-encrypted.
                 ControlLibrary.CheckPassword password =
                    new ControlLibrary.CheckPassword(RaceParameters);
 

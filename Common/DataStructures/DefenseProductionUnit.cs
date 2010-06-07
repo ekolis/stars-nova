@@ -65,7 +65,7 @@ namespace Nova.Common
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// ??? (priority 6)
+        /// ??? (priority 3)
         /// </summary>
         /// ----------------------------------------------------------------------------
         public void Construct()
@@ -76,7 +76,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the <see cref="Resources"/> needed to build this defense.
-        /// ??? (priority 6) - is this before or after some resources have already been spent?
+        /// ??? (priority 3) - is this before or after some resources have already been spent?
         /// </summary>
         /// ----------------------------------------------------------------------------
         public Resources NeededResources()

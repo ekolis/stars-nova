@@ -111,7 +111,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static ProbabilityProperty operator +(ProbabilityProperty op1, ProbabilityProperty op2)
         {
-            return new ProbabilityProperty(100 - (((100 - op1.Value) * (100 - op2.Value))/100));
+            return new ProbabilityProperty(100 - ((100 - op1.Value) * (100 - op2.Value))/100);
         }
 
 

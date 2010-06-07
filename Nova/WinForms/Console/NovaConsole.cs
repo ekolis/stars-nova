@@ -810,7 +810,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private void GenerateTurn()
         {
-            /* FIXME (priority 5) This gives a flase negative indication, i.e. GameInProgress is false even when a game is in progress.
+            /* FIXME (priority 4) This gives a flase negative indication, i.e. GameInProgress is false even when a game is in progress.
             if (ServerState.Data.GameInProgress == false)
             {
                 Report.Error("There is no game in progress. Open a current game or create a new game.");
@@ -904,7 +904,7 @@ namespace Nova.WinForms.Console
                 Report.FatalError("Unable to open a game.");
             }
 
-            // TODO (priority 4) - This code is a repeat of what we do when the console is normally opened. Consider consolodating these sections.
+            // TODO (priority 3) - This code is a repeat of what we do when the console is normally opened. Consider consolodating these sections.
             ServerState.Data.GameFolder = System.IO.Path.GetDirectoryName(ServerState.Data.StatePathName);
             FolderPath.Text = ServerState.Data.GameFolder;
             ServerState.Restore();

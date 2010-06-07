@@ -55,7 +55,7 @@ namespace Nova.Common
         public ArrayList DeletedFleets  = new ArrayList(); // To delete fleets
         public ArrayList DeletedDesigns = new ArrayList(); // To delete designs
         public RaceData  PlayerData     = new RaceData();  // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.)
-        public int       TechLevel      = 0;               // FIXME (priority 5): should send our research orders; server should control actual player tech level ??? what does this int mean? it is not a TechLevel type.
+        public int       TechLevel      = 0;               // FIXME (priority 4): should send our research orders; server should control actual player tech level ??? what does this int mean? it is not a TechLevel type.
 
         /// ----------------------------------------------------------------------------
         /// <summary>

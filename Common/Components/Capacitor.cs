@@ -104,7 +104,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static CapacitorProperty operator +(CapacitorProperty op1, CapacitorProperty op2)
         {
-            return new CapacitorProperty((((100 + op1.Value) * (100 + op2.Value)) / 100) - 100 );
+            return new CapacitorProperty(((100 + op1.Value) * (100 + op2.Value)) / 100 - 100);
         }
 
         /// ----------------------------------------------------------------------------

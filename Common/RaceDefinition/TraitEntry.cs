@@ -128,7 +128,7 @@ namespace Nova.Common
         public override bool Equals(object trait)
         {
             if (trait is TraitEntry)
-                return Code == ((TraitEntry)trait).Code;
+                return (Code == ((TraitEntry)trait).Code);
             else
                 return false;
         }

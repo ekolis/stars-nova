@@ -24,7 +24,7 @@
 // ===========================================================================
 // Player-related functions, load turns, etc.
 
-// TODO (priority 5) - Refactor AreEnemies to be a member of Race and remove this object.
+// TODO (priority 3) - Refactor AreEnemies to be a member of Race and remove this object.
 // ===========================================================================
 #endregion
 

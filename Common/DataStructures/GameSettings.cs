@@ -34,9 +34,6 @@ using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
 using System.Text;
 using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Serialization;
-
 
 #endregion
 
@@ -140,11 +137,7 @@ namespace Nova.Common
             {
                 using (FileStream state = new FileStream(fileName, FileMode.Open))
                 {
-
-                    // Data = Serializer.Deserialize(state) as GameSettings;
-                    XmlSerializer s = new XmlSerializer(typeof(GameSettings));
-                    Data = (GameSettings)s.Deserialize(state);
-
+                    Data = Serializer.Deserialize(state) as GameSettings;
                 }
             }
         }
@@ -156,10 +149,9 @@ namespace Nova.Common
         //-------------------------------------------------------------------
         public static void Save()
         {
-
             if (Data.SettingsPathName == null)
             {
-                // TODO (priority 5) add the nicities. Update the game files location.
+                // TODO (priority 4) add the nicities. Update the game files location.
                 SaveFileDialog fd = new SaveFileDialog();
                 fd.Title = "Choose a location to save the game settings.";
 
@@ -176,11 +168,8 @@ namespace Nova.Common
             }
             using (Stream stream = new FileStream(Data.SettingsPathName, FileMode.Create))
             {
-                // Serializer.Serialize(stream, GameSettings.Data);
-                XmlSerializer s = new XmlSerializer(typeof(GameSettings));
-                s.Serialize(stream, GameSettings.Data);
+                Serializer.Serialize(stream, GameSettings.Data);
             }
-
         }
 
         #endregion

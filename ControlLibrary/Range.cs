@@ -459,7 +459,7 @@ namespace Nova.ControlLibrary
             }
             else
             {
-                env = ((((double)(pos - BoxMinimum)) * environmentRange) / boxRange) + EnvironmentMinimum;
+                env = ((double)(pos - BoxMinimum)) * environmentRange / boxRange + EnvironmentMinimum;
             }
             return env;
         }

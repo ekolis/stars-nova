@@ -110,16 +110,16 @@ namespace Nova.WinForms.NewGame
         /// ----------------------------------------------------------------------------
         public List<int[]> Generate()
         {
-            BaseDensity = ((2.0 * (StarUniformity - 1)) + (0.11 * (100 - StarUniformity))) / 99.0;
-            MaxRadius = ((100.0 * (StarUniformity - 1)) + (400 * (100 - StarUniformity))) / 99.0;
+            BaseDensity = (2.0 * (StarUniformity - 1) + 0.11 * (100 - StarUniformity)) / 99.0;
+            MaxRadius = (100.0 * (StarUniformity - 1) + 400 * (100 - StarUniformity)) / 99.0;
 
             //middle value of uniformity produces low density (~ x0.63), so equalizing this a bit with border values
-            double DensityBalancer = ((1 * Math.Abs(50.0 - StarUniformity)) / 50.0) + (0.63 * (1 - (Math.Abs(50.0 - StarUniformity) / 50.0)));
+            double DensityBalancer = 1 * Math.Abs(50.0 - StarUniformity) / 50.0 + 0.63 * (1 - Math.Abs(50.0 - StarUniformity) / 50.0);
 
             BaseDensity *= DensityBalancer;
             MaxRadius *= DensityBalancer;
 
-            double DensityApplied = (0.5 * ((StarDensity - 1) / 99.0)) + ((2.0 * (100 - StarDensity)) / 99.0);
+            double DensityApplied = 0.5 * (StarDensity - 1) / 99.0 + 2.0 * (100 - StarDensity) / 99.0;
 
             BaseDensity *= DensityApplied;
             MaxRadius *= DensityApplied;
@@ -215,11 +215,11 @@ namespace Nova.WinForms.NewGame
         /// ----------------------------------------------------------------------------
         private void UpdateDensities(int x, int y)
         {
-            for (int i = (x - (UpdateFrameSize / 2) > 0) ? (x - (UpdateFrameSize / 2)) : 0; i <= ((x + (UpdateFrameSize / 2) < MapWidth) ? (x + (UpdateFrameSize / 2)) : (MapWidth - 1)); ++i)
+            for (int i = ((x - UpdateFrameSize / 2 > 0) ? (x - UpdateFrameSize / 2) : 0); i <= ((x + UpdateFrameSize / 2 < MapWidth) ? (x + UpdateFrameSize / 2) : (MapWidth - 1)); ++i)
             {
-                for (int j = (y - (UpdateFrameSize / 2) > 0) ? (y - (UpdateFrameSize / 2)) : 0; j <= ((y + (UpdateFrameSize / 2) < MapHeight) ? (y + (UpdateFrameSize / 2)) : (MapHeight - 1)); ++j)
+                for (int j = ((y - UpdateFrameSize / 2 > 0) ? (y - UpdateFrameSize / 2) : 0); j <= ((y + UpdateFrameSize / 2 < MapHeight) ? (y + UpdateFrameSize / 2) : (MapHeight - 1)); ++j)
                 {
-                    double d = Math.Sqrt(((x - i) * (x - i)) + ((y - j) * (y - j)));
+                    double d = Math.Sqrt((x - i) * (x - i) + (y - j) * (y - j));
                     Density[i, j] -= Reduce(d);
                 }
             }

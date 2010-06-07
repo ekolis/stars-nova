@@ -849,7 +849,7 @@ namespace Nova.WinForms.Gui
              * name as another design, esspecialy if you keep the hull name for 
              * the ship name. However if you are edditing a design then this 
              * might be exactly what you want to do. Need to at least ask the 
-             * user. TODO (priority 6).
+             * user. TODO (priority 3).
            if (AllDesigns.Contains(newDesign.Key)) 
            {
               Report.Error("Design names must be unique");
@@ -978,62 +978,34 @@ namespace Nova.WinForms.Gui
 
             // The component has been dropped into the design. Update the relevant
             // design summary fields.
-            UpdateDesignParameters();
-        }
 
-        /// <summary>
-        /// Update cost and primary characteristics.
-        /// </summary>
-        private void UpdateDesignParameters()
-        {
-            Hull hull = SelectedHull.Properties["Hull"] as Hull;
-            Resources cost = SelectedHull.Cost;
-            int mass = SelectedHull.Mass;
-            int armor = hull.ArmorStrength;
-            int shield = 0;
-            int cargo = hull.BaseCargo;
-            int fuel = hull.FuelCapacity;
-
-            foreach (HullModule module in HullGrid.ActiveModules)
-            {
-                Component component = module.AllocatedComponent;
-                if (component == null) continue;
-
-                cost += module.ComponentCount * component.Cost;
-                mass += module.ComponentCount * component.Mass;
-
-                if (component.Properties.ContainsKey("Armor"))
-                {
-                    IntegerProperty armorProperty = component.Properties["Armor"] as IntegerProperty;
-                    armor += module.ComponentCount * armorProperty.Value;
-                }
-                if (component.Properties.ContainsKey("Shield"))
-                {
-                    IntegerProperty shieldProperty = component.Properties["Shield"] as IntegerProperty;
-                    shield += module.ComponentCount * shieldProperty.Value;
-                }
-                if (component.Properties.ContainsKey("Cargo"))
-                {
-                    IntegerProperty cargoProperty = component.Properties["Cargo"] as IntegerProperty;
-                    cargo += module.ComponentCount * cargoProperty.Value;
-                }
-                if (component.Properties.ContainsKey("Fuel"))
-                {
-                    Fuel fuelProperty = component.Properties["Fuel"] as Fuel;
-                    fuel += module.ComponentCount * fuelProperty.Capacity;
-                }
-            }
-
-            DesignResources.Value = cost;
-            DesignMass = mass;
-
+            DesignResources.Value += dragData.SelectedComponent.Cost;
+            DesignMass += dragData.SelectedComponent.Mass;
             ShipMass.Text = DesignMass.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            ShipArmor.Text = armor.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            ShipShields.Text = shield.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            CargoCapacity.Text = cargo.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            if (!hull.IsStarbase)
+
+            if (dragData.SelectedComponent.Properties.ContainsKey("Armor"))
             {
-                MaxCapacity.Text = fuel.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                IntegerProperty Armor = dragData.SelectedComponent.Properties["Armor"] as IntegerProperty;
+                int ArmorStrength = Convert.ToInt32(ShipArmor.Text);
+
+                ArmorStrength += Armor.Value;
+                ShipArmor.Text = ArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            }
+            else if (dragData.SelectedComponent.Properties.ContainsKey("Shield"))
+            {
+                IntegerProperty shield = dragData.SelectedComponent.Properties["Shield"] as IntegerProperty;
+                int shieldStrength = Convert.ToInt32(ShipShields.Text);
+
+                shieldStrength += shield.Value;
+
+                ShipShields.Text = shieldStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+            }
+            else if (dragData.SelectedComponent.Properties.ContainsKey("Cargo"))
+            {
+                IntegerProperty pod = dragData.SelectedComponent.Properties["Cargo"] as IntegerProperty;
+                ShipCargoCapacity += pod.Value;
+                CargoCapacity.Text = ShipCargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
 
         }
@@ -1071,7 +1043,7 @@ namespace Nova.WinForms.Gui
         /// the costs and characteristics fields on the form.
         /// </summary>
         /// <remarks>
-        /// ??? (priority 5) We don't seem to have a ShipDesign at this stage, just a Hull component
+        /// ??? (priority 3) We don't seem to have a ShipDesign at this stage, just a Hull component
         /// with attached modules? This makes determining summary information difficult
         /// as that is what the ShipDesign is for. Need to decide if using a ShipDesign
         /// from the start would be better.
@@ -1082,6 +1054,13 @@ namespace Nova.WinForms.Gui
 
             Hull HullProperties = SelectedHull.Properties["Hull"] as Hull;
             HullGrid.ActiveModules = HullProperties.Modules;
+            DesignResources.Value = SelectedHull.Cost;
+            DesignMass = SelectedHull.Mass;
+            ShipMass.Text = SelectedHull.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
+
+            // TODO (priority 4) - get the total cargo capacity, rather than just the hull's base cargo capacity (i.e. add any pods). (see notes at top of function)
+            CargoCapacity.Text = HullProperties.BaseCargo.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            ShipArmor.Text = HullProperties.ArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
             HullImage.Image = SelectedHull.ComponentImage;
             Description.Text = SelectedHull.Description;
 
@@ -1097,8 +1076,6 @@ namespace Nova.WinForms.Gui
                 CapacityUnits.Text = "mg";
                 MaxCapacity.Text = HullProperties.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
-
-            UpdateDesignParameters();
         }
 
 
@@ -1114,7 +1091,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Component component in StateData.AvailableComponents.Values)
             {
-                // TODO (priority 4) - work out why it sometimes is null.
+                // TODO (priority 1) - work out why it sometimes is null.
                 if (component != null)
                 {
                     ImageIndices[component.Name] = index;

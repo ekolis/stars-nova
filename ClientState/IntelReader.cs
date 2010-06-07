@@ -235,7 +235,7 @@ namespace Nova.Client
                   }
 
                   //--------------------------------------------------------------------------------
-                  // FIXME (priority 5) - discovery of planetary information should be done by the server. It should not be possible for a hacked client to get this information.
+                  // FIXME (priority 3) - discovery of planetary information should be done by the server. It should not be possible for a hacked client to get this information.
 
                   if ((fleet.InOrbit != null) && ( ! fleet.IsStarbase))
                   {
@@ -271,7 +271,7 @@ namespace Nova.Client
       /// Do the research for this year. Research is performed locally once per turn.
       /// </summary>
       /// <remarks>
-      /// FIXME (priority 5) Console should determine the results of research and tell
+      /// FIXME (priority 4) Console should determine the results of research and tell
       /// the Nova GUI, not the other way around.      
       /// </remarks>
       /// ----------------------------------------------------------------------------

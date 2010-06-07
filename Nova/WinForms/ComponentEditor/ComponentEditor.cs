@@ -972,9 +972,9 @@ namespace Nova.WinForms.ComponentEditor
                    Gate gateProperties = selectedComponent.Properties["Gate"] as Gate;
 
                    SafeHullMass.Value = (decimal)gateProperties.SafeHullMass;
-                   GateMassInfinite.Checked = SafeHullMass.Value == -1;
+                   GateMassInfinite.Checked = (SafeHullMass.Value == -1);
                    SafeRange.Value = (decimal)gateProperties.SafeRange;
-                   GateRangeInfinite.Checked = SafeRange.Value == -1;
+                   GateRangeInfinite.Checked = (SafeRange.Value == -1);
 
                    PropertyTabs.TabPages.Add(tabGate);
                    PropertyTabs.SelectedTab = tabGate;
@@ -986,7 +986,7 @@ namespace Nova.WinForms.ComponentEditor
                    HullArmor.Value = (decimal)hullProperties.ArmorStrength;
                    HullFuelCapacity.Value = (decimal)hullProperties.FuelCapacity;
                    HullDockCapacity.Value = (decimal)hullProperties.DockCapacity;
-                   InfiniteDock.Checked = HullDockCapacity.Value == -1;
+                   InfiniteDock.Checked = (HullDockCapacity.Value == -1);
                    ARMaxPop.Value = (decimal)hullProperties.ARMaxPop;
                    HullCargoCapacity.Value = (decimal)hullProperties.BaseCargo;
                    HullInitiative.Value = (decimal)hullProperties.BattleInitiative;
@@ -1248,9 +1248,9 @@ namespace Nova.WinForms.ComponentEditor
        {
            ComponentDirty = true;
 
-           DefenseCover40.Text = ((1.0 - Math.Pow((double)(1.00M - (DefenseCover1.Value / 100)), 40.0)) * 100).ToString("f2");
-           DefenseCover80.Text = ((1.0 - Math.Pow((double)(1.00M - (DefenseCover1.Value / 100)), 80.0)) * 100).ToString("f2");
-           DefenseCover100.Text = ((1.0 - Math.Pow((double)(1.00M - (DefenseCover1.Value / 100)), 100.0)) * 100).ToString("f2");
+           DefenseCover40.Text = ((1.0 - Math.Pow((double)(1.00M - DefenseCover1.Value / 100), 40.0)) * 100).ToString("f2");
+           DefenseCover80.Text = ((1.0 - Math.Pow((double)(1.00M - DefenseCover1.Value / 100), 80.0)) * 100).ToString("f2");
+           DefenseCover100.Text = ((1.0 - Math.Pow((double)(1.00M - DefenseCover1.Value / 100), 100.0)) * 100).ToString("f2");
        }
 
 
@@ -1416,6 +1416,9 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
        private void OnFormClosing(object sender, FormClosingEventArgs e)
        {
+#if (DEBUG)
+           return; // Saving here has been disabled in debug mode as a quick backout for debugging - Daniel May 2009
+#endif
            if (ComponentDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
@@ -1424,10 +1427,7 @@ namespace Nova.WinForms.ComponentEditor
                    SaveComponent();
            }
 #if (DEBUG)
-           else
-           {
-               MessageBox.Show("Component not dirty.");
-           }
+           else MessageBox.Show("Component not dirty.");
 #endif
            if (FileDirty)
            {
