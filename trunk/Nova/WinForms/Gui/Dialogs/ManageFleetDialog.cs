@@ -71,7 +71,7 @@ namespace Nova.WinForms.Gui
         /// unique.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RenameButton_Click(object sender, EventArgs e)
         {
@@ -92,7 +92,7 @@ namespace Nova.WinForms.Gui
         /// A co-located fleet is selected, activate the merge facility
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void CoLocatedFleets_SelectedIndexChanged(object sender,
                                                           EventArgs e)
@@ -106,7 +106,7 @@ namespace Nova.WinForms.Gui
         /// Merge the ships from a co-located fleet into the selected fleet
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MergeButton_Click(object sender, EventArgs e)
         {

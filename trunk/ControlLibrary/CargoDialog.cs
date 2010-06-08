@@ -241,7 +241,7 @@ namespace Nova.ControlLibrary
         /// Process cancel button.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void CancelButton_Click(object sender, System.EventArgs e)
         {
@@ -254,7 +254,7 @@ namespace Nova.ControlLibrary
         /// Process the OK button being pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OkButton_Click(object sender, System.EventArgs e)
         {

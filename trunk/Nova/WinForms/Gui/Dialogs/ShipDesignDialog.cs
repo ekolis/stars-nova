@@ -815,7 +815,7 @@ namespace Nova.WinForms.Gui
         /// Save the the design when the OK button is pressed
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OK_Click(object sender, System.EventArgs e)
         {
@@ -869,7 +869,7 @@ namespace Nova.WinForms.Gui
         /// same type can be in the module.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// <returns>Returns a <see cref="Weapon"/> representing all the weapon components in a single module.</returns>
         /// ----------------------------------------------------------------------------
         private Weapon BuildWeaponSystem(int number, Nova.Common.Components.Component component)
@@ -889,7 +889,7 @@ namespace Nova.WinForms.Gui
         /// A new tree node has been selected. Update the list control
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void TreeNodeSelected(object sender, TreeViewEventArgs e)
         {
@@ -925,7 +925,7 @@ namespace Nova.WinForms.Gui
         /// A new item has been selected. Update the cost box and description.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ListSelectionChanged(object sender, EventArgs e)
         {
@@ -950,7 +950,7 @@ namespace Nova.WinForms.Gui
         /// Instigate Drag and Drop of the selected ListView item
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ListView_MouseDown(object sender, MouseEventArgs e)
         {
@@ -1045,7 +1045,7 @@ namespace Nova.WinForms.Gui
         /// don't end up messing with the master copy.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void HullList_SelectedValueChanged(object sender, EventArgs e)
         {

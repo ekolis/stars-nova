@@ -68,7 +68,7 @@ namespace Nova.WinForms.Gui
         /// need a little logic to decode (we don't just have a bunch of strings).
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, EventArgs e)
         {
@@ -159,7 +159,7 @@ namespace Nova.WinForms.Gui
         /// implemented properly.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void FleetGridView_CellPainting(object sender,
                       DataGridViewCellPaintingEventArgs e)

@@ -1549,7 +1549,7 @@ namespace Nova.WinForms.RaceDesigner
         /// All primary racial traits are defined in the file PrimaryTraits.cs.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
@@ -1590,7 +1590,7 @@ namespace Nova.WinForms.RaceDesigner
         /// </para>
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void SecondaryTraits_CheckedChanged(object sender, EventArgs e)
         {
@@ -1638,7 +1638,7 @@ namespace Nova.WinForms.RaceDesigner
         /// The actual advantage point costs are defined in the file ParameterCosts.cs.
         /// </para></remarks>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void UpDown_ValueChanged(object sender, EventArgs e)
         {
@@ -1724,7 +1724,7 @@ namespace Nova.WinForms.RaceDesigner
         /// to do this.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Exit_Click(object sender, EventArgs e)
         {
@@ -1751,7 +1751,7 @@ namespace Nova.WinForms.RaceDesigner
         /// structure and use it to generate the race definition file.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Finish_Click(object sender, System.EventArgs e)
         {
@@ -1914,7 +1914,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Display the about box
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -1929,7 +1929,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Called when the next image is to be selected
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NextImage_Click(object sender, EventArgs e)
         {
@@ -1945,7 +1945,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Called when the previous image is to be selected
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PreviousImage_Click(object sender, EventArgs e)
         {
@@ -1962,7 +1962,7 @@ namespace Nova.WinForms.RaceDesigner
         /// and it's "gone into the system").
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void LoadRaceFile_Click(object sender, EventArgs e)
         {

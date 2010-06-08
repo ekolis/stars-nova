@@ -83,7 +83,7 @@ namespace Nova.WinForms.Gui
         /// Exit dialog button pressed
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void DoneBUtton_Click(object sender, EventArgs e)
         {
@@ -96,7 +96,7 @@ namespace Nova.WinForms.Gui
         /// Selected race has changed, update the relation details
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void SelectedRaceChanged(object sender, EventArgs e)
         {
@@ -122,7 +122,7 @@ namespace Nova.WinForms.Gui
         /// Player relationship changed
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RelationChanged(object sender, EventArgs e)
         {

@@ -87,7 +87,7 @@ namespace Nova.WinForms.Gui
         /// (we don't include anything that does not have a hull in the list).
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void DesignManager_Load(object sender, EventArgs e)
         {
@@ -109,7 +109,7 @@ namespace Nova.WinForms.Gui
         /// A new design has been selected, display it.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void DesignList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -130,7 +130,7 @@ namespace Nova.WinForms.Gui
         /// Deal with a hull module being selected
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void DesignModuleSelected(object sender, EventArgs e)
         {
@@ -155,7 +155,7 @@ namespace Nova.WinForms.Gui
         /// containing the ship empty delete that too. Then delete the actual design.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Delete_Click(object sender, EventArgs e)
         {
@@ -229,7 +229,7 @@ namespace Nova.WinForms.Gui
         /// race selected is the current one being played.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void DesignOwner_SelectedIndexChanged(object sender, EventArgs e)
         {

@@ -162,7 +162,7 @@ namespace Nova.ControlLibrary
         /// is switched off.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Research_CheckChanged(object sender, EventArgs e)
         {

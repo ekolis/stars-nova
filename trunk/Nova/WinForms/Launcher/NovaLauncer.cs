@@ -89,7 +89,7 @@ namespace Nova.WinForms.Launcher
         /// When the 'exit' button is pressed, terminate the Nova Launcher
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ExitButton_Click(object sender, EventArgs e)
         {
@@ -102,7 +102,7 @@ namespace Nova.WinForms.Launcher
         /// When the 'Race Designer' button is pressed, launch the Race Designer application.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RaceDesignerButton_Click(object sender, EventArgs e)
         {
@@ -123,7 +123,7 @@ namespace Nova.WinForms.Launcher
         /// When the 'New Game' button is pressed, launch the New Game Wizard.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NewGameButton_Click(object sender, EventArgs e)
         {
@@ -228,7 +228,7 @@ namespace Nova.WinForms.Launcher
         /// When the 'Continue Game' button is pressed, continue the last opened game.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ContinueGameButton_Click(object sender, EventArgs e)
         {
@@ -271,7 +271,7 @@ namespace Nova.WinForms.Launcher
         /// When the 'Nova Website' link is clicked, go to the nova website with the default browser, if allowed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void WebLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
