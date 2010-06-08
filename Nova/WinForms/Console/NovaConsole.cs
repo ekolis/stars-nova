@@ -475,7 +475,7 @@ namespace Nova.WinForms.Console
         /// Populate the nova console form when first loaded.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnFirstShow(object sender, EventArgs e)
         {
@@ -523,7 +523,7 @@ namespace Nova.WinForms.Console
         /// Save console persistent data on exit.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ConsoleFormClosing(object sender, FormClosingEventArgs e)
         {
@@ -543,7 +543,7 @@ namespace Nova.WinForms.Console
         /// Display the About box dialog
         /// <summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnAboutClick(object sender, EventArgs e)
         {
@@ -558,7 +558,7 @@ namespace Nova.WinForms.Console
         /// Select a new Game Folder
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void SelectNewFolder(object sender, EventArgs eventArgs)
         {
@@ -578,7 +578,7 @@ namespace Nova.WinForms.Console
         /// Launches the New Game wizard.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NewGameMenuItem_Click(object sender, EventArgs e)
         {
@@ -610,7 +610,7 @@ namespace Nova.WinForms.Console
         /// Refresh the turn in fields...
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RefreshMenuItem_Click(object sender, EventArgs e)
         {
@@ -629,7 +629,7 @@ namespace Nova.WinForms.Console
         /// This function is called when the Generate Turn button is pressed. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void GenerateTurnMenuItem_Click(object sender, EventArgs e)
         {
@@ -642,7 +642,7 @@ namespace Nova.WinForms.Console
         /// This function is called when the Force Generate Turn button is pressed. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ForceMenuItem_Click(object sender, EventArgs e)
         {
@@ -660,7 +660,7 @@ namespace Nova.WinForms.Console
         /// Launch the Nova GUI to play a turn for a give player.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PlayerList_DoubleClick(object sender, EventArgs e)
         {
@@ -691,7 +691,7 @@ namespace Nova.WinForms.Console
         /// 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RunAiCheckBox_CheckedChanged(object sender, EventArgs e)
         {
@@ -705,7 +705,7 @@ namespace Nova.WinForms.Console
         /// checks if the AI needs to run or a new turn can be generated.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ConsoleTimer_Tick(object sender, EventArgs e)
         {

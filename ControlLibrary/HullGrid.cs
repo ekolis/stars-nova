@@ -101,7 +101,7 @@ namespace Nova.ControlLibrary
         /// editing is enabled). 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void CellContextMenuItem(object sender, ToolStripItemClickedEventArgs e)
         {
@@ -238,7 +238,7 @@ namespace Nova.ControlLibrary
         /// Mini-Coloniser).
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Grid_DragEnter(object sender, DragEventArgs e)
         {
@@ -310,7 +310,7 @@ namespace Nova.ControlLibrary
         /// Process a drop event
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Grid_DragDrop(object sender, DragEventArgs e)
         {
@@ -342,7 +342,7 @@ namespace Nova.ControlLibrary
         /// </summary>
         /// <remarks>There are three cases as shown in the code.</remarks>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Grid0_Paint(object sender, PaintEventArgs e)
         {
@@ -381,7 +381,7 @@ namespace Nova.ControlLibrary
         /// them.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         public void GridCell_Click(object sender, EventArgs e)
         {
@@ -401,7 +401,7 @@ namespace Nova.ControlLibrary
         /// TODO (priority 1) - if a cell is cleared change it back to the empty module color.
         /// </remarks>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void DrawEmptyCell(Panel panel, Graphics graphics)
         {

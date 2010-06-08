@@ -438,7 +438,7 @@ namespace Nova.WinForms.Gui
         /// Exit menu item selected.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MenuExit_Click(object sender, System.EventArgs e)
         {
@@ -452,7 +452,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the ship design dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MenuShipDesign(object sender, System.EventArgs e)
         {
@@ -467,7 +467,7 @@ namespace Nova.WinForms.Gui
         /// Deal with keys being pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnKeyPress(object sender, KeyPressEventArgs e)
         {
@@ -493,7 +493,7 @@ namespace Nova.WinForms.Gui
         /// Display the "About" dialog
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MenuAbout(object sender, EventArgs e)
         {
@@ -508,7 +508,7 @@ namespace Nova.WinForms.Gui
         /// Display the research dialog
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MenuResearch(object sender, EventArgs e)
         {
@@ -527,7 +527,7 @@ namespace Nova.WinForms.Gui
         /// TODO (priority 7) - ask the user if they want to submit the current turn before closing.
         /// </remarks>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NovaGUI_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -541,7 +541,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the player relations dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PlayerRelationsMenuItem_Click(object sender, EventArgs e)
         {
@@ -555,7 +555,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the battle plans dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void BattlePlansMenuItem(object sender, EventArgs e)
         {
@@ -570,7 +570,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the Design Manager Dialog
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void DesignManagerMenuItem_Click(object sender, EventArgs e)
         {
@@ -585,7 +585,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the Planet Report Dialog
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PlanetReportMenu_Click(object sender, EventArgs e)
         {
@@ -600,7 +600,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the Fleet Report Dialog
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void FleetReportMenu_Click(object sender, EventArgs e)
         {
@@ -615,7 +615,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the Battle Report Dialog
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void BattlesReportMenu_Click(object sender, EventArgs e)
         {
@@ -630,7 +630,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the score report dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ScoresMenuItem_Click(object sender, EventArgs e)
         {
@@ -645,7 +645,7 @@ namespace Nova.WinForms.Gui
         /// Menu->Commands->Save & Submit
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void SaveAndSubmitTurnToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -665,7 +665,7 @@ namespace Nova.WinForms.Gui
         /// TODO (priority 6) - detect when a new turn is available.
         /// </remarks>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void LoadNextTurnToolStripMenuItem_Click(object sender, EventArgs e)
         {

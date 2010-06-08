@@ -266,7 +266,7 @@ namespace Nova.ControlLibrary
         /// numeric values. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Bar_Paint(object sender, PaintEventArgs e)
         {
@@ -301,7 +301,7 @@ namespace Nova.ControlLibrary
         /// action being held in the class variable TimerAction.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Timer1_Tick(object sender, System.EventArgs e)
         {
@@ -373,7 +373,7 @@ namespace Nova.ControlLibrary
         /// Mouse down on the move indicator left button
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void LeftScroll_MouseDown(object sender, MouseEventArgs e)
         {
@@ -388,7 +388,7 @@ namespace Nova.ControlLibrary
         /// same, just stop the timer.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RangeMouseUp(object sender, MouseEventArgs e)
         {
@@ -401,7 +401,7 @@ namespace Nova.ControlLibrary
         /// Mouse down on the move indicator left button
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RightScroll_MouseDown(object sender, MouseEventArgs e)
         {
@@ -415,7 +415,7 @@ namespace Nova.ControlLibrary
         /// Shrink the range covered by the indicator bar
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Contract_MouseDown(object sender, MouseEventArgs e)
         {

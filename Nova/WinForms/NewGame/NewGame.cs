@@ -301,7 +301,7 @@ namespace Nova.WinForms.NewGame
         /// each player giving it some colonists and initial resources. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private static void AllocateHomeStarResources(Star star, Race race)
         {

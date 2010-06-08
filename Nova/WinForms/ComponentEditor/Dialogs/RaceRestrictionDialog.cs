@@ -122,7 +122,7 @@ namespace Nova.WinForms.ComponentEditor
         /// Save button - copies the form data to a RaceRestriction.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void Save_Click(object sender, EventArgs e)
         {
             int n = 0;
@@ -145,7 +145,7 @@ namespace Nova.WinForms.ComponentEditor
         /// Cancel button - just close the form and discard any changes.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void Cancel_Click(object sender, EventArgs e)
         {
             Close();

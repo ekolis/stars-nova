@@ -365,7 +365,7 @@ namespace Nova.WinForms.Gui
         /// capacity to build the design. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, System.EventArgs e)
         {
@@ -411,7 +411,7 @@ namespace Nova.WinForms.Gui
         /// Process a design being selected for possible construction.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void AvailableSelected(object sender, System.EventArgs e)
         {
@@ -436,7 +436,7 @@ namespace Nova.WinForms.Gui
         /// Production queue item selected changed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void QueueSelected(object sender, EventArgs e)
         {
@@ -472,7 +472,7 @@ namespace Nova.WinForms.Gui
         /// Add to queue button pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void AddToQueue_Click(object sender, System.EventArgs e)
         {
@@ -512,7 +512,7 @@ namespace Nova.WinForms.Gui
         /// Remove from queue button pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RemoveFromQueue_Click(object sender, EventArgs e)
         {
@@ -577,7 +577,7 @@ namespace Nova.WinForms.Gui
         /// Otherwise, just add the item on at the end of the queue.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void AddDesign(Design design, int quantity)
         {
@@ -620,7 +620,7 @@ namespace Nova.WinForms.Gui
         /// OK button pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OK_Click(object sender, System.EventArgs e)
         {

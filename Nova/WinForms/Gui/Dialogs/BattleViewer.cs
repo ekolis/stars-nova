@@ -77,7 +77,7 @@ namespace Nova.WinForms.Gui
         /// Initialisation performed on a load of the whole dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnLoad(object sender, EventArgs e)
         {
             BattleLocation.Text = TheBattle.Location;
@@ -96,7 +96,7 @@ namespace Nova.WinForms.Gui
         /// appropriate position.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnPaint(object sender, PaintEventArgs e)
         {
             base.OnPaint(e); //added
@@ -120,7 +120,7 @@ namespace Nova.WinForms.Gui
         /// Step through each battle event.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void NextStep_Click(object sender, EventArgs e)
         {
             Object thisStep = TheBattle.Steps[EventCount];

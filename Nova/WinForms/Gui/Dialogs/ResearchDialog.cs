@@ -109,7 +109,7 @@ namespace Nova.WinForms.Gui
         /// resources are now going to be spent.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void CheckChanged(object sender, EventArgs e)
         {
@@ -139,7 +139,7 @@ namespace Nova.WinForms.Gui
         /// The OK button has been pressed. Just exit the dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OKClicked(object sender, EventArgs e)
         {
@@ -152,7 +152,7 @@ namespace Nova.WinForms.Gui
         /// The resource budget has been changed. Update all relevant fields.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ParameterChanged(object sender, EventArgs e)
         {

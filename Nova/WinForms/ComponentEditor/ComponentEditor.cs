@@ -119,7 +119,7 @@ namespace Nova.WinForms.ComponentEditor
        /// component data file has not been set then set it now.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void OnLoad(object sender, EventArgs e)
 	   {
            // TODO (priority 3): without this an exception is raised when trying to launch a dialog 
@@ -460,7 +460,7 @@ namespace Nova.WinForms.ComponentEditor
        /// apply to this component.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_RaceRestrictions_Click(object sender, EventArgs e)
        {
            //MessageBox.Show(ComponentName.Text);
@@ -488,7 +488,7 @@ namespace Nova.WinForms.ComponentEditor
        /// </para>
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_AddProperty(object sender, EventArgs e)
        {
            ToolStripMenuItem menuSelection = sender as ToolStripMenuItem;
@@ -768,7 +768,7 @@ namespace Nova.WinForms.ComponentEditor
        /// letting us know not to add that property to the component.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void DeleteSelectedPropertyToolStripMenuItem_Click(object sender, EventArgs e)
        {
            PropertyTabs.TabPages.Remove(PropertyTabs.SelectedTab);
@@ -783,7 +783,7 @@ namespace Nova.WinForms.ComponentEditor
        /// Display the About box dialog
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void AboutMenuClick(object sender, EventArgs e)
        {
            DoDialog(new AboutBox());
@@ -808,7 +808,7 @@ namespace Nova.WinForms.ComponentEditor
        /// delegated from the Common Properties control.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void ComponentList_SelectedIndexChanged(object sender, EventArgs e)
        {
            if (ComponentList.SelectedItem == null)
@@ -1174,7 +1174,7 @@ namespace Nova.WinForms.ComponentEditor
        /// select from.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void ComponentType_Changed(object sender, EventArgs e)
        {
            // in edit mode, just change the component type. In view mode, repopulate the component list.
@@ -1206,7 +1206,7 @@ namespace Nova.WinForms.ComponentEditor
        /// Draw tabs horizontally to the right of the tab control.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void PropertyTabs_DrawItem(object sender, DrawItemEventArgs e)
        {
            Graphics g = e.Graphics;
@@ -1243,7 +1243,7 @@ namespace Nova.WinForms.ComponentEditor
        /// defenses.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void DefenseCover1_ValueChanged(object sender, EventArgs e)
        {
            ComponentDirty = true;
@@ -1258,7 +1258,7 @@ namespace Nova.WinForms.ComponentEditor
        /// Update the display of the number of mines a weapon will sweep.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void UpdateMinesSwept(object sender, EventArgs e)
        {
            if (isStandardBeam.Checked)
@@ -1282,7 +1282,7 @@ namespace Nova.WinForms.ComponentEditor
        /// Update the display of the engine free speed - the highest warp speed with fuel cost of 0.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void UpdateFastestFreeSpeed(object sender, EventArgs e)
        {
            if (W10Fuel.Value == 0)
@@ -1315,7 +1315,7 @@ namespace Nova.WinForms.ComponentEditor
        /// The value -1 is used as the internal representation of infinite capabilities.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void GateMassInfinite_CheckedChanged(object sender, EventArgs e)
        {
            if (GateMassInfinite.Checked)
@@ -1335,7 +1335,7 @@ namespace Nova.WinForms.ComponentEditor
        /// The value -1 is used as the internal representation of infinite capabilities.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void GateRangeInfinite_CheckedChanged(object sender, EventArgs e)
        {
            if (GateRangeInfinite.Checked)
@@ -1375,7 +1375,7 @@ namespace Nova.WinForms.ComponentEditor
        /// When the 'Edit Hull' button is clicked, pop up the <see cref='HullDialog'/>.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void ButtonEditHull_Click(object sender, EventArgs e)
        {
            // create a new hull grid dialog
@@ -1401,7 +1401,7 @@ namespace Nova.WinForms.ComponentEditor
        /// multiple defenses.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void SetComponentDirty(object sender, EventArgs e)
        {
            ComponentDirty = true;
@@ -1413,7 +1413,7 @@ namespace Nova.WinForms.ComponentEditor
        /// invoked no matter which method is used to terminate the program.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void OnFormClosing(object sender, FormClosingEventArgs e)
        {
            if (ComponentDirty)
@@ -1771,7 +1771,7 @@ namespace Nova.WinForms.ComponentEditor
        /// Makes a given component the selected component in the Component Editor
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        public void SelectComponent(String type, String name)
        {
            UpdateListBox(type);

@@ -562,7 +562,7 @@ namespace Nova.WinForms.Gui
         /// Called when the warp factor slider is moved.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void SpeedChanged(object sender, System.EventArgs e)
         {
@@ -585,7 +585,7 @@ namespace Nova.WinForms.Gui
         /// reflect the values of the selected waypoint.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void WaypointSelection(object sender, System.EventArgs e)
         {
@@ -604,7 +604,7 @@ namespace Nova.WinForms.Gui
         /// Cargo button pressed. Pop up the cargo transfer dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void CargoButton_Click(object sender, System.EventArgs e)
         {
@@ -624,7 +624,7 @@ namespace Nova.WinForms.Gui
         /// key is pressed, delete the selected waypoint.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// FIXME (priority 7) - doesn't work with my keyboard, Vista 64 bit environment - Dan 25/4/10
         /// ----------------------------------------------------------------------------
         private void OnKeyPress(object sender, KeyPressEventArgs e)
@@ -655,7 +655,7 @@ namespace Nova.WinForms.Gui
         /// that waypoint.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void WaypointTaskChanged(object sender, EventArgs e)
         {
@@ -676,7 +676,7 @@ namespace Nova.WinForms.Gui
         /// The manage fleet button has been pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MangeFleet_Click(object sender, EventArgs e)
         {
@@ -692,7 +692,7 @@ namespace Nova.WinForms.Gui
         /// Process the Next button being pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NextFleet_Click(object sender, System.EventArgs e)
         {
@@ -729,7 +729,7 @@ namespace Nova.WinForms.Gui
         /// Process the previous button being pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PreviousFleet_Click(object sender, EventArgs e)
         {

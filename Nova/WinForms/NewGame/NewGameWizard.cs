@@ -93,7 +93,7 @@ namespace Nova.WinForms.NewGame
         /// Occurs when the OK button is clicked.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OkButton_Click(object sender, EventArgs e)
         {
@@ -122,7 +122,7 @@ namespace Nova.WinForms.NewGame
         /// Occurs when the Tutorial button is clicked.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void TutorialButton_Click(object sender, EventArgs eventArgs)
         {
@@ -138,7 +138,7 @@ namespace Nova.WinForms.NewGame
         /// Add a new player to the player list
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void AddPlayerButton_Click(object sender, EventArgs e)
         {
@@ -162,7 +162,7 @@ namespace Nova.WinForms.NewGame
         /// When the 'New Race' button is pressed, launch the Race Designer.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NewRaceButton_Click(object sender, EventArgs e)
         {
@@ -182,7 +182,7 @@ namespace Nova.WinForms.NewGame
         /// Update the GUI when the currently selected player changes.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PlayerList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -196,7 +196,7 @@ namespace Nova.WinForms.NewGame
         /// When the 'Delete' button is pressed, delete the currently selected player from the game.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PlayerDeleteButton_Click(object sender, EventArgs e)
         {
@@ -230,7 +230,7 @@ namespace Nova.WinForms.NewGame
         /// When the 'Up' button is pressed, move the currently selected player up one slot in the list.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PlayerUpButton_Click(object sender, EventArgs e)
         {
@@ -264,7 +264,7 @@ namespace Nova.WinForms.NewGame
         /// When the 'Down' button is pressed, move the currently selected player down in the list.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PlayerDownButton_Click(object sender, EventArgs e)
         {
@@ -297,7 +297,7 @@ namespace Nova.WinForms.NewGame
         /// When the 'Browse' button beside the race name is pressed, open a file browser to search for additional races.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RaceBrowseButton_Click(object sender, EventArgs e)
         {
@@ -328,7 +328,7 @@ namespace Nova.WinForms.NewGame
         /// When the 'Browse' button is pressed beside the AI/Human drop-down, open a file dialog to search for additional AIs.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void AiBrowseButton_Click(object sender, EventArgs e)
         {
@@ -362,7 +362,7 @@ namespace Nova.WinForms.NewGame
         /// Update the number of stars to be generated when changed in the <see cref="NumericUpDown"/> control.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
         {
@@ -375,7 +375,7 @@ namespace Nova.WinForms.NewGame
         /// Change the race of the currently selected player to the race chosen from the drop down.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RaceSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -389,7 +389,7 @@ namespace Nova.WinForms.NewGame
         /// Change the ai/human status of the currently selected player to the ai/human chosen from the drop down.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void AiSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
         {

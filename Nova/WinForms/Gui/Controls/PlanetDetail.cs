@@ -749,7 +749,7 @@ namespace Nova.WinForms.Gui
         /// The change queue button has been pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ChangeProductionQueue_Click(object sender, EventArgs e)
         {
@@ -767,7 +767,7 @@ namespace Nova.WinForms.Gui
         /// Next planet button pressed
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NextPlanet_Click(object sender, EventArgs e)
         {
@@ -796,7 +796,7 @@ namespace Nova.WinForms.Gui
         /// Previous planet button pressed
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PreviousPlanet_Click(object sender, EventArgs e)
         {

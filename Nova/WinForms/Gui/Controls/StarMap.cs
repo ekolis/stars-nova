@@ -723,7 +723,7 @@ namespace Nova.WinForms.Gui
         /// Process a request to zoom in the star map.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         public void ZoomInClick(object sender, System.EventArgs e)
         {
@@ -738,7 +738,7 @@ namespace Nova.WinForms.Gui
         /// Process a request to zoom out the star map.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         public void ZoomOutClick(object sender, System.EventArgs e)
         {
@@ -780,7 +780,7 @@ namespace Nova.WinForms.Gui
         /// Horizontally scroll the star map.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MapScrollH(object sender, ScrollEventArgs e)
         {
@@ -793,7 +793,7 @@ namespace Nova.WinForms.Gui
         /// Vertically scroll the star map.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MapScrollV(object sender, ScrollEventArgs e)
         {
