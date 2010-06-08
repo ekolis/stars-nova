@@ -137,7 +137,7 @@ namespace Nova.WinForms.Gui
             this.previousButton.Size = new System.Drawing.Size(75, 23);
             this.previousButton.TabIndex = 2;
             this.previousButton.Text = "Previous";
-            this.previousButton.Click += new System.EventHandler(this.previousButton_Click);
+            this.previousButton.Click += new System.EventHandler(this.PreviousButton_Click);
             // 
             // nextButton
             // 
@@ -147,7 +147,7 @@ namespace Nova.WinForms.Gui
             this.nextButton.Size = new System.Drawing.Size(75, 23);
             this.nextButton.TabIndex = 1;
             this.nextButton.Text = "Next";
-            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            this.nextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
             // messageBox
             // 
@@ -180,7 +180,7 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void nextButton_Click(object sender, System.EventArgs e)
+        private void NextButton_Click(object sender, System.EventArgs e)
         {
             if (currentMessage < messages.Count - 1)
             {
@@ -207,7 +207,7 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void previousButton_Click(object sender, System.EventArgs e)
+        private void PreviousButton_Click(object sender, System.EventArgs e)
         {
             if (currentMessage > 0)
             {

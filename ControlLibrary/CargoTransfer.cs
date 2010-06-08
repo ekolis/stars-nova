@@ -122,7 +122,7 @@ namespace Nova.ControlLibrary
             this.sliderBar.Size = new System.Drawing.Size(256, 16);
             this.sliderBar.TabIndex = 21;
             this.sliderBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.sliderBar.Scroll += new System.EventHandler(this.sliderBar_Scroll);
+            this.sliderBar.Scroll += new System.EventHandler(this.SliderBar_Scroll);
             // 
             // shipAmount
             // 
@@ -155,7 +155,7 @@ namespace Nova.ControlLibrary
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void sliderBar_Scroll(object sender, System.EventArgs e)
+        private void SliderBar_Scroll(object sender, System.EventArgs e)
         {
             // Get the cargo mass excluding the contribution made by this slider
 

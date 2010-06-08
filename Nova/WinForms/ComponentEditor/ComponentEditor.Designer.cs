@@ -499,28 +499,28 @@ namespace Nova.WinForms.ComponentEditor
           this.menuItem_NewFile.Name = "menuItem_NewFile";
           this.menuItem_NewFile.Size = new System.Drawing.Size(114, 22);
           this.menuItem_NewFile.Text = "&New";
-          this.menuItem_NewFile.Click += new System.EventHandler(this.menuItem_NewFile_Click);
+          this.menuItem_NewFile.Click += new System.EventHandler(this.MenuItem_NewFile_Click);
           // 
           // menuItem_OpenFile
           // 
           this.menuItem_OpenFile.Name = "menuItem_OpenFile";
           this.menuItem_OpenFile.Size = new System.Drawing.Size(114, 22);
           this.menuItem_OpenFile.Text = "&Open";
-          this.menuItem_OpenFile.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+          this.menuItem_OpenFile.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
           // 
           // menuItem_SaveFile
           // 
           this.menuItem_SaveFile.Name = "menuItem_SaveFile";
           this.menuItem_SaveFile.Size = new System.Drawing.Size(114, 22);
           this.menuItem_SaveFile.Text = "&Save";
-          this.menuItem_SaveFile.Click += new System.EventHandler(this.menuItem_SaveFile_Click);
+          this.menuItem_SaveFile.Click += new System.EventHandler(this.MenuItem_SaveFile_Click);
           // 
           // menuItem_SaveFileAs
           // 
           this.menuItem_SaveFileAs.Name = "menuItem_SaveFileAs";
           this.menuItem_SaveFileAs.Size = new System.Drawing.Size(114, 22);
           this.menuItem_SaveFileAs.Text = "Save &As";
-          this.menuItem_SaveFileAs.Click += new System.EventHandler(this.menuItem_SaveFileAs_Click);
+          this.menuItem_SaveFileAs.Click += new System.EventHandler(this.MenuItem_SaveFileAs_Click);
           // 
           // toolStripMenuItem3
           // 
@@ -585,28 +585,28 @@ namespace Nova.WinForms.ComponentEditor
           this.menuItem_NewComponent.Name = "menuItem_NewComponent";
           this.menuItem_NewComponent.Size = new System.Drawing.Size(163, 22);
           this.menuItem_NewComponent.Text = "&New";
-          this.menuItem_NewComponent.Click += new System.EventHandler(this.menuItem_NewComponent_Click);
+          this.menuItem_NewComponent.Click += new System.EventHandler(this.MenuItem_NewComponent_Click);
           // 
           // menuItem_EditComponent
           // 
           this.menuItem_EditComponent.Name = "menuItem_EditComponent";
           this.menuItem_EditComponent.Size = new System.Drawing.Size(163, 22);
           this.menuItem_EditComponent.Text = "&Edit";
-          this.menuItem_EditComponent.Click += new System.EventHandler(this.menuItem_EditComponent_Click);
+          this.menuItem_EditComponent.Click += new System.EventHandler(this.MenuItem_EditComponent_Click);
           // 
           // copyToolStripMenuItem
           // 
           this.copyToolStripMenuItem.Name = "copyToolStripMenuItem";
           this.copyToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
           this.copyToolStripMenuItem.Text = "&Copy";
-          this.copyToolStripMenuItem.Click += new System.EventHandler(this.copyToolStripMenuItem_Click);
+          this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
           // 
           // menuItem_DiscardComponentChanges
           // 
           this.menuItem_DiscardComponentChanges.Name = "menuItem_DiscardComponentChanges";
           this.menuItem_DiscardComponentChanges.Size = new System.Drawing.Size(163, 22);
           this.menuItem_DiscardComponentChanges.Text = "Discard Changes";
-          this.menuItem_DiscardComponentChanges.Click += new System.EventHandler(this.menuItem_DiscardComponentChanges_Click);
+          this.menuItem_DiscardComponentChanges.Click += new System.EventHandler(this.MenuItem_DiscardComponentChanges_Click);
           // 
           // menuItem_SaveComponent
           // 
@@ -631,7 +631,7 @@ namespace Nova.WinForms.ComponentEditor
           this.menuItem_DeleteComponent.Name = "menuItem_DeleteComponent";
           this.menuItem_DeleteComponent.Size = new System.Drawing.Size(163, 22);
           this.menuItem_DeleteComponent.Text = "Delete";
-          this.menuItem_DeleteComponent.Click += new System.EventHandler(this.menuItem_DeleteComponent_Click);
+          this.menuItem_DeleteComponent.Click += new System.EventHandler(this.MenuItem_DeleteComponent_Click);
           // 
           // toolStripMenuItem1
           // 
@@ -643,7 +643,7 @@ namespace Nova.WinForms.ComponentEditor
           this.menuItem_RaceRestrictions.Name = "menuItem_RaceRestrictions";
           this.menuItem_RaceRestrictions.Size = new System.Drawing.Size(163, 22);
           this.menuItem_RaceRestrictions.Text = "&Race Restrictions";
-          this.menuItem_RaceRestrictions.Click += new System.EventHandler(this.menuItem_RaceRestrictions_Click);
+          this.menuItem_RaceRestrictions.Click += new System.EventHandler(this.MenuItem_RaceRestrictions_Click);
           // 
           // propertyToolStripMenuItem
           // 
@@ -685,21 +685,21 @@ namespace Nova.WinForms.ComponentEditor
           this.armorToolStripMenuItem.Name = "armorToolStripMenuItem";
           this.armorToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.armorToolStripMenuItem.Text = "&Armor";
-          this.armorToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.armorToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // bombToolStripMenuItem
           // 
           this.bombToolStripMenuItem.Name = "bombToolStripMenuItem";
           this.bombToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.bombToolStripMenuItem.Text = "&Bomb";
-          this.bombToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.bombToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // cloakToolStripMenuItem
           // 
           this.cloakToolStripMenuItem.Name = "cloakToolStripMenuItem";
           this.cloakToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.cloakToolStripMenuItem.Text = "&Cloak";
-          this.cloakToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.cloakToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // electricalToolStripMenuItem
           // 
@@ -719,70 +719,70 @@ namespace Nova.WinForms.ComponentEditor
           this.capacitorToolStripMenuItem.Name = "capacitorToolStripMenuItem";
           this.capacitorToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
           this.capacitorToolStripMenuItem.Text = "Capacitor";
-          this.capacitorToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.capacitorToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // computerToolStripMenuItem
           // 
           this.computerToolStripMenuItem.Name = "computerToolStripMenuItem";
           this.computerToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
           this.computerToolStripMenuItem.Text = "Computer";
-          this.computerToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.computerToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // energyDampenerToolStripMenuItem
           // 
           this.energyDampenerToolStripMenuItem.Name = "energyDampenerToolStripMenuItem";
           this.energyDampenerToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
           this.energyDampenerToolStripMenuItem.Text = "Energy Dampener";
-          this.energyDampenerToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.energyDampenerToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // fuelGenerationToolStripMenuItem
           // 
           this.fuelGenerationToolStripMenuItem.Name = "fuelGenerationToolStripMenuItem";
           this.fuelGenerationToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
           this.fuelGenerationToolStripMenuItem.Text = "Fuel";
-          this.fuelGenerationToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.fuelGenerationToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // jammerToolStripMenuItem
           // 
           this.jammerToolStripMenuItem.Name = "jammerToolStripMenuItem";
           this.jammerToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
           this.jammerToolStripMenuItem.Text = "Jammer";
-          this.jammerToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.jammerToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // tachyonDetectorToolStripMenuItem
           // 
           this.tachyonDetectorToolStripMenuItem.Name = "tachyonDetectorToolStripMenuItem";
           this.tachyonDetectorToolStripMenuItem.Size = new System.Drawing.Size(168, 22);
           this.tachyonDetectorToolStripMenuItem.Text = "Tachyon Detector";
-          this.tachyonDetectorToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.tachyonDetectorToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // engineToolStripMenuItem
           // 
           this.engineToolStripMenuItem.Name = "engineToolStripMenuItem";
           this.engineToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.engineToolStripMenuItem.Text = "&Engine";
-          this.engineToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.engineToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // fuelToolStripMenuItem
           // 
           this.fuelToolStripMenuItem.Name = "fuelToolStripMenuItem";
           this.fuelToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.fuelToolStripMenuItem.Text = "&Fuel";
-          this.fuelToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.fuelToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // gateToolStripMenuItem
           // 
           this.gateToolStripMenuItem.Name = "gateToolStripMenuItem";
           this.gateToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.gateToolStripMenuItem.Text = "&Gate";
-          this.gateToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.gateToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // hullToolStripMenuItem
           // 
           this.hullToolStripMenuItem.Name = "hullToolStripMenuItem";
           this.hullToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.hullToolStripMenuItem.Text = "&Hull";
-          this.hullToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.hullToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // limitationToolStripMenuItem
           // 
@@ -799,28 +799,28 @@ namespace Nova.WinForms.ComponentEditor
           this.hullAffinityToolStripMenuItem.Name = "hullAffinityToolStripMenuItem";
           this.hullAffinityToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
           this.hullAffinityToolStripMenuItem.Text = "Hull Affinity";
-          this.hullAffinityToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.hullAffinityToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // radiationToolStripMenuItem
           // 
           this.radiationToolStripMenuItem.Name = "radiationToolStripMenuItem";
           this.radiationToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
           this.radiationToolStripMenuItem.Text = "Radiation";
-          this.radiationToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.radiationToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // transportOnlyToolStripMenuItem
           // 
           this.transportOnlyToolStripMenuItem.Name = "transportOnlyToolStripMenuItem";
           this.transportOnlyToolStripMenuItem.Size = new System.Drawing.Size(153, 22);
           this.transportOnlyToolStripMenuItem.Text = "Transport Only";
-          this.transportOnlyToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.transportOnlyToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // massDriverToolStripMenuItem
           // 
           this.massDriverToolStripMenuItem.Name = "massDriverToolStripMenuItem";
           this.massDriverToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.massDriverToolStripMenuItem.Text = "Mass &Driver";
-          this.massDriverToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.massDriverToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // mechanicalToolStripMenuItem
           // 
@@ -839,63 +839,63 @@ namespace Nova.WinForms.ComponentEditor
           this.battleMovementToolStripMenuItem.Name = "battleMovementToolStripMenuItem";
           this.battleMovementToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
           this.battleMovementToolStripMenuItem.Text = "Battle Movement";
-          this.battleMovementToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.battleMovementToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // beamDeflectorToolStripMenuItem1
           // 
           this.beamDeflectorToolStripMenuItem1.Name = "beamDeflectorToolStripMenuItem1";
           this.beamDeflectorToolStripMenuItem1.Size = new System.Drawing.Size(165, 22);
           this.beamDeflectorToolStripMenuItem1.Text = "Beam Deflector";
-          this.beamDeflectorToolStripMenuItem1.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.beamDeflectorToolStripMenuItem1.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // cargoToolStripMenuItem
           // 
           this.cargoToolStripMenuItem.Name = "cargoToolStripMenuItem";
           this.cargoToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
           this.cargoToolStripMenuItem.Text = "Cargo";
-          this.cargoToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.cargoToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // colonizationToolStripMenuItem
           // 
           this.colonizationToolStripMenuItem.Name = "colonizationToolStripMenuItem";
           this.colonizationToolStripMenuItem.Size = new System.Drawing.Size(165, 22);
           this.colonizationToolStripMenuItem.Text = "Colonization";
-          this.colonizationToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.colonizationToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // fuelToolStripMenuItem1
           // 
           this.fuelToolStripMenuItem1.Name = "fuelToolStripMenuItem1";
           this.fuelToolStripMenuItem1.Size = new System.Drawing.Size(165, 22);
           this.fuelToolStripMenuItem1.Text = "Fuel";
-          this.fuelToolStripMenuItem1.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.fuelToolStripMenuItem1.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // mineLayerToolStripMenuItem
           // 
           this.mineLayerToolStripMenuItem.Name = "mineLayerToolStripMenuItem";
           this.mineLayerToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.mineLayerToolStripMenuItem.Text = "Mine &Layer";
-          this.mineLayerToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.mineLayerToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // layerEfficencyToolStripMenuItem
           // 
           this.layerEfficencyToolStripMenuItem.Name = "layerEfficencyToolStripMenuItem";
           this.layerEfficencyToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.layerEfficencyToolStripMenuItem.Text = "Mine Layer Efficiency";
-          this.layerEfficencyToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.layerEfficencyToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // miningRobotToolStripMenuItem
           // 
           this.miningRobotToolStripMenuItem.Name = "miningRobotToolStripMenuItem";
           this.miningRobotToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.miningRobotToolStripMenuItem.Text = "Mining &Robot";
-          this.miningRobotToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.miningRobotToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // orbitalAdjusterToolStripMenuItem
           // 
           this.orbitalAdjusterToolStripMenuItem.Name = "orbitalAdjusterToolStripMenuItem";
           this.orbitalAdjusterToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.orbitalAdjusterToolStripMenuItem.Text = "Orbital Adjuster";
-          this.orbitalAdjusterToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.orbitalAdjusterToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // planetaryToolStripMenuItem
           // 
@@ -912,49 +912,49 @@ namespace Nova.WinForms.ComponentEditor
           this.DefenseToolStripMenuItem.Name = "DefenseToolStripMenuItem";
           this.DefenseToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
           this.DefenseToolStripMenuItem.Text = "Defense";
-          this.DefenseToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.DefenseToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // planetaryScannerToolStripMenuItem
           // 
           this.planetaryScannerToolStripMenuItem.Name = "planetaryScannerToolStripMenuItem";
           this.planetaryScannerToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
           this.planetaryScannerToolStripMenuItem.Text = "Scanner";
-          this.planetaryScannerToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.planetaryScannerToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // terraformingToolStripMenuItem
           // 
           this.terraformingToolStripMenuItem.Name = "terraformingToolStripMenuItem";
           this.terraformingToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
           this.terraformingToolStripMenuItem.Text = "Terraforming";
-          this.terraformingToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.terraformingToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // scannerToolStripMenuItem
           // 
           this.scannerToolStripMenuItem.Name = "scannerToolStripMenuItem";
           this.scannerToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.scannerToolStripMenuItem.Text = "&Scanner";
-          this.scannerToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.scannerToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // shieldToolStripMenuItem
           // 
           this.shieldToolStripMenuItem.Name = "shieldToolStripMenuItem";
           this.shieldToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.shieldToolStripMenuItem.Text = "Shield";
-          this.shieldToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.shieldToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // weaponToolStripMenuItem
           // 
           this.weaponToolStripMenuItem.Name = "weaponToolStripMenuItem";
           this.weaponToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
           this.weaponToolStripMenuItem.Text = "&Weapon";
-          this.weaponToolStripMenuItem.Click += new System.EventHandler(this.menuItem_AddProperty);
+          this.weaponToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
           // 
           // deleteSelectedPropertyToolStripMenuItem
           // 
           this.deleteSelectedPropertyToolStripMenuItem.Name = "deleteSelectedPropertyToolStripMenuItem";
           this.deleteSelectedPropertyToolStripMenuItem.Size = new System.Drawing.Size(202, 22);
           this.deleteSelectedPropertyToolStripMenuItem.Text = "&Delete Selected Property";
-          this.deleteSelectedPropertyToolStripMenuItem.Click += new System.EventHandler(this.deleteSelectedPropertyToolStripMenuItem_Click);
+          this.deleteSelectedPropertyToolStripMenuItem.Click += new System.EventHandler(this.DeleteSelectedPropertyToolStripMenuItem_Click);
           // 
           // RestrictionSummary
           // 
@@ -2615,7 +2615,7 @@ namespace Nova.WinForms.ComponentEditor
           this.buttonEditHull.TabIndex = 22;
           this.buttonEditHull.Text = "Hull Map";
           this.buttonEditHull.UseVisualStyleBackColor = true;
-          this.buttonEditHull.Click += new System.EventHandler(this.buttonEditHull_Click);
+          this.buttonEditHull.Click += new System.EventHandler(this.ButtonEditHull_Click);
           // 
           // label50
           // 

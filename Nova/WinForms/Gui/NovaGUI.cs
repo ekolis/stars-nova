@@ -232,7 +232,7 @@ namespace Nova.WinForms.Gui
             this.designManagerMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
             this.designManagerMenuItem.Size = new System.Drawing.Size(205, 22);
             this.designManagerMenuItem.Text = "Ship Design &Manager";
-            this.designManagerMenuItem.Click += new System.EventHandler(this.designManagerMenuItem_Click);
+            this.designManagerMenuItem.Click += new System.EventHandler(this.DesignManagerMenuItem_Click);
             // 
             // shipDesignerToolStripMenuItem
             // 
@@ -264,7 +264,7 @@ namespace Nova.WinForms.Gui
             this.playerRelationslMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
             this.playerRelationslMenuItem.Size = new System.Drawing.Size(205, 22);
             this.playerRelationslMenuItem.Text = "&Player Relations";
-            this.playerRelationslMenuItem.Click += new System.EventHandler(this.playerRelationsMenuItem_Click);
+            this.playerRelationslMenuItem.Click += new System.EventHandler(this.PlayerRelationsMenuItem_Click);
             // 
             // generateTurnToolStripMenuItem
             // 
@@ -272,7 +272,7 @@ namespace Nova.WinForms.Gui
             this.generateTurnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
             this.generateTurnToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.generateTurnToolStripMenuItem.Text = "Save && Submit &Turn";
-            this.generateTurnToolStripMenuItem.Click += new System.EventHandler(this.saveAndSubmitTurnToolStripMenuItem_Click);
+            this.generateTurnToolStripMenuItem.Click += new System.EventHandler(this.SaveAndSubmitTurnToolStripMenuItem_Click);
             // 
             // loadNextTurnToolStripMenuItem
             // 
@@ -281,7 +281,7 @@ namespace Nova.WinForms.Gui
             this.loadNextTurnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
             this.loadNextTurnToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.loadNextTurnToolStripMenuItem.Text = "&Load Next Turn";
-            this.loadNextTurnToolStripMenuItem.Click += new System.EventHandler(this.loadNextTurnToolStripMenuItem_Click);
+            this.loadNextTurnToolStripMenuItem.Click += new System.EventHandler(this.LoadNextTurnToolStripMenuItem_Click);
             // 
             // reportsToolStripMenuItem
             // 
@@ -543,7 +543,7 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void playerRelationsMenuItem_Click(object sender, EventArgs e)
+        private void PlayerRelationsMenuItem_Click(object sender, EventArgs e)
         {
             PlayerRelations relationshipDialog = new PlayerRelations();
             relationshipDialog.ShowDialog();
@@ -572,7 +572,7 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void designManagerMenuItem_Click(object sender, EventArgs e)
+        private void DesignManagerMenuItem_Click(object sender, EventArgs e)
         {
             DesignManager designManager = new DesignManager();
             designManager.ShowDialog();
@@ -647,7 +647,7 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void saveAndSubmitTurnToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveAndSubmitTurnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClientState.Save();
             OrderWriter.WriteOrders();
@@ -667,7 +667,7 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void loadNextTurnToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoadNextTurnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // prepare the arguments that will tell how to re-initialise.
             CommandArguments commandArguments = new CommandArguments();

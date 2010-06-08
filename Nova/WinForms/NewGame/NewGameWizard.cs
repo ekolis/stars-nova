@@ -95,7 +95,7 @@ namespace Nova.WinForms.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void okButton_Click(object sender, EventArgs e)
+        private void OkButton_Click(object sender, EventArgs e)
         {
             GameSettings.Data.GameName = gameName.Text;
             GameSettings.Data.PlanetsOwned = PlanetsOwned.Value;
@@ -140,7 +140,7 @@ namespace Nova.WinForms.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void addPlayerButton_Click(object sender, EventArgs e)
+        private void AddPlayerButton_Click(object sender, EventArgs e)
         {
             // Add player (with a dummy number)
             ListViewItem player = new ListViewItem("  ##");
@@ -164,7 +164,7 @@ namespace Nova.WinForms.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void newRaceButton_Click(object sender, EventArgs e)
+        private void NewRaceButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -184,7 +184,7 @@ namespace Nova.WinForms.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void playerList_SelectedIndexChanged(object sender, EventArgs e)
+        private void PlayerList_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdatePlayerDetails();
             UpdatePlayerListButtons();
@@ -198,7 +198,7 @@ namespace Nova.WinForms.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void playerDeleteButton_Click(object sender, EventArgs e)
+        private void PlayerDeleteButton_Click(object sender, EventArgs e)
         {
             int selectedIndex = -1;
             foreach (int index in playerList.SelectedIndices)
@@ -232,7 +232,7 @@ namespace Nova.WinForms.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void playerUpButton_Click(object sender, EventArgs e)
+        private void PlayerUpButton_Click(object sender, EventArgs e)
         {
             int selectedIndex = -1;
 
@@ -242,7 +242,7 @@ namespace Nova.WinForms.NewGame
                 // there will be only one, this is the best way I can figure to find it.
                 if (index <= 0)
                 {
-                    Report.Error("NewGameWizard: playerUpButton_Click() - Indexing error in player list.");
+                    Report.Error("NewGameWizard: PlayerUpButton_Click() - Indexing error in player list.");
                     return;
                 }
                 ListViewItem player;
@@ -266,7 +266,7 @@ namespace Nova.WinForms.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void playerDownButton_Click(object sender, EventArgs e)
+        private void PlayerDownButton_Click(object sender, EventArgs e)
         {
             int selectedIndex = -1;
             foreach (int index in playerList.SelectedIndices)
@@ -299,7 +299,7 @@ namespace Nova.WinForms.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void raceBrowseButton_Click(object sender, EventArgs e)
+        private void RaceBrowseButton_Click(object sender, EventArgs e)
         {
             // browse for a race
             try
@@ -330,7 +330,7 @@ namespace Nova.WinForms.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void aiBrowseButton_Click(object sender, EventArgs e)
+        private void AiBrowseButton_Click(object sender, EventArgs e)
         {
             // browse for an AI
             DialogResult yesno =
@@ -364,7 +364,7 @@ namespace Nova.WinForms.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void numericUpDown1_ValueChanged(object sender, EventArgs e)
+        private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             GameSettings.Data.NumberOfStars = (int)numberOfStars.Value;
         }
@@ -377,7 +377,7 @@ namespace Nova.WinForms.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void raceSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void RaceSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (playerList.SelectedIndices.Count < 1) return;
             playerList.Items[playerList.SelectedIndices[0]].SubItems[1].Text = raceSelectionBox.SelectedItem.ToString();
@@ -391,7 +391,7 @@ namespace Nova.WinForms.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void aiSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
+        private void AiSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (playerList.SelectedIndices.Count < 1) return;
             playerList.Items[playerList.SelectedIndices[0]].SubItems[2].Text = aiSelectionBox.SelectedItem.ToString();
@@ -493,7 +493,7 @@ namespace Nova.WinForms.NewGame
 
         #endregion
 
-        private void mapDensity_ValueChanged(object sender, EventArgs e)
+        private void MapDensity_ValueChanged(object sender, EventArgs e)
         {
 
         }

@@ -230,7 +230,7 @@ namespace Nova.WinForms.Console
             this.runAiCheckBox.TabIndex = 12;
             this.runAiCheckBox.Text = "Run AI";
             this.runAiCheckBox.UseVisualStyleBackColor = true;
-            this.runAiCheckBox.CheckedChanged += new System.EventHandler(this.runAiCheckBox_CheckedChanged);
+            this.runAiCheckBox.CheckedChanged += new System.EventHandler(this.RunAiCheckBox_CheckedChanged);
             // 
             // autoGenerateCheckBox
             // 
@@ -331,7 +331,7 @@ namespace Nova.WinForms.Console
             this.openGameToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openGameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openGameToolStripMenuItem.Text = "&Open Game";
-            this.openGameToolStripMenuItem.Click += new System.EventHandler(this.openGameToolStripMenuItem_Click);
+            this.openGameToolStripMenuItem.Click += new System.EventHandler(this.OpenGameToolStripMenuItem_Click);
             // 
             // SelectNewFolderMenuItem
             // 
@@ -421,7 +421,7 @@ namespace Nova.WinForms.Console
             // 
             this.consoleTimer.Enabled = true;
             this.consoleTimer.Interval = 5000;
-            this.consoleTimer.Tick += new System.EventHandler(this.consoleTimer_Tick);
+            this.consoleTimer.Tick += new System.EventHandler(this.ConsoleTimer_Tick);
             // 
             // NovaConsoleMain
             // 
@@ -693,7 +693,7 @@ namespace Nova.WinForms.Console
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void runAiCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void RunAiCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             // Commented out as it is controlled by a timmer for now.
             // RunAI();
@@ -707,7 +707,7 @@ namespace Nova.WinForms.Console
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void consoleTimer_Tick(object sender, EventArgs e)
+        private void ConsoleTimer_Tick(object sender, EventArgs e)
         {
             // debug - commented this out as console is searching for files each time the timer goes off
             // ServerState.Data.AllRaces = FileSearcher.GetAvailableRaces();
@@ -884,7 +884,7 @@ namespace Nova.WinForms.Console
 
         #endregion
 
-        private void openGameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // have the user identify the game to open
             try

@@ -243,7 +243,7 @@ namespace Nova.ControlLibrary
             // 
             // timer1
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // Range
             // 
@@ -303,7 +303,7 @@ namespace Nova.ControlLibrary
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void timer1_Tick(object sender, System.EventArgs e)
+        private void Timer1_Tick(object sender, System.EventArgs e)
         {
             int increment = BoxMoveIncrement;
 
