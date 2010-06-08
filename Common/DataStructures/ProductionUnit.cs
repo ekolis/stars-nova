@@ -39,7 +39,7 @@ namespace Nova.Common
     /// in order to perform actual construction (creating/changing game 
     /// objects).
     /// </summary>
-    interface ProductionUnit
+    interface IProductionUnit
     {
         /// ----------------------------------------------------------------------------
         /// <summary>

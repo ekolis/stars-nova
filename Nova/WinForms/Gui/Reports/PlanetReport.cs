@@ -73,7 +73,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, EventArgs e)
         {
-            const int numColumns = 12;
+            const int NumColumns = 12;
             Race race = ClientState.Data.PlayerRace;
 
             PlanetGridView.Columns[8].Name = "Minerals";
@@ -85,7 +85,7 @@ namespace Nova.WinForms.Gui
             {
                 if (star.Owner == race.Name)
                 {
-                    string[] row = new string[numColumns];
+                    string[] row = new string[NumColumns];
 
                     string starbase = "-";
                     if (star.Starbase != null)

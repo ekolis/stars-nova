@@ -28,18 +28,18 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.progressBar = new System.Windows.Forms.ProgressBar();
+            this.ProgressBar = new System.Windows.Forms.ProgressBar();
             this.label = new System.Windows.Forms.Label();
             this.cancelButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
-            // progressBar
+            // ProgressBar
             // 
-            this.progressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.progressBar.Location = new System.Drawing.Point(12, 48);
-            this.progressBar.Name = "progressBar";
-            this.progressBar.Size = new System.Drawing.Size(172, 26);
-            this.progressBar.TabIndex = 0;
+            this.ProgressBar.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.ProgressBar.Location = new System.Drawing.Point(12, 48);
+            this.ProgressBar.Name = "ProgressBar";
+            this.ProgressBar.Size = new System.Drawing.Size(172, 26);
+            this.ProgressBar.TabIndex = 0;
             // 
             // label
             // 
@@ -67,7 +67,7 @@
             this.ClientSize = new System.Drawing.Size(284, 86);
             this.Controls.Add(this.cancelButton);
             this.Controls.Add(this.label);
-            this.Controls.Add(this.progressBar);
+            this.Controls.Add(this.ProgressBar);
             this.Name = "ProgressDialog";
             this.Text = "ProgressDialog";
             this.ResumeLayout(false);
@@ -77,7 +77,7 @@
 
         #endregion
 
-        public System.Windows.Forms.ProgressBar progressBar;
+        public System.Windows.Forms.ProgressBar ProgressBar;
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.Button cancelButton;
 

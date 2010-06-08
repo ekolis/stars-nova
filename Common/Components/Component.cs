@@ -58,7 +58,7 @@ namespace Nova.Common.Components
         // Note that these are not the Component.Type, but the ComponentProperty.Type.
         // They are defined here such that the component can locate or load its properties
         // into the dictionary.
-        public static String[] propertyKeys =
+        public static String[] PropertyKeys =
         {   
           "Armor", "Beam Deflector", "Bomb", "Battle Movement", "Capacitor", "Cargo", "Cloak", 
           "Colonizer", "Computer", "Defense", "Deflector", "Energy Dampener", "Engine", "Fuel",

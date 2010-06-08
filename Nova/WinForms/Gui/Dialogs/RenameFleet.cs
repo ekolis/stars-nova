@@ -101,8 +101,8 @@ namespace Nova.WinForms.Gui
 
             // Ensure the main display gets updated to reflect the new name
 
-            MainWindow.nova.SelectionSummary.Value = fleet as Item;
-            MainWindow.nova.SelectionDetail.Value = fleet as Item;
+            MainWindow.Nova.SelectionSummary.Value = fleet as Item;
+            MainWindow.Nova.SelectionDetail.Value = fleet as Item;
 
             Close();
         }

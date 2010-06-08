@@ -10,7 +10,7 @@ namespace Nova.WinForms.Gui
     /// ----------------------------------------------------------------------------
     public static class MainWindow
     {
-        public static NovaGUI nova = new NovaGUI();
+        public static NovaGUI Nova = new NovaGUI();
 
 
         /// ----------------------------------------------------------------------------
@@ -20,13 +20,13 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public static void InitialiseControls()
         {
-            nova.messages.Year = ClientState.Data.TurnYear;
-            nova.messages.MessageList = ClientState.Data.Messages;
+            Nova.Messages.Year = ClientState.Data.TurnYear;
+            Nova.Messages.MessageList = ClientState.Data.Messages;
 
-            nova.currentTurn = ClientState.Data.TurnYear;
-            nova.currentRace = ClientState.Data.RaceName;
+            Nova.CurrentTurn = ClientState.Data.TurnYear;
+            Nova.CurrentRace = ClientState.Data.RaceName;
 
-            nova.MapControl.Initialise();
+            Nova.MapControl.Initialise();
 
             // Select a star owned by the player (if any) as the default display.
 
@@ -34,9 +34,9 @@ namespace Nova.WinForms.Gui
             {
                 if (star.Owner == ClientState.Data.RaceName)
                 {
-                    nova.MapControl.SetCursor(star.Position);
-                    nova.SelectionDetail.Value = star;
-                    nova.SelectionSummary.Value = star;
+                    Nova.MapControl.SetCursor(star.Position);
+                    Nova.SelectionDetail.Value = star;
+                    Nova.SelectionSummary.Value = star;
                     break;
                 }
             }
@@ -50,13 +50,13 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public static void NextTurn()
         {
-            nova.messages.Year = ClientState.Data.TurnYear;
-            nova.messages.MessageList = ClientState.Data.Messages;
+            Nova.Messages.Year = ClientState.Data.TurnYear;
+            Nova.Messages.MessageList = ClientState.Data.Messages;
 
-            nova.Invalidate(true);
+            Nova.Invalidate(true);
 
-            nova.MapControl.Initialise();
-            nova.MapControl.Invalidate();
+            Nova.MapControl.Initialise();
+            Nova.MapControl.Invalidate();
 
             // Select a star owned by the player (if any) as the default display.
 
@@ -64,9 +64,9 @@ namespace Nova.WinForms.Gui
             {
                 if (star.Owner == ClientState.Data.RaceName)
                 {
-                    nova.MapControl.SetCursor(star.Position);
-                    nova.SelectionDetail.Value = star;
-                    nova.SelectionSummary.Value = star;
+                    Nova.MapControl.SetCursor(star.Position);
+                    Nova.SelectionDetail.Value = star;
+                    Nova.SelectionSummary.Value = star;
                     break;
                 }
             }

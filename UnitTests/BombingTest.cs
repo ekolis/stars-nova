@@ -73,11 +73,11 @@ namespace Nova.UnitTests
         [Test]
         public void BombingEffect()
         {
-            const double initial = 10000;
+            const double Initial = 10000;
             Star star = new Star();
             star.DefenseType = "Neutron";
             star.Defenses = 100;
-            star.Colonists = (int)initial;
+            star.Colonists = (int)Initial;
 
             Defenses.ComputeDefenseCoverage(star);
 

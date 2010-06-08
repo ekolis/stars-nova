@@ -34,7 +34,7 @@ namespace Nova.Common
     /// <summary>
     /// 
     /// </summary>
-    class TerraformProductionUnit : ProductionUnit
+    class TerraformProductionUnit : IProductionUnit
     {
         private Star star;
 

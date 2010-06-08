@@ -195,12 +195,12 @@ namespace Nova.Common
 
             // Temperature is in the range -200 to 200.
 
-            double tMinimum = (200 + race.TemperatureTolerance.Minimum) / 4;
-            double tMaximum = (200 + race.TemperatureTolerance.Maximum) / 4;
-            double tSpan = tMaximum - tMinimum;
-            double tCentre = tMinimum + (tSpan / 2);
-            double tDistance = Math.Abs(tCentre - Temperature);
-            double t = tDistance / tSpan;
+            double temperatureMinimum = (200 + race.TemperatureTolerance.Minimum) / 4;
+            double temperatureMaximum = (200 + race.TemperatureTolerance.Maximum) / 4;
+            double temperatureSpan = temperatureMaximum - temperatureMinimum;
+            double temperatureCentre = temperatureMinimum + (temperatureSpan / 2);
+            double temperatureDistance = Math.Abs(temperatureCentre - Temperature);
+            double t = temperatureDistance / temperatureSpan;
 
             double x = 0;
             double y = 0;

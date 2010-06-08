@@ -717,10 +717,10 @@ namespace Nova.WinForms.Gui
                 currentFleet = 0;
             }
 
-            MainWindow.nova.SelectionDetail.Value = myFleets[currentFleet];
-            MainWindow.nova.SelectionSummary.Value = SelectedFleet;
+            MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
+            MainWindow.Nova.SelectionSummary.Value = SelectedFleet;
 
-            MainWindow.nova.MapControl.SetCursor(SelectedFleet.Position);
+            MainWindow.Nova.MapControl.SetCursor(SelectedFleet.Position);
         }
 
 
@@ -754,10 +754,10 @@ namespace Nova.WinForms.Gui
                 currentFleet = myFleets.Count - 1;
             }
 
-            MainWindow.nova.SelectionDetail.Value = myFleets[currentFleet];
-            MainWindow.nova.SelectionSummary.Value = SelectedFleet;
+            MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
+            MainWindow.Nova.SelectionSummary.Value = SelectedFleet;
 
-            MainWindow.nova.MapControl.SetCursor(SelectedFleet.Position);
+            MainWindow.Nova.MapControl.SetCursor(SelectedFleet.Position);
         }
 
         #endregion

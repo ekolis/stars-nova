@@ -222,7 +222,7 @@ namespace Nova.Client
             // ----------------------------------------------------------------------------
             // Sort out what we need to initialise the ClientState
             // ----------------------------------------------------------------------------
-            bool bLoaded = false;
+            bool isLoaded = false;
 
 
             // 1. the Nova GUI was started directly (e.g. in the debugger). 
@@ -237,7 +237,7 @@ namespace Nova.Client
                 if (ClientState.Data.RaceName != null && ClientState.Data.RaceName != "")
                 {
                     
-                    bLoaded = true;
+                    isLoaded = true;
                 }
                 else
                 {
@@ -267,13 +267,13 @@ namespace Nova.Client
 
             // 2. the Nova GUI was started from the launcher open a game option. 
             //    There will be a .intel file listed in the argArray.
-            if (! bLoaded && IntelFileName != null)
+            if (! isLoaded && IntelFileName != null)
             {
                 if (File.Exists(IntelFileName))
                 {
                     //    Evenything we need should be found in there. 
                     IntelReader.ReadIntel(IntelFileName);
-                    bLoaded = true;
+                    isLoaded = true;
                 }
                 else
                 {
@@ -286,7 +286,7 @@ namespace Nova.Client
             //    There will be a StateFileName in the argArray.
             // NB: we already copied it to ClientState.Data.StateFileName, but other
             // code sets that too, so check the arguments to see if it was there.
-            if (!bLoaded && commandArguments.Contains(CommandArguments.Option.StateFileName))
+            if (!isLoaded && commandArguments.Contains(CommandArguments.Option.StateFileName))
             {
                 // The state file is not sufficient to load a turn. We need the .intel
                 // for this race. What race? The state file can tell us.
@@ -298,7 +298,7 @@ namespace Nova.Client
                     String newIntelFileName = Path.GetDirectoryName(StatePathName) +
                         ClientState.Data.RaceName + Global.IntelExtension;
                     IntelReader.ReadIntel(IntelFileName);
-                    bLoaded = true;
+                    isLoaded = true;
                 }
                 else
                 {
@@ -308,7 +308,7 @@ namespace Nova.Client
             }
 
 
-            if (!bLoaded)
+            if (!isLoaded)
             {
                 Report.FatalError("ClientState.cs Initialise() - Failed to find any .intel when initialising turn");
             }
