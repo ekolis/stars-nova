@@ -67,7 +67,7 @@ namespace Nova.WinForms.Gui
         private Hashtable   VisibleFleets  = new Hashtable();
         private Hashtable   VisibleMinefields = new Hashtable();
         private Font        NameFont = null;
-        System.Drawing.BufferedGraphicsContext bg_ctxt = null;
+        System.Drawing.BufferedGraphicsContext bufferedContext = null;
         #endregion
 
         private Point[] triangle = {new Point(0,   0), new Point(-5, -10),
@@ -83,7 +83,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public StarMap()
         {
-            bg_ctxt = new BufferedGraphicsContext();
+            bufferedContext = new BufferedGraphicsContext();
 
             InitializeComponent();
             GameSettings.Restore();
@@ -190,7 +190,7 @@ namespace Nova.WinForms.Gui
 
             //System.Drawing.Rectangle rect = new Rectangle(0,0,(int)eventData.Graphics.DpiX,(int)eventData.Graphics.DpiY);
             System.Drawing.Rectangle rect2 = new Rectangle(0, 0, MapPanel.Width, MapPanel.Height);
-            System.Drawing.BufferedGraphics bg = bg_ctxt.Allocate(eventData.Graphics, rect2);
+            System.Drawing.BufferedGraphics bg = bufferedContext.Allocate(eventData.Graphics, rect2);
 
             graphics = bg.Graphics;
             //graphics = eventData.Graphics;
@@ -900,7 +900,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void LeftShiftMouse(MouseEventArgs e, bool snapToObject)
         {
-            Item item = MainWindow.nova.SelectionDetail.Value;
+            Item item = MainWindow.Nova.SelectionDetail.Value;
 
             if (item == null || !(item is Fleet))
             {
@@ -911,7 +911,7 @@ namespace Nova.WinForms.Gui
             // a handle directly to it so that we can access its parameters
             // directly without having to use the detail summary panel as an agent
 
-            FleetDetail fleetDetail = MainWindow.nova.SelectionDetail.Control
+            FleetDetail fleetDetail = MainWindow.Nova.SelectionDetail.Control
                                       as FleetDetail;
 
             Point click = new Point(e.X, e.Y);
@@ -1014,8 +1014,8 @@ namespace Nova.WinForms.Gui
             Item item = (Item)selected.Target;
             CursorPosition = item.Position;
 
-            MainWindow.nova.SelectionSummary.Value = item;
-            MainWindow.nova.SelectionDetail.Value = item;
+            MainWindow.Nova.SelectionSummary.Value = item;
+            MainWindow.Nova.SelectionDetail.Value = item;
         }
 
         #endregion

@@ -148,13 +148,13 @@ namespace Nova.Common
 
 		private void DoIncrement( int val )
 		{
-			progressBar.Increment( val );
+			ProgressBar.Increment( val );
 			UpdateStatusText();
 		}
 
 		private void DoStepTo( int val )
 		{
-			progressBar.Value = val;
+			ProgressBar.Value = val;
 			UpdateStatusText();
 		}
 
@@ -172,9 +172,9 @@ namespace Nova.Common
 
 		private void DoSetRange( int minimum, int maximum )
 		{
-			progressBar.Minimum = minimum;
-			progressBar.Maximum = maximum;
-			progressBar.Value = minimum;
+			ProgressBar.Minimum = minimum;
+			ProgressBar.Maximum = maximum;
+			ProgressBar.Value = minimum;
 			titleRoot = Text;
 		}
 
@@ -233,7 +233,7 @@ namespace Nova.Common
 		/// </summary>
 		private void UpdateStatusText()
 		{
-			Text = titleRoot + String.Format( " - {0}% complete", (progressBar.Value * 100 ) / (progressBar.Maximum - progressBar.Minimum) );
+			Text = titleRoot + String.Format( " - {0}% complete", (ProgressBar.Value * 100 ) / (ProgressBar.Maximum - ProgressBar.Minimum) );
 		}
 		
 		/// <summary>

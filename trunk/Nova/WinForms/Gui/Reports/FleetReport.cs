@@ -72,7 +72,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, EventArgs e)
         {
-            const int numColumns = 11;
+            const int NumColumns = 11;
             Race race = ClientState.Data.PlayerRace;
 
             Hashtable allFleets = ClientState.Data.InputTurn.AllFleets;
@@ -130,7 +130,7 @@ namespace Nova.WinForms.Gui
                                                               cargo.Germanium,
                                                               cargo.Colonists);
                     int i = 0;
-                    string[] row = new string[numColumns];
+                    string[] row = new string[NumColumns];
 
                     row[i++] = fleet.Name;
                     row[i++] = location;

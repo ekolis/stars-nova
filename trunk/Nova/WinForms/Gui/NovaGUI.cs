@@ -52,13 +52,13 @@ namespace Nova.WinForms.Gui
     public class NovaGUI : System.Windows.Forms.Form
     {
 
-        public Messages messages;
+        public Messages Messages;
         public SelectionSummary SelectionSummary;
         public SelectionDetail SelectionDetail;
         public StarMap MapControl;
 
-        public int currentTurn;      //control turnvar used for to decide to load new turn... (Thread)
-        public string currentRace; //control var used for to decide to load new turn... (Thread)
+        public int CurrentTurn;      //control turnvar used for to decide to load new turn... (Thread)
+        public string CurrentRace; //control var used for to decide to load new turn... (Thread)
 
         #region VS-Designer Generated Variables
 
@@ -156,7 +156,7 @@ namespace Nova.WinForms.Gui
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SelectionDetail = new SelectionDetail();
             this.SelectionSummary = new SelectionSummary();
-            this.messages = new Messages();
+            this.Messages = new Messages();
             this.groupBox2.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -357,13 +357,13 @@ namespace Nova.WinForms.Gui
             // 
             // messages
             // 
-            this.messages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.Messages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
-            this.messages.Location = new System.Drawing.Point(8, 427);
-            this.messages.Name = "messages";
-            this.messages.Size = new System.Drawing.Size(360, 113);
-            this.messages.TabIndex = 18;
-            this.messages.Year = 2100;
+            this.Messages.Location = new System.Drawing.Point(8, 427);
+            this.Messages.Name = "Messages";
+            this.Messages.Size = new System.Drawing.Size(360, 113);
+            this.Messages.TabIndex = 18;
+            this.Messages.Year = 2100;
             // 
             // NovaGUI
             // 
@@ -372,7 +372,7 @@ namespace Nova.WinForms.Gui
             this.Controls.Add(this.MainMenu);
             this.Controls.Add(this.SelectionDetail);
             this.Controls.Add(this.SelectionSummary);
-            this.Controls.Add(this.messages);
+            this.Controls.Add(this.Messages);
             this.Controls.Add(this.groupBox2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -423,9 +423,9 @@ namespace Nova.WinForms.Gui
 
             Application.EnableVisualStyles();
             ClientState.Initialize(args);
-            MainWindow.nova.Text = "Nova - " + ClientState.Data.PlayerRace.PluralName;
+            MainWindow.Nova.Text = "Nova - " + ClientState.Data.PlayerRace.PluralName;
             MainWindow.InitialiseControls();
-            Application.Run(MainWindow.nova);
+            Application.Run(MainWindow.Nova);
 
         }
 
@@ -512,9 +512,9 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void MenuResearch(object sender, EventArgs e)
         {
-            ResearchDialog pResearchDialog = new ResearchDialog();
-            pResearchDialog.ShowDialog();
-            pResearchDialog.Dispose();
+            ResearchDialog newResearchDialog = new ResearchDialog();
+            newResearchDialog.ShowDialog();
+            newResearchDialog.Dispose();
         }
 
 

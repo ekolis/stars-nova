@@ -72,7 +72,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, EventArgs e)
         {
-            const int numColumns = 6;
+            const int NumColumns = 6;
 
             BattleGridView.AutoSize = true;
 
@@ -116,7 +116,7 @@ namespace Nova.WinForms.Gui
                 }
 
                 int i = 0;
-                string[] row = new string[numColumns];
+                string[] row = new string[NumColumns];
 
                 row[i++] = report.Location;
                 row[i++] = countSides.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);

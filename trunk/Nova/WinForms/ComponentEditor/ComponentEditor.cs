@@ -1210,30 +1210,29 @@ namespace Nova.WinForms.ComponentEditor
        private void PropertyTabs_DrawItem(object sender, DrawItemEventArgs e)
        {
            Graphics g = e.Graphics;
-           Brush _TextBrush;
 
            // Get the item from the collection.
-           TabPage _TabPage = PropertyTabs.TabPages[e.Index];
+           TabPage tabPage = PropertyTabs.TabPages[e.Index];
 
            // Make the tab background 'Control' grey. 
            // Everytime I change the colection they are reset, so easiest to do it programatically here.
-           _TabPage.BackColor = Color.FromKnownColor(KnownColor.Control);
+           tabPage.BackColor = Color.FromKnownColor(KnownColor.Control);
 
            // Get the real bounds for the tab rectangle.
-           Rectangle _TabBounds = PropertyTabs.GetTabRect(e.Index);
+           Rectangle tabBounds = PropertyTabs.GetTabRect(e.Index);
 
-           _TextBrush = new SolidBrush(Color.Black);
+           Brush textBrush = new SolidBrush(Color.Black);
 
            // Use our own font. Because we CAN.
-           Font _TabFont = new Font("Sans Serif", 10, FontStyle.Regular, GraphicsUnit.Pixel);
+           Font tabFont = new Font("Sans Serif", 10, FontStyle.Regular, GraphicsUnit.Pixel);
 
            // Draw string. Center the text.
-           StringFormat _StringFlags = new StringFormat();
-           _StringFlags.Alignment = StringAlignment.Center;
-           _StringFlags.LineAlignment = StringAlignment.Center;
+           StringFormat stringFlags = new StringFormat();
+           stringFlags.Alignment = StringAlignment.Center;
+           stringFlags.LineAlignment = StringAlignment.Center;
            
-           g.DrawString(_TabPage.Text, _TabFont, _TextBrush,
-                        _TabBounds, new StringFormat(_StringFlags));
+           g.DrawString(tabPage.Text, tabFont, textBrush,
+                        tabBounds, new StringFormat(stringFlags));
            
        }
 

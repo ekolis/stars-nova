@@ -34,7 +34,7 @@ namespace Nova.Common
     /// <summary>
     /// Implementation of ProductionUnit for mine building.
     /// </summary>
-    class MineProductionUnit : ProductionUnit
+    class MineProductionUnit : IProductionUnit
     {
         private Star star;
 

@@ -785,9 +785,9 @@ namespace Nova.WinForms.Gui
 
             star = myStars.GetNext(star);
 
-            MainWindow.nova.SelectionDetail.Value = star;
-            MainWindow.nova.SelectionSummary.Value = star;
-            MainWindow.nova.MapControl.SetCursor(star.Position);
+            MainWindow.Nova.SelectionDetail.Value = star;
+            MainWindow.Nova.SelectionSummary.Value = star;
+            MainWindow.Nova.MapControl.SetCursor(star.Position);
         }
 
 
@@ -814,9 +814,9 @@ namespace Nova.WinForms.Gui
 
             star = myStars.GetPrevious(star);
 
-            MainWindow.nova.SelectionDetail.Value = star;
-            MainWindow.nova.SelectionSummary.Value = star;
-            MainWindow.nova.MapControl.SetCursor(star.Position);
+            MainWindow.Nova.SelectionDetail.Value = star;
+            MainWindow.Nova.SelectionSummary.Value = star;
+            MainWindow.Nova.MapControl.SetCursor(star.Position);
         }
 
         #endregion
