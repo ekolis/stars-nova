@@ -84,7 +84,7 @@
             this.newGameButton.TabIndex = 1;
             this.newGameButton.Text = "New Game";
             this.newGameButton.UseVisualStyleBackColor = false;
-            this.newGameButton.Click += new System.EventHandler(this.newGameButton_Click);
+            this.newGameButton.Click += new System.EventHandler(this.NewGameButton_Click);
             // 
             // openGameButton
             // 
@@ -96,7 +96,7 @@
             this.openGameButton.TabIndex = 5;
             this.openGameButton.Text = "Open Game";
             this.openGameButton.UseVisualStyleBackColor = false;
-            this.openGameButton.Click += new System.EventHandler(this.openGameButton_Click);
+            this.openGameButton.Click += new System.EventHandler(this.OpenGameButton_Click);
             // 
             // webLink
             // 
@@ -109,7 +109,7 @@
             this.webLink.TabIndex = 6;
             this.webLink.TabStop = true;
             this.webLink.Text = "Nova Webpage";
-            this.webLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.webLink_LinkClicked);
+            this.webLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.WebLink_LinkClicked);
             // 
             // continueGameButton
             // 
@@ -121,7 +121,7 @@
             this.continueGameButton.TabIndex = 7;
             this.continueGameButton.Text = "Continue Game";
             this.continueGameButton.UseVisualStyleBackColor = false;
-            this.continueGameButton.Click += new System.EventHandler(this.continueGameButton_Click);
+            this.continueGameButton.Click += new System.EventHandler(this.ContinueGameButton_Click);
             // 
             // exitButton
             // 
@@ -133,7 +133,7 @@
             this.exitButton.TabIndex = 8;
             this.exitButton.Text = "Exit";
             this.exitButton.UseVisualStyleBackColor = false;
-            this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
+            this.exitButton.Click += new System.EventHandler(this.ExitButton_Click);
             // 
             // raceDesignerButton
             // 
@@ -145,7 +145,7 @@
             this.raceDesignerButton.TabIndex = 9;
             this.raceDesignerButton.Text = "Race Designer";
             this.raceDesignerButton.UseVisualStyleBackColor = false;
-            this.raceDesignerButton.Click += new System.EventHandler(this.raceDesignerButton_Click);
+            this.raceDesignerButton.Click += new System.EventHandler(this.RaceDesignerButton_Click);
             // 
             // NovaLauncher
             // 

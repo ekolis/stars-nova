@@ -31,12 +31,12 @@
 //             Checklist for Adding a New Component Property 
 //
 // 1. Add a new tab to ComponentEditor.cs [Design]
-// 2. Add a Property->New <name> to the menu bar and set its click event to menuItem_AddProperty
+// 2. Add a Property->New <name> to the menu bar and set its click event to MenuItem_AddProperty
 // 3. Create a new derived class from ComponentProperty (or use IntegerProperty/DoubleProperty for int/double values).
 // 4. Add the property to the constructor for Component.cs
 // 5. In ComponentEditor.SaveComponent(), copy tab data to Component.Property.
 // 6. In componentEditor.SelectedIndexChanged(), update the tab from the component.
-// 7. Update ComponentEditor.menuItem_AddProperty(), to initialise the property tab.
+// 7. Update ComponentEditor.MenuItem_AddProperty(), to initialise the property tab.
 // 8. Add the new property to Component.propertyKeys
 // 9. Modify components.(xml/dat) save file to ensure correct loading of properties that are changed.
 // 10. Add to ShipDesign.SumProperty()
@@ -167,8 +167,8 @@ namespace Nova.WinForms.ComponentEditor
        /// Menu->File->Open
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void openToolStripMenuItem_Click(object sender, EventArgs e)
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+       private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
        {
            // Save the current work, if any.
            if (FileDirty)
@@ -222,8 +222,8 @@ namespace Nova.WinForms.ComponentEditor
        /// Create a new, empty component definition file.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void menuItem_NewFile_Click(object sender, EventArgs e)
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+       private void MenuItem_NewFile_Click(object sender, EventArgs e)
        {
            // clear the in memory component list
            AllComponents.MakeNew();
@@ -252,8 +252,8 @@ namespace Nova.WinForms.ComponentEditor
        /// Menu->File->Save
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void menuItem_SaveFile_Click(object sender, EventArgs e)
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+       private void MenuItem_SaveFile_Click(object sender, EventArgs e)
        {
            if (ComponentDirty) SaveComponent();
            AllComponents.Save();
@@ -267,8 +267,8 @@ namespace Nova.WinForms.ComponentEditor
        /// Menu->File->Save As
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void menuItem_SaveFileAs_Click(object sender, EventArgs e)
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+       private void MenuItem_SaveFileAs_Click(object sender, EventArgs e)
        {
            if (ComponentDirty) SaveComponent();
            SaveFileDialog fd = new SaveFileDialog();
@@ -314,7 +314,7 @@ namespace Nova.WinForms.ComponentEditor
        /// Exit button press. Close the program only if data is saved.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void ExitButton_Click(object sender, EventArgs e)
        {
            if (ComponentDirty)
@@ -364,7 +364,7 @@ namespace Nova.WinForms.ComponentEditor
        /// Menu->Component->Save
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void SaveComponent_Click(object sender, EventArgs e)
        {
            SaveComponent();
@@ -376,8 +376,8 @@ namespace Nova.WinForms.ComponentEditor
        /// Deletes the currently selected component.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void menuItem_DeleteComponent_Click(object sender, EventArgs e)
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+       private void MenuItem_DeleteComponent_Click(object sender, EventArgs e)
        {
            DeleteComponent();
            EditModeOff();
@@ -391,8 +391,8 @@ namespace Nova.WinForms.ComponentEditor
        /// Create a new component.
        /// </para> </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void menuItem_NewComponent_Click(object sender, EventArgs e)
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+       private void MenuItem_NewComponent_Click(object sender, EventArgs e)
        {
            if (ComponentDirty)
            {
@@ -418,8 +418,8 @@ namespace Nova.WinForms.ComponentEditor
        /// mode changing the component type changes the current component's type.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void menuItem_EditComponent_Click(object sender, EventArgs e)
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+       private void MenuItem_EditComponent_Click(object sender, EventArgs e)
        {
            EditModeOn();
        }
@@ -430,7 +430,7 @@ namespace Nova.WinForms.ComponentEditor
        /// </para><para>
        /// Take a copy of a component to use for a template for a new component.
        /// </para></summary>
-       private void copyToolStripMenuItem_Click(object sender, EventArgs e)
+       private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
        {
            EditModeOn();
            ComponentName.Text = "New Component";
@@ -446,8 +446,8 @@ namespace Nova.WinForms.ComponentEditor
        /// the UI from the in memory components.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
-       /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void menuItem_DiscardComponentChanges_Click(object sender, EventArgs e)
+       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+       private void MenuItem_DiscardComponentChanges_Click(object sender, EventArgs e)
        {
            UpdateListBox(ComponentType.Text);
            EditModeOff();
@@ -461,7 +461,7 @@ namespace Nova.WinForms.ComponentEditor
        /// </summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void menuItem_RaceRestrictions_Click(object sender, EventArgs e)
+       private void MenuItem_RaceRestrictions_Click(object sender, EventArgs e)
        {
            //MessageBox.Show(ComponentName.Text);
            EditModeOn();
@@ -489,7 +489,7 @@ namespace Nova.WinForms.ComponentEditor
        /// </summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void menuItem_AddProperty(object sender, EventArgs e)
+       private void MenuItem_AddProperty(object sender, EventArgs e)
        {
            ToolStripMenuItem menuSelection = sender as ToolStripMenuItem;
 
@@ -769,7 +769,7 @@ namespace Nova.WinForms.ComponentEditor
        /// </summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void deleteSelectedPropertyToolStripMenuItem_Click(object sender, EventArgs e)
+       private void DeleteSelectedPropertyToolStripMenuItem_Click(object sender, EventArgs e)
        {
            PropertyTabs.TabPages.Remove(PropertyTabs.SelectedTab);
            EditModeOn();
@@ -1376,7 +1376,7 @@ namespace Nova.WinForms.ComponentEditor
        /// </summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void buttonEditHull_Click(object sender, EventArgs e)
+       private void ButtonEditHull_Click(object sender, EventArgs e)
        {
            // create a new hull grid dialog
            HullDialog dialog = new HullDialog();

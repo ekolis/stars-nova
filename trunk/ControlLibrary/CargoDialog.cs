@@ -116,7 +116,7 @@ namespace Nova.ControlLibrary
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 9;
             this.cancelButton.Text = "Cancel";
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // okButton
             // 
@@ -127,7 +127,7 @@ namespace Nova.ControlLibrary
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 10;
             this.okButton.Text = "OK";
-            this.okButton.Click += new System.EventHandler(this.okButton_Click);
+            this.okButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
             // IroniumTransfer
             // 
@@ -243,7 +243,7 @@ namespace Nova.ControlLibrary
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void cancelButton_Click(object sender, System.EventArgs e)
+        private void CancelButton_Click(object sender, System.EventArgs e)
         {
             Close();
         }
@@ -256,7 +256,7 @@ namespace Nova.ControlLibrary
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void okButton_Click(object sender, System.EventArgs e)
+        private void OkButton_Click(object sender, System.EventArgs e)
         {
             fleet.Cargo.Ironium = IroniumTransfer.Value;
             fleet.Cargo.Boranium = boroniumTransfer.Value;
