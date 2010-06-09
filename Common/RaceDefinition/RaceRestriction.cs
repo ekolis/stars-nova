@@ -166,7 +166,7 @@ namespace Nova.Common
 
                        inwords += " the ";
                        //<primary/secondary
-                       if (keyIndex < AllTraits.NUMBER_OF_PRIMARY_RACIAL_TRAITS)
+                       if (keyIndex < AllTraits.NumberOfPrimaryRacialTraits)
                        {
                            inwords += "primary";
                        }
