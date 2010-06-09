@@ -69,31 +69,31 @@ namespace Nova.WinForms.ComponentEditor
 
             // Map the RadioButton controls to an array for easier manipulation.
             // PRTs
-            RadioMap[0,0] = HE_NotAvailable; RadioMap[0,1]   = HE_NotRequired; RadioMap[0,2]   = HE_Required;
-            RadioMap[1,0] = SS_NotAvailable; RadioMap[1,1]   = SS_NotRequired; RadioMap[1,2]   = SS_Required;
-            RadioMap[2,0] = WM_NotAvailable; RadioMap[2,1]   = WM_NotRequired; RadioMap[2,2]   = WM_Required;
-            RadioMap[3,0] = CA_NotAvailable; RadioMap[3,1]   = CA_NotRequired; RadioMap[3,2]   = CA_Required;
-            RadioMap[4,0] = IS_NotAvailable; RadioMap[4,1]   = IS_NotRequired; RadioMap[4,2]   = IS_Required;
-            RadioMap[5,0] = SD_NotAvailable; RadioMap[5,1]   = SD_NotRequired; RadioMap[5,2]   = SD_Required;
-            RadioMap[6,0] = PP_NotAvailable; RadioMap[6,1]   = PP_NotRequired; RadioMap[6,2]   = PP_Required;
-            RadioMap[7,0] = IT_NotAvailable; RadioMap[7,1]   = IT_NotRequired; RadioMap[7,2]   = IT_Required;
-            RadioMap[8,0] = AR_NotAvailable; RadioMap[8,1]   = AR_NotRequired; RadioMap[8,2]   = AR_Required;
-            RadioMap[9,0] = JOAT_NotAvailable; RadioMap[9,1] = JOAT_NotRequired; RadioMap[9,2] = JOAT_Required;
+            RadioMap[0,0] = this.notAvailableHE; RadioMap[0,1]   = this.notRequiredHE; RadioMap[0,2]   = this.requiredHE;
+            RadioMap[1,0] = this.notAvailableSS; RadioMap[1,1]   = this.notRequiredSS; RadioMap[1,2]   = this.requiredSS;
+            RadioMap[2,0] = this.notAvailableWM; RadioMap[2,1]   = this.notRequiredWM; RadioMap[2,2]   = this.requiredWM;
+            RadioMap[3,0] = this.notAvailableCA; RadioMap[3,1]   = this.notRequiredCA; RadioMap[3,2]   = this.requiredCA;
+            RadioMap[4,0] = this.notAvailableIS; RadioMap[4,1]   = this.notRequiredIS; RadioMap[4,2]   = this.requiredIS;
+            RadioMap[5,0] = this.notAvailableSD; RadioMap[5,1]   = this.notRequiredSD; RadioMap[5,2]   = this.requiredSD;
+            RadioMap[6,0] = this.notAvailablePP; RadioMap[6,1]   = this.notRequiredPP; RadioMap[6,2]   = this.requiredPP;
+            RadioMap[7,0] = this.notAvailableIT; RadioMap[7,1]   = this.notRequiredIT; RadioMap[7,2]   = this.requiredIT;
+            RadioMap[8,0] = this.notAvailableAR; RadioMap[8,1]   = this.notRequiredAR; RadioMap[8,2]   = this.requiredAR;
+            RadioMap[9,0] = this.notAvailableJOAT; RadioMap[9,1] = this.notRequiredJOAT; RadioMap[9,2] = this.requiredJOAT;
 
             //LRTs
-            RadioMap[10, 0] = IFE_NotAvailable; RadioMap[10, 1]  = IFE_NotRequired; RadioMap[10, 2]  = IFE_Required;
-            RadioMap[11, 0] =  TT_NotAvailable; RadioMap[11, 1]  =  TT_NotRequired; RadioMap[11, 2]  =  TT_Required;
-            RadioMap[12, 0] = ARM_NotAvailable; RadioMap[12, 1]  = ARM_NotRequired; RadioMap[12, 2]  = ARM_Required;
-            RadioMap[13, 0] = ISB_NotAvailable; RadioMap[13, 1]  = ISB_NotRequired; RadioMap[13, 2]  = ISB_Required;
-            RadioMap[14, 0] = GR_NotAvailable; RadioMap[14, 1]   = GR_NotRequired; RadioMap[14, 2]   = GR_Required;
-            RadioMap[15, 0] = UR_NotAvailable; RadioMap[15, 1]   = UR_NotRequired; RadioMap[15, 2]   = UR_Required;
-            RadioMap[16, 0] = MA_NotAvailable; RadioMap[16, 1]   = MA_NotRequired; RadioMap[16, 2]   = MA_Required;
-            RadioMap[17, 0] = NRSE_NotAvailable; RadioMap[17, 1] = NRSE_NotRequired; RadioMap[17, 2] = NRSE_Required;
-            RadioMap[18, 0] = OBRM_NotAvailable; RadioMap[18, 1] = OBRM_NotRequired; RadioMap[18, 2] = OBRM_Required;
-            RadioMap[19, 0] = NAS_NotAvailable; RadioMap[19, 1]  = NAS_NotRequired; RadioMap[19, 2]  = NAS_Required;
-            RadioMap[20, 0] = LSP_NotAvailable; RadioMap[20, 1]  = LSP_NotRequired; RadioMap[20, 2]  = LSP_Required;
-            RadioMap[21, 0] = BET_NotAvailable; RadioMap[21, 1]  = BET_NotRequired; RadioMap[21, 2]  = BET_Required;
-            RadioMap[22, 0] = RS_NotAvailable; RadioMap[22, 1]   = RS_NotRequired; RadioMap[22, 2]   = RS_Required;
+            RadioMap[10, 0] = this.notAvailableIFE; RadioMap[10, 1]  = this.notRequiredIFE; RadioMap[10, 2]  = this.requiredIFE;
+            RadioMap[11, 0] = this.notAvailableTT; RadioMap[11, 1]   = this.notRequiredTT; RadioMap[11, 2]   = this.requiredTT;
+            RadioMap[12, 0] = this.notAvailableARM; RadioMap[12, 1]  = this.notRequiredARM; RadioMap[12, 2]  = this.requiredARM;
+            RadioMap[13, 0] = this.notAvailableISB; RadioMap[13, 1]  = this.notRequiredISB; RadioMap[13, 2]  = this.requiredISB;
+            RadioMap[14, 0] = this.notAvailableGR; RadioMap[14, 1]   = this.notRequiredGR; RadioMap[14, 2]   = this.requiredGR;
+            RadioMap[15, 0] = this.notAvailableUR; RadioMap[15, 1]   = this.notRequiredUR; RadioMap[15, 2]   = this.requiredUR;
+            RadioMap[16, 0] = this.notAvailableMA; RadioMap[16, 1]   = this.notRequiredMA; RadioMap[16, 2]   = this.requiredMA;
+            RadioMap[17, 0] = this.notAvailableNRSE; RadioMap[17, 1] = this.notRequiredNRSE; RadioMap[17, 2] = this.requiredNRSE;
+            RadioMap[18, 0] = this.notAvailableOBRM; RadioMap[18, 1] = this.notRequiredOBRM; RadioMap[18, 2] = this.requiredOBRM;
+            RadioMap[19, 0] = this.notAvailableNAS; RadioMap[19, 1]  = this.notRequiredNAS; RadioMap[19, 2]  = this.requiredNAS;
+            RadioMap[20, 0] = this.notAvailableLSP; RadioMap[20, 1]  = this.notRequiredLSP; RadioMap[20, 2]  = this.requiredLSP;
+            RadioMap[21, 0] = this.notAvailableBET; RadioMap[21, 1]  = this.notRequiredBET; RadioMap[21, 2]  = this.requiredBET;
+            RadioMap[22, 0] = this.notAvailableRS; RadioMap[22, 1]   = this.notRequiredRS; RadioMap[22, 2]   = this.requiredRS;
 
             // Initialise race restriction radio button selections.
             if (existingRestrictions != null)

@@ -39,26 +39,26 @@ namespace Nova.WinForms.ComponentEditor
       {
           System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ComponentEditorWindow));
           this.ResetFileLocation = new System.Windows.Forms.ToolStripMenuItem();
-          this.menuItem_NewFile = new System.Windows.Forms.ToolStripMenuItem();
-          this.menuItem_OpenFile = new System.Windows.Forms.ToolStripMenuItem();
-          this.menuItem_SaveFile = new System.Windows.Forms.ToolStripMenuItem();
-          this.menuItem_SaveFileAs = new System.Windows.Forms.ToolStripMenuItem();
+          this.newFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+          this.openFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+          this.saveFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+          this.saveFileAsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripSeparator();
           this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.MainMenu = new System.Windows.Forms.MenuStrip();
           this.menuStripComponent = new System.Windows.Forms.ToolStripMenuItem();
-          this.menuItem_NewComponent = new System.Windows.Forms.ToolStripMenuItem();
-          this.menuItem_EditComponent = new System.Windows.Forms.ToolStripMenuItem();
+          this.newComponentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+          this.editComponentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.copyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-          this.menuItem_DiscardComponentChanges = new System.Windows.Forms.ToolStripMenuItem();
-          this.menuItem_SaveComponent = new System.Windows.Forms.ToolStripMenuItem();
+          this.discardComponentChangesMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+          this.saveComponentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripSeparator();
           this.reloadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-          this.menuItem_DeleteComponent = new System.Windows.Forms.ToolStripMenuItem();
+          this.deleteComponentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripSeparator();
-          this.menuItem_RaceRestrictions = new System.Windows.Forms.ToolStripMenuItem();
+          this.raceRestrictionsMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.propertyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.addPropertyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.armorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -240,7 +240,7 @@ namespace Nova.WinForms.ComponentEditor
           this.label49 = new System.Windows.Forms.Label();
           this.HullCargoCapacity = new System.Windows.Forms.NumericUpDown();
           this.label48 = new System.Windows.Forms.Label();
-          this.labelBaseCargo_kT = new System.Windows.Forms.Label();
+          this.labelBaseCargoKT = new System.Windows.Forms.Label();
           this.label47 = new System.Windows.Forms.Label();
           this.labelBaseCargo = new System.Windows.Forms.Label();
           this.HullFuelCapacity = new System.Windows.Forms.NumericUpDown();
@@ -484,10 +484,10 @@ namespace Nova.WinForms.ComponentEditor
           // ResetFileLocation
           // 
           this.ResetFileLocation.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuItem_NewFile,
-            this.menuItem_OpenFile,
-            this.menuItem_SaveFile,
-            this.menuItem_SaveFileAs,
+            this.newFileMenuItem,
+            this.openFileMenuItem,
+            this.saveFileMenuItem,
+            this.saveFileAsMenuItem,
             this.toolStripMenuItem3,
             this.exitToolStripMenuItem});
           this.ResetFileLocation.Name = "ResetFileLocation";
@@ -496,31 +496,31 @@ namespace Nova.WinForms.ComponentEditor
           // 
           // menuItem_NewFile
           // 
-          this.menuItem_NewFile.Name = "menuItem_NewFile";
-          this.menuItem_NewFile.Size = new System.Drawing.Size(114, 22);
-          this.menuItem_NewFile.Text = "&New";
-          this.menuItem_NewFile.Click += new System.EventHandler(this.MenuItem_NewFile_Click);
+          this.newFileMenuItem.Name = "menuItem_NewFile";
+          this.newFileMenuItem.Size = new System.Drawing.Size(114, 22);
+          this.newFileMenuItem.Text = "&New";
+          this.newFileMenuItem.Click += new System.EventHandler(this.MenuItem_NewFile_Click);
           // 
           // menuItem_OpenFile
           // 
-          this.menuItem_OpenFile.Name = "menuItem_OpenFile";
-          this.menuItem_OpenFile.Size = new System.Drawing.Size(114, 22);
-          this.menuItem_OpenFile.Text = "&Open";
-          this.menuItem_OpenFile.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
+          this.openFileMenuItem.Name = "menuItem_OpenFile";
+          this.openFileMenuItem.Size = new System.Drawing.Size(114, 22);
+          this.openFileMenuItem.Text = "&Open";
+          this.openFileMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
           // 
           // menuItem_SaveFile
           // 
-          this.menuItem_SaveFile.Name = "menuItem_SaveFile";
-          this.menuItem_SaveFile.Size = new System.Drawing.Size(114, 22);
-          this.menuItem_SaveFile.Text = "&Save";
-          this.menuItem_SaveFile.Click += new System.EventHandler(this.MenuItem_SaveFile_Click);
+          this.saveFileMenuItem.Name = "menuItem_SaveFile";
+          this.saveFileMenuItem.Size = new System.Drawing.Size(114, 22);
+          this.saveFileMenuItem.Text = "&Save";
+          this.saveFileMenuItem.Click += new System.EventHandler(this.MenuItem_SaveFile_Click);
           // 
           // menuItem_SaveFileAs
           // 
-          this.menuItem_SaveFileAs.Name = "menuItem_SaveFileAs";
-          this.menuItem_SaveFileAs.Size = new System.Drawing.Size(114, 22);
-          this.menuItem_SaveFileAs.Text = "Save &As";
-          this.menuItem_SaveFileAs.Click += new System.EventHandler(this.MenuItem_SaveFileAs_Click);
+          this.saveFileAsMenuItem.Name = "menuItem_SaveFileAs";
+          this.saveFileAsMenuItem.Size = new System.Drawing.Size(114, 22);
+          this.saveFileAsMenuItem.Text = "Save &As";
+          this.saveFileAsMenuItem.Click += new System.EventHandler(this.MenuItem_SaveFileAs_Click);
           // 
           // toolStripMenuItem3
           // 
@@ -566,33 +566,33 @@ namespace Nova.WinForms.ComponentEditor
           // menuStripComponent
           // 
           this.menuStripComponent.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.menuItem_NewComponent,
-            this.menuItem_EditComponent,
+            this.newComponentMenuItem,
+            this.editComponentMenuItem,
             this.copyToolStripMenuItem,
-            this.menuItem_DiscardComponentChanges,
-            this.menuItem_SaveComponent,
+            this.discardComponentChangesMenuItem,
+            this.saveComponentMenuItem,
             this.toolStripMenuItem2,
             this.reloadToolStripMenuItem,
-            this.menuItem_DeleteComponent,
+            this.deleteComponentMenuItem,
             this.toolStripMenuItem1,
-            this.menuItem_RaceRestrictions});
+            this.raceRestrictionsMenuItem});
           this.menuStripComponent.Name = "menuStripComponent";
           this.menuStripComponent.Size = new System.Drawing.Size(83, 20);
           this.menuStripComponent.Text = "&Component";
           // 
           // menuItem_NewComponent
           // 
-          this.menuItem_NewComponent.Name = "menuItem_NewComponent";
-          this.menuItem_NewComponent.Size = new System.Drawing.Size(163, 22);
-          this.menuItem_NewComponent.Text = "&New";
-          this.menuItem_NewComponent.Click += new System.EventHandler(this.MenuItem_NewComponent_Click);
+          this.newComponentMenuItem.Name = "menuItem_NewComponent";
+          this.newComponentMenuItem.Size = new System.Drawing.Size(163, 22);
+          this.newComponentMenuItem.Text = "&New";
+          this.newComponentMenuItem.Click += new System.EventHandler(this.MenuItem_NewComponent_Click);
           // 
           // menuItem_EditComponent
           // 
-          this.menuItem_EditComponent.Name = "menuItem_EditComponent";
-          this.menuItem_EditComponent.Size = new System.Drawing.Size(163, 22);
-          this.menuItem_EditComponent.Text = "&Edit";
-          this.menuItem_EditComponent.Click += new System.EventHandler(this.MenuItem_EditComponent_Click);
+          this.editComponentMenuItem.Name = "menuItem_EditComponent";
+          this.editComponentMenuItem.Size = new System.Drawing.Size(163, 22);
+          this.editComponentMenuItem.Text = "&Edit";
+          this.editComponentMenuItem.Click += new System.EventHandler(this.MenuItem_EditComponent_Click);
           // 
           // copyToolStripMenuItem
           // 
@@ -603,17 +603,17 @@ namespace Nova.WinForms.ComponentEditor
           // 
           // menuItem_DiscardComponentChanges
           // 
-          this.menuItem_DiscardComponentChanges.Name = "menuItem_DiscardComponentChanges";
-          this.menuItem_DiscardComponentChanges.Size = new System.Drawing.Size(163, 22);
-          this.menuItem_DiscardComponentChanges.Text = "Discard Changes";
-          this.menuItem_DiscardComponentChanges.Click += new System.EventHandler(this.MenuItem_DiscardComponentChanges_Click);
+          this.discardComponentChangesMenuItem.Name = "menuItem_DiscardComponentChanges";
+          this.discardComponentChangesMenuItem.Size = new System.Drawing.Size(163, 22);
+          this.discardComponentChangesMenuItem.Text = "Discard Changes";
+          this.discardComponentChangesMenuItem.Click += new System.EventHandler(this.MenuItem_DiscardComponentChanges_Click);
           // 
           // menuItem_SaveComponent
           // 
-          this.menuItem_SaveComponent.Name = "menuItem_SaveComponent";
-          this.menuItem_SaveComponent.Size = new System.Drawing.Size(163, 22);
-          this.menuItem_SaveComponent.Text = "&Save";
-          this.menuItem_SaveComponent.Click += new System.EventHandler(this.SaveComponent_Click);
+          this.saveComponentMenuItem.Name = "menuItem_SaveComponent";
+          this.saveComponentMenuItem.Size = new System.Drawing.Size(163, 22);
+          this.saveComponentMenuItem.Text = "&Save";
+          this.saveComponentMenuItem.Click += new System.EventHandler(this.SaveComponent_Click);
           // 
           // toolStripMenuItem2
           // 
@@ -628,10 +628,10 @@ namespace Nova.WinForms.ComponentEditor
           // 
           // menuItem_DeleteComponent
           // 
-          this.menuItem_DeleteComponent.Name = "menuItem_DeleteComponent";
-          this.menuItem_DeleteComponent.Size = new System.Drawing.Size(163, 22);
-          this.menuItem_DeleteComponent.Text = "Delete";
-          this.menuItem_DeleteComponent.Click += new System.EventHandler(this.MenuItem_DeleteComponent_Click);
+          this.deleteComponentMenuItem.Name = "menuItem_DeleteComponent";
+          this.deleteComponentMenuItem.Size = new System.Drawing.Size(163, 22);
+          this.deleteComponentMenuItem.Text = "Delete";
+          this.deleteComponentMenuItem.Click += new System.EventHandler(this.MenuItem_DeleteComponent_Click);
           // 
           // toolStripMenuItem1
           // 
@@ -640,10 +640,10 @@ namespace Nova.WinForms.ComponentEditor
           // 
           // menuItem_RaceRestrictions
           // 
-          this.menuItem_RaceRestrictions.Name = "menuItem_RaceRestrictions";
-          this.menuItem_RaceRestrictions.Size = new System.Drawing.Size(163, 22);
-          this.menuItem_RaceRestrictions.Text = "&Race Restrictions";
-          this.menuItem_RaceRestrictions.Click += new System.EventHandler(this.MenuItem_RaceRestrictions_Click);
+          this.raceRestrictionsMenuItem.Name = "menuItem_RaceRestrictions";
+          this.raceRestrictionsMenuItem.Size = new System.Drawing.Size(163, 22);
+          this.raceRestrictionsMenuItem.Text = "&Race Restrictions";
+          this.raceRestrictionsMenuItem.Click += new System.EventHandler(this.MenuItem_RaceRestrictions_Click);
           // 
           // propertyToolStripMenuItem
           // 
@@ -2549,7 +2549,7 @@ namespace Nova.WinForms.ComponentEditor
           this.groupBox19.Controls.Add(this.label49);
           this.groupBox19.Controls.Add(this.HullCargoCapacity);
           this.groupBox19.Controls.Add(this.label48);
-          this.groupBox19.Controls.Add(this.labelBaseCargo_kT);
+          this.groupBox19.Controls.Add(this.labelBaseCargoKT);
           this.groupBox19.Controls.Add(this.label47);
           this.groupBox19.Controls.Add(this.labelBaseCargo);
           this.groupBox19.Controls.Add(this.HullFuelCapacity);
@@ -2664,12 +2664,12 @@ namespace Nova.WinForms.ComponentEditor
           // 
           // labelBaseCargo_kT
           // 
-          this.labelBaseCargo_kT.AutoSize = true;
-          this.labelBaseCargo_kT.Location = new System.Drawing.Point(145, 108);
-          this.labelBaseCargo_kT.Name = "labelBaseCargo_kT";
-          this.labelBaseCargo_kT.Size = new System.Drawing.Size(20, 13);
-          this.labelBaseCargo_kT.TabIndex = 26;
-          this.labelBaseCargo_kT.Text = "kT";
+          this.labelBaseCargoKT.AutoSize = true;
+          this.labelBaseCargoKT.Location = new System.Drawing.Point(145, 108);
+          this.labelBaseCargoKT.Name = "labelBaseCargoKT";
+          this.labelBaseCargoKT.Size = new System.Drawing.Size(20, 13);
+          this.labelBaseCargoKT.TabIndex = 26;
+          this.labelBaseCargoKT.Text = "kT";
           // 
           // label47
           // 
@@ -4119,12 +4119,12 @@ namespace Nova.WinForms.ComponentEditor
        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
        private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
 	   private System.Windows.Forms.MenuStrip MainMenu;
-       private System.Windows.Forms.ToolStripMenuItem menuItem_NewFile;
-	   private System.Windows.Forms.ToolStripMenuItem menuItem_OpenFile;
+       private System.Windows.Forms.ToolStripMenuItem newFileMenuItem;
+	   private System.Windows.Forms.ToolStripMenuItem openFileMenuItem;
        private System.Windows.Forms.ToolStripMenuItem menuStripComponent;
-       private System.Windows.Forms.ToolStripMenuItem menuItem_SaveFile;
-       private System.Windows.Forms.ToolStripMenuItem menuItem_SaveComponent;
-       private System.Windows.Forms.ToolStripMenuItem menuItem_DeleteComponent;
+       private System.Windows.Forms.ToolStripMenuItem saveFileMenuItem;
+       private System.Windows.Forms.ToolStripMenuItem saveComponentMenuItem;
+       private System.Windows.Forms.ToolStripMenuItem deleteComponentMenuItem;
 	   private System.Windows.Forms.ToolStripMenuItem reloadToolStripMenuItem;
        private System.Windows.Forms.ToolStripMenuItem propertyToolStripMenuItem;
        private System.Windows.Forms.ToolStripMenuItem addPropertyToolStripMenuItem;
@@ -4143,14 +4143,14 @@ namespace Nova.WinForms.ComponentEditor
        private System.Windows.Forms.ToolStripMenuItem shieldToolStripMenuItem;
        private System.Windows.Forms.ToolStripMenuItem weaponToolStripMenuItem;
        private System.Windows.Forms.ToolStripMenuItem deleteSelectedPropertyToolStripMenuItem;
-	   private System.Windows.Forms.ToolStripMenuItem menuItem_NewComponent;
+	   private System.Windows.Forms.ToolStripMenuItem newComponentMenuItem;
        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
-	   private System.Windows.Forms.ToolStripMenuItem menuItem_RaceRestrictions;
-       private System.Windows.Forms.ToolStripMenuItem menuItem_SaveFileAs;
-       private System.Windows.Forms.ToolStripMenuItem menuItem_EditComponent;
-	   private System.Windows.Forms.ToolStripMenuItem menuItem_DiscardComponentChanges;
+	   private System.Windows.Forms.ToolStripMenuItem raceRestrictionsMenuItem;
+       private System.Windows.Forms.ToolStripMenuItem saveFileAsMenuItem;
+       private System.Windows.Forms.ToolStripMenuItem editComponentMenuItem;
+	   private System.Windows.Forms.ToolStripMenuItem discardComponentChangesMenuItem;
 	   private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
 	   private System.Windows.Forms.TextBox RestrictionSummary;
 	   private System.Windows.Forms.ToolStripMenuItem layerEfficencyToolStripMenuItem;
@@ -4318,7 +4318,7 @@ namespace Nova.WinForms.ComponentEditor
 	   private System.Windows.Forms.Label label49;
 	   private System.Windows.Forms.NumericUpDown HullCargoCapacity;
 	   private System.Windows.Forms.Label label48;
-	   private System.Windows.Forms.Label labelBaseCargo_kT;
+	   private System.Windows.Forms.Label labelBaseCargoKT;
 	   private System.Windows.Forms.Label label47;
 	   private System.Windows.Forms.Label labelBaseCargo;
 	   private System.Windows.Forms.NumericUpDown HullFuelCapacity;

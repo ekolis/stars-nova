@@ -97,8 +97,8 @@ namespace Nova.Common
 
         #region Constants
 
-        public const int NUMBER_OF_PRIMARY_RACIAL_TRAITS = 10;
-        public const int NUMBER_OF_SECONDARY_RACIAL_TRAITS = 13;
+        public const int NumberOfPrimaryRacialTraits = 10;
+        public const int NumberOfSecondaryRacialTraits = 13;
       
         /// <summary>
         /// Provide a list of all trait keys. 
