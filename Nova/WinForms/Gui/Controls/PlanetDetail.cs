@@ -829,7 +829,7 @@ namespace Nova.WinForms.Gui
         /// </summary>
         /// <param name="selectedStar">The star to be displayed</param>
         /// ----------------------------------------------------------------------------
-        void SetStarDetails(Star selectedStar)
+        private void SetStarDetails(Star selectedStar)
         {
             star = selectedStar;
 

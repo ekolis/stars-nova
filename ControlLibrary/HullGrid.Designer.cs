@@ -1,6 +1,6 @@
 namespace Nova.ControlLibrary
 {
-   partial class HullGrid
+   public partial class HullGrid
    {
       /// <summary> 
       /// Required designer variable.

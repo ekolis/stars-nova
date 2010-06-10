@@ -3,7 +3,7 @@ using Nova.Common;
 
 namespace Nova.WinForms.NewGame
 {
-   partial class NewGameWizard
+   public partial class NewGameWizard
    {
       /// <summary>
       /// Required designer variable.

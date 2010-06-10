@@ -36,7 +36,7 @@ namespace Nova.WinForms.RaceDesigner
     /// <summary>
     /// Static definition of all the advantage point costs for each parameter
     /// </summary>
-    class ParameterCosts
+    public class ParameterCosts
     {
         public static ParameterEntry[] Parameters = new ParameterEntry[8] 
       {

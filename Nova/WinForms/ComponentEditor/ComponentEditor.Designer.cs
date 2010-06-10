@@ -10,7 +10,7 @@
 
 namespace Nova.WinForms.ComponentEditor
 {
-   partial class ComponentEditorWindow
+   public partial class ComponentEditorWindow
    {
       /// <summary>
       /// Required designer variable.

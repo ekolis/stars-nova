@@ -9,7 +9,7 @@
 
 namespace Nova.WinForms.Gui
 {
-    partial class ResearchDialog
+    public partial class ResearchDialog
     {
         /// <summary>
         /// Required designer variable.

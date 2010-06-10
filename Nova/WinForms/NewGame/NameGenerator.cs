@@ -36,8 +36,8 @@ namespace Nova.WinForms.NewGame
 
     public class NameGenerator
     {
-        Random RandomGenerator = new Random();
-        ArrayList NamePool = new ArrayList();
+        private Random RandomGenerator = new Random();
+        private ArrayList NamePool = new ArrayList();
 
         #region Construction
 

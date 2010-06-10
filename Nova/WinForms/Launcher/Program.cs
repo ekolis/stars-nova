@@ -32,7 +32,7 @@ using System.Windows.Forms;
 
 namespace Nova.WinForms.Launcher
 {
-    static class Program
+    public static class Program
     {
         /// ----------------------------------------------------------------------------
         /// <summary>

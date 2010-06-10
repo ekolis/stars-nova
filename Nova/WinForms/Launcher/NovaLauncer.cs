@@ -43,8 +43,8 @@ namespace Nova.WinForms.Launcher
     /// </summary>
     public partial class NovaLauncher : Form
     {
-        String ServerStateFile = null;
-        String ClientStateFile = null;
+        private String ServerStateFile = null;
+        private String ClientStateFile = null;
 
         #region Initialisation
 

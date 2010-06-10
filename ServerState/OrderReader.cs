@@ -47,7 +47,7 @@ namespace Nova.Server
 {
     public static class OrderReader
     {
-        static ServerState StateData = ServerState.Data;
+        private static ServerState StateData = ServerState.Data;
 
         #region Methods
 

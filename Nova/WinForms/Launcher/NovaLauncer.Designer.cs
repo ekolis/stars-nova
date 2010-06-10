@@ -1,6 +1,6 @@
 ﻿namespace Nova.WinForms.Launcher
 {
-    partial class NovaLauncher
+    public partial class NovaLauncher
     {
         /// <summary>
         /// Required designer variable.

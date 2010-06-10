@@ -42,7 +42,7 @@ using Nova.Common.Components;
 
 namespace Nova.Common
 {
-    static class XmlConversion
+    public static class XmlConversion
     {
         #region Fields
         private static String saveFilePath;

@@ -828,7 +828,7 @@ namespace Nova.WinForms.Console
         /// <param name="target">Ship being fired on.</param>
         /// <returns>Damage weapon is able to do.</returns>
         /// ----------------------------------------------------------------------------
-        static double CalculateWeaponPower(Ship ship,
+        private static double CalculateWeaponPower(Ship ship,
                                            Weapon weapon,
                                            Ship target)
         {
@@ -873,7 +873,7 @@ namespace Nova.WinForms.Console
         /// <param name="target">Ship being fired on.</param>
         /// <returns>Chance that weapon will hit.</returns>
         /// ----------------------------------------------------------------------------
-        static double CalculateWeaponAccuracy(Ship ship,
+        private static double CalculateWeaponAccuracy(Ship ship,
                                               Weapon weapon, Ship target)
         {
             double weaponAccuracy = weapon.Accuracy;
@@ -892,7 +892,7 @@ namespace Nova.WinForms.Console
         /// Report ship losses to each player.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        static void ReportLosses()
+        private static void ReportLosses()
         {
             foreach (string race in Battle.Losses.Keys)
             {

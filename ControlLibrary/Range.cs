@@ -44,7 +44,7 @@ namespace Nova.ControlLibrary
 {
     public class Range : System.Windows.Forms.UserControl
     {
-        enum TimerOptions
+        private enum TimerOptions
         {
             IllegalValue, MoveLeft, MoveRight, Shrink, Expand
         }

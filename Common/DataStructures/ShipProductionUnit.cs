@@ -35,7 +35,7 @@ namespace Nova.Common
     /// <summary>
     /// ShipProductionUnit class.
     /// </summary>
-    class ShipProductionUnit : IProductionUnit
+    public class ShipProductionUnit : IProductionUnit
     {
         private Star star;
         private ShipDesign shipDesign;

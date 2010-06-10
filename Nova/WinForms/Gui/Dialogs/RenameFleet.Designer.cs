@@ -1,6 +1,6 @@
 namespace Nova.WinForms.Gui
 {
-   partial class RenameFleet
+   public partial class RenameFleet
    {
       /// <summary>
       /// Required designer variable.

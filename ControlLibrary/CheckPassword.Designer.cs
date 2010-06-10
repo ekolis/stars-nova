@@ -1,6 +1,6 @@
 namespace Nova.ControlLibrary
 {
-   partial class CheckPassword
+   public partial class CheckPassword
    {
       /// <summary>
       /// Required designer variable.

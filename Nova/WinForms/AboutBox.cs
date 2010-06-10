@@ -32,7 +32,7 @@ using System.Reflection;
 
 namespace Nova.WinForms
 {
-    partial class AboutBox : Form
+    public partial class AboutBox : Form
     {
         public AboutBox()
         {

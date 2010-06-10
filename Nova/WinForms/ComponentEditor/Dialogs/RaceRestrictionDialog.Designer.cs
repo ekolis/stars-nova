@@ -1,6 +1,6 @@
 ﻿namespace Nova.WinForms.ComponentEditor
 {
-    partial class RaceRestrictionDialog
+    public partial class RaceRestrictionDialog
     {
         /// <summary>
         /// Required designer variable.

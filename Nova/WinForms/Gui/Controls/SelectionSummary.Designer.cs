@@ -1,6 +1,6 @@
 namespace Nova.WinForms.Gui
 {
-   partial class SelectionSummary
+   public partial class SelectionSummary
    {
       /// <summary> 
       /// Required designer variable.

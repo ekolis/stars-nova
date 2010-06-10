@@ -1,6 +1,6 @@
 namespace Nova.WinForms.Gui
 {
-   partial class FleetReport
+   public partial class FleetReport
    {
       /// <summary>
       /// Required designer variable.
