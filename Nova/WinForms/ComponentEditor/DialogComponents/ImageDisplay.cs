@@ -81,5 +81,5 @@ namespace Nova.WinForms.ComponentEditor
             set { ComponentImage.Image = value; }
         }
 
-    }//ImageDisplay
-}//namespace
+    }
+}

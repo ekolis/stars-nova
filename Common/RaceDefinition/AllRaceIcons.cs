@@ -57,7 +57,6 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         private AllRaceIcons()
         {
-            //Restore();
         }
 
 
@@ -114,8 +113,6 @@ namespace Nova.Common
                     DirectoryInfo info = new DirectoryInfo(Path.Combine(AllComponents.Graphics, "Race"));
                     foreach (FileInfo fi in info.GetFiles())
                     {
-                        //fileList.Add(fi);
-
                         Bitmap i = new Bitmap(Path.Combine(fi.DirectoryName, fi.Name));
                         RaceIcon icon = new RaceIcon(fi.Name, i);
                         Data.IconList.Add(icon);
@@ -133,5 +130,5 @@ namespace Nova.Common
         }
 
         #endregion
-    }//AllRaceIcons
+    }
 }

@@ -210,14 +210,14 @@ namespace Nova.Common
             Point result = new Point();
             result = from;
 
-            double my    = to.Y - from.Y;
-            double mx    = to.X - from.X;
+            double my = to.Y - from.Y;
+            double mx = to.X - from.X;
             double theta = Math.Atan2(my, mx);
-            double dx    = distance * Math.Cos(theta);
-            double dy    = distance * Math.Sin(theta);
+            double dx = distance * Math.Cos(theta);
+            double dy = distance * Math.Sin(theta);
 
-            result.X += (int)(dx+0.5);
-            result.Y += (int)(dy+0.5);
+            result.X += (int)(dx + 0.5);
+            result.Y += (int)(dy + 0.5);
 
             // Check for no movement due to rounding and correct.
             if (result.X == from.X && result.Y == from.Y && distance > 0.5)

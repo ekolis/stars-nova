@@ -139,7 +139,6 @@ namespace Nova.WinForms.Gui
 
       #endregion
 
-      //public System.Windows.Forms.Panel MapPanel;      
       public StarMapPanel MapPanel;      
       private System.Windows.Forms.VScrollBar VScrollBar;
       private System.Windows.Forms.HScrollBar HScrollBar;

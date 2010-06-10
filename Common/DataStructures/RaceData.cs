@@ -37,9 +37,9 @@ namespace Nova.Common
     [Serializable]
     public class RaceData
     {
-        public int       TurnYear         = 0;
-        public Hashtable PlayerRelations  = new Hashtable();
-        public Hashtable BattlePlans      = new Hashtable();
+        public int TurnYear;
+        public Hashtable PlayerRelations = new Hashtable();
+        public Hashtable BattlePlans = new Hashtable();
 
         /// <summary>
         /// default constructor

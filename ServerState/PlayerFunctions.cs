@@ -47,7 +47,7 @@ namespace Nova.Server
 
    public static class Players
    {
-      private static ServerState    StateData = ServerState.Data;
+      private static ServerState StateData = ServerState.Data;
 
       /// <summary>
       /// Determine if wolf wishes to treat lamb as an enemy.

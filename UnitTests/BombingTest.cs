@@ -48,17 +48,17 @@ namespace Nova.UnitTests
     //
     // The calculations are, population kill:
     //
-    // a	0.025 * 10	0.25        10 Cherry bombs
-    // b	0.012 * 5	0.06        5 M-70 bombs
-    // c	a + b		0.31        Total kill factor
-    // d	1 - 0.97	0.0208      1 - defence factor for 100 neutron defences
+    // a    0.025 * 10  0.25        10 Cherry bombs
+    // b    0.012 * 5   0.06        5 M-70 bombs
+    // c    a + b       0.31        Total kill factor
+    // d    1 - 0.97    0.0208      1 - defence factor for 100 neutron defences
     // e    c * d           0.006448    Total kill factor
     // f    pop * c         64.48       Total colonists killed
     //
     // Minimum kill:
     //
     // a 10*300 + 5*300  4500   
-    // b 1 - 0.97	     0.0208   1 - defence factor for 100 neutron defences
+    // b 1 - 0.97        0.0208   1 - defence factor for 100 neutron defences
     // c a *b            156      Total minimum kill
     // ============================================================================
 

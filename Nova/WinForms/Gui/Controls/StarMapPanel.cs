@@ -18,11 +18,9 @@ namespace Nova.WinForms.Gui
         protected override void WndProc(ref System.Windows.Forms.Message m)
         {
             const int WM_ERASEBKGND = 0x14;
-            //int i = 10;
             if (m.Msg == WM_ERASEBKGND)
             {
-                //base.WndProc(ref m);
-                //do nothing...
+                // do nothing...
                 return;
             }
             base.WndProc(ref m);

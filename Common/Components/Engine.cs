@@ -42,10 +42,10 @@ namespace Nova.Common.Components
     [Serializable]
     public class Engine : ComponentProperty
     {
-        public int[]  FuelConsumption   = new int[10];
-        public bool   RamScoop          = false;
-        public int    FastestSafeSpeed  = 0;
-        public int    OptimalSpeed      = 0;
+        public int[] FuelConsumption = new int[10];
+        public bool RamScoop;
+        public int FastestSafeSpeed;
+        public int OptimalSpeed;
 
         #region Construction
 

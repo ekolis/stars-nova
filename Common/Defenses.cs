@@ -38,12 +38,12 @@ namespace Nova.Common
     {
         #region Fields
 
-        public static Hashtable DefenseTypes       = new Hashtable();
-        public static double    PopulationCoverage = 0;
-        public static double    BuildingCoverage   = 0;
-        public static double    InvasionCoverage   = 0;
-        public static double    SmartBombCoverage  = 0;
-        public static int       SummaryCoverage    = 0;
+        public static Hashtable DefenseTypes = new Hashtable();
+        public static double PopulationCoverage;
+        public static double BuildingCoverage;
+        public static double InvasionCoverage;
+        public static double SmartBombCoverage;
+        public static int SummaryCoverage;
 
         #endregion Fields
 
@@ -100,6 +100,6 @@ namespace Nova.Common
         }
 
         #endregion 
-    }//Defenses
-}//namespace
+    }
+}
 

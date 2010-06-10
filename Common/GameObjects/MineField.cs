@@ -69,7 +69,7 @@ namespace Nova.Common
         {
             get
             {
-                return (int) Math.Sqrt(NumberOfMines);
+                return (int)Math.Sqrt(NumberOfMines);
             }
 
         }

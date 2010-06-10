@@ -44,7 +44,7 @@ namespace Nova.Common
     {
         public String Name;        // e.g. "Hyper Expansion" or "Regenerating Shields" (may contain spaces)
         public String Code;        // e.g. "HE" or "RS" (must be unique, all caps, no spaces or punctuation) 
-        public int    Cost;        // in advantage points, negative cost give more points to buy other things
+        public int Cost;           // in advantage points, negative cost give more points to buy other things
         public String Description; // Detailed description (paragraph).
 
         #region Construction

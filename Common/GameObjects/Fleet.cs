@@ -45,22 +45,22 @@ namespace Nova.Common
     [Serializable]
     public class Fleet : Item
     {
-        public  int        FleetID        = 0;
-        public  ArrayList  FleetShips     = new ArrayList();
-        public  ArrayList  Waypoints      = new ArrayList();
-        public  Cargo      Cargo          = new Cargo(); // FIXME (priority 6) - Cargo should be tracked by either the fleet or the ship, not both. Need to decide on a design for cargo management and document it.
-        public  Fleet      Target         = null;
-        public  Star       InOrbit        = null;
-        public  double     BattleSpeed    = 0; // used by a stack on the battle board
-        public  double     Bearing        = 0;
-        public  double     Cloaked        = 0;
-        public  double     FuelAvailable  = 0;
-        public  double     FuelCapacity   = 0;
-        public  double     TargetDistance = 100;
-        public  int        CargoCapacity  = 0;
-        public  string     BattlePlan     = "Default";
+        public int FleetID = 0;
+        public ArrayList FleetShips = new ArrayList();
+        public ArrayList Waypoints = new ArrayList();
+        public Cargo Cargo = new Cargo(); // FIXME (priority 6) - Cargo should be tracked by either the fleet or the ship, not both. Need to decide on a design for cargo management and document it.
+        public Fleet Target = null;
+        public Star InOrbit = null;
+        public double BattleSpeed = 0; // used by a stack on the battle board
+        public double Bearing = 0;
+        public double Cloaked = 0;
+        public double FuelAvailable = 0;
+        public double FuelCapacity = 0;
+        public double TargetDistance = 100;
+        public int CargoCapacity = 0;
+        public string BattlePlan = "Default";
        
-        public  enum       TravelStatus {Arrived, InTransit }
+        public enum TravelStatus { Arrived, InTransit }
 
         #region Construction Initialisation
 

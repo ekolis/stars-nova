@@ -46,13 +46,13 @@ namespace Nova.Common.Components
     [Serializable]
     public class Component : Item
     {
-        public TechLevel       RequiredTech    = new TechLevel();
-        public Image           ComponentImage  = null;
-        public String          ImageFile       = null;
-        public String          Description     = null;
-        public RaceRestriction Restrictions    = new RaceRestriction();
+        public TechLevel RequiredTech = new TechLevel();
+        public Image ComponentImage;
+        public String ImageFile;
+        public String Description;
+        public RaceRestriction Restrictions = new RaceRestriction();
 
-        public Dictionary<String, ComponentProperty> Properties = null;
+        public Dictionary<String, ComponentProperty> Properties;
 
         // This is the list of all Compont.Properties keys for the above dictionary.
         // Note that these are not the Component.Type, but the ComponentProperty.Type.
@@ -365,17 +365,17 @@ namespace Nova.Common.Components
                                             break;
                                         }
 
-                                }//switch on property
+                                }
                                 if (newProperty != null)
                                 {
                                     this.Properties.Add(propertyType, newProperty);
                                 }
                                 break;
-                            } //case "property"
+                            }
 
-                    }// switch on subnode.Name
+                    }
 
-                }//try
+                }
 
 
                 catch (Exception e)
@@ -384,9 +384,9 @@ namespace Nova.Common.Components
                 }
 
                 subnode = subnode.NextSibling;
-            }//while subnode != null
+            }
 
-        }// component constructor
+        }
 
 
         /// ----------------------------------------------------------------------------

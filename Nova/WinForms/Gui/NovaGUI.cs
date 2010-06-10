@@ -57,8 +57,8 @@ namespace Nova.WinForms.Gui
         public SelectionDetail SelectionDetail;
         public StarMap MapControl;
 
-        public int CurrentTurn;      //control turnvar used for to decide to load new turn... (Thread)
-        public string CurrentRace; //control var used for to decide to load new turn... (Thread)
+        public int CurrentTurn;      // control turnvar used for to decide to load new turn... (Thread)
+        public string CurrentRace;   // control var used for to decide to load new turn... (Thread)
 
         #region VS-Designer Generated Variables
 

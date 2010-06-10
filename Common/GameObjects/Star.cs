@@ -41,29 +41,29 @@ namespace Nova.Common
     [Serializable]
     public class Star : Item
     {
-        public bool            OrbitingFleets       = false;
-        public ProductionQueue ManufacturingQueue   = new ProductionQueue();
-        public Resources       MineralConcentration = new Resources();
-        public Resources       ResourcesOnHand      = new Resources();
-        public Fleet           Starbase             = null;
-        public int             Colonists            = 0;
-        public int             Defenses             = 0;
-        public int             Factories            = 0;
-        public int             Mines                = 0;
-        public int             ResearchAllocation   = 0;
-        public int             ScanRange            = 0;
-        public string          DefenseType          = "None";
-        public string          ScannerType          = "None";
+        public bool OrbitingFleets;
+        public ProductionQueue ManufacturingQueue = new ProductionQueue();
+        public Resources MineralConcentration = new Resources();
+        public Resources ResourcesOnHand = new Resources();
+        public Fleet Starbase;
+        public int Colonists;
+        public int Defenses;
+        public int Factories;
+        public int Mines;
+        public int ResearchAllocation;
+        public int ScanRange;
+        public string DefenseType = "None";
+        public string ScannerType = "None";
 
         // The following values are percentages of the permissable range of each
         // environment parameter (between 0 and 100).
 
-        public int Gravity     = 0;
-        public int Radiation   = 0;
+        public int Gravity = 0;
+        public int Radiation = 0;
         public int Temperature = 0;
 
         // the current owner of the star, if any.
-        public Race ThisRace   = null;
+        public Race ThisRace = null;
 
         #region Construction
 
@@ -72,7 +72,10 @@ namespace Nova.Common
         /// default constructor
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public Star() { }
+        public Star()
+        {
+            this.Starbase = null;
+        }
 
         #endregion
 
@@ -211,8 +214,7 @@ namespace Nova.Common
             if (r > 0.5) z = r - 0.5;
 
             double h = Math.Sqrt(
-                            ((1 - g) * (1 - g)) + ((1 - t) * (1 - t)) + ((1 - r) * (1 - r))
-                                 ) * (1 - x) * (1 - y) * (1 - z)
+                            ((1 - g) * (1 - g)) + ((1 - t) * (1 - t)) + ((1 - r) * (1 - r))) * (1 - x) * (1 - y) * (1 - z)
                                  / Math.Sqrt(3.0);
             return h;
         }
@@ -382,6 +384,7 @@ namespace Nova.Common
         public Star(XmlNode node)
             : base(node)
         {
+            this.Starbase = null;
 
             XmlNode subnode = node.FirstChild;
 

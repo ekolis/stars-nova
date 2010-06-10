@@ -46,7 +46,7 @@ namespace Nova.Common.Converters
             object result = null;
             if (destinationType == typeof(InstanceDescriptor))
             {
-                result = ConvertToInstanceDescriptor((T) value);
+                result = ConvertToInstanceDescriptor((T)value);
             }
 
             if (result == null)

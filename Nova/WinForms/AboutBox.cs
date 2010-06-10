@@ -112,6 +112,6 @@ namespace Nova.WinForms
             return ((AssemblyProductAttribute)attributes[0]).Product;
         }
     
-    }//AboutBox
+    }
 
-}//namespace
+}

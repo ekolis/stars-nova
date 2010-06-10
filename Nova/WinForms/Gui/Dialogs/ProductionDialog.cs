@@ -64,7 +64,6 @@ namespace Nova.WinForms.Gui
         private System.Windows.Forms.ColumnHeader QueueDescription;
         private System.Windows.Forms.ColumnHeader QueueQuantity;
         private System.Windows.Forms.GroupBox groupBox3;
-        //private IContainer components;
         private System.ComponentModel.Container components;
         private System.Windows.Forms.GroupBox groupBox4;
         private ControlLibrary.ResourceDisplay DesignCost;
@@ -451,7 +450,7 @@ namespace Nova.WinForms.Gui
                 {
                     QueueUp.Enabled = false;
                 }
-                if(QueueList.SelectedIndices[0] < QueueList.Items.Count-1)
+                if (QueueList.SelectedIndices[0] < QueueList.Items.Count - 1)
                 {
                     QueueDown.Enabled = true;
                 }
@@ -558,10 +557,10 @@ namespace Nova.WinForms.Gui
             if (QueueList.SelectedItems.Count > 0)
             {
                 int source = QueueList.SelectedIndices[0];
-                if (source < QueueList.Items.Count -1)
+                if (source < QueueList.Items.Count - 1)
                 {
                     ListViewItem newItem = QueueList.Items[source];
-                    ListViewItem oldItem = QueueList.Items[source+1];
+                    ListViewItem oldItem = QueueList.Items[source + 1];
                     QueueList.Items.RemoveAt(source + 1);
                     QueueList.Items.RemoveAt(source);
                     QueueList.Items.Insert(source, oldItem);
@@ -633,8 +632,7 @@ namespace Nova.WinForms.Gui
                 item.Name = i.SubItems[0].Text;
                 item.Quantity = Convert.ToInt32(i.SubItems[1].Text);
 
-                Design design = TurnData.AllDesigns
-                                [StateData.RaceName + "/" + item.Name] as Design;
+                Design design = TurnData.AllDesigns[StateData.RaceName + "/" + item.Name] as Design;
 
                 item.BuildState = design.Cost;
 
@@ -665,7 +663,7 @@ namespace Nova.WinForms.Gui
             foreach (ListViewItem item in QueueList.Items)
             {
                 Design thisDesign = item.Tag as Design;
-                if (thisDesign != null) //factories and defenses and mines dont have a design...
+                if (thisDesign != null) // factories and defenses and mines dont have a design...
                 {
                     if (thisDesign.Type == "Starbase")
                     {
@@ -691,8 +689,7 @@ namespace Nova.WinForms.Gui
             {
                 string name = item.Text;
 
-                Design design = TurnData.AllDesigns
-                                [StateData.RaceName + "/" + name] as Design;
+                Design design = TurnData.AllDesigns[StateData.RaceName + "/" + name] as Design;
 
                 if (design == null)
                 {

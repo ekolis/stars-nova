@@ -148,7 +148,7 @@ namespace Nova.Common.Components
                 {
                     if (subnode.Name.ToLower() == "value")
                     {
-                        Value =((XmlText)subnode.FirstChild).Value;
+                        Value = ((XmlText)subnode.FirstChild).Value;
                     }
                 }
                 catch

@@ -62,7 +62,7 @@ namespace Nova.Common.Components
         public RaceComponents(Race newRace, TechLevel newTech)
         {
             DetermineRaceComponents(newRace, newTech);
-        }// RaceComponents constructor
+        }
 
         #endregion
 
@@ -108,12 +108,12 @@ namespace Nova.Common.Components
                         restricted = true;
                         break;
                     }
-                }// foreach trait
+                }
 
                 if (!restricted)
                     Dictionary.Add(component.Name, component);
             }
-        }//DetermineRaceComponents
+        }
 
         #endregion
 

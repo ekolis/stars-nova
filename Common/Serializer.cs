@@ -56,10 +56,10 @@ namespace Nova.Common
         /// The <i>serializationStream</i> is a null reference.
         /// </exception>
         //-------------------------------------------------------------------
-        public static object Deserialize( Stream serializationStream )
+        public static object Deserialize(Stream serializationStream)
         {
-            Verify.NotNull( serializationStream, "serializationStream" );
-            return Formatter.Deserialize( serializationStream );
+            Verify.NotNull(serializationStream, "serializationStream");
+            return Formatter.Deserialize(serializationStream);
         }
 
         //-------------------------------------------------------------------
@@ -76,11 +76,11 @@ namespace Nova.Common
         /// The <i>serializationStream</i> is a null reference.
         /// </exception>
         //-------------------------------------------------------------------
-        public static void Serialize( Stream serializationStream, object item )
+        public static void Serialize(Stream serializationStream, object item)
         {
-            Verify.NotNull( serializationStream, "serializationStream" );
-            Verify.NotNull( item, "item" );
-            Formatter.Serialize( serializationStream, item );
+            Verify.NotNull(serializationStream, "serializationStream");
+            Verify.NotNull(item, "item");
+            Formatter.Serialize(serializationStream, item);
         }
         #endregion
 
@@ -93,7 +93,7 @@ namespace Nova.Common
         {
             get
             {
-                if( null == formatter )
+                if (null == formatter)
                 {
                     formatter = new BinaryFormatter();
                 }

@@ -48,30 +48,30 @@ namespace Nova.WinForms.Gui
         public const int BorderBuffer = 35;
 
         #region Variables
-        private Bitmap      CursorBitmap   = null;
-        private Intel       TurnData       = null;
-        private ClientState StateData      = null;
-        private Point       CursorPosition = new Point(0, 0);
-        private Point       LastClick      = new Point(0, 0);
-        private Point       Logical        = new Point(0, 0);  // Size of the logical co-ordinate system (size of the game universe).
-        private Point       Origin         = new Point(0, 0);  // Top left starting point of the displayed map within the logical map.
-        private Point       Center         = new Point(0, 0);  // Focal point of the displayed map.
-        private Point       Extent         = new Point(0, 0);  // Extent of the currently displayed map, from Origin.
-        private double      ZoomFactor     = 0.8;              // Is used to adjust the Extent of the map.
-        private Graphics    graphics       = null;
-        private bool        IsInitialised  = false;
-        private bool        DisplayStarNames = true;
-        private int         Hscroll        = 50; // 0 to 100, used to position the Center, initially centered
-        private int         Vscroll        = 50; // 0 to 100, used to position the Center, initially centered
-        private int         Selection      = 0;
-        private Hashtable   VisibleFleets  = new Hashtable();
-        private Hashtable   VisibleMinefields = new Hashtable();
-        private Font        NameFont = null;
+        private Bitmap CursorBitmap = null;
+        private Intel TurnData = null;
+        private ClientState StateData = null;
+        private Point CursorPosition = new Point(0, 0);
+        private Point LastClick = new Point(0, 0);
+        private Point Logical = new Point(0, 0);  // Size of the logical co-ordinate system (size of the game universe).
+        private Point Origin = new Point(0, 0);  // Top left starting point of the displayed map within the logical map.
+        private Point Center = new Point(0, 0);  // Focal point of the displayed map.
+        private Point Extent = new Point(0, 0);  // Extent of the currently displayed map, from Origin.
+        private double ZoomFactor = 0.8;              // Is used to adjust the Extent of the map.
+        private Graphics graphics = null;
+        private bool IsInitialised = false;
+        private bool DisplayStarNames = true;
+        private int Hscroll = 50; // 0 to 100, used to position the Center, initially centered
+        private int Vscroll = 50; // 0 to 100, used to position the Center, initially centered
+        private int Selection = 0;
+        private Hashtable VisibleFleets  = new Hashtable();
+        private Hashtable VisibleMinefields = new Hashtable();
+        private Font NameFont = null;
         private System.Drawing.BufferedGraphicsContext bufferedContext = null;
         #endregion
 
-        private Point[] triangle = {new Point(0,   0), new Point(-5, -10),
-                                   new Point(5, -10)};
+        private Point[] triangle = { new Point(0, 0), new Point(-5, -10),
+                                   new Point(5, -10) };
 
 
         #region Construction and Initialization
@@ -92,8 +92,8 @@ namespace Nova.WinForms.Gui
             Logical.X = GameSettings.Data.MapWidth;
             Logical.Y = GameSettings.Data.MapHeight;
 
-            Extent.X = (int) (Logical.X * ZoomFactor);
-            Extent.Y = (int) (Logical.Y * ZoomFactor);
+            Extent.X = (int)(Logical.X * ZoomFactor);
+            Extent.Y = (int)(Logical.Y * ZoomFactor);
 
             CursorBitmap = Nova.Properties.Resources.Cursor;
             CursorBitmap.MakeTransparent(Color.Black);
@@ -155,9 +155,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void MapRefresh()
         {
-            //MapPanel.SuspendLayout();
             MapPanel.Invalidate();
-            //MapPanel.ResumeLayout();
         }
 
 
@@ -181,21 +179,18 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OnPaint(object sender, PaintEventArgs eventData)
         {
-            base.OnPaint(eventData); //added
+            base.OnPaint(eventData); // added
 
             if (IsInitialised == false)
             {
                 return;
             }
 
-            //System.Drawing.Rectangle rect = new Rectangle(0,0,(int)eventData.Graphics.DpiX,(int)eventData.Graphics.DpiY);
             System.Drawing.Rectangle rect2 = new Rectangle(0, 0, MapPanel.Width, MapPanel.Height);
             System.Drawing.BufferedGraphics bg = bufferedContext.Allocate(eventData.Graphics, rect2);
 
             graphics = bg.Graphics;
-            //graphics = eventData.Graphics;
 
-            //graphics.DrawImage(Nova.Properties.Resources.Plasma, 0, 0);
             Point backgroundOrigin = LogicalToDevice(new Point(0, 0));
             Point backgroundExtent = LogicalToDeviceRelative(new Point(Logical.X, Logical.Y));
             graphics.DrawImage(Nova.Properties.Resources.Plasma, backgroundOrigin.X, backgroundOrigin.Y, backgroundExtent.X, backgroundExtent.Y);
@@ -760,8 +755,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void SetZoom()
         {
-            Extent.X = (int) (Logical.X / ZoomFactor);
-            Extent.Y = (int) (Logical.Y / ZoomFactor);
+            Extent.X = (int)(Logical.X / ZoomFactor);
+            Extent.Y = (int)(Logical.Y / ZoomFactor);
 
             MapHorizontalScroll(Hscroll);
             MapVerticalScroll(Vscroll);
@@ -984,9 +979,7 @@ namespace Nova.WinForms.Gui
             position = DeviceToLogical(click);
 
             SetCursor(position);
-            //MapPanel.SuspendLayout();
             MapPanel.Invalidate();
-            //MapPanel.ResumeLayout();
 
             ArrayList nearObjects = FindNearObjects(position);
             if (nearObjects.Count == 0) return;

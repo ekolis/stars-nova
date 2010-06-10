@@ -63,9 +63,9 @@ namespace Nova.Common
         /// <i>value</i> is a null reference.
         /// </exception>
         //-------------------------------------------------------------------
-        public static void NotNull( object value )
+        public static void NotNull(object value)
         {
-            Verify.NotNull( value, "value" );
+            Verify.NotNull(value, "value");
         }
 
         //-------------------------------------------------------------------
@@ -82,12 +82,12 @@ namespace Nova.Common
         /// <i>value</i> is a null reference.
         /// </exception>
         //-------------------------------------------------------------------
-        public static void NotNull( object value, string valueName )
+        public static void NotNull(object value, string valueName)
         {
-            ValidateName( valueName );
-            if( true == object.ReferenceEquals( value, null ) )
+            ValidateName(valueName);
+            if (true == object.ReferenceEquals(value, null))
             {
-                throw new ArgumentNullException( valueName );
+                throw new ArgumentNullException(valueName);
             }
         }
 
@@ -97,11 +97,11 @@ namespace Nova.Common
         /// </summary>
         /// <param name="name"></param>
         //-------------------------------------------------------------------
-        [Conditional( "DEBUG" )]
-        private static void ValidateName( string name )
+        [Conditional("DEBUG")]
+        private static void ValidateName(string name)
         {
-            Debug.Assert( null != name , "Verify.cs ValidateName() detected a null reference");
-            Debug.Assert( 0 < name.Length , "Verify.cs ValidateName() detected a zero length string");
+            Debug.Assert(null != name, "Verify.cs ValidateName() detected a null reference");
+            Debug.Assert(0 < name.Length, "Verify.cs ValidateName() detected a zero length string");
         }
         #endregion
     }

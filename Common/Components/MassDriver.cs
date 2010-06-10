@@ -125,9 +125,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static MassDriver operator *(MassDriver op1, int scalar)
         {
-            if (scalar >= 1)
-                return new MassDriver(op1.Value + 1);
-            //else
+            if (scalar >= 1) return new MassDriver(op1.Value + 1);
             return new MassDriver(op1.Value);
         }
 

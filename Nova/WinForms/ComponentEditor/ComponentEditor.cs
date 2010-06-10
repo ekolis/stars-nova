@@ -121,7 +121,7 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void OnLoad(object sender, EventArgs e)
-	   {
+       {
            // TODO (priority 3): without this an exception is raised when trying to launch a dialog 
            // from the non UI thread used to load the component definition file. The 
            // exception is caught and the program continues but no component images 
@@ -134,7 +134,7 @@ namespace Nova.WinForms.ComponentEditor
            // Start showing no property tabs, until some property is loaded.
            PropertyTabs.TabPages.Clear();
 
-	   }
+       }
 
        #endregion Setup
 
@@ -463,7 +463,6 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_RaceRestrictions_Click(object sender, EventArgs e)
        {
-           //MessageBox.Show(ComponentName.Text);
            EditModeOn();
            RaceRestrictionDialog dialog = new RaceRestrictionDialog(ComponentName.Text, (Bitmap)ComponentImage.Image, Restrictions);
            DialogResult result = dialog.ShowDialog();
@@ -1719,7 +1718,7 @@ namespace Nova.WinForms.ComponentEditor
            SelectComponent(ComponentType.Text, newComponent.Name);
 
            Report.Information("Component design has been saved.");
-       }//SaveComponent
+       }
 
 
        /// <summary>
@@ -1812,7 +1811,7 @@ namespace Nova.WinForms.ComponentEditor
            FileDirty = true;
            ComponentDirty = false;
            EditModeOff();
-       }// DeleteComponent
+       }
 
 
       /// <summary><para>
@@ -1935,12 +1934,12 @@ namespace Nova.WinForms.ComponentEditor
 
               TechRequirements.Value = value.RequiredTech;
           }
-      }//CommonProperties
+      }
 
       #endregion
 
 
-   }//ComponentEditor
-}//namespace
+   }
+}
 
 

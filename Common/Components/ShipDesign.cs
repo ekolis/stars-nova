@@ -91,7 +91,7 @@ namespace Nova.Common.Components
         /// of the the ship hull modules. However scanning these for a particular piece
         /// of information is inefficient. This method reorganises the information
         /// to save other routines from having to do this.
-        ///</summary>
+        /// </summary>
         /// ----------------------------------------------------------------------------
         public void Update()
         {
@@ -603,6 +603,6 @@ namespace Nova.Common.Components
 
         #endregion
 
-    }//ShipDesign
-}//namespace
+    }
+}
 

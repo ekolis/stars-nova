@@ -783,7 +783,7 @@ namespace Nova.WinForms.Gui
             }
             TreeView.EndUpdate();
 
-        }//ShipDesignDialog
+        }
 
 
         /// ----------------------------------------------------------------------------

@@ -53,14 +53,14 @@ namespace Nova.Server
 
 
         #region Methods
-        ///-------------------------------------------------------------------
+        /// -------------------------------------------------------------------
         /// <summary>
         /// Save the turn data.
         /// </summary>
         /// <remarks>
         /// We have to be very careful that we have a consistent and self-contained data set in the turn file. For example, we write out "AllStars" but TurnData.AllStars is not the same as StateData.AllStars. So make sure any pointers to AllStars refer to the copy in TurnData otherwise we'll get duplicated (but separate) star objects.
         /// </remarks>
-        ///-------------------------------------------------------------------
+        /// -------------------------------------------------------------------
         public static void WriteIntel()
         {
             StateData = ServerState.Data;
