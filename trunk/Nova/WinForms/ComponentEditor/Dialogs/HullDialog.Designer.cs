@@ -11,7 +11,7 @@
 
 namespace Nova.WinForms.ComponentEditor
 {
-   partial class HullDialog
+   public partial class HullDialog
    {
       /// <summary>
       /// Required designer variable.

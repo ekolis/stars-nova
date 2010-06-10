@@ -1,6 +1,6 @@
 ﻿namespace Nova.Common
 {
-    partial class ProgressDialog
+    public partial class ProgressDialog
     {
         /// <summary>
         /// Required designer variable.

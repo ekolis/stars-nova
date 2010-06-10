@@ -55,7 +55,7 @@ namespace Nova.WinForms.RaceDesigner
     [Serializable]
     public class RaceDesignerForm : System.Windows.Forms.Form
     {
-        RaceIcon CurrentRaceIcon = null;
+        private RaceIcon CurrentRaceIcon = null;
 
         //---------------------------------------------------------------------------- 
         //  Non-designer generated variables
@@ -2014,7 +2014,7 @@ namespace Nova.WinForms.RaceDesigner
         /// doing this.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void ReloadRace(Race RaceParameters)
+        private void ReloadRace(Race RaceParameters)
         {
 
             SelectedRace = RaceParameters.Traits.Primary;
@@ -2062,7 +2062,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload seconday traits
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void ReloadSecondaryTraits(Race RaceParameters)
+        private void ReloadSecondaryTraits(Race RaceParameters)
         {
             ImprovedFuelEfficiency.Checked = RaceParameters.Traits.Contains("IFE");
             NoRAMEngines.Checked           = RaceParameters.Traits.Contains("NRS");
@@ -2087,7 +2087,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload build cost parameters
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void ReloadBuildCosts(Race RaceParameters)
+        private void ReloadBuildCosts(Race RaceParameters)
         {
             ColonistProduction.Value = (decimal)RaceParameters.ColonistsPerResource;
             OperableFactories.Value  = (decimal)RaceParameters.OperableFactories;
@@ -2104,7 +2104,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload Environmental Tolerance
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void ReloadEnvironmentalTolerance(Race RaceParameters)
+        private void ReloadEnvironmentalTolerance(Race RaceParameters)
         {
 
             GravityTolerance.EnvironmentValues     = RaceParameters.GravityTolerance;
@@ -2119,7 +2119,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload Research Costs
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void ReloadResearchCosts(Race RaceParameters)
+        private void ReloadResearchCosts(Race RaceParameters)
         {
             EnergyResearch.Cost        = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Energy];
             WeaponsResearch.Cost       = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Weapons];

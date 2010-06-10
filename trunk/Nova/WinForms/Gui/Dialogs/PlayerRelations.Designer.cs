@@ -1,6 +1,6 @@
 namespace Nova.WinForms.Gui
 {
-   partial class PlayerRelations
+   public partial class PlayerRelations
    {
       /// <summary>
       /// Required designer variable.

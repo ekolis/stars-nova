@@ -11,7 +11,7 @@
 
 namespace Nova.WinForms.ComponentEditor
 {
-   partial class BasicProperties
+   public partial class BasicProperties
    {
       /// <summary> 
       /// Required designer variable.

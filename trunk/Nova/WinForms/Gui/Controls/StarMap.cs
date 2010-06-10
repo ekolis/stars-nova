@@ -67,7 +67,7 @@ namespace Nova.WinForms.Gui
         private Hashtable   VisibleFleets  = new Hashtable();
         private Hashtable   VisibleMinefields = new Hashtable();
         private Font        NameFont = null;
-        System.Drawing.BufferedGraphicsContext bufferedContext = null;
+        private System.Drawing.BufferedGraphicsContext bufferedContext = null;
         #endregion
 
         private Point[] triangle = {new Point(0,   0), new Point(-5, -10),

@@ -8,7 +8,7 @@
 
 namespace Nova.Client
 {
-   partial class SelectRaceDialog
+   public partial class SelectRaceDialog
    {
       /// <summary>
       /// Required designer variable.

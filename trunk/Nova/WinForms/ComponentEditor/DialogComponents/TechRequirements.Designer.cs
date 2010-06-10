@@ -11,7 +11,7 @@
 
 namespace Nova.WinForms.ComponentEditor
 {
-   partial class TechRequirements
+   public partial class TechRequirements
    {
       /// <summary> 
       /// Required designer variable.

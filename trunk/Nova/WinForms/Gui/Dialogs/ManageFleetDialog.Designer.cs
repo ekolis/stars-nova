@@ -1,6 +1,6 @@
 namespace Nova.WinForms.Gui
 {
-   partial class ManageFleetDialog
+   public partial class ManageFleetDialog
    {
       /// <summary>
       /// Required designer variable.

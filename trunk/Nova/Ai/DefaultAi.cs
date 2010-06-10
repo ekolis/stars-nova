@@ -42,7 +42,7 @@ using Nova.Client;
 
 namespace Nova.Ai
 {
-    class Program
+    public class Program
     {
         public static void Main(string[] args)
         {

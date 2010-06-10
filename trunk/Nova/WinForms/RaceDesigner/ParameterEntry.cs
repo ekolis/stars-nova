@@ -36,7 +36,7 @@ namespace Nova.WinForms.RaceDesigner
     /// Class to support the format of each array entry (note that element 0
     /// of the Cost array is used to hold previous counter values).
     /// </summary>
-    class ParameterEntry
+    public class ParameterEntry
     {
         public string ParameterName;
         public int[] Cost;

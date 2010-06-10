@@ -1,6 +1,6 @@
 namespace Nova.WinForms.Gui
 {
-   partial class BattleViewer
+   public partial class BattleViewer
    {
       /// <summary>
       /// Required designer variable.

@@ -1,6 +1,6 @@
 ﻿namespace Nova.ControlLibrary
 {
-    partial class PlayerSelector
+    public partial class PlayerSelector
     {
         /// <summary> 
         /// Required designer variable.

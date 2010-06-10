@@ -12,7 +12,7 @@
 
 namespace Nova.WinForms.ComponentEditor
 {
-   partial class CommonProperties
+   public partial class CommonProperties
    {
       /// <summary> 
       /// Required designer variable.

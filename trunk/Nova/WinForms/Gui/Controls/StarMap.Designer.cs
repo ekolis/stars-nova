@@ -1,6 +1,6 @@
 namespace Nova.WinForms.Gui
 {
-    partial class StarMap
+   public partial class StarMap
    {
 
       

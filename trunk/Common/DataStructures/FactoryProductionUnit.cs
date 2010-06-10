@@ -34,7 +34,7 @@ namespace Nova.Common
     /// <summary>
     /// Implementation of ProductionUnit for factory building.
     /// </summary>
-    class FactoryProductionUnit : IProductionUnit
+    public class FactoryProductionUnit : IProductionUnit
     {
         private Star star;
 

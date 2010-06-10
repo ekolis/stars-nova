@@ -1,6 +1,6 @@
 namespace Nova.WinForms.Gui
 {
-   partial class BattlePlans
+   public partial class BattlePlans
    {
       /// <summary>
       /// Required designer variable.

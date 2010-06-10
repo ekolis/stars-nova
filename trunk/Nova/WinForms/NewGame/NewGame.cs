@@ -43,7 +43,7 @@ namespace Nova.WinForms.NewGame
 {
     public static class NewGame
     {
-        static Random random = new Random();
+        private static Random random = new Random();
 
         #region Main
 

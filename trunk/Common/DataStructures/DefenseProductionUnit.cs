@@ -36,7 +36,7 @@ namespace Nova.Common
     /// Class for constructing 1 defense unit.
     /// </summary>
     /// ----------------------------------------------------------------------------
-    class DefenseProductionUnit : IProductionUnit
+    public class DefenseProductionUnit : IProductionUnit
     {
         private Star star;
 

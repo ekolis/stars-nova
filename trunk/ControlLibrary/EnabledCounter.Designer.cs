@@ -1,6 +1,6 @@
 namespace Nova.ControlLibrary
 {
-   partial class EnabledCounter
+   public partial class EnabledCounter
    {
       /// <summary> 
       /// Required designer variable.

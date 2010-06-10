@@ -42,7 +42,7 @@ namespace Nova.ControlLibrary
     public partial class CheckPassword : Form
     {
 
-        Race RaceData = null;
+        private Race RaceData = null;
 
         #region Construction and Dispose
 

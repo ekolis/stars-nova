@@ -41,9 +41,9 @@ namespace Nova.WinForms.NewGame
     /// </summary>
     public partial class NewGameWizard : Form
     {
-        ServerState stateData = ServerState.Data;
+        private ServerState stateData = ServerState.Data;
         public Hashtable KnownRaces = new Hashtable();
-        int NumberOfPlayers = 0;
+        private int NumberOfPlayers = 0;
 
 
         #region Initialisation
