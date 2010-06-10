@@ -133,7 +133,7 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void OnPaint(object sender, PaintEventArgs e)
         {
-            base.OnPaint(e); //added
+            base.OnPaint(e); // added
 
             if (maximumValue == 0) return;
 

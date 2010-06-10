@@ -82,7 +82,7 @@ namespace Nova.Common
             {
                 foreach (String trait in AllTraits.TraitKeys)
                 {
-                    Restrictions[trait] = (int) existing.Restrictions[trait];
+                    Restrictions[trait] = (int)existing.Restrictions[trait];
                 }
             }
             catch
@@ -165,7 +165,7 @@ namespace Nova.Common
                        }
 
                        inwords += " the ";
-                       //<primary/secondary
+                       // <primary/secondary
                        if (keyIndex < AllTraits.NumberOfPrimaryRacialTraits)
                        {
                            inwords += "primary";
@@ -186,7 +186,7 @@ namespace Nova.Common
             }
             catch (Exception e)
             {
-                Report.Error("Failed to display race restrictions."+Environment.NewLine+"Details: RaceRestrictions.ToString(System.Globalization.CultureInfo.InvariantCulture) - Exception: "+e.Message);
+                Report.Error("Failed to display race restrictions." + Environment.NewLine + "Details: RaceRestrictions.ToString(System.Globalization.CultureInfo.InvariantCulture) - Exception: " + e.Message);
             }
             
             return inwords;

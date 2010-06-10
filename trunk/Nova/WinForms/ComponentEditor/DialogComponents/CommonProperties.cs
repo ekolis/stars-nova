@@ -188,6 +188,6 @@ namespace Nova.WinForms.ComponentEditor
         }
         #endregion
 
-    }//CommonProperties
+    }
 
-}//namespace
+}

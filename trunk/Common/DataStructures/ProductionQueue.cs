@@ -43,12 +43,12 @@ namespace Nova.Common
         [Serializable]
         public class Item // FIXME (priority 5) - Seems like a bad name as there is already an Item type in the Nova.Common namespace
         {
-            public string           Name;              // Design name, e.g. "Space Dock"
-            public int              Quantity;          // Number to build
-            public Resources        BuildState;        // Resources need to build item // ??? (priority 6) just the next 1 or the whole lot? - Dan 10 Jan 10
+            public string Name;           // Design name, e.g. "Space Dock"
+            public int Quantity;          // Number to build
+            public Resources BuildState;  // Resources need to build item // ??? (priority 6) just the next 1 or the whole lot? - Dan 10 Jan 10
             // Should be removed in favor of Unit.ResourcesNeeded * Quantity
-            public bool             Autobuild;
-            private IProductionUnit  Unit;
+            public bool Autobuild;
+            private IProductionUnit Unit;
 
             /// ----------------------------------------------------------------------------
             /// <summary>

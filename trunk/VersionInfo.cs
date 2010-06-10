@@ -37,16 +37,15 @@ using System.Security.Permissions;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 #if DEBUG
-[assembly: AssemblyConfiguration( "Debug" )]
+[assembly: AssemblyConfiguration("Debug")]
 #else
-[assembly: AssemblyConfiguration( "Retail" )]
+[assembly: AssemblyConfiguration("Retail")]
 #endif
 
-[assembly: AssemblyProduct( "Stars! Nova" )]
-[assembly: AssemblyCompany( "The Stars-Nova Project" )]
-[assembly: AssemblyCopyright( "Copyright © 2009, 2010 The Stars-Nova Project" )]
-//[assembly: AssemblyTrademark( "TODO" )]
-[assembly: AssemblyCulture( "" )]
+[assembly: AssemblyProduct("Stars! Nova")]
+[assembly: AssemblyCompany("The Stars-Nova Project")]
+[assembly: AssemblyCopyright("Copyright © 2009, 2010 The Stars-Nova Project")]
+[assembly: AssemblyCulture("")]
 
 // Version information for an assembly consists of the following four values:
 //
@@ -57,28 +56,27 @@ using System.Security.Permissions;
 //
 // You can specify all the values or you can default the Revision and Build Numbers 
 // by using the '*' as shown below:
-[assembly: AssemblyVersion( "0.4.*" )]
+[assembly: AssemblyVersion("0.4.*")]
 #if !PocketPC && !Smartphone
-[assembly: AssemblyFileVersion( "0.4.0.0" )]
+[assembly: AssemblyFileVersion("0.4.0.0")]
 #endif
 
 //
 //  Set the assembly to CLS compliant.
 //
-[assembly: CLSCompliantAttribute( false )]
+[assembly: CLSCompliantAttribute(false)]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
 // to COM components.  If you need to access a type in this assembly from 
 // COM, set the ComVisible attribute to true on that type.
-[assembly: ComVisible( false )]
+[assembly: ComVisible(false)]
 
-[assembly: NeutralResourcesLanguageAttribute( "en-US" )]
+[assembly: NeutralResourcesLanguageAttribute("en-US")]
 
 //
 //  Set permission to execute but no other permissions.
 //
 #if (!PocketPC && !Smartphone)
-[assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution = true )]
-//[assembly: PermissionSet(SecurityAction.RequestOptional, Name = "Nothing" )]
+[assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution = true)]
 #endif
 

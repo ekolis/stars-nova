@@ -52,31 +52,30 @@ namespace Nova.Common
     [Serializable]
     public sealed class Race
     {
-        public EnvironmentTolerance GravityTolerance     = new EnvironmentTolerance();
-        public EnvironmentTolerance RadiationTolerance   = new EnvironmentTolerance();
+        public EnvironmentTolerance GravityTolerance = new EnvironmentTolerance();
+        public EnvironmentTolerance RadiationTolerance = new EnvironmentTolerance();
         public EnvironmentTolerance TemperatureTolerance = new EnvironmentTolerance();
 
-        public TechLevel            ResearchCosts        = new TechLevel(0);
+        public TechLevel ResearchCosts = new TechLevel(0);
 
-        // public string            Type; // depreciated - use this.Traits.Primary or this.Traits.SetPrimary()
-        public RacialTraits         Traits               = new RacialTraits(); // Collection of all the race's traits, including the primary.
-        public int                  MineBuildCost;
+        public RacialTraits Traits = new RacialTraits(); // Collection of all the race's traits, including the primary.
+        public int MineBuildCost;
 
-        public string               PluralName;
-        public string               Name;
-        public string               Password;
-        public RaceIcon             Icon                 = new RaceIcon();
+        public string PluralName;
+        public string Name;
+        public string Password;
+        public RaceIcon Icon = new RaceIcon();
 
         // These parameters affect the production rate of each star (used in the
         // Star class Update method).
-        public int                  FactoryBuildCost;
-        public double               ColonistsPerResource;
-        public double               FactoryProduction;
-        public double               OperableFactories;
-        public double               MineProductionRate;
-        public double               OperableMines;
-        public double               MaxPopulation        = 1000000;
-        public double               GrowthRate;
+        public int FactoryBuildCost;
+        public double ColonistsPerResource;
+        public double FactoryProduction;
+        public double OperableFactories;
+        public double MineProductionRate;
+        public double OperableMines;
+        public double MaxPopulation = 1000000;
+        public double GrowthRate;
 
         #region Construction
 

@@ -148,7 +148,6 @@ namespace Nova.WinForms.RaceDesigner
         private ToolStripMenuItem aboutToolStripMenuItem;
         private TextBox Password;
         private Label label12;
-        //      private ImageList RaceIcons;
         private Button PreviousImage;
         private Button NextImage;
         private PictureBox PictureBox;
@@ -1668,7 +1667,7 @@ namespace Nova.WinForms.RaceDesigner
                     break;
                 }
             }
-        }//UpDown_ValueChanged
+        }
 
 
         /// ----------------------------------------------------------------------------
@@ -1797,20 +1796,20 @@ namespace Nova.WinForms.RaceDesigner
             // Secondary Racial Traits
             // ----------------------------------------------------------------------------
             if (ImprovedFuelEfficiency.Checked) RaceParameters.Traits.Add("IFE");
-            if (NoRAMEngines.Checked)           RaceParameters.Traits.Add("NRS");
-            if (TotalTerraforming.Checked)      RaceParameters.Traits.Add("TT");
-            if (CheapEngines.Checked)           RaceParameters.Traits.Add("CE");
-            if (AdvancedRemoteMining.Checked)   RaceParameters.Traits.Add("ARM");
-            if (BasicRemoteMining.Checked)      RaceParameters.Traits.Add("OBRM");
-            if (ImprovedStarbases.Checked)      RaceParameters.Traits.Add("ISB");
-            if (NoAdvancedScanners.Checked)     RaceParameters.Traits.Add("NAS");
-            if (GeneralisedResearch.Checked)    RaceParameters.Traits.Add("GR");
-            if (LowStartingPopulation.Checked)  RaceParameters.Traits.Add("LSP");
-            if (UltimateRecycling.Checked)      RaceParameters.Traits.Add("UR");
+            if (NoRAMEngines.Checked) RaceParameters.Traits.Add("NRS");
+            if (TotalTerraforming.Checked) RaceParameters.Traits.Add("TT");
+            if (CheapEngines.Checked) RaceParameters.Traits.Add("CE");
+            if (AdvancedRemoteMining.Checked) RaceParameters.Traits.Add("ARM");
+            if (BasicRemoteMining.Checked) RaceParameters.Traits.Add("OBRM");
+            if (ImprovedStarbases.Checked) RaceParameters.Traits.Add("ISB");
+            if (NoAdvancedScanners.Checked) RaceParameters.Traits.Add("NAS");
+            if (GeneralisedResearch.Checked) RaceParameters.Traits.Add("GR");
+            if (LowStartingPopulation.Checked) RaceParameters.Traits.Add("LSP");
+            if (UltimateRecycling.Checked) RaceParameters.Traits.Add("UR");
             if (BleedingEdgeTechnology.Checked) RaceParameters.Traits.Add("BET");
-            if (MineralAlchemy.Checked)         RaceParameters.Traits.Add("MA");
-            if (RegeneratingShields.Checked)    RaceParameters.Traits.Add("RS");
-            if (CheapFactories.Checked)         RaceParameters.Traits.Add("CF");
+            if (MineralAlchemy.Checked) RaceParameters.Traits.Add("MA");
+            if (RegeneratingShields.Checked) RaceParameters.Traits.Add("RS");
+            if (CheapFactories.Checked) RaceParameters.Traits.Add("CF");
 
             // ----------------------------------------------------------------------------
             // Production Costs and Rates
@@ -1906,7 +1905,7 @@ namespace Nova.WinForms.RaceDesigner
                 return;
             }
 
-        }//Finish_Click (save&close the race)
+        }
 
 
         /// ----------------------------------------------------------------------------
@@ -2002,7 +2001,7 @@ namespace Nova.WinForms.RaceDesigner
             {
                 Report.Error("Failed to load file: \r\n" + ex.Message);
             }
-        }//LoadRaceFile_Click
+        }
 
         #endregion
 
@@ -2131,6 +2130,6 @@ namespace Nova.WinForms.RaceDesigner
 
         #endregion
 
-    }//RaceDesignerForm
-}//namespace RaceDesigner
+    }
+}
 

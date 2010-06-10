@@ -242,7 +242,7 @@ namespace Nova.Common.Components
                         return;
                     }
 
-                }//while loading nodes
+                }
                 callback.Success = true;
 
             }
@@ -345,7 +345,7 @@ namespace Nova.Common.Components
             }
             return null;
 
-        }// Get New Save File
+        }
 
         
         //-------------------------------------------------------------------
@@ -484,5 +484,5 @@ namespace Nova.Common.Components
         }
 
         #endregion
-    }//AllComponents
-}//namespace
+    }
+}

@@ -103,11 +103,9 @@ namespace Nova.WinForms.Gui
             fleetDetail.Value = item as Fleet;
             DetailPanel.Text = "Fleet " + item.Name;
 
-            //  if (selectedItem is Star || selectedItem == null) {
             selectedControl = fleetDetail;
             DetailPanel.Controls.Clear();
             DetailPanel.Controls.Add(fleetDetail);
-            //}
 
             selectedItem = item;
         }

@@ -44,11 +44,11 @@ namespace Nova.Common.Components
     [Serializable]
     public class HullModule : ICloneable
     {
-        public Component AllocatedComponent = null;
-        public int       CellNumber         = -1;
-        public int       ComponentCount     = 0;
-        public int       ComponentMaximum   = 1;
-        public string    ComponentType      = null;
+        public Component AllocatedComponent;
+        public int CellNumber = -1;
+        public int ComponentCount;
+        public int ComponentMaximum = 1;
+        public string ComponentType;
 
         #region Construction
 

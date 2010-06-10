@@ -22,7 +22,7 @@
 
 #region Module Description
 // ===========================================================================
-//This module deals with fleets bombing a planet. 
+// This module deals with fleets bombing a planet. 
 // ===========================================================================
 #endregion
 

@@ -47,10 +47,10 @@ namespace Nova.WinForms.NewGame
     /// </remarks>
     public class StarsMapGenerator 
     {
-        //the number of failed attempts to stop after
+        // the number of failed attempts to stop after
         private const int FailuresThreshold = 5000;
 
-        //the width and height of the frame where the density values will be updated after placing the star
+        // the width and height of the frame where the density values will be updated after placing the star
         private int UpdateFrameSize;
 
         // map settings
@@ -60,17 +60,17 @@ namespace Nova.WinForms.NewGame
         private int StarDensity;
         private int StarUniformity;
 
-        //values calculated from map parameters, which define the shape of reduce function
+        // values calculated from map parameters, which define the shape of reduce function
         private double BaseDensity;
         private double MaxRadius;
 
-        //non-normalized probability density function
-        //values are between 0 and 1
+        // non-normalized probability density function
+        // values are between 0 and 1
         private double[,] Density;
 
         private Random RNG = new Random();
 
-        //List of stars positions int[2]; int[0] - x, int[1] - y
+        // List of stars positions int[2]; int[0] - x, int[1] - y
         private List<int[]> Stars = new List<int[]>();
 
 
@@ -113,7 +113,7 @@ namespace Nova.WinForms.NewGame
             BaseDensity = ((2.0 * (StarUniformity - 1)) + (0.11 * (100 - StarUniformity))) / 99.0;
             MaxRadius = ((100.0 * (StarUniformity - 1)) + (400 * (100 - StarUniformity))) / 99.0;
 
-            //middle value of uniformity produces low density (~ x0.63), so equalizing this a bit with border values
+            // middle value of uniformity produces low density (~ x0.63), so equalizing this a bit with border values
             double DensityBalancer = ((1 * Math.Abs(50.0 - StarUniformity)) / 50.0) + (0.63 * (1 - (Math.Abs(50.0 - StarUniformity) / 50.0)));
 
             BaseDensity *= DensityBalancer;
@@ -124,7 +124,7 @@ namespace Nova.WinForms.NewGame
             BaseDensity *= DensityApplied;
             MaxRadius *= DensityApplied;
 
-            UpdateFrameSize = (int) Math.Ceiling(MaxRadius);
+            UpdateFrameSize = (int)Math.Ceiling(MaxRadius);
 
             DoGeneration();
             return Stars;
@@ -178,7 +178,7 @@ namespace Nova.WinForms.NewGame
                 int x = 0;
                 int y = 0;
 
-                //count failed attempts to generate star
+                // count failed attempts to generate star
                 int count = 0;
                 while (true)
                 {
@@ -186,13 +186,13 @@ namespace Nova.WinForms.NewGame
                     y = RNG.Next(MapHeight);
                     double height = RNG.NextDouble();
                     if (Density[x, y] >= height)
-                    {   //the star can be placed at this position
+                    {   // the star can be placed at this position
                         break;
                     }
                     count++;
 
-                    //if we have exceeded maximum number of attempts
-                    //then the map is filled with stars and we finish
+                    // if we have exceeded maximum number of attempts
+                    // then the map is filled with stars and we finish
                     if (count > FailuresThreshold)
                     {
                         return;

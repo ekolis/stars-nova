@@ -50,8 +50,8 @@ namespace Nova.WinForms.Gui
         private SolidBrush greenBrush = new SolidBrush(Color.Green);
         private SolidBrush blueBrush = new SolidBrush(Color.Blue);
         private SolidBrush yellowBrush = new SolidBrush(Color.Yellow);
-        private Point[] marker = {new Point( 0, 0), new Point(5, 5), new Point(0, 10),
-                        new Point(-5, 5), new Point(0, 0)};
+        private Point[] marker = { new Point(0, 0), new Point(5, 5), new Point(0, 10),
+                        new Point(-5, 5), new Point(0, 0) };
 
 
         #region Designer Generated Variables

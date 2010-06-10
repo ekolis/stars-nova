@@ -44,7 +44,7 @@ namespace Nova.WinForms.ComponentEditor
     public partial class RaceRestrictionDialog : Form
     {
         public RaceRestriction Restrictions = null; // data representing the restriction
-        private RadioButton[,] RadioMap = new RadioButton[23,3]; // an array representation (map) of the radio button controls for ease of programatic manipulation
+        private RadioButton[,] RadioMap = new RadioButton[23, 3]; // an array representation (map) of the radio button controls for ease of programatic manipulation
 
 
         /// <summary>
@@ -69,18 +69,18 @@ namespace Nova.WinForms.ComponentEditor
 
             // Map the RadioButton controls to an array for easier manipulation.
             // PRTs
-            RadioMap[0,0] = this.notAvailableHE; RadioMap[0,1]   = this.notRequiredHE; RadioMap[0,2]   = this.requiredHE;
-            RadioMap[1,0] = this.notAvailableSS; RadioMap[1,1]   = this.notRequiredSS; RadioMap[1,2]   = this.requiredSS;
-            RadioMap[2,0] = this.notAvailableWM; RadioMap[2,1]   = this.notRequiredWM; RadioMap[2,2]   = this.requiredWM;
-            RadioMap[3,0] = this.notAvailableCA; RadioMap[3,1]   = this.notRequiredCA; RadioMap[3,2]   = this.requiredCA;
-            RadioMap[4,0] = this.notAvailableIS; RadioMap[4,1]   = this.notRequiredIS; RadioMap[4,2]   = this.requiredIS;
-            RadioMap[5,0] = this.notAvailableSD; RadioMap[5,1]   = this.notRequiredSD; RadioMap[5,2]   = this.requiredSD;
-            RadioMap[6,0] = this.notAvailablePP; RadioMap[6,1]   = this.notRequiredPP; RadioMap[6,2]   = this.requiredPP;
-            RadioMap[7,0] = this.notAvailableIT; RadioMap[7,1]   = this.notRequiredIT; RadioMap[7,2]   = this.requiredIT;
-            RadioMap[8,0] = this.notAvailableAR; RadioMap[8,1]   = this.notRequiredAR; RadioMap[8,2]   = this.requiredAR;
-            RadioMap[9,0] = this.notAvailableJOAT; RadioMap[9,1] = this.notRequiredJOAT; RadioMap[9,2] = this.requiredJOAT;
+            RadioMap[0, 0] = this.notAvailableHE; RadioMap[0, 1]   = this.notRequiredHE; RadioMap[0, 2]   = this.requiredHE;
+            RadioMap[1, 0] = this.notAvailableSS; RadioMap[1, 1]   = this.notRequiredSS; RadioMap[1, 2]   = this.requiredSS;
+            RadioMap[2, 0] = this.notAvailableWM; RadioMap[2, 1]   = this.notRequiredWM; RadioMap[2, 2]   = this.requiredWM;
+            RadioMap[3, 0] = this.notAvailableCA; RadioMap[3, 1]   = this.notRequiredCA; RadioMap[3, 2]   = this.requiredCA;
+            RadioMap[4, 0] = this.notAvailableIS; RadioMap[4, 1]   = this.notRequiredIS; RadioMap[4, 2]   = this.requiredIS;
+            RadioMap[5, 0] = this.notAvailableSD; RadioMap[5, 1]   = this.notRequiredSD; RadioMap[5, 2]   = this.requiredSD;
+            RadioMap[6, 0] = this.notAvailablePP; RadioMap[6, 1]   = this.notRequiredPP; RadioMap[6, 2]   = this.requiredPP;
+            RadioMap[7, 0] = this.notAvailableIT; RadioMap[7, 1]   = this.notRequiredIT; RadioMap[7, 2]   = this.requiredIT;
+            RadioMap[8, 0] = this.notAvailableAR; RadioMap[8, 1]   = this.notRequiredAR; RadioMap[8, 2]   = this.requiredAR;
+            RadioMap[9, 0] = this.notAvailableJOAT; RadioMap[9, 1] = this.notRequiredJOAT; RadioMap[9, 2] = this.requiredJOAT;
 
-            //LRTs
+            // LRTs
             RadioMap[10, 0] = this.notAvailableIFE; RadioMap[10, 1]  = this.notRequiredIFE; RadioMap[10, 2]  = this.requiredIFE;
             RadioMap[11, 0] = this.notAvailableTT; RadioMap[11, 1]   = this.notRequiredTT; RadioMap[11, 2]   = this.requiredTT;
             RadioMap[12, 0] = this.notAvailableARM; RadioMap[12, 1]  = this.notRequiredARM; RadioMap[12, 2]  = this.requiredARM;
@@ -151,6 +151,6 @@ namespace Nova.WinForms.ComponentEditor
             Close();
         }
 
-    }//RaceRestrictionDialog
+    }
 
-}//namespace
+}

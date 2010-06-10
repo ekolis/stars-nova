@@ -42,11 +42,11 @@ namespace Nova.WinForms.Console
     /// </summary>
     public static class BattleEngine
     {
-        private static ServerState  StateData     = ServerState.Data;
-        private static double       MaxBattleTime = 16;
-        private static BattleReport Battle        = new BattleReport();
-        private static int          StackID       = 0;
-        private static Random       RandomNumber  = new Random();
+        private static ServerState StateData = ServerState.Data;
+        private static double MaxBattleTime = 16;
+        private static BattleReport Battle = new BattleReport();
+        private static int StackID;
+        private static Random RandomNumber = new Random();
 
         /// Residual fractional movement points left over between phases/turns of combat.
         private static IDictionary<Fleet, double> residualMovement = new Dictionary<Fleet, double>();
@@ -230,7 +230,8 @@ namespace Nova.WinForms.Console
 
                 if (stack == null)
                 {
-                    string name = "Stack #" + StackID++.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    string name = "Stack #" + StackID.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    StackID++;
                     stack = new Fleet(name, fleet.Owner, fleet.Position);
 
                     stack.BattlePlan = fleet.BattlePlan;

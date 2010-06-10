@@ -34,7 +34,7 @@ namespace Nova.Common.Converters
         protected override InstanceDescriptor ConvertToInstanceDescriptor(TechLevel value)
         {
             ConstructorInfo constructor = typeof(TechLevel).GetConstructor(new Type[] { typeof(int), typeof(int), typeof(int), typeof(int), typeof(int), typeof(int) });
-            return new InstanceDescriptor(constructor, new object[]  {
+            return new InstanceDescriptor(constructor, new object[] {
                 value[TechLevel.ResearchField.Biotechnology],
                 value[TechLevel.ResearchField.Electronics],
                 value[TechLevel.ResearchField.Energy],

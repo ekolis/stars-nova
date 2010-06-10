@@ -230,9 +230,9 @@ namespace Nova.Client
             //    We will continue an existing game, if any. 
             if (argArray.Length == 0)
             {
-                //     - get GameFolder from the registry - already done.
+                // - get GameFolder from the registry - already done.
 
-                //     - look for races and ask the user to pick one. 
+                // - look for races and ask the user to pick one. 
                 ClientState.Data.RaceName = SelectRace(ClientState.Data.GameFolder);
                 if (ClientState.Data.RaceName != null && ClientState.Data.RaceName != "")
                 {
@@ -271,7 +271,7 @@ namespace Nova.Client
             {
                 if (File.Exists(IntelFileName))
                 {
-                    //    Evenything we need should be found in there. 
+                    // Evenything we need should be found in there. 
                     IntelReader.ReadIntel(IntelFileName);
                     isLoaded = true;
                 }
@@ -383,7 +383,7 @@ namespace Nova.Client
         /// ----------------------------------------------------------------------------
         private static void ProcessRaceDefinition()
         {
-            string raceFileName = Path.Combine(FileSearcher.GetFolder( Global.RaceFolderKey, Global.RaceFolderName),
+            string raceFileName = Path.Combine(FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName),
                                                ClientState.Data.RaceName + Global.RaceExtension);
             if (File.Exists(raceFileName))
             {
@@ -803,7 +803,7 @@ namespace Nova.Client
 
                 foreach (FileInfo file in raceFiles)
                 {
-                    string pathName = file.FullName; ;
+                    string pathName = file.FullName;
                     raceName = Path.GetFileNameWithoutExtension(pathName);
                     raceDialog.RaceList.Items.Add(raceName);
                 }

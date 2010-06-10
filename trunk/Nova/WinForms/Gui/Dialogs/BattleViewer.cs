@@ -99,7 +99,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnPaint(object sender, PaintEventArgs e)
         {
-            base.OnPaint(e); //added
+            base.OnPaint(e); // added
 
             Graphics graphics = e.Graphics;
             Size panelSize = BattlePanel.Size;

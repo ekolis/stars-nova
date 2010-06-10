@@ -299,13 +299,13 @@ namespace Nova.WinForms.Launcher
             // Change the color of the link text by setting LinkVisited 
             // to true.
             webLink.LinkVisited = true;
-            //Call the Process.Start method to open the default browser 
-            //with a URL:
+            // Call the Process.Start method to open the default browser 
+            // with a URL:
             System.Diagnostics.Process.Start(Global.NovaWebSite);
         }
 
         #endregion
 
-    }//NovaLauncher
+    }
 
-}//namespace
+}

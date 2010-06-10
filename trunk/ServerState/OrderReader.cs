@@ -214,5 +214,5 @@ namespace Nova.Server
 
         #endregion
 
-    }//OrderReader
-}//namespace
+    }
+}

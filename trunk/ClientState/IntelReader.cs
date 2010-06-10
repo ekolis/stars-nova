@@ -47,8 +47,8 @@ namespace Nova.Client
 
    public static class IntelReader
    {
-      private static Intel TurnData  = null;
-      private static ClientState   StateData = null;
+      private static Intel TurnData = null;
+      private static ClientState StateData = null;
 
       /// ----------------------------------------------------------------------------
       /// <summary>
@@ -234,10 +234,10 @@ namespace Nova.Client
                       fleet.InOrbit = star;
                   }
 
-                  //--------------------------------------------------------------------------------
+                  // --------------------------------------------------------------------------------
                   // FIXME (priority 5) - discovery of planetary information should be done by the server. It should not be possible for a hacked client to get this information.
 
-                  if ((fleet.InOrbit != null) && ( ! fleet.IsStarbase))
+                  if ((fleet.InOrbit != null) && (!fleet.IsStarbase))
                   {
 
                       // add to orbiting fleets list
@@ -257,13 +257,13 @@ namespace Nova.Client
                               StateData.StarReports[star.Name] = new StarReport(star);
                           }
                       }
-                  }// if it can scan planets
-                  //END OF FIX ME --------------------------------------------------------------------------------
+                  }
+                  // END OF FIX ME --------------------------------------------------------------------------------
 
 
-              }// if belongs to this race
-          }// foreach fleet in intel
-      }//ProcessFleets
+              }
+          }
+      }
 
 
       /// ----------------------------------------------------------------------------

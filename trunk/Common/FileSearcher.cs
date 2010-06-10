@@ -296,7 +296,7 @@ namespace Nova.Common
 
             return Path;
 
-        }//GetRegistryValue
+        }
 
 
         /// <summary>

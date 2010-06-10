@@ -150,7 +150,7 @@ namespace Nova.Common
             }
             return null;
 
-        }// Get New Save File
+        }
 
 
         // =============================================================================
@@ -217,10 +217,10 @@ namespace Nova.Common
             }
 
             return xmlelComponent;
-        } // ComponentToXml
+        }
         #endregion
 
         // Add the other 23 ToXml functions here...
 
-    }// class XmlConversion
-}// namespace NovaCommon
+    }
+}
