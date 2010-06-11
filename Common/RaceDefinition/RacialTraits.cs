@@ -85,7 +85,7 @@ namespace Nova.Common
         /// <param name="trait"></param>
         /// <returns>True if trait is the race's PrimaryTrait or a lesser trait.</returns>
         /// ----------------------------------------------------------------------------
-        public new bool Contains(String trait)
+        public new bool Contains(string trait)
         {
             if (PrimaryTrait.Code == trait) return true;
             if (Dictionary == null)
@@ -137,7 +137,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="primaryTrait">The new primary trait.</param>
         /// ----------------------------------------------------------------------------
-        public void SetPrimary(String primaryTrait)
+        public void SetPrimary(string primaryTrait)
         {
             foreach (DictionaryEntry de in AllTraits.Data.Primary)
             {

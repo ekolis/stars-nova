@@ -38,7 +38,7 @@ namespace Nova.ControlLibrary
 {
     public class ResearchCost : System.Windows.Forms.UserControl
     {
-        public delegate void SelectionChangedHandler(Object sender, int value);
+        public delegate void SelectionChangedHandler(object sender, int value);
         public event SelectionChangedHandler SelectionChanged;
 
         private int ResearchFactor = 100;

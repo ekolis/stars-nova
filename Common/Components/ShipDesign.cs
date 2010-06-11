@@ -117,7 +117,7 @@ namespace Nova.Common.Components
 
 
             // Check any non Hull properties of the ShipHull
-            foreach (String key in ShipHull.Properties.Keys)
+            foreach (string key in ShipHull.Properties.Keys)
             {
                 if (key == "Hull") continue;
                 SumProperty(ShipHull.Properties[key], key, 1);
@@ -131,7 +131,7 @@ namespace Nova.Common.Components
                 Summary.Mass += module.AllocatedComponent.Mass;
                 Summary.Cost += module.AllocatedComponent.Cost;
                 // Summarise the properties
-                foreach (String key in module.AllocatedComponent.Properties.Keys)
+                foreach (string key in module.AllocatedComponent.Properties.Keys)
                 {
                     SumProperty(module.AllocatedComponent.Properties[key], key, module.ComponentCount);
                 }
@@ -150,7 +150,7 @@ namespace Nova.Common.Components
         /// the key used to obtain it from a Properties dictionary.
         /// </param>
         /// ----------------------------------------------------------------------------
-        private void SumProperty(ComponentProperty property, String type, int componentCount)
+        private void SumProperty(ComponentProperty property, string type, int componentCount)
         {
             switch (type)
             {

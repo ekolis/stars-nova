@@ -845,7 +845,7 @@ namespace Nova.WinForms.Gui
             public double Distance;
             public Item Target;
 
-            public int CompareTo(Object rightHandSide)
+            public int CompareTo(object rightHandSide)
             {
                 SortableItem rhs = (SortableItem)rightHandSide;
                 return this.Distance.CompareTo(rhs.Distance);

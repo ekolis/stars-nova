@@ -82,7 +82,7 @@ namespace Nova.Server
         // ============================================================================
 
         private static ServerState instance = null;
-        private static Object padlock = new Object();
+        private static object padlock = new object();
 
         /// ----------------------------------------------------------------------------
         /// <summary>

@@ -44,7 +44,7 @@ namespace Nova.Common
         #region Singleton
 
         private static AllTraits Instance = null;
-        private static Object Padlock = new Object();
+        private static object Padlock = new object();
 
         /// <summary>
         /// Private constructor to prevent anyone else creating instances of this class.

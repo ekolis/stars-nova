@@ -45,8 +45,8 @@ namespace Nova.Common
     [Serializable]
     public class RaceIcon : ICloneable
     {
-        public String Source = String.Empty;
-        public Bitmap Image = null;
+        public string Source = string.Empty;
+        public Bitmap Image;
 
         #region Construction
 
@@ -65,7 +65,7 @@ namespace Nova.Common
         /// <param name="source">The path and file name to the icon.</param>
         /// <param name="image">The loaded image.</param>
         /// ----------------------------------------------------------------------------
-        public RaceIcon(String source, Bitmap image)
+        public RaceIcon(string source, Bitmap image)
         {
             Source = source;
             Image = image;

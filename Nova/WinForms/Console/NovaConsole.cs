@@ -668,7 +668,7 @@ namespace Nova.WinForms.Console
             if (PlayerList.SelectedItems.Count == 0) return;
 
             // Find what was clicked
-            String raceName = PlayerList.SelectedItems[0].SubItems[1].Text;
+            string raceName = PlayerList.SelectedItems[0].SubItems[1].Text;
 
             try
             {
@@ -794,7 +794,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="message">The message to be displayed.</param>
         /// ----------------------------------------------------------------------------
-        private void AddStatusMessage(String message)
+        private void AddStatusMessage(string message)
         {
             StatusBox.Text += Environment.NewLine + message;
             StatusBox.SelectionStart = StatusBox.Text.Length;

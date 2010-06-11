@@ -82,7 +82,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="starName">The name of the star.</param>
         /// ----------------------------------------------------------------------------
-        public void Remove(String starName)
+        public void Remove(string starName)
         {
             if (Dictionary.Contains(starName))
                 Dictionary.Remove(starName);
@@ -111,7 +111,7 @@ namespace Nova.Common
         /// <param name="starName">The name of a star.</param>
         /// <returns>true if starName is the name of one of the stars in the StarList</returns>
         /// ----------------------------------------------------------------------------
-        public bool Contains(String starName)
+        public bool Contains(string starName)
         {
             return Dictionary.Contains(starName);
         }
@@ -123,7 +123,7 @@ namespace Nova.Common
         /// <param name="index">The name of the star.</param>
         /// <returns></returns>
         /// ----------------------------------------------------------------------------
-        public Star this[String index]
+        public Star this[string index]
         {
             get
             {

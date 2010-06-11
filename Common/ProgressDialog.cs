@@ -22,12 +22,12 @@ namespace Nova.Common
 {
     public partial class ProgressDialog : Form, IProgressCallback
     {
-        public delegate void SetTextInvoker(String text);
+        public delegate void SetTextInvoker(string text);
         public delegate void IncrementInvoker(int val);
         public delegate void StepToInvoker(int val);
         public delegate void RangeInvoker(int minimum, int maximum);
 
-        private String titleRoot = "";
+        private string titleRoot = "";
         private System.Threading.ManualResetEvent initEvent = new System.Threading.ManualResetEvent(false);
         private System.Threading.ManualResetEvent abortEvent = new System.Threading.ManualResetEvent(false);
         private bool requiresClose = true;
@@ -81,7 +81,7 @@ namespace Nova.Common
         /// Call this method from the worker thread to update the progress text.
         /// </summary>
         /// <param name="text">The progress text to display</param>
-        public void SetText(String text)
+        public void SetText(string text)
         {
             Invoke(new SetTextInvoker(DoSetText), new object[] { text });
         }
@@ -141,7 +141,7 @@ namespace Nova.Common
         #endregion
 
         #region Implementation members invoked on the owner thread
-        private void DoSetText(String text)
+        private void DoSetText(string text)
         {
             label.Text = text;
         }

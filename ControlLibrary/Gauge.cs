@@ -272,7 +272,7 @@ namespace Nova.ControlLibrary
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Units to display."), Category("Nova")]
-        public String Units
+        public string Units
         {
             get { return barUnits; }
             set { barUnits = value; }

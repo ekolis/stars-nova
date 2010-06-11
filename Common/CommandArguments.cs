@@ -185,11 +185,11 @@ namespace Nova.Common
         /// </summary>
         /// <param name="option">The option, as defined in CommandArguments.Option</param>
         /// <returns></returns>
-        public String this[String option]
+        public string this[string option]
         {
             get
             {
-                return Dictionary[option] as String;
+                return Dictionary[option] as string;
             }
         }
 
@@ -198,7 +198,7 @@ namespace Nova.Common
         /// The arguments are returned in the same order that they were added.
         /// </summary>
         /// <returns>a single string representing the option&argument pairs</returns>
-        public override String ToString()
+        public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             int argumentCount = argumentList.Count;

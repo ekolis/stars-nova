@@ -88,7 +88,7 @@ namespace Nova.WinForms.Console
                 if (fleet.FleetShips.Count == 0)
                     destroyedFleets.Add(fleet.Key);
             }
-            foreach (String key in destroyedFleets)
+            foreach (string key in destroyedFleets)
             {
                 ServerState.Data.AllFleets.Remove(key);
             }
@@ -102,7 +102,7 @@ namespace Nova.WinForms.Console
                 if (fleet.FleetShips.Count == 0)
                     destroyedFleets.Add(fleet.Key);
             }
-            foreach (String key in destroyedFleets)
+            foreach (string key in destroyedFleets)
             {
                 ServerState.Data.AllFleets.Remove(key);
             }
@@ -114,7 +114,7 @@ namespace Nova.WinForms.Console
                 if (star.Starbase != null && star.Starbase.FleetShips.Count == 0)
                     destroyedStations.Add(star.Name);
             }
-            foreach (String key in destroyedStations)
+            foreach (string key in destroyedStations)
             {
                 ((Star)ServerState.Data.AllStars[key]).Starbase = null;
 
@@ -142,12 +142,12 @@ namespace Nova.WinForms.Console
         {
             // TODO (priority 3) - Add a setting to control the number of backups.
             int currentTurn = ServerState.Data.TurnYear;
-            String gameFolder = ServerState.Data.GameFolder;
+            string gameFolder = ServerState.Data.GameFolder;
 
 
             try
             {
-                String backupFolder = Path.Combine(gameFolder, currentTurn.ToString());
+                string backupFolder = Path.Combine(gameFolder, currentTurn.ToString());
                 DirectoryInfo source = new DirectoryInfo(gameFolder);
                 DirectoryInfo target = new DirectoryInfo(backupFolder);
 
@@ -182,7 +182,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private static void ProcessStar(Star star)
         {
-            String owner = star.Owner;
+            string owner = star.Owner;
             if (owner == null) return; // nothing to do for an empty star system.
             Race race = StateData.AllRaces[star.Owner] as Race;
             int initialPopulation = star.Colonists;

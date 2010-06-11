@@ -88,8 +88,8 @@ namespace Nova.Client
         // Data private to this module.
         // ============================================================================
 
-        private static ClientState Instance = null;
-        private static string StatePathName = null; // path&filename
+        private static ClientState Instance;
+        private static string StatePathName; // path&filename
         private static AllComponents ComponentData = AllComponents.Data;
 
 
@@ -116,7 +116,7 @@ namespace Nova.Client
         {
             get
             {
-                Object padlock = new Object();
+                object padlock = new object();
 
                 lock (padlock)
                 {
@@ -170,8 +170,8 @@ namespace Nova.Client
 
 
             StatePathName = null;
-            ClientState.Data.RaceName = null;
-            String IntelFileName = null;
+            Data.RaceName = null;
+            string IntelFileName = null;
             int TurnToPlay = -1;
 
             // process the arguments
@@ -179,7 +179,7 @@ namespace Nova.Client
 
             if (commandArguments.Contains(CommandArguments.Option.RaceName))
             {
-                ClientState.Data.RaceName = commandArguments[CommandArguments.Option.RaceName];
+                Data.RaceName = commandArguments[CommandArguments.Option.RaceName];
             }
             if (commandArguments.Contains(CommandArguments.Option.Turn))
             {
@@ -189,7 +189,7 @@ namespace Nova.Client
                 }
                 catch
                 {
-                    String message = "ClientState.cs: Initialize() - Invalid turn number \"" + commandArguments[CommandArguments.Option.Turn] + "\".";
+                    string message = "ClientState.cs: Initialize() - Invalid turn number \"" + commandArguments[CommandArguments.Option.Turn] + "\".";
                     Report.FatalError(message);
 
                 }
@@ -295,7 +295,7 @@ namespace Nova.Client
                 if (File.Exists(StatePathName))
                 {
                     ClientState.Restore();
-                    String newIntelFileName = Path.GetDirectoryName(StatePathName) +
+                    string newIntelFileName = Path.GetDirectoryName(StatePathName) +
                         ClientState.Data.RaceName + Global.IntelExtension;
                     IntelReader.ReadIntel(IntelFileName);
                     isLoaded = true;
@@ -643,7 +643,7 @@ namespace Nova.Client
             // (multiplayer game with all players playing from a single game directory).
             // ----------------------------------------------------------------------------
 
-            String raceName = SelectRace(gameFolder);
+            string raceName = SelectRace(gameFolder);
             Restore(gameFolder, raceName);
 
 
@@ -783,7 +783,7 @@ namespace Nova.Client
         /// </remarks>
         /// <returns>The name of the race to play.</returns>
         /// ----------------------------------------------------------------------------
-        private static string SelectRace(String gameFolder)
+        private static string SelectRace(string gameFolder)
         {
             string raceName = null;
 

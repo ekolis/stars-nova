@@ -45,14 +45,14 @@ namespace Nova.WinForms.Gui
     /// </summary>
     public class ShipDesignDialog : System.Windows.Forms.Form
     {
-        private ClientState StateData = null;
-        private Hashtable AllComponents = null;
-        private Hashtable AllDesigns = null;
+        private ClientState StateData;
+        private Hashtable AllComponents;
+        private Hashtable AllDesigns;
         private Hashtable ImageIndices = new Hashtable();
-        private Nova.Common.Components.Component SelectedHull = null;
+        private Component SelectedHull;
 
         private ImageList ComponentImages = new ImageList();
-        private int DesignMass = 0;
+        private int DesignMass;
         private int ShipCargoCapacity = 0;
 
         #region Designer Generated Code
@@ -769,7 +769,7 @@ namespace Nova.WinForms.Gui
             TreeView.BeginUpdate();
             TreeView.Nodes.Clear();
             TreeView.Nodes.Add("Available Technology");
-            foreach (String techGroup in techList)
+            foreach (string techGroup in techList)
             {
                 if (!TreeView.Nodes[0].Nodes.ContainsKey(techGroup))
                 {

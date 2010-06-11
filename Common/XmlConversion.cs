@@ -45,7 +45,7 @@ namespace Nova.Common
     public static class XmlConversion
     {
         #region Fields
-        private static String saveFilePath;
+        private static string saveFilePath;
         #endregion
 
         #region Methods
@@ -204,7 +204,7 @@ namespace Nova.Common
             xmlelComponent.AppendChild(xmlelImage);
 
             // Properties
-            foreach (String key in component.Properties.Keys)
+            foreach (string key in component.Properties.Keys)
             {
                 XmlElement xmlelPropertyType = xmldoc.CreateElement("Type");
                 XmlText xmltxtPropertyType = xmldoc.CreateTextNode(key);

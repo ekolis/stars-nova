@@ -40,7 +40,7 @@ namespace Nova.WinForms.ComponentEditor
 {
     public partial class ImageDisplay : UserControl
     {
-        public String ImageFile = null;
+        public string ImageFile = null;
         public ImageDisplay()
         {
             InitializeComponent();

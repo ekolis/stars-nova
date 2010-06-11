@@ -38,9 +38,9 @@ namespace Nova.Common
     [Serializable]
     public class Message
     {
-        public string Text     = null; // The text to display in the message box.
-        public string Audience = null; // A string representing the destination of the message. Either a race name or and asterix. 
-        public Object Event    = null; // An object used with the Goto button to display more information to the player. See Messages.GotoButton_Click
+        public string Text;      // The text to display in the message box.
+        public string Audience;  // A string representing the destination of the message. Either a race name or and asterix. 
+        public object Event;     // An object used with the Goto button to display more information to the player. See Messages.GotoButton_Click
         // Ensure when adding new message types to add code to the Xml functions to handle your object type.
 
         #region Construction
@@ -60,7 +60,7 @@ namespace Nova.Common
         /// <param name="messageEvent">An object used with the Goto button to display more information to the player. See Messages.GotoButton_Click</param>
         /// <param name="text">The text to display in the message box.</param>
         /// ----------------------------------------------------------------------------
-        public Message(string audience, Object messageEvent, string text)
+        public Message(string audience, object messageEvent, string text)
         {
             Audience = audience;
             Event    = messageEvent;

@@ -71,7 +71,7 @@ namespace Nova.Client
       /// </summary>
       /// <param name="turnFileName">Path and file name of the RaceName.intel file.</param>
       /// ----------------------------------------------------------------------------
-      public static void ReadIntel(String turnFileName)
+      public static void ReadIntel(string turnFileName)
       {
           if (!File.Exists(turnFileName))
           {

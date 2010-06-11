@@ -117,7 +117,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private static bool BuildDesign(ProductionQueue.Item item, Star star)
         {
-            String designName = star.Owner + "/" + item.Name;
+            string designName = star.Owner + "/" + item.Name;
             Design design = stateData.AllDesigns[designName] as Design;
             Nova.Common.Resources needed = item.BuildState;
             Race race = stateData.AllRaces[star.Owner] as Race;

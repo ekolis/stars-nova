@@ -202,7 +202,7 @@ namespace Nova.WinForms.Gui
 
             if (e.Value != null)
             {
-                e.Graphics.DrawString((String)e.Value, e.CellStyle.Font,
+                e.Graphics.DrawString((string)e.Value, e.CellStyle.Font,
                 Brushes.Crimson, e.CellBounds.X + 2,
                 e.CellBounds.Y + 2, StringFormat.GenericDefault);
             }

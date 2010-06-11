@@ -59,16 +59,16 @@ namespace Nova.Common.Components
         // Data private to this module.
         // ============================================================================
 
-        private static String saveFilePath;
-        private static String graphicsFilePath;
+        private static string saveFilePath;
+        private static string graphicsFilePath;
         private static bool DisableComponentGraphics = false; // if we can't find them
 
         #endregion
 
         #region Singleton Setup
 
-        private static AllComponents Instance = null;
-        private static Object Padlock = new Object();
+        private static AllComponents Instance;
+        private static object Padlock = new object();
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -121,7 +121,7 @@ namespace Nova.Common.Components
         /// <param name="ComponentName">The Name of the Component to look for.</param>
         /// <returns>True if the component is included.</returns>
         /// ----------------------------------------------------------------------------
-        public bool Contains(String ComponentName)
+        public bool Contains(string ComponentName)
         {
             return Data.Components.ContainsKey(ComponentName);
         }

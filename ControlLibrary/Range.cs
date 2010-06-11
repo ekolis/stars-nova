@@ -87,7 +87,7 @@ namespace Nova.ControlLibrary
 
         // Event and delegate definition for when the range is changed.
         // This event tells RaceDesigner to modify the race's advantage points
-        public delegate void RangeChangedHandler(Object sender,
+        public delegate void RangeChangedHandler(object sender,
                                                  int newLeftValue,
                                                  int newRightValue,
                                                  int oldLeftValue,

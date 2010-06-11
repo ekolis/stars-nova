@@ -57,7 +57,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="rightHandSide"></param>
         /// ----------------------------------------------------------------------------
-        public int CompareTo(Object rightHandSide)
+        public int CompareTo(object rightHandSide)
         {
             ScoreRecord rhs = (ScoreRecord)rightHandSide;
             return rhs.Score.CompareTo(this.Score);

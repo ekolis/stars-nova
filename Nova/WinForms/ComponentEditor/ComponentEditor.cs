@@ -126,7 +126,7 @@ namespace Nova.WinForms.ComponentEditor
            // from the non UI thread used to load the component definition file. The 
            // exception is caught and the program continues but no component images 
            // will be displayed. - dan_vale 28 Dec 09
-           String temp = AllComponents.Graphics; // force program to ask for the graphics path if not already defined.
+           string temp = AllComponents.Graphics; // force program to ask for the graphics path if not already defined.
 
            // Tidy up the tab control:
            // In case I forget to shrink it to fit when adding controls.
@@ -1751,7 +1751,7 @@ namespace Nova.WinForms.ComponentEditor
        /// Update the list box of components base on the selected <see cref="Type"/>
        /// </summary>
        /// <param name="ComponentTypeSelected">Type of component.</param>
-       public void UpdateListBox(String ComponentTypeSelected)
+       public void UpdateListBox(string ComponentTypeSelected)
        {
            ComponentList.Items.Clear();
 
@@ -1770,7 +1770,7 @@ namespace Nova.WinForms.ComponentEditor
        /// </summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       public void SelectComponent(String type, String name)
+       public void SelectComponent(string type, string name)
        {
            UpdateListBox(type);
            EditModeOff();
