@@ -179,7 +179,6 @@ namespace Nova.Common
             }
 
             // Try searching the nova tree (brute force) - TODO (priority 4)
-            // 
 
             if (!File.Exists(AbsoluteReference))
             {
