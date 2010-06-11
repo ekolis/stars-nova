@@ -319,7 +319,8 @@ namespace Nova.WinForms.Console
             }
             else
             {
-                if (fleet.Waypoints.Count == 0) // TODO (priority 4) - check if a stopped fleet has 1 or 0 waypoints
+                // TODO (priority 4) - check if a stopped fleet has 1 or 0 waypoints
+                if (fleet.Waypoints.Count == 0)
                 {
                     // stopped in space
                     repairRate = 2;

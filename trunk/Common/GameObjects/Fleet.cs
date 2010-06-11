@@ -628,20 +628,51 @@ namespace Nova.Common
                 {
                     switch (subnode.Name.ToLower())
                     {
-                        case "fleetid": FleetID = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "targetid": Target = new Fleet(int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture)); break;
-                        case "cargo": Cargo = new Cargo(subnode); break;
-                        case "inorbit": InOrbit = new Star(); InOrbit.Name = ((XmlText)subnode.FirstChild).Value; break;
-                        case "battlespeed": BattleSpeed = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "bearing": Bearing = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "cloaked": Cloaked = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "fuelavailable": FuelAvailable = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "fuelcapacity": FuelCapacity = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "targetdistance": TargetDistance = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "cargocapacity": CargoCapacity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "battleplan": BattlePlan = ((XmlText)subnode.FirstChild).Value; break;
-                        case "ship": Ship ship = new Ship(subnode); FleetShips.Add(ship); break;
-                        case "waypoint": Waypoint waypoint = new Waypoint(subnode); Waypoints.Add(waypoint); break;
+                        case "fleetid":
+                            FleetID = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "targetid":
+                            Target = new Fleet(int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture));
+                            break;
+                        case "cargo":
+                            Cargo = new Cargo(subnode);
+                            break;
+                        case "inorbit":
+                            InOrbit = new Star();
+                            InOrbit.Name = subnode.FirstChild.Value;
+                            break;
+                        case "battlespeed":
+                            BattleSpeed = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "bearing":
+                            Bearing = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "cloaked":
+                            Cloaked = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "fuelavailable":
+                            FuelAvailable = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "fuelcapacity":
+                            FuelCapacity = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "targetdistance":
+                            TargetDistance = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "cargocapacity":
+                            CargoCapacity = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "battleplan":
+                            BattlePlan = subnode.FirstChild.Value;
+                            break;
+                        case "ship":
+                            Ship ship = new Ship(subnode);
+                            FleetShips.Add(ship);
+                            break;
+                        case "waypoint":
+                            Waypoint waypoint = new Waypoint(subnode); 
+                            Waypoints.Add(waypoint);
+                            break;
 
                         default: break;
                     }

@@ -168,30 +168,35 @@ namespace Nova.Common.Components
                     switch (subnode.Name.ToLower())
                     {
                         case "power":
-                            Power = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Power = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "range":
-                            Range = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Range = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "initiative":
-                            Initiative = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Initiative = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "accuracy":
-                            Accuracy = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Accuracy = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "group":
-                            switch (((XmlText)subnode.FirstChild).Value.ToLower())
+                            switch (subnode.FirstChild.Value.ToLower())
                             {
                                 case "standardweapon":
-                                    Group = WeaponType.standardBeam; break;
+                                    Group = WeaponType.standardBeam;
+                                    break;
                                 case "shieldsapper":
-                                    Group = WeaponType.shieldSapper; break;
+                                    Group = WeaponType.shieldSapper;
+                                    break;
                                 case "gatlinggun":
-                                    Group = WeaponType.gatlingGun; break;
+                                    Group = WeaponType.gatlingGun;
+                                    break;
                                 case "torpedo":
-                                    Group = WeaponType.torpedo; break;
+                                    Group = WeaponType.torpedo;
+                                    break;
                                 case "missile":
-                                    Group = WeaponType.missile; break;
+                                    Group = WeaponType.missile;
+                                    break;
                             }
                             break;
                     }

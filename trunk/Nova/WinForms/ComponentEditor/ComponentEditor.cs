@@ -828,7 +828,8 @@ namespace Nova.WinForms.ComponentEditor
            {
                PropertyTabs.TabPages.Clear();                          // Start by clearing the current tabs.
 
-               if (selectedComponent.Properties.ContainsKey("Armor"))  // check for the property
+               // check for the property
+               if (selectedComponent.Properties.ContainsKey("Armor"))
                {
                    IntegerProperty armorProperty = selectedComponent.Properties["Armor"] as IntegerProperty; // get the property
 
@@ -1146,12 +1147,24 @@ namespace Nova.WinForms.ComponentEditor
                    WeaponAccuracy.Value = (decimal)weaponProperties.Accuracy;
                    switch (weaponProperties.Group)
                    {
-                       case WeaponType.standardBeam: isStandardBeam.Checked = true; break;
-                       case WeaponType.shieldSapper: isSapper.Checked = true; break;
-                       case WeaponType.gatlingGun: isGattling.Checked = true; break;
-                       case WeaponType.torpedo: isTorpedo.Checked = true; break;
-                       case WeaponType.missile: isMissile.Checked = true; break;
-                       default: isStandardBeam.Checked = true; break;
+                       case WeaponType.standardBeam:
+                           isStandardBeam.Checked = true;
+                           break;
+                       case WeaponType.shieldSapper:
+                           isSapper.Checked = true;
+                           break;
+                       case WeaponType.gatlingGun:
+                           isGattling.Checked = true;
+                           break;
+                       case WeaponType.torpedo:
+                           isTorpedo.Checked = true;
+                           break;
+                       case WeaponType.missile:
+                           isMissile.Checked = true;
+                           break;
+                       default:
+                           isStandardBeam.Checked = true;
+                           break;
 
                    }
 

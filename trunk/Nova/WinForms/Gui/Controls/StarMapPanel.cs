@@ -27,5 +27,5 @@ namespace Nova.WinForms.Gui
 
         } 
 
-    };
+    }
 }

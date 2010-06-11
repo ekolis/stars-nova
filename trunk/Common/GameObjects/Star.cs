@@ -396,7 +396,7 @@ namespace Nova.Common
                     switch (subnode.Name.ToLower())
                     {
                         case "orbitingfleets":
-                            OrbitingFleets = bool.Parse(((XmlText)subnode.FirstChild).Value);
+                            OrbitingFleets = bool.Parse(subnode.FirstChild.Value);
                             break;
                         case "productionqueue":
                             ManufacturingQueue = new ProductionQueue(subnode);
@@ -408,37 +408,37 @@ namespace Nova.Common
                             ResourcesOnHand = new Resources(subnode.FirstChild);
                             break;
                         case "colonists":
-                            Colonists = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Colonists = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "defenses":
-                            Defenses = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Defenses = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "factories":
-                            Factories = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Factories = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "mines":
-                            Mines = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Mines = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "researchallocation":
-                            ResearchAllocation = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            ResearchAllocation = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "scanrange":
-                            ScanRange = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            ScanRange = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "defensetype":
-                            DefenseType = ((XmlText)subnode.FirstChild).Value;
+                            DefenseType = subnode.FirstChild.Value;
                             break;
                         case "scannertype":
-                            ScannerType = ((XmlText)subnode.FirstChild).Value;
+                            ScannerType = subnode.FirstChild.Value;
                             break;
                         case "gravity":
-                            Gravity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Gravity = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "radiation":
-                            Radiation = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Radiation = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "temperature":
-                            Temperature = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Temperature = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
 
                         // These are placeholder objects that will be linked to the real objects once 
@@ -449,16 +449,18 @@ namespace Nova.Common
                         // ThisRace will point to the Race that owns the Star, 
                         // for now create a placeholder Race and load its Name
                         case "thisrace":
-                            ThisRace = new Race(); ThisRace.Name = ((XmlText)subnode.FirstChild).Value;
+                            ThisRace = new Race();
+                            ThisRace.Name = subnode.FirstChild.Value;
                             break;
 
                         // Starbase will point to the Fleet that is this planet's starbase (if any), 
                         // for now create a placeholder Fleet and load its FleetID
                         case "starbase":
-                            Starbase = new Fleet(int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture));
+                            Starbase = new Fleet(int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture));
                             break;
 
-                        default: break;
+                        default:
+                            break;
                     }
                 }
                 catch (Exception e)
