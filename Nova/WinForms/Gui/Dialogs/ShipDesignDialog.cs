@@ -53,7 +53,6 @@ namespace Nova.WinForms.Gui
 
         private ImageList ComponentImages = new ImageList();
         private int DesignMass;
-        private int ShipCargoCapacity = 0;
 
         #region Designer Generated Code
 

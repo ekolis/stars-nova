@@ -64,7 +64,6 @@ namespace Nova.WinForms.Gui
         private System.Windows.Forms.ColumnHeader QueueDescription;
         private System.Windows.Forms.ColumnHeader QueueQuantity;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.ComponentModel.Container components;
         private System.Windows.Forms.GroupBox groupBox4;
         private ControlLibrary.ResourceDisplay DesignCost;
         private Button RemoveFromQueue;
@@ -88,25 +87,6 @@ namespace Nova.WinForms.Gui
             TurnData = StateData.InputTurn;
 
             InitializeComponent();
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Clean up resources.
-        /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
         }
 
         #endregion

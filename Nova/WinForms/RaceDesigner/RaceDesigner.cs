@@ -156,7 +156,6 @@ namespace Nova.WinForms.RaceDesigner
         private OpenFileDialog OpenFileDialog;
         private NumericUpDown MaxGrowth;
         private Label label4;
-        private IContainer components;
 
         #endregion Designer Generated Variables
 
@@ -215,24 +214,6 @@ namespace Nova.WinForms.RaceDesigner
             RadiationTolerance.BarLower = 15;
             RadiationTolerance.BarUpper = 85;
 
-        }
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
         }
 
         #endregion
