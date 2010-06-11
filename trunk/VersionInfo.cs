@@ -61,9 +61,7 @@ using System.Security.Permissions;
 [assembly: AssemblyFileVersion("0.4.0.0")]
 #endif
 
-//
-//  Set the assembly to CLS compliant.
-//
+// Set the assembly to CLS compliant.
 [assembly: CLSCompliantAttribute(false)]
 
 // Setting ComVisible to false makes the types in this assembly not visible 
@@ -73,9 +71,7 @@ using System.Security.Permissions;
 
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
 
-//
-//  Set permission to execute but no other permissions.
-//
+// Set permission to execute but no other permissions.
 #if (!PocketPC && !Smartphone)
 [assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution = true)]
 #endif

@@ -27,8 +27,7 @@
 #endregion
 
 #region New Property Checklist
-//
-//             Checklist for Adding a New Component Property 
+// Checklist for Adding a New Component Property 
 //
 // 1. Add a new tab to ComponentEditor.cs [Design]
 // 2. Add a Property->New <name> to the menu bar and set its click event to MenuItem_AddProperty
@@ -43,8 +42,7 @@
 #endregion
 // ============================================================================
 #region Bugs
-//
-//  == BUGS (FIXME priority 3) ==
+// == BUGS (FIXME priority 3) ==
 // Component->Copy seems to intermitently not copy race restrictions.
 // Component->Copy cross-links Hull maps (i.e. the one map is used by both 
 //   hulls). Suspect it is the individual modules that are x-linked not the 

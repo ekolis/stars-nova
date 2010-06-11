@@ -36,9 +36,7 @@ namespace Nova.Common
 
         public ProgressDialog()
         {
-            //
             // Required for Windows Form Designer support
-            //
             InitializeComponent();
         }
 
