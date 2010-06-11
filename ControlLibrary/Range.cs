@@ -535,8 +535,15 @@ namespace Nova.ControlLibrary
         [Description("Units of range display."), Category("Nova")]
         public string RangeUnits
         {
-            get { return Units; }
-            set { Units = value; Bar.Invalidate(); }
+            get
+            {
+                return Units;
+            }
+            set
+            {
+                Units = value;
+                Bar.Invalidate();
+            }
         }
 
 
@@ -561,9 +568,15 @@ namespace Nova.ControlLibrary
         [Description("Maximum value of range bar."), Category("Nova")]
         public double RangeMaximum
         {
-
-            get { return EnvironmentMaximum; }
-            set { EnvironmentMaximum = value; Bar.Invalidate(); }
+            get
+            {
+                return EnvironmentMaximum;
+            }
+            set
+            {
+                EnvironmentMaximum = value;
+                Bar.Invalidate();
+            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -574,8 +587,15 @@ namespace Nova.ControlLibrary
         [Description("Minimum value of range bar."), Category("Nova")]
         public double RangeMinimum
         {
-            get { return EnvironmentMinimum; }
-            set { EnvironmentMinimum = value; Bar.Invalidate(); }
+            get
+            {
+                return EnvironmentMinimum;
+            }
+            set
+            {
+                EnvironmentMinimum = value;
+                Bar.Invalidate();
+            }
         }
 
 

@@ -190,8 +190,15 @@ namespace Nova.ControlLibrary
         [Description("Value to display."), Category("Nova")]
         public double Value
         {
-            get { return topValue; }
-            set { topValue = value; Bar.Invalidate(); }
+            get
+            {
+                return topValue;
+            }
+            set
+            {
+                topValue = value;
+                Bar.Invalidate();
+            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -202,8 +209,15 @@ namespace Nova.ControlLibrary
         [Description("Top value of bar display."), Category("Nova")]
         public double TopValue
         {
-            get { return topValue; }
-            set { topValue = value; Bar.Invalidate(); }
+            get
+            {
+                return topValue;
+            }
+            set
+            {
+                topValue = value;
+                Bar.Invalidate();
+            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -214,8 +228,15 @@ namespace Nova.ControlLibrary
         [Description("Botton value of bar display."), Category("Nova")]
         public double BottomValue
         {
-            get { return bottomValue; }
-            set { bottomValue = value; Bar.Invalidate(); }
+            get
+            {
+                return bottomValue;
+            }
+            set
+            {
+                bottomValue = value;
+                Bar.Invalidate();
+            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -226,8 +247,15 @@ namespace Nova.ControlLibrary
         [Description("Marker position (%)."), Category("Nova")]
         public int Marker
         {
-            get { return markerValue; }
-            set { markerValue = value; Bar.Invalidate(); }
+            get
+            {
+                return markerValue;
+            }
+            set
+            {
+                markerValue = value;
+                Bar.Invalidate();
+            }
         }
 
         /// ----------------------------------------------------------------------------

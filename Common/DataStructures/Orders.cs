@@ -105,9 +105,15 @@ namespace Nova.Common
                 {
                     switch (xmlnode.Name.ToLower())
                     {
-                        case "root": xmlnode = xmlnode.FirstChild; continue;
-                        case "orders": xmlnode = xmlnode.FirstChild; continue;
-                        case "techlevel": TechLevel = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                        case "root":
+                            xmlnode = xmlnode.FirstChild;
+                            continue;
+                        case "orders":
+                            xmlnode = xmlnode.FirstChild;
+                            continue;
+                        case "techlevel":
+                            TechLevel = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
 
                         // When loading designs we need to know what type of design it is.
                         // To do this we first look ahead at the Type field of the design,

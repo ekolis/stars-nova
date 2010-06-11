@@ -663,7 +663,8 @@ namespace Nova.WinForms.Gui
             foreach (ListViewItem item in QueueList.Items)
             {
                 Design thisDesign = item.Tag as Design;
-                if (thisDesign != null) // factories and defenses and mines dont have a design...
+                // factories and defenses and mines dont have a design...
+                if (thisDesign != null)
                 {
                     if (thisDesign.Type == "Starbase")
                     {

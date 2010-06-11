@@ -46,7 +46,7 @@ namespace Nova.Common
         /// <summary>
         /// Enumeration of the different fields of technical research.
         /// </summary>
-        public enum ResearchField { Biotechnology, Electronics, Energy, Propulsion, Weapons, Construction };
+        public enum ResearchField { Biotechnology, Electronics, Energy, Propulsion, Weapons, Construction }
 
         //----------------------------------------------------------------------------
 
@@ -160,12 +160,24 @@ namespace Nova.Common
                 int techLevel = -1;
                 switch (index)
                 {
-                    case ResearchField.Biotechnology: techLevel = (int)TechValues["Biotechnology"]; break;
-                    case ResearchField.Construction: techLevel = (int)TechValues["Construction"]; break;
-                    case ResearchField.Electronics: techLevel = (int)TechValues["Electronics"]; break;
-                    case ResearchField.Energy: techLevel = (int)TechValues["Energy"]; break;
-                    case ResearchField.Propulsion: techLevel = (int)TechValues["Propulsion"]; break;
-                    case ResearchField.Weapons: techLevel = (int)TechValues["Weapons"]; break;
+                    case ResearchField.Biotechnology:
+                        techLevel = (int)TechValues["Biotechnology"];
+                        break;
+                    case ResearchField.Construction:
+                        techLevel = (int)TechValues["Construction"];
+                        break;
+                    case ResearchField.Electronics:
+                        techLevel = (int)TechValues["Electronics"];
+                        break;
+                    case ResearchField.Energy:
+                        techLevel = (int)TechValues["Energy"];
+                        break;
+                    case ResearchField.Propulsion:
+                        techLevel = (int)TechValues["Propulsion"];
+                        break;
+                    case ResearchField.Weapons:
+                        techLevel = (int)TechValues["Weapons"];
+                        break;
                 }
                 if (techLevel == -1)
                     throw new System.ArgumentException("TechLevel.cs: indexing operator - Unknown field of research", index.ToString());
@@ -175,12 +187,24 @@ namespace Nova.Common
             {
                 switch (index)
                 {
-                    case ResearchField.Biotechnology: TechValues["Biotechnology"] = value; break;
-                    case ResearchField.Construction: TechValues["Construction"] = value; break;
-                    case ResearchField.Electronics: TechValues["Electronics"] = value; break;
-                    case ResearchField.Energy: TechValues["Energy"] = value; break;
-                    case ResearchField.Propulsion: TechValues["Propulsion"] = value; break;
-                    case ResearchField.Weapons: TechValues["Weapons"] = value; break;
+                    case ResearchField.Biotechnology:
+                        TechValues["Biotechnology"] = value;
+                        break;
+                    case ResearchField.Construction:
+                        TechValues["Construction"] = value;
+                        break;
+                    case ResearchField.Electronics:
+                        TechValues["Electronics"] = value;
+                        break;
+                    case ResearchField.Energy:
+                        TechValues["Energy"] = value;
+                        break;
+                    case ResearchField.Propulsion:
+                        TechValues["Propulsion"] = value;
+                        break;
+                    case ResearchField.Weapons:
+                        TechValues["Weapons"] = value;
+                        break;
                 }
             }
         }

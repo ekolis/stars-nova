@@ -173,8 +173,15 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public Fleet ManagedFleet
         {
-            set { SelectedFleet = value; UpdateDialogDetails(); }
-            get { return SelectedFleet; }
+            set
+            {
+                SelectedFleet = value;
+                UpdateDialogDetails();
+            }
+            get
+            {
+                return SelectedFleet;
+            }
         }
 
         #endregion

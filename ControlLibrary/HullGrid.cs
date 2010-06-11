@@ -79,15 +79,30 @@ namespace Nova.ControlLibrary
 
             // Initialise the panel map so that we can have a convienient way of
             // identifying each cell in the grid just from its index.
-
-            panelMap[0] = Grid0; panelMap[1] = Grid1; panelMap[2] = Grid2;
-            panelMap[3] = Grid3; panelMap[4] = Grid4; panelMap[5] = Grid5;
-            panelMap[6] = Grid6; panelMap[7] = Grid7; panelMap[8] = Grid8;
-            panelMap[9] = Grid9; panelMap[10] = Grid10; panelMap[11] = Grid11;
-            panelMap[12] = Grid12; panelMap[13] = Grid13; panelMap[14] = Grid14;
-            panelMap[15] = Grid15; panelMap[16] = Grid16; panelMap[17] = Grid17;
-            panelMap[18] = Grid18; panelMap[19] = Grid19; panelMap[20] = Grid20;
-            panelMap[21] = Grid21; panelMap[22] = Grid22; panelMap[23] = Grid23;
+            panelMap[0] = Grid0;
+            panelMap[1] = Grid1;
+            panelMap[2] = Grid2;
+            panelMap[3] = Grid3;
+            panelMap[4] = Grid4;
+            panelMap[5] = Grid5;
+            panelMap[6] = Grid6;
+            panelMap[7] = Grid7;
+            panelMap[8] = Grid8;
+            panelMap[9] = Grid9;
+            panelMap[10] = Grid10;
+            panelMap[11] = Grid11;
+            panelMap[12] = Grid12;
+            panelMap[13] = Grid13;
+            panelMap[14] = Grid14;
+            panelMap[15] = Grid15;
+            panelMap[16] = Grid16;
+            panelMap[17] = Grid17;
+            panelMap[18] = Grid18;
+            panelMap[19] = Grid19;
+            panelMap[20] = Grid20;
+            panelMap[21] = Grid21;
+            panelMap[22] = Grid22;
+            panelMap[23] = Grid23;
             panelMap[24] = Grid24;
         }
 
