@@ -48,17 +48,17 @@ namespace Nova.Common.Components
     {
         public TechLevel RequiredTech = new TechLevel();
         public Image ComponentImage;
-        public String ImageFile;
-        public String Description;
+        public string ImageFile;
+        public string Description;
         public RaceRestriction Restrictions = new RaceRestriction();
 
-        public Dictionary<String, ComponentProperty> Properties;
+        public Dictionary<string, ComponentProperty> Properties;
 
         // This is the list of all Compont.Properties keys for the above dictionary.
         // Note that these are not the Component.Type, but the ComponentProperty.Type.
         // They are defined here such that the component can locate or load its properties
         // into the dictionary.
-        public static String[] PropertyKeys =
+        public static string[] PropertyKeys =
         {   
           "Armor", "Beam Deflector", "Bomb", "Battle Movement", "Capacitor", "Cargo", "Cloak", 
           "Colonizer", "Computer", "Defense", "Deflector", "Energy Dampener", "Engine", "Fuel",
@@ -94,7 +94,7 @@ namespace Nova.Common.Components
             this.ComponentImage = existing.ComponentImage;
             this.ImageFile = existing.ImageFile;
             this.Description = existing.Description;
-            foreach (String key in existing.Properties.Keys)
+            foreach (string key in existing.Properties.Keys)
             {
                 this.Properties.Add(key, (ComponentProperty)existing.Properties[key].Clone());
             }
@@ -193,7 +193,7 @@ namespace Nova.Common.Components
                                 {
                                     // The path doesn't make sense, maybe it wasn't relative.
                                     // Don't change anything and don't load the image
-                                    this.ImageFile = ((XmlText)subnode.FirstChild).Value.Replace('/', Path.DirectorySeparatorChar);
+                                    this.ImageFile = subnode.FirstChild.Value.Replace('/', Path.DirectorySeparatorChar);
                                     this.ComponentImage = null;
                                     Report.Error("Unable to locate the image file " + this.ImageFile);
                                 }
@@ -206,8 +206,8 @@ namespace Nova.Common.Components
                             {
                                 // Load the property. It may be of any type (Bomb, IntegerProperty, Hull, etc), so
                                 // check the save file first to determine what to load, and use the appropriate constructor.
-                                String propertyType = ((XmlText)subnode.SelectSingleNode("Type").FirstChild).Value;
-                                ComponentProperty newProperty = null;
+                                string propertyType = subnode.SelectSingleNode("Type").FirstChild.Value;
+                                ComponentProperty newProperty;
                                 switch (propertyType.ToLower())
                                 {
                                     case "armor":
@@ -423,7 +423,7 @@ namespace Nova.Common.Components
             xmlelComponent.AppendChild(xmlelImage);
 
             // Properties
-            foreach (String key in this.Properties.Keys)
+            foreach (string key in this.Properties.Keys)
             {
                 XmlElement xmlelPropertyType = xmldoc.CreateElement("Type");
                 XmlText xmltxtPropertyType = xmldoc.CreateTextNode(key);

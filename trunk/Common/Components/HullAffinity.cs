@@ -39,7 +39,7 @@ namespace Nova.Common.Components
     {
         // The name of a hull this can be fitted too. 
         // Multiple instances of this property can be used if more than one.
-        public String Value = String.Empty;
+        public string Value = string.Empty;
 
         #region Construction and Initialisation
 
@@ -69,7 +69,7 @@ namespace Nova.Common.Components
         /// </summary>
         /// <param name="existing">The name of the hull type this affinity is for.</param>
         /// ----------------------------------------------------------------------------
-        public HullAffinity(String existing)
+        public HullAffinity(string existing)
         {
             this.Value = existing;
         }

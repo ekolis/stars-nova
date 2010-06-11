@@ -60,7 +60,7 @@ namespace Nova.WinForms.NewGame
             // Setup the list of known races.
             KnownRaces = FileSearcher.GetAvailableRaces();
 
-            foreach (String raceName in KnownRaces.Keys)
+            foreach (string raceName in KnownRaces.Keys)
             {
 
                 // add known race to selectable races in race selection drop down

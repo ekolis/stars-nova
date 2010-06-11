@@ -1854,7 +1854,7 @@ namespace Nova.WinForms.RaceDesigner
             try
             {
 
-                String RaceFilePath = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
+                string RaceFilePath = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
 
                 SaveFileDialog fd = new SaveFileDialog();
                 fd.Title = "Save Race - " + RaceParameters.Name;

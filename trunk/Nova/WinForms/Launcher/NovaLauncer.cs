@@ -43,8 +43,8 @@ namespace Nova.WinForms.Launcher
     /// </summary>
     public partial class NovaLauncher : Form
     {
-        private String ServerStateFile = null;
-        private String ClientStateFile = null;
+        private string ServerStateFile = null;
+        private string ClientStateFile = null;
 
         #region Initialisation
 
@@ -148,7 +148,7 @@ namespace Nova.WinForms.Launcher
         /// ----------------------------------------------------------------------------
         private void OpenGameButton_Click(object sender, EventArgs e)
         {
-            String IntelFileName = "";
+            string IntelFileName = "";
             bool GameLaunched = false;
 
             // have the user identify the game to open
@@ -185,9 +185,9 @@ namespace Nova.WinForms.Launcher
             }
 
             // Launch the Console if this is a local game, i.e. if the console.state is in the same directory.
-            String ServerStateFileName = "";
+            string ServerStateFileName = "";
             FileInfo IntelFileInfo = new FileInfo(IntelFileName);
-            String GamePathName = IntelFileInfo.DirectoryName;
+            string GamePathName = IntelFileInfo.DirectoryName;
             DirectoryInfo GameDirectoryInfo = new DirectoryInfo(GamePathName);
             FileInfo[] GameFilesInfo = GameDirectoryInfo.GetFiles();
             foreach (FileInfo file in GameFilesInfo)

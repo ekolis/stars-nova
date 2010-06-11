@@ -46,11 +46,11 @@ namespace Nova.WinForms.Console
     /// ----------------------------------------------------------------------------
     public class WeaponDetails : IComparable
     {
-        public Fleet TargetStack = null;
-        public Fleet SourceStack = null;
-        public Weapon Weapon = null;
+        public Fleet TargetStack;
+        public Fleet SourceStack;
+        public Weapon Weapon;
 
-        public int CompareTo(Object rightHandSide)
+        public int CompareTo(object rightHandSide)
         {
             WeaponDetails rhs = (WeaponDetails)rightHandSide;
             return this.Weapon.Initiative.CompareTo(rhs.Weapon.Initiative);

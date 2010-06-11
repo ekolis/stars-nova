@@ -65,7 +65,7 @@ namespace Nova.Common
         /// </summary>
         public RaceRestriction()
         {
-            foreach (String trait in AllTraits.TraitKeys)
+            foreach (string trait in AllTraits.TraitKeys)
             {
                 Restrictions[trait] = (int)RaceAvailability.not_required;
             }
@@ -80,14 +80,14 @@ namespace Nova.Common
         {
             try
             {
-                foreach (String trait in AllTraits.TraitKeys)
+                foreach (string trait in AllTraits.TraitKeys)
                 {
                     Restrictions[trait] = (int)existing.Restrictions[trait];
                 }
             }
             catch
             {
-                foreach (String trait in AllTraits.TraitKeys)
+                foreach (string trait in AllTraits.TraitKeys)
                 {
                     Restrictions[trait] = (int)RaceAvailability.not_required;
                 }
@@ -105,7 +105,7 @@ namespace Nova.Common
         /// <param name="trait">The trait to set the availability-affect of.</param>
         /// <param name="availability">The affect on availability of this trait.</param>
         /// ----------------------------------------------------------------------------
-        public void SetRestriction(String trait, RaceAvailability availability)
+        public void SetRestriction(string trait, RaceAvailability availability)
         {
             Restrictions[trait] = availability;
         }
@@ -117,7 +117,7 @@ namespace Nova.Common
         /// <param name="trait">A trait code.</param>
         /// <returns>The affect on availability of the trait as a <see cref="RaceAvailability"/>.</returns>
         /// ----------------------------------------------------------------------------
-        public RaceAvailability Availability(String trait)
+        public RaceAvailability Availability(string trait)
         {
             try
             {
@@ -138,10 +138,9 @@ namespace Nova.Common
         /// Return a printable String representation of the restrictions.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public new String ToString()
+        public new string ToString()
         {
-            String inwords = String.Empty;
-
+            string inwords = string.Empty;
            
             try
             {
@@ -211,7 +210,7 @@ namespace Nova.Common
             {
                 try
                 {
-                    foreach (String key in AllTraits.TraitKeys)
+                    foreach (string key in AllTraits.TraitKeys)
                     {
                         if (subnode.Name.ToLower() == key.ToLower())
                         {

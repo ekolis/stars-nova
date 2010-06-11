@@ -90,7 +90,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="fileName">A nova save file containing a race.</param>
         /// ----------------------------------------------------------------------------
-        public Race(String fileName)
+        public Race(string fileName)
         {
             XmlDocument xmldoc = new XmlDocument();
             FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);

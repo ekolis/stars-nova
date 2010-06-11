@@ -59,7 +59,7 @@ namespace Nova.Common
         {
             Hashtable AllRaces = new Hashtable();
 
-            String RaceFolder = GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
+            string RaceFolder = GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
             DirectoryInfo directory = new DirectoryInfo
                                            (RaceFolder);
 
@@ -105,9 +105,9 @@ namespace Nova.Common
         /// Get the game settings file.
         /// </summary>
         /// <returns>The full path&name of the game settings file or null.</returns>
-        public static String GetSettingsFile()
+        public static string GetSettingsFile()
         {
-            String settings = null;
+            string settings;
 
             // try the registry first
             settings = GetFile(Global.SettingsKey, false, "", "", "", false);
@@ -115,7 +115,7 @@ namespace Nova.Common
             if (!File.Exists(settings))
             {
                 // if the settings file itself is not registered, look for any settings file in the ServerFolder
-                String serverFolder = GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
+                string serverFolder = GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
                 DirectoryInfo ServerFolderInfo = new DirectoryInfo(serverFolder);
                 foreach (FileInfo file in ServerFolderInfo.GetFiles())
                 {
@@ -146,11 +146,11 @@ namespace Nova.Common
         /// <param name="relativePath">The expected path relative to the running application.</param>
         /// <param name="fileName">The name of the file we are looing for.</param>
         /// <returns>The absolute path, including the file name. null if the file can't be found.</returns>
-        public static String GetFile
-            (String registryKey, bool pathOnly, String developmentPath, String deployedPath, String fileName, bool askUser)
+        public static string GetFile
+            (string registryKey, bool pathOnly, string developmentPath, string deployedPath, string fileName, bool askUser)
         {
             // Tempory storage for building the absolute path reference
-            String AbsoluteReference = null;
+            string AbsoluteReference = null;
             bool registryOK = true; // assume it is until we prove otherwise
 
             if (registryKey != null)
@@ -207,10 +207,10 @@ namespace Nova.Common
         /// <param name="registryKey">The key we would like the folder path to be stored in.</param>
         /// <param name="relativePath">The default folder name, as in NovaRoot\defaultFolder, to use if the registry key is not set.</param>
         /// <returns>The path to the folder, being either the folder defined by the registry key, or Path.Combine(NovaRoot, defaultFolder). Will create the folder if neccessary</returns>
-        public static String GetFolder(String registryKey, String defaultFolder)
+        public static string GetFolder(string registryKey, string defaultFolder)
         {
             // Tempory storage for building the absolute path reference
-            String FolderPath = null;
+            string FolderPath = null;
             bool registryOK = true; // assume it is until we prove otherwise
 
             if (registryKey != null)
@@ -224,7 +224,7 @@ namespace Nova.Common
             {
                 registryOK = false;
                 // Try the default folder
-                String NovaRoot = GetNovaRoot();
+                string NovaRoot = GetNovaRoot();
 
                 FolderPath = Path.Combine(NovaRoot, defaultFolder);
             }
@@ -263,7 +263,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="registryKey">The nova registry key to use. These are defined in the nova Global object.</param>
         /// <param name="value">The text to be associated with this key.</param>
-        public static void SetNovaRegistryValue(String registryKey, String value)
+        public static void SetNovaRegistryValue(string registryKey, string value)
         {
             RegistryKey key = Registry.CurrentUser;
             RegistryKey subKey = key.CreateSubKey(Global.RootRegistryKey);
@@ -282,11 +282,11 @@ namespace Nova.Common
         /// </summary>
         /// <param name="registryKey">The key to look up.</param>
         /// <returns>The value of the key, or null if invalid / not set.</returns>
-        private static string GetRegistryValue(String registryKey)
+        private static string GetRegistryValue(string registryKey)
         {
             RegistryKey regKey = Registry.CurrentUser;
             RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-            String Path = subKey.GetValue
+            string Path = subKey.GetValue
                                     (registryKey, "?").ToString();
 
             if (Path == "?" || Path == "")
@@ -303,9 +303,9 @@ namespace Nova.Common
         /// Try to locate the nova root directory
         /// </summary>
         /// <returns></returns>
-        private static String GetNovaRoot()
+        private static string GetNovaRoot()
         {
-            String NovaRoot = null;
+            string NovaRoot = null;
 
             // as usual, try the registry first
             NovaRoot = GetRegistryValue(Global.NovaFolderKey);
@@ -315,9 +315,9 @@ namespace Nova.Common
                 // try working upward from the application directory
                 // two likely structures - the installation structure (deployed) (e.g. Program Files/Stars! Nova/Nova.exe)
                 // or the development structure (development) (e.g. stars-nova/trunk/AppName/bin/<debug|release>/AppName.exe)
-                String ApplicationDirectory = (new System.IO.FileInfo(Assembly.GetExecutingAssembly().Location)).DirectoryName;
+                string ApplicationDirectory = (new System.IO.FileInfo(Assembly.GetExecutingAssembly().Location)).DirectoryName;
                 string[] folders = ApplicationDirectory.Split(Path.DirectorySeparatorChar);
-                String upThree = "../../..";
+                string upThree = "../../..";
                 upThree = upThree.Replace('/', Path.DirectorySeparatorChar);
                 if (folders[folders.Length - 1].ToLower() == "debug")
                 {
@@ -343,7 +343,7 @@ namespace Nova.Common
             return NovaRoot;
         }
 
-        private static String AskUserForFile(String fileName)
+        private static string AskUserForFile(string fileName)
         {
             Report.Information("Please locate the file \"" + fileName + "\".");
             OpenFileDialog fileDialog = new OpenFileDialog();

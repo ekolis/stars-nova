@@ -318,7 +318,7 @@ namespace Nova.WinForms.Console
             // Now allocate a position for each race in the centre of one of the
             // allocated spacial chunks.
 
-            foreach (String raceName in races.Values)
+            foreach (string raceName in races.Values)
             {
                 Rectangle newPosition = spaceAllocator.GetBox();
                 Point position = new Point();

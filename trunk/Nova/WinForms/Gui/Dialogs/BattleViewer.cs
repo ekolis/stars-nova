@@ -123,7 +123,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void NextStep_Click(object sender, EventArgs e)
         {
-            Object thisStep = TheBattle.Steps[EventCount];
+            object thisStep = TheBattle.Steps[EventCount];
             SetStepNumber();
 
             if (thisStep is BattleReport.Movement)

@@ -94,7 +94,7 @@ namespace Nova.Common.Components
 
                 // check if the component is restricted by this race's Primary or Secondary traits.
                 bool restricted = false;
-                foreach (String trait in AllTraits.TraitKeys)
+                foreach (string trait in AllTraits.TraitKeys)
                 {
                     bool hasTrait = race.HasTrait(trait);
                     RaceAvailability availability = component.Restrictions.Availability(trait);
@@ -149,7 +149,7 @@ namespace Nova.Common.Components
         /// </summary>
         /// <param name="NewTrait">The Name of the Component to add.</param>
         /// ----------------------------------------------------------------------------
-        public void Add(String ComponentName)
+        public void Add(string ComponentName)
         {
             if (AllComponents.Data.Contains(ComponentName))
             {
@@ -182,7 +182,7 @@ namespace Nova.Common.Components
         /// </summary>
         /// <param name="TraitToRemove">The Name of the Component to remove.</param>
         /// ----------------------------------------------------------------------------
-        public void Remove(String ComponentToRemove)
+        public void Remove(string ComponentToRemove)
         {
             Dictionary.Remove(ComponentToRemove);
         }
@@ -194,7 +194,7 @@ namespace Nova.Common.Components
         /// <param name="ComponentName">The Name of the Component to look for.</param>
         /// <returns></returns>
         /// ----------------------------------------------------------------------------
-        public bool Contains(String ComponentName)
+        public bool Contains(string ComponentName)
         {
             return Dictionary.Contains(ComponentName);
         }
@@ -206,7 +206,7 @@ namespace Nova.Common.Components
         /// <param name="index">The Name of the Component</param>
         /// <returns></returns>
         /// ----------------------------------------------------------------------------
-        public Component this[String index]
+        public Component this[string index]
         {
             get
             {

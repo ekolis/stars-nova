@@ -102,7 +102,7 @@ namespace Nova.Common
             {
                 XmlElement xmlelRelation = xmldoc.CreateElement("Relation");
                 Global.SaveData(xmldoc, xmlelRelation, "Race", key);
-                Global.SaveData(xmldoc, xmlelRelation, "Status", PlayerRelations[key] as String);
+                Global.SaveData(xmldoc, xmlelRelation, "Status", PlayerRelations[key] as string);
                 xmlelRaceData.AppendChild(xmlelRelation);
             }
             foreach (string key in BattlePlans.Keys)

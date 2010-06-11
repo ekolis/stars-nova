@@ -322,7 +322,7 @@ namespace Nova.Common
             {
                 try
                 {
-                    foreach (String key in ResearchKeys)
+                    foreach (string key in ResearchKeys)
                     {
                         if (subnode.Name.ToLower() == key.ToLower())
                         {

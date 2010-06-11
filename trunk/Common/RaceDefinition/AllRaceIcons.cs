@@ -44,8 +44,8 @@ namespace Nova.Common
     /// </summary>
     public sealed class AllRaceIcons
     {
-        private static AllRaceIcons Instance = null;
-        private static Object Padlock = new Object();
+        private static AllRaceIcons Instance;
+        private static object Padlock = new object();
         public ArrayList IconList = new ArrayList();
 
         #region Singleton

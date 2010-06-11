@@ -477,7 +477,7 @@ namespace Nova.WinForms.Gui
         {
             if (DesignList.SelectedItems.Count <= 0) return;
 
-            String name = DesignList.SelectedItems[0].Text;
+            string name = DesignList.SelectedItems[0].Text;
             Design design =
                TurnData.AllDesigns[StateData.RaceName + "/" + name] as Design;
 

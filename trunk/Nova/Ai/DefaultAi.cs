@@ -46,7 +46,7 @@ namespace Nova.Ai
     {
         public static void Main(string[] args)
         {
-            String RaceName = null;
+            string RaceName;
             int TurnNumber = -1;
 
             // ensure registry keys are initialised

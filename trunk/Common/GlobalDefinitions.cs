@@ -133,7 +133,7 @@ namespace Nova.Common
        /// <param name="parent">The element this data will be saved under.</param>
        /// <param name="tag">A name that describes the data, usually a variable name.</param>
        /// <param name="value">A String representation of the data, usually variable.ToString.</param>
-       public static void SaveData(XmlDocument xmldoc, XmlElement parent, String tag, String value)
+       public static void SaveData(XmlDocument xmldoc, XmlElement parent, string tag, string value)
        {
            XmlElement xmlelData = xmldoc.CreateElement(tag);
            XmlText xmltxtData = xmldoc.CreateTextNode(value);

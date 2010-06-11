@@ -44,9 +44,9 @@ namespace Nova.Common
     public class Waypoint
     {
         public Point Position;
-        public string Destination = null;
+        public string Destination;
         public int WarpFactor = 6;
-        public String Task = "None";
+        public string Task = "None";
 
         /// <summary>
         /// Default constructor
