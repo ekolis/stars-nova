@@ -29,4 +29,4 @@ Public License version 2 for more details.
 ----------
 
 NUnit 2.4.0 (included in the source distribution)
-Portions Copyright © 2002-2007 Charlie Poole or Copyright © 2002-2004 James W. Newkirk, Michael C. Two, Alexei A. Vorontsov or Copyright © 2000-2002 Philip A. Craig
+Portions Copyright (C) 2002-2007 Charlie Poole or Copyright (C) 2002-2004 James W. Newkirk, Michael C. Two, Alexei A. Vorontsov or Copyright (C) 2000-2002 Philip A. Craig

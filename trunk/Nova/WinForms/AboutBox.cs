@@ -45,8 +45,8 @@ namespace Nova.WinForms
             labelProductName.Text = GetAssemblyProduct();
             labelVersion.Text = String.Format("Version {0} - Build date {1}", GetApplicationProductVersion(), GetBuildDate().ToShortDateString());
             Description.Text =
-                "Copyright © 2008 Ken Reed" + Environment.NewLine +
-                "Copyright © 2009, 2010 The Stars-Nova Project" + Environment.NewLine +
+                "Copyright (C) 2008 Ken Reed" + Environment.NewLine +
+                "Copyright (C) 2009, 2010 The Stars-Nova Project" + Environment.NewLine +
                 "" + Environment.NewLine +
                 GetAssemblyProduct() + " is licensed under two separate licenses for code and content." + Environment.NewLine +
                 "" + Environment.NewLine +
