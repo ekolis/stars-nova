@@ -255,8 +255,10 @@ namespace Nova.WinForms.Gui
         {
             StringBuilder title = new StringBuilder();
 
-            title.AppendFormat("Step {0} of {1}",
-                               EventCount + 1, TheBattle.Steps.Count);
+            title.AppendFormat(
+                "Step {0} of {1}",
+                EventCount + 1,
+                TheBattle.Steps.Count);
 
             StepNumber.Text = title.ToString();
         }

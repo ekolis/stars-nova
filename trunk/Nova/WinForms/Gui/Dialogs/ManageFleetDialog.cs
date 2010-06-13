@@ -94,8 +94,7 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void CoLocatedFleets_SelectedIndexChanged(object sender,
-                                                          EventArgs e)
+        private void CoLocatedFleets_SelectedIndexChanged(object sender, EventArgs e)
         {
             MergeButton.Enabled = true;
         }

@@ -220,8 +220,7 @@ namespace Nova.WinForms.NewGame
         /// ----------------------------------------------------------------------------
         private static void InitialisePlayerData()
         {
-            SpaceAllocator spaceAllocator = new SpaceAllocator
-                           (ServerState.Data.AllRaces.Count);
+            SpaceAllocator spaceAllocator = new SpaceAllocator(ServerState.Data.AllRaces.Count);
 
             // FIXME (priority 4) ignores map height
             spaceAllocator.AllocateSpace(GameSettings.Data.MapWidth);
@@ -276,8 +275,9 @@ namespace Nova.WinForms.NewGame
         /// <param name="race"><see cref="Race"/> to be positioned.</param>
         /// <param name="spaceAllocator">The <see cref="SpaceAllocator"/> being used to allocate positions.</param>
         /// ----------------------------------------------------------------------------
-        private static void InitialiseHomeStar(Race race,
-                                               SpaceAllocator spaceAllocator)
+        private static void InitialiseHomeStar(
+            Race race,
+            SpaceAllocator spaceAllocator)
         {
             ServerState stateData = ServerState.Data;
 

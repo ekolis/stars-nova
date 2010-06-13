@@ -791,8 +791,7 @@ namespace Nova.WinForms.Gui
             {
                 Waypoint from = SelectedFleet.Waypoints[index - 1] as Waypoint;
                 Waypoint to = SelectedFleet.Waypoints[index] as Waypoint;
-                double distance = PointUtilities.Distance(from.Position,
-                                                              to.Position);
+                double distance = PointUtilities.Distance(from.Position, to.Position);
 
                 double time = distance / (to.WarpFactor * to.WarpFactor);
                 double fuelUsed = SelectedFleet.FuelConsumption(to.WarpFactor, race)
@@ -819,9 +818,7 @@ namespace Nova.WinForms.Gui
             {
                 if (previous != null && waypoint.WarpFactor > 0)
                 {
-                    double distance = PointUtilities.Distance(waypoint.Position,
-                                                              previous.Position);
-
+                    double distance = PointUtilities.Distance(waypoint.Position, previous.Position);
                     int warpFactor = waypoint.WarpFactor;
                     double speed = warpFactor * warpFactor;
                     double travelTime = distance / speed;

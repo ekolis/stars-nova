@@ -103,10 +103,7 @@ namespace Nova.Common
         /// <param name="r2">Radius of the second circle.</param>
         /// <returns></returns>
         /// ----------------------------------------------------------------------------
-        public static bool CirclesOverlap(Point p1,
-                                          Point p2,
-                                          double r1,
-                                          double r2)
+        public static bool CirclesOverlap(Point p1, Point p2, double r1, double r2)
         {
             double x1 = p1.X;
             double x2 = p2.X;

@@ -260,8 +260,7 @@ namespace Nova.WinForms.Gui
 
             if (messages.Count != 0)
             {
-                title.AppendFormat("Message {0} of {1}",
-                                   currentMessage + 1, messages.Count);
+                title.AppendFormat("Message {0} of {1}", currentMessage + 1, messages.Count);
             }
             else
             {

@@ -169,8 +169,7 @@ namespace Nova.Common
 
             InOrbit = null;
 
-            double legDistance = PointUtilities.Distance
-                                (Position, target.Position);
+            double legDistance = PointUtilities.Distance(Position, target.Position);
 
             int warpFactor = target.WarpFactor;
             int speed = warpFactor * warpFactor;
@@ -209,8 +208,7 @@ namespace Nova.Common
             else
             {
                 double travelled = speed * travelTime;
-                Position = PointUtilities.MoveTo
-                                   (Position, target.Position, travelled);
+                Position = PointUtilities.MoveTo(Position, target.Position, travelled);
             }
 
             // Update the travel time left for this year and the total fuel we

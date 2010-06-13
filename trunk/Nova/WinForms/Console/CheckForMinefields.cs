@@ -102,8 +102,7 @@ namespace Nova.WinForms.Console
 
             if (fleet.Speed <= Minefield.SafeSpeed) return false;
 
-            double distance = PointUtilities.Distance(fleet.Position,
-                                                      Minefield.Position);
+            double distance = PointUtilities.Distance(fleet.Position, Minefield.Position);
 
             if (distance < Minefield.Radius)
             {
@@ -141,8 +140,7 @@ namespace Nova.WinForms.Console
             Waypoint targetWaypoint = fleet.Waypoints[0] as Waypoint;
             Point targetPosition = targetWaypoint.Position;
 
-            double travelDistance = PointUtilities.Distance(currentPosition,
-                                                              targetPosition);
+            double travelDistance = PointUtilities.Distance(currentPosition, targetPosition);
             if (Minefield.Radius > (int)travelDistance)
             {
                 travelDistance = Minefield.Radius;

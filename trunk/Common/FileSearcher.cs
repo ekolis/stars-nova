@@ -60,8 +60,7 @@ namespace Nova.Common
             Hashtable AllRaces = new Hashtable();
 
             string RaceFolder = GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
-            DirectoryInfo directory = new DirectoryInfo
-                                           (RaceFolder);
+            DirectoryInfo directory = new DirectoryInfo(RaceFolder);
 
             FileInfo[] raceFiles = directory.GetFiles("*" + Global.RaceExtension);
 
@@ -146,8 +145,7 @@ namespace Nova.Common
         /// <param name="relativePath">The expected path relative to the running application.</param>
         /// <param name="fileName">The name of the file we are looing for.</param>
         /// <returns>The absolute path, including the file name. null if the file can't be found.</returns>
-        public static string GetFile
-            (string registryKey, bool pathOnly, string developmentPath, string deployedPath, string fileName, bool askUser)
+        public static string GetFile(string registryKey, bool pathOnly, string developmentPath, string deployedPath, string fileName, bool askUser)
         {
             // Tempory storage for building the absolute path reference
             string AbsoluteReference = null;
@@ -285,8 +283,7 @@ namespace Nova.Common
         {
             RegistryKey regKey = Registry.CurrentUser;
             RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-            string Path = subKey.GetValue
-                                    (registryKey, "?").ToString();
+            string Path = subKey.GetValue(registryKey, "?").ToString();
 
             if (Path == "?" || Path == "")
             {

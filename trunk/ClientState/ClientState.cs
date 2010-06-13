@@ -383,11 +383,11 @@ namespace Nova.Client
         /// ----------------------------------------------------------------------------
         private static void ProcessRaceDefinition()
         {
-            string raceFileName = Path.Combine(FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName),
-                                               ClientState.Data.RaceName + Global.RaceExtension);
+            string raceFolder = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
+            string raceFileName = Path.Combine(raceFolder, Data.RaceName + Global.RaceExtension);
             if (File.Exists(raceFileName))
             {
-                ClientState.Data.PlayerRace = new Race(raceFileName);
+                Data.PlayerRace = new Race(raceFileName);
 
                 ProcessPrimaryTraits();
                 ProcessSecondaryTraits();
@@ -792,8 +792,7 @@ namespace Nova.Client
 
             if (raceFiles.Length == 0)
             {
-                Report.FatalError
-                ("The Nova GUI cannot start unless a race file is present");
+                Report.FatalError("The Nova GUI cannot start unless a race file is present");
             }
 
 
@@ -813,8 +812,7 @@ namespace Nova.Client
                 DialogResult result = raceDialog.ShowDialog();
                 if (result == DialogResult.Cancel)
                 {
-                    Report.FatalError
-                    ("The Nova GUI cannot start unless a race has been selected");
+                    Report.FatalError("The Nova GUI cannot start unless a race has been selected");
                 }
 
                 raceName = raceDialog.RaceList.SelectedItem as string;

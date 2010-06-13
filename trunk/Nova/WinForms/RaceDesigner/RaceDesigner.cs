@@ -1679,11 +1679,12 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="oldLeftPos"></param>
         /// <param name="oldRightPos"></param>
         /// ----------------------------------------------------------------------------
-        private void Tolerance_RangeChanged(object sender,
-                                            int newLeftPos,
-                                            int newRightPos,
-                                            int oldLeftPos,
-                                            int oldRightPos)
+        private void Tolerance_RangeChanged(
+            object sender,
+            int newLeftPos,
+            int newRightPos,
+            int oldLeftPos,
+            int oldRightPos)
         {
 
             AdvantagePoints -= Utilities.BarWidthCost(oldLeftPos, oldRightPos);

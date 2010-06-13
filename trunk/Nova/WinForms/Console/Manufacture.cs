@@ -184,12 +184,13 @@ namespace Nova.WinForms.Console
         /// <param name="neededResources">???</param>
         /// <param name="availableResources">???</param>
         /// ----------------------------------------------------------------------------
-        private static void DonateResources(Nova.Common.Resources currentResources,
-                                            Nova.Common.Resources neededResources,
-                                            Nova.Common.Resources availableResources)
+        private static void DonateResources(
+            Resources currentResources,
+            Resources neededResources,
+            Resources availableResources)
         {
             neededResources -= availableResources;
-            availableResources = new Nova.Common.Resources();
+            availableResources = new Resources();
 
             if (neededResources.Ironium < 0)
             {

@@ -310,9 +310,10 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       private static void ReportLevelUpdate(TechLevel.ResearchField area, int level)
       {
-          Message techAdvanceMessage =
-              new Message(ClientState.Data.RaceName, null, "Your race has advanced to Tech Level "
-              + level + " in the " + StateData.ResearchTopic + " field");
+          Message techAdvanceMessage = new Message(
+              ClientState.Data.RaceName,
+              null,
+              "Your race has advanced to Tech Level " + level + " in the " + StateData.ResearchTopic + " field");
           StateData.Messages.Add(techAdvanceMessage);
 
           Hashtable allComponents = AllComponents.Data.Components;
@@ -328,9 +329,10 @@ namespace Nova.Client
               {
 
                   ClientState.Data.AvailableComponents.Add(component);
-                  Message newComponentMessage =
-                      new Message(ClientState.Data.RaceName, null, "You now have available the "
-                      + component.Name + " " + component.Type + " component");
+                  Message newComponentMessage = new Message(
+                      ClientState.Data.RaceName,
+                      null,
+                      "You now have available the " + component.Name + " " + component.Type + " component");
                   ClientState.Data.Messages.Add(newComponentMessage);
               }
           }

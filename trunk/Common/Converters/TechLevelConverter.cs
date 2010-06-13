@@ -20,6 +20,7 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using System.Reflection;
@@ -33,15 +34,27 @@ namespace Nova.Common.Converters
     {
         protected override InstanceDescriptor ConvertToInstanceDescriptor(TechLevel value)
         {
-            ConstructorInfo constructor = typeof(TechLevel).GetConstructor(new Type[] { typeof(int), typeof(int), typeof(int), typeof(int), typeof(int), typeof(int) });
-            return new InstanceDescriptor(constructor, new object[] {
-                value[TechLevel.ResearchField.Biotechnology],
-                value[TechLevel.ResearchField.Electronics],
-                value[TechLevel.ResearchField.Energy],
-                value[TechLevel.ResearchField.Propulsion],
-                value[TechLevel.ResearchField.Weapons],
-                value[TechLevel.ResearchField.Construction]
-            });
+            ConstructorInfo constructor = typeof(TechLevel).GetConstructor(new Type[]
+                {
+                    typeof(int),
+                    typeof(int),
+                    typeof(int),
+                    typeof(int),
+                    typeof(int),
+                    typeof(int)
+                });
+
+            ICollection arguments = new object[]
+                {
+                    value[TechLevel.ResearchField.Biotechnology],
+                    value[TechLevel.ResearchField.Electronics],
+                    value[TechLevel.ResearchField.Energy],
+                    value[TechLevel.ResearchField.Propulsion],
+                    value[TechLevel.ResearchField.Weapons],
+                    value[TechLevel.ResearchField.Construction]
+                };
+
+            return new InstanceDescriptor(constructor, arguments);
         }
     }
 }

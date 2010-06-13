@@ -81,7 +81,8 @@ namespace Nova
         {
             string message = string.Format(
                 "Invalid command line arguments:{0}{1}",
-                Environment.NewLine, Environment.CommandLine);
+                Environment.NewLine,
+                Environment.CommandLine);
 
             ShowHelpDialog(message, true);
         }
@@ -122,12 +123,18 @@ namespace Nova
                 CommandArguments.Option.GuiSwitch,
                 CommandArguments.Option.AiSwitch,
                 CommandArguments.Option.HelpSwitch,
-                CommandArguments.Option.RaceName, CommandArguments.Option.Turn,
-                CommandArguments.Option.IntelFileName, CommandArguments.Option.StateFileName);
+                CommandArguments.Option.RaceName,
+                CommandArguments.Option.Turn,
+                CommandArguments.Option.IntelFileName,
+                CommandArguments.Option.StateFileName);
 
-            MessageBox.Show(message, "Stars! Nova " + (error ? "Error" : "Information"), MessageBoxButtons.OK,
+            MessageBox.Show(
+                message,
+                "Stars! Nova " + (error ? "Error" : "Information"),
+                MessageBoxButtons.OK,
                 (error ? MessageBoxIcon.Error : MessageBoxIcon.Information),
-                MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.DefaultDesktopOnly);
         }
     }
 }

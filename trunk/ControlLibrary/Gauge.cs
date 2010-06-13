@@ -146,8 +146,7 @@ namespace Nova.ControlLibrary
             float barWidth = barRight - barLeft;
             float barHeight = Bar.Size.Height;
 
-            e.Graphics.FillRectangle(BarBrush, barLeft, 0,
-                                               barWidth, barHeight);
+            e.Graphics.FillRectangle(BarBrush, barLeft, 0, barWidth, barHeight);
 
             if (Marker != 0)
             {
@@ -157,8 +156,7 @@ namespace Nova.ControlLibrary
 
                 e.Graphics.TranslateTransform(markerStart, 0);
                 e.Graphics.RotateTransform(45);
-                e.Graphics.FillRectangle(MarkerBrush, 0, 0,
-                                                      markerWidth, markerHeight);
+                e.Graphics.FillRectangle(MarkerBrush, 0, 0, markerWidth, markerHeight);
                 e.Graphics.ResetTransform();
             }
 

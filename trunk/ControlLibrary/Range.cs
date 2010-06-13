@@ -87,11 +87,12 @@ namespace Nova.ControlLibrary
 
         // Event and delegate definition for when the range is changed.
         // This event tells RaceDesigner to modify the race's advantage points
-        public delegate void RangeChangedHandler(object sender,
-                                                 int newLeftValue,
-                                                 int newRightValue,
-                                                 int oldLeftValue,
-                                                 int oldRightValue);
+        public delegate void RangeChangedHandler(
+            object sender,
+            int newLeftValue,
+            int newRightValue,
+            int oldLeftValue,
+            int oldRightValue);
 
         public event RangeChangedHandler RangeChanged;
         
@@ -281,15 +282,15 @@ namespace Nova.ControlLibrary
             int fillWidth = fillRight - fillLeft;
 
 
-            string realRange = String.Format("{0} to {1} {2}",
-                                BarPositionToEnvironmentValue(BoxLeftPosition).ToString("F1"),
-                                BarPositionToEnvironmentValue(BoxRightPosition).ToString("F1"),
-                                Units);
+            string realRange = String.Format(
+                "{0} to {1} {2}",
+                BarPositionToEnvironmentValue(BoxLeftPosition).ToString("F1"),
+                BarPositionToEnvironmentValue(BoxRightPosition).ToString("F1"),
+                Units);
 
             BoxSpan.Text = realRange;
 
-            e.Graphics.FillRectangle(BoxBrush, fillLeft, fillY,
-                                     fillWidth, fillHeight);
+            e.Graphics.FillRectangle(BoxBrush, fillLeft, fillY, fillWidth, fillHeight);
 
         }
 
@@ -361,8 +362,7 @@ namespace Nova.ControlLibrary
                     break;
             }
 
-            RangeChanged(this, BoxLeftPosition, BoxRightPosition,
-                               BoxOldLeftPosition, BoxOldRightPosition);
+            RangeChanged(this, BoxLeftPosition, BoxRightPosition, BoxOldLeftPosition, BoxOldRightPosition);
 
             Bar.Invalidate();
         }
