@@ -67,7 +67,7 @@ namespace Nova.WinForms.Console
 
             // and that we have troops.
 
-            double troops = fleet.Cargo.Colonists;
+            double troops = fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
             Star star = fleet.InOrbit;
 
             if (troops == 0)

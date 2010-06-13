@@ -88,6 +88,8 @@ namespace Nova.Common
 
        #region Numeric Constants
 
+       public const int ColonistsPerKiloton = 100; 
+
        public const int MaxWeaponRange = 10;
        
        public const double GravityMinimum = 0; // FIXME (priority 3) - Stars! gravity range is 0.2 - 6.0 with 1.0 in the middle! Will need to revise all current race builds once changed.

@@ -105,7 +105,44 @@ namespace Nova.Common.Components
 
         #endregion
 
+        /// <summary>
+        /// See if this weapon is of the same type - everything but power must match (power can be added together for weapon groups).
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        private bool IsSameWeaponType(Weapon other)
+        {
+            if (Range != other.Range) return false;
+            if (Initiative != other.Initiative) return false;
+            if (Accuracy != other.Accuracy) return false;
+            if (Group != other.Group) return false;
+            return true;
+        }
+
         #region Operators
+
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            if (! IsSameWeaponType((Weapon)op2))
+            {
+                Report.Error("Attempted to add different weapon types.");
+                return;
+            }
+            Power += ((Weapon)op2).Power;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            Power *= scalar;
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -118,6 +155,11 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static Weapon operator +(Weapon op1, Weapon op2)
         {
+            if (!op1.IsSameWeaponType(op2))
+            {
+                Report.Error("Attempted to add different weapon types.");
+                return op1;
+            }
             if (op1.Group != op2.Group)
             {
                 Report.Error("Weapon.operator+ Attempted to add weapons of different Groups.");

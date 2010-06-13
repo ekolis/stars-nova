@@ -261,13 +261,13 @@ namespace Nova.ControlLibrary
             fleet.Cargo.Ironium = IroniumTransfer.Value;
             fleet.Cargo.Boranium = boroniumTransfer.Value;
             fleet.Cargo.Germanium = GermaniumTransfer.Value;
-            fleet.Cargo.Colonists = colonistsTransfer.Value;
+            fleet.Cargo.ColonistsInKilotons = colonistsTransfer.Value;
 
             Star star = fleet.InOrbit;
             star.ResourcesOnHand.Ironium -= IroniumTransfer.Taken;
             star.ResourcesOnHand.Boranium -= boroniumTransfer.Taken;
             star.ResourcesOnHand.Germanium -= GermaniumTransfer.Taken;
-            star.Colonists -= colonistsTransfer.Taken * 1000;
+            star.Colonists -= colonistsTransfer.Taken * Global.ColonistsPerKiloton;
 
             Close();
         }
@@ -294,13 +294,13 @@ namespace Nova.ControlLibrary
             IroniumTransfer.Value = (int)fleet.Cargo.Ironium;
             boroniumTransfer.Value = (int)fleet.Cargo.Boranium;
             GermaniumTransfer.Value = (int)fleet.Cargo.Germanium;
-            colonistsTransfer.Value = (int)fleet.Cargo.Colonists;
+            colonistsTransfer.Value = (int)fleet.Cargo.ColonistsInKilotons;
 
             Star star = fleet.InOrbit;
             IroniumTransfer.Available = (int)star.ResourcesOnHand.Ironium;
             boroniumTransfer.Available = (int)star.ResourcesOnHand.Boranium;
             GermaniumTransfer.Available = (int)star.ResourcesOnHand.Germanium;
-            colonistsTransfer.Available = (int)star.Colonists / 1000;
+            colonistsTransfer.Available = (int)star.Colonists / Global.ColonistsPerKiloton;
 
             IroniumTransfer.Limit = CargoBay;
             boroniumTransfer.Limit = CargoBay;

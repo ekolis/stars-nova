@@ -96,6 +96,24 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            Value = Math.Max(Value, ((Radiation)op2).Value);
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            return;
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
@@ -120,7 +138,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static Radiation operator *(Radiation op1, int scalar)
         {
-            return new Radiation(op1.Value);
+            return new Radiation(op1);
         }
 
         #endregion

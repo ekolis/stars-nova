@@ -46,6 +46,9 @@ namespace Nova.Common
         public Resources MineralConcentration = new Resources();
         public Resources ResourcesOnHand = new Resources();
         public Fleet Starbase;
+        /// <summary>
+        /// The number of colonists as reported on a planet. Divide by GlobalDefinitions.ColonistsPerKiloton to convert to cargo units.
+        /// </summary>
         public int Colonists;
         public int Defenses;
         public int Factories;

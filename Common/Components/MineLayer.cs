@@ -98,6 +98,29 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            if (HitChance != ((MineLayer)op2).HitChance)
+            {
+                Report.Error("MineLayer.operator+ Attempted to add together different types of mine layers.");
+                return;
+            }
+            LayerRate += ((MineLayer)op2).LayerRate;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            LayerRate *= scalar;
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.

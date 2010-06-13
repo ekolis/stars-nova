@@ -85,6 +85,29 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            Scanner temp = this + (Scanner)op2;
+            PenetratingScan = temp.PenetratingScan;
+            NormalScan = temp.NormalScan;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            Scanner temp = this * scalar;
+            PenetratingScan = temp.PenetratingScan;
+            NormalScan = temp.NormalScan;
+
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
