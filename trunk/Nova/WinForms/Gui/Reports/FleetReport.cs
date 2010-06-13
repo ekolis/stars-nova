@@ -128,7 +128,7 @@ namespace Nova.WinForms.Gui
                     cargoText.AppendFormat("{0} {1} {2} {3}", cargo.Ironium,
                                                               cargo.Boranium,
                                                               cargo.Germanium,
-                                                              cargo.Colonists);
+                                                              cargo.ColonistsInKilotons);
                     int i = 0;
                     string[] row = new string[NumColumns];
 

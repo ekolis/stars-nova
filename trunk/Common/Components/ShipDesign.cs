@@ -108,13 +108,14 @@ namespace Nova.Common.Components
             Summary = new Component(ShipHull);
 
             // Add those properties which are included with the hull
+            
             IntegerProperty armor = new IntegerProperty(hullProperties.ArmorStrength);
             Summary.Properties.Add("Armor", armor);
             IntegerProperty cargo = new IntegerProperty(hullProperties.BaseCargo);
             Summary.Properties.Add("Cargo", cargo);
             Fuel fuel = new Fuel(hullProperties.FuelCapacity, 0);
             Summary.Properties.Add("Fuel", fuel);
-
+            
 
             // Check any non Hull properties of the ShipHull
             foreach (string key in ShipHull.Properties.Keys)
@@ -173,11 +174,13 @@ namespace Nova.Common.Components
                 case "Terraforming":
                     if (Summary.Properties.ContainsKey(type))
                     {
-                        Summary.Properties[type] += property * componentCount;
+                        property.Scale(componentCount);
+                        Summary.Properties[type].Add(property);
                     }
                     else
                     {
-                        Summary.Properties.Add(type, property * componentCount);
+                        property.Scale(componentCount);
+                        Summary.Properties.Add(type, property);
                     }
                     break;
 
@@ -271,7 +274,6 @@ namespace Nova.Common.Components
         {
             get
             {
-                Update(); // TODO (priority 4) - too much doing this every time - need a more efficient way
                 if (Summary.Properties.ContainsKey("Armor"))
                 {
                     return ((IntegerProperty)Summary.Properties["Armor"]).Value;
@@ -312,6 +314,7 @@ namespace Nova.Common.Components
         {
             get
             {
+                Update();
                 if (Summary.Properties.ContainsKey("Cargo"))
                 {
                     return ((IntegerProperty)Summary.Properties["Cargo"]).Value;
@@ -599,6 +602,7 @@ namespace Nova.Common.Components
                 }
                 subnode = subnode.NextSibling;
             }
+            Update();
         }
 
         #endregion

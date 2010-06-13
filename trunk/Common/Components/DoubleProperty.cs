@@ -94,6 +94,30 @@ namespace Nova.Common.Components
         }
 
 
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            Value += ((DoubleProperty)op2).Value;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            Value *= scalar;
+        }
+
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.

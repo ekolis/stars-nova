@@ -44,7 +44,10 @@ namespace Nova.Common
         public int Ironium = 0;
         public int Boranium = 0;
         public int Germanium = 0;
-        public int Colonists = 0;
+        /// <summary>
+        /// Colonists in kT. Multiply by GlobalDefinitions.ColonistsPerKiloton to get the actual number of colonists.
+        /// </summary>
+        public int ColonistsInKilotons = 0;
 
         #region Construction
 
@@ -67,7 +70,7 @@ namespace Nova.Common
             this.Ironium = copy.Ironium;
             this.Boranium = copy.Boranium;
             this.Germanium = copy.Germanium;
-            this.Colonists = copy.Colonists;
+            this.ColonistsInKilotons = copy.ColonistsInKilotons;
         }
 
         #endregion
@@ -81,7 +84,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public int Mass
         {
-            get { return Ironium + Boranium + Germanium + Colonists; }
+            get { return Ironium + Boranium + Germanium + ColonistsInKilotons; }
         }
 
         #endregion
@@ -123,7 +126,7 @@ namespace Nova.Common
                             }
                         case "colonists":
                             {
-                                Colonists = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                                ColonistsInKilotons = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                                 break;
                             }
                     }
@@ -151,7 +154,7 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelCargo, "Ironium", this.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelCargo, "Boranium", this.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelCargo, "Germanium", this.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            Global.SaveData(xmldoc, xmlelCargo, "Colonists", this.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelCargo, "Colonists", this.ColonistsInKilotons.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             return xmlelCargo;
         }

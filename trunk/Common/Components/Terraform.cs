@@ -87,6 +87,26 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            MaxModifiedGravity = Math.Max(MaxModifiedGravity, ((Terraform)op2).MaxModifiedGravity);
+            MaxModifiedRadiation = Math.Max(MaxModifiedRadiation, ((Terraform)op2).MaxModifiedRadiation);
+            MaxModifiedTemperature = Math.Max(MaxModifiedTemperature, ((Terraform)op2).MaxModifiedTemperature);
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        /// <returns></returns>
+        public override void Scale(int scalar)
+        {
+            return;
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -119,7 +139,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static Terraform operator *(Terraform op1, int scalar)
         {
-            return op1;
+            return op1.Clone() as Terraform;
         }
 
         #endregion

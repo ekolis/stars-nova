@@ -48,7 +48,7 @@ namespace Nova.Common
     [Serializable]
     public class Ship : Item
     {
-        public Cargo Cargo = new Cargo(); // Cargo being carried.
+        // public Cargo Cargo = new Cargo(); // Cargo being carried.
         public ShipDesign Design = null;
 
         // These are the current shield / armor values, modified by damage.
@@ -88,7 +88,6 @@ namespace Nova.Common
             this.Design = copy.Design;
             this.Shields = copy.Shields;
             this.Armor = copy.Armor;
-            this.Cargo = new Cargo(copy.Cargo);
         }
 
         #endregion
@@ -112,7 +111,7 @@ namespace Nova.Common
         // fuel consumption is 15% less than advertised.
         /// </remarks>
         /// ----------------------------------------------------------------------------
-        public double FuelConsumption(int warp, Race race)
+        public double FuelConsumption(int warp, Race race, int cargoMass)
         {
             if (warp == 0) return 0;
             if (Design.Engine == null) return 0; // may be a star base
@@ -121,7 +120,7 @@ namespace Nova.Common
             double efficiency = fuelFactor / 100.0;
             double speed = warp * warp;
 
-            double fuelConsumption = (TotalMass * efficiency * speed) / 200.0;
+            double fuelConsumption = (Mass + (cargoMass * efficiency * speed)) / 200.0;
 
             if (race.HasTrait("IFE"))
             {
@@ -134,17 +133,6 @@ namespace Nova.Common
         #endregion
 
         #region Properties
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Get the mass of the ship design plus the mass of any cargo.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public double TotalMass
-        {
-            get { return (double)(Design.Mass + Cargo.Mass); }
-        }
-
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -226,6 +214,17 @@ namespace Nova.Common
             }
         }
 
+        /// <summary>
+        /// Provides an alias to the ShipDesign.CargoCapacity
+        /// </summary>
+        public int CargoCapacity
+        {
+            get
+            {
+                return Design.CargoCapacity;
+            }
+        }
+
         #endregion
 
         #region Load Save Xml
@@ -297,7 +296,6 @@ namespace Nova.Common
 
             Global.SaveData(xmldoc, xmlelShip, "Shields", this.Shields.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelShip, "Armor", this.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Cargo.Mass > 0) xmlelShip.AppendChild(Cargo.ToXml(xmldoc));
 
             return xmlelShip;
         }

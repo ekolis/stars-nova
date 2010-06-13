@@ -93,6 +93,24 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            return;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            return;
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary><para>
         /// Operator+ 
@@ -119,7 +137,6 @@ namespace Nova.Common.Components
         /// </para><para>
         /// Doesn't mean anything in the context of HullAffinity.
         /// </para></summary>
-        /// <param name="op1">Propertie to be scaled.</param>
         /// <param name="scalar">Scaling factor.</param>
         /// <returns>op1</returns>
         /// ----------------------------------------------------------------------------

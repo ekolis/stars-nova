@@ -1,0 +1,4 @@
+Some example command lines:
+
+To open the GUI with the Googly race on Dan's computer:
+Nova --gui --race Googly -i "D:\Dan\src\stars\nova\stars-nova\GameFiles\Test Game\Googly.intel"

@@ -31,6 +31,7 @@
 
 
 using System;
+using System.Linq;
 using System.Xml;
 using System.Collections;
 using System.Drawing;
@@ -48,16 +49,18 @@ namespace Nova.Common
         public int FleetID = 0;
         public ArrayList FleetShips = new ArrayList();
         public ArrayList Waypoints = new ArrayList();
-        public Cargo Cargo = new Cargo(); // FIXME (priority 6) - Cargo should be tracked by either the fleet or the ship, not both. Need to decide on a design for cargo management and document it.
+        /// <summary>
+        /// The cargo carried by the entire fleet. 
+        /// To avoid issues with duplication cargo is traked at the fleet level only.
+        /// </summary>
+        public Cargo Cargo = new Cargo(); 
         public Fleet Target = null;
         public Star InOrbit = null;
         public double BattleSpeed = 0; // used by a stack on the battle board
         public double Bearing = 0;
         public double Cloaked = 0;
         public double FuelAvailable = 0;
-        public double FuelCapacity = 0;
         public double TargetDistance = 100;
-        public int CargoCapacity = 0;
         public string BattlePlan = "Default";
        
         public enum TravelStatus { Arrived, InTransit }
@@ -122,9 +125,6 @@ namespace Nova.Common
 
             FleetShips.Add(ship);
 
-
-            FuelCapacity          = ship.Design.FuelCapacity;
-            CargoCapacity         = ship.Design.CargoCapacity;
             FuelAvailable         = FuelCapacity;
             Type                  = "Fleet";
 
@@ -236,9 +236,15 @@ namespace Nova.Common
         {
             double fuelConsumption = 0;
 
+            // Work out how full of cargo the fleet is.
+            double cargoFullness;
+            if (CargoCapacity == 0) cargoFullness = 0;
+            else cargoFullness = ((double)Cargo.Mass) / ((double)CargoCapacity);
+
+
             foreach (Ship ship in FleetShips)
             {
-                fuelConsumption += ship.FuelConsumption(warpFactor, race);
+                fuelConsumption += ship.FuelConsumption(warpFactor, race, (int)(ship.CargoCapacity * cargoFullness)); 
             }
 
             return fuelConsumption;
@@ -341,8 +347,9 @@ namespace Nova.Common
 
                 foreach (Ship ship in FleetShips)
                 {
-                    totalMass += ship.TotalMass;
+                    totalMass += ship.Design.Mass;
                 }
+                totalMass += Cargo.Mass;
 
                 return (int)totalMass;
             }
@@ -579,25 +586,6 @@ namespace Nova.Common
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Return the dock capacity of the fleet. This is used as a shortcut for a starbase which is normally the only 'ship' in its fleet.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public int DockCapacity
-        {
-            get
-            {
-                int dockCapacity = 0;
-                foreach (Ship ship in FleetShips)
-                {
-                    dockCapacity += ship.Design.DockCapacity;
-                }
-                return dockCapacity;
-            }
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
         /// Return a key for use in hash tables to locate items.
         /// </summary>
         /// ----------------------------------------------------------------------------
@@ -605,6 +593,40 @@ namespace Nova.Common
         {
             get { return this.Owner + "/" + this.FleetID; }
         }
+
+        /// <summary>
+        /// find the total fuel capacity of all ships in the fleet
+        /// </summary>
+        public int FuelCapacity
+        {
+            get
+            {
+                return FleetShips.Cast<Ship>().Sum(ship => ship.Design.FuelCapacity);
+            }
+        }
+
+        /// <summary>
+        /// find the total cargo capacity of the fleet
+        /// </summary>
+        public int CargoCapacity
+        {
+            get
+            {
+                return FleetShips.Cast<Ship>().Sum(ship => ship.Design.CargoCapacity);
+            }
+        }
+
+        /// <summary>
+        /// find the total dock capacity of the fleet
+        /// </summary>
+        public int DockCapacity
+        {
+            get
+            {
+                return FleetShips.Cast<Ship>().Sum(ship => ship.Design.DockCapacity);
+            }
+        }
+
 
         #endregion
 
@@ -653,14 +675,8 @@ namespace Nova.Common
                         case "fuelavailable":
                             FuelAvailable = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
-                        case "fuelcapacity":
-                            FuelCapacity = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
                         case "targetdistance":
                             TargetDistance = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
-                        case "cargocapacity":
-                            CargoCapacity = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "battleplan":
                             BattlePlan = subnode.FirstChild.Value;
