@@ -174,13 +174,15 @@ namespace Nova.Common.Components
                 case "Terraforming":
                     if (Summary.Properties.ContainsKey(type))
                     {
-                        property.Scale(componentCount);
-                        Summary.Properties[type].Add(property);
+                        ComponentProperty toAdd = property.Clone() as ComponentProperty; // create a copy so scaling doesn't mess it up.
+                        toAdd.Scale(componentCount);
+                        Summary.Properties[type].Add(toAdd);
                     }
                     else
                     {
-                        property.Scale(componentCount);
-                        Summary.Properties.Add(type, property);
+                        ComponentProperty toAdd = property.Clone() as ComponentProperty; // create a copy so scaling doesn't mess it up.
+                        toAdd.Scale(componentCount);
+                        Summary.Properties.Add(type, toAdd);
                     }
                     break;
 
