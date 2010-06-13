@@ -66,10 +66,11 @@ namespace Nova.Common
             public Resources NeededResources()
             {
                 Resources unitResources = Unit.NeededResources();
-                return new Resources((int)unitResources.Ironium * Quantity,
-                                                 (int)unitResources.Boranium * Quantity,
-                                                 (int)unitResources.Germanium * Quantity,
-                                                 (int)unitResources.Energy * Quantity);
+                return new Resources(
+                    (int)unitResources.Ironium * Quantity,
+                    (int)unitResources.Boranium * Quantity,
+                    (int)unitResources.Germanium * Quantity,
+                    (int)unitResources.Energy * Quantity);
             }
 
             #region Load Save Xml

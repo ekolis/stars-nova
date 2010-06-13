@@ -164,9 +164,11 @@ namespace Nova.WinForms.Gui
             + "\r\n"
             + "Are you sure you want to do this?";
 
-            DialogResult result = MessageBox.Show(text, "Nova - Warning",
-                                  MessageBoxButtons.YesNo,
-                                  MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show(
+                text,
+                "Nova - Warning",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
 
             if (result != DialogResult.Yes) return;
 

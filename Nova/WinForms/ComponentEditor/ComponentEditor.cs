@@ -1241,8 +1241,7 @@ namespace Nova.WinForms.ComponentEditor
            stringFlags.Alignment = StringAlignment.Center;
            stringFlags.LineAlignment = StringAlignment.Center;
            
-           g.DrawString(tabPage.Text, tabFont, textBrush,
-                        tabBounds, new StringFormat(stringFlags));
+           g.DrawString(tabPage.Text, tabFont, textBrush, tabBounds, new StringFormat(stringFlags));
            
        }
 

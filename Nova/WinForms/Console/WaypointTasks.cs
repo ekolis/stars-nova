@@ -179,8 +179,7 @@ namespace Nova.WinForms.Console
         /// <param name="amount"></param>
         /// <param name="resources"></param>
         /// ----------------------------------------------------------------------------
-        public static void Scrap(Ship ship, Star star, double amount,
-                                 double resources)
+        public static void Scrap(Ship ship, Star star, double amount, double resources)
         {
             double factor = amount / 100;
 

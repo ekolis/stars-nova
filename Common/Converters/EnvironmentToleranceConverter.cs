@@ -23,6 +23,7 @@ using System;
 using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using System.Reflection;
+using System.Collections;
 
 namespace Nova.Common.Converters
 {
@@ -33,8 +34,19 @@ namespace Nova.Common.Converters
     {
         protected override InstanceDescriptor ConvertToInstanceDescriptor(EnvironmentTolerance value)
         {
-            ConstructorInfo constructor = typeof(EnvironmentTolerance).GetConstructor(new Type[] { typeof(double), typeof(double) });
-            return new InstanceDescriptor(constructor, new object[] { value.Minimum, value.Maximum });
+            ConstructorInfo constructor = typeof(EnvironmentTolerance).GetConstructor(new Type[]
+                {
+                    typeof(double),
+                    typeof(double)
+                });
+
+            ICollection arguments = new object[]
+                {
+                    value.Minimum,
+                    value.Maximum
+                };
+
+            return new InstanceDescriptor(constructor, arguments);
         }
     }
 }

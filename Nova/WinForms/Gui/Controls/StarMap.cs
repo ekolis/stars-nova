@@ -98,8 +98,7 @@ namespace Nova.WinForms.Gui
             CursorBitmap = Nova.Properties.Resources.Cursor;
             CursorBitmap.MakeTransparent(Color.Black);
 
-            NameFont = new Font("Arial", (float)7.5, FontStyle.Regular,
-                                GraphicsUnit.Point);
+            NameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);
 
             MapPanel.BackgroundImage = Nova.Properties.Resources.Plasma;
             MapPanel.BackgroundImageLayout = ImageLayout.Stretch;
@@ -286,8 +285,12 @@ namespace Nova.WinForms.Gui
                 {
                     position = LogicalToDevice(fleet.Position);
                     int size = 10;
-                    graphics.DrawEllipse(Pens.White, position.X - (size / 2),
-                                         position.Y - (size / 2), size, size);
+                    graphics.DrawEllipse(
+                        Pens.White,
+                        position.X - (size / 2),
+                        position.Y - (size / 2),
+                        size,
+                        size);
                 }
             }
 
@@ -330,8 +333,12 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void FillCircle(Brush brush, Point position, int radius)
         {
-            graphics.FillEllipse(brush, position.X - radius, position.Y - radius,
-                                 radius * 2, radius * 2);
+            graphics.FillEllipse(
+                brush,
+                position.X - radius,
+                position.Y - radius,
+                radius * 2,
+                radius * 2);
         }
 
 
@@ -476,15 +483,23 @@ namespace Nova.WinForms.Gui
 
             if (report.Starbase != null)
             {
-                graphics.DrawEllipse(Pens.White, position.X - (size / 2),
-                                     position.Y - (size / 2), size, size);
+                graphics.DrawEllipse(
+                    Pens.White,
+                    position.X - (size / 2),
+                    position.Y - (size / 2),
+                    size,
+                    size);
             }
 
             if (report.Age == 0 && report.OrbitingFleets)
             {
                 size = 10;
-                graphics.DrawEllipse(Pens.White, position.X - (size / 2),
-                                     position.Y - (size / 2), size, size);
+                graphics.DrawEllipse(
+                    Pens.White,
+                    position.X - (size / 2),
+                    position.Y - (size / 2),
+                    size,
+                    size);
             }
         }
 
@@ -607,10 +622,11 @@ namespace Nova.WinForms.Gui
                 foreach (Minefield minefield in TurnData.AllMinefields.Values)
                 {
 
-                    bool isIn = PointUtilities.CirclesOverlap(fleet.Position,
-                                                        minefield.Position,
-                                                        fleet.LongRangeScan,
-                                                        minefield.Radius);
+                    bool isIn = PointUtilities.CirclesOverlap(
+                        fleet.Position,
+                        minefield.Position,
+                        fleet.LongRangeScan,
+                        minefield.Radius);
 
                     if (isIn == true)
                     {
@@ -631,10 +647,11 @@ namespace Nova.WinForms.Gui
                     if (star.Owner == StateData.RaceName)
                     {
 
-                        bool isIn = PointUtilities.CirclesOverlap(star.Position,
-                                                            minefield.Position,
-                                                            star.ScanRange,
-                                                            minefield.Radius);
+                        bool isIn = PointUtilities.CirclesOverlap(
+                            star.Position,
+                            minefield.Position,
+                            star.ScanRange,
+                            minefield.Radius);
 
                         if (isIn == true)
                         {
@@ -1067,8 +1084,7 @@ namespace Nova.WinForms.Gui
                     {
                         SortableItem thisItem = new SortableItem();
                         thisItem.Target = fleet;
-                        thisItem.Distance = PointUtilities.Distance
-                           (position, fleet.Position);
+                        thisItem.Distance = PointUtilities.Distance(position, fleet.Position);
                         nearObjects.Add(thisItem);
                     }
                 }
@@ -1081,9 +1097,7 @@ namespace Nova.WinForms.Gui
 
                     SortableItem thisItem = new SortableItem();
                     thisItem.Target = star;
-                    thisItem.Distance = PointUtilities.Distance
-                                            (position, star.Position);
-
+                    thisItem.Distance = PointUtilities.Distance(position, star.Position);
                     nearObjects.Add(thisItem);
                 }
             }

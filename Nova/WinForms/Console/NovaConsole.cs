@@ -646,9 +646,11 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private void ForceMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("One or more races have not yet turned in. Are you sure you want to generate the next turn?", "Nova - Warning",
-                      MessageBoxButtons.YesNo,
-                      MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show(
+                "One or more races have not yet turned in. Are you sure you want to generate the next turn?",
+                "Nova - Warning",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
 
             if (result != DialogResult.Yes) return;
 

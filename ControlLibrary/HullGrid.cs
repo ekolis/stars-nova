@@ -74,8 +74,7 @@ namespace Nova.ControlLibrary
         {
             InitializeComponent();
 
-            font = new Font("Arial", (float)7.5, FontStyle.Regular,
-                            GraphicsUnit.Point);
+            font = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);
 
             // Initialise the panel map so that we can have a convienient way of
             // identifying each cell in the grid just from its index.

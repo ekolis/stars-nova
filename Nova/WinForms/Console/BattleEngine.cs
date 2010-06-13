@@ -646,9 +646,7 @@ namespace Nova.WinForms.Console
         /// <param name="details">The weapon being fired.</param>
         /// <param name="target">The target ship.</param>
         /// ----------------------------------------------------------------------------
-        private static void DischargeWeapon(Ship ship,
-                                            WeaponDetails details,
-                                            Ship target)
+        private static void DischargeWeapon(Ship ship, WeaponDetails details, Ship target)
         {
             BattleReport.Target report = new BattleReport.Target();
             report.TargetShip = new Ship(target);
@@ -740,9 +738,7 @@ namespace Nova.WinForms.Console
         /// FIXME (priority 3) - Missile accuracy is not calculated this way in Stars! The effect of computers and jammers must be considered at the same time.
         /// </remarks>
         /// ----------------------------------------------------------------------------
-        private static void FireMissile(Ship target,
-                                        double hitPower,
-                                        double accuracy)
+        private static void FireMissile(Ship target, double hitPower, double accuracy)
         {
             // First, determine if this missile is going to hit or miss (based on
             // it's accuracy. 
@@ -829,9 +825,7 @@ namespace Nova.WinForms.Console
         /// <param name="target">Ship being fired on.</param>
         /// <returns>Damage weapon is able to do.</returns>
         /// ----------------------------------------------------------------------------
-        private static double CalculateWeaponPower(Ship ship,
-                                           Weapon weapon,
-                                           Ship target)
+        private static double CalculateWeaponPower(Ship ship, Weapon weapon, Ship target)
         {
             // TODO (priority 5) Stub - just return the base power of weapon. Also need to comment the return value of this function with what defences have been considered by this (when done).
             return weapon.Power;
@@ -874,8 +868,7 @@ namespace Nova.WinForms.Console
         /// <param name="target">Ship being fired on.</param>
         /// <returns>Chance that weapon will hit.</returns>
         /// ----------------------------------------------------------------------------
-        private static double CalculateWeaponAccuracy(Ship ship,
-                                              Weapon weapon, Ship target)
+        private static double CalculateWeaponAccuracy(Ship ship, Weapon weapon, Ship target)
         {
             double weaponAccuracy = weapon.Accuracy;
 
