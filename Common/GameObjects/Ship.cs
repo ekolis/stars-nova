@@ -50,13 +50,14 @@ namespace Nova.Common
     {
         // public Cargo Cargo = new Cargo(); // Cargo being carried.
         public ShipDesign Design = null;
+        private bool summaryUpdated = false;
 
         // These are the current shield / armor values, modified by damage.
         public double Shields = 0;
         public double Armor = 0;
 
         #region Construction
-        /// ----------------------------------------------------------------------------
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Create a ship of a specified design.
@@ -66,6 +67,7 @@ namespace Nova.Common
         public Ship(ShipDesign shipDesign)
         {
             Design = shipDesign;
+            Design.Update(); // ensure summary properties have been calculated
 
             Shields = shipDesign.Shield;
             Armor = shipDesign.Armor;
@@ -85,14 +87,28 @@ namespace Nova.Common
         public Ship(Ship copy)
             : base(copy)
         {
-            this.Design = copy.Design;
-            this.Shields = copy.Shields;
-            this.Armor = copy.Armor;
+            Design = copy.Design;
+            Design.Update(); // ensure summary properties are calculated
+            Shields = copy.Shields;
+            Armor = copy.Armor;
+
         }
 
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// Update the summary statistics for the ship
+        /// </summary>
+        public void Update()
+        {
+            if (!summaryUpdated)
+            {
+                Design.Update();
+                summaryUpdated = true;
+            }
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -136,53 +152,6 @@ namespace Nova.Common
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Get the power rating of this ship - stub: TODO (priority 6)
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public int PowerRating
-        {
-            get { return 0; }
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Get if this ship has weapons.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public bool HasWeapons
-        {
-            get
-            {
-                if (Design.Weapons == null)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Get if the ship is a bomber
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public bool IsBomber
-        {
-            get
-            {
-                if (Design.ConventionalBombs.PopKill == 0 && Design.SmartBombs.PopKill == 0)
-                {
-                    return false;
-                }
-                return true;
-            }
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
         /// Get total bomb capability. 
         /// </summary>
         /// <remarks>
@@ -193,10 +162,117 @@ namespace Nova.Common
         {
             get
             {
+                Update();
                 return Design.ConventionalBombs;
             }
         }
 
+
+        /// <summary>
+        /// Determine if this <see cref="Ship"/> can refuel.
+        /// </summary>
+        public bool CanRefuel
+        {
+            get
+            {
+                return Design.CanRefuel;
+            }
+        }
+
+        /// <summary>
+        /// The Cargo Capacity of the ship.
+        /// </summary>
+        public int CargoCapacity
+        {
+            get
+            {
+                Update();
+                return Design.CargoCapacity;
+            }
+        }
+
+        /// <summary>
+        /// The maximum sized ship that can be produced.
+        /// </summary>
+        public int DockCapacity
+        {
+            get
+            {
+                Update();
+                return Design.DockCapacity;
+            }
+        }
+        /// <summary>
+        /// The fuel capacity of this ship.
+        /// </summary>
+        public int FuelCapacity
+        {
+            get
+            {
+                Update();
+                return Design.FuelCapacity;
+            }
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Get if this ship has weapons.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public bool HasWeapons
+        {
+            get
+            {
+                Update();
+                if (Design.Weapons == null)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+
+
+
+        /// <summary>
+        /// The icon for this ship.
+        /// </summary>
+        public System.Drawing.Image Image
+        {
+            get
+            {
+                return Design.ShipHull.ComponentImage;
+            }
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Get if the ship is a bomber
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public bool IsBomber
+        {
+            get
+            {
+                Update();
+                if (Design.ConventionalBombs.PopKill == 0 && Design.SmartBombs.PopKill == 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+
+        /// <summary>
+        /// Determine if this <see cref="Ship"/> is a starbase.
+        /// </summary>
+        public bool IsStarbase
+        {
+            get
+            {
+                return Design.IsStarbase;
+            }
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -210,20 +286,51 @@ namespace Nova.Common
         {
             get
             {
+                Update();
                 return Design.StandardMines.LayerRate;
             }
         }
 
+        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Provides an alias to the ShipDesign.CargoCapacity
+        /// Get the power rating of this ship - stub: TODO (priority 6)
         /// </summary>
-        public int CargoCapacity
+        /// ----------------------------------------------------------------------------
+        public int PowerRating
         {
             get
             {
-                return Design.CargoCapacity;
+                Update(); 
+                return 0;
             }
         }
+
+
+        /// <summary>
+        /// The range of the ship's normal scanners.
+        /// </summary>
+        public int ScanRangeNormal
+        {
+            get
+            {
+                Update();
+                return Design.NormalScan;
+            }
+        }
+
+        /// <summary>
+        /// The range of the ship's penetrating scanners.
+        /// </summary>
+        public int ScanRangePenetrating
+        {
+            get
+            {
+                Update();
+                return Design.PenetratingScan;
+            }
+        }
+
+
 
         #endregion
 
@@ -239,10 +346,11 @@ namespace Nova.Common
         public Ship(XmlNode node)
             : base(node)
         {
-            XmlNode subnode = node.FirstChild;
-            while (subnode != null)
+            try
             {
-                try
+
+                XmlNode subnode = node.FirstChild;
+                while (subnode != null)
                 {
 
                     switch (subnode.Name.ToLower())
@@ -255,25 +363,31 @@ namespace Nova.Common
                             Owner = ((XmlText)subnode.FirstChild).Value;
                             break;
                         case "mass":
-                            Mass = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Mass = int.Parse(((XmlText)subnode.FirstChild).Value,
+                                             System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "shields":
-                            Shields = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Shields = int.Parse(((XmlText)subnode.FirstChild).Value,
+                                                System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "armor":
-                            Armor = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Armor = int.Parse(((XmlText)subnode.FirstChild).Value,
+                                              System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "cost":
                             Cost = new Resources(subnode);
                             break;
 
                     }
+
+                    subnode = subnode.NextSibling;
                 }
-                catch (Exception e)
-                {
-                    Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
-                }
-                subnode = subnode.NextSibling;
+                Design.Update(); // ensure summary properties are calculated
+            }
+
+            catch (Exception e)
+            {
+                Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
             }
         }
 

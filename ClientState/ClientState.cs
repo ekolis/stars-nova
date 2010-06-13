@@ -677,6 +677,7 @@ namespace Nova.Client
 
                         // Read in binary state file
                         ClientState.Data = Serializer.Deserialize(stateFile) as ClientState;
+
                     }
                 }
                 catch (Exception e)

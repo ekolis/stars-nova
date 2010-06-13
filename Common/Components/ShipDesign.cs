@@ -296,6 +296,8 @@ namespace Nova.Common.Components
         {
             get
             {
+                
+                
                 if (Summary.Properties.ContainsKey("Fuel"))
                 {
                     return ((Fuel)Summary.Properties["Fuel"]).Capacity;
@@ -316,7 +318,7 @@ namespace Nova.Common.Components
         {
             get
             {
-                Update();
+                
                 if (Summary.Properties.ContainsKey("Cargo"))
                 {
                     return ((IntegerProperty)Summary.Properties["Cargo"]).Value;
@@ -604,7 +606,7 @@ namespace Nova.Common.Components
                 }
                 subnode = subnode.NextSibling;
             }
-            Update();
+            
         }
 
         #endregion

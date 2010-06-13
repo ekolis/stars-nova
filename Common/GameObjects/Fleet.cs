@@ -268,9 +268,9 @@ namespace Nova.Common
 
                 foreach (Ship ship in FleetShips)
                 {
-                    if (ship.Design.NormalScan > scanRange)
+                    if (ship.ScanRangeNormal > scanRange)
                     {
-                        scanRange = ship.Design.NormalScan;
+                        scanRange = ship.ScanRangeNormal;
                     }
                 }
                 return scanRange;
@@ -292,9 +292,9 @@ namespace Nova.Common
 
                 foreach (Ship ship in FleetShips)
                 {
-                    if (ship.Design.NormalScan > scanRange)
+                    if (ship.ScanRangeNormal > scanRange)
                     {
-                        scanRange = ship.Design.NormalScan;
+                        scanRange = ship.ScanRangeNormal;
                     }
                 }
                 return scanRange;
@@ -316,15 +316,15 @@ namespace Nova.Common
 
                 foreach (Ship ship in FleetShips)
                 {
-                    fleetComposition[ship.Design.Name] = 0;
+                    fleetComposition[ship.Name] = 0;
                 }
 
                 foreach (Ship ship in FleetShips)
                 {
-                    int count = (int)fleetComposition[ship.Design.Name];
+                    int count = (int)fleetComposition[ship.Name];
 
                     count++;
-                    fleetComposition[ship.Design.Name] = count;
+                    fleetComposition[ship.Name] = count;
                 }
 
                 return fleetComposition;
@@ -345,7 +345,7 @@ namespace Nova.Common
 
                 foreach (Ship ship in FleetShips)
                 {
-                    totalMass += ship.Design.Mass;
+                    totalMass += ship.Mass;
                 }
                 totalMass += Cargo.Mass;
 
@@ -367,7 +367,7 @@ namespace Nova.Common
 
                 foreach (Ship ship in FleetShips)
                 {
-                    cost = cost + ship.Design.Cost;
+                    cost = cost + ship.Cost;
                 }
 
                 return cost;
@@ -451,7 +451,7 @@ namespace Nova.Common
                 try
                 {
                     Ship ship = FleetShips[0] as Ship;
-                    return ship.Design.ShipHull.ComponentImage;
+                    return ship.Image;
                 }
                 catch
                 {
@@ -558,7 +558,7 @@ namespace Nova.Common
             {
                 foreach (Ship ship in FleetShips)
                 {
-                    if (ship.Design.IsStarbase) return true;
+                    if (ship.IsStarbase) return true;
                 }
                 return false;
             }
@@ -575,7 +575,7 @@ namespace Nova.Common
             {
                 foreach (Ship ship in FleetShips)
                 {
-                    if (ship.Design.CanRefuel) return true;
+                    if (ship.CanRefuel) return true;
                 }
                 return false;
             }
@@ -599,7 +599,7 @@ namespace Nova.Common
         {
             get
             {
-                return FleetShips.Cast<Ship>().Sum(ship => ship.Design.FuelCapacity);
+                return FleetShips.Cast<Ship>().Sum(ship => ship.FuelCapacity);
             }
         }
 
@@ -610,7 +610,7 @@ namespace Nova.Common
         {
             get
             {
-                return FleetShips.Cast<Ship>().Sum(ship => ship.Design.CargoCapacity);
+                return FleetShips.Cast<Ship>().Sum(ship => ship.CargoCapacity);
             }
         }
 
@@ -621,7 +621,7 @@ namespace Nova.Common
         {
             get
             {
-                return FleetShips.Cast<Ship>().Sum(ship => ship.Design.DockCapacity);
+                return FleetShips.Cast<Ship>().Sum(ship => ship.DockCapacity);
             }
         }
 
