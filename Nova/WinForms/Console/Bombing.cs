@@ -108,15 +108,15 @@ namespace Nova.WinForms.Console
             double minKilled      = totalBombs.MinimumKill
                                   * (1 - Defenses.PopulationCoverage);
 
-            double dead           = Math.Max(killed, minKilled);
-            star.Colonists       -= (int)dead;
+            int dead           = (int) Math.Max(killed, minKilled);
+            star.Colonists       -= dead;
 
             StringBuilder text    = new StringBuilder();
             text.Append("Fleet " + fleet.Name + " has killed ");
 
             if (star.Colonists > 0)
             {
-                text.Append(killed.ToString(System.Globalization.CultureInfo.InvariantCulture) + "of the colonists ");
+                text.Append(dead.ToString(System.Globalization.CultureInfo.InvariantCulture) + " of the colonists ");
             }
             else
             {
@@ -127,7 +127,7 @@ namespace Nova.WinForms.Console
 
             Message lambMessage  = new Message();
             lambMessage.Text     = text.ToString();
-            lambMessage.Audience = star.Owner;
+            lambMessage.Audience = star.Name;
             ServerState.Data.AllMessages.Add(lambMessage);
 
             Message wolfMessage  = new Message();
@@ -173,33 +173,37 @@ namespace Nova.WinForms.Console
             // 1). Let's apply that percentage to each building type in
             // turn. First Defenses:
 
-            string prefix = "Fleet " + fleet.Name + " has destroyed ";
-            string suffix = "on " + star.Owner;
-
             // Defenses
 
-            int loss = (int)((double)star.Defenses * damagePercent);
-            star.Defenses -= loss;
+            int defensesDestroyed = (int)((double)star.Defenses * damagePercent);
+            star.Defenses -= defensesDestroyed;
 
-            StringBuilder text = new StringBuilder();
-            text.Append(prefix + loss.ToString(System.Globalization.CultureInfo.InvariantCulture) + " Defenses " + suffix);
+            /*
+            if (loss > 0)
+            {
+                StringBuilder text = new StringBuilder();
+                text.Append(prefix + loss.ToString(System.Globalization.CultureInfo.InvariantCulture) + " Defenses " +
+                            suffix);
 
-            Message lambDefenses  = new Message();
-            lambDefenses.Text     = text.ToString();
-            lambDefenses.Audience = star.Owner;
-            ServerState.Data.AllMessages.Add(lambDefenses);
+                Message lambDefenses = new Message();
+                lambDefenses.Text = text.ToString();
+                lambDefenses.Audience = star.Owner;
+                ServerState.Data.AllMessages.Add(lambDefenses);
 
-            Message wolfDefenses  = new Message();
-            wolfDefenses.Audience = fleet.Owner;
-            wolfDefenses.Text     = text.ToString();
-            ServerState.Data.AllMessages.Add(wolfDefenses);
+                Message wolfDefenses = new Message();
+                wolfDefenses.Audience = fleet.Owner;
+                wolfDefenses.Text = text.ToString();
+                ServerState.Data.AllMessages.Add(wolfDefenses);
+            }
+            */
 
             // Now Factories
 
             double factories = (double)star.Factories;
-            loss = (int)(factories * damagePercent);
+            int factoriesDestroyed = (int)(factories * damagePercent);
 
-            star.Factories -= loss;
+            star.Factories -= factoriesDestroyed;
+            /*
             text = new StringBuilder();
             text.Append(prefix + loss.ToString(System.Globalization.CultureInfo.InvariantCulture) + " factories " + suffix);
 
@@ -212,13 +216,18 @@ namespace Nova.WinForms.Console
             wolfFactories.Audience = fleet.Owner;
             wolfFactories.Text     = text.ToString();
             ServerState.Data.AllMessages.Add(wolfFactories);
+            */
 
             // Now Mines
 
             double mines = (double)star.Mines;
-            loss = (int)(mines * damagePercent);
+            int minesDestroyed = (int)(mines * damagePercent);
 
-            star.Mines -= loss;
+            star.Mines -= minesDestroyed;
+
+
+            /* old message bits
+             
             text = new StringBuilder();
             text.Append(prefix + loss.ToString(System.Globalization.CultureInfo.InvariantCulture) + " mines " + suffix);
 
@@ -231,6 +240,41 @@ namespace Nova.WinForms.Console
             wolfMines.Text     = text.ToString();
             wolfMines.Audience = fleet.Owner;
             ServerState.Data.AllMessages.Add(wolfMines);
+
+            *
+             */
+
+            // Build message
+
+            if (defensesDestroyed + factoriesDestroyed + minesDestroyed > 0)
+            {
+                String messageText = "Fleet " + fleet.Name + " has bombed " + star.Name + " destroying ";
+                if (defensesDestroyed > 0)
+                {
+                    messageText += defensesDestroyed + " defenses ";
+                }
+                if (factoriesDestroyed > 0)
+                {
+                    messageText += factoriesDestroyed + " factories ";
+                }
+                if (minesDestroyed > 0)
+                {
+                    messageText += minesDestroyed + " mines ";
+                }
+                messageText.Remove(messageText.Length-1); // remove the last space, whichever installation it is from.
+                messageText += '.';
+
+
+                Message lambMines = new Message();
+                lambMines.Text = messageText;
+                lambMines.Audience = star.Owner;
+                ServerState.Data.AllMessages.Add(lambMines);
+
+                Message wolfMines = new Message();
+                wolfMines.Text = messageText;
+                wolfMines.Audience = fleet.Owner;
+                ServerState.Data.AllMessages.Add(wolfMines);
+            }
         }
     }
 }
