@@ -331,11 +331,11 @@ namespace Nova.WinForms.NewGame
 
             if (race.HasTrait("LSP"))
             {
-                star.Colonists = 17500;
+                star.Colonists = Global.StartingColonistsLowStartingPopulation;
             }
             else
             {
-                star.Colonists = 25000;
+                star.Colonists = Global.StartingColonists;
             }
         }
 
