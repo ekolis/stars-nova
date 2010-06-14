@@ -74,7 +74,7 @@ namespace Nova.Common
         public double OperableFactories;
         public double MineProductionRate;
         public double OperableMines;
-        public double MaxPopulation = 1000000;
+
         public double GrowthRate;
 
         #region Construction
@@ -200,6 +200,18 @@ namespace Nova.Common
         public int OptimumGravityLevel
         {
             get { return Median(GravityTolerance) * 10; }
+        }
+
+        public double MaxPopulation
+        {
+            get
+            {
+                int maxPop = Global.NominalMaximumPlanetaryPopulation;
+                if (HasTrait("HE")) maxPop = (int)(maxPop * Global.PopulationFactorHyperExpansion);
+                if (HasTrait("JOAT")) maxPop = (int)(maxPop * Global.PopulationFactorJackOfAllTrades);
+                if (HasTrait("OBRM")) maxPop = (int)(maxPop * Global.PopulationFactorOnlyBasicRemoteMining);
+                return maxPop;
+            }
         }
 
         #endregion

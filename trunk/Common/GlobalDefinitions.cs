@@ -88,10 +88,19 @@ namespace Nova.Common
 
        #region Numeric Constants
 
-       public const int ColonistsPerKiloton = 100; 
+       // Colonists
+       public const int ColonistsPerKiloton = 100;
+       public const int StartingColonistsLowStartingPopulation = 175000;
+       public const int StartingColonists = 250000;
+       public const int NominalMaximumPlanetaryPopulation = 1000000; // use Race.MaxPopulation to get the maximum for a particular race.
+       public const double PopulationFactorHyperExpansion = 0.5;
+       public const double PopulationFactorJackOfAllTrades = 1.2;
+       public const double PopulationFactorOnlyBasicRemoteMining = 1.1;
 
+       // Combat
        public const int MaxWeaponRange = 10;
        
+       // Environment
        public const double GravityMinimum = 0; // FIXME (priority 3) - Stars! gravity range is 0.2 - 6.0 with 1.0 in the middle! Will need to revise all current race builds once changed.
        public const double GravityMaximum = 8;
        public const double RadiationMinimum = 0;

@@ -363,16 +363,13 @@ namespace Nova.Common
                             Owner = ((XmlText)subnode.FirstChild).Value;
                             break;
                         case "mass":
-                            Mass = int.Parse(((XmlText)subnode.FirstChild).Value,
-                                             System.Globalization.CultureInfo.InvariantCulture);
+                            Mass = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "shields":
-                            Shields = int.Parse(((XmlText)subnode.FirstChild).Value,
-                                                System.Globalization.CultureInfo.InvariantCulture);
+                            Shields = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "armor":
-                            Armor = int.Parse(((XmlText)subnode.FirstChild).Value,
-                                              System.Globalization.CultureInfo.InvariantCulture);
+                            Armor = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "cost":
                             Cost = new Resources(subnode);
