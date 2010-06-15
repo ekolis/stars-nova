@@ -115,7 +115,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction (and initialisation)
+        /// Construction (and initialisation).
         /// </summary>
         /// ----------------------------------------------------------------------------
         public Range()
@@ -370,7 +370,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Mouse down on the move indicator left button
+        /// Mouse down on the move indicator left button.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
@@ -398,7 +398,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Mouse down on the move indicator left button
+        /// Mouse down on the move indicator left button.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
@@ -412,7 +412,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Shrink the range covered by the indicator bar
+        /// Shrink the range covered by the indicator bar.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
@@ -443,7 +443,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Conversion from bar position (1-100 scale) to environment value (EnvironmentMinimum - EnvironmentMaximum)
+        /// Conversion from bar position (1-100 scale) to environment value (EnvironmentMinimum - EnvironmentMaximum).
         /// </summary>
         /// <param name="pos">A bar position value from 1-100.</param>
         /// <returns>An environment value.</returns>
@@ -467,10 +467,10 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Conversion from an environment value (EnvironmentMinimum - EnvironmentMaximum) to a bar position (1-100)
+        /// Conversion from an environment value (EnvironmentMinimum - EnvironmentMaximum) to a bar position (1-100).
         /// </summary>
         /// <param name="env">An environment value.</param>
-        /// <returns>A bar position (1-100)</returns>
+        /// <returns>A bar position (1-100).</returns>
         /// ----------------------------------------------------------------------------
         private int EnvironmentValueToBarPosition(double env)
         {
@@ -607,7 +607,10 @@ namespace Nova.ControlLibrary
         [Description("Upper value of range bar."), Category("Nova")]
         public double BarUpper
         {
-            get { return BarPositionToEnvironmentValue(BoxRightPosition); }
+            get 
+            { 
+                return BarPositionToEnvironmentValue(BoxRightPosition); 
+            }
             set
             {
 
@@ -628,7 +631,10 @@ namespace Nova.ControlLibrary
         [Description("Lower value of range bar."), Category("Nova")]
         public double BarLower
         {
-            get { return BarPositionToEnvironmentValue(BoxLeftPosition); }
+            get
+            {
+                return BarPositionToEnvironmentValue(BoxLeftPosition);
+            }
             set
             {
                 BoxOldLeftPosition = BoxLeftPosition;
@@ -642,13 +648,16 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Get or Set range control bar colour
+        /// Get or Set range control bar colour.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Colour of range bar."), Category("Nova")]
         public Color RangeBarColor
         {
-            get { return BoxColor; }
+            get
+            {
+                return BoxColor;
+            }
 
             set
             {

@@ -55,9 +55,11 @@ namespace Nova.Common
         // in order to prevent errors due to using string literals (e.g. "Biotech" vs "Biotechnology")
         private Hashtable TechValues = new Hashtable();
         // used for internal access to the Hashtable
-        private static string[] ResearchKeys = {
+        private static string[] ResearchKeys = 
+        {
          "Biotechnology", "Electronics", "Energy", 
-         "Propulsion",    "Weapons",     "Construction" };
+         "Propulsion",    "Weapons",     "Construction" 
+        };
 
         #region Construction
 

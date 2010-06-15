@@ -70,7 +70,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Copy constructor for the hull
+        /// Copy constructor for the hull.
         /// </summary>
         /// <param name="existing">The <see cref="Hull"/> to be copied.</param>
         /// ----------------------------------------------------------------------------
@@ -164,7 +164,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Determine if this is a starbase hull
+        /// Determine if this is a starbase hull.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public bool IsStarbase
@@ -175,7 +175,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Determine if this is a starbase that can refuel
+        /// Determine if this is a starbase that can refuel.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public bool CanRefuel
@@ -248,7 +248,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {

@@ -384,7 +384,8 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static string ComponentFile
         {
-            get {
+            get 
+            {
                 if (File.Exists(saveFilePath)) return saveFilePath;
 
                 ComponentFile = FileSearcher.GetFile(Global.ComponentFolderKey, false, "../../..", Global.ComponentFolderName, Global.ComponentFileName, true);
@@ -417,7 +418,7 @@ namespace Nova.Common.Components
         /// <summary>
         /// Ask the user for the graphics directory.
         /// </summary>
-        /// <returns>The path to the graphics directory if found or null</returns>
+        /// <returns>The path to the graphics directory if found or null.</returns>
         /// ----------------------------------------------------------------------------
         private static string GetNewGraphicsPath()
         {
@@ -427,9 +428,9 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Extract the path to the component graphics from the registry
+        /// Extract the path to the component graphics from the registry.
         /// </summary>
-        /// <returns>Path to the Graphics folder if found or null</returns>
+        /// <returns>Path to the Graphics folder if found or null.</returns>
         /// ----------------------------------------------------------------------------
         private static string GetGraphicsPath()
         {

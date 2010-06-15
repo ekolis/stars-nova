@@ -53,7 +53,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construtor
+        /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public ResearchCost()
@@ -212,7 +212,10 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         public int Cost
         {
-            get { return ResearchFactor; }
+            get
+            {
+                return ResearchFactor;
+            }
             set
             {
                 switch (value)

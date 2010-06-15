@@ -59,7 +59,7 @@ namespace Nova.ControlLibrary
         #region Construction and Dispose
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction.
+        /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public Gauge()
@@ -182,7 +182,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Get or Set the value to display
+        /// Get or Set the value to display.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Value to display."), Category("Nova")]
@@ -306,7 +306,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Get or Set the bar colour
+        /// Get or Set the bar colour.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Bar Colour."), Category("Nova")]
@@ -318,7 +318,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Set or Get the Marker Colour
+        /// Set or Get the Marker Colour.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Marker Colour."), Category("Nova")]

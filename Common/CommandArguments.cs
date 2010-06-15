@@ -96,12 +96,12 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// default constructor
+        /// Default constructor.
         /// </summary>
         public CommandArguments() { }
 
         /// <summary>
-        /// constuctor taking a string array, usually used by main() to create a CommandArguments object from its arguments.
+        /// Constuctor taking a string array, usually used by main() to create a CommandArguments object from its arguments.
         /// </summary>
         /// <param name="args">an array of string arguments, the format normally recived by a main function.</param>
         public CommandArguments(string[] args) 
@@ -111,7 +111,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// WARNING : not implemented, will throw exception
+        /// WARNING : not implemented, will throw exception.
         /// </summary>
         /// <param name="args"></param>
         public CommandArguments(string args) 

@@ -70,8 +70,12 @@ namespace Nova.WinForms.Gui
         private System.Drawing.BufferedGraphicsContext bufferedContext = null;
         #endregion
 
-        private Point[] triangle = { new Point(0, 0), new Point(-5, -10),
-                                   new Point(5, -10) };
+        private readonly Point[] triangle = 
+        { 
+            new Point(0, 0), 
+            new Point(-5, -10),
+            new Point(5, -10) 
+        };
 
 
         #region Construction and Initialization

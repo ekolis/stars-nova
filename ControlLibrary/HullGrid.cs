@@ -67,7 +67,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction
+        /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public HullGrid()
@@ -321,7 +321,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Process a drop event
+        /// Process a drop event.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
@@ -443,7 +443,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Clear out the grid
+        /// Clear out the grid.
         /// </summary>
         /// <param name="panelVisible">True if this panel is visible for this hull type.</param>
         /// ----------------------------------------------------------------------------
@@ -561,7 +561,10 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         public bool HideEmptyModules
         {
-            get { return emptyModulesHidden; }
+            get
+            {
+                return emptyModulesHidden;
+            }
             set
             {
                 emptyModulesHidden = value;

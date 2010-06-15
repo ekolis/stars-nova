@@ -34,7 +34,7 @@ namespace Nova.Common.Components
 {
 
     /// <summary>
-    /// Fuel Property
+    /// Fuel Property.
     /// </summary>
     [Serializable]
     public class Fuel : ComponentProperty
@@ -47,7 +47,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor
+        /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public Fuel()
@@ -58,7 +58,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Initialising constructor
+        /// Initialising constructor.
         /// </summary>
         /// <param name="capacity">Fuel capacity added by this property.</param>
         /// <param name="generation">Fuel generation per year added by this property.</param>
@@ -72,7 +72,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Copy constructor
+        /// Copy constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="Fuel"/> property to copy.</param>
         /// ----------------------------------------------------------------------------
@@ -125,8 +125,8 @@ namespace Nova.Common.Components
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
-        /// <param name="op1">LHS operator</param>
-        /// <param name="op2">RHS operator</param>
+        /// <param name="op1">LHS operator.</param>
+        /// <param name="op2">RHS operator.</param>
         /// <returns>A new <see cref="Fuel"/> property with total capacity and fuel generation of both operands.</returns>
         /// ----------------------------------------------------------------------------
         public static Fuel operator +(Fuel op1, Fuel op2)

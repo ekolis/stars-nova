@@ -155,7 +155,8 @@ namespace Nova.WinForms.NewGame
                     Report.FatalError("Unable to launch Console.");
                 }
 
-            } while (true); // keep trying to make a new game
+            } 
+            while (true); // keep trying to make a new game
 
         } // Main
 

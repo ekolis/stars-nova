@@ -104,8 +104,8 @@ namespace Nova.Common.Components
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
-        /// <param name="op1">LHS operand</param>
-        /// <param name="op2">RHS operand</param>
+        /// <param name="op1">LHS operand.</param>
+        /// <param name="op2">RHS operand.</param>
         /// <returns>Sum of the properties.</returns>
         /// ----------------------------------------------------------------------------
         public static Computer operator +(Computer op1, Computer op2)
@@ -178,7 +178,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {

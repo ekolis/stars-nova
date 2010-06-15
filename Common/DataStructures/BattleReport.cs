@@ -40,7 +40,7 @@ namespace Nova.Common
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// A class to record a new stack position
+        /// A class to record a new stack position.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Serializable]
@@ -92,7 +92,7 @@ namespace Nova.Common
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Main battle report components
+        /// Main battle report components.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public string Location  = null;

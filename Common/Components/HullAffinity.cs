@@ -45,7 +45,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction 
+        /// Default constructor. 
         /// </summary>
         /// ----------------------------------------------------------------------------
         public HullAffinity() { }
@@ -113,15 +113,15 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary><para>
-        /// Operator+ 
+        /// Operator overloading for +.
         /// </para><para>
         /// Provide a way to sum up properties in the ship design.
         /// </para><para>
-        /// Doesn't mean anything in the context of HullAffinity
+        /// Doesn't mean anything in the context of HullAffinity.
         /// </para></summary>
         /// <param name="op1">The LHS parameter.</param>
         /// <param name="op2">The RHS parameter.</param>
-        /// <returns>op1</returns>
+        /// <returns>The value of op1.</returns>
         /// ----------------------------------------------------------------------------
         public static HullAffinity operator +(HullAffinity op1, HullAffinity op2)
         {
@@ -131,14 +131,14 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary><para>
-        /// Operator*
+        /// Operator overloading for *.
         /// </para><para>
         /// Used to scale (multiply) properties in the ship design.
         /// </para><para>
         /// Doesn't mean anything in the context of HullAffinity.
         /// </para></summary>
         /// <param name="scalar">Scaling factor.</param>
-        /// <returns>op1</returns>
+        /// <returns>The value of op1.</returns>
         /// ----------------------------------------------------------------------------
         public static HullAffinity operator *(HullAffinity op1, int scalar)
         {
@@ -182,7 +182,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {

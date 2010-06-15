@@ -53,7 +53,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// default constructor
+        /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public Design() : base() { }
@@ -79,8 +79,8 @@ namespace Nova.Common.Components
         /// <summary>
         /// Save: Generate an XmlElement representing the Design.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement representing the Design</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representing the Design.</returns>
         /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {

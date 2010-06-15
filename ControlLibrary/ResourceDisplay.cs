@@ -55,7 +55,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction.
+        /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public ResourceDisplay()
