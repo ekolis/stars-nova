@@ -39,6 +39,8 @@ using System.Text;
 
 using Nova.Common;
 using Nova.Client;
+using Nova.Common.Components;
+using Nova.Server;
 
 namespace Nova.Ai
 {
@@ -79,9 +81,57 @@ namespace Nova.Ai
             }
 
             // play turn
-              // currently does nothing: This is where the AI propper should do its work.
+            // Currently just builds factories/mines/defenses
+            try
+            {
+                Intel turnData = ClientState.Data.InputTurn;
 
-            // save turn
+                // currently does nothing: This is where the AI propper should do its work.
+                foreach (Star star in ClientState.Data.PlayerStars.Values)
+                {
+                    star.ManufacturingQueue.Queue.Clear();
+                    ProductionQueue.Item item = new ProductionQueue.Item();
+                    Design design;
+
+                    // build factories (limited by Germanium, and don't want to use it all)
+                    if (star.ResourcesOnHand.Germanium > 50)
+                    {
+                        item.Name = "Factory";
+                        item.Quantity = (int)((star.ResourcesOnHand.Germanium - 50) / 5);
+                        item.Quantity = Math.Max(0, item.Quantity);
+
+                        design = turnData.AllDesigns[ClientState.Data.RaceName + "/" + item.Name] as Design;
+
+                        item.BuildState = design.Cost;
+
+                        star.ManufacturingQueue.Queue.Add(item);
+
+                    }
+
+                    // build mines
+                    item = new ProductionQueue.Item();
+                    item.Name = "Mine";
+                    item.Quantity = 100;
+                    design = turnData.AllDesigns[ClientState.Data.RaceName + "/" + item.Name] as Design;
+                    item.BuildState = design.Cost;
+                    star.ManufacturingQueue.Queue.Add(item);
+
+                    // build defenses
+                    item = new ProductionQueue.Item();
+                    item.Name = "Defenses";
+                    item.Quantity = 100;
+                    design = turnData.AllDesigns[ClientState.Data.RaceName + "/" + item.Name] as Design;
+                    item.BuildState = design.Cost;
+                    star.ManufacturingQueue.Queue.Add(item);
+                }
+
+            }
+            catch (Exception)
+            {
+                Report.FatalError("AI failed to take proper actions.");
+            }
+
+            // save turn)
             try
             {
                 OrderWriter.WriteOrders();
