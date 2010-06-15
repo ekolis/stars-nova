@@ -127,7 +127,7 @@ namespace Nova.WinForms.Console
             // Build message
 
 
-            String messageText = "Fleet " + fleet.Name + " has bombed " + star.Name;
+            string messageText = "Fleet " + fleet.Name + " has bombed " + star.Name;
 
 
             if (star.Colonists > 0)
