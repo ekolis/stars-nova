@@ -54,7 +54,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction.
+        /// Initializes a new instace of the CargoTransfer class.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public CargoTransfer()
@@ -65,7 +65,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Clean up any resources being used
+        /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing"></param>
         /// ----------------------------------------------------------------------------
@@ -230,7 +230,10 @@ namespace Nova.ControlLibrary
                 shipAmount.Text = cargoAmount.ToString(System.Globalization.CultureInfo.InvariantCulture) + " kT";
             }
 
-            get { return cargoAmount; }
+            get
+            {
+                return cargoAmount;
+            }
         }
 
         /// ----------------------------------------------------------------------------

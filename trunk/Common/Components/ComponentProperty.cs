@@ -57,7 +57,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Copy Constructor
+        /// Copy Constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="ComponentProperty"/> to copy.</param>
         /// ----------------------------------------------------------------------------

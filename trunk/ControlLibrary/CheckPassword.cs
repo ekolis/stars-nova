@@ -48,7 +48,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction
+        /// Iniializing constructor.
         /// </summary>
         /// <param name="raceData">The <see cref="Race"/> whose password is being checked.</param>
         /// ----------------------------------------------------------------------------

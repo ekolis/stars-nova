@@ -56,7 +56,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction.
+        /// Initializes a new instance of the CargoDialog class.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public CargoDialog()

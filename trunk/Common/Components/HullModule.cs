@@ -54,7 +54,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction
+        /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public HullModule() { }
@@ -62,7 +62,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Copy constructor 
+        /// Copy constructor.
         /// </summary>
         /// <param name="existing">The existing <see cref="HullModule"/> to copy.</param>
         /// ----------------------------------------------------------------------------

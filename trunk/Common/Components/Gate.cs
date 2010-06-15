@@ -32,7 +32,7 @@ using System.Xml;
 namespace Nova.Common.Components
 {
     /// <summary>
-    /// Gate Class
+    /// Gate class.
     /// </summary>
     [Serializable]
     public class Gate : ComponentProperty
@@ -44,7 +44,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor
+        /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public Gate()
@@ -54,7 +54,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Copy constructor
+        /// Copy constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="Gate"/> to copy.</param>
         /// ----------------------------------------------------------------------------
@@ -129,7 +129,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
-        /// Gates are not cumulative, see the remarks for the operator+
+        /// Gates are not cumulative, see the remarks for the operator+.
         /// </summary>
         /// <param name="op1"></param>
         /// <param name="scalar"></param>
@@ -182,7 +182,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
