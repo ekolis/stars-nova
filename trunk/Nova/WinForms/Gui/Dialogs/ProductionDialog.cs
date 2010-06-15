@@ -74,12 +74,10 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Disposal
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Dialog constrution.
+        /// Initializes a new instance of the ProductionDialog class.
         /// </summary>
-        /// <param name="star"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="star">The star to do a production dialog for.</param>
         public ProductionDialog(Star star)
         {
             QueueStar = star;

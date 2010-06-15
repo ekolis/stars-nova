@@ -81,23 +81,19 @@ namespace Nova.WinForms.Console
 
         #region Construction Destruction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Nova Console construction (and any dynamic initialisation required).
+        /// Initializes a new instance of the NovaConsoleMain class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public NovaConsoleMain()
         {
             InitializeComponent();
         }
 
-    
-        /// ----------------------------------------------------------------------------
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">???</param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

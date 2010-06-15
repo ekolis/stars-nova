@@ -42,23 +42,19 @@ namespace Nova.Common.Components
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the Colonizer class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Colonizer()
         {
 
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Copy constructor.
+        /// Initializes a new instance of the Colonizer class.
         /// </summary>
         /// <param name="existing">An existing <see cref="Colonizer"/> property to copy.</param>
-        /// ----------------------------------------------------------------------------
         public Colonizer(Colonizer existing)
         {
             this.Orbital = existing.Orbital;
@@ -131,14 +127,13 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
+        /// Initializes a new instance of the Colonizer class.
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public Colonizer(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;

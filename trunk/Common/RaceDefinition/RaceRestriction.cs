@@ -34,8 +34,6 @@
 using System;
 using System.Xml;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nova.Common
 {
@@ -197,6 +195,7 @@ namespace Nova.Common
 
         /// ----------------------------------------------------------------------------
         /// <summary>
+        /// Initializes a new instance of the RaceRestriction class.
         /// Load a RaceRestriction from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 

@@ -54,11 +54,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction
+        /// Initializes a new instance of the SelectionDetail class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public SelectionDetail()
         {
             InitializeComponent();

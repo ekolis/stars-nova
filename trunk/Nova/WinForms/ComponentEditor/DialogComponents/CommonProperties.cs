@@ -48,11 +48,9 @@ namespace Nova.WinForms.ComponentEditor
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction
+        /// Initializes a new instance of the CommonProperties class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public CommonProperties()
         {
             InitializeComponent();

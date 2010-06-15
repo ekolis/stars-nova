@@ -49,11 +49,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the PlanetReport class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public PlanetReport()
         {
             InitializeComponent();

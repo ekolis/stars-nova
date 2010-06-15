@@ -38,8 +38,6 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nova.Common
 {
@@ -49,19 +47,6 @@ namespace Nova.Common
     [Serializable]
     public class TraitList : DictionaryBase
     {
-
-        #region Construction
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// default constructor
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public TraitList()
-        {
-        }
-
-        #endregion
 
         #region Methods
 

@@ -37,42 +37,36 @@ namespace Nova.Common.Components
     public class CapacitorProperty : ComponentProperty
     {
         public double Value = 0;
-        public static double MAXIMUM = 250;
+        public static double Maximum = 250;
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the CapacitorProperty class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public CapacitorProperty()
         {
 
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction from a ComponentProperty object.
+        /// Initializes a new instance of the CapacitorProperty class.
         /// </summary>
         /// <param name="existing">An existing property to copy.</param>
-        /// ----------------------------------------------------------------------------
         public CapacitorProperty(CapacitorProperty existing)
         {
-            this.Value = Math.Min(existing.Value, CapacitorProperty.MAXIMUM);
+            Value = Math.Min(existing.Value, Maximum);
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Initialising constructor.
+        /// Initializes a new instance of the CapacitorProperty class.
         /// </summary>
         /// <param name="existing">Capacitance boost of this property.</param>
-        /// ----------------------------------------------------------------------------
         public CapacitorProperty(double existing)
         {
-            this.Value = Math.Min(existing, CapacitorProperty.MAXIMUM);
+            this.Value = Math.Min(existing, CapacitorProperty.Maximum);
         }
 
         #endregion

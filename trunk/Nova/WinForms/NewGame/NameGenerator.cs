@@ -41,11 +41,10 @@ namespace Nova.WinForms.NewGame
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction, put all of our star names into our hat.
+        /// Initializes a new instance of the ShipDesignDialog class.
+        /// <para>Put all of our star names into our hat.</para>
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public NameGenerator()
         {
             foreach (string name in StarNames)

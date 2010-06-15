@@ -104,7 +104,7 @@ namespace Nova.WinForms.ComponentEditor
        #region Setup
 
        /// <summary>
-       /// Construction
+       /// Initializes a new instance of the ComponentEditorWindow class.
        /// </summary>
        public ComponentEditorWindow()
        {

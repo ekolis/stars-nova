@@ -32,12 +32,14 @@ using Nova.Common;
 
 namespace Nova.ControlLibrary
 {
-
+    /// <summary>
+    /// A user control that combines a counter and a check box.
+    /// </summary>
     public partial class EnabledCounter : UserControl
     {
 
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the EnabledCounter class.
         /// </summary>
         public EnabledCounter()
         {

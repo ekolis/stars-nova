@@ -36,8 +36,6 @@
 
 using System;
 using System.Xml;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nova.Common.Components
 {
@@ -47,20 +45,17 @@ namespace Nova.Common.Components
     {
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default Constructor
+        /// Initializes a new instance of the ComponentProperty class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ComponentProperty() { }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Copy Constructor.
+        /// Initializes a new instance of the ComponentProperty class.
+        /// Copy constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="ComponentProperty"/> to copy.</param>
-        /// ----------------------------------------------------------------------------
         public ComponentProperty(ComponentProperty existing)
         {
         }
@@ -105,11 +100,10 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
+        /// Initializes a new instance of the ComponentProperty class.
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ComponentProperty(XmlNode node)
         {
         }

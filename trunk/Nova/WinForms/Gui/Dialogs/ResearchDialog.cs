@@ -53,11 +53,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Research dialog construction and initialisation.
+        /// Initializes a new instance of the ResearchDialog class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ResearchDialog()
         {
             InitializeComponent();

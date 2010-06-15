@@ -80,11 +80,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Initialization
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the StarMap class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public StarMap()
         {
             bufferedContext = new BufferedGraphicsContext();

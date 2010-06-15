@@ -51,23 +51,18 @@ namespace Nova.ControlLibrary
 
         #region Construction and Disposal
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the ResearchCost class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ResearchCost()
         {
             InitializeComponent();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

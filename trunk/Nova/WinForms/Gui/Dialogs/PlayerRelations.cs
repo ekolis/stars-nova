@@ -51,11 +51,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the PlayerRelations class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public PlayerRelations()
         {
             InitializeComponent();

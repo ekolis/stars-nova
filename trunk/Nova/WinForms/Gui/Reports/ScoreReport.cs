@@ -46,11 +46,9 @@ namespace Nova.WinForms.Gui
     /// </summary>
     public partial class ScoreReport : Form
     {
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the ScoreReport class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ScoreReport()
         {
             InitializeComponent();

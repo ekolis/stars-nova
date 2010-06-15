@@ -35,7 +35,9 @@ using System.Windows.Forms;
 
 namespace Nova.ControlLibrary
 {
-
+    /// <summary>
+    /// A control for transferring cargo.
+    /// </summary>
     public class CargoTransfer : System.Windows.Forms.UserControl
     {
         private int cargoAmount;
@@ -54,7 +56,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Initializes a new instace of the CargoTransfer class.
+        /// Initializes a new instance of the CargoTransfer class.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public CargoTransfer()
@@ -63,12 +65,10 @@ namespace Nova.ControlLibrary
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -193,8 +193,9 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Set or Get the slider title.
+        /// Sets or Gets the slider title.
         /// </summary>
+        /// <value>A new title for the slider.</value>
         /// ----------------------------------------------------------------------------
         [Description("Slider Title."), Category("User Data")]
         public string Title
@@ -205,8 +206,9 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Set of Get the Maximum slider value.
+        /// Sets or Gets the Maximum slider value.
         /// </summary>
+        /// <value>The maximum slider value.</value>
         /// ----------------------------------------------------------------------------
         public int Maximum
         {
@@ -217,8 +219,9 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Set or Get Slider value.
+        /// Sets or Gets Slider value.
         /// </summary>
+        /// <value>A new amount of cargo to set.</value>
         /// ----------------------------------------------------------------------------
         public int Value
         {

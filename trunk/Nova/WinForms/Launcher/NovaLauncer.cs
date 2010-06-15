@@ -48,11 +48,9 @@ namespace Nova.WinForms.Launcher
 
         #region Initialisation
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction and initialisation
+        /// Initializes a new instance of the NovaLauncher class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public NovaLauncher()
         {
             InitializeComponent();

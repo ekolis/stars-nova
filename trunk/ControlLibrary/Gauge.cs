@@ -36,6 +36,9 @@ using System.Windows.Forms;
 namespace Nova.ControlLibrary
 {
 
+    /// <summary>
+    /// A simple gauge control.
+    /// </summary>
     public class Gauge : System.Windows.Forms.UserControl
     {
         private Font font              = new Font("Arial", 8);
@@ -57,11 +60,10 @@ namespace Nova.ControlLibrary
 
 
         #region Construction and Dispose
-        /// ----------------------------------------------------------------------------
+
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the Gauge class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Gauge()
         {
             InitializeComponent();
@@ -71,7 +73,7 @@ namespace Nova.ControlLibrary
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
