@@ -26,6 +26,7 @@
 // ===========================================================================
 #endregion
 
+using System;
 using Nova.Common;
 using Nova.Server;
 
@@ -59,7 +60,8 @@ namespace Nova.WinForms.Console
 
             // and that we have troops.
 
-            double troops = fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
+            int troops = fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
+            fleet.Cargo.ColonistsInKilotons = 0; // unload all troops, they will fight to the death or become new colonists.
             Star star = fleet.InOrbit;
 
             if (troops == 0)
@@ -73,33 +75,92 @@ namespace Nova.WinForms.Console
             }
 
             // Take into account the Defenses
-
             Defenses.ComputeDefenseCoverage(star);
-            troops *= Defenses.InvasionCoverage;
-            double colonists = star.Colonists;
+            troops = (int)(troops * (1.0 - Defenses.InvasionCoverage));
 
-            colonists -= troops;
-            if (colonists > 0)
+            // Apply defender and attacker bonuses
+            double attackerBonus = 1.1;
+            if (((Race)ServerState.Data.AllRaces[fleet.Owner]).HasTrait("WM"))
+                attackerBonus *= 1.5;
+
+            double defenderBonus = 1.0;
+            if (((Race)ServerState.Data.AllRaces[fleet.Owner]).HasTrait("IS"))
+                defenderBonus *= 2.0;
+
+            int defenderStrength = (int)(star.Colonists * defenderBonus);
+            int attackerStrength = (int)(troops * attackerBonus);
+            int survivorStrength = defenderStrength - attackerStrength; // will be negative if attacker wins
+
+            string messageText = fleet.Owner + " fleet " + fleet.Name + " attacked " +
+                                 star.Name + " with " + troops.ToString(System.Globalization.CultureInfo.InvariantCulture) + " troops. ";
+
+            if (survivorStrength > 0)
             {
-                Message message = new Message();
-                message.Audience = fleet.Owner;
-                message.Text = "Fleet " + fleet.Owner + " has killed "
-                   + troops.ToString(System.Globalization.CultureInfo.InvariantCulture) + " colonists on " + star.Name
-                   + " but did not manage to capture the planet";
-                ServerState.Data.AllMessages.Add(message);
-                star.Colonists -= (int)troops;
-                return;
+                // defenders win
+                int remainingDefenders = (int)(survivorStrength / defenderBonus);
+                remainingDefenders = Math.Max(remainingDefenders, Global.ColonistsPerKiloton);
+                int defendersKilled = star.Colonists - remainingDefenders;
+                star.Colonists = remainingDefenders;
+
+                messageText += "The attackers were slain but "
+                            + defendersKilled.ToString(System.Globalization.CultureInfo.InvariantCulture) +
+                            " colonists were killed in the attack.";
+
+                Message wolfMessage = new Message();
+                wolfMessage.Audience = fleet.Owner;
+                wolfMessage.Text = messageText;
+                ServerState.Data.AllMessages.Add(wolfMessage);
+
+                Message lambMessage = new Message();
+                lambMessage.Audience = star.Owner;
+                lambMessage.Text = messageText;
+                ServerState.Data.AllMessages.Add(lambMessage);
+            }
+            else if (survivorStrength < 0)
+            {
+                // attacker wins
+                int remainingAttackers = (int)(survivorStrength / defenderBonus);
+                remainingAttackers = Math.Max(remainingAttackers, Global.ColonistsPerKiloton);
+                int attackersKilled = troops - remainingAttackers;
+                star.Colonists = remainingAttackers;
+                star.Owner = fleet.Owner;
+
+                messageText += "The defenders were slain but "
+                            + attackersKilled.ToString(System.Globalization.CultureInfo.InvariantCulture) +
+                            " troops were killed in the attack.";
+
+                Message wolfMessage = new Message();
+                wolfMessage.Audience = fleet.Owner;
+                wolfMessage.Text = messageText;
+                ServerState.Data.AllMessages.Add(wolfMessage);
+
+                Message lambMessage = new Message();
+                lambMessage.Audience = star.Owner;
+                lambMessage.Text = messageText;
+                ServerState.Data.AllMessages.Add(lambMessage);
+            }
+            else
+            {
+                // no survivors!
+                messageText += "Both sides fought to the last and none were left to claim the planet!";
+
+                Message wolfMessage = new Message();
+                wolfMessage.Audience = fleet.Owner;
+                wolfMessage.Text = messageText;
+                ServerState.Data.AllMessages.Add(wolfMessage);
+
+                Message lambMessage = new Message();
+                lambMessage.Audience = star.Owner;
+                lambMessage.Text = messageText;
+                ServerState.Data.AllMessages.Add(lambMessage);
+
+                // clear out the colony
+                star.Colonists = 0;
+                star.Mines = 0;
+                star.Factories = 0;
+                star.Owner = null;
             }
 
-            Message captureMessage = new Message();
-            captureMessage.Audience = fleet.Owner;
-            captureMessage.Text = "Fleet " + fleet.Owner + " has killed "
-               + "all the colonists on " + star.Name
-               + " and has captured the planet";
-            ServerState.Data.AllMessages.Add(captureMessage);
-
-            star.Owner = fleet.Owner;
-            star.Colonists = (int)(troops - star.Colonists);
         }
 
     }

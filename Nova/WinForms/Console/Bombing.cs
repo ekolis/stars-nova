@@ -149,15 +149,15 @@ namespace Nova.WinForms.Console
                 star.Owner = null;
             }
 
-            Message lambMines = new Message();
-            lambMines.Text = messageText;
-            lambMines.Audience = star.Owner;
-            ServerState.Data.AllMessages.Add(lambMines);
+            Message lamb = new Message();
+            lamb.Text = messageText;
+            lamb.Audience = star.Owner;
+            ServerState.Data.AllMessages.Add(lamb);
 
-            Message wolfMines = new Message();
-            wolfMines.Text = messageText;
-            wolfMines.Audience = fleet.Owner;
-            ServerState.Data.AllMessages.Add(wolfMines);
+            Message wolf = new Message();
+            wolf.Text = messageText;
+            wolf.Audience = fleet.Owner;
+            ServerState.Data.AllMessages.Add(wolf);
 
             // if the colony is wiped out, clean the planet.
             if (star.Colonists <= 0)

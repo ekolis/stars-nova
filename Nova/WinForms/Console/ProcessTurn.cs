@@ -217,19 +217,17 @@ namespace Nova.WinForms.Console
             bool destroyed = UpdateFleet(fleet);
             if (destroyed == true) return true;
 
-            // If we are in orbit around a planet that we own, and it has a
-            // starbase, refuel and repair the fleet.
-
-            Waypoint location = fleet.Waypoints[0] as Waypoint;
-            Star star = StateData.AllStars[location.Destination] as Star;
-
-            if (star != null)
+            // See if the fleet is orbiting a star
+            foreach (Star star in StateData.AllStars.Values)
             {
-                fleet.InOrbit = star;
+                if (star.Position.X == fleet.Position.X && star.Position.Y == fleet.Position.Y)
+                {
+                    fleet.InOrbit = star;
+                }
             }
 
+            // refuel/repair
             RegenerateFleet(fleet);
-
 
             // Check for no fuel.
 
@@ -245,7 +243,7 @@ namespace Nova.WinForms.Console
 
             if (fleet.InOrbit != null && fleet.HasBombers)
             {
-                Bombing.Bomb(fleet, star);
+                Bombing.Bomb(fleet, fleet.InOrbit);
             }
 
             return false;
