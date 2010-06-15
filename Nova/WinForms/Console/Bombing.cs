@@ -143,6 +143,7 @@ namespace Nova.WinForms.Console
                 messageText += " killing all of the colonists.";
 
                 // clear out the colony
+                star.ManufacturingQueue.Queue.Clear();
                 star.Colonists = 0;
                 star.Mines = 0;
                 star.Factories = 0;
@@ -158,12 +159,6 @@ namespace Nova.WinForms.Console
             wolf.Text = messageText;
             wolf.Audience = fleet.Owner;
             ServerState.Data.AllMessages.Add(wolf);
-
-            // if the colony is wiped out, clean the planet.
-            if (star.Colonists <= 0)
-            {
-
-            }
 
         }
 
