@@ -76,7 +76,7 @@ namespace Nova.WinForms.Console
 
             // Take into account the Defenses
             Defenses.ComputeDefenseCoverage(star);
-            troops = (int)(troops * (1.0 - Defenses.InvasionCoverage));
+            int troopsOnGround = (int)(troops * (1.0 - Defenses.InvasionCoverage));
 
             // Apply defender and attacker bonuses
             double attackerBonus = 1.1;
@@ -88,7 +88,7 @@ namespace Nova.WinForms.Console
                 defenderBonus *= 2.0;
 
             int defenderStrength = (int)(star.Colonists * defenderBonus);
-            int attackerStrength = (int)(troops * attackerBonus);
+            int attackerStrength = (int)(troopsOnGround * attackerBonus);
             int survivorStrength = defenderStrength - attackerStrength; // will be negative if attacker wins
 
             string messageText = fleet.Owner + " fleet " + fleet.Name + " attacked " +
@@ -119,7 +119,8 @@ namespace Nova.WinForms.Console
             else if (survivorStrength < 0)
             {
                 // attacker wins
-                int remainingAttackers = (int)(survivorStrength / defenderBonus);
+                star.ManufacturingQueue.Queue.Clear();
+                int remainingAttackers = (int)(-survivorStrength / attackerBonus);
                 remainingAttackers = Math.Max(remainingAttackers, Global.ColonistsPerKiloton);
                 int attackersKilled = troops - remainingAttackers;
                 star.Colonists = remainingAttackers;
@@ -155,6 +156,7 @@ namespace Nova.WinForms.Console
                 ServerState.Data.AllMessages.Add(lambMessage);
 
                 // clear out the colony
+                star.ManufacturingQueue.Queue.Clear();
                 star.Colonists = 0;
                 star.Mines = 0;
                 star.Factories = 0;
