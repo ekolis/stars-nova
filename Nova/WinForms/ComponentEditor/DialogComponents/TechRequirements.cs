@@ -43,11 +43,9 @@ namespace Nova.WinForms.ComponentEditor
     public partial class TechRequirements : UserControl
     {
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction
+        /// Initializes a new instance of the TechRequirements class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public TechRequirements()
         {
             InitializeComponent();

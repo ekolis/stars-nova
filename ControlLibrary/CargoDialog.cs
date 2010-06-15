@@ -35,6 +35,9 @@ using Nova.Common;
 
 namespace Nova.ControlLibrary
 {
+    /// <summary>
+    /// A dialog for transferring cargo between a planet and a ship.
+    /// </summary>
     public class CargoDialog : System.Windows.Forms.Form
     {
         private Fleet fleet;
@@ -65,12 +68,10 @@ namespace Nova.ControlLibrary
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

@@ -46,11 +46,9 @@ namespace Nova.WinForms.Gui
     public partial class FleetSummary : UserControl
     {
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction.
+        /// Initializes a new instance of the FleetSummary class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public FleetSummary()
         {
             InitializeComponent();

@@ -46,20 +46,19 @@ namespace Nova.Common.Components
         
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the Scanner class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
-        public Scanner() { }
+        public Scanner()
+        {
+            
+        }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Copy constructor.
+        /// Initializes a new instance of the Scanner class.
         /// </summary>
         /// <param name="existing">An existing Scanner to copy.</param>
-        /// ----------------------------------------------------------------------------
         public Scanner(Scanner existing)
         {
             this.PenetratingScan = existing.PenetratingScan;
@@ -147,14 +146,13 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Initializes a new instance of the Scanner class.
+        /// Loads from XML.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public Scanner(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;

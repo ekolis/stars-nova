@@ -51,11 +51,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Dialog constrution.
+        /// Initializes a new instance of the DesignManager class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public DesignManager()
         {
             InitializeComponent();

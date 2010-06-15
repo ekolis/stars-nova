@@ -70,11 +70,9 @@ namespace Nova.Common.Components
         private static AllComponents Instance;
         private static object Padlock = new object();
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Private constructor to prevent anyone else creating instances of this class.
+        /// Prevents a default instance of the AllComponents class from being created.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         private AllComponents()
         {
         }

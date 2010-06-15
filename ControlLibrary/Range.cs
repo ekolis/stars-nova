@@ -113,23 +113,19 @@ namespace Nova.ControlLibrary
 
         #region Construction and Disposal
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction (and initialisation).
+        /// Initializes a new instance of the Range class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Range()
         {
             InitializeComponent();
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

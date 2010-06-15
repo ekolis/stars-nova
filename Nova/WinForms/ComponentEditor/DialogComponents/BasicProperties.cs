@@ -41,11 +41,9 @@ namespace Nova.WinForms.ComponentEditor
     {
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor.
+        /// Initializes a new instance of the BasicProperties class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public BasicProperties()
         {
             InitializeComponent();

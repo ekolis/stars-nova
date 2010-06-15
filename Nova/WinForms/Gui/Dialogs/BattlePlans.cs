@@ -46,11 +46,9 @@ namespace Nova.WinForms.Gui
     public partial class BattlePlans : Form
     {
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the BattlePlans class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public BattlePlans()
         {
             InitializeComponent();

@@ -89,23 +89,19 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Disposal
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the FleetDetail class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public FleetDetail()
         {
             InitializeComponent();
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

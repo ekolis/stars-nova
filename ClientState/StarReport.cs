@@ -54,12 +54,10 @@ namespace Nova.Client
         public Point Position;
         public bool OrbitingFleets;
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor.
+        /// Initializes a new instance of the StarReport class.
         /// </summary>
         /// <param name="star">The <see cref="Star"/> being reported</param>
-        /// ----------------------------------------------------------------------------
         public StarReport(Star star)
         {
             StarResources  = new Nova.Common.Resources(star.ResourcesOnHand);

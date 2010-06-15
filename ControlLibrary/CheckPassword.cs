@@ -27,11 +27,6 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using Nova.Common;
 using System.Web.Security;
@@ -39,6 +34,9 @@ using System.Web.Security;
 
 namespace Nova.ControlLibrary
 {
+    /// <summary>
+    /// An object to control the checking of passwords.
+    /// </summary>
     public partial class CheckPassword : Form
     {
 
@@ -48,7 +46,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Iniializing constructor.
+        /// Initializes a new instance of the CheckPassword class.
         /// </summary>
         /// <param name="raceData">The <see cref="Race"/> whose password is being checked.</param>
         /// ----------------------------------------------------------------------------

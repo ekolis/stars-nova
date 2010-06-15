@@ -7,7 +7,7 @@ namespace Nova.ControlLibrary
       /// </summary>
       private System.ComponentModel.IContainer components = null;
 
-      /// <summary> 
+      /// <summary>
       /// Clean up any resources being used.
       /// </summary>
       /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>

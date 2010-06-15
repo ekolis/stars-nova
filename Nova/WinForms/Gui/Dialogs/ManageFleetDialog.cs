@@ -50,11 +50,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the ManageFleetDialog class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ManageFleetDialog()
         {
             InitializeComponent();

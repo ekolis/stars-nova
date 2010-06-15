@@ -1,5 +1,8 @@
 namespace Nova.ControlLibrary
 {
+    /// <summary>
+    /// 
+    /// </summary>
    public partial class CheckPassword
    {
       /// <summary>

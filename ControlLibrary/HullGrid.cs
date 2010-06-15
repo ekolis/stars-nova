@@ -65,11 +65,9 @@ namespace Nova.ControlLibrary
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the HullGrid class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public HullGrid()
         {
             InitializeComponent();

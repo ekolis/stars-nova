@@ -48,11 +48,9 @@ namespace Nova.WinForms.NewGame
 
         #region Initialisation
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction and initial field population.
+        /// Initializes a new instance of the NewGameWizard class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public NewGameWizard()
         {
             InitializeComponent();

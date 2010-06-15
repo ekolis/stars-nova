@@ -29,10 +29,7 @@
 #endregion
 
 using System;
-using System.Collections;
 using System.Collections.Generic;
-
-using Nova.Common;
 
 namespace Nova.WinForms.NewGame
 {
@@ -74,13 +71,11 @@ namespace Nova.WinForms.NewGame
         private List<int[]> Stars = new List<int[]>();
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the StarsMapGenerator class.
         /// </summary>
         /// <param name="mapWidth">Width of the map in ly.</param>
         /// <param name="mapHeight">Height of the map in ly.</param>
-        /// ----------------------------------------------------------------------------
         public StarsMapGenerator(int mapWidth, int mapHeight, int starSeparation, int starDensity, int starUniformity)
         {
             this.MapWidth = mapWidth;
@@ -89,12 +84,12 @@ namespace Nova.WinForms.NewGame
             this.StarSeparation = starSeparation;
             this.StarDensity = starDensity;
             this.StarUniformity = starUniformity;
-
+            
 #if(DEBUG)
-            // Just to test that the form data has been passed in successfully - Dan 9 May 10
-            System.Windows.Forms.MessageBox.Show("Star Separation = " + StarSeparation.ToString() +
-                " Star Density = " + StarDensity.ToString() +
-                " Star Uniformity = " + StarUniformity.ToString());
+                // Just to test that the form data has been passed in successfully - Dan 9 May 10
+                System.Windows.Forms.MessageBox.Show("Star Separation = " + StarSeparation.ToString() +
+                                                     " Star Density = " + StarDensity.ToString() +
+                                                     " Star Uniformity = " + StarUniformity.ToString());
 #endif
 
             Density = new double[mapWidth, mapHeight];

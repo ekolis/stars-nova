@@ -47,11 +47,9 @@ namespace Nova.WinForms.Gui
     public partial class RenameFleet : Form
     {
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the RenameFleet class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public RenameFleet()
         {
             InitializeComponent();

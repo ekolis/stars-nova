@@ -34,25 +34,22 @@ namespace Nova.Common.Components
     [Serializable]
     public class Computer : ComponentProperty
     {
-        public int Initiative = 0; // computers  
-        public double Accuracy = 0; // computers
+        public int Initiative = 0;   
+        public double Accuracy = 0;
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the Computer class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Computer() { }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
+        /// Initializes a new instance of the Computer class.
         /// Copy constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="Computer"/>.</param>
-        /// ----------------------------------------------------------------------------
         public Computer(Computer existing)
         {
             this.Initiative = existing.Initiative;

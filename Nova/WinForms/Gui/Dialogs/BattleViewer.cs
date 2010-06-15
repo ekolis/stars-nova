@@ -54,7 +54,7 @@ namespace Nova.WinForms.Gui
         #region Construction and Initialisation
 
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the BattleViewer class.
         /// </summary>
         /// <param name="thisBattle">The <see cref="BattleReport"/> to be displayed.</param>
         public BattleViewer(Nova.Common.BattleReport thisBattle)

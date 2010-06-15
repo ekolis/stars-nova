@@ -80,7 +80,8 @@ namespace Nova.UnitTests
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction (test data initialisation). Create 4 test fleets and add them
+        /// Initializes a new instance of the BattleEngineTest class.
+        /// Create 4 test fleets and add them
         /// into the "all fleets" list. Make one design more powerful than the other
         /// so that the weaker one gets destroyed in the battle.
         /// </summary>
