@@ -61,7 +61,6 @@ namespace Nova.WinForms.Console
             // and that we have troops.
 
             int troops = fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
-            fleet.Cargo.ColonistsInKilotons = 0; // unload all troops, they will fight to the death or become new colonists.
             Star star = fleet.InOrbit;
 
             if (troops == 0)
@@ -73,6 +72,68 @@ namespace Nova.WinForms.Console
                 ServerState.Data.AllMessages.Add(message);
                 return;
             }
+
+            // Consider the diplomatic situation
+            if (fleet.Owner == star.Owner)
+            {
+                // already own this planet, so colonists can beam down safely
+                star.Colonists += troops;
+                fleet.Cargo.ColonistsInKilotons = 0;
+                Message message = new Message();
+                message.Audience = fleet.Owner;
+                message.Text = "Fleet " + fleet.Name + " has waypoint orders to " +
+                               "invade " + star.Name +
+                               " but it is already ours. Troops have joined the local populace.";
+                ServerState.Data.AllMessages.Add(message);
+                return;
+            }
+            string relation = (string)((RaceData)ServerState.Data.AllRaceData[fleet.Owner]).PlayerRelations[star.Owner];
+            switch (relation)
+            {
+                case "Friend":
+                case "Neutral":
+                    {
+                        Message message = new Message();
+                        message.Audience = fleet.Owner;
+                        message.Text = "Fleet " + fleet.Name + " has waypoint orders to " +
+                                       "invade " + star.Name +
+                                       " but the " + star.Owner + " are not our enemies. Order has been cancelled.";
+                        ServerState.Data.AllMessages.Add(message);
+                        return;
+                    }
+                case "Enemy":
+                    {
+                        // continue with the invasion
+                        break;
+                    }
+                default:
+                    {
+                        Report.Error("An unrecognised relationship \"" + relation + "\" was encountered. Invasion of " + star.Name + " has been cancelled.");
+                        break;
+                    }
+
+            }
+
+            // check for starbase
+            if (star.Starbase != null)
+            {
+                Message message = new Message();
+                message.Audience = fleet.Owner;
+                message.Text = "Fleet " + fleet.Name + " has waypoint orders to " +
+                               "invade " + star.Name +
+                               " but the starbase at " + star.Name + " would kill all invading troops. Order has been cancelled.";
+                ServerState.Data.AllMessages.Add(message);
+                return;
+            }
+
+            // The troops are now committed to take the star or die trying
+            fleet.Cargo.ColonistsInKilotons = 0; 
+
+            // Set up the message recipients before the star (potentially) changes hands.
+            Message wolfMessage = new Message();
+            wolfMessage.Audience = fleet.Owner;
+            Message lambMessage = new Message();
+            lambMessage.Audience = star.Owner;
 
             // Take into account the Defenses
             Defenses.ComputeDefenseCoverage(star);
@@ -92,7 +153,7 @@ namespace Nova.WinForms.Console
             int survivorStrength = defenderStrength - attackerStrength; // will be negative if attacker wins
 
             string messageText = fleet.Owner + " fleet " + fleet.Name + " attacked " +
-                                 star.Name + " with " + troops.ToString(System.Globalization.CultureInfo.InvariantCulture) + " troops. ";
+                                 star.Name + " with " + troops + " troops. ";
 
             if (survivorStrength > 0)
             {
@@ -103,16 +164,12 @@ namespace Nova.WinForms.Console
                 star.Colonists = remainingDefenders;
 
                 messageText += "The attackers were slain but "
-                            + defendersKilled.ToString(System.Globalization.CultureInfo.InvariantCulture) +
+                            + defendersKilled +
                             " colonists were killed in the attack.";
 
-                Message wolfMessage = new Message();
-                wolfMessage.Audience = fleet.Owner;
                 wolfMessage.Text = messageText;
                 ServerState.Data.AllMessages.Add(wolfMessage);
 
-                Message lambMessage = new Message();
-                lambMessage.Audience = star.Owner;
                 lambMessage.Text = messageText;
                 ServerState.Data.AllMessages.Add(lambMessage);
             }
@@ -127,16 +184,12 @@ namespace Nova.WinForms.Console
                 star.Owner = fleet.Owner;
 
                 messageText += "The defenders were slain but "
-                            + attackersKilled.ToString(System.Globalization.CultureInfo.InvariantCulture) +
+                            + attackersKilled +
                             " troops were killed in the attack.";
 
-                Message wolfMessage = new Message();
-                wolfMessage.Audience = fleet.Owner;
                 wolfMessage.Text = messageText;
                 ServerState.Data.AllMessages.Add(wolfMessage);
 
-                Message lambMessage = new Message();
-                lambMessage.Audience = star.Owner;
                 lambMessage.Text = messageText;
                 ServerState.Data.AllMessages.Add(lambMessage);
             }
@@ -145,13 +198,9 @@ namespace Nova.WinForms.Console
                 // no survivors!
                 messageText += "Both sides fought to the last and none were left to claim the planet!";
 
-                Message wolfMessage = new Message();
-                wolfMessage.Audience = fleet.Owner;
                 wolfMessage.Text = messageText;
                 ServerState.Data.AllMessages.Add(wolfMessage);
 
-                Message lambMessage = new Message();
-                lambMessage.Audience = star.Owner;
                 lambMessage.Text = messageText;
                 ServerState.Data.AllMessages.Add(lambMessage);
 

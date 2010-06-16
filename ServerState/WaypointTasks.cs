@@ -145,8 +145,6 @@ namespace Nova.WinForms.Console
             Star targetStar = ServerState.Data.AllStars[waypoint.Destination]
                         as Star;
 
-            // check if this is normal transportation or an invasion
-
 
 
             message.Text = "Fleet " + fleet.Name + " has unloaded its cargo at "
@@ -156,15 +154,26 @@ namespace Nova.WinForms.Console
 
             waypoint.Task = "None";
 
-
             targetStar.ResourcesOnHand.Ironium += fleet.Cargo.Ironium;
             targetStar.ResourcesOnHand.Boranium += fleet.Cargo.Boranium;
             targetStar.ResourcesOnHand.Germanium += fleet.Cargo.Germanium;
 
+            fleet.Cargo.Ironium = 0;
+            fleet.Cargo.Boranium = 0;
+            fleet.Cargo.Germanium = 0;
 
-            targetStar.Colonists += fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
+            // check if this is normal transportation or an invasion
+            if (fleet.Owner != targetStar.Owner && fleet.Cargo.ColonistsInKilotons != 0)
+            {
+                Invade.Planet(fleet);
 
-            fleet.Cargo = new Cargo();
+            }
+            else
+            {
+                targetStar.Colonists += fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
+                fleet.Cargo.ColonistsInKilotons = 0;
+            }
+
         }
 
 
