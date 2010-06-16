@@ -34,13 +34,10 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 using Nova.Common;
 using Nova.Client;
 using Nova.Common.Components;
-using Nova.Server;
 
 namespace Nova.Ai
 {
@@ -48,26 +45,35 @@ namespace Nova.Ai
     {
         public static void Main(string[] args)
         {
-            string RaceName;
-            int TurnNumber = -1;
+            string raceName;
+            int turnNumber = -1;
 
             // ensure registry keys are initialised
             FileSearcher.SetKeys();
             
             // read paramaters for race and turn to play
-            CommandArguments commandArguments = new CommandArguments(args);
-            Console.WriteLine("Nova AI");
-            if (commandArguments.Count < 2)
+            CommandArguments commandArguments;
+            try
             {
-                Console.WriteLine("Usage: Nova_AI <race_name> <turn_number>");
-                return;
+                commandArguments = new CommandArguments(args);
+                Console.WriteLine("Nova AI");
+                if (commandArguments.Count < 3)
+                {
+                    Console.WriteLine("Usage: Nova --ai -r <race_name> -t <turn_number> -i <intel_file>");
+                    return;
+                }
+
+                raceName = commandArguments[CommandArguments.Option.RaceName];
+                turnNumber = int.Parse(commandArguments[CommandArguments.Option.Turn], System.Globalization.CultureInfo.InvariantCulture);
             }
-
-            RaceName = commandArguments[CommandArguments.Option.RaceName];
-            TurnNumber = int.Parse(commandArguments[CommandArguments.Option.Turn], System.Globalization.CultureInfo.InvariantCulture);
-
+            catch
+            {
+                Console.WriteLine("Usage: Nova --ai -r <race_name> -t <turn_number> -i <intel_file>");
+                return;
+                
+            }
             // read in race data
-            Console.WriteLine("Playing turn {0} for race \"{1}\".", TurnNumber, RaceName);
+            Console.WriteLine("Playing turn {0} for race \"{1}\".", turnNumber, raceName);
             try
             {
                 // TODO (priority 6) - bypass password entry for AI.
