@@ -46,6 +46,23 @@ namespace Nova.Common
         /// </summary>
         public RaceData() { }
 
+        /// <summary>
+        /// Determine if this race wishes to treat lamb as an enemy.
+        /// </summary>
+        /// <param name="lamb">The name of the race who may be attacked.</param>
+        /// <returns>true if lamb is one of this race's enemies, otherwise false.</returns>
+        public bool IsEnememy(string lamb)
+        {
+            if ((string)PlayerRelations[lamb] == "Enemy")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
         #region Load Save Xml
 
         /// ----------------------------------------------------------------------------
