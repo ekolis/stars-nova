@@ -26,14 +26,6 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.IO;
-using System.Collections;
-using System.Drawing;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization.Formatters.Binary;
-
 using Nova.Common;
 using Nova.Server;
 
@@ -153,6 +145,10 @@ namespace Nova.WinForms.Console
             Star targetStar = ServerState.Data.AllStars[waypoint.Destination]
                         as Star;
 
+            // check if this is normal transportation or an invasion
+
+
+
             message.Text = "Fleet " + fleet.Name + " has unloaded its cargo at "
                           + targetStar.Name;
 
@@ -164,6 +160,8 @@ namespace Nova.WinForms.Console
             targetStar.ResourcesOnHand.Ironium += fleet.Cargo.Ironium;
             targetStar.ResourcesOnHand.Boranium += fleet.Cargo.Boranium;
             targetStar.ResourcesOnHand.Germanium += fleet.Cargo.Germanium;
+
+
             targetStar.Colonists += fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
 
             fleet.Cargo = new Cargo();

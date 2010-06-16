@@ -64,7 +64,7 @@ namespace Nova.WinForms.Console
 
             // See if this is an enemy planet. If not, leave it alone.
 
-            if (((RaceData)ServerState.Data.AllRaceData[fleet.Owner]).IsEnememy(star.Owner))
+            if (!((RaceData)ServerState.Data.AllRaceData[fleet.Owner]).IsEnememy(star.Owner))
             {
                 return;
             }
