@@ -55,7 +55,7 @@ namespace Nova.WinForms.Console
             ArrayList remainingPlayers = new ArrayList();
             foreach (Star star in StateData.AllStars.Values)
             {
-                if (star.Owner == "") continue;
+                if (star.Owner == null || star.Owner == "") continue;
                 if (!remainingPlayers.Contains(star.Owner))
                 {
                     remainingPlayers.Add(star.Owner);
