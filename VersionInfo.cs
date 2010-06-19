@@ -58,7 +58,7 @@ using System.Security.Permissions;
 // by using the '*' as shown below:
 [assembly: AssemblyVersion("0.4.*")]
 #if !PocketPC && !Smartphone
-[assembly: AssemblyFileVersion("0.4.0.0")]
+[assembly: AssemblyFileVersion("0.4.1.0")]
 #endif
 
 // Set the assembly to CLS compliant.

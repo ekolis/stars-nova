@@ -540,7 +540,6 @@ namespace Nova.WinForms.Gui
             this.Controls.Add(this.groupBox1);
             this.Name = "FleetDetail";
             this.Size = new System.Drawing.Size(356, 380);
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FleetDetail_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.WarpFactor)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -634,7 +633,8 @@ namespace Nova.WinForms.Gui
 
             int index = WayPoints.SelectedIndices[0];
 
-            if (index == 0 || !(e.KeyChar == (char)8)||(e.KeyChar == (char)127)) // backspace or del will do
+            // backspace or del will do
+            if (index == 0 || !(e.KeyChar == (char)8)) 
             {
                 return;
             }
@@ -956,22 +956,13 @@ namespace Nova.WinForms.Gui
 
         #endregion
 
-        private void FleetDetail_KeyDown(object sender, KeyEventArgs e)
-        {
-            // MessageBox.Show("OnKeyDown=" + e.KeyCode);
-            int index = WayPoints.SelectedIndices[0];
-
-            SelectedFleet.Waypoints.RemoveAt(index);
-            WayPoints.Items.RemoveAt(index);
-            WayPoints.SelectedIndex = WayPoints.Items.Count - 1;
-
-            Utilities.MapRefresh();
-            e.Handled = true;
-        }
-
+        /// <summary>
+        /// Process the delete key to delete a fleet waypoint.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnKeyDown(object sender, KeyEventArgs e)
         {
-            // MessageBox.Show("keydown");
             if (e.KeyCode == Keys.Delete)
             {
                 int index = WayPoints.SelectedIndices[0];
@@ -983,6 +974,7 @@ namespace Nova.WinForms.Gui
 
                     Utilities.MapRefresh();
                 }
+                e.Handled = true;
             }
 
         }
