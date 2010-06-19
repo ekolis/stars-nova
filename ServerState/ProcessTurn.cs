@@ -392,7 +392,11 @@ namespace Nova.WinForms.Console
                     }
 
                     WaypointTasks.Perform(fleet, thisWaypoint);
-                    thisWaypoint.Task = "None";
+
+                    if (thisWaypoint.Task != "Lay Mines")
+                    {
+                        thisWaypoint.Task = "None";
+                    }
                 }
 
                 currentPosition = fleet.Waypoints[0] as Waypoint;
