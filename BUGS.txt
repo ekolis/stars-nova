@@ -3,10 +3,7 @@
 [341]             * TODO (priority 7) ensure the AI can open its files without user input.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\NOVA\WINFORMS\GUI\NOVAGUI.CS
-[525]        /// TODO (priority 7) - ask the user if they want to submit the current turn before closing.
-
----------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\NOVA\WINFORMS\GUI\CONTROLS\FLEETDETAIL.CS
-[624]        /// FIXME (priority 7) - doesn't work with my keyboard, Vista 64 bit environment - Dan 25/4/10
+[527]        /// TODO (priority 7) - ask the user if they want to submit the current turn before closing.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\NOVA\WINFORMS\NEWGAME\NEWGAME.CS
 [124]                    // TODO (priority 7) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
@@ -34,19 +31,18 @@
 [167]                        if (order != null) Queue.Add(order); // TODO (priority 6) ensure they load in the correct order.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\COMMON\GAMEOBJECTS\SHIP.CS
-[158]        /// TODO (priority 6) Whatever code uses this seems to be ignoring smart bombs?
-[282]        /// TODO (priority 6) Client code must handle heavy and speed trap mines too.
-[296]        /// Get the power rating of this ship - stub: TODO (priority 6)
+[165]        /// TODO (priority 6) Whatever code uses this seems to be ignoring smart bombs?
+[289]        /// TODO (priority 6) Client code must handle heavy and speed trap mines too.
+[303]        /// Get the power rating of this ship - stub: TODO (priority 6)
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\NOVA\AI\DEFAULTAI.CS
-[73]                // TODO (priority 6) - bypass password entry for AI.
+[79]                // TODO (priority 6) - bypass password entry for AI.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\NOVA\WINFORMS\GUI\NOVAGUI.CS
-[484]                // TODO (priority 6) The rest of the keys (function keys).
-[663]        /// TODO (priority 6) - detect when a new turn is available.
+[665]        /// TODO (priority 6) - detect when a new turn is available.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\NOVA\WINFORMS\GUI\DIALOGS\PRODUCTIONDIALOG.CS
-[633]        /// FIXME (priority 6) - Dan - What if I want to build a small base first, then add a larger base latter. I can queue two different base designs in Stars! 
+[654]        /// FIXME (priority 6) - Dan - What if I want to build a small base first, then add a larger base latter. I can queue two different base designs in Stars! 
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\NOVA\WINFORMS\GUI\DIALOGS\SHIPDESIGNDIALOG.CS
 [847]             * user. TODO (priority 6).
@@ -100,7 +96,7 @@
 [243]        //       TODO (priority 5) - Given the complexity here some unit tests would be nice.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\COMMON\GAMEOBJECTS\STAR.CS
-[239]        /// FIXME (priority 5) - this should not be here as it means the GUI has access to methods 
+[240]        /// FIXME (priority 5) - this should not be here as it means the GUI has access to methods 
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\COMMON\RACEDEFINITION\RACE.CS
 [346]                        // TODO (priority 5) - load the RaceIcon
@@ -172,7 +168,7 @@
 [284]        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\COMMON\GAMEOBJECTS\STAR.CS
-[236]        /// FIXME (priority 4) why pass the race in? The race occupying this star system is this.ThisRace.
+[237]        /// FIXME (priority 4) why pass the race in? The race occupying this star system is this.ThisRace.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\COMMON\RACEDEFINITION\RACIALTRAITS.CS
 [94]                return false; // FIXME (priority 4) - should never be null. Should be fixed now that this is based on DictionaryBase (requires testing) ---Dan 16 Oct 09
@@ -185,7 +181,7 @@
 [905]            // TODO (priority 4) - This code is a repeat of what we do when the console is normally opened. Consider consolodating these sections.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\NOVA\WINFORMS\GUI\CONTROLS\FLEETDETAIL.CS
-[914]                    // CargoButton.Enabled = false; // FIXME (priority 4) - disabled due to it sometimes being disabled when it shouldn't be Dan 22 May 10 
+[936]                    // CargoButton.Enabled = false; // FIXME (priority 4) - disabled due to it sometimes being disabled when it shouldn't be Dan 22 May 10 
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\NOVA\WINFORMS\GUI\DIALOGS\SHIPDESIGNDIALOG.CS
 [1112]                // TODO (priority 4) - work out why it sometimes is null.
@@ -217,7 +213,7 @@
 [63]           // ??? (priority 3) is this the Stars! costs, or some approximation? Need a reference.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\COMMON\GLOBALDEFINITIONS.CS
-[104]       public const double GravityMinimum = 0; // FIXME (priority 3) - Stars! gravity range is 0.2 - 6.0 with 1.0 in the middle! Will need to revise all current race builds once changed.
+[105]       public const double GravityMinimum = 0; // FIXME (priority 3) - Stars! gravity range is 0.2 - 6.0 with 1.0 in the middle! Will need to revise all current race builds once changed.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\COMMON\POINTUTILS.CS
 [159]        /// TODO (priority 3) - Find calls to this function that could use DistanceSquare instead (for speed).
@@ -229,7 +225,7 @@
 [26]// TODO (priority 3) - What are the full environment ranges? Min&Max for each variable. Need a reference to where this is documented.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\COMMON\GAMEOBJECTS\STAR.CS
-[365]            // TODO (priority 3) - implement the Stars! algorithm for concentration reduction.
+[366]            // TODO (priority 3) - implement the Stars! algorithm for concentration reduction.
 
 ---------- D:\DAN\SRC\STARS\NOVA\STARS-NOVA\COMMON\RACEDEFINITION\RACE.CS
 [152]        /// FIXME (priority 3) - Mathematically this finds the mean, which in some
