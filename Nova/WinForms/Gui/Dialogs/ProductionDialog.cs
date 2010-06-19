@@ -481,6 +481,7 @@ namespace Nova.WinForms.Gui
             {
                 AddDesign(design, 1);
             }
+
         }
 
 
@@ -563,7 +564,7 @@ namespace Nova.WinForms.Gui
 
             itemToAdd.Text = design.Name;
             itemToAdd.Tag = design;
-            itemToAdd.SubItems.Add(quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            itemToAdd.SubItems.Add(quantity.ToString());
 
             if (QueueList.SelectedItems.Count == 0)
             {
@@ -576,6 +577,7 @@ namespace Nova.WinForms.Gui
 
                 if (design.Name == QueueList.Items[s].Text)
                 {
+                    itemAdded = QueueList.Items[s];
                     int total = quantity;
                     total += Convert.ToInt32(QueueList.Items[s].SubItems[1].Text);
                     QueueList.Items[s].SubItems[1].Text = total.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -588,6 +590,25 @@ namespace Nova.WinForms.Gui
                 }
             }
 
+            // Limit the number of defenses built.
+            if (design.Name == "Defenses")
+            {
+                int newDefensesAllowed = Global.MaxDefenses - QueueStar.Defenses;
+                int newDefensesInQueue = Convert.ToInt32(itemAdded.SubItems[1].Text);
+                if (newDefensesInQueue > newDefensesAllowed)
+                {
+                    if (newDefensesAllowed <= 0)
+                    {
+                        QueueList.Items.Remove(itemAdded);
+                    }
+                    else
+                    {
+                        itemAdded.SubItems[1].Text = newDefensesAllowed.ToString();
+                    }
+
+                }
+
+            }
             UpdateProductionCost();
         }
 
