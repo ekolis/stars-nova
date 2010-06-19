@@ -617,12 +617,10 @@ namespace Nova.WinForms.Gui
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// If a waypoint is selected (other than the current position) and the delete
-        /// key is pressed, delete the selected waypoint.
+        /// Catch the backspace key to delete a fleet waypoint.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// FIXME (priority 7) - doesn't work with my keyboard, Vista 64 bit environment - Dan 25/4/10
         /// ----------------------------------------------------------------------------
         public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
@@ -633,7 +631,7 @@ namespace Nova.WinForms.Gui
 
             int index = WayPoints.SelectedIndices[0];
 
-            // backspace or del will do
+            // backspace
             if (index == 0 || !(e.KeyChar == (char)8)) 
             {
                 return;
@@ -646,6 +644,28 @@ namespace Nova.WinForms.Gui
             Utilities.MapRefresh();
         }
 
+        /// <summary>
+        /// Process the delete key to delete a fleet waypoint.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                int index = WayPoints.SelectedIndices[0];
+                if (index > 0)
+                {
+                    SelectedFleet.Waypoints.RemoveAt(index);
+                    WayPoints.Items.RemoveAt(index);
+                    WayPoints.SelectedIndex = WayPoints.Items.Count - 1;
+
+                    Utilities.MapRefresh();
+                }
+                e.Handled = true;
+            }
+
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -756,29 +776,6 @@ namespace Nova.WinForms.Gui
             MainWindow.Nova.SelectionSummary.Value = SelectedFleet;
 
             MainWindow.Nova.MapControl.SetCursor(SelectedFleet.Position);
-        }
-
-        /// <summary>
-        /// Process the delete key to delete a fleet waypoint.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        private void OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-            {
-                int index = WayPoints.SelectedIndices[0];
-                if (index > 0)
-                {
-                    SelectedFleet.Waypoints.RemoveAt(index);
-                    WayPoints.Items.RemoveAt(index);
-                    WayPoints.SelectedIndex = WayPoints.Items.Count - 1;
-
-                    Utilities.MapRefresh();
-                }
-                e.Handled = true;
-            }
-
         }
 
         #endregion
