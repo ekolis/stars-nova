@@ -26,11 +26,6 @@
 // ===========================================================================
 #endregion
 
-using System.Collections.Generic;
-using System.Collections;
-using System.Text;
-using System;
-
 using Nova.Common;
 using Nova.Server;
 
@@ -61,13 +56,13 @@ namespace Nova.WinForms.Console
             // certaintolerance in distance because it is unlikely that the
             // waypoint has been set exactly right.
 
-            foreach (Minefield Minefield in ServerState.Data.AllMinefields.Values)
+            foreach (Minefield minefield in ServerState.Data.AllMinefields.Values)
             {
-                if (PointUtilities.IsNear(fleet.Position, Minefield.Position))
+                if (PointUtilities.IsNear(fleet.Position, minefield.Position))
                 {
-                    if (Minefield.Owner == fleet.Owner)
+                    if (minefield.Owner == fleet.Owner)
                     {
-                        Minefield.NumberOfMines += fleet.NumberOfMines;
+                        minefield.NumberOfMines += fleet.NumberOfMines;
                         return;
                     }
                 }

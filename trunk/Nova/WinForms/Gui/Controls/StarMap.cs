@@ -237,12 +237,12 @@ namespace Nova.WinForms.Gui
 
             // (3) Minefields
 
-            foreach (Minefield Minefield in VisibleMinefields.Values)
+            foreach (Minefield minefield in VisibleMinefields.Values)
             {
                 Color cb;
                 Color cf;
 
-                if (Minefield.Owner == ClientState.Data.RaceName)
+                if (minefield.Owner == ClientState.Data.RaceName)
                 {
                     cb = Color.FromArgb(0, 0, 0, 0);
                     cf = Color.FromArgb(128, 0, 128, 0);
@@ -256,8 +256,8 @@ namespace Nova.WinForms.Gui
 
                 HatchStyle style = HatchStyle.DiagonalCross | HatchStyle.Percent50;
                 HatchBrush srMineBrush = new HatchBrush(style, cf, cb);
-                int radius = Minefield.NumberOfMines;
-                DrawCircle(srMineBrush, Minefield.Position, radius);
+                int radius = minefield.Radius;
+                DrawCircle(srMineBrush, minefield.Position, radius);
             }
 
 
