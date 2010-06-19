@@ -50,7 +50,8 @@ namespace Nova.Common
         /// The number of colonists as reported on a planet. Divide by GlobalDefinitions.ColonistsPerKiloton to convert to cargo units.
         /// </summary>
         public int Colonists;
-        public int Defenses;
+        private int defenses;
+
         public int Factories;
         public int Mines;
         public int ResearchAllocation;
@@ -372,6 +373,39 @@ namespace Nova.Common
             }
 
             return mined;
+        }
+
+        #endregion
+
+        #region Properties
+
+        public int Defenses
+        {
+            set
+            {
+                if (value > Global.MaxDefenses)
+                {
+                    Report.Debug("Max defenses exceeded.");
+                    defenses = Global.MaxDefenses;
+                }
+                else
+                {
+                    defenses = value;
+
+                }
+            }
+            get
+            {
+                if (defenses <= Global.MaxDefenses)
+                {
+                    return defenses;
+                }
+                else
+                {
+                    Report.Debug("Max defenses exceeded.");
+                    return Global.MaxDefenses;
+                }
+            }
         }
 
         #endregion
