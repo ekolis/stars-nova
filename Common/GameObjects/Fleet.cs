@@ -228,7 +228,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="warpFactor">The warp speed of the fleet.</param>
         /// <param name="race">The race this fleet belongs too.</param>
-        /// <returns>The mass of fuel consumed.</returns>
+        /// <returns>The rate of fuel consumptionin mg / year.</returns>
         /// ----------------------------------------------------------------------------
         public double FuelConsumption(int warpFactor, Race race)
         {
@@ -337,7 +337,7 @@ namespace Nova.Common
         /// Return the mass of a fleet.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public int TotalMass
+        public new int Mass
         {
             get
             {

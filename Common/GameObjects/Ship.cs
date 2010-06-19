@@ -71,7 +71,13 @@ namespace Nova.Common
 
             Shields = shipDesign.Shield;
             Armor = shipDesign.Armor;
+
+            // Initialise inherited fields.
+            Mass = shipDesign.Mass;
             Cost = shipDesign.Cost;
+            Name = shipDesign.Name;
+            Owner = shipDesign.Owner;
+            Type = shipDesign.Type;
 
         }
 
@@ -116,7 +122,8 @@ namespace Nova.Common
         /// </summary>
         /// <param name="warp">The speed the ship is travelling.</param>
         /// <param name="race">The race the ship belongs too.</param>
-        /// <returns>the ship fuel consumption (mg per year)</returns>
+        /// <param name="cargoMass">The mass of any cargo carried (ship mass will be added automatically).</param>
+        /// <returns>The ship fuel consumption rate in mg per year.</returns>
         /// <remarks>
         /// Ship_fuel_usage = ship_mass x efficiency x distance / 200
         ///
@@ -136,7 +143,7 @@ namespace Nova.Common
             double efficiency = fuelFactor / 100.0;
             double speed = warp * warp;
 
-            double fuelConsumption = (Mass + (cargoMass * efficiency * speed)) / 200.0;
+            double fuelConsumption = (Mass + cargoMass) * efficiency * speed / 200.0;
 
             if (race.HasTrait("IFE"))
             {

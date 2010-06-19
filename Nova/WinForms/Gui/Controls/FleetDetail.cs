@@ -758,6 +758,29 @@ namespace Nova.WinForms.Gui
             MainWindow.Nova.MapControl.SetCursor(SelectedFleet.Position);
         }
 
+        /// <summary>
+        /// Process the delete key to delete a fleet waypoint.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                int index = WayPoints.SelectedIndices[0];
+                if (index > 0)
+                {
+                    SelectedFleet.Waypoints.RemoveAt(index);
+                    WayPoints.Items.RemoveAt(index);
+                    WayPoints.SelectedIndex = WayPoints.Items.Count - 1;
+
+                    Utilities.MapRefresh();
+                }
+                e.Handled = true;
+            }
+
+        }
+
         #endregion
 
         #region Utility Methods
@@ -956,28 +979,7 @@ namespace Nova.WinForms.Gui
 
         #endregion
 
-        /// <summary>
-        /// Process the delete key to delete a fleet waypoint.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        private void OnKeyDown(object sender, KeyEventArgs e)
-        {
-            if (e.KeyCode == Keys.Delete)
-            {
-                int index = WayPoints.SelectedIndices[0];
-                if (index > 0)
-                {
-                    SelectedFleet.Waypoints.RemoveAt(index);
-                    WayPoints.Items.RemoveAt(index);
-                    WayPoints.SelectedIndex = WayPoints.Items.Count - 1;
-
-                    Utilities.MapRefresh();
-                }
-                e.Handled = true;
-            }
-
-        }
+ 
 
     }
 
