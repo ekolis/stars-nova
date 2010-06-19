@@ -433,7 +433,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public static double GetAttractiveness(Fleet target)
         {
-            double cost = target.TotalMass + target.TotalCost.Energy;
+            double cost = target.Mass + target.TotalCost.Energy;
             double dp = target.Defenses;
 
             return cost / dp;

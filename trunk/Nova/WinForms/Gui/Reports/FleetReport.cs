@@ -143,7 +143,7 @@ namespace Nova.WinForms.Gui
                     row[i++] = fleet.FleetShips.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     row[i++] = "-";
                     row[i++] = fleet.BattlePlan;
-                    row[i++] = fleet.TotalMass.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = fleet.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
                     FleetGridView.Rows.Add(row);
                 }
