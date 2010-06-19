@@ -469,6 +469,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OnKeyPress(object sender, KeyPressEventArgs e)
         {
+           
             switch (e.KeyChar)
             {
                 case '+':
@@ -481,8 +482,9 @@ namespace Nova.WinForms.Gui
                     MapControl.ZoomOutClick(null, null);
                     break;
 
-                // TODO (priority 6) The rest of the keys (function keys).
             }
+            
+            
         }
 
 
