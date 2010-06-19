@@ -227,6 +227,9 @@
       <DependentUpon>ScoreReport.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\Gui\utilities.cs" />
+    <Compile Include="WinForms\Gui\WaypointListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WinForms\Launcher\NovaLauncer.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -72,7 +72,7 @@ namespace Nova.WinForms.Gui
         private Label legTime;
         private Label label7;
         private Button ManageFleet;
-        private ListBox WayPoints;
+        private WaypointListBox WayPoints;
         private GroupBox groupBox1;
         private ComboBox comboBox1;
         private GroupBox groupBox2;
@@ -145,7 +145,7 @@ namespace Nova.WinForms.Gui
             this.legTime = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.ManageFleet = new System.Windows.Forms.Button();
-            this.WayPoints = new System.Windows.Forms.ListBox();
+            this.WayPoints = new Nova.WinForms.Gui.WaypointListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -399,6 +399,7 @@ namespace Nova.WinForms.Gui
             this.WayPoints.TabIndex = 93;
             this.WayPoints.SelectedIndexChanged += new System.EventHandler(this.WaypointSelection);
             this.WayPoints.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
+            this.WayPoints.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             // 
             // groupBox1
             // 
@@ -539,6 +540,7 @@ namespace Nova.WinForms.Gui
             this.Controls.Add(this.groupBox1);
             this.Name = "FleetDetail";
             this.Size = new System.Drawing.Size(356, 380);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FleetDetail_KeyDown);
             ((System.ComponentModel.ISupportInitialize)(this.WarpFactor)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -623,7 +625,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// FIXME (priority 7) - doesn't work with my keyboard, Vista 64 bit environment - Dan 25/4/10
         /// ----------------------------------------------------------------------------
-        private void OnKeyPress(object sender, KeyPressEventArgs e)
+        public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (WayPoints.SelectedItems.Count <= 0)
             {
@@ -632,7 +634,7 @@ namespace Nova.WinForms.Gui
 
             int index = WayPoints.SelectedIndices[0];
 
-            if (index == 0 || e.KeyChar != (char)8)
+            if (index == 0 || !(e.KeyChar == (char)8)||(e.KeyChar == (char)127)) // backspace or del will do
             {
                 return;
             }
@@ -954,5 +956,38 @@ namespace Nova.WinForms.Gui
 
         #endregion
 
+        private void FleetDetail_KeyDown(object sender, KeyEventArgs e)
+        {
+            // MessageBox.Show("OnKeyDown=" + e.KeyCode);
+            int index = WayPoints.SelectedIndices[0];
+
+            SelectedFleet.Waypoints.RemoveAt(index);
+            WayPoints.Items.RemoveAt(index);
+            WayPoints.SelectedIndex = WayPoints.Items.Count - 1;
+
+            Utilities.MapRefresh();
+            e.Handled = true;
+        }
+
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            // MessageBox.Show("keydown");
+            if (e.KeyCode == Keys.Delete)
+            {
+                int index = WayPoints.SelectedIndices[0];
+                if (index > 0)
+                {
+                    SelectedFleet.Waypoints.RemoveAt(index);
+                    WayPoints.Items.RemoveAt(index);
+                    WayPoints.SelectedIndex = WayPoints.Items.Count - 1;
+
+                    Utilities.MapRefresh();
+                }
+            }
+
+        }
+
     }
+
+
 }
