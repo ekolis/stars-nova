@@ -26,14 +26,14 @@
 // ===========================================================================
 #endregion
 
-using System.Reflection;
-using Microsoft.Win32;
-using System.Collections;
-using System.ComponentModel;
-using System.IO;
-using System.Windows.Forms;
 using System;
+using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
+using System.Reflection;
+using System.Windows.Forms;
+
+using Microsoft.Win32;
 
 using Nova.Common;
 using Nova.Common.Components;

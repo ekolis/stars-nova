@@ -28,9 +28,10 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.ComponentModel;
 using System.Xml;
-using System.Collections;
+
 using Nova.Common.Converters;
 
 namespace Nova.Common

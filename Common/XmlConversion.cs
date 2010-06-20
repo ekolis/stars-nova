@@ -31,13 +31,11 @@
 #endregion
 
 using System;
-using System.Xml;
 using System.IO;
-using System.IO.Compression;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Win32;
 using System.Windows.Forms;
+using System.Xml;
+
+using Microsoft.Win32;
 using Nova.Common.Components;
 
 namespace Nova.Common

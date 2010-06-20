@@ -27,24 +27,27 @@
 #endregion
 
 #region Using
-using System.Collections.Generic;
-using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing.Drawing2D;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 using System;
+using System.Collections;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Windows.Forms;
 
-using Nova.Common;
 using Nova.Client;
+using Nova.Common;
 #endregion
 
 namespace Nova.WinForms.Gui
 {
     public partial class StarMap : UserControl
     {
+        private readonly Point[] triangle = 
+        { 
+            new Point(0, 0), 
+            new Point(-5, -10),
+            new Point(5, -10) 
+        };
+
         public const int BorderBuffer = 35;
 
         #region Variables
@@ -69,13 +72,6 @@ namespace Nova.WinForms.Gui
         private Font NameFont = null;
         private System.Drawing.BufferedGraphicsContext bufferedContext = null;
         #endregion
-
-        private readonly Point[] triangle = 
-        { 
-            new Point(0, 0), 
-            new Point(-5, -10),
-            new Point(5, -10) 
-        };
 
 
         #region Construction and Initialization

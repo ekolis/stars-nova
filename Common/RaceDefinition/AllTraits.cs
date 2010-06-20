@@ -37,9 +37,6 @@ namespace Nova.Common
 {
     public sealed class AllTraits 
     {
-        public TraitList All = new TraitList();
-        public TraitList Primary = new TraitList();
-        public TraitList Secondary = new TraitList();
 
         #region Singleton
 
@@ -147,6 +144,9 @@ namespace Nova.Common
 
         #endregion
 
+        public TraitList All = new TraitList();
+        public TraitList Primary = new TraitList();
+        public TraitList Secondary = new TraitList();
     }
 
 }

@@ -28,22 +28,14 @@
 #endregion
 
 #region Using Statements
-using Microsoft.Win32;
-using Nova.Common;
-using Nova.ControlLibrary;
 using System;
 using System.Collections;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization;
-using System.IO.Compression;
-using System.Xml;
 using System.Web.Security;
 using System.Windows.Forms;
+using System.Xml;
+
+using Nova.Common;
 #endregion
 
 namespace Nova.WinForms.RaceDesigner

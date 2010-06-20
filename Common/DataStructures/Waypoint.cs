@@ -27,10 +27,9 @@
 #endregion
 
 using System;
+using System.Drawing;
 using System.Xml;
 using System.Xml.Serialization;
-using System.Drawing;
-using System.Runtime.Serialization;
 
 namespace Nova.Common
 {

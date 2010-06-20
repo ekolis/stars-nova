@@ -29,8 +29,6 @@
 
 using System;
 using System.Xml;
-using System.Collections;
-using System.Drawing;
 
 namespace Nova.Common
 {
