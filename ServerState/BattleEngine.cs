@@ -223,8 +223,8 @@ namespace Nova.WinForms.Console
 
             foreach (Ship ship in fleet.FleetShips)
             {
-                ship.Cost = ship.Design.Cost;
-                Fleet stack = fleetStacks[ship.Design.Name] as Fleet;
+                ship.Cost = ship.DesignCost;
+                Fleet stack = fleetStacks[ship.DesignName] as Fleet;
 
                 // If no stack exists for this design then create one now.
 
@@ -235,9 +235,9 @@ namespace Nova.WinForms.Console
                     stack = new Fleet(name, fleet.Owner, fleet.Position);
 
                     stack.BattlePlan = fleet.BattlePlan;
-                    stack.BattleSpeed = ship.Design.BattleSpeed;
+                    stack.BattleSpeed = ship.BattleSpeed;
 
-                    fleetStacks[ship.Design.Name] = stack;
+                    fleetStacks[ship.DesignName] = stack;
                 }
 
                 // Add this ship into the stack but give each ship a name (normally
@@ -544,7 +544,7 @@ namespace Nova.WinForms.Console
             {
                 foreach (Ship ship in stack.FleetShips)
                 {
-                    foreach (Weapon weaponSystem in ship.Design.Weapons)
+                    foreach (Weapon weaponSystem in ship.Weapons)
                     {
                         WeaponDetails weapon = new WeaponDetails();
 

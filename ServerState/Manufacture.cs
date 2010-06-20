@@ -263,7 +263,7 @@ namespace Nova.WinForms.Console
                 }
                 star.Starbase = fleet;
                 fleet.Type = "Starbase";
-                fleet.Name = ship.Design.Name;
+                fleet.Name = ship.DesignName;
                 fleet.InOrbit = star;
 
                 if (race.HasTrait("ISB"))
