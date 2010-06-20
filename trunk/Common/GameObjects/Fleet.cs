@@ -174,7 +174,8 @@ namespace Nova.Common
             int warpFactor = target.WarpFactor;
             int speed = warpFactor * warpFactor;
             double targetTime = legDistance / speed;
-            double fuelTime = FuelAvailable / FuelConsumption(warpFactor, race);
+            double fuelConsumptionRate = FuelConsumption(warpFactor, race);
+            double fuelTime = FuelAvailable / fuelConsumptionRate;
             double travelTime = targetTime;
 
             // Determine just how long we have available to travel towards the
@@ -215,7 +216,8 @@ namespace Nova.Common
             // now have available.
 
             availableTime -= travelTime;
-            FuelAvailable -= FuelConsumption(target.WarpFactor, race) * travelTime;
+            int fuelUsed = (int)(fuelConsumptionRate * travelTime);
+            FuelAvailable -= fuelUsed;
 
             return arrived;
         }
