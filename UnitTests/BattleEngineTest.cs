@@ -251,19 +251,5 @@ namespace Nova.UnitTests
 
             Assert.Greater(distanceS, distanceE);
         }
-
-        /*
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Test for FireWeapons
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        [Test]
-        public void Test7FireWeapons()
-        {
-            // FireWeapons(zoneStacks)
-
-        }
-        */
     }
 }
