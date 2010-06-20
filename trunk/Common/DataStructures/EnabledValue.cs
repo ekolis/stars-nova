@@ -28,9 +28,8 @@
 
 using System;
 using System.ComponentModel;
+
 using Nova.Common.Converters;
-using System.Xml;
-using System.Xml.Serialization;
 
 namespace Nova.Common
 {

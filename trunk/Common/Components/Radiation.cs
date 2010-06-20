@@ -29,11 +29,6 @@
 
 using System;
 using System.Xml;
-using System.Runtime.Serialization;
-
-// ============================================================================
-// Simple Property Class
-// ============================================================================
 
 namespace Nova.Common.Components
 {

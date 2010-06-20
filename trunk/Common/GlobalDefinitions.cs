@@ -28,9 +28,8 @@
 #endregion
 
 using System;
-using System.Xml;
-using System.Collections;
 using System.IO;
+using System.Xml;
 
 namespace Nova.Common
 {

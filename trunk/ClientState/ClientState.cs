@@ -29,20 +29,12 @@
 #endregion
 
 #region Using Statements
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
-using System.Drawing;
 using System.IO;
-using System.Reflection;
-using System.Resources;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization;
 using System.Windows.Forms;
-using System.Xml;
-using System.IO.Compression;
-using Microsoft.Win32;
 
 using Nova.Common;
 using Nova.Common.Components;

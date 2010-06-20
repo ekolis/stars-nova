@@ -29,15 +29,9 @@
 
 #region Using Statements
 using System;
-using System.Xml;
-using System.IO.Compression;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization;
+using System.Xml;
+
 using Nova.Common;
 using Nova.Common.Components;
 

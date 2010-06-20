@@ -28,15 +28,10 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
-using Nova.Common;
 using Nova.Client;
+using Nova.Common;
 
 
 namespace Nova.WinForms.Gui

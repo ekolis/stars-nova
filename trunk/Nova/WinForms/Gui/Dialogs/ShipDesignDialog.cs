@@ -27,14 +27,14 @@
 #endregion
 
 using System;
-using System.Drawing;
 using System.Collections;
+using System.Drawing;
 using System.Windows.Forms;
 
+using Nova.Client;
 using Nova.Common;
 using Nova.Common.Components;
 using Nova.ControlLibrary;
-using Nova.Client;
 
 
 namespace Nova.WinForms.Gui

@@ -29,10 +29,7 @@
 // ===========================================================================
 #endregion
 
-
 using System;
-using System.Text;
-using System.Drawing;
 
 namespace Nova.Common
 {
