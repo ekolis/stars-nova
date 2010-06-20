@@ -334,12 +334,12 @@ namespace Nova.WinForms.Console
 
             foreach (Ship ship in fleet.FleetShips)
             {
-                ship.Shields = ship.Design.Shield;
+                ship.Shields = ship.DesignShield;
                 if (repairRate > 0)
                 {
-                    int repairAmount = Math.Min(ship.Design.Armor * repairRate / 100, 1);
+                    int repairAmount = Math.Min(ship.DesignArmor * repairRate / 100, 1);
                     ship.Armor += repairAmount;
-                    ship.Armor = Math.Min(ship.Armor, ship.Design.Armor);
+                    ship.Armor = Math.Min(ship.Armor, ship.DesignArmor);
                 }
             }
         }

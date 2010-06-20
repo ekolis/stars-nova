@@ -184,7 +184,7 @@ namespace Nova.WinForms.Console
             {
                 ship.Armor -= shipDamage;
 
-                if (ship.Design.Armor < 0)
+                if (ship.Armor < 0)
                 {
                     shipsToRemove.Add(ship);
                     shipsLost++;

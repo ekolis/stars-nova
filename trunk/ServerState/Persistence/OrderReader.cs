@@ -182,7 +182,7 @@ namespace Nova.Server
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.Design = playerOrders.RaceDesigns[ship.Design.Name] as ShipDesign;
+                    ship.DesignUpdate(playerOrders.RaceDesigns[ship.DesignName] as ShipDesign);
                 }
             }
             // Star reference to Race
