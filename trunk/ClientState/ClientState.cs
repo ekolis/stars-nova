@@ -593,6 +593,28 @@ namespace Nova.Client
                 // Shields regenrate at 10% of max strength each round of combat.
                 // All armors are 50% of their rated strength.
             }
+            if (ClientState.Data.PlayerRace.Traits.Contains("ExtraTech"))
+            {
+                //All extra technologies start on level 3 or 4 with JOAT
+                if (ClientState.Data.PlayerRace.Traits.Primary.Code == "JOAT")
+                {
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion] += 1;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Construction] += 1;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Biotechnology] += 1;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Electronics] += 1;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Energy] += 1;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Weapons] += 1;
+                }
+                else
+                {
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion] += 3;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Construction] += 3;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Biotechnology] += 3;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Electronics] += 3;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Energy] += 3;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Weapons] += 3;
+                }
+            }
 
         }
 
