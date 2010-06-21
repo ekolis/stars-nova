@@ -105,6 +105,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A04D29DE1FBA425389DDA6A647B09278"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A3A4FB7397B3BB4B89262CCDFEE74A06"
         "OwnerKey" = "8:_AD039140FFA34D41B04E42107A0E91D0"
         "MsmSig" = "8:_UNDEFINED"
@@ -578,7 +584,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.3824.32663, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.3824.32743, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_77AF68B3E2315981EC932637827E0C49"
@@ -629,7 +635,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.3824.32663, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.3824.32743, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_9394113AA2C215742EC7A51F7A54B5D2"
@@ -656,11 +662,31 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_A04D29DE1FBA425389DDA6A647B09278"
+            {
+            "SourcePath" = "8:..\\..\\CHANGELOG.txt"
+            "TargetName" = "8:CHANGELOG.txt"
+            "Tag" = "8:"
+            "Folder" = "8:_AC801D23DA1C46C5B95B810890051C30"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A3A4FB7397B3BB4B89262CCDFEE74A06"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.3824.32663, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.3824.32743, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_A3A4FB7397B3BB4B89262CCDFEE74A06"
@@ -891,7 +917,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.3824.32663, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.3824.32743, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_F8869E6C297AD17CFCD68A9EB660535D"
@@ -1052,7 +1078,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Stars! Nova"
         "ProductCode" = "8:{B4D7DB67-4F2A-4AA8-9AAA-4372D8DD02FE}"
-        "PackageCode" = "8:{ECFD8A6D-A72C-484E-A0FE-03223E2BD52D}"
+        "PackageCode" = "8:{B3B8ACD6-1CEF-4FC7-871C-19622A75107F}"
         "UpgradeCode" = "8:{0669EC41-507F-4D34-8077-38BF7A216402}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -1173,7 +1199,7 @@
         {
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_1F2D17C4324D47B7B4EF1D6B06CE1A6B"
             {
-            "Name" = "8:LICENSE"
+            "Name" = "8:License"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -1187,7 +1213,7 @@
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_2822C4A4A7BB4AD58DB061375267EFA3"
             {
-            "Name" = "8:NOTICE"
+            "Name" = "8:Notice"
             "Arguments" = "8:"
             "Description" = "8:"
             "ShowCmd" = "3:1"
@@ -1239,6 +1265,20 @@
             "Folder" = "8:_10491F8016104742B199A919D0FA4D4D"
             "WorkingFolder" = "8:_AC801D23DA1C46C5B95B810890051C30"
             "Icon" = "8:_006EDAAC2A544C59897C4AC4E0B2601D"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_7F5D65E133954A3B84FEA1F5CFEAAE5A"
+            {
+            "Name" = "8:Changelog"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_A04D29DE1FBA425389DDA6A647B09278"
+            "Folder" = "8:_64AB6BC1C30744D0800E79EB7C1865EA"
+            "WorkingFolder" = "8:_AC801D23DA1C46C5B95B810890051C30"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
             "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_8B6C5DF9263C4FB298754D44E3E6B9D9"
