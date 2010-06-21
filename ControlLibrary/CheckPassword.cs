@@ -27,11 +27,6 @@
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 using Nova.Common;
 using System.Web.Security;
@@ -39,16 +34,19 @@ using System.Web.Security;
 
 namespace Nova.ControlLibrary
 {
+    /// <summary>
+    /// An object to control the checking of passwords.
+    /// </summary>
     public partial class CheckPassword : Form
     {
 
-        Race RaceData = null;
+        private Race RaceData = null;
 
         #region Construction and Dispose
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction
+        /// Initializes a new instance of the CheckPassword class.
         /// </summary>
         /// <param name="raceData">The <see cref="Race"/> whose password is being checked.</param>
         /// ----------------------------------------------------------------------------
@@ -69,7 +67,7 @@ namespace Nova.ControlLibrary
         /// OK Button Pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OKButton_Click(object sender, EventArgs e)
         {

@@ -49,11 +49,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the PlanetReport class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public PlanetReport()
         {
             InitializeComponent();
@@ -73,7 +71,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, EventArgs e)
         {
-            const int numColumns = 12;
+            const int NumColumns = 12;
             Race race = ClientState.Data.PlayerRace;
 
             PlanetGridView.Columns[8].Name = "Minerals";
@@ -85,7 +83,7 @@ namespace Nova.WinForms.Gui
             {
                 if (star.Owner == race.Name)
                 {
-                    string[] row = new string[numColumns];
+                    string[] row = new string[NumColumns];
 
                     string starbase = "-";
                     if (star.Starbase != null)
@@ -108,9 +106,11 @@ namespace Nova.WinForms.Gui
                     Nova.Common.Resources resources = star.ResourcesOnHand;
                     StringBuilder text = new StringBuilder();
 
-                    text.AppendFormat("{0} {1} {2}", (int)resources.Ironium,
-                                                     (int)resources.Boranium,
-                                                     (int)resources.Germanium);
+                    text.AppendFormat(
+                        "{0} {1} {2}",
+                        (int)resources.Ironium,
+                        (int)resources.Boranium,
+                        (int)resources.Germanium);
 
                     string energy = ((int)resources.Energy).ToString(System.Globalization.CultureInfo.InvariantCulture);
 
@@ -119,9 +119,11 @@ namespace Nova.WinForms.Gui
                     resources = star.MineralConcentration;
                     text = new StringBuilder();
 
-                    text.AppendFormat("{0} {1} {2}", (int)resources.Ironium,
-                                                     (int)resources.Boranium,
-                                                     (int)resources.Germanium);
+                    text.AppendFormat(
+                        "{0} {1} {2}",
+                        (int)resources.Ironium,
+                        (int)resources.Boranium,
+                        (int)resources.Germanium);
                     row[i++] = text.ToString();
                     row[i++] = energy;
 
@@ -141,8 +143,9 @@ namespace Nova.WinForms.Gui
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// ----------------------------------------------------------------------------
-        private void PlanetGridView_CellPainting(object sender,
-                     DataGridViewCellPaintingEventArgs e)
+        private void PlanetGridView_CellPainting(
+            object sender,
+            DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
             {
@@ -156,9 +159,11 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            Rectangle newRect = new Rectangle(e.CellBounds.X + 1,
-                      e.CellBounds.Y + 1, e.CellBounds.Width - 4,
-                      e.CellBounds.Height - 4);
+            Rectangle newRect = new Rectangle(
+                e.CellBounds.X + 1,
+                e.CellBounds.Y + 1,
+                e.CellBounds.Width - 4,
+                e.CellBounds.Height - 4);
 
             Brush gridBrush = new SolidBrush(PlanetGridView.GridColor);
             Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor);
@@ -170,21 +175,31 @@ namespace Nova.WinForms.Gui
             // Draw the grid lines (only the right and bottom lines;
             // DataGridView takes care of the others).
 
-            e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
-                                e.CellBounds.Bottom - 1, e.CellBounds.Right - 1,
-                                e.CellBounds.Bottom - 1);
+            e.Graphics.DrawLine(
+                gridLinePen,
+                e.CellBounds.Left,
+                e.CellBounds.Bottom - 1,
+                e.CellBounds.Right - 1,
+                e.CellBounds.Bottom - 1);
 
-            e.Graphics.DrawLine(gridLinePen, e.CellBounds.Right - 1,
-                                e.CellBounds.Top, e.CellBounds.Right - 1,
-                                e.CellBounds.Bottom);
+            e.Graphics.DrawLine(
+                gridLinePen,
+                e.CellBounds.Right - 1,
+                e.CellBounds.Top,
+                e.CellBounds.Right - 1,
+                e.CellBounds.Bottom);
 
             // Draw the text content of the cell.
 
             if (e.Value != null)
             {
-                e.Graphics.DrawString((String)e.Value, e.CellStyle.Font,
-                Brushes.Crimson, e.CellBounds.X + 2,
-                e.CellBounds.Y + 2, StringFormat.GenericDefault);
+                e.Graphics.DrawString(
+                    (string)e.Value,
+                    e.CellStyle.Font,
+                    Brushes.Crimson,
+                    e.CellBounds.X + 2,
+                    e.CellBounds.Y + 2,
+                    StringFormat.GenericDefault);
             }
 
             e.Handled = true;

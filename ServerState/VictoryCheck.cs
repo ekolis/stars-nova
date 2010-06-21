@@ -40,8 +40,8 @@ namespace Nova.WinForms.Console
     public static class VictoryCheck
     {
 
-        static ServerState StateData = ServerState.Data;
-        static bool messageSent = false;
+        private static ServerState StateData = ServerState.Data;
+        private static bool messageSent = false;
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -55,7 +55,7 @@ namespace Nova.WinForms.Console
             ArrayList remainingPlayers = new ArrayList();
             foreach (Star star in StateData.AllStars.Values)
             {
-                if (star.Owner == "") continue;
+                if (star.Owner == null || star.Owner == "") continue;
                 if (!remainingPlayers.Contains(star.Owner))
                 {
                     remainingPlayers.Add(star.Owner);

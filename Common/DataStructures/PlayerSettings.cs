@@ -36,9 +36,9 @@ namespace Nova.Common
     [Serializable]
     public class PlayerSettings
     {
-        public String RaceName = null; // The path & file name of the race.
-        public String AiProgram = null; // The path & file name of the AI application or "Human"
-        public int PlayerNumber = 0; // The order number of the player from 1 - Global.MaxPlayers
+        public string RaceName; // The path & file name of the race.
+        public string AiProgram; // The path & file name of the AI application or "Human"
+        public int PlayerNumber; // The order number of the player from 1 - Global.MaxPlayers
         
 
     }

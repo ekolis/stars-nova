@@ -43,11 +43,9 @@ namespace Nova.WinForms.ComponentEditor
     public partial class TechRequirements : UserControl
     {
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction
+        /// Initializes a new instance of the TechRequirements class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public TechRequirements()
         {
             InitializeComponent();
@@ -67,11 +65,11 @@ namespace Nova.WinForms.ComponentEditor
                 TechLevel techLevel = new TechLevel();
 
                 techLevel[TechLevel.ResearchField.Biotechnology] = (int)BioTechLevel.Value;
-                techLevel[TechLevel.ResearchField.Construction]  = (int)ConstructionTechLevel.Value;
-                techLevel[TechLevel.ResearchField.Electronics]   = (int)ElectronicsTechLevel.Value;
-                techLevel[TechLevel.ResearchField.Energy]        = (int)EnergyTechLevel.Value;
-                techLevel[TechLevel.ResearchField.Propulsion]    = (int)PropulsionTechLevel.Value;
-                techLevel[TechLevel.ResearchField.Weapons]       = (int)WeaponsTechLevel.Value;
+                techLevel[TechLevel.ResearchField.Construction] = (int)ConstructionTechLevel.Value;
+                techLevel[TechLevel.ResearchField.Electronics] = (int)ElectronicsTechLevel.Value;
+                techLevel[TechLevel.ResearchField.Energy] = (int)EnergyTechLevel.Value;
+                techLevel[TechLevel.ResearchField.Propulsion] = (int)PropulsionTechLevel.Value;
+                techLevel[TechLevel.ResearchField.Weapons] = (int)WeaponsTechLevel.Value;
 
                 return techLevel;
             }
@@ -80,14 +78,14 @@ namespace Nova.WinForms.ComponentEditor
             // Set the tech levels in the control     
             set
             {
-                BioTechLevel.Value          = (int)value[TechLevel.ResearchField.Biotechnology];
-                ElectronicsTechLevel.Value  = (int)value[TechLevel.ResearchField.Electronics];
-                EnergyTechLevel.Value       = (int)value[TechLevel.ResearchField.Energy];
-                PropulsionTechLevel.Value   = (int)value[TechLevel.ResearchField.Propulsion];
-                WeaponsTechLevel.Value      = (int)value[TechLevel.ResearchField.Weapons];
+                BioTechLevel.Value = (int)value[TechLevel.ResearchField.Biotechnology];
+                ElectronicsTechLevel.Value = (int)value[TechLevel.ResearchField.Electronics];
+                EnergyTechLevel.Value = (int)value[TechLevel.ResearchField.Energy];
+                PropulsionTechLevel.Value = (int)value[TechLevel.ResearchField.Propulsion];
+                WeaponsTechLevel.Value = (int)value[TechLevel.ResearchField.Weapons];
                 ConstructionTechLevel.Value = (int)value[TechLevel.ResearchField.Construction];
             }
 
         }
-    }//TechRequirements
-}//namespace
+    }
+}

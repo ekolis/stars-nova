@@ -3,9 +3,9 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{057D68CC-97A3-4296-A66B-1D3A5C00134E}</ProjectGuid>
+    <ProjectGuid>{0C92C1D5-9084-4E4A-82F1-889B74019A33}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Nova.Server</RootNamespace>
@@ -35,6 +35,7 @@
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
+    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -47,12 +48,21 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\VersionInfo.cs" />
-    <Compile Include="IntelWriter.cs" />
-    <Compile Include="OrderReader.cs" />
-    <Compile Include="PlayerFunctions.cs" />
+    <Compile Include="BattleEngine.cs" />
+    <Compile Include="Bombing.cs" />
+    <Compile Include="CheckForMinefields.cs" />
+    <Compile Include="Persistence\IntelWriter.cs" />
+    <Compile Include="Invade.cs" />
+    <Compile Include="LayMines.cs" />
+    <Compile Include="Manufacture.cs" />
+    <Compile Include="Persistence\OrderReader.cs" />
+    <Compile Include="ProcessTurn.cs" />
     <Compile Include="Scores.cs" />
-    <Compile Include="ServerState.cs" />
+    <Compile Include="Persistence\ServerState.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VictoryCheck.cs" />
+    <Compile Include="WaypointTasks.cs" />
+    <Compile Include="WeaponDetails.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">

@@ -104,23 +104,18 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Disposal
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction.
+        /// Initializes a new instance of the PlanetDetail class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public PlanetDetail()
         {
             InitializeComponent();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -749,7 +744,7 @@ namespace Nova.WinForms.Gui
         /// The change queue button has been pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ChangeProductionQueue_Click(object sender, EventArgs e)
         {
@@ -767,7 +762,7 @@ namespace Nova.WinForms.Gui
         /// Next planet button pressed
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NextPlanet_Click(object sender, EventArgs e)
         {
@@ -785,9 +780,9 @@ namespace Nova.WinForms.Gui
 
             star = myStars.GetNext(star);
 
-            MainWindow.nova.SelectionDetail.Value = star;
-            MainWindow.nova.SelectionSummary.Value = star;
-            MainWindow.nova.MapControl.SetCursor(star.Position);
+            MainWindow.Nova.SelectionDetail.Value = star;
+            MainWindow.Nova.SelectionSummary.Value = star;
+            MainWindow.Nova.MapControl.SetCursor(star.Position);
         }
 
 
@@ -796,7 +791,7 @@ namespace Nova.WinForms.Gui
         /// Previous planet button pressed
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PreviousPlanet_Click(object sender, EventArgs e)
         {
@@ -814,9 +809,9 @@ namespace Nova.WinForms.Gui
 
             star = myStars.GetPrevious(star);
 
-            MainWindow.nova.SelectionDetail.Value = star;
-            MainWindow.nova.SelectionSummary.Value = star;
-            MainWindow.nova.MapControl.SetCursor(star.Position);
+            MainWindow.Nova.SelectionDetail.Value = star;
+            MainWindow.Nova.SelectionSummary.Value = star;
+            MainWindow.Nova.MapControl.SetCursor(star.Position);
         }
 
         #endregion
@@ -829,7 +824,7 @@ namespace Nova.WinForms.Gui
         /// </summary>
         /// <param name="selectedStar">The star to be displayed</param>
         /// ----------------------------------------------------------------------------
-        void SetStarDetails(Star selectedStar)
+        private void SetStarDetails(Star selectedStar)
         {
             star = selectedStar;
 

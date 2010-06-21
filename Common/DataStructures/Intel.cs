@@ -55,16 +55,16 @@ namespace Nova.Common
 // The data items created by the Nova Console and read by the Nova GUI.
 // ============================================================================
 
-      public int       TurnYear      = 2100;
-      public Race      MyRace        = new Race();
-      public ArrayList Messages      = new ArrayList();
-      public ArrayList Battles       = new ArrayList();
-      public ArrayList AllRaceNames  = new ArrayList();
-      public ArrayList AllScores     = new ArrayList();
-      public Hashtable RaceIcons     = new Hashtable();
-      public Hashtable AllFleets     = new Hashtable();
-      public Hashtable AllDesigns    = new Hashtable();
-      public Hashtable AllStars      = new Hashtable();
+      public int TurnYear = 2100;
+      public Race MyRace = new Race();
+      public ArrayList Messages = new ArrayList();
+      public ArrayList Battles = new ArrayList();
+      public ArrayList AllRaceNames = new ArrayList();
+      public ArrayList AllScores = new ArrayList();
+      public Hashtable RaceIcons = new Hashtable();
+      public Hashtable AllFleets = new Hashtable();
+      public Hashtable AllDesigns = new Hashtable();
+      public Hashtable AllStars = new Hashtable();
       public Hashtable AllMinefields = new Hashtable();
 
       /// ----------------------------------------------------------------------------

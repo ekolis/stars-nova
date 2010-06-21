@@ -43,7 +43,7 @@ namespace Nova.WinForms.NewGame
 {
     public static class NewGame
     {
-        static Random random = new Random();
+        private static Random random = new Random();
 
         #region Main
 
@@ -121,7 +121,7 @@ namespace Nova.WinForms.NewGame
                 ServerState.Data.AllPlayers = newGameWizard.Players;
                 foreach (PlayerSettings settings in ServerState.Data.AllPlayers)
                 {
-                    // TODO (priority 4) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
+                    // TODO (priority 7) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
                     // Stars! solution is to rename the race using a list of standard names. 
                     if (!ServerState.Data.AllRaces.Contains(settings.RaceName))
                         ServerState.Data.AllRaces.Add(settings.RaceName, newGameWizard.KnownRaces[settings.RaceName]);
@@ -155,7 +155,8 @@ namespace Nova.WinForms.NewGame
                     Report.FatalError("Unable to launch Console.");
                 }
 
-            } while (true); // keep trying to make a new game
+            } 
+            while (true); // keep trying to make a new game
 
         } // Main
 
@@ -220,8 +221,7 @@ namespace Nova.WinForms.NewGame
         /// ----------------------------------------------------------------------------
         private static void InitialisePlayerData()
         {
-            SpaceAllocator spaceAllocator = new SpaceAllocator
-                           (ServerState.Data.AllRaces.Count);
+            SpaceAllocator spaceAllocator = new SpaceAllocator(ServerState.Data.AllRaces.Count);
 
             // FIXME (priority 4) ignores map height
             spaceAllocator.AllocateSpace(GameSettings.Data.MapWidth);
@@ -241,7 +241,7 @@ namespace Nova.WinForms.NewGame
 
                 // If we have the secondary racial trait Cheap Factories they need 1K
                 // less germanium to build.
-                int factoryBuildCostGerm = (race.HasTrait("CF") ? 3 : 4);
+                int factoryBuildCostGerm = race.HasTrait("CF") ? 3 : 4;
                 factory.Cost    = new Nova.Common.Resources(0, 0, factoryBuildCostGerm, race.FactoryBuildCost);
                 factory.Name    = "Factory";
                 factory.Type    = "Factory";
@@ -276,8 +276,9 @@ namespace Nova.WinForms.NewGame
         /// <param name="race"><see cref="Race"/> to be positioned.</param>
         /// <param name="spaceAllocator">The <see cref="SpaceAllocator"/> being used to allocate positions.</param>
         /// ----------------------------------------------------------------------------
-        private static void InitialiseHomeStar(Race race,
-                                               SpaceAllocator spaceAllocator)
+        private static void InitialiseHomeStar(
+            Race race,
+            SpaceAllocator spaceAllocator)
         {
             ServerState stateData = ServerState.Data;
 
@@ -301,7 +302,7 @@ namespace Nova.WinForms.NewGame
         /// each player giving it some colonists and initial resources. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private static void AllocateHomeStarResources(Star star, Race race)
         {
@@ -331,11 +332,11 @@ namespace Nova.WinForms.NewGame
 
             if (race.HasTrait("LSP"))
             {
-                star.Colonists = 17500;
+                star.Colonists = Global.StartingColonistsLowStartingPopulation;
             }
             else
             {
-                star.Colonists = 25000;
+                star.Colonists = Global.StartingColonists;
             }
         }
 

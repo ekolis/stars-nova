@@ -14,7 +14,7 @@ using System.Text;
 
 namespace Nova.Common
 {
-    class AlchemyProductionUnit : ProductionUnit
+    public class AlchemyProductionUnit : IProductionUnit
     {
         private Star star;
 

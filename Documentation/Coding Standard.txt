@@ -1,4 +1,4 @@
-Not much of a standard yet!
+Things to include in additon to those enforced by StyleCop
 
 INDENTING
 ----------
@@ -99,7 +99,7 @@ Event Functions
 Event functions should include the following parameter descriptions:
 
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
 
 
 When refering to types in function headers, use the 'see cref=""' form:

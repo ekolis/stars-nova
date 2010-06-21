@@ -117,7 +117,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private static bool BuildDesign(ProductionQueue.Item item, Star star)
         {
-            String designName = star.Owner + "/" + item.Name;
+            string designName = star.Owner + "/" + item.Name;
             Design design = stateData.AllDesigns[designName] as Design;
             Nova.Common.Resources needed = item.BuildState;
             Race race = stateData.AllRaces[star.Owner] as Race;
@@ -184,12 +184,13 @@ namespace Nova.WinForms.Console
         /// <param name="neededResources">???</param>
         /// <param name="availableResources">???</param>
         /// ----------------------------------------------------------------------------
-        private static void DonateResources(Nova.Common.Resources currentResources,
-                                            Nova.Common.Resources neededResources,
-                                            Nova.Common.Resources availableResources)
+        private static void DonateResources(
+            Resources currentResources,
+            Resources neededResources,
+            Resources availableResources)
         {
             neededResources -= availableResources;
-            availableResources = new Nova.Common.Resources();
+            availableResources = new Resources();
 
             if (neededResources.Ironium < 0)
             {
@@ -243,7 +244,6 @@ namespace Nova.WinForms.Console
             Fleet fleet = new Fleet(ship, star);
             fleet.Name = ship.Name + " #" + stateData.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture);
             fleet.FleetID = stateData.FleetID;
-            fleet.CargoCapacity = ship.Design.CargoCapacity;
 
             // Add the fleet to the state data so it can be tracked.
             stateData.AllFleets[fleet.Key] = fleet;
@@ -259,15 +259,6 @@ namespace Nova.WinForms.Console
                 fleet.Type = "Starbase";
                 fleet.Name = ship.Design.Name;
                 fleet.InOrbit = star;
-                fleet.CargoCapacity = ship.Design.DockCapacity; //dj this seems to be duplicate use on cargo capacity,
-                //we need to think of using shipdesign in fleet for starbases... 
-                //AND incase we want fighters etc , smaller than scout we could make like manufacturing carriers later...
-                //AND i think we need a starbase class, and a queue of them per planet because we may need more... than 1...
-
-                // Daniel Apr 09 - DockCapacity and CargoCapacity are different. A dock is for building ships and 
-                // cargo capacity is for carrying minerals / colonists. A dock capacity > 0 indicates a starbase with
-                // refuling capabilities (at least so long as ship producing docks produce free fuel ala Stars! 2.6/7).
-
 
                 if (race.HasTrait("ISB"))
                 {
@@ -277,7 +268,6 @@ namespace Nova.WinForms.Console
             }
             else
             {
-                fleet.CargoCapacity = ship.Design.CargoCapacity;
                 fleet.InOrbit = star;
             }
 

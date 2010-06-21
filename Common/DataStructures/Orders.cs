@@ -49,13 +49,13 @@ namespace Nova.Common
     [Serializable]
     public sealed class Orders
     {
-        public Hashtable RaceFleets     = new Hashtable(); // For fleet orders
-        public Hashtable RaceDesigns    = new Hashtable(); // For any new designs
-        public ArrayList RaceStars      = new ArrayList(); // For production queues
-        public ArrayList DeletedFleets  = new ArrayList(); // To delete fleets
-        public ArrayList DeletedDesigns = new ArrayList(); // To delete designs
-        public RaceData  PlayerData     = new RaceData();  // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.)
-        public int       TechLevel      = 0;               // FIXME (priority 4): should send our research orders; server should control actual player tech level ??? what does this int mean? it is not a TechLevel type.
+        public Hashtable RaceFleets = new Hashtable();      // For fleet orders
+        public Hashtable RaceDesigns = new Hashtable();     // For any new designs
+        public ArrayList RaceStars = new ArrayList();       // For production queues
+        public ArrayList DeletedFleets = new ArrayList();   // To delete fleets
+        public ArrayList DeletedDesigns = new ArrayList();  // To delete designs
+        public RaceData PlayerData = new RaceData();        // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.)
+        public int TechLevel;                               // FIXME (priority 5): should send our research orders; server should control actual player tech level ??? what does this int mean? it is not a TechLevel type.
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -105,9 +105,15 @@ namespace Nova.Common
                 {
                     switch (xmlnode.Name.ToLower())
                     {
-                        case "root": xmlnode = xmlnode.FirstChild; continue;
-                        case "orders": xmlnode = xmlnode.FirstChild; continue;
-                        case "techlevel": TechLevel = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                        case "root":
+                            xmlnode = xmlnode.FirstChild;
+                            continue;
+                        case "orders":
+                            xmlnode = xmlnode.FirstChild;
+                            continue;
+                        case "techlevel":
+                            TechLevel = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
 
                         // When loading designs we need to know what type of design it is.
                         // To do this we first look ahead at the Type field of the design,

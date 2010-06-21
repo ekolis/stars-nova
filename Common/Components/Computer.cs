@@ -34,25 +34,22 @@ namespace Nova.Common.Components
     [Serializable]
     public class Computer : ComponentProperty
     {
-        public int Initiative = 0; // computers  
-        public double Accuracy = 0; // computers
+        public int Initiative = 0;   
+        public double Accuracy = 0;
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the Computer class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Computer() { }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
+        /// Initializes a new instance of the Computer class.
         /// Copy constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="Computer"/>.</param>
-        /// ----------------------------------------------------------------------------
         public Computer(Computer existing)
         {
             this.Initiative = existing.Initiative;
@@ -78,12 +75,34 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            Computer temp = this + (Computer)op2;
+            Initiative = temp.Initiative;
+            Accuracy = temp.Accuracy;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            Computer temp = this * scalar;
+            Initiative = temp.Initiative;
+            Accuracy = temp.Accuracy;
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
-        /// <param name="op1">LHS operand</param>
-        /// <param name="op2">RHS operand</param>
+        /// <param name="op1">LHS operand.</param>
+        /// <param name="op2">RHS operand.</param>
         /// <returns>Sum of the properties.</returns>
         /// ----------------------------------------------------------------------------
         public static Computer operator +(Computer op1, Computer op2)
@@ -110,7 +129,7 @@ namespace Nova.Common.Components
             Computer sum = new Computer(op1);
             sum.Initiative = op1.Initiative * scalar;
             // Sum of independant probabilities: (1 - ( (1-Accuracy1 )^scalar )
-            sum.Accuracy = (1.0 - (Math.Pow(1.0 - (op1.Accuracy / 100.0), scalar))) * 100.0;
+            sum.Accuracy = (1.0 - Math.Pow(1.0 - (op1.Accuracy / 100.0), scalar)) * 100.0;
             return sum;
         }
 
@@ -156,7 +175,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {

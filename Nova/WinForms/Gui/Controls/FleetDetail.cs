@@ -72,7 +72,7 @@ namespace Nova.WinForms.Gui
         private Label legTime;
         private Label label7;
         private Button ManageFleet;
-        private ListBox WayPoints;
+        private WaypointListBox WayPoints;
         private GroupBox groupBox1;
         private ComboBox comboBox1;
         private GroupBox groupBox2;
@@ -89,23 +89,19 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Disposal
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the FleetDetail class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public FleetDetail()
         {
             InitializeComponent();
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -149,7 +145,7 @@ namespace Nova.WinForms.Gui
             this.legTime = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.ManageFleet = new System.Windows.Forms.Button();
-            this.WayPoints = new System.Windows.Forms.ListBox();
+            this.WayPoints = new Nova.WinForms.Gui.WaypointListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
@@ -403,6 +399,7 @@ namespace Nova.WinForms.Gui
             this.WayPoints.TabIndex = 93;
             this.WayPoints.SelectedIndexChanged += new System.EventHandler(this.WaypointSelection);
             this.WayPoints.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
+            this.WayPoints.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             // 
             // groupBox1
             // 
@@ -562,7 +559,7 @@ namespace Nova.WinForms.Gui
         /// Called when the warp factor slider is moved.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void SpeedChanged(object sender, System.EventArgs e)
         {
@@ -585,7 +582,7 @@ namespace Nova.WinForms.Gui
         /// reflect the values of the selected waypoint.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void WaypointSelection(object sender, System.EventArgs e)
         {
@@ -604,7 +601,7 @@ namespace Nova.WinForms.Gui
         /// Cargo button pressed. Pop up the cargo transfer dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void CargoButton_Click(object sender, System.EventArgs e)
         {
@@ -624,10 +621,10 @@ namespace Nova.WinForms.Gui
         /// key is pressed, delete the selected waypoint.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// FIXME (priority 4) - doesn't work with my keyboard - Dan 25/4/10
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// FIXME (priority 7) - doesn't work with my keyboard, Vista 64 bit environment - Dan 25/4/10
         /// ----------------------------------------------------------------------------
-        private void OnKeyPress(object sender, KeyPressEventArgs e)
+        public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (WayPoints.SelectedItems.Count <= 0)
             {
@@ -636,7 +633,8 @@ namespace Nova.WinForms.Gui
 
             int index = WayPoints.SelectedIndices[0];
 
-            if (index == 0 || e.KeyChar != (char)8)
+            // backspace or del will do
+            if (index == 0 || !(e.KeyChar == (char)8)) 
             {
                 return;
             }
@@ -655,7 +653,7 @@ namespace Nova.WinForms.Gui
         /// that waypoint.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void WaypointTaskChanged(object sender, EventArgs e)
         {
@@ -676,7 +674,7 @@ namespace Nova.WinForms.Gui
         /// The manage fleet button has been pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MangeFleet_Click(object sender, EventArgs e)
         {
@@ -692,7 +690,7 @@ namespace Nova.WinForms.Gui
         /// Process the Next button being pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NextFleet_Click(object sender, System.EventArgs e)
         {
@@ -717,10 +715,10 @@ namespace Nova.WinForms.Gui
                 currentFleet = 0;
             }
 
-            MainWindow.nova.SelectionDetail.Value = myFleets[currentFleet];
-            MainWindow.nova.SelectionSummary.Value = SelectedFleet;
+            MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
+            MainWindow.Nova.SelectionSummary.Value = SelectedFleet;
 
-            MainWindow.nova.MapControl.SetCursor(SelectedFleet.Position);
+            MainWindow.Nova.MapControl.SetCursor(SelectedFleet.Position);
         }
 
 
@@ -729,7 +727,7 @@ namespace Nova.WinForms.Gui
         /// Process the previous button being pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PreviousFleet_Click(object sender, EventArgs e)
         {
@@ -754,10 +752,10 @@ namespace Nova.WinForms.Gui
                 currentFleet = myFleets.Count - 1;
             }
 
-            MainWindow.nova.SelectionDetail.Value = myFleets[currentFleet];
-            MainWindow.nova.SelectionSummary.Value = SelectedFleet;
+            MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
+            MainWindow.Nova.SelectionSummary.Value = SelectedFleet;
 
-            MainWindow.nova.MapControl.SetCursor(SelectedFleet.Position);
+            MainWindow.Nova.MapControl.SetCursor(SelectedFleet.Position);
         }
 
         #endregion
@@ -791,8 +789,7 @@ namespace Nova.WinForms.Gui
             {
                 Waypoint from = SelectedFleet.Waypoints[index - 1] as Waypoint;
                 Waypoint to = SelectedFleet.Waypoints[index] as Waypoint;
-                double distance = PointUtilities.Distance(from.Position,
-                                                              to.Position);
+                double distance = PointUtilities.Distance(from.Position, to.Position);
 
                 double time = distance / (to.WarpFactor * to.WarpFactor);
                 double fuelUsed = SelectedFleet.FuelConsumption(to.WarpFactor, race)
@@ -819,9 +816,7 @@ namespace Nova.WinForms.Gui
             {
                 if (previous != null && waypoint.WarpFactor > 0)
                 {
-                    double distance = PointUtilities.Distance(waypoint.Position,
-                                                              previous.Position);
-
+                    double distance = PointUtilities.Distance(waypoint.Position, previous.Position);
                     int warpFactor = waypoint.WarpFactor;
                     double speed = warpFactor * warpFactor;
                     double travelTime = distance / speed;
@@ -961,5 +956,30 @@ namespace Nova.WinForms.Gui
 
         #endregion
 
+        /// <summary>
+        /// Process the delete key to delete a fleet waypoint.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void OnKeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Delete)
+            {
+                int index = WayPoints.SelectedIndices[0];
+                if (index > 0)
+                {
+                    SelectedFleet.Waypoints.RemoveAt(index);
+                    WayPoints.Items.RemoveAt(index);
+                    WayPoints.SelectedIndex = WayPoints.Items.Count - 1;
+
+                    Utilities.MapRefresh();
+                }
+                e.Handled = true;
+            }
+
+        }
+
     }
+
+
 }

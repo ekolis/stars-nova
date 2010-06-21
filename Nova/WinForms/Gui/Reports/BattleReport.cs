@@ -49,11 +49,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the BattleReportDialog class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public BattleReportDialog()
         {
             InitializeComponent();
@@ -68,11 +66,11 @@ namespace Nova.WinForms.Gui
         /// Populate the display. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, EventArgs e)
         {
-            const int numColumns = 6;
+            const int NumColumns = 6;
 
             BattleGridView.AutoSize = true;
 
@@ -116,7 +114,7 @@ namespace Nova.WinForms.Gui
                 }
 
                 int i = 0;
-                string[] row = new string[numColumns];
+                string[] row = new string[NumColumns];
 
                 row[i++] = report.Location;
                 row[i++] = countSides.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -137,7 +135,7 @@ namespace Nova.WinForms.Gui
         /// On double click open the battle viewer
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void BattleGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {

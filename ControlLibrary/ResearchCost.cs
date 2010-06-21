@@ -38,7 +38,7 @@ namespace Nova.ControlLibrary
 {
     public class ResearchCost : System.Windows.Forms.UserControl
     {
-        public delegate void SelectionChangedHandler(Object sender, int value);
+        public delegate void SelectionChangedHandler(object sender, int value);
         public event SelectionChangedHandler SelectionChanged;
 
         private int ResearchFactor = 100;
@@ -51,23 +51,18 @@ namespace Nova.ControlLibrary
 
         #region Construction and Disposal
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construtor
+        /// Initializes a new instance of the ResearchCost class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ResearchCost()
         {
             InitializeComponent();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -162,7 +157,7 @@ namespace Nova.ControlLibrary
         /// is switched off.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Research_CheckChanged(object sender, EventArgs e)
         {
@@ -212,7 +207,10 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         public int Cost
         {
-            get { return ResearchFactor; }
+            get
+            {
+                return ResearchFactor;
+            }
             set
             {
                 switch (value)

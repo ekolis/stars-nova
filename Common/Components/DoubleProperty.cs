@@ -34,7 +34,7 @@ using Nova.Common;
 namespace Nova.Common.Components
 {
     /// <summary>
-    /// DoubleProperty class
+    /// DoubleProperty class.
     /// </summary>
     [Serializable]
     public class DoubleProperty : ComponentProperty
@@ -46,7 +46,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor
+        /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public DoubleProperty()
@@ -91,6 +91,30 @@ namespace Nova.Common.Components
         public override object Clone()
         {
             return new DoubleProperty(this);
+        }
+
+
+
+        #endregion
+
+        #region Operators
+
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            Value += ((DoubleProperty)op2).Value;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            Value *= scalar;
         }
 
 
@@ -159,7 +183,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {

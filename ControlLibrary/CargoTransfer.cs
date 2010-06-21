@@ -35,7 +35,9 @@ using System.Windows.Forms;
 
 namespace Nova.ControlLibrary
 {
-
+    /// <summary>
+    /// A control for transferring cargo.
+    /// </summary>
     public class CargoTransfer : System.Windows.Forms.UserControl
     {
         private int cargoAmount;
@@ -54,7 +56,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction.
+        /// Initializes a new instance of the CargoTransfer class.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public CargoTransfer()
@@ -63,12 +65,10 @@ namespace Nova.ControlLibrary
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Clean up any resources being used
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -122,7 +122,7 @@ namespace Nova.ControlLibrary
             this.sliderBar.Size = new System.Drawing.Size(256, 16);
             this.sliderBar.TabIndex = 21;
             this.sliderBar.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.sliderBar.Scroll += new System.EventHandler(this.sliderBar_Scroll);
+            this.sliderBar.Scroll += new System.EventHandler(this.SliderBar_Scroll);
             // 
             // shipAmount
             // 
@@ -153,9 +153,9 @@ namespace Nova.ControlLibrary
         /// This function is invoked when the slider bar is moved.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void sliderBar_Scroll(object sender, System.EventArgs e)
+        private void SliderBar_Scroll(object sender, System.EventArgs e)
         {
             // Get the cargo mass excluding the contribution made by this slider
 
@@ -193,8 +193,9 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Set or Get the slider title.
+        /// Sets or Gets the slider title.
         /// </summary>
+        /// <value>A new title for the slider.</value>
         /// ----------------------------------------------------------------------------
         [Description("Slider Title."), Category("User Data")]
         public string Title
@@ -205,8 +206,9 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Set of Get the Maximum slider value.
+        /// Sets or Gets the Maximum slider value.
         /// </summary>
+        /// <value>The maximum slider value.</value>
         /// ----------------------------------------------------------------------------
         public int Maximum
         {
@@ -217,8 +219,9 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Set or Get Slider value.
+        /// Sets or Gets Slider value.
         /// </summary>
+        /// <value>A new amount of cargo to set.</value>
         /// ----------------------------------------------------------------------------
         public int Value
         {
@@ -230,7 +233,10 @@ namespace Nova.ControlLibrary
                 shipAmount.Text = cargoAmount.ToString(System.Globalization.CultureInfo.InvariantCulture) + " kT";
             }
 
-            get { return cargoAmount; }
+            get
+            {
+                return cargoAmount;
+            }
         }
 
         /// ----------------------------------------------------------------------------

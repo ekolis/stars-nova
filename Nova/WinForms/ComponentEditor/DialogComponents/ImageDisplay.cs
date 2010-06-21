@@ -40,7 +40,7 @@ namespace Nova.WinForms.ComponentEditor
 {
     public partial class ImageDisplay : UserControl
     {
-        public String ImageFile = null;
+        public string ImageFile = null;
         public ImageDisplay()
         {
             InitializeComponent();
@@ -52,7 +52,7 @@ namespace Nova.WinForms.ComponentEditor
         /// Select an Image for loading into the picture control
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnImageButtonClick(object sender, EventArgs e)
         {
@@ -81,5 +81,5 @@ namespace Nova.WinForms.ComponentEditor
             set { ComponentImage.Image = value; }
         }
 
-    }//ImageDisplay
-}//namespace
+    }
+}

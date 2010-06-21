@@ -36,7 +36,7 @@ namespace Nova.Common
     /// Class for constructing 1 defense unit.
     /// </summary>
     /// ----------------------------------------------------------------------------
-    class DefenseProductionUnit : ProductionUnit
+    public class DefenseProductionUnit : IProductionUnit
     {
         private Star star;
 
@@ -65,7 +65,7 @@ namespace Nova.Common
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// ??? (priority 3)
+        /// ??? (priority 6)
         /// </summary>
         /// ----------------------------------------------------------------------------
         public void Construct()
@@ -76,7 +76,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the <see cref="Resources"/> needed to build this defense.
-        /// ??? (priority 3) - is this before or after some resources have already been spent?
+        /// ??? (priority 6) - is this before or after some resources have already been spent?
         /// </summary>
         /// ----------------------------------------------------------------------------
         public Resources NeededResources()

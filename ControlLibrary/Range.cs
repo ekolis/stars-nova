@@ -44,7 +44,7 @@ namespace Nova.ControlLibrary
 {
     public class Range : System.Windows.Forms.UserControl
     {
-        enum TimerOptions
+        private enum TimerOptions
         {
             IllegalValue, MoveLeft, MoveRight, Shrink, Expand
         }
@@ -87,11 +87,12 @@ namespace Nova.ControlLibrary
 
         // Event and delegate definition for when the range is changed.
         // This event tells RaceDesigner to modify the race's advantage points
-        public delegate void RangeChangedHandler(Object sender,
-                                                 int newLeftValue,
-                                                 int newRightValue,
-                                                 int oldLeftValue,
-                                                 int oldRightValue);
+        public delegate void RangeChangedHandler(
+            object sender,
+            int newLeftValue,
+            int newRightValue,
+            int oldLeftValue,
+            int oldRightValue);
 
         public event RangeChangedHandler RangeChanged;
         
@@ -112,23 +113,19 @@ namespace Nova.ControlLibrary
 
         #region Construction and Disposal
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction (and initialisation)
+        /// Initializes a new instance of the Range class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Range()
         {
             InitializeComponent();
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -243,7 +240,7 @@ namespace Nova.ControlLibrary
             // 
             // timer1
             // 
-            this.timer1.Tick += new System.EventHandler(this.timer1_Tick);
+            this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
             // Range
             // 
@@ -266,7 +263,7 @@ namespace Nova.ControlLibrary
         /// numeric values. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Bar_Paint(object sender, PaintEventArgs e)
         {
@@ -281,15 +278,15 @@ namespace Nova.ControlLibrary
             int fillWidth = fillRight - fillLeft;
 
 
-            string realRange = String.Format("{0} to {1} {2}",
-                                BarPositionToEnvironmentValue(BoxLeftPosition).ToString("F1"),
-                                BarPositionToEnvironmentValue(BoxRightPosition).ToString("F1"),
-                                Units);
+            string realRange = String.Format(
+                "{0} to {1} {2}",
+                BarPositionToEnvironmentValue(BoxLeftPosition).ToString("F1"),
+                BarPositionToEnvironmentValue(BoxRightPosition).ToString("F1"),
+                Units);
 
             BoxSpan.Text = realRange;
 
-            e.Graphics.FillRectangle(BoxBrush, fillLeft, fillY,
-                                     fillWidth, fillHeight);
+            e.Graphics.FillRectangle(BoxBrush, fillLeft, fillY, fillWidth, fillHeight);
 
         }
 
@@ -301,9 +298,9 @@ namespace Nova.ControlLibrary
         /// action being held in the class variable TimerAction.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void timer1_Tick(object sender, System.EventArgs e)
+        private void Timer1_Tick(object sender, System.EventArgs e)
         {
             int increment = BoxMoveIncrement;
 
@@ -361,8 +358,7 @@ namespace Nova.ControlLibrary
                     break;
             }
 
-            RangeChanged(this, BoxLeftPosition, BoxRightPosition,
-                               BoxOldLeftPosition, BoxOldRightPosition);
+            RangeChanged(this, BoxLeftPosition, BoxRightPosition, BoxOldLeftPosition, BoxOldRightPosition);
 
             Bar.Invalidate();
         }
@@ -370,10 +366,10 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Mouse down on the move indicator left button
+        /// Mouse down on the move indicator left button.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void LeftScroll_MouseDown(object sender, MouseEventArgs e)
         {
@@ -388,7 +384,7 @@ namespace Nova.ControlLibrary
         /// same, just stop the timer.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RangeMouseUp(object sender, MouseEventArgs e)
         {
@@ -398,10 +394,10 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Mouse down on the move indicator left button
+        /// Mouse down on the move indicator left button.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RightScroll_MouseDown(object sender, MouseEventArgs e)
         {
@@ -412,10 +408,10 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Shrink the range covered by the indicator bar
+        /// Shrink the range covered by the indicator bar.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Contract_MouseDown(object sender, MouseEventArgs e)
         {
@@ -443,7 +439,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Conversion from bar position (1-100 scale) to environment value (EnvironmentMinimum - EnvironmentMaximum)
+        /// Conversion from bar position (1-100 scale) to environment value (EnvironmentMinimum - EnvironmentMaximum).
         /// </summary>
         /// <param name="pos">A bar position value from 1-100.</param>
         /// <returns>An environment value.</returns>
@@ -459,7 +455,7 @@ namespace Nova.ControlLibrary
             }
             else
             {
-                env = ((double)(pos - BoxMinimum)) * environmentRange / boxRange + EnvironmentMinimum;
+                env = ((((double)(pos - BoxMinimum)) * environmentRange) / boxRange) + EnvironmentMinimum;
             }
             return env;
         }
@@ -467,10 +463,10 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Conversion from an environment value (EnvironmentMinimum - EnvironmentMaximum) to a bar position (1-100)
+        /// Conversion from an environment value (EnvironmentMinimum - EnvironmentMaximum) to a bar position (1-100).
         /// </summary>
         /// <param name="env">An environment value.</param>
-        /// <returns>A bar position (1-100)</returns>
+        /// <returns>A bar position (1-100).</returns>
         /// ----------------------------------------------------------------------------
         private int EnvironmentValueToBarPosition(double env)
         {
@@ -535,8 +531,15 @@ namespace Nova.ControlLibrary
         [Description("Units of range display."), Category("Nova")]
         public string RangeUnits
         {
-            get { return Units; }
-            set { Units = value; Bar.Invalidate(); }
+            get
+            {
+                return Units;
+            }
+            set
+            {
+                Units = value;
+                Bar.Invalidate();
+            }
         }
 
 
@@ -561,9 +564,15 @@ namespace Nova.ControlLibrary
         [Description("Maximum value of range bar."), Category("Nova")]
         public double RangeMaximum
         {
-
-            get { return EnvironmentMaximum; }
-            set { EnvironmentMaximum = value; Bar.Invalidate(); }
+            get
+            {
+                return EnvironmentMaximum;
+            }
+            set
+            {
+                EnvironmentMaximum = value;
+                Bar.Invalidate();
+            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -574,8 +583,15 @@ namespace Nova.ControlLibrary
         [Description("Minimum value of range bar."), Category("Nova")]
         public double RangeMinimum
         {
-            get { return EnvironmentMinimum; }
-            set { EnvironmentMinimum = value; Bar.Invalidate(); }
+            get
+            {
+                return EnvironmentMinimum;
+            }
+            set
+            {
+                EnvironmentMinimum = value;
+                Bar.Invalidate();
+            }
         }
 
 
@@ -587,7 +603,10 @@ namespace Nova.ControlLibrary
         [Description("Upper value of range bar."), Category("Nova")]
         public double BarUpper
         {
-            get { return BarPositionToEnvironmentValue(BoxRightPosition); }
+            get 
+            { 
+                return BarPositionToEnvironmentValue(BoxRightPosition); 
+            }
             set
             {
 
@@ -608,7 +627,10 @@ namespace Nova.ControlLibrary
         [Description("Lower value of range bar."), Category("Nova")]
         public double BarLower
         {
-            get { return BarPositionToEnvironmentValue(BoxLeftPosition); }
+            get
+            {
+                return BarPositionToEnvironmentValue(BoxLeftPosition);
+            }
             set
             {
                 BoxOldLeftPosition = BoxLeftPosition;
@@ -622,13 +644,16 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Get or Set range control bar colour
+        /// Get or Set range control bar colour.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Colour of range bar."), Category("Nova")]
         public Color RangeBarColor
         {
-            get { return BoxColor; }
+            get
+            {
+                return BoxColor;
+            }
 
             set
             {

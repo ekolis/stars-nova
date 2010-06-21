@@ -39,13 +39,13 @@ namespace Nova.Common.Components
     {
         // The name of a hull this can be fitted too. 
         // Multiple instances of this property can be used if more than one.
-        public String Value = String.Empty;
+        public string Value = string.Empty;
 
         #region Construction and Initialisation
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction 
+        /// Default constructor. 
         /// </summary>
         /// ----------------------------------------------------------------------------
         public HullAffinity() { }
@@ -69,7 +69,7 @@ namespace Nova.Common.Components
         /// </summary>
         /// <param name="existing">The name of the hull type this affinity is for.</param>
         /// ----------------------------------------------------------------------------
-        public HullAffinity(String existing)
+        public HullAffinity(string existing)
         {
             this.Value = existing;
         }
@@ -93,17 +93,35 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            return;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            return;
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary><para>
-        /// Operator+ 
+        /// Operator overloading for +.
         /// </para><para>
         /// Provide a way to sum up properties in the ship design.
         /// </para><para>
-        /// Doesn't mean anything in the context of HullAffinity
+        /// Doesn't mean anything in the context of HullAffinity.
         /// </para></summary>
         /// <param name="op1">The LHS parameter.</param>
         /// <param name="op2">The RHS parameter.</param>
-        /// <returns>op1</returns>
+        /// <returns>The value of op1.</returns>
         /// ----------------------------------------------------------------------------
         public static HullAffinity operator +(HullAffinity op1, HullAffinity op2)
         {
@@ -113,15 +131,14 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary><para>
-        /// Operator*
+        /// Operator overloading for *.
         /// </para><para>
         /// Used to scale (multiply) properties in the ship design.
         /// </para><para>
         /// Doesn't mean anything in the context of HullAffinity.
         /// </para></summary>
-        /// <param name="op1">Propertie to be scaled.</param>
         /// <param name="scalar">Scaling factor.</param>
-        /// <returns>op1</returns>
+        /// <returns>The value of op1.</returns>
         /// ----------------------------------------------------------------------------
         public static HullAffinity operator *(HullAffinity op1, int scalar)
         {
@@ -148,7 +165,7 @@ namespace Nova.Common.Components
                 {
                     if (subnode.Name.ToLower() == "value")
                     {
-                        Value =((XmlText)subnode.FirstChild).Value;
+                        Value = ((XmlText)subnode.FirstChild).Value;
                     }
                 }
                 catch
@@ -165,7 +182,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {

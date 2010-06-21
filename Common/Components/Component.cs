@@ -46,19 +46,19 @@ namespace Nova.Common.Components
     [Serializable]
     public class Component : Item
     {
-        public TechLevel       RequiredTech    = new TechLevel();
-        public Image           ComponentImage  = null;
-        public String          ImageFile       = null;
-        public String          Description     = null;
-        public RaceRestriction Restrictions    = new RaceRestriction();
+        public TechLevel RequiredTech = new TechLevel();
+        public Image ComponentImage;
+        public string ImageFile;
+        public string Description;
+        public RaceRestriction Restrictions = new RaceRestriction();
 
-        public Dictionary<String, ComponentProperty> Properties = null;
+        public Dictionary<string, ComponentProperty> Properties;
 
         // This is the list of all Compont.Properties keys for the above dictionary.
         // Note that these are not the Component.Type, but the ComponentProperty.Type.
         // They are defined here such that the component can locate or load its properties
         // into the dictionary.
-        public static String[] propertyKeys =
+        public static string[] PropertyKeys =
         {   
           "Armor", "Beam Deflector", "Bomb", "Battle Movement", "Capacitor", "Cargo", "Cloak", 
           "Colonizer", "Computer", "Defense", "Deflector", "Energy Dampener", "Engine", "Fuel",
@@ -83,7 +83,7 @@ namespace Nova.Common.Components
 
 
         /// <summary>
-        /// Copy constructor
+        /// Copy constructor.
         /// </summary>
         /// <param name="existing"></param>
         public Component(Component existing)
@@ -94,9 +94,9 @@ namespace Nova.Common.Components
             this.ComponentImage = existing.ComponentImage;
             this.ImageFile = existing.ImageFile;
             this.Description = existing.Description;
-            foreach (String key in existing.Properties.Keys)
+            foreach (string key in existing.Properties.Keys)
             {
-                this.Properties.Add(key, (ComponentProperty)((ComponentProperty)(existing.Properties[key])).Clone());
+                this.Properties.Add(key, (ComponentProperty)existing.Properties[key].Clone());
             }
             if (existing.Restrictions != null)
                 this.Restrictions = new RaceRestriction(existing.Restrictions);
@@ -193,7 +193,7 @@ namespace Nova.Common.Components
                                 {
                                     // The path doesn't make sense, maybe it wasn't relative.
                                     // Don't change anything and don't load the image
-                                    this.ImageFile = ((XmlText)subnode.FirstChild).Value.Replace('/', Path.DirectorySeparatorChar);
+                                    this.ImageFile = subnode.FirstChild.Value.Replace('/', Path.DirectorySeparatorChar);
                                     this.ComponentImage = null;
                                     Report.Error("Unable to locate the image file " + this.ImageFile);
                                 }
@@ -206,8 +206,8 @@ namespace Nova.Common.Components
                             {
                                 // Load the property. It may be of any type (Bomb, IntegerProperty, Hull, etc), so
                                 // check the save file first to determine what to load, and use the appropriate constructor.
-                                String propertyType = ((XmlText)subnode.SelectSingleNode("Type").FirstChild).Value;
-                                ComponentProperty newProperty = null;
+                                string propertyType = subnode.SelectSingleNode("Type").FirstChild.Value;
+                                ComponentProperty newProperty;
                                 switch (propertyType.ToLower())
                                 {
                                     case "armor":
@@ -365,17 +365,17 @@ namespace Nova.Common.Components
                                             break;
                                         }
 
-                                }//switch on property
+                                }
                                 if (newProperty != null)
                                 {
                                     this.Properties.Add(propertyType, newProperty);
                                 }
                                 break;
-                            } //case "property"
+                            }
 
-                    }// switch on subnode.Name
+                    }
 
-                }//try
+                }
 
 
                 catch (Exception e)
@@ -384,9 +384,9 @@ namespace Nova.Common.Components
                 }
 
                 subnode = subnode.NextSibling;
-            }//while subnode != null
+            }
 
-        }// component constructor
+        }
 
 
         /// ----------------------------------------------------------------------------
@@ -394,7 +394,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
@@ -423,7 +423,7 @@ namespace Nova.Common.Components
             xmlelComponent.AppendChild(xmlelImage);
 
             // Properties
-            foreach (String key in this.Properties.Keys)
+            foreach (string key in this.Properties.Keys)
             {
                 XmlElement xmlelPropertyType = xmldoc.CreateElement("Type");
                 XmlText xmltxtPropertyType = xmldoc.CreateTextNode(key);

@@ -81,23 +81,19 @@ namespace Nova.WinForms.Console
 
         #region Construction Destruction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Nova Console construction (and any dynamic initialisation required).
+        /// Initializes a new instance of the NovaConsoleMain class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public NovaConsoleMain()
         {
             InitializeComponent();
         }
 
-    
-        /// ----------------------------------------------------------------------------
+
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing">???</param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -230,7 +226,7 @@ namespace Nova.WinForms.Console
             this.runAiCheckBox.TabIndex = 12;
             this.runAiCheckBox.Text = "Run AI";
             this.runAiCheckBox.UseVisualStyleBackColor = true;
-            this.runAiCheckBox.CheckedChanged += new System.EventHandler(this.runAiCheckBox_CheckedChanged);
+            this.runAiCheckBox.CheckedChanged += new System.EventHandler(this.RunAiCheckBox_CheckedChanged);
             // 
             // autoGenerateCheckBox
             // 
@@ -331,7 +327,7 @@ namespace Nova.WinForms.Console
             this.openGameToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
             this.openGameToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
             this.openGameToolStripMenuItem.Text = "&Open Game";
-            this.openGameToolStripMenuItem.Click += new System.EventHandler(this.openGameToolStripMenuItem_Click);
+            this.openGameToolStripMenuItem.Click += new System.EventHandler(this.OpenGameToolStripMenuItem_Click);
             // 
             // SelectNewFolderMenuItem
             // 
@@ -421,7 +417,7 @@ namespace Nova.WinForms.Console
             // 
             this.consoleTimer.Enabled = true;
             this.consoleTimer.Interval = 5000;
-            this.consoleTimer.Tick += new System.EventHandler(this.consoleTimer_Tick);
+            this.consoleTimer.Tick += new System.EventHandler(this.ConsoleTimer_Tick);
             // 
             // NovaConsoleMain
             // 
@@ -475,7 +471,7 @@ namespace Nova.WinForms.Console
         /// Populate the nova console form when first loaded.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnFirstShow(object sender, EventArgs e)
         {
@@ -523,7 +519,7 @@ namespace Nova.WinForms.Console
         /// Save console persistent data on exit.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ConsoleFormClosing(object sender, FormClosingEventArgs e)
         {
@@ -543,7 +539,7 @@ namespace Nova.WinForms.Console
         /// Display the About box dialog
         /// <summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnAboutClick(object sender, EventArgs e)
         {
@@ -558,7 +554,7 @@ namespace Nova.WinForms.Console
         /// Select a new Game Folder
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void SelectNewFolder(object sender, EventArgs eventArgs)
         {
@@ -578,7 +574,7 @@ namespace Nova.WinForms.Console
         /// Launches the New Game wizard.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NewGameMenuItem_Click(object sender, EventArgs e)
         {
@@ -610,7 +606,7 @@ namespace Nova.WinForms.Console
         /// Refresh the turn in fields...
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RefreshMenuItem_Click(object sender, EventArgs e)
         {
@@ -629,7 +625,7 @@ namespace Nova.WinForms.Console
         /// This function is called when the Generate Turn button is pressed. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void GenerateTurnMenuItem_Click(object sender, EventArgs e)
         {
@@ -642,13 +638,15 @@ namespace Nova.WinForms.Console
         /// This function is called when the Force Generate Turn button is pressed. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ForceMenuItem_Click(object sender, EventArgs e)
         {
-            DialogResult result = MessageBox.Show("One or more races have not yet turned in. Are you sure you want to generate the next turn?", "Nova - Warning",
-                      MessageBoxButtons.YesNo,
-                      MessageBoxIcon.Warning);
+            DialogResult result = MessageBox.Show(
+                "One or more races have not yet turned in. Are you sure you want to generate the next turn?",
+                "Nova - Warning",
+                MessageBoxButtons.YesNo,
+                MessageBoxIcon.Warning);
 
             if (result != DialogResult.Yes) return;
 
@@ -660,7 +658,7 @@ namespace Nova.WinForms.Console
         /// Launch the Nova GUI to play a turn for a give player.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PlayerList_DoubleClick(object sender, EventArgs e)
         {
@@ -668,7 +666,7 @@ namespace Nova.WinForms.Console
             if (PlayerList.SelectedItems.Count == 0) return;
 
             // Find what was clicked
-            String raceName = PlayerList.SelectedItems[0].SubItems[1].Text;
+            string raceName = PlayerList.SelectedItems[0].SubItems[1].Text;
 
             try
             {
@@ -691,9 +689,9 @@ namespace Nova.WinForms.Console
         /// 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void runAiCheckBox_CheckedChanged(object sender, EventArgs e)
+        private void RunAiCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             // Commented out as it is controlled by a timmer for now.
             // RunAI();
@@ -705,9 +703,9 @@ namespace Nova.WinForms.Console
         /// checks if the AI needs to run or a new turn can be generated.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void consoleTimer_Tick(object sender, EventArgs e)
+        private void ConsoleTimer_Tick(object sender, EventArgs e)
         {
             // debug - commented this out as console is searching for files each time the timer goes off
             // ServerState.Data.AllRaces = FileSearcher.GetAvailableRaces();
@@ -794,7 +792,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="message">The message to be displayed.</param>
         /// ----------------------------------------------------------------------------
-        private void AddStatusMessage(String message)
+        private void AddStatusMessage(string message)
         {
             StatusBox.Text += Environment.NewLine + message;
             StatusBox.SelectionStart = StatusBox.Text.Length;
@@ -810,7 +808,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private void GenerateTurn()
         {
-            /* FIXME (priority 4) This gives a flase negative indication, i.e. GameInProgress is false even when a game is in progress.
+            /* FIXME (priority 5) This gives a flase negative indication, i.e. GameInProgress is false even when a game is in progress.
             if (ServerState.Data.GameInProgress == false)
             {
                 Report.Error("There is no game in progress. Open a current game or create a new game.");
@@ -884,7 +882,7 @@ namespace Nova.WinForms.Console
 
         #endregion
 
-        private void openGameToolStripMenuItem_Click(object sender, EventArgs e)
+        private void OpenGameToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // have the user identify the game to open
             try
@@ -904,7 +902,7 @@ namespace Nova.WinForms.Console
                 Report.FatalError("Unable to open a game.");
             }
 
-            // TODO (priority 3) - This code is a repeat of what we do when the console is normally opened. Consider consolodating these sections.
+            // TODO (priority 4) - This code is a repeat of what we do when the console is normally opened. Consider consolodating these sections.
             ServerState.Data.GameFolder = System.IO.Path.GetDirectoryName(ServerState.Data.StatePathName);
             FolderPath.Text = ServerState.Data.GameFolder;
             ServerState.Restore();

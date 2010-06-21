@@ -33,7 +33,7 @@ using Nova.Common;
 
 namespace Nova.WinForms.ComponentEditor
 {
-   static class Program
+   public static class Program
    {
        [STAThread]
        public static void Main()

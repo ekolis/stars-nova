@@ -85,13 +85,13 @@ namespace Nova.Common
         /// <param name="trait"></param>
         /// <returns>True if trait is the race's PrimaryTrait or a lesser trait.</returns>
         /// ----------------------------------------------------------------------------
-        public new bool Contains(String trait)
+        public new bool Contains(string trait)
         {
             if (PrimaryTrait.Code == trait) return true;
             if (Dictionary == null)
             {
                 Report.Error("RacialTraits: Contains() - Dictionary is null.");
-                return false; // FIXME (priority 3) - should never be null. Should be fixed now that this is based on DictionaryBase (requires testing) ---Dan 16 Oct 09
+                return false; // FIXME (priority 4) - should never be null. Should be fixed now that this is based on DictionaryBase (requires testing) ---Dan 16 Oct 09
             }
             return Dictionary.Contains(trait);
         }
@@ -137,7 +137,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="primaryTrait">The new primary trait.</param>
         /// ----------------------------------------------------------------------------
-        public void SetPrimary(String primaryTrait)
+        public void SetPrimary(string primaryTrait)
         {
             foreach (DictionaryEntry de in AllTraits.Data.Primary)
             {

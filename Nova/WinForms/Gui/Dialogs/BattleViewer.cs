@@ -54,7 +54,7 @@ namespace Nova.WinForms.Gui
         #region Construction and Initialisation
 
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the BattleViewer class.
         /// </summary>
         /// <param name="thisBattle">The <see cref="BattleReport"/> to be displayed.</param>
         public BattleViewer(Nova.Common.BattleReport thisBattle)
@@ -77,7 +77,7 @@ namespace Nova.WinForms.Gui
         /// Initialisation performed on a load of the whole dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnLoad(object sender, EventArgs e)
         {
             BattleLocation.Text = TheBattle.Location;
@@ -96,10 +96,10 @@ namespace Nova.WinForms.Gui
         /// appropriate position.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnPaint(object sender, PaintEventArgs e)
         {
-            base.OnPaint(e); //added
+            base.OnPaint(e); // added
 
             Graphics graphics = e.Graphics;
             Size panelSize = BattlePanel.Size;
@@ -120,10 +120,10 @@ namespace Nova.WinForms.Gui
         /// Step through each battle event.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void NextStep_Click(object sender, EventArgs e)
         {
-            Object thisStep = TheBattle.Steps[EventCount];
+            object thisStep = TheBattle.Steps[EventCount];
             SetStepNumber();
 
             if (thisStep is BattleReport.Movement)
@@ -255,8 +255,10 @@ namespace Nova.WinForms.Gui
         {
             StringBuilder title = new StringBuilder();
 
-            title.AppendFormat("Step {0} of {1}",
-                               EventCount + 1, TheBattle.Steps.Count);
+            title.AppendFormat(
+                "Step {0} of {1}",
+                EventCount + 1,
+                TheBattle.Steps.Count);
 
             StepNumber.Text = title.ToString();
         }

@@ -36,6 +36,9 @@ using System.Windows.Forms;
 namespace Nova.ControlLibrary
 {
 
+    /// <summary>
+    /// A simple gauge control.
+    /// </summary>
     public class Gauge : System.Windows.Forms.UserControl
     {
         private Font font              = new Font("Arial", 8);
@@ -57,11 +60,10 @@ namespace Nova.ControlLibrary
 
 
         #region Construction and Dispose
-        /// ----------------------------------------------------------------------------
+
         /// <summary>
-        /// Construction.
+        /// Initializes a new instance of the Gauge class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Gauge()
         {
             InitializeComponent();
@@ -71,7 +73,7 @@ namespace Nova.ControlLibrary
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -129,11 +131,11 @@ namespace Nova.ControlLibrary
         /// Draw the gauge.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnPaint(object sender, PaintEventArgs e)
         {
-            base.OnPaint(e); //added
+            base.OnPaint(e); // added
 
             if (maximumValue == 0) return;
 
@@ -146,8 +148,7 @@ namespace Nova.ControlLibrary
             float barWidth = barRight - barLeft;
             float barHeight = Bar.Size.Height;
 
-            e.Graphics.FillRectangle(BarBrush, barLeft, 0,
-                                               barWidth, barHeight);
+            e.Graphics.FillRectangle(BarBrush, barLeft, 0, barWidth, barHeight);
 
             if (Marker != 0)
             {
@@ -157,8 +158,7 @@ namespace Nova.ControlLibrary
 
                 e.Graphics.TranslateTransform(markerStart, 0);
                 e.Graphics.RotateTransform(45);
-                e.Graphics.FillRectangle(MarkerBrush, 0, 0,
-                                                      markerWidth, markerHeight);
+                e.Graphics.FillRectangle(MarkerBrush, 0, 0, markerWidth, markerHeight);
                 e.Graphics.ResetTransform();
             }
 
@@ -184,14 +184,21 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Get or Set the value to display
+        /// Get or Set the value to display.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Value to display."), Category("Nova")]
         public double Value
         {
-            get { return topValue; }
-            set { topValue = value; Bar.Invalidate(); }
+            get
+            {
+                return topValue;
+            }
+            set
+            {
+                topValue = value;
+                Bar.Invalidate();
+            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -202,8 +209,15 @@ namespace Nova.ControlLibrary
         [Description("Top value of bar display."), Category("Nova")]
         public double TopValue
         {
-            get { return topValue; }
-            set { topValue = value; Bar.Invalidate(); }
+            get
+            {
+                return topValue;
+            }
+            set
+            {
+                topValue = value;
+                Bar.Invalidate();
+            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -214,8 +228,15 @@ namespace Nova.ControlLibrary
         [Description("Botton value of bar display."), Category("Nova")]
         public double BottomValue
         {
-            get { return bottomValue; }
-            set { bottomValue = value; Bar.Invalidate(); }
+            get
+            {
+                return bottomValue;
+            }
+            set
+            {
+                bottomValue = value;
+                Bar.Invalidate();
+            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -226,8 +247,15 @@ namespace Nova.ControlLibrary
         [Description("Marker position (%)."), Category("Nova")]
         public int Marker
         {
-            get { return markerValue; }
-            set { markerValue = value; Bar.Invalidate(); }
+            get
+            {
+                return markerValue;
+            }
+            set
+            {
+                markerValue = value;
+                Bar.Invalidate();
+            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -272,7 +300,7 @@ namespace Nova.ControlLibrary
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Units to display."), Category("Nova")]
-        public String Units
+        public string Units
         {
             get { return barUnits; }
             set { barUnits = value; }
@@ -280,7 +308,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Get or Set the bar colour
+        /// Get or Set the bar colour.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Bar Colour."), Category("Nova")]
@@ -292,7 +320,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Set or Get the Marker Colour
+        /// Set or Get the Marker Colour.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Marker Colour."), Category("Nova")]

@@ -68,7 +68,7 @@ namespace Nova.Common.Components
         /// <summary>
         /// Initialising constructor.
         /// </summary>
-        /// <param name="existing"></param>
+        /// <param name="existing">The initial mass driver value.</param>
         /// ----------------------------------------------------------------------------
         public MassDriver(int existing)
         {
@@ -94,12 +94,30 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            Value = (this + (MassDriver)op2).Value;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            Value = (this * scalar).Value;
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
         /// <param name="op1">LHS operand.</param>
-        /// <param name="op2">RHS operand</param>
+        /// <param name="op2">RHS operand.</param>
         /// <returns>
         /// A <see cref="MassDriver"/> representing the sum of two mass drivers. 
         /// This is the best of the two or one warp higher if the same.
@@ -117,7 +135,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
-        /// Mass Driver doesn't scale
+        /// Mass Driver doesn't scale.
         /// </summary>
         /// <param name="op1">The <see cref="MassDriver"/> to scale.</param>
         /// <param name="scalar">The number of mass drivers in the stack.</param>
@@ -125,9 +143,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static MassDriver operator *(MassDriver op1, int scalar)
         {
-            if (scalar >= 1)
-                return new MassDriver(op1.Value + 1);
-            //else
+            if (scalar >= 1) return new MassDriver(op1.Value + 1);
             return new MassDriver(op1.Value);
         }
 
@@ -169,7 +185,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {

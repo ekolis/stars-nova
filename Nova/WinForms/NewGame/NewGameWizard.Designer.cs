@@ -3,7 +3,7 @@ using Nova.Common;
 
 namespace Nova.WinForms.NewGame
 {
-   partial class NewGameWizard
+   public partial class NewGameWizard
    {
       /// <summary>
       /// Required designer variable.
@@ -366,7 +366,7 @@ namespace Nova.WinForms.NewGame
           this.okButton.TabIndex = 0;
           this.okButton.Text = "Create Game";
           this.okButton.UseVisualStyleBackColor = true;
-          this.okButton.Click += new System.EventHandler(this.okButton_Click);
+          this.okButton.Click += new System.EventHandler(this.OkButton_Click);
           // 
           // tabControl1
           // 
@@ -466,7 +466,7 @@ namespace Nova.WinForms.NewGame
             0,
             0,
             0});
-          this.numberOfStars.ValueChanged += new System.EventHandler(this.numericUpDown1_ValueChanged);
+          this.numberOfStars.ValueChanged += new System.EventHandler(this.NumericUpDown1_ValueChanged);
           // 
           // mapWidth
           // 
@@ -552,7 +552,7 @@ namespace Nova.WinForms.NewGame
           this.newRaceButton.TabIndex = 7;
           this.newRaceButton.Text = "Race Designer";
           this.newRaceButton.UseVisualStyleBackColor = true;
-          this.newRaceButton.Click += new System.EventHandler(this.newRaceButton_Click);
+          this.newRaceButton.Click += new System.EventHandler(this.NewRaceButton_Click);
           // 
           // groupBox5
           // 
@@ -582,7 +582,7 @@ namespace Nova.WinForms.NewGame
           this.playerList.TabIndex = 4;
           this.playerList.UseCompatibleStateImageBehavior = false;
           this.playerList.View = System.Windows.Forms.View.Details;
-          this.playerList.SelectedIndexChanged += new System.EventHandler(this.playerList_SelectedIndexChanged);
+          this.playerList.SelectedIndexChanged += new System.EventHandler(this.PlayerList_SelectedIndexChanged);
           // 
           // PlayerNumber
           // 
@@ -606,7 +606,7 @@ namespace Nova.WinForms.NewGame
           this.playerDeleteButton.TabIndex = 8;
           this.playerDeleteButton.Text = "Delete";
           this.playerDeleteButton.UseVisualStyleBackColor = true;
-          this.playerDeleteButton.Click += new System.EventHandler(this.playerDeleteButton_Click);
+          this.playerDeleteButton.Click += new System.EventHandler(this.PlayerDeleteButton_Click);
           // 
           // playerDownButton
           // 
@@ -616,7 +616,7 @@ namespace Nova.WinForms.NewGame
           this.playerDownButton.TabIndex = 7;
           this.playerDownButton.Text = "Down";
           this.playerDownButton.UseVisualStyleBackColor = true;
-          this.playerDownButton.Click += new System.EventHandler(this.playerDownButton_Click);
+          this.playerDownButton.Click += new System.EventHandler(this.PlayerDownButton_Click);
           // 
           // playerUpButton
           // 
@@ -626,7 +626,7 @@ namespace Nova.WinForms.NewGame
           this.playerUpButton.TabIndex = 6;
           this.playerUpButton.Text = "Up";
           this.playerUpButton.UseVisualStyleBackColor = true;
-          this.playerUpButton.Click += new System.EventHandler(this.playerUpButton_Click);
+          this.playerUpButton.Click += new System.EventHandler(this.PlayerUpButton_Click);
           // 
           // addPlayerButton
           // 
@@ -637,7 +637,7 @@ namespace Nova.WinForms.NewGame
           this.addPlayerButton.TabIndex = 6;
           this.addPlayerButton.Text = "Add Player";
           this.addPlayerButton.UseVisualStyleBackColor = true;
-          this.addPlayerButton.Click += new System.EventHandler(this.addPlayerButton_Click);
+          this.addPlayerButton.Click += new System.EventHandler(this.AddPlayerButton_Click);
           // 
           // groupBox4
           // 
@@ -673,7 +673,7 @@ namespace Nova.WinForms.NewGame
           this.aiBrowseButton.TabIndex = 5;
           this.aiBrowseButton.Text = "Browse";
           this.aiBrowseButton.UseVisualStyleBackColor = true;
-          this.aiBrowseButton.Click += new System.EventHandler(this.aiBrowseButton_Click);
+          this.aiBrowseButton.Click += new System.EventHandler(this.AiBrowseButton_Click);
           // 
           // raceBrowseButton
           // 
@@ -684,7 +684,7 @@ namespace Nova.WinForms.NewGame
           this.raceBrowseButton.TabIndex = 4;
           this.raceBrowseButton.Text = "Browse";
           this.raceBrowseButton.UseVisualStyleBackColor = true;
-          this.raceBrowseButton.Click += new System.EventHandler(this.raceBrowseButton_Click);
+          this.raceBrowseButton.Click += new System.EventHandler(this.RaceBrowseButton_Click);
           // 
           // aiSelectionBox
           // 
@@ -698,7 +698,7 @@ namespace Nova.WinForms.NewGame
           this.aiSelectionBox.Size = new System.Drawing.Size(202, 21);
           this.aiSelectionBox.TabIndex = 3;
           this.aiSelectionBox.Text = "Human";
-          this.aiSelectionBox.SelectedIndexChanged += new System.EventHandler(this.aiSelectionBox_SelectedIndexChanged);
+          this.aiSelectionBox.SelectedIndexChanged += new System.EventHandler(this.AiSelectionBox_SelectedIndexChanged);
           // 
           // raceSelectionBox
           // 
@@ -708,7 +708,7 @@ namespace Nova.WinForms.NewGame
           this.raceSelectionBox.Name = "raceSelectionBox";
           this.raceSelectionBox.Size = new System.Drawing.Size(202, 21);
           this.raceSelectionBox.TabIndex = 2;
-          this.raceSelectionBox.SelectedIndexChanged += new System.EventHandler(this.raceSelectionBox_SelectedIndexChanged);
+          this.raceSelectionBox.SelectedIndexChanged += new System.EventHandler(this.RaceSelectionBox_SelectedIndexChanged);
           // 
           // label8
           // 
@@ -788,7 +788,7 @@ namespace Nova.WinForms.NewGame
             0,
             0,
             0});
-          this.starDensity.ValueChanged += new System.EventHandler(this.mapDensity_ValueChanged);
+          this.starDensity.ValueChanged += new System.EventHandler(this.MapDensity_ValueChanged);
           // 
           // label11
           // 

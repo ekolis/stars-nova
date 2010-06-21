@@ -46,11 +46,9 @@ namespace Nova.WinForms.Gui
     /// </summary>
     public partial class ScoreReport : Form
     {
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the ScoreReport class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ScoreReport()
         {
             InitializeComponent();
@@ -62,7 +60,7 @@ namespace Nova.WinForms.Gui
         /// Populate the display. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, EventArgs e)
         {

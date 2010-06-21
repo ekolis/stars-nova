@@ -34,8 +34,7 @@ namespace Nova.WinForms.Gui
 {
 
     /// <summary>
-    /// Convenience functions to hide implementation (and save typing).
-    /// FIXME (priority 2) - doesn't save much as there is only one reference to this, for which we use a whole code file! 
+    /// Convenience functions to hide implementation (and save typing). FIXME (priority 5) - doesn't save much as there is only one reference to this, for which we use a whole code file! 
     /// </summary>
     public class Utilities
     {
@@ -47,7 +46,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public static void MapRefresh()
         {
-            MainWindow.nova.MapControl.MapRefresh();
+            MainWindow.Nova.MapControl.MapRefresh();
         }
 
     }

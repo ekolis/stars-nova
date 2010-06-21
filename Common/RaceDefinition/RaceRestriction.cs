@@ -34,8 +34,6 @@
 using System;
 using System.Xml;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nova.Common
 {
@@ -65,7 +63,7 @@ namespace Nova.Common
         /// </summary>
         public RaceRestriction()
         {
-            foreach (String trait in AllTraits.TraitKeys)
+            foreach (string trait in AllTraits.TraitKeys)
             {
                 Restrictions[trait] = (int)RaceAvailability.not_required;
             }
@@ -80,14 +78,14 @@ namespace Nova.Common
         {
             try
             {
-                foreach (String trait in AllTraits.TraitKeys)
+                foreach (string trait in AllTraits.TraitKeys)
                 {
-                    Restrictions[trait] = (int) existing.Restrictions[trait];
+                    Restrictions[trait] = (int)existing.Restrictions[trait];
                 }
             }
             catch
             {
-                foreach (String trait in AllTraits.TraitKeys)
+                foreach (string trait in AllTraits.TraitKeys)
                 {
                     Restrictions[trait] = (int)RaceAvailability.not_required;
                 }
@@ -105,7 +103,7 @@ namespace Nova.Common
         /// <param name="trait">The trait to set the availability-affect of.</param>
         /// <param name="availability">The affect on availability of this trait.</param>
         /// ----------------------------------------------------------------------------
-        public void SetRestriction(String trait, RaceAvailability availability)
+        public void SetRestriction(string trait, RaceAvailability availability)
         {
             Restrictions[trait] = availability;
         }
@@ -117,7 +115,7 @@ namespace Nova.Common
         /// <param name="trait">A trait code.</param>
         /// <returns>The affect on availability of the trait as a <see cref="RaceAvailability"/>.</returns>
         /// ----------------------------------------------------------------------------
-        public RaceAvailability Availability(String trait)
+        public RaceAvailability Availability(string trait)
         {
             try
             {
@@ -138,10 +136,9 @@ namespace Nova.Common
         /// Return a printable String representation of the restrictions.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public new String ToString()
+        public new string ToString()
         {
-            String inwords = String.Empty;
-
+            string inwords = string.Empty;
            
             try
             {
@@ -165,8 +162,8 @@ namespace Nova.Common
                        }
 
                        inwords += " the ";
-                       //<primary/secondary
-                       if (keyIndex < AllTraits.NUMBER_OF_PRIMARY_RACIAL_TRAITS)
+                       // <primary/secondary
+                       if (keyIndex < AllTraits.NumberOfPrimaryRacialTraits)
                        {
                            inwords += "primary";
                        }
@@ -186,7 +183,7 @@ namespace Nova.Common
             }
             catch (Exception e)
             {
-                Report.Error("Failed to display race restrictions."+Environment.NewLine+"Details: RaceRestrictions.ToString(System.Globalization.CultureInfo.InvariantCulture) - Exception: "+e.Message);
+                Report.Error("Failed to display race restrictions." + Environment.NewLine + "Details: RaceRestrictions.ToString(System.Globalization.CultureInfo.InvariantCulture) - Exception: " + e.Message);
             }
             
             return inwords;
@@ -198,6 +195,7 @@ namespace Nova.Common
 
         /// ----------------------------------------------------------------------------
         /// <summary>
+        /// Initializes a new instance of the RaceRestriction class.
         /// Load a RaceRestriction from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
@@ -211,7 +209,7 @@ namespace Nova.Common
             {
                 try
                 {
-                    foreach (String key in AllTraits.TraitKeys)
+                    foreach (string key in AllTraits.TraitKeys)
                     {
                         if (subnode.Name.ToLower() == key.ToLower())
                         {

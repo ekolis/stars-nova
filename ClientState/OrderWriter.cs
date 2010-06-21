@@ -55,9 +55,9 @@ namespace Nova.Client
 // Nova.Common Orders.cs
 // ---------------------------------------------------------------------------
 
-      private static ClientState     StateData  = null;
-      private static Intel           InputTurn  = null; // TODO (priority 4) - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
-      private static string          RaceName   = null;
+      private static ClientState StateData  = null;
+      private static Intel InputTurn = null; // TODO (priority 4) - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
+      private static string RaceName = null;
 
       /// ----------------------------------------------------------------------------
       /// <summary>
@@ -75,11 +75,11 @@ namespace Nova.Client
          Orders outputTurn = new Orders();
          RaceData playerData = new RaceData();
          
-         playerData.TurnYear        = StateData.TurnYear;
+         playerData.TurnYear = StateData.TurnYear;
          playerData.PlayerRelations = StateData.PlayerRelations;
-         playerData.BattlePlans     = StateData.BattlePlans;
-         outputTurn.PlayerData      = playerData;
-         outputTurn.TechLevel       = CountTechLevels();
+         playerData.BattlePlans = StateData.BattlePlans;
+         outputTurn.PlayerData = playerData;
+         outputTurn.TechLevel = CountTechLevels();
 
          foreach (Fleet fleet in InputTurn.AllFleets.Values)
          {

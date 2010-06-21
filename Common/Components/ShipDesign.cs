@@ -91,7 +91,7 @@ namespace Nova.Common.Components
         /// of the the ship hull modules. However scanning these for a particular piece
         /// of information is inefficient. This method reorganises the information
         /// to save other routines from having to do this.
-        ///</summary>
+        /// </summary>
         /// ----------------------------------------------------------------------------
         public void Update()
         {
@@ -108,16 +108,17 @@ namespace Nova.Common.Components
             Summary = new Component(ShipHull);
 
             // Add those properties which are included with the hull
+            
             IntegerProperty armor = new IntegerProperty(hullProperties.ArmorStrength);
             Summary.Properties.Add("Armor", armor);
             IntegerProperty cargo = new IntegerProperty(hullProperties.BaseCargo);
             Summary.Properties.Add("Cargo", cargo);
             Fuel fuel = new Fuel(hullProperties.FuelCapacity, 0);
             Summary.Properties.Add("Fuel", fuel);
-
+            
 
             // Check any non Hull properties of the ShipHull
-            foreach (String key in ShipHull.Properties.Keys)
+            foreach (string key in ShipHull.Properties.Keys)
             {
                 if (key == "Hull") continue;
                 SumProperty(ShipHull.Properties[key], key, 1);
@@ -131,7 +132,7 @@ namespace Nova.Common.Components
                 Summary.Mass += module.AllocatedComponent.Mass;
                 Summary.Cost += module.AllocatedComponent.Cost;
                 // Summarise the properties
-                foreach (String key in module.AllocatedComponent.Properties.Keys)
+                foreach (string key in module.AllocatedComponent.Properties.Keys)
                 {
                     SumProperty(module.AllocatedComponent.Properties[key], key, module.ComponentCount);
                 }
@@ -150,7 +151,7 @@ namespace Nova.Common.Components
         /// the key used to obtain it from a Properties dictionary.
         /// </param>
         /// ----------------------------------------------------------------------------
-        private void SumProperty(ComponentProperty property, String type, int componentCount)
+        private void SumProperty(ComponentProperty property, string type, int componentCount)
         {
             switch (type)
             {
@@ -173,11 +174,15 @@ namespace Nova.Common.Components
                 case "Terraforming":
                     if (Summary.Properties.ContainsKey(type))
                     {
-                        Summary.Properties[type] += property * componentCount;
+                        ComponentProperty toAdd = property.Clone() as ComponentProperty; // create a copy so scaling doesn't mess it up.
+                        toAdd.Scale(componentCount);
+                        Summary.Properties[type].Add(toAdd);
                     }
                     else
                     {
-                        Summary.Properties.Add(type, property * componentCount);
+                        ComponentProperty toAdd = property.Clone() as ComponentProperty; // create a copy so scaling doesn't mess it up.
+                        toAdd.Scale(componentCount);
+                        Summary.Properties.Add(type, toAdd);
                     }
                     break;
 
@@ -214,7 +219,7 @@ namespace Nova.Common.Components
                     Weapons.Add(weapon * componentCount);
                     break;
 
-                // keep one of each type only - TODO (priority 3) keep the right one
+                // keep one of each type only - TODO (priority 2) keep the right one
                 case "Colonizer":
                 case "Engine":
                 case "Gate":
@@ -271,7 +276,6 @@ namespace Nova.Common.Components
         {
             get
             {
-                Update(); // TODO (priority 3) - too much doing this every time - need a more efficient way
                 if (Summary.Properties.ContainsKey("Armor"))
                 {
                     return ((IntegerProperty)Summary.Properties["Armor"]).Value;
@@ -292,6 +296,8 @@ namespace Nova.Common.Components
         {
             get
             {
+                
+                
                 if (Summary.Properties.ContainsKey("Fuel"))
                 {
                     return ((Fuel)Summary.Properties["Fuel"]).Capacity;
@@ -312,6 +318,7 @@ namespace Nova.Common.Components
         {
             get
             {
+                
                 if (Summary.Properties.ContainsKey("Cargo"))
                 {
                     return ((IntegerProperty)Summary.Properties["Cargo"]).Value;
@@ -431,7 +438,7 @@ namespace Nova.Common.Components
                 if (speed < 0.5)
                     speed = 0.5; // Set a minimum ship speed.
                 if (speed > 2.5) speed = 2.5;
-                speed = ((double)((int)(speed * 4.0 + 0.5))) / 4.0;
+                speed = ((double)((int)((speed * 4.0) + 0.5))) / 4.0;
                 return speed;
 
             }
@@ -599,10 +606,11 @@ namespace Nova.Common.Components
                 }
                 subnode = subnode.NextSibling;
             }
+            
         }
 
         #endregion
 
-    }//ShipDesign
-}//namespace
+    }
+}
 

@@ -12,7 +12,7 @@
 
 namespace Nova.WinForms.ComponentEditor
 {
-   partial class CommonProperties
+   public partial class CommonProperties
    {
       /// <summary> 
       /// Required designer variable.
@@ -25,7 +25,8 @@ namespace Nova.WinForms.ComponentEditor
       /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
       protected override void Dispose(bool disposing)
       {
-         if (disposing && (components != null)) {
+         if (disposing && (components != null)) 
+         {
             components.Dispose();
          }
          base.Dispose(disposing);

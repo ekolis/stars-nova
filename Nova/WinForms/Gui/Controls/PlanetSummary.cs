@@ -47,11 +47,17 @@ namespace Nova.WinForms.Gui
     {
 
 
-        SolidBrush greenBrush = new SolidBrush(Color.Green);
-        SolidBrush blueBrush = new SolidBrush(Color.Blue);
-        SolidBrush yellowBrush = new SolidBrush(Color.Yellow);
-        Point[] marker = {new Point( 0, 0), new Point(5, 5), new Point(0, 10),
-                        new Point(-5, 5), new Point(0, 0)};
+        private SolidBrush greenBrush = new SolidBrush(Color.Green);
+        private SolidBrush blueBrush = new SolidBrush(Color.Blue);
+        private SolidBrush yellowBrush = new SolidBrush(Color.Yellow);
+        private Point[] marker = 
+        { 
+            new Point(0, 0), 
+            new Point(5, 5), 
+            new Point(0, 10),
+            new Point(-5, 5), 
+            new Point(0, 0) 
+        };
 
 
         #region Designer Generated Variables
@@ -85,18 +91,17 @@ namespace Nova.WinForms.Gui
         #region Construction and Disposal
 
         /// <summary>
-        /// Construction.
+        /// Initializes a new instance of the PlanetSummary class.
         /// </summary>
         public PlanetSummary()
         {
             InitializeComponent();
         }
 
-
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

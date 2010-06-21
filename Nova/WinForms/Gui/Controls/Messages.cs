@@ -58,23 +58,19 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Disposal
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the Messages class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Messages()
         {
             InitializeComponent();
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -137,7 +133,7 @@ namespace Nova.WinForms.Gui
             this.previousButton.Size = new System.Drawing.Size(75, 23);
             this.previousButton.TabIndex = 2;
             this.previousButton.Text = "Previous";
-            this.previousButton.Click += new System.EventHandler(this.previousButton_Click);
+            this.previousButton.Click += new System.EventHandler(this.PreviousButton_Click);
             // 
             // nextButton
             // 
@@ -147,7 +143,7 @@ namespace Nova.WinForms.Gui
             this.nextButton.Size = new System.Drawing.Size(75, 23);
             this.nextButton.TabIndex = 1;
             this.nextButton.Text = "Next";
-            this.nextButton.Click += new System.EventHandler(this.nextButton_Click);
+            this.nextButton.Click += new System.EventHandler(this.NextButton_Click);
             // 
             // messageBox
             // 
@@ -178,9 +174,9 @@ namespace Nova.WinForms.Gui
         /// Process the Next button being pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void nextButton_Click(object sender, System.EventArgs e)
+        private void NextButton_Click(object sender, System.EventArgs e)
         {
             if (currentMessage < messages.Count - 1)
             {
@@ -205,9 +201,9 @@ namespace Nova.WinForms.Gui
         /// Process the previous button being pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void previousButton_Click(object sender, System.EventArgs e)
+        private void PreviousButton_Click(object sender, System.EventArgs e)
         {
             if (currentMessage > 0)
             {
@@ -228,7 +224,7 @@ namespace Nova.WinForms.Gui
         /// Go to event button pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void GotoButton_Click(object sender, EventArgs e)
         {
@@ -260,8 +256,7 @@ namespace Nova.WinForms.Gui
 
             if (messages.Count != 0)
             {
-                title.AppendFormat("Message {0} of {1}",
-                                   currentMessage + 1, messages.Count);
+                title.AppendFormat("Message {0} of {1}", currentMessage + 1, messages.Count);
             }
             else
             {

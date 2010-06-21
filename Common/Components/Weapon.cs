@@ -105,7 +105,44 @@ namespace Nova.Common.Components
 
         #endregion
 
+        /// <summary>
+        /// See if this weapon is of the same type - everything but power must match (power can be added together for weapon groups).
+        /// </summary>
+        /// <param name="other"></param>
+        /// <returns></returns>
+        private bool IsSameWeaponType(Weapon other)
+        {
+            if (Range != other.Range) return false;
+            if (Initiative != other.Initiative) return false;
+            if (Accuracy != other.Accuracy) return false;
+            if (Group != other.Group) return false;
+            return true;
+        }
+
         #region Operators
+
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            if (! IsSameWeaponType((Weapon)op2))
+            {
+                Report.Error("Attempted to add different weapon types.");
+                return;
+            }
+            Power += ((Weapon)op2).Power;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            Power *= scalar;
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -118,6 +155,11 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static Weapon operator +(Weapon op1, Weapon op2)
         {
+            if (!op1.IsSameWeaponType(op2))
+            {
+                Report.Error("Attempted to add different weapon types.");
+                return op1;
+            }
             if (op1.Group != op2.Group)
             {
                 Report.Error("Weapon.operator+ Attempted to add weapons of different Groups.");
@@ -168,30 +210,35 @@ namespace Nova.Common.Components
                     switch (subnode.Name.ToLower())
                     {
                         case "power":
-                            Power = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Power = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "range":
-                            Range = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Range = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "initiative":
-                            Initiative = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Initiative = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "accuracy":
-                            Accuracy = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Accuracy = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "group":
-                            switch (((XmlText)subnode.FirstChild).Value.ToLower())
+                            switch (subnode.FirstChild.Value.ToLower())
                             {
                                 case "standardweapon":
-                                    Group = WeaponType.standardBeam; break;
+                                    Group = WeaponType.standardBeam;
+                                    break;
                                 case "shieldsapper":
-                                    Group = WeaponType.shieldSapper; break;
+                                    Group = WeaponType.shieldSapper;
+                                    break;
                                 case "gatlinggun":
-                                    Group = WeaponType.gatlingGun; break;
+                                    Group = WeaponType.gatlingGun;
+                                    break;
                                 case "torpedo":
-                                    Group = WeaponType.torpedo; break;
+                                    Group = WeaponType.torpedo;
+                                    break;
                                 case "missile":
-                                    Group = WeaponType.missile; break;
+                                    Group = WeaponType.missile;
+                                    break;
                             }
                             break;
                     }
@@ -258,13 +305,13 @@ namespace Nova.Common.Components
 
         public bool IsBeam
         {
-            get { return (Group == WeaponType.standardBeam || Group == WeaponType.shieldSapper || Group == WeaponType.gatlingGun); }
+            get { return Group == WeaponType.standardBeam || Group == WeaponType.shieldSapper || Group == WeaponType.gatlingGun; }
         }
 
         public bool IsMissile
         {
 
-            get { return (Group == WeaponType.torpedo || Group == WeaponType.missile); }
+            get { return Group == WeaponType.torpedo || Group == WeaponType.missile; }
         }
 
         #endregion

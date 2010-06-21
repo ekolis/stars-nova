@@ -37,15 +37,15 @@ namespace Nova.Common.Components
 {
 
     /// <summary>
-    /// Engine property
+    /// Engine property.
     /// </summary>
     [Serializable]
     public class Engine : ComponentProperty
     {
-        public int[]  FuelConsumption   = new int[10];
-        public bool   RamScoop          = false;
-        public int    FastestSafeSpeed  = 0;
-        public int    OptimalSpeed      = 0;
+        public int[] FuelConsumption = new int[10];
+        public bool RamScoop;
+        public int FastestSafeSpeed;
+        public int OptimalSpeed;
 
         #region Construction
 
@@ -91,13 +91,31 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            return; 
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            return;
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
-        /// <param name="op1">LHS operand</param>
-        /// <param name="op2">RHS operand</param>
-        /// <returns>op1 - engines don't add in Stars! or Nova</returns>
+        /// <param name="op1">LHS operand.</param>
+        /// <param name="op2">RHS operand.</param>
+        /// <returns>The value of op1 - engines don't add in Stars! or Nova.</returns>
         /// ----------------------------------------------------------------------------
         public static Engine operator +(Engine op1, Engine op2)
         {
@@ -109,9 +127,9 @@ namespace Nova.Common.Components
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// </summary>
-        /// <param name="op1">LHS operand</param>
+        /// <param name="op1">LHS operand.</param>
         /// <param name="scalar">Scaling factor.</param>
-        /// <returns>op1 - engines don't scale in Nova</returns>
+        /// <returns>The value of op1 - engines don't scale in Nova.</returns>
         /// ----------------------------------------------------------------------------
         public static Engine operator *(Engine op1, int scalar)
         {
@@ -177,7 +195,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {

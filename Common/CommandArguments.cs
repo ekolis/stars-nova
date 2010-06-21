@@ -96,12 +96,12 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// default constructor
+        /// Initializes a new instance of the CommandArguments class.
         /// </summary>
         public CommandArguments() { }
 
         /// <summary>
-        /// constuctor taking a string array, usually used by main() to create a CommandArguments object from its arguments.
+        /// Initializes a new instance of the CommandArguments class.
         /// </summary>
         /// <param name="args">an array of string arguments, the format normally recived by a main function.</param>
         public CommandArguments(string[] args) 
@@ -111,7 +111,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// WARNING : not implemented, will throw exception
+        /// Initializes a new instance of the CommandArguments class.
         /// </summary>
         /// <param name="args"></param>
         public CommandArguments(string args) 
@@ -185,11 +185,11 @@ namespace Nova.Common
         /// </summary>
         /// <param name="option">The option, as defined in CommandArguments.Option</param>
         /// <returns></returns>
-        public String this[String option]
+        public string this[string option]
         {
             get
             {
-                return Dictionary[option] as String;
+                return Dictionary[option] as string;
             }
         }
 
@@ -198,7 +198,7 @@ namespace Nova.Common
         /// The arguments are returned in the same order that they were added.
         /// </summary>
         /// <returns>a single string representing the option&argument pairs</returns>
-        public override String ToString()
+        public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
             int argumentCount = argumentList.Count;

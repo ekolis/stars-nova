@@ -48,58 +48,59 @@ namespace Nova.WinForms.Gui
         public const int BorderBuffer = 35;
 
         #region Variables
-        private Bitmap      CursorBitmap   = null;
-        private Intel       TurnData       = null;
-        private ClientState StateData      = null;
-        private Point       CursorPosition = new Point(0, 0);
-        private Point       LastClick      = new Point(0, 0);
-        private Point       Logical        = new Point(0, 0);  // Size of the logical co-ordinate system (size of the game universe).
-        private Point       Origin         = new Point(0, 0);  // Top left starting point of the displayed map within the logical map.
-        private Point       Center         = new Point(0, 0);  // Focal point of the displayed map.
-        private Point       Extent         = new Point(0, 0);  // Extent of the currently displayed map, from Origin.
-        private double      ZoomFactor     = 0.8;              // Is used to adjust the Extent of the map.
-        private Graphics    graphics       = null;
-        private bool        IsInitialised  = false;
-        private bool        DisplayStarNames = true;
-        private int         Hscroll        = 50; // 0 to 100, used to position the Center, initially centered
-        private int         Vscroll        = 50; // 0 to 100, used to position the Center, initially centered
-        private int         Selection      = 0;
-        private Hashtable   VisibleFleets  = new Hashtable();
-        private Hashtable   VisibleMinefields = new Hashtable();
-        private Font        NameFont = null;
-        System.Drawing.BufferedGraphicsContext bg_ctxt = null;
+        private Bitmap CursorBitmap = null;
+        private Intel TurnData = null;
+        private ClientState StateData = null;
+        private Point CursorPosition = new Point(0, 0);
+        private Point LastClick = new Point(0, 0);
+        private Point Logical = new Point(0, 0);  // Size of the logical co-ordinate system (size of the game universe).
+        private Point Origin = new Point(0, 0);  // Top left starting point of the displayed map within the logical map.
+        private Point Center = new Point(0, 0);  // Focal point of the displayed map.
+        private Point Extent = new Point(0, 0);  // Extent of the currently displayed map, from Origin.
+        private double ZoomFactor = 0.8;              // Is used to adjust the Extent of the map.
+        private Graphics graphics = null;
+        private bool IsInitialised = false;
+        private bool DisplayStarNames = true;
+        private int Hscroll = 50; // 0 to 100, used to position the Center, initially centered
+        private int Vscroll = 50; // 0 to 100, used to position the Center, initially centered
+        private int Selection = 0;
+        private Hashtable VisibleFleets  = new Hashtable();
+        private Hashtable VisibleMinefields = new Hashtable();
+        private Font NameFont = null;
+        private System.Drawing.BufferedGraphicsContext bufferedContext = null;
         #endregion
 
-        private Point[] triangle = {new Point(0,   0), new Point(-5, -10),
-                                   new Point(5, -10)};
+        private readonly Point[] triangle = 
+        { 
+            new Point(0, 0), 
+            new Point(-5, -10),
+            new Point(5, -10) 
+        };
 
 
         #region Construction and Initialization
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the StarMap class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public StarMap()
         {
-            bg_ctxt = new BufferedGraphicsContext();
+            bufferedContext = new BufferedGraphicsContext();
 
             InitializeComponent();
             GameSettings.Restore();
 
             // Initial map size
-            Logical.X = (int)(GameSettings.Data.MapWidth);
-            Logical.Y = (int)(GameSettings.Data.MapHeight);
+            Logical.X = GameSettings.Data.MapWidth;
+            Logical.Y = GameSettings.Data.MapHeight;
 
-            Extent.X = (int) (Logical.X * ZoomFactor);
-            Extent.Y = (int) (Logical.Y * ZoomFactor);
+            Extent.X = (int)(Logical.X * ZoomFactor);
+            Extent.Y = (int)(Logical.Y * ZoomFactor);
 
             CursorBitmap = Nova.Properties.Resources.Cursor;
             CursorBitmap.MakeTransparent(Color.Black);
 
-            NameFont = new Font("Arial", (float)7.5, FontStyle.Regular,
-                                GraphicsUnit.Point);
+            NameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);
 
             MapPanel.BackgroundImage = Nova.Properties.Resources.Plasma;
             MapPanel.BackgroundImageLayout = ImageLayout.Stretch;
@@ -155,9 +156,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void MapRefresh()
         {
-            //MapPanel.SuspendLayout();
             MapPanel.Invalidate();
-            //MapPanel.ResumeLayout();
         }
 
 
@@ -181,21 +180,18 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OnPaint(object sender, PaintEventArgs eventData)
         {
-            base.OnPaint(eventData); //added
+            base.OnPaint(eventData); // added
 
             if (IsInitialised == false)
             {
                 return;
             }
 
-            //System.Drawing.Rectangle rect = new Rectangle(0,0,(int)eventData.Graphics.DpiX,(int)eventData.Graphics.DpiY);
             System.Drawing.Rectangle rect2 = new Rectangle(0, 0, MapPanel.Width, MapPanel.Height);
-            System.Drawing.BufferedGraphics bg = bg_ctxt.Allocate(eventData.Graphics, rect2);
+            System.Drawing.BufferedGraphics bg = bufferedContext.Allocate(eventData.Graphics, rect2);
 
             graphics = bg.Graphics;
-            //graphics = eventData.Graphics;
 
-            //graphics.DrawImage(Nova.Properties.Resources.Plasma, 0, 0);
             Point backgroundOrigin = LogicalToDevice(new Point(0, 0));
             Point backgroundExtent = LogicalToDeviceRelative(new Point(Logical.X, Logical.Y));
             graphics.DrawImage(Nova.Properties.Resources.Plasma, backgroundOrigin.X, backgroundOrigin.Y, backgroundExtent.X, backgroundExtent.Y);
@@ -291,8 +287,12 @@ namespace Nova.WinForms.Gui
                 {
                     position = LogicalToDevice(fleet.Position);
                     int size = 10;
-                    graphics.DrawEllipse(Pens.White, position.X - (size / 2),
-                                         position.Y - (size / 2), size, size);
+                    graphics.DrawEllipse(
+                        Pens.White,
+                        position.X - (size / 2),
+                        position.Y - (size / 2),
+                        size,
+                        size);
                 }
             }
 
@@ -335,8 +335,12 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void FillCircle(Brush brush, Point position, int radius)
         {
-            graphics.FillEllipse(brush, position.X - radius, position.Y - radius,
-                                 radius * 2, radius * 2);
+            graphics.FillEllipse(
+                brush,
+                position.X - radius,
+                position.Y - radius,
+                radius * 2,
+                radius * 2);
         }
 
 
@@ -481,15 +485,23 @@ namespace Nova.WinForms.Gui
 
             if (report.Starbase != null)
             {
-                graphics.DrawEllipse(Pens.White, position.X - (size / 2),
-                                     position.Y - (size / 2), size, size);
+                graphics.DrawEllipse(
+                    Pens.White,
+                    position.X - (size / 2),
+                    position.Y - (size / 2),
+                    size,
+                    size);
             }
 
             if (report.Age == 0 && report.OrbitingFleets)
             {
                 size = 10;
-                graphics.DrawEllipse(Pens.White, position.X - (size / 2),
-                                     position.Y - (size / 2), size, size);
+                graphics.DrawEllipse(
+                    Pens.White,
+                    position.X - (size / 2),
+                    position.Y - (size / 2),
+                    size,
+                    size);
             }
         }
 
@@ -612,10 +624,11 @@ namespace Nova.WinForms.Gui
                 foreach (Minefield minefield in TurnData.AllMinefields.Values)
                 {
 
-                    bool isIn = PointUtilities.CirclesOverlap(fleet.Position,
-                                                        minefield.Position,
-                                                        fleet.LongRangeScan,
-                                                        minefield.Radius);
+                    bool isIn = PointUtilities.CirclesOverlap(
+                        fleet.Position,
+                        minefield.Position,
+                        fleet.LongRangeScan,
+                        minefield.Radius);
 
                     if (isIn == true)
                     {
@@ -636,10 +649,11 @@ namespace Nova.WinForms.Gui
                     if (star.Owner == StateData.RaceName)
                     {
 
-                        bool isIn = PointUtilities.CirclesOverlap(star.Position,
-                                                            minefield.Position,
-                                                            star.ScanRange,
-                                                            minefield.Radius);
+                        bool isIn = PointUtilities.CirclesOverlap(
+                            star.Position,
+                            minefield.Position,
+                            star.ScanRange,
+                            minefield.Radius);
 
                         if (isIn == true)
                         {
@@ -668,8 +682,8 @@ namespace Nova.WinForms.Gui
 
             int MinLength = Math.Min(MapPanel.Size.Width, MapPanel.Size.Height); // maintain 1:1 aspect ratio
 
-            result.X = ( (p.X - Origin.X) * MinLength / Extent.X);
-            result.Y = ((p.Y - Origin.Y) * MinLength / Extent.Y);
+            result.X = (p.X - Origin.X) * MinLength / Extent.X;
+            result.Y = (p.Y - Origin.Y) * MinLength / Extent.Y;
 
             return result;
         }
@@ -708,8 +722,8 @@ namespace Nova.WinForms.Gui
 
             int MinLength = Math.Min(MapPanel.Size.Width, MapPanel.Size.Height); // maintain 1:1 aspect ratio
 
-            result.X = ((p.X/* - BorderBuffer*/) * Extent.X / MinLength) + Origin.X;
-            result.Y = ((p.Y/* - BorderBuffer*/) * Extent.Y / MinLength) + Origin.Y;
+            result.X = (p.X * Extent.X / MinLength) + Origin.X;
+            result.Y = (p.Y * Extent.Y / MinLength) + Origin.Y;
 
             return result;
         }
@@ -723,7 +737,7 @@ namespace Nova.WinForms.Gui
         /// Process a request to zoom in the star map.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         public void ZoomInClick(object sender, System.EventArgs e)
         {
@@ -738,7 +752,7 @@ namespace Nova.WinForms.Gui
         /// Process a request to zoom out the star map.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         public void ZoomOutClick(object sender, System.EventArgs e)
         {
@@ -760,8 +774,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void SetZoom()
         {
-            Extent.X = (int) (Logical.X / ZoomFactor);
-            Extent.Y = (int) (Logical.Y / ZoomFactor);
+            Extent.X = (int)(Logical.X / ZoomFactor);
+            Extent.Y = (int)(Logical.Y / ZoomFactor);
 
             MapHorizontalScroll(Hscroll);
             MapVerticalScroll(Vscroll);
@@ -780,7 +794,7 @@ namespace Nova.WinForms.Gui
         /// Horizontally scroll the star map.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MapScrollH(object sender, ScrollEventArgs e)
         {
@@ -793,7 +807,7 @@ namespace Nova.WinForms.Gui
         /// Vertically scroll the star map.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MapScrollV(object sender, ScrollEventArgs e)
         {
@@ -842,8 +856,7 @@ namespace Nova.WinForms.Gui
         /// A sortable (by distance) version of the Item class.
         /// </summary>
         /// <remarks>
-        /// FIXME (priority 3) - this class shouldn't be hidden inside this module.
-        /// ??? (priority 3) - Is there any reason not to implement this via inheritance or make Item itself sortable?
+        /// FIXME (priority 5) - this class shouldn't be hidden inside this module. Is there any reason not to implement this via inheritance or make Item itself sortable?
         /// </remarks>
         /// ----------------------------------------------------------------------------
         public class SortableItem : IComparable
@@ -851,7 +864,7 @@ namespace Nova.WinForms.Gui
             public double Distance;
             public Item Target;
 
-            public int CompareTo(Object rightHandSide)
+            public int CompareTo(object rightHandSide)
             {
                 SortableItem rhs = (SortableItem)rightHandSide;
                 return this.Distance.CompareTo(rhs.Distance);
@@ -901,7 +914,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void LeftShiftMouse(MouseEventArgs e, bool snapToObject)
         {
-            Item item = MainWindow.nova.SelectionDetail.Value;
+            Item item = MainWindow.Nova.SelectionDetail.Value;
 
             if (item == null || !(item is Fleet))
             {
@@ -912,7 +925,7 @@ namespace Nova.WinForms.Gui
             // a handle directly to it so that we can access its parameters
             // directly without having to use the detail summary panel as an agent
 
-            FleetDetail fleetDetail = MainWindow.nova.SelectionDetail.Control
+            FleetDetail fleetDetail = MainWindow.Nova.SelectionDetail.Control
                                       as FleetDetail;
 
             Point click = new Point(e.X, e.Y);
@@ -985,9 +998,7 @@ namespace Nova.WinForms.Gui
             position = DeviceToLogical(click);
 
             SetCursor(position);
-            //MapPanel.SuspendLayout();
             MapPanel.Invalidate();
-            //MapPanel.ResumeLayout();
 
             ArrayList nearObjects = FindNearObjects(position);
             if (nearObjects.Count == 0) return;
@@ -1015,8 +1026,8 @@ namespace Nova.WinForms.Gui
             Item item = (Item)selected.Target;
             CursorPosition = item.Position;
 
-            MainWindow.nova.SelectionSummary.Value = item;
-            MainWindow.nova.SelectionDetail.Value = item;
+            MainWindow.Nova.SelectionSummary.Value = item;
+            MainWindow.Nova.SelectionDetail.Value = item;
         }
 
         #endregion
@@ -1075,8 +1086,7 @@ namespace Nova.WinForms.Gui
                     {
                         SortableItem thisItem = new SortableItem();
                         thisItem.Target = fleet;
-                        thisItem.Distance = PointUtilities.Distance
-                           (position, fleet.Position);
+                        thisItem.Distance = PointUtilities.Distance(position, fleet.Position);
                         nearObjects.Add(thisItem);
                     }
                 }
@@ -1089,9 +1099,7 @@ namespace Nova.WinForms.Gui
 
                     SortableItem thisItem = new SortableItem();
                     thisItem.Target = star;
-                    thisItem.Distance = PointUtilities.Distance
-                                            (position, star.Position);
-
+                    thisItem.Distance = PointUtilities.Distance(position, star.Position);
                     nearObjects.Add(thisItem);
                 }
             }

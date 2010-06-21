@@ -37,42 +37,36 @@ namespace Nova.Common.Components
     public class CapacitorProperty : ComponentProperty
     {
         public double Value = 0;
-        public static double MAXIMUM = 250;
+        public static double Maximum = 250;
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor
+        /// Initializes a new instance of the CapacitorProperty class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public CapacitorProperty()
         {
 
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction from a ComponentProperty object
+        /// Initializes a new instance of the CapacitorProperty class.
         /// </summary>
         /// <param name="existing">An existing property to copy.</param>
-        /// ----------------------------------------------------------------------------
         public CapacitorProperty(CapacitorProperty existing)
         {
-            this.Value = Math.Min(existing.Value, CapacitorProperty.MAXIMUM);
+            Value = Math.Min(existing.Value, Maximum);
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Initialising constructor.
+        /// Initializes a new instance of the CapacitorProperty class.
         /// </summary>
         /// <param name="existing">Capacitance boost of this property.</param>
-        /// ----------------------------------------------------------------------------
         public CapacitorProperty(double existing)
         {
-            this.Value = Math.Min(existing, CapacitorProperty.MAXIMUM);
+            this.Value = Math.Min(existing, CapacitorProperty.Maximum);
         }
 
         #endregion
@@ -94,17 +88,35 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            Value = (this + (CapacitorProperty)op2).Value;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            Value = (this * scalar).Value;
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
-        /// <param name="op1">LHS operand</param>
-        /// <param name="op2">RHS operand</param>
+        /// <param name="op1">LHS operand.</param>
+        /// <param name="op2">RHS operand.</param>
         /// <returns>Sum of the properties.</returns>
         /// ----------------------------------------------------------------------------
         public static CapacitorProperty operator +(CapacitorProperty op1, CapacitorProperty op2)
         {
-            return new CapacitorProperty(((100 + op1.Value) * (100 + op2.Value)) / 100 - 100);
+            return new CapacitorProperty((((100 + op1.Value) * (100 + op2.Value)) / 100) - 100);
         }
 
         /// ----------------------------------------------------------------------------
@@ -162,7 +174,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {

@@ -44,7 +44,7 @@ namespace Nova.Common
         #region Singleton
 
         private static AllTraits Instance = null;
-        private static Object Padlock = new Object();
+        private static object Padlock = new object();
 
         /// <summary>
         /// Private constructor to prevent anyone else creating instances of this class.
@@ -97,8 +97,8 @@ namespace Nova.Common
 
         #region Constants
 
-        public const int NUMBER_OF_PRIMARY_RACIAL_TRAITS = 10;
-        public const int NUMBER_OF_SECONDARY_RACIAL_TRAITS = 13;
+        public const int NumberOfPrimaryRacialTraits = 10;
+        public const int NumberOfSecondaryRacialTraits = 13;
       
         /// <summary>
         /// Provide a list of all trait keys. 

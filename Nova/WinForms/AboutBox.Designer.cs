@@ -22,7 +22,7 @@
 
 namespace Nova.WinForms
 {
-   partial class AboutBox
+   public partial class AboutBox
    {
       /// <summary>
       /// Required designer variable.
@@ -32,9 +32,11 @@ namespace Nova.WinForms
       /// <summary>
       /// Clean up any resources being used.
       /// </summary>
+      /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
       protected override void Dispose(bool disposing)
       {
-         if (disposing && (components != null)) {
+         if (disposing && (components != null)) 
+         {
             components.Dispose();
          }
          base.Dispose(disposing);
