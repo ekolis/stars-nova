@@ -1,6 +1,10 @@
 Summary of user visible changes in Stars! Nova version 0.4.1
  (Revision 371, 19 Jun 10.)
 
+General:
+
+ - No backward compatibility with save games from earlier versions. This means that old save games cannot be loaded in this version.
+
 Launcher:
 
  - Removed the ability to resize the launcher window.
