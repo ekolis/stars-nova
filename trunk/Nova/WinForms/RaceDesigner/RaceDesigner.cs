@@ -1718,6 +1718,7 @@ namespace Nova.WinForms.RaceDesigner
                 AdvantagePoints += cost;
             }
             AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            ParametersChanged = true;
         }
         /// ----------------------------------------------------------------------------
         /// <summary>
