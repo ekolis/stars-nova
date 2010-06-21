@@ -602,13 +602,21 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void CargoButton_Click(object sender, System.EventArgs e)
         {
-            CargoDialog cargoDialog = new CargoDialog();
+            try
+            {
+                CargoDialog cargoDialog = new CargoDialog();
 
-            cargoDialog.SetTarget(SelectedFleet);
-            cargoDialog.ShowDialog();
-            cargoDialog.Dispose();
+                cargoDialog.SetTarget(SelectedFleet);
+                cargoDialog.ShowDialog();
+                cargoDialog.Dispose();
 
-            Cargo.Value = SelectedFleet.Cargo.Mass;
+                Cargo.Value = SelectedFleet.Cargo.Mass;
+            }
+            catch
+            {
+                Report.Debug("FleetDetail.cs : CargoButton_Click() - Failed to open cargo dialog.");
+            }
+                
         }
 
 
