@@ -584,7 +584,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.3824.32743, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.3824.35017, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_77AF68B3E2315981EC932637827E0C49"
@@ -635,7 +635,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.3824.32743, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.3824.35017, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_9394113AA2C215742EC7A51F7A54B5D2"
@@ -686,7 +686,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.3824.32743, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.3824.35017, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_A3A4FB7397B3BB4B89262CCDFEE74A06"
@@ -917,7 +917,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.3824.32743, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.3824.35017, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_F8869E6C297AD17CFCD68A9EB660535D"
@@ -1078,7 +1078,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Stars! Nova"
         "ProductCode" = "8:{B4D7DB67-4F2A-4AA8-9AAA-4372D8DD02FE}"
-        "PackageCode" = "8:{B3B8ACD6-1CEF-4FC7-871C-19622A75107F}"
+        "PackageCode" = "8:{66BB3ABA-68D7-4CCC-AA7B-F4FA17F900E7}"
         "UpgradeCode" = "8:{0669EC41-507F-4D34-8077-38BF7A216402}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -1154,13 +1154,91 @@
                         {
                             "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_5C61609999DB4FC9A63FB7D5F7729BB3"
                             {
-                            "Name" = "8:[Manufacturer]"
+                            "Name" = "8:Stars-Nova"
                             "Condition" = "8:"
                             "AlwaysCreate" = "11:FALSE"
                             "DeleteAtUninstall" = "11:FALSE"
                             "Transitive" = "11:FALSE"
                                 "Keys"
                                 {
+                                    "{60EA8692-D2D5-43EB-80DC-7906BF13D6EF}:_0757EEFD4713437F8290C2C88EAE791B"
+                                    {
+                                    "Name" = "8:Nova"
+                                    "Condition" = "8:"
+                                    "AlwaysCreate" = "11:TRUE"
+                                    "DeleteAtUninstall" = "11:TRUE"
+                                    "Transitive" = "11:FALSE"
+                                        "Keys"
+                                        {
+                                        }
+                                        "Values"
+                                        {
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_08F771DE6928431C9270D8C8FA18B21D"
+                                            {
+                                            "Name" = "8:RaceFolder"
+                                            "Condition" = "8:"
+                                            "Transitive" = "11:FALSE"
+                                            "ValueTypes" = "3:1"
+                                            "Value" = "8:[TARGETDIR]GameFiles\\Races"
+                                            }
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_11F2015C99124B8EB2E06B46FB9A3F8D"
+                                            {
+                                            "Name" = "8:ServerStateFile"
+                                            "Condition" = "8:"
+                                            "Transitive" = "11:FALSE"
+                                            "ValueTypes" = "3:1"
+                                            "Value" = "8:"
+                                            }
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_30954C239DE146628D409E61A216B0DA"
+                                            {
+                                            "Name" = "8:ComponentFolder"
+                                            "Condition" = "8:"
+                                            "Transitive" = "11:FALSE"
+                                            "ValueTypes" = "3:1"
+                                            "Value" = "8:[TARGETDIR]components.xml"
+                                            }
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_33C9B1D93C564BAEA38B0A4D52ED5EA5"
+                                            {
+                                            "Name" = "8:GraphicsFolder"
+                                            "Condition" = "8:"
+                                            "Transitive" = "11:FALSE"
+                                            "ValueTypes" = "3:1"
+                                            "Value" = "8:[TARGETDIR]Graphics"
+                                            }
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_33E676835B2543B193FC4C97B47B709B"
+                                            {
+                                            "Name" = "8:GameSettingsFile"
+                                            "Condition" = "8:"
+                                            "Transitive" = "11:FALSE"
+                                            "ValueTypes" = "3:1"
+                                            "Value" = "8:"
+                                            }
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_35490BE1C57F48FB9AF5C8EFC51D8D3F"
+                                            {
+                                            "Name" = "8:ClientStateFile"
+                                            "Condition" = "8:"
+                                            "Transitive" = "11:FALSE"
+                                            "ValueTypes" = "3:1"
+                                            "Value" = "8:"
+                                            }
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_7C6B144E2D534D62A81CA8CACF4E49A6"
+                                            {
+                                            "Name" = "8:ClientFolder"
+                                            "Condition" = "8:"
+                                            "Transitive" = "11:FALSE"
+                                            "ValueTypes" = "3:1"
+                                            "Value" = "8:[TARGETDIR]GameFiles"
+                                            }
+                                            "{ADCFDA98-8FDD-45E4-90BC-E3D20B029870}:_C2DF62BB00CF4755A56C01C5DD50D8BB"
+                                            {
+                                            "Name" = "8:ServerFolder"
+                                            "Condition" = "8:"
+                                            "Transitive" = "11:FALSE"
+                                            "ValueTypes" = "3:1"
+                                            "Value" = "8:[TARGETDIR]GameFiles"
+                                            }
+                                        }
+                                    }
                                 }
                                 "Values"
                                 {
