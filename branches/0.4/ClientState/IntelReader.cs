@@ -47,8 +47,8 @@ namespace Nova.Client
 
    public static class IntelReader
    {
-      private static Intel TurnData  = null;
-      private static ClientState   StateData = null;
+      private static Intel TurnData = null;
+      private static ClientState StateData = null;
 
       /// ----------------------------------------------------------------------------
       /// <summary>
@@ -71,7 +71,7 @@ namespace Nova.Client
       /// </summary>
       /// <param name="turnFileName">Path and file name of the RaceName.intel file.</param>
       /// ----------------------------------------------------------------------------
-      public static void ReadIntel(String turnFileName)
+      public static void ReadIntel(string turnFileName)
       {
           if (!File.Exists(turnFileName))
           {
@@ -234,10 +234,10 @@ namespace Nova.Client
                       fleet.InOrbit = star;
                   }
 
-                  //--------------------------------------------------------------------------------
-                  // FIXME (priority 3) - discovery of planetary information should be done by the server. It should not be possible for a hacked client to get this information.
+                  // --------------------------------------------------------------------------------
+                  // FIXME (priority 5) - discovery of planetary information should be done by the server. It should not be possible for a hacked client to get this information.
 
-                  if ((fleet.InOrbit != null) && ( ! fleet.IsStarbase))
+                  if ((fleet.InOrbit != null) && (!fleet.IsStarbase))
                   {
 
                       // add to orbiting fleets list
@@ -257,13 +257,13 @@ namespace Nova.Client
                               StateData.StarReports[star.Name] = new StarReport(star);
                           }
                       }
-                  }// if it can scan planets
-                  //END OF FIX ME --------------------------------------------------------------------------------
+                  }
+                  // END OF FIX ME --------------------------------------------------------------------------------
 
 
-              }// if belongs to this race
-          }// foreach fleet in intel
-      }//ProcessFleets
+              }
+          }
+      }
 
 
       /// ----------------------------------------------------------------------------
@@ -271,7 +271,7 @@ namespace Nova.Client
       /// Do the research for this year. Research is performed locally once per turn.
       /// </summary>
       /// <remarks>
-      /// FIXME (priority 4) Console should determine the results of research and tell
+      /// FIXME (priority 5) Console should determine the results of research and tell
       /// the Nova GUI, not the other way around.      
       /// </remarks>
       /// ----------------------------------------------------------------------------
@@ -310,9 +310,10 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       private static void ReportLevelUpdate(TechLevel.ResearchField area, int level)
       {
-          Message techAdvanceMessage =
-              new Message(ClientState.Data.RaceName, null, "Your race has advanced to Tech Level "
-              + level + " in the " + StateData.ResearchTopic + " field");
+          Message techAdvanceMessage = new Message(
+              ClientState.Data.RaceName,
+              null,
+              "Your race has advanced to Tech Level " + level + " in the " + StateData.ResearchTopic + " field");
           StateData.Messages.Add(techAdvanceMessage);
 
           Hashtable allComponents = AllComponents.Data.Components;
@@ -328,9 +329,10 @@ namespace Nova.Client
               {
 
                   ClientState.Data.AvailableComponents.Add(component);
-                  Message newComponentMessage =
-                      new Message(ClientState.Data.RaceName, null, "You now have available the "
-                      + component.Name + " " + component.Type + " component");
+                  Message newComponentMessage = new Message(
+                      ClientState.Data.RaceName,
+                      null,
+                      "You now have available the " + component.Name + " " + component.Type + " component");
                   ClientState.Data.Messages.Add(newComponentMessage);
               }
           }

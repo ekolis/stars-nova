@@ -34,7 +34,7 @@ namespace Nova.Common
     /// <summary>
     /// Implementation of ProductionUnit for factory building.
     /// </summary>
-    class FactoryProductionUnit : ProductionUnit
+    public class FactoryProductionUnit : IProductionUnit
     {
         private Star star;
 
@@ -78,7 +78,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construct one factory.
-        /// FIXME (priority 4) - doesn't account for partial construction.
+        /// FIXME (priority 5) - doesn't account for partial construction.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public void Construct()

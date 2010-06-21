@@ -79,6 +79,24 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            return;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            return;
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
@@ -88,6 +106,19 @@ namespace Nova.Common.Components
         /// <returns>op1</returns>
         /// ----------------------------------------------------------------------------
         public static SimpleProperty operator +(SimpleProperty op1, SimpleProperty op2)
+        {
+            return op1;
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Operator* to scale (multiply) properties in the ship design.
+        /// </summary>
+        /// <param name="op1">Property to scale.</param>
+        /// <param name="scalar">Number of instances of this property.</param>
+        /// <returns>A single property that represents all these instances.</returns>
+        /// ----------------------------------------------------------------------------
+        public static SimpleProperty operator *(SimpleProperty op1, int scalar)
         {
             return op1;
         }

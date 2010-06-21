@@ -100,6 +100,24 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            Value = (this + (ProbabilityProperty)op2).Value;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            Value = (this * scalar).Value;
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
@@ -111,7 +129,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static ProbabilityProperty operator +(ProbabilityProperty op1, ProbabilityProperty op2)
         {
-            return new ProbabilityProperty(100 - ((100 - op1.Value) * (100 - op2.Value))/100);
+            return new ProbabilityProperty(100 - (((100 - op1.Value) * (100 - op2.Value)) / 100));
         }
 
 

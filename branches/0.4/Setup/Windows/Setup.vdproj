@@ -57,6 +57,18 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_200F4931DD3021A2227DCAE5A17F6B77"
+        "OwnerKey" = "8:_AD039140FFA34D41B04E42107A0E91D0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_2A4A9DCC311E4FF8940A1C57DCE2B4BB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_3E0DF14EFB7C438888196089A5094813"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -75,19 +87,13 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_77AF68B3E2315981EC932637827E0C49"
+        "MsmKey" = "8:_7E3984957EC9CB602D5A2C983FA9ED65"
         "OwnerKey" = "8:_AD039140FFA34D41B04E42107A0E91D0"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_9394113AA2C215742EC7A51F7A54B5D2"
-        "OwnerKey" = "8:_AD039140FFA34D41B04E42107A0E91D0"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_A3A4FB7397B3BB4B89262CCDFEE74A06"
+        "MsmKey" = "8:_8E6DF8CE48509AF03D3FCB6AA3309C4D"
         "OwnerKey" = "8:_AD039140FFA34D41B04E42107A0E91D0"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -106,12 +112,6 @@
         "Entry"
         {
         "MsmKey" = "8:_AF1C69A9ACB24F00A5E9D525B761160D"
-        "OwnerKey" = "8:_UNDEFINED"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_B4DDB2AED6EE4A8BB39773634E853E9F"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -159,56 +159,56 @@
         }
         "Entry"
         {
-        "MsmKey" = "8:_F8869E6C297AD17CFCD68A9EB660535D"
-        "OwnerKey" = "8:_9394113AA2C215742EC7A51F7A54B5D2"
+        "MsmKey" = "8:_FF3B603FA1EF8685DEC473B55576164A"
+        "OwnerKey" = "8:_200F4931DD3021A2227DCAE5A17F6B77"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F8869E6C297AD17CFCD68A9EB660535D"
-        "OwnerKey" = "8:_A3A4FB7397B3BB4B89262CCDFEE74A06"
+        "MsmKey" = "8:_FF3B603FA1EF8685DEC473B55576164A"
+        "OwnerKey" = "8:_8E6DF8CE48509AF03D3FCB6AA3309C4D"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F8869E6C297AD17CFCD68A9EB660535D"
-        "OwnerKey" = "8:_77AF68B3E2315981EC932637827E0C49"
+        "MsmKey" = "8:_FF3B603FA1EF8685DEC473B55576164A"
+        "OwnerKey" = "8:_7E3984957EC9CB602D5A2C983FA9ED65"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
-        "MsmKey" = "8:_F8869E6C297AD17CFCD68A9EB660535D"
+        "MsmKey" = "8:_FF3B603FA1EF8685DEC473B55576164A"
         "OwnerKey" = "8:_AD039140FFA34D41B04E42107A0E91D0"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_FF3B603FA1EF8685DEC473B55576164A"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_8E6DF8CE48509AF03D3FCB6AA3309C4D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_AD039140FFA34D41B04E42107A0E91D0"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_A3A4FB7397B3BB4B89262CCDFEE74A06"
+        "OwnerKey" = "8:_7E3984957EC9CB602D5A2C983FA9ED65"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_77AF68B3E2315981EC932637827E0C49"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_9394113AA2C215742EC7A51F7A54B5D2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F8869E6C297AD17CFCD68A9EB660535D"
+        "OwnerKey" = "8:_200F4931DD3021A2227DCAE5A17F6B77"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -456,6 +456,57 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_200F4931DD3021A2227DCAE5A17F6B77"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.3822.24562, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                    "_200F4931DD3021A2227DCAE5A17F6B77"
+                    {
+                    "Name" = "8:Nova.ClientState.dll"
+                    "Attributes" = "3:512"
+                    }
+                }
+            "SourcePath" = "8:Nova.ClientState.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_AC801D23DA1C46C5B95B810890051C30"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_2A4A9DCC311E4FF8940A1C57DCE2B4BB"
+            {
+            "SourcePath" = "8:LICENSE.rtf"
+            "TargetName" = "8:LICENSE.rtf"
+            "Tag" = "8:"
+            "Folder" = "8:_AC801D23DA1C46C5B95B810890051C30"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
             "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_3E0DF14EFB7C438888196089A5094813"
             {
             "SourcePath" = "8:..\\..\\Documentation\\User Documentation\\images\\GUI_Main_Screen.png"
@@ -516,14 +567,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_77AF68B3E2315981EC932637827E0C49"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_7E3984957EC9CB602D5A2C983FA9ED65"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.3799.503, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.3822.24561, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_77AF68B3E2315981EC932637827E0C49"
+                    "_7E3984957EC9CB602D5A2C983FA9ED65"
                     {
                     "Name" = "8:Nova.ControlLibrary.dll"
                     "Attributes" = "3:512"
@@ -547,45 +598,14 @@
             "IsDependency" = "11:TRUE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_9394113AA2C215742EC7A51F7A54B5D2"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_8E6DF8CE48509AF03D3FCB6AA3309C4D"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.3799.503, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.3822.24562, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_9394113AA2C215742EC7A51F7A54B5D2"
-                    {
-                    "Name" = "8:Nova.ClientState.dll"
-                    "Attributes" = "3:512"
-                    }
-                }
-            "SourcePath" = "8:Nova.ClientState.dll"
-            "TargetName" = "8:"
-            "Tag" = "8:"
-            "Folder" = "8:_AC801D23DA1C46C5B95B810890051C30"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:FALSE"
-            "IsDependency" = "11:TRUE"
-            "IsolateTo" = "8:"
-            }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_A3A4FB7397B3BB4B89262CCDFEE74A06"
-            {
-            "AssemblyRegister" = "3:1"
-            "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.3799.503, Culture=neutral, processorArchitecture=MSIL"
-                "ScatterAssemblies"
-                {
-                    "_A3A4FB7397B3BB4B89262CCDFEE74A06"
+                    "_8E6DF8CE48509AF03D3FCB6AA3309C4D"
                     {
                     "Name" = "8:Nova.ServerState.dll"
                     "Attributes" = "3:512"
@@ -646,26 +666,6 @@
             "PackageAs" = "3:1"
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
-            "IsDependency" = "11:FALSE"
-            "IsolateTo" = "8:"
-            }
-            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_B4DDB2AED6EE4A8BB39773634E853E9F"
-            {
-            "SourcePath" = "8:LICENSE.rtf"
-            "TargetName" = "8:LICENSE.rtf"
-            "Tag" = "8:"
-            "Folder" = "8:_AC801D23DA1C46C5B95B810890051C30"
-            "Condition" = "8:"
-            "Transitive" = "11:FALSE"
-            "Vital" = "11:TRUE"
-            "ReadOnly" = "11:FALSE"
-            "Hidden" = "11:FALSE"
-            "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
-            "SharedLegacy" = "11:FALSE"
-            "PackageAs" = "3:1"
-            "Register" = "3:1"
-            "Exclude" = "11:TRUE"
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
@@ -809,14 +809,14 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
-            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F8869E6C297AD17CFCD68A9EB660535D"
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_FF3B603FA1EF8685DEC473B55576164A"
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.3799.502, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.3822.24561, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F8869E6C297AD17CFCD68A9EB660535D"
+                    "_FF3B603FA1EF8685DEC473B55576164A"
                     {
                     "Name" = "8:Nova.Common.dll"
                     "Attributes" = "3:512"
@@ -973,14 +973,14 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Stars! Nova"
-        "ProductCode" = "8:{6004376B-5CCF-4C70-9FE1-FB05BB325454}"
-        "PackageCode" = "8:{9703DB0F-7964-44D1-972C-B292825141A8}"
+        "ProductCode" = "8:{B4D7DB67-4F2A-4AA8-9AAA-4372D8DD02FE}"
+        "PackageCode" = "8:{ECFD8A6D-A72C-484E-A0FE-03223E2BD52D}"
         "UpgradeCode" = "8:{0669EC41-507F-4D34-8077-38BF7A216402}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:FALSE"
-        "ProductVersion" = "8:0.4.0"
+        "ProductVersion" = "8:0.4.1"
         "Manufacturer" = "8:The Stars-Nova Project"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:http://sourceforge.net/projects/stars-nova/support"
@@ -1231,7 +1231,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_B4DDB2AED6EE4A8BB39773634E853E9F"
+                            "Value" = "8:_2A4A9DCC311E4FF8940A1C57DCE2B4BB"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"
@@ -1664,7 +1664,7 @@
                             "ContextData" = "8:"
                             "Attributes" = "3:0"
                             "Setting" = "3:2"
-                            "Value" = "8:_B4DDB2AED6EE4A8BB39773634E853E9F"
+                            "Value" = "8:_2A4A9DCC311E4FF8940A1C57DCE2B4BB"
                             "UsePlugInResources" = "11:TRUE"
                             }
                             "Sunken"

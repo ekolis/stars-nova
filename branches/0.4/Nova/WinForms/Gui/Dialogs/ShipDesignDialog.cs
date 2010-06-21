@@ -45,15 +45,14 @@ namespace Nova.WinForms.Gui
     /// </summary>
     public class ShipDesignDialog : System.Windows.Forms.Form
     {
-        private ClientState StateData = null;
-        private Hashtable AllComponents = null;
-        private Hashtable AllDesigns = null;
+        private ClientState StateData;
+        private Hashtable AllComponents;
+        private Hashtable AllDesigns;
         private Hashtable ImageIndices = new Hashtable();
-        private Nova.Common.Components.Component SelectedHull = null;
+        private Component SelectedHull;
 
         private ImageList ComponentImages = new ImageList();
-        private int DesignMass = 0;
-        private int ShipCargoCapacity = 0;
+        private int DesignMass;
 
         #region Designer Generated Code
 
@@ -703,11 +702,9 @@ namespace Nova.WinForms.Gui
         #region Initialisation and Disposal
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction and initialisation
+        /// Initializes a new instance of the ShipDesignDialog class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ShipDesignDialog()
         {
             InitializeComponent();
@@ -769,7 +766,7 @@ namespace Nova.WinForms.Gui
             TreeView.BeginUpdate();
             TreeView.Nodes.Clear();
             TreeView.Nodes.Add("Available Technology");
-            foreach (String techGroup in techList)
+            foreach (string techGroup in techList)
             {
                 if (!TreeView.Nodes[0].Nodes.ContainsKey(techGroup))
                 {
@@ -783,15 +780,13 @@ namespace Nova.WinForms.Gui
             }
             TreeView.EndUpdate();
 
-        }//ShipDesignDialog
+        }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -815,7 +810,7 @@ namespace Nova.WinForms.Gui
         /// Save the the design when the OK button is pressed
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OK_Click(object sender, System.EventArgs e)
         {
@@ -849,7 +844,7 @@ namespace Nova.WinForms.Gui
              * name as another design, esspecialy if you keep the hull name for 
              * the ship name. However if you are edditing a design then this 
              * might be exactly what you want to do. Need to at least ask the 
-             * user. TODO (priority 3).
+             * user. TODO (priority 6).
            if (AllDesigns.Contains(newDesign.Key)) 
            {
               Report.Error("Design names must be unique");
@@ -869,7 +864,7 @@ namespace Nova.WinForms.Gui
         /// same type can be in the module.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// <returns>Returns a <see cref="Weapon"/> representing all the weapon components in a single module.</returns>
         /// ----------------------------------------------------------------------------
         private Weapon BuildWeaponSystem(int number, Nova.Common.Components.Component component)
@@ -889,7 +884,7 @@ namespace Nova.WinForms.Gui
         /// A new tree node has been selected. Update the list control
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void TreeNodeSelected(object sender, TreeViewEventArgs e)
         {
@@ -925,7 +920,7 @@ namespace Nova.WinForms.Gui
         /// A new item has been selected. Update the cost box and description.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ListSelectionChanged(object sender, EventArgs e)
         {
@@ -950,7 +945,7 @@ namespace Nova.WinForms.Gui
         /// Instigate Drag and Drop of the selected ListView item
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ListView_MouseDown(object sender, MouseEventArgs e)
         {
@@ -1045,7 +1040,7 @@ namespace Nova.WinForms.Gui
         /// don't end up messing with the master copy.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void HullList_SelectedValueChanged(object sender, EventArgs e)
         {
@@ -1071,7 +1066,7 @@ namespace Nova.WinForms.Gui
         /// the costs and characteristics fields on the form.
         /// </summary>
         /// <remarks>
-        /// ??? (priority 3) We don't seem to have a ShipDesign at this stage, just a Hull component
+        /// ??? (priority 5) We don't seem to have a ShipDesign at this stage, just a Hull component
         /// with attached modules? This makes determining summary information difficult
         /// as that is what the ShipDesign is for. Need to decide if using a ShipDesign
         /// from the start would be better.
@@ -1114,7 +1109,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Component component in StateData.AvailableComponents.Values)
             {
-                // TODO (priority 1) - work out why it sometimes is null.
+                // TODO (priority 4) - work out why it sometimes is null.
                 if (component != null)
                 {
                     ImageIndices[component.Name] = index;

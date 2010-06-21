@@ -48,11 +48,9 @@ namespace Nova.WinForms.ComponentEditor
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction
+        /// Initializes a new instance of the CommonProperties class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public CommonProperties()
         {
             InitializeComponent();
@@ -69,7 +67,7 @@ namespace Nova.WinForms.ComponentEditor
         /// appropriate dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ComponentList_SelectedIndexChanged(object sender, EventArgs e)
         {
@@ -188,6 +186,6 @@ namespace Nova.WinForms.ComponentEditor
         }
         #endregion
 
-    }//CommonProperties
+    }
 
-}//namespace
+}

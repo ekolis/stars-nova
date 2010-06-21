@@ -103,10 +103,7 @@ namespace Nova.Common
         /// <param name="r2">Radius of the second circle.</param>
         /// <returns></returns>
         /// ----------------------------------------------------------------------------
-        public static bool CirclesOverlap(Point p1,
-                                          Point p2,
-                                          double r1,
-                                          double r2)
+        public static bool CirclesOverlap(Point p1, Point p2, double r1, double r2)
         {
             double x1 = p1.X;
             double x2 = p2.X;
@@ -196,7 +193,7 @@ namespace Nova.Common
         /// Move a position some distance nearer to another point.
         /// </summary>
         /// <remarks>
-        /// FIXME (priority 4) - rounding can cause no movement to occur. 
+        /// FIXME (priority 6) - rounding can cause no movement to occur. 
         /// Fix added, requires testing - Dan 4 Apr 10
         /// </remarks>
         /// <param name="from">The stating <see cref="Point"/></param>
@@ -210,14 +207,14 @@ namespace Nova.Common
             Point result = new Point();
             result = from;
 
-            double my    = to.Y - from.Y;
-            double mx    = to.X - from.X;
+            double my = to.Y - from.Y;
+            double mx = to.X - from.X;
             double theta = Math.Atan2(my, mx);
-            double dx    = distance * Math.Cos(theta);
-            double dy    = distance * Math.Sin(theta);
+            double dx = distance * Math.Cos(theta);
+            double dy = distance * Math.Sin(theta);
 
-            result.X += (int)(dx+0.5);
-            result.Y += (int)(dy+0.5);
+            result.X += (int)(dx + 0.5);
+            result.Y += (int)(dy + 0.5);
 
             // Check for no movement due to rounding and correct.
             if (result.X == from.X && result.Y == from.Y && distance > 0.5)

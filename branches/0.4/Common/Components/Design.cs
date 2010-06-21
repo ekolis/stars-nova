@@ -27,7 +27,7 @@
 // (Type is inherited from Item)
 // Other Designs include "Mine", "Factory" and "Defense".
 //
-// TODO (priority 4) refactor this to reverse the current inheritance. 
+// TODO (priority 5) refactor this to reverse the current inheritance. 
 // A design is not yet an item, but an Item has all the properties of its Design. 
 // Does it make sense for a Design to have a Position? It currently does because 
 // it inherits one from Item. 
@@ -53,7 +53,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// default constructor
+        /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public Design() : base() { }
@@ -79,8 +79,8 @@ namespace Nova.Common.Components
         /// <summary>
         /// Save: Generate an XmlElement representing the Design.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement representing the Design</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representing the Design.</returns>
         /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {

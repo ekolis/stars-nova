@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{86291ACF-4BAD-4926-B647-8BCDBB5E8EF7}</ProjectGuid>
     <OutputType>Library</OutputType>
@@ -67,9 +67,9 @@
       <Project>{184F17D9-28F2-4784-B5F0-8E9538A31BF7}</Project>
       <Name>Nova</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServerState\ServerState.csproj">
+    <ProjectReference Include="..\ServerState\Server.csproj">
       <Project>{057D68CC-97A3-4296-A66B-1D3A5C00134E}</Project>
-      <Name>ServerState</Name>
+      <Name>Server</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

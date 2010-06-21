@@ -38,8 +38,6 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nova.Common
 {
@@ -49,19 +47,6 @@ namespace Nova.Common
     [Serializable]
     public class TraitList : DictionaryBase
     {
-
-        #region Construction
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// default constructor
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public TraitList()
-        {
-        }
-
-        #endregion
 
         #region Methods
 
@@ -82,7 +67,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="NewTrait">The code or short name of a trait such as IS for Improved Starbases. These are defined in AllTraits</param>
         /// ----------------------------------------------------------------------------
-        public void Add(String NewTrait)
+        public void Add(string NewTrait)
         {
 
             foreach (DictionaryEntry de in AllTraits.Data.Secondary)
@@ -112,7 +97,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="TraitToRemove">The code (short name) for the trait to remove, as defined in AllTraits.</param>
         /// ----------------------------------------------------------------------------
-        public void Remove(String TraitToRemove)
+        public void Remove(string TraitToRemove)
         {
             Dictionary.Remove(TraitToRemove);
         }
@@ -124,7 +109,7 @@ namespace Nova.Common
         /// <param name="trait"></param>
         /// <returns></returns>
         /// ----------------------------------------------------------------------------
-        public bool Contains(String trait)
+        public bool Contains(string trait)
         {
             return Dictionary.Contains(trait);
         }
@@ -140,7 +125,7 @@ namespace Nova.Common
         /// <param name="index">The code (short name) for the trait, as defined in AllTraits.</param>
         /// <returns></returns>
         /// ----------------------------------------------------------------------------
-        public TraitEntry this[String index]
+        public TraitEntry this[string index]
         {
             get
             {

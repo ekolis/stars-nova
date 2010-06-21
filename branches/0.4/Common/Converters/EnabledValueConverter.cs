@@ -20,12 +20,14 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using System.Reflection;
 
 namespace Nova.Common.Converters
 {
+
     /// <summary>
     /// <see cref="TypeConverter"/> for <see cref="EnabledValue"/>.
     /// </summary>
@@ -33,8 +35,19 @@ namespace Nova.Common.Converters
     {
         protected override InstanceDescriptor ConvertToInstanceDescriptor(EnabledValue value)
         {
-            ConstructorInfo constructor = typeof(EnabledValue).GetConstructor(new Type[] { typeof(bool), typeof(int) });
-            return new InstanceDescriptor(constructor, new object[] { value.IsChecked, value.NumericValue });
+            ConstructorInfo constructor = typeof(EnabledValue).GetConstructor(new Type[]
+                {
+                    typeof(bool),
+                    typeof(int)
+                });
+
+            ICollection arguments = new object[]
+                {
+                    value.IsChecked,
+                    value.NumericValue
+                };
+
+            return new InstanceDescriptor(constructor, arguments);
         }
     }
 }

@@ -36,8 +36,6 @@
 
 using System;
 using System.Xml;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nova.Common.Components
 {
@@ -47,20 +45,17 @@ namespace Nova.Common.Components
     {
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default Constructor
+        /// Initializes a new instance of the ComponentProperty class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ComponentProperty() { }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Copy Constructor
+        /// Initializes a new instance of the ComponentProperty class.
+        /// Copy constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="ComponentProperty"/> to copy.</param>
-        /// ----------------------------------------------------------------------------
         public ComponentProperty(ComponentProperty existing)
         {
         }
@@ -84,44 +79,31 @@ namespace Nova.Common.Components
 
         #region Operators
 
-        // ??? (priority 4) - Some daughters return the LHS operator (when the operation has no effect). Is there any danger in this? Should they return a Clone?
+        // Note: this used to contain operators + and * which were then overriden in the daughter classes. 
+        // This turned out to be a very bad idea as operator overloading and polymorphism don't mix well:
+        // The base class operators were always called which didn't do what we want. To get the desired
+        // result I have implemented these as abstract methods.
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// operator+ to add properties in the ship design.
+        /// Add the <see cref="ComponentProperty"/> op2 to the current property.
         /// </summary>
-        /// <param name="op1">LHS operand</param>
-        /// <param name="op2">RHS operand</param>
-        /// <returns>op1</returns>
-        /// ----------------------------------------------------------------------------
-        public static ComponentProperty operator +(ComponentProperty op1, ComponentProperty op2)
-        {
-            return op1;
-        }
+        /// <param name="op2">A <see cref="ComponentProperty"/> of the same daughter type as the calling object.</param>
+        public abstract void Add(ComponentProperty op2);
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Operator* to scale (multiply) properties in the ship design.
+        /// Scale up (multiply) this <see cref="ComponentProperty"/>, e.g. for a stack of Armor components in a <see cref="ShipDesign"/> slot.
         /// </summary>
-        /// <param name="op1">Property to be scaled.</param>
-        /// <param name="scalar">Scaling factor.</param>
-        /// <returns>op1</returns>
-        /// ----------------------------------------------------------------------------
-        public static ComponentProperty operator *(ComponentProperty op1, int scalar)
-        {
-            return op1;
-        }
+        /// <param name="scalar">The number of components in the stack.</param>
+        public abstract void Scale(int scalar);
 
         #endregion Operators
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
+        /// Initializes a new instance of the ComponentProperty class.
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ComponentProperty(XmlNode node)
         {
         }

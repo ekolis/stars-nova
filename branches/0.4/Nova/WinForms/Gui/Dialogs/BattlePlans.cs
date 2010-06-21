@@ -46,11 +46,9 @@ namespace Nova.WinForms.Gui
     public partial class BattlePlans : Form
     {
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the BattlePlans class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public BattlePlans()
         {
             InitializeComponent();
@@ -89,7 +87,7 @@ namespace Nova.WinForms.Gui
         /// Done button pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void DoneButton_Click(object sender, EventArgs e)
         {

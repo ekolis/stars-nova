@@ -57,30 +57,31 @@ namespace Nova.UnitTests
     [TestFixture]
     public class BattleEngineTest
     {
-        Fleet fleet1 = new Fleet("fleet1", "Tom", new Point(100, 200));
-        Fleet fleet2 = new Fleet("fleet2", "Dick", new Point(100, 200));
-        Fleet fleet3 = new Fleet("fleet3", "Harry", new Point(300, 400));
-        Fleet fleet4 = new Fleet("fleet4", "Harry", new Point(300, 400));
+        private Fleet fleet1 = new Fleet("fleet1", "Tom", new Point(100, 200));
+        private Fleet fleet2 = new Fleet("fleet2", "Dick", new Point(100, 200));
+        private Fleet fleet3 = new Fleet("fleet3", "Harry", new Point(300, 400));
+        private Fleet fleet4 = new Fleet("fleet4", "Harry", new Point(300, 400));
 
-        ShipDesign cruiser = new ShipDesign();
-        ShipDesign frigate = new ShipDesign();
+        private ShipDesign cruiser = new ShipDesign();
+        private ShipDesign frigate = new ShipDesign();
 
-        Ship ship1;
-        Ship ship2;
-        Ship ship3;
-        Ship ship4;
+        private Ship ship1;
+        private Ship ship2;
+        private Ship ship3;
+        private Ship ship4;
 
         // Outputs and subsequent inputs to the various routines. These have the
         // same name as the equivalent variables in the actual code.
 
-        ArrayList fleetPositions;
-        ArrayList battlePositions;
-        ArrayList zoneStacks;
+        private ArrayList fleetPositions;
+        private ArrayList battlePositions;
+        private ArrayList zoneStacks;
 
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction (test data initialisation). Create 4 test fleets and add them
+        /// Initializes a new instance of the BattleEngineTest class.
+        /// Create 4 test fleets and add them
         /// into the "all fleets" list. Make one design more powerful than the other
         /// so that the weaker one gets destroyed in the battle.
         /// </summary>

@@ -52,13 +52,13 @@ namespace Nova.WinForms.Gui
     public class NovaGUI : System.Windows.Forms.Form
     {
 
-        public Messages messages;
+        public Messages Messages;
         public SelectionSummary SelectionSummary;
         public SelectionDetail SelectionDetail;
         public StarMap MapControl;
 
-        public int currentTurn;      //control turnvar used for to decide to load new turn... (Thread)
-        public string currentRace; //control var used for to decide to load new turn... (Thread)
+        public int CurrentTurn;      // control turnvar used for to decide to load new turn... (Thread)
+        public string CurrentRace;   // control var used for to decide to load new turn... (Thread)
 
         #region VS-Designer Generated Variables
 
@@ -104,12 +104,10 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -156,7 +154,7 @@ namespace Nova.WinForms.Gui
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SelectionDetail = new SelectionDetail();
             this.SelectionSummary = new SelectionSummary();
-            this.messages = new Messages();
+            this.Messages = new Messages();
             this.groupBox2.SuspendLayout();
             this.MainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -232,7 +230,7 @@ namespace Nova.WinForms.Gui
             this.designManagerMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F3;
             this.designManagerMenuItem.Size = new System.Drawing.Size(205, 22);
             this.designManagerMenuItem.Text = "Ship Design &Manager";
-            this.designManagerMenuItem.Click += new System.EventHandler(this.designManagerMenuItem_Click);
+            this.designManagerMenuItem.Click += new System.EventHandler(this.DesignManagerMenuItem_Click);
             // 
             // shipDesignerToolStripMenuItem
             // 
@@ -264,7 +262,7 @@ namespace Nova.WinForms.Gui
             this.playerRelationslMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F7;
             this.playerRelationslMenuItem.Size = new System.Drawing.Size(205, 22);
             this.playerRelationslMenuItem.Text = "&Player Relations";
-            this.playerRelationslMenuItem.Click += new System.EventHandler(this.playerRelationsMenuItem_Click);
+            this.playerRelationslMenuItem.Click += new System.EventHandler(this.PlayerRelationsMenuItem_Click);
             // 
             // generateTurnToolStripMenuItem
             // 
@@ -272,7 +270,7 @@ namespace Nova.WinForms.Gui
             this.generateTurnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F8;
             this.generateTurnToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.generateTurnToolStripMenuItem.Text = "Save && Submit &Turn";
-            this.generateTurnToolStripMenuItem.Click += new System.EventHandler(this.saveAndSubmitTurnToolStripMenuItem_Click);
+            this.generateTurnToolStripMenuItem.Click += new System.EventHandler(this.SaveAndSubmitTurnToolStripMenuItem_Click);
             // 
             // loadNextTurnToolStripMenuItem
             // 
@@ -281,7 +279,7 @@ namespace Nova.WinForms.Gui
             this.loadNextTurnToolStripMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
             this.loadNextTurnToolStripMenuItem.Size = new System.Drawing.Size(205, 22);
             this.loadNextTurnToolStripMenuItem.Text = "&Load Next Turn";
-            this.loadNextTurnToolStripMenuItem.Click += new System.EventHandler(this.loadNextTurnToolStripMenuItem_Click);
+            this.loadNextTurnToolStripMenuItem.Click += new System.EventHandler(this.LoadNextTurnToolStripMenuItem_Click);
             // 
             // reportsToolStripMenuItem
             // 
@@ -357,13 +355,13 @@ namespace Nova.WinForms.Gui
             // 
             // messages
             // 
-            this.messages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.Messages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
-            this.messages.Location = new System.Drawing.Point(8, 427);
-            this.messages.Name = "messages";
-            this.messages.Size = new System.Drawing.Size(360, 113);
-            this.messages.TabIndex = 18;
-            this.messages.Year = 2100;
+            this.Messages.Location = new System.Drawing.Point(8, 427);
+            this.Messages.Name = "Messages";
+            this.Messages.Size = new System.Drawing.Size(360, 113);
+            this.Messages.TabIndex = 18;
+            this.Messages.Year = 2100;
             // 
             // NovaGUI
             // 
@@ -372,7 +370,7 @@ namespace Nova.WinForms.Gui
             this.Controls.Add(this.MainMenu);
             this.Controls.Add(this.SelectionDetail);
             this.Controls.Add(this.SelectionSummary);
-            this.Controls.Add(this.messages);
+            this.Controls.Add(this.Messages);
             this.Controls.Add(this.groupBox2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -423,9 +421,9 @@ namespace Nova.WinForms.Gui
 
             Application.EnableVisualStyles();
             ClientState.Initialize(args);
-            MainWindow.nova.Text = "Nova - " + ClientState.Data.PlayerRace.PluralName;
+            MainWindow.Nova.Text = "Nova - " + ClientState.Data.PlayerRace.PluralName;
             MainWindow.InitialiseControls();
-            Application.Run(MainWindow.nova);
+            Application.Run(MainWindow.Nova);
 
         }
 
@@ -438,7 +436,7 @@ namespace Nova.WinForms.Gui
         /// Exit menu item selected.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MenuExit_Click(object sender, System.EventArgs e)
         {
@@ -452,7 +450,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the ship design dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MenuShipDesign(object sender, System.EventArgs e)
         {
@@ -467,10 +465,11 @@ namespace Nova.WinForms.Gui
         /// Deal with keys being pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnKeyPress(object sender, KeyPressEventArgs e)
         {
+           
             switch (e.KeyChar)
             {
                 case '+':
@@ -483,8 +482,9 @@ namespace Nova.WinForms.Gui
                     MapControl.ZoomOutClick(null, null);
                     break;
 
-                // TODO (priority 4) The rest of the keys (function keys).
             }
+            
+            
         }
 
 
@@ -493,7 +493,7 @@ namespace Nova.WinForms.Gui
         /// Display the "About" dialog
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MenuAbout(object sender, EventArgs e)
         {
@@ -508,13 +508,13 @@ namespace Nova.WinForms.Gui
         /// Display the research dialog
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void MenuResearch(object sender, EventArgs e)
         {
-            ResearchDialog pResearchDialog = new ResearchDialog();
-            pResearchDialog.ShowDialog();
-            pResearchDialog.Dispose();
+            ResearchDialog newResearchDialog = new ResearchDialog();
+            newResearchDialog.ShowDialog();
+            newResearchDialog.Dispose();
         }
 
 
@@ -524,10 +524,10 @@ namespace Nova.WinForms.Gui
         /// the form. Save the local state data.
         /// </summary><remarks>
         /// NB: Don't generate the orders file unless Save&Submit is selected.
-        /// TODO (priority 4) - ask the user if they want to submit the current turn before closing.
+        /// TODO (priority 7) - ask the user if they want to submit the current turn before closing.
         /// </remarks>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NovaGUI_FormClosing(object sender, FormClosingEventArgs e)
         {
@@ -541,9 +541,9 @@ namespace Nova.WinForms.Gui
         /// Pop up the player relations dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void playerRelationsMenuItem_Click(object sender, EventArgs e)
+        private void PlayerRelationsMenuItem_Click(object sender, EventArgs e)
         {
             PlayerRelations relationshipDialog = new PlayerRelations();
             relationshipDialog.ShowDialog();
@@ -555,7 +555,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the battle plans dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void BattlePlansMenuItem(object sender, EventArgs e)
         {
@@ -570,9 +570,9 @@ namespace Nova.WinForms.Gui
         /// Pop up the Design Manager Dialog
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void designManagerMenuItem_Click(object sender, EventArgs e)
+        private void DesignManagerMenuItem_Click(object sender, EventArgs e)
         {
             DesignManager designManager = new DesignManager();
             designManager.ShowDialog();
@@ -585,7 +585,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the Planet Report Dialog
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PlanetReportMenu_Click(object sender, EventArgs e)
         {
@@ -600,7 +600,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the Fleet Report Dialog
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void FleetReportMenu_Click(object sender, EventArgs e)
         {
@@ -615,7 +615,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the Battle Report Dialog
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void BattlesReportMenu_Click(object sender, EventArgs e)
         {
@@ -630,7 +630,7 @@ namespace Nova.WinForms.Gui
         /// Pop up the score report dialog.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void ScoresMenuItem_Click(object sender, EventArgs e)
         {
@@ -645,9 +645,9 @@ namespace Nova.WinForms.Gui
         /// Menu->Commands->Save & Submit
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void saveAndSubmitTurnToolStripMenuItem_Click(object sender, EventArgs e)
+        private void SaveAndSubmitTurnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ClientState.Save();
             OrderWriter.WriteOrders();
@@ -662,12 +662,12 @@ namespace Nova.WinForms.Gui
         /// <remarks>
         /// This menu item has been disabled as it does not currently detect if there is
         /// a valid next turn.
-        /// TODO (priority 4) - detect when a new turn is available.
+        /// TODO (priority 6) - detect when a new turn is available.
         /// </remarks>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void loadNextTurnToolStripMenuItem_Click(object sender, EventArgs e)
+        private void LoadNextTurnToolStripMenuItem_Click(object sender, EventArgs e)
         {
             // prepare the arguments that will tell how to re-initialise.
             CommandArguments commandArguments = new CommandArguments();
@@ -681,76 +681,4 @@ namespace Nova.WinForms.Gui
         #endregion
 
     }
-
-
-    /// ----------------------------------------------------------------------------
-    /// <summary>
-    /// The main window.
-    /// </summary>
-    /// ----------------------------------------------------------------------------
-    public static class MainWindow
-    {
-        public static NovaGUI nova = new NovaGUI();
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Load controls with any data we may have for them.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public static void InitialiseControls()
-        {
-            nova.messages.Year = ClientState.Data.TurnYear;
-            nova.messages.MessageList = ClientState.Data.Messages;
-
-            nova.currentTurn = ClientState.Data.TurnYear;
-            nova.currentRace = ClientState.Data.RaceName;
-
-            nova.MapControl.Initialise();
-
-            // Select a star owned by the player (if any) as the default display.
-
-            foreach (Star star in ClientState.Data.InputTurn.AllStars.Values)
-            {
-                if (star.Owner == ClientState.Data.RaceName)
-                {
-                    nova.MapControl.SetCursor(star.Position);
-                    nova.SelectionDetail.Value = star;
-                    nova.SelectionSummary.Value = star;
-                    break;
-                }
-            }
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Refresh the display for a new turn.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public static void NextTurn()
-        {
-            nova.messages.Year = ClientState.Data.TurnYear;
-            nova.messages.MessageList = ClientState.Data.Messages;
-
-            nova.Invalidate(true);
-
-            nova.MapControl.Initialise();
-            nova.MapControl.Invalidate();
-
-            // Select a star owned by the player (if any) as the default display.
-
-            foreach (Star star in ClientState.Data.InputTurn.AllStars.Values)
-            {
-                if (star.Owner == ClientState.Data.RaceName)
-                {
-                    nova.MapControl.SetCursor(star.Position);
-                    nova.SelectionDetail.Value = star;
-                    nova.SelectionSummary.Value = star;
-                    break;
-                }
-            }
-        }
-    }
-
 }

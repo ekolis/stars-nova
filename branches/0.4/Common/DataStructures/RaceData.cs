@@ -37,14 +37,31 @@ namespace Nova.Common
     [Serializable]
     public class RaceData
     {
-        public int       TurnYear         = 0;
-        public Hashtable PlayerRelations  = new Hashtable();
-        public Hashtable BattlePlans      = new Hashtable();
+        public int TurnYear;
+        public Hashtable PlayerRelations = new Hashtable();
+        public Hashtable BattlePlans = new Hashtable();
 
         /// <summary>
         /// default constructor
         /// </summary>
         public RaceData() { }
+
+        /// <summary>
+        /// Determine if this race wishes to treat lamb as an enemy.
+        /// </summary>
+        /// <param name="lamb">The name of the race who may be attacked.</param>
+        /// <returns>true if lamb is one of this race's enemies, otherwise false.</returns>
+        public bool IsEnememy(string lamb)
+        {
+            if ((string)PlayerRelations[lamb] == "Enemy")
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         #region Load Save Xml
 
@@ -102,7 +119,7 @@ namespace Nova.Common
             {
                 XmlElement xmlelRelation = xmldoc.CreateElement("Relation");
                 Global.SaveData(xmldoc, xmlelRelation, "Race", key);
-                Global.SaveData(xmldoc, xmlelRelation, "Status", PlayerRelations[key] as String);
+                Global.SaveData(xmldoc, xmlelRelation, "Status", PlayerRelations[key] as string);
                 xmlelRaceData.AppendChild(xmlelRelation);
             }
             foreach (string key in BattlePlans.Keys)

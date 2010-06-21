@@ -47,24 +47,33 @@ namespace Nova
             switch (firstArgument)
             {
                 case CommandArguments.Option.ConsoleSwitch:
-                    WinForms.Console.NovaConsoleMain.Main(); break;
+                    WinForms.Console.NovaConsoleMain.Main();
+                    break;
                 case CommandArguments.Option.ComponentEditorSwitch:
-                    WinForms.ComponentEditor.Program.Main(); break;
+                    WinForms.ComponentEditor.Program.Main();
+                    break;
                 case CommandArguments.Option.RaceDesignerSwitch:
-                    WinForms.RaceDesigner.RaceDesignerForm.Main(); break;
+                    WinForms.RaceDesigner.RaceDesignerForm.Main();
+                    break;
                 case CommandArguments.Option.GuiSwitch:
-                    WinForms.Gui.NovaGUI.Main(coreArgs); break;
+                    WinForms.Gui.NovaGUI.Main(coreArgs);
+                    break;
                 case CommandArguments.Option.NewGameSwitch:
-                    WinForms.NewGame.NewGame.Main(); break;
+                    WinForms.NewGame.NewGame.Main();
+                    break;
                 case CommandArguments.Option.AiSwitch:
-                    Ai.Program.Main(coreArgs); break;
+                    Ai.Program.Main(coreArgs);
+                    break;
                 case CommandArguments.Option.LauncherSwitch:
                 case null:
-                    WinForms.Launcher.Program.Main(); break;
+                    WinForms.Launcher.Program.Main();
+                    break;
                 case CommandArguments.Option.HelpSwitch:
-                    ShowHelpDialog(null, false); break;
+                    ShowHelpDialog(null, false);
+                    break;
                 default:
-                    ShowErrorDialog(); break;
+                    ShowErrorDialog(); 
+                    break;
             }
         }
 
@@ -72,7 +81,8 @@ namespace Nova
         {
             string message = string.Format(
                 "Invalid command line arguments:{0}{1}",
-                Environment.NewLine, Environment.CommandLine);
+                Environment.NewLine,
+                Environment.CommandLine);
 
             ShowHelpDialog(message, true);
         }
@@ -113,12 +123,18 @@ namespace Nova
                 CommandArguments.Option.GuiSwitch,
                 CommandArguments.Option.AiSwitch,
                 CommandArguments.Option.HelpSwitch,
-                CommandArguments.Option.RaceName, CommandArguments.Option.Turn,
-                CommandArguments.Option.IntelFileName, CommandArguments.Option.StateFileName);
+                CommandArguments.Option.RaceName,
+                CommandArguments.Option.Turn,
+                CommandArguments.Option.IntelFileName,
+                CommandArguments.Option.StateFileName);
 
-            MessageBox.Show(message, "Stars! Nova " + (error ? "Error" : "Information"), MessageBoxButtons.OK,
+            MessageBox.Show(
+                message,
+                "Stars! Nova " + (error ? "Error" : "Information"),
+                MessageBoxButtons.OK,
                 (error ? MessageBoxIcon.Error : MessageBoxIcon.Information),
-                MessageBoxDefaultButton.Button1, MessageBoxOptions.DefaultDesktopOnly);
+                MessageBoxDefaultButton.Button1,
+                MessageBoxOptions.DefaultDesktopOnly);
         }
     }
 }

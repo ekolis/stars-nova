@@ -1,6 +1,6 @@
 namespace Nova.WinForms.Gui
 {
-   partial class DesignManager
+   public partial class DesignManager
    {
       /// <summary>
       /// Required designer variable.

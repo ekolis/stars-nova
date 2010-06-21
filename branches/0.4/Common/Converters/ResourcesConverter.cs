@@ -20,6 +20,7 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.ComponentModel;
 using System.ComponentModel.Design.Serialization;
 using System.Reflection;
@@ -33,8 +34,23 @@ namespace Nova.Common.Converters
     {
         protected override InstanceDescriptor ConvertToInstanceDescriptor(Resources value)
         {
-            ConstructorInfo constructor = typeof(Resources).GetConstructor(new Type[] { typeof(int), typeof(int), typeof(int), typeof(int) });
-            return new InstanceDescriptor(constructor, new object[] { value.Ironium, value.Boranium, value.Germanium, value.Energy });
+            ConstructorInfo constructor = typeof(Resources).GetConstructor(new Type[]
+                {
+                    typeof(int),
+                    typeof(int),
+                    typeof(int),
+                    typeof(int)
+                });
+
+            ICollection arguments = new object[]
+                {
+                    value.Ironium,
+                    value.Boranium,
+                    value.Germanium,
+                    value.Energy
+                };
+
+            return new InstanceDescriptor(constructor, arguments);
         }
     }
 }

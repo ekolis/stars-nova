@@ -43,16 +43,14 @@ namespace Nova.WinForms.Launcher
     /// </summary>
     public partial class NovaLauncher : Form
     {
-        String ServerStateFile = null;
-        String ClientStateFile = null;
+        private string ServerStateFile = null;
+        private string ClientStateFile = null;
 
         #region Initialisation
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction and initialisation
+        /// Initializes a new instance of the NovaLauncher class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public NovaLauncher()
         {
             InitializeComponent();
@@ -89,9 +87,9 @@ namespace Nova.WinForms.Launcher
         /// When the 'exit' button is pressed, terminate the Nova Launcher
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void exitButton_Click(object sender, EventArgs e)
+        private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
@@ -102,9 +100,9 @@ namespace Nova.WinForms.Launcher
         /// When the 'Race Designer' button is pressed, launch the Race Designer application.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void raceDesignerButton_Click(object sender, EventArgs e)
+        private void RaceDesignerButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -123,9 +121,9 @@ namespace Nova.WinForms.Launcher
         /// When the 'New Game' button is pressed, launch the New Game Wizard.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void newGameButton_Click(object sender, EventArgs e)
+        private void NewGameButton_Click(object sender, EventArgs e)
         {
             try
             {
@@ -144,11 +142,11 @@ namespace Nova.WinForms.Launcher
         /// When the 'Open Game' button is pressed, open a file browser to locate the game and open it.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void openGameButton_Click(object sender, EventArgs e)
+        private void OpenGameButton_Click(object sender, EventArgs e)
         {
-            String IntelFileName = "";
+            string IntelFileName = "";
             bool GameLaunched = false;
 
             // have the user identify the game to open
@@ -181,13 +179,13 @@ namespace Nova.WinForms.Launcher
             }
             catch
             {
-                Report.Error("NovaLauncher.cs: openGameButton_Click() - Failed to launch GUI.");
+                Report.Error("NovaLauncher.cs: OpenGameButton_Click() - Failed to launch GUI.");
             }
 
             // Launch the Console if this is a local game, i.e. if the console.state is in the same directory.
-            String ServerStateFileName = "";
+            string ServerStateFileName = "";
             FileInfo IntelFileInfo = new FileInfo(IntelFileName);
-            String GamePathName = IntelFileInfo.DirectoryName;
+            string GamePathName = IntelFileInfo.DirectoryName;
             DirectoryInfo GameDirectoryInfo = new DirectoryInfo(GamePathName);
             FileInfo[] GameFilesInfo = GameDirectoryInfo.GetFiles();
             foreach (FileInfo file in GameFilesInfo)
@@ -211,7 +209,7 @@ namespace Nova.WinForms.Launcher
                 }
                 catch
                 {
-                    Report.Error("NovaLauncher.cs: openGameButton_Click() - Failed to launch GUI.");
+                    Report.Error("NovaLauncher.cs: OpenGameButton_Click() - Failed to launch GUI.");
                 }
             }
 
@@ -228,9 +226,9 @@ namespace Nova.WinForms.Launcher
         /// When the 'Continue Game' button is pressed, continue the last opened game.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void continueGameButton_Click(object sender, EventArgs e)
+        private void ContinueGameButton_Click(object sender, EventArgs e)
         {
             // start the GUI
             if (ClientStateFile != null)
@@ -271,9 +269,9 @@ namespace Nova.WinForms.Launcher
         /// When the 'Nova Website' link is clicked, go to the nova website with the default browser, if allowed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void webLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        private void WebLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
             {
@@ -299,13 +297,13 @@ namespace Nova.WinForms.Launcher
             // Change the color of the link text by setting LinkVisited 
             // to true.
             webLink.LinkVisited = true;
-            //Call the Process.Start method to open the default browser 
-            //with a URL:
+            // Call the Process.Start method to open the default browser 
+            // with a URL:
             System.Diagnostics.Process.Start(Global.NovaWebSite);
         }
 
         #endregion
 
-    }//NovaLauncher
+    }
 
-}//namespace
+}

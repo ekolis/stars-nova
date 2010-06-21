@@ -42,10 +42,10 @@ namespace Nova.Common
     [Serializable]
     public class TraitEntry
     {
-        public String Name;        // e.g. "Hyper Expansion" or "Regenerating Shields" (may contain spaces)
-        public String Code;        // e.g. "HE" or "RS" (must be unique, all caps, no spaces or punctuation) 
-        public int    Cost;        // in advantage points, negative cost give more points to buy other things
-        public String Description; // Detailed description (paragraph).
+        public string Name;        // e.g. "Hyper Expansion" or "Regenerating Shields" (may contain spaces)
+        public string Code;        // e.g. "HE" or "RS" (must be unique, all caps, no spaces or punctuation) 
+        public int Cost;           // in advantage points, negative cost give more points to buy other things
+        public string Description; // Detailed description (paragraph).
 
         #region Construction
 
@@ -59,7 +59,7 @@ namespace Nova.Common
         /// <param name="c">Cost in advantage points, negative cost give more points to buy other things</param>
         /// <param name="d">Detailed description (paragraph).</param>
         /// ----------------------------------------------------------------------------
-        public TraitEntry(String n, String a, int c, String d)
+        public TraitEntry(string n, string a, int c, string d)
         {
             Name = n;
             Code = a;
@@ -79,7 +79,7 @@ namespace Nova.Common
         public override int GetHashCode()
         {
             int hash = 1;
-            foreach (String key in AllTraits.TraitKeys)
+            foreach (string key in AllTraits.TraitKeys)
             {
                 if (key == this.Code) return hash;
                 else ++hash;
@@ -94,7 +94,7 @@ namespace Nova.Common
         /// </summary>
         /// <returns></returns>
         /// ----------------------------------------------------------------------------
-        public new String ToString()
+        public new string ToString()
         {
             return Name;
         }
@@ -128,7 +128,7 @@ namespace Nova.Common
         public override bool Equals(object trait)
         {
             if (trait is TraitEntry)
-                return (Code == ((TraitEntry)trait).Code);
+                return Code == ((TraitEntry)trait).Code;
             else
                 return false;
         }
@@ -155,7 +155,7 @@ namespace Nova.Common
         /// <param name="b">Trait to compare</param>
         /// <returns>true if the traits are the same trait.</returns>       
         /// ----------------------------------------------------------------------------
-        public static bool operator ==(String a, TraitEntry b)
+        public static bool operator ==(string a, TraitEntry b)
         {
             return a == b.Code;
         }
@@ -168,7 +168,7 @@ namespace Nova.Common
         /// <param name="b">Trait to compare</param>
         /// <returns>true if the traits are the same trait.</returns>       
         /// ----------------------------------------------------------------------------
-        public static bool operator !=(String a, TraitEntry b)
+        public static bool operator !=(string a, TraitEntry b)
         {
             return a != b.Code;
         }
@@ -182,7 +182,7 @@ namespace Nova.Common
         /// <param name="b">Trait to compare</param>
         /// <returns>true if the traits are the same trait.</returns>       
         /// ----------------------------------------------------------------------------
-        public static bool operator ==(TraitEntry a, String b)
+        public static bool operator ==(TraitEntry a, string b)
         {
             return a.Code == b;
         }
@@ -195,7 +195,7 @@ namespace Nova.Common
         /// <param name="b">Trait to compare</param>
         /// <returns>true if the traits are the same trait.</returns>       
         /// ----------------------------------------------------------------------------
-        public static bool operator !=(TraitEntry a, String b)
+        public static bool operator !=(TraitEntry a, string b)
         {
             return a.Code != b;
         }

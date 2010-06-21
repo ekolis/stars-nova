@@ -29,14 +29,8 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
-using Nova.Common;
 using Nova.Client;
 
 namespace Nova.WinForms.Gui
@@ -45,17 +39,18 @@ namespace Nova.WinForms.Gui
     /// This module holds the program entry point and handles all things related to
     /// the main GUI window.
     /// </summary>
+    /// <remarks>
+    /// FIXME (priority 5) - the use of literal strings for "Friend" "Enemy" and "Neutral" is a potential source of errors. An enumaration should be used. Needs to be applied to other code throughout the solution.
+    /// </remarks>
     public partial class PlayerRelations : Form
     {
         private Hashtable Relation = ClientState.Data.PlayerRelations;
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the PlayerRelations class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public PlayerRelations()
         {
             InitializeComponent();
@@ -83,7 +78,7 @@ namespace Nova.WinForms.Gui
         /// Exit dialog button pressed
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void DoneBUtton_Click(object sender, EventArgs e)
         {
@@ -96,7 +91,7 @@ namespace Nova.WinForms.Gui
         /// Selected race has changed, update the relation details
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void SelectedRaceChanged(object sender, EventArgs e)
         {
@@ -122,7 +117,7 @@ namespace Nova.WinForms.Gui
         /// Player relationship changed
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RelationChanged(object sender, EventArgs e)
         {

@@ -1,6 +1,6 @@
 namespace Nova.WinForms.Gui
 {
-    partial class ScoreReport
+    public partial class ScoreReport
     {
         /// <summary>
         /// Required designer variable.

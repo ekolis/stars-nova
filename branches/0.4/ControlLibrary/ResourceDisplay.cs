@@ -27,11 +27,7 @@
 #endregion
 
 using System;
-using System.Collections;
-using System.ComponentModel;
-using System.Drawing;
-using System.Data;
-using System.Windows.Forms;
+
 using Nova.Common;
 
 namespace Nova.ControlLibrary
@@ -53,23 +49,19 @@ namespace Nova.ControlLibrary
 
         #region Construction and Disposal
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction.
+        /// Initializes a new instance of the ResourceDisplay class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ResourceDisplay()
         {
             InitializeComponent();
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)

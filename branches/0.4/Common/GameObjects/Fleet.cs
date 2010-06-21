@@ -31,6 +31,7 @@
 
 
 using System;
+using System.Linq;
 using System.Xml;
 using System.Collections;
 using System.Drawing;
@@ -45,22 +46,24 @@ namespace Nova.Common
     [Serializable]
     public class Fleet : Item
     {
-        public  int        FleetID        = 0;
-        public  ArrayList  FleetShips     = new ArrayList();
-        public  ArrayList  Waypoints      = new ArrayList();
-        public  Cargo      Cargo          = new Cargo(); // FIXME (priority 4) - Cargo should be tracked by either the fleet or the ship, not both. Need to decide on a design for cargo management and document it.
-        public  Fleet      Target         = null;
-        public  Star       InOrbit        = null;
-        public  double     BattleSpeed    = 0; // used by a stack on the battle board
-        public  double     Bearing        = 0;
-        public  double     Cloaked        = 0;
-        public  double     FuelAvailable  = 0;
-        public  double     FuelCapacity   = 0;
-        public  double     TargetDistance = 100;
-        public  int        CargoCapacity  = 0;
-        public  string     BattlePlan     = "Default";
+        public int FleetID = 0;
+        public ArrayList FleetShips = new ArrayList();
+        public ArrayList Waypoints = new ArrayList();
+        /// <summary>
+        /// The cargo carried by the entire fleet. 
+        /// To avoid issues with duplication cargo is traked at the fleet level only.
+        /// </summary>
+        public Cargo Cargo = new Cargo(); 
+        public Fleet Target = null;
+        public Star InOrbit = null;
+        public double BattleSpeed = 0; // used by a stack on the battle board
+        public double Bearing = 0;
+        public double Cloaked = 0;
+        public double FuelAvailable = 0;
+        public double TargetDistance = 100;
+        public string BattlePlan = "Default";
        
-        public  enum       TravelStatus {Arrived, InTransit }
+        public enum TravelStatus { Arrived, InTransit }
 
         #region Construction Initialisation
 
@@ -122,9 +125,6 @@ namespace Nova.Common
 
             FleetShips.Add(ship);
 
-
-            FuelCapacity          = ship.Design.FuelCapacity;
-            CargoCapacity         = ship.Design.CargoCapacity;
             FuelAvailable         = FuelCapacity;
             Type                  = "Fleet";
 
@@ -169,8 +169,7 @@ namespace Nova.Common
 
             InOrbit = null;
 
-            double legDistance = PointUtilities.Distance
-                                (Position, target.Position);
+            double legDistance = PointUtilities.Distance(Position, target.Position);
 
             int warpFactor = target.WarpFactor;
             int speed = warpFactor * warpFactor;
@@ -209,8 +208,7 @@ namespace Nova.Common
             else
             {
                 double travelled = speed * travelTime;
-                Position = PointUtilities.MoveTo
-                                   (Position, target.Position, travelled);
+                Position = PointUtilities.MoveTo(Position, target.Position, travelled);
             }
 
             // Update the travel time left for this year and the total fuel we
@@ -236,9 +234,15 @@ namespace Nova.Common
         {
             double fuelConsumption = 0;
 
+            // Work out how full of cargo the fleet is.
+            double cargoFullness;
+            if (CargoCapacity == 0) cargoFullness = 0;
+            else cargoFullness = ((double)Cargo.Mass) / ((double)CargoCapacity);
+
+
             foreach (Ship ship in FleetShips)
             {
-                fuelConsumption += ship.FuelConsumption(warpFactor, race);
+                fuelConsumption += ship.FuelConsumption(warpFactor, race, (int)(ship.CargoCapacity * cargoFullness)); 
             }
 
             return fuelConsumption;
@@ -253,7 +257,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the long range scan capability of the fleet.
-        /// FIXME (priority 3) - scanning capability can be addative (but the formula is non-linear)
+        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
         /// </summary>
         /// ----------------------------------------------------------------------------
         public int LongRangeScan
@@ -264,9 +268,9 @@ namespace Nova.Common
 
                 foreach (Ship ship in FleetShips)
                 {
-                    if (ship.Design.NormalScan > scanRange)
+                    if (ship.ScanRangeNormal > scanRange)
                     {
-                        scanRange = ship.Design.NormalScan;
+                        scanRange = ship.ScanRangeNormal;
                     }
                 }
                 return scanRange;
@@ -277,7 +281,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the short range scan capability of the fleet.
-        /// FIXME (priority 3) - scanning capability can be addative (but the formula is non-linear)
+        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
         /// </summary>
         /// ----------------------------------------------------------------------------
         public int ShortRangeScan
@@ -288,9 +292,9 @@ namespace Nova.Common
 
                 foreach (Ship ship in FleetShips)
                 {
-                    if (ship.Design.NormalScan > scanRange)
+                    if (ship.ScanRangeNormal > scanRange)
                     {
-                        scanRange = ship.Design.NormalScan;
+                        scanRange = ship.ScanRangeNormal;
                     }
                 }
                 return scanRange;
@@ -312,15 +316,15 @@ namespace Nova.Common
 
                 foreach (Ship ship in FleetShips)
                 {
-                    fleetComposition[ship.Design.Name] = 0;
+                    fleetComposition[ship.Name] = 0;
                 }
 
                 foreach (Ship ship in FleetShips)
                 {
-                    int count = (int)fleetComposition[ship.Design.Name];
+                    int count = (int)fleetComposition[ship.Name];
 
                     count++;
-                    fleetComposition[ship.Design.Name] = count;
+                    fleetComposition[ship.Name] = count;
                 }
 
                 return fleetComposition;
@@ -341,8 +345,9 @@ namespace Nova.Common
 
                 foreach (Ship ship in FleetShips)
                 {
-                    totalMass += ship.TotalMass;
+                    totalMass += ship.Mass;
                 }
+                totalMass += Cargo.Mass;
 
                 return (int)totalMass;
             }
@@ -362,7 +367,7 @@ namespace Nova.Common
 
                 foreach (Ship ship in FleetShips)
                 {
-                    cost = cost + ship.Design.Cost;
+                    cost = cost + ship.Cost;
                 }
 
                 return cost;
@@ -446,7 +451,7 @@ namespace Nova.Common
                 try
                 {
                     Ship ship = FleetShips[0] as Ship;
-                    return ship.Design.ShipHull.ComponentImage;
+                    return ship.Image;
                 }
                 catch
                 {
@@ -553,7 +558,7 @@ namespace Nova.Common
             {
                 foreach (Ship ship in FleetShips)
                 {
-                    if (ship.Design.IsStarbase) return true;
+                    if (ship.IsStarbase) return true;
                 }
                 return false;
             }
@@ -570,28 +575,9 @@ namespace Nova.Common
             {
                 foreach (Ship ship in FleetShips)
                 {
-                    if (ship.Design.CanRefuel) return true;
+                    if (ship.CanRefuel) return true;
                 }
                 return false;
-            }
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Return the dock capacity of the fleet. This is used as a shortcut for a starbase which is normally the only 'ship' in its fleet.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public int DockCapacity
-        {
-            get
-            {
-                int dockCapacity = 0;
-                foreach (Ship ship in FleetShips)
-                {
-                    dockCapacity += ship.Design.DockCapacity;
-                }
-                return dockCapacity;
             }
         }
 
@@ -605,6 +591,40 @@ namespace Nova.Common
         {
             get { return this.Owner + "/" + this.FleetID; }
         }
+
+        /// <summary>
+        /// find the total fuel capacity of all ships in the fleet
+        /// </summary>
+        public int FuelCapacity
+        {
+            get
+            {
+                return FleetShips.Cast<Ship>().Sum(ship => ship.FuelCapacity);
+            }
+        }
+
+        /// <summary>
+        /// find the total cargo capacity of the fleet
+        /// </summary>
+        public int CargoCapacity
+        {
+            get
+            {
+                return FleetShips.Cast<Ship>().Sum(ship => ship.CargoCapacity);
+            }
+        }
+
+        /// <summary>
+        /// find the total dock capacity of the fleet
+        /// </summary>
+        public int DockCapacity
+        {
+            get
+            {
+                return FleetShips.Cast<Ship>().Sum(ship => ship.DockCapacity);
+            }
+        }
+
 
         #endregion
 
@@ -628,20 +648,45 @@ namespace Nova.Common
                 {
                     switch (subnode.Name.ToLower())
                     {
-                        case "fleetid": FleetID = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "targetid": Target = new Fleet(int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture)); break;
-                        case "cargo": Cargo = new Cargo(subnode); break;
-                        case "inorbit": InOrbit = new Star(); InOrbit.Name = ((XmlText)subnode.FirstChild).Value; break;
-                        case "battlespeed": BattleSpeed = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "bearing": Bearing = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "cloaked": Cloaked = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "fuelavailable": FuelAvailable = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "fuelcapacity": FuelCapacity = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "targetdistance": TargetDistance = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "cargocapacity": CargoCapacity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "battleplan": BattlePlan = ((XmlText)subnode.FirstChild).Value; break;
-                        case "ship": Ship ship = new Ship(subnode); FleetShips.Add(ship); break;
-                        case "waypoint": Waypoint waypoint = new Waypoint(subnode); Waypoints.Add(waypoint); break;
+                        case "fleetid":
+                            FleetID = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "targetid":
+                            Target = new Fleet(int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture));
+                            break;
+                        case "cargo":
+                            Cargo = new Cargo(subnode);
+                            break;
+                        case "inorbit":
+                            InOrbit = new Star();
+                            InOrbit.Name = subnode.FirstChild.Value;
+                            break;
+                        case "battlespeed":
+                            BattleSpeed = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "bearing":
+                            Bearing = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "cloaked":
+                            Cloaked = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "fuelavailable":
+                            FuelAvailable = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "targetdistance":
+                            TargetDistance = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "battleplan":
+                            BattlePlan = subnode.FirstChild.Value;
+                            break;
+                        case "ship":
+                            Ship ship = new Ship(subnode);
+                            FleetShips.Add(ship);
+                            break;
+                        case "waypoint":
+                            Waypoint waypoint = new Waypoint(subnode); 
+                            Waypoints.Add(waypoint);
+                            break;
 
                         default: break;
                     }

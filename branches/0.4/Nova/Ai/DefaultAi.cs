@@ -25,50 +25,58 @@
 // This runs as a command line application to have the computer play a nova
 // turn.
 //
-// TODO (priority 3) - suggest placing wrappers around OrderWriter.WriteOrders and GuiState.Initialize 
+// TODO (priority 5) - suggest placing wrappers around OrderWriter.WriteOrders and GuiState.Initialize 
 //        incase these interfaces change when file formats are reworked.
 //
-// TODO (priority 3) - suggest refactor this to better seperate the AI itself from the program that 
+// TODO (priority 5) - suggest refactor this to better seperate the AI itself from the program that 
 //        interfaces with the console and data files.
 // ===========================================================================
 #endregion
 
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 using Nova.Common;
 using Nova.Client;
+using Nova.Common.Components;
 
 namespace Nova.Ai
 {
-    class Program
+    public class Program
     {
         public static void Main(string[] args)
         {
-            String RaceName = null;
-            int TurnNumber = -1;
+            string raceName;
+            int turnNumber = -1;
 
             // ensure registry keys are initialised
             FileSearcher.SetKeys();
             
             // read paramaters for race and turn to play
-            CommandArguments commandArguments = new CommandArguments(args);
-            Console.WriteLine("Nova AI");
-            if (commandArguments.Count < 2)
-            {
-                Console.WriteLine("Usage: Nova_AI <race_name> <turn_number>");
-                return;
-            }
-
-            RaceName = commandArguments[CommandArguments.Option.RaceName];
-            TurnNumber = int.Parse(commandArguments[CommandArguments.Option.Turn], System.Globalization.CultureInfo.InvariantCulture);
-
-            // read in race data
-            Console.WriteLine("Playing turn {0} for race \"{1}\".", TurnNumber, RaceName);
+            CommandArguments commandArguments;
             try
             {
-                // TODO (priority 4) - bypass password entry for AI.
+                commandArguments = new CommandArguments(args);
+                Console.WriteLine("Nova AI");
+                if (commandArguments.Count < 3)
+                {
+                    Console.WriteLine("Usage: Nova --ai -r <race_name> -t <turn_number> -i <intel_file>");
+                    return;
+                }
+
+                raceName = commandArguments[CommandArguments.Option.RaceName];
+                turnNumber = int.Parse(commandArguments[CommandArguments.Option.Turn], System.Globalization.CultureInfo.InvariantCulture);
+            }
+            catch
+            {
+                Console.WriteLine("Usage: Nova --ai -r <race_name> -t <turn_number> -i <intel_file>");
+                return;
+                
+            }
+            // read in race data
+            Console.WriteLine("Playing turn {0} for race \"{1}\".", turnNumber, raceName);
+            try
+            {
+                // TODO (priority 6) - bypass password entry for AI.
                 // Note: passwords have currently been disabled completely, awaiting a new more effective implementation - Dan 02 Mar 10
                 ClientState.Initialize(commandArguments.ToArray()); 
             }
@@ -79,9 +87,57 @@ namespace Nova.Ai
             }
 
             // play turn
-              // currently does nothing: This is where the AI propper should do its work.
+            // Currently just builds factories/mines/defenses
+            try
+            {
+                Intel turnData = ClientState.Data.InputTurn;
 
-            // save turn
+                // currently does nothing: This is where the AI propper should do its work.
+                foreach (Star star in ClientState.Data.PlayerStars.Values)
+                {
+                    star.ManufacturingQueue.Queue.Clear();
+                    ProductionQueue.Item item = new ProductionQueue.Item();
+                    Design design;
+
+                    // build factories (limited by Germanium, and don't want to use it all)
+                    if (star.ResourcesOnHand.Germanium > 50)
+                    {
+                        item.Name = "Factory";
+                        item.Quantity = (int)((star.ResourcesOnHand.Germanium - 50) / 5);
+                        item.Quantity = Math.Max(0, item.Quantity);
+
+                        design = turnData.AllDesigns[ClientState.Data.RaceName + "/" + item.Name] as Design;
+
+                        item.BuildState = design.Cost;
+
+                        star.ManufacturingQueue.Queue.Add(item);
+
+                    }
+
+                    // build mines
+                    item = new ProductionQueue.Item();
+                    item.Name = "Mine";
+                    item.Quantity = 100;
+                    design = turnData.AllDesigns[ClientState.Data.RaceName + "/" + item.Name] as Design;
+                    item.BuildState = design.Cost;
+                    star.ManufacturingQueue.Queue.Add(item);
+
+                    // build defenses
+                    item = new ProductionQueue.Item();
+                    item.Name = "Defenses";
+                    item.Quantity = 100;
+                    design = turnData.AllDesigns[ClientState.Data.RaceName + "/" + item.Name] as Design;
+                    item.BuildState = design.Cost;
+                    star.ManufacturingQueue.Queue.Add(item);
+                }
+
+            }
+            catch (Exception)
+            {
+                Report.FatalError("AI failed to take proper actions.");
+            }
+
+            // save turn)
             try
             {
                 OrderWriter.WriteOrders();

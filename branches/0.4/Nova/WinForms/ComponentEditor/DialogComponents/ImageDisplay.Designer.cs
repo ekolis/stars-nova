@@ -11,7 +11,7 @@
 
 namespace Nova.WinForms.ComponentEditor
 {
-   partial class ImageDisplay
+   public partial class ImageDisplay
    {
       /// <summary> 
       /// Required designer variable.

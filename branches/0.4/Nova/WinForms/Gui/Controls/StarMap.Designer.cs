@@ -1,37 +1,6 @@
 namespace Nova.WinForms.Gui
 {
-   public class MyPanel : System.Windows.Forms.Panel
-   {
-      /*public override bool PreProcessMessage(ref System.Windows.Forms.Message msg)
-      {
-         const int WM_ERASEBKGND = 0x3c;
-         //int i = 10;
-         if (msg.Msg == WM_ERASEBKGND)
-         {
-            base.PreProcessMessage(ref msg);
-            return true;
-         }
-         base.PreProcessMessage(ref msg);
-         return true;
-      }*/
-
-      protected override void WndProc(ref System.Windows.Forms.Message m)
-      {
-         const int WM_ERASEBKGND = 0x14;
-         //int i = 10;
-         if (m.Msg == WM_ERASEBKGND)
-         {
-            //base.WndProc(ref m);
-            //do nothing...
-            return;
-         }
-         base.WndProc(ref m);
-
-      } 
-
-   };
-
-   partial class StarMap
+   public partial class StarMap
    {
 
       
@@ -46,7 +15,8 @@ namespace Nova.WinForms.Gui
       /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
       protected override void Dispose(bool disposing)
       {
-         if (disposing && (components != null)) {
+         if (disposing && (components != null)) 
+         {
             components.Dispose();
          }
          base.Dispose(disposing);
@@ -61,7 +31,7 @@ namespace Nova.WinForms.Gui
       private void InitializeComponent()
       {
           this.components = new System.ComponentModel.Container();
-          this.MapPanel = new Nova.WinForms.Gui.MyPanel();
+          this.MapPanel = new Nova.WinForms.Gui.StarMapPanel();
           this.VScrollBar = new System.Windows.Forms.VScrollBar();
           this.HScrollBar = new System.Windows.Forms.HScrollBar();
           this.ZoomIn = new System.Windows.Forms.Button();
@@ -170,8 +140,7 @@ namespace Nova.WinForms.Gui
 
       #endregion
 
-      //public System.Windows.Forms.Panel MapPanel;      
-      public MyPanel MapPanel;      
+      public StarMapPanel MapPanel;      
       private System.Windows.Forms.VScrollBar VScrollBar;
       private System.Windows.Forms.HScrollBar HScrollBar;
       private System.Windows.Forms.Button ZoomIn;

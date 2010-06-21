@@ -82,7 +82,7 @@ namespace Nova.Server
         // ============================================================================
 
         private static ServerState instance = null;
-        private static Object padlock = new Object();
+        private static object padlock = new object();
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -127,11 +127,11 @@ namespace Nova.Server
 
         #region Methods
 
-        ///-------------------------------------------------------------------
+        /// -------------------------------------------------------------------
         /// <summary>
         /// Restore the persistent data. 
         /// </summary>
-        ///-------------------------------------------------------------------
+        /// -------------------------------------------------------------------
         public static void Restore()
         {
             string fileName = Data.StatePathName;
@@ -145,16 +145,16 @@ namespace Nova.Server
         }
 
 
-        ///-------------------------------------------------------------------
+        /// -------------------------------------------------------------------
         /// <summary>
         /// Save the console persistent data.
         /// </summary>
-        ///-------------------------------------------------------------------
+        /// -------------------------------------------------------------------
         public static void Save()
         {
             if (Data.StatePathName == null)
             {
-                // TODO (priority 4) add the nicities. Update the game files location.
+                // TODO (priority 5) add the nicities. Update the game files location.
                 SaveFileDialog fd = new SaveFileDialog();
                 fd.Title = "Choose a location to save the game.";
 

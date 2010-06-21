@@ -88,8 +88,8 @@ namespace Nova.Client
         // Data private to this module.
         // ============================================================================
 
-        private static ClientState Instance = null;
-        private static string StatePathName = null; // path&filename
+        private static ClientState Instance;
+        private static string StatePathName; // path&filename
         private static AllComponents ComponentData = AllComponents.Data;
 
 
@@ -116,7 +116,7 @@ namespace Nova.Client
         {
             get
             {
-                Object padlock = new Object();
+                object padlock = new object();
 
                 lock (padlock)
                 {
@@ -170,8 +170,8 @@ namespace Nova.Client
 
 
             StatePathName = null;
-            ClientState.Data.RaceName = null;
-            String IntelFileName = null;
+            Data.RaceName = null;
+            string IntelFileName = null;
             int TurnToPlay = -1;
 
             // process the arguments
@@ -179,7 +179,7 @@ namespace Nova.Client
 
             if (commandArguments.Contains(CommandArguments.Option.RaceName))
             {
-                ClientState.Data.RaceName = commandArguments[CommandArguments.Option.RaceName];
+                Data.RaceName = commandArguments[CommandArguments.Option.RaceName];
             }
             if (commandArguments.Contains(CommandArguments.Option.Turn))
             {
@@ -189,7 +189,7 @@ namespace Nova.Client
                 }
                 catch
                 {
-                    String message = "ClientState.cs: Initialize() - Invalid turn number \"" + commandArguments[CommandArguments.Option.Turn] + "\".";
+                    string message = "ClientState.cs: Initialize() - Invalid turn number \"" + commandArguments[CommandArguments.Option.Turn] + "\".";
                     Report.FatalError(message);
 
                 }
@@ -222,7 +222,7 @@ namespace Nova.Client
             // ----------------------------------------------------------------------------
             // Sort out what we need to initialise the ClientState
             // ----------------------------------------------------------------------------
-            bool bLoaded = false;
+            bool isLoaded = false;
 
 
             // 1. the Nova GUI was started directly (e.g. in the debugger). 
@@ -230,14 +230,14 @@ namespace Nova.Client
             //    We will continue an existing game, if any. 
             if (argArray.Length == 0)
             {
-                //     - get GameFolder from the registry - already done.
+                // - get GameFolder from the registry - already done.
 
-                //     - look for races and ask the user to pick one. 
+                // - look for races and ask the user to pick one. 
                 ClientState.Data.RaceName = SelectRace(ClientState.Data.GameFolder);
                 if (ClientState.Data.RaceName != null && ClientState.Data.RaceName != "")
                 {
                     
-                    bLoaded = true;
+                    isLoaded = true;
                 }
                 else
                 {
@@ -267,13 +267,13 @@ namespace Nova.Client
 
             // 2. the Nova GUI was started from the launcher open a game option. 
             //    There will be a .intel file listed in the argArray.
-            if (! bLoaded && IntelFileName != null)
+            if (! isLoaded && IntelFileName != null)
             {
                 if (File.Exists(IntelFileName))
                 {
-                    //    Evenything we need should be found in there. 
+                    // Evenything we need should be found in there. 
                     IntelReader.ReadIntel(IntelFileName);
-                    bLoaded = true;
+                    isLoaded = true;
                 }
                 else
                 {
@@ -286,7 +286,7 @@ namespace Nova.Client
             //    There will be a StateFileName in the argArray.
             // NB: we already copied it to ClientState.Data.StateFileName, but other
             // code sets that too, so check the arguments to see if it was there.
-            if (!bLoaded && commandArguments.Contains(CommandArguments.Option.StateFileName))
+            if (!isLoaded && commandArguments.Contains(CommandArguments.Option.StateFileName))
             {
                 // The state file is not sufficient to load a turn. We need the .intel
                 // for this race. What race? The state file can tell us.
@@ -295,10 +295,10 @@ namespace Nova.Client
                 if (File.Exists(StatePathName))
                 {
                     ClientState.Restore();
-                    String newIntelFileName = Path.GetDirectoryName(StatePathName) +
+                    string newIntelFileName = Path.GetDirectoryName(StatePathName) +
                         ClientState.Data.RaceName + Global.IntelExtension;
                     IntelReader.ReadIntel(IntelFileName);
-                    bLoaded = true;
+                    isLoaded = true;
                 }
                 else
                 {
@@ -308,7 +308,7 @@ namespace Nova.Client
             }
 
 
-            if (!bLoaded)
+            if (!isLoaded)
             {
                 Report.FatalError("ClientState.cs Initialise() - Failed to find any .intel when initialising turn");
             }
@@ -337,8 +337,8 @@ namespace Nova.Client
             // ----------------------------------------------------------------------------
             // Check the password for access to this race's data
             // ----------------------------------------------------------------------------
-            /* TODO (priority 4) need to rework how passwords are used. They should be used to decrypt files. The current process is week security as the files are not encrypted and the password easily bypassed.
-             * TODO (priority 4) ensure the AI can open its files without user input.
+            /* TODO (priority 6) need to rework how passwords are used. They should be used to decrypt files. The current process is week security as the files are not encrypted and the password easily bypassed.
+             * TODO (priority 7) ensure the AI can open its files without user input.
              * This section has been commented out until it can be reworked as it does no good and therefore isn't worth working out a bypass for the AI until it is reworked.
              * NB: this is how a hacker/cheat would bypass the current security - build a version of Nova GUI with this section commented out.
             // On first run a password is required to 'decrypt' the race's files. The password should be remembered by the running application between turns, until the application terminates.
@@ -376,18 +376,18 @@ namespace Nova.Client
         /// race parameters (e.g. initial technology levels, etc.).
         /// </summary>
         /// <remarks>
-        /// FIXME (priority 4) - this is unsafe as the .race file may have changed since the game was
+        /// FIXME (priority 6) - this is unsafe as the .race file may have changed since the game was
         /// generated. Current thinking is that this should be included in the .intel file
         /// every turn. -- Dan Vale 10 Jan 10.
         /// </remarks>
         /// ----------------------------------------------------------------------------
         private static void ProcessRaceDefinition()
         {
-            string raceFileName = Path.Combine(FileSearcher.GetFolder( Global.RaceFolderKey, Global.RaceFolderName),
-                                               ClientState.Data.RaceName + Global.RaceExtension);
+            string raceFolder = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
+            string raceFileName = Path.Combine(raceFolder, Data.RaceName + Global.RaceExtension);
             if (File.Exists(raceFileName))
             {
-                ClientState.Data.PlayerRace = new Race(raceFileName);
+                Data.PlayerRace = new Race(raceFileName);
 
                 ProcessPrimaryTraits();
                 ProcessSecondaryTraits();
@@ -406,7 +406,7 @@ namespace Nova.Client
         /// ----------------------------------------------------------------------------
         private static void ProcessPrimaryTraits()
         {
-            // TODO (priority 3) Special Components
+            // TODO (priority 4) Special Components
             // Races are granted access to components currently based on tech level and primary/secondary traits (not tested).
             // Need to grant special access in a few circumstances
             // 1. JOAT Hulls with pen scans. (either make a different hull with a built in pen scan, of the same name and layout; or modify scanning and scan display functions)
@@ -488,7 +488,7 @@ namespace Nova.Client
 
 #if (DEBUG)
             // Just for testing
-            // TODO (priority 3) get this from a settings file, or other central location for convenience.
+            // TODO (priority 4) get this from a settings file, or other central location for convenience.
             ClientState.Data.ResearchLevel = new TechLevel(26);
 #endif
 
@@ -506,13 +506,13 @@ namespace Nova.Client
         /// ----------------------------------------------------------------------------
         private static void ProcessSecondaryTraits()
         {
-            // TODO (priority 3) finish the rest of the LRTs.
+            // TODO (priority 4) finish the rest of the LRTs.
             // Not all of these properties are fully implemented here, as they may require changes elsewhere in the game engine.
-            // Where a trait is listed as 'TODO ??? (priority 3)' this means it first needs to be checked if it has been implemented elsewhere.
+            // Where a trait is listed as 'TODO ??? (priority 4)' this means it first needs to be checked if it has been implemented elsewhere.
 
             if (ClientState.Data.PlayerRace.Traits.Contains("IFE"))
             {
-                // Ships burn 15% less fuel : TODO ??? (priority 3)
+                // Ships burn 15% less fuel : TODO ??? (priority 4)
 
                 // Fuel Mizer and Galaxy Scoop engines available : Implemented in component definitions.
 
@@ -530,17 +530,17 @@ namespace Nova.Client
             if (ClientState.Data.PlayerRace.Traits.Contains("ARM"))
             {
                 // Grants access to three additional mining hulls and two new robots : implemented in component definitions.
-                // Start the game with two midget miners : TODO ??? (priority 3)
+                // Start the game with two midget miners : TODO ??? (priority 4)
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("ISB"))
             {
                 // Two additional starbase designs (space dock & ultra station) : implemented in component definitions.
-                // Starbases have built in 20% cloacking : TODO ??? (priority 3)
+                // Starbases have built in 20% cloacking : TODO ??? (priority 4)
 
                 // Improved Starbases gives a 20% discount to starbase hulls.
                 foreach (Component component in ClientState.Data.AvailableComponents.Values)
                 {
-                    // TODO (priority 1) - work out why it sometimes is null.
+                    // TODO (priority 3) - work out why it sometimes is null.
                     if (component == null || component.Type != "Hull") continue;
                     Hull hull = component.Properties["Hull"] as Hull;
                     if (hull == null || !hull.IsStarbase) continue;
@@ -555,15 +555,15 @@ namespace Nova.Client
 
             if (ClientState.Data.PlayerRace.Traits.Contains("GR"))
             {
-                // 50% resources go to selected research field. 15% to each other field. 115% total. TODO ??? (priority 3)
+                // 50% resources go to selected research field. 15% to each other field. 115% total. TODO ??? (priority 4)
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("UR"))
             {
-                // Affects minerals and resources returned due to scrapping. TODO ??? (priority 3).
+                // Affects minerals and resources returned due to scrapping. TODO ??? (priority 4).
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("MA"))
             {
-                // One instance of mineral alchemy costs 25 resources instead of 100. TODO ??? (priority 3)
+                // One instance of mineral alchemy costs 25 resources instead of 100. TODO ??? (priority 4)
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("NRSE"))
             {
@@ -575,28 +575,28 @@ namespace Nova.Client
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("CE"))
             {
-                // Engines cost 50% less TODO (priority 3)
-                // Engines have a 10% chance of not engaging above warp 6 : TODO ??? (priority 3)
+                // Engines cost 50% less TODO (priority 4)
+                // Engines have a 10% chance of not engaging above warp 6 : TODO ??? (priority 4)
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("NAS"))
             {
                 // No access to standard penetrating scanners : implemented in component definitions.
-                // Ranges of conventional scanners are doubled : TODO ??? (priority 3)
+                // Ranges of conventional scanners are doubled : TODO ??? (priority 4)
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("LSP"))
             {
-                // Starting population is 17500 instead of 25000 : TODO ??? (priority 3)
+                // Starting population is 17500 instead of 25000 : TODO ??? (priority 4)
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("BET"))
             {
-                // TODO ??? (priority 3)
+                // TODO ??? (priority 4)
                 // New technologies initially cost twice as much to build. 
                 // Once all tech requirements are exceeded cost is normal. 
                 // Miniaturization occurs at 5% per level up to 80% (instead of 4% per level up to 75%)
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("RS"))
             {
-                // TODO ??? (priority 3)
+                // TODO ??? (priority 4)
                 // All shields are 40% stronger than the listed rating.
                 // Shields regenrate at 10% of max strength each round of combat.
                 // All armors are 50% of their rated strength.
@@ -643,7 +643,7 @@ namespace Nova.Client
             // (multiplayer game with all players playing from a single game directory).
             // ----------------------------------------------------------------------------
 
-            String raceName = SelectRace(gameFolder);
+            string raceName = SelectRace(gameFolder);
             Restore(gameFolder, raceName);
 
 
@@ -677,6 +677,7 @@ namespace Nova.Client
 
                         // Read in binary state file
                         ClientState.Data = Serializer.Deserialize(stateFile) as ClientState;
+
                     }
                 }
                 catch (Exception e)
@@ -779,11 +780,11 @@ namespace Nova.Client
         /// </summary>
         /// <param name="gameFolder">The folder to look in for races.</param>
         /// <remarks>
-        /// FIXME (priority 4) - This is unsafe as these may not be the races playing.
+        /// FIXME (priority 6) - This is unsafe as these may not be the races playing.
         /// </remarks>
         /// <returns>The name of the race to play.</returns>
         /// ----------------------------------------------------------------------------
-        private static string SelectRace(String gameFolder)
+        private static string SelectRace(string gameFolder)
         {
             string raceName = null;
 
@@ -792,8 +793,7 @@ namespace Nova.Client
 
             if (raceFiles.Length == 0)
             {
-                Report.FatalError
-                ("The Nova GUI cannot start unless a race file is present");
+                Report.FatalError("The Nova GUI cannot start unless a race file is present");
             }
 
 
@@ -803,7 +803,7 @@ namespace Nova.Client
 
                 foreach (FileInfo file in raceFiles)
                 {
-                    string pathName = file.FullName; ;
+                    string pathName = file.FullName;
                     raceName = Path.GetFileNameWithoutExtension(pathName);
                     raceDialog.RaceList.Items.Add(raceName);
                 }
@@ -813,8 +813,7 @@ namespace Nova.Client
                 DialogResult result = raceDialog.ShowDialog();
                 if (result == DialogResult.Cancel)
                 {
-                    Report.FatalError
-                    ("The Nova GUI cannot start unless a race has been selected");
+                    Report.FatalError("The Nova GUI cannot start unless a race has been selected");
                 }
 
                 raceName = raceDialog.RaceList.SelectedItem as string;

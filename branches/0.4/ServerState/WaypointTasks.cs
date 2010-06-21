@@ -26,14 +26,6 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.IO;
-using System.Collections;
-using System.Drawing;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization.Formatters.Binary;
-
 using Nova.Common;
 using Nova.Server;
 
@@ -105,7 +97,7 @@ namespace Nova.WinForms.Console
                 {
                     message.Text += " but it is already occupied.";
                 }
-                else if (fleet.Cargo.Colonists == 0)
+                else if (fleet.Cargo.ColonistsInKilotons == 0)
                 {
                     message.Text += " but no colonists were on board.";
                 }
@@ -119,7 +111,7 @@ namespace Nova.WinForms.Console
                     star.ResourcesOnHand.Ironium = fleet.Cargo.Ironium;
                     star.ResourcesOnHand.Boranium = fleet.Cargo.Boranium;
                     star.ResourcesOnHand.Germanium = fleet.Cargo.Germanium;
-                    star.Colonists = fleet.Cargo.Colonists * 1000;
+                    star.Colonists = fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
                     star.Owner = fleet.Owner;
                     fleet.Cargo = new Cargo();
                     Scrap(fleet, star, true);
@@ -150,24 +142,38 @@ namespace Nova.WinForms.Console
                 return;
             }
 
-            Star target = ServerState.Data.AllStars[waypoint.Destination]
+            Star targetStar = ServerState.Data.AllStars[waypoint.Destination]
                         as Star;
 
+
+
             message.Text = "Fleet " + fleet.Name + " has unloaded its cargo at "
-                          + target.Name;
+                          + targetStar.Name;
 
             ServerState.Data.AllMessages.Add(message);
 
             waypoint.Task = "None";
-            Star star = ServerState.Data.AllStars[waypoint.Destination]
-                            as Star;
 
-            star.ResourcesOnHand.Ironium = fleet.Cargo.Ironium;
-            star.ResourcesOnHand.Boranium = fleet.Cargo.Boranium;
-            star.ResourcesOnHand.Germanium = fleet.Cargo.Germanium;
-            star.Colonists = fleet.Cargo.Colonists * 1000;
-            star.Owner = fleet.Owner;
-            fleet.Cargo = new Cargo();
+            targetStar.ResourcesOnHand.Ironium += fleet.Cargo.Ironium;
+            targetStar.ResourcesOnHand.Boranium += fleet.Cargo.Boranium;
+            targetStar.ResourcesOnHand.Germanium += fleet.Cargo.Germanium;
+
+            fleet.Cargo.Ironium = 0;
+            fleet.Cargo.Boranium = 0;
+            fleet.Cargo.Germanium = 0;
+
+            // check if this is normal transportation or an invasion
+            if (fleet.Owner != targetStar.Owner && fleet.Cargo.ColonistsInKilotons != 0)
+            {
+                Invade.Planet(fleet);
+
+            }
+            else
+            {
+                targetStar.Colonists += fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
+                fleet.Cargo.ColonistsInKilotons = 0;
+            }
+
         }
 
 
@@ -180,8 +186,7 @@ namespace Nova.WinForms.Console
         /// <param name="amount"></param>
         /// <param name="resources"></param>
         /// ----------------------------------------------------------------------------
-        public static void Scrap(Ship ship, Star star, double amount,
-                                 double resources)
+        public static void Scrap(Ship ship, Star star, double amount, double resources)
         {
             double factor = amount / 100;
 

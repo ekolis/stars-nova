@@ -1,6 +1,6 @@
 namespace Nova.WinForms.Gui
 {
-   partial class PlanetReport
+   public partial class PlanetReport
    {
       /// <summary>
       /// Required designer variable.

@@ -50,12 +50,12 @@ namespace Nova.Common
     [Serializable]
     public class Item
     {
-        public int        Mass     = 0;
-        public Resources  Cost     = new Resources();
-        public string     Name     = null;
-        public string     Owner    = null;
-        public string     Type     = null;
-        public Point      Position = new Point(0, 0);
+        public int Mass;
+        public Resources Cost = new Resources();
+        public string Name;
+        public string Owner;
+        public string Type;
+        public Point Position = new Point(0, 0);
 
         #region Construction
 
@@ -158,8 +158,8 @@ namespace Nova.Common
                             Type = ((XmlText)subnode.FirstChild).Value;
                             break;
                         case "position":
-                            Position.X = int.Parse(((subnode.SelectSingleNode("X")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                            Position.Y = int.Parse(((subnode.SelectSingleNode("Y")).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Position.X = int.Parse(subnode.SelectSingleNode("X").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Position.Y = int.Parse(subnode.SelectSingleNode("Y").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "resource":
                             Cost = new Resources(subnode);
@@ -207,5 +207,5 @@ namespace Nova.Common
 
         #endregion
 
-    }//Item
-}//namespace
+    }
+}

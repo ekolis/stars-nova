@@ -118,7 +118,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public static bool operator <=(Resources lhs, Resources rhs)
         {
-            return (rhs >= lhs);
+            return rhs >= lhs;
         }
 
 

@@ -70,8 +70,8 @@ namespace Nova.Common
         public int TargetsToMeet = 1;
         public int MinimumGameTime = 50;
 
-        public String SettingsPathName = null;
-        public String GameName = "Feel the Nova";
+        public string SettingsPathName;
+        public string GameName = "Feel the Nova";
 
         #region Singleton
 
@@ -79,8 +79,8 @@ namespace Nova.Common
         // Data private to this module.
         // ============================================================================
 
-        private static GameSettings instance = null;
-        private static Object padlock = new Object();
+        private static GameSettings instance;
+        private static object padlock = new object();
 
 
         // ============================================================================
@@ -159,7 +159,7 @@ namespace Nova.Common
 
             if (Data.SettingsPathName == null)
             {
-                // TODO (priority 4) add the nicities. Update the game files location.
+                // TODO (priority 5) add the nicities. Update the game files location.
                 SaveFileDialog fd = new SaveFileDialog();
                 fd.Title = "Choose a location to save the game settings.";
 

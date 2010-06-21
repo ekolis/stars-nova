@@ -52,31 +52,30 @@ namespace Nova.Common
     [Serializable]
     public sealed class Race
     {
-        public EnvironmentTolerance GravityTolerance     = new EnvironmentTolerance();
-        public EnvironmentTolerance RadiationTolerance   = new EnvironmentTolerance();
+        public EnvironmentTolerance GravityTolerance = new EnvironmentTolerance();
+        public EnvironmentTolerance RadiationTolerance = new EnvironmentTolerance();
         public EnvironmentTolerance TemperatureTolerance = new EnvironmentTolerance();
 
-        public TechLevel            ResearchCosts        = new TechLevel(0);
+        public TechLevel ResearchCosts = new TechLevel(0);
 
-        // public string            Type; // depreciated - use this.Traits.Primary or this.Traits.SetPrimary()
-        public RacialTraits         Traits               = new RacialTraits(); // Collection of all the race's traits, including the primary.
-        public int                  MineBuildCost;
+        public RacialTraits Traits = new RacialTraits(); // Collection of all the race's traits, including the primary.
+        public int MineBuildCost;
 
-        public string               PluralName;
-        public string               Name;
-        public string               Password;
-        public RaceIcon             Icon                 = new RaceIcon();
+        public string PluralName;
+        public string Name;
+        public string Password;
+        public RaceIcon Icon = new RaceIcon();
 
         // These parameters affect the production rate of each star (used in the
         // Star class Update method).
-        public int                  FactoryBuildCost;
-        public double               ColonistsPerResource;
-        public double               FactoryProduction;
-        public double               OperableFactories;
-        public double               MineProductionRate;
-        public double               OperableMines;
-        public double               MaxPopulation        = 1000000;
-        public double               GrowthRate;
+        public int FactoryBuildCost;
+        public double ColonistsPerResource;
+        public double FactoryProduction;
+        public double OperableFactories;
+        public double MineProductionRate;
+        public double OperableMines;
+
+        public double GrowthRate;
 
         #region Construction
 
@@ -91,7 +90,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="fileName">A nova save file containing a race.</param>
         /// ----------------------------------------------------------------------------
-        public Race(String fileName)
+        public Race(string fileName)
         {
             XmlDocument xmldoc = new XmlDocument();
             FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
@@ -114,7 +113,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public Resources GetFactoryResources()
         {
-            int factoryBuildCostGerm = (HasTrait("CF") ? 3 : 4);
+            int factoryBuildCostGerm = HasTrait("CF") ? 3 : 4;
             return new Resources(0, 0, factoryBuildCostGerm, FactoryBuildCost);
         }
 
@@ -203,6 +202,18 @@ namespace Nova.Common
             get { return Median(GravityTolerance) * 10; }
         }
 
+        public double MaxPopulation
+        {
+            get
+            {
+                int maxPop = Global.NominalMaximumPlanetaryPopulation;
+                if (HasTrait("HE")) maxPop = (int)(maxPop * Global.PopulationFactorHyperExpansion);
+                if (HasTrait("JOAT")) maxPop = (int)(maxPop * Global.PopulationFactorJackOfAllTrades);
+                if (HasTrait("OBRM")) maxPop = (int)(maxPop * Global.PopulationFactorOnlyBasicRemoteMining);
+                return maxPop;
+            }
+        }
+
         #endregion
 
         #region Load Save Xml
@@ -286,39 +297,78 @@ namespace Nova.Common
             RadiationTolerance = new EnvironmentTolerance();
             TemperatureTolerance = new EnvironmentTolerance();
 
-            XmlNode xmlnode = (XmlNode)xmldoc.DocumentElement;
+            XmlNode xmlnode = xmldoc.DocumentElement;
             while (xmlnode != null)
             {
                 try
                 {
-                    // Report.Information("node name = '" + xmlnode.Name + "'");
                     switch (xmlnode.Name.ToLower())
                     {
-                        case "root": xmlnode = xmlnode.FirstChild; continue;
-                        case "race": xmlnode = xmlnode.FirstChild; continue;
-                        case "gravitytolerance": this.GravityTolerance = new EnvironmentTolerance(xmlnode.FirstChild); break;
-                        case "radiationtolerance": this.RadiationTolerance = new EnvironmentTolerance(xmlnode.FirstChild); break;
-                        case "temperaturetolerance": this.TemperatureTolerance = new EnvironmentTolerance(xmlnode.FirstChild); break;
-                        case "tech": this.ResearchCosts = new TechLevel(xmlnode); break;
+                        case "root":
+                            xmlnode = xmlnode.FirstChild;
+                            continue;
+                        case "race":
+                            xmlnode = xmlnode.FirstChild;
+                            continue;
+                        case "gravitytolerance":
+                            this.GravityTolerance = new EnvironmentTolerance(xmlnode.FirstChild);
+                            break;
+                        case "radiationtolerance":
+                            this.RadiationTolerance = new EnvironmentTolerance(xmlnode.FirstChild);
+                            break;
+                        case "temperaturetolerance":
+                            this.TemperatureTolerance = new EnvironmentTolerance(xmlnode.FirstChild);
+                            break;
+                        case "tech":
+                            this.ResearchCosts = new TechLevel(xmlnode);
+                            break;
 
-                        case "lrt": this.Traits.Add(((XmlText)xmlnode.FirstChild).Value); break;
+                        case "lrt":
+                            this.Traits.Add(xmlnode.FirstChild.Value);
+                            break;
 
-                        case "minebuildcost": this.MineBuildCost = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "prt": this.Traits.SetPrimary(((XmlText)xmlnode.FirstChild).Value); break;
-                        case "pluralname": this.PluralName = ((XmlText)xmlnode.FirstChild).Value; break;
-                        case "name": this.Name = ((XmlText)xmlnode.FirstChild).Value; break;
-                        case "password": this.Password = ((XmlText)xmlnode.FirstChild).Value; break;
+                        case "minebuildcost":
+                            this.MineBuildCost = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "prt":
+                            this.Traits.SetPrimary(xmlnode.FirstChild.Value);
+                            break;
+                        case "pluralname":
+                            this.PluralName = xmlnode.FirstChild.Value;
+                            break;
+                        case "name":
+                            this.Name = xmlnode.FirstChild.Value;
+                            break;
+                        case "password":
+                            this.Password = xmlnode.FirstChild.Value;
+                            break;
 
-                        // TODO (priority 3) - load the RaceIcon
-                        case "raceiconname": this.Icon.Source = ((XmlText)xmlnode.FirstChild).Value; break;
+                        // TODO (priority 5) - load the RaceIcon
+                        case "raceiconname":
+                            this.Icon.Source = xmlnode.FirstChild.Value;
+                            break;
 
-                        case "factorybuildcost": this.FactoryBuildCost = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "colonistsperresource": this.ColonistsPerResource = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "factoryproduction": this.FactoryProduction = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "operablefactories": this.OperableFactories = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "mineproductionrate": this.MineProductionRate = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "operablemines": this.OperableMines = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
-                        case "growthrate": this.GrowthRate = int.Parse(((XmlText)xmlnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture); break;
+                        case "factorybuildcost":
+                            this.FactoryBuildCost = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "colonistsperresource":
+                            this.ColonistsPerResource = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "factoryproduction":
+                            this.FactoryProduction = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "operablefactories":
+                            this.OperableFactories = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "mineproductionrate":
+                            this.MineProductionRate = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "operablemines":
+                            this.OperableMines = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "growthrate":
+                            this.GrowthRate = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
 
                         default: break;
                     }
@@ -326,7 +376,7 @@ namespace Nova.Common
                 }
                 catch (Exception e)
                 {
-                    Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
+                    Report.FatalError(e.Message + "\n Details: \n" + e);
                 }
 
                 xmlnode = xmlnode.NextSibling;

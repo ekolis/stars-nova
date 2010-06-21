@@ -94,13 +94,31 @@ namespace Nova.Common.Components
 
         #region Operators
 
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            Value += ((IntegerProperty)op2).Value;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            Value *= scalar;
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
         /// <param name="op1">LHS operand.</param>
         /// <param name="op2">RHS operand.</param>
-        /// <returns>An <see cref="IntegerProprety"/> equal to the linear sum of op1 and op2.</returns>
+        /// <returns>An <see cref="IntegerProperty"/> equal to the linear sum of op1 and op2.</returns>
         /// ----------------------------------------------------------------------------
         public static IntegerProperty operator +(IntegerProperty op1, IntegerProperty op2)
         {
@@ -120,7 +138,7 @@ namespace Nova.Common.Components
         {
             return new IntegerProperty(op1.Value * scalar);
         }
-
+        
         #endregion
 
         #region Load Save Xml
@@ -159,7 +177,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {

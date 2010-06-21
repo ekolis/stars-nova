@@ -35,6 +35,9 @@ using Nova.Common;
 
 namespace Nova.ControlLibrary
 {
+    /// <summary>
+    /// A dialog for transferring cargo between a planet and a ship.
+    /// </summary>
     public class CargoDialog : System.Windows.Forms.Form
     {
         private Fleet fleet;
@@ -56,7 +59,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction.
+        /// Initializes a new instance of the CargoDialog class.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public CargoDialog()
@@ -65,12 +68,10 @@ namespace Nova.ControlLibrary
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clean up any resources being used.
         /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
             if (disposing)
@@ -116,7 +117,7 @@ namespace Nova.ControlLibrary
             this.cancelButton.Size = new System.Drawing.Size(75, 23);
             this.cancelButton.TabIndex = 9;
             this.cancelButton.Text = "Cancel";
-            this.cancelButton.Click += new System.EventHandler(this.cancelButton_Click);
+            this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
             // 
             // okButton
             // 
@@ -127,7 +128,7 @@ namespace Nova.ControlLibrary
             this.okButton.Size = new System.Drawing.Size(75, 23);
             this.okButton.TabIndex = 10;
             this.okButton.Text = "OK";
-            this.okButton.Click += new System.EventHandler(this.okButton_Click);
+            this.okButton.Click += new System.EventHandler(this.OkButton_Click);
             // 
             // IroniumTransfer
             // 
@@ -241,9 +242,9 @@ namespace Nova.ControlLibrary
         /// Process cancel button.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void cancelButton_Click(object sender, System.EventArgs e)
+        private void CancelButton_Click(object sender, System.EventArgs e)
         {
             Close();
         }
@@ -254,20 +255,20 @@ namespace Nova.ControlLibrary
         /// Process the OK button being pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void okButton_Click(object sender, System.EventArgs e)
+        private void OkButton_Click(object sender, System.EventArgs e)
         {
             fleet.Cargo.Ironium = IroniumTransfer.Value;
             fleet.Cargo.Boranium = boroniumTransfer.Value;
             fleet.Cargo.Germanium = GermaniumTransfer.Value;
-            fleet.Cargo.Colonists = colonistsTransfer.Value;
+            fleet.Cargo.ColonistsInKilotons = colonistsTransfer.Value;
 
             Star star = fleet.InOrbit;
             star.ResourcesOnHand.Ironium -= IroniumTransfer.Taken;
             star.ResourcesOnHand.Boranium -= boroniumTransfer.Taken;
             star.ResourcesOnHand.Germanium -= GermaniumTransfer.Taken;
-            star.Colonists -= colonistsTransfer.Taken * 1000;
+            star.Colonists -= colonistsTransfer.Taken * Global.ColonistsPerKiloton;
 
             Close();
         }
@@ -294,13 +295,13 @@ namespace Nova.ControlLibrary
             IroniumTransfer.Value = (int)fleet.Cargo.Ironium;
             boroniumTransfer.Value = (int)fleet.Cargo.Boranium;
             GermaniumTransfer.Value = (int)fleet.Cargo.Germanium;
-            colonistsTransfer.Value = (int)fleet.Cargo.Colonists;
+            colonistsTransfer.Value = (int)fleet.Cargo.ColonistsInKilotons;
 
             Star star = fleet.InOrbit;
             IroniumTransfer.Available = (int)star.ResourcesOnHand.Ironium;
             boroniumTransfer.Available = (int)star.ResourcesOnHand.Boranium;
             GermaniumTransfer.Available = (int)star.ResourcesOnHand.Germanium;
-            colonistsTransfer.Available = (int)star.Colonists / 1000;
+            colonistsTransfer.Available = (int)star.Colonists / Global.ColonistsPerKiloton;
 
             IroniumTransfer.Limit = CargoBay;
             boroniumTransfer.Limit = CargoBay;

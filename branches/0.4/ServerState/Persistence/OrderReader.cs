@@ -47,7 +47,7 @@ namespace Nova.Server
 {
     public static class OrderReader
     {
-        static ServerState StateData = ServerState.Data;
+        private static ServerState StateData = ServerState.Data;
 
         #region Methods
 
@@ -63,7 +63,7 @@ namespace Nova.Server
 
             foreach (Race Race in StateData.AllRaces.Values)
             {
-                // TODO (priority 3) only load those that are not yet turned in.
+                // TODO (priority 4) only load those that are not yet turned in.
                 ReadPlayerTurn(Race);
             }
         
@@ -124,7 +124,7 @@ namespace Nova.Server
                 LinkOrderReferences(playerOrders);
 
                 // TODO (priority 4) - check we are on the right turn before processing, and perhaps flag when we have processed the orders
-                // TODO (priority 4) fine tune so the client can't modify things like a star's position, i.e. treat the data as orders only.
+                // TODO (priority 5) fine tune so the client can't modify things like a star's position, i.e. treat the data as orders only.
                 foreach (Design design in playerOrders.RaceDesigns.Values)
                 {
                     StateData.AllDesigns[design.Key] = design;
@@ -214,5 +214,5 @@ namespace Nova.Server
 
         #endregion
 
-    }//OrderReader
-}//namespace
+    }
+}

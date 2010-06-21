@@ -59,22 +59,20 @@ namespace Nova.Common.Components
         // Data private to this module.
         // ============================================================================
 
-        private static String saveFilePath;
-        private static String graphicsFilePath;
+        private static string saveFilePath;
+        private static string graphicsFilePath;
         private static bool DisableComponentGraphics = false; // if we can't find them
 
         #endregion
 
         #region Singleton Setup
 
-        private static AllComponents Instance = null;
-        private static Object Padlock = new Object();
+        private static AllComponents Instance;
+        private static object Padlock = new object();
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Private constructor to prevent anyone else creating instances of this class.
+        /// Prevents a default instance of the AllComponents class from being created.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         private AllComponents()
         {
         }
@@ -121,7 +119,7 @@ namespace Nova.Common.Components
         /// <param name="ComponentName">The Name of the Component to look for.</param>
         /// <returns>True if the component is included.</returns>
         /// ----------------------------------------------------------------------------
-        public bool Contains(String ComponentName)
+        public bool Contains(string ComponentName)
         {
             return Data.Components.ContainsKey(ComponentName);
         }
@@ -242,7 +240,7 @@ namespace Nova.Common.Components
                         return;
                     }
 
-                }//while loading nodes
+                }
                 callback.Success = true;
 
             }
@@ -282,7 +280,7 @@ namespace Nova.Common.Components
                 // Setup the save location and stream.
                 if (GetPath() == null && GetNewSaveFile() == null)
                 {
-                    throw (new System.IO.FileNotFoundException());
+                    throw new System.IO.FileNotFoundException();
                 }
                 FileStream saveFile = new FileStream(saveFilePath, FileMode.Create);
 
@@ -345,7 +343,7 @@ namespace Nova.Common.Components
             }
             return null;
 
-        }// Get New Save File
+        }
 
         
         //-------------------------------------------------------------------
@@ -384,7 +382,8 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static string ComponentFile
         {
-            get {
+            get 
+            {
                 if (File.Exists(saveFilePath)) return saveFilePath;
 
                 ComponentFile = FileSearcher.GetFile(Global.ComponentFolderKey, false, "../../..", Global.ComponentFolderName, Global.ComponentFileName, true);
@@ -417,7 +416,7 @@ namespace Nova.Common.Components
         /// <summary>
         /// Ask the user for the graphics directory.
         /// </summary>
-        /// <returns>The path to the graphics directory if found or null</returns>
+        /// <returns>The path to the graphics directory if found or null.</returns>
         /// ----------------------------------------------------------------------------
         private static string GetNewGraphicsPath()
         {
@@ -427,9 +426,9 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Extract the path to the component graphics from the registry
+        /// Extract the path to the component graphics from the registry.
         /// </summary>
-        /// <returns>Path to the Graphics folder if found or null</returns>
+        /// <returns>Path to the Graphics folder if found or null.</returns>
         /// ----------------------------------------------------------------------------
         private static string GetGraphicsPath()
         {
@@ -484,5 +483,5 @@ namespace Nova.Common.Components
         }
 
         #endregion
-    }//AllComponents
-}//namespace
+    }
+}

@@ -153,12 +153,15 @@ namespace Nova.Server
             // ----------------------------------------------------------------------------
 
             Score.Race = raceName;
-            Score.TechLevel = (int)StateData.AllTechLevels[raceName];
+            if (StateData.AllTechLevels.Contains(raceName))
+            {
+                Score.TechLevel = (int)StateData.AllTechLevels[raceName];
 
-            if (Score.TechLevel < 4) TotalScore += 1;
-            if (Score.TechLevel > 9) TotalScore += 4;
-            if (Score.TechLevel > 3 && Score.TechLevel < 7) TotalScore += 2;
-            if (Score.TechLevel > 6 && Score.TechLevel < 10) TotalScore += 3;
+                if (Score.TechLevel < 4) TotalScore += 1;
+                if (Score.TechLevel > 9) TotalScore += 4;
+                if (Score.TechLevel > 3 && Score.TechLevel < 7) TotalScore += 2;
+                if (Score.TechLevel > 6 && Score.TechLevel < 10) TotalScore += 3;
+            }
 
             Score.Score = (int)TotalScore;
 

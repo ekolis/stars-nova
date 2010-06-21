@@ -32,7 +32,7 @@ using System.Xml;
 namespace Nova.Common.Components
 {
     /// <summary>
-    /// Bomb class
+    /// Bomb class.
     /// </summary>
     [Serializable]
     public class Bomb : ComponentProperty
@@ -46,7 +46,7 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor
+        /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
         public Bomb() { }
@@ -85,12 +85,37 @@ namespace Nova.Common.Components
 
         #region Operators
 
+
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            Bomb temp = this + (Bomb)op2;
+            Installations = temp.Installations;
+            MinimumKill = temp.MinimumKill;
+            PopKill = temp.PopKill;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            Bomb temp = this * scalar;
+            Installations = temp.Installations;
+            MinimumKill = temp.MinimumKill;
+            PopKill = temp.PopKill;
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
-        /// <param name="op1">LHS operand</param>
-        /// <param name="op2">RHS operand</param>
+        /// <param name="op1">LHS operand.</param>
+        /// <param name="op2">RHS operand.</param>
         /// <returns>Sum of the properties.</returns>
         /// ----------------------------------------------------------------------------
         public static Bomb operator +(Bomb op1, Bomb op2)
@@ -106,7 +131,7 @@ namespace Nova.Common.Components
             {
                 sum.Installations = 0;
                 sum.MinimumKill = 0;
-                sum.PopKill = (1 - ((1 - op1.PopKill) * (1 - op2.PopKill)));
+                sum.PopKill = 1 - ((1 - op1.PopKill) * (1 - op2.PopKill));
             }
             else
             {
@@ -135,7 +160,7 @@ namespace Nova.Common.Components
             {
                 sum.Installations = 0;
                 sum.MinimumKill = 0;
-                sum.PopKill = (1 - (Math.Pow(1 - bomb.PopKill, bombCount)));
+                sum.PopKill = 1 - Math.Pow(1 - bomb.PopKill, bombCount);
             }
             else
             {
@@ -196,7 +221,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {

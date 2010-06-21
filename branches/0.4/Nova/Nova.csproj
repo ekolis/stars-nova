@@ -107,18 +107,9 @@
       <DependentUpon>RaceRestrictionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\ComponentEditor\Program.cs" />
-    <Compile Include="WinForms\Console\BattleEngine.cs" />
-    <Compile Include="WinForms\Console\Bombing.cs" />
-    <Compile Include="WinForms\Console\CheckForMinefields.cs" />
-    <Compile Include="WinForms\Console\Invade.cs" />
-    <Compile Include="WinForms\Console\LayMines.cs" />
-    <Compile Include="WinForms\Console\Manufacture.cs" />
     <Compile Include="WinForms\Console\NovaConsole.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WinForms\Console\ProcessTurn.cs" />
-    <Compile Include="WinForms\Console\VictoryCheck.cs" />
-    <Compile Include="WinForms\Console\WaypointTasks.cs" />
     <Compile Include="WinForms\Gui\Controls\FleetDetail.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -130,6 +121,9 @@
     </Compile>
     <Compile Include="WinForms\Gui\Controls\Messages.cs">
       <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\Gui\Controls\StarMapPanel.cs">
+      <SubType>Component</SubType>
     </Compile>
     <Compile Include="WinForms\Gui\Controls\PlanetDetail.cs">
       <SubType>UserControl</SubType>
@@ -203,6 +197,7 @@
     <Compile Include="WinForms\Gui\Dialogs\ShipDesignDialog.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Include="WinForms\Gui\MainWindow.cs" />
     <Compile Include="WinForms\Gui\NovaGUI.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -232,6 +227,9 @@
       <DependentUpon>ScoreReport.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\Gui\utilities.cs" />
+    <Compile Include="WinForms\Gui\WaypointListBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="WinForms\Launcher\NovaLauncer.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -248,6 +246,7 @@
       <DependentUpon>NewGameWizard.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\NewGame\StarsMapGenerator.cs" />
+    <Compile Include="WinForms\RaceDesigner\ParameterEntry.cs" />
     <Compile Include="WinForms\RaceDesigner\ParameterCosts.cs" />
     <Compile Include="WinForms\RaceDesigner\RaceDesigner.cs">
       <SubType>Form</SubType>
@@ -413,9 +412,9 @@
       <Project>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</Project>
       <Name>ControlLibrary</Name>
     </ProjectReference>
-    <ProjectReference Include="..\ServerState\ServerState.csproj">
-      <Project>{057D68CC-97A3-4296-A66B-1D3A5C00134E}</Project>
-      <Name>ServerState</Name>
+    <ProjectReference Include="..\ServerState\Server.csproj">
+      <Project>{0C92C1D5-9084-4E4A-82F1-889B74019A33}</Project>
+      <Name>Server</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

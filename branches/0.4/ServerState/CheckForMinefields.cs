@@ -70,8 +70,8 @@ namespace Nova.WinForms.Console
 
                 // Minefields dedcay 1% each year. Fields of less than 10 mines are
                 // just not worth bothering about.
-                // FIXME (priority 4) - Minefiled decay has nothing to do with moving fleets and should be processed seperately.
-                // FIXME (priority 3) - Minefield decay rates depend on what is in the field (stars).
+                // FIXME (priority 5) - Minefiled decay has nothing to do with moving fleets and should be processed seperately.
+                // FIXME (priority 5) - Minefield decay rates depend on what is in the field (stars).
                 Minefield.NumberOfMines -= Minefield.NumberOfMines / 100;
                 if (Minefield.NumberOfMines <= 10)
                 {
@@ -79,7 +79,7 @@ namespace Nova.WinForms.Console
                 }
             }
 
-            // FIXME (priority 3) - always returns false.
+            // FIXME (priority 6) - always returns false.
             return false;
         }
 
@@ -102,8 +102,7 @@ namespace Nova.WinForms.Console
 
             if (fleet.Speed <= Minefield.SafeSpeed) return false;
 
-            double distance = PointUtilities.Distance(fleet.Position,
-                                                      Minefield.Position);
+            double distance = PointUtilities.Distance(fleet.Position, Minefield.Position);
 
             if (distance < Minefield.Radius)
             {
@@ -121,7 +120,7 @@ namespace Nova.WinForms.Console
         /// <remarks>
         /// The probability of hitting a mine is 0.3% per light year traveled for each
         /// warp over the safe speed.
-        /// TODO (priority 2) - reference required.
+        /// TODO (priority 3) - reference required.
         ///
         /// Example: A fleet traveling at Warp 9 has a 1.5% chance per light year
         /// traveled in a turn.  Traveling 10 light years through the Minefield that
@@ -141,8 +140,7 @@ namespace Nova.WinForms.Console
             Waypoint targetWaypoint = fleet.Waypoints[0] as Waypoint;
             Point targetPosition = targetWaypoint.Position;
 
-            double travelDistance = PointUtilities.Distance(currentPosition,
-                                                              targetPosition);
+            double travelDistance = PointUtilities.Distance(currentPosition, targetPosition);
             if (Minefield.Radius > (int)travelDistance)
             {
                 travelDistance = Minefield.Radius;

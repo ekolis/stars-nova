@@ -129,10 +129,13 @@ namespace Nova.WinForms.RaceDesigner
 
             MessageBoxButtons buttons = MessageBoxButtons.YesNo;
 
-            DialogResult result = MessageBox.Show(parent, message, caption,
-                                     buttons,
-                                     MessageBoxIcon.Warning,
-                                     MessageBoxDefaultButton.Button2);
+            DialogResult result = MessageBox.Show(
+                parent,
+                message,
+                caption,
+                buttons,
+                MessageBoxIcon.Warning,
+                MessageBoxDefaultButton.Button2);
 
             return result;
         }

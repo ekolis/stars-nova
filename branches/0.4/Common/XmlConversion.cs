@@ -42,10 +42,10 @@ using Nova.Common.Components;
 
 namespace Nova.Common
 {
-    static class XmlConversion
+    public static class XmlConversion
     {
         #region Fields
-        private static String saveFilePath;
+        private static string saveFilePath;
         #endregion
 
         #region Methods
@@ -63,7 +63,7 @@ namespace Nova.Common
                 // Setup the save location, stream and compression.
                 if (GetPath() == null && GetNewSaveFile() == null)
                 {
-                    throw (new System.IO.FileNotFoundException());
+                    throw new System.IO.FileNotFoundException();
                 }
                 FileStream saveFile = new FileStream(saveFilePath, FileMode.Create);
 
@@ -72,7 +72,7 @@ namespace Nova.Common
                 XmlNode xmlnode;
                 XmlElement xmlRoot;
                 xmldoc = new XmlDocument();
-                // TODO (priority 4) - see if byte order marks emitted by .NET interfere with Mono parsing of XML files
+                // TODO (priority 5) - see if byte order marks emitted by .NET interfere with Mono parsing of XML files
                 xmlnode = xmldoc.CreateXmlDeclaration("1.0", "UTF-8", null);
                 xmldoc.AppendChild(xmlnode);
                 xmlRoot = xmldoc.CreateElement("", "ROOT", "");
@@ -110,7 +110,7 @@ namespace Nova.Common
         /// </summary>
         /// <remarks>
         /// A refactoring of AllComponents.GetPath
-        /// FIXME (priority 3) - The GUI and Console programs used this version but expect the GetPathOrDie() behaviour. Need to upadate their calls.
+        /// FIXME (priority 5) - The GUI and Console programs used this version but expect the GetPathOrDie() behaviour. Need to upadate their calls.
         /// </remarks>
         //-------------------------------------------------------------------
         public static string GetPath()
@@ -150,7 +150,7 @@ namespace Nova.Common
             }
             return null;
 
-        }// Get New Save File
+        }
 
 
         // =============================================================================
@@ -204,7 +204,7 @@ namespace Nova.Common
             xmlelComponent.AppendChild(xmlelImage);
 
             // Properties
-            foreach (String key in component.Properties.Keys)
+            foreach (string key in component.Properties.Keys)
             {
                 XmlElement xmlelPropertyType = xmldoc.CreateElement("Type");
                 XmlText xmltxtPropertyType = xmldoc.CreateTextNode(key);
@@ -217,10 +217,10 @@ namespace Nova.Common
             }
 
             return xmlelComponent;
-        } // ComponentToXml
+        }
         #endregion
 
         // Add the other 23 ToXml functions here...
 
-    }// class XmlConversion
-}// namespace NovaCommon
+    }
+}

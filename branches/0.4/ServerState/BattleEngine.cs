@@ -42,11 +42,11 @@ namespace Nova.WinForms.Console
     /// </summary>
     public static class BattleEngine
     {
-        private static ServerState  StateData     = ServerState.Data;
-        private static double       MaxBattleTime = 16;
-        private static BattleReport Battle        = new BattleReport();
-        private static int          StackID       = 0;
-        private static Random       RandomNumber  = new Random();
+        private static ServerState StateData = ServerState.Data;
+        private static double MaxBattleTime = 16;
+        private static BattleReport Battle = new BattleReport();
+        private static int StackID;
+        private static Random RandomNumber = new Random();
 
         /// Residual fractional movement points left over between phases/turns of combat.
         private static IDictionary<Fleet, double> residualMovement = new Dictionary<Fleet, double>();
@@ -230,7 +230,8 @@ namespace Nova.WinForms.Console
 
                 if (stack == null)
                 {
-                    string name = "Stack #" + StackID++.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    string name = "Stack #" + StackID.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    StackID++;
                     stack = new Fleet(name, fleet.Owner, fleet.Position);
 
                     stack.BattlePlan = fleet.BattlePlan;
@@ -248,7 +249,7 @@ namespace Nova.WinForms.Console
             }
 
             // Convert the hashtable into an ArrayList 
-            // TODO (priority 2) - historical and could be removed
+            // TODO (priority 4) - historical and could be removed
 
             ArrayList stackList = new ArrayList();
 
@@ -317,7 +318,7 @@ namespace Nova.WinForms.Console
             // Now allocate a position for each race in the centre of one of the
             // allocated spacial chunks.
 
-            foreach (String raceName in races.Values)
+            foreach (string raceName in races.Values)
             {
                 Rectangle newPosition = spaceAllocator.GetBox();
                 Point position = new Point();
@@ -428,7 +429,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="target">A stack.</param>
         /// <returns>A measure of attractiveness.</returns>
-        /// FIXME (priority 3) - Implement the Stars! attractiveness modle (and possibly others as options).
+        /// FIXME (priority 3) - Implement the Stars! attractiveness modle (and possibly others as options). Provide a reference to the source of the algorithm.
         /// ----------------------------------------------------------------------------
         public static double GetAttractiveness(Fleet target)
         {
@@ -520,7 +521,7 @@ namespace Nova.WinForms.Console
                         report.Position = stack.Position;
                         Battle.Steps.Add(report);
                     }
-                    // TODO (priority 3) - shouldn't stacks without targets flee the battle if their strategy says to do so? they're sitting ducks now!
+                    // TODO (priority 5) - shouldn't stacks without targets flee the battle if their strategy says to do so? they're sitting ducks now!
                 }
             }
         }
@@ -567,7 +568,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="ship">A single ship.</param>
         /// <param name="allWeapons">A list of the ship's weapons.</param>
-        /// FIXME (priority 3) - It seems this allows one ship to fire each of its weapons 
+        /// FIXME (priority 6) - It seems this allows one ship to fire each of its weapons 
         /// before any other ship. Each weapon in the battle should fire in priority order.
         /// ----------------------------------------------------------------------------
         private static void Attack(Ship ship, List<WeaponDetails> allWeapons)
@@ -645,9 +646,7 @@ namespace Nova.WinForms.Console
         /// <param name="details">The weapon being fired.</param>
         /// <param name="target">The target ship.</param>
         /// ----------------------------------------------------------------------------
-        private static void DischargeWeapon(Ship ship,
-                                            WeaponDetails details,
-                                            Ship target)
+        private static void DischargeWeapon(Ship ship, WeaponDetails details, Ship target)
         {
             BattleReport.Target report = new BattleReport.Target();
             report.TargetShip = new Ship(target);
@@ -739,13 +738,11 @@ namespace Nova.WinForms.Console
         /// FIXME (priority 3) - Missile accuracy is not calculated this way in Stars! The effect of computers and jammers must be considered at the same time.
         /// </remarks>
         /// ----------------------------------------------------------------------------
-        private static void FireMissile(Ship target,
-                                        double hitPower,
-                                        double accuracy)
+        private static void FireMissile(Ship target, double hitPower, double accuracy)
         {
             // First, determine if this missile is going to hit or miss (based on
             // it's accuracy. 
-            // FIXME (priority 3) - This algorithm for determining hit or miss is crude. We need a better one.
+            // FIXME (priority 4) - This algorithm for determining hit or miss is crude. We need a better one.
 
             int probability = RandomNumber.Next(0, 100);
 
@@ -783,7 +780,7 @@ namespace Nova.WinForms.Console
 
             if (target.Shields < 0) target.Shields = 0;
 
-            hitPower -= initialShields - target.Shields; // FIXME (priority 3) - This seems wrong, has it been tested? Why reduce the hitPowe twice? - Dan 25/4/10
+            hitPower -= initialShields - target.Shields; // FIXME (priority 6) - This seems wrong, has it been tested? Why reduce the hitPower twice? - Dan 25/4/10
 
             BattleReport.Weapons fire = new BattleReport.Weapons();
             fire.HitPower = hitPower;
@@ -828,11 +825,9 @@ namespace Nova.WinForms.Console
         /// <param name="target">Ship being fired on.</param>
         /// <returns>Damage weapon is able to do.</returns>
         /// ----------------------------------------------------------------------------
-        static double CalculateWeaponPower(Ship ship,
-                                           Weapon weapon,
-                                           Ship target)
+        private static double CalculateWeaponPower(Ship ship, Weapon weapon, Ship target)
         {
-            // TODO (priority 4) Stub - just return the base power of weapon. Also need to comment the return value of this function with what defences have been considered by this (when done).
+            // TODO (priority 5) Stub - just return the base power of weapon. Also need to comment the return value of this function with what defences have been considered by this (when done).
             return weapon.Power;
             /*
            double weaponPower = weapon.GetPower(ship);
@@ -873,14 +868,13 @@ namespace Nova.WinForms.Console
         /// <param name="target">Ship being fired on.</param>
         /// <returns>Chance that weapon will hit.</returns>
         /// ----------------------------------------------------------------------------
-        static double CalculateWeaponAccuracy(Ship ship,
-                                              Weapon weapon, Ship target)
+        private static double CalculateWeaponAccuracy(Ship ship, Weapon weapon, Ship target)
         {
             double weaponAccuracy = weapon.Accuracy;
 
             if (weapon.IsMissile)
             {
-                // TODO (priority 3) - computers and jammer stuff needs to go here *************
+                // TODO (priority 6) - computers and jammer stuff needs to go here *************
             }
 
             return weaponAccuracy;
@@ -892,7 +886,7 @@ namespace Nova.WinForms.Console
         /// Report ship losses to each player.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        static void ReportLosses()
+        private static void ReportLosses()
         {
             foreach (string race in Battle.Losses.Keys)
             {
@@ -914,27 +908,6 @@ namespace Nova.WinForms.Console
 
                 ServerState.Data.AllMessages.Add(message);
             }
-        }
-
-    }
-
-
-    /// ----------------------------------------------------------------------------
-    /// <summary>
-    /// Class to identify weapon capability and their targets which is sortable by
-    /// weapon system initiative.
-    /// </summary>
-    /// ----------------------------------------------------------------------------
-    public class WeaponDetails : IComparable
-    {
-        public Fleet TargetStack = null;
-        public Fleet SourceStack = null;
-        public Weapon Weapon = null;
-
-        public int CompareTo(Object rightHandSide)
-        {
-            WeaponDetails rhs = (WeaponDetails)rightHandSide;
-            return this.Weapon.Initiative.CompareTo(rhs.Weapon.Initiative);
         }
 
     }

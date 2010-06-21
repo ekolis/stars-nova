@@ -48,11 +48,9 @@ namespace Nova.WinForms.Gui
     {
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the FleetReport class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public FleetReport()
         {
             InitializeComponent();
@@ -68,11 +66,11 @@ namespace Nova.WinForms.Gui
         /// need a little logic to decode (we don't just have a bunch of strings).
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, EventArgs e)
         {
-            const int numColumns = 11;
+            const int NumColumns = 11;
             Race race = ClientState.Data.PlayerRace;
 
             Hashtable allFleets = ClientState.Data.InputTurn.AllFleets;
@@ -125,12 +123,15 @@ namespace Nova.WinForms.Gui
                     Cargo cargo = fleet.Cargo;
                     StringBuilder cargoText = new StringBuilder();
 
-                    cargoText.AppendFormat("{0} {1} {2} {3}", cargo.Ironium,
-                                                              cargo.Boranium,
-                                                              cargo.Germanium,
-                                                              cargo.Colonists);
+                    cargoText.AppendFormat(
+                        "{0} {1} {2} {3}",
+                        cargo.Ironium,
+                        cargo.Boranium,
+                        cargo.Germanium,
+                        cargo.ColonistsInKilotons);
+
                     int i = 0;
-                    string[] row = new string[numColumns];
+                    string[] row = new string[NumColumns];
 
                     row[i++] = fleet.Name;
                     row[i++] = location;
@@ -159,10 +160,9 @@ namespace Nova.WinForms.Gui
         /// implemented properly.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void FleetGridView_CellPainting(object sender,
-                      DataGridViewCellPaintingEventArgs e)
+        private void FleetGridView_CellPainting(object sender, DataGridViewCellPaintingEventArgs e)
         {
             if (e.RowIndex < 0 || e.ColumnIndex < 0)
             {
@@ -176,9 +176,11 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            Rectangle newRect = new Rectangle(e.CellBounds.X + 1,
-                      e.CellBounds.Y + 1, e.CellBounds.Width - 4,
-                      e.CellBounds.Height - 4);
+            Rectangle newRect = new Rectangle(
+                e.CellBounds.X + 1,
+                e.CellBounds.Y + 1,
+                e.CellBounds.Width - 4,
+                e.CellBounds.Height - 4);
 
             Brush gridBrush = new SolidBrush(FleetGridView.GridColor);
             Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor);
@@ -190,21 +192,31 @@ namespace Nova.WinForms.Gui
             // Draw the grid lines (only the right and bottom lines;
             // DataGridView takes care of the others).
 
-            e.Graphics.DrawLine(gridLinePen, e.CellBounds.Left,
-                                e.CellBounds.Bottom - 1, e.CellBounds.Right - 1,
-                                e.CellBounds.Bottom - 1);
+            e.Graphics.DrawLine(
+                gridLinePen,
+                e.CellBounds.Left,
+                e.CellBounds.Bottom - 1,
+                e.CellBounds.Right - 1,
+                e.CellBounds.Bottom - 1);
 
-            e.Graphics.DrawLine(gridLinePen, e.CellBounds.Right - 1,
-                                e.CellBounds.Top, e.CellBounds.Right - 1,
-                                e.CellBounds.Bottom);
+            e.Graphics.DrawLine(
+                gridLinePen,
+                e.CellBounds.Right - 1,
+                e.CellBounds.Top,
+                e.CellBounds.Right - 1,
+                e.CellBounds.Bottom);
 
             // Draw the text content of the cell.
 
             if (e.Value != null)
             {
-                e.Graphics.DrawString((String)e.Value, e.CellStyle.Font,
-                Brushes.Crimson, e.CellBounds.X + 2,
-                e.CellBounds.Y + 2, StringFormat.GenericDefault);
+                e.Graphics.DrawString(
+                    (string)e.Value,
+                    e.CellStyle.Font,
+                    Brushes.Crimson,
+                    e.CellBounds.X + 2,
+                    e.CellBounds.Y + 2,
+                    StringFormat.GenericDefault);
             }
 
             e.Handled = true;

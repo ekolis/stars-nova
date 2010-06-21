@@ -65,29 +65,41 @@ namespace Nova.ControlLibrary
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Construction
+        /// Initializes a new instance of the HullGrid class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public HullGrid()
         {
             InitializeComponent();
 
-            font = new Font("Arial", (float)7.5, FontStyle.Regular,
-                            GraphicsUnit.Point);
+            font = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);
 
             // Initialise the panel map so that we can have a convienient way of
             // identifying each cell in the grid just from its index.
-
-            panelMap[0] = Grid0; panelMap[1] = Grid1; panelMap[2] = Grid2;
-            panelMap[3] = Grid3; panelMap[4] = Grid4; panelMap[5] = Grid5;
-            panelMap[6] = Grid6; panelMap[7] = Grid7; panelMap[8] = Grid8;
-            panelMap[9] = Grid9; panelMap[10] = Grid10; panelMap[11] = Grid11;
-            panelMap[12] = Grid12; panelMap[13] = Grid13; panelMap[14] = Grid14;
-            panelMap[15] = Grid15; panelMap[16] = Grid16; panelMap[17] = Grid17;
-            panelMap[18] = Grid18; panelMap[19] = Grid19; panelMap[20] = Grid20;
-            panelMap[21] = Grid21; panelMap[22] = Grid22; panelMap[23] = Grid23;
+            panelMap[0] = Grid0;
+            panelMap[1] = Grid1;
+            panelMap[2] = Grid2;
+            panelMap[3] = Grid3;
+            panelMap[4] = Grid4;
+            panelMap[5] = Grid5;
+            panelMap[6] = Grid6;
+            panelMap[7] = Grid7;
+            panelMap[8] = Grid8;
+            panelMap[9] = Grid9;
+            panelMap[10] = Grid10;
+            panelMap[11] = Grid11;
+            panelMap[12] = Grid12;
+            panelMap[13] = Grid13;
+            panelMap[14] = Grid14;
+            panelMap[15] = Grid15;
+            panelMap[16] = Grid16;
+            panelMap[17] = Grid17;
+            panelMap[18] = Grid18;
+            panelMap[19] = Grid19;
+            panelMap[20] = Grid20;
+            panelMap[21] = Grid21;
+            panelMap[22] = Grid22;
+            panelMap[23] = Grid23;
             panelMap[24] = Grid24;
         }
 
@@ -101,7 +113,7 @@ namespace Nova.ControlLibrary
         /// editing is enabled). 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void CellContextMenuItem(object sender, ToolStripItemClickedEventArgs e)
         {
@@ -238,7 +250,7 @@ namespace Nova.ControlLibrary
         /// Mini-Coloniser).
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Grid_DragEnter(object sender, DragEventArgs e)
         {
@@ -307,10 +319,10 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Process a drop event
+        /// Process a drop event.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Grid_DragDrop(object sender, DragEventArgs e)
         {
@@ -342,7 +354,7 @@ namespace Nova.ControlLibrary
         /// </summary>
         /// <remarks>There are three cases as shown in the code.</remarks>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Grid0_Paint(object sender, PaintEventArgs e)
         {
@@ -381,7 +393,7 @@ namespace Nova.ControlLibrary
         /// them.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         public void GridCell_Click(object sender, EventArgs e)
         {
@@ -401,7 +413,7 @@ namespace Nova.ControlLibrary
         /// TODO (priority 1) - if a cell is cleared change it back to the empty module color.
         /// </remarks>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void DrawEmptyCell(Panel panel, Graphics graphics)
         {
@@ -429,7 +441,7 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Clear out the grid
+        /// Clear out the grid.
         /// </summary>
         /// <param name="panelVisible">True if this panel is visible for this hull type.</param>
         /// ----------------------------------------------------------------------------
@@ -547,7 +559,10 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         public bool HideEmptyModules
         {
-            get { return emptyModulesHidden; }
+            get
+            {
+                return emptyModulesHidden;
+            }
             set
             {
                 emptyModulesHidden = value;

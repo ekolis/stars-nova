@@ -64,22 +64,20 @@ namespace Nova.WinForms.Gui
         private System.Windows.Forms.ColumnHeader QueueDescription;
         private System.Windows.Forms.ColumnHeader QueueQuantity;
         private System.Windows.Forms.GroupBox groupBox3;
-        //private IContainer components;
-        private System.ComponentModel.Container components;
         private System.Windows.Forms.GroupBox groupBox4;
         private ControlLibrary.ResourceDisplay DesignCost;
         private Button RemoveFromQueue;
+        private Button QueueUp;
+        private Button QueueDown;
         private ControlLibrary.ResourceDisplay ProductionCost;
         #endregion
 
         #region Construction and Disposal
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Dialog constrution.
+        /// Initializes a new instance of the ProductionDialog class.
         /// </summary>
-        /// <param name="star"></param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="star">The star to do a production dialog for.</param>
         public ProductionDialog(Star star)
         {
             QueueStar = star;
@@ -87,25 +85,6 @@ namespace Nova.WinForms.Gui
             TurnData = StateData.InputTurn;
 
             InitializeComponent();
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Clean up resources.
-        /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
         }
 
         #endregion
@@ -117,7 +96,6 @@ namespace Nova.WinForms.Gui
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductionDialog));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.DesignList = new System.Windows.Forms.ListView();
             this.Description = new System.Windows.Forms.ColumnHeader();
@@ -129,10 +107,12 @@ namespace Nova.WinForms.Gui
             this.OK = new System.Windows.Forms.Button();
             this.Cancel = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.DesignCost = new ControlLibrary.ResourceDisplay();
+            this.DesignCost = new Nova.ControlLibrary.ResourceDisplay();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.ProductionCost = new ControlLibrary.ResourceDisplay();
+            this.ProductionCost = new Nova.ControlLibrary.ResourceDisplay();
             this.RemoveFromQueue = new System.Windows.Forms.Button();
+            this.QueueUp = new System.Windows.Forms.Button();
+            this.QueueDown = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -293,17 +273,41 @@ namespace Nova.WinForms.Gui
             // 
             this.RemoveFromQueue.Enabled = false;
             this.RemoveFromQueue.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.RemoveFromQueue.Location = new System.Drawing.Point(273, 224);
+            this.RemoveFromQueue.Location = new System.Drawing.Point(272, 210);
             this.RemoveFromQueue.Name = "RemoveFromQueue";
             this.RemoveFromQueue.Size = new System.Drawing.Size(48, 24);
             this.RemoveFromQueue.TabIndex = 7;
             this.RemoveFromQueue.Text = "Remove";
             this.RemoveFromQueue.Click += new System.EventHandler(this.RemoveFromQueue_Click);
             // 
+            // QueueUp
+            // 
+            this.QueueUp.Enabled = false;
+            this.QueueUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.QueueUp.Location = new System.Drawing.Point(272, 150);
+            this.QueueUp.Name = "QueueUp";
+            this.QueueUp.Size = new System.Drawing.Size(48, 24);
+            this.QueueUp.TabIndex = 8;
+            this.QueueUp.Text = "Up";
+            this.QueueUp.Click += new System.EventHandler(this.QueueUp_Click);
+            // 
+            // QueueDown
+            // 
+            this.QueueDown.Enabled = false;
+            this.QueueDown.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.QueueDown.Location = new System.Drawing.Point(272, 180);
+            this.QueueDown.Name = "QueueDown";
+            this.QueueDown.Size = new System.Drawing.Size(48, 24);
+            this.QueueDown.TabIndex = 9;
+            this.QueueDown.Text = "Down";
+            this.QueueDown.Click += new System.EventHandler(this.QueueDown_Click);
+            // 
             // ProductionDialog
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(594, 472);
+            this.Controls.Add(this.QueueDown);
+            this.Controls.Add(this.QueueUp);
             this.Controls.Add(this.RemoveFromQueue);
             this.Controls.Add(this.groupBox4);
             this.Controls.Add(this.groupBox3);
@@ -338,7 +342,7 @@ namespace Nova.WinForms.Gui
         /// capacity to build the design. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, System.EventArgs e)
         {
@@ -384,7 +388,7 @@ namespace Nova.WinForms.Gui
         /// Process a design being selected for possible construction.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void AvailableSelected(object sender, System.EventArgs e)
         {
@@ -409,13 +413,29 @@ namespace Nova.WinForms.Gui
         /// Production queue item selected changed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void QueueSelected(object sender, EventArgs e)
         {
             if (QueueList.SelectedItems.Count > 0)
             {
                 RemoveFromQueue.Enabled = true;
+                if (QueueList.SelectedIndices[0] > 0)
+                {
+                    QueueUp.Enabled = true;
+                }
+                else
+                {
+                    QueueUp.Enabled = false;
+                }
+                if (QueueList.SelectedIndices[0] < QueueList.Items.Count - 1)
+                {
+                    QueueDown.Enabled = true;
+                }
+                else
+                {
+                    QueueDown.Enabled = false;
+                }
             }
             else
             {
@@ -429,13 +449,13 @@ namespace Nova.WinForms.Gui
         /// Add to queue button pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void AddToQueue_Click(object sender, System.EventArgs e)
         {
             if (DesignList.SelectedItems.Count <= 0) return;
 
-            String name = DesignList.SelectedItems[0].Text;
+            string name = DesignList.SelectedItems[0].Text;
             Design design =
                TurnData.AllDesigns[StateData.RaceName + "/" + name] as Design;
 
@@ -469,7 +489,7 @@ namespace Nova.WinForms.Gui
         /// Remove from queue button pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void RemoveFromQueue_Click(object sender, EventArgs e)
         {
@@ -480,7 +500,52 @@ namespace Nova.WinForms.Gui
             }
         }
 
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Move selected item up in queue
+        /// </summary>
+        /// <param name="sender">The source of the event</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void QueueUp_Click(object sender, EventArgs e)
+        {
+            if (QueueList.SelectedItems.Count > 0)
+            {
+                int source = QueueList.SelectedIndices[0];
+                if (source > 0)
+                {
+                    ListViewItem newItem = QueueList.Items[source];
+                    ListViewItem oldItem = QueueList.Items[source - 1];
+                    QueueList.Items.RemoveAt(source);
+                    QueueList.Items.RemoveAt(source - 1);
+                    QueueList.Items.Insert(source - 1, newItem);
+                    QueueList.Items.Insert(source, oldItem);
+                }
+            }
+        }
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Move selected item down in queue 
+        /// </summary>
+        /// <param name="sender">The source of the event</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void QueueDown_Click(object sender, EventArgs e)
+        {
+            if (QueueList.SelectedItems.Count > 0)
+            {
+                int source = QueueList.SelectedIndices[0];
+                if (source < QueueList.Items.Count - 1)
+                {
+                    ListViewItem newItem = QueueList.Items[source];
+                    ListViewItem oldItem = QueueList.Items[source + 1];
+                    QueueList.Items.RemoveAt(source + 1);
+                    QueueList.Items.RemoveAt(source);
+                    QueueList.Items.Insert(source, oldItem);
+                    QueueList.Items.Insert(source + 1, newItem);
+                }
+            }
+        }
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Add a selected item into the production queue. If no item is selected in
@@ -489,7 +554,7 @@ namespace Nova.WinForms.Gui
         /// Otherwise, just add the item on at the end of the queue.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void AddDesign(Design design, int quantity)
         {
@@ -532,7 +597,7 @@ namespace Nova.WinForms.Gui
         /// OK button pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OK_Click(object sender, System.EventArgs e)
         {
@@ -545,8 +610,7 @@ namespace Nova.WinForms.Gui
                 item.Name = i.SubItems[0].Text;
                 item.Quantity = Convert.ToInt32(i.SubItems[1].Text);
 
-                Design design = TurnData.AllDesigns
-                                [StateData.RaceName + "/" + item.Name] as Design;
+                Design design = TurnData.AllDesigns[StateData.RaceName + "/" + item.Name] as Design;
 
                 item.BuildState = design.Cost;
 
@@ -566,7 +630,7 @@ namespace Nova.WinForms.Gui
         /// Starbases are special in that there
         /// can ony ever be one in the production queue, no matter how many he tries to
         /// add.
-        /// FIXME (priority 3) - Dan - What if I want to build a small base first, then add a larger base latter. I can queue two different base designs in Stars! 
+        /// FIXME (priority 6) - Dan - What if I want to build a small base first, then add a larger base latter. I can queue two different base designs in Stars! 
         /// </remarks>
         /// ----------------------------------------------------------------------------
         private void AddStarbase(Design design)
@@ -577,7 +641,8 @@ namespace Nova.WinForms.Gui
             foreach (ListViewItem item in QueueList.Items)
             {
                 Design thisDesign = item.Tag as Design;
-                if (thisDesign != null) //factories and defenses and mines dont have a design...
+                // factories and defenses and mines dont have a design...
+                if (thisDesign != null)
                 {
                     if (thisDesign.Type == "Starbase")
                     {
@@ -603,8 +668,7 @@ namespace Nova.WinForms.Gui
             {
                 string name = item.Text;
 
-                Design design = TurnData.AllDesigns
-                                [StateData.RaceName + "/" + name] as Design;
+                Design design = TurnData.AllDesigns[StateData.RaceName + "/" + name] as Design;
 
                 if (design == null)
                 {

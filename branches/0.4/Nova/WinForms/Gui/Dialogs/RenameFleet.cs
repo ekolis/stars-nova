@@ -47,11 +47,9 @@ namespace Nova.WinForms.Gui
     public partial class RenameFleet : Form
     {
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor
+        /// Initializes a new instance of the RenameFleet class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public RenameFleet()
         {
             InitializeComponent();
@@ -63,7 +61,7 @@ namespace Nova.WinForms.Gui
         /// Cancel button pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void CancelRename_Click(object sender, EventArgs e)
         {
@@ -76,7 +74,7 @@ namespace Nova.WinForms.Gui
         /// Rename button pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OKButton_Click(object sender, EventArgs e)
         {
@@ -101,8 +99,8 @@ namespace Nova.WinForms.Gui
 
             // Ensure the main display gets updated to reflect the new name
 
-            MainWindow.nova.SelectionSummary.Value = fleet as Item;
-            MainWindow.nova.SelectionDetail.Value = fleet as Item;
+            MainWindow.Nova.SelectionSummary.Value = fleet as Item;
+            MainWindow.Nova.SelectionDetail.Value = fleet as Item;
 
             Close();
         }

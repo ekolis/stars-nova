@@ -38,18 +38,18 @@ namespace Nova.Common.Components
     public class MineLayer : ComponentProperty
     {
         // Only three types of mine layers are recognised, and they are distinguised by their HitChance:
-        public static double HeavyHitChance      = 1.0;
-        public static double SpeedTrapHitChance  = 3.5;
-        public static double StandardHitChance   = 0.3;
+        public static double HeavyHitChance = 1.0;
+        public static double SpeedTrapHitChance = 3.5;
+        public static double StandardHitChance = 0.3;
 
         // Standar Mine Stats
-        public int           LayerRate           = 50;
-        public int           SafeSpeed           = 4;
-        public double        HitChance           = 0.3;
-        public int           DamagePerEngine     = 100;
-        public int           DamagePerRamScoop   = 125;
-        public int           MinFleetDamage      = 500;
-        public int           MinRamScoopDamage   = 600;
+        public int LayerRate = 50;
+        public int SafeSpeed = 4;
+        public double HitChance = 0.3;
+        public int DamagePerEngine = 100;
+        public int DamagePerRamScoop = 125;
+        public int MinFleetDamage = 500;
+        public int MinRamScoopDamage = 600;
 
         #region Construction
 
@@ -97,6 +97,29 @@ namespace Nova.Common.Components
         #endregion
 
         #region Operators
+
+        /// <summary>
+        /// Polymorphic addition of properties.
+        /// </summary>
+        /// <param name="op2"></param>
+        public override void Add(ComponentProperty op2)
+        {
+            if (HitChance != ((MineLayer)op2).HitChance)
+            {
+                Report.Error("MineLayer.operator+ Attempted to add together different types of mine layers.");
+                return;
+            }
+            LayerRate += ((MineLayer)op2).LayerRate;
+        }
+
+        /// <summary>
+        /// Polymorphic multiplication of properties.
+        /// </summary>
+        /// <param name="scalar"></param>
+        public override void Scale(int scalar)
+        {
+            LayerRate *= scalar;
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>

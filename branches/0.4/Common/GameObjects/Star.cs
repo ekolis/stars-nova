@@ -41,29 +41,32 @@ namespace Nova.Common
     [Serializable]
     public class Star : Item
     {
-        public bool            OrbitingFleets       = false;
-        public ProductionQueue ManufacturingQueue   = new ProductionQueue();
-        public Resources       MineralConcentration = new Resources();
-        public Resources       ResourcesOnHand      = new Resources();
-        public Fleet           Starbase             = null;
-        public int             Colonists            = 0;
-        public int             Defenses             = 0;
-        public int             Factories            = 0;
-        public int             Mines                = 0;
-        public int             ResearchAllocation   = 0;
-        public int             ScanRange            = 0;
-        public string          DefenseType          = "None";
-        public string          ScannerType          = "None";
+        public bool OrbitingFleets;
+        public ProductionQueue ManufacturingQueue = new ProductionQueue();
+        public Resources MineralConcentration = new Resources();
+        public Resources ResourcesOnHand = new Resources();
+        public Fleet Starbase;
+        /// <summary>
+        /// The number of colonists as reported on a planet. Divide by GlobalDefinitions.ColonistsPerKiloton to convert to cargo units.
+        /// </summary>
+        public int Colonists;
+        public int Defenses;
+        public int Factories;
+        public int Mines;
+        public int ResearchAllocation;
+        public int ScanRange;
+        public string DefenseType = "None";
+        public string ScannerType = "None";
 
         // The following values are percentages of the permissable range of each
         // environment parameter (between 0 and 100).
 
-        public int Gravity     = 0;
-        public int Radiation   = 0;
+        public int Gravity = 0;
+        public int Radiation = 0;
         public int Temperature = 0;
 
         // the current owner of the star, if any.
-        public Race ThisRace   = null;
+        public Race ThisRace = null;
 
         #region Construction
 
@@ -72,7 +75,10 @@ namespace Nova.Common
         /// default constructor
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public Star() { }
+        public Star()
+        {
+            this.Starbase = null;
+        }
 
         #endregion
 
@@ -195,12 +201,12 @@ namespace Nova.Common
 
             // Temperature is in the range -200 to 200.
 
-            double tMinimum = (200 + race.TemperatureTolerance.Minimum) / 4;
-            double tMaximum = (200 + race.TemperatureTolerance.Maximum) / 4;
-            double tSpan = tMaximum - tMinimum;
-            double tCentre = tMinimum + (tSpan / 2);
-            double tDistance = Math.Abs(tCentre - Temperature);
-            double t = tDistance / tSpan;
+            double temperatureMinimum = (200 + race.TemperatureTolerance.Minimum) / 4;
+            double temperatureMaximum = (200 + race.TemperatureTolerance.Maximum) / 4;
+            double temperatureSpan = temperatureMaximum - temperatureMinimum;
+            double temperatureCentre = temperatureMinimum + (temperatureSpan / 2);
+            double temperatureDistance = Math.Abs(temperatureCentre - Temperature);
+            double t = temperatureDistance / temperatureSpan;
 
             double x = 0;
             double y = 0;
@@ -211,8 +217,7 @@ namespace Nova.Common
             if (r > 0.5) z = r - 0.5;
 
             double h = Math.Sqrt(
-                            ((1 - g) * (1 - g)) + ((1 - t) * (1 - t)) + ((1 - r) * (1 - r))
-                                 ) * (1 - x) * (1 - y) * (1 - z)
+                            ((1 - g) * (1 - g)) + ((1 - t) * (1 - t)) + ((1 - r) * (1 - r))) * (1 - x) * (1 - y) * (1 - z)
                                  / Math.Sqrt(3.0);
             return h;
         }
@@ -228,10 +233,10 @@ namespace Nova.Common
         /// </summary>
         /// <param name="race"></param>
         /// <remarks>
-        /// FIXME (priority 3) why pass the race in? The race occupying this star system is this.ThisRace.
+        /// FIXME (priority 4) why pass the race in? The race occupying this star system is this.ThisRace.
         /// 
         /// Update a star to take into account the passing of a year.
-        /// FIXME (priority 4) - this should not be here as it means the GUI has access to methods 
+        /// FIXME (priority 5) - this should not be here as it means the GUI has access to methods 
         /// that increase pop and resources - which is probably the source of the bug
         /// that causes this to happen when a star is clicked in the GUI.
         /// ... Turns out that bug was calling this function when it should not have been,
@@ -382,6 +387,7 @@ namespace Nova.Common
         public Star(XmlNode node)
             : base(node)
         {
+            this.Starbase = null;
 
             XmlNode subnode = node.FirstChild;
 
@@ -393,7 +399,7 @@ namespace Nova.Common
                     switch (subnode.Name.ToLower())
                     {
                         case "orbitingfleets":
-                            OrbitingFleets = bool.Parse(((XmlText)subnode.FirstChild).Value);
+                            OrbitingFleets = bool.Parse(subnode.FirstChild.Value);
                             break;
                         case "productionqueue":
                             ManufacturingQueue = new ProductionQueue(subnode);
@@ -405,37 +411,37 @@ namespace Nova.Common
                             ResourcesOnHand = new Resources(subnode.FirstChild);
                             break;
                         case "colonists":
-                            Colonists = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Colonists = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "defenses":
-                            Defenses = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Defenses = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "factories":
-                            Factories = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Factories = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "mines":
-                            Mines = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Mines = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "researchallocation":
-                            ResearchAllocation = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            ResearchAllocation = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "scanrange":
-                            ScanRange = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            ScanRange = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "defensetype":
-                            DefenseType = ((XmlText)subnode.FirstChild).Value;
+                            DefenseType = subnode.FirstChild.Value;
                             break;
                         case "scannertype":
-                            ScannerType = ((XmlText)subnode.FirstChild).Value;
+                            ScannerType = subnode.FirstChild.Value;
                             break;
                         case "gravity":
-                            Gravity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Gravity = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "radiation":
-                            Radiation = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Radiation = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "temperature":
-                            Temperature = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Temperature = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
 
                         // These are placeholder objects that will be linked to the real objects once 
@@ -446,16 +452,18 @@ namespace Nova.Common
                         // ThisRace will point to the Race that owns the Star, 
                         // for now create a placeholder Race and load its Name
                         case "thisrace":
-                            ThisRace = new Race(); ThisRace.Name = ((XmlText)subnode.FirstChild).Value;
+                            ThisRace = new Race();
+                            ThisRace.Name = subnode.FirstChild.Value;
                             break;
 
                         // Starbase will point to the Fleet that is this planet's starbase (if any), 
                         // for now create a placeholder Fleet and load its FleetID
                         case "starbase":
-                            Starbase = new Fleet(int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture));
+                            Starbase = new Fleet(int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture));
                             break;
 
-                        default: break;
+                        default:
+                            break;
                     }
                 }
                 catch (Exception e)

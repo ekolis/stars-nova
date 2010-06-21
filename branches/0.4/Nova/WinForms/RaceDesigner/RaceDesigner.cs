@@ -55,7 +55,7 @@ namespace Nova.WinForms.RaceDesigner
     [Serializable]
     public class RaceDesignerForm : System.Windows.Forms.Form
     {
-        RaceIcon CurrentRaceIcon = null;
+        private RaceIcon CurrentRaceIcon = null;
 
         //---------------------------------------------------------------------------- 
         //  Non-designer generated variables
@@ -148,7 +148,6 @@ namespace Nova.WinForms.RaceDesigner
         private ToolStripMenuItem aboutToolStripMenuItem;
         private TextBox Password;
         private Label label12;
-        //      private ImageList RaceIcons;
         private Button PreviousImage;
         private Button NextImage;
         private PictureBox PictureBox;
@@ -157,7 +156,6 @@ namespace Nova.WinForms.RaceDesigner
         private OpenFileDialog OpenFileDialog;
         private NumericUpDown MaxGrowth;
         private Label label4;
-        private IContainer components;
 
         #endregion Designer Generated Variables
 
@@ -202,7 +200,7 @@ namespace Nova.WinForms.RaceDesigner
             IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source);
 
             // Can't trust the windows designer generate code to set the environment range before setting the environment value, so set it here to be sure.
-            // TODO (priority 3) - put all these literal values somewhere sensible (EnvironmentTolerance object?)
+            // TODO (priority 6) - put all these literal values somewhere sensible (EnvironmentTolerance object?)
             TemperatureTolerance.RangeMinimum = -200;
             TemperatureTolerance.RangeMaximum = 200;
             TemperatureTolerance.BarLower = -140;
@@ -216,24 +214,6 @@ namespace Nova.WinForms.RaceDesigner
             RadiationTolerance.BarLower = 15;
             RadiationTolerance.BarUpper = 85;
 
-        }
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing"></param>
-        /// ----------------------------------------------------------------------------
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
         }
 
         #endregion
@@ -585,7 +565,7 @@ namespace Nova.WinForms.RaceDesigner
             this.JackOfAllTrades.TabIndex = 9;
             this.JackOfAllTrades.Tag = "JOAT";
             this.JackOfAllTrades.Text = "Jack of all Trades";
-            this.JackOfAllTrades.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            this.JackOfAllTrades.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // AlternateReality
             // 
@@ -597,7 +577,7 @@ namespace Nova.WinForms.RaceDesigner
             this.AlternateReality.TabIndex = 8;
             this.AlternateReality.Tag = "AR";
             this.AlternateReality.Text = "Alternate Reality";
-            this.AlternateReality.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            this.AlternateReality.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // InterStellarTraveller
             // 
@@ -609,7 +589,7 @@ namespace Nova.WinForms.RaceDesigner
             this.InterStellarTraveller.TabIndex = 7;
             this.InterStellarTraveller.Tag = "IT";
             this.InterStellarTraveller.Text = "Inter-stellar Traveller";
-            this.InterStellarTraveller.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            this.InterStellarTraveller.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // PacketPhysics
             // 
@@ -621,7 +601,7 @@ namespace Nova.WinForms.RaceDesigner
             this.PacketPhysics.TabIndex = 6;
             this.PacketPhysics.Tag = "PP";
             this.PacketPhysics.Text = "Packet Physics";
-            this.PacketPhysics.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            this.PacketPhysics.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // SpaceDemolition
             // 
@@ -633,7 +613,7 @@ namespace Nova.WinForms.RaceDesigner
             this.SpaceDemolition.TabIndex = 5;
             this.SpaceDemolition.Tag = "SD";
             this.SpaceDemolition.Text = "Space Demolition";
-            this.SpaceDemolition.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            this.SpaceDemolition.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // InnerStrength
             // 
@@ -644,7 +624,7 @@ namespace Nova.WinForms.RaceDesigner
             this.InnerStrength.TabIndex = 4;
             this.InnerStrength.Tag = "IS";
             this.InnerStrength.Text = "Inner Strength";
-            this.InnerStrength.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            this.InnerStrength.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // ClaimAdjuster
             // 
@@ -655,7 +635,7 @@ namespace Nova.WinForms.RaceDesigner
             this.ClaimAdjuster.TabIndex = 3;
             this.ClaimAdjuster.Tag = "CA";
             this.ClaimAdjuster.Text = "Claim Adjuster";
-            this.ClaimAdjuster.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            this.ClaimAdjuster.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // WarMonger
             // 
@@ -666,7 +646,7 @@ namespace Nova.WinForms.RaceDesigner
             this.WarMonger.TabIndex = 2;
             this.WarMonger.Tag = "WM";
             this.WarMonger.Text = "War Monger";
-            this.WarMonger.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            this.WarMonger.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // SuperStealth
             // 
@@ -677,7 +657,7 @@ namespace Nova.WinForms.RaceDesigner
             this.SuperStealth.TabIndex = 1;
             this.SuperStealth.Tag = "SS";
             this.SuperStealth.Text = "Super Stealth";
-            this.SuperStealth.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            this.SuperStealth.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // HyperExpansion
             // 
@@ -688,7 +668,7 @@ namespace Nova.WinForms.RaceDesigner
             this.HyperExpansion.TabIndex = 0;
             this.HyperExpansion.Tag = "HE";
             this.HyperExpansion.Text = "Hyper-Expansion";
-            this.HyperExpansion.CheckedChanged += new System.EventHandler(this.radioButton_CheckedChanged);
+            this.HyperExpansion.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // TraitsTab
             // 
@@ -1350,7 +1330,7 @@ namespace Nova.WinForms.RaceDesigner
             this.aboutToolStripMenuItem.Name = "aboutToolStripMenuItem";
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "About";
-            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.aboutToolStripMenuItem_Click);
+            this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
             // OpenFileDialog
             // 
@@ -1549,9 +1529,9 @@ namespace Nova.WinForms.RaceDesigner
         /// All primary racial traits are defined in the file PrimaryTraits.cs.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void radioButton_CheckedChanged(object sender, EventArgs e)
+        private void RadioButton_CheckedChanged(object sender, EventArgs e)
         {
             RadioButton radioButton = (RadioButton)sender;
 
@@ -1590,7 +1570,7 @@ namespace Nova.WinForms.RaceDesigner
         /// </para>
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void SecondaryTraits_CheckedChanged(object sender, EventArgs e)
         {
@@ -1638,7 +1618,7 @@ namespace Nova.WinForms.RaceDesigner
         /// The actual advantage point costs are defined in the file ParameterCosts.cs.
         /// </para></remarks>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void UpDown_ValueChanged(object sender, EventArgs e)
         {
@@ -1668,7 +1648,7 @@ namespace Nova.WinForms.RaceDesigner
                     break;
                 }
             }
-        }//UpDown_ValueChanged
+        }
 
 
         /// ----------------------------------------------------------------------------
@@ -1699,11 +1679,12 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="oldLeftPos"></param>
         /// <param name="oldRightPos"></param>
         /// ----------------------------------------------------------------------------
-        private void Tolerance_RangeChanged(object sender,
-                                            int newLeftPos,
-                                            int newRightPos,
-                                            int oldLeftPos,
-                                            int oldRightPos)
+        private void Tolerance_RangeChanged(
+            object sender,
+            int newLeftPos,
+            int newRightPos,
+            int oldLeftPos,
+            int oldRightPos)
         {
 
             AdvantagePoints -= Utilities.BarWidthCost(oldLeftPos, oldRightPos);
@@ -1724,7 +1705,7 @@ namespace Nova.WinForms.RaceDesigner
         /// to do this.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Exit_Click(object sender, EventArgs e)
         {
@@ -1751,7 +1732,7 @@ namespace Nova.WinForms.RaceDesigner
         /// structure and use it to generate the race definition file.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void Finish_Click(object sender, System.EventArgs e)
         {
@@ -1797,20 +1778,20 @@ namespace Nova.WinForms.RaceDesigner
             // Secondary Racial Traits
             // ----------------------------------------------------------------------------
             if (ImprovedFuelEfficiency.Checked) RaceParameters.Traits.Add("IFE");
-            if (NoRAMEngines.Checked)           RaceParameters.Traits.Add("NRS");
-            if (TotalTerraforming.Checked)      RaceParameters.Traits.Add("TT");
-            if (CheapEngines.Checked)           RaceParameters.Traits.Add("CE");
-            if (AdvancedRemoteMining.Checked)   RaceParameters.Traits.Add("ARM");
-            if (BasicRemoteMining.Checked)      RaceParameters.Traits.Add("OBRM");
-            if (ImprovedStarbases.Checked)      RaceParameters.Traits.Add("ISB");
-            if (NoAdvancedScanners.Checked)     RaceParameters.Traits.Add("NAS");
-            if (GeneralisedResearch.Checked)    RaceParameters.Traits.Add("GR");
-            if (LowStartingPopulation.Checked)  RaceParameters.Traits.Add("LSP");
-            if (UltimateRecycling.Checked)      RaceParameters.Traits.Add("UR");
+            if (NoRAMEngines.Checked) RaceParameters.Traits.Add("NRS");
+            if (TotalTerraforming.Checked) RaceParameters.Traits.Add("TT");
+            if (CheapEngines.Checked) RaceParameters.Traits.Add("CE");
+            if (AdvancedRemoteMining.Checked) RaceParameters.Traits.Add("ARM");
+            if (BasicRemoteMining.Checked) RaceParameters.Traits.Add("OBRM");
+            if (ImprovedStarbases.Checked) RaceParameters.Traits.Add("ISB");
+            if (NoAdvancedScanners.Checked) RaceParameters.Traits.Add("NAS");
+            if (GeneralisedResearch.Checked) RaceParameters.Traits.Add("GR");
+            if (LowStartingPopulation.Checked) RaceParameters.Traits.Add("LSP");
+            if (UltimateRecycling.Checked) RaceParameters.Traits.Add("UR");
             if (BleedingEdgeTechnology.Checked) RaceParameters.Traits.Add("BET");
-            if (MineralAlchemy.Checked)         RaceParameters.Traits.Add("MA");
-            if (RegeneratingShields.Checked)    RaceParameters.Traits.Add("RS");
-            if (CheapFactories.Checked)         RaceParameters.Traits.Add("CF");
+            if (MineralAlchemy.Checked) RaceParameters.Traits.Add("MA");
+            if (RegeneratingShields.Checked) RaceParameters.Traits.Add("RS");
+            if (CheapFactories.Checked) RaceParameters.Traits.Add("CF");
 
             // ----------------------------------------------------------------------------
             // Production Costs and Rates
@@ -1855,7 +1836,7 @@ namespace Nova.WinForms.RaceDesigner
             try
             {
 
-                String RaceFilePath = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
+                string RaceFilePath = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
 
                 SaveFileDialog fd = new SaveFileDialog();
                 fd.Title = "Save Race - " + RaceParameters.Name;
@@ -1906,7 +1887,7 @@ namespace Nova.WinForms.RaceDesigner
                 return;
             }
 
-        }//Finish_Click (save&close the race)
+        }
 
 
         /// ----------------------------------------------------------------------------
@@ -1914,9 +1895,9 @@ namespace Nova.WinForms.RaceDesigner
         /// Display the about box
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void aboutToolStripMenuItem_Click(object sender, EventArgs e)
+        private void AboutToolStripMenuItem_Click(object sender, EventArgs e)
         {
             AboutBox about = new AboutBox();
             about.ShowDialog();
@@ -1929,7 +1910,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Called when the next image is to be selected
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void NextImage_Click(object sender, EventArgs e)
         {
@@ -1945,7 +1926,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Called when the previous image is to be selected
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void PreviousImage_Click(object sender, EventArgs e)
         {
@@ -1962,7 +1943,7 @@ namespace Nova.WinForms.RaceDesigner
         /// and it's "gone into the system").
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void LoadRaceFile_Click(object sender, EventArgs e)
         {
@@ -1982,18 +1963,18 @@ namespace Nova.WinForms.RaceDesigner
             {
                 RaceParameters = new Race(fileName);
 
-                // TODO (priority 4) - This level of security is not good enough as the race is stored un-encrypted.
+                // TODO (priority 6) - This level of security is not good enough as the race is stored un-encrypted.
                 ControlLibrary.CheckPassword password =
                    new ControlLibrary.CheckPassword(RaceParameters);
 
                 password.ShowDialog();
                 if (password.DialogResult == DialogResult.OK)
                 {
-                    reloadRace(RaceParameters);
-                    reloadSecondaryTraits(RaceParameters);
-                    reloadBuildCosts(RaceParameters);
-                    reloadEnvironmentalTolerance(RaceParameters);
-                    reloadResearchCosts(RaceParameters);
+                    ReloadRace(RaceParameters);
+                    ReloadSecondaryTraits(RaceParameters);
+                    ReloadBuildCosts(RaceParameters);
+                    ReloadEnvironmentalTolerance(RaceParameters);
+                    ReloadResearchCosts(RaceParameters);
                 }
 
                 password.Dispose();
@@ -2002,7 +1983,7 @@ namespace Nova.WinForms.RaceDesigner
             {
                 Report.Error("Failed to load file: \r\n" + ex.Message);
             }
-        }//LoadRaceFile_Click
+        }
 
         #endregion
 
@@ -2014,7 +1995,7 @@ namespace Nova.WinForms.RaceDesigner
         /// doing this.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void reloadRace(Race RaceParameters)
+        private void ReloadRace(Race RaceParameters)
         {
 
             SelectedRace = RaceParameters.Traits.Primary;
@@ -2062,7 +2043,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload seconday traits
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void reloadSecondaryTraits(Race RaceParameters)
+        private void ReloadSecondaryTraits(Race RaceParameters)
         {
             ImprovedFuelEfficiency.Checked = RaceParameters.Traits.Contains("IFE");
             NoRAMEngines.Checked           = RaceParameters.Traits.Contains("NRS");
@@ -2087,7 +2068,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload build cost parameters
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void reloadBuildCosts(Race RaceParameters)
+        private void ReloadBuildCosts(Race RaceParameters)
         {
             ColonistProduction.Value = (decimal)RaceParameters.ColonistsPerResource;
             OperableFactories.Value  = (decimal)RaceParameters.OperableFactories;
@@ -2104,7 +2085,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload Environmental Tolerance
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void reloadEnvironmentalTolerance(Race RaceParameters)
+        private void ReloadEnvironmentalTolerance(Race RaceParameters)
         {
 
             GravityTolerance.EnvironmentValues     = RaceParameters.GravityTolerance;
@@ -2119,7 +2100,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload Research Costs
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void reloadResearchCosts(Race RaceParameters)
+        private void ReloadResearchCosts(Race RaceParameters)
         {
             EnergyResearch.Cost        = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Energy];
             WeaponsResearch.Cost       = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Weapons];
@@ -2131,6 +2112,6 @@ namespace Nova.WinForms.RaceDesigner
 
         #endregion
 
-    }//RaceDesignerForm
-}//namespace RaceDesigner
+    }
+}
 
