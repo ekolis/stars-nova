@@ -30,11 +30,10 @@
 #region Using Statements
 using System;
 using System.IO;
+using System.IO.Compression;
 using System.Xml;
-
 using Nova.Common;
 using Nova.Common.Components;
-
 #endregion
 
 namespace Nova.Server
