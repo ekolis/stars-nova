@@ -29,8 +29,8 @@
 namespace Nova.Common
 {
     #region Using Statements
-    using System.Diagnostics;
     using System;
+    using System.Diagnostics;
     #endregion
 
     //-------------------------------------------------------------------

@@ -29,20 +29,12 @@
 #endregion
 
 #region Using Statements
+
+using System;
 using System.Collections;
 using System.Collections.Generic;
-using System;
-using System.Drawing;
 using System.IO;
-using System.Reflection;
-using System.Resources;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization;
 using System.Windows.Forms;
-using System.Xml;
-using System.IO.Compression;
-using Microsoft.Win32;
 
 using Nova.Common;
 using Nova.Common.Components;
@@ -600,6 +592,28 @@ namespace Nova.Client
                 // All shields are 40% stronger than the listed rating.
                 // Shields regenrate at 10% of max strength each round of combat.
                 // All armors are 50% of their rated strength.
+            }
+            if (ClientState.Data.PlayerRace.Traits.Contains("ExtraTech"))
+            {
+                //All extra technologies start on level 3 or 4 with JOAT
+                if (ClientState.Data.PlayerRace.Traits.Primary.Code == "JOAT")
+                {
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion] += 1;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Construction] += 1;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Biotechnology] += 1;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Electronics] += 1;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Energy] += 1;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Weapons] += 1;
+                }
+                else
+                {
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion] += 3;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Construction] += 3;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Biotechnology] += 3;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Electronics] += 3;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Energy] += 3;
+                    ClientState.Data.ResearchLevel[TechLevel.ResearchField.Weapons] += 3;
+                }
             }
 
         }

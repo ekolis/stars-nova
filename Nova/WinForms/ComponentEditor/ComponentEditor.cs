@@ -65,16 +65,12 @@
 // ============================================================================
 
 #region Using Statements
-using Nova.Common;
-using System.Windows.Forms;
 using System;
 using System.Collections;
-using System.Collections.Generic;
-
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
-using System.Text;
+using System.Windows.Forms;
+
+using Nova.Common;
 using Nova.Common.Components;
 
 #endregion

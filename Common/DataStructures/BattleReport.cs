@@ -26,11 +26,9 @@
 // ===========================================================================
 #endregion
 
-using System.Collections.Generic;
+using System;
 using System.Collections;
 using System.Drawing;
-using System.Text;
-using System;
 
 namespace Nova.Common
 {

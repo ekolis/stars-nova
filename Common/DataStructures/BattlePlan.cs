@@ -28,8 +28,6 @@
 
 using System;
 using System.Xml;
-using System.Collections;
-using System.Text;
 
 namespace Nova.Common
 {

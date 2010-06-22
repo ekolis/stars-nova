@@ -26,17 +26,12 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
+
 using System.Drawing;
-using System.Data;
-using System.Text;
 using System.Windows.Forms;
 
-using Nova.Common;
 using Nova.Client;
+using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
@@ -65,7 +60,7 @@ namespace Nova.WinForms.Gui
         {
             string race = fleet.Owner;
             FleetShipCount.Text = fleet.Composition.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            FleetMass.Text = fleet.TotalMass.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            FleetMass.Text = fleet.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
             FleetSpeed.Text = fleet.Speed.ToString(System.Globalization.CultureInfo.InvariantCulture);
             FleetImage.Image = fleet.Image;
             FleetOwner.Text = race;

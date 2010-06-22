@@ -26,12 +26,9 @@
 // ===========================================================================
 #endregion
 
+using System;
 using System.Collections;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization;
-using System;
 
 using Nova.Common;
 using Nova.Server;
@@ -334,12 +331,12 @@ namespace Nova.WinForms.Console
 
             foreach (Ship ship in fleet.FleetShips)
             {
-                ship.Shields = ship.Design.Shield;
+                ship.Shields = ship.DesignShield;
                 if (repairRate > 0)
                 {
-                    int repairAmount = Math.Min(ship.Design.Armor * repairRate / 100, 1);
+                    int repairAmount = Math.Min(ship.DesignArmor * repairRate / 100, 1);
                     ship.Armor += repairAmount;
-                    ship.Armor = Math.Min(ship.Armor, ship.Design.Armor);
+                    ship.Armor = Math.Min(ship.Armor, ship.DesignArmor);
                 }
             }
         }
@@ -392,7 +389,11 @@ namespace Nova.WinForms.Console
                     }
 
                     WaypointTasks.Perform(fleet, thisWaypoint);
-                    thisWaypoint.Task = "None";
+
+                    if (thisWaypoint.Task != "Lay Mines")
+                    {
+                        thisWaypoint.Task = "None";
+                    }
                 }
 
                 currentPosition = fleet.Waypoints[0] as Waypoint;

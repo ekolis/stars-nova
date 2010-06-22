@@ -26,16 +26,12 @@
 // Note that ships never exist in isolation, they are always part
 // of a fleet. Consequently, all the movement attributes can be found in the
 // fleet class. 
-// Note that Cargo is the amount of cargo the ship is
-// actually carrying (this is usually only relevant when a ship is transferred
-// to another fleet or is destroyed. CargoCapacity, the maximum cargo it can
-// carry, is a property of the Design.
 // ===========================================================================
 #endregion
 
 
 using System;
-using System.Collections;
+using System.Collections.Generic;
 using System.Xml;
 using Nova.Common.Components;
 
@@ -48,8 +44,7 @@ namespace Nova.Common
     [Serializable]
     public class Ship : Item
     {
-        // public Cargo Cargo = new Cargo(); // Cargo being carried.
-        public ShipDesign Design = null;
+        private ShipDesign Design = null;
         private bool summaryUpdated = false;
 
         // These are the current shield / armor values, modified by damage.
@@ -71,8 +66,13 @@ namespace Nova.Common
 
             Shields = shipDesign.Shield;
             Armor = shipDesign.Armor;
-            Cost = shipDesign.Cost;
 
+            // Initialise inherited fields.
+            Mass = shipDesign.Mass;
+            Cost = shipDesign.Cost;
+            Name = shipDesign.Name;
+            Owner = shipDesign.Owner;
+            Type = shipDesign.Type;
         }
 
 
@@ -99,6 +99,28 @@ namespace Nova.Common
         #region Methods
 
         /// <summary>
+        /// Replace the design of the ship
+        /// </summary>
+        /// <param name="design"></param>
+        public void DesignUpdate(ShipDesign design)
+        {
+            Design = design;
+            Design.Update(); // ensure summary properties have been calculated
+
+            Shields = Design.Shield;
+            Armor = Design.Armor;
+
+            // Initialise inherited fields.
+            Mass = Design.Mass;
+            Cost = Design.Cost;
+            Name = Design.Name;
+            Owner = Design.Owner;
+            Type = Design.Type;
+
+        }
+
+
+        /// <summary>
         /// Update the summary statistics for the ship
         /// </summary>
         public void Update()
@@ -116,7 +138,8 @@ namespace Nova.Common
         /// </summary>
         /// <param name="warp">The speed the ship is travelling.</param>
         /// <param name="race">The race the ship belongs too.</param>
-        /// <returns>the ship fuel consumption (mg per year)</returns>
+        /// <param name="cargoMass">The mass of any cargo carried (ship mass will be added automatically).</param>
+        /// <returns>The ship fuel consumption rate in mg per year.</returns>
         /// <remarks>
         /// Ship_fuel_usage = ship_mass x efficiency x distance / 200
         ///
@@ -136,7 +159,7 @@ namespace Nova.Common
             double efficiency = fuelFactor / 100.0;
             double speed = warp * warp;
 
-            double fuelConsumption = (Mass + (cargoMass * efficiency * speed)) / 200.0;
+            double fuelConsumption = (Mass + cargoMass) * efficiency * speed / 200.0;
 
             if (race.HasTrait("IFE"))
             {
@@ -149,6 +172,18 @@ namespace Nova.Common
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// The battle speed of a ship.
+        /// </summary>
+        public double BattleSpeed
+        {
+            get
+            {
+                return Design.BattleSpeed;
+            }
+        }
+
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -181,6 +216,7 @@ namespace Nova.Common
 
         /// <summary>
         /// The Cargo Capacity of the ship.
+        /// Note the cargo carried is tracked by the <see cref="Fleet"/>.
         /// </summary>
         public int CargoCapacity
         {
@@ -188,6 +224,61 @@ namespace Nova.Common
             {
                 Update();
                 return Design.CargoCapacity;
+            }
+        }
+
+        /// <summary>
+        /// The armor of the underlying ship's design.
+        /// </summary>
+        public int DesignArmor
+        {
+            get
+            {
+                return Design.Armor;
+            }
+        }
+
+        /// <summary>
+        /// The <see cref="Resources"/> cost of the ship's underlying design.
+        /// </summary>
+        public Resources DesignCost
+        {
+            get
+            {
+                return Design.Cost;
+            }
+        }
+
+        /// <summary>
+        /// The Key of the ship's underlying design.
+        /// </summary>
+        public string DesignKey
+        {
+            get
+            {
+                return Design.Key;
+            }
+        }
+
+        /// <summary>
+        /// The name of the ship's underlying design.
+        /// </summary>
+        public string DesignName
+        {
+            get
+            {
+                return Design.Name;
+            }
+        }
+
+        /// <summary>
+        /// The shield strength of the underlying design.
+        /// </summary>
+        public int DesignShield
+        {
+            get
+            {
+                return Design.Shield;
             }
         }
 
@@ -330,6 +421,16 @@ namespace Nova.Common
             }
         }
 
+        /// <summary>
+        /// The ship's weapons.
+        /// </summary>
+        public List<Weapon> Weapons
+        {
+            get
+            {
+                return Design.Weapons;
+            }
+        }
 
 
         #endregion

@@ -32,14 +32,8 @@
 using System;
 using System.Collections;
 using System.IO;
-using System.Reflection;
-using System.Resources;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.Windows.Forms;
-using Nova.ControlLibrary;
-using Microsoft.Win32;
+
 using Nova.Common;
 #endregion
 

@@ -28,12 +28,13 @@
 
 using System.Collections;
 using System.Drawing;
-using Nova.Common.Components;
-using Nova.WinForms.Console;
-using NUnit.Framework;
 
 using Nova.Common;
+using Nova.Common.Components;
 using Nova.Server;
+using Nova.WinForms.Console;
+
+using NUnit.Framework;
 
 namespace Nova.UnitTests
 {
@@ -100,19 +101,17 @@ namespace Nova.UnitTests
             cruiser.ShipHull = shipHull;
             cruiser.Mass = 5000;
             cruiser.Cost = cost;
+            cruiser.Name = "Cruiser";
+
             frigate.ShipHull = shipHull;
             frigate.Mass = 5000;
             frigate.Cost = cost;
+            frigate.Name = "Frigate";
 
             ship1 = new Ship(cruiser);
             ship2 = new Ship(frigate);
             ship3 = new Ship(cruiser);
             ship4 = new Ship(frigate);
-
-            ship1.Design.Name = "Cruiser";
-            ship2.Design.Name = "Frigate";
-            ship3.Design.Name = "Cruiser";
-            ship4.Design.Name = "Frigate";
 
             ship1.Armor = 100;
             ship2.Armor = 200;
@@ -252,19 +251,5 @@ namespace Nova.UnitTests
 
             Assert.Greater(distanceS, distanceE);
         }
-
-        /*
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Test for FireWeapons
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        [Test]
-        public void Test7FireWeapons()
-        {
-            // FireWeapons(zoneStacks)
-
-        }
-        */
     }
 }

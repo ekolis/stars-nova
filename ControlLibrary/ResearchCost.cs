@@ -27,12 +27,9 @@
 #endregion
 
 using System;
-using System.Collections;
 using System.ComponentModel;
-using System.Drawing;
-using System.Data;
 using System.Windows.Forms;
-using Nova.Common;
+
 
 namespace Nova.ControlLibrary
 {
@@ -134,7 +131,7 @@ namespace Nova.ControlLibrary
             this.ExtraCost.Name = "ExtraCost";
             this.ExtraCost.Size = new System.Drawing.Size(112, 24);
             this.ExtraCost.TabIndex = 0;
-            this.ExtraCost.Text = "Costs 70% Extra";
+            this.ExtraCost.Text = "Costs 75% Extra";
             this.ExtraCost.CheckedChanged += new System.EventHandler(this.Research_CheckChanged);
             // 
             // ResearchCost

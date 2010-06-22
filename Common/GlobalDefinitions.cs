@@ -28,9 +28,8 @@
 #endregion
 
 using System;
-using System.Xml;
-using System.Collections;
 using System.IO;
+using System.Xml;
 
 namespace Nova.Common
 {
@@ -52,7 +51,6 @@ namespace Nova.Common
        // These registry keys are used to loacte files and folders where Nova stores game data.
        #region Files and Folders
        public const string RootRegistryKey = "Software\\Stars-Nova\\Nova"; // where the keys are
-       public const string NovaFolderKey = "NovaFolderKey";              // where Nova is installed 
        public const string ComponentFolderKey = "ComponentFolder";       // where components.xml is (possibly re-named), installation relative path is '.'. Should only change for modified game play.
        public const string GraphicsFolderKey = "GraphicsFolder";         // where pictures are stored, installation relative path is './Graphics'. Should only be changed for modding the game interface.
        public const string ClientFolderKey = "ClientFolder";             // where client side game files are, nominally './GameFiles'. Likely to be different for each active game.
@@ -99,6 +97,7 @@ namespace Nova.Common
 
        // Combat
        public const int MaxWeaponRange = 10;
+       public const int MaxDefenses = 100;
        
        // Environment
        public const double GravityMinimum = 0; // FIXME (priority 3) - Stars! gravity range is 0.2 - 6.0 with 1.0 in the middle! Will need to revise all current race builds once changed.

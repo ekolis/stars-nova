@@ -26,11 +26,12 @@
 // ===========================================================================
 #endregion
 
-using Nova.Common;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
+
+using Nova.Common;
 using Nova.Common.Components;
 using Nova.Server;
 
@@ -223,8 +224,8 @@ namespace Nova.WinForms.Console
 
             foreach (Ship ship in fleet.FleetShips)
             {
-                ship.Cost = ship.Design.Cost;
-                Fleet stack = fleetStacks[ship.Design.Name] as Fleet;
+                ship.Cost = ship.DesignCost;
+                Fleet stack = fleetStacks[ship.DesignName] as Fleet;
 
                 // If no stack exists for this design then create one now.
 
@@ -235,9 +236,9 @@ namespace Nova.WinForms.Console
                     stack = new Fleet(name, fleet.Owner, fleet.Position);
 
                     stack.BattlePlan = fleet.BattlePlan;
-                    stack.BattleSpeed = ship.Design.BattleSpeed;
+                    stack.BattleSpeed = ship.BattleSpeed;
 
-                    fleetStacks[ship.Design.Name] = stack;
+                    fleetStacks[ship.DesignName] = stack;
                 }
 
                 // Add this ship into the stack but give each ship a name (normally
@@ -433,7 +434,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public static double GetAttractiveness(Fleet target)
         {
-            double cost = target.TotalMass + target.TotalCost.Energy;
+            double cost = target.Mass + target.TotalCost.Energy;
             double dp = target.Defenses;
 
             return cost / dp;
@@ -544,7 +545,7 @@ namespace Nova.WinForms.Console
             {
                 foreach (Ship ship in stack.FleetShips)
                 {
-                    foreach (Weapon weaponSystem in ship.Design.Weapons)
+                    foreach (Weapon weaponSystem in ship.Weapons)
                     {
                         WeaponDetails weapon = new WeaponDetails();
 

@@ -30,12 +30,8 @@
 
 #region Using Statements
 
-using System;
-using System.IO;
 using System.Collections;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization;
+using System.IO;
 
 using Nova.Common;
 using Nova.Common.Components;
