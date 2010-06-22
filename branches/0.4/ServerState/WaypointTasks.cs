@@ -190,10 +190,10 @@ namespace Nova.WinForms.Console
         {
             double factor = amount / 100;
 
-            star.ResourcesOnHand.Ironium = ship.Design.Cost.Ironium * factor;
-            star.ResourcesOnHand.Boranium = ship.Design.Cost.Boranium * factor;
-            star.ResourcesOnHand.Germanium = ship.Design.Cost.Germanium * factor;
-            star.ResourcesOnHand.Energy = ship.Design.Cost.Energy * factor;
+            star.ResourcesOnHand.Ironium = ship.Cost.Ironium * factor;
+            star.ResourcesOnHand.Boranium = ship.Cost.Boranium * factor;
+            star.ResourcesOnHand.Germanium = ship.Cost.Germanium * factor;
+            star.ResourcesOnHand.Energy = ship.Cost.Energy * factor;
         }
 
 

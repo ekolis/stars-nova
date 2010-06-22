@@ -1,5 +1,5 @@
-using Nova.ControlLibrary;
 using Nova.Common;
+using Nova.ControlLibrary;
 
 namespace Nova.WinForms.NewGame
 {

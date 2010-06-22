@@ -34,14 +34,11 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using Microsoft.Win32;
 using System.IO;
-using System.Windows.Forms;
-using System.Text.RegularExpressions;
-using System.Diagnostics;
 using System.Reflection;
+using System.Windows.Forms;
+
+using Microsoft.Win32;
 
 namespace Nova.Common
 {
@@ -301,42 +298,35 @@ namespace Nova.Common
         /// <returns></returns>
         private static string GetNovaRoot()
         {
-            string NovaRoot = null;
+            string novaRoot;
 
-            // as usual, try the registry first
-            NovaRoot = GetRegistryValue(Global.NovaFolderKey);
-
-            if (NovaRoot == null || ! Directory.Exists(NovaRoot))
+            // try working upward from the application directory
+            // two likely structures - the installation structure (deployed) (e.g. Program Files/Stars! Nova/Nova.exe)
+            // or the development structure (development) (e.g. stars-nova/trunk/AppName/bin/<debug|release>/AppName.exe)
+            string applicationDirectory = (new System.IO.FileInfo(Assembly.GetExecutingAssembly().Location)).DirectoryName;
+            string[] folders = applicationDirectory.Split(Path.DirectorySeparatorChar);
+            string upThree = "../../..";
+            upThree = upThree.Replace('/', Path.DirectorySeparatorChar);
+            if (folders[folders.Length - 1].ToLower() == "debug")
             {
-                // try working upward from the application directory
-                // two likely structures - the installation structure (deployed) (e.g. Program Files/Stars! Nova/Nova.exe)
-                // or the development structure (development) (e.g. stars-nova/trunk/AppName/bin/<debug|release>/AppName.exe)
-                string ApplicationDirectory = (new System.IO.FileInfo(Assembly.GetExecutingAssembly().Location)).DirectoryName;
-                string[] folders = ApplicationDirectory.Split(Path.DirectorySeparatorChar);
-                string upThree = "../../..";
-                upThree = upThree.Replace('/', Path.DirectorySeparatorChar);
-                if (folders[folders.Length - 1].ToLower() == "debug")
-                {
-                    NovaRoot = Path.Combine(ApplicationDirectory, upThree);
-                }
-                else if (folders[folders.Length - 1].ToLower() == "release")
-                {
-                    NovaRoot = Path.Combine(ApplicationDirectory, upThree);
-                }
-                else
-                {
-                    NovaRoot = ApplicationDirectory;
-                }
-                
+                novaRoot = Path.Combine(applicationDirectory, upThree);
+            }
+            else if (folders[folders.Length - 1].ToLower() == "release")
+            {
+                novaRoot = Path.Combine(applicationDirectory, upThree);
+            }
+            else
+            {
+                novaRoot = applicationDirectory;
             }
 
-            if (!Directory.Exists(NovaRoot))
+            if (!Directory.Exists(novaRoot))
             {
                 Report.FatalError("Unable to locate the installation path to Nova.");
             }
 
 
-            return NovaRoot;
+            return novaRoot;
         }
 
         private static string AskUserForFile(string fileName)

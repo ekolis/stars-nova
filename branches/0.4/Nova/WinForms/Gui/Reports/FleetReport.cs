@@ -28,16 +28,12 @@
 
 using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
-using Nova.Common;
 using Nova.Client;
-
+using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
@@ -143,7 +139,7 @@ namespace Nova.WinForms.Gui
                     row[i++] = fleet.FleetShips.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     row[i++] = "-";
                     row[i++] = fleet.BattlePlan;
-                    row[i++] = fleet.TotalMass.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = fleet.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
                     FleetGridView.Rows.Add(row);
                 }

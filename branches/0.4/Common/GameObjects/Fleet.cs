@@ -31,10 +31,11 @@
 
 
 using System;
-using System.Linq;
-using System.Xml;
 using System.Collections;
 using System.Drawing;
+using System.Linq;
+using System.Xml;
+
 using Nova.Common.Components;
 
 namespace Nova.Common
@@ -174,7 +175,8 @@ namespace Nova.Common
             int warpFactor = target.WarpFactor;
             int speed = warpFactor * warpFactor;
             double targetTime = legDistance / speed;
-            double fuelTime = FuelAvailable / FuelConsumption(warpFactor, race);
+            double fuelConsumptionRate = FuelConsumption(warpFactor, race);
+            double fuelTime = FuelAvailable / fuelConsumptionRate;
             double travelTime = targetTime;
 
             // Determine just how long we have available to travel towards the
@@ -215,7 +217,8 @@ namespace Nova.Common
             // now have available.
 
             availableTime -= travelTime;
-            FuelAvailable -= FuelConsumption(target.WarpFactor, race) * travelTime;
+            int fuelUsed = (int)(fuelConsumptionRate * travelTime);
+            FuelAvailable -= fuelUsed;
 
             return arrived;
         }
@@ -228,7 +231,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="warpFactor">The warp speed of the fleet.</param>
         /// <param name="race">The race this fleet belongs too.</param>
-        /// <returns>The mass of fuel consumed.</returns>
+        /// <returns>The rate of fuel consumptionin mg / year.</returns>
         /// ----------------------------------------------------------------------------
         public double FuelConsumption(int warpFactor, Race race)
         {
@@ -337,7 +340,7 @@ namespace Nova.Common
         /// Return the mass of a fleet.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public int TotalMass
+        public new int Mass
         {
             get
             {

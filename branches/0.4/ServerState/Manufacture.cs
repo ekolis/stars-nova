@@ -26,8 +26,8 @@
 // ===========================================================================
 #endregion
 
-using System.Collections;
 using System;
+using System.Collections;
 
 using Nova.Common;
 using Nova.Common.Components;
@@ -94,6 +94,7 @@ namespace Nova.WinForms.Console
 
             while (item.Quantity > 0)
             {
+
                 resourcesExhausted = BuildDesign(item, star);
                 if (resourcesExhausted)
                 {
@@ -145,6 +146,11 @@ namespace Nova.WinForms.Console
 
                 case "Defenses":
                     star.Defenses++;
+                    if (star.Defenses >= Global.MaxDefenses)
+                    {
+                        star.Defenses = Global.MaxDefenses; // This should never be required, but just in case.
+                        item.Quantity = 0;
+                    }
                     break;
 
                 case "Ship":
@@ -257,7 +263,7 @@ namespace Nova.WinForms.Console
                 }
                 star.Starbase = fleet;
                 fleet.Type = "Starbase";
-                fleet.Name = ship.Design.Name;
+                fleet.Name = ship.DesignName;
                 fleet.InOrbit = star;
 
                 if (race.HasTrait("ISB"))

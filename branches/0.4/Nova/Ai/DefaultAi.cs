@@ -35,8 +35,8 @@
 
 using System;
 
-using Nova.Common;
 using Nova.Client;
+using Nova.Common;
 using Nova.Common.Components;
 
 namespace Nova.Ai
@@ -123,9 +123,10 @@ namespace Nova.Ai
                     star.ManufacturingQueue.Queue.Add(item);
 
                     // build defenses
+                    int defenceToBuild = Global.MaxDefenses - star.Defenses;
                     item = new ProductionQueue.Item();
                     item.Name = "Defenses";
-                    item.Quantity = 100;
+                    item.Quantity = defenceToBuild;
                     design = turnData.AllDesigns[ClientState.Data.RaceName + "/" + item.Name] as Design;
                     item.BuildState = design.Cost;
                     star.ManufacturingQueue.Queue.Add(item);

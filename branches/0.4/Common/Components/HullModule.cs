@@ -28,12 +28,8 @@
 #endregion
 
 using System;
-using System.Xml;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
 using System.Runtime.Serialization;
+using System.Xml;
 
 namespace Nova.Common.Components
 {

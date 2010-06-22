@@ -1,8 +1,104 @@
-This is a summary of user visible changes in 
+Summary of user visible changes in Stars! Nova version 0.4.1
+ (Revision 371, 19 Jun 10.)
 
-       Stars! Nova version 0.4.0
+General:
 
-Correct as of Revision 299, 29 May 10.
+ - No backward compatibility with save games from earlier versions. This means that old save games cannot be loaded in this version.
+
+Launcher:
+
+ - Removed the ability to resize the launcher window.
+
+Race Wizard:
+
+ - Lesser racial trait "Cheap Engines" now costs points 
+   instead of granting them.
+
+ - Factory operation 14 and 15 /10k grants now has correct 
+   cost.
+
+
+Game Play Fixes / GUI:
+
+ - Defenses limited to 100.
+
+ - Fuel calculation now include the mass of the ships, not just cargo. (This fix only works for newly created ships and is not a retroactive fix for games in progress.)
+
+ - Way points can now be removed with the delete key (once 
+   selected). The backspace key also (still) works.
+
+ - Fixed a logic error in VictoryCheck that counted unowned 
+   stars as a second player, preventing victory by 
+   extermination from being reported.
+
+ - Reworked the invasion angorithm so invasions now work.
+
+ - Unloading colonists at a star not owned by the fleet now
+   results in invasion (instead of adding the colonists to 
+   the other race's star).
+
+ - Bombing now takes place.
+
+ - Fuel pods and cargo modules now add to the base hull 
+   correctly.
+
+ - Corrected conversions of colonists to 
+   kilotons-of-colonists.
+
+ - Up&Down buttons add to the production queue.
+
+ - It is now possible to replace a component in the ship 
+   designer with another. (Component removal has not yet 
+   been implemented.)
+
+ - Fixed incorrect cost when adding 10x components.
+
+
+Console:
+
+ - Forcing turn generation before any turns are submitted 
+   no longer crashes the console.
+
+
+Component Definitions Fixes:
+
+ - Fixed % chance to hit mines in components.xml.
+
+ - Updated race restrictions form speed trap 20 and orbital 
+   construction module in components.xml
+   
+ - Orbital construction module set to a minimum kill of 2000. 
+   Component editor now accepts minimum kill values up to 
+   10000.
+
+ - Fixes to components.xml by Coyote: race permision, mining 
+   propeties for robo-miners, fixed some images, fixed 
+   engines, all bombs now have the proper kill%, Orbital 
+   Construction Module now has a bomb property.
+
+
+Documentation:
+
+ - Updated the Getting Started Guide with command line 
+   arguments.
+
+ - Replace font-dependent single character copyright symbol 
+   with "(C)" for cross-platform compatibility.
+
+AI:
+
+ - Fixed an issue that caused the AI to crash when run from 
+   the command line with incorrect parameters.
+
+ - AI now builds factories/mines/defenses (introduced to aid
+   in testing of bombing.) Confirmed smart bombs do bomb.
+
+
+------------------------------------------------------------
+
+
+Summary of user visible changes in Stars! Nova version 0.4.0 
+Revision 299, 29 May 10.)
 
 General:
 

@@ -26,16 +26,13 @@
 // ===========================================================================
 #endregion
 
-using Nova.ControlLibrary;
 using System;
-using System.Collections;
-using System.ComponentModel;
 using System.Drawing;
-using System.Data;
 using System.Windows.Forms;
 
-using Nova.Common;
 using Nova.Client;
+using Nova.Common;
+using Nova.ControlLibrary;
 
 namespace Nova.WinForms.Gui
 {

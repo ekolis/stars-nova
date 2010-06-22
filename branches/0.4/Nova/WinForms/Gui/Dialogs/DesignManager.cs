@@ -28,14 +28,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
 using System.Windows.Forms;
 
-using Nova.Common;
 using Nova.Client;
+using Nova.Common;
 using Nova.Common.Components;
 
 namespace Nova.WinForms.Gui
@@ -174,9 +170,9 @@ namespace Nova.WinForms.Gui
 
 
             // Note that we are not allowed to delete the ships or fleets on the
-            // scan through FleetShips and AlFleetsand as that is not allowed (it
+            // scan through FleetShips and AllFleets and as that is not allowed (it
             // destroys the validity of the iterator). Consequently we identify
-            // anything that need deleting and remove them separately from their
+            // anything that needs deleting and remove them separately from their
             // identification.
 
             List<Fleet> fleetsToRemove = new List<Fleet>();
@@ -188,7 +184,7 @@ namespace Nova.WinForms.Gui
 
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    if (ship.Design.Key == design.Key)
+                    if (ship.DesignKey == design.Key)
                     {
                         shipsToRemove.Add(ship);
                     }
@@ -334,7 +330,7 @@ namespace Nova.WinForms.Gui
             {
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    if (ship.Design.Key == design.Key)
+                    if (ship.DesignKey == design.Key)
                     {
                         quantity++;
                     }

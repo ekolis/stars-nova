@@ -29,18 +29,11 @@
 
 #region Using Statements
 using System;
-using System.Xml;
-using System.IO.Compression;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization;
+using System.IO.Compression;
+using System.Xml;
 using Nova.Common;
 using Nova.Common.Components;
-
 #endregion
 
 namespace Nova.Server
@@ -182,7 +175,7 @@ namespace Nova.Server
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.Design = playerOrders.RaceDesigns[ship.Design.Name] as ShipDesign;
+                    ship.DesignUpdate(playerOrders.RaceDesigns[ship.DesignName] as ShipDesign);
                 }
             }
             // Star reference to Race

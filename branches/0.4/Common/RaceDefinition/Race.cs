@@ -29,17 +29,8 @@
 #endregion
 
 using System;
-using System.Collections;
-using System.Drawing;
-using System.Xml;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization;
-using System.IO.Compression;
-using System.Web.Security;
-using Nova.Common;
-
+using System.Xml;
 
 namespace Nova.Common
 {

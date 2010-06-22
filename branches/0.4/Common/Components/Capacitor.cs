@@ -29,7 +29,6 @@
 
 using System;
 using System.Xml;
-using System.Runtime.Serialization;
 
 namespace Nova.Common.Components
 {
