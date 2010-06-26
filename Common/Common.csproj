@@ -2,7 +2,7 @@
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="3.5">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
-    <ProductVersion>9.0.30729</ProductVersion>
+    <ProductVersion>9.0.21022</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</ProjectGuid>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -84,6 +84,7 @@
     <Compile Include="Converters\InstanceDescriptorConverter.cs" />
     <Compile Include="Converters\ResourcesConverter.cs" />
     <Compile Include="Converters\TechLevelConverter.cs" />
+    <Compile Include="Files\Config.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -148,7 +149,7 @@
     <Compile Include="DataStructures\EnabledValue.cs" />
     <Compile Include="DataStructures\EnvironmentTolerance.cs" />
     <Compile Include="DataStructures\FactoryProductionUnit.cs" />
-    <Compile Include="DataStructures\GameSettings.cs" />
+    <Compile Include="Files\GameSettings.cs" />
     <Compile Include="DataStructures\Message.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -161,7 +162,7 @@
     <Compile Include="DataStructures\RaceData.cs" />
     <Compile Include="RaceDefinition\RaceIcon.cs" />
     <Compile Include="RaceDefinition\RaceRestriction.cs" />
-    <Compile Include="DataStructures\Orders.cs" />
+    <Compile Include="Files\Orders.cs" />
     <Compile Include="PointUtils.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -182,7 +183,7 @@
     <Compile Include="GameObjects\Star.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataStructures\Intel.cs" />
+    <Compile Include="Files\Intel.cs" />
     <Compile Include="DataStructures\ScoreRecord.cs" />
     <Compile Include="RaceDefinition\SecondaryTraits.cs" />
     <Compile Include="DataStructures\ShipProductionUnit.cs" />
@@ -193,7 +194,6 @@
     </Compile>
     <Compile Include="SpaceAllocator.cs" />
     <Compile Include="Verify.cs" />
-    <Compile Include="XmlConversion.cs" />
     <Compile Include="..\VersionInfo.cs" />
   </ItemGroup>
   <ItemGroup>

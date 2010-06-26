@@ -23,7 +23,7 @@
 // ===========================================================================
 // The FileSearcher object is used to find a file that is part of Nova. It uses
 // the following stratergy:
-// First, check if the file path is defined by a registry key, else
+// First, check if the file path is defined by a key in nova.conf, else
 // see if the file is in the expected relative path location, else
 // see if the file can be found by searching the nova installation directory, else
 // ask the user to locate the file, else
@@ -44,6 +44,8 @@ namespace Nova.Common
 {
     public static class FileSearcher
     {
+        private static bool DisableComponentGraphics = false; // if we can't find them the first time, stop asking.
+
         #region Public Methods
 
         /// <summary>
@@ -79,25 +81,6 @@ namespace Nova.Common
 
 
         /// <summary>
-        /// Find all the parts of Nova in one go, stoping short of asking the user.
-        /// This should be run at application startup when we know where the working directory is.
-        /// </summary>
-        public static void SetKeys()
-        {
-            try
-            {
-                GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
-                GetFolder(Global.ClientFolderKey, Global.ClientFolderName);
-                GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
-            }
-            catch (Exception e)
-            {
-                Report.FatalError("Unable to locate essential application folders: " + e.Message);
-            }
-        }
-
-
-        /// <summary>
         /// Get the game settings file.
         /// </summary>
         /// <returns>The full path&name of the game settings file or null.</returns>
@@ -105,7 +88,6 @@ namespace Nova.Common
         {
             string settings;
 
-            // try the registry first
             settings = GetFile(Global.SettingsKey, false, "", "", "", false);
 
             if (!File.Exists(settings))
@@ -133,164 +115,228 @@ namespace Nova.Common
             return settings;
         }
 
+        public static string GetComponentFile()
+        {
+            string components;
+
+            // try the config file
+            using (Config conf = new Config())
+            {
+                components = conf[Global.ComponentFileKey];
+            }
+
+            // or try the usual location NovaRoot\components.xml
+            if (!File.Exists(components))
+            {
+                components = Path.Combine(GetNovaRoot(), Global.ComponentFileName);
+            }
+
+            // if all else fails, ask the user
+            if (!File.Exists(components))
+            {
+                components = AskUserForFile(Global.ComponentFileName);
+            }
+
+            return components;
+        }
+
         /// <summary>
-        /// Find the file 'fileName'. Use registryKey if possible, or look
-        /// in the likely path, or search the nova file tree, or ask the user.
+        /// Get the game settings file.
         /// </summary>
-        /// <param name="registryKey">The registry key we would like to store the file path in. If this registry key is not set and we find the file, then it will be set to save searching next time. Ideally this key is set when the application is installed.</param>
-        /// <param name="pathOnly">true if the registry key should contain only the path. False if it is the path+file name</param>
+        /// <returns>The full path&name of the nova.config file or null.</returns>
+        public static string GetConfigFile()
+        {
+            string config;
+
+            // File should be NovaRoot\nova.config
+            config = Path.Combine(GetNovaRoot(), Global.ConfigFileName);
+            if (! File.Exists(config)) config = null;
+            return config;
+        }
+        
+        public static string GetGraphicsPath()
+        {
+            string graphicsPath;
+            using (Config conf = new Config())
+            {
+                bool updateConf = false;
+
+                if (DisableComponentGraphics) return null;
+
+
+                // Try the config file
+                graphicsPath = conf[Global.GraphicsFolderKey];
+
+                // did we find it?
+                if (graphicsPath == null || !Directory.Exists(graphicsPath))
+                {
+                    updateConf = true;
+                    // Try the default folder
+                    string NovaRoot = GetNovaRoot();
+                    graphicsPath = Path.Combine(NovaRoot, Global.GraphicsFolderName);
+                }
+
+                if (!Directory.Exists(graphicsPath))
+                {
+                    // if all else fails, ask the user
+                    FolderBrowserDialog graphicsFolderBrowser = new FolderBrowserDialog();
+
+                    graphicsFolderBrowser.RootFolder = Environment.SpecialFolder.Desktop;
+                    graphicsFolderBrowser.SelectedPath = GetNovaRoot();
+                    graphicsFolderBrowser.Description = "Locate the Stars! Nova \"Graphics\" folder.";
+                    DialogResult gameFolderBrowserResult = graphicsFolderBrowser.ShowDialog();
+
+                    // Check for cancel being pressed (in the new game save file dialog).
+                    if (gameFolderBrowserResult == DialogResult.OK)
+                    {
+                        graphicsPath = graphicsFolderBrowser.SelectedPath;
+                    }
+
+                }
+
+                if (Directory.Exists(graphicsPath) && updateConf)
+                {
+                    conf[Global.GraphicsFolderKey] = graphicsPath;
+                }
+                else
+                {
+                    DisableComponentGraphics = true;
+                }
+            }
+            return graphicsPath;
+        }
+
+        /// <summary>
+        /// Find the file 'fileName'. 
+        /// </summary>
+        /// <param name="configKey">The config file key we would like to store the file path in. If this key is not set and we find the file, then it will be set to save searching next time. Ideally this key is set when the application is installed.</param>
+        /// <param name="pathOnly">true if the config file should contain only the path. False if it is the path+file name</param>
         /// <param name="relativePath">The expected path relative to the running application.</param>
         /// <param name="fileName">The name of the file we are looing for.</param>
         /// <returns>The absolute path, including the file name. null if the file can't be found.</returns>
-        public static string GetFile(string registryKey, bool pathOnly, string developmentPath, string deployedPath, string fileName, bool askUser)
+        public static string GetFile(string configKey, bool pathOnly, string developmentPath, string deployedPath, string fileName, bool askUser)
         {
             // Tempory storage for building the absolute path reference
             string AbsoluteReference = null;
-            bool registryOK = true; // assume it is until we prove otherwise
-
-            if (registryKey != null)
+            using (Config conf = new Config())
             {
-                // Try the registry key
-                AbsoluteReference = GetRegistryValue(registryKey);
-                if (pathOnly) AbsoluteReference = Path.Combine(AbsoluteReference, fileName);
-            }
+                bool confOk = true; // assume it is until we prove otherwise
 
-            // did we find it?
-            if (!File.Exists(AbsoluteReference))
-            {
-                registryOK = false;
-                // Try the deployed path
-                
-                AbsoluteReference = Path.Combine(Directory.GetCurrentDirectory(), deployedPath.Replace('/', Path.DirectorySeparatorChar));
-                AbsoluteReference = Path.Combine(AbsoluteReference, fileName);
-            }
+                if (configKey != null)
+                {
+                    // Try the config file
+                    AbsoluteReference = conf[configKey];
+                    if (pathOnly) AbsoluteReference = Path.Combine(AbsoluteReference, fileName);
+                }
 
-            if (!File.Exists(AbsoluteReference))
-            {
-                registryOK = false;
-                // Try the development path
-                AbsoluteReference = Path.Combine(System.IO.Directory.GetCurrentDirectory(), developmentPath.Replace('/', Path.DirectorySeparatorChar));
-                AbsoluteReference = Path.Combine(AbsoluteReference, fileName);
-            }
+                // did we find it?
+                if (!File.Exists(AbsoluteReference))
+                {
+                    confOk = false;
+                    // Try the deployed path
 
-            // Try searching the nova tree (brute force) - TODO (priority 4)
+                    AbsoluteReference = Path.Combine(Directory.GetCurrentDirectory(), deployedPath.Replace('/', Path.DirectorySeparatorChar));
+                    AbsoluteReference = Path.Combine(AbsoluteReference, fileName);
+                }
 
-            if (!File.Exists(AbsoluteReference))
-            {
-                // Ask the user for help
-                if (askUser) AbsoluteReference = AskUserForFile(fileName);
-            }
+                if (!File.Exists(AbsoluteReference))
+                {
+                    confOk = false;
+                    // Try the development path
+                    AbsoluteReference = Path.Combine(System.IO.Directory.GetCurrentDirectory(), developmentPath.Replace('/', Path.DirectorySeparatorChar));
+                    AbsoluteReference = Path.Combine(AbsoluteReference, fileName);
+                }
 
-            // Finish up
-            if (!File.Exists(AbsoluteReference))
-            {
-                AbsoluteReference = null;
-            }
-            else
-            {
-                if (! registryOK && registryKey != null)
-                    SetNovaRegistryValue(registryKey, AbsoluteReference);
-            }
+                // Try searching the nova tree (brute force) - TODO (priority 4)
 
+                if (!File.Exists(AbsoluteReference))
+                {
+                    // Ask the user for help
+                    if (askUser) AbsoluteReference = AskUserForFile(fileName);
+                }
+
+                // Finish up
+                if (!File.Exists(AbsoluteReference))
+                {
+                    AbsoluteReference = null;
+                }
+                else
+                {
+                    if (!confOk && configKey != null)
+                    {
+
+                        conf[configKey] = AbsoluteReference;
+                    }
+                }
+            }
             return AbsoluteReference;
         }
 
         /// <summary>
         /// Find a folder. Use this if you are going to store something there. If you intend to open or use a file, use GetFile() instead.
         /// </summary>
-        /// <param name="registryKey">The key we would like the folder path to be stored in.</param>
-        /// <param name="relativePath">The default folder name, as in NovaRoot\defaultFolder, to use if the registry key is not set.</param>
-        /// <returns>The path to the folder, being either the folder defined by the registry key, or Path.Combine(NovaRoot, defaultFolder). Will create the folder if neccessary</returns>
-        public static string GetFolder(string registryKey, string defaultFolder)
+        /// <param name="configKey">The config file key we would like the folder path to be stored in.</param>
+        /// <param name="relativePath">The default folder name, as in NovaRoot\defaultFolder, to use if the key is not set.</param>
+        /// <returns>The path to the folder, being either the folder defined by the key, or Path.Combine(NovaRoot, defaultFolder). Will create the folder if neccessary</returns>
+        public static string GetFolder(string configKey, string defaultFolder)
         {
             // Tempory storage for building the absolute path reference
             string FolderPath = null;
-            bool registryOK = true; // assume it is until we prove otherwise
-
-            if (registryKey != null)
+            using (Config conf = new Config())
             {
-                // Try the registry key
-                FolderPath = GetRegistryValue(registryKey);
-            }
+                bool configOk = true; // assume it is until we prove otherwise
 
-            // did we find it?
-            if (FolderPath == null || !Directory.Exists(FolderPath))
-            {
-                registryOK = false;
-                // Try the default folder
-                string NovaRoot = GetNovaRoot();
-
-                FolderPath = Path.Combine(NovaRoot, defaultFolder);
-            }
-
-            // If the default folder doesn't exist, create it.
-            if (!Directory.Exists(FolderPath))
-            {
-                try
+                if (configKey != null)
                 {
-                    Directory.CreateDirectory(FolderPath);
+                    // Try the config file
+                    FolderPath = conf[configKey];
                 }
-                catch
+
+                // did we find it?
+                if (FolderPath == null || !Directory.Exists(FolderPath))
                 {
-                    Report.Error("Unable to create directory: " + FolderPath);
+                    configOk = false;
+                    // Try the default folder
+                    string NovaRoot = GetNovaRoot();
+
+                    FolderPath = Path.Combine(NovaRoot, defaultFolder);
+                }
+
+                // If the default folder doesn't exist, create it.
+                if (!Directory.Exists(FolderPath))
+                {
+                    try
+                    {
+                        Directory.CreateDirectory(FolderPath);
+                    }
+                    catch
+                    {
+                        Report.Error("Unable to create directory: " + FolderPath);
+                        FolderPath = null;
+                    }
+                }
+
+                // Finish Up
+                if (FolderPath == null || !Directory.Exists(FolderPath))
+                {
+                    Report.Error("Folder does not exist: " + FolderPath);
                     FolderPath = null;
                 }
+                else
+                {
+                    if (!configOk && configKey != null)
+                    {
+                        conf[configKey] = FolderPath;
+                    }
+                }
             }
-
-            // Finish Up
-            if (FolderPath == null || !Directory.Exists(FolderPath))
-            {
-                Report.Error("Folder does not exist: " + FolderPath);
-                FolderPath = null;
-            }
-            else
-            {
-                if (!registryOK && registryKey != null)
-                    SetNovaRegistryValue(registryKey, FolderPath);
-            }
-
             return FolderPath;
-        }
-
-        /// <summary>
-        /// Store a registry key to make finding game files/folders easier.
-        /// </summary>
-        /// <param name="registryKey">The nova registry key to use. These are defined in the nova Global object.</param>
-        /// <param name="value">The text to be associated with this key.</param>
-        public static void SetNovaRegistryValue(string registryKey, string value)
-        {
-            RegistryKey key = Registry.CurrentUser;
-            RegistryKey subKey = key.CreateSubKey(Global.RootRegistryKey);
-            subKey.SetValue(registryKey, value);
-            key.Close();
-            subKey.Close();
         }
 
         #endregion
 
         // --------------------- Private Implementation Functions -------------------------------------------------
         #region Private Methods
-
-        /// <summary>
-        /// Look up a registry key and get its value, if any.
-        /// </summary>
-        /// <param name="registryKey">The key to look up.</param>
-        /// <returns>The value of the key, or null if invalid / not set.</returns>
-        private static string GetRegistryValue(string registryKey)
-        {
-            RegistryKey regKey = Registry.CurrentUser;
-            RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-            string Path = subKey.GetValue(registryKey, "?").ToString();
-
-            if (Path == "?" || Path == "")
-            {
-                Path = null;
-            }
-
-            return Path;
-
-        }
-
 
         /// <summary>
         /// Try to locate the nova root directory

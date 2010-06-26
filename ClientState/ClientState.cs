@@ -146,7 +146,7 @@ namespace Nova.Client
             // 1. the Nova GUI was started directly (e.g. in the debugger). 
             //    There will be zero options/arguments in the argArray.
             //    We will continue an existing game, if any. 
-            //     - get GameFolder from the registry
+            //     - get GameFolder from the config file
             //     - look for races and ask the user to pick one. If none need to
             //       ask the user to open a game (.intel), then treat as per option 2.
             //     - Build the stateFileName from the GameFolder and Race name and 
@@ -198,14 +198,14 @@ namespace Nova.Client
 
             // ----------------------------------------------------------------------------
             // Get the name of the folder where all the game files will be stored. 
-            // Normally this would be placed in the registry by the NewGame wizard.
+            // Normally this would be placed in the config file by the NewGame wizard.
             // We also cache a copy in the ClientState.Data.GameFolder
             // ----------------------------------------------------------------------------
 
             ClientState.Data.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
             if (ClientState.Data.GameFolder == null)
             {
-                Report.FatalError("ClientState.cs Initialize() - An expected registry entry is missing\n" +
+                Report.FatalError("ClientState.cs Initialize() - An expected config file entry is missing\n" +
                                   "Have you ran the Race Designer and \n" +
                                   "Nova Console?");
             }
@@ -222,7 +222,7 @@ namespace Nova.Client
             //    We will continue an existing game, if any. 
             if (argArray.Length == 0)
             {
-                // - get GameFolder from the registry - already done.
+                // - get GameFolder from the conf file - already done.
 
                 // - look for races and ask the user to pick one. 
                 ClientState.Data.RaceName = SelectRace(ClientState.Data.GameFolder);
@@ -595,7 +595,7 @@ namespace Nova.Client
             }
             if (ClientState.Data.PlayerRace.Traits.Contains("ExtraTech"))
             {
-                //All extra technologies start on level 3 or 4 with JOAT
+                // All extra technologies start on level 3 or 4 with JOAT
                 if (ClientState.Data.PlayerRace.Traits.Primary.Code == "JOAT")
                 {
                     ClientState.Data.ResearchLevel[TechLevel.ResearchField.Propulsion] += 1;

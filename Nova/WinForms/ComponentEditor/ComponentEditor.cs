@@ -177,7 +177,12 @@ namespace Nova.WinForms.ComponentEditor
 
            if (result == DialogResult.OK)
            {
-               AllComponents.ComponentFile = fd.FileName;
+               // store the new component definition file name in the nova.conf
+               using (Config conf = new Config())
+               {
+                   conf[Global.ComponentFileName] = fd.FileName;
+               }
+               
                try
                {
                    AllComponents.Restore();
@@ -292,7 +297,10 @@ namespace Nova.WinForms.ComponentEditor
                    // The FileName gets stored and then imediately returned to what it was before? 
                    // Works only if the file selected already exists.
                    // See the workaround above which creates the file first.
-                   AllComponents.ComponentFile = fd.FileName;
+                   using (Config conf = new Config())
+                   {
+                       conf[Global.ComponentFileName] = fd.FileName;
+                   }
 
                    AllComponents.Save();
                }
@@ -1732,23 +1740,26 @@ namespace Nova.WinForms.ComponentEditor
        /// </summary>
        private void UpdateTitleBar()
        {
-           Text = "Nova Component Editor - ";
-           if (AllComponents.ComponentFile != null)
+           using (Config conf = new Config())
            {
-               Text += AllComponents.ComponentFile;
-           }
-           else
-           {
-               Text += "New Component Definintions";
-           }
+               Text = "Nova Component Editor - ";
+               if (!String.IsNullOrEmpty(conf[Global.ComponentFileName]))
+               {
+                   Text += conf[Global.ComponentFileName];
+               }
+               else
+               {
+                   Text += "New Component Definintions";
+               }
 
-           if (EditMode)
-           {
-               Text += " - Edit Mode";
-           }
-           else
-           {
-               Text += " - Browsing Mode";
+               if (EditMode)
+               {
+                   Text += " - Edit Mode";
+               }
+               else
+               {
+                   Text += " - Browsing Mode";
+               }
            }
        }
 
