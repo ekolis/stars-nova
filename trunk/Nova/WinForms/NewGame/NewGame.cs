@@ -329,15 +329,7 @@ namespace Nova.WinForms.NewGame
             star.Radiation   = race.OptimumRadiationLevel;
             star.Temperature = race.OptimumTemperatureLevel;
             star.Gravity     = race.OptimumGravityLevel;
-
-            if (race.HasTrait("LSP"))
-            {
-                star.Colonists = Global.StartingColonistsLowStartingPopulation;
-            }
-            else
-            {
-                star.Colonists = Global.StartingColonists;
-            }
+            star.Colonists   = race.GetStartingPopulation();
         }
 
         #endregion

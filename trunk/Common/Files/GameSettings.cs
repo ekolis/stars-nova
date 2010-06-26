@@ -73,6 +73,8 @@ namespace Nova.Common
         public string SettingsPathName;
         public string GameName = "Feel the Nova";
 
+        public bool AcceleratedStart = false;
+
         #region Singleton
 
         // ============================================================================

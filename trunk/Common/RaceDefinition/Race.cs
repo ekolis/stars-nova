@@ -193,7 +193,10 @@ namespace Nova.Common
             get { return Median(GravityTolerance) * 10; }
         }
 
-        public double MaxPopulation
+        /// <summary>
+        /// The maximum planetary population for this race.
+        /// </summary>
+        public int MaxPopulation
         {
             get
             {
@@ -203,6 +206,27 @@ namespace Nova.Common
                 if (HasTrait("OBRM")) maxPop = (int)(maxPop * Global.PopulationFactorOnlyBasicRemoteMining);
                 return maxPop;
             }
+        }
+
+        /// <summary>
+        /// Get the starting population for this race.
+        /// </summary>
+        /// <returns>The starting population.</returns>
+        /// <remarks>
+        /// TODO (priority 4) - Implement starting populations for races with two starting planets.
+        /// </remarks>
+        public int GetStartingPopulation()
+        {
+            int population = Global.StartingColonists;
+            
+            if (GameSettings.Data.AcceleratedStart)
+            {
+                population = Global.StartingColonistsAcceleratedBBS;
+            }     
+
+            if (HasTrait("LSP")) population = (int)(population * Global.LowStartingPopulationFactor);
+
+            return population;
         }
 
         #endregion
