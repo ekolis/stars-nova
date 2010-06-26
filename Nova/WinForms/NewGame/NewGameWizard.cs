@@ -112,6 +112,8 @@ namespace Nova.WinForms.NewGame
             GameSettings.Data.StarSeparation = (int)starSeparation.Value;
             GameSettings.Data.StarDensity = (int)starDensity.Value;
             GameSettings.Data.StarUniformity = (int)starUniformity.Value;
+
+            GameSettings.Data.AcceleratedStart = acceleratedStart.Checked;
         }
 
 
@@ -120,7 +122,7 @@ namespace Nova.WinForms.NewGame
         /// Occurs when the Tutorial button is clicked.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void TutorialButton_Click(object sender, EventArgs eventArgs)
         {
