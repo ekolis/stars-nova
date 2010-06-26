@@ -59,7 +59,7 @@ namespace Nova.Common
 
 
         /// <summary>
-        /// Report informations
+        /// Raise a dialog to report an information message.
         /// </summary>
         /// <param name="text">Message to display.</param>
         public static void Information(string text)

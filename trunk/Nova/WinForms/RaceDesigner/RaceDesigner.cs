@@ -28,22 +28,17 @@
 #endregion
 
 #region Using Statements
-using Microsoft.Win32;
-using Nova.Common;
-using Nova.ControlLibrary;
+
 using System;
 using System.Collections;
 using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization;
-using System.IO.Compression;
-using System.Xml;
 using System.Web.Security;
 using System.Windows.Forms;
+using System.Xml;
+
+using Nova.Common;
+
 #endregion
 
 namespace Nova.WinForms.RaceDesigner
@@ -55,7 +50,7 @@ namespace Nova.WinForms.RaceDesigner
     [Serializable]
     public class RaceDesignerForm : System.Windows.Forms.Form
     {
-        RaceIcon CurrentRaceIcon = null;
+        private RaceIcon CurrentRaceIcon = null;
 
         //---------------------------------------------------------------------------- 
         //  Non-designer generated variables
@@ -147,7 +142,6 @@ namespace Nova.WinForms.RaceDesigner
         private ToolStripMenuItem aboutToolStripMenuItem;
         private TextBox Password;
         private Label label12;
-        //      private ImageList RaceIcons;
         private Button PreviousImage;
         private Button NextImage;
         private PictureBox PictureBox;
@@ -174,9 +168,6 @@ namespace Nova.WinForms.RaceDesigner
         public RaceDesignerForm()
         {
             InitializeComponent();
-
-            // Initialize the Nova registry keys
-            FileSearcher.SetKeys();
 
             JackOfAllTrades.Checked = true;
             SelectedRace = AllTraits.Data.Primary["JOAT"];
@@ -1687,8 +1678,7 @@ namespace Nova.WinForms.RaceDesigner
                     break;
                 }
             }
-        }//UpDown_ValueChanged
-
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -1736,11 +1726,7 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="oldLeftPos"></param>
         /// <param name="oldRightPos"></param>
         /// ----------------------------------------------------------------------------
-        private void Tolerance_RangeChanged(object sender,
-                                            int newLeftPos,
-                                            int newRightPos,
-                                            int oldLeftPos,
-                                            int oldRightPos)
+        private void Tolerance_RangeChanged(object sender, int newLeftPos, int newRightPos, int oldLeftPos, int oldRightPos)
         {
 
             AdvantagePoints -= Utilities.BarWidthCost(oldLeftPos, oldRightPos);
@@ -1834,21 +1820,21 @@ namespace Nova.WinForms.RaceDesigner
             // Secondary Racial Traits
             // ----------------------------------------------------------------------------
             if (ImprovedFuelEfficiency.Checked) RaceParameters.Traits.Add("IFE");
-            if (NoRAMEngines.Checked)           RaceParameters.Traits.Add("NRS");
-            if (TotalTerraforming.Checked)      RaceParameters.Traits.Add("TT");
-            if (CheapEngines.Checked)           RaceParameters.Traits.Add("CE");
-            if (AdvancedRemoteMining.Checked)   RaceParameters.Traits.Add("ARM");
-            if (BasicRemoteMining.Checked)      RaceParameters.Traits.Add("OBRM");
-            if (ImprovedStarbases.Checked)      RaceParameters.Traits.Add("ISB");
-            if (NoAdvancedScanners.Checked)     RaceParameters.Traits.Add("NAS");
-            if (GeneralisedResearch.Checked)    RaceParameters.Traits.Add("GR");
-            if (LowStartingPopulation.Checked)  RaceParameters.Traits.Add("LSP");
-            if (UltimateRecycling.Checked)      RaceParameters.Traits.Add("UR");
+            if (NoRAMEngines.Checked) RaceParameters.Traits.Add("NRS");
+            if (TotalTerraforming.Checked) RaceParameters.Traits.Add("TT");
+            if (CheapEngines.Checked) RaceParameters.Traits.Add("CE");
+            if (AdvancedRemoteMining.Checked) RaceParameters.Traits.Add("ARM");
+            if (BasicRemoteMining.Checked) RaceParameters.Traits.Add("OBRM");
+            if (ImprovedStarbases.Checked) RaceParameters.Traits.Add("ISB");
+            if (NoAdvancedScanners.Checked) RaceParameters.Traits.Add("NAS");
+            if (GeneralisedResearch.Checked) RaceParameters.Traits.Add("GR");
+            if (LowStartingPopulation.Checked) RaceParameters.Traits.Add("LSP");
+            if (UltimateRecycling.Checked) RaceParameters.Traits.Add("UR");
             if (BleedingEdgeTechnology.Checked) RaceParameters.Traits.Add("BET");
-            if (MineralAlchemy.Checked)         RaceParameters.Traits.Add("MA");
-            if (RegeneratingShields.Checked)    RaceParameters.Traits.Add("RS");
-            if (CheapFactories.Checked)         RaceParameters.Traits.Add("CF");
-            if (ExtraTech.Checked)              RaceParameters.Traits.Add("ExtraTech");
+            if (MineralAlchemy.Checked) RaceParameters.Traits.Add("MA");
+            if (RegeneratingShields.Checked) RaceParameters.Traits.Add("RS");
+            if (CheapFactories.Checked) RaceParameters.Traits.Add("CF");
+            if (ExtraTech.Checked) RaceParameters.Traits.Add("ExtraTech");
             // ----------------------------------------------------------------------------
             // Production Costs and Rates
             // ----------------------------------------------------------------------------
@@ -1892,7 +1878,7 @@ namespace Nova.WinForms.RaceDesigner
             try
             {
 
-                String RaceFilePath = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
+                string RaceFilePath = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
 
                 SaveFileDialog fd = new SaveFileDialog();
                 fd.Title = "Save Race - " + RaceParameters.Name;
@@ -1923,8 +1909,10 @@ namespace Nova.WinForms.RaceDesigner
 
                 Report.Information("The " + RaceParameters.PluralName + " have been saved to " + RaceFilePath);
 
-                FileSearcher.SetNovaRegistryValue(Global.RaceFolderKey, System.IO.Path.GetDirectoryName(RaceFilePath));
-
+                using (Config conf = new Config())
+                {
+                    conf[Global.RaceFolderKey] = System.IO.Path.GetDirectoryName(RaceFilePath);
+                }
                 // Remove the warning message for exiting with unsaved changes.
                 ParametersChanged = false;
 
@@ -1943,7 +1931,7 @@ namespace Nova.WinForms.RaceDesigner
                 return;
             }
 
-        }//Finish_Click (save&close the race)
+        }
 
 
         /// ----------------------------------------------------------------------------
@@ -2039,7 +2027,7 @@ namespace Nova.WinForms.RaceDesigner
             {
                 Report.Error("Failed to load file: \r\n" + ex.Message);
             }
-        }//LoadRaceFile_Click
+        }
 
         #endregion
 
@@ -2051,7 +2039,7 @@ namespace Nova.WinForms.RaceDesigner
         /// doing this.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void ReloadRace(Race RaceParameters)
+        public void ReloadRace(Race RaceParameters)
         {
 
             SelectedRace = RaceParameters.Traits.Primary;
@@ -2099,7 +2087,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload seconday traits
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void ReloadSecondaryTraits(Race RaceParameters)
+        public void ReloadSecondaryTraits(Race RaceParameters)
         {
             ImprovedFuelEfficiency.Checked = RaceParameters.Traits.Contains("IFE");
             NoRAMEngines.Checked           = RaceParameters.Traits.Contains("NRS");
@@ -2124,7 +2112,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload build cost parameters
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void ReloadBuildCosts(Race RaceParameters)
+        public void ReloadBuildCosts(Race RaceParameters)
         {
             ColonistProduction.Value = (decimal)RaceParameters.ColonistsPerResource;
             OperableFactories.Value  = (decimal)RaceParameters.OperableFactories;
@@ -2141,7 +2129,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload Environmental Tolerance
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void ReloadEnvironmentalTolerance(Race RaceParameters)
+        public void ReloadEnvironmentalTolerance(Race RaceParameters)
         {
 
             GravityTolerance.EnvironmentValues     = RaceParameters.GravityTolerance;
@@ -2156,7 +2144,7 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload Research Costs
         /// </summary>
         /// ----------------------------------------------------------------------------
-        void ReloadResearchCosts(Race RaceParameters)
+        public void ReloadResearchCosts(Race RaceParameters)
         {
             EnergyResearch.Cost        = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Energy];
             WeaponsResearch.Cost       = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Weapons];
@@ -2170,6 +2158,6 @@ namespace Nova.WinForms.RaceDesigner
 
        
 
-    }//RaceDesignerForm
-}//namespace RaceDesigner
+    }
+}
 

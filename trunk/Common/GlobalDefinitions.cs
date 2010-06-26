@@ -23,7 +23,7 @@
 #region Module Description
 // ===========================================================================
 // This module holds definitions that are global across all Nova application
-// programs. E.g. Registry key names, etc.
+// programs. 
 // ===========================================================================
 #endregion
 
@@ -48,10 +48,9 @@ namespace Nova.Common
 
        #region Nova Resources
 
-       // These registry keys are used to loacte files and folders where Nova stores game data.
+       // These config file keys are used to loacte files and folders where Nova stores game data.
        #region Files and Folders
-       public const string RootRegistryKey = "Software\\Stars-Nova\\Nova"; // where the keys are
-       public const string ComponentFolderKey = "ComponentFolder";       // where components.xml is (possibly re-named), installation relative path is '.'. Should only change for modified game play.
+       public const string ComponentFileKey = "ComponentFile";           // where components.xml is (possibly re-named), installation relative path is '.'. Should only change for modified game play.
        public const string GraphicsFolderKey = "GraphicsFolder";         // where pictures are stored, installation relative path is './Graphics'. Should only be changed for modding the game interface.
        public const string ClientFolderKey = "ClientFolder";             // where client side game files are, nominally './GameFiles'. Likely to be different for each active game.
        public const string ServerFolderKey = "ServerFolder";             // where server side game files are, nominally './GameFiles'. May be a network path.
@@ -76,6 +75,7 @@ namespace Nova.Common
        public const string NovaFolderName = ".";
        public const string ComponentFolderName = ".";
        public const string ComponentFileName = "components.xml";
+       public const string ConfigFileName = "nova.conf";
        public const string GraphicsFolderName = "Graphics";
        public const string ClientFolderName = "GameFiles";
        public const string ServerFolderName = "GameFiles";

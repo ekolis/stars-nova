@@ -61,7 +61,6 @@ namespace Nova.Common.Components
 
         private static string saveFilePath;
         private static string graphicsFilePath;
-        private static bool DisableComponentGraphics = false; // if we can't find them
 
         #endregion
 
@@ -148,11 +147,15 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static void Restore()
         {
-            if (ComponentFile == null)
+            // Ensure we have the component definition file before starting the worker thread, or die.
+            if (String.IsNullOrEmpty(saveFilePath))
             {
-                throw new Exception();
+                saveFilePath = FileSearcher.GetComponentFile();
+                if (String.IsNullOrEmpty(saveFilePath))
+                {
+                    Report.FatalError("Unable to locate component definition file.");
+                }
             }
-
             ProgressDialog progress = new ProgressDialog();
             progress.Text = "Work";
             System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(AllComponents.Data.LoadComponents), progress);
@@ -180,7 +183,11 @@ namespace Nova.Common.Components
                 }
             }
             AllComponents.Instance.Components = new Hashtable();
-            ComponentFile = null;
+            using (Config conf = new Config())
+            {
+                conf.Remove(Global.ComponentFileName);
+            }
+            saveFilePath = null;
         }
 
         #endregion
@@ -192,6 +199,9 @@ namespace Nova.Common.Components
         /// Load all the components form the component definition file, nominally components.xml.
         /// </summary>
         /// <param name="status">An <see cref="IProgressCallback"/> used for updating the progress dialog.</param>
+        /// <remarks>
+        /// This is run in a worker thread and therefore has no direct access to the UI/user.
+        /// </remarks>
         /// ----------------------------------------------------------------------------
         private void LoadComponents(object status)
         {
@@ -201,13 +211,13 @@ namespace Nova.Common.Components
             {
 
                 // blank the component data
-                AllComponents.Data = new AllComponents();
+                Data = new AllComponents();
 
                 XmlDocument xmldoc = new XmlDocument();
 
-                xmldoc.Load(ComponentFile);
+                xmldoc.Load(saveFilePath);
 
-                XmlNode xmlnode = (XmlNode)xmldoc.DocumentElement;
+                XmlNode xmlnode = xmldoc.DocumentElement;
 
                 int nodesLoaded = 0;
                 while (xmlnode != null)
@@ -278,11 +288,7 @@ namespace Nova.Common.Components
             try
             {
                 // Setup the save location and stream.
-                if (GetPath() == null && GetNewSaveFile() == null)
-                {
-                    throw new System.IO.FileNotFoundException();
-                }
-                FileStream saveFile = new FileStream(saveFilePath, FileMode.Create);
+                FileStream saveFile = new FileStream(ComponentFile, FileMode.Create);
 
                 // Setup the XML document
                 XmlDocument xmldoc = new XmlDocument();
@@ -321,147 +327,6 @@ namespace Nova.Common.Components
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Ask the user for a location to save the file.
-        /// </summary>
-        /// <returns>Path and file name to save too.</returns>
-        /// ----------------------------------------------------------------------------
-        private static string GetNewSaveFile()
-        {
-            SaveFileDialog fd = new SaveFileDialog();
-            fd.Title = "Save component definition file";
-
-            DialogResult result = fd.ShowDialog();
-
-            // MessageBox.Show("Result " + result.ToString(System.Globalization.CultureInfo.InvariantCulture));
-
-            if (result == DialogResult.OK && fd.FileName != null)
-            {
-                AllComponents.ComponentFile = fd.FileName;  // store FileName and set registry key
-                Report.Debug("AllComponents.cs: GetNewSaveFile() - Saving to: " + AllComponents.ComponentFile);
-
-                return fd.FileName;
-            }
-            return null;
-
-        }
-
-        
-        //-------------------------------------------------------------------
-        /// <summary>
-        /// Extract the path to the component file from the registry.
-        /// </summary><remarks>
-        /// FIXME (priority 4) - The GUI and Console programs use this version but previously it behaved like GetPathOrDie(). Need to determine how they should get the path. 
-        /// Use of this is depreciated, see FileSearcher.cs.
-        /// </remarks>
-        /// <returns>The path to the component definition file.</returns>
-        //-------------------------------------------------------------------
-        private static string GetPath()
-        {
-            RegistryKey regKey = Registry.CurrentUser;
-            RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-            object registryValue = subKey.GetValue(Global.ComponentFolderKey);
-            if (registryValue != null && File.Exists(registryValue.ToString()))
-            {
-                return registryValue.ToString();
-            }
-
-            string startupPath = Path.Combine(Application.StartupPath, Global.ComponentFileName);
-            if (File.Exists(startupPath))
-            {
-                return startupPath;
-            }
-
-            return null;
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Get or Set the path where the component data is stored.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public static string ComponentFile
-        {
-            get 
-            {
-                if (File.Exists(saveFilePath)) return saveFilePath;
-
-                ComponentFile = FileSearcher.GetFile(Global.ComponentFolderKey, false, "../../..", Global.ComponentFolderName, Global.ComponentFileName, true);
-                return saveFilePath;
-            }
-
-            // ----------------------------------------------------------------------------
-
-            set
-            {
-                saveFilePath = value;
-                RegistryKey key = Registry.CurrentUser;
-                RegistryKey subKey = key.CreateSubKey(Global.RootRegistryKey);
-                if (saveFilePath == null)
-                {
-                    if (subKey.GetValue(Global.ComponentFolderKey) != null)
-                    {
-                        subKey.DeleteValue(Global.ComponentFolderKey);
-                    }
-                }
-                else
-                {
-                    subKey.SetValue(Global.ComponentFolderKey, saveFilePath);
-                }
-            }
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Ask the user for the graphics directory.
-        /// </summary>
-        /// <returns>The path to the graphics directory if found or null.</returns>
-        /// ----------------------------------------------------------------------------
-        private static string GetNewGraphicsPath()
-        {
-            return FileSearcher.GetFolder(Global.GraphicsFolderKey, Global.GraphicsFolderName);
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Extract the path to the component graphics from the registry.
-        /// </summary>
-        /// <returns>Path to the Graphics folder if found or null.</returns>
-        /// ----------------------------------------------------------------------------
-        private static string GetGraphicsPath()
-        {
-            if (DisableComponentGraphics) return null;
-
-            RegistryKey regKey = Registry.CurrentUser;
-            RegistryKey subKey = regKey.CreateSubKey(Global.RootRegistryKey);
-            object registryValue = subKey.GetValue(Global.GraphicsFolderKey);
-            if (registryValue != null && Directory.Exists(registryValue.ToString()))
-            {
-                return registryValue.ToString();
-            }
-
-            string startupPath = Path.Combine(Application.StartupPath, Global.GraphicsFolderName);
-            if (Directory.Exists(startupPath))
-            {
-                return startupPath;
-            }
-
-            string newPath = GetNewGraphicsPath();
-            if (Directory.Exists(newPath))
-            {
-                return newPath;
-            }
-
-            // In case we are in a loop loading lots of component images, don't keep trying endlessly.
-            Report.Error("Unable to locate component graphics. All component graphics will be dissabled.");
-            DisableComponentGraphics = true;
-            return null;
-        }
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
         /// Get the path where the graphics files are stored.
         /// </summary>
         /// ----------------------------------------------------------------------------
@@ -469,16 +334,41 @@ namespace Nova.Common.Components
         {
             get
             {
-                if (Directory.Exists(graphicsFilePath)) return graphicsFilePath;
-                
-                graphicsFilePath = GetGraphicsPath();
-                if (graphicsFilePath == null) return null;
-
-                using (RegistryKey key = Registry.CurrentUser.CreateSubKey(Global.RootRegistryKey))
+                if (!Directory.Exists(graphicsFilePath))
                 {
-                    key.SetValue(Global.GraphicsFolderKey, graphicsFilePath);
+                    graphicsFilePath = FileSearcher.GetGraphicsPath();
+                    if (!String.IsNullOrEmpty(graphicsFilePath))
+                    {
+                        using (Config conf = new Config())
+                        {
+                            conf[Global.GraphicsFolderKey] = graphicsFilePath;
+                        }
+                    }
                 }
                 return graphicsFilePath;
+            }
+        }
+
+        /// <summary>
+        /// Path & file name of the component definition file, automatically located and persisted, or null.
+        /// </summary>
+        public static string ComponentFile
+        {
+            get
+            {
+                if (!Directory.Exists(saveFilePath))
+                {
+
+                    saveFilePath = FileSearcher.GetComponentFile();
+                    if (!String.IsNullOrEmpty(saveFilePath))
+                    {
+                        using (Config conf = new Config())
+                        {
+                            conf[Global.ComponentFileName] = saveFilePath;
+                        }
+                    }
+                }
+                return saveFilePath;
             }
         }
 

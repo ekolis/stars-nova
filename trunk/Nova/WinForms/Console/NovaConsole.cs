@@ -457,8 +457,6 @@ namespace Nova.WinForms.Console
         {
             Application.EnableVisualStyles();
 
-            // ensure registry keys are initialised
-            FileSearcher.SetKeys();
             Application.Run(new NovaConsoleMain());
         }
 
@@ -480,7 +478,7 @@ namespace Nova.WinForms.Console
             /// by the NewGame wizard. However it may be launched directly with either
             /// no game in progress or the in progress game unknown.
             /// 
-            /// First we try to open a current game based on the registry settings:
+            /// First we try to open a current game based on the config file settings:
             ServerState.Data.StatePathName = FileSearcher.GetFile(Global.ServerStateKey, false, "", "", "", false);
             ServerState.Data.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
             FolderPath.Text = ServerState.Data.GameFolder;
@@ -556,13 +554,8 @@ namespace Nova.WinForms.Console
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void SelectNewFolder(object sender, EventArgs eventArgs)
+        private void SelectNewFolder(object sender, EventArgs e)
         {
-            using (RegistryKey regKey = Registry.CurrentUser.CreateSubKey(Global.RootRegistryKey))
-            {
-                regKey.SetValue(Global.ServerFolderKey, "");
-            }
-
             ServerState.Clear();
             this.OnFirstShow(null, null);
         }

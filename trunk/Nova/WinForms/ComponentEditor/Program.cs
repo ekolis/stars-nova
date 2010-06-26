@@ -38,9 +38,6 @@ namespace Nova.WinForms.ComponentEditor
        [STAThread]
        public static void Main()
        {
-           // ensure registry keys are initialised
-           FileSearcher.SetKeys();
-
            Application.EnableVisualStyles();
            Application.SetCompatibleTextRenderingDefault(false);
            Application.Run(new ComponentEditorWindow());
