@@ -150,7 +150,6 @@ namespace Nova.Common
 
             // File should be NovaRoot\nova.config
             config = Path.Combine(GetNovaRoot(), Global.ConfigFileName);
-            if (! File.Exists(config)) config = null;
             return config;
         }
         
@@ -350,6 +349,7 @@ namespace Nova.Common
             // two likely structures - the installation structure (deployed) (e.g. Program Files/Stars! Nova/Nova.exe)
             // or the development structure (development) (e.g. stars-nova/trunk/AppName/bin/<debug|release>/AppName.exe)
             string applicationDirectory = (new System.IO.FileInfo(Assembly.GetExecutingAssembly().Location)).DirectoryName;
+
             string[] folders = applicationDirectory.Split(Path.DirectorySeparatorChar);
             string upThree = "../../..";
             upThree = upThree.Replace('/', Path.DirectorySeparatorChar);
