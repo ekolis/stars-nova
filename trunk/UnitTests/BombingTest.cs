@@ -86,27 +86,22 @@ namespace Nova.UnitTests
             // In line with the example in the FAQ bomb with 10 Cherry bombs and 5
             // M70s
 
-            AllComponents.Restore();
-            Hashtable allComponents = AllComponents.Data.Components;
             Bomb totalBombs = new Bomb();
-            Component cherryComponent = allComponents["Cherry Bomb"] as Component;
-            Bomb cherry = cherryComponent.Properties["Bomb"] as Bomb;
+
 
             for (int i = 0; i < 10; i++)
             {
-                totalBombs.PopKill += cherry.PopKill;
-                totalBombs.Installations += cherry.Installations;
-                totalBombs.MinimumKill += cherry.MinimumKill;
+                totalBombs.PopKill += 2.5;
+                totalBombs.Installations += 10;
+                totalBombs.MinimumKill += 300;
             }
 
-            Component m70Component = allComponents["M-70 Bomb"] as Component;
-            Bomb M70 = m70Component.Properties["Bomb"] as Bomb;
 
             for (int i = 0; i < 5; i++)
             {
-                totalBombs.PopKill += M70.PopKill;
-                totalBombs.Installations += M70.Installations;
-                totalBombs.MinimumKill += M70.MinimumKill;
+                totalBombs.PopKill += 1.2;
+                totalBombs.Installations += 6;
+                totalBombs.MinimumKill += 300;
             }
 
             // Just verify the algorithm, not the whole routine

@@ -118,23 +118,31 @@ namespace Nova.Common
         public static string GetComponentFile()
         {
             string components;
+            bool updateConf = false;
 
             // try the config file
             using (Config conf = new Config())
             {
                 components = conf[Global.ComponentFileKey];
-            }
 
-            // or try the usual location NovaRoot\components.xml
-            if (!File.Exists(components))
-            {
-                components = Path.Combine(GetNovaRoot(), Global.ComponentFileName);
-            }
 
-            // if all else fails, ask the user
-            if (!File.Exists(components))
-            {
-                components = AskUserForFile(Global.ComponentFileName);
+                // or try the usual location NovaRoot\components.xml
+                if (!File.Exists(components))
+                {
+                    updateConf = true;
+                    components = Path.Combine(GetNovaRoot(), Global.ComponentFileName);
+                }
+
+                // if all else fails, ask the user
+                if (!File.Exists(components))
+                {
+                    components = AskUserForFile(Global.ComponentFileName);
+                }
+
+                if (updateConf && File.Exists(components))
+                {
+                    conf[Global.ComponentFileKey] = components;
+                }
             }
 
             return components;
@@ -375,6 +383,11 @@ namespace Nova.Common
             return novaRoot;
         }
 
+        /// <summary>
+        /// Ask the user to locate a file.
+        /// </summary>
+        /// <param name="fileName">The name of the file to loacate.</param>
+        /// <returns>The path & filename given or null.</returns>
         private static string AskUserForFile(string fileName)
         {
             Report.Information("Please locate the file \"" + fileName + "\".");
