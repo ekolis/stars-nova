@@ -943,9 +943,9 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // TemperatureTolerance
             // 
-            this.TemperatureTolerance.BarLower = -3240;
-            this.TemperatureTolerance.BarUpper = 1240;
-            this.TemperatureTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(-3240, 1240);
+            this.TemperatureTolerance.BarLower = -140;
+            this.TemperatureTolerance.BarUpper = 140;
+            this.TemperatureTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(-140, 140);
             this.TemperatureTolerance.Location = new System.Drawing.Point(14, 118);
             this.TemperatureTolerance.Name = "TemperatureTolerance";
             this.TemperatureTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
@@ -959,9 +959,9 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // GravityTolerance
             // 
-            this.GravityTolerance.BarLower = 0;
-            this.GravityTolerance.BarUpper = 0;
-            this.GravityTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(0, 0);
+            this.GravityTolerance.BarLower = 1.5;
+            this.GravityTolerance.BarUpper = 8.5;
+            this.GravityTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(1.5, 8.5);
             this.GravityTolerance.Location = new System.Drawing.Point(14, 19);
             this.GravityTolerance.Name = "GravityTolerance";
             this.GravityTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
