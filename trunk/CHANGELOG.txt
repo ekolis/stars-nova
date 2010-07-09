@@ -1,13 +1,19 @@
 Summary of user visible changes in Stars! Nova version 0.4.1
- (Revision 371, 19 Jun 10.)
+ (Revision 393, 21 Jun 10.)
 
 General:
 
- - No backward compatibility with save games from earlier versions. This means that old save games cannot be loaded in this version.
+ - No backward compatibility with save games from earlier
+   versions. This means that old save games cannot be loaded
+   in this version.
+
+ - Created default races (as close to as currently possible).
+
 
 Launcher:
 
  - Removed the ability to resize the launcher window.
+
 
 Race Wizard:
 
@@ -17,12 +23,24 @@ Race Wizard:
  - Factory operation 14 and 15 /10k grants now has correct 
    cost.
 
+ - Added option that techs costing 75% extra starts on
+   level 3/4.
+
+ - Changed order of tabs to: Race, Traits, Environment,
+   Production and Research.
+
+ - Moved "Factories cost 1 less G" to Production tab.
+
+ - Formated primary Racial traits.
+
 
 Game Play Fixes / GUI:
 
  - Defenses limited to 100.
 
- - Fuel calculation now include the mass of the ships, not just cargo. (This fix only works for newly created ships and is not a retroactive fix for games in progress.)
+ - Fuel calculation now include the mass of the ships, not
+   just cargo. (This fix only works for newly created ships
+   and is not a retroactive fix for games in progress.)
 
  - Way points can now be removed with the delete key (once 
    selected). The backspace key also (still) works.
@@ -52,6 +70,15 @@ Game Play Fixes / GUI:
    been implemented.)
 
  - Fixed incorrect cost when adding 10x components.
+
+ - Mine field is now displayed at correct size. Mine layers
+   lay mines continuously.
+
+ - Fixed an issue that caused fuel not to be subtracted for
+   legs that took less than 1 whole year/turn.
+
+ - Partial fix to prevent crash when attempting cargo
+   transfer where there is nothing to transfer.
 
 
 Console:
@@ -84,6 +111,7 @@ Documentation:
 
  - Replace font-dependent single character copyright symbol 
    with "(C)" for cross-platform compatibility.
+
 
 AI:
 
