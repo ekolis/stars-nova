@@ -46,14 +46,27 @@ namespace Nova.UnitTests
         [Test]
         public void SerialisationTest()
         {
+            // Setup the initial state
             ServerState.Data.TurnYear = 2101;
+            ServerState.Data.GameInProgress = true;
+            ServerState.Data.GameFolder = "dummy_value";
             ServerState.Data.StatePathName = "unit_test.sstate";
 
+            // serialise
             ServerState.Save();
 
+            // change the value to ensure it is restored.
+            ServerState.Data.TurnYear = 2102;
+            ServerState.Data.GameInProgress = false;
+            ServerState.Data.GameFolder = "foo_bar";
+
+            // deserialise
             ServerState.Restore();
 
+            // test
             Assert.AreEqual(ServerState.Data.TurnYear, 2101);
+            Assert.AreEqual(ServerState.Data.GameInProgress, true);
+            Assert.AreEqual(ServerState.Data.GameFolder, "dummy_value");
         }
     }
 }
