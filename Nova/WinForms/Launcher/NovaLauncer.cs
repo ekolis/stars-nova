@@ -68,6 +68,9 @@ namespace Nova.WinForms.Launcher
 
             versionNumber.Text = string.Format("{0}  -  {1}", productVersion, buildDate.ToShortDateString());
 
+            // ensure registry keys are initialised
+            FileSearcher.SetKeys();
+
             // look for a game in progress
             ServerStateFile = FileSearcher.GetFile(Global.ServerStateKey, false, "", "", "", false);
             ClientStateFile = FileSearcher.GetFile(Global.ClientStateKey, false, "", "", "", false);

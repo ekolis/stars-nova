@@ -58,7 +58,11 @@ namespace Nova.WinForms.NewGame
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
+            // Find files we may need
+            FileSearcher.SetKeys();
+
             // Establish the victory conditions:
+
             NewGameWizard newGameWizard = new NewGameWizard();
 
             do
@@ -98,25 +102,21 @@ namespace Nova.WinForms.NewGame
                 }
 
                 // store the updated Game Folder information
-                using (Config conf = new Config())
-                {
-                    conf[Global.ServerFolderKey] = gameFolderBrowser.SelectedPath;
+                FileSearcher.SetNovaRegistryValue(Global.ServerFolderKey, gameFolderBrowser.SelectedPath);
+                ServerState.Data.GameFolder = gameFolderBrowser.SelectedPath;
+                // Don't set ClientFolderKey in case we want to simulate a LAN game 
+                // on one PC for testing. 
+                // Should be set when the ClientState is initialised. If that is by 
+                // launching Nova GUI from the console then the GameFolder will be 
+                // passed as the path to the .intel and the ClientFolderKey will then 
+                // be updated.
+                // FileSearcher.SetNovaRegistryValue(Global.ClientFolderKey, gameFolderBrowser.SelectedPath);  
 
-                    ServerState.Data.GameFolder = gameFolderBrowser.SelectedPath;
-                    // Don't set ClientFolderKey in case we want to simulate a LAN game 
-                    // on one PC for testing. 
-                    // Should be set when the ClientState is initialised. If that is by 
-                    // launching Nova GUI from the console then the GameFolder will be 
-                    // passed as the path to the .intel and the ClientFolderKey will then 
-                    // be updated.
+                // Construct appropriate state and settings file names
+                ServerState.Data.StatePathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar + GameSettings.Data.GameName + Global.ServerStateExtension;
+                GameSettings.Data.SettingsPathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar + GameSettings.Data.GameName + Global.SettingsExtension;
+                FileSearcher.SetNovaRegistryValue(Global.ServerStateKey, ServerState.Data.StatePathName);
 
-                    // Construct appropriate state and settings file names
-                    ServerState.Data.StatePathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
-                                                     GameSettings.Data.GameName + Global.ServerStateExtension;
-                    GameSettings.Data.SettingsPathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
-                                                         GameSettings.Data.GameName + Global.SettingsExtension;
-                    conf[Global.ServerStateKey] = ServerState.Data.StatePathName;
-                }
                 // Copy the player & race data to the ServerState
                 ServerState.Data.AllPlayers = newGameWizard.Players;
                 foreach (PlayerSettings settings in ServerState.Data.AllPlayers)
@@ -329,7 +329,15 @@ namespace Nova.WinForms.NewGame
             star.Radiation   = race.OptimumRadiationLevel;
             star.Temperature = race.OptimumTemperatureLevel;
             star.Gravity     = race.OptimumGravityLevel;
-            star.Colonists   = race.GetStartingPopulation();
+
+            if (race.HasTrait("LSP"))
+            {
+                star.Colonists = Global.StartingColonistsLowStartingPopulation;
+            }
+            else
+            {
+                star.Colonists = Global.StartingColonists;
+            }
         }
 
         #endregion

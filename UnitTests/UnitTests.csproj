@@ -54,7 +54,6 @@
     <Compile Include="..\VersionInfo.cs" />
     <Compile Include="BattleEngineTest.cs" />
     <Compile Include="BombingTest.cs" />
-    <Compile Include="ServerStateTest.cs" />
     <Compile Include="DefencesTest.cs" />
     <Compile Include="GlobalTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

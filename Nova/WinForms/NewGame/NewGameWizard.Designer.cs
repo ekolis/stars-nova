@@ -34,14 +34,6 @@ namespace Nova.WinForms.NewGame
           System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NewGameWizard));
           this.label2 = new System.Windows.Forms.Label();
           this.groupBox1 = new System.Windows.Forms.GroupBox();
-          this.TotalScore = new Nova.ControlLibrary.EnabledCounter();
-          this.ExceedSecondPlace = new Nova.ControlLibrary.EnabledCounter();
-          this.HighestScore = new Nova.ControlLibrary.EnabledCounter();
-          this.CapitalShips = new Nova.ControlLibrary.EnabledCounter();
-          this.ProductionCapacity = new Nova.ControlLibrary.EnabledCounter();
-          this.NumberOfFields = new Nova.ControlLibrary.EnabledCounter();
-          this.TechLevels = new Nova.ControlLibrary.EnabledCounter();
-          this.PlanetsOwned = new Nova.ControlLibrary.EnabledCounter();
           this.label1 = new System.Windows.Forms.Label();
           this.groupBox2 = new System.Windows.Forms.GroupBox();
           this.MinimumGameTime = new System.Windows.Forms.NumericUpDown();
@@ -56,16 +48,6 @@ namespace Nova.WinForms.NewGame
           this.groupBox6 = new System.Windows.Forms.GroupBox();
           this.gameName = new System.Windows.Forms.TextBox();
           this.groupBox3 = new System.Windows.Forms.GroupBox();
-          this.label16 = new System.Windows.Forms.Label();
-          this.label15 = new System.Windows.Forms.Label();
-          this.label14 = new System.Windows.Forms.Label();
-          this.label13 = new System.Windows.Forms.Label();
-          this.starUniformity = new System.Windows.Forms.NumericUpDown();
-          this.label12 = new System.Windows.Forms.Label();
-          this.starDensity = new System.Windows.Forms.NumericUpDown();
-          this.label11 = new System.Windows.Forms.Label();
-          this.starSeparation = new System.Windows.Forms.NumericUpDown();
-          this.label10 = new System.Windows.Forms.Label();
           this.label9 = new System.Windows.Forms.Label();
           this.numberOfStars = new System.Windows.Forms.NumericUpDown();
           this.mapWidth = new System.Windows.Forms.NumericUpDown();
@@ -92,8 +74,24 @@ namespace Nova.WinForms.NewGame
           this.label8 = new System.Windows.Forms.Label();
           this.label7 = new System.Windows.Forms.Label();
           this.tabVictoryConditions = new System.Windows.Forms.TabPage();
-          this.groupBox7 = new System.Windows.Forms.GroupBox();
-          this.acceleratedStart = new System.Windows.Forms.CheckBox();
+          this.starSeparation = new System.Windows.Forms.NumericUpDown();
+          this.label10 = new System.Windows.Forms.Label();
+          this.starDensity = new System.Windows.Forms.NumericUpDown();
+          this.label11 = new System.Windows.Forms.Label();
+          this.starUniformity = new System.Windows.Forms.NumericUpDown();
+          this.label12 = new System.Windows.Forms.Label();
+          this.TotalScore = new ControlLibrary.EnabledCounter();
+          this.ExceedSecondPlace = new ControlLibrary.EnabledCounter();
+          this.HighestScore = new ControlLibrary.EnabledCounter();
+          this.CapitalShips = new ControlLibrary.EnabledCounter();
+          this.ProductionCapacity = new ControlLibrary.EnabledCounter();
+          this.NumberOfFields = new ControlLibrary.EnabledCounter();
+          this.TechLevels = new ControlLibrary.EnabledCounter();
+          this.PlanetsOwned = new ControlLibrary.EnabledCounter();
+          this.label13 = new System.Windows.Forms.Label();
+          this.label14 = new System.Windows.Forms.Label();
+          this.label15 = new System.Windows.Forms.Label();
+          this.label16 = new System.Windows.Forms.Label();
           this.groupBox1.SuspendLayout();
           this.groupBox2.SuspendLayout();
           ((System.ComponentModel.ISupportInitialize)(this.MinimumGameTime)).BeginInit();
@@ -102,9 +100,6 @@ namespace Nova.WinForms.NewGame
           this.tabGameOptions.SuspendLayout();
           this.groupBox6.SuspendLayout();
           this.groupBox3.SuspendLayout();
-          ((System.ComponentModel.ISupportInitialize)(this.starUniformity)).BeginInit();
-          ((System.ComponentModel.ISupportInitialize)(this.starDensity)).BeginInit();
-          ((System.ComponentModel.ISupportInitialize)(this.starSeparation)).BeginInit();
           ((System.ComponentModel.ISupportInitialize)(this.numberOfStars)).BeginInit();
           ((System.ComponentModel.ISupportInitialize)(this.mapWidth)).BeginInit();
           ((System.ComponentModel.ISupportInitialize)(this.mapHeight)).BeginInit();
@@ -112,7 +107,9 @@ namespace Nova.WinForms.NewGame
           this.groupBox5.SuspendLayout();
           this.groupBox4.SuspendLayout();
           this.tabVictoryConditions.SuspendLayout();
-          this.groupBox7.SuspendLayout();
+          ((System.ComponentModel.ISupportInitialize)(this.starSeparation)).BeginInit();
+          ((System.ComponentModel.ISupportInitialize)(this.starDensity)).BeginInit();
+          ((System.ComponentModel.ISupportInitialize)(this.starUniformity)).BeginInit();
           this.SuspendLayout();
           // 
           // label2
@@ -123,25 +120,6 @@ namespace Nova.WinForms.NewGame
           this.label2.Name = "label2";
           this.label2.Size = new System.Drawing.Size(0, 13);
           this.label2.TabIndex = 3;
-          // 
-          // groupBox1
-          // 
-          this.groupBox1.Controls.Add(this.TotalScore);
-          this.groupBox1.Controls.Add(this.ExceedSecondPlace);
-          this.groupBox1.Controls.Add(this.HighestScore);
-          this.groupBox1.Controls.Add(this.CapitalShips);
-          this.groupBox1.Controls.Add(this.ProductionCapacity);
-          this.groupBox1.Controls.Add(this.NumberOfFields);
-          this.groupBox1.Controls.Add(this.TechLevels);
-          this.groupBox1.Controls.Add(this.PlanetsOwned);
-          this.groupBox1.Controls.Add(this.label1);
-          this.groupBox1.Controls.Add(this.label2);
-          this.groupBox1.Location = new System.Drawing.Point(14, 20);
-          this.groupBox1.Name = "groupBox1";
-          this.groupBox1.Size = new System.Drawing.Size(352, 285);
-          this.groupBox1.TabIndex = 20;
-          this.groupBox1.TabStop = false;
-          this.groupBox1.Text = "Victory Conditions";
           // 
           // TotalScore
           // 
@@ -256,6 +234,25 @@ namespace Nova.WinForms.NewGame
           this.label1.Size = new System.Drawing.Size(165, 13);
           this.label1.TabIndex = 2;
           this.label1.Text = "Victory is declared when a player:";
+          // 
+          // groupBox1
+          // 
+          this.groupBox1.Controls.Add(this.TotalScore);
+          this.groupBox1.Controls.Add(this.ExceedSecondPlace);
+          this.groupBox1.Controls.Add(this.HighestScore);
+          this.groupBox1.Controls.Add(this.CapitalShips);
+          this.groupBox1.Controls.Add(this.ProductionCapacity);
+          this.groupBox1.Controls.Add(this.NumberOfFields);
+          this.groupBox1.Controls.Add(this.TechLevels);
+          this.groupBox1.Controls.Add(this.PlanetsOwned);
+          this.groupBox1.Controls.Add(this.label1);
+          this.groupBox1.Controls.Add(this.label2);
+          this.groupBox1.Location = new System.Drawing.Point(14, 20);
+          this.groupBox1.Name = "groupBox1";
+          this.groupBox1.Size = new System.Drawing.Size(352, 285);
+          this.groupBox1.TabIndex = 20;
+          this.groupBox1.TabStop = false;
+          this.groupBox1.Text = "Victory Conditions";
           // 
           // groupBox2
           // 
@@ -385,7 +382,6 @@ namespace Nova.WinForms.NewGame
           // 
           // tabGameOptions
           // 
-          this.tabGameOptions.Controls.Add(this.groupBox7);
           this.tabGameOptions.Controls.Add(this.groupBox6);
           this.tabGameOptions.Controls.Add(this.groupBox3);
           this.tabGameOptions.Location = new System.Drawing.Point(4, 22);
@@ -438,126 +434,6 @@ namespace Nova.WinForms.NewGame
           this.groupBox3.TabIndex = 0;
           this.groupBox3.TabStop = false;
           this.groupBox3.Text = "Map";
-          // 
-          // label16
-          // 
-          this.label16.AutoSize = true;
-          this.label16.Location = new System.Drawing.Point(181, 176);
-          this.label16.Name = "label16";
-          this.label16.Size = new System.Drawing.Size(133, 13);
-          this.label16.TabIndex = 15;
-          this.label16.Text = "Unavailable in this version.";
-          // 
-          // label15
-          // 
-          this.label15.AutoSize = true;
-          this.label15.Location = new System.Drawing.Point(181, 73);
-          this.label15.Name = "label15";
-          this.label15.Size = new System.Drawing.Size(14, 13);
-          this.label15.TabIndex = 14;
-          this.label15.Text = "ly";
-          // 
-          // label14
-          // 
-          this.label14.AutoSize = true;
-          this.label14.Location = new System.Drawing.Point(181, 47);
-          this.label14.Name = "label14";
-          this.label14.Size = new System.Drawing.Size(14, 13);
-          this.label14.TabIndex = 13;
-          this.label14.Text = "ly";
-          // 
-          // label13
-          // 
-          this.label13.AutoSize = true;
-          this.label13.Location = new System.Drawing.Point(181, 21);
-          this.label13.Name = "label13";
-          this.label13.Size = new System.Drawing.Size(14, 13);
-          this.label13.TabIndex = 12;
-          this.label13.Text = "ly";
-          // 
-          // starUniformity
-          // 
-          this.starUniformity.Location = new System.Drawing.Point(101, 123);
-          this.starUniformity.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-          this.starUniformity.Name = "starUniformity";
-          this.starUniformity.Size = new System.Drawing.Size(74, 20);
-          this.starUniformity.TabIndex = 11;
-          this.starUniformity.Value = new decimal(new int[] {
-            60,
-            0,
-            0,
-            0});
-          // 
-          // label12
-          // 
-          this.label12.AutoSize = true;
-          this.label12.Location = new System.Drawing.Point(11, 125);
-          this.label12.Name = "label12";
-          this.label12.Size = new System.Drawing.Size(56, 13);
-          this.label12.TabIndex = 10;
-          this.label12.Text = "Uniformity:";
-          // 
-          // starDensity
-          // 
-          this.starDensity.Location = new System.Drawing.Point(101, 97);
-          this.starDensity.Minimum = new decimal(new int[] {
-            1,
-            0,
-            0,
-            0});
-          this.starDensity.Name = "starDensity";
-          this.starDensity.Size = new System.Drawing.Size(74, 20);
-          this.starDensity.TabIndex = 9;
-          this.starDensity.Value = new decimal(new int[] {
-            40,
-            0,
-            0,
-            0});
-          this.starDensity.ValueChanged += new System.EventHandler(this.MapDensity_ValueChanged);
-          // 
-          // label11
-          // 
-          this.label11.AutoSize = true;
-          this.label11.Location = new System.Drawing.Point(11, 99);
-          this.label11.Name = "label11";
-          this.label11.Size = new System.Drawing.Size(45, 13);
-          this.label11.TabIndex = 8;
-          this.label11.Text = "Density:";
-          // 
-          // starSeparation
-          // 
-          this.starSeparation.Location = new System.Drawing.Point(101, 71);
-          this.starSeparation.Maximum = new decimal(new int[] {
-            50,
-            0,
-            0,
-            0});
-          this.starSeparation.Minimum = new decimal(new int[] {
-            5,
-            0,
-            0,
-            0});
-          this.starSeparation.Name = "starSeparation";
-          this.starSeparation.Size = new System.Drawing.Size(74, 20);
-          this.starSeparation.TabIndex = 7;
-          this.starSeparation.Value = new decimal(new int[] {
-            10,
-            0,
-            0,
-            0});
-          // 
-          // label10
-          // 
-          this.label10.AutoSize = true;
-          this.label10.Location = new System.Drawing.Point(11, 73);
-          this.label10.Name = "label10";
-          this.label10.Size = new System.Drawing.Size(79, 13);
-          this.label10.TabIndex = 6;
-          this.label10.Text = "Min separation:";
           // 
           // label9
           // 
@@ -865,25 +741,221 @@ namespace Nova.WinForms.NewGame
           this.tabVictoryConditions.Text = "Victory Conditions";
           this.tabVictoryConditions.UseVisualStyleBackColor = true;
           // 
-          // groupBox7
+          // starSeparation
           // 
-          this.groupBox7.Controls.Add(this.acceleratedStart);
-          this.groupBox7.Location = new System.Drawing.Point(8, 271);
-          this.groupBox7.Name = "groupBox7";
-          this.groupBox7.Size = new System.Drawing.Size(364, 141);
-          this.groupBox7.TabIndex = 2;
-          this.groupBox7.TabStop = false;
-          this.groupBox7.Text = "Game Options";
+          this.starSeparation.Location = new System.Drawing.Point(101, 71);
+          this.starSeparation.Maximum = new decimal(new int[] {
+            50,
+            0,
+            0,
+            0});
+          this.starSeparation.Minimum = new decimal(new int[] {
+            5,
+            0,
+            0,
+            0});
+          this.starSeparation.Name = "starSeparation";
+          this.starSeparation.Size = new System.Drawing.Size(74, 20);
+          this.starSeparation.TabIndex = 7;
+          this.starSeparation.Value = new decimal(new int[] {
+            10,
+            0,
+            0,
+            0});
           // 
-          // acceleratedStart
+          // label10
           // 
-          this.acceleratedStart.AutoSize = true;
-          this.acceleratedStart.Location = new System.Drawing.Point(6, 19);
-          this.acceleratedStart.Name = "acceleratedStart";
-          this.acceleratedStart.Size = new System.Drawing.Size(108, 17);
-          this.acceleratedStart.TabIndex = 1;
-          this.acceleratedStart.Text = "Accelerated Start";
-          this.acceleratedStart.UseVisualStyleBackColor = true;
+          this.label10.AutoSize = true;
+          this.label10.Location = new System.Drawing.Point(11, 73);
+          this.label10.Name = "label10";
+          this.label10.Size = new System.Drawing.Size(79, 13);
+          this.label10.TabIndex = 6;
+          this.label10.Text = "Min separation:";
+          // 
+          // starDensity
+          // 
+          this.starDensity.Location = new System.Drawing.Point(101, 97);
+          this.starDensity.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+          this.starDensity.Name = "starDensity";
+          this.starDensity.Size = new System.Drawing.Size(74, 20);
+          this.starDensity.TabIndex = 9;
+          this.starDensity.Value = new decimal(new int[] {
+            40,
+            0,
+            0,
+            0});
+          this.starDensity.ValueChanged += new System.EventHandler(this.MapDensity_ValueChanged);
+          // 
+          // label11
+          // 
+          this.label11.AutoSize = true;
+          this.label11.Location = new System.Drawing.Point(11, 99);
+          this.label11.Name = "label11";
+          this.label11.Size = new System.Drawing.Size(45, 13);
+          this.label11.TabIndex = 8;
+          this.label11.Text = "Density:";
+          // 
+          // starUniformity
+          // 
+          this.starUniformity.Location = new System.Drawing.Point(101, 123);
+          this.starUniformity.Minimum = new decimal(new int[] {
+            1,
+            0,
+            0,
+            0});
+          this.starUniformity.Name = "starUniformity";
+          this.starUniformity.Size = new System.Drawing.Size(74, 20);
+          this.starUniformity.TabIndex = 11;
+          this.starUniformity.Value = new decimal(new int[] {
+            60,
+            0,
+            0,
+            0});
+          // 
+          // label12
+          // 
+          this.label12.AutoSize = true;
+          this.label12.Location = new System.Drawing.Point(11, 125);
+          this.label12.Name = "label12";
+          this.label12.Size = new System.Drawing.Size(56, 13);
+          this.label12.TabIndex = 10;
+          this.label12.Text = "Uniformity:";
+          // 
+          // TotalScore
+          // 
+          this.TotalScore.ControlCounter = 100;
+          this.TotalScore.ControlSelected = false;
+          this.TotalScore.ControlText = "Exceeds a score of";
+          this.TotalScore.Location = new System.Drawing.Point(7, 135);
+          this.TotalScore.Maximum = 10000;
+          this.TotalScore.Minimum = 0;
+          this.TotalScore.Name = "TotalScore";
+          this.TotalScore.Size = new System.Drawing.Size(338, 23);
+          this.TotalScore.TabIndex = 11;
+          // 
+          // ExceedSecondPlace
+          // 
+          this.ExceedSecondPlace.ControlCounter = 100;
+          this.ExceedSecondPlace.ControlSelected = false;
+          this.ExceedSecondPlace.ControlText = "Exceed second place score by (%)";
+          this.ExceedSecondPlace.Location = new System.Drawing.Point(6, 254);
+          this.ExceedSecondPlace.Maximum = 10000;
+          this.ExceedSecondPlace.Minimum = 0;
+          this.ExceedSecondPlace.Name = "ExceedSecondPlace";
+          this.ExceedSecondPlace.Size = new System.Drawing.Size(339, 23);
+          this.ExceedSecondPlace.TabIndex = 10;
+          // 
+          // HighestScore
+          // 
+          this.HighestScore.ControlCounter = 100;
+          this.HighestScore.ControlSelected = false;
+          this.HighestScore.ControlText = "Has the highest score after (years)";
+          this.HighestScore.Location = new System.Drawing.Point(6, 224);
+          this.HighestScore.Maximum = 10000;
+          this.HighestScore.Minimum = 0;
+          this.HighestScore.Name = "HighestScore";
+          this.HighestScore.Size = new System.Drawing.Size(339, 23);
+          this.HighestScore.TabIndex = 9;
+          // 
+          // CapitalShips
+          // 
+          this.CapitalShips.ControlCounter = 100;
+          this.CapitalShips.ControlSelected = false;
+          this.CapitalShips.ControlText = "Number of capital ships";
+          this.CapitalShips.Location = new System.Drawing.Point(6, 194);
+          this.CapitalShips.Maximum = 10000;
+          this.CapitalShips.Minimum = 0;
+          this.CapitalShips.Name = "CapitalShips";
+          this.CapitalShips.Size = new System.Drawing.Size(339, 23);
+          this.CapitalShips.TabIndex = 8;
+          // 
+          // ProductionCapacity
+          // 
+          this.ProductionCapacity.ControlCounter = 100;
+          this.ProductionCapacity.ControlSelected = false;
+          this.ProductionCapacity.ControlText = "Has  production capacity of (in K resources)";
+          this.ProductionCapacity.Location = new System.Drawing.Point(6, 164);
+          this.ProductionCapacity.Maximum = 10000;
+          this.ProductionCapacity.Minimum = 0;
+          this.ProductionCapacity.Name = "ProductionCapacity";
+          this.ProductionCapacity.Size = new System.Drawing.Size(339, 23);
+          this.ProductionCapacity.TabIndex = 7;
+          // 
+          // NumberOfFields
+          // 
+          this.NumberOfFields.ControlCounter = 4;
+          this.NumberOfFields.ControlSelected = false;
+          this.NumberOfFields.ControlText = "In the following number of fields";
+          this.NumberOfFields.Location = new System.Drawing.Point(7, 105);
+          this.NumberOfFields.Maximum = 6;
+          this.NumberOfFields.Minimum = 0;
+          this.NumberOfFields.Name = "NumberOfFields";
+          this.NumberOfFields.Size = new System.Drawing.Size(339, 23);
+          this.NumberOfFields.TabIndex = 6;
+          // 
+          // TechLevels
+          // 
+          this.TechLevels.ControlCounter = 22;
+          this.TechLevels.ControlSelected = false;
+          this.TechLevels.ControlText = "Attains the following tech-level";
+          this.TechLevels.Location = new System.Drawing.Point(6, 73);
+          this.TechLevels.Maximum = 10000;
+          this.TechLevels.Minimum = 0;
+          this.TechLevels.Name = "TechLevels";
+          this.TechLevels.Size = new System.Drawing.Size(339, 23);
+          this.TechLevels.TabIndex = 5;
+          // 
+          // PlanetsOwned
+          // 
+          this.PlanetsOwned.ControlCounter = 60;
+          this.PlanetsOwned.ControlSelected = false;
+          this.PlanetsOwned.ControlText = "Owns the following number of planets (%)";
+          this.PlanetsOwned.Location = new System.Drawing.Point(7, 45);
+          this.PlanetsOwned.Maximum = 10000;
+          this.PlanetsOwned.Minimum = 0;
+          this.PlanetsOwned.Name = "PlanetsOwned";
+          this.PlanetsOwned.Size = new System.Drawing.Size(339, 23);
+          this.PlanetsOwned.TabIndex = 4;
+          // 
+          // label13
+          // 
+          this.label13.AutoSize = true;
+          this.label13.Location = new System.Drawing.Point(181, 21);
+          this.label13.Name = "label13";
+          this.label13.Size = new System.Drawing.Size(14, 13);
+          this.label13.TabIndex = 12;
+          this.label13.Text = "ly";
+          // 
+          // label14
+          // 
+          this.label14.AutoSize = true;
+          this.label14.Location = new System.Drawing.Point(181, 47);
+          this.label14.Name = "label14";
+          this.label14.Size = new System.Drawing.Size(14, 13);
+          this.label14.TabIndex = 13;
+          this.label14.Text = "ly";
+          // 
+          // label15
+          // 
+          this.label15.AutoSize = true;
+          this.label15.Location = new System.Drawing.Point(181, 73);
+          this.label15.Name = "label15";
+          this.label15.Size = new System.Drawing.Size(14, 13);
+          this.label15.TabIndex = 14;
+          this.label15.Text = "ly";
+          // 
+          // label16
+          // 
+          this.label16.AutoSize = true;
+          this.label16.Location = new System.Drawing.Point(181, 176);
+          this.label16.Name = "label16";
+          this.label16.Size = new System.Drawing.Size(133, 13);
+          this.label16.TabIndex = 15;
+          this.label16.Text = "Unavailable in this version.";
           // 
           // NewGameWizard
           // 
@@ -911,9 +983,6 @@ namespace Nova.WinForms.NewGame
           this.groupBox6.PerformLayout();
           this.groupBox3.ResumeLayout(false);
           this.groupBox3.PerformLayout();
-          ((System.ComponentModel.ISupportInitialize)(this.starUniformity)).EndInit();
-          ((System.ComponentModel.ISupportInitialize)(this.starDensity)).EndInit();
-          ((System.ComponentModel.ISupportInitialize)(this.starSeparation)).EndInit();
           ((System.ComponentModel.ISupportInitialize)(this.numberOfStars)).EndInit();
           ((System.ComponentModel.ISupportInitialize)(this.mapWidth)).EndInit();
           ((System.ComponentModel.ISupportInitialize)(this.mapHeight)).EndInit();
@@ -922,8 +991,9 @@ namespace Nova.WinForms.NewGame
           this.groupBox4.ResumeLayout(false);
           this.groupBox4.PerformLayout();
           this.tabVictoryConditions.ResumeLayout(false);
-          this.groupBox7.ResumeLayout(false);
-          this.groupBox7.PerformLayout();
+          ((System.ComponentModel.ISupportInitialize)(this.starSeparation)).EndInit();
+          ((System.ComponentModel.ISupportInitialize)(this.starDensity)).EndInit();
+          ((System.ComponentModel.ISupportInitialize)(this.starUniformity)).EndInit();
           this.ResumeLayout(false);
 
         }
@@ -990,7 +1060,5 @@ namespace Nova.WinForms.NewGame
        private System.Windows.Forms.Label label14;
        private System.Windows.Forms.Label label13;
        private System.Windows.Forms.Label label16;
-       private System.Windows.Forms.GroupBox groupBox7;
-       private System.Windows.Forms.CheckBox acceleratedStart;
    }
 }

@@ -48,6 +48,9 @@ namespace Nova.Ai
             string raceName;
             int turnNumber = -1;
 
+            // ensure registry keys are initialised
+            FileSearcher.SetKeys();
+            
             // read paramaters for race and turn to play
             CommandArguments commandArguments;
             try

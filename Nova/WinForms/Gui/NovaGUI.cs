@@ -93,6 +93,10 @@ namespace Nova.WinForms.Gui
         public NovaGUI()
         {
             InitializeComponent();
+
+            // ensure registry keys are initialised
+            FileSearcher.SetKeys();
+
         }
 
 
@@ -396,7 +400,7 @@ namespace Nova.WinForms.Gui
         /// Players should not normally start the Nova GUI directly. 
         /// </para><para>
         /// The NovaLauncher will launch the Nova GUI either to continue
-        /// a current game (based on config file settings) or once the player has
+        /// a current game (based on registry settings) or once the player has
         /// selected a race.state to open.
         /// </para><para>
         /// The Nova Console wil launch the Nova GUI when the player 

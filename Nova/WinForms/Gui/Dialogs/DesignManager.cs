@@ -153,19 +153,16 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void Delete_Click(object sender, EventArgs e)
         {
-            string text =
-@"You are about to delete the selected design.
-If you do this you will destroy all ships of that design.
-           
-Are you sure you want to do this?";
+            string text = "You are about to delete the selected design."
+            + "If you do this you will destroy all ships of that design."
+            + "\r\n"
+            + "Are you sure you want to do this?";
 
             DialogResult result = MessageBox.Show(
                 text,
                 "Nova - Warning",
                 MessageBoxButtons.YesNo,
-                MessageBoxIcon.Warning, 
-                MessageBoxDefaultButton.Button2, 
-                MessageBoxOptions.DefaultDesktopOnly);
+                MessageBoxIcon.Warning);
 
             if (result != DialogResult.Yes) return;
 

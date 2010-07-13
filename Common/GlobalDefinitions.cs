@@ -23,7 +23,7 @@
 #region Module Description
 // ===========================================================================
 // This module holds definitions that are global across all Nova application
-// programs. 
+// programs. E.g. Registry key names, etc.
 // ===========================================================================
 #endregion
 
@@ -48,9 +48,10 @@ namespace Nova.Common
 
        #region Nova Resources
 
-       // These config file keys are used to loacte files and folders where Nova stores game data.
+       // These registry keys are used to loacte files and folders where Nova stores game data.
        #region Files and Folders
-       public const string ComponentFileKey = "ComponentFile";           // where components.xml is (possibly re-named), installation relative path is '.'. Should only change for modified game play.
+       public const string RootRegistryKey = "Software\\Stars-Nova\\Nova"; // where the keys are
+       public const string ComponentFolderKey = "ComponentFolder";       // where components.xml is (possibly re-named), installation relative path is '.'. Should only change for modified game play.
        public const string GraphicsFolderKey = "GraphicsFolder";         // where pictures are stored, installation relative path is './Graphics'. Should only be changed for modding the game interface.
        public const string ClientFolderKey = "ClientFolder";             // where client side game files are, nominally './GameFiles'. Likely to be different for each active game.
        public const string ServerFolderKey = "ServerFolder";             // where server side game files are, nominally './GameFiles'. May be a network path.
@@ -75,11 +76,10 @@ namespace Nova.Common
        public const string NovaFolderName = ".";
        public const string ComponentFolderName = ".";
        public const string ComponentFileName = "components.xml";
-       public const string ConfigFileName = "nova.conf";
        public const string GraphicsFolderName = "Graphics";
        public const string ClientFolderName = "GameFiles";
        public const string ServerFolderName = "GameFiles";
-       public static readonly string RaceFolderName = "DefaultRaces";
+       public static readonly string RaceFolderName = "GameFiles" + Path.DirectorySeparatorChar + "Races";
        #endregion Default Folders
 
        #endregion Nova Resources
@@ -88,9 +88,8 @@ namespace Nova.Common
 
        // Colonists
        public const int ColonistsPerKiloton = 100;
-       public const double LowStartingPopulationFactor = 0.7;
-       public const int StartingColonists = 25000;
-       public const int StartingColonistsAcceleratedBBS = 100000;
+       public const int StartingColonistsLowStartingPopulation = 175000;
+       public const int StartingColonists = 250000;
        public const int NominalMaximumPlanetaryPopulation = 1000000; // use Race.MaxPopulation to get the maximum for a particular race.
        public const double PopulationFactorHyperExpansion = 0.5;
        public const double PopulationFactorJackOfAllTrades = 1.2;
