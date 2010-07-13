@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ROOT>
+  <Race>
+    <GravityTolerance>
+      <EnvironmentTolerance>
+        <Min>0</Min>
+        <Max>10</Max>
+      </EnvironmentTolerance>
+    </GravityTolerance>
+    <RadiationTolerance>
+      <EnvironmentTolerance>
+        <Min>0</Min>
+        <Max>100</Max>
+      </EnvironmentTolerance>
+    </RadiationTolerance>
+    <TemperatureTolerance>
+      <EnvironmentTolerance>
+        <Min>-152</Min>
+        <Max>152</Max>
+      </EnvironmentTolerance>
+    </TemperatureTolerance>
+    <Tech>
+      <Biotechnology>150</Biotechnology>
+      <Electronics>150</Electronics>
+      <Energy>150</Energy>
+      <Propulsion>150</Propulsion>
+      <Weapons>150</Weapons>
+      <Construction>150</Construction>
+    </Tech>
+    <PRT>SS</PRT>
+    <LRT>ARM</LRT>
+    <LRT>ISB</LRT>
+    <MineBuildCost>15</MineBuildCost>
+    <PluralName>Nucleotids</PluralName>
+    <Name>Nucleotid</Name>
+    <Password>B2F5FF47436671B6E533D8DC3614845D</Password>
+    <RaceIconName>28.jpg</RaceIconName>
+    <FactoryBuildCost>10</FactoryBuildCost>
+    <ColonistsPerResource>900</ColonistsPerResource>
+    <FactoryProduction>10</FactoryProduction>
+    <OperableFactories>10</OperableFactories>
+    <MineProductionRate>10</MineProductionRate>
+    <OperableMines>5</OperableMines>
+    <MaxPopulation>1000000</MaxPopulation>
+    <GrowthRate>10</GrowthRate>
+  </Race>
+</ROOT>
