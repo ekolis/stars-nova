@@ -225,7 +225,6 @@ namespace Nova.Client
                           Report.FatalError("Starbase doesn't know what planet it is orbiting!");
                       }
                       Star star = ClientState.Data.PlayerStars[fleet.InOrbit.Name] as Star;
-                      Verify.NotNull(star);
                       star.Starbase = fleet;
                       fleet.InOrbit = star;
                   }
