@@ -58,7 +58,6 @@ namespace Nova.Common
         //-------------------------------------------------------------------
         public static object Deserialize(Stream serializationStream)
         {
-            Verify.NotNull(serializationStream, "serializationStream");
             return Formatter.Deserialize(serializationStream);
         }
 
@@ -78,8 +77,6 @@ namespace Nova.Common
         //-------------------------------------------------------------------
         public static void Serialize(Stream serializationStream, object item)
         {
-            Verify.NotNull(serializationStream, "serializationStream");
-            Verify.NotNull(item, "item");
             Formatter.Serialize(serializationStream, item);
         }
         #endregion

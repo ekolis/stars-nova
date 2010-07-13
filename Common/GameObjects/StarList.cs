@@ -127,13 +127,11 @@ namespace Nova.Common
         {
             get
             {
-                Verify.NotNull(index);
                 if (!Dictionary.Contains(index)) return null;
                 return Dictionary[index] as Star;
             }
             set
             {
-                Verify.NotNull(index);
                 if (!Dictionary.Contains(index)) return;
                 Dictionary[index] = value;
             }
@@ -149,7 +147,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public Star GetNext(Star star)
         {
-            Verify.NotNull(star);
+            if (star == null) throw new ArgumentNullException("star");
             if (Dictionary.Count <= 1) return star;
 
             ArrayList keyList = Dictionary.Keys as ArrayList;
@@ -169,7 +167,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public Star GetPrevious(Star star)
         {
-            Verify.NotNull(star);
+            if (star == null) throw new ArgumentNullException("star");
             if (Dictionary.Count <= 1) return star;
 
             ArrayList keyList = Dictionary.Keys as ArrayList;
