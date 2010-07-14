@@ -186,7 +186,7 @@ namespace Nova.Common
         {
             get
             {
-                return (design.Summary.Properties.ContainsKey("Colonizer") == true);
+                return design.Summary.Properties.ContainsKey("Colonizer");
             }
         }
         /// <summary>

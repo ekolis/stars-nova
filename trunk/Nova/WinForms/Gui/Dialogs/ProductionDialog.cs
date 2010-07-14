@@ -510,7 +510,7 @@ namespace Nova.WinForms.Gui
         {
             if (this.queueList.SelectedItems.Count > 0)
             {
-                Design tmp = (queueList.Items[queueList.SelectedIndices[0]].Tag as Design);
+                Design tmp = queueList.Items[queueList.SelectedIndices[0]].Tag as Design;
                 if (tmp != null && tmp.Type == "Starbase")
                 {
                     designList.Items.Add(new ListViewItem(tmp.Name));
@@ -678,19 +678,6 @@ namespace Nova.WinForms.Gui
         {
             // First run through the production queue to see if there is already a
             // starbase there. If there is remove it.
-
-            //foreach (ListViewItem item in QueueList.Items)
-            //{
-            //    Design thisDesign = item.Tag as Design;
-            //    // factories and defenses and mines dont have a design...
-            //    if (thisDesign != null)
-            //    {
-            //        if (thisDesign.Type == "Starbase")
-            //        {
-            //            item.Remove();
-            //        }
-            //    }
-            //}
             int i = 0;
             for (i = 0; i < designList.Items.Count; i++)
                 if (designList.Items[i].Text == design.Name)
