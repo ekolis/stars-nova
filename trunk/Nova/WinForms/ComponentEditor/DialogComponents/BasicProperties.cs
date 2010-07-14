@@ -58,10 +58,10 @@ namespace Nova.WinForms.ComponentEditor
             {
                 Nova.Common.Resources cost = new Nova.Common.Resources();
 
-                cost.Ironium = (int)IroniumAmount.Value;
-                cost.Boranium = (int)BoraniumAmount.Value;
-                cost.Germanium = (int)GermaniumAmount.Value;
-                cost.Energy = (int)EnergyAmount.Value;
+                cost.Ironium = (int)this.ironiumAmount.Value;
+                cost.Boranium = (int)this.boraniumAmount.Value;
+                cost.Germanium = (int)this.germaniumAmount.Value;
+                cost.Energy = (int)this.energyAmount.Value;
 
                 return cost;
             }
@@ -70,10 +70,10 @@ namespace Nova.WinForms.ComponentEditor
             // Set the resource build cost in the control
             set
             {
-                IroniumAmount.Value = (int)value.Ironium;
-                BoraniumAmount.Value = (int)value.Boranium;
-                GermaniumAmount.Value = (int)value.Germanium;
-                EnergyAmount.Value = (int)value.Energy;
+                this.ironiumAmount.Value = (int)value.Ironium;
+                this.boraniumAmount.Value = (int)value.Boranium;
+                this.germaniumAmount.Value = (int)value.Germanium;
+                this.energyAmount.Value = (int)value.Energy;
             }
         }
 
@@ -85,8 +85,8 @@ namespace Nova.WinForms.ComponentEditor
         /// ----------------------------------------------------------------------------
         public int Mass
         {
-            get { return (int)ComponentMass.Value; }
-            set { ComponentMass.Value = value; }
+            get { return (int)this.componentMass.Value; }
+            set { this.componentMass.Value = value; }
         }
 
         #endregion

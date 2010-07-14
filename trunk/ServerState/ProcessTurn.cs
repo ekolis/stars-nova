@@ -41,7 +41,7 @@ namespace Nova.WinForms.Console
     /// </summary>
     public static class ProcessTurn
     {
-        private static ServerState StateData = null;
+        private static ServerState stateData;
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -52,22 +52,22 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public static void Generate()
         {
-            StateData = ServerState.Data;
+            stateData = ServerState.Data;
 
             BackupTurn();
 
             OrderReader.ReadOrders();
 
-            foreach (Fleet fleet in StateData.AllFleets.Values)
+            foreach (Fleet fleet in stateData.AllFleets.Values)
             {
                 bool destroyed = ProcessFleet(fleet);
                 if (destroyed)
                 {
-                    StateData.AllFleets.Remove(fleet.Key);
+                    stateData.AllFleets.Remove(fleet.Key);
                 }
             }
 
-            foreach (Star star in StateData.AllStars.Values)
+            foreach (Star star in stateData.AllStars.Values)
             {
                 ProcessStar(star);
             }
@@ -121,11 +121,11 @@ namespace Nova.WinForms.Console
 
             VictoryCheck.Victor();
 
-            StateData.TurnYear++;
+            stateData.TurnYear++;
             IntelWriter.WriteIntel();
 
             // remove old messages, do this last so that the 1st turn intro message is not removed before it is delivered.
-            StateData.AllMessages = new ArrayList();
+            stateData.AllMessages = new ArrayList();
 
         }
 
@@ -181,7 +181,7 @@ namespace Nova.WinForms.Console
         {
             string owner = star.Owner;
             if (owner == null) return; // nothing to do for an empty star system.
-            Race race = StateData.AllRaces[star.Owner] as Race;
+            Race race = stateData.AllRaces[star.Owner] as Race;
             int initialPopulation = star.Colonists;
             star.Update(race);
             int finalPopulation = star.Colonists;
@@ -215,7 +215,7 @@ namespace Nova.WinForms.Console
             if (destroyed == true) return true;
 
             // See if the fleet is orbiting a star
-            foreach (Star star in StateData.AllStars.Values)
+            foreach (Star star in stateData.AllStars.Values)
             {
                 if (star.Position.X == fleet.Position.X && star.Position.Y == fleet.Position.Y)
                 {
@@ -380,7 +380,7 @@ namespace Nova.WinForms.Console
                 }
                 else
                 {
-                    Star star = StateData.AllStars[thisWaypoint.Destination] as Star;
+                    Star star = stateData.AllStars[thisWaypoint.Destination] as Star;
 
                     if (star != null)
                     {

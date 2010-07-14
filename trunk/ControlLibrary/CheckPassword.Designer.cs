@@ -33,19 +33,19 @@ namespace Nova.ControlLibrary
       {
           System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CheckPassword));
           this.groupBox1 = new System.Windows.Forms.GroupBox();
-          this.PassWord = new System.Windows.Forms.TextBox();
+          this.password = new System.Windows.Forms.TextBox();
           this.label1 = new System.Windows.Forms.Label();
-          this.OKButton = new System.Windows.Forms.Button();
-          this.Cancel = new System.Windows.Forms.Button();
+          this.okButton = new System.Windows.Forms.Button();
+          this.cancel = new System.Windows.Forms.Button();
           this.groupBox1.SuspendLayout();
           this.SuspendLayout();
           // 
           // groupBox1
           // 
-          this.groupBox1.Controls.Add(this.PassWord);
+          this.groupBox1.Controls.Add(this.password);
           this.groupBox1.Controls.Add(this.label1);
-          this.groupBox1.Controls.Add(this.OKButton);
-          this.groupBox1.Controls.Add(this.Cancel);
+          this.groupBox1.Controls.Add(this.okButton);
+          this.groupBox1.Controls.Add(this.cancel);
           this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
           this.groupBox1.Location = new System.Drawing.Point(0, 0);
           this.groupBox1.Name = "groupBox1";
@@ -56,10 +56,10 @@ namespace Nova.ControlLibrary
           // 
           // PassWord
           // 
-          this.PassWord.Location = new System.Drawing.Point(12, 44);
-          this.PassWord.Name = "PassWord";
-          this.PassWord.Size = new System.Drawing.Size(228, 20);
-          this.PassWord.TabIndex = 1;
+          this.password.Location = new System.Drawing.Point(12, 44);
+          this.password.Name = "password";
+          this.password.Size = new System.Drawing.Size(228, 20);
+          this.password.TabIndex = 1;
           // 
           // label1
           // 
@@ -72,24 +72,24 @@ namespace Nova.ControlLibrary
           // 
           // OKButton
           // 
-          this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-          this.OKButton.Location = new System.Drawing.Point(155, 81);
-          this.OKButton.Name = "OKButton";
-          this.OKButton.Size = new System.Drawing.Size(75, 23);
-          this.OKButton.TabIndex = 3;
-          this.OKButton.Text = "OK";
-          this.OKButton.UseVisualStyleBackColor = true;
-          this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
+          this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+          this.okButton.Location = new System.Drawing.Point(155, 81);
+          this.okButton.Name = "okButton";
+          this.okButton.Size = new System.Drawing.Size(75, 23);
+          this.okButton.TabIndex = 3;
+          this.okButton.Text = "OK";
+          this.okButton.UseVisualStyleBackColor = true;
+          this.okButton.Click += new System.EventHandler(this.OKButton_Click);
           // 
           // Cancel
           // 
-          this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-          this.Cancel.Location = new System.Drawing.Point(27, 81);
-          this.Cancel.Name = "Cancel";
-          this.Cancel.Size = new System.Drawing.Size(75, 23);
-          this.Cancel.TabIndex = 2;
-          this.Cancel.Text = "Cancel";
-          this.Cancel.UseVisualStyleBackColor = true;
+          this.cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+          this.cancel.Location = new System.Drawing.Point(27, 81);
+          this.cancel.Name = "cancel";
+          this.cancel.Size = new System.Drawing.Size(75, 23);
+          this.cancel.TabIndex = 2;
+          this.cancel.Text = "Cancel";
+          this.cancel.UseVisualStyleBackColor = true;
           // 
           // CheckPassword
           // 
@@ -113,8 +113,8 @@ namespace Nova.ControlLibrary
 
       private System.Windows.Forms.GroupBox groupBox1;
       private System.Windows.Forms.Label label1;
-      private System.Windows.Forms.Button OKButton;
-      private System.Windows.Forms.Button Cancel;
-      private System.Windows.Forms.TextBox PassWord;
+      private System.Windows.Forms.Button okButton;
+      private System.Windows.Forms.Button cancel;
+      private System.Windows.Forms.TextBox password;
    }
 }

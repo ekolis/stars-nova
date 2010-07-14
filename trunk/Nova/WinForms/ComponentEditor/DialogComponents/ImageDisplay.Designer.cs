@@ -40,18 +40,18 @@ namespace Nova.WinForms.ComponentEditor
       private void InitializeComponent()
       {
 		  this.groupBox1 = new System.Windows.Forms.GroupBox();
-		  this.SelectImage = new System.Windows.Forms.Button();
+		  this.selectImage = new System.Windows.Forms.Button();
 		  this.label1 = new System.Windows.Forms.Label();
-		  this.ComponentImage = new System.Windows.Forms.PictureBox();
+		  this.componentImage = new System.Windows.Forms.PictureBox();
 		  this.groupBox1.SuspendLayout();
-		  ((System.ComponentModel.ISupportInitialize)(this.ComponentImage)).BeginInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.componentImage)).BeginInit();
 		  this.SuspendLayout();
 		  // 
 		  // groupBox1
 		  // 
-		  this.groupBox1.Controls.Add(this.SelectImage);
+		  this.groupBox1.Controls.Add(this.selectImage);
 		  this.groupBox1.Controls.Add(this.label1);
-		  this.groupBox1.Controls.Add(this.ComponentImage);
+		  this.groupBox1.Controls.Add(this.componentImage);
 		  this.groupBox1.Location = new System.Drawing.Point(3, 3);
 		  this.groupBox1.Name = "groupBox1";
 		  this.groupBox1.Size = new System.Drawing.Size(112, 160);
@@ -61,13 +61,13 @@ namespace Nova.WinForms.ComponentEditor
 		  // 
 		  // SelectImage
 		  // 
-		  this.SelectImage.Location = new System.Drawing.Point(9, 122);
-		  this.SelectImage.Name = "SelectImage";
-		  this.SelectImage.Size = new System.Drawing.Size(90, 23);
-		  this.SelectImage.TabIndex = 2;
-		  this.SelectImage.Text = "Select Image";
-		  this.SelectImage.UseVisualStyleBackColor = true;
-		  this.SelectImage.Click += new System.EventHandler(this.OnImageButtonClick);
+		  this.selectImage.Location = new System.Drawing.Point(9, 122);
+		  this.selectImage.Name = "selectImage";
+		  this.selectImage.Size = new System.Drawing.Size(90, 23);
+		  this.selectImage.TabIndex = 2;
+		  this.selectImage.Text = "Select Image";
+		  this.selectImage.UseVisualStyleBackColor = true;
+		  this.selectImage.Click += new System.EventHandler(this.OnImageButtonClick);
 		  // 
 		  // label1
 		  // 
@@ -80,13 +80,13 @@ namespace Nova.WinForms.ComponentEditor
 		  // 
 		  // ComponentImage
 		  // 
-		  this.ComponentImage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-		  this.ComponentImage.Location = new System.Drawing.Point(24, 28);
-		  this.ComponentImage.Name = "ComponentImage";
-		  this.ComponentImage.Size = new System.Drawing.Size(64, 64);
-		  this.ComponentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
-		  this.ComponentImage.TabIndex = 0;
-		  this.ComponentImage.TabStop = false;
+		  this.componentImage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+		  this.componentImage.Location = new System.Drawing.Point(24, 28);
+		  this.componentImage.Name = "componentImage";
+		  this.componentImage.Size = new System.Drawing.Size(64, 64);
+		  this.componentImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+		  this.componentImage.TabIndex = 0;
+		  this.componentImage.TabStop = false;
 		  // 
 		  // ImageDisplay
 		  // 
@@ -101,7 +101,7 @@ namespace Nova.WinForms.ComponentEditor
 		  this.Size = new System.Drawing.Size(118, 166);
 		  this.groupBox1.ResumeLayout(false);
 		  this.groupBox1.PerformLayout();
-		  ((System.ComponentModel.ISupportInitialize)(this.ComponentImage)).EndInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.componentImage)).EndInit();
 		  this.ResumeLayout(false);
 
       }
@@ -110,7 +110,7 @@ namespace Nova.WinForms.ComponentEditor
 
       private System.Windows.Forms.GroupBox groupBox1;
       private System.Windows.Forms.Label label1;
-      private System.Windows.Forms.PictureBox ComponentImage;
-      private System.Windows.Forms.Button SelectImage;
+      private System.Windows.Forms.PictureBox componentImage;
+      private System.Windows.Forms.Button selectImage;
    }
 }

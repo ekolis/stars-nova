@@ -70,8 +70,8 @@ namespace Nova.WinForms.Gui
             Race race = ClientState.Data.PlayerRace;
 
             Hashtable allFleets = ClientState.Data.InputTurn.AllFleets;
-            FleetGridView.Columns[6].Name = "Cargo";
-            FleetGridView.AutoSize = true;
+            this.fleetGridView.Columns[6].Name = "Cargo";
+            this.fleetGridView.AutoSize = true;
 
             foreach (Fleet fleet in allFleets.Values)
             {
@@ -141,11 +141,11 @@ namespace Nova.WinForms.Gui
                     row[i++] = fleet.BattlePlan;
                     row[i++] = fleet.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-                    FleetGridView.Rows.Add(row);
+                    this.fleetGridView.Rows.Add(row);
                 }
             }
 
-            FleetGridView.AutoResizeColumns();
+            this.fleetGridView.AutoResizeColumns();
         }
 
 
@@ -165,7 +165,7 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            int cargoIndex = FleetGridView.Columns["Cargo"].Index;
+            int cargoIndex = this.fleetGridView.Columns["Cargo"].Index;
 
             if (e.ColumnIndex != cargoIndex)
             {
@@ -178,7 +178,7 @@ namespace Nova.WinForms.Gui
                 e.CellBounds.Width - 4,
                 e.CellBounds.Height - 4);
 
-            Brush gridBrush = new SolidBrush(FleetGridView.GridColor);
+            Brush gridBrush = new SolidBrush(this.fleetGridView.GridColor);
             Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor);
 
             Pen gridLinePen = new Pen(gridBrush);

@@ -29,24 +29,24 @@ namespace Nova.ControlLibrary
       private void InitializeComponent()
       {
           this.components = new System.ComponentModel.Container();
-          this.HullDisplay = new System.Windows.Forms.Panel();
-          this.Grid12 = new System.Windows.Forms.Panel();
-          this.CellContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
-          this.ArmorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+          this.hullDisplay = new System.Windows.Forms.Panel();
+          this.grid12 = new System.Windows.Forms.Panel();
+          this.cellContextMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+          this.armorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.bombToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.electricalStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.engineToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.mechanicalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-          this.MinelayeystoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+          this.minelayeystoolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.orbitalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.robotMinerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.scannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.shieldsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.weaponToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.toolStripSeparator1 = new System.Windows.Forms.ToolStripSeparator();
-          this.DecrementStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+          this.decrementStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.incrementModulesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-          this.IncrementStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+          this.incrementStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.clearCellToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
           this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
           this.armorScannerElectMechToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -60,100 +60,100 @@ namespace Nova.ControlLibrary
           this.toolStripSeparator3 = new System.Windows.Forms.ToolStripSeparator();
           this.cargoBuiltinToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
           this.spaceDockToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-          this.Grid24 = new System.Windows.Forms.Panel();
-          this.Grid23 = new System.Windows.Forms.Panel();
-          this.Grid22 = new System.Windows.Forms.Panel();
-          this.Grid21 = new System.Windows.Forms.Panel();
-          this.Grid20 = new System.Windows.Forms.Panel();
-          this.Grid19 = new System.Windows.Forms.Panel();
-          this.Grid18 = new System.Windows.Forms.Panel();
-          this.Grid17 = new System.Windows.Forms.Panel();
-          this.Grid16 = new System.Windows.Forms.Panel();
-          this.Grid15 = new System.Windows.Forms.Panel();
-          this.Grid14 = new System.Windows.Forms.Panel();
-          this.Grid13 = new System.Windows.Forms.Panel();
-          this.Grid11 = new System.Windows.Forms.Panel();
-          this.Grid9 = new System.Windows.Forms.Panel();
-          this.Grid8 = new System.Windows.Forms.Panel();
-          this.Grid7 = new System.Windows.Forms.Panel();
-          this.Grid6 = new System.Windows.Forms.Panel();
-          this.Grid5 = new System.Windows.Forms.Panel();
-          this.Grid1 = new System.Windows.Forms.Panel();
-          this.Grid3 = new System.Windows.Forms.Panel();
-          this.Grid10 = new System.Windows.Forms.Panel();
-          this.Grid2 = new System.Windows.Forms.Panel();
-          this.Grid4 = new System.Windows.Forms.Panel();
-          this.Grid0 = new System.Windows.Forms.Panel();
+          this.grid24 = new System.Windows.Forms.Panel();
+          this.grid23 = new System.Windows.Forms.Panel();
+          this.grid22 = new System.Windows.Forms.Panel();
+          this.grid21 = new System.Windows.Forms.Panel();
+          this.grid20 = new System.Windows.Forms.Panel();
+          this.grid19 = new System.Windows.Forms.Panel();
+          this.grid18 = new System.Windows.Forms.Panel();
+          this.grid17 = new System.Windows.Forms.Panel();
+          this.grid16 = new System.Windows.Forms.Panel();
+          this.grid15 = new System.Windows.Forms.Panel();
+          this.grid14 = new System.Windows.Forms.Panel();
+          this.grid13 = new System.Windows.Forms.Panel();
+          this.grid11 = new System.Windows.Forms.Panel();
+          this.grid9 = new System.Windows.Forms.Panel();
+          this.grid8 = new System.Windows.Forms.Panel();
+          this.grid7 = new System.Windows.Forms.Panel();
+          this.grid6 = new System.Windows.Forms.Panel();
+          this.grid5 = new System.Windows.Forms.Panel();
+          this.grid1 = new System.Windows.Forms.Panel();
+          this.grid3 = new System.Windows.Forms.Panel();
+          this.grid10 = new System.Windows.Forms.Panel();
+          this.grid2 = new System.Windows.Forms.Panel();
+          this.grid4 = new System.Windows.Forms.Panel();
+          this.grid0 = new System.Windows.Forms.Panel();
           this.electricalOrMechanicalToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-          this.HullDisplay.SuspendLayout();
-          this.CellContextMenu.SuspendLayout();
+          this.hullDisplay.SuspendLayout();
+          this.cellContextMenu.SuspendLayout();
           this.SuspendLayout();
           // 
           // HullDisplay
           // 
-          this.HullDisplay.Controls.Add(this.Grid12);
-          this.HullDisplay.Controls.Add(this.Grid24);
-          this.HullDisplay.Controls.Add(this.Grid23);
-          this.HullDisplay.Controls.Add(this.Grid22);
-          this.HullDisplay.Controls.Add(this.Grid21);
-          this.HullDisplay.Controls.Add(this.Grid20);
-          this.HullDisplay.Controls.Add(this.Grid19);
-          this.HullDisplay.Controls.Add(this.Grid18);
-          this.HullDisplay.Controls.Add(this.Grid17);
-          this.HullDisplay.Controls.Add(this.Grid16);
-          this.HullDisplay.Controls.Add(this.Grid15);
-          this.HullDisplay.Controls.Add(this.Grid14);
-          this.HullDisplay.Controls.Add(this.Grid13);
-          this.HullDisplay.Controls.Add(this.Grid11);
-          this.HullDisplay.Controls.Add(this.Grid9);
-          this.HullDisplay.Controls.Add(this.Grid8);
-          this.HullDisplay.Controls.Add(this.Grid7);
-          this.HullDisplay.Controls.Add(this.Grid6);
-          this.HullDisplay.Controls.Add(this.Grid5);
-          this.HullDisplay.Controls.Add(this.Grid1);
-          this.HullDisplay.Controls.Add(this.Grid3);
-          this.HullDisplay.Controls.Add(this.Grid10);
-          this.HullDisplay.Controls.Add(this.Grid2);
-          this.HullDisplay.Controls.Add(this.Grid4);
-          this.HullDisplay.Controls.Add(this.Grid0);
-          this.HullDisplay.Location = new System.Drawing.Point(3, 3);
-          this.HullDisplay.Name = "HullDisplay";
-          this.HullDisplay.Size = new System.Drawing.Size(333, 332);
-          this.HullDisplay.TabIndex = 3;
+          this.hullDisplay.Controls.Add(this.grid12);
+          this.hullDisplay.Controls.Add(this.grid24);
+          this.hullDisplay.Controls.Add(this.grid23);
+          this.hullDisplay.Controls.Add(this.grid22);
+          this.hullDisplay.Controls.Add(this.grid21);
+          this.hullDisplay.Controls.Add(this.grid20);
+          this.hullDisplay.Controls.Add(this.grid19);
+          this.hullDisplay.Controls.Add(this.grid18);
+          this.hullDisplay.Controls.Add(this.grid17);
+          this.hullDisplay.Controls.Add(this.grid16);
+          this.hullDisplay.Controls.Add(this.grid15);
+          this.hullDisplay.Controls.Add(this.grid14);
+          this.hullDisplay.Controls.Add(this.grid13);
+          this.hullDisplay.Controls.Add(this.grid11);
+          this.hullDisplay.Controls.Add(this.grid9);
+          this.hullDisplay.Controls.Add(this.grid8);
+          this.hullDisplay.Controls.Add(this.grid7);
+          this.hullDisplay.Controls.Add(this.grid6);
+          this.hullDisplay.Controls.Add(this.grid5);
+          this.hullDisplay.Controls.Add(this.grid1);
+          this.hullDisplay.Controls.Add(this.grid3);
+          this.hullDisplay.Controls.Add(this.grid10);
+          this.hullDisplay.Controls.Add(this.grid2);
+          this.hullDisplay.Controls.Add(this.grid4);
+          this.hullDisplay.Controls.Add(this.grid0);
+          this.hullDisplay.Location = new System.Drawing.Point(3, 3);
+          this.hullDisplay.Name = "hullDisplay";
+          this.hullDisplay.Size = new System.Drawing.Size(333, 332);
+          this.hullDisplay.TabIndex = 3;
           // 
           // Grid12
           // 
-          this.Grid12.AllowDrop = true;
-          this.Grid12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid12.ContextMenuStrip = this.CellContextMenu;
-          this.Grid12.Location = new System.Drawing.Point(133, 132);
-          this.Grid12.Name = "Grid12";
-          this.Grid12.Size = new System.Drawing.Size(64, 64);
-          this.Grid12.TabIndex = 12;
-          this.Grid12.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid12.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid12.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid12.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid12.AllowDrop = true;
+          this.grid12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid12.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid12.ContextMenuStrip = this.cellContextMenu;
+          this.grid12.Location = new System.Drawing.Point(133, 132);
+          this.grid12.Name = "grid12";
+          this.grid12.Size = new System.Drawing.Size(64, 64);
+          this.grid12.TabIndex = 12;
+          this.grid12.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid12.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid12.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid12.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // CellContextMenu
           // 
-          this.CellContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ArmorToolStripMenuItem,
+          this.cellContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.armorToolStripMenuItem,
             this.bombToolStripMenuItem,
             this.electricalStripMenuItem,
             this.engineToolStripMenuItem,
             this.mechanicalToolStripMenuItem,
-            this.MinelayeystoolStripMenuItem,
+            this.minelayeystoolStripMenuItem,
             this.orbitalToolStripMenuItem,
             this.robotMinerToolStripMenuItem,
             this.scannerToolStripMenuItem,
             this.shieldsToolStripMenuItem,
             this.weaponToolStripMenuItem,
             this.toolStripSeparator1,
-            this.DecrementStripMenuItem,
+            this.decrementStripMenuItem,
             this.incrementModulesToolStripMenuItem,
-            this.IncrementStripMenuItem,
+            this.incrementStripMenuItem,
             this.clearCellToolStripMenuItem1,
             this.toolStripSeparator2,
             this.armorScannerElectMechToolStripMenuItem,
@@ -168,17 +168,17 @@ namespace Nova.ControlLibrary
             this.toolStripSeparator3,
             this.cargoBuiltinToolStripMenuItem,
             this.spaceDockToolStripMenuItem});
-          this.CellContextMenu.Name = "CellContextMenu";
-          this.CellContextMenu.ShowImageMargin = false;
-          this.CellContextMenu.Size = new System.Drawing.Size(222, 616);
-          this.CellContextMenu.Text = "CargoPod";
-          this.CellContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CellContextMenuItem);
+          this.cellContextMenu.Name = "cellContextMenu";
+          this.cellContextMenu.ShowImageMargin = false;
+          this.cellContextMenu.Size = new System.Drawing.Size(222, 616);
+          this.cellContextMenu.Text = "CargoPod";
+          this.cellContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CellContextMenuItem);
           // 
           // ArmorToolStripMenuItem
           // 
-          this.ArmorToolStripMenuItem.Name = "ArmorToolStripMenuItem";
-          this.ArmorToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-          this.ArmorToolStripMenuItem.Text = "Armor";
+          this.armorToolStripMenuItem.Name = "ArmorToolStripMenuItem";
+          this.armorToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+          this.armorToolStripMenuItem.Text = "Armor";
           // 
           // bombToolStripMenuItem
           // 
@@ -207,10 +207,10 @@ namespace Nova.ControlLibrary
           // 
           // MinelayeystoolStripMenuItem
           // 
-          this.MinelayeystoolStripMenuItem.Name = "MinelayeystoolStripMenuItem";
-          this.MinelayeystoolStripMenuItem.Size = new System.Drawing.Size(221, 22);
-          this.MinelayeystoolStripMenuItem.Tag = "MineLayer";
-          this.MinelayeystoolStripMenuItem.Text = "Mine Layer";
+          this.minelayeystoolStripMenuItem.Name = "MinelayeystoolStripMenuItem";
+          this.minelayeystoolStripMenuItem.Size = new System.Drawing.Size(221, 22);
+          this.minelayeystoolStripMenuItem.Tag = "MineLayer";
+          this.minelayeystoolStripMenuItem.Text = "Mine Layer";
           // 
           // orbitalToolStripMenuItem
           // 
@@ -249,9 +249,9 @@ namespace Nova.ControlLibrary
           // 
           // DecrementStripMenuItem
           // 
-          this.DecrementStripMenuItem.Name = "DecrementStripMenuItem";
-          this.DecrementStripMenuItem.Size = new System.Drawing.Size(221, 22);
-          this.DecrementStripMenuItem.Text = "Decrement Modules";
+          this.decrementStripMenuItem.Name = "DecrementStripMenuItem";
+          this.decrementStripMenuItem.Size = new System.Drawing.Size(221, 22);
+          this.decrementStripMenuItem.Text = "Decrement Modules";
           // 
           // incrementModulesToolStripMenuItem
           // 
@@ -261,9 +261,9 @@ namespace Nova.ControlLibrary
           // 
           // IncrementStripMenuItem
           // 
-          this.IncrementStripMenuItem.Name = "IncrementStripMenuItem";
-          this.IncrementStripMenuItem.Size = new System.Drawing.Size(221, 22);
-          this.IncrementStripMenuItem.Text = "Add 10";
+          this.incrementStripMenuItem.Name = "IncrementStripMenuItem";
+          this.incrementStripMenuItem.Size = new System.Drawing.Size(221, 22);
+          this.incrementStripMenuItem.Text = "Add 10";
           // 
           // clearCellToolStripMenuItem1
           // 
@@ -343,363 +343,363 @@ namespace Nova.ControlLibrary
           // 
           // Grid24
           // 
-          this.Grid24.AllowDrop = true;
-          this.Grid24.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid24.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid24.ContextMenuStrip = this.CellContextMenu;
-          this.Grid24.Location = new System.Drawing.Point(263, 262);
-          this.Grid24.Name = "Grid24";
-          this.Grid24.Size = new System.Drawing.Size(64, 64);
-          this.Grid24.TabIndex = 24;
-          this.Grid24.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid24.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid24.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid24.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid24.AllowDrop = true;
+          this.grid24.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid24.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid24.ContextMenuStrip = this.cellContextMenu;
+          this.grid24.Location = new System.Drawing.Point(263, 262);
+          this.grid24.Name = "grid24";
+          this.grid24.Size = new System.Drawing.Size(64, 64);
+          this.grid24.TabIndex = 24;
+          this.grid24.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid24.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid24.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid24.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid23
           // 
-          this.Grid23.AllowDrop = true;
-          this.Grid23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid23.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid23.ContextMenuStrip = this.CellContextMenu;
-          this.Grid23.Location = new System.Drawing.Point(198, 262);
-          this.Grid23.Name = "Grid23";
-          this.Grid23.Size = new System.Drawing.Size(64, 64);
-          this.Grid23.TabIndex = 23;
-          this.Grid23.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid23.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid23.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid23.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid23.AllowDrop = true;
+          this.grid23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid23.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid23.ContextMenuStrip = this.cellContextMenu;
+          this.grid23.Location = new System.Drawing.Point(198, 262);
+          this.grid23.Name = "grid23";
+          this.grid23.Size = new System.Drawing.Size(64, 64);
+          this.grid23.TabIndex = 23;
+          this.grid23.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid23.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid23.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid23.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid22
           // 
-          this.Grid22.AllowDrop = true;
-          this.Grid22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid22.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid22.ContextMenuStrip = this.CellContextMenu;
-          this.Grid22.Location = new System.Drawing.Point(133, 262);
-          this.Grid22.Name = "Grid22";
-          this.Grid22.Size = new System.Drawing.Size(64, 64);
-          this.Grid22.TabIndex = 22;
-          this.Grid22.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid22.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid22.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid22.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid22.AllowDrop = true;
+          this.grid22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid22.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid22.ContextMenuStrip = this.cellContextMenu;
+          this.grid22.Location = new System.Drawing.Point(133, 262);
+          this.grid22.Name = "grid22";
+          this.grid22.Size = new System.Drawing.Size(64, 64);
+          this.grid22.TabIndex = 22;
+          this.grid22.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid22.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid22.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid22.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid21
           // 
-          this.Grid21.AllowDrop = true;
-          this.Grid21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid21.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid21.ContextMenuStrip = this.CellContextMenu;
-          this.Grid21.Location = new System.Drawing.Point(68, 262);
-          this.Grid21.Name = "Grid21";
-          this.Grid21.Size = new System.Drawing.Size(64, 64);
-          this.Grid21.TabIndex = 21;
-          this.Grid21.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid21.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid21.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid21.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid21.AllowDrop = true;
+          this.grid21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid21.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid21.ContextMenuStrip = this.cellContextMenu;
+          this.grid21.Location = new System.Drawing.Point(68, 262);
+          this.grid21.Name = "grid21";
+          this.grid21.Size = new System.Drawing.Size(64, 64);
+          this.grid21.TabIndex = 21;
+          this.grid21.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid21.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid21.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid21.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid20
           // 
-          this.Grid20.AllowDrop = true;
-          this.Grid20.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid20.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid20.ContextMenuStrip = this.CellContextMenu;
-          this.Grid20.Location = new System.Drawing.Point(3, 263);
-          this.Grid20.Name = "Grid20";
-          this.Grid20.Size = new System.Drawing.Size(64, 64);
-          this.Grid20.TabIndex = 20;
-          this.Grid20.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid20.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid20.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid20.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid20.AllowDrop = true;
+          this.grid20.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid20.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid20.ContextMenuStrip = this.cellContextMenu;
+          this.grid20.Location = new System.Drawing.Point(3, 263);
+          this.grid20.Name = "grid20";
+          this.grid20.Size = new System.Drawing.Size(64, 64);
+          this.grid20.TabIndex = 20;
+          this.grid20.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid20.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid20.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid20.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid19
           // 
-          this.Grid19.AllowDrop = true;
-          this.Grid19.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid19.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid19.ContextMenuStrip = this.CellContextMenu;
-          this.Grid19.Location = new System.Drawing.Point(263, 197);
-          this.Grid19.Name = "Grid19";
-          this.Grid19.Size = new System.Drawing.Size(64, 64);
-          this.Grid19.TabIndex = 19;
-          this.Grid19.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid19.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid19.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid19.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid19.AllowDrop = true;
+          this.grid19.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid19.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid19.ContextMenuStrip = this.cellContextMenu;
+          this.grid19.Location = new System.Drawing.Point(263, 197);
+          this.grid19.Name = "grid19";
+          this.grid19.Size = new System.Drawing.Size(64, 64);
+          this.grid19.TabIndex = 19;
+          this.grid19.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid19.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid19.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid19.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid18
           // 
-          this.Grid18.AllowDrop = true;
-          this.Grid18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid18.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid18.ContextMenuStrip = this.CellContextMenu;
-          this.Grid18.Location = new System.Drawing.Point(198, 197);
-          this.Grid18.Name = "Grid18";
-          this.Grid18.Size = new System.Drawing.Size(64, 64);
-          this.Grid18.TabIndex = 18;
-          this.Grid18.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid18.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid18.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid18.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid18.AllowDrop = true;
+          this.grid18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid18.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid18.ContextMenuStrip = this.cellContextMenu;
+          this.grid18.Location = new System.Drawing.Point(198, 197);
+          this.grid18.Name = "grid18";
+          this.grid18.Size = new System.Drawing.Size(64, 64);
+          this.grid18.TabIndex = 18;
+          this.grid18.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid18.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid18.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid18.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid17
           // 
-          this.Grid17.AllowDrop = true;
-          this.Grid17.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid17.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid17.ContextMenuStrip = this.CellContextMenu;
-          this.Grid17.Location = new System.Drawing.Point(133, 197);
-          this.Grid17.Name = "Grid17";
-          this.Grid17.Size = new System.Drawing.Size(64, 64);
-          this.Grid17.TabIndex = 17;
-          this.Grid17.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid17.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid17.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid17.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid17.AllowDrop = true;
+          this.grid17.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid17.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid17.ContextMenuStrip = this.cellContextMenu;
+          this.grid17.Location = new System.Drawing.Point(133, 197);
+          this.grid17.Name = "grid17";
+          this.grid17.Size = new System.Drawing.Size(64, 64);
+          this.grid17.TabIndex = 17;
+          this.grid17.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid17.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid17.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid17.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid16
           // 
-          this.Grid16.AllowDrop = true;
-          this.Grid16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid16.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid16.ContextMenuStrip = this.CellContextMenu;
-          this.Grid16.Location = new System.Drawing.Point(68, 197);
-          this.Grid16.Name = "Grid16";
-          this.Grid16.Size = new System.Drawing.Size(64, 64);
-          this.Grid16.TabIndex = 16;
-          this.Grid16.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid16.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid16.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid16.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid16.AllowDrop = true;
+          this.grid16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid16.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid16.ContextMenuStrip = this.cellContextMenu;
+          this.grid16.Location = new System.Drawing.Point(68, 197);
+          this.grid16.Name = "grid16";
+          this.grid16.Size = new System.Drawing.Size(64, 64);
+          this.grid16.TabIndex = 16;
+          this.grid16.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid16.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid16.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid16.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid15
           // 
-          this.Grid15.AllowDrop = true;
-          this.Grid15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid15.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid15.ContextMenuStrip = this.CellContextMenu;
-          this.Grid15.Location = new System.Drawing.Point(3, 197);
-          this.Grid15.Name = "Grid15";
-          this.Grid15.Size = new System.Drawing.Size(64, 64);
-          this.Grid15.TabIndex = 15;
-          this.Grid15.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid15.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid15.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid15.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid15.AllowDrop = true;
+          this.grid15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid15.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid15.ContextMenuStrip = this.cellContextMenu;
+          this.grid15.Location = new System.Drawing.Point(3, 197);
+          this.grid15.Name = "grid15";
+          this.grid15.Size = new System.Drawing.Size(64, 64);
+          this.grid15.TabIndex = 15;
+          this.grid15.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid15.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid15.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid15.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid14
           // 
-          this.Grid14.AllowDrop = true;
-          this.Grid14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid14.ContextMenuStrip = this.CellContextMenu;
-          this.Grid14.Location = new System.Drawing.Point(263, 132);
-          this.Grid14.Name = "Grid14";
-          this.Grid14.Size = new System.Drawing.Size(64, 64);
-          this.Grid14.TabIndex = 14;
-          this.Grid14.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid14.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid14.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid14.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid14.AllowDrop = true;
+          this.grid14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid14.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid14.ContextMenuStrip = this.cellContextMenu;
+          this.grid14.Location = new System.Drawing.Point(263, 132);
+          this.grid14.Name = "grid14";
+          this.grid14.Size = new System.Drawing.Size(64, 64);
+          this.grid14.TabIndex = 14;
+          this.grid14.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid14.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid14.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid14.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid13
           // 
-          this.Grid13.AllowDrop = true;
-          this.Grid13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid13.ContextMenuStrip = this.CellContextMenu;
-          this.Grid13.Location = new System.Drawing.Point(198, 132);
-          this.Grid13.Name = "Grid13";
-          this.Grid13.Size = new System.Drawing.Size(64, 64);
-          this.Grid13.TabIndex = 13;
-          this.Grid13.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid13.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid13.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid13.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid13.AllowDrop = true;
+          this.grid13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid13.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid13.ContextMenuStrip = this.cellContextMenu;
+          this.grid13.Location = new System.Drawing.Point(198, 132);
+          this.grid13.Name = "grid13";
+          this.grid13.Size = new System.Drawing.Size(64, 64);
+          this.grid13.TabIndex = 13;
+          this.grid13.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid13.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid13.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid13.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid11
           // 
-          this.Grid11.AllowDrop = true;
-          this.Grid11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid11.ContextMenuStrip = this.CellContextMenu;
-          this.Grid11.Location = new System.Drawing.Point(68, 132);
-          this.Grid11.Name = "Grid11";
-          this.Grid11.Size = new System.Drawing.Size(64, 64);
-          this.Grid11.TabIndex = 11;
-          this.Grid11.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid11.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid11.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid11.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid11.AllowDrop = true;
+          this.grid11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid11.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid11.ContextMenuStrip = this.cellContextMenu;
+          this.grid11.Location = new System.Drawing.Point(68, 132);
+          this.grid11.Name = "grid11";
+          this.grid11.Size = new System.Drawing.Size(64, 64);
+          this.grid11.TabIndex = 11;
+          this.grid11.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid11.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid11.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid11.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid9
           // 
-          this.Grid9.AllowDrop = true;
-          this.Grid9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid9.ContextMenuStrip = this.CellContextMenu;
-          this.Grid9.Location = new System.Drawing.Point(263, 67);
-          this.Grid9.Name = "Grid9";
-          this.Grid9.Size = new System.Drawing.Size(64, 64);
-          this.Grid9.TabIndex = 9;
-          this.Grid9.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid9.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid9.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid9.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid9.AllowDrop = true;
+          this.grid9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid9.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid9.ContextMenuStrip = this.cellContextMenu;
+          this.grid9.Location = new System.Drawing.Point(263, 67);
+          this.grid9.Name = "grid9";
+          this.grid9.Size = new System.Drawing.Size(64, 64);
+          this.grid9.TabIndex = 9;
+          this.grid9.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid9.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid9.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid9.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid8
           // 
-          this.Grid8.AllowDrop = true;
-          this.Grid8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid8.ContextMenuStrip = this.CellContextMenu;
-          this.Grid8.Location = new System.Drawing.Point(198, 67);
-          this.Grid8.Name = "Grid8";
-          this.Grid8.Size = new System.Drawing.Size(64, 64);
-          this.Grid8.TabIndex = 8;
-          this.Grid8.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid8.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid8.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid8.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid8.AllowDrop = true;
+          this.grid8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid8.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid8.ContextMenuStrip = this.cellContextMenu;
+          this.grid8.Location = new System.Drawing.Point(198, 67);
+          this.grid8.Name = "grid8";
+          this.grid8.Size = new System.Drawing.Size(64, 64);
+          this.grid8.TabIndex = 8;
+          this.grid8.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid8.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid8.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid8.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid7
           // 
-          this.Grid7.AllowDrop = true;
-          this.Grid7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid7.ContextMenuStrip = this.CellContextMenu;
-          this.Grid7.Location = new System.Drawing.Point(133, 67);
-          this.Grid7.Name = "Grid7";
-          this.Grid7.Size = new System.Drawing.Size(64, 64);
-          this.Grid7.TabIndex = 7;
-          this.Grid7.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid7.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid7.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid7.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid7.AllowDrop = true;
+          this.grid7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid7.ContextMenuStrip = this.cellContextMenu;
+          this.grid7.Location = new System.Drawing.Point(133, 67);
+          this.grid7.Name = "grid7";
+          this.grid7.Size = new System.Drawing.Size(64, 64);
+          this.grid7.TabIndex = 7;
+          this.grid7.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid7.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid7.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid7.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid6
           // 
-          this.Grid6.AllowDrop = true;
-          this.Grid6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid6.ContextMenuStrip = this.CellContextMenu;
-          this.Grid6.Location = new System.Drawing.Point(68, 67);
-          this.Grid6.Name = "Grid6";
-          this.Grid6.Size = new System.Drawing.Size(64, 64);
-          this.Grid6.TabIndex = 6;
-          this.Grid6.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid6.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid6.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid6.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid6.AllowDrop = true;
+          this.grid6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid6.ContextMenuStrip = this.cellContextMenu;
+          this.grid6.Location = new System.Drawing.Point(68, 67);
+          this.grid6.Name = "grid6";
+          this.grid6.Size = new System.Drawing.Size(64, 64);
+          this.grid6.TabIndex = 6;
+          this.grid6.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid6.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid6.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid6.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid5
           // 
-          this.Grid5.AllowDrop = true;
-          this.Grid5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid5.ContextMenuStrip = this.CellContextMenu;
-          this.Grid5.Location = new System.Drawing.Point(3, 67);
-          this.Grid5.Name = "Grid5";
-          this.Grid5.Size = new System.Drawing.Size(64, 64);
-          this.Grid5.TabIndex = 5;
-          this.Grid5.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid5.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid5.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid5.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid5.AllowDrop = true;
+          this.grid5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid5.ContextMenuStrip = this.cellContextMenu;
+          this.grid5.Location = new System.Drawing.Point(3, 67);
+          this.grid5.Name = "grid5";
+          this.grid5.Size = new System.Drawing.Size(64, 64);
+          this.grid5.TabIndex = 5;
+          this.grid5.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid5.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid5.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid5.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid1
           // 
-          this.Grid1.AllowDrop = true;
-          this.Grid1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid1.ContextMenuStrip = this.CellContextMenu;
-          this.Grid1.Location = new System.Drawing.Point(68, 2);
-          this.Grid1.Name = "Grid1";
-          this.Grid1.Size = new System.Drawing.Size(64, 64);
-          this.Grid1.TabIndex = 1;
-          this.Grid1.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid1.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid1.AllowDrop = true;
+          this.grid1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid1.ContextMenuStrip = this.cellContextMenu;
+          this.grid1.Location = new System.Drawing.Point(68, 2);
+          this.grid1.Name = "grid1";
+          this.grid1.Size = new System.Drawing.Size(64, 64);
+          this.grid1.TabIndex = 1;
+          this.grid1.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid1.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid3
           // 
-          this.Grid3.AllowDrop = true;
-          this.Grid3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid3.ContextMenuStrip = this.CellContextMenu;
-          this.Grid3.Location = new System.Drawing.Point(198, 2);
-          this.Grid3.Name = "Grid3";
-          this.Grid3.Size = new System.Drawing.Size(64, 64);
-          this.Grid3.TabIndex = 3;
-          this.Grid3.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid3.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid3.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid3.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid3.AllowDrop = true;
+          this.grid3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid3.ContextMenuStrip = this.cellContextMenu;
+          this.grid3.Location = new System.Drawing.Point(198, 2);
+          this.grid3.Name = "grid3";
+          this.grid3.Size = new System.Drawing.Size(64, 64);
+          this.grid3.TabIndex = 3;
+          this.grid3.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid3.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid3.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid3.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid10
           // 
-          this.Grid10.AllowDrop = true;
-          this.Grid10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid10.ContextMenuStrip = this.CellContextMenu;
-          this.Grid10.Location = new System.Drawing.Point(3, 132);
-          this.Grid10.Name = "Grid10";
-          this.Grid10.Size = new System.Drawing.Size(64, 64);
-          this.Grid10.TabIndex = 10;
-          this.Grid10.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid10.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid10.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid10.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid10.AllowDrop = true;
+          this.grid10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid10.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid10.ContextMenuStrip = this.cellContextMenu;
+          this.grid10.Location = new System.Drawing.Point(3, 132);
+          this.grid10.Name = "grid10";
+          this.grid10.Size = new System.Drawing.Size(64, 64);
+          this.grid10.TabIndex = 10;
+          this.grid10.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid10.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid10.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid10.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid2
           // 
-          this.Grid2.AllowDrop = true;
-          this.Grid2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid2.ContextMenuStrip = this.CellContextMenu;
-          this.Grid2.Location = new System.Drawing.Point(133, 2);
-          this.Grid2.Name = "Grid2";
-          this.Grid2.Size = new System.Drawing.Size(64, 64);
-          this.Grid2.TabIndex = 2;
-          this.Grid2.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid2.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid2.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid2.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid2.AllowDrop = true;
+          this.grid2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid2.ContextMenuStrip = this.cellContextMenu;
+          this.grid2.Location = new System.Drawing.Point(133, 2);
+          this.grid2.Name = "grid2";
+          this.grid2.Size = new System.Drawing.Size(64, 64);
+          this.grid2.TabIndex = 2;
+          this.grid2.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid2.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid2.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid2.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid4
           // 
-          this.Grid4.AllowDrop = true;
-          this.Grid4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid4.ContextMenuStrip = this.CellContextMenu;
-          this.Grid4.Location = new System.Drawing.Point(263, 2);
-          this.Grid4.Name = "Grid4";
-          this.Grid4.Size = new System.Drawing.Size(64, 64);
-          this.Grid4.TabIndex = 4;
-          this.Grid4.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid4.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid4.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid4.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid4.AllowDrop = true;
+          this.grid4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid4.ContextMenuStrip = this.cellContextMenu;
+          this.grid4.Location = new System.Drawing.Point(263, 2);
+          this.grid4.Name = "grid4";
+          this.grid4.Size = new System.Drawing.Size(64, 64);
+          this.grid4.TabIndex = 4;
+          this.grid4.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid4.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid4.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid4.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // Grid0
           // 
-          this.Grid0.AllowDrop = true;
-          this.Grid0.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-          this.Grid0.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-          this.Grid0.ContextMenuStrip = this.CellContextMenu;
-          this.Grid0.Location = new System.Drawing.Point(3, 2);
-          this.Grid0.Name = "Grid0";
-          this.Grid0.Size = new System.Drawing.Size(64, 64);
-          this.Grid0.TabIndex = 0;
-          this.Grid0.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
-          this.Grid0.Click += new System.EventHandler(this.GridCell_Click);
-          this.Grid0.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
-          this.Grid0.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
+          this.grid0.AllowDrop = true;
+          this.grid0.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+          this.grid0.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+          this.grid0.ContextMenuStrip = this.cellContextMenu;
+          this.grid0.Location = new System.Drawing.Point(3, 2);
+          this.grid0.Name = "grid0";
+          this.grid0.Size = new System.Drawing.Size(64, 64);
+          this.grid0.TabIndex = 0;
+          this.grid0.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
+          this.grid0.Click += new System.EventHandler(this.GridCell_Click);
+          this.grid0.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid0.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // electricalOrMechanicalToolStripMenuItem
           // 
@@ -711,57 +711,57 @@ namespace Nova.ControlLibrary
           // 
           this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
           this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-          this.Controls.Add(this.HullDisplay);
+          this.Controls.Add(this.hullDisplay);
           this.Name = "HullGrid";
           this.Size = new System.Drawing.Size(340, 339);
-          this.HullDisplay.ResumeLayout(false);
-          this.CellContextMenu.ResumeLayout(false);
+          this.hullDisplay.ResumeLayout(false);
+          this.cellContextMenu.ResumeLayout(false);
           this.ResumeLayout(false);
 
       }
 
       #endregion
 
-      private System.Windows.Forms.Panel HullDisplay;
-      private System.Windows.Forms.Panel Grid12;
-      private System.Windows.Forms.Panel Grid24;
-      private System.Windows.Forms.Panel Grid23;
-      private System.Windows.Forms.Panel Grid22;
-      private System.Windows.Forms.Panel Grid21;
-      private System.Windows.Forms.Panel Grid20;
-      private System.Windows.Forms.Panel Grid19;
-      private System.Windows.Forms.Panel Grid18;
-      private System.Windows.Forms.Panel Grid17;
-      private System.Windows.Forms.Panel Grid16;
-      private System.Windows.Forms.Panel Grid15;
-      private System.Windows.Forms.Panel Grid14;
-      private System.Windows.Forms.Panel Grid13;
-      private System.Windows.Forms.Panel Grid11;
-      private System.Windows.Forms.Panel Grid9;
-      private System.Windows.Forms.Panel Grid8;
-      private System.Windows.Forms.Panel Grid7;
-      private System.Windows.Forms.Panel Grid6;
-      private System.Windows.Forms.Panel Grid5;
-      private System.Windows.Forms.Panel Grid1;
-      private System.Windows.Forms.Panel Grid3;
-      private System.Windows.Forms.Panel Grid10;
-      private System.Windows.Forms.Panel Grid2;
-      private System.Windows.Forms.Panel Grid4;
-      private System.Windows.Forms.Panel Grid0;
-      private System.Windows.Forms.ContextMenuStrip CellContextMenu;
+      private System.Windows.Forms.Panel hullDisplay;
+      private System.Windows.Forms.Panel grid12;
+      private System.Windows.Forms.Panel grid24;
+      private System.Windows.Forms.Panel grid23;
+      private System.Windows.Forms.Panel grid22;
+      private System.Windows.Forms.Panel grid21;
+      private System.Windows.Forms.Panel grid20;
+      private System.Windows.Forms.Panel grid19;
+      private System.Windows.Forms.Panel grid18;
+      private System.Windows.Forms.Panel grid17;
+      private System.Windows.Forms.Panel grid16;
+      private System.Windows.Forms.Panel grid15;
+      private System.Windows.Forms.Panel grid14;
+      private System.Windows.Forms.Panel grid13;
+      private System.Windows.Forms.Panel grid11;
+      private System.Windows.Forms.Panel grid9;
+      private System.Windows.Forms.Panel grid8;
+      private System.Windows.Forms.Panel grid7;
+      private System.Windows.Forms.Panel grid6;
+      private System.Windows.Forms.Panel grid5;
+      private System.Windows.Forms.Panel grid1;
+      private System.Windows.Forms.Panel grid3;
+      private System.Windows.Forms.Panel grid10;
+      private System.Windows.Forms.Panel grid2;
+      private System.Windows.Forms.Panel grid4;
+      private System.Windows.Forms.Panel grid0;
+      private System.Windows.Forms.ContextMenuStrip cellContextMenu;
       private System.Windows.Forms.ToolStripMenuItem engineToolStripMenuItem;
       private System.Windows.Forms.ToolStripMenuItem mechanicalToolStripMenuItem;
       private System.Windows.Forms.ToolStripMenuItem weaponToolStripMenuItem;
-      private System.Windows.Forms.ToolStripMenuItem ArmorToolStripMenuItem;
+      private System.Windows.Forms.ToolStripMenuItem armorToolStripMenuItem;
       private System.Windows.Forms.ToolStripMenuItem bombToolStripMenuItem;
       private System.Windows.Forms.ToolStripMenuItem scannerToolStripMenuItem;
       private System.Windows.Forms.ToolStripMenuItem shieldsToolStripMenuItem;
       private System.Windows.Forms.ToolStripMenuItem orbitalToolStripMenuItem;
       private System.Windows.Forms.ToolStripMenuItem electricalStripMenuItem;
       private System.Windows.Forms.ToolStripMenuItem generalStripMenuItem;
-      private System.Windows.Forms.ToolStripMenuItem DecrementStripMenuItem;
-      private System.Windows.Forms.ToolStripMenuItem IncrementStripMenuItem;
-      private System.Windows.Forms.ToolStripMenuItem MinelayeystoolStripMenuItem;
+      private System.Windows.Forms.ToolStripMenuItem decrementStripMenuItem;
+      private System.Windows.Forms.ToolStripMenuItem incrementStripMenuItem;
+      private System.Windows.Forms.ToolStripMenuItem minelayeystoolStripMenuItem;
        private System.Windows.Forms.ToolStripMenuItem clearCellToolStripMenuItem1;
        private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
        private System.Windows.Forms.ToolStripMenuItem incrementModulesToolStripMenuItem;

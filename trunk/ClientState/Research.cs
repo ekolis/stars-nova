@@ -36,7 +36,7 @@ namespace Nova.Client
  
    public class Research
    {
-       private static ClientState StateData = ClientState.Data;
+       private static readonly ClientState StateData = ClientState.Data;
 
        /// ----------------------------------------------------------------------------
        /// <summary>

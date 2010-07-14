@@ -65,15 +65,15 @@ namespace Nova.Common
         /// <summary>
         /// Add a new trait to the race's collection of traits.
         /// </summary>
-        /// <param name="NewTrait">The code or short name of a trait such as IS for Improved Starbases. These are defined in AllTraits</param>
+        /// <param name="newTrait">The code or short name of a trait such as IS for Improved Starbases. These are defined in AllTraits</param>
         /// ----------------------------------------------------------------------------
-        public void Add(string NewTrait)
+        public void Add(string newTrait)
         {
 
             foreach (DictionaryEntry de in AllTraits.Data.Secondary)
             {
                 TraitEntry trait = de.Value as TraitEntry;
-                if (trait.Code == NewTrait)
+                if (trait.Code == newTrait)
                 {
                     Dictionary.Add(trait.Code, trait);
                 }
@@ -84,22 +84,22 @@ namespace Nova.Common
         /// <summary>
         /// Remove a trait from the race's collection of traits.
         /// </summary>
-        /// <param name="TraitToRemove">The trait to remove.</param>
+        /// <param name="traitToRemove">The trait to remove.</param>
         /// ----------------------------------------------------------------------------
-        public void Remove(TraitEntry TraitToRemove)
+        public void Remove(TraitEntry traitToRemove)
         {
-            Dictionary.Remove(TraitToRemove.Code);
+            Dictionary.Remove(traitToRemove.Code);
         }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Remove a trait from the race's collection of traits.
         /// </summary>
-        /// <param name="TraitToRemove">The code (short name) for the trait to remove, as defined in AllTraits.</param>
+        /// <param name="traitToRemove">The code (short name) for the trait to remove, as defined in AllTraits.</param>
         /// ----------------------------------------------------------------------------
-        public void Remove(string TraitToRemove)
+        public void Remove(string traitToRemove)
         {
-            Dictionary.Remove(TraitToRemove);
+            Dictionary.Remove(traitToRemove);
         }
 
         /// ----------------------------------------------------------------------------

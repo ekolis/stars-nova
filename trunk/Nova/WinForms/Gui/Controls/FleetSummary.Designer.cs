@@ -31,15 +31,15 @@ namespace Nova.WinForms.Gui
          this.label1 = new System.Windows.Forms.Label();
          this.label2 = new System.Windows.Forms.Label();
          this.label3 = new System.Windows.Forms.Label();
-         this.FleetShipCount = new System.Windows.Forms.Label();
-         this.FleetSpeed = new System.Windows.Forms.Label();
-         this.FleetMass = new System.Windows.Forms.Label();
-         this.FleetImage = new System.Windows.Forms.PictureBox();
+         this.fleetShipCount = new System.Windows.Forms.Label();
+         this.fleetSpeed = new System.Windows.Forms.Label();
+         this.fleetMass = new System.Windows.Forms.Label();
+         this.fleetImage = new System.Windows.Forms.PictureBox();
          this.label4 = new System.Windows.Forms.Label();
-         this.FleetOwner = new System.Windows.Forms.Label();
-         this.RaceIcon = new System.Windows.Forms.PictureBox();
-         ((System.ComponentModel.ISupportInitialize)(this.FleetImage)).BeginInit();
-         ((System.ComponentModel.ISupportInitialize)(this.RaceIcon)).BeginInit();
+         this.fleetOwner = new System.Windows.Forms.Label();
+         this.raceIcon = new System.Windows.Forms.PictureBox();
+         ((System.ComponentModel.ISupportInitialize)(this.fleetImage)).BeginInit();
+         ((System.ComponentModel.ISupportInitialize)(this.raceIcon)).BeginInit();
          this.SuspendLayout();
          // 
          // label1
@@ -71,40 +71,40 @@ namespace Nova.WinForms.Gui
          // 
          // FleetShipCount
          // 
-         this.FleetShipCount.Location = new System.Drawing.Point(135, 14);
-         this.FleetShipCount.Name = "FleetShipCount";
-         this.FleetShipCount.Size = new System.Drawing.Size(36, 14);
-         this.FleetShipCount.TabIndex = 3;
-         this.FleetShipCount.Text = "0";
-         this.FleetShipCount.TextAlign = System.Drawing.ContentAlignment.TopRight;
+         this.fleetShipCount.Location = new System.Drawing.Point(135, 14);
+         this.fleetShipCount.Name = "fleetShipCount";
+         this.fleetShipCount.Size = new System.Drawing.Size(36, 14);
+         this.fleetShipCount.TabIndex = 3;
+         this.fleetShipCount.Text = "0";
+         this.fleetShipCount.TextAlign = System.Drawing.ContentAlignment.TopRight;
          // 
          // FleetSpeed
          // 
-         this.FleetSpeed.Location = new System.Drawing.Point(135, 49);
-         this.FleetSpeed.Name = "FleetSpeed";
-         this.FleetSpeed.Size = new System.Drawing.Size(36, 14);
-         this.FleetSpeed.TabIndex = 4;
-         this.FleetSpeed.Text = "0";
-         this.FleetSpeed.TextAlign = System.Drawing.ContentAlignment.TopRight;
+         this.fleetSpeed.Location = new System.Drawing.Point(135, 49);
+         this.fleetSpeed.Name = "fleetSpeed";
+         this.fleetSpeed.Size = new System.Drawing.Size(36, 14);
+         this.fleetSpeed.TabIndex = 4;
+         this.fleetSpeed.Text = "0";
+         this.fleetSpeed.TextAlign = System.Drawing.ContentAlignment.TopRight;
          // 
          // FleetMass
          // 
-         this.FleetMass.Location = new System.Drawing.Point(135, 32);
-         this.FleetMass.Name = "FleetMass";
-         this.FleetMass.Size = new System.Drawing.Size(36, 14);
-         this.FleetMass.TabIndex = 5;
-         this.FleetMass.Text = "0";
-         this.FleetMass.TextAlign = System.Drawing.ContentAlignment.TopRight;
+         this.fleetMass.Location = new System.Drawing.Point(135, 32);
+         this.fleetMass.Name = "fleetMass";
+         this.fleetMass.Size = new System.Drawing.Size(36, 14);
+         this.fleetMass.TabIndex = 5;
+         this.fleetMass.Text = "0";
+         this.fleetMass.TextAlign = System.Drawing.ContentAlignment.TopRight;
          // 
          // FleetImage
          // 
-         this.FleetImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.FleetImage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.FleetImage.Location = new System.Drawing.Point(258, 14);
-         this.FleetImage.Name = "FleetImage";
-         this.FleetImage.Size = new System.Drawing.Size(64, 64);
-         this.FleetImage.TabIndex = 6;
-         this.FleetImage.TabStop = false;
+         this.fleetImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.fleetImage.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.fleetImage.Location = new System.Drawing.Point(258, 14);
+         this.fleetImage.Name = "fleetImage";
+         this.fleetImage.Size = new System.Drawing.Size(64, 64);
+         this.fleetImage.TabIndex = 6;
+         this.fleetImage.TabStop = false;
          // 
          // label4
          // 
@@ -117,41 +117,41 @@ namespace Nova.WinForms.Gui
          // 
          // FleetOwner
          // 
-         this.FleetOwner.Location = new System.Drawing.Point(82, 127);
-         this.FleetOwner.Name = "FleetOwner";
-         this.FleetOwner.Size = new System.Drawing.Size(170, 23);
-         this.FleetOwner.TabIndex = 8;
-         this.FleetOwner.Text = "label5";
-         this.FleetOwner.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+         this.fleetOwner.Location = new System.Drawing.Point(82, 127);
+         this.fleetOwner.Name = "fleetOwner";
+         this.fleetOwner.Size = new System.Drawing.Size(170, 23);
+         this.fleetOwner.TabIndex = 8;
+         this.fleetOwner.Text = "label5";
+         this.fleetOwner.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
          // 
          // RaceIcon
          // 
-         this.RaceIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-         this.RaceIcon.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-         this.RaceIcon.Location = new System.Drawing.Point(258, 84);
-         this.RaceIcon.Name = "RaceIcon";
-         this.RaceIcon.Size = new System.Drawing.Size(64, 64);
-         this.RaceIcon.TabIndex = 9;
-         this.RaceIcon.TabStop = false;
+         this.raceIcon.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+         this.raceIcon.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+         this.raceIcon.Location = new System.Drawing.Point(258, 84);
+         this.raceIcon.Name = "raceIcon";
+         this.raceIcon.Size = new System.Drawing.Size(64, 64);
+         this.raceIcon.TabIndex = 9;
+         this.raceIcon.TabStop = false;
          // 
          // FleetSummary
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.Controls.Add(this.RaceIcon);
-         this.Controls.Add(this.FleetOwner);
+         this.Controls.Add(this.raceIcon);
+         this.Controls.Add(this.fleetOwner);
          this.Controls.Add(this.label4);
-         this.Controls.Add(this.FleetImage);
-         this.Controls.Add(this.FleetMass);
-         this.Controls.Add(this.FleetSpeed);
-         this.Controls.Add(this.FleetShipCount);
+         this.Controls.Add(this.fleetImage);
+         this.Controls.Add(this.fleetMass);
+         this.Controls.Add(this.fleetSpeed);
+         this.Controls.Add(this.fleetShipCount);
          this.Controls.Add(this.label3);
          this.Controls.Add(this.label2);
          this.Controls.Add(this.label1);
          this.Name = "FleetSummary";
          this.Size = new System.Drawing.Size(340, 157);
-         ((System.ComponentModel.ISupportInitialize)(this.FleetImage)).EndInit();
-         ((System.ComponentModel.ISupportInitialize)(this.RaceIcon)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.fleetImage)).EndInit();
+         ((System.ComponentModel.ISupportInitialize)(this.raceIcon)).EndInit();
          this.ResumeLayout(false);
          this.PerformLayout();
 
@@ -162,12 +162,12 @@ namespace Nova.WinForms.Gui
       private System.Windows.Forms.Label label1;
       private System.Windows.Forms.Label label2;
       private System.Windows.Forms.Label label3;
-      private System.Windows.Forms.Label FleetShipCount;
-      private System.Windows.Forms.Label FleetSpeed;
-      private System.Windows.Forms.Label FleetMass;
-      private System.Windows.Forms.PictureBox FleetImage;
+      private System.Windows.Forms.Label fleetShipCount;
+      private System.Windows.Forms.Label fleetSpeed;
+      private System.Windows.Forms.Label fleetMass;
+      private System.Windows.Forms.PictureBox fleetImage;
       private System.Windows.Forms.Label label4;
-      private System.Windows.Forms.Label FleetOwner;
-      private System.Windows.Forms.PictureBox RaceIcon;
+      private System.Windows.Forms.Label fleetOwner;
+      private System.Windows.Forms.PictureBox raceIcon;
    }
 }

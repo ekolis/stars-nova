@@ -60,9 +60,9 @@ namespace Nova.WinForms.Gui
 
         private System.ComponentModel.IContainer components;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ToolTip ToolTips;
+        private System.Windows.Forms.ToolTip toolTips;
 
-        private MenuStrip MainMenu;
+        private MenuStrip mainMenu;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem toolsToolStripMenuItem;
@@ -71,13 +71,13 @@ namespace Nova.WinForms.Gui
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
         private ToolStripMenuItem playerRelationslMenuItem;
-        private ToolStripMenuItem BattlePlansMenu;
+        private ToolStripMenuItem battlePlansMenu;
         private ToolStripMenuItem designManagerMenuItem;
         private ToolStripMenuItem reportsToolStripMenuItem;
-        private ToolStripMenuItem PlanetReportMenu;
-        private ToolStripMenuItem FleetReportMenu;
-        private ToolStripMenuItem BattlesReportMenu;
-        private ToolStripMenuItem ScoresMenuItem;
+        private ToolStripMenuItem planetReportMenu;
+        private ToolStripMenuItem fleetReportMenu;
+        private ToolStripMenuItem battlesReportMenu;
+        private ToolStripMenuItem scoresMenuItem;
         private ToolStripMenuItem generateTurnToolStripMenuItem;
         private ToolStripMenuItem loadNextTurnToolStripMenuItem;
 
@@ -125,30 +125,30 @@ namespace Nova.WinForms.Gui
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaGUI));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.MapControl = new StarMap();
-            this.ToolTips = new System.Windows.Forms.ToolTip(this.components);
-            this.MainMenu = new System.Windows.Forms.MenuStrip();
+            this.toolTips = new System.Windows.Forms.ToolTip(this.components);
+            this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.designManagerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.shipDesignerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.researchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.BattlePlansMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.battlePlansMenu = new System.Windows.Forms.ToolStripMenuItem();
             this.playerRelationslMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.generateTurnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadNextTurnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.PlanetReportMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.FleetReportMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.BattlesReportMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.ScoresMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.planetReportMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.fleetReportMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.battlesReportMenu = new System.Windows.Forms.ToolStripMenuItem();
+            this.scoresMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.SelectionDetail = new SelectionDetail();
             this.SelectionSummary = new SelectionSummary();
             this.Messages = new Messages();
             this.groupBox2.SuspendLayout();
-            this.MainMenu.SuspendLayout();
+            this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox2
@@ -175,17 +175,17 @@ namespace Nova.WinForms.Gui
             // 
             // MainMenu
             // 
-            this.MainMenu.BackColor = System.Drawing.SystemColors.Control;
-            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.reportsToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.MainMenu.Location = new System.Drawing.Point(0, 0);
-            this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(993, 24);
-            this.MainMenu.TabIndex = 20;
-            this.MainMenu.Text = "menuStrip1";
+            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Name = "mainMenu";
+            this.mainMenu.Size = new System.Drawing.Size(993, 24);
+            this.mainMenu.TabIndex = 20;
+            this.mainMenu.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
@@ -208,7 +208,7 @@ namespace Nova.WinForms.Gui
             this.designManagerMenuItem,
             this.shipDesignerToolStripMenuItem,
             this.researchToolStripMenuItem,
-            this.BattlePlansMenu,
+            this.battlePlansMenu,
             this.playerRelationslMenuItem,
             this.generateTurnToolStripMenuItem,
             this.loadNextTurnToolStripMenuItem});
@@ -242,11 +242,11 @@ namespace Nova.WinForms.Gui
             // 
             // BattlePlansMenu
             // 
-            this.BattlePlansMenu.Name = "BattlePlansMenu";
-            this.BattlePlansMenu.ShortcutKeys = System.Windows.Forms.Keys.F6;
-            this.BattlePlansMenu.Size = new System.Drawing.Size(205, 22);
-            this.BattlePlansMenu.Text = "&Battle Plans";
-            this.BattlePlansMenu.Click += new System.EventHandler(this.BattlePlansMenuItem);
+            this.battlePlansMenu.Name = "BattlePlansMenu";
+            this.battlePlansMenu.ShortcutKeys = System.Windows.Forms.Keys.F6;
+            this.battlePlansMenu.Size = new System.Drawing.Size(205, 22);
+            this.battlePlansMenu.Text = "&Battle Plans";
+            this.battlePlansMenu.Click += new System.EventHandler(this.BattlePlansMenuItem);
             // 
             // playerRelationslMenuItem
             // 
@@ -276,42 +276,42 @@ namespace Nova.WinForms.Gui
             // reportsToolStripMenuItem
             // 
             this.reportsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.PlanetReportMenu,
-            this.FleetReportMenu,
-            this.BattlesReportMenu,
-            this.ScoresMenuItem});
+            this.planetReportMenu,
+            this.fleetReportMenu,
+            this.battlesReportMenu,
+            this.scoresMenuItem});
             this.reportsToolStripMenuItem.Name = "reportsToolStripMenuItem";
             this.reportsToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.reportsToolStripMenuItem.Text = "&Reports";
             // 
             // PlanetReportMenu
             // 
-            this.PlanetReportMenu.Name = "PlanetReportMenu";
-            this.PlanetReportMenu.Size = new System.Drawing.Size(155, 22);
-            this.PlanetReportMenu.Text = "Player\'s &Planets";
-            this.PlanetReportMenu.Click += new System.EventHandler(this.PlanetReportMenu_Click);
+            this.planetReportMenu.Name = "PlanetReportMenu";
+            this.planetReportMenu.Size = new System.Drawing.Size(155, 22);
+            this.planetReportMenu.Text = "Player\'s &Planets";
+            this.planetReportMenu.Click += new System.EventHandler(this.PlanetReportMenu_Click);
             // 
             // FleetReportMenu
             // 
-            this.FleetReportMenu.Name = "FleetReportMenu";
-            this.FleetReportMenu.Size = new System.Drawing.Size(155, 22);
-            this.FleetReportMenu.Text = "Player\'s &Fleets";
-            this.FleetReportMenu.Click += new System.EventHandler(this.FleetReportMenu_Click);
+            this.fleetReportMenu.Name = "FleetReportMenu";
+            this.fleetReportMenu.Size = new System.Drawing.Size(155, 22);
+            this.fleetReportMenu.Text = "Player\'s &Fleets";
+            this.fleetReportMenu.Click += new System.EventHandler(this.FleetReportMenu_Click);
             // 
             // BattlesReportMenu
             // 
-            this.BattlesReportMenu.Name = "BattlesReportMenu";
-            this.BattlesReportMenu.Size = new System.Drawing.Size(155, 22);
-            this.BattlesReportMenu.Text = "&Battles";
-            this.BattlesReportMenu.Click += new System.EventHandler(this.BattlesReportMenu_Click);
+            this.battlesReportMenu.Name = "BattlesReportMenu";
+            this.battlesReportMenu.Size = new System.Drawing.Size(155, 22);
+            this.battlesReportMenu.Text = "&Battles";
+            this.battlesReportMenu.Click += new System.EventHandler(this.BattlesReportMenu_Click);
             // 
             // ScoresMenuItem
             // 
-            this.ScoresMenuItem.Name = "ScoresMenuItem";
-            this.ScoresMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
-            this.ScoresMenuItem.Size = new System.Drawing.Size(155, 22);
-            this.ScoresMenuItem.Text = "&Scores";
-            this.ScoresMenuItem.Click += new System.EventHandler(this.ScoresMenuItem_Click);
+            this.scoresMenuItem.Name = "ScoresMenuItem";
+            this.scoresMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
+            this.scoresMenuItem.Size = new System.Drawing.Size(155, 22);
+            this.scoresMenuItem.Text = "&Scores";
+            this.scoresMenuItem.Click += new System.EventHandler(this.ScoresMenuItem_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -359,22 +359,22 @@ namespace Nova.WinForms.Gui
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(993, 730);
-            this.Controls.Add(this.MainMenu);
+            this.Controls.Add(this.mainMenu);
             this.Controls.Add(this.SelectionDetail);
             this.Controls.Add(this.SelectionSummary);
             this.Controls.Add(this.Messages);
             this.Controls.Add(this.groupBox2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
-            this.MainMenuStrip = this.MainMenu;
+            this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(928, 670);
             this.Name = "NovaGUI";
             this.Text = "Nova";
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NovaGUI_FormClosing);
             this.groupBox2.ResumeLayout(false);
-            this.MainMenu.ResumeLayout(false);
-            this.MainMenu.PerformLayout();
+            this.mainMenu.ResumeLayout(false);
+            this.mainMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -446,9 +446,9 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void MenuShipDesign(object sender, System.EventArgs e)
         {
-            ShipDesignDialog ShipDesignDialog = new ShipDesignDialog();
-            ShipDesignDialog.ShowDialog();
-            ShipDesignDialog.Dispose();
+            ShipDesignDialog shipDesignDialog = new ShipDesignDialog();
+            shipDesignDialog.ShowDialog();
+            shipDesignDialog.Dispose();
         }
 
 

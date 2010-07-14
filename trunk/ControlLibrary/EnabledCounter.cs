@@ -66,8 +66,8 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         public int ControlCounter
         {
-            get { return (int)UpDownCounter.Value; }
-            set { UpDownCounter.Value = value; }
+            get { return (int)this.upDownCounter.Value; }
+            set { this.upDownCounter.Value = value; }
         }
 
         /// ----------------------------------------------------------------------------
@@ -77,8 +77,8 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         public string ControlText
         {
-            get { return CheckBox.Text; }
-            set { CheckBox.Text = value; }
+            get { return this.checkBox.Text; }
+            set { this.checkBox.Text = value; }
         }
 
         /// ----------------------------------------------------------------------------
@@ -88,8 +88,8 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         public bool ControlSelected
         {
-            get { return CheckBox.Checked; }
-            set { CheckBox.Checked = value; }
+            get { return this.checkBox.Checked; }
+            set { this.checkBox.Checked = value; }
         }
 
         /// ----------------------------------------------------------------------------
@@ -99,8 +99,8 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         public int Minimum
         {
-            get { return (int)UpDownCounter.Minimum; }
-            set { UpDownCounter.Minimum = value; }
+            get { return (int)this.upDownCounter.Minimum; }
+            set { this.upDownCounter.Minimum = value; }
         }
 
         /// ----------------------------------------------------------------------------
@@ -110,8 +110,8 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         public int Maximum
         {
-            get { return (int)UpDownCounter.Maximum; }
-            set { UpDownCounter.Maximum = value; }
+            get { return (int)this.upDownCounter.Maximum; }
+            set { this.upDownCounter.Maximum = value; }
         }
 
         /// ----------------------------------------------------------------------------
@@ -125,15 +125,15 @@ namespace Nova.ControlLibrary
             get
             {
                 EnabledValue result = new EnabledValue();
-                result.IsChecked = CheckBox.Checked;
-                result.NumericValue = (int)UpDownCounter.Value;
+                result.IsChecked = this.checkBox.Checked;
+                result.NumericValue = (int)this.upDownCounter.Value;
                 return result;
             }
 
             set
             {
-                UpDownCounter.Value = value.NumericValue;
-                CheckBox.Checked = value.IsChecked;
+                this.upDownCounter.Value = value.NumericValue;
+                this.checkBox.Checked = value.IsChecked;
             }
         }
 

@@ -29,28 +29,28 @@ namespace Nova.WinForms.Gui
       private void InitializeComponent()
       {
          this.groupBox1 = new System.Windows.Forms.GroupBox();
-         this.PlanList = new System.Windows.Forms.ListBox();
+         this.planList = new System.Windows.Forms.ListBox();
          this.groupBox2 = new System.Windows.Forms.GroupBox();
-         this.ModifyPlan = new System.Windows.Forms.Button();
-         this.NewPlan = new System.Windows.Forms.Button();
+         this.modifyPlan = new System.Windows.Forms.Button();
+         this.newPlan = new System.Windows.Forms.Button();
          this.label5 = new System.Windows.Forms.Label();
-         this.PlanName = new System.Windows.Forms.TextBox();
-         this.SecondaryTarget = new System.Windows.Forms.ComboBox();
-         this.Attack = new System.Windows.Forms.ComboBox();
+         this.planName = new System.Windows.Forms.TextBox();
+         this.secondaryTarget = new System.Windows.Forms.ComboBox();
+         this.attack = new System.Windows.Forms.ComboBox();
          this.label4 = new System.Windows.Forms.Label();
-         this.Tactic = new System.Windows.Forms.ComboBox();
+         this.tactic = new System.Windows.Forms.ComboBox();
          this.label3 = new System.Windows.Forms.Label();
          this.label2 = new System.Windows.Forms.Label();
-         this.PrimaryTarget = new System.Windows.Forms.ComboBox();
+         this.primaryTarget = new System.Windows.Forms.ComboBox();
          this.label1 = new System.Windows.Forms.Label();
-         this.DoneButton = new System.Windows.Forms.Button();
+         this.doneButton = new System.Windows.Forms.Button();
          this.groupBox1.SuspendLayout();
          this.groupBox2.SuspendLayout();
          this.SuspendLayout();
          // 
          // groupBox1
          // 
-         this.groupBox1.Controls.Add(this.PlanList);
+         this.groupBox1.Controls.Add(this.planList);
          this.groupBox1.Location = new System.Drawing.Point(13, 8);
          this.groupBox1.Name = "groupBox1";
          this.groupBox1.Size = new System.Drawing.Size(216, 298);
@@ -60,26 +60,26 @@ namespace Nova.WinForms.Gui
          // 
          // PlanList
          // 
-         this.PlanList.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.PlanList.FormattingEnabled = true;
-         this.PlanList.Location = new System.Drawing.Point(3, 16);
-         this.PlanList.Name = "PlanList";
-         this.PlanList.Size = new System.Drawing.Size(210, 277);
-         this.PlanList.TabIndex = 0;
+         this.planList.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.planList.FormattingEnabled = true;
+         this.planList.Location = new System.Drawing.Point(3, 16);
+         this.planList.Name = "planList";
+         this.planList.Size = new System.Drawing.Size(210, 277);
+         this.planList.TabIndex = 0;
          // 
          // groupBox2
          // 
-         this.groupBox2.Controls.Add(this.ModifyPlan);
-         this.groupBox2.Controls.Add(this.NewPlan);
+         this.groupBox2.Controls.Add(this.modifyPlan);
+         this.groupBox2.Controls.Add(this.newPlan);
          this.groupBox2.Controls.Add(this.label5);
-         this.groupBox2.Controls.Add(this.PlanName);
-         this.groupBox2.Controls.Add(this.SecondaryTarget);
-         this.groupBox2.Controls.Add(this.Attack);
+         this.groupBox2.Controls.Add(this.planName);
+         this.groupBox2.Controls.Add(this.secondaryTarget);
+         this.groupBox2.Controls.Add(this.attack);
          this.groupBox2.Controls.Add(this.label4);
-         this.groupBox2.Controls.Add(this.Tactic);
+         this.groupBox2.Controls.Add(this.tactic);
          this.groupBox2.Controls.Add(this.label3);
          this.groupBox2.Controls.Add(this.label2);
-         this.groupBox2.Controls.Add(this.PrimaryTarget);
+         this.groupBox2.Controls.Add(this.primaryTarget);
          this.groupBox2.Controls.Add(this.label1);
          this.groupBox2.Location = new System.Drawing.Point(242, 8);
          this.groupBox2.Name = "groupBox2";
@@ -90,23 +90,23 @@ namespace Nova.WinForms.Gui
          // 
          // ModifyPlan
          // 
-         this.ModifyPlan.Enabled = false;
-         this.ModifyPlan.Location = new System.Drawing.Point(128, 265);
-         this.ModifyPlan.Name = "ModifyPlan";
-         this.ModifyPlan.Size = new System.Drawing.Size(75, 23);
-         this.ModifyPlan.TabIndex = 10;
-         this.ModifyPlan.Text = "Modify";
-         this.ModifyPlan.UseVisualStyleBackColor = true;
+         this.modifyPlan.Enabled = false;
+         this.modifyPlan.Location = new System.Drawing.Point(128, 265);
+         this.modifyPlan.Name = "modifyPlan";
+         this.modifyPlan.Size = new System.Drawing.Size(75, 23);
+         this.modifyPlan.TabIndex = 10;
+         this.modifyPlan.Text = "Modify";
+         this.modifyPlan.UseVisualStyleBackColor = true;
          // 
          // NewPlan
          // 
-         this.NewPlan.Enabled = false;
-         this.NewPlan.Location = new System.Drawing.Point(12, 265);
-         this.NewPlan.Name = "NewPlan";
-         this.NewPlan.Size = new System.Drawing.Size(75, 23);
-         this.NewPlan.TabIndex = 0;
-         this.NewPlan.Text = "New";
-         this.NewPlan.UseVisualStyleBackColor = true;
+         this.newPlan.Enabled = false;
+         this.newPlan.Location = new System.Drawing.Point(12, 265);
+         this.newPlan.Name = "newPlan";
+         this.newPlan.Size = new System.Drawing.Size(75, 23);
+         this.newPlan.TabIndex = 0;
+         this.newPlan.Text = "New";
+         this.newPlan.UseVisualStyleBackColor = true;
          // 
          // label5
          // 
@@ -119,15 +119,15 @@ namespace Nova.WinForms.Gui
          // 
          // PlanName
          // 
-         this.PlanName.Location = new System.Drawing.Point(9, 34);
-         this.PlanName.Name = "PlanName";
-         this.PlanName.Size = new System.Drawing.Size(194, 20);
-         this.PlanName.TabIndex = 1;
+         this.planName.Location = new System.Drawing.Point(9, 34);
+         this.planName.Name = "planName";
+         this.planName.Size = new System.Drawing.Size(194, 20);
+         this.planName.TabIndex = 1;
          // 
          // SecondaryTarget
          // 
-         this.SecondaryTarget.FormattingEnabled = true;
-         this.SecondaryTarget.Items.AddRange(new object[] {
+         this.secondaryTarget.FormattingEnabled = true;
+         this.secondaryTarget.Items.AddRange(new object[] {
             "Any",
             "Armed Ships",
             "Bombers",
@@ -135,22 +135,22 @@ namespace Nova.WinForms.Gui
             "None",
             "Starbase",
             "Unarmed Ships"});
-         this.SecondaryTarget.Location = new System.Drawing.Point(9, 128);
-         this.SecondaryTarget.Name = "SecondaryTarget";
-         this.SecondaryTarget.Size = new System.Drawing.Size(194, 21);
-         this.SecondaryTarget.TabIndex = 8;
+         this.secondaryTarget.Location = new System.Drawing.Point(9, 128);
+         this.secondaryTarget.Name = "secondaryTarget";
+         this.secondaryTarget.Size = new System.Drawing.Size(194, 21);
+         this.secondaryTarget.TabIndex = 8;
          // 
          // Attack
          // 
-         this.Attack.FormattingEnabled = true;
-         this.Attack.Items.AddRange(new object[] {
+         this.attack.FormattingEnabled = true;
+         this.attack.Items.AddRange(new object[] {
             "Enemies",
             "Enemies and Neutrals",
             "Everyone"});
-         this.Attack.Location = new System.Drawing.Point(9, 223);
-         this.Attack.Name = "Attack";
-         this.Attack.Size = new System.Drawing.Size(194, 21);
-         this.Attack.TabIndex = 7;
+         this.attack.Location = new System.Drawing.Point(9, 223);
+         this.attack.Name = "attack";
+         this.attack.Size = new System.Drawing.Size(194, 21);
+         this.attack.TabIndex = 7;
          // 
          // label4
          // 
@@ -163,18 +163,18 @@ namespace Nova.WinForms.Gui
          // 
          // Tactic
          // 
-         this.Tactic.FormattingEnabled = true;
-         this.Tactic.Items.AddRange(new object[] {
+         this.tactic.FormattingEnabled = true;
+         this.tactic.Items.AddRange(new object[] {
             "Disengage",
             "Disengage if Challenged",
             "Maximise Damage",
             "Maximise Damage Ratio",
             "Maximise Net Damage",
             "Minimise Damage to Self"});
-         this.Tactic.Location = new System.Drawing.Point(9, 173);
-         this.Tactic.Name = "Tactic";
-         this.Tactic.Size = new System.Drawing.Size(194, 21);
-         this.Tactic.TabIndex = 5;
+         this.tactic.Location = new System.Drawing.Point(9, 173);
+         this.tactic.Name = "tactic";
+         this.tactic.Size = new System.Drawing.Size(194, 21);
+         this.tactic.TabIndex = 5;
          // 
          // label3
          // 
@@ -196,8 +196,8 @@ namespace Nova.WinForms.Gui
          // 
          // PrimaryTarget
          // 
-         this.PrimaryTarget.FormattingEnabled = true;
-         this.PrimaryTarget.Items.AddRange(new object[] {
+         this.primaryTarget.FormattingEnabled = true;
+         this.primaryTarget.Items.AddRange(new object[] {
             "Any",
             "Armed Ships",
             "Bombers",
@@ -205,10 +205,10 @@ namespace Nova.WinForms.Gui
             "None",
             "Starbase",
             "Unarmed Ships"});
-         this.PrimaryTarget.Location = new System.Drawing.Point(9, 78);
-         this.PrimaryTarget.Name = "PrimaryTarget";
-         this.PrimaryTarget.Size = new System.Drawing.Size(194, 21);
-         this.PrimaryTarget.TabIndex = 1;
+         this.primaryTarget.Location = new System.Drawing.Point(9, 78);
+         this.primaryTarget.Name = "primaryTarget";
+         this.primaryTarget.Size = new System.Drawing.Size(194, 21);
+         this.primaryTarget.TabIndex = 1;
          // 
          // label1
          // 
@@ -221,20 +221,20 @@ namespace Nova.WinForms.Gui
          // 
          // DoneButton
          // 
-         this.DoneButton.Location = new System.Drawing.Point(370, 323);
-         this.DoneButton.Name = "DoneButton";
-         this.DoneButton.Size = new System.Drawing.Size(75, 23);
-         this.DoneButton.TabIndex = 2;
-         this.DoneButton.Text = "Done";
-         this.DoneButton.UseVisualStyleBackColor = true;
-         this.DoneButton.Click += new System.EventHandler(this.DoneButton_Click);
+         this.doneButton.Location = new System.Drawing.Point(370, 323);
+         this.doneButton.Name = "doneButton";
+         this.doneButton.Size = new System.Drawing.Size(75, 23);
+         this.doneButton.TabIndex = 2;
+         this.doneButton.Text = "Done";
+         this.doneButton.UseVisualStyleBackColor = true;
+         this.doneButton.Click += new System.EventHandler(this.DoneButton_Click);
          // 
          // BattlePlans
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.ClientSize = new System.Drawing.Size(468, 356);
-         this.Controls.Add(this.DoneButton);
+         this.Controls.Add(this.doneButton);
          this.Controls.Add(this.groupBox2);
          this.Controls.Add(this.groupBox1);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -252,20 +252,20 @@ namespace Nova.WinForms.Gui
       #endregion
 
       private System.Windows.Forms.GroupBox groupBox1;
-      private System.Windows.Forms.ListBox PlanList;
+      private System.Windows.Forms.ListBox planList;
       private System.Windows.Forms.GroupBox groupBox2;
-      private System.Windows.Forms.ComboBox Attack;
+      private System.Windows.Forms.ComboBox attack;
       private System.Windows.Forms.Label label4;
-      private System.Windows.Forms.ComboBox Tactic;
+      private System.Windows.Forms.ComboBox tactic;
       private System.Windows.Forms.Label label3;
       private System.Windows.Forms.Label label2;
-      private System.Windows.Forms.ComboBox PrimaryTarget;
+      private System.Windows.Forms.ComboBox primaryTarget;
       private System.Windows.Forms.Label label1;
-      private System.Windows.Forms.ComboBox SecondaryTarget;
-      private System.Windows.Forms.Button DoneButton;
+      private System.Windows.Forms.ComboBox secondaryTarget;
+      private System.Windows.Forms.Button doneButton;
       private System.Windows.Forms.Label label5;
-      private System.Windows.Forms.TextBox PlanName;
-      private System.Windows.Forms.Button NewPlan;
-      private System.Windows.Forms.Button ModifyPlan;
+      private System.Windows.Forms.TextBox planName;
+      private System.Windows.Forms.Button newPlan;
+      private System.Windows.Forms.Button modifyPlan;
    }
 }

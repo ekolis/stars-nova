@@ -232,7 +232,7 @@ namespace Nova.WinForms.NewGame
 
                 Design mine     = new Design();
                 Design factory  = new Design();
-                Design Defense  = new Design();
+                Design defense  = new Design();
 
                 mine.Cost       = new Nova.Common.Resources(0, 0, 0, race.MineBuildCost);
                 mine.Name       = "Mine";
@@ -247,14 +247,14 @@ namespace Nova.WinForms.NewGame
                 factory.Type    = "Factory";
                 factory.Owner   = player;
 
-                Defense.Cost    = new Nova.Common.Resources(5, 5, 5, 15);
-                Defense.Name    = "Defenses";
-                Defense.Type    = "Defenses";
-                Defense.Owner   = player;
+                defense.Cost    = new Nova.Common.Resources(5, 5, 5, 15);
+                defense.Name    = "Defenses";
+                defense.Type    = "Defenses";
+                defense.Owner   = player;
 
                 ServerState.Data.AllDesigns[player + "/Mine"]     = mine;
                 ServerState.Data.AllDesigns[player + "/Factory"]  = factory;
-                ServerState.Data.AllDesigns[player + "/Defenses"] = Defense;
+                ServerState.Data.AllDesigns[player + "/Defenses"] = defense;
 
                 InitialiseHomeStar(race, spaceAllocator);
             }

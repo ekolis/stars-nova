@@ -40,12 +40,12 @@ namespace Nova.WinForms.ComponentEditor
       private void InitializeComponent()
       {
 		  this.groupBox1 = new System.Windows.Forms.GroupBox();
-		  this.WeaponsTechLevel = new System.Windows.Forms.NumericUpDown();
-		  this.PropulsionTechLevel = new System.Windows.Forms.NumericUpDown();
-		  this.ConstructionTechLevel = new System.Windows.Forms.NumericUpDown();
-		  this.ElectronicsTechLevel = new System.Windows.Forms.NumericUpDown();
-		  this.BioTechLevel = new System.Windows.Forms.NumericUpDown();
-		  this.EnergyTechLevel = new System.Windows.Forms.NumericUpDown();
+		  this.weaponsTechLevel = new System.Windows.Forms.NumericUpDown();
+		  this.propulsionTechLevel = new System.Windows.Forms.NumericUpDown();
+		  this.constructionTechLevel = new System.Windows.Forms.NumericUpDown();
+		  this.electronicsTechLevel = new System.Windows.Forms.NumericUpDown();
+		  this.bioTechLevel = new System.Windows.Forms.NumericUpDown();
+		  this.energyTechLevel = new System.Windows.Forms.NumericUpDown();
 		  this.label8 = new System.Windows.Forms.Label();
 		  this.label7 = new System.Windows.Forms.Label();
 		  this.label6 = new System.Windows.Forms.Label();
@@ -53,12 +53,12 @@ namespace Nova.WinForms.ComponentEditor
 		  this.label4 = new System.Windows.Forms.Label();
 		  this.label1 = new System.Windows.Forms.Label();
 		  this.groupBox1.SuspendLayout();
-		  ((System.ComponentModel.ISupportInitialize)(this.WeaponsTechLevel)).BeginInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.PropulsionTechLevel)).BeginInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.ConstructionTechLevel)).BeginInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.ElectronicsTechLevel)).BeginInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.BioTechLevel)).BeginInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.EnergyTechLevel)).BeginInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.weaponsTechLevel)).BeginInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.propulsionTechLevel)).BeginInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.constructionTechLevel)).BeginInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.electronicsTechLevel)).BeginInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.bioTechLevel)).BeginInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.energyTechLevel)).BeginInit();
 		  this.SuspendLayout();
 		  // 
 		  // groupBox1
@@ -68,12 +68,12 @@ namespace Nova.WinForms.ComponentEditor
 					  | System.Windows.Forms.AnchorStyles.Right)));
 		  this.groupBox1.AutoSize = true;
 		  this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-		  this.groupBox1.Controls.Add(this.WeaponsTechLevel);
-		  this.groupBox1.Controls.Add(this.PropulsionTechLevel);
-		  this.groupBox1.Controls.Add(this.ConstructionTechLevel);
-		  this.groupBox1.Controls.Add(this.ElectronicsTechLevel);
-		  this.groupBox1.Controls.Add(this.BioTechLevel);
-		  this.groupBox1.Controls.Add(this.EnergyTechLevel);
+		  this.groupBox1.Controls.Add(this.weaponsTechLevel);
+		  this.groupBox1.Controls.Add(this.propulsionTechLevel);
+		  this.groupBox1.Controls.Add(this.constructionTechLevel);
+		  this.groupBox1.Controls.Add(this.electronicsTechLevel);
+		  this.groupBox1.Controls.Add(this.bioTechLevel);
+		  this.groupBox1.Controls.Add(this.energyTechLevel);
 		  this.groupBox1.Controls.Add(this.label8);
 		  this.groupBox1.Controls.Add(this.label7);
 		  this.groupBox1.Controls.Add(this.label6);
@@ -89,63 +89,63 @@ namespace Nova.WinForms.ComponentEditor
 		  // 
 		  // WeaponsTechLevel
 		  // 
-		  this.WeaponsTechLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+		  this.weaponsTechLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 					  | System.Windows.Forms.AnchorStyles.Right)));
-		  this.WeaponsTechLevel.Location = new System.Drawing.Point(77, 45);
-		  this.WeaponsTechLevel.Name = "WeaponsTechLevel";
-		  this.WeaponsTechLevel.Size = new System.Drawing.Size(45, 20);
-		  this.WeaponsTechLevel.TabIndex = 2;
-		  this.WeaponsTechLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+		  this.weaponsTechLevel.Location = new System.Drawing.Point(77, 45);
+		  this.weaponsTechLevel.Name = "weaponsTechLevel";
+		  this.weaponsTechLevel.Size = new System.Drawing.Size(45, 20);
+		  this.weaponsTechLevel.TabIndex = 2;
+		  this.weaponsTechLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		  // 
 		  // PropulsionTechLevel
 		  // 
-		  this.PropulsionTechLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+		  this.propulsionTechLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 					  | System.Windows.Forms.AnchorStyles.Right)));
-		  this.PropulsionTechLevel.Location = new System.Drawing.Point(77, 71);
-		  this.PropulsionTechLevel.Name = "PropulsionTechLevel";
-		  this.PropulsionTechLevel.Size = new System.Drawing.Size(45, 20);
-		  this.PropulsionTechLevel.TabIndex = 3;
-		  this.PropulsionTechLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+		  this.propulsionTechLevel.Location = new System.Drawing.Point(77, 71);
+		  this.propulsionTechLevel.Name = "propulsionTechLevel";
+		  this.propulsionTechLevel.Size = new System.Drawing.Size(45, 20);
+		  this.propulsionTechLevel.TabIndex = 3;
+		  this.propulsionTechLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		  // 
 		  // ConstructionTechLevel
 		  // 
-		  this.ConstructionTechLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+		  this.constructionTechLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 					  | System.Windows.Forms.AnchorStyles.Right)));
-		  this.ConstructionTechLevel.Location = new System.Drawing.Point(77, 97);
-		  this.ConstructionTechLevel.Name = "ConstructionTechLevel";
-		  this.ConstructionTechLevel.Size = new System.Drawing.Size(45, 20);
-		  this.ConstructionTechLevel.TabIndex = 4;
-		  this.ConstructionTechLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+		  this.constructionTechLevel.Location = new System.Drawing.Point(77, 97);
+		  this.constructionTechLevel.Name = "constructionTechLevel";
+		  this.constructionTechLevel.Size = new System.Drawing.Size(45, 20);
+		  this.constructionTechLevel.TabIndex = 4;
+		  this.constructionTechLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		  // 
 		  // ElectronicsTechLevel
 		  // 
-		  this.ElectronicsTechLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+		  this.electronicsTechLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 					  | System.Windows.Forms.AnchorStyles.Right)));
-		  this.ElectronicsTechLevel.Location = new System.Drawing.Point(77, 124);
-		  this.ElectronicsTechLevel.Name = "ElectronicsTechLevel";
-		  this.ElectronicsTechLevel.Size = new System.Drawing.Size(45, 20);
-		  this.ElectronicsTechLevel.TabIndex = 5;
-		  this.ElectronicsTechLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+		  this.electronicsTechLevel.Location = new System.Drawing.Point(77, 124);
+		  this.electronicsTechLevel.Name = "electronicsTechLevel";
+		  this.electronicsTechLevel.Size = new System.Drawing.Size(45, 20);
+		  this.electronicsTechLevel.TabIndex = 5;
+		  this.electronicsTechLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		  // 
 		  // BioTechLevel
 		  // 
-		  this.BioTechLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+		  this.bioTechLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 					  | System.Windows.Forms.AnchorStyles.Right)));
-		  this.BioTechLevel.Location = new System.Drawing.Point(77, 149);
-		  this.BioTechLevel.Name = "BioTechLevel";
-		  this.BioTechLevel.Size = new System.Drawing.Size(45, 20);
-		  this.BioTechLevel.TabIndex = 6;
-		  this.BioTechLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+		  this.bioTechLevel.Location = new System.Drawing.Point(77, 149);
+		  this.bioTechLevel.Name = "bioTechLevel";
+		  this.bioTechLevel.Size = new System.Drawing.Size(45, 20);
+		  this.bioTechLevel.TabIndex = 6;
+		  this.bioTechLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		  // 
 		  // EnergyTechLevel
 		  // 
-		  this.EnergyTechLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+		  this.energyTechLevel.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
 					  | System.Windows.Forms.AnchorStyles.Right)));
-		  this.EnergyTechLevel.Location = new System.Drawing.Point(77, 19);
-		  this.EnergyTechLevel.Name = "EnergyTechLevel";
-		  this.EnergyTechLevel.Size = new System.Drawing.Size(45, 20);
-		  this.EnergyTechLevel.TabIndex = 1;
-		  this.EnergyTechLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+		  this.energyTechLevel.Location = new System.Drawing.Point(77, 19);
+		  this.energyTechLevel.Name = "energyTechLevel";
+		  this.energyTechLevel.Size = new System.Drawing.Size(45, 20);
+		  this.energyTechLevel.TabIndex = 1;
+		  this.energyTechLevel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		  // 
 		  // label8
 		  // 
@@ -222,12 +222,12 @@ namespace Nova.WinForms.ComponentEditor
 		  this.Size = new System.Drawing.Size(140, 193);
 		  this.groupBox1.ResumeLayout(false);
 		  this.groupBox1.PerformLayout();
-		  ((System.ComponentModel.ISupportInitialize)(this.WeaponsTechLevel)).EndInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.PropulsionTechLevel)).EndInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.ConstructionTechLevel)).EndInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.ElectronicsTechLevel)).EndInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.BioTechLevel)).EndInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.EnergyTechLevel)).EndInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.weaponsTechLevel)).EndInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.propulsionTechLevel)).EndInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.constructionTechLevel)).EndInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.electronicsTechLevel)).EndInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.bioTechLevel)).EndInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.energyTechLevel)).EndInit();
 		  this.ResumeLayout(false);
 		  this.PerformLayout();
 
@@ -236,17 +236,17 @@ namespace Nova.WinForms.ComponentEditor
       #endregion
 
       private System.Windows.Forms.GroupBox groupBox1;
-      private System.Windows.Forms.NumericUpDown EnergyTechLevel;
+      private System.Windows.Forms.NumericUpDown energyTechLevel;
       private System.Windows.Forms.Label label8;
       private System.Windows.Forms.Label label7;
       private System.Windows.Forms.Label label6;
       private System.Windows.Forms.Label label5;
       private System.Windows.Forms.Label label4;
       private System.Windows.Forms.Label label1;
-      private System.Windows.Forms.NumericUpDown WeaponsTechLevel;
-      private System.Windows.Forms.NumericUpDown PropulsionTechLevel;
-      private System.Windows.Forms.NumericUpDown ConstructionTechLevel;
-      private System.Windows.Forms.NumericUpDown ElectronicsTechLevel;
-      private System.Windows.Forms.NumericUpDown BioTechLevel;
+      private System.Windows.Forms.NumericUpDown weaponsTechLevel;
+      private System.Windows.Forms.NumericUpDown propulsionTechLevel;
+      private System.Windows.Forms.NumericUpDown constructionTechLevel;
+      private System.Windows.Forms.NumericUpDown electronicsTechLevel;
+      private System.Windows.Forms.NumericUpDown bioTechLevel;
    }
 }

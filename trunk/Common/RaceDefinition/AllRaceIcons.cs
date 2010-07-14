@@ -39,8 +39,8 @@ namespace Nova.Common
     /// </summary>
     public sealed class AllRaceIcons
     {
-        private static AllRaceIcons Instance;
-        private static object Padlock = new object();
+        private static readonly object Padlock = new object();
+        private static AllRaceIcons instance;
         public ArrayList IconList = new ArrayList();
 
         #region Singleton
@@ -65,24 +65,24 @@ namespace Nova.Common
         {
             get
             {
-                if (Instance == null)
+                if (instance == null)
                 {
                     lock (Padlock)
                     {
-                        if (Instance == null)
+                        if (instance == null)
                         {
-                            Instance = new AllRaceIcons();
+                            instance = new AllRaceIcons();
                         }
                     }
                 }
-                return Instance;
+                return instance;
             }
 
             // ----------------------------------------------------------------------------
 
             set
             {
-                Instance = value;
+                instance = value;
             }
         }
 

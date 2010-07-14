@@ -50,24 +50,24 @@ namespace Nova.WinForms.RaceDesigner
     [Serializable]
     public class RaceDesignerForm : System.Windows.Forms.Form
     {
-        private RaceIcon CurrentRaceIcon = null;
+        private RaceIcon currentRaceIcon;
 
         //---------------------------------------------------------------------------- 
         //  Non-designer generated variables
         //---------------------------------------------------------------------------- 
-        private int AdvantagePoints = 53;
-        private TraitEntry SelectedRace = AllTraits.Data.All["JOAT"];
-        private bool ParametersChanged = false;
+        private int advantagePoints = 53;
+        private TraitEntry selectedRace = AllTraits.Data.All["JOAT"];
+        private bool parametersChanged;
 
         #region Designer Generated Variables
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.TabControl TabConrol;
+        private System.Windows.Forms.TabControl tabConrol;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.Button Finish;
+        private System.Windows.Forms.Button finish;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox RaceName;
-        private System.Windows.Forms.TextBox PluralRaceName;
+        private System.Windows.Forms.TextBox raceName;
+        private System.Windows.Forms.TextBox pluralRaceName;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.GroupBox groupBox2;
@@ -78,80 +78,80 @@ namespace Nova.WinForms.RaceDesigner
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;
-        private System.Windows.Forms.NumericUpDown OperableFactories;
+        private System.Windows.Forms.NumericUpDown operableFactories;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label11;
-        private System.Windows.Forms.Label PrimaryTraitDescription;
+        private System.Windows.Forms.Label primaryTraitDescription;
         private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.RadioButton JackOfAllTrades;
-        private System.Windows.Forms.RadioButton HyperExpansion;
-        private System.Windows.Forms.RadioButton SpaceDemolition;
-        private System.Windows.Forms.RadioButton PacketPhysics;
-        private System.Windows.Forms.RadioButton InterStellarTraveller;
-        private System.Windows.Forms.RadioButton AlternateReality;
-        private System.Windows.Forms.RadioButton SuperStealth;
-        private System.Windows.Forms.RadioButton WarMonger;
-        private System.Windows.Forms.RadioButton ClaimAdjuster;
-        private System.Windows.Forms.RadioButton InnerStrength;
-        private System.Windows.Forms.CheckBox RegeneratingShields;
-        private System.Windows.Forms.CheckBox BleedingEdgeTechnology;
-        private System.Windows.Forms.CheckBox LowStartingPopulation;
-        private System.Windows.Forms.CheckBox NoAdvancedScanners;
-        private System.Windows.Forms.CheckBox BasicRemoteMining;
-        private System.Windows.Forms.CheckBox CheapEngines;
-        private System.Windows.Forms.CheckBox NoRAMEngines;
-        private System.Windows.Forms.CheckBox MineralAlchemy;
-        private System.Windows.Forms.CheckBox UltimateRecycling;
-        private System.Windows.Forms.CheckBox GeneralisedResearch;
-        private System.Windows.Forms.CheckBox AdvancedRemoteMining;
-        private System.Windows.Forms.CheckBox TotalTerraforming;
-        private System.Windows.Forms.CheckBox ImprovedFuelEfficiency;
-        private System.Windows.Forms.TabPage TraitsTab;
-        private System.Windows.Forms.TabPage RaceTab;
-        private System.Windows.Forms.TabPage ProductionTab;
-        private System.Windows.Forms.TabPage ResearchTab;
-        private System.Windows.Forms.TabPage EnvironmentTab;
-        private System.Windows.Forms.Label SecondaryTraitDescription;
-        private System.Windows.Forms.CheckBox ImprovedStarbases;
-        private System.Windows.Forms.Label AvailablePoints;
-        private System.Windows.Forms.NumericUpDown FactoryBuildCost;
-        private System.Windows.Forms.NumericUpDown MineralProduction;
-        private System.Windows.Forms.NumericUpDown ResourcesPerMine;
-        private System.Windows.Forms.NumericUpDown OperableMines;
-        private ControlLibrary.ResearchCost EnergyResearch;
-        private ControlLibrary.ResearchCost WeaponsResearch;
-        private ControlLibrary.ResearchCost PropulsionResearch;
-        private ControlLibrary.ResearchCost ConstructionResearch;
-        private ControlLibrary.ResearchCost ElectronicsResearch;
-        private ControlLibrary.ResearchCost BiotechnologyResearch;
-        private ControlLibrary.Range GravityTolerance;
-        private ControlLibrary.Range TemperatureTolerance;
-        private ControlLibrary.Range RadiationTolerance;
+        private System.Windows.Forms.RadioButton jackOfAllTrades;
+        private System.Windows.Forms.RadioButton hyperExpansion;
+        private System.Windows.Forms.RadioButton spaceDemolition;
+        private System.Windows.Forms.RadioButton packetPhysics;
+        private System.Windows.Forms.RadioButton interStellarTraveller;
+        private System.Windows.Forms.RadioButton alternateReality;
+        private System.Windows.Forms.RadioButton superStealth;
+        private System.Windows.Forms.RadioButton warMonger;
+        private System.Windows.Forms.RadioButton claimAdjuster;
+        private System.Windows.Forms.RadioButton innerStrength;
+        private System.Windows.Forms.CheckBox regeneratingShields;
+        private System.Windows.Forms.CheckBox bleedingEdgeTechnology;
+        private System.Windows.Forms.CheckBox lowStartingPopulation;
+        private System.Windows.Forms.CheckBox noAdvancedScanners;
+        private System.Windows.Forms.CheckBox basicRemoteMining;
+        private System.Windows.Forms.CheckBox cheapEngines;
+        private System.Windows.Forms.CheckBox noRamEngines;
+        private System.Windows.Forms.CheckBox mineralAlchemy;
+        private System.Windows.Forms.CheckBox ultimateRecycling;
+        private System.Windows.Forms.CheckBox generalisedResearch;
+        private System.Windows.Forms.CheckBox advancedRemoteMining;
+        private System.Windows.Forms.CheckBox totalTerraforming;
+        private System.Windows.Forms.CheckBox improvedFuelEfficiency;
+        private System.Windows.Forms.TabPage traitsTab;
+        private System.Windows.Forms.TabPage raceTab;
+        private System.Windows.Forms.TabPage productionTab;
+        private System.Windows.Forms.TabPage researchTab;
+        private System.Windows.Forms.TabPage environmentTab;
+        private System.Windows.Forms.Label secondaryTraitDescription;
+        private System.Windows.Forms.CheckBox improvedStarbases;
+        private System.Windows.Forms.Label availablePoints;
+        private System.Windows.Forms.NumericUpDown factoryBuildCost;
+        private System.Windows.Forms.NumericUpDown mineralProduction;
+        private System.Windows.Forms.NumericUpDown resourcesPerMine;
+        private System.Windows.Forms.NumericUpDown operableMines;
+        private ControlLibrary.ResearchCost energyResearch;
+        private ControlLibrary.ResearchCost weaponsResearch;
+        private ControlLibrary.ResearchCost propulsionResearch;
+        private ControlLibrary.ResearchCost constructionResearch;
+        private ControlLibrary.ResearchCost electronicsResearch;
+        private ControlLibrary.ResearchCost biotechnologyResearch;
+        private ControlLibrary.Range gravityTolerance;
+        private ControlLibrary.Range temperatureTolerance;
+        private ControlLibrary.Range radiationTolerance;
         private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.ComboBox UnusedPointsTarget;
-        private System.Windows.Forms.NumericUpDown ResourceProduction;
-        private System.Windows.Forms.NumericUpDown ColonistProduction;
-        private System.Windows.Forms.Button Exit;
+        private System.Windows.Forms.ComboBox unusedPointsTarget;
+        private System.Windows.Forms.NumericUpDown resourceProduction;
+        private System.Windows.Forms.NumericUpDown colonistProduction;
+        private System.Windows.Forms.Button exit;
         private GroupBox groupBox12;
         private GroupBox groupBox11;
-        private MenuStrip MainMenu;
+        private MenuStrip mainMenu;
         private ToolStripMenuItem fileToolStripMenuItem;
         private ToolStripMenuItem exitToolStripMenuItem;
         private ToolStripMenuItem helpToolStripMenuItem;
         private ToolStripMenuItem aboutToolStripMenuItem;
-        private TextBox Password;
+        private TextBox password;
         private Label label12;
-        private Button PreviousImage;
-        private Button NextImage;
-        private PictureBox PictureBox;
-        private Label IconIndex;
-        private ToolStripMenuItem LoadRaceFile;
-        private OpenFileDialog OpenFileDialog;
-        private NumericUpDown MaxGrowth;
+        private Button previousImage;
+        private Button nextImage;
+        private PictureBox pictureBox;
+        private Label iconIndex;
+        private ToolStripMenuItem loadRaceFile;
+        private OpenFileDialog openFileDialog;
+        private NumericUpDown maxGrowth;
         private Label label4;
-        private CheckBox ExtraTech;
-        private CheckBox CheapFactories;
+        private CheckBox extraTech;
+        private CheckBox cheapFactories;
 
         #endregion Designer Generated Variables
 
@@ -168,12 +168,12 @@ namespace Nova.WinForms.RaceDesigner
         {
             InitializeComponent();
 
-            JackOfAllTrades.Checked = true;
-            SelectedRace = AllTraits.Data.Primary["JOAT"];
-            PrimaryTraitDescription.Text = SelectedRace.Description;
+            this.jackOfAllTrades.Checked = true;
+            this.selectedRace = AllTraits.Data.Primary["JOAT"];
+            this.primaryTraitDescription.Text = this.selectedRace.Description;
 
-            ParametersChanged = false;
-            UnusedPointsTarget.SelectedIndex = 0;
+            this.parametersChanged = false;
+            this.unusedPointsTarget.SelectedIndex = 0;
         }
 
 
@@ -188,24 +188,24 @@ namespace Nova.WinForms.RaceDesigner
         private void OnLoad(object sender, EventArgs e)
         {
             AllRaceIcons.Restore();
-            CurrentRaceIcon = (RaceIcon)AllRaceIcons.Data.IconList[0];
-            PictureBox.Image = CurrentRaceIcon.Image;
-            IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source);
+            this.currentRaceIcon = (RaceIcon)AllRaceIcons.Data.IconList[0];
+            this.pictureBox.Image = this.currentRaceIcon.Image;
+            this.iconIndex.Text = Path.GetFileNameWithoutExtension(this.currentRaceIcon.Source);
 
             // Can't trust the windows designer generate code to set the environment range before setting the environment value, so set it here to be sure.
             // TODO (priority 6) - put all these literal values somewhere sensible (EnvironmentTolerance object?)
-            TemperatureTolerance.RangeMinimum = -200;
-            TemperatureTolerance.RangeMaximum = 200;
-            TemperatureTolerance.BarLower = -140;
-            TemperatureTolerance.BarUpper = 140;
-            GravityTolerance.RangeMinimum = 0;
-            GravityTolerance.RangeMaximum = 10;
-            GravityTolerance.BarLower = 1.5;
-            GravityTolerance.BarUpper = 8.5;
-            RadiationTolerance.RangeMinimum = 0;
-            RadiationTolerance.RangeMaximum = 100;
-            RadiationTolerance.BarLower = 15;
-            RadiationTolerance.BarUpper = 85;
+            this.temperatureTolerance.RangeMinimum = -200;
+            this.temperatureTolerance.RangeMaximum = 200;
+            this.temperatureTolerance.BarLower = -140;
+            this.temperatureTolerance.BarUpper = 140;
+            this.gravityTolerance.RangeMinimum = 0;
+            this.gravityTolerance.RangeMaximum = 10;
+            this.gravityTolerance.BarLower = 1.5;
+            this.gravityTolerance.BarUpper = 8.5;
+            this.radiationTolerance.RangeMinimum = 0;
+            this.radiationTolerance.RangeMaximum = 100;
+            this.radiationTolerance.BarLower = 15;
+            this.radiationTolerance.BarUpper = 85;
 
         }
 
@@ -224,123 +224,123 @@ namespace Nova.WinForms.RaceDesigner
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(RaceDesignerForm));
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.AvailablePoints = new System.Windows.Forms.Label();
-            this.TabConrol = new System.Windows.Forms.TabControl();
-            this.RaceTab = new System.Windows.Forms.TabPage();
+            this.availablePoints = new System.Windows.Forms.Label();
+            this.tabConrol = new System.Windows.Forms.TabControl();
+            this.raceTab = new System.Windows.Forms.TabPage();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.PluralRaceName = new System.Windows.Forms.TextBox();
-            this.PreviousImage = new System.Windows.Forms.Button();
-            this.NextImage = new System.Windows.Forms.Button();
-            this.PictureBox = new System.Windows.Forms.PictureBox();
-            this.Password = new System.Windows.Forms.TextBox();
+            this.pluralRaceName = new System.Windows.Forms.TextBox();
+            this.previousImage = new System.Windows.Forms.Button();
+            this.nextImage = new System.Windows.Forms.Button();
+            this.pictureBox = new System.Windows.Forms.PictureBox();
+            this.password = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.RaceName = new System.Windows.Forms.TextBox();
-            this.IconIndex = new System.Windows.Forms.Label();
+            this.raceName = new System.Windows.Forms.TextBox();
+            this.iconIndex = new System.Windows.Forms.Label();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.PrimaryTraitDescription = new System.Windows.Forms.Label();
+            this.primaryTraitDescription = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.JackOfAllTrades = new System.Windows.Forms.RadioButton();
-            this.AlternateReality = new System.Windows.Forms.RadioButton();
-            this.InterStellarTraveller = new System.Windows.Forms.RadioButton();
-            this.PacketPhysics = new System.Windows.Forms.RadioButton();
-            this.SpaceDemolition = new System.Windows.Forms.RadioButton();
-            this.InnerStrength = new System.Windows.Forms.RadioButton();
-            this.ClaimAdjuster = new System.Windows.Forms.RadioButton();
-            this.WarMonger = new System.Windows.Forms.RadioButton();
-            this.SuperStealth = new System.Windows.Forms.RadioButton();
-            this.HyperExpansion = new System.Windows.Forms.RadioButton();
-            this.TraitsTab = new System.Windows.Forms.TabPage();
+            this.jackOfAllTrades = new System.Windows.Forms.RadioButton();
+            this.alternateReality = new System.Windows.Forms.RadioButton();
+            this.interStellarTraveller = new System.Windows.Forms.RadioButton();
+            this.packetPhysics = new System.Windows.Forms.RadioButton();
+            this.spaceDemolition = new System.Windows.Forms.RadioButton();
+            this.innerStrength = new System.Windows.Forms.RadioButton();
+            this.claimAdjuster = new System.Windows.Forms.RadioButton();
+            this.warMonger = new System.Windows.Forms.RadioButton();
+            this.superStealth = new System.Windows.Forms.RadioButton();
+            this.hyperExpansion = new System.Windows.Forms.RadioButton();
+            this.traitsTab = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.SecondaryTraitDescription = new System.Windows.Forms.Label();
+            this.secondaryTraitDescription = new System.Windows.Forms.Label();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.RegeneratingShields = new System.Windows.Forms.CheckBox();
-            this.BleedingEdgeTechnology = new System.Windows.Forms.CheckBox();
-            this.LowStartingPopulation = new System.Windows.Forms.CheckBox();
-            this.NoAdvancedScanners = new System.Windows.Forms.CheckBox();
-            this.BasicRemoteMining = new System.Windows.Forms.CheckBox();
-            this.CheapEngines = new System.Windows.Forms.CheckBox();
-            this.NoRAMEngines = new System.Windows.Forms.CheckBox();
-            this.MineralAlchemy = new System.Windows.Forms.CheckBox();
-            this.UltimateRecycling = new System.Windows.Forms.CheckBox();
-            this.GeneralisedResearch = new System.Windows.Forms.CheckBox();
-            this.ImprovedStarbases = new System.Windows.Forms.CheckBox();
-            this.AdvancedRemoteMining = new System.Windows.Forms.CheckBox();
-            this.TotalTerraforming = new System.Windows.Forms.CheckBox();
-            this.ImprovedFuelEfficiency = new System.Windows.Forms.CheckBox();
-            this.EnvironmentTab = new System.Windows.Forms.TabPage();
+            this.regeneratingShields = new System.Windows.Forms.CheckBox();
+            this.bleedingEdgeTechnology = new System.Windows.Forms.CheckBox();
+            this.lowStartingPopulation = new System.Windows.Forms.CheckBox();
+            this.noAdvancedScanners = new System.Windows.Forms.CheckBox();
+            this.basicRemoteMining = new System.Windows.Forms.CheckBox();
+            this.cheapEngines = new System.Windows.Forms.CheckBox();
+            this.noRamEngines = new System.Windows.Forms.CheckBox();
+            this.mineralAlchemy = new System.Windows.Forms.CheckBox();
+            this.ultimateRecycling = new System.Windows.Forms.CheckBox();
+            this.generalisedResearch = new System.Windows.Forms.CheckBox();
+            this.improvedStarbases = new System.Windows.Forms.CheckBox();
+            this.advancedRemoteMining = new System.Windows.Forms.CheckBox();
+            this.totalTerraforming = new System.Windows.Forms.CheckBox();
+            this.improvedFuelEfficiency = new System.Windows.Forms.CheckBox();
+            this.environmentTab = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.MaxGrowth = new System.Windows.Forms.NumericUpDown();
+            this.maxGrowth = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
-            this.RadiationTolerance = new Nova.ControlLibrary.Range();
-            this.TemperatureTolerance = new Nova.ControlLibrary.Range();
-            this.GravityTolerance = new Nova.ControlLibrary.Range();
-            this.ProductionTab = new System.Windows.Forms.TabPage();
+            this.radiationTolerance = new Nova.ControlLibrary.Range();
+            this.temperatureTolerance = new Nova.ControlLibrary.Range();
+            this.gravityTolerance = new Nova.ControlLibrary.Range();
+            this.productionTab = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.MineralProduction = new System.Windows.Forms.NumericUpDown();
-            this.OperableMines = new System.Windows.Forms.NumericUpDown();
+            this.mineralProduction = new System.Windows.Forms.NumericUpDown();
+            this.operableMines = new System.Windows.Forms.NumericUpDown();
             this.label10 = new System.Windows.Forms.Label();
-            this.ResourcesPerMine = new System.Windows.Forms.NumericUpDown();
+            this.resourcesPerMine = new System.Windows.Forms.NumericUpDown();
             this.label11 = new System.Windows.Forms.Label();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.CheapFactories = new System.Windows.Forms.CheckBox();
+            this.cheapFactories = new System.Windows.Forms.CheckBox();
             this.label8 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.ResourceProduction = new System.Windows.Forms.NumericUpDown();
-            this.FactoryBuildCost = new System.Windows.Forms.NumericUpDown();
-            this.OperableFactories = new System.Windows.Forms.NumericUpDown();
+            this.resourceProduction = new System.Windows.Forms.NumericUpDown();
+            this.factoryBuildCost = new System.Windows.Forms.NumericUpDown();
+            this.operableFactories = new System.Windows.Forms.NumericUpDown();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.UnusedPointsTarget = new System.Windows.Forms.ComboBox();
+            this.unusedPointsTarget = new System.Windows.Forms.ComboBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.ColonistProduction = new System.Windows.Forms.NumericUpDown();
+            this.colonistProduction = new System.Windows.Forms.NumericUpDown();
             this.label5 = new System.Windows.Forms.Label();
-            this.ResearchTab = new System.Windows.Forms.TabPage();
-            this.ExtraTech = new System.Windows.Forms.CheckBox();
-            this.BiotechnologyResearch = new Nova.ControlLibrary.ResearchCost();
-            this.ElectronicsResearch = new Nova.ControlLibrary.ResearchCost();
-            this.ConstructionResearch = new Nova.ControlLibrary.ResearchCost();
-            this.PropulsionResearch = new Nova.ControlLibrary.ResearchCost();
-            this.WeaponsResearch = new Nova.ControlLibrary.ResearchCost();
-            this.EnergyResearch = new Nova.ControlLibrary.ResearchCost();
-            this.Finish = new System.Windows.Forms.Button();
-            this.Exit = new System.Windows.Forms.Button();
-            this.MainMenu = new System.Windows.Forms.MenuStrip();
+            this.researchTab = new System.Windows.Forms.TabPage();
+            this.extraTech = new System.Windows.Forms.CheckBox();
+            this.biotechnologyResearch = new Nova.ControlLibrary.ResearchCost();
+            this.electronicsResearch = new Nova.ControlLibrary.ResearchCost();
+            this.constructionResearch = new Nova.ControlLibrary.ResearchCost();
+            this.propulsionResearch = new Nova.ControlLibrary.ResearchCost();
+            this.weaponsResearch = new Nova.ControlLibrary.ResearchCost();
+            this.energyResearch = new Nova.ControlLibrary.ResearchCost();
+            this.finish = new System.Windows.Forms.Button();
+            this.exit = new System.Windows.Forms.Button();
+            this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.LoadRaceFile = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadRaceFile = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.OpenFileDialog = new System.Windows.Forms.OpenFileDialog();
+            this.openFileDialog = new System.Windows.Forms.OpenFileDialog();
             this.groupBox1.SuspendLayout();
-            this.TabConrol.SuspendLayout();
-            this.RaceTab.SuspendLayout();
+            this.tabConrol.SuspendLayout();
+            this.raceTab.SuspendLayout();
             this.groupBox2.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            this.TraitsTab.SuspendLayout();
+            this.traitsTab.SuspendLayout();
             this.groupBox7.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            this.EnvironmentTab.SuspendLayout();
+            this.environmentTab.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MaxGrowth)).BeginInit();
-            this.ProductionTab.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.maxGrowth)).BeginInit();
+            this.productionTab.SuspendLayout();
             this.groupBox12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MineralProduction)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.OperableMines)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ResourcesPerMine)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineralProduction)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.operableMines)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resourcesPerMine)).BeginInit();
             this.groupBox11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ResourceProduction)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FactoryBuildCost)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.OperableFactories)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resourceProduction)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.factoryBuildCost)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.operableFactories)).BeginInit();
             this.groupBox10.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ColonistProduction)).BeginInit();
-            this.ResearchTab.SuspendLayout();
-            this.MainMenu.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.colonistProduction)).BeginInit();
+            this.researchTab.SuspendLayout();
+            this.mainMenu.SuspendLayout();
             this.SuspendLayout();
             // 
             // label1
@@ -354,7 +354,7 @@ namespace Nova.WinForms.RaceDesigner
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox1.Controls.Add(this.AvailablePoints);
+            this.groupBox1.Controls.Add(this.availablePoints);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox1.Location = new System.Drawing.Point(16, 27);
@@ -365,41 +365,41 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // AvailablePoints
             // 
-            this.AvailablePoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.AvailablePoints.Location = new System.Drawing.Point(112, 10);
-            this.AvailablePoints.Name = "AvailablePoints";
-            this.AvailablePoints.Size = new System.Drawing.Size(104, 24);
-            this.AvailablePoints.TabIndex = 99;
-            this.AvailablePoints.Text = "53";
-            this.AvailablePoints.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.availablePoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.availablePoints.Location = new System.Drawing.Point(112, 10);
+            this.availablePoints.Name = "availablePoints";
+            this.availablePoints.Size = new System.Drawing.Size(104, 24);
+            this.availablePoints.TabIndex = 99;
+            this.availablePoints.Text = "53";
+            this.availablePoints.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // TabConrol
             // 
-            this.TabConrol.Controls.Add(this.RaceTab);
-            this.TabConrol.Controls.Add(this.TraitsTab);
-            this.TabConrol.Controls.Add(this.EnvironmentTab);
-            this.TabConrol.Controls.Add(this.ProductionTab);
-            this.TabConrol.Controls.Add(this.ResearchTab);
-            this.TabConrol.ItemSize = new System.Drawing.Size(0, 18);
-            this.TabConrol.Location = new System.Drawing.Point(16, 73);
-            this.TabConrol.Name = "TabConrol";
-            this.TabConrol.SelectedIndex = 0;
-            this.TabConrol.Size = new System.Drawing.Size(400, 422);
-            this.TabConrol.TabIndex = 0;
+            this.tabConrol.Controls.Add(this.raceTab);
+            this.tabConrol.Controls.Add(this.traitsTab);
+            this.tabConrol.Controls.Add(this.environmentTab);
+            this.tabConrol.Controls.Add(this.productionTab);
+            this.tabConrol.Controls.Add(this.researchTab);
+            this.tabConrol.ItemSize = new System.Drawing.Size(0, 18);
+            this.tabConrol.Location = new System.Drawing.Point(16, 73);
+            this.tabConrol.Name = "tabConrol";
+            this.tabConrol.SelectedIndex = 0;
+            this.tabConrol.Size = new System.Drawing.Size(400, 422);
+            this.tabConrol.TabIndex = 0;
             // 
             // RaceTab
             // 
-            this.RaceTab.Controls.Add(this.label2);
-            this.RaceTab.Controls.Add(this.label3);
-            this.RaceTab.Controls.Add(this.groupBox2);
-            this.RaceTab.Controls.Add(this.groupBox4);
-            this.RaceTab.Controls.Add(this.groupBox3);
-            this.RaceTab.Location = new System.Drawing.Point(4, 22);
-            this.RaceTab.Name = "RaceTab";
-            this.RaceTab.Size = new System.Drawing.Size(392, 396);
-            this.RaceTab.TabIndex = 0;
-            this.RaceTab.Text = "Race";
-            this.RaceTab.UseVisualStyleBackColor = true;
+            this.raceTab.Controls.Add(this.label2);
+            this.raceTab.Controls.Add(this.label3);
+            this.raceTab.Controls.Add(this.groupBox2);
+            this.raceTab.Controls.Add(this.groupBox4);
+            this.raceTab.Controls.Add(this.groupBox3);
+            this.raceTab.Location = new System.Drawing.Point(4, 22);
+            this.raceTab.Name = "raceTab";
+            this.raceTab.Size = new System.Drawing.Size(392, 396);
+            this.raceTab.TabIndex = 0;
+            this.raceTab.Text = "Race";
+            this.raceTab.UseVisualStyleBackColor = true;
             // 
             // label2
             // 
@@ -420,14 +420,14 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.PluralRaceName);
-            this.groupBox2.Controls.Add(this.PreviousImage);
-            this.groupBox2.Controls.Add(this.NextImage);
-            this.groupBox2.Controls.Add(this.PictureBox);
-            this.groupBox2.Controls.Add(this.Password);
+            this.groupBox2.Controls.Add(this.pluralRaceName);
+            this.groupBox2.Controls.Add(this.previousImage);
+            this.groupBox2.Controls.Add(this.nextImage);
+            this.groupBox2.Controls.Add(this.pictureBox);
+            this.groupBox2.Controls.Add(this.password);
             this.groupBox2.Controls.Add(this.label12);
-            this.groupBox2.Controls.Add(this.RaceName);
-            this.groupBox2.Controls.Add(this.IconIndex);
+            this.groupBox2.Controls.Add(this.raceName);
+            this.groupBox2.Controls.Add(this.iconIndex);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox2.Location = new System.Drawing.Point(8, -2);
             this.groupBox2.Name = "groupBox2";
@@ -437,47 +437,47 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // PluralRaceName
             // 
-            this.PluralRaceName.Location = new System.Drawing.Point(104, 36);
-            this.PluralRaceName.Name = "PluralRaceName";
-            this.PluralRaceName.Size = new System.Drawing.Size(132, 20);
-            this.PluralRaceName.TabIndex = 2;
-            this.PluralRaceName.Text = "Humanoids";
+            this.pluralRaceName.Location = new System.Drawing.Point(104, 36);
+            this.pluralRaceName.Name = "pluralRaceName";
+            this.pluralRaceName.Size = new System.Drawing.Size(132, 20);
+            this.pluralRaceName.TabIndex = 2;
+            this.pluralRaceName.Text = "Humanoids";
             // 
             // PreviousImage
             // 
-            this.PreviousImage.Location = new System.Drawing.Point(325, 36);
-            this.PreviousImage.Name = "PreviousImage";
-            this.PreviousImage.Size = new System.Drawing.Size(44, 23);
-            this.PreviousImage.TabIndex = 6;
-            this.PreviousImage.Text = "-";
-            this.PreviousImage.UseVisualStyleBackColor = true;
-            this.PreviousImage.Click += new System.EventHandler(this.PreviousImage_Click);
+            this.previousImage.Location = new System.Drawing.Point(325, 36);
+            this.previousImage.Name = "previousImage";
+            this.previousImage.Size = new System.Drawing.Size(44, 23);
+            this.previousImage.TabIndex = 6;
+            this.previousImage.Text = "-";
+            this.previousImage.UseVisualStyleBackColor = true;
+            this.previousImage.Click += new System.EventHandler(this.PreviousImage_Click);
             // 
             // NextImage
             // 
-            this.NextImage.Location = new System.Drawing.Point(325, 13);
-            this.NextImage.Name = "NextImage";
-            this.NextImage.Size = new System.Drawing.Size(44, 23);
-            this.NextImage.TabIndex = 5;
-            this.NextImage.Text = "+";
-            this.NextImage.UseVisualStyleBackColor = true;
-            this.NextImage.Click += new System.EventHandler(this.NextImage_Click);
+            this.nextImage.Location = new System.Drawing.Point(325, 13);
+            this.nextImage.Name = "nextImage";
+            this.nextImage.Size = new System.Drawing.Size(44, 23);
+            this.nextImage.TabIndex = 5;
+            this.nextImage.Text = "+";
+            this.nextImage.UseVisualStyleBackColor = true;
+            this.nextImage.Click += new System.EventHandler(this.NextImage_Click);
             // 
             // PictureBox
             // 
-            this.PictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.PictureBox.Location = new System.Drawing.Point(255, 14);
-            this.PictureBox.Name = "PictureBox";
-            this.PictureBox.Size = new System.Drawing.Size(64, 64);
-            this.PictureBox.TabIndex = 4;
-            this.PictureBox.TabStop = false;
+            this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pictureBox.Location = new System.Drawing.Point(255, 14);
+            this.pictureBox.Name = "pictureBox";
+            this.pictureBox.Size = new System.Drawing.Size(64, 64);
+            this.pictureBox.TabIndex = 4;
+            this.pictureBox.TabStop = false;
             // 
             // Password
             // 
-            this.Password.Location = new System.Drawing.Point(103, 60);
-            this.Password.Name = "Password";
-            this.Password.Size = new System.Drawing.Size(132, 20);
-            this.Password.TabIndex = 3;
+            this.password.Location = new System.Drawing.Point(103, 60);
+            this.password.Name = "password";
+            this.password.Size = new System.Drawing.Size(132, 20);
+            this.password.TabIndex = 3;
             // 
             // label12
             // 
@@ -489,27 +489,27 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // RaceName
             // 
-            this.RaceName.Location = new System.Drawing.Point(104, 13);
-            this.RaceName.Name = "RaceName";
-            this.RaceName.Size = new System.Drawing.Size(132, 20);
-            this.RaceName.TabIndex = 1;
-            this.RaceName.Text = "Humanoid";
+            this.raceName.Location = new System.Drawing.Point(104, 13);
+            this.raceName.Name = "raceName";
+            this.raceName.Size = new System.Drawing.Size(132, 20);
+            this.raceName.TabIndex = 1;
+            this.raceName.Text = "Humanoid";
             // 
             // IconIndex
             // 
-            this.IconIndex.Location = new System.Drawing.Point(324, 62);
-            this.IconIndex.Name = "IconIndex";
-            this.IconIndex.Size = new System.Drawing.Size(43, 17);
-            this.IconIndex.TabIndex = 7;
-            this.IconIndex.Text = "31";
-            this.IconIndex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.iconIndex.Location = new System.Drawing.Point(324, 62);
+            this.iconIndex.Name = "iconIndex";
+            this.iconIndex.Size = new System.Drawing.Size(43, 17);
+            this.iconIndex.TabIndex = 7;
+            this.iconIndex.Text = "31";
+            this.iconIndex.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // groupBox4
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.PrimaryTraitDescription);
+            this.groupBox4.Controls.Add(this.primaryTraitDescription);
             this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox4.Location = new System.Drawing.Point(7, 244);
             this.groupBox4.Name = "groupBox4";
@@ -520,28 +520,28 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // PrimaryTraitDescription
             // 
-            this.PrimaryTraitDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.PrimaryTraitDescription.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.PrimaryTraitDescription.Location = new System.Drawing.Point(3, 16);
-            this.PrimaryTraitDescription.Name = "PrimaryTraitDescription";
-            this.PrimaryTraitDescription.Size = new System.Drawing.Size(370, 118);
-            this.PrimaryTraitDescription.TabIndex = 0;
-            this.PrimaryTraitDescription.Text = "Will hold race description.";
+            this.primaryTraitDescription.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.primaryTraitDescription.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.primaryTraitDescription.Location = new System.Drawing.Point(3, 16);
+            this.primaryTraitDescription.Name = "primaryTraitDescription";
+            this.primaryTraitDescription.Size = new System.Drawing.Size(370, 118);
+            this.primaryTraitDescription.TabIndex = 0;
+            this.primaryTraitDescription.Text = "Will hold race description.";
             // 
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.JackOfAllTrades);
-            this.groupBox3.Controls.Add(this.AlternateReality);
-            this.groupBox3.Controls.Add(this.InterStellarTraveller);
-            this.groupBox3.Controls.Add(this.PacketPhysics);
-            this.groupBox3.Controls.Add(this.SpaceDemolition);
-            this.groupBox3.Controls.Add(this.InnerStrength);
-            this.groupBox3.Controls.Add(this.ClaimAdjuster);
-            this.groupBox3.Controls.Add(this.WarMonger);
-            this.groupBox3.Controls.Add(this.SuperStealth);
-            this.groupBox3.Controls.Add(this.HyperExpansion);
+            this.groupBox3.Controls.Add(this.jackOfAllTrades);
+            this.groupBox3.Controls.Add(this.alternateReality);
+            this.groupBox3.Controls.Add(this.interStellarTraveller);
+            this.groupBox3.Controls.Add(this.packetPhysics);
+            this.groupBox3.Controls.Add(this.spaceDemolition);
+            this.groupBox3.Controls.Add(this.innerStrength);
+            this.groupBox3.Controls.Add(this.claimAdjuster);
+            this.groupBox3.Controls.Add(this.warMonger);
+            this.groupBox3.Controls.Add(this.superStealth);
+            this.groupBox3.Controls.Add(this.hyperExpansion);
             this.groupBox3.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox3.Location = new System.Drawing.Point(7, 94);
             this.groupBox3.Name = "groupBox3";
@@ -552,133 +552,133 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // JackOfAllTrades
             // 
-            this.JackOfAllTrades.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.JackOfAllTrades.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.JackOfAllTrades.Location = new System.Drawing.Point(239, 112);
-            this.JackOfAllTrades.Name = "JackOfAllTrades";
-            this.JackOfAllTrades.Size = new System.Drawing.Size(126, 24);
-            this.JackOfAllTrades.TabIndex = 9;
-            this.JackOfAllTrades.Tag = "JOAT";
-            this.JackOfAllTrades.Text = "Jack of all Trades";
-            this.JackOfAllTrades.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            this.jackOfAllTrades.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.jackOfAllTrades.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.jackOfAllTrades.Location = new System.Drawing.Point(239, 112);
+            this.jackOfAllTrades.Name = "jackOfAllTrades";
+            this.jackOfAllTrades.Size = new System.Drawing.Size(126, 24);
+            this.jackOfAllTrades.TabIndex = 9;
+            this.jackOfAllTrades.Tag = "JOAT";
+            this.jackOfAllTrades.Text = "Jack of all Trades";
+            this.jackOfAllTrades.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // AlternateReality
             // 
-            this.AlternateReality.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.AlternateReality.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.AlternateReality.Location = new System.Drawing.Point(239, 88);
-            this.AlternateReality.Name = "AlternateReality";
-            this.AlternateReality.Size = new System.Drawing.Size(126, 24);
-            this.AlternateReality.TabIndex = 8;
-            this.AlternateReality.Tag = "AR";
-            this.AlternateReality.Text = "Alternate Reality";
-            this.AlternateReality.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            this.alternateReality.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.alternateReality.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.alternateReality.Location = new System.Drawing.Point(239, 88);
+            this.alternateReality.Name = "alternateReality";
+            this.alternateReality.Size = new System.Drawing.Size(126, 24);
+            this.alternateReality.TabIndex = 8;
+            this.alternateReality.Tag = "AR";
+            this.alternateReality.Text = "Alternate Reality";
+            this.alternateReality.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // InterStellarTraveller
             // 
-            this.InterStellarTraveller.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.InterStellarTraveller.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.InterStellarTraveller.Location = new System.Drawing.Point(239, 64);
-            this.InterStellarTraveller.Name = "InterStellarTraveller";
-            this.InterStellarTraveller.Size = new System.Drawing.Size(126, 24);
-            this.InterStellarTraveller.TabIndex = 7;
-            this.InterStellarTraveller.Tag = "IT";
-            this.InterStellarTraveller.Text = "Inter-stellar Traveller";
-            this.InterStellarTraveller.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            this.interStellarTraveller.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.interStellarTraveller.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.interStellarTraveller.Location = new System.Drawing.Point(239, 64);
+            this.interStellarTraveller.Name = "interStellarTraveller";
+            this.interStellarTraveller.Size = new System.Drawing.Size(126, 24);
+            this.interStellarTraveller.TabIndex = 7;
+            this.interStellarTraveller.Tag = "IT";
+            this.interStellarTraveller.Text = "Inter-stellar Traveller";
+            this.interStellarTraveller.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // PacketPhysics
             // 
-            this.PacketPhysics.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.PacketPhysics.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.PacketPhysics.Location = new System.Drawing.Point(239, 42);
-            this.PacketPhysics.Name = "PacketPhysics";
-            this.PacketPhysics.Size = new System.Drawing.Size(126, 24);
-            this.PacketPhysics.TabIndex = 6;
-            this.PacketPhysics.Tag = "PP";
-            this.PacketPhysics.Text = "Packet Physics";
-            this.PacketPhysics.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            this.packetPhysics.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.packetPhysics.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.packetPhysics.Location = new System.Drawing.Point(239, 42);
+            this.packetPhysics.Name = "packetPhysics";
+            this.packetPhysics.Size = new System.Drawing.Size(126, 24);
+            this.packetPhysics.TabIndex = 6;
+            this.packetPhysics.Tag = "PP";
+            this.packetPhysics.Text = "Packet Physics";
+            this.packetPhysics.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // SpaceDemolition
             // 
-            this.SpaceDemolition.Anchor = System.Windows.Forms.AnchorStyles.Right;
-            this.SpaceDemolition.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.SpaceDemolition.Location = new System.Drawing.Point(239, 20);
-            this.SpaceDemolition.Name = "SpaceDemolition";
-            this.SpaceDemolition.Size = new System.Drawing.Size(126, 24);
-            this.SpaceDemolition.TabIndex = 5;
-            this.SpaceDemolition.Tag = "SD";
-            this.SpaceDemolition.Text = "Space Demolition";
-            this.SpaceDemolition.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            this.spaceDemolition.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.spaceDemolition.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.spaceDemolition.Location = new System.Drawing.Point(239, 20);
+            this.spaceDemolition.Name = "spaceDemolition";
+            this.spaceDemolition.Size = new System.Drawing.Size(126, 24);
+            this.spaceDemolition.TabIndex = 5;
+            this.spaceDemolition.Tag = "SD";
+            this.spaceDemolition.Text = "Space Demolition";
+            this.spaceDemolition.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // InnerStrength
             // 
-            this.InnerStrength.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.InnerStrength.Location = new System.Drawing.Point(8, 112);
-            this.InnerStrength.Name = "InnerStrength";
-            this.InnerStrength.Size = new System.Drawing.Size(104, 24);
-            this.InnerStrength.TabIndex = 4;
-            this.InnerStrength.Tag = "IS";
-            this.InnerStrength.Text = "Inner Strength";
-            this.InnerStrength.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            this.innerStrength.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.innerStrength.Location = new System.Drawing.Point(8, 112);
+            this.innerStrength.Name = "innerStrength";
+            this.innerStrength.Size = new System.Drawing.Size(104, 24);
+            this.innerStrength.TabIndex = 4;
+            this.innerStrength.Tag = "IS";
+            this.innerStrength.Text = "Inner Strength";
+            this.innerStrength.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // ClaimAdjuster
             // 
-            this.ClaimAdjuster.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ClaimAdjuster.Location = new System.Drawing.Point(8, 88);
-            this.ClaimAdjuster.Name = "ClaimAdjuster";
-            this.ClaimAdjuster.Size = new System.Drawing.Size(104, 24);
-            this.ClaimAdjuster.TabIndex = 3;
-            this.ClaimAdjuster.Tag = "CA";
-            this.ClaimAdjuster.Text = "Claim Adjuster";
-            this.ClaimAdjuster.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            this.claimAdjuster.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.claimAdjuster.Location = new System.Drawing.Point(8, 88);
+            this.claimAdjuster.Name = "claimAdjuster";
+            this.claimAdjuster.Size = new System.Drawing.Size(104, 24);
+            this.claimAdjuster.TabIndex = 3;
+            this.claimAdjuster.Tag = "CA";
+            this.claimAdjuster.Text = "Claim Adjuster";
+            this.claimAdjuster.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // WarMonger
             // 
-            this.WarMonger.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.WarMonger.Location = new System.Drawing.Point(8, 64);
-            this.WarMonger.Name = "WarMonger";
-            this.WarMonger.Size = new System.Drawing.Size(104, 24);
-            this.WarMonger.TabIndex = 2;
-            this.WarMonger.Tag = "WM";
-            this.WarMonger.Text = "War Monger";
-            this.WarMonger.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            this.warMonger.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.warMonger.Location = new System.Drawing.Point(8, 64);
+            this.warMonger.Name = "warMonger";
+            this.warMonger.Size = new System.Drawing.Size(104, 24);
+            this.warMonger.TabIndex = 2;
+            this.warMonger.Tag = "WM";
+            this.warMonger.Text = "War Monger";
+            this.warMonger.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // SuperStealth
             // 
-            this.SuperStealth.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.SuperStealth.Location = new System.Drawing.Point(8, 42);
-            this.SuperStealth.Name = "SuperStealth";
-            this.SuperStealth.Size = new System.Drawing.Size(104, 24);
-            this.SuperStealth.TabIndex = 1;
-            this.SuperStealth.Tag = "SS";
-            this.SuperStealth.Text = "Super Stealth";
-            this.SuperStealth.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            this.superStealth.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.superStealth.Location = new System.Drawing.Point(8, 42);
+            this.superStealth.Name = "superStealth";
+            this.superStealth.Size = new System.Drawing.Size(104, 24);
+            this.superStealth.TabIndex = 1;
+            this.superStealth.Tag = "SS";
+            this.superStealth.Text = "Super Stealth";
+            this.superStealth.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // HyperExpansion
             // 
-            this.HyperExpansion.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.HyperExpansion.Location = new System.Drawing.Point(8, 19);
-            this.HyperExpansion.Name = "HyperExpansion";
-            this.HyperExpansion.Size = new System.Drawing.Size(110, 24);
-            this.HyperExpansion.TabIndex = 0;
-            this.HyperExpansion.Tag = "HE";
-            this.HyperExpansion.Text = "Hyper-Expansion";
-            this.HyperExpansion.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
+            this.hyperExpansion.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.hyperExpansion.Location = new System.Drawing.Point(8, 19);
+            this.hyperExpansion.Name = "hyperExpansion";
+            this.hyperExpansion.Size = new System.Drawing.Size(110, 24);
+            this.hyperExpansion.TabIndex = 0;
+            this.hyperExpansion.Tag = "HE";
+            this.hyperExpansion.Text = "Hyper-Expansion";
+            this.hyperExpansion.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
             // TraitsTab
             // 
-            this.TraitsTab.Controls.Add(this.groupBox7);
-            this.TraitsTab.Controls.Add(this.groupBox5);
-            this.TraitsTab.Location = new System.Drawing.Point(4, 22);
-            this.TraitsTab.Name = "TraitsTab";
-            this.TraitsTab.Size = new System.Drawing.Size(392, 396);
-            this.TraitsTab.TabIndex = 1;
-            this.TraitsTab.Text = "Traits";
-            this.TraitsTab.UseVisualStyleBackColor = true;
+            this.traitsTab.Controls.Add(this.groupBox7);
+            this.traitsTab.Controls.Add(this.groupBox5);
+            this.traitsTab.Location = new System.Drawing.Point(4, 22);
+            this.traitsTab.Name = "traitsTab";
+            this.traitsTab.Size = new System.Drawing.Size(392, 396);
+            this.traitsTab.TabIndex = 1;
+            this.traitsTab.Text = "Traits";
+            this.traitsTab.UseVisualStyleBackColor = true;
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.SecondaryTraitDescription);
+            this.groupBox7.Controls.Add(this.secondaryTraitDescription);
             this.groupBox7.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox7.Location = new System.Drawing.Point(8, 245);
             this.groupBox7.Name = "groupBox7";
@@ -689,27 +689,27 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // SecondaryTraitDescription
             // 
-            this.SecondaryTraitDescription.Location = new System.Drawing.Point(10, 16);
-            this.SecondaryTraitDescription.Name = "SecondaryTraitDescription";
-            this.SecondaryTraitDescription.Size = new System.Drawing.Size(346, 59);
-            this.SecondaryTraitDescription.TabIndex = 0;
+            this.secondaryTraitDescription.Location = new System.Drawing.Point(10, 16);
+            this.secondaryTraitDescription.Name = "secondaryTraitDescription";
+            this.secondaryTraitDescription.Size = new System.Drawing.Size(346, 59);
+            this.secondaryTraitDescription.TabIndex = 0;
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.RegeneratingShields);
-            this.groupBox5.Controls.Add(this.BleedingEdgeTechnology);
-            this.groupBox5.Controls.Add(this.LowStartingPopulation);
-            this.groupBox5.Controls.Add(this.NoAdvancedScanners);
-            this.groupBox5.Controls.Add(this.BasicRemoteMining);
-            this.groupBox5.Controls.Add(this.CheapEngines);
-            this.groupBox5.Controls.Add(this.NoRAMEngines);
-            this.groupBox5.Controls.Add(this.MineralAlchemy);
-            this.groupBox5.Controls.Add(this.UltimateRecycling);
-            this.groupBox5.Controls.Add(this.GeneralisedResearch);
-            this.groupBox5.Controls.Add(this.ImprovedStarbases);
-            this.groupBox5.Controls.Add(this.AdvancedRemoteMining);
-            this.groupBox5.Controls.Add(this.TotalTerraforming);
-            this.groupBox5.Controls.Add(this.ImprovedFuelEfficiency);
+            this.groupBox5.Controls.Add(this.regeneratingShields);
+            this.groupBox5.Controls.Add(this.bleedingEdgeTechnology);
+            this.groupBox5.Controls.Add(this.lowStartingPopulation);
+            this.groupBox5.Controls.Add(this.noAdvancedScanners);
+            this.groupBox5.Controls.Add(this.basicRemoteMining);
+            this.groupBox5.Controls.Add(this.cheapEngines);
+            this.groupBox5.Controls.Add(this.noRamEngines);
+            this.groupBox5.Controls.Add(this.mineralAlchemy);
+            this.groupBox5.Controls.Add(this.ultimateRecycling);
+            this.groupBox5.Controls.Add(this.generalisedResearch);
+            this.groupBox5.Controls.Add(this.improvedStarbases);
+            this.groupBox5.Controls.Add(this.advancedRemoteMining);
+            this.groupBox5.Controls.Add(this.totalTerraforming);
+            this.groupBox5.Controls.Add(this.improvedFuelEfficiency);
             this.groupBox5.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox5.Location = new System.Drawing.Point(8, 5);
             this.groupBox5.Name = "groupBox5";
@@ -720,175 +720,175 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // RegeneratingShields
             // 
-            this.RegeneratingShields.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.RegeneratingShields.Location = new System.Drawing.Point(211, 168);
-            this.RegeneratingShields.Name = "RegeneratingShields";
-            this.RegeneratingShields.Size = new System.Drawing.Size(131, 24);
-            this.RegeneratingShields.TabIndex = 13;
-            this.RegeneratingShields.Tag = "RS";
-            this.RegeneratingShields.Text = "Regenerating shields";
-            this.RegeneratingShields.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.regeneratingShields.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.regeneratingShields.Location = new System.Drawing.Point(211, 168);
+            this.regeneratingShields.Name = "regeneratingShields";
+            this.regeneratingShields.Size = new System.Drawing.Size(131, 24);
+            this.regeneratingShields.TabIndex = 13;
+            this.regeneratingShields.Tag = "RS";
+            this.regeneratingShields.Text = "Regenerating shields";
+            this.regeneratingShields.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // BleedingEdgeTechnology
             // 
-            this.BleedingEdgeTechnology.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.BleedingEdgeTechnology.Location = new System.Drawing.Point(211, 144);
-            this.BleedingEdgeTechnology.Name = "BleedingEdgeTechnology";
-            this.BleedingEdgeTechnology.Size = new System.Drawing.Size(145, 24);
-            this.BleedingEdgeTechnology.TabIndex = 12;
-            this.BleedingEdgeTechnology.Tag = "BET";
-            this.BleedingEdgeTechnology.Text = "Bleeding edge technology";
-            this.BleedingEdgeTechnology.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.bleedingEdgeTechnology.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.bleedingEdgeTechnology.Location = new System.Drawing.Point(211, 144);
+            this.bleedingEdgeTechnology.Name = "bleedingEdgeTechnology";
+            this.bleedingEdgeTechnology.Size = new System.Drawing.Size(145, 24);
+            this.bleedingEdgeTechnology.TabIndex = 12;
+            this.bleedingEdgeTechnology.Tag = "BET";
+            this.bleedingEdgeTechnology.Text = "Bleeding edge technology";
+            this.bleedingEdgeTechnology.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // LowStartingPopulation
             // 
-            this.LowStartingPopulation.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.LowStartingPopulation.Location = new System.Drawing.Point(211, 120);
-            this.LowStartingPopulation.Name = "LowStartingPopulation";
-            this.LowStartingPopulation.Size = new System.Drawing.Size(130, 24);
-            this.LowStartingPopulation.TabIndex = 11;
-            this.LowStartingPopulation.Tag = "LSP";
-            this.LowStartingPopulation.Text = "Low starting population";
-            this.LowStartingPopulation.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.lowStartingPopulation.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.lowStartingPopulation.Location = new System.Drawing.Point(211, 120);
+            this.lowStartingPopulation.Name = "lowStartingPopulation";
+            this.lowStartingPopulation.Size = new System.Drawing.Size(130, 24);
+            this.lowStartingPopulation.TabIndex = 11;
+            this.lowStartingPopulation.Tag = "LSP";
+            this.lowStartingPopulation.Text = "Low starting population";
+            this.lowStartingPopulation.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // NoAdvancedScanners
             // 
-            this.NoAdvancedScanners.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.NoAdvancedScanners.Location = new System.Drawing.Point(211, 96);
-            this.NoAdvancedScanners.Name = "NoAdvancedScanners";
-            this.NoAdvancedScanners.Size = new System.Drawing.Size(133, 24);
-            this.NoAdvancedScanners.TabIndex = 10;
-            this.NoAdvancedScanners.Tag = "NAS";
-            this.NoAdvancedScanners.Text = "No advanced scanners";
-            this.NoAdvancedScanners.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.noAdvancedScanners.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.noAdvancedScanners.Location = new System.Drawing.Point(211, 96);
+            this.noAdvancedScanners.Name = "noAdvancedScanners";
+            this.noAdvancedScanners.Size = new System.Drawing.Size(133, 24);
+            this.noAdvancedScanners.TabIndex = 10;
+            this.noAdvancedScanners.Tag = "NAS";
+            this.noAdvancedScanners.Text = "No advanced scanners";
+            this.noAdvancedScanners.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // BasicRemoteMining
             // 
-            this.BasicRemoteMining.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.BasicRemoteMining.Location = new System.Drawing.Point(211, 72);
-            this.BasicRemoteMining.Name = "BasicRemoteMining";
-            this.BasicRemoteMining.Size = new System.Drawing.Size(141, 24);
-            this.BasicRemoteMining.TabIndex = 9;
-            this.BasicRemoteMining.Tag = "OBRM";
-            this.BasicRemoteMining.Text = "Only basic remote mining";
-            this.BasicRemoteMining.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.basicRemoteMining.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.basicRemoteMining.Location = new System.Drawing.Point(211, 72);
+            this.basicRemoteMining.Name = "basicRemoteMining";
+            this.basicRemoteMining.Size = new System.Drawing.Size(141, 24);
+            this.basicRemoteMining.TabIndex = 9;
+            this.basicRemoteMining.Tag = "OBRM";
+            this.basicRemoteMining.Text = "Only basic remote mining";
+            this.basicRemoteMining.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // CheapEngines
             // 
-            this.CheapEngines.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.CheapEngines.Location = new System.Drawing.Point(211, 48);
-            this.CheapEngines.Name = "CheapEngines";
-            this.CheapEngines.Size = new System.Drawing.Size(131, 24);
-            this.CheapEngines.TabIndex = 8;
-            this.CheapEngines.Tag = "CE";
-            this.CheapEngines.Text = "Cheap engines";
-            this.CheapEngines.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.cheapEngines.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cheapEngines.Location = new System.Drawing.Point(211, 48);
+            this.cheapEngines.Name = "cheapEngines";
+            this.cheapEngines.Size = new System.Drawing.Size(131, 24);
+            this.cheapEngines.TabIndex = 8;
+            this.cheapEngines.Tag = "CE";
+            this.cheapEngines.Text = "Cheap engines";
+            this.cheapEngines.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // NoRAMEngines
             // 
-            this.NoRAMEngines.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.NoRAMEngines.Location = new System.Drawing.Point(211, 24);
-            this.NoRAMEngines.Name = "NoRAMEngines";
-            this.NoRAMEngines.Size = new System.Drawing.Size(134, 24);
-            this.NoRAMEngines.TabIndex = 7;
-            this.NoRAMEngines.Tag = "NRS";
-            this.NoRAMEngines.Text = "No RAM scoop engines";
-            this.NoRAMEngines.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.noRamEngines.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.noRamEngines.Location = new System.Drawing.Point(211, 24);
+            this.noRamEngines.Name = "noRamEngines";
+            this.noRamEngines.Size = new System.Drawing.Size(134, 24);
+            this.noRamEngines.TabIndex = 7;
+            this.noRamEngines.Tag = "NRS";
+            this.noRamEngines.Text = "No RAM scoop engines";
+            this.noRamEngines.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // MineralAlchemy
             // 
-            this.MineralAlchemy.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.MineralAlchemy.Location = new System.Drawing.Point(16, 168);
-            this.MineralAlchemy.Name = "MineralAlchemy";
-            this.MineralAlchemy.Size = new System.Drawing.Size(152, 24);
-            this.MineralAlchemy.TabIndex = 6;
-            this.MineralAlchemy.Tag = "MA";
-            this.MineralAlchemy.Text = "Mineral alchemy";
-            this.MineralAlchemy.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.mineralAlchemy.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.mineralAlchemy.Location = new System.Drawing.Point(16, 168);
+            this.mineralAlchemy.Name = "mineralAlchemy";
+            this.mineralAlchemy.Size = new System.Drawing.Size(152, 24);
+            this.mineralAlchemy.TabIndex = 6;
+            this.mineralAlchemy.Tag = "MA";
+            this.mineralAlchemy.Text = "Mineral alchemy";
+            this.mineralAlchemy.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // UltimateRecycling
             // 
-            this.UltimateRecycling.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.UltimateRecycling.Location = new System.Drawing.Point(16, 144);
-            this.UltimateRecycling.Name = "UltimateRecycling";
-            this.UltimateRecycling.Size = new System.Drawing.Size(152, 24);
-            this.UltimateRecycling.TabIndex = 5;
-            this.UltimateRecycling.Tag = "UR";
-            this.UltimateRecycling.Text = "Ultimate recycling";
-            this.UltimateRecycling.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.ultimateRecycling.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.ultimateRecycling.Location = new System.Drawing.Point(16, 144);
+            this.ultimateRecycling.Name = "ultimateRecycling";
+            this.ultimateRecycling.Size = new System.Drawing.Size(152, 24);
+            this.ultimateRecycling.TabIndex = 5;
+            this.ultimateRecycling.Tag = "UR";
+            this.ultimateRecycling.Text = "Ultimate recycling";
+            this.ultimateRecycling.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // GeneralisedResearch
             // 
-            this.GeneralisedResearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.GeneralisedResearch.Location = new System.Drawing.Point(16, 120);
-            this.GeneralisedResearch.Name = "GeneralisedResearch";
-            this.GeneralisedResearch.Size = new System.Drawing.Size(152, 24);
-            this.GeneralisedResearch.TabIndex = 4;
-            this.GeneralisedResearch.Tag = "GR";
-            this.GeneralisedResearch.Text = "Generalised reseach";
-            this.GeneralisedResearch.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.generalisedResearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.generalisedResearch.Location = new System.Drawing.Point(16, 120);
+            this.generalisedResearch.Name = "generalisedResearch";
+            this.generalisedResearch.Size = new System.Drawing.Size(152, 24);
+            this.generalisedResearch.TabIndex = 4;
+            this.generalisedResearch.Tag = "GR";
+            this.generalisedResearch.Text = "Generalised reseach";
+            this.generalisedResearch.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // ImprovedStarbases
             // 
-            this.ImprovedStarbases.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ImprovedStarbases.Location = new System.Drawing.Point(16, 96);
-            this.ImprovedStarbases.Name = "ImprovedStarbases";
-            this.ImprovedStarbases.Size = new System.Drawing.Size(152, 24);
-            this.ImprovedStarbases.TabIndex = 3;
-            this.ImprovedStarbases.Tag = "ISB";
-            this.ImprovedStarbases.Text = "Improved starbases";
-            this.ImprovedStarbases.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.improvedStarbases.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.improvedStarbases.Location = new System.Drawing.Point(16, 96);
+            this.improvedStarbases.Name = "improvedStarbases";
+            this.improvedStarbases.Size = new System.Drawing.Size(152, 24);
+            this.improvedStarbases.TabIndex = 3;
+            this.improvedStarbases.Tag = "ISB";
+            this.improvedStarbases.Text = "Improved starbases";
+            this.improvedStarbases.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // AdvancedRemoteMining
             // 
-            this.AdvancedRemoteMining.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.AdvancedRemoteMining.Location = new System.Drawing.Point(16, 72);
-            this.AdvancedRemoteMining.Name = "AdvancedRemoteMining";
-            this.AdvancedRemoteMining.Size = new System.Drawing.Size(152, 24);
-            this.AdvancedRemoteMining.TabIndex = 2;
-            this.AdvancedRemoteMining.Tag = "ARM";
-            this.AdvancedRemoteMining.Text = "Advanced remote mining";
-            this.AdvancedRemoteMining.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.advancedRemoteMining.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.advancedRemoteMining.Location = new System.Drawing.Point(16, 72);
+            this.advancedRemoteMining.Name = "advancedRemoteMining";
+            this.advancedRemoteMining.Size = new System.Drawing.Size(152, 24);
+            this.advancedRemoteMining.TabIndex = 2;
+            this.advancedRemoteMining.Tag = "ARM";
+            this.advancedRemoteMining.Text = "Advanced remote mining";
+            this.advancedRemoteMining.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // TotalTerraforming
             // 
-            this.TotalTerraforming.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.TotalTerraforming.Location = new System.Drawing.Point(16, 48);
-            this.TotalTerraforming.Name = "TotalTerraforming";
-            this.TotalTerraforming.Size = new System.Drawing.Size(152, 24);
-            this.TotalTerraforming.TabIndex = 1;
-            this.TotalTerraforming.Tag = "TT";
-            this.TotalTerraforming.Text = "Total terraforming";
-            this.TotalTerraforming.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.totalTerraforming.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.totalTerraforming.Location = new System.Drawing.Point(16, 48);
+            this.totalTerraforming.Name = "totalTerraforming";
+            this.totalTerraforming.Size = new System.Drawing.Size(152, 24);
+            this.totalTerraforming.TabIndex = 1;
+            this.totalTerraforming.Tag = "TT";
+            this.totalTerraforming.Text = "Total terraforming";
+            this.totalTerraforming.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // ImprovedFuelEfficiency
             // 
-            this.ImprovedFuelEfficiency.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ImprovedFuelEfficiency.Location = new System.Drawing.Point(16, 24);
-            this.ImprovedFuelEfficiency.Name = "ImprovedFuelEfficiency";
-            this.ImprovedFuelEfficiency.Size = new System.Drawing.Size(152, 24);
-            this.ImprovedFuelEfficiency.TabIndex = 0;
-            this.ImprovedFuelEfficiency.Tag = "IFE";
-            this.ImprovedFuelEfficiency.Text = "Improved fuel efficiency";
-            this.ImprovedFuelEfficiency.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
+            this.improvedFuelEfficiency.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.improvedFuelEfficiency.Location = new System.Drawing.Point(16, 24);
+            this.improvedFuelEfficiency.Name = "improvedFuelEfficiency";
+            this.improvedFuelEfficiency.Size = new System.Drawing.Size(152, 24);
+            this.improvedFuelEfficiency.TabIndex = 0;
+            this.improvedFuelEfficiency.Tag = "IFE";
+            this.improvedFuelEfficiency.Text = "Improved fuel efficiency";
+            this.improvedFuelEfficiency.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // EnvironmentTab
             // 
-            this.EnvironmentTab.Controls.Add(this.groupBox9);
-            this.EnvironmentTab.Location = new System.Drawing.Point(4, 22);
-            this.EnvironmentTab.Name = "EnvironmentTab";
-            this.EnvironmentTab.Size = new System.Drawing.Size(392, 396);
-            this.EnvironmentTab.TabIndex = 4;
-            this.EnvironmentTab.Text = "Environment";
-            this.EnvironmentTab.UseVisualStyleBackColor = true;
+            this.environmentTab.Controls.Add(this.groupBox9);
+            this.environmentTab.Location = new System.Drawing.Point(4, 22);
+            this.environmentTab.Name = "environmentTab";
+            this.environmentTab.Size = new System.Drawing.Size(392, 396);
+            this.environmentTab.TabIndex = 4;
+            this.environmentTab.Text = "Environment";
+            this.environmentTab.UseVisualStyleBackColor = true;
             // 
             // groupBox9
             // 
-            this.groupBox9.Controls.Add(this.MaxGrowth);
+            this.groupBox9.Controls.Add(this.maxGrowth);
             this.groupBox9.Controls.Add(this.label4);
-            this.groupBox9.Controls.Add(this.RadiationTolerance);
-            this.groupBox9.Controls.Add(this.TemperatureTolerance);
-            this.groupBox9.Controls.Add(this.GravityTolerance);
+            this.groupBox9.Controls.Add(this.radiationTolerance);
+            this.groupBox9.Controls.Add(this.temperatureTolerance);
+            this.groupBox9.Controls.Add(this.gravityTolerance);
             this.groupBox9.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox9.Location = new System.Drawing.Point(17, 17);
             this.groupBox9.Name = "groupBox9";
@@ -899,22 +899,22 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // MaxGrowth
             // 
-            this.MaxGrowth.Location = new System.Drawing.Point(235, 320);
-            this.MaxGrowth.Maximum = new decimal(new int[] {
+            this.maxGrowth.Location = new System.Drawing.Point(235, 320);
+            this.maxGrowth.Maximum = new decimal(new int[] {
             20,
             0,
             0,
             0});
-            this.MaxGrowth.Name = "MaxGrowth";
-            this.MaxGrowth.Size = new System.Drawing.Size(94, 20);
-            this.MaxGrowth.TabIndex = 4;
-            this.MaxGrowth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.MaxGrowth.Value = new decimal(new int[] {
+            this.maxGrowth.Name = "maxGrowth";
+            this.maxGrowth.Size = new System.Drawing.Size(94, 20);
+            this.maxGrowth.TabIndex = 4;
+            this.maxGrowth.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.maxGrowth.Value = new decimal(new int[] {
             15,
             0,
             0,
             0});
-            this.MaxGrowth.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
+            this.maxGrowth.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
             // 
             // label4
             // 
@@ -927,72 +927,72 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // RadiationTolerance
             // 
-            this.RadiationTolerance.RangeMaximum = 100;
-            this.RadiationTolerance.RangeMinimum = 0;
-            this.RadiationTolerance.BarLower = 15;
-            this.RadiationTolerance.BarUpper = 85;
-            this.RadiationTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(15, 85);
-            this.RadiationTolerance.Location = new System.Drawing.Point(14, 220);
-            this.RadiationTolerance.Name = "RadiationTolerance";
-            this.RadiationTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.RadiationTolerance.RangeTitle = "Radiation";
-            this.RadiationTolerance.RangeUnits = "mR";
-            this.RadiationTolerance.Size = new System.Drawing.Size(324, 95);
-            this.RadiationTolerance.TabIndex = 2;
-            this.RadiationTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
+            this.radiationTolerance.RangeMaximum = 100;
+            this.radiationTolerance.RangeMinimum = 0;
+            this.radiationTolerance.BarLower = 15;
+            this.radiationTolerance.BarUpper = 85;
+            this.radiationTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(15, 85);
+            this.radiationTolerance.Location = new System.Drawing.Point(14, 220);
+            this.radiationTolerance.Name = "radiationTolerance";
+            this.radiationTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
+            this.radiationTolerance.RangeTitle = "Radiation";
+            this.radiationTolerance.RangeUnits = "mR";
+            this.radiationTolerance.Size = new System.Drawing.Size(324, 95);
+            this.radiationTolerance.TabIndex = 2;
+            this.radiationTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
             // 
             // TemperatureTolerance
             // 
-            this.TemperatureTolerance.RangeMaximum = 200;
-            this.TemperatureTolerance.RangeMinimum = -200;
-            this.TemperatureTolerance.BarLower = -140;
-            this.TemperatureTolerance.BarUpper = 140;
-            this.TemperatureTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(-140, 140);
-            this.TemperatureTolerance.Location = new System.Drawing.Point(14, 118);
-            this.TemperatureTolerance.Name = "TemperatureTolerance";
-            this.TemperatureTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
-            this.TemperatureTolerance.RangeTitle = "Temperature";
-            this.TemperatureTolerance.RangeUnits = "C";
-            this.TemperatureTolerance.Size = new System.Drawing.Size(324, 95);
-            this.TemperatureTolerance.TabIndex = 1;
-            this.TemperatureTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
+            this.temperatureTolerance.RangeMaximum = 200;
+            this.temperatureTolerance.RangeMinimum = -200;
+            this.temperatureTolerance.BarLower = -140;
+            this.temperatureTolerance.BarUpper = 140;
+            this.temperatureTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(-140, 140);
+            this.temperatureTolerance.Location = new System.Drawing.Point(14, 118);
+            this.temperatureTolerance.Name = "temperatureTolerance";
+            this.temperatureTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
+            this.temperatureTolerance.RangeTitle = "Temperature";
+            this.temperatureTolerance.RangeUnits = "C";
+            this.temperatureTolerance.Size = new System.Drawing.Size(324, 95);
+            this.temperatureTolerance.TabIndex = 1;
+            this.temperatureTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
             // 
             // GravityTolerance
             // 
-            this.GravityTolerance.RangeMaximum = 10;
-            this.GravityTolerance.RangeMinimum = 0;
-            this.GravityTolerance.BarLower = 1.5;
-            this.GravityTolerance.BarUpper = 8.5;
-            this.GravityTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(1.5, 8.5);
-            this.GravityTolerance.Location = new System.Drawing.Point(14, 19);
-            this.GravityTolerance.Name = "GravityTolerance";
-            this.GravityTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
-            this.GravityTolerance.RangeTitle = "Gravity";
-            this.GravityTolerance.RangeUnits = "g";
-            this.GravityTolerance.Size = new System.Drawing.Size(324, 95);
-            this.GravityTolerance.TabIndex = 0;
-            this.GravityTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
+            this.gravityTolerance.RangeMaximum = 10;
+            this.gravityTolerance.RangeMinimum = 0;
+            this.gravityTolerance.BarLower = 1.5;
+            this.gravityTolerance.BarUpper = 8.5;
+            this.gravityTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(1.5, 8.5);
+            this.gravityTolerance.Location = new System.Drawing.Point(14, 19);
+            this.gravityTolerance.Name = "gravityTolerance";
+            this.gravityTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
+            this.gravityTolerance.RangeTitle = "Gravity";
+            this.gravityTolerance.RangeUnits = "g";
+            this.gravityTolerance.Size = new System.Drawing.Size(324, 95);
+            this.gravityTolerance.TabIndex = 0;
+            this.gravityTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
             // 
             // ProductionTab
             // 
-            this.ProductionTab.Controls.Add(this.groupBox12);
-            this.ProductionTab.Controls.Add(this.groupBox11);
-            this.ProductionTab.Controls.Add(this.groupBox10);
-            this.ProductionTab.Controls.Add(this.groupBox8);
-            this.ProductionTab.Location = new System.Drawing.Point(4, 22);
-            this.ProductionTab.Name = "ProductionTab";
-            this.ProductionTab.Size = new System.Drawing.Size(392, 396);
-            this.ProductionTab.TabIndex = 2;
-            this.ProductionTab.Text = "Production";
-            this.ProductionTab.UseVisualStyleBackColor = true;
+            this.productionTab.Controls.Add(this.groupBox12);
+            this.productionTab.Controls.Add(this.groupBox11);
+            this.productionTab.Controls.Add(this.groupBox10);
+            this.productionTab.Controls.Add(this.groupBox8);
+            this.productionTab.Location = new System.Drawing.Point(4, 22);
+            this.productionTab.Name = "productionTab";
+            this.productionTab.Size = new System.Drawing.Size(392, 396);
+            this.productionTab.TabIndex = 2;
+            this.productionTab.Text = "Production";
+            this.productionTab.UseVisualStyleBackColor = true;
             // 
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.label9);
-            this.groupBox12.Controls.Add(this.MineralProduction);
-            this.groupBox12.Controls.Add(this.OperableMines);
+            this.groupBox12.Controls.Add(this.mineralProduction);
+            this.groupBox12.Controls.Add(this.operableMines);
             this.groupBox12.Controls.Add(this.label10);
-            this.groupBox12.Controls.Add(this.ResourcesPerMine);
+            this.groupBox12.Controls.Add(this.resourcesPerMine);
             this.groupBox12.Controls.Add(this.label11);
             this.groupBox12.Location = new System.Drawing.Point(11, 190);
             this.groupBox12.Name = "groupBox12";
@@ -1011,51 +1011,51 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // MineralProduction
             // 
-            this.MineralProduction.Location = new System.Drawing.Point(292, 16);
-            this.MineralProduction.Maximum = new decimal(new int[] {
+            this.mineralProduction.Location = new System.Drawing.Point(292, 16);
+            this.mineralProduction.Maximum = new decimal(new int[] {
             25,
             0,
             0,
             0});
-            this.MineralProduction.Minimum = new decimal(new int[] {
+            this.mineralProduction.Minimum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.MineralProduction.Name = "MineralProduction";
-            this.MineralProduction.Size = new System.Drawing.Size(56, 20);
-            this.MineralProduction.TabIndex = 10;
-            this.MineralProduction.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.MineralProduction.Value = new decimal(new int[] {
+            this.mineralProduction.Name = "mineralProduction";
+            this.mineralProduction.Size = new System.Drawing.Size(56, 20);
+            this.mineralProduction.TabIndex = 10;
+            this.mineralProduction.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.mineralProduction.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.MineralProduction.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
+            this.mineralProduction.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
             // 
             // OperableMines
             // 
-            this.OperableMines.Location = new System.Drawing.Point(292, 41);
-            this.OperableMines.Maximum = new decimal(new int[] {
+            this.operableMines.Location = new System.Drawing.Point(292, 41);
+            this.operableMines.Maximum = new decimal(new int[] {
             25,
             0,
             0,
             0});
-            this.OperableMines.Minimum = new decimal(new int[] {
+            this.operableMines.Minimum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.OperableMines.Name = "OperableMines";
-            this.OperableMines.Size = new System.Drawing.Size(56, 20);
-            this.OperableMines.TabIndex = 14;
-            this.OperableMines.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.OperableMines.Value = new decimal(new int[] {
+            this.operableMines.Name = "operableMines";
+            this.operableMines.Size = new System.Drawing.Size(56, 20);
+            this.operableMines.TabIndex = 14;
+            this.operableMines.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.operableMines.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.OperableMines.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
+            this.operableMines.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
             // 
             // label10
             // 
@@ -1067,27 +1067,27 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // ResourcesPerMine
             // 
-            this.ResourcesPerMine.Location = new System.Drawing.Point(293, 66);
-            this.ResourcesPerMine.Maximum = new decimal(new int[] {
+            this.resourcesPerMine.Location = new System.Drawing.Point(293, 66);
+            this.resourcesPerMine.Maximum = new decimal(new int[] {
             15,
             0,
             0,
             0});
-            this.ResourcesPerMine.Minimum = new decimal(new int[] {
+            this.resourcesPerMine.Minimum = new decimal(new int[] {
             2,
             0,
             0,
             0});
-            this.ResourcesPerMine.Name = "ResourcesPerMine";
-            this.ResourcesPerMine.Size = new System.Drawing.Size(56, 20);
-            this.ResourcesPerMine.TabIndex = 12;
-            this.ResourcesPerMine.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ResourcesPerMine.Value = new decimal(new int[] {
+            this.resourcesPerMine.Name = "resourcesPerMine";
+            this.resourcesPerMine.Size = new System.Drawing.Size(56, 20);
+            this.resourcesPerMine.TabIndex = 12;
+            this.resourcesPerMine.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.resourcesPerMine.Value = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.ResourcesPerMine.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
+            this.resourcesPerMine.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
             // 
             // label11
             // 
@@ -1099,13 +1099,13 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // groupBox11
             // 
-            this.groupBox11.Controls.Add(this.CheapFactories);
+            this.groupBox11.Controls.Add(this.cheapFactories);
             this.groupBox11.Controls.Add(this.label8);
             this.groupBox11.Controls.Add(this.label7);
             this.groupBox11.Controls.Add(this.label6);
-            this.groupBox11.Controls.Add(this.ResourceProduction);
-            this.groupBox11.Controls.Add(this.FactoryBuildCost);
-            this.groupBox11.Controls.Add(this.OperableFactories);
+            this.groupBox11.Controls.Add(this.resourceProduction);
+            this.groupBox11.Controls.Add(this.factoryBuildCost);
+            this.groupBox11.Controls.Add(this.operableFactories);
             this.groupBox11.Location = new System.Drawing.Point(11, 60);
             this.groupBox11.Name = "groupBox11";
             this.groupBox11.Size = new System.Drawing.Size(363, 124);
@@ -1115,13 +1115,13 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // CheapFactories
             // 
-            this.CheapFactories.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.CheapFactories.Location = new System.Drawing.Point(13, 92);
-            this.CheapFactories.Name = "CheapFactories";
-            this.CheapFactories.Size = new System.Drawing.Size(186, 24);
-            this.CheapFactories.TabIndex = 15;
-            this.CheapFactories.Tag = "CF";
-            this.CheapFactories.Text = "Factories cost 1kT less Germanium";
+            this.cheapFactories.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cheapFactories.Location = new System.Drawing.Point(13, 92);
+            this.cheapFactories.Name = "cheapFactories";
+            this.cheapFactories.Size = new System.Drawing.Size(186, 24);
+            this.cheapFactories.TabIndex = 15;
+            this.cheapFactories.Tag = "CF";
+            this.cheapFactories.Text = "Factories cost 1kT less Germanium";
             // 
             // label8
             // 
@@ -1149,79 +1149,79 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // ResourceProduction
             // 
-            this.ResourceProduction.Location = new System.Drawing.Point(292, 19);
-            this.ResourceProduction.Maximum = new decimal(new int[] {
+            this.resourceProduction.Location = new System.Drawing.Point(292, 19);
+            this.resourceProduction.Maximum = new decimal(new int[] {
             15,
             0,
             0,
             0});
-            this.ResourceProduction.Minimum = new decimal(new int[] {
+            this.resourceProduction.Minimum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.ResourceProduction.Name = "ResourceProduction";
-            this.ResourceProduction.Size = new System.Drawing.Size(56, 20);
-            this.ResourceProduction.TabIndex = 3;
-            this.ResourceProduction.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ResourceProduction.Value = new decimal(new int[] {
+            this.resourceProduction.Name = "resourceProduction";
+            this.resourceProduction.Size = new System.Drawing.Size(56, 20);
+            this.resourceProduction.TabIndex = 3;
+            this.resourceProduction.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.resourceProduction.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.ResourceProduction.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
+            this.resourceProduction.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
             // 
             // FactoryBuildCost
             // 
-            this.FactoryBuildCost.Location = new System.Drawing.Point(292, 69);
-            this.FactoryBuildCost.Maximum = new decimal(new int[] {
+            this.factoryBuildCost.Location = new System.Drawing.Point(292, 69);
+            this.factoryBuildCost.Maximum = new decimal(new int[] {
             25,
             0,
             0,
             0});
-            this.FactoryBuildCost.Minimum = new decimal(new int[] {
+            this.factoryBuildCost.Minimum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.FactoryBuildCost.Name = "FactoryBuildCost";
-            this.FactoryBuildCost.Size = new System.Drawing.Size(56, 20);
-            this.FactoryBuildCost.TabIndex = 5;
-            this.FactoryBuildCost.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.FactoryBuildCost.Value = new decimal(new int[] {
+            this.factoryBuildCost.Name = "factoryBuildCost";
+            this.factoryBuildCost.Size = new System.Drawing.Size(56, 20);
+            this.factoryBuildCost.TabIndex = 5;
+            this.factoryBuildCost.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.factoryBuildCost.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.FactoryBuildCost.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
+            this.factoryBuildCost.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
             // 
             // OperableFactories
             // 
-            this.OperableFactories.Location = new System.Drawing.Point(292, 44);
-            this.OperableFactories.Maximum = new decimal(new int[] {
+            this.operableFactories.Location = new System.Drawing.Point(292, 44);
+            this.operableFactories.Maximum = new decimal(new int[] {
             25,
             0,
             0,
             0});
-            this.OperableFactories.Minimum = new decimal(new int[] {
+            this.operableFactories.Minimum = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.OperableFactories.Name = "OperableFactories";
-            this.OperableFactories.Size = new System.Drawing.Size(56, 20);
-            this.OperableFactories.TabIndex = 8;
-            this.OperableFactories.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.OperableFactories.Value = new decimal(new int[] {
+            this.operableFactories.Name = "operableFactories";
+            this.operableFactories.Size = new System.Drawing.Size(56, 20);
+            this.operableFactories.TabIndex = 8;
+            this.operableFactories.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.operableFactories.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.OperableFactories.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
+            this.operableFactories.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.UnusedPointsTarget);
+            this.groupBox10.Controls.Add(this.unusedPointsTarget);
             this.groupBox10.Location = new System.Drawing.Point(11, 291);
             this.groupBox10.Name = "groupBox10";
             this.groupBox10.Size = new System.Drawing.Size(363, 58);
@@ -1231,20 +1231,20 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // UnusedPointsTarget
             // 
-            this.UnusedPointsTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.UnusedPointsTarget.Items.AddRange(new object[] {
+            this.unusedPointsTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.unusedPointsTarget.Items.AddRange(new object[] {
             "Minerals",
             "Mines",
             "Resources"});
-            this.UnusedPointsTarget.Location = new System.Drawing.Point(14, 21);
-            this.UnusedPointsTarget.Name = "UnusedPointsTarget";
-            this.UnusedPointsTarget.Size = new System.Drawing.Size(323, 21);
-            this.UnusedPointsTarget.Sorted = true;
-            this.UnusedPointsTarget.TabIndex = 0;
+            this.unusedPointsTarget.Location = new System.Drawing.Point(14, 21);
+            this.unusedPointsTarget.Name = "unusedPointsTarget";
+            this.unusedPointsTarget.Size = new System.Drawing.Size(323, 21);
+            this.unusedPointsTarget.Sorted = true;
+            this.unusedPointsTarget.TabIndex = 0;
             // 
             // groupBox8
             // 
-            this.groupBox8.Controls.Add(this.ColonistProduction);
+            this.groupBox8.Controls.Add(this.colonistProduction);
             this.groupBox8.Controls.Add(this.label5);
             this.groupBox8.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox8.Location = new System.Drawing.Point(11, 10);
@@ -1256,32 +1256,32 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // ColonistProduction
             // 
-            this.ColonistProduction.Increment = new decimal(new int[] {
+            this.colonistProduction.Increment = new decimal(new int[] {
             100,
             0,
             0,
             0});
-            this.ColonistProduction.Location = new System.Drawing.Point(292, 18);
-            this.ColonistProduction.Maximum = new decimal(new int[] {
+            this.colonistProduction.Location = new System.Drawing.Point(292, 18);
+            this.colonistProduction.Maximum = new decimal(new int[] {
             2500,
             0,
             0,
             0});
-            this.ColonistProduction.Minimum = new decimal(new int[] {
+            this.colonistProduction.Minimum = new decimal(new int[] {
             700,
             0,
             0,
             0});
-            this.ColonistProduction.Name = "ColonistProduction";
-            this.ColonistProduction.Size = new System.Drawing.Size(56, 20);
-            this.ColonistProduction.TabIndex = 1;
-            this.ColonistProduction.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.ColonistProduction.Value = new decimal(new int[] {
+            this.colonistProduction.Name = "colonistProduction";
+            this.colonistProduction.Size = new System.Drawing.Size(56, 20);
+            this.colonistProduction.TabIndex = 1;
+            this.colonistProduction.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.colonistProduction.Value = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.ColonistProduction.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
+            this.colonistProduction.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
             // 
             // label5
             // 
@@ -1293,130 +1293,130 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // ResearchTab
             // 
-            this.ResearchTab.Controls.Add(this.ExtraTech);
-            this.ResearchTab.Controls.Add(this.BiotechnologyResearch);
-            this.ResearchTab.Controls.Add(this.ElectronicsResearch);
-            this.ResearchTab.Controls.Add(this.ConstructionResearch);
-            this.ResearchTab.Controls.Add(this.PropulsionResearch);
-            this.ResearchTab.Controls.Add(this.WeaponsResearch);
-            this.ResearchTab.Controls.Add(this.EnergyResearch);
-            this.ResearchTab.Location = new System.Drawing.Point(4, 22);
-            this.ResearchTab.Name = "ResearchTab";
-            this.ResearchTab.Size = new System.Drawing.Size(392, 396);
-            this.ResearchTab.TabIndex = 3;
-            this.ResearchTab.Text = "Research";
-            this.ResearchTab.UseVisualStyleBackColor = true;
+            this.researchTab.Controls.Add(this.extraTech);
+            this.researchTab.Controls.Add(this.biotechnologyResearch);
+            this.researchTab.Controls.Add(this.electronicsResearch);
+            this.researchTab.Controls.Add(this.constructionResearch);
+            this.researchTab.Controls.Add(this.propulsionResearch);
+            this.researchTab.Controls.Add(this.weaponsResearch);
+            this.researchTab.Controls.Add(this.energyResearch);
+            this.researchTab.Location = new System.Drawing.Point(4, 22);
+            this.researchTab.Name = "researchTab";
+            this.researchTab.Size = new System.Drawing.Size(392, 396);
+            this.researchTab.TabIndex = 3;
+            this.researchTab.Text = "Research";
+            this.researchTab.UseVisualStyleBackColor = true;
             // 
             // ExtraTech
             // 
-            this.ExtraTech.AutoSize = true;
-            this.ExtraTech.Location = new System.Drawing.Point(16, 369);
-            this.ExtraTech.Name = "ExtraTech";
-            this.ExtraTech.Size = new System.Drawing.Size(233, 17);
-            this.ExtraTech.TabIndex = 6;
-            this.ExtraTech.Text = "All extra cost technologies starts with level 3";
-            this.ExtraTech.UseVisualStyleBackColor = true;
-            this.ExtraTech.CheckedChanged += new System.EventHandler(this.ExtraTech_CheckedChanged);
+            this.extraTech.AutoSize = true;
+            this.extraTech.Location = new System.Drawing.Point(16, 369);
+            this.extraTech.Name = "extraTech";
+            this.extraTech.Size = new System.Drawing.Size(233, 17);
+            this.extraTech.TabIndex = 6;
+            this.extraTech.Text = "All extra cost technologies starts with level 3";
+            this.extraTech.UseVisualStyleBackColor = true;
+            this.extraTech.CheckedChanged += new System.EventHandler(this.ExtraTech_CheckedChanged);
             // 
             // BiotechnologyResearch
             // 
-            this.BiotechnologyResearch.Cost = 100;
-            this.BiotechnologyResearch.Location = new System.Drawing.Point(193, 250);
-            this.BiotechnologyResearch.Name = "BiotechnologyResearch";
-            this.BiotechnologyResearch.Size = new System.Drawing.Size(200, 128);
-            this.BiotechnologyResearch.TabIndex = 5;
-            this.BiotechnologyResearch.Title = "Biotechnology Research";
-            this.BiotechnologyResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
+            this.biotechnologyResearch.Cost = 100;
+            this.biotechnologyResearch.Location = new System.Drawing.Point(193, 250);
+            this.biotechnologyResearch.Name = "biotechnologyResearch";
+            this.biotechnologyResearch.Size = new System.Drawing.Size(200, 128);
+            this.biotechnologyResearch.TabIndex = 5;
+            this.biotechnologyResearch.Title = "Biotechnology Research";
+            this.biotechnologyResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
             // ElectronicsResearch
             // 
-            this.ElectronicsResearch.Cost = 100;
-            this.ElectronicsResearch.Location = new System.Drawing.Point(196, 125);
-            this.ElectronicsResearch.Name = "ElectronicsResearch";
-            this.ElectronicsResearch.Size = new System.Drawing.Size(200, 128);
-            this.ElectronicsResearch.TabIndex = 4;
-            this.ElectronicsResearch.Title = "Electronics Research";
-            this.ElectronicsResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
+            this.electronicsResearch.Cost = 100;
+            this.electronicsResearch.Location = new System.Drawing.Point(196, 125);
+            this.electronicsResearch.Name = "electronicsResearch";
+            this.electronicsResearch.Size = new System.Drawing.Size(200, 128);
+            this.electronicsResearch.TabIndex = 4;
+            this.electronicsResearch.Title = "Electronics Research";
+            this.electronicsResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
             // ConstructionResearch
             // 
-            this.ConstructionResearch.Cost = 100;
-            this.ConstructionResearch.Location = new System.Drawing.Point(193, 9);
-            this.ConstructionResearch.Name = "ConstructionResearch";
-            this.ConstructionResearch.Size = new System.Drawing.Size(200, 128);
-            this.ConstructionResearch.TabIndex = 3;
-            this.ConstructionResearch.Title = "Construction Research";
-            this.ConstructionResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
+            this.constructionResearch.Cost = 100;
+            this.constructionResearch.Location = new System.Drawing.Point(193, 9);
+            this.constructionResearch.Name = "constructionResearch";
+            this.constructionResearch.Size = new System.Drawing.Size(200, 128);
+            this.constructionResearch.TabIndex = 3;
+            this.constructionResearch.Title = "Construction Research";
+            this.constructionResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
             // PropulsionResearch
             // 
-            this.PropulsionResearch.Cost = 100;
-            this.PropulsionResearch.Location = new System.Drawing.Point(3, 250);
-            this.PropulsionResearch.Name = "PropulsionResearch";
-            this.PropulsionResearch.Size = new System.Drawing.Size(200, 128);
-            this.PropulsionResearch.TabIndex = 2;
-            this.PropulsionResearch.Title = "Propulsion Research";
-            this.PropulsionResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
+            this.propulsionResearch.Cost = 100;
+            this.propulsionResearch.Location = new System.Drawing.Point(3, 250);
+            this.propulsionResearch.Name = "propulsionResearch";
+            this.propulsionResearch.Size = new System.Drawing.Size(200, 128);
+            this.propulsionResearch.TabIndex = 2;
+            this.propulsionResearch.Title = "Propulsion Research";
+            this.propulsionResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
             // WeaponsResearch
             // 
-            this.WeaponsResearch.Cost = 100;
-            this.WeaponsResearch.Location = new System.Drawing.Point(6, 125);
-            this.WeaponsResearch.Name = "WeaponsResearch";
-            this.WeaponsResearch.Size = new System.Drawing.Size(200, 128);
-            this.WeaponsResearch.TabIndex = 1;
-            this.WeaponsResearch.Title = "Weapons Research";
-            this.WeaponsResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
+            this.weaponsResearch.Cost = 100;
+            this.weaponsResearch.Location = new System.Drawing.Point(6, 125);
+            this.weaponsResearch.Name = "weaponsResearch";
+            this.weaponsResearch.Size = new System.Drawing.Size(200, 128);
+            this.weaponsResearch.TabIndex = 1;
+            this.weaponsResearch.Title = "Weapons Research";
+            this.weaponsResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
             // EnergyResearch
             // 
-            this.EnergyResearch.Cost = 100;
-            this.EnergyResearch.Location = new System.Drawing.Point(3, 9);
-            this.EnergyResearch.Name = "EnergyResearch";
-            this.EnergyResearch.Size = new System.Drawing.Size(200, 128);
-            this.EnergyResearch.TabIndex = 0;
-            this.EnergyResearch.Title = "Energy Research";
-            this.EnergyResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
+            this.energyResearch.Cost = 100;
+            this.energyResearch.Location = new System.Drawing.Point(3, 9);
+            this.energyResearch.Name = "energyResearch";
+            this.energyResearch.Size = new System.Drawing.Size(200, 128);
+            this.energyResearch.TabIndex = 0;
+            this.energyResearch.Title = "Energy Research";
+            this.energyResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
             // Finish
             // 
-            this.Finish.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Finish.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.Finish.Location = new System.Drawing.Point(20, 501);
-            this.Finish.Name = "Finish";
-            this.Finish.Size = new System.Drawing.Size(80, 24);
-            this.Finish.TabIndex = 2;
-            this.Finish.Text = "Generate";
-            this.Finish.Click += new System.EventHandler(this.Finish_Click);
+            this.finish.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.finish.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.finish.Location = new System.Drawing.Point(20, 501);
+            this.finish.Name = "finish";
+            this.finish.Size = new System.Drawing.Size(80, 24);
+            this.finish.TabIndex = 2;
+            this.finish.Text = "Generate";
+            this.finish.Click += new System.EventHandler(this.Finish_Click);
             // 
             // Exit
             // 
-            this.Exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-            this.Exit.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.Exit.Location = new System.Drawing.Point(332, 499);
-            this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(80, 26);
-            this.Exit.TabIndex = 3;
-            this.Exit.Text = "Exit";
-            this.Exit.Click += new System.EventHandler(this.Exit_Click);
+            this.exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.exit.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.exit.Location = new System.Drawing.Point(332, 499);
+            this.exit.Name = "exit";
+            this.exit.Size = new System.Drawing.Size(80, 26);
+            this.exit.TabIndex = 3;
+            this.exit.Text = "Exit";
+            this.exit.Click += new System.EventHandler(this.Exit_Click);
             // 
             // MainMenu
             // 
-            this.MainMenu.BackColor = System.Drawing.SystemColors.Control;
-            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.mainMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.fileToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.MainMenu.Location = new System.Drawing.Point(0, 0);
-            this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(426, 24);
-            this.MainMenu.TabIndex = 5;
-            this.MainMenu.Text = "menuStrip1";
+            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Name = "mainMenu";
+            this.mainMenu.Size = new System.Drawing.Size(426, 24);
+            this.mainMenu.TabIndex = 5;
+            this.mainMenu.Text = "menuStrip1";
             // 
             // fileToolStripMenuItem
             // 
             this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.exitToolStripMenuItem,
-            this.LoadRaceFile});
+            this.loadRaceFile});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -1430,10 +1430,10 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // LoadRaceFile
             // 
-            this.LoadRaceFile.Name = "LoadRaceFile";
-            this.LoadRaceFile.Size = new System.Drawing.Size(149, 22);
-            this.LoadRaceFile.Text = "Load Race File";
-            this.LoadRaceFile.Click += new System.EventHandler(this.LoadRaceFile_Click);
+            this.loadRaceFile.Name = "LoadRaceFile";
+            this.loadRaceFile.Size = new System.Drawing.Size(149, 22);
+            this.loadRaceFile.Text = "Load Race File";
+            this.loadRaceFile.Click += new System.EventHandler(this.LoadRaceFile_Click);
             // 
             // helpToolStripMenuItem
             // 
@@ -1452,58 +1452,58 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // OpenFileDialog
             // 
-            this.OpenFileDialog.FileName = "OpenFileDialog";
-            this.OpenFileDialog.Filter = "Race Definition File | *.race";
-            this.OpenFileDialog.Title = "Nova - Specify Race Definition File";
+            this.openFileDialog.FileName = "OpenFileDialog";
+            this.openFileDialog.Filter = "Race Definition File | *.race";
+            this.openFileDialog.Title = "Nova - Specify Race Definition File";
             // 
             // RaceDesignerForm
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(426, 539);
-            this.Controls.Add(this.Exit);
-            this.Controls.Add(this.TabConrol);
+            this.Controls.Add(this.exit);
+            this.Controls.Add(this.tabConrol);
             this.Controls.Add(this.groupBox1);
-            this.Controls.Add(this.Finish);
-            this.Controls.Add(this.MainMenu);
+            this.Controls.Add(this.finish);
+            this.Controls.Add(this.mainMenu);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.MainMenu;
+            this.MainMenuStrip = this.mainMenu;
             this.MaximizeBox = false;
             this.MinimumSize = new System.Drawing.Size(432, 544);
             this.Name = "RaceDesignerForm";
             this.Text = "Nova Race Designer";
             this.Load += new System.EventHandler(this.OnLoad);
             this.groupBox1.ResumeLayout(false);
-            this.TabConrol.ResumeLayout(false);
-            this.RaceTab.ResumeLayout(false);
+            this.tabConrol.ResumeLayout(false);
+            this.raceTab.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox)).EndInit();
             this.groupBox4.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
-            this.TraitsTab.ResumeLayout(false);
+            this.traitsTab.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
-            this.EnvironmentTab.ResumeLayout(false);
+            this.environmentTab.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MaxGrowth)).EndInit();
-            this.ProductionTab.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.maxGrowth)).EndInit();
+            this.productionTab.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.MineralProduction)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.OperableMines)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.ResourcesPerMine)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineralProduction)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.operableMines)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resourcesPerMine)).EndInit();
             this.groupBox11.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ResourceProduction)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FactoryBuildCost)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.OperableFactories)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resourceProduction)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.factoryBuildCost)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.operableFactories)).EndInit();
             this.groupBox10.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)(this.ColonistProduction)).EndInit();
-            this.ResearchTab.ResumeLayout(false);
-            this.ResearchTab.PerformLayout();
-            this.MainMenu.ResumeLayout(false);
-            this.MainMenu.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.colonistProduction)).EndInit();
+            this.researchTab.ResumeLayout(false);
+            this.researchTab.PerformLayout();
+            this.mainMenu.ResumeLayout(false);
+            this.mainMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -1553,17 +1553,17 @@ namespace Nova.WinForms.RaceDesigner
                 {
                     if (radioButton.Checked)
                     {
-                        SelectedRace = AllTraits.Data.Primary[radioButton.Tag.ToString()];
-                        AdvantagePoints -= trait.Cost;
-                        PrimaryTraitDescription.Text = trait.Description;
+                        this.selectedRace = AllTraits.Data.Primary[radioButton.Tag.ToString()];
+                        this.advantagePoints -= trait.Cost;
+                        this.primaryTraitDescription.Text = trait.Description;
                     }
                     else
                     {
-                        AdvantagePoints += trait.Cost;
+                        this.advantagePoints += trait.Cost;
                     }
 
-                    ParametersChanged = true;
-                    AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.parametersChanged = true;
+                    this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     break;
                 }
             }
@@ -1595,16 +1595,16 @@ namespace Nova.WinForms.RaceDesigner
 
                     if (checkBox.Checked)
                     {
-                        AdvantagePoints -= trait.Cost;
-                        SecondaryTraitDescription.Text = trait.Description;
+                        this.advantagePoints -= trait.Cost;
+                        this.secondaryTraitDescription.Text = trait.Description;
                     }
                     else
                     {
-                        AdvantagePoints += trait.Cost;
+                        this.advantagePoints += trait.Cost;
                     }
 
-                    AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    ParametersChanged = true;
+                    this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.parametersChanged = true;
                     break;
                 }
             }
@@ -1644,18 +1644,18 @@ namespace Nova.WinForms.RaceDesigner
 
                     if (upDown.Name == "ColonistProduction")
                     {
-                        AdvantagePoints += parameter.Cost[oldValue / 100];
-                        AdvantagePoints -= parameter.Cost[newValue / 100];
+                        this.advantagePoints += parameter.Cost[oldValue / 100];
+                        this.advantagePoints -= parameter.Cost[newValue / 100];
                     }
                     else
                     {
-                        AdvantagePoints += parameter.Cost[oldValue];
-                        AdvantagePoints -= parameter.Cost[newValue];
+                        this.advantagePoints += parameter.Cost[oldValue];
+                        this.advantagePoints -= parameter.Cost[newValue];
                     }
 
                     parameter.Cost[0] = newValue;
-                    AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    ParametersChanged = true;
+                    this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.parametersChanged = true;
                     break;
                 }
             }
@@ -1672,9 +1672,9 @@ namespace Nova.WinForms.RaceDesigner
         /// ----------------------------------------------------------------------------
         private void ResearchCost_SelectionChanged(object sender, int value)
         {
-            AdvantagePoints += value;
-            AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            ParametersChanged = true;
+            this.advantagePoints += value;
+            this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.parametersChanged = true;
         }
         /// <summary>
         /// Called when the Extratech combobox is checked
@@ -1684,16 +1684,16 @@ namespace Nova.WinForms.RaceDesigner
         private void ExtraTech_CheckedChanged(object sender, EventArgs e)
         {
             int cost = 60;
-            if (ExtraTech.Checked == true)
+            if (this.extraTech.Checked == true)
             {
-                AdvantagePoints -= cost;
+                this.advantagePoints -= cost;
             }
             else
             {
-                AdvantagePoints += cost;
+                this.advantagePoints += cost;
             }
-            AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            ParametersChanged = true;
+            this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.parametersChanged = true;
         }
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -1710,14 +1710,14 @@ namespace Nova.WinForms.RaceDesigner
         private void Tolerance_RangeChanged(object sender, int newLeftPos, int newRightPos, int oldLeftPos, int oldRightPos)
         {
 
-            AdvantagePoints -= Utilities.BarWidthCost(oldLeftPos, oldRightPos);
-            AdvantagePoints += Utilities.BarWidthCost(newLeftPos, newRightPos);
+            this.advantagePoints -= Utilities.BarWidthCost(oldLeftPos, oldRightPos);
+            this.advantagePoints += Utilities.BarWidthCost(newLeftPos, newRightPos);
 
-            AdvantagePoints -= Utilities.BarPositionCost(oldLeftPos, oldRightPos);
-            AdvantagePoints += Utilities.BarPositionCost(newLeftPos, newRightPos);
+            this.advantagePoints -= Utilities.BarPositionCost(oldLeftPos, oldRightPos);
+            this.advantagePoints += Utilities.BarPositionCost(newLeftPos, newRightPos);
 
-            AvailablePoints.Text = AdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            ParametersChanged = true;
+            this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.parametersChanged = true;
         }
 
 
@@ -1732,7 +1732,7 @@ namespace Nova.WinForms.RaceDesigner
         /// ----------------------------------------------------------------------------
         private void Exit_Click(object sender, EventArgs e)
         {
-            if (ParametersChanged)
+            if (this.parametersChanged)
             {
                 DialogResult result = Utilities.CancelWarning(this);
 
@@ -1759,7 +1759,7 @@ namespace Nova.WinForms.RaceDesigner
         /// ----------------------------------------------------------------------------
         private void Finish_Click(object sender, System.EventArgs e)
         {
-            if (AdvantagePoints < 0)
+            if (this.advantagePoints < 0)
             {
                 Report.Error("You are not allowed to generate a race file" +
                              "when you have less than zero Advantage Points");
@@ -1770,14 +1770,14 @@ namespace Nova.WinForms.RaceDesigner
             // Primary Racial Traits
             // ----------------------------------------------------------------------------
 
-            if (RaceName.Text == "" || PluralRaceName.Text == "")
+            if (this.raceName.Text == "" || this.pluralRaceName.Text == "")
             {
                 Report.Error("The race name canonot be blank when generating" +
                              "a new race file - nor can the plural name");
                 return;
             }
 
-            if (Password.Text == "")
+            if (this.password.Text == "")
             {
                 Report.Error("The password field cannot be blank when " +
                              "generating a new race file. You will need it to " +
@@ -1786,67 +1786,67 @@ namespace Nova.WinForms.RaceDesigner
                 return;
             }
 
-            Race RaceParameters       = new Race();
-            RaceParameters.Traits.SetPrimary(SelectedRace);
-            RaceParameters.Name       = RaceName.Text;
-            RaceParameters.PluralName = PluralRaceName.Text;
+            Race raceParameters       = new Race();
+            raceParameters.Traits.SetPrimary(this.selectedRace);
+            raceParameters.Name       = this.raceName.Text;
+            raceParameters.PluralName = this.pluralRaceName.Text;
 
             string passwordHash = FormsAuthentication.
-               HashPasswordForStoringInConfigFile(Password.Text, "MD5");
+               HashPasswordForStoringInConfigFile(this.password.Text, "MD5");
 
-            RaceParameters.Password = passwordHash;
-            RaceParameters.Icon     = CurrentRaceIcon;
+            raceParameters.Password = passwordHash;
+            raceParameters.Icon     = this.currentRaceIcon;
 
             // ----------------------------------------------------------------------------
             // Secondary Racial Traits
             // ----------------------------------------------------------------------------
-            if (ImprovedFuelEfficiency.Checked) RaceParameters.Traits.Add("IFE");
-            if (NoRAMEngines.Checked) RaceParameters.Traits.Add("NRS");
-            if (TotalTerraforming.Checked) RaceParameters.Traits.Add("TT");
-            if (CheapEngines.Checked) RaceParameters.Traits.Add("CE");
-            if (AdvancedRemoteMining.Checked) RaceParameters.Traits.Add("ARM");
-            if (BasicRemoteMining.Checked) RaceParameters.Traits.Add("OBRM");
-            if (ImprovedStarbases.Checked) RaceParameters.Traits.Add("ISB");
-            if (NoAdvancedScanners.Checked) RaceParameters.Traits.Add("NAS");
-            if (GeneralisedResearch.Checked) RaceParameters.Traits.Add("GR");
-            if (LowStartingPopulation.Checked) RaceParameters.Traits.Add("LSP");
-            if (UltimateRecycling.Checked) RaceParameters.Traits.Add("UR");
-            if (BleedingEdgeTechnology.Checked) RaceParameters.Traits.Add("BET");
-            if (MineralAlchemy.Checked) RaceParameters.Traits.Add("MA");
-            if (RegeneratingShields.Checked) RaceParameters.Traits.Add("RS");
-            if (CheapFactories.Checked) RaceParameters.Traits.Add("CF");
-            if (ExtraTech.Checked) RaceParameters.Traits.Add("ExtraTech");
+            if (this.improvedFuelEfficiency.Checked) raceParameters.Traits.Add("IFE");
+            if (this.noRamEngines.Checked) raceParameters.Traits.Add("NRS");
+            if (this.totalTerraforming.Checked) raceParameters.Traits.Add("TT");
+            if (this.cheapEngines.Checked) raceParameters.Traits.Add("CE");
+            if (this.advancedRemoteMining.Checked) raceParameters.Traits.Add("ARM");
+            if (this.basicRemoteMining.Checked) raceParameters.Traits.Add("OBRM");
+            if (this.improvedStarbases.Checked) raceParameters.Traits.Add("ISB");
+            if (this.noAdvancedScanners.Checked) raceParameters.Traits.Add("NAS");
+            if (this.generalisedResearch.Checked) raceParameters.Traits.Add("GR");
+            if (this.lowStartingPopulation.Checked) raceParameters.Traits.Add("LSP");
+            if (this.ultimateRecycling.Checked) raceParameters.Traits.Add("UR");
+            if (this.bleedingEdgeTechnology.Checked) raceParameters.Traits.Add("BET");
+            if (this.mineralAlchemy.Checked) raceParameters.Traits.Add("MA");
+            if (this.regeneratingShields.Checked) raceParameters.Traits.Add("RS");
+            if (this.cheapFactories.Checked) raceParameters.Traits.Add("CF");
+            if (this.extraTech.Checked) raceParameters.Traits.Add("ExtraTech");
             // ----------------------------------------------------------------------------
             // Production Costs and Rates
             // ----------------------------------------------------------------------------
 
-            RaceParameters.ColonistsPerResource = (double)ColonistProduction.Value;
-            RaceParameters.OperableFactories    = (double)OperableFactories.Value;
-            RaceParameters.MineProductionRate   = (double)MineralProduction.Value;
-            RaceParameters.OperableMines        = (double)OperableMines.Value;
-            RaceParameters.FactoryBuildCost     = (int)FactoryBuildCost.Value;
-            RaceParameters.MineBuildCost        = (int)ResourcesPerMine.Value;
-            RaceParameters.FactoryProduction    = (double)ResourceProduction.Value;
+            raceParameters.ColonistsPerResource = (double)this.colonistProduction.Value;
+            raceParameters.OperableFactories    = (double)this.operableFactories.Value;
+            raceParameters.MineProductionRate   = (double)this.mineralProduction.Value;
+            raceParameters.OperableMines        = (double)this.operableMines.Value;
+            raceParameters.FactoryBuildCost     = (int)this.factoryBuildCost.Value;
+            raceParameters.MineBuildCost        = (int)this.resourcesPerMine.Value;
+            raceParameters.FactoryProduction    = (double)this.resourceProduction.Value;
 
             // ----------------------------------------------------------------------------
             // Environmental Tolerance
             // ----------------------------------------------------------------------------
 
-            RaceParameters.GravityTolerance     = GravityTolerance.EnvironmentValues;
-            RaceParameters.RadiationTolerance   = RadiationTolerance.EnvironmentValues;
-            RaceParameters.TemperatureTolerance = TemperatureTolerance.EnvironmentValues;
-            RaceParameters.GrowthRate           = (double)MaxGrowth.Value;
+            raceParameters.GravityTolerance     = this.gravityTolerance.EnvironmentValues;
+            raceParameters.RadiationTolerance   = this.radiationTolerance.EnvironmentValues;
+            raceParameters.TemperatureTolerance = this.temperatureTolerance.EnvironmentValues;
+            raceParameters.GrowthRate           = (double)this.maxGrowth.Value;
 
             // ----------------------------------------------------------------------------
             // Research Costs
             // ----------------------------------------------------------------------------
 
-            RaceParameters.ResearchCosts[TechLevel.ResearchField.Energy]        = EnergyResearch.Cost;
-            RaceParameters.ResearchCosts[TechLevel.ResearchField.Weapons]       = WeaponsResearch.Cost;
-            RaceParameters.ResearchCosts[TechLevel.ResearchField.Propulsion]    = PropulsionResearch.Cost;
-            RaceParameters.ResearchCosts[TechLevel.ResearchField.Construction]  = ConstructionResearch.Cost;
-            RaceParameters.ResearchCosts[TechLevel.ResearchField.Electronics]   = ElectronicsResearch.Cost;
-            RaceParameters.ResearchCosts[TechLevel.ResearchField.Biotechnology] = BiotechnologyResearch.Cost;
+            raceParameters.ResearchCosts[TechLevel.ResearchField.Energy]        = this.energyResearch.Cost;
+            raceParameters.ResearchCosts[TechLevel.ResearchField.Weapons]       = this.weaponsResearch.Cost;
+            raceParameters.ResearchCosts[TechLevel.ResearchField.Propulsion]    = this.propulsionResearch.Cost;
+            raceParameters.ResearchCosts[TechLevel.ResearchField.Construction]  = this.constructionResearch.Cost;
+            raceParameters.ResearchCosts[TechLevel.ResearchField.Electronics]   = this.electronicsResearch.Cost;
+            raceParameters.ResearchCosts[TechLevel.ResearchField.Biotechnology] = this.biotechnologyResearch.Cost;
 
             // ----------------------------------------------------------------------------
             // Generate the race definition file
@@ -1858,17 +1858,16 @@ namespace Nova.WinForms.RaceDesigner
 
             try
             {
-
-                string RaceFilePath = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
+                string raceFilePath = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
 
                 SaveFileDialog fd = new SaveFileDialog();
-                fd.Title = "Save Race - " + RaceParameters.Name;
-                fd.FileName = RaceParameters.Name + Global.RaceExtension;
-                fd.InitialDirectory = RaceFilePath;
+                fd.Title = "Save Race - " + raceParameters.Name;
+                fd.FileName = raceParameters.Name + Global.RaceExtension;
+                fd.InitialDirectory = raceFilePath;
                 DialogResult result = fd.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    RaceFilePath = fd.FileName;
+                    raceFilePath = fd.FileName;
                 }
                 else
                 {
@@ -1876,26 +1875,26 @@ namespace Nova.WinForms.RaceDesigner
                     return;
                 }
 
-                FileStream saveFile = new FileStream(RaceFilePath, FileMode.Create);
+                FileStream saveFile = new FileStream(raceFilePath, FileMode.Create);
 
                 // Setup the XML document
                 XmlDocument xmldoc = new XmlDocument();
                 XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
 
                 // add the components to the document
-                xmldoc.ChildNodes.Item(1).AppendChild(RaceParameters.ToXml(xmldoc));
+                xmldoc.ChildNodes.Item(1).AppendChild(raceParameters.ToXml(xmldoc));
 
                 xmldoc.Save(saveFile);
                 saveFile.Close();
 
-                Report.Information("The " + RaceParameters.PluralName + " have been saved to " + RaceFilePath);
+                Report.Information("The " + raceParameters.PluralName + " have been saved to " + raceFilePath);
 
                 using (Config conf = new Config())
                 {
-                    conf[Global.RaceFolderKey] = System.IO.Path.GetDirectoryName(RaceFilePath);
+                    conf[Global.RaceFolderKey] = System.IO.Path.GetDirectoryName(raceFilePath);
                 }
                 // Remove the warning message for exiting with unsaved changes.
-                ParametersChanged = false;
+                this.parametersChanged = false;
 
                 return;
             }
@@ -1939,9 +1938,9 @@ namespace Nova.WinForms.RaceDesigner
         /// ----------------------------------------------------------------------------
         private void NextImage_Click(object sender, EventArgs e)
         {
-            ++CurrentRaceIcon;
-            PictureBox.Image = CurrentRaceIcon.Image;
-            IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source);
+            ++this.currentRaceIcon;
+            this.pictureBox.Image = this.currentRaceIcon.Image;
+            this.iconIndex.Text = Path.GetFileNameWithoutExtension(this.currentRaceIcon.Source);
 
         }
         
@@ -1955,9 +1954,9 @@ namespace Nova.WinForms.RaceDesigner
         /// ----------------------------------------------------------------------------
         private void PreviousImage_Click(object sender, EventArgs e)
         {
-            --CurrentRaceIcon;
-            PictureBox.Image = CurrentRaceIcon.Image;
-            IconIndex.Text = Path.GetFileNameWithoutExtension(CurrentRaceIcon.Source);
+            --this.currentRaceIcon;
+            this.pictureBox.Image = this.currentRaceIcon.Image;
+            this.iconIndex.Text = Path.GetFileNameWithoutExtension(this.currentRaceIcon.Source);
         }
 
 
@@ -1972,34 +1971,31 @@ namespace Nova.WinForms.RaceDesigner
         /// ----------------------------------------------------------------------------
         private void LoadRaceFile_Click(object sender, EventArgs e)
         {
-
-
-            OpenFileDialog.CheckFileExists = true;
-            OpenFileDialog.FileName = "Humanoid" + Global.RaceExtension;
-            if (OpenFileDialog.ShowDialog() != DialogResult.OK)
+            this.openFileDialog.CheckFileExists = true;
+            this.openFileDialog.FileName = "Humanoid" + Global.RaceExtension;
+            if (this.openFileDialog.ShowDialog() != DialogResult.OK)
             {
                 return;
             }
 
-            string fileName = OpenFileDialog.FileName;
+            string fileName = this.openFileDialog.FileName;
 
-            Race RaceParameters;
             try
             {
-                RaceParameters = new Race(fileName);
+                Race raceParameters = new Race(fileName);
 
                 // TODO (priority 6) - This level of security is not good enough as the race is stored un-encrypted.
                 ControlLibrary.CheckPassword password =
-                   new ControlLibrary.CheckPassword(RaceParameters);
+                   new ControlLibrary.CheckPassword(raceParameters);
 
                 password.ShowDialog();
                 if (password.DialogResult == DialogResult.OK)
                 {
-                    ReloadRace(RaceParameters);
-                    ReloadSecondaryTraits(RaceParameters);
-                    ReloadBuildCosts(RaceParameters);
-                    ReloadEnvironmentalTolerance(RaceParameters);
-                    ReloadResearchCosts(RaceParameters);
+                    ReloadRace(raceParameters);
+                    ReloadSecondaryTraits(raceParameters);
+                    ReloadBuildCosts(raceParameters);
+                    ReloadEnvironmentalTolerance(raceParameters);
+                    ReloadResearchCosts(raceParameters);
                 }
 
                 password.Dispose();
@@ -2020,44 +2016,44 @@ namespace Nova.WinForms.RaceDesigner
         /// doing this.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public void ReloadRace(Race RaceParameters)
+        public void ReloadRace(Race raceParameters)
         {
 
-            SelectedRace = RaceParameters.Traits.Primary;
-            RaceName.Text = RaceParameters.Name;
-            PluralRaceName.Text = RaceParameters.PluralName;
+            this.selectedRace = raceParameters.Traits.Primary;
+            this.raceName.Text = raceParameters.Name;
+            this.pluralRaceName.Text = raceParameters.PluralName;
 
-            switch (SelectedRace.Code)
+            switch (this.selectedRace.Code)
             {
                 case "HE":
-                    HyperExpansion.Checked = true;
+                    this.hyperExpansion.Checked = true;
                     break;
                 case "SS":
-                    SuperStealth.Checked = true;
+                    this.superStealth.Checked = true;
                     break;
                 case "WM":
-                    WarMonger.Checked = true;
+                    this.warMonger.Checked = true;
                     break;
                 case "CA":
-                    ClaimAdjuster.Checked = true;
+                    this.claimAdjuster.Checked = true;
                     break;
                 case "IS":
-                    InnerStrength.Checked = true;
+                    this.innerStrength.Checked = true;
                     break;
                 case "SD":
-                    SpaceDemolition.Checked = true;
+                    this.spaceDemolition.Checked = true;
                     break;
                 case "PP":
-                    PacketPhysics.Checked = true;
+                    this.packetPhysics.Checked = true;
                     break;
                 case "IT":
-                    InterStellarTraveller.Checked = true;
+                    this.interStellarTraveller.Checked = true;
                     break;
                 case "AR":
-                    AlternateReality.Checked = true;
+                    this.alternateReality.Checked = true;
                     break;
                 case "JOAT":
-                    JackOfAllTrades.Checked = true;
+                    this.jackOfAllTrades.Checked = true;
                     break;
             }
         }
@@ -2068,23 +2064,23 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload seconday traits
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public void ReloadSecondaryTraits(Race RaceParameters)
+        public void ReloadSecondaryTraits(Race raceParameters)
         {
-            ImprovedFuelEfficiency.Checked = RaceParameters.Traits.Contains("IFE");
-            NoRAMEngines.Checked           = RaceParameters.Traits.Contains("NRS");
-            TotalTerraforming.Checked      = RaceParameters.Traits.Contains("TT");
-            CheapEngines.Checked           = RaceParameters.Traits.Contains("CE");
-            AdvancedRemoteMining.Checked   = RaceParameters.Traits.Contains("ARM");
-            BasicRemoteMining.Checked      = RaceParameters.Traits.Contains("OBRM");
-            ImprovedStarbases.Checked      = RaceParameters.Traits.Contains("ISB");
-            NoAdvancedScanners.Checked     = RaceParameters.Traits.Contains("NAS");
-            GeneralisedResearch.Checked    = RaceParameters.Traits.Contains("GR");
-            LowStartingPopulation.Checked  = RaceParameters.Traits.Contains("LSP");
-            UltimateRecycling.Checked      = RaceParameters.Traits.Contains("UR");
-            BleedingEdgeTechnology.Checked = RaceParameters.Traits.Contains("BET");
-            MineralAlchemy.Checked         = RaceParameters.Traits.Contains("MA");
-            RegeneratingShields.Checked    = RaceParameters.Traits.Contains("RS");
-            CheapFactories.Checked         = RaceParameters.Traits.Contains("CF");
+            this.improvedFuelEfficiency.Checked = raceParameters.Traits.Contains("IFE");
+            this.noRamEngines.Checked           = raceParameters.Traits.Contains("NRS");
+            this.totalTerraforming.Checked      = raceParameters.Traits.Contains("TT");
+            this.cheapEngines.Checked           = raceParameters.Traits.Contains("CE");
+            this.advancedRemoteMining.Checked   = raceParameters.Traits.Contains("ARM");
+            this.basicRemoteMining.Checked      = raceParameters.Traits.Contains("OBRM");
+            this.improvedStarbases.Checked      = raceParameters.Traits.Contains("ISB");
+            this.noAdvancedScanners.Checked     = raceParameters.Traits.Contains("NAS");
+            this.generalisedResearch.Checked    = raceParameters.Traits.Contains("GR");
+            this.lowStartingPopulation.Checked  = raceParameters.Traits.Contains("LSP");
+            this.ultimateRecycling.Checked      = raceParameters.Traits.Contains("UR");
+            this.bleedingEdgeTechnology.Checked = raceParameters.Traits.Contains("BET");
+            this.mineralAlchemy.Checked         = raceParameters.Traits.Contains("MA");
+            this.regeneratingShields.Checked    = raceParameters.Traits.Contains("RS");
+            this.cheapFactories.Checked         = raceParameters.Traits.Contains("CF");
         }
 
 
@@ -2093,15 +2089,15 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload build cost parameters
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public void ReloadBuildCosts(Race RaceParameters)
+        public void ReloadBuildCosts(Race raceParameters)
         {
-            ColonistProduction.Value = (decimal)RaceParameters.ColonistsPerResource;
-            OperableFactories.Value  = (decimal)RaceParameters.OperableFactories;
-            MineralProduction.Value  = (decimal)RaceParameters.MineProductionRate;
-            OperableMines.Value      = (decimal)RaceParameters.OperableMines;
-            FactoryBuildCost.Value   = (decimal)RaceParameters.FactoryBuildCost;
-            ResourcesPerMine.Value   = (decimal)RaceParameters.MineBuildCost;
-            ResourceProduction.Value = (decimal)RaceParameters.FactoryProduction;
+            this.colonistProduction.Value = (decimal)raceParameters.ColonistsPerResource;
+            this.operableFactories.Value  = (decimal)raceParameters.OperableFactories;
+            this.mineralProduction.Value  = (decimal)raceParameters.MineProductionRate;
+            this.operableMines.Value      = (decimal)raceParameters.OperableMines;
+            this.factoryBuildCost.Value   = (decimal)raceParameters.FactoryBuildCost;
+            this.resourcesPerMine.Value   = (decimal)raceParameters.MineBuildCost;
+            this.resourceProduction.Value = (decimal)raceParameters.FactoryProduction;
         }
 
 
@@ -2110,13 +2106,13 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload Environmental Tolerance
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public void ReloadEnvironmentalTolerance(Race RaceParameters)
+        public void ReloadEnvironmentalTolerance(Race raceParameters)
         {
 
-            GravityTolerance.EnvironmentValues     = RaceParameters.GravityTolerance;
-            RadiationTolerance.EnvironmentValues   = RaceParameters.RadiationTolerance;
-            TemperatureTolerance.EnvironmentValues = RaceParameters.TemperatureTolerance;
-            MaxGrowth.Value                        = (decimal)RaceParameters.GrowthRate;
+            this.gravityTolerance.EnvironmentValues     = raceParameters.GravityTolerance;
+            this.radiationTolerance.EnvironmentValues   = raceParameters.RadiationTolerance;
+            this.temperatureTolerance.EnvironmentValues = raceParameters.TemperatureTolerance;
+            this.maxGrowth.Value                        = (decimal)raceParameters.GrowthRate;
         }
 
 
@@ -2125,14 +2121,14 @@ namespace Nova.WinForms.RaceDesigner
         /// Reload Research Costs
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public void ReloadResearchCosts(Race RaceParameters)
+        public void ReloadResearchCosts(Race raceParameters)
         {
-            EnergyResearch.Cost        = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Energy];
-            WeaponsResearch.Cost       = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Weapons];
-            PropulsionResearch.Cost    = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Propulsion];
-            ConstructionResearch.Cost  = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Construction];
-            ElectronicsResearch.Cost   = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Electronics];
-            BiotechnologyResearch.Cost = (int)RaceParameters.ResearchCosts[TechLevel.ResearchField.Biotechnology];
+            this.energyResearch.Cost        = (int)raceParameters.ResearchCosts[TechLevel.ResearchField.Energy];
+            this.weaponsResearch.Cost       = (int)raceParameters.ResearchCosts[TechLevel.ResearchField.Weapons];
+            this.propulsionResearch.Cost    = (int)raceParameters.ResearchCosts[TechLevel.ResearchField.Propulsion];
+            this.constructionResearch.Cost  = (int)raceParameters.ResearchCosts[TechLevel.ResearchField.Construction];
+            this.electronicsResearch.Cost   = (int)raceParameters.ResearchCosts[TechLevel.ResearchField.Electronics];
+            this.biotechnologyResearch.Cost = (int)raceParameters.ResearchCosts[TechLevel.ResearchField.Biotechnology];
         }
 
         #endregion

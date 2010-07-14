@@ -71,13 +71,13 @@ namespace Nova.WinForms.Gui
         {
             planetDetail.Location = new Point(5, 15);
             planetDetail.Value = item as Star;
-            DetailPanel.Text = "System " + item.Name;
+            this.detailPanel.Text = "System " + item.Name;
 
             if (selectedItem is Fleet || selectedItem == null)
             {
                 selectedControl = planetDetail;
-                DetailPanel.Controls.Clear();
-                DetailPanel.Controls.Add(planetDetail);
+                this.detailPanel.Controls.Clear();
+                this.detailPanel.Controls.Add(planetDetail);
             }
 
             selectedItem = item;
@@ -94,11 +94,11 @@ namespace Nova.WinForms.Gui
         {
             fleetDetail.Location = new Point(5, 15);
             fleetDetail.Value = item as Fleet;
-            DetailPanel.Text = "Fleet " + item.Name;
+            this.detailPanel.Text = "Fleet " + item.Name;
 
             selectedControl = fleetDetail;
-            DetailPanel.Controls.Clear();
-            DetailPanel.Controls.Add(fleetDetail);
+            this.detailPanel.Controls.Clear();
+            this.detailPanel.Controls.Add(fleetDetail);
 
             selectedItem = item;
         }
@@ -119,8 +119,8 @@ namespace Nova.WinForms.Gui
             {
                 selectedItem = null;
                 selectedControl = null;
-                DetailPanel.Text = "Nothing Selected";
-                DetailPanel.Controls.Clear();
+                this.detailPanel.Text = "Nothing Selected";
+                this.detailPanel.Controls.Clear();
                 return;
             }
 
@@ -129,11 +129,11 @@ namespace Nova.WinForms.Gui
 
             if (item.Owner == ClientState.Data.RaceName)
             {
-                DetailPanel.Enabled = true;
+                this.detailPanel.Enabled = true;
             }
             else
             {
-                DetailPanel.Enabled = false;
+                this.detailPanel.Enabled = false;
                 return;
             }
 

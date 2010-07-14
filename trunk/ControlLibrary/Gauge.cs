@@ -39,21 +39,21 @@ namespace Nova.ControlLibrary
     /// </summary>
     public class Gauge : System.Windows.Forms.UserControl
     {
-        private Font font              = new Font("Arial", 8);
-        private SolidBrush BarBrush    = new SolidBrush(Color.LightGreen);
-        private SolidBrush MarkerBrush = new SolidBrush(Color.Green);
-        private SolidBrush blackBrush  = new SolidBrush(Color.Black);
-        private StringFormat format    = new StringFormat();
-        private bool ShowBarText       = false;
+        private readonly Font font              = new Font("Arial", 8);
+        private readonly SolidBrush blackBrush  = new SolidBrush(Color.Black);
+        private readonly StringFormat format    = new StringFormat();
+        private SolidBrush barBrush = new SolidBrush(Color.LightGreen);
+        private SolidBrush markerBrush = new SolidBrush(Color.Green);
+        private bool showBarText;
 
-        private double maximumValue = 0;
-        private double minimumValue = 0;
-        private double topValue     = 0;
-        private double bottomValue  = 0;
-        private int markerValue     = 0;
-        private string barUnits     = null;
+        private double maximumValue;
+        private double minimumValue;
+        private double topValue;
+        private double bottomValue;
+        private int markerValue;
+        private string barUnits;
 
-        private System.Windows.Forms.Label Bar;
+        private System.Windows.Forms.Label bar;
         private System.ComponentModel.Container components = null;
 
 
@@ -97,24 +97,24 @@ namespace Nova.ControlLibrary
         /// </summary>
         private void InitializeComponent()
         {
-            this.Bar = new System.Windows.Forms.Label();
+            this.bar = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // Bar
             // 
-            this.Bar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.bar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.Bar.Location = new System.Drawing.Point(0, 0);
-            this.Bar.Name = "Bar";
-            this.Bar.Size = new System.Drawing.Size(152, 16);
-            this.Bar.TabIndex = 0;
-            this.Bar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            this.Bar.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
+            this.bar.Location = new System.Drawing.Point(0, 0);
+            this.bar.Name = "bar";
+            this.bar.Size = new System.Drawing.Size(152, 16);
+            this.bar.TabIndex = 0;
+            this.bar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            this.bar.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             // 
             // Gauge
             // 
-            this.Controls.Add(this.Bar);
+            this.Controls.Add(this.bar);
             this.Name = "Gauge";
             this.Size = new System.Drawing.Size(152, 16);
             this.ResumeLayout(false);
@@ -138,31 +138,31 @@ namespace Nova.ControlLibrary
             if (maximumValue == 0) return;
 
             double gaugeSpan = maximumValue - minimumValue;
-            double gaugeScale = Bar.Size.Width / gaugeSpan;
+            double gaugeScale = this.bar.Size.Width / gaugeSpan;
 
             float barLeft = (float)((bottomValue - minimumValue) * gaugeScale);
             float barRight = (float)((topValue - minimumValue) * gaugeScale);
 
             float barWidth = barRight - barLeft;
-            float barHeight = Bar.Size.Height;
+            float barHeight = this.bar.Size.Height;
 
-            e.Graphics.FillRectangle(BarBrush, barLeft, 0, barWidth, barHeight);
+            e.Graphics.FillRectangle(this.barBrush, barLeft, 0, barWidth, barHeight);
 
             if (Marker != 0)
             {
                 float markerWidth = (float)(barHeight / 1.5);
                 float markerHeight = (float)(barHeight / 1.5);
-                float markerStart = (float)(Bar.Size.Width * Marker) / 100;
+                float markerStart = (float)(this.bar.Size.Width * Marker) / 100;
 
                 e.Graphics.TranslateTransform(markerStart, 0);
                 e.Graphics.RotateTransform(45);
-                e.Graphics.FillRectangle(MarkerBrush, 0, 0, markerWidth, markerHeight);
+                e.Graphics.FillRectangle(this.markerBrush, 0, 0, markerWidth, markerHeight);
                 e.Graphics.ResetTransform();
             }
 
-            if (ShowBarText)
+            if (this.showBarText)
             {
-                RectangleF rect = new RectangleF(Bar.Location, Bar.Size);
+                RectangleF rect = new RectangleF(this.bar.Location, this.bar.Size);
 
                 string description = topValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + " of "
                                    + maximumValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + " " + barUnits;
@@ -195,7 +195,7 @@ namespace Nova.ControlLibrary
             set
             {
                 topValue = value;
-                Bar.Invalidate();
+                this.bar.Invalidate();
             }
         }
 
@@ -214,7 +214,7 @@ namespace Nova.ControlLibrary
             set
             {
                 topValue = value;
-                Bar.Invalidate();
+                this.bar.Invalidate();
             }
         }
 
@@ -233,7 +233,7 @@ namespace Nova.ControlLibrary
             set
             {
                 bottomValue = value;
-                Bar.Invalidate();
+                this.bar.Invalidate();
             }
         }
 
@@ -252,7 +252,7 @@ namespace Nova.ControlLibrary
             set
             {
                 markerValue = value;
-                Bar.Invalidate();
+                this.bar.Invalidate();
             }
         }
 
@@ -264,8 +264,8 @@ namespace Nova.ControlLibrary
         [Description("Display textual value of bar."), Category("Nova")]
         public bool ShowText
         {
-            get { return ShowBarText; }
-            set { ShowBarText = value; }
+            get { return this.showBarText; }
+            set { this.showBarText = value; }
         }
 
         /// ----------------------------------------------------------------------------
@@ -312,8 +312,8 @@ namespace Nova.ControlLibrary
         [Description("Bar Colour."), Category("Nova")]
         public Color BarColour
         {
-            get { return BarBrush.Color; }
-            set { BarBrush = new SolidBrush(value); }
+            get { return this.barBrush.Color; }
+            set { this.barBrush = new SolidBrush(value); }
         }
 
         /// ----------------------------------------------------------------------------
@@ -324,8 +324,8 @@ namespace Nova.ControlLibrary
         [Description("Marker Colour."), Category("Nova")]
         public Color MarkerColour
         {
-            get { return MarkerBrush.Color; }
-            set { MarkerBrush = new SolidBrush(value); }
+            get { return this.markerBrush.Color; }
+            set { this.markerBrush = new SolidBrush(value); }
         }
 
         #endregion Properties

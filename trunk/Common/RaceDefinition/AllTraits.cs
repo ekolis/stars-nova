@@ -40,8 +40,8 @@ namespace Nova.Common
 
         #region Singleton
 
-        private static AllTraits Instance = null;
-        private static object Padlock = new object();
+        private static readonly object Padlock = new object();
+        private static AllTraits instance;
 
         /// <summary>
         /// Private constructor to prevent anyone else creating instances of this class.
@@ -69,24 +69,24 @@ namespace Nova.Common
         {
             get
             {
-                if (Instance == null)
+                if (instance == null)
                 {
                     lock (Padlock)
                     {
-                        if (Instance == null)
+                        if (instance == null)
                         {
-                            Instance = new AllTraits();
+                            instance = new AllTraits();
                         }
                     }
                 }
-                return Instance;
+                return instance;
             }
 
             // ----------------------------------------------------------------------------
 
             set
             {
-                Instance = value;
+                instance = value;
             }
         }
 

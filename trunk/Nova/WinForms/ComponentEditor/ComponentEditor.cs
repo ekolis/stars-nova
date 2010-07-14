@@ -80,17 +80,17 @@ namespace Nova.WinForms.ComponentEditor
    public partial class ComponentEditorWindow : Form
    {
        // Keep track of when to save.
-       private static bool FileDirty = false;
-       private static bool ComponentDirty = false;
+       private static bool fileDirty;
+       private static bool componentDirty;
 
        // Are we browsing or edditing?
-       private static bool EditMode = false;
+       private static bool editMode;
 
        // Keep a copy of the race restrictions.
-       private static RaceRestriction Restrictions = null;
+       private static RaceRestriction restrictions;
 
        // Keep a copy of the hull map, for ships.
-       private static ArrayList HullMap = new ArrayList();
+       private static ArrayList hullMap = new ArrayList();
 
        // ============================================================================
        //
@@ -124,9 +124,9 @@ namespace Nova.WinForms.ComponentEditor
 
            // Tidy up the tab control:
            // In case I forget to shrink it to fit when adding controls.
-           PropertyTabs.Width = 479; 
+           this.propertyTabs.Width = 479; 
            // Start showing no property tabs, until some property is loaded.
-           PropertyTabs.TabPages.Clear();
+           this.propertyTabs.TabPages.Clear();
 
        }
 
@@ -165,7 +165,7 @@ namespace Nova.WinForms.ComponentEditor
        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
        {
            // Save the current work, if any.
-           if (FileDirty)
+           if (fileDirty)
            {
                SaveComponent();
                AllComponents.Save();
@@ -186,15 +186,15 @@ namespace Nova.WinForms.ComponentEditor
                try
                {
                    AllComponents.Restore();
-                   PropertyTabs.TabPages.Clear();
+                   this.propertyTabs.TabPages.Clear();
 
                    // start with something showing
-                   ComponentType.Text = "Armor";
+                   this.componentType.Text = "Armor";
                    UpdateListBox("Armor");
-                   if (ComponentList.Items.Count > 0)
-                       ComponentList.SelectedIndex = 0; // pick the first item in the list
-                   FileDirty = false;
-                   ComponentDirty = false;
+                   if (this.componentList.Items.Count > 0)
+                       this.componentList.SelectedIndex = 0; // pick the first item in the list
+                   fileDirty = false;
+                   componentDirty = false;
                    EditModeOff();
                    UpdateTitleBar();
                }
@@ -203,12 +203,12 @@ namespace Nova.WinForms.ComponentEditor
                    Report.Error("There was an error loading the component definition file. Current component definitions have been cleared.");
                    // If there were any problems restoring the components we may have a partial list of components
                    AllComponents.Data.Components.Clear();
-                   PropertyTabs.TabPages.Clear();
-                   FileDirty = false;
-                   ComponentDirty = false;
+                   this.propertyTabs.TabPages.Clear();
+                   fileDirty = false;
+                   componentDirty = false;
                    EditModeOff();
                    UpdateTitleBar();
-                   ComponentList.Items.Clear();
+                   this.componentList.Items.Clear();
                }
 
            }
@@ -229,19 +229,19 @@ namespace Nova.WinForms.ComponentEditor
 
            // setup for editing
            EditModeOn();
-           FileDirty = true;
-           ComponentDirty = true;
+           fileDirty = true;
+           componentDirty = true;
 
            // Tidy up the UI
-           ComponentName.Text = "";
-           Description.Text = "";
-           BasicProperties.Cost = new Nova.Common.Resources(0, 0, 0, 0);
-           BasicProperties.Mass = 0;
-           ComponentImage.Image = null;
-           TechRequirements.Value = new TechLevel(0);
-           ComponentList.Items.Clear();
-           PropertyTabs.TabPages.Clear();
-           HullMap = new ArrayList();
+           this.componentName.Text = "";
+           this.description.Text = "";
+           this.basicProperties.Cost = new Nova.Common.Resources(0, 0, 0, 0);
+           this.basicProperties.Mass = 0;
+           this.componentImage.Image = null;
+           this.techRequirements.Value = new TechLevel(0);
+           this.componentList.Items.Clear();
+           this.propertyTabs.TabPages.Clear();
+           hullMap = new ArrayList();
 
            UpdateTitleBar();
        }
@@ -254,9 +254,9 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_SaveFile_Click(object sender, EventArgs e)
        {
-           if (ComponentDirty) SaveComponent();
+           if (componentDirty) SaveComponent();
            AllComponents.Save();
-           FileDirty = false;
+           fileDirty = false;
            EditModeOff();
            UpdateTitleBar();
        }
@@ -269,7 +269,7 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_SaveFileAs_Click(object sender, EventArgs e)
        {
-           if (ComponentDirty) SaveComponent();
+           if (componentDirty) SaveComponent();
            SaveFileDialog fd = new SaveFileDialog();
            fd.Title = "Save component definition file";
            fd.Filter = "dat files (*.dat)|*.dat|xml files (*.xml)|*.xml|compressed xml (*.xml.gz)|*.xml.gz|All files (*.*)|*.*";
@@ -319,7 +319,7 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void ExitButton_Click(object sender, EventArgs e)
        {
-           if (ComponentDirty)
+           if (componentDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
                if (reply == DialogResult.Cancel) return;
@@ -330,7 +330,7 @@ namespace Nova.WinForms.ComponentEditor
            {
                Report.Debug("Component not dirty.");
            }
-           if (FileDirty)
+           if (fileDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component definition file?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
                if (reply == DialogResult.Cancel) return;
@@ -383,7 +383,7 @@ namespace Nova.WinForms.ComponentEditor
        {
            DeleteComponent();
            EditModeOff();
-           UpdateListBox(ComponentType.Text);
+           UpdateListBox(this.componentType.Text);
        }
 
 
@@ -396,7 +396,7 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_NewComponent_Click(object sender, EventArgs e)
        {
-           if (ComponentDirty)
+           if (componentDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
                if (reply == DialogResult.Cancel) return;
@@ -408,9 +408,9 @@ namespace Nova.WinForms.ComponentEditor
            ClearForm(); // To create a new component we just need to clear the form and set up default values.
 
            EditModeOn();
-           ComponentName.Text = "New Component";
-           ComponentName.Focus();
-           ComponentName.SelectAll();
+           this.componentName.Text = "New Component";
+           this.componentName.Focus();
+           this.componentName.SelectAll();
        }
 
 
@@ -435,9 +435,9 @@ namespace Nova.WinForms.ComponentEditor
        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
        {
            EditModeOn();
-           ComponentName.Text = "New Component";
-           ComponentName.Focus();
-           ComponentName.SelectAll();
+           this.componentName.Text = "New Component";
+           this.componentName.Focus();
+           this.componentName.SelectAll();
 
        }
 
@@ -451,7 +451,7 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_DiscardComponentChanges_Click(object sender, EventArgs e)
        {
-           UpdateListBox(ComponentType.Text);
+           UpdateListBox(this.componentType.Text);
            EditModeOff();
        }
 
@@ -466,12 +466,12 @@ namespace Nova.WinForms.ComponentEditor
        private void MenuItem_RaceRestrictions_Click(object sender, EventArgs e)
        {
            EditModeOn();
-           RaceRestrictionDialog dialog = new RaceRestrictionDialog(ComponentName.Text, (Bitmap)ComponentImage.Image, Restrictions);
+           RaceRestrictionDialog dialog = new RaceRestrictionDialog(this.componentName.Text, (Bitmap)this.componentImage.Image, restrictions);
            DialogResult result = dialog.ShowDialog();
-           Restrictions = new RaceRestriction(dialog.Restrictions);
-           ComponentDirty = true;
+           restrictions = new RaceRestriction(dialog.Restrictions);
+           componentDirty = true;
 
-           RestrictionSummary.Text = Restrictions.ToString();
+           this.restrictionSummary.Text = restrictions.ToString();
            dialog.Dispose();
 
        }
@@ -496,264 +496,264 @@ namespace Nova.WinForms.ComponentEditor
 
            if (menuSelection == armorToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabArmor);
-               PropertyTabs.SelectedTab = tabArmor;
+               this.propertyTabs.TabPages.Add(tabArmor);
+               this.propertyTabs.SelectedTab = tabArmor;
 
-               Armor.Value = 0;
+               this.armor.Value = 0;
            }
            else if (menuSelection == beamDeflectorToolStripMenuItem1)
            {
-               PropertyTabs.TabPages.Add(tabDeflector);
-               PropertyTabs.SelectedTab = tabDeflector;
+               this.propertyTabs.TabPages.Add(tabDeflector);
+               this.propertyTabs.SelectedTab = tabDeflector;
 
-               BeamDeflector.Value = 0;
+               this.beamDeflector.Value = 0;
            }
            else if (menuSelection == battleMovementToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabMovement);
-               PropertyTabs.SelectedTab = tabMovement;
+               this.propertyTabs.TabPages.Add(tabMovement);
+               this.propertyTabs.SelectedTab = tabMovement;
 
-               BattleMovement.Value = 0;
+               this.battleMovement.Value = 0;
 
            }
            else if (menuSelection == bombToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabBomb);
-               PropertyTabs.SelectedTab = tabBomb;
+               this.propertyTabs.TabPages.Add(tabBomb);
+               this.propertyTabs.SelectedTab = tabBomb;
 
-               PopulationKill.Value = 0;
-               MinimumPopKill.Value = 0;
-               InstallationsDestroyed.Value = 0;
-               SmartBomb.Checked = false;
+               this.populationKill.Value = 0;
+               this.minimumPopKill.Value = 0;
+               this.installationsDestroyed.Value = 0;
+               this.smartBomb.Checked = false;
 
            }
            else if (menuSelection == capacitorToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabCapacitor);
-               PropertyTabs.SelectedTab = tabCapacitor;
+               this.propertyTabs.TabPages.Add(tabCapacitor);
+               this.propertyTabs.SelectedTab = tabCapacitor;
 
-               BeamDamage.Value = 0;
+               this.beamDamage.Value = 0;
 
            }
            else if (menuSelection == cargoToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabCargo);
-               PropertyTabs.SelectedTab = tabCargo;
+               this.propertyTabs.TabPages.Add(tabCargo);
+               this.propertyTabs.SelectedTab = tabCargo;
 
-               CargoCapacity.Value = 0;
+               this.cargoCapacity.Value = 0;
 
            }
            else if (menuSelection == cloakToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabCloak);
-               PropertyTabs.SelectedTab = tabCloak;
+               this.propertyTabs.TabPages.Add(tabCloak);
+               this.propertyTabs.SelectedTab = tabCloak;
 
-               Cloaking.Value = 0;
+               this.cloaking.Value = 0;
 
            }
            else if (menuSelection == colonizationToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabColonization);
-               PropertyTabs.SelectedTab = tabColonization;
+               this.propertyTabs.TabPages.Add(tabColonization);
+               this.propertyTabs.SelectedTab = tabColonization;
 
-               ColonizationModule.Checked = true;
+               this.colonizationModule.Checked = true;
 
            }
            else if (menuSelection == computerToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabComputer);
-               PropertyTabs.SelectedTab = tabComputer;
+               this.propertyTabs.TabPages.Add(tabComputer);
+               this.propertyTabs.SelectedTab = tabComputer;
 
-               Accuracy.Value = 0;
-               Initiative.Value = 0;
+               this.accuracy.Value = 0;
+               this.initiative.Value = 0;
            }
-           else if (menuSelection == DefenseToolStripMenuItem)
+           else if (menuSelection == this.defenseToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabDefense);
-               PropertyTabs.SelectedTab = tabDefense;
+               this.propertyTabs.TabPages.Add(tabDefense);
+               this.propertyTabs.SelectedTab = tabDefense;
 
-               DefenseCover1.Value = 0.00M;
-               DefenseCover40.Text = "0.00";
-               DefenseCover80.Text = "0.00";
-               DefenseCover100.Text = "0.00";
+               this.defenseCover1.Value = 0.00M;
+               this.defenseCover40.Text = "0.00";
+               this.defenseCover80.Text = "0.00";
+               this.defenseCover100.Text = "0.00";
            }
            else if (menuSelection == energyDampenerToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabEnergyDampener);
-               PropertyTabs.SelectedTab = tabEnergyDampener;
+               this.propertyTabs.TabPages.Add(tabEnergyDampener);
+               this.propertyTabs.SelectedTab = tabEnergyDampener;
 
-               EnergyDampener.Value = 0.0M;
+               this.energyDampener.Value = 0.0M;
            }
            else if (menuSelection == engineToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabEngine);
-               PropertyTabs.SelectedTab = tabEngine;
+               this.propertyTabs.TabPages.Add(tabEngine);
+               this.propertyTabs.SelectedTab = tabEngine;
 
-               RamScoopCheckBox.Checked = false;
-               EngineFastestSafeSpeed.Value = 1;
-               EngineOptimalSpeed.Value = 1;
+               this.ramScoopCheckBox.Checked = false;
+               this.engineFastestSafeSpeed.Value = 1;
+               this.engineOptimalSpeed.Value = 1;
 
-               W1Fuel.Value = 0;
-               W2Fuel.Value = 0;
-               W3Fuel.Value = 0;
-               W4Fuel.Value = 0;
-               W5Fuel.Value = 0;
-               W6Fuel.Value = 0;
-               W7Fuel.Value = 0;
-               W8Fuel.Value = 0;
-               W9Fuel.Value = 0;
-               W10Fuel.Value = 0;
+               this.warp1Fuel.Value = 0;
+               this.warp2Fuel.Value = 0;
+               this.warp3Fuel.Value = 0;
+               this.warp4Fuel.Value = 0;
+               this.warp5Fuel.Value = 0;
+               this.warp6Fuel.Value = 0;
+               this.warp7Fuel.Value = 0;
+               this.warp8Fuel.Value = 0;
+               this.warp9Fuel.Value = 0;
+               this.warp10Fuel.Value = 0;
 
            }
            else if (menuSelection == fuelToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabFuel);
-               PropertyTabs.SelectedTab = tabFuel;
+               this.propertyTabs.TabPages.Add(tabFuel);
+               this.propertyTabs.SelectedTab = tabFuel;
 
-               FuelCapacity.Value = 0;
-               FuelGeneration.Value = 0;
+               this.fuelCapacity.Value = 0;
+               this.fuelGeneration.Value = 0;
 
            }
            else if (menuSelection == gateToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabGate);
-               PropertyTabs.SelectedTab = tabGate;
+               this.propertyTabs.TabPages.Add(tabGate);
+               this.propertyTabs.SelectedTab = tabGate;
 
-               SafeHullMass.Value = 0;
-               SafeRange.Value = 0;
+               this.safeHullMass.Value = 0;
+               this.safeRange.Value = 0;
 
            }
            else if (menuSelection == hullToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabHull);
-               PropertyTabs.SelectedTab = tabHull;
+               this.propertyTabs.TabPages.Add(tabHull);
+               this.propertyTabs.SelectedTab = tabHull;
 
-               HullMap = new ArrayList();
-               HullArmor.Value = 0;
-               HullInitiative.Value = 0;
-               HullFuelCapacity.Value = 0;
-               HullCargoCapacity.Value = 0;
-               HullDockCapacity.Value = 0;
-               ARMaxPop.Value = 0;
+               hullMap = new ArrayList();
+               this.hullArmor.Value = 0;
+               this.hullInitiative.Value = 0;
+               this.hullFuelCapacity.Value = 0;
+               this.hullCargoCapacity.Value = 0;
+               this.hullDockCapacity.Value = 0;
+               this.alternateRealityMaxPop.Value = 0;
 
 
            }
            else if (menuSelection == hullAffinityToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabHullAffinity);
-               PropertyTabs.SelectedTab = tabHullAffinity;
+               this.propertyTabs.TabPages.Add(tabHullAffinity);
+               this.propertyTabs.SelectedTab = tabHullAffinity;
 
-               ComponentHullAffinity.Text = "";
+               this.componentHullAffinity.Text = "";
                ComponentHullAffinity_PopulateList();
            }
            else if (menuSelection == jammerToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabJammer);
-               PropertyTabs.SelectedTab = tabJammer;
+               this.propertyTabs.TabPages.Add(tabJammer);
+               this.propertyTabs.SelectedTab = tabJammer;
 
-               Deflection.Value = 0;
+               this.deflection.Value = 0;
 
            }
            else if (menuSelection == massDriverToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabDriver);
-               PropertyTabs.SelectedTab = tabDriver;
+               this.propertyTabs.TabPages.Add(tabDriver);
+               this.propertyTabs.SelectedTab = tabDriver;
 
-               MassDriverSpeed.Value = 0;
+               this.massDriverSpeed.Value = 0;
 
            }
            else if (menuSelection == mineLayerToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabMineLayer);
-               PropertyTabs.SelectedTab = tabMineLayer;
+               this.propertyTabs.TabPages.Add(tabMineLayer);
+               this.propertyTabs.SelectedTab = tabMineLayer;
 
-               MineLayingRate.Value = 0;
-               MineSafeSpeed.Value = 0;
-               MineDamagePerEngine.Value = 0;
-               MineDamagePerRamScoop.Value = 0;
-               MineMinFleetDamage.Value = 0;
-               MineMinRamScoopDamage.Value = 0;
-               MineHitChance.Value = 0.0M;
+               this.mineLayingRate.Value = 0;
+               this.mineSafeSpeed.Value = 0;
+               this.mineDamagePerEngine.Value = 0;
+               this.mineDamagePerRamScoop.Value = 0;
+               this.mineMinFleetDamage.Value = 0;
+               this.mineMinRamScoopDamage.Value = 0;
+               this.mineHitChance.Value = 0.0M;
 
            }
            else if (menuSelection == layerEfficencyToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabLayerEfficiency);
-               PropertyTabs.SelectedTab = tabLayerEfficiency;
+               this.propertyTabs.TabPages.Add(tabLayerEfficiency);
+               this.propertyTabs.SelectedTab = tabLayerEfficiency;
 
-               MineLayerEfficiency.Value = 2.00M; // default to x2 
+               this.mineLayerEfficiency.Value = 2.00M; // default to x2 
            }
            else if (menuSelection == miningRobotToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabRobot);
-               PropertyTabs.SelectedTab = tabRobot;
+               this.propertyTabs.TabPages.Add(tabRobot);
+               this.propertyTabs.SelectedTab = tabRobot;
 
-               MiningRate.Value = 0;
+               this.miningRate.Value = 0;
 
            }
            else if (menuSelection == orbitalAdjusterToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabOrbitalAdjuster);
-               PropertyTabs.SelectedTab = tabOrbitalAdjuster;
+               this.propertyTabs.TabPages.Add(tabOrbitalAdjuster);
+               this.propertyTabs.SelectedTab = tabOrbitalAdjuster;
 
-               AdjusterRate.Value = 0;
+               this.adjusterRate.Value = 0;
 
            }
            else if (menuSelection == radiationToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabRadiation);
-               PropertyTabs.SelectedTab = tabRadiation;
+               this.propertyTabs.TabPages.Add(tabRadiation);
+               this.propertyTabs.SelectedTab = tabRadiation;
 
-               Radiation.Value = 0;
+               this.radiation.Value = 0;
            }
            else if (menuSelection == scannerToolStripMenuItem || menuSelection == planetaryScannerToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabScanner);
-               PropertyTabs.SelectedTab = tabScanner;
+               this.propertyTabs.TabPages.Add(tabScanner);
+               this.propertyTabs.SelectedTab = tabScanner;
 
-               NormalRange.Value = 0;
-               PenetratingRange.Value = 0;
+               this.normalRange.Value = 0;
+               this.penetratingRange.Value = 0;
 
            }
            else if (menuSelection == shieldToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabShield);
-               PropertyTabs.SelectedTab = tabShield;
+               this.propertyTabs.TabPages.Add(tabShield);
+               this.propertyTabs.SelectedTab = tabShield;
 
-               Shield.Value = 0;
+               this.shield.Value = 0;
 
            }
            else if (menuSelection == tachyonDetectorToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabTachyonDetector);
-               PropertyTabs.SelectedTab = tabTachyonDetector;
-               TachyonDetector.Value = 0;
+               this.propertyTabs.TabPages.Add(tabTachyonDetector);
+               this.propertyTabs.SelectedTab = tabTachyonDetector;
+               this.tachyonDetector.Value = 0;
            }
            else if (menuSelection == terraformingToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabTerraforming);
-               PropertyTabs.SelectedTab = tabTerraforming;
+               this.propertyTabs.TabPages.Add(tabTerraforming);
+               this.propertyTabs.SelectedTab = tabTerraforming;
 
-               GravityMod.Value = 0;
-               TemperatureMod.Value = 0;
-               RadiationMod.Value = 0;
+               this.gravityMod.Value = 0;
+               this.temperatureMod.Value = 0;
+               this.radiationMod.Value = 0;
 
            }
            else if (menuSelection == transportOnlyToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabTransportShipsOnly);
-               PropertyTabs.SelectedTab = tabTransportShipsOnly;
+               this.propertyTabs.TabPages.Add(tabTransportShipsOnly);
+               this.propertyTabs.SelectedTab = tabTransportShipsOnly;
            }
            else if (menuSelection == weaponToolStripMenuItem)
            {
-               PropertyTabs.TabPages.Add(tabWeapon);
-               PropertyTabs.SelectedTab = tabWeapon;
+               this.propertyTabs.TabPages.Add(tabWeapon);
+               this.propertyTabs.SelectedTab = tabWeapon;
 
 
-               WeaponPower.Value = 0;
-               WeaponRange.Value = 0;
-               WeaponInitiative.Value = 0;
-               WeaponAccuracy.Value = 0;
+               this.weaponPower.Value = 0;
+               this.weaponRange.Value = 0;
+               this.weaponInitiative.Value = 0;
+               this.weaponAccuracy.Value = 0;
 
                isStandardBeam.Checked = true;
 
@@ -772,7 +772,7 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void DeleteSelectedPropertyToolStripMenuItem_Click(object sender, EventArgs e)
        {
-           PropertyTabs.TabPages.Remove(PropertyTabs.SelectedTab);
+           this.propertyTabs.TabPages.Remove(this.propertyTabs.SelectedTab);
            EditModeOn();
        }
 
@@ -812,195 +812,195 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void ComponentList_SelectedIndexChanged(object sender, EventArgs e)
        {
-           if (ComponentList.SelectedItem == null)
+           if (this.componentList.SelectedItem == null)
            {
                return;
            }
 
-           string selectedComponentName = ComponentList.SelectedItem as string;
+           string selectedComponentName = this.componentList.SelectedItem as string;
 
            Nova.Common.Components.Component selectedComponent = AllComponents.Data.Components[selectedComponentName] as Nova.Common.Components.Component;
 
            CommonProperties = selectedComponent;
-           Restrictions = selectedComponent.Restrictions;
-           ComponentImage.ImageFile = selectedComponent.ImageFile;
+           restrictions = selectedComponent.Restrictions;
+           this.componentImage.ImageFile = selectedComponent.ImageFile;
 
            // Update all the property tabs with any properties of the selected component.
            try
            {
-               PropertyTabs.TabPages.Clear();                          // Start by clearing the current tabs.
+               this.propertyTabs.TabPages.Clear();                          // Start by clearing the current tabs.
 
                // check for the property
                if (selectedComponent.Properties.ContainsKey("Armor"))
                {
                    IntegerProperty armorProperty = selectedComponent.Properties["Armor"] as IntegerProperty; // get the property
 
-                   Armor.Value = (decimal)armorProperty.Value;         // set values on the tab
+                   this.armor.Value = (decimal)armorProperty.Value;         // set values on the tab
 
-                   PropertyTabs.TabPages.Add(tabArmor);                // make the tab vissible
-                   PropertyTabs.SelectedTab = tabArmor;                // and selected
+                   this.propertyTabs.TabPages.Add(tabArmor);                // make the tab vissible
+                   this.propertyTabs.SelectedTab = tabArmor;                // and selected
                }
                if (selectedComponent.Properties.ContainsKey("Battle Movement"))
                {
                    DoubleProperty movementProperty = selectedComponent.Properties["Battle Movement"] as DoubleProperty;
 
-                   BattleMovement.Value = (decimal)movementProperty.Value;
+                   this.battleMovement.Value = (decimal)movementProperty.Value;
 
-                   PropertyTabs.TabPages.Add(tabMovement);
-                   PropertyTabs.SelectedTab = tabMovement;
+                   this.propertyTabs.TabPages.Add(tabMovement);
+                   this.propertyTabs.SelectedTab = tabMovement;
                }
                if (selectedComponent.Properties.ContainsKey("Beam Deflector"))
                {
                    ProbabilityProperty deflectorProperty = selectedComponent.Properties["Beam Deflector"] as ProbabilityProperty;
 
-                   BeamDeflector.Value = (decimal)deflectorProperty.Value;
+                   this.beamDeflector.Value = (decimal)deflectorProperty.Value;
 
-                   PropertyTabs.TabPages.Add(tabDeflector);
-                   PropertyTabs.SelectedTab = tabDeflector;
+                   this.propertyTabs.TabPages.Add(tabDeflector);
+                   this.propertyTabs.SelectedTab = tabDeflector;
                }
                if (selectedComponent.Properties.ContainsKey("Bomb"))
                {
                    Bomb bombProperty = selectedComponent.Properties["Bomb"] as Bomb;
 
-                   InstallationsDestroyed.Value = (decimal)bombProperty.Installations;
-                   PopulationKill.Value = (decimal)bombProperty.PopKill;
-                   MinimumPopKill.Value = (decimal)bombProperty.MinimumKill;
-                   SmartBomb.Checked = bombProperty.IsSmart;
+                   this.installationsDestroyed.Value = (decimal)bombProperty.Installations;
+                   this.populationKill.Value = (decimal)bombProperty.PopKill;
+                   this.minimumPopKill.Value = (decimal)bombProperty.MinimumKill;
+                   this.smartBomb.Checked = bombProperty.IsSmart;
 
-                   PropertyTabs.TabPages.Add(tabBomb);
-                   PropertyTabs.SelectedTab = tabBomb;
+                   this.propertyTabs.TabPages.Add(tabBomb);
+                   this.propertyTabs.SelectedTab = tabBomb;
                }
                if (selectedComponent.Properties.ContainsKey("Capacitor"))
                {
                    CapacitorProperty capacitorProperty = selectedComponent.Properties["Capacitor"] as CapacitorProperty;
 
-                   BeamDamage.Value = (decimal)capacitorProperty.Value;
+                   this.beamDamage.Value = (decimal)capacitorProperty.Value;
 
-                   PropertyTabs.TabPages.Add(tabCapacitor);
-                   PropertyTabs.SelectedTab = tabCapacitor;
+                   this.propertyTabs.TabPages.Add(tabCapacitor);
+                   this.propertyTabs.SelectedTab = tabCapacitor;
                }
                if (selectedComponent.Properties.ContainsKey("Cargo"))
                {
                    IntegerProperty cargoProperty = selectedComponent.Properties["Cargo"] as IntegerProperty;
 
-                   CargoCapacity.Value = (decimal)cargoProperty.Value;
+                   this.cargoCapacity.Value = (decimal)cargoProperty.Value;
 
-                   PropertyTabs.TabPages.Add(tabCargo);
-                   PropertyTabs.SelectedTab = tabCargo;
+                   this.propertyTabs.TabPages.Add(tabCargo);
+                   this.propertyTabs.SelectedTab = tabCargo;
                }
                if (selectedComponent.Properties.ContainsKey("Cloak"))
                {
                    ProbabilityProperty cloakProperty = selectedComponent.Properties["Cloak"] as ProbabilityProperty;
 
-                   Cloaking.Value = (decimal)cloakProperty.Value;
+                   this.cloaking.Value = (decimal)cloakProperty.Value;
 
-                   PropertyTabs.TabPages.Add(tabCloak);
-                   PropertyTabs.SelectedTab = tabCloak;
+                   this.propertyTabs.TabPages.Add(tabCloak);
+                   this.propertyTabs.SelectedTab = tabCloak;
                }
                if (selectedComponent.Properties.ContainsKey("Colonizer"))
                {
                    Colonizer colonizationProperty = selectedComponent.Properties["Colonizer"] as Colonizer;
 
                    if (colonizationProperty.Orbital)
-                       OrbitalColonizationModule.Checked = true;
+                       this.orbitalColonizationModule.Checked = true;
                    else
-                       ColonizationModule.Checked = true;
+                       this.colonizationModule.Checked = true;
 
-                   PropertyTabs.TabPages.Add(tabColonization);
-                   PropertyTabs.SelectedTab = tabColonization;
+                   this.propertyTabs.TabPages.Add(tabColonization);
+                   this.propertyTabs.SelectedTab = tabColonization;
 
                }
                if (selectedComponent.Properties.ContainsKey("Computer"))
                {
                    Computer computerProperties = selectedComponent.Properties["Computer"] as Computer;
 
-                   Initiative.Value = (decimal)computerProperties.Initiative;
-                   Accuracy.Value = (decimal)computerProperties.Accuracy;
+                   this.initiative.Value = (decimal)computerProperties.Initiative;
+                   this.accuracy.Value = (decimal)computerProperties.Accuracy;
 
-                   PropertyTabs.TabPages.Add(tabComputer);
-                   PropertyTabs.SelectedTab = tabComputer;
+                   this.propertyTabs.TabPages.Add(tabComputer);
+                   this.propertyTabs.SelectedTab = tabComputer;
                }
                if (selectedComponent.Properties.ContainsKey("Defense"))
                {
                    Defense defenseProperty = selectedComponent.Properties["Defense"] as Defense;
 
-                   DefenseCover1.Value = (decimal)defenseProperty.Value;
-                   PropertyTabs.TabPages.Add(tabDefense);
-                   PropertyTabs.SelectedTab = tabDefense;
+                   this.defenseCover1.Value = (decimal)defenseProperty.Value;
+                   this.propertyTabs.TabPages.Add(tabDefense);
+                   this.propertyTabs.SelectedTab = tabDefense;
                }
                if (selectedComponent.Properties.ContainsKey("Energy Dampener"))
                {
                    DoubleProperty dampenerProperty = selectedComponent.Properties["Energy Dampener"] as DoubleProperty;
-                   EnergyDampener.Value = (decimal)dampenerProperty.Value;
-                   PropertyTabs.TabPages.Add(tabEnergyDampener);
-                   PropertyTabs.SelectedTab = tabEnergyDampener;
+                   this.energyDampener.Value = (decimal)dampenerProperty.Value;
+                   this.propertyTabs.TabPages.Add(tabEnergyDampener);
+                   this.propertyTabs.SelectedTab = tabEnergyDampener;
                }
                if (selectedComponent.Properties.ContainsKey("Engine"))
                {
                    Engine engineProperties = selectedComponent.Properties["Engine"] as Engine;
 
-                   EngineFastestSafeSpeed.Value = (decimal)engineProperties.FastestSafeSpeed;
-                   EngineOptimalSpeed.Value = (decimal)engineProperties.OptimalSpeed;
-                   RamScoopCheckBox.Checked = engineProperties.RamScoop;
+                   this.engineFastestSafeSpeed.Value = (decimal)engineProperties.FastestSafeSpeed;
+                   this.engineOptimalSpeed.Value = (decimal)engineProperties.OptimalSpeed;
+                   this.ramScoopCheckBox.Checked = engineProperties.RamScoop;
 
-                   W1Fuel.Value = (decimal)engineProperties.FuelConsumption[0];
-                   W2Fuel.Value = (decimal)engineProperties.FuelConsumption[1];
-                   W3Fuel.Value = (decimal)engineProperties.FuelConsumption[2];
-                   W4Fuel.Value = (decimal)engineProperties.FuelConsumption[3];
-                   W5Fuel.Value = (decimal)engineProperties.FuelConsumption[4];
-                   W6Fuel.Value = (decimal)engineProperties.FuelConsumption[5];
-                   W7Fuel.Value = (decimal)engineProperties.FuelConsumption[6];
-                   W8Fuel.Value = (decimal)engineProperties.FuelConsumption[7];
-                   W9Fuel.Value = (decimal)engineProperties.FuelConsumption[8];
-                   W10Fuel.Value = (decimal)engineProperties.FuelConsumption[9];
+                   this.warp1Fuel.Value = (decimal)engineProperties.FuelConsumption[0];
+                   this.warp2Fuel.Value = (decimal)engineProperties.FuelConsumption[1];
+                   this.warp3Fuel.Value = (decimal)engineProperties.FuelConsumption[2];
+                   this.warp4Fuel.Value = (decimal)engineProperties.FuelConsumption[3];
+                   this.warp5Fuel.Value = (decimal)engineProperties.FuelConsumption[4];
+                   this.warp6Fuel.Value = (decimal)engineProperties.FuelConsumption[5];
+                   this.warp7Fuel.Value = (decimal)engineProperties.FuelConsumption[6];
+                   this.warp8Fuel.Value = (decimal)engineProperties.FuelConsumption[7];
+                   this.warp9Fuel.Value = (decimal)engineProperties.FuelConsumption[8];
+                   this.warp10Fuel.Value = (decimal)engineProperties.FuelConsumption[9];
 
-                   PropertyTabs.TabPages.Add(tabEngine);
-                   PropertyTabs.SelectedTab = tabEngine;
+                   this.propertyTabs.TabPages.Add(tabEngine);
+                   this.propertyTabs.SelectedTab = tabEngine;
                }
 
                if (selectedComponent.Properties.ContainsKey("Fuel"))
                {
                    Fuel fuelProperties = selectedComponent.Properties["Fuel"] as Fuel;
 
-                   FuelCapacity.Value = (decimal)fuelProperties.Capacity;
-                   FuelGeneration.Value = (decimal)fuelProperties.Generation;
+                   this.fuelCapacity.Value = (decimal)fuelProperties.Capacity;
+                   this.fuelGeneration.Value = (decimal)fuelProperties.Generation;
 
-                   PropertyTabs.TabPages.Add(tabFuel);
-                   PropertyTabs.SelectedTab = tabFuel;
+                   this.propertyTabs.TabPages.Add(tabFuel);
+                   this.propertyTabs.SelectedTab = tabFuel;
                }
 
                if (selectedComponent.Properties.ContainsKey("Gate"))
                {
                    Gate gateProperties = selectedComponent.Properties["Gate"] as Gate;
 
-                   SafeHullMass.Value = (decimal)gateProperties.SafeHullMass;
-                   GateMassInfinite.Checked = SafeHullMass.Value == -1;
-                   SafeRange.Value = (decimal)gateProperties.SafeRange;
-                   GateRangeInfinite.Checked = SafeRange.Value == -1;
+                   this.safeHullMass.Value = (decimal)gateProperties.SafeHullMass;
+                   this.gateMassInfinite.Checked = this.safeHullMass.Value == -1;
+                   this.safeRange.Value = (decimal)gateProperties.SafeRange;
+                   this.gateRangeInfinite.Checked = this.safeRange.Value == -1;
 
-                   PropertyTabs.TabPages.Add(tabGate);
-                   PropertyTabs.SelectedTab = tabGate;
+                   this.propertyTabs.TabPages.Add(tabGate);
+                   this.propertyTabs.SelectedTab = tabGate;
                }
                if (selectedComponent.Properties.ContainsKey("Hull"))
                {
                    Hull hullProperties = selectedComponent.Properties["Hull"] as Hull;
 
-                   HullArmor.Value = (decimal)hullProperties.ArmorStrength;
-                   HullFuelCapacity.Value = (decimal)hullProperties.FuelCapacity;
-                   HullDockCapacity.Value = (decimal)hullProperties.DockCapacity;
-                   InfiniteDock.Checked = HullDockCapacity.Value == -1;
-                   ARMaxPop.Value = (decimal)hullProperties.ARMaxPop;
-                   HullCargoCapacity.Value = (decimal)hullProperties.BaseCargo;
-                   HullInitiative.Value = (decimal)hullProperties.BattleInitiative;
+                   this.hullArmor.Value = (decimal)hullProperties.ArmorStrength;
+                   this.hullFuelCapacity.Value = (decimal)hullProperties.FuelCapacity;
+                   this.hullDockCapacity.Value = (decimal)hullProperties.DockCapacity;
+                   this.infiniteDock.Checked = this.hullDockCapacity.Value == -1;
+                   this.alternateRealityMaxPop.Value = (decimal)hullProperties.ARMaxPop;
+                   this.hullCargoCapacity.Value = (decimal)hullProperties.BaseCargo;
+                   this.hullInitiative.Value = (decimal)hullProperties.BattleInitiative;
 
                    // HullMap.HullGrid.ActiveModules = new ArrayList();
                    try
                    {
-                       HullMap.Clear();
+                       hullMap.Clear();
                        foreach (HullModule module in hullProperties.Modules)
                        {
                            HullModule newModule = new HullModule(module);
-                           HullMap.Add(module);
+                           hullMap.Add(module);
 
                        }
                    }
@@ -1008,145 +1008,145 @@ namespace Nova.WinForms.ComponentEditor
                    {
                        // problem with the hull map; reset it.
                        Report.Error("Hull map error - resetting map.");
-                       HullMap = new ArrayList();
+                       hullMap = new ArrayList();
                    }
 
 
-                   PropertyTabs.TabPages.Add(tabHull);
-                   PropertyTabs.SelectedTab = tabHull;
+                   this.propertyTabs.TabPages.Add(tabHull);
+                   this.propertyTabs.SelectedTab = tabHull;
                }
                if (selectedComponent.Properties.ContainsKey("Hull Affinity"))
                {
                    HullAffinity hullAffinityProperty = selectedComponent.Properties["Hull Affinity"] as HullAffinity;
-                   ComponentHullAffinity.Text = hullAffinityProperty.Value;
+                   this.componentHullAffinity.Text = hullAffinityProperty.Value;
 
                    ComponentHullAffinity_PopulateList();
 
-                   PropertyTabs.TabPages.Add(tabHullAffinity);
-                   PropertyTabs.SelectedTab = tabHullAffinity;
+                   this.propertyTabs.TabPages.Add(tabHullAffinity);
+                   this.propertyTabs.SelectedTab = tabHullAffinity;
                }
 
                if (selectedComponent.Properties.ContainsKey("Jammer"))
                {
                    ProbabilityProperty jammerProperty = selectedComponent.Properties["Jammer"] as ProbabilityProperty;
 
-                   Deflection.Value = (decimal)jammerProperty.Value;
+                   this.deflection.Value = (decimal)jammerProperty.Value;
 
-                   PropertyTabs.TabPages.Add(tabJammer);
-                   PropertyTabs.SelectedTab = tabJammer;
+                   this.propertyTabs.TabPages.Add(tabJammer);
+                   this.propertyTabs.SelectedTab = tabJammer;
                }
                if (selectedComponent.Properties.ContainsKey("Mass Driver"))
                {
                    MassDriver driverProperty = selectedComponent.Properties["Mass Driver"] as MassDriver;
 
-                   MassDriverSpeed.Value = (decimal)driverProperty.Value;
+                   this.massDriverSpeed.Value = (decimal)driverProperty.Value;
 
-                   PropertyTabs.TabPages.Add(tabDriver);
-                   PropertyTabs.SelectedTab = tabDriver;
+                   this.propertyTabs.TabPages.Add(tabDriver);
+                   this.propertyTabs.SelectedTab = tabDriver;
                }
                if (selectedComponent.Properties.ContainsKey("Mine Layer"))
                {
                    MineLayer mineLayerProperties = selectedComponent.Properties["Mine Layer"] as MineLayer;
 
-                   MineLayingRate.Value = (decimal)mineLayerProperties.LayerRate;
-                   MineSafeSpeed.Value = (decimal)mineLayerProperties.SafeSpeed;
-                   MineHitChance.Value = (decimal)mineLayerProperties.HitChance;
-                   MineDamagePerEngine.Value = (decimal)mineLayerProperties.DamagePerEngine;
-                   MineDamagePerRamScoop.Value = (decimal)mineLayerProperties.DamagePerRamScoop;
-                   MineMinFleetDamage.Value = (decimal)mineLayerProperties.MinFleetDamage;
-                   MineMinRamScoopDamage.Value = (decimal)mineLayerProperties.MinRamScoopDamage;
+                   this.mineLayingRate.Value = (decimal)mineLayerProperties.LayerRate;
+                   this.mineSafeSpeed.Value = (decimal)mineLayerProperties.SafeSpeed;
+                   this.mineHitChance.Value = (decimal)mineLayerProperties.HitChance;
+                   this.mineDamagePerEngine.Value = (decimal)mineLayerProperties.DamagePerEngine;
+                   this.mineDamagePerRamScoop.Value = (decimal)mineLayerProperties.DamagePerRamScoop;
+                   this.mineMinFleetDamage.Value = (decimal)mineLayerProperties.MinFleetDamage;
+                   this.mineMinRamScoopDamage.Value = (decimal)mineLayerProperties.MinRamScoopDamage;
 
-                   PropertyTabs.TabPages.Add(tabMineLayer);
-                   PropertyTabs.SelectedTab = tabMineLayer;
+                   this.propertyTabs.TabPages.Add(tabMineLayer);
+                   this.propertyTabs.SelectedTab = tabMineLayer;
                }
                if (selectedComponent.Properties.ContainsKey("Mine Layer Efficiency"))
                {
                    DoubleProperty mineLayerProperties = selectedComponent.Properties["Mine Layer Efficiency"] as DoubleProperty;
-                   MineLayerEfficiency.Value = (decimal)mineLayerProperties.Value;
-                   PropertyTabs.TabPages.Add(tabLayerEfficiency);
-                   PropertyTabs.SelectedTab = tabLayerEfficiency;
+                   this.mineLayerEfficiency.Value = (decimal)mineLayerProperties.Value;
+                   this.propertyTabs.TabPages.Add(tabLayerEfficiency);
+                   this.propertyTabs.SelectedTab = tabLayerEfficiency;
                }
                if (selectedComponent.Properties.ContainsKey("Mining Robot"))
                {
                    IntegerProperty robotProperty = selectedComponent.Properties["Mining Robot"] as IntegerProperty;
 
-                   MiningRate.Value = (decimal)robotProperty.Value;
+                   this.miningRate.Value = (decimal)robotProperty.Value;
 
-                   PropertyTabs.TabPages.Add(tabRobot);
-                   PropertyTabs.SelectedTab = tabRobot;
+                   this.propertyTabs.TabPages.Add(tabRobot);
+                   this.propertyTabs.SelectedTab = tabRobot;
                }
                if (selectedComponent.Properties.ContainsKey("Orbital Adjuster"))
                {
                    IntegerProperty adjusterProperty = selectedComponent.Properties["Orbital Adjuster"] as IntegerProperty;
 
-                   AdjusterRate.Value = (decimal)adjusterProperty.Value;
+                   this.adjusterRate.Value = (decimal)adjusterProperty.Value;
 
-                   PropertyTabs.TabPages.Add(tabOrbitalAdjuster);
-                   PropertyTabs.SelectedTab = tabOrbitalAdjuster;
+                   this.propertyTabs.TabPages.Add(tabOrbitalAdjuster);
+                   this.propertyTabs.SelectedTab = tabOrbitalAdjuster;
                }
                if (selectedComponent.Properties.ContainsKey("Radiation"))
                {
                    Radiation radiationProperty = selectedComponent.Properties["Radiation"] as Radiation;
 
-                   Radiation.Value = (decimal)radiationProperty.Value;
+                   this.radiation.Value = (decimal)radiationProperty.Value;
 
-                   PropertyTabs.TabPages.Add(tabRadiation);
-                   PropertyTabs.SelectedTab = tabRadiation;
+                   this.propertyTabs.TabPages.Add(tabRadiation);
+                   this.propertyTabs.SelectedTab = tabRadiation;
                }
 
                if (selectedComponent.Properties.ContainsKey("Scanner"))
                {
                    Scanner scannerProperties = selectedComponent.Properties["Scanner"] as Scanner;
 
-                   NormalRange.Value = (decimal)scannerProperties.NormalScan;
-                   PenetratingRange.Value = (decimal)scannerProperties.PenetratingScan;
+                   this.normalRange.Value = (decimal)scannerProperties.NormalScan;
+                   this.penetratingRange.Value = (decimal)scannerProperties.PenetratingScan;
 
-                   PropertyTabs.TabPages.Add(tabScanner);
-                   PropertyTabs.SelectedTab = tabScanner;
+                   this.propertyTabs.TabPages.Add(tabScanner);
+                   this.propertyTabs.SelectedTab = tabScanner;
                }
                if (selectedComponent.Properties.ContainsKey("Shield"))
                {
                    IntegerProperty shieldProperty = selectedComponent.Properties["Shield"] as IntegerProperty;
 
-                   Shield.Value = (decimal)shieldProperty.Value;
+                   this.shield.Value = (decimal)shieldProperty.Value;
 
-                   PropertyTabs.TabPages.Add(tabShield);
-                   PropertyTabs.SelectedTab = tabShield;
+                   this.propertyTabs.TabPages.Add(tabShield);
+                   this.propertyTabs.SelectedTab = tabShield;
                }
                if (selectedComponent.Properties.ContainsKey("Tachyon Detector"))
                {
                    ProbabilityProperty detectorProoperties = selectedComponent.Properties["Tachyon Detector"] as ProbabilityProperty;
 
-                   TachyonDetector.Value = (decimal)detectorProoperties.Value;
+                   this.tachyonDetector.Value = (decimal)detectorProoperties.Value;
 
-                   PropertyTabs.TabPages.Add(tabTachyonDetector);
-                   PropertyTabs.SelectedTab = tabTachyonDetector;
+                   this.propertyTabs.TabPages.Add(tabTachyonDetector);
+                   this.propertyTabs.SelectedTab = tabTachyonDetector;
                }
                if (selectedComponent.Properties.ContainsKey("Terraform"))
                {
                    Terraform terraformProperties = selectedComponent.Properties["Terraform"] as Terraform;
 
-                   GravityMod.Value = (decimal)terraformProperties.MaxModifiedGravity;
-                   TemperatureMod.Value = (decimal)terraformProperties.MaxModifiedTemperature;
-                   RadiationMod.Value = (decimal)terraformProperties.MaxModifiedRadiation;
+                   this.gravityMod.Value = (decimal)terraformProperties.MaxModifiedGravity;
+                   this.temperatureMod.Value = (decimal)terraformProperties.MaxModifiedTemperature;
+                   this.radiationMod.Value = (decimal)terraformProperties.MaxModifiedRadiation;
 
-                   PropertyTabs.TabPages.Add(tabTerraforming);
-                   PropertyTabs.SelectedTab = tabTerraforming;
+                   this.propertyTabs.TabPages.Add(tabTerraforming);
+                   this.propertyTabs.SelectedTab = tabTerraforming;
                }
                if (selectedComponent.Properties.ContainsKey("Transport Ships Only"))
                {
                    SimpleProperty mineLayerProperties = selectedComponent.Properties["Transport Ships Only"] as SimpleProperty;
-                   PropertyTabs.TabPages.Add(tabTransportShipsOnly);
-                   PropertyTabs.SelectedTab = tabTransportShipsOnly;
+                   this.propertyTabs.TabPages.Add(tabTransportShipsOnly);
+                   this.propertyTabs.SelectedTab = tabTransportShipsOnly;
                }
                if (selectedComponent.Properties.ContainsKey("Weapon"))
                {
                    Weapon weaponProperties = selectedComponent.Properties["Weapon"] as Weapon;
 
-                   WeaponPower.Value = (decimal)weaponProperties.Power;
-                   WeaponRange.Value = (decimal)weaponProperties.Range;
-                   WeaponInitiative.Value = (decimal)weaponProperties.Initiative;
-                   WeaponAccuracy.Value = (decimal)weaponProperties.Accuracy;
+                   this.weaponPower.Value = (decimal)weaponProperties.Power;
+                   this.weaponRange.Value = (decimal)weaponProperties.Range;
+                   this.weaponInitiative.Value = (decimal)weaponProperties.Initiative;
+                   this.weaponAccuracy.Value = (decimal)weaponProperties.Accuracy;
                    switch (weaponProperties.Group)
                    {
                        case WeaponType.standardBeam:
@@ -1170,8 +1170,8 @@ namespace Nova.WinForms.ComponentEditor
 
                    }
 
-                   PropertyTabs.TabPages.Add(tabWeapon);
-                   PropertyTabs.SelectedTab = tabWeapon;
+                   this.propertyTabs.TabPages.Add(tabWeapon);
+                   this.propertyTabs.SelectedTab = tabWeapon;
                }
 
            }
@@ -1192,23 +1192,23 @@ namespace Nova.WinForms.ComponentEditor
        private void ComponentType_Changed(object sender, EventArgs e)
        {
            // in edit mode, just change the component type. In view mode, repopulate the component list.
-           if (!EditMode)
+           if (!editMode)
            {
-               UpdateListBox(ComponentType.Text);
-               if (ComponentList.Items.Count > 0)
+               UpdateListBox(this.componentType.Text);
+               if (this.componentList.Items.Count > 0)
                {
-                   ComponentList.SelectedIndex = 0; // pick the first item in the list
+                   this.componentList.SelectedIndex = 0; // pick the first item in the list
                }
                else
                {
                    // Blank the component information
-                   PropertyTabs.TabPages.Clear();
-                   BasicProperties.Cost = new Nova.Common.Resources(0, 0, 0, 0);
-                   BasicProperties.Mass = 0;
-                   ComponentImage.Image = null;
-                   ComponentName.Text = "";
-                   Description.Text = "";
-                   TechRequirements.Value = new TechLevel(0);
+                   this.propertyTabs.TabPages.Clear();
+                   this.basicProperties.Cost = new Nova.Common.Resources(0, 0, 0, 0);
+                   this.basicProperties.Mass = 0;
+                   this.componentImage.Image = null;
+                   this.componentName.Text = "";
+                   this.description.Text = "";
+                   this.techRequirements.Value = new TechLevel(0);
                }
 
            }
@@ -1226,14 +1226,14 @@ namespace Nova.WinForms.ComponentEditor
            Graphics g = e.Graphics;
 
            // Get the item from the collection.
-           TabPage tabPage = PropertyTabs.TabPages[e.Index];
+           TabPage tabPage = this.propertyTabs.TabPages[e.Index];
 
            // Make the tab background 'Control' grey. 
            // Everytime I change the colection they are reset, so easiest to do it programatically here.
            tabPage.BackColor = Color.FromKnownColor(KnownColor.Control);
 
            // Get the real bounds for the tab rectangle.
-           Rectangle tabBounds = PropertyTabs.GetTabRect(e.Index);
+           Rectangle tabBounds = this.propertyTabs.GetTabRect(e.Index);
 
            Brush textBrush = new SolidBrush(Color.Black);
 
@@ -1258,11 +1258,11 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void DefenseCover1_ValueChanged(object sender, EventArgs e)
        {
-           ComponentDirty = true;
+           componentDirty = true;
 
-           DefenseCover40.Text = ((1.0 - Math.Pow((double)(1.00M - (DefenseCover1.Value / 100)), 40.0)) * 100).ToString("f2");
-           DefenseCover80.Text = ((1.0 - Math.Pow((double)(1.00M - (DefenseCover1.Value / 100)), 80.0)) * 100).ToString("f2");
-           DefenseCover100.Text = ((1.0 - Math.Pow((double)(1.00M - (DefenseCover1.Value / 100)), 100.0)) * 100).ToString("f2");
+           this.defenseCover40.Text = ((1.0 - Math.Pow((double)(1.00M - (this.defenseCover1.Value / 100)), 40.0)) * 100).ToString("f2");
+           this.defenseCover80.Text = ((1.0 - Math.Pow((double)(1.00M - (this.defenseCover1.Value / 100)), 80.0)) * 100).ToString("f2");
+           this.defenseCover100.Text = ((1.0 - Math.Pow((double)(1.00M - (this.defenseCover1.Value / 100)), 100.0)) * 100).ToString("f2");
        }
 
 
@@ -1275,17 +1275,17 @@ namespace Nova.WinForms.ComponentEditor
        {
            if (isStandardBeam.Checked)
            {
-               decimal minesSwept = WeaponRange.Value * WeaponPower.Value;
-               MinesSwept.Text = minesSwept.ToString(System.Globalization.CultureInfo.InvariantCulture) + " mines swept per year.";
+               decimal minesSwept = this.weaponRange.Value * this.weaponPower.Value;
+               this.minesSwept.Text = minesSwept.ToString(System.Globalization.CultureInfo.InvariantCulture) + " mines swept per year.";
            }
            else if (isGattling.Checked)
            {
-               decimal minesSwept = 16 * WeaponPower.Value;
-               MinesSwept.Text = minesSwept.ToString(System.Globalization.CultureInfo.InvariantCulture) + " mines swept per year.";
+               decimal minesSwept = 16 * this.weaponPower.Value;
+               this.minesSwept.Text = minesSwept.ToString(System.Globalization.CultureInfo.InvariantCulture) + " mines swept per year.";
            }
            else
            {
-               MinesSwept.Text = "Weapon doesn't sweep mines.";
+               this.minesSwept.Text = "Weapon doesn't sweep mines.";
            }
        }
 
@@ -1297,26 +1297,26 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void UpdateFastestFreeSpeed(object sender, EventArgs e)
        {
-           if (W10Fuel.Value == 0)
-               EngineFastestFreeSpeed.Value = 10;
-           else if (W9Fuel.Value == 0)
-               EngineFastestFreeSpeed.Value = 9;
-           else if (W8Fuel.Value == 0)
-               EngineFastestFreeSpeed.Value = 8;
-           else if (W7Fuel.Value == 0)
-               EngineFastestFreeSpeed.Value = 7;
-           else if (W6Fuel.Value == 0)
-               EngineFastestFreeSpeed.Value = 6;
-           else if (W5Fuel.Value == 0)
-               EngineFastestFreeSpeed.Value = 5;
-           else if (W4Fuel.Value == 0)
-               EngineFastestFreeSpeed.Value = 4;
-           else if (W3Fuel.Value == 0)
-               EngineFastestFreeSpeed.Value = 3;
-           else if (W2Fuel.Value == 0)
-               EngineFastestFreeSpeed.Value = 2;
+           if (this.warp10Fuel.Value == 0)
+               this.engineFastestFreeSpeed.Value = 10;
+           else if (this.warp9Fuel.Value == 0)
+               this.engineFastestFreeSpeed.Value = 9;
+           else if (this.warp8Fuel.Value == 0)
+               this.engineFastestFreeSpeed.Value = 8;
+           else if (this.warp7Fuel.Value == 0)
+               this.engineFastestFreeSpeed.Value = 7;
+           else if (this.warp6Fuel.Value == 0)
+               this.engineFastestFreeSpeed.Value = 6;
+           else if (this.warp5Fuel.Value == 0)
+               this.engineFastestFreeSpeed.Value = 5;
+           else if (this.warp4Fuel.Value == 0)
+               this.engineFastestFreeSpeed.Value = 4;
+           else if (this.warp3Fuel.Value == 0)
+               this.engineFastestFreeSpeed.Value = 3;
+           else if (this.warp2Fuel.Value == 0)
+               this.engineFastestFreeSpeed.Value = 2;
            else
-               EngineFastestFreeSpeed.Value = 1;
+               this.engineFastestFreeSpeed.Value = 1;
 
 
        }
@@ -1330,14 +1330,14 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void GateMassInfinite_CheckedChanged(object sender, EventArgs e)
        {
-           if (GateMassInfinite.Checked)
+           if (this.gateMassInfinite.Checked)
            {
-               SafeHullMass.Value = -1;
-               SafeHullMass.ReadOnly = true;
+               this.safeHullMass.Value = -1;
+               this.safeHullMass.ReadOnly = true;
            }
            else
            {
-               SafeHullMass.ReadOnly = false;
+               this.safeHullMass.ReadOnly = false;
            }
        }
 
@@ -1350,14 +1350,14 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void GateRangeInfinite_CheckedChanged(object sender, EventArgs e)
        {
-           if (GateRangeInfinite.Checked)
+           if (this.gateRangeInfinite.Checked)
            {
-               SafeRange.Value = -1;
-               SafeRange.ReadOnly = true;
+               this.safeRange.Value = -1;
+               this.safeRange.ReadOnly = true;
            }
            else
            {
-               SafeRange.ReadOnly = false;
+               this.safeRange.ReadOnly = false;
            }
        }
 
@@ -1370,14 +1370,14 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e"></param>
        private void InfiniteDock_CheckedChanged(object sender, EventArgs e)
        {
-           if (InfiniteDock.Checked)
+           if (this.infiniteDock.Checked)
            {
-               HullDockCapacity.Value = -1;
-               HullDockCapacity.ReadOnly = true;
+               this.hullDockCapacity.Value = -1;
+               this.hullDockCapacity.ReadOnly = true;
            }
            else
            {
-               HullDockCapacity.ReadOnly = false;
+               this.hullDockCapacity.ReadOnly = false;
            }
 
        }
@@ -1394,14 +1394,14 @@ namespace Nova.WinForms.ComponentEditor
            HullDialog dialog = new HullDialog();
 
            // and populate it
-           dialog.HullGrid.ActiveModules = HullMap;
+           dialog.HullGrid.ActiveModules = hullMap;
 
            // do the dialog
            dialog.ShowDialog();
 
            // copy the new hull map
-           HullMap.Clear();
-           HullMap = dialog.HullGrid.ActiveModules;
+           hullMap.Clear();
+           hullMap = dialog.HullGrid.ActiveModules;
 
            dialog.Dispose();
 
@@ -1416,7 +1416,7 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void SetComponentDirty(object sender, EventArgs e)
        {
-           ComponentDirty = true;
+           componentDirty = true;
        }
 
 
@@ -1428,7 +1428,7 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void OnFormClosing(object sender, FormClosingEventArgs e)
        {
-           if (ComponentDirty)
+           if (componentDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
                if (reply == DialogResult.Cancel) return;
@@ -1441,7 +1441,7 @@ namespace Nova.WinForms.ComponentEditor
                MessageBox.Show("Component not dirty.");
            }
 #endif
-           if (FileDirty)
+           if (fileDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component definition file?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
                if (reply == DialogResult.Cancel) return;
@@ -1478,140 +1478,140 @@ namespace Nova.WinForms.ComponentEditor
        /// </summary>
        private void SaveComponent()
        {
-           string componentName = ComponentName.Text;
+           string componentName = this.componentName.Text;
 
            if (componentName == null || componentName == "")
            {
                Report.Error("You must specify a component name");
                return;
            }
-           if (ComponentType.Text == null || ComponentType.Text == "")
+           if (this.componentType.Text == null || this.componentType.Text == "")
            {
                Report.Error("You must specify a component type");
                return;
            }
 
            Nova.Common.Components.Component newComponent = new Nova.Common.Components.Component(CommonProperties);
-           newComponent.Type = ComponentType.Text;
-           newComponent.Restrictions = new RaceRestriction(Restrictions);
-           newComponent.ImageFile = ComponentImage.ImageFile;
+           newComponent.Type = this.componentType.Text;
+           newComponent.Restrictions = new RaceRestriction(restrictions);
+           newComponent.ImageFile = this.componentImage.ImageFile;
 
-           if (PropertyTabs.Contains(tabArmor))
+           if (this.propertyTabs.Contains(tabArmor))
            {
                IntegerProperty armorProperty = new IntegerProperty();
-               armorProperty.Value = (int)Armor.Value;
+               armorProperty.Value = (int)this.armor.Value;
                newComponent.Properties.Add("Armor", armorProperty);
 
            }
-           if (PropertyTabs.Contains(tabMovement))
+           if (this.propertyTabs.Contains(tabMovement))
            {
                DoubleProperty movementProperties = new DoubleProperty();
-               movementProperties.Value = (double)BattleMovement.Value;
+               movementProperties.Value = (double)this.battleMovement.Value;
                newComponent.Properties.Add("Battle Movement", movementProperties);
            }
-           if (PropertyTabs.Contains(tabDeflector))
+           if (this.propertyTabs.Contains(tabDeflector))
            {
                ProbabilityProperty deflectorProperty = new ProbabilityProperty();
-               deflectorProperty.Value = (double)BeamDeflector.Value;
+               deflectorProperty.Value = (double)this.beamDeflector.Value;
                newComponent.Properties.Add("Beam Deflector", deflectorProperty);
            }
-           if (PropertyTabs.Contains(tabBomb))
+           if (this.propertyTabs.Contains(tabBomb))
            {
                Bomb bombProperty = new Bomb();
-               bombProperty.Installations = (int)InstallationsDestroyed.Value;
-               bombProperty.PopKill = (double)PopulationKill.Value;
-               bombProperty.MinimumKill = (int)MinimumPopKill.Value;
-               bombProperty.IsSmart = SmartBomb.Checked;
+               bombProperty.Installations = (int)this.installationsDestroyed.Value;
+               bombProperty.PopKill = (double)this.populationKill.Value;
+               bombProperty.MinimumKill = (int)this.minimumPopKill.Value;
+               bombProperty.IsSmart = this.smartBomb.Checked;
                newComponent.Properties.Add("Bomb", bombProperty);
            }
-           if (PropertyTabs.Contains(tabCapacitor))
+           if (this.propertyTabs.Contains(tabCapacitor))
            {
                CapacitorProperty capacitorProperty = new CapacitorProperty();
-               capacitorProperty.Value = (int)BeamDamage.Value;
+               capacitorProperty.Value = (int)this.beamDamage.Value;
                newComponent.Properties.Add("Capacitor", capacitorProperty);
            }
-           if (PropertyTabs.Contains(tabCargo))
+           if (this.propertyTabs.Contains(tabCargo))
            {
                IntegerProperty cargoProperty = new IntegerProperty();
-               cargoProperty.Value = (int)CargoCapacity.Value;
+               cargoProperty.Value = (int)this.cargoCapacity.Value;
                newComponent.Properties.Add("Cargo", cargoProperty);
            }
-           if (PropertyTabs.Contains(tabCloak))
+           if (this.propertyTabs.Contains(tabCloak))
            {
                ProbabilityProperty cloakProperty = new ProbabilityProperty();
-               cloakProperty.Value = (int)Cloaking.Value;
+               cloakProperty.Value = (int)this.cloaking.Value;
                newComponent.Properties.Add("Cloak", cloakProperty);
            }
-           if (PropertyTabs.Contains(tabColonization))
+           if (this.propertyTabs.Contains(tabColonization))
            {
                Colonizer colonizationProperty = new Colonizer();
-               colonizationProperty.Orbital = OrbitalColonizationModule.Checked;
+               colonizationProperty.Orbital = this.orbitalColonizationModule.Checked;
                newComponent.Properties.Add("Colonizer", colonizationProperty);
            }
-           if (PropertyTabs.Contains(tabComputer))
+           if (this.propertyTabs.Contains(tabComputer))
            {
                Computer computerProperties = new Computer();
-               computerProperties.Initiative = (int)Initiative.Value;
-               computerProperties.Accuracy = (int)Accuracy.Value;
+               computerProperties.Initiative = (int)this.initiative.Value;
+               computerProperties.Accuracy = (int)this.accuracy.Value;
                newComponent.Properties.Add("Computer", computerProperties);
            }
-           if (PropertyTabs.Contains(tabDefense))
+           if (this.propertyTabs.Contains(tabDefense))
            {
                Defense defenseProperties = new Defense();
-               defenseProperties.Value = (double)DefenseCover1.Value;
+               defenseProperties.Value = (double)this.defenseCover1.Value;
                newComponent.Properties.Add("Defense", defenseProperties);
            }
-           if (PropertyTabs.Contains(tabEnergyDampener))
+           if (this.propertyTabs.Contains(tabEnergyDampener))
            {
                DoubleProperty dampenerProperties = new DoubleProperty();
-               dampenerProperties.Value = (double)EnergyDampener.Value;
+               dampenerProperties.Value = (double)this.energyDampener.Value;
                newComponent.Properties.Add("Energy Dampener", dampenerProperties);
            }
-           if (PropertyTabs.Contains(tabEngine))
+           if (this.propertyTabs.Contains(tabEngine))
            {
                Engine engineProperties = new Engine();
-               engineProperties.RamScoop = RamScoopCheckBox.Checked;
-               engineProperties.FastestSafeSpeed = (int)EngineFastestSafeSpeed.Value;
-               engineProperties.OptimalSpeed = (int)EngineOptimalSpeed.Value;
-               engineProperties.FuelConsumption[0] = (int)W1Fuel.Value;
-               engineProperties.FuelConsumption[1] = (int)W2Fuel.Value;
-               engineProperties.FuelConsumption[2] = (int)W3Fuel.Value;
-               engineProperties.FuelConsumption[3] = (int)W4Fuel.Value;
-               engineProperties.FuelConsumption[4] = (int)W5Fuel.Value;
-               engineProperties.FuelConsumption[5] = (int)W6Fuel.Value;
-               engineProperties.FuelConsumption[6] = (int)W7Fuel.Value;
-               engineProperties.FuelConsumption[7] = (int)W8Fuel.Value;
-               engineProperties.FuelConsumption[8] = (int)W9Fuel.Value;
-               engineProperties.FuelConsumption[9] = (int)W10Fuel.Value;
+               engineProperties.RamScoop = this.ramScoopCheckBox.Checked;
+               engineProperties.FastestSafeSpeed = (int)this.engineFastestSafeSpeed.Value;
+               engineProperties.OptimalSpeed = (int)this.engineOptimalSpeed.Value;
+               engineProperties.FuelConsumption[0] = (int)this.warp1Fuel.Value;
+               engineProperties.FuelConsumption[1] = (int)this.warp2Fuel.Value;
+               engineProperties.FuelConsumption[2] = (int)this.warp3Fuel.Value;
+               engineProperties.FuelConsumption[3] = (int)this.warp4Fuel.Value;
+               engineProperties.FuelConsumption[4] = (int)this.warp5Fuel.Value;
+               engineProperties.FuelConsumption[5] = (int)this.warp6Fuel.Value;
+               engineProperties.FuelConsumption[6] = (int)this.warp7Fuel.Value;
+               engineProperties.FuelConsumption[7] = (int)this.warp8Fuel.Value;
+               engineProperties.FuelConsumption[8] = (int)this.warp9Fuel.Value;
+               engineProperties.FuelConsumption[9] = (int)this.warp10Fuel.Value;
                newComponent.Properties.Add("Engine", engineProperties);
 
            }
-           if (PropertyTabs.Contains(tabFuel))
+           if (this.propertyTabs.Contains(tabFuel))
            {
                Fuel fuelProperty = new Fuel();
-               fuelProperty.Capacity = (int)FuelCapacity.Value;
-               fuelProperty.Generation = (int)FuelGeneration.Value;
+               fuelProperty.Capacity = (int)this.fuelCapacity.Value;
+               fuelProperty.Generation = (int)this.fuelGeneration.Value;
                newComponent.Properties.Add("Fuel", fuelProperty);
            }
-           if (PropertyTabs.Contains(tabGate))
+           if (this.propertyTabs.Contains(tabGate))
            {
                Gate gateProperties = new Gate();
-               gateProperties.SafeHullMass = (int)SafeHullMass.Value;
-               gateProperties.SafeRange = (int)SafeRange.Value;
+               gateProperties.SafeHullMass = (int)this.safeHullMass.Value;
+               gateProperties.SafeRange = (int)this.safeRange.Value;
                newComponent.Properties.Add("Gate", gateProperties);
            }
-           if (PropertyTabs.Contains(tabHull))
+           if (this.propertyTabs.Contains(tabHull))
            {
                Hull hullProperties = new Hull();
-               hullProperties.ArmorStrength = (int)HullArmor.Value;
-               hullProperties.FuelCapacity = (int)HullFuelCapacity.Value;
-               hullProperties.DockCapacity = (int)HullDockCapacity.Value;
-               hullProperties.ARMaxPop = (int)ARMaxPop.Value;
-               hullProperties.BaseCargo = (int)HullCargoCapacity.Value;
-               hullProperties.BattleInitiative = (int)HullInitiative.Value;
+               hullProperties.ArmorStrength = (int)this.hullArmor.Value;
+               hullProperties.FuelCapacity = (int)this.hullFuelCapacity.Value;
+               hullProperties.DockCapacity = (int)this.hullDockCapacity.Value;
+               hullProperties.ARMaxPop = (int)this.alternateRealityMaxPop.Value;
+               hullProperties.BaseCargo = (int)this.hullCargoCapacity.Value;
+               hullProperties.BattleInitiative = (int)this.hullInitiative.Value;
 
                hullProperties.Modules = new ArrayList();
-               foreach (HullModule module in HullMap)
+               foreach (HullModule module in hullMap)
                {
                    HullModule newModule = new HullModule(module);
                    hullProperties.Modules.Add(newModule);
@@ -1619,100 +1619,100 @@ namespace Nova.WinForms.ComponentEditor
 
                newComponent.Properties.Add("Hull", hullProperties);
            }
-           if (PropertyTabs.Contains(tabHullAffinity))
+           if (this.propertyTabs.Contains(tabHullAffinity))
            {
                HullAffinity hullAffinityProperty = new HullAffinity();
-               hullAffinityProperty.Value = ComponentHullAffinity.Text;
+               hullAffinityProperty.Value = this.componentHullAffinity.Text;
                newComponent.Properties.Add("Hull Affinity", hullAffinityProperty);
            }
-           if (PropertyTabs.Contains(tabJammer))
+           if (this.propertyTabs.Contains(tabJammer))
            {
                ProbabilityProperty jammerProperty = new ProbabilityProperty();
-               jammerProperty.Value = (int)Deflection.Value;
+               jammerProperty.Value = (int)this.deflection.Value;
                newComponent.Properties.Add("Jammer", jammerProperty);
            }
-           if (PropertyTabs.Contains(tabDriver))
+           if (this.propertyTabs.Contains(tabDriver))
            {
                MassDriver driverProperty = new MassDriver();
-               driverProperty.Value = (int)MassDriverSpeed.Value;
+               driverProperty.Value = (int)this.massDriverSpeed.Value;
                newComponent.Properties.Add("Mass Driver", driverProperty);
            }
-           if (PropertyTabs.Contains(tabMineLayer))
+           if (this.propertyTabs.Contains(tabMineLayer))
            {
                MineLayer mineLayerProperty = new MineLayer();
-               mineLayerProperty.LayerRate = (int)MineLayingRate.Value;
-               mineLayerProperty.SafeSpeed = (int)MineSafeSpeed.Value;
-               mineLayerProperty.HitChance = (double)MineHitChance.Value;
-               mineLayerProperty.DamagePerEngine = (int)MineDamagePerEngine.Value;
-               mineLayerProperty.DamagePerRamScoop = (int)MineDamagePerRamScoop.Value;
-               mineLayerProperty.MinFleetDamage = (int)MineMinFleetDamage.Value;
-               mineLayerProperty.MinRamScoopDamage = (int)MineMinRamScoopDamage.Value;
+               mineLayerProperty.LayerRate = (int)this.mineLayingRate.Value;
+               mineLayerProperty.SafeSpeed = (int)this.mineSafeSpeed.Value;
+               mineLayerProperty.HitChance = (double)this.mineHitChance.Value;
+               mineLayerProperty.DamagePerEngine = (int)this.mineDamagePerEngine.Value;
+               mineLayerProperty.DamagePerRamScoop = (int)this.mineDamagePerRamScoop.Value;
+               mineLayerProperty.MinFleetDamage = (int)this.mineMinFleetDamage.Value;
+               mineLayerProperty.MinRamScoopDamage = (int)this.mineMinRamScoopDamage.Value;
                newComponent.Properties.Add("Mine Layer", mineLayerProperty);
            }
-           if (PropertyTabs.Contains(tabLayerEfficiency))
+           if (this.propertyTabs.Contains(tabLayerEfficiency))
            {
                DoubleProperty layerEfficiencyProperty = new DoubleProperty();
-               layerEfficiencyProperty.Value = (double)MineLayerEfficiency.Value;
+               layerEfficiencyProperty.Value = (double)this.mineLayerEfficiency.Value;
                newComponent.Properties.Add("Mine Layer Efficiency", layerEfficiencyProperty);
            }
-           if (PropertyTabs.Contains(tabRobot))
+           if (this.propertyTabs.Contains(tabRobot))
            {
                IntegerProperty robotProperty = new IntegerProperty();
-               robotProperty.Value = (int)MiningRate.Value;
+               robotProperty.Value = (int)this.miningRate.Value;
                newComponent.Properties.Add("Mining Robot", robotProperty);
            }
-           if (PropertyTabs.Contains(tabOrbitalAdjuster))
+           if (this.propertyTabs.Contains(tabOrbitalAdjuster))
            {
                IntegerProperty adjusterProperty = new IntegerProperty();
-               adjusterProperty.Value = (int)AdjusterRate.Value;
+               adjusterProperty.Value = (int)this.adjusterRate.Value;
                newComponent.Properties.Add("Orbital Adjuster", adjusterProperty);
            }
-           if (PropertyTabs.Contains(tabRadiation))
+           if (this.propertyTabs.Contains(tabRadiation))
            {
                Radiation radiationProperty = new Radiation();
-               radiationProperty.Value = (double)Radiation.Value;
+               radiationProperty.Value = (double)this.radiation.Value;
                newComponent.Properties.Add("Radiation", radiationProperty);
            }
-           if (PropertyTabs.Contains(tabScanner))
+           if (this.propertyTabs.Contains(tabScanner))
            {
                Scanner scannerProperty = new Scanner();
-               scannerProperty.NormalScan = (int)NormalRange.Value;
-               scannerProperty.PenetratingScan = (int)PenetratingRange.Value;
+               scannerProperty.NormalScan = (int)this.normalRange.Value;
+               scannerProperty.PenetratingScan = (int)this.penetratingRange.Value;
                newComponent.Properties.Add("Scanner", scannerProperty);
            }
-           if (PropertyTabs.Contains(tabShield))
+           if (this.propertyTabs.Contains(tabShield))
            {
                IntegerProperty shieldProperty = new IntegerProperty();
-               shieldProperty.Value = (int)Shield.Value;
+               shieldProperty.Value = (int)this.shield.Value;
                newComponent.Properties.Add("Shield", shieldProperty);
            }
-           if (PropertyTabs.Contains(tabTachyonDetector))
+           if (this.propertyTabs.Contains(tabTachyonDetector))
            {
                ProbabilityProperty detectorProperty = new ProbabilityProperty();
-               detectorProperty.Value = (double)TachyonDetector.Value;
+               detectorProperty.Value = (double)this.tachyonDetector.Value;
                newComponent.Properties.Add("Tachyon Detector", detectorProperty);
            }
-           if (PropertyTabs.Contains(tabTerraforming))
+           if (this.propertyTabs.Contains(tabTerraforming))
            {
                Terraform terraformProperty = new Terraform();
-               terraformProperty.MaxModifiedGravity = (int)GravityMod.Value;
-               terraformProperty.MaxModifiedTemperature = (int)TemperatureMod.Value;
-               terraformProperty.MaxModifiedRadiation = (int)RadiationMod.Value;
+               terraformProperty.MaxModifiedGravity = (int)this.gravityMod.Value;
+               terraformProperty.MaxModifiedTemperature = (int)this.temperatureMod.Value;
+               terraformProperty.MaxModifiedRadiation = (int)this.radiationMod.Value;
                newComponent.Properties.Add("Terraform", terraformProperty);
            }
-           if (PropertyTabs.Contains(tabTransportShipsOnly))
+           if (this.propertyTabs.Contains(tabTransportShipsOnly))
            {
                SimpleProperty transportProperty = new SimpleProperty();
                newComponent.Properties.Add("Transport Ships Only", transportProperty);
            }
-           if (PropertyTabs.Contains(tabWeapon))
+           if (this.propertyTabs.Contains(tabWeapon))
            {
                Weapon weaponProperty = new Weapon();
 
-               weaponProperty.Power = (int)WeaponPower.Value;
-               weaponProperty.Range = (int)WeaponRange.Value;
-               weaponProperty.Initiative = (int)WeaponInitiative.Value;
-               weaponProperty.Accuracy = (int)WeaponAccuracy.Value;
+               weaponProperty.Power = (int)this.weaponPower.Value;
+               weaponProperty.Range = (int)this.weaponRange.Value;
+               weaponProperty.Initiative = (int)this.weaponInitiative.Value;
+               weaponProperty.Accuracy = (int)this.weaponAccuracy.Value;
                if (isStandardBeam.Checked) weaponProperty.Group = WeaponType.standardBeam;
                else if (isSapper.Checked) weaponProperty.Group = WeaponType.shieldSapper;
                else if (isGattling.Checked) weaponProperty.Group = WeaponType.gatlingGun;
@@ -1726,10 +1726,10 @@ namespace Nova.WinForms.ComponentEditor
            Nova.Common.Components.AllComponents.Data.Components[newComponent.Name] = newComponent;
 
            EditModeOff();
-           FileDirty = true;
-           ComponentDirty = false;
+           fileDirty = true;
+           componentDirty = false;
 
-           SelectComponent(ComponentType.Text, newComponent.Name);
+           SelectComponent(this.componentType.Text, newComponent.Name);
 
            Report.Information("Component design has been saved.");
        }
@@ -1752,7 +1752,7 @@ namespace Nova.WinForms.ComponentEditor
                    Text += "New Component Definintions";
                }
 
-               if (EditMode)
+               if (editMode)
                {
                    Text += " - Edit Mode";
                }
@@ -1767,16 +1767,16 @@ namespace Nova.WinForms.ComponentEditor
        /// <summary>
        /// Update the list box of components base on the selected <see cref="Type"/>
        /// </summary>
-       /// <param name="ComponentTypeSelected">Type of component.</param>
-       public void UpdateListBox(string ComponentTypeSelected)
+       /// <param name="componentTypeSelected">Type of component.</param>
+       public void UpdateListBox(string componentTypeSelected)
        {
-           ComponentList.Items.Clear();
+           this.componentList.Items.Clear();
 
-           foreach (Nova.Common.Components.Component thing in AllComponents.Data.Components.Values)
+           foreach (Component thing in AllComponents.Data.Components.Values)
            {
-               if (thing.Type == ComponentTypeSelected)
+               if (thing.Type == componentTypeSelected)
                {
-                   ComponentList.Items.Add(thing.Name);
+                   this.componentList.Items.Add(thing.Name);
                }
            }
        }
@@ -1793,11 +1793,11 @@ namespace Nova.WinForms.ComponentEditor
            EditModeOff();
 
            // keep the current component selected
-           for (int n = 0; n < ComponentList.Items.Count; n++)
+           for (int n = 0; n < this.componentList.Items.Count; n++)
            {
-               if ((string)ComponentList.Items[n] == name)
+               if ((string)this.componentList.Items[n] == name)
                {
-                   ComponentList.SelectedIndex = n;
+                   this.componentList.SelectedIndex = n;
                    break;
                }
            }
@@ -1809,7 +1809,7 @@ namespace Nova.WinForms.ComponentEditor
        /// </summary>
        public void DeleteComponent()
        {
-           string componentName = ComponentName.Text;
+           string componentName = this.componentName.Text;
 
            if (componentName == null || componentName == "")
            {
@@ -1818,15 +1818,15 @@ namespace Nova.WinForms.ComponentEditor
            }
 
            AllComponents.Data.Components.Remove(componentName);
-           ComponentList.Items.Remove(componentName);
+           this.componentList.Items.Remove(componentName);
 
-           if (ComponentList.Items.Count > 0)
+           if (this.componentList.Items.Count > 0)
            {
-               ComponentList.SelectedIndex = 0;
+               this.componentList.SelectedIndex = 0;
            }
 
-           FileDirty = true;
-           ComponentDirty = false;
+           fileDirty = true;
+           componentDirty = false;
            EditModeOff();
        }
 
@@ -1839,9 +1839,9 @@ namespace Nova.WinForms.ComponentEditor
       /// </para></summary>
       private void EditModeOn()
       {
-          EditMode = true;
-          ComponentName.ReadOnly = false;
-          Description.ReadOnly = false;
+          editMode = true;
+          this.componentName.ReadOnly = false;
+          this.description.ReadOnly = false;
           // TODO (priority 2) - enable all component editing fields/menu items
           UpdateTitleBar();
       }
@@ -1855,9 +1855,9 @@ namespace Nova.WinForms.ComponentEditor
       /// </para></summary>
       private void EditModeOff()
       {
-          EditMode = false;
-          ComponentName.ReadOnly = true;
-          Description.ReadOnly = true;
+          editMode = false;
+          this.componentName.ReadOnly = true;
+          this.description.ReadOnly = true;
           // TODO (priority 2) - disable all component editing fields.
           UpdateTitleBar();
 
@@ -1880,16 +1880,16 @@ namespace Nova.WinForms.ComponentEditor
       /// </summary>
       private void ClearForm()
       {
-          PropertyTabs.TabPages.Clear();
-          BasicProperties.Cost = new Nova.Common.Resources(0, 0, 0, 0);
-          BasicProperties.Mass = 0;
-          ComponentImage.Image = null;
-          ComponentName.Text = "";
-          Description.Text = "";
-          RestrictionSummary.Text = "";
-          TechRequirements.Value = new TechLevel(0);
-          Restrictions = new RaceRestriction();
-          HullMap = new ArrayList();
+          this.propertyTabs.TabPages.Clear();
+          this.basicProperties.Cost = new Nova.Common.Resources(0, 0, 0, 0);
+          this.basicProperties.Mass = 0;
+          this.componentImage.Image = null;
+          this.componentName.Text = "";
+          this.description.Text = "";
+          this.restrictionSummary.Text = "";
+          this.techRequirements.Value = new TechLevel(0);
+          restrictions = new RaceRestriction();
+          hullMap = new ArrayList();
       }
 
 
@@ -1899,12 +1899,12 @@ namespace Nova.WinForms.ComponentEditor
       /// </summary>
       private void ComponentHullAffinity_PopulateList()
       {
-          ComponentHullAffinity.Items.Clear();
+          this.componentHullAffinity.Items.Clear();
           foreach (Nova.Common.Components.Component thing in Nova.Common.Components.AllComponents.Data.Components.Values)
           {
               if (thing.Type == "Hull")
               {
-                  ComponentHullAffinity.Items.Add(thing.Name);
+                  this.componentHullAffinity.Items.Add(thing.Name);
               }
           }
       }
@@ -1930,26 +1930,26 @@ namespace Nova.WinForms.ComponentEditor
           {
               Nova.Common.Components.Component component = new Nova.Common.Components.Component();
 
-              component.ComponentImage = ComponentImage.Image;
-              component.Cost = BasicProperties.Cost;
-              component.Description = Description.Text;
-              component.Mass = BasicProperties.Mass;
-              component.Name = ComponentName.Text;
-              component.RequiredTech = TechRequirements.Value;
+              component.ComponentImage = this.componentImage.Image;
+              component.Cost = this.basicProperties.Cost;
+              component.Description = this.description.Text;
+              component.Mass = this.basicProperties.Mass;
+              component.Name = this.componentName.Text;
+              component.RequiredTech = this.techRequirements.Value;
 
               return component;
           }
 
           set
           {
-              BasicProperties.Cost = value.Cost;
-              BasicProperties.Mass = value.Mass;
-              ComponentImage.Image = value.ComponentImage;
-              ComponentName.Text = value.Name;
-              Description.Text = value.Description;
-              RestrictionSummary.Text = value.Restrictions.ToString();
+              this.basicProperties.Cost = value.Cost;
+              this.basicProperties.Mass = value.Mass;
+              this.componentImage.Image = value.ComponentImage;
+              this.componentName.Text = value.Name;
+              this.description.Text = value.Description;
+              this.restrictionSummary.Text = value.Restrictions.ToString();
 
-              TechRequirements.Value = value.RequiredTech;
+              this.techRequirements.Value = value.RequiredTech;
           }
       }
 

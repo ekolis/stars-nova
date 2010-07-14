@@ -53,8 +53,7 @@ namespace Nova.Common
     [Serializable]
     public class RaceRestriction
     {
-
-        private Hashtable Restrictions = new Hashtable();
+        private readonly Hashtable restrictions = new Hashtable();
 
         #region Construction
 
@@ -65,7 +64,7 @@ namespace Nova.Common
         {
             foreach (string trait in AllTraits.TraitKeys)
             {
-                Restrictions[trait] = (int)RaceAvailability.not_required;
+                this.restrictions[trait] = (int)RaceAvailability.not_required;
             }
         }
 
@@ -80,14 +79,14 @@ namespace Nova.Common
             {
                 foreach (string trait in AllTraits.TraitKeys)
                 {
-                    Restrictions[trait] = (int)existing.Restrictions[trait];
+                    this.restrictions[trait] = (int)existing.restrictions[trait];
                 }
             }
             catch
             {
                 foreach (string trait in AllTraits.TraitKeys)
                 {
-                    Restrictions[trait] = (int)RaceAvailability.not_required;
+                    this.restrictions[trait] = (int)RaceAvailability.not_required;
                 }
             }
         }
@@ -105,7 +104,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public void SetRestriction(string trait, RaceAvailability availability)
         {
-            Restrictions[trait] = availability;
+            this.restrictions[trait] = availability;
         }
 
         /// ----------------------------------------------------------------------------
@@ -119,7 +118,7 @@ namespace Nova.Common
         {
             try
             {
-                return (RaceAvailability)Restrictions[trait];
+                return (RaceAvailability)this.restrictions[trait];
             }
             catch (System.NullReferenceException)
             {
@@ -148,15 +147,15 @@ namespace Nova.Common
 
                     // not_required is the default, only save variations
                     
-                   if (Restrictions.ContainsKey(key) && (RaceAvailability)Restrictions[key] != RaceAvailability.not_required)
+                   if (this.restrictions.ContainsKey(key) && (RaceAvailability)this.restrictions[key] != RaceAvailability.not_required)
                    {
                        inwords += "This component ";
                        // <requires/is not available with>
-                       if ((RaceAvailability)this.Restrictions[key] == RaceAvailability.not_available)
+                       if ((RaceAvailability)this.restrictions[key] == RaceAvailability.not_available)
                        {
                            inwords += "is not available with";
                        }
-                       else if ((RaceAvailability)this.Restrictions[key] == RaceAvailability.required)
+                       else if ((RaceAvailability)this.restrictions[key] == RaceAvailability.required)
                        {
                            inwords += "requires";
                        }
@@ -213,7 +212,7 @@ namespace Nova.Common
                     {
                         if (subnode.Name.ToLower() == key.ToLower())
                         {
-                            Restrictions[key] = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            this.restrictions[key] = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
 
                         }
                     }
@@ -242,10 +241,10 @@ namespace Nova.Common
                 foreach (string key in AllTraits.TraitKeys)
                 {
                     // not_required is the default, only save variations
-                    if (Restrictions.ContainsKey(key) && (RaceAvailability)Restrictions[key] != RaceAvailability.not_required)
+                    if (this.restrictions.ContainsKey(key) && (RaceAvailability)this.restrictions[key] != RaceAvailability.not_required)
                     {
                         XmlElement xmlelTrait = xmldoc.CreateElement(key);
-                        XmlText xmltxtTrait = xmldoc.CreateTextNode(((int)this.Restrictions[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
+                        XmlText xmltxtTrait = xmldoc.CreateTextNode(((int)this.restrictions[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
                         xmlelTrait.AppendChild(xmltxtTrait);
                         xmlelResource.AppendChild(xmlelTrait);
                     }

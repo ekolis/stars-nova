@@ -43,8 +43,7 @@ namespace Nova.WinForms.Console
     /// </summary>
     public static class CheckForMinefields
     {
-
-        private static Random RandomNumber = new Random();
+        private static readonly Random Random = new Random();
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -55,16 +54,16 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public static bool Check(Fleet fleet)
         {
-            foreach (Minefield Minefield in
+            foreach (Minefield minefield in
                      ServerState.Data.AllMinefields.Values)
             {
 
-                if (IsInField(fleet, Minefield))
+                if (IsInField(fleet, minefield))
                 {
-                    bool hit = CheckForHit(fleet, Minefield);
+                    bool hit = CheckForHit(fleet, minefield);
                     if (hit)
                     {
-                        InflictDamage(fleet, Minefield);
+                        InflictDamage(fleet, minefield);
                     }
                 }
 
@@ -72,10 +71,10 @@ namespace Nova.WinForms.Console
                 // just not worth bothering about.
                 // FIXME (priority 5) - Minefiled decay has nothing to do with moving fleets and should be processed seperately.
                 // FIXME (priority 5) - Minefield decay rates depend on what is in the field (stars).
-                Minefield.NumberOfMines -= Minefield.NumberOfMines / 100;
-                if (Minefield.NumberOfMines <= 10)
+                minefield.NumberOfMines -= minefield.NumberOfMines / 100;
+                if (minefield.NumberOfMines <= 10)
                 {
-                    ServerState.Data.AllMinefields.Remove(Minefield);
+                    ServerState.Data.AllMinefields.Remove(minefield);
                 }
             }
 
@@ -91,20 +90,20 @@ namespace Nova.WinForms.Console
         /// less than the radius of the field.
         /// </summary>
         /// <param name="fleet"></param>
-        /// <param name="Minefield"></param>
+        /// <param name="minefield"></param>
         /// <returns></returns>
         /// ----------------------------------------------------------------------------
-        private static bool IsInField(Fleet fleet, Minefield Minefield)
+        private static bool IsInField(Fleet fleet, Minefield minefield)
         {
 
             // If we are travelling at a "safe" speed we can just pretend we are
             // not in a Minefield.
 
-            if (fleet.Speed <= Minefield.SafeSpeed) return false;
+            if (fleet.Speed <= minefield.SafeSpeed) return false;
 
-            double distance = PointUtilities.Distance(fleet.Position, Minefield.Position);
+            double distance = PointUtilities.Distance(fleet.Position, minefield.Position);
 
-            if (distance < Minefield.Radius)
+            if (distance < minefield.Radius)
             {
                 return true;
             }
@@ -127,10 +126,10 @@ namespace Nova.WinForms.Console
         /// turn, the fleet has a 10.5% chance of triggering a mine.
         /// </remarks>
         /// <param name="fleet">The moving fleet.</param>
-        /// <param name="Minefield">The minefield being traversed.</param>
+        /// <param name="minefield">The minefield being traversed.</param>
         /// <returns>true if the minefield is hit.</returns>
         /// ----------------------------------------------------------------------------
-        private static bool CheckForHit(Fleet fleet, Minefield Minefield)
+        private static bool CheckForHit(Fleet fleet, Minefield minefield)
         {
             // Calculate how long we are going to be in the Minefield. This is the
             // lesser of the distance to the next waypoint and the radius of the
@@ -141,14 +140,14 @@ namespace Nova.WinForms.Console
             Point targetPosition = targetWaypoint.Position;
 
             double travelDistance = PointUtilities.Distance(currentPosition, targetPosition);
-            if (Minefield.Radius > (int)travelDistance)
+            if (minefield.Radius > (int)travelDistance)
             {
-                travelDistance = Minefield.Radius;
+                travelDistance = minefield.Radius;
             }
 
-            double speeding = fleet.Speed - Minefield.SafeSpeed;
+            double speeding = fleet.Speed - minefield.SafeSpeed;
             double probability = (0.03 * travelDistance * speeding) * 100;
-            double dice = RandomNumber.Next(0, 100);
+            double dice = Random.Next(0, 100);
 
             if (dice < probability)
             {
@@ -170,9 +169,9 @@ namespace Nova.WinForms.Console
         /// (absorbed)
         /// </summary>
         /// <param name="fleet">The fleet that hit the minefield.</param>
-        /// <param name="Minefield">The minefield being impacted.</param>
+        /// <param name="minefield">The minefield being impacted.</param>
         /// ----------------------------------------------------------------------------
-        private static void InflictDamage(Fleet fleet, Minefield Minefield)
+        private static void InflictDamage(Fleet fleet, Minefield minefield)
         {
             int shipDamage = 100 / 2;
             int shipsLost = 0;

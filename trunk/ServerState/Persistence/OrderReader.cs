@@ -40,7 +40,7 @@ namespace Nova.Server
 {
     public static class OrderReader
     {
-        private static ServerState StateData = ServerState.Data;
+        private static readonly ServerState StateData = ServerState.Data;
 
         #region Methods
 
@@ -54,10 +54,10 @@ namespace Nova.Server
             
             StateData.AllTechLevels.Clear();
 
-            foreach (Race Race in StateData.AllRaces.Values)
+            foreach (Race race in StateData.AllRaces.Values)
             {
                 // TODO (priority 4) only load those that are not yet turned in.
-                ReadPlayerTurn(Race);
+                ReadPlayerTurn(race);
             }
         
         }

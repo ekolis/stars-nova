@@ -40,8 +40,8 @@ namespace Nova.WinForms.Gui
     /// </summary>
     public partial class ManageFleetDialog : Form
     {
-        private Fleet SelectedFleet = null;
-        private Hashtable AllFleets = null;
+        private readonly Hashtable allFleets;
+        private Fleet selectedFleet;
 
         #region Construction
 
@@ -51,7 +51,7 @@ namespace Nova.WinForms.Gui
         public ManageFleetDialog()
         {
             InitializeComponent();
-            AllFleets = ClientState.Data.InputTurn.AllFleets;
+            this.allFleets = ClientState.Data.InputTurn.AllFleets;
         }
 
         #endregion
@@ -69,12 +69,12 @@ namespace Nova.WinForms.Gui
         private void RenameButton_Click(object sender, EventArgs e)
         {
             RenameFleet renameDialog = new RenameFleet();
-            renameDialog.ExistingName.Text = FleetName.Text;
+            renameDialog.ExistingName.Text = this.fleetName.Text;
 
             renameDialog.ShowDialog();
             renameDialog.Dispose();
 
-            FleetName.Text = SelectedFleet.Name;
+            this.fleetName.Text = this.selectedFleet.Name;
 
 
         }
@@ -89,7 +89,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void CoLocatedFleets_SelectedIndexChanged(object sender, EventArgs e)
         {
-            MergeButton.Enabled = true;
+            this.mergeButton.Enabled = true;
         }
 
 
@@ -102,20 +102,20 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void MergeButton_Click(object sender, EventArgs e)
         {
-            string fleetName = CoLocatedFleets.SelectedItems[0].Text;
+            string fleetName = this.coLocatedFleets.SelectedItems[0].Text;
             string fleetKey = ClientState.Data.RaceName + "/" + fleetName;
 
-            Fleet fleetToMerge = AllFleets[fleetKey] as Fleet;
+            Fleet fleetToMerge = this.allFleets[fleetKey] as Fleet;
             foreach (Ship ship in fleetToMerge.FleetShips)
             {
-                SelectedFleet.FleetShips.Add(ship);
+                this.selectedFleet.FleetShips.Add(ship);
             }
 
-            AllFleets.Remove(fleetKey);
+            this.allFleets.Remove(fleetKey);
             ClientState.Data.DeletedFleets.Add(fleetKey);
             UpdateDialogDetails();
 
-            MergeButton.Enabled = false;
+            this.mergeButton.Enabled = false;
         }
 
         #endregion
@@ -129,26 +129,26 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void UpdateDialogDetails()
         {
-            FleetName.Text = SelectedFleet.Name;
-            Hashtable designs = SelectedFleet.Composition;
+            this.fleetName.Text = this.selectedFleet.Name;
+            Hashtable designs = this.selectedFleet.Composition;
 
-            FleetComposition.Items.Clear();
+            this.fleetComposition.Items.Clear();
             foreach (string key in designs.Keys)
             {
                 ListViewItem listItem = new ListViewItem(key);
                 listItem.SubItems.Add(((int)designs[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
-                FleetComposition.Items.Add(listItem);
+                this.fleetComposition.Items.Add(listItem);
             }
 
-            CoLocatedFleets.Items.Clear();
+            this.coLocatedFleets.Items.Clear();
 
-            foreach (Fleet fleet in AllFleets.Values)
+            foreach (Fleet fleet in this.allFleets.Values)
             {
-                if (fleet.Name != SelectedFleet.Name)
+                if (fleet.Name != this.selectedFleet.Name)
                 {
-                    if (fleet.Position == SelectedFleet.Position)
+                    if (fleet.Position == this.selectedFleet.Position)
                     {
-                        CoLocatedFleets.Items.Add(fleet.Name);
+                        this.coLocatedFleets.Items.Add(fleet.Name);
                     }
                 }
             }
@@ -167,12 +167,12 @@ namespace Nova.WinForms.Gui
         {
             set
             {
-                SelectedFleet = value;
+                this.selectedFleet = value;
                 UpdateDialogDetails();
             }
             get
             {
-                return SelectedFleet;
+                return this.selectedFleet;
             }
         }
 

@@ -31,9 +31,9 @@ namespace Nova.WinForms.Gui
          this.groupBox1 = new System.Windows.Forms.GroupBox();
          this.ExistingName = new System.Windows.Forms.Label();
          this.groupBox2 = new System.Windows.Forms.GroupBox();
-         this.NewName = new System.Windows.Forms.TextBox();
-         this.OKButton = new System.Windows.Forms.Button();
-         this.CancelRename = new System.Windows.Forms.Button();
+         this.newName = new System.Windows.Forms.TextBox();
+         this.okButton = new System.Windows.Forms.Button();
+         this.cancelRename = new System.Windows.Forms.Button();
          this.groupBox1.SuspendLayout();
          this.groupBox2.SuspendLayout();
          this.SuspendLayout();
@@ -58,7 +58,7 @@ namespace Nova.WinForms.Gui
          // 
          // groupBox2
          // 
-         this.groupBox2.Controls.Add(this.NewName);
+         this.groupBox2.Controls.Add(this.newName);
          this.groupBox2.Location = new System.Drawing.Point(14, 60);
          this.groupBox2.Name = "groupBox2";
          this.groupBox2.Size = new System.Drawing.Size(201, 44);
@@ -68,32 +68,32 @@ namespace Nova.WinForms.Gui
          // 
          // NewName
          // 
-         this.NewName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
+         this.newName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                      | System.Windows.Forms.AnchorStyles.Right)));
-         this.NewName.Location = new System.Drawing.Point(6, 18);
-         this.NewName.Name = "NewName";
-         this.NewName.Size = new System.Drawing.Size(189, 20);
-         this.NewName.TabIndex = 0;
+         this.newName.Location = new System.Drawing.Point(6, 18);
+         this.newName.Name = "newName";
+         this.newName.Size = new System.Drawing.Size(189, 20);
+         this.newName.TabIndex = 0;
          // 
          // OKButton
          // 
-         this.OKButton.Location = new System.Drawing.Point(237, 75);
-         this.OKButton.Name = "OKButton";
-         this.OKButton.Size = new System.Drawing.Size(75, 23);
-         this.OKButton.TabIndex = 2;
-         this.OKButton.Text = "Rename";
-         this.OKButton.UseVisualStyleBackColor = true;
-         this.OKButton.Click += new System.EventHandler(this.OKButton_Click);
+         this.okButton.Location = new System.Drawing.Point(237, 75);
+         this.okButton.Name = "okButton";
+         this.okButton.Size = new System.Drawing.Size(75, 23);
+         this.okButton.TabIndex = 2;
+         this.okButton.Text = "Rename";
+         this.okButton.UseVisualStyleBackColor = true;
+         this.okButton.Click += new System.EventHandler(this.OKButton_Click);
          // 
          // CancelRename
          // 
-         this.CancelRename.Location = new System.Drawing.Point(236, 25);
-         this.CancelRename.Name = "CancelRename";
-         this.CancelRename.Size = new System.Drawing.Size(75, 23);
-         this.CancelRename.TabIndex = 3;
-         this.CancelRename.Text = "Cancel";
-         this.CancelRename.UseVisualStyleBackColor = true;
-         this.CancelRename.Click += new System.EventHandler(this.CancelRename_Click);
+         this.cancelRename.Location = new System.Drawing.Point(236, 25);
+         this.cancelRename.Name = "cancelRename";
+         this.cancelRename.Size = new System.Drawing.Size(75, 23);
+         this.cancelRename.TabIndex = 3;
+         this.cancelRename.Text = "Cancel";
+         this.cancelRename.UseVisualStyleBackColor = true;
+         this.cancelRename.Click += new System.EventHandler(this.CancelRename_Click);
          // 
          // RenameFleet
          // 
@@ -101,8 +101,8 @@ namespace Nova.WinForms.Gui
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.ClientSize = new System.Drawing.Size(323, 115);
          this.ControlBox = false;
-         this.Controls.Add(this.CancelRename);
-         this.Controls.Add(this.OKButton);
+         this.Controls.Add(this.cancelRename);
+         this.Controls.Add(this.okButton);
          this.Controls.Add(this.groupBox2);
          this.Controls.Add(this.groupBox1);
          this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -119,9 +119,9 @@ namespace Nova.WinForms.Gui
 
       private System.Windows.Forms.GroupBox groupBox1;
       private System.Windows.Forms.GroupBox groupBox2;
-      private System.Windows.Forms.TextBox NewName;
-      private System.Windows.Forms.Button OKButton;
-      private System.Windows.Forms.Button CancelRename;
+      private System.Windows.Forms.TextBox newName;
+      private System.Windows.Forms.Button okButton;
+      private System.Windows.Forms.Button cancelRename;
       public System.Windows.Forms.Label ExistingName;
 
    }

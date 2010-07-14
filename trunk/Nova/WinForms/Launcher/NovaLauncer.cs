@@ -43,8 +43,8 @@ namespace Nova.WinForms.Launcher
     /// </summary>
     public partial class NovaLauncher : Form
     {
-        private string ServerStateFile = null;
-        private string ClientStateFile = null;
+        private readonly string serverStateFile;
+        private readonly string clientStateFile;
 
         #region Initialisation
 
@@ -69,9 +69,9 @@ namespace Nova.WinForms.Launcher
             versionNumber.Text = string.Format("{0}  -  {1}", productVersion, buildDate.ToShortDateString());
 
             // look for a game in progress
-            ServerStateFile = FileSearcher.GetFile(Global.ServerStateKey, false, "", "", "", false);
-            ClientStateFile = FileSearcher.GetFile(Global.ClientStateKey, false, "", "", "", false);
-            if (ServerStateFile == null && ClientStateFile == null)
+            this.serverStateFile = FileSearcher.GetFile(Global.ServerStateKey, false, "", "", "", false);
+            this.clientStateFile = FileSearcher.GetFile(Global.ClientStateKey, false, "", "", "", false);
+            if (this.serverStateFile == null && this.clientStateFile == null)
                 continueGameButton.Enabled = false;
         }
 
@@ -143,8 +143,8 @@ namespace Nova.WinForms.Launcher
         /// ----------------------------------------------------------------------------
         private void OpenGameButton_Click(object sender, EventArgs e)
         {
-            string IntelFileName = "";
-            bool GameLaunched = false;
+            string intelFileName = "";
+            bool gameLaunched = false;
 
             // have the user identify the game to open
             try
@@ -157,7 +157,7 @@ namespace Nova.WinForms.Launcher
                 {
                     return;
                 }
-                IntelFileName = fd.FileName;
+                intelFileName = fd.FileName;
             }
             catch
             {
@@ -167,12 +167,12 @@ namespace Nova.WinForms.Launcher
             // Launch the GUI
             CommandArguments args = new CommandArguments();
             args.Add(CommandArguments.Option.GuiSwitch);
-            args.Add(CommandArguments.Option.IntelFileName, IntelFileName);
+            args.Add(CommandArguments.Option.IntelFileName, intelFileName);
 
             try
             {
                 Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());
-                GameLaunched = true;
+                gameLaunched = true;
             }
             catch
             {
@@ -180,29 +180,29 @@ namespace Nova.WinForms.Launcher
             }
 
             // Launch the Console if this is a local game, i.e. if the console.state is in the same directory.
-            string ServerStateFileName = "";
-            FileInfo IntelFileInfo = new FileInfo(IntelFileName);
-            string GamePathName = IntelFileInfo.DirectoryName;
-            DirectoryInfo GameDirectoryInfo = new DirectoryInfo(GamePathName);
-            FileInfo[] GameFilesInfo = GameDirectoryInfo.GetFiles();
-            foreach (FileInfo file in GameFilesInfo)
+            string serverStateFileName = "";
+            FileInfo intelFileInfo = new FileInfo(intelFileName);
+            string gamePathName = intelFileInfo.DirectoryName;
+            DirectoryInfo gameDirectoryInfo = new DirectoryInfo(gamePathName);
+            FileInfo[] gameFilesInfo = gameDirectoryInfo.GetFiles();
+            foreach (FileInfo file in gameFilesInfo)
             {
                 if (file.Extension == Global.ServerStateExtension)
                 {
-                    ServerStateFileName = file.FullName;
+                    serverStateFileName = file.FullName;
                 }
             }
 
-            if (ServerStateFileName != "")
+            if (serverStateFileName != "")
             {
                 args.Clear();
                 args.Add(CommandArguments.Option.ConsoleSwitch);
-                args.Add(CommandArguments.Option.StateFileName, ServerStateFileName);
+                args.Add(CommandArguments.Option.StateFileName, serverStateFileName);
 
                 try
                 {
                     Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());
-                    GameLaunched = true;
+                    gameLaunched = true;
                 }
                 catch
                 {
@@ -210,7 +210,7 @@ namespace Nova.WinForms.Launcher
                 }
             }
 
-            if (GameLaunched)
+            if (gameLaunched)
             {
                 Application.Exit();
             }
@@ -228,11 +228,11 @@ namespace Nova.WinForms.Launcher
         private void ContinueGameButton_Click(object sender, EventArgs e)
         {
             // start the GUI
-            if (ClientStateFile != null)
+            if (this.clientStateFile != null)
             {
                 CommandArguments args = new CommandArguments();
                 args.Add(CommandArguments.Option.GuiSwitch);
-                args.Add(CommandArguments.Option.StateFileName, ClientStateFile);
+                args.Add(CommandArguments.Option.StateFileName, this.clientStateFile);
                 try
                 {
                     Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());
@@ -245,7 +245,7 @@ namespace Nova.WinForms.Launcher
             }
 
             // start the server
-            if (ServerStateFile != null)
+            if (this.serverStateFile != null)
             {
                 try
                 {

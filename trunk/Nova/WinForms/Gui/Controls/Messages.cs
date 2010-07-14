@@ -41,16 +41,16 @@ namespace Nova.WinForms.Gui
     /// </summary>
     public class Messages : System.Windows.Forms.UserControl
     {
-        private ArrayList messages = null;
-        private int currentMessage = 0;
-        private int turnYear = 0;
+        private ArrayList messages;
+        private int currentMessage;
+        private int turnYear;
 
         #region VS-Generated Variables
-        private System.Windows.Forms.GroupBox MessageForm;
+        private System.Windows.Forms.GroupBox messageForm;
         private System.Windows.Forms.Label messageBox;
         private System.Windows.Forms.Button nextButton;
         private System.Windows.Forms.Button previousButton;
-        private Button GotoButton;
+        private Button gotoButton;
         private System.ComponentModel.Container components = null;
         #endregion
 
@@ -90,38 +90,38 @@ namespace Nova.WinForms.Gui
         /// </summary>
         private void InitializeComponent()
         {
-            this.MessageForm = new System.Windows.Forms.GroupBox();
-            this.GotoButton = new System.Windows.Forms.Button();
+            this.messageForm = new System.Windows.Forms.GroupBox();
+            this.gotoButton = new System.Windows.Forms.Button();
             this.previousButton = new System.Windows.Forms.Button();
             this.nextButton = new System.Windows.Forms.Button();
             this.messageBox = new System.Windows.Forms.Label();
-            this.MessageForm.SuspendLayout();
+            this.messageForm.SuspendLayout();
             this.SuspendLayout();
             // 
             // MessageForm
             // 
-            this.MessageForm.Controls.Add(this.GotoButton);
-            this.MessageForm.Controls.Add(this.previousButton);
-            this.MessageForm.Controls.Add(this.nextButton);
-            this.MessageForm.Controls.Add(this.messageBox);
-            this.MessageForm.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MessageForm.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.MessageForm.Location = new System.Drawing.Point(0, 0);
-            this.MessageForm.Name = "MessageForm";
-            this.MessageForm.Size = new System.Drawing.Size(350, 120);
-            this.MessageForm.TabIndex = 0;
-            this.MessageForm.TabStop = false;
-            this.MessageForm.Text = "Year 2100 - No Messages";
+            this.messageForm.Controls.Add(this.gotoButton);
+            this.messageForm.Controls.Add(this.previousButton);
+            this.messageForm.Controls.Add(this.nextButton);
+            this.messageForm.Controls.Add(this.messageBox);
+            this.messageForm.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.messageForm.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.messageForm.Location = new System.Drawing.Point(0, 0);
+            this.messageForm.Name = "messageForm";
+            this.messageForm.Size = new System.Drawing.Size(350, 120);
+            this.messageForm.TabIndex = 0;
+            this.messageForm.TabStop = false;
+            this.messageForm.Text = "Year 2100 - No Messages";
             // 
             // GotoButton
             // 
-            this.GotoButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.GotoButton.Location = new System.Drawing.Point(8, 84);
-            this.GotoButton.Name = "GotoButton";
-            this.GotoButton.Size = new System.Drawing.Size(75, 23);
-            this.GotoButton.TabIndex = 3;
-            this.GotoButton.Text = "Go To";
-            this.GotoButton.Click += new System.EventHandler(this.GotoButton_Click);
+            this.gotoButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.gotoButton.Location = new System.Drawing.Point(8, 84);
+            this.gotoButton.Name = "gotoButton";
+            this.gotoButton.Size = new System.Drawing.Size(75, 23);
+            this.gotoButton.TabIndex = 3;
+            this.gotoButton.Text = "Go To";
+            this.gotoButton.Click += new System.EventHandler(this.GotoButton_Click);
             // 
             // previousButton
             // 
@@ -156,10 +156,10 @@ namespace Nova.WinForms.Gui
             // 
             // Messages
             // 
-            this.Controls.Add(this.MessageForm);
+            this.Controls.Add(this.messageForm);
             this.Name = "Messages";
             this.Size = new System.Drawing.Size(350, 120);
-            this.MessageForm.ResumeLayout(false);
+            this.messageForm.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -247,7 +247,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void SetMessage()
         {
-            GotoButton.Enabled = false;
+            this.gotoButton.Enabled = false;
 
             StringBuilder title = new StringBuilder();
             title.AppendFormat("Year {0} - ", turnYear);
@@ -261,7 +261,7 @@ namespace Nova.WinForms.Gui
                 title.AppendFormat("No Messages");
             }
 
-            MessageForm.Text = title.ToString();
+            this.messageForm.Text = title.ToString();
 
             if (messages.Count > 0)
             {
@@ -271,7 +271,7 @@ namespace Nova.WinForms.Gui
 
                 if (thisMessage.Event != null)
                 {
-                    GotoButton.Enabled = true;
+                    this.gotoButton.Enabled = true;
                 }
             }
         }

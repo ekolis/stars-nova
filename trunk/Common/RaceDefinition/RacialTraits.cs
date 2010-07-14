@@ -46,7 +46,7 @@ namespace Nova.Common
     [Serializable]
     public class RacialTraits : TraitList
     {
-        private TraitEntry PrimaryTrait = AllTraits.Data.Primary["JOAT"]; // Start with some default primary trait
+        private TraitEntry primaryTrait = AllTraits.Data.Primary["JOAT"]; // Start with some default primary trait
 
         #region Construction
 
@@ -72,7 +72,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public new IEnumerator GetEnumerator()
         {
-            yield return PrimaryTrait;
+            yield return this.primaryTrait;
             foreach (TraitEntry trait in Dictionary.Values)
                 yield return (TraitEntry)trait;
         }
@@ -87,7 +87,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public new bool Contains(string trait)
         {
-            if (PrimaryTrait.Code == trait) return true;
+            if (this.primaryTrait.Code == trait) return true;
             if (Dictionary == null)
             {
                 Report.Error("RacialTraits: Contains() - Dictionary is null.");
@@ -110,7 +110,7 @@ namespace Nova.Common
         {
             get
             {
-                return PrimaryTrait;
+                return this.primaryTrait;
             }
         }
 
@@ -125,7 +125,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public void SetPrimary(TraitEntry primaryTrait)
         {
-            PrimaryTrait = primaryTrait;
+            this.primaryTrait = primaryTrait;
         }
 
 
@@ -144,7 +144,7 @@ namespace Nova.Common
                 TraitEntry trait = de.Value as TraitEntry;
                 if (trait.Code == primaryTrait || trait.Name == primaryTrait)
                 {
-                    PrimaryTrait = trait;
+                    this.primaryTrait = trait;
                     return;
                 }
             }

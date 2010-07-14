@@ -38,12 +38,12 @@ namespace Nova.ControlLibrary
         public delegate void SelectionChangedHandler(object sender, int value);
         public event SelectionChangedHandler SelectionChanged;
 
-        private int ResearchFactor = 100;
+        private int researchFactor = 100;
 
         private System.Windows.Forms.GroupBox groupbox;
-        private System.Windows.Forms.RadioButton LessCost;
-        private System.Windows.Forms.RadioButton StandardCost;
-        private System.Windows.Forms.RadioButton ExtraCost;
+        private System.Windows.Forms.RadioButton lessCost;
+        private System.Windows.Forms.RadioButton standardCost;
+        private System.Windows.Forms.RadioButton extraCost;
         private System.ComponentModel.Container components = null;
 
         #region Construction and Disposal
@@ -80,17 +80,17 @@ namespace Nova.ControlLibrary
         private void InitializeComponent()
         {
             this.groupbox = new System.Windows.Forms.GroupBox();
-            this.LessCost = new System.Windows.Forms.RadioButton();
-            this.StandardCost = new System.Windows.Forms.RadioButton();
-            this.ExtraCost = new System.Windows.Forms.RadioButton();
+            this.lessCost = new System.Windows.Forms.RadioButton();
+            this.standardCost = new System.Windows.Forms.RadioButton();
+            this.extraCost = new System.Windows.Forms.RadioButton();
             this.groupbox.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupbox
             // 
-            this.groupbox.Controls.Add(this.LessCost);
-            this.groupbox.Controls.Add(this.StandardCost);
-            this.groupbox.Controls.Add(this.ExtraCost);
+            this.groupbox.Controls.Add(this.lessCost);
+            this.groupbox.Controls.Add(this.standardCost);
+            this.groupbox.Controls.Add(this.extraCost);
             this.groupbox.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupbox.Location = new System.Drawing.Point(8, 8);
             this.groupbox.Name = "groupbox";
@@ -101,38 +101,38 @@ namespace Nova.ControlLibrary
             // 
             // LessCost
             // 
-            this.LessCost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.LessCost.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.LessCost.Location = new System.Drawing.Point(16, 72);
-            this.LessCost.Name = "LessCost";
-            this.LessCost.Size = new System.Drawing.Size(112, 24);
-            this.LessCost.TabIndex = 2;
-            this.LessCost.Text = "Costs 50% less";
-            this.LessCost.CheckedChanged += new System.EventHandler(this.Research_CheckChanged);
+            this.lessCost.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.lessCost.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.lessCost.Location = new System.Drawing.Point(16, 72);
+            this.lessCost.Name = "lessCost";
+            this.lessCost.Size = new System.Drawing.Size(112, 24);
+            this.lessCost.TabIndex = 2;
+            this.lessCost.Text = "Costs 50% less";
+            this.lessCost.CheckedChanged += new System.EventHandler(this.Research_CheckChanged);
             // 
             // StandardCost
             // 
-            this.StandardCost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.standardCost.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
-            this.StandardCost.Checked = true;
-            this.StandardCost.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.StandardCost.Location = new System.Drawing.Point(16, 48);
-            this.StandardCost.Name = "StandardCost";
-            this.StandardCost.Size = new System.Drawing.Size(144, 24);
-            this.StandardCost.TabIndex = 1;
-            this.StandardCost.TabStop = true;
-            this.StandardCost.Text = "Costs standard amount";
-            this.StandardCost.CheckedChanged += new System.EventHandler(this.Research_CheckChanged);
+            this.standardCost.Checked = true;
+            this.standardCost.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.standardCost.Location = new System.Drawing.Point(16, 48);
+            this.standardCost.Name = "standardCost";
+            this.standardCost.Size = new System.Drawing.Size(144, 24);
+            this.standardCost.TabIndex = 1;
+            this.standardCost.TabStop = true;
+            this.standardCost.Text = "Costs standard amount";
+            this.standardCost.CheckedChanged += new System.EventHandler(this.Research_CheckChanged);
             // 
             // ExtraCost
             // 
-            this.ExtraCost.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ExtraCost.Location = new System.Drawing.Point(16, 24);
-            this.ExtraCost.Name = "ExtraCost";
-            this.ExtraCost.Size = new System.Drawing.Size(112, 24);
-            this.ExtraCost.TabIndex = 0;
-            this.ExtraCost.Text = "Costs 75% Extra";
-            this.ExtraCost.CheckedChanged += new System.EventHandler(this.Research_CheckChanged);
+            this.extraCost.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.extraCost.Location = new System.Drawing.Point(16, 24);
+            this.extraCost.Name = "extraCost";
+            this.extraCost.Size = new System.Drawing.Size(112, 24);
+            this.extraCost.TabIndex = 0;
+            this.extraCost.Text = "Costs 75% Extra";
+            this.extraCost.CheckedChanged += new System.EventHandler(this.Research_CheckChanged);
             // 
             // ResearchCost
             // 
@@ -166,16 +166,16 @@ namespace Nova.ControlLibrary
                 if (radioButton.Name == "ExtraCost")
                 {
                     value = 49;
-                    ResearchFactor = 150;
+                    this.researchFactor = 150;
                 }
                 else if (radioButton.Name == "LessCost")
                 {
                     value = -43;
-                    ResearchFactor = 50;
+                    this.researchFactor = 50;
                 }
                 else
                 {
-                    ResearchFactor = 100;
+                    this.researchFactor = 100;
                 }
             }
             else
@@ -206,29 +206,29 @@ namespace Nova.ControlLibrary
         {
             get
             {
-                return ResearchFactor;
+                return this.researchFactor;
             }
             set
             {
                 switch (value)
                 {
                     case 50:
-                        LessCost.Checked = true;
-                        StandardCost.Checked = false;
-                        ExtraCost.Checked = false;
+                        this.lessCost.Checked = true;
+                        this.standardCost.Checked = false;
+                        this.extraCost.Checked = false;
                         break;
                     case 100:
-                        LessCost.Checked = false;
-                        StandardCost.Checked = true;
-                        ExtraCost.Checked = false;
+                        this.lessCost.Checked = false;
+                        this.standardCost.Checked = true;
+                        this.extraCost.Checked = false;
                         break;
                     case 150:
-                        LessCost.Checked = false;
-                        StandardCost.Checked = false;
-                        ExtraCost.Checked = true;
+                        this.lessCost.Checked = false;
+                        this.standardCost.Checked = false;
+                        this.extraCost.Checked = true;
                         break;
                 }
-                ResearchFactor = value;
+                this.researchFactor = value;
             }
         }
 

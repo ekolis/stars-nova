@@ -43,19 +43,19 @@ namespace Nova.WinForms.Gui
     /// </summary>
     public class FleetDetail : System.Windows.Forms.UserControl
     {
-        private Fleet SelectedFleet;
-        private int currentFleet = 0;
+        private Fleet selectedFleet;
+        private int currentFleet;
 
         #region VS-Generated variables
         public ComboBox WaypointTasks;
         private Label label14;
         private Label label15;
-        private Gauge Fuel;
+        private Gauge fuel;
         private Label warpText;
         private Label label8;
         private Label label9;
         private Label legFuel;
-        private TrackBar WarpFactor;
+        private TrackBar warpFactor;
         private Label label1;
         private Label label2;
         private Label legDistance;
@@ -63,24 +63,24 @@ namespace Nova.WinForms.Gui
         private Label label5;
         private Label routeFuelUse;
         private Label label4;
-        private Gauge Cargo;
-        private Button CargoButton;
+        private Gauge cargo;
+        private Button cargoButton;
         private Label label6;
         private Label legTime;
         private Label label7;
-        private Button ManageFleet;
-        private WaypointListBox WayPoints;
+        private Button manageFleet;
+        private WaypointListBox wayPoints;
         private GroupBox groupBox1;
         private ComboBox comboBox1;
         private GroupBox groupBox2;
         private GroupBox groupBox3;
         private GroupBox groupBox4;
-        private ListView FleetComposition;
-        private ColumnHeader TypeHeader;
-        private ColumnHeader NumberHeader;
+        private ListView fleetComposition;
+        private ColumnHeader typeHeader;
+        private ColumnHeader numberHeader;
         private GroupBox groupBox5;
-        private Button PreviousFleet;
-        private Button NextFleet;
+        private Button previousFleet;
+        private Button nextFleet;
         private System.ComponentModel.Container components = null;
         #endregion
 
@@ -123,12 +123,12 @@ namespace Nova.WinForms.Gui
             this.WaypointTasks = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.label15 = new System.Windows.Forms.Label();
-            this.Fuel = new Nova.ControlLibrary.Gauge();
+            this.fuel = new Nova.ControlLibrary.Gauge();
             this.warpText = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.legFuel = new System.Windows.Forms.Label();
-            this.WarpFactor = new System.Windows.Forms.TrackBar();
+            this.warpFactor = new System.Windows.Forms.TrackBar();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.legDistance = new System.Windows.Forms.Label();
@@ -136,25 +136,25 @@ namespace Nova.WinForms.Gui
             this.label5 = new System.Windows.Forms.Label();
             this.routeFuelUse = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.Cargo = new Nova.ControlLibrary.Gauge();
-            this.CargoButton = new System.Windows.Forms.Button();
+            this.cargo = new Nova.ControlLibrary.Gauge();
+            this.cargoButton = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.legTime = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.ManageFleet = new System.Windows.Forms.Button();
-            this.WayPoints = new Nova.WinForms.Gui.WaypointListBox();
+            this.manageFleet = new System.Windows.Forms.Button();
+            this.wayPoints = new Nova.WinForms.Gui.WaypointListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.FleetComposition = new System.Windows.Forms.ListView();
-            this.TypeHeader = new System.Windows.Forms.ColumnHeader();
-            this.NumberHeader = new System.Windows.Forms.ColumnHeader();
+            this.fleetComposition = new System.Windows.Forms.ListView();
+            this.typeHeader = new System.Windows.Forms.ColumnHeader();
+            this.numberHeader = new System.Windows.Forms.ColumnHeader();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.PreviousFleet = new System.Windows.Forms.Button();
-            this.NextFleet = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.WarpFactor)).BeginInit();
+            this.previousFleet = new System.Windows.Forms.Button();
+            this.nextFleet = new System.Windows.Forms.Button();
+            ((System.ComponentModel.ISupportInitialize)(this.warpFactor)).BeginInit();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -199,21 +199,21 @@ namespace Nova.WinForms.Gui
             // 
             // Fuel
             // 
-            this.Fuel.BarColour = System.Drawing.Color.LightGreen;
-            this.Fuel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Fuel.BottomValue = 0;
-            this.Fuel.Location = new System.Drawing.Point(54, 18);
-            this.Fuel.Marker = 0;
-            this.Fuel.MarkerColour = System.Drawing.Color.Green;
-            this.Fuel.Maximum = 0;
-            this.Fuel.Minimum = 0;
-            this.Fuel.Name = "Fuel";
-            this.Fuel.ShowText = true;
-            this.Fuel.Size = new System.Drawing.Size(100, 16);
-            this.Fuel.TabIndex = 72;
-            this.Fuel.TopValue = 0;
-            this.Fuel.Units = "mg";
-            this.Fuel.Value = 0;
+            this.fuel.BarColour = System.Drawing.Color.LightGreen;
+            this.fuel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.fuel.BottomValue = 0;
+            this.fuel.Location = new System.Drawing.Point(54, 18);
+            this.fuel.Marker = 0;
+            this.fuel.MarkerColour = System.Drawing.Color.Green;
+            this.fuel.Maximum = 0;
+            this.fuel.Minimum = 0;
+            this.fuel.Name = "fuel";
+            this.fuel.ShowText = true;
+            this.fuel.Size = new System.Drawing.Size(100, 16);
+            this.fuel.TabIndex = 72;
+            this.fuel.TopValue = 0;
+            this.fuel.Units = "mg";
+            this.fuel.Value = 0;
             // 
             // warpText
             // 
@@ -251,15 +251,15 @@ namespace Nova.WinForms.Gui
             // 
             // WarpFactor
             // 
-            this.WarpFactor.AutoSize = false;
-            this.WarpFactor.Location = new System.Drawing.Point(57, 62);
-            this.WarpFactor.Name = "WarpFactor";
-            this.WarpFactor.Size = new System.Drawing.Size(104, 16);
-            this.WarpFactor.TabIndex = 75;
-            this.WarpFactor.TabStop = false;
-            this.WarpFactor.TickStyle = System.Windows.Forms.TickStyle.None;
-            this.WarpFactor.Value = 4;
-            this.WarpFactor.Scroll += new System.EventHandler(this.SpeedChanged);
+            this.warpFactor.AutoSize = false;
+            this.warpFactor.Location = new System.Drawing.Point(57, 62);
+            this.warpFactor.Name = "warpFactor";
+            this.warpFactor.Size = new System.Drawing.Size(104, 16);
+            this.warpFactor.TabIndex = 75;
+            this.warpFactor.TabStop = false;
+            this.warpFactor.TickStyle = System.Windows.Forms.TickStyle.None;
+            this.warpFactor.Value = 4;
+            this.warpFactor.Scroll += new System.EventHandler(this.SpeedChanged);
             // 
             // label1
             // 
@@ -323,32 +323,32 @@ namespace Nova.WinForms.Gui
             // 
             // Cargo
             // 
-            this.Cargo.BarColour = System.Drawing.Color.Tan;
-            this.Cargo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Cargo.BottomValue = 0;
-            this.Cargo.Location = new System.Drawing.Point(54, 40);
-            this.Cargo.Marker = 0;
-            this.Cargo.MarkerColour = System.Drawing.Color.Green;
-            this.Cargo.Maximum = 0;
-            this.Cargo.Minimum = 0;
-            this.Cargo.Name = "Cargo";
-            this.Cargo.ShowText = true;
-            this.Cargo.Size = new System.Drawing.Size(100, 16);
-            this.Cargo.TabIndex = 74;
-            this.Cargo.TopValue = 0;
-            this.Cargo.Units = "kT";
-            this.Cargo.Value = 0;
+            this.cargo.BarColour = System.Drawing.Color.Tan;
+            this.cargo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cargo.BottomValue = 0;
+            this.cargo.Location = new System.Drawing.Point(54, 40);
+            this.cargo.Marker = 0;
+            this.cargo.MarkerColour = System.Drawing.Color.Green;
+            this.cargo.Maximum = 0;
+            this.cargo.Minimum = 0;
+            this.cargo.Name = "cargo";
+            this.cargo.ShowText = true;
+            this.cargo.Size = new System.Drawing.Size(100, 16);
+            this.cargo.TabIndex = 74;
+            this.cargo.TopValue = 0;
+            this.cargo.Units = "kT";
+            this.cargo.Value = 0;
             // 
             // CargoButton
             // 
-            this.CargoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.CargoButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.CargoButton.Location = new System.Drawing.Point(9, 88);
-            this.CargoButton.Name = "CargoButton";
-            this.CargoButton.Size = new System.Drawing.Size(56, 23);
-            this.CargoButton.TabIndex = 88;
-            this.CargoButton.Text = "Cargo";
-            this.CargoButton.Click += new System.EventHandler(this.CargoButton_Click);
+            this.cargoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.cargoButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.cargoButton.Location = new System.Drawing.Point(9, 88);
+            this.cargoButton.Name = "cargoButton";
+            this.cargoButton.Size = new System.Drawing.Size(56, 23);
+            this.cargoButton.TabIndex = 88;
+            this.cargoButton.Text = "Cargo";
+            this.cargoButton.Click += new System.EventHandler(this.CargoButton_Click);
             // 
             // label6
             // 
@@ -378,25 +378,25 @@ namespace Nova.WinForms.Gui
             // 
             // ManageFleet
             // 
-            this.ManageFleet.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.ManageFleet.Location = new System.Drawing.Point(15, 206);
-            this.ManageFleet.Name = "ManageFleet";
-            this.ManageFleet.Size = new System.Drawing.Size(56, 23);
-            this.ManageFleet.TabIndex = 92;
-            this.ManageFleet.Text = "Manage";
-            this.ManageFleet.UseVisualStyleBackColor = true;
-            this.ManageFleet.Click += new System.EventHandler(this.MangeFleet_Click);
+            this.manageFleet.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.manageFleet.Location = new System.Drawing.Point(15, 206);
+            this.manageFleet.Name = "manageFleet";
+            this.manageFleet.Size = new System.Drawing.Size(56, 23);
+            this.manageFleet.TabIndex = 92;
+            this.manageFleet.Text = "Manage";
+            this.manageFleet.UseVisualStyleBackColor = true;
+            this.manageFleet.Click += new System.EventHandler(this.MangeFleet_Click);
             // 
             // WayPoints
             // 
-            this.WayPoints.FormattingEnabled = true;
-            this.WayPoints.Location = new System.Drawing.Point(9, 83);
-            this.WayPoints.Name = "WayPoints";
-            this.WayPoints.Size = new System.Drawing.Size(152, 69);
-            this.WayPoints.TabIndex = 93;
-            this.WayPoints.SelectedIndexChanged += new System.EventHandler(this.WaypointSelection);
-            this.WayPoints.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
-            this.WayPoints.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
+            this.wayPoints.FormattingEnabled = true;
+            this.wayPoints.Location = new System.Drawing.Point(9, 83);
+            this.wayPoints.Name = "wayPoints";
+            this.wayPoints.Size = new System.Drawing.Size(152, 69);
+            this.wayPoints.TabIndex = 93;
+            this.wayPoints.SelectedIndexChanged += new System.EventHandler(this.WaypointSelection);
+            this.wayPoints.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
+            this.wayPoints.KeyDown += new System.Windows.Forms.KeyEventHandler(this.OnKeyDown);
             // 
             // groupBox1
             // 
@@ -422,9 +422,9 @@ namespace Nova.WinForms.Gui
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.Cargo);
-            this.groupBox2.Controls.Add(this.Fuel);
-            this.groupBox2.Controls.Add(this.CargoButton);
+            this.groupBox2.Controls.Add(this.cargo);
+            this.groupBox2.Controls.Add(this.fuel);
+            this.groupBox2.Controls.Add(this.cargoButton);
             this.groupBox2.Controls.Add(this.label4);
             this.groupBox2.Controls.Add(this.label15);
             this.groupBox2.Location = new System.Drawing.Point(181, 4);
@@ -436,9 +436,9 @@ namespace Nova.WinForms.Gui
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.WayPoints);
+            this.groupBox3.Controls.Add(this.wayPoints);
             this.groupBox3.Controls.Add(this.label1);
-            this.groupBox3.Controls.Add(this.WarpFactor);
+            this.groupBox3.Controls.Add(this.warpFactor);
             this.groupBox3.Controls.Add(this.label2);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.legFuel);
@@ -462,8 +462,8 @@ namespace Nova.WinForms.Gui
             // 
             // groupBox4
             // 
-            this.groupBox4.Controls.Add(this.FleetComposition);
-            this.groupBox4.Controls.Add(this.ManageFleet);
+            this.groupBox4.Controls.Add(this.fleetComposition);
+            this.groupBox4.Controls.Add(this.manageFleet);
             this.groupBox4.Location = new System.Drawing.Point(181, 134);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(170, 239);
@@ -473,32 +473,32 @@ namespace Nova.WinForms.Gui
             // 
             // FleetComposition
             // 
-            this.FleetComposition.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.TypeHeader,
-            this.NumberHeader});
-            this.FleetComposition.Location = new System.Drawing.Point(5, 22);
-            this.FleetComposition.Name = "FleetComposition";
-            this.FleetComposition.Size = new System.Drawing.Size(159, 130);
-            this.FleetComposition.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.FleetComposition.TabIndex = 0;
-            this.FleetComposition.UseCompatibleStateImageBehavior = false;
-            this.FleetComposition.View = System.Windows.Forms.View.Details;
+            this.fleetComposition.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.typeHeader,
+            this.numberHeader});
+            this.fleetComposition.Location = new System.Drawing.Point(5, 22);
+            this.fleetComposition.Name = "fleetComposition";
+            this.fleetComposition.Size = new System.Drawing.Size(159, 130);
+            this.fleetComposition.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.fleetComposition.TabIndex = 0;
+            this.fleetComposition.UseCompatibleStateImageBehavior = false;
+            this.fleetComposition.View = System.Windows.Forms.View.Details;
             // 
             // TypeHeader
             // 
-            this.TypeHeader.Text = "Type";
-            this.TypeHeader.Width = 84;
+            this.typeHeader.Text = "Type";
+            this.typeHeader.Width = 84;
             // 
             // NumberHeader
             // 
-            this.NumberHeader.Text = "Number";
-            this.NumberHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            this.NumberHeader.Width = 53;
+            this.numberHeader.Text = "Number";
+            this.numberHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.numberHeader.Width = 53;
             // 
             // groupBox5
             // 
-            this.groupBox5.Controls.Add(this.PreviousFleet);
-            this.groupBox5.Controls.Add(this.NextFleet);
+            this.groupBox5.Controls.Add(this.previousFleet);
+            this.groupBox5.Controls.Add(this.nextFleet);
             this.groupBox5.Location = new System.Drawing.Point(9, 4);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(166, 61);
@@ -508,25 +508,25 @@ namespace Nova.WinForms.Gui
             // 
             // PreviousFleet
             // 
-            this.PreviousFleet.Enabled = false;
-            this.PreviousFleet.Location = new System.Drawing.Point(101, 23);
-            this.PreviousFleet.Name = "PreviousFleet";
-            this.PreviousFleet.Size = new System.Drawing.Size(56, 23);
-            this.PreviousFleet.TabIndex = 1;
-            this.PreviousFleet.Text = "Previous";
-            this.PreviousFleet.UseVisualStyleBackColor = true;
-            this.PreviousFleet.Click += new System.EventHandler(this.PreviousFleet_Click);
+            this.previousFleet.Enabled = false;
+            this.previousFleet.Location = new System.Drawing.Point(101, 23);
+            this.previousFleet.Name = "previousFleet";
+            this.previousFleet.Size = new System.Drawing.Size(56, 23);
+            this.previousFleet.TabIndex = 1;
+            this.previousFleet.Text = "Previous";
+            this.previousFleet.UseVisualStyleBackColor = true;
+            this.previousFleet.Click += new System.EventHandler(this.PreviousFleet_Click);
             // 
             // NextFleet
             // 
-            this.NextFleet.Enabled = false;
-            this.NextFleet.Location = new System.Drawing.Point(7, 23);
-            this.NextFleet.Name = "NextFleet";
-            this.NextFleet.Size = new System.Drawing.Size(56, 23);
-            this.NextFleet.TabIndex = 0;
-            this.NextFleet.Text = "Next";
-            this.NextFleet.UseVisualStyleBackColor = true;
-            this.NextFleet.Click += new System.EventHandler(this.NextFleet_Click);
+            this.nextFleet.Enabled = false;
+            this.nextFleet.Location = new System.Drawing.Point(7, 23);
+            this.nextFleet.Name = "nextFleet";
+            this.nextFleet.Size = new System.Drawing.Size(56, 23);
+            this.nextFleet.TabIndex = 0;
+            this.nextFleet.Text = "Next";
+            this.nextFleet.UseVisualStyleBackColor = true;
+            this.nextFleet.Click += new System.EventHandler(this.NextFleet_Click);
             // 
             // FleetDetail
             // 
@@ -537,7 +537,7 @@ namespace Nova.WinForms.Gui
             this.Controls.Add(this.groupBox1);
             this.Name = "FleetDetail";
             this.Size = new System.Drawing.Size(356, 380);
-            ((System.ComponentModel.ISupportInitialize)(this.WarpFactor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warpFactor)).EndInit();
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
@@ -560,13 +560,13 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void SpeedChanged(object sender, System.EventArgs e)
         {
-            warpText.Text = "Warp " + WarpFactor.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            warpText.Text = "Warp " + this.warpFactor.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-            if (WayPoints.SelectedItems.Count > 0)
+            if (this.wayPoints.SelectedItems.Count > 0)
             {
-                int index = WayPoints.SelectedIndices[0];
-                Waypoint waypoint = SelectedFleet.Waypoints[index] as Waypoint;
-                waypoint.WarpFactor = WarpFactor.Value;
+                int index = this.wayPoints.SelectedIndices[0];
+                Waypoint waypoint = this.selectedFleet.Waypoints[index] as Waypoint;
+                waypoint.WarpFactor = this.warpFactor.Value;
 
                 DisplayLegDetails(index);
             }
@@ -583,12 +583,12 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void WaypointSelection(object sender, System.EventArgs e)
         {
-            if (WayPoints.SelectedItems.Count <= 0)
+            if (this.wayPoints.SelectedItems.Count <= 0)
             {
                 return;
             }
 
-            int index = WayPoints.SelectedIndices[0];
+            int index = this.wayPoints.SelectedIndices[0];
             DisplayLegDetails(index);
         }
 
@@ -606,11 +606,11 @@ namespace Nova.WinForms.Gui
             {
                 CargoDialog cargoDialog = new CargoDialog();
 
-                cargoDialog.SetTarget(SelectedFleet);
+                cargoDialog.SetTarget(this.selectedFleet);
                 cargoDialog.ShowDialog();
                 cargoDialog.Dispose();
 
-                Cargo.Value = SelectedFleet.Cargo.Mass;
+                this.cargo.Value = this.selectedFleet.Cargo.Mass;
             }
             catch
             {
@@ -629,12 +629,12 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
-            if (WayPoints.SelectedItems.Count <= 0)
+            if (this.wayPoints.SelectedItems.Count <= 0)
             {
                 return;
             }
 
-            int index = WayPoints.SelectedIndices[0];
+            int index = this.wayPoints.SelectedIndices[0];
 
             // backspace
             if (index == 0 || !(e.KeyChar == (char)8)) 
@@ -642,9 +642,9 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            SelectedFleet.Waypoints.RemoveAt(index);
-            WayPoints.Items.RemoveAt(index);
-            WayPoints.SelectedIndex = WayPoints.Items.Count - 1;
+            this.selectedFleet.Waypoints.RemoveAt(index);
+            this.wayPoints.Items.RemoveAt(index);
+            this.wayPoints.SelectedIndex = this.wayPoints.Items.Count - 1;
 
             Utilities.MapRefresh();
         }
@@ -658,12 +658,12 @@ namespace Nova.WinForms.Gui
         {
             if (e.KeyCode == Keys.Delete)
             {
-                int index = WayPoints.SelectedIndices[0];
+                int index = this.wayPoints.SelectedIndices[0];
                 if (index > 0)
                 {
-                    SelectedFleet.Waypoints.RemoveAt(index);
-                    WayPoints.Items.RemoveAt(index);
-                    WayPoints.SelectedIndex = WayPoints.Items.Count - 1;
+                    this.selectedFleet.Waypoints.RemoveAt(index);
+                    this.wayPoints.Items.RemoveAt(index);
+                    this.wayPoints.SelectedIndex = this.wayPoints.Items.Count - 1;
 
                     Utilities.MapRefresh();
                 }
@@ -682,13 +682,13 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void WaypointTaskChanged(object sender, EventArgs e)
         {
-            if (WayPoints.SelectedItems.Count <= 0)
+            if (this.wayPoints.SelectedItems.Count <= 0)
             {
                 return;
             }
 
-            int index = WayPoints.SelectedIndices[0];
-            Waypoint waypoint = SelectedFleet.Waypoints[index] as Waypoint;
+            int index = this.wayPoints.SelectedIndices[0];
+            Waypoint waypoint = this.selectedFleet.Waypoints[index] as Waypoint;
 
             waypoint.Task = WaypointTasks.Text;
         }
@@ -704,7 +704,7 @@ namespace Nova.WinForms.Gui
         private void MangeFleet_Click(object sender, EventArgs e)
         {
             ManageFleetDialog manageDialog = new ManageFleetDialog();
-            manageDialog.ManagedFleet = SelectedFleet;
+            manageDialog.ManagedFleet = this.selectedFleet;
             manageDialog.ShowDialog();
             manageDialog.Dispose();
         }
@@ -723,13 +723,13 @@ namespace Nova.WinForms.Gui
 
             if (myFleets.Count == 1)
             {
-                PreviousFleet.Enabled = false;
-                NextFleet.Enabled = false;
+                this.previousFleet.Enabled = false;
+                this.nextFleet.Enabled = false;
                 return;
             }
 
-            PreviousFleet.Enabled = true;
-            NextFleet.Enabled = true;
+            this.previousFleet.Enabled = true;
+            this.nextFleet.Enabled = true;
 
             if (currentFleet < myFleets.Count - 1)
             {
@@ -741,9 +741,9 @@ namespace Nova.WinForms.Gui
             }
 
             MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
-            MainWindow.Nova.SelectionSummary.Value = SelectedFleet;
+            MainWindow.Nova.SelectionSummary.Value = this.selectedFleet;
 
-            MainWindow.Nova.MapControl.SetCursor(SelectedFleet.Position);
+            MainWindow.Nova.MapControl.SetCursor(this.selectedFleet.Position);
         }
 
 
@@ -760,13 +760,13 @@ namespace Nova.WinForms.Gui
 
             if (myFleets.Count == 1)
             {
-                PreviousFleet.Enabled = false;
-                NextFleet.Enabled = false;
+                this.previousFleet.Enabled = false;
+                this.nextFleet.Enabled = false;
                 return;
             }
 
-            PreviousFleet.Enabled = true;
-            NextFleet.Enabled = true;
+            this.previousFleet.Enabled = true;
+            this.nextFleet.Enabled = true;
 
             if (currentFleet > 0)
             {
@@ -778,9 +778,9 @@ namespace Nova.WinForms.Gui
             }
 
             MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
-            MainWindow.Nova.SelectionSummary.Value = SelectedFleet;
+            MainWindow.Nova.SelectionSummary.Value = this.selectedFleet;
 
-            MainWindow.Nova.MapControl.SetCursor(SelectedFleet.Position);
+            MainWindow.Nova.MapControl.SetCursor(this.selectedFleet.Position);
         }
 
         #endregion
@@ -796,28 +796,28 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void DisplayLegDetails(int index)
         {
-            Waypoint thisWaypoint = SelectedFleet.Waypoints[index] as Waypoint;
+            Waypoint thisWaypoint = this.selectedFleet.Waypoints[index] as Waypoint;
             Race race = ClientState.Data.PlayerRace;
 
             WaypointTasks.Text = thisWaypoint.Task;
 
-            if (SelectedFleet.Waypoints.Count == 1)
+            if (this.selectedFleet.Waypoints.Count == 1)
             {
                 thisWaypoint.WarpFactor = 0;
             }
 
-            SelectedFleet.Waypoints[index] = thisWaypoint as Waypoint;
-            WarpFactor.Value = thisWaypoint.WarpFactor;
+            this.selectedFleet.Waypoints[index] = thisWaypoint as Waypoint;
+            this.warpFactor.Value = thisWaypoint.WarpFactor;
             warpText.Text = "Warp " + thisWaypoint.WarpFactor;
 
             if (index > 0 && thisWaypoint.WarpFactor > 0)
             {
-                Waypoint from = SelectedFleet.Waypoints[index - 1] as Waypoint;
-                Waypoint to = SelectedFleet.Waypoints[index] as Waypoint;
+                Waypoint from = this.selectedFleet.Waypoints[index - 1] as Waypoint;
+                Waypoint to = this.selectedFleet.Waypoints[index] as Waypoint;
                 double distance = PointUtilities.Distance(from.Position, to.Position);
 
                 double time = distance / (to.WarpFactor * to.WarpFactor);
-                double fuelUsed = SelectedFleet.FuelConsumption(to.WarpFactor, race)
+                double fuelUsed = this.selectedFleet.FuelConsumption(to.WarpFactor, race)
                                 * time;
 
                 legDistance.Text = String.Format("{0}", distance.ToString("f1"));
@@ -837,7 +837,7 @@ namespace Nova.WinForms.Gui
             // Sum up the total fuel required for all waypoints in the current
             // route (as long as there is more than one waypoint).
 
-            foreach (Waypoint waypoint in SelectedFleet.Waypoints)
+            foreach (Waypoint waypoint in this.selectedFleet.Waypoints)
             {
                 if (previous != null && waypoint.WarpFactor > 0)
                 {
@@ -846,7 +846,7 @@ namespace Nova.WinForms.Gui
                     double speed = warpFactor * warpFactor;
                     double travelTime = distance / speed;
 
-                    fuelRequired += SelectedFleet.FuelConsumption(warpFactor, race)
+                    fuelRequired += this.selectedFleet.FuelConsumption(warpFactor, race)
                                   * travelTime;
                 }
                 previous = waypoint;
@@ -864,9 +864,9 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void AddWaypoint(Waypoint waypoint)
         {
-            WayPoints.Items.Add(waypoint.Destination);
-            WayPoints.SelectedIndex = WayPoints.Items.Count - 1;
-            DisplayLegDetails(WayPoints.SelectedIndex);
+            this.wayPoints.Items.Add(waypoint.Destination);
+            this.wayPoints.SelectedIndex = this.wayPoints.Items.Count - 1;
+            DisplayLegDetails(this.wayPoints.SelectedIndex);
         }
 
 
@@ -878,7 +878,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void SetFleetDetails(Fleet fleet)
         {
-            SelectedFleet = fleet;
+            this.selectedFleet = fleet;
 
             List<Fleet> myFleets = ClientState.Data.PlayerFleets;
             int i;
@@ -894,38 +894,38 @@ namespace Nova.WinForms.Gui
 
             if (myFleets.Count > 1)
             {
-                PreviousFleet.Enabled = true;
-                NextFleet.Enabled = true;
+                this.previousFleet.Enabled = true;
+                this.nextFleet.Enabled = true;
             }
             else
             {
-                PreviousFleet.Enabled = false;
-                PreviousFleet.Enabled = false;
+                this.previousFleet.Enabled = false;
+                this.previousFleet.Enabled = false;
             }
 
             Hashtable designs = fleet.Composition;
-            FleetComposition.Items.Clear();
+            this.fleetComposition.Items.Clear();
 
             foreach (string key in designs.Keys)
             {
                 ListViewItem listItem = new ListViewItem(key);
                 listItem.SubItems.Add(((int)designs[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
-                FleetComposition.Items.Add(listItem);
+                this.fleetComposition.Items.Add(listItem);
             }
 
-            Fuel.Maximum = (int)fleet.FuelCapacity;
-            Fuel.Value = (int)fleet.FuelAvailable;
-            Cargo.Maximum = (int)fleet.CargoCapacity;
-            Cargo.Value = (int)fleet.Cargo.Mass;
+            this.fuel.Maximum = (int)fleet.FuelCapacity;
+            this.fuel.Value = (int)fleet.FuelAvailable;
+            this.cargo.Maximum = (int)fleet.CargoCapacity;
+            this.cargo.Value = (int)fleet.Cargo.Mass;
 
-            WayPoints.Items.Clear();
+            this.wayPoints.Items.Clear();
             foreach (Waypoint waypoint in fleet.Waypoints)
             {
-                WayPoints.Items.Add(waypoint.Destination);
+                this.wayPoints.Items.Add(waypoint.Destination);
             }
 
-            WayPoints.SelectedIndex = WayPoints.Items.Count - 1;
-            DisplayLegDetails(WayPoints.Items.Count - 1);
+            this.wayPoints.SelectedIndex = this.wayPoints.Items.Count - 1;
+            DisplayLegDetails(this.wayPoints.Items.Count - 1);
 
             // If we are in orbit around a planet and we have a cargo carrying
             // capacity, enable the Cargo Dialog Button.
@@ -934,7 +934,7 @@ namespace Nova.WinForms.Gui
             {
                 if (fleet.CargoCapacity > 0)
                 {
-                    CargoButton.Enabled = true;
+                    this.cargoButton.Enabled = true;
                 }
                 else
                 {
@@ -956,7 +956,7 @@ namespace Nova.WinForms.Gui
         public Fleet Value
         {
             set { if (value != null) SetFleetDetails(value); }
-            get { return SelectedFleet; }
+            get { return this.selectedFleet; }
         }
 
 
@@ -965,7 +965,7 @@ namespace Nova.WinForms.Gui
         /// </summary>
         public int Speed
         {
-            get { return WarpFactor.Value; }
+            get { return this.warpFactor.Value; }
         }
 
 

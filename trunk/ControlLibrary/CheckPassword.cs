@@ -39,8 +39,7 @@ namespace Nova.ControlLibrary
     /// </summary>
     public partial class CheckPassword : Form
     {
-
-        private Race RaceData = null;
+        private readonly Race raceData;
 
         #region Construction and Dispose
 
@@ -53,9 +52,9 @@ namespace Nova.ControlLibrary
         public CheckPassword(Race raceData)
         {
             InitializeComponent();
-            RaceData = raceData;
-            CancelButton = Cancel;
-            AcceptButton = OKButton;
+            this.raceData = raceData;
+            CancelButton = this.cancel;
+            AcceptButton = this.okButton;
         }
 
         #endregion
@@ -71,8 +70,8 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void OKButton_Click(object sender, EventArgs e)
         {
-            string enteredPassword = PassWord.Text;
-            string oldPasswordHash = RaceData.Password;
+            string enteredPassword = this.password.Text;
+            string oldPasswordHash = this.raceData.Password;
 
             string newPasswordHash = FormsAuthentication.
                HashPasswordForStoringInConfigFile(enteredPassword, "MD5");

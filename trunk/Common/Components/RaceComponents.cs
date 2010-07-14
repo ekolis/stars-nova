@@ -147,17 +147,17 @@ namespace Nova.Common.Components
         /// </summary>
         /// <param name="NewTrait">The Name of the Component to add.</param>
         /// ----------------------------------------------------------------------------
-        public void Add(string ComponentName)
+        public void Add(string componentName)
         {
-            if (AllComponents.Data.Contains(ComponentName))
+            if (AllComponents.Data.Contains(componentName))
             {
-                Component c = AllComponents.Data.Components[ComponentName] as Component;
+                Component c = AllComponents.Data.Components[componentName] as Component;
 
                 Dictionary.Add(c.Name, c);
             }
             else
             {
-                string s = "Error: The " + ComponentName + " component does not exist!";
+                string s = "Error: The " + componentName + " component does not exist!";
                 Report.Error(s);
             }
 
@@ -167,11 +167,11 @@ namespace Nova.Common.Components
         /// <summary>
         /// Remove a Component from the race's RaceComponents list.
         /// </summary>
-        /// <param name="ComponentToRemove">The Component to remove.</param>
+        /// <param name="componentToRemove">The Component to remove.</param>
         /// ----------------------------------------------------------------------------
-        public void Remove(TraitEntry ComponentToRemove)
+        public void Remove(TraitEntry componentToRemove)
         {
-            Dictionary.Remove(ComponentToRemove.Name);
+            Dictionary.Remove(componentToRemove.Name);
         }
 
         /// ----------------------------------------------------------------------------
@@ -180,21 +180,21 @@ namespace Nova.Common.Components
         /// </summary>
         /// <param name="TraitToRemove">The Name of the Component to remove.</param>
         /// ----------------------------------------------------------------------------
-        public void Remove(string ComponentToRemove)
+        public void Remove(string componentToRemove)
         {
-            Dictionary.Remove(ComponentToRemove);
+            Dictionary.Remove(componentToRemove);
         }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check if the race's RaceComponents contains a particular Component.
         /// </summary>
-        /// <param name="ComponentName">The Name of the Component to look for.</param>
+        /// <param name="componentName">The Name of the Component to look for.</param>
         /// <returns></returns>
         /// ----------------------------------------------------------------------------
-        public bool Contains(string ComponentName)
+        public bool Contains(string componentName)
         {
-            return Dictionary.Contains(ComponentName);
+            return Dictionary.Contains(componentName);
         }
 
         /// ----------------------------------------------------------------------------

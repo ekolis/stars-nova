@@ -28,24 +28,24 @@ namespace Nova.WinForms.Gui
       /// </summary>
       private void InitializeComponent()
       {
-         this.DetailPanel = new System.Windows.Forms.GroupBox();
+         this.detailPanel = new System.Windows.Forms.GroupBox();
          this.SuspendLayout();
          // 
          // DetailPanel
          // 
-         this.DetailPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.DetailPanel.Location = new System.Drawing.Point(0, 0);
-         this.DetailPanel.Name = "DetailPanel";
-         this.DetailPanel.Size = new System.Drawing.Size(350, 330);
-         this.DetailPanel.TabIndex = 0;
-         this.DetailPanel.TabStop = false;
-         this.DetailPanel.Text = "Selection Detail";
+         this.detailPanel.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.detailPanel.Location = new System.Drawing.Point(0, 0);
+         this.detailPanel.Name = "detailPanel";
+         this.detailPanel.Size = new System.Drawing.Size(350, 330);
+         this.detailPanel.TabIndex = 0;
+         this.detailPanel.TabStop = false;
+         this.detailPanel.Text = "Selection Detail";
          // 
          // SelectionDetail
          // 
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.Controls.Add(this.DetailPanel);
+         this.Controls.Add(this.detailPanel);
          this.Name = "SelectionDetail";
          this.Size = new System.Drawing.Size(350, 330);
          this.ResumeLayout(false);
@@ -54,6 +54,6 @@ namespace Nova.WinForms.Gui
 
       #endregion
 
-      private System.Windows.Forms.GroupBox DetailPanel;
+      private System.Windows.Forms.GroupBox detailPanel;
    }
 }

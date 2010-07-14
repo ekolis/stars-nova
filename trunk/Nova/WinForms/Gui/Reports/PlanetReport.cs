@@ -71,8 +71,8 @@ namespace Nova.WinForms.Gui
             const int NumColumns = 12;
             Race race = ClientState.Data.PlayerRace;
 
-            PlanetGridView.Columns[8].Name = "Minerals";
-            PlanetGridView.AutoSize = true;
+            this.planetGridView.Columns[8].Name = "Minerals";
+            this.planetGridView.AutoSize = true;
 
             Hashtable allStars = ClientState.Data.InputTurn.AllStars;
 
@@ -124,11 +124,11 @@ namespace Nova.WinForms.Gui
                     row[i++] = text.ToString();
                     row[i++] = energy;
 
-                    PlanetGridView.Rows.Add(row);
+                    this.planetGridView.Rows.Add(row);
                 }
             }
 
-            PlanetGridView.AutoResizeColumns();
+            this.planetGridView.AutoResizeColumns();
         }
 
 
@@ -149,7 +149,7 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            int mineralsIndex = PlanetGridView.Columns["Minerals"].Index;
+            int mineralsIndex = this.planetGridView.Columns["Minerals"].Index;
 
             if (e.ColumnIndex != mineralsIndex)
             {
@@ -162,7 +162,7 @@ namespace Nova.WinForms.Gui
                 e.CellBounds.Width - 4,
                 e.CellBounds.Height - 4);
 
-            Brush gridBrush = new SolidBrush(PlanetGridView.GridColor);
+            Brush gridBrush = new SolidBrush(this.planetGridView.GridColor);
             Brush backColorBrush = new SolidBrush(e.CellStyle.BackColor);
 
             Pen gridLinePen = new Pen(gridBrush);

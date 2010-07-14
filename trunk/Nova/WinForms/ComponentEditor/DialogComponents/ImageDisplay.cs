@@ -58,7 +58,7 @@ namespace Nova.WinForms.ComponentEditor
 
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                ComponentImage.Image = new Bitmap(dialog.OpenFile());
+                this.componentImage.Image = new Bitmap(dialog.OpenFile());
                 ImageFile = dialog.FileName;
 
             }
@@ -73,8 +73,8 @@ namespace Nova.WinForms.ComponentEditor
         /// ----------------------------------------------------------------------------
         public Image Image
         {
-            get { return ComponentImage.Image; }
-            set { ComponentImage.Image = value; }
+            get { return this.componentImage.Image; }
+            set { this.componentImage.Image = value; }
         }
 
     }

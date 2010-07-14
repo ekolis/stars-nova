@@ -48,7 +48,7 @@ namespace Nova.Common
             public Resources BuildState;  // Resources need to build item // ??? (priority 6) just the next 1 or the whole lot? - Dan 10 Jan 10
             // Should be removed in favor of Unit.ResourcesNeeded * Quantity
             public bool Autobuild;
-            private IProductionUnit Unit;
+            private IProductionUnit unit;
 
             /// ----------------------------------------------------------------------------
             /// <summary>
@@ -65,7 +65,7 @@ namespace Nova.Common
             /// ----------------------------------------------------------------------------
             public Resources NeededResources()
             {
-                Resources unitResources = Unit.NeededResources();
+                Resources unitResources = this.unit.NeededResources();
                 return new Resources(
                     (int)unitResources.Ironium * Quantity,
                     (int)unitResources.Boranium * Quantity,

@@ -41,13 +41,13 @@ namespace Nova.ControlLibrary
 
         private System.Windows.Forms.Button cancelButton;
         private System.Windows.Forms.Button okButton;
-        private Nova.ControlLibrary.CargoTransfer IroniumTransfer;
+        private Nova.ControlLibrary.CargoTransfer ironiumTransfer;
         private Nova.ControlLibrary.CargoTransfer boroniumTransfer;
-        private Nova.ControlLibrary.CargoTransfer GermaniumTransfer;
+        private Nova.ControlLibrary.CargoTransfer germaniumTransfer;
         private Nova.ControlLibrary.CargoTransfer colonistsTransfer;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
-        private Nova.ControlLibrary.Gauge CargoBay;
+        private Nova.ControlLibrary.Gauge cargoBay;
         private System.Windows.Forms.Label label3;
         private System.ComponentModel.Container components = null;
 
@@ -95,13 +95,13 @@ namespace Nova.ControlLibrary
         {
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
-            this.IroniumTransfer = new ControlLibrary.CargoTransfer();
+            this.ironiumTransfer = new ControlLibrary.CargoTransfer();
             this.boroniumTransfer = new ControlLibrary.CargoTransfer();
-            this.GermaniumTransfer = new ControlLibrary.CargoTransfer();
+            this.germaniumTransfer = new ControlLibrary.CargoTransfer();
             this.colonistsTransfer = new ControlLibrary.CargoTransfer();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.CargoBay = new ControlLibrary.Gauge();
+            this.cargoBay = new ControlLibrary.Gauge();
             this.label3 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
@@ -129,13 +129,13 @@ namespace Nova.ControlLibrary
             // 
             // IroniumTransfer
             // 
-            this.IroniumTransfer.Location = new System.Drawing.Point(24, 48);
-            this.IroniumTransfer.Maximum = 10;
-            this.IroniumTransfer.Name = "IroniumTransfer";
-            this.IroniumTransfer.Size = new System.Drawing.Size(384, 32);
-            this.IroniumTransfer.TabIndex = 11;
-            this.IroniumTransfer.Title = "Ironium";
-            this.IroniumTransfer.Value = 0;
+            this.ironiumTransfer.Location = new System.Drawing.Point(24, 48);
+            this.ironiumTransfer.Maximum = 10;
+            this.ironiumTransfer.Name = "ironiumTransfer";
+            this.ironiumTransfer.Size = new System.Drawing.Size(384, 32);
+            this.ironiumTransfer.TabIndex = 11;
+            this.ironiumTransfer.Title = "Ironium";
+            this.ironiumTransfer.Value = 0;
             // 
             // boroniumTransfer
             // 
@@ -149,13 +149,13 @@ namespace Nova.ControlLibrary
             // 
             // GermaniumTransfer
             // 
-            this.GermaniumTransfer.Location = new System.Drawing.Point(24, 128);
-            this.GermaniumTransfer.Maximum = 10;
-            this.GermaniumTransfer.Name = "GermaniumTransfer";
-            this.GermaniumTransfer.Size = new System.Drawing.Size(384, 32);
-            this.GermaniumTransfer.TabIndex = 13;
-            this.GermaniumTransfer.Title = "Germanium";
-            this.GermaniumTransfer.Value = 0;
+            this.germaniumTransfer.Location = new System.Drawing.Point(24, 128);
+            this.germaniumTransfer.Maximum = 10;
+            this.germaniumTransfer.Name = "germaniumTransfer";
+            this.germaniumTransfer.Size = new System.Drawing.Size(384, 32);
+            this.germaniumTransfer.TabIndex = 13;
+            this.germaniumTransfer.Title = "Germanium";
+            this.germaniumTransfer.Value = 0;
             // 
             // colonistsTransfer
             // 
@@ -187,16 +187,16 @@ namespace Nova.ControlLibrary
             // 
             // CargoBay
             // 
-            this.CargoBay.BarColour = System.Drawing.Color.LightGreen;
-            this.CargoBay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.CargoBay.Location = new System.Drawing.Point(96, 216);
-            this.CargoBay.Maximum = 50;
-            this.CargoBay.Name = "CargoBay";
-            this.CargoBay.ShowText = true;
-            this.CargoBay.Size = new System.Drawing.Size(152, 16);
-            this.CargoBay.TabIndex = 17;
-            this.CargoBay.Units = "kT";
-            this.CargoBay.Value = 0;
+            this.cargoBay.BarColour = System.Drawing.Color.LightGreen;
+            this.cargoBay.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.cargoBay.Location = new System.Drawing.Point(96, 216);
+            this.cargoBay.Maximum = 50;
+            this.cargoBay.Name = "cargoBay";
+            this.cargoBay.ShowText = true;
+            this.cargoBay.Size = new System.Drawing.Size(152, 16);
+            this.cargoBay.TabIndex = 17;
+            this.cargoBay.Units = "kT";
+            this.cargoBay.Value = 0;
             // 
             // label3
             // 
@@ -211,13 +211,13 @@ namespace Nova.ControlLibrary
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(434, 288);
             this.Controls.Add(this.label3);
-            this.Controls.Add(this.CargoBay);
+            this.Controls.Add(this.cargoBay);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.colonistsTransfer);
-            this.Controls.Add(this.GermaniumTransfer);
+            this.Controls.Add(this.germaniumTransfer);
             this.Controls.Add(this.boroniumTransfer);
-            this.Controls.Add(this.IroniumTransfer);
+            this.Controls.Add(this.ironiumTransfer);
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -256,15 +256,15 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void OkButton_Click(object sender, System.EventArgs e)
         {
-            fleet.Cargo.Ironium = IroniumTransfer.Value;
+            fleet.Cargo.Ironium = this.ironiumTransfer.Value;
             fleet.Cargo.Boranium = boroniumTransfer.Value;
-            fleet.Cargo.Germanium = GermaniumTransfer.Value;
+            fleet.Cargo.Germanium = this.germaniumTransfer.Value;
             fleet.Cargo.ColonistsInKilotons = colonistsTransfer.Value;
 
             Star star = fleet.InOrbit;
-            star.ResourcesOnHand.Ironium -= IroniumTransfer.Taken;
+            star.ResourcesOnHand.Ironium -= this.ironiumTransfer.Taken;
             star.ResourcesOnHand.Boranium -= boroniumTransfer.Taken;
-            star.ResourcesOnHand.Germanium -= GermaniumTransfer.Taken;
+            star.ResourcesOnHand.Germanium -= this.germaniumTransfer.Taken;
             star.Colonists -= colonistsTransfer.Taken * Global.ColonistsPerKiloton;
 
             Close();
@@ -284,29 +284,29 @@ namespace Nova.ControlLibrary
         {
             fleet = targetFleet;
 
-            IroniumTransfer.Maximum = fleet.CargoCapacity;
+            this.ironiumTransfer.Maximum = fleet.CargoCapacity;
             boroniumTransfer.Maximum = fleet.CargoCapacity;
-            GermaniumTransfer.Maximum = fleet.CargoCapacity;
+            this.germaniumTransfer.Maximum = fleet.CargoCapacity;
             colonistsTransfer.Maximum = fleet.CargoCapacity;
 
-            IroniumTransfer.Value = (int)fleet.Cargo.Ironium;
+            this.ironiumTransfer.Value = (int)fleet.Cargo.Ironium;
             boroniumTransfer.Value = (int)fleet.Cargo.Boranium;
-            GermaniumTransfer.Value = (int)fleet.Cargo.Germanium;
+            this.germaniumTransfer.Value = (int)fleet.Cargo.Germanium;
             colonistsTransfer.Value = (int)fleet.Cargo.ColonistsInKilotons;
 
             Star star = fleet.InOrbit;
-            IroniumTransfer.Available = (int)star.ResourcesOnHand.Ironium;
+            this.ironiumTransfer.Available = (int)star.ResourcesOnHand.Ironium;
             boroniumTransfer.Available = (int)star.ResourcesOnHand.Boranium;
-            GermaniumTransfer.Available = (int)star.ResourcesOnHand.Germanium;
+            this.germaniumTransfer.Available = (int)star.ResourcesOnHand.Germanium;
             colonistsTransfer.Available = (int)star.Colonists / Global.ColonistsPerKiloton;
 
-            IroniumTransfer.Limit = CargoBay;
-            boroniumTransfer.Limit = CargoBay;
-            GermaniumTransfer.Limit = CargoBay;
-            colonistsTransfer.Limit = CargoBay;
+            this.ironiumTransfer.Limit = this.cargoBay;
+            boroniumTransfer.Limit = this.cargoBay;
+            this.germaniumTransfer.Limit = this.cargoBay;
+            colonistsTransfer.Limit = this.cargoBay;
 
-            CargoBay.Maximum = fleet.CargoCapacity;
-            CargoBay.Value = fleet.Cargo.Mass;
+            this.cargoBay.Maximum = fleet.CargoCapacity;
+            this.cargoBay.Value = fleet.Cargo.Mass;
         }
 
         #endregion

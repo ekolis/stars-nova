@@ -281,13 +281,6 @@
       <AnalyzerSettings />
     </Analyzer>
     <Analyzer AnalyzerId="Microsoft.StyleCop.CSharp.NamingRules">
-      <Rules>
-        <Rule Name="FieldNamesMustBeginWithLowerCaseLetter">
-          <RuleSettings>
-            <BooleanProperty Name="Enabled">False</BooleanProperty>
-          </RuleSettings>
-        </Rule>
-      </Rules>
       <AnalyzerSettings>
         <CollectionProperty Name="Hungarian">
           <Value>ai</Value>

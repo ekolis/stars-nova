@@ -81,7 +81,7 @@
             this.notAvailableHE = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.ComponentName = new System.Windows.Forms.TextBox();
+            this.componentName = new System.Windows.Forms.TextBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.panel23 = new System.Windows.Forms.Panel();
             this.requiredRS = new System.Windows.Forms.RadioButton();
@@ -148,9 +148,9 @@
             this.notRequiredIFE = new System.Windows.Forms.RadioButton();
             this.notAvailableIFE = new System.Windows.Forms.RadioButton();
             this.label20 = new System.Windows.Forms.Label();
-            this.ComponentImage = new System.Windows.Forms.PictureBox();
-            this.Cancel = new System.Windows.Forms.Button();
-            this.Save = new System.Windows.Forms.Button();
+            this.componentImage = new System.Windows.Forms.PictureBox();
+            this.cancel = new System.Windows.Forms.Button();
+            this.save = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel9.SuspendLayout();
@@ -177,7 +177,7 @@
             this.panel18.SuspendLayout();
             this.panel19.SuspendLayout();
             this.panel20.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ComponentImage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.componentImage)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -723,7 +723,7 @@
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.ComponentName);
+            this.groupBox3.Controls.Add(this.componentName);
             this.groupBox3.Location = new System.Drawing.Point(102, 42);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(174, 48);
@@ -733,12 +733,12 @@
             // 
             // ComponentName
             // 
-            this.ComponentName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.componentName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.ComponentName.Location = new System.Drawing.Point(12, 18);
-            this.ComponentName.Name = "ComponentName";
-            this.ComponentName.Size = new System.Drawing.Size(156, 20);
-            this.ComponentName.TabIndex = 7;
+            this.componentName.Location = new System.Drawing.Point(12, 18);
+            this.componentName.Name = "componentName";
+            this.componentName.Size = new System.Drawing.Size(156, 20);
+            this.componentName.TabIndex = 7;
             // 
             // groupBox2
             // 
@@ -1479,43 +1479,43 @@
             // 
             // ComponentImage
             // 
-            this.ComponentImage.Location = new System.Drawing.Point(10, 32);
-            this.ComponentImage.Name = "ComponentImage";
-            this.ComponentImage.Size = new System.Drawing.Size(64, 64);
-            this.ComponentImage.TabIndex = 13;
-            this.ComponentImage.TabStop = false;
+            this.componentImage.Location = new System.Drawing.Point(10, 32);
+            this.componentImage.Name = "componentImage";
+            this.componentImage.Size = new System.Drawing.Size(64, 64);
+            this.componentImage.TabIndex = 13;
+            this.componentImage.TabStop = false;
             // 
             // Cancel
             // 
-            this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Cancel.Location = new System.Drawing.Point(658, 507);
-            this.Cancel.Name = "Cancel";
-            this.Cancel.Size = new System.Drawing.Size(75, 23);
-            this.Cancel.TabIndex = 14;
-            this.Cancel.Text = "Cancel";
-            this.Cancel.UseVisualStyleBackColor = true;
-            this.Cancel.Click += new System.EventHandler(this.Cancel_Click);
+            this.cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.cancel.Location = new System.Drawing.Point(658, 507);
+            this.cancel.Name = "cancel";
+            this.cancel.Size = new System.Drawing.Size(75, 23);
+            this.cancel.TabIndex = 14;
+            this.cancel.Text = "Cancel";
+            this.cancel.UseVisualStyleBackColor = true;
+            this.cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
             // Save
             // 
-            this.Save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Save.Location = new System.Drawing.Point(739, 507);
-            this.Save.Name = "Save";
-            this.Save.Size = new System.Drawing.Size(75, 23);
-            this.Save.TabIndex = 15;
-            this.Save.Text = "Done";
-            this.Save.UseVisualStyleBackColor = true;
-            this.Save.Click += new System.EventHandler(this.Save_Click);
+            this.save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.save.Location = new System.Drawing.Point(739, 507);
+            this.save.Name = "save";
+            this.save.Size = new System.Drawing.Size(75, 23);
+            this.save.TabIndex = 15;
+            this.save.Text = "Done";
+            this.save.UseVisualStyleBackColor = true;
+            this.save.Click += new System.EventHandler(this.Save_Click);
             // 
             // RaceRestrictionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(867, 549);
-            this.Controls.Add(this.Save);
-            this.Controls.Add(this.Cancel);
+            this.Controls.Add(this.save);
+            this.Controls.Add(this.cancel);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.ComponentImage);
+            this.Controls.Add(this.componentImage);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
@@ -1571,7 +1571,7 @@
             this.panel19.PerformLayout();
             this.panel20.ResumeLayout(false);
             this.panel20.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ComponentImage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.componentImage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -1582,8 +1582,8 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox ComponentName;
-        private System.Windows.Forms.PictureBox ComponentImage;
+        private System.Windows.Forms.TextBox componentName;
+        private System.Windows.Forms.PictureBox componentImage;
         private System.Windows.Forms.RadioButton requiredHE;
         private System.Windows.Forms.RadioButton notRequiredHE;
         private System.Windows.Forms.RadioButton notAvailableHE;
@@ -1698,7 +1698,7 @@
         private System.Windows.Forms.RadioButton notRequiredIFE;
         private System.Windows.Forms.RadioButton notAvailableIFE;
         private System.Windows.Forms.Label label20;
-        private System.Windows.Forms.Button Cancel;
-        private System.Windows.Forms.Button Save;
+        private System.Windows.Forms.Button cancel;
+        private System.Windows.Forms.Button save;
     }
 }

@@ -36,7 +36,7 @@ namespace Nova.WinForms.ComponentEditor
 {
     public partial class HullDialog : Form
     {
-        private Hashtable AllComponents = null;
+        private Hashtable allComponents;
 
         /// <summary>
         /// Initializes a new instance of the HullDialog class.
@@ -44,7 +44,7 @@ namespace Nova.WinForms.ComponentEditor
         public HullDialog()
         {
             InitializeComponent();
-            AllComponents = Nova.Common.Components.AllComponents.Data.Components;
+            this.allComponents = Nova.Common.Components.AllComponents.Data.Components;
         }
 
 

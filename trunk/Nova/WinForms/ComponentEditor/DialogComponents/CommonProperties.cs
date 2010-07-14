@@ -40,7 +40,7 @@ namespace Nova.WinForms.ComponentEditor
     public partial class CommonProperties : UserControl
     {
         public event EventHandler ListBoxChanged;
-        private Hashtable AllComponents = null;
+        private readonly Hashtable allComponents;
 
         #region Construction
 
@@ -50,7 +50,7 @@ namespace Nova.WinForms.ComponentEditor
         public CommonProperties()
         {
             InitializeComponent();
-            AllComponents = Nova.Common.Components.AllComponents.Data.Components;
+            this.allComponents = Nova.Common.Components.AllComponents.Data.Components;
         }
         #endregion
 
@@ -93,7 +93,7 @@ namespace Nova.WinForms.ComponentEditor
         {
             ComponentList.Items.Clear();
 
-            foreach (Nova.Common.Components.Component thing in AllComponents.Values)
+            foreach (Nova.Common.Components.Component thing in this.allComponents.Values)
             {
                 if (thing.GetType() == objectType)
                 {
@@ -114,7 +114,7 @@ namespace Nova.WinForms.ComponentEditor
         {
             ComponentList.Items.Clear();
 
-            foreach (Nova.Common.Components.Component thing in AllComponents.Values)
+            foreach (Nova.Common.Components.Component thing in this.allComponents.Values)
             {
                 if (thing.Type == objectName)
                 {
@@ -139,7 +139,7 @@ namespace Nova.WinForms.ComponentEditor
                 return;
             }
 
-            AllComponents.Remove(componentName);
+            this.allComponents.Remove(componentName);
             ComponentList.Items.Remove(componentName);
 
             if (ComponentList.Items.Count > 0)
