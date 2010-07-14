@@ -146,6 +146,7 @@ namespace Nova.WinForms.Gui
             this.DesignList.TabStop = false;
             this.DesignList.UseCompatibleStateImageBehavior = false;
             this.DesignList.View = System.Windows.Forms.View.Details;
+            this.DesignList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.DesignList_MouseDoubleClick);
             this.DesignList.SelectedIndexChanged += new System.EventHandler(this.AvailableSelected);
             // 
             // Description
@@ -182,6 +183,7 @@ namespace Nova.WinForms.Gui
             this.QueueList.TabStop = false;
             this.QueueList.UseCompatibleStateImageBehavior = false;
             this.QueueList.View = System.Windows.Forms.View.Details;
+            this.QueueList.MouseDoubleClick += new System.Windows.Forms.MouseEventHandler(this.QueueList_MouseDoubleClick);
             this.QueueList.SelectedIndexChanged += new System.EventHandler(this.QueueSelected);
             // 
             // QueueDescription
@@ -439,8 +441,15 @@ namespace Nova.WinForms.Gui
                 RemoveFromQueue.Enabled = false;
             }
         }
-
-
+        /// <summary>
+        /// Add to queue when double click on Design List
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void DesignList_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            AddToQueue_Click(sender, new EventArgs());
+        }
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Add to queue button pressed.
@@ -481,7 +490,15 @@ namespace Nova.WinForms.Gui
 
         }
 
-
+        /// <summary>
+        /// Removes from queue on double click
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void QueueList_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            RemoveFromQueue_Click(sender, new EventArgs());
+        }
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Remove from queue button pressed.
@@ -493,7 +510,13 @@ namespace Nova.WinForms.Gui
         {
             if (QueueList.SelectedItems.Count > 0)
             {
+                Design tmp = (QueueList.Items[QueueList.SelectedIndices[0]].Tag as Design);
+                if (tmp != null && tmp.Type == "Starbase")
+                {
+                    DesignList.Items.Add(new ListViewItem(tmp.Name));
+                }
                 QueueList.Items.RemoveAt(QueueList.SelectedIndices[0]);
+
                 UpdateProductionCost();
             }
         }
@@ -656,18 +679,23 @@ namespace Nova.WinForms.Gui
             // First run through the production queue to see if there is already a
             // starbase there. If there is remove it.
 
-            foreach (ListViewItem item in QueueList.Items)
-            {
-                Design thisDesign = item.Tag as Design;
-                // factories and defenses and mines dont have a design...
-                if (thisDesign != null)
-                {
-                    if (thisDesign.Type == "Starbase")
-                    {
-                        item.Remove();
-                    }
-                }
-            }
+            //foreach (ListViewItem item in QueueList.Items)
+            //{
+            //    Design thisDesign = item.Tag as Design;
+            //    // factories and defenses and mines dont have a design...
+            //    if (thisDesign != null)
+            //    {
+            //        if (thisDesign.Type == "Starbase")
+            //        {
+            //            item.Remove();
+            //        }
+            //    }
+            //}
+            int i = 0;
+            for (i = 0; i < DesignList.Items.Count; i++)
+                if (DesignList.Items[i].Text == design.Name)
+                    break;
+            DesignList.Items.RemoveAt(i);
 
             AddDesign(design, 1);
         }

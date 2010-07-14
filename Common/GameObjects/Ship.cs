@@ -172,7 +172,23 @@ namespace Nova.Common
         #endregion
 
         #region Properties
-
+        public int FreeWarpSpeed
+        {
+            get
+            {
+                return Design.Engine.FreeWarpSpeed; 
+            }
+        }
+        /// <summary>
+        /// Checks if ship can colonize
+        /// </summary>
+        public bool CanColonize
+        {
+            get
+            {
+                return (Design.Summary.Properties.ContainsKey("Colonizer") == true);
+            }
+        }
         /// <summary>
         /// The battle speed of a ship.
         /// </summary>

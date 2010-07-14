@@ -197,7 +197,7 @@ namespace Nova.Common
                 travelTime = fuelTime;
                 arrived = TravelStatus.InTransit;
             }
-
+            
             // If we have arrived then the new fleet position is the waypoint
             // target. Otherwise the position is determined by how far we got
             // in the time or fuel available.
@@ -220,6 +220,12 @@ namespace Nova.Common
             int fuelUsed = (int)(fuelConsumptionRate * travelTime);
             FuelAvailable -= fuelUsed;
 
+            // Added check if fleet run out of full it's speed will be changed 
+            // to free warp speed.
+            if (arrived == TravelStatus.InTransit && fuelConsumptionRate > this.FuelAvailable)
+            {
+                target.WarpFactor = this.FreeWarpSpeed;
+            }
             return arrived;
         }
 
@@ -256,7 +262,39 @@ namespace Nova.Common
 
 
         #region Properties
+        /// <summary>
+        /// Return Free Warp speed for fleet.
+        /// </summary>
+        public int FreeWarpSpeed
+        {
+            get
+            {
+                int speed = 10;
+                foreach (Ship ship in this.FleetShips)
+                    speed = Math.Min(speed, ship.FreeWarpSpeed);
 
+                return speed;
+            }
+        }
+        /// <summary>
+        /// Check if any of the ships has colonization module
+        /// </summary>
+        public bool CanColonize
+        {
+            get
+            {
+                bool returnVal = false;
+                foreach (Ship ship in FleetShips)
+                {
+                    if (ship.CanColonize == true)
+                    {
+                        returnVal = true;
+                        break;
+                    }
+                }
+                return returnVal;
+            }
+        }
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the long range scan capability of the fleet.
