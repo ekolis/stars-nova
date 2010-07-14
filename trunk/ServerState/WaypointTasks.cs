@@ -101,6 +101,10 @@ namespace Nova.WinForms.Console
                 {
                     message.Text += " but no colonists were on board.";
                 }
+                else if (fleet.CanColonize == false)
+                {
+                    message.Text += " but no ships with colonization module were present.";
+                }
                 else
                 {
                     message.Text = "You have colonised " + waypoint.Destination;

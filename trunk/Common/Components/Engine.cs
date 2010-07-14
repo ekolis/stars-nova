@@ -43,6 +43,23 @@ namespace Nova.Common.Components
         public int FastestSafeSpeed;
         public int OptimalSpeed;
 
+        #region Properties
+        /// <summary>
+        /// Gets max speed at which engine uses 0 fuel
+        /// </summary>
+        public int FreeWarpSpeed
+        {
+            get
+            {
+                for (int i = 9; i >= 0; i--)
+                    if (FuelConsumption[i] == 0)
+                        return i;
+
+                return 0;
+            }
+        }
+        #endregion
+
         #region Construction
 
         /// ----------------------------------------------------------------------------
