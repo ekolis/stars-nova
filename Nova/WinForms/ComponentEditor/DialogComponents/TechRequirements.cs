@@ -57,12 +57,12 @@ namespace Nova.WinForms.ComponentEditor
             {
                 TechLevel techLevel = new TechLevel();
 
-                techLevel[TechLevel.ResearchField.Biotechnology] = (int)BioTechLevel.Value;
-                techLevel[TechLevel.ResearchField.Construction] = (int)ConstructionTechLevel.Value;
-                techLevel[TechLevel.ResearchField.Electronics] = (int)ElectronicsTechLevel.Value;
-                techLevel[TechLevel.ResearchField.Energy] = (int)EnergyTechLevel.Value;
-                techLevel[TechLevel.ResearchField.Propulsion] = (int)PropulsionTechLevel.Value;
-                techLevel[TechLevel.ResearchField.Weapons] = (int)WeaponsTechLevel.Value;
+                techLevel[TechLevel.ResearchField.Biotechnology] = (int)this.bioTechLevel.Value;
+                techLevel[TechLevel.ResearchField.Construction] = (int)this.constructionTechLevel.Value;
+                techLevel[TechLevel.ResearchField.Electronics] = (int)this.electronicsTechLevel.Value;
+                techLevel[TechLevel.ResearchField.Energy] = (int)this.energyTechLevel.Value;
+                techLevel[TechLevel.ResearchField.Propulsion] = (int)this.propulsionTechLevel.Value;
+                techLevel[TechLevel.ResearchField.Weapons] = (int)this.weaponsTechLevel.Value;
 
                 return techLevel;
             }
@@ -71,12 +71,12 @@ namespace Nova.WinForms.ComponentEditor
             // Set the tech levels in the control     
             set
             {
-                BioTechLevel.Value = (int)value[TechLevel.ResearchField.Biotechnology];
-                ElectronicsTechLevel.Value = (int)value[TechLevel.ResearchField.Electronics];
-                EnergyTechLevel.Value = (int)value[TechLevel.ResearchField.Energy];
-                PropulsionTechLevel.Value = (int)value[TechLevel.ResearchField.Propulsion];
-                WeaponsTechLevel.Value = (int)value[TechLevel.ResearchField.Weapons];
-                ConstructionTechLevel.Value = (int)value[TechLevel.ResearchField.Construction];
+                this.bioTechLevel.Value = (int)value[TechLevel.ResearchField.Biotechnology];
+                this.electronicsTechLevel.Value = (int)value[TechLevel.ResearchField.Electronics];
+                this.energyTechLevel.Value = (int)value[TechLevel.ResearchField.Energy];
+                this.propulsionTechLevel.Value = (int)value[TechLevel.ResearchField.Propulsion];
+                this.weaponsTechLevel.Value = (int)value[TechLevel.ResearchField.Weapons];
+                this.constructionTechLevel.Value = (int)value[TechLevel.ResearchField.Construction];
             }
 
         }

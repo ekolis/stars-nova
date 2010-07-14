@@ -31,47 +31,47 @@ namespace Nova.WinForms.Gui
           System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DesignManager));
           this.groupBox1 = new System.Windows.Forms.GroupBox();
           this.label3 = new System.Windows.Forms.Label();
-          this.DesignOwner = new System.Windows.Forms.ComboBox();
+          this.designOwner = new System.Windows.Forms.ComboBox();
           this.groupBox7 = new System.Windows.Forms.GroupBox();
-          this.DesignList = new System.Windows.Forms.ListView();
+          this.designList = new System.Windows.Forms.ListView();
           this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
           this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
           this.groupBox6 = new System.Windows.Forms.GroupBox();
-          this.ComponentSummary = new System.Windows.Forms.TextBox();
-          this.Description = new System.Windows.Forms.TextBox();
+          this.componentSummary = new System.Windows.Forms.TextBox();
+          this.description = new System.Windows.Forms.TextBox();
           this.groupBox2 = new System.Windows.Forms.GroupBox();
-          this.HullImage = new System.Windows.Forms.PictureBox();
-          this.HullGrid = new ControlLibrary.HullGrid();
+          this.hullImage = new System.Windows.Forms.PictureBox();
+          this.hullGrid = new ControlLibrary.HullGrid();
           this.groupBox4 = new System.Windows.Forms.GroupBox();
-          this.CapacityType = new System.Windows.Forms.Label();
-          this.ShipCloak = new System.Windows.Forms.Label();
-          this.ShipShields = new System.Windows.Forms.Label();
-          this.ShipArmor = new System.Windows.Forms.Label();
-          this.MaxCapacity = new System.Windows.Forms.Label();
-          this.ShipMass = new System.Windows.Forms.Label();
+          this.capacityType = new System.Windows.Forms.Label();
+          this.shipCloak = new System.Windows.Forms.Label();
+          this.shipShields = new System.Windows.Forms.Label();
+          this.shipArmor = new System.Windows.Forms.Label();
+          this.maxCapacity = new System.Windows.Forms.Label();
+          this.shipMass = new System.Windows.Forms.Label();
           this.label15 = new System.Windows.Forms.Label();
           this.label14 = new System.Windows.Forms.Label();
           this.label13 = new System.Windows.Forms.Label();
-          this.CapacityUnits = new System.Windows.Forms.Label();
+          this.capacityUnits = new System.Windows.Forms.Label();
           this.label11 = new System.Windows.Forms.Label();
           this.label8 = new System.Windows.Forms.Label();
           this.label5 = new System.Windows.Forms.Label();
           this.label4 = new System.Windows.Forms.Label();
           this.label2 = new System.Windows.Forms.Label();
           this.groupBox3 = new System.Windows.Forms.GroupBox();
-          this.DesignResources = new ControlLibrary.ResourceDisplay();
-          this.DesignName = new System.Windows.Forms.TextBox();
+          this.designResources = new ControlLibrary.ResourceDisplay();
+          this.designName = new System.Windows.Forms.TextBox();
           this.label1 = new System.Windows.Forms.Label();
-          this.Done = new System.Windows.Forms.Button();
-          this.Delete = new System.Windows.Forms.Button();
+          this.done = new System.Windows.Forms.Button();
+          this.delete = new System.Windows.Forms.Button();
           this.label6 = new System.Windows.Forms.Label();
-          this.CargoCapacity = new System.Windows.Forms.Label();
+          this.cargoCapacity = new System.Windows.Forms.Label();
           this.label7 = new System.Windows.Forms.Label();
           this.groupBox1.SuspendLayout();
           this.groupBox7.SuspendLayout();
           this.groupBox6.SuspendLayout();
           this.groupBox2.SuspendLayout();
-          ((System.ComponentModel.ISupportInitialize)(this.HullImage)).BeginInit();
+          ((System.ComponentModel.ISupportInitialize)(this.hullImage)).BeginInit();
           this.groupBox4.SuspendLayout();
           this.groupBox3.SuspendLayout();
           this.SuspendLayout();
@@ -79,7 +79,7 @@ namespace Nova.WinForms.Gui
           // groupBox1
           // 
           this.groupBox1.Controls.Add(this.label3);
-          this.groupBox1.Controls.Add(this.DesignOwner);
+          this.groupBox1.Controls.Add(this.designOwner);
           this.groupBox1.Controls.Add(this.groupBox7);
           this.groupBox1.Controls.Add(this.groupBox6);
           this.groupBox1.Location = new System.Drawing.Point(12, 11);
@@ -100,17 +100,17 @@ namespace Nova.WinForms.Gui
           // 
           // DesignOwner
           // 
-          this.DesignOwner.FormattingEnabled = true;
-          this.DesignOwner.Location = new System.Drawing.Point(6, 37);
-          this.DesignOwner.Name = "DesignOwner";
-          this.DesignOwner.Size = new System.Drawing.Size(333, 21);
-          this.DesignOwner.TabIndex = 4;
-          this.DesignOwner.SelectedIndexChanged += new System.EventHandler(this.DesignOwner_SelectedIndexChanged);
+          this.designOwner.FormattingEnabled = true;
+          this.designOwner.Location = new System.Drawing.Point(6, 37);
+          this.designOwner.Name = "designOwner";
+          this.designOwner.Size = new System.Drawing.Size(333, 21);
+          this.designOwner.TabIndex = 4;
+          this.designOwner.SelectedIndexChanged += new System.EventHandler(this.DesignOwner_SelectedIndexChanged);
           // 
           // groupBox7
           // 
           this.groupBox7.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-          this.groupBox7.Controls.Add(this.DesignList);
+          this.groupBox7.Controls.Add(this.designList);
           this.groupBox7.Location = new System.Drawing.Point(6, 64);
           this.groupBox7.Name = "groupBox7";
           this.groupBox7.Size = new System.Drawing.Size(333, 357);
@@ -120,17 +120,17 @@ namespace Nova.WinForms.Gui
           // 
           // DesignList
           // 
-          this.DesignList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+          this.designList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
             this.columnHeader2});
-          this.DesignList.Dock = System.Windows.Forms.DockStyle.Fill;
-          this.DesignList.Location = new System.Drawing.Point(3, 16);
-          this.DesignList.Name = "DesignList";
-          this.DesignList.Size = new System.Drawing.Size(327, 338);
-          this.DesignList.TabIndex = 0;
-          this.DesignList.UseCompatibleStateImageBehavior = false;
-          this.DesignList.View = System.Windows.Forms.View.Details;
-          this.DesignList.SelectedIndexChanged += new System.EventHandler(this.DesignList_SelectedIndexChanged);
+          this.designList.Dock = System.Windows.Forms.DockStyle.Fill;
+          this.designList.Location = new System.Drawing.Point(3, 16);
+          this.designList.Name = "designList";
+          this.designList.Size = new System.Drawing.Size(327, 338);
+          this.designList.TabIndex = 0;
+          this.designList.UseCompatibleStateImageBehavior = false;
+          this.designList.View = System.Windows.Forms.View.Details;
+          this.designList.SelectedIndexChanged += new System.EventHandler(this.DesignList_SelectedIndexChanged);
           // 
           // columnHeader1
           // 
@@ -145,8 +145,8 @@ namespace Nova.WinForms.Gui
           // 
           // groupBox6
           // 
-          this.groupBox6.Controls.Add(this.ComponentSummary);
-          this.groupBox6.Controls.Add(this.Description);
+          this.groupBox6.Controls.Add(this.componentSummary);
+          this.groupBox6.Controls.Add(this.description);
           this.groupBox6.Location = new System.Drawing.Point(6, 427);
           this.groupBox6.Name = "groupBox6";
           this.groupBox6.Size = new System.Drawing.Size(333, 112);
@@ -156,40 +156,40 @@ namespace Nova.WinForms.Gui
           // 
           // ComponentSummary
           // 
-          this.ComponentSummary.AcceptsTab = true;
-          this.ComponentSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+          this.componentSummary.AcceptsTab = true;
+          this.componentSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                       | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
-          this.ComponentSummary.BorderStyle = System.Windows.Forms.BorderStyle.None;
-          this.ComponentSummary.Location = new System.Drawing.Point(3, 16);
-          this.ComponentSummary.Multiline = true;
-          this.ComponentSummary.Name = "ComponentSummary";
-          this.ComponentSummary.ReadOnly = true;
-          this.ComponentSummary.Size = new System.Drawing.Size(326, 81);
-          this.ComponentSummary.TabIndex = 9;
+          this.componentSummary.BorderStyle = System.Windows.Forms.BorderStyle.None;
+          this.componentSummary.Location = new System.Drawing.Point(3, 16);
+          this.componentSummary.Multiline = true;
+          this.componentSummary.Name = "componentSummary";
+          this.componentSummary.ReadOnly = true;
+          this.componentSummary.Size = new System.Drawing.Size(326, 81);
+          this.componentSummary.TabIndex = 9;
           // 
           // Description
           // 
-          this.Description.AcceptsTab = true;
-          this.Description.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+          this.description.AcceptsTab = true;
+          this.description.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                       | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
-          this.Description.BorderStyle = System.Windows.Forms.BorderStyle.None;
-          this.Description.Location = new System.Drawing.Point(7, 18);
-          this.Description.Multiline = true;
-          this.Description.Name = "Description";
-          this.Description.ReadOnly = true;
-          this.Description.Size = new System.Drawing.Size(315, 81);
-          this.Description.TabIndex = 8;
+          this.description.BorderStyle = System.Windows.Forms.BorderStyle.None;
+          this.description.Location = new System.Drawing.Point(7, 18);
+          this.description.Multiline = true;
+          this.description.Name = "description";
+          this.description.ReadOnly = true;
+          this.description.Size = new System.Drawing.Size(315, 81);
+          this.description.TabIndex = 8;
           // 
           // groupBox2
           // 
           this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-          this.groupBox2.Controls.Add(this.HullImage);
-          this.groupBox2.Controls.Add(this.HullGrid);
+          this.groupBox2.Controls.Add(this.hullImage);
+          this.groupBox2.Controls.Add(this.hullGrid);
           this.groupBox2.Controls.Add(this.groupBox4);
           this.groupBox2.Controls.Add(this.groupBox3);
-          this.groupBox2.Controls.Add(this.DesignName);
+          this.groupBox2.Controls.Add(this.designName);
           this.groupBox2.Controls.Add(this.label1);
           this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.System;
           this.groupBox2.Location = new System.Drawing.Point(390, 11);
@@ -201,39 +201,39 @@ namespace Nova.WinForms.Gui
           // 
           // HullImage
           // 
-          this.HullImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-          this.HullImage.Location = new System.Drawing.Point(288, 18);
-          this.HullImage.Name = "HullImage";
-          this.HullImage.Size = new System.Drawing.Size(64, 64);
-          this.HullImage.TabIndex = 19;
-          this.HullImage.TabStop = false;
+          this.hullImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+          this.hullImage.Location = new System.Drawing.Point(288, 18);
+          this.hullImage.Name = "hullImage";
+          this.hullImage.Size = new System.Drawing.Size(64, 64);
+          this.hullImage.TabIndex = 19;
+          this.hullImage.TabStop = false;
           // 
           // HullGrid
           // 
-          this.HullGrid.ActiveModules = ((System.Collections.ArrayList)(resources.GetObject("HullGrid.ActiveModules")));
-          this.HullGrid.HideEmptyModules = true;
-          this.HullGrid.Location = new System.Drawing.Point(23, 88);
-          this.HullGrid.Name = "HullGrid";
-          this.HullGrid.Size = new System.Drawing.Size(338, 338);
-          this.HullGrid.TabIndex = 18;
+          this.hullGrid.ActiveModules = ((System.Collections.ArrayList)(resources.GetObject("HullGrid.ActiveModules")));
+          this.hullGrid.HideEmptyModules = true;
+          this.hullGrid.Location = new System.Drawing.Point(23, 88);
+          this.hullGrid.Name = "hullGrid";
+          this.hullGrid.Size = new System.Drawing.Size(338, 338);
+          this.hullGrid.TabIndex = 18;
           // 
           // groupBox4
           // 
           this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
           this.groupBox4.Controls.Add(this.label11);
           this.groupBox4.Controls.Add(this.label7);
-          this.groupBox4.Controls.Add(this.CargoCapacity);
+          this.groupBox4.Controls.Add(this.cargoCapacity);
           this.groupBox4.Controls.Add(this.label6);
-          this.groupBox4.Controls.Add(this.CapacityType);
-          this.groupBox4.Controls.Add(this.ShipCloak);
-          this.groupBox4.Controls.Add(this.ShipShields);
-          this.groupBox4.Controls.Add(this.ShipArmor);
-          this.groupBox4.Controls.Add(this.MaxCapacity);
-          this.groupBox4.Controls.Add(this.ShipMass);
+          this.groupBox4.Controls.Add(this.capacityType);
+          this.groupBox4.Controls.Add(this.shipCloak);
+          this.groupBox4.Controls.Add(this.shipShields);
+          this.groupBox4.Controls.Add(this.shipArmor);
+          this.groupBox4.Controls.Add(this.maxCapacity);
+          this.groupBox4.Controls.Add(this.shipMass);
           this.groupBox4.Controls.Add(this.label15);
           this.groupBox4.Controls.Add(this.label14);
           this.groupBox4.Controls.Add(this.label13);
-          this.groupBox4.Controls.Add(this.CapacityUnits);
+          this.groupBox4.Controls.Add(this.capacityUnits);
           this.groupBox4.Controls.Add(this.label8);
           this.groupBox4.Controls.Add(this.label5);
           this.groupBox4.Controls.Add(this.label4);
@@ -247,56 +247,56 @@ namespace Nova.WinForms.Gui
           // 
           // CapacityType
           // 
-          this.CapacityType.Location = new System.Drawing.Point(6, 34);
-          this.CapacityType.Name = "CapacityType";
-          this.CapacityType.Size = new System.Drawing.Size(100, 13);
-          this.CapacityType.TabIndex = 1;
-          this.CapacityType.Text = "Max Fuel Capacity";
+          this.capacityType.Location = new System.Drawing.Point(6, 34);
+          this.capacityType.Name = "capacityType";
+          this.capacityType.Size = new System.Drawing.Size(100, 13);
+          this.capacityType.TabIndex = 1;
+          this.capacityType.Text = "Max Fuel Capacity";
           // 
           // ShipCloak
           // 
-          this.ShipCloak.Location = new System.Drawing.Point(92, 79);
-          this.ShipCloak.Name = "ShipCloak";
-          this.ShipCloak.Size = new System.Drawing.Size(50, 13);
-          this.ShipCloak.TabIndex = 14;
-          this.ShipCloak.Text = "0";
-          this.ShipCloak.TextAlign = System.Drawing.ContentAlignment.TopRight;
+          this.shipCloak.Location = new System.Drawing.Point(92, 79);
+          this.shipCloak.Name = "shipCloak";
+          this.shipCloak.Size = new System.Drawing.Size(50, 13);
+          this.shipCloak.TabIndex = 14;
+          this.shipCloak.Text = "0";
+          this.shipCloak.TextAlign = System.Drawing.ContentAlignment.TopRight;
           // 
           // ShipShields
           // 
-          this.ShipShields.Location = new System.Drawing.Point(92, 65);
-          this.ShipShields.Name = "ShipShields";
-          this.ShipShields.Size = new System.Drawing.Size(50, 13);
-          this.ShipShields.TabIndex = 13;
-          this.ShipShields.Text = "0";
-          this.ShipShields.TextAlign = System.Drawing.ContentAlignment.TopRight;
+          this.shipShields.Location = new System.Drawing.Point(92, 65);
+          this.shipShields.Name = "shipShields";
+          this.shipShields.Size = new System.Drawing.Size(50, 13);
+          this.shipShields.TabIndex = 13;
+          this.shipShields.Text = "0";
+          this.shipShields.TextAlign = System.Drawing.ContentAlignment.TopRight;
           // 
           // ShipArmor
           // 
-          this.ShipArmor.Location = new System.Drawing.Point(92, 50);
-          this.ShipArmor.Name = "ShipArmor";
-          this.ShipArmor.Size = new System.Drawing.Size(50, 13);
-          this.ShipArmor.TabIndex = 12;
-          this.ShipArmor.Text = "0";
-          this.ShipArmor.TextAlign = System.Drawing.ContentAlignment.TopRight;
+          this.shipArmor.Location = new System.Drawing.Point(92, 50);
+          this.shipArmor.Name = "shipArmor";
+          this.shipArmor.Size = new System.Drawing.Size(50, 13);
+          this.shipArmor.TabIndex = 12;
+          this.shipArmor.Text = "0";
+          this.shipArmor.TextAlign = System.Drawing.ContentAlignment.TopRight;
           // 
           // MaxCapacity
           // 
-          this.MaxCapacity.Location = new System.Drawing.Point(92, 34);
-          this.MaxCapacity.Name = "MaxCapacity";
-          this.MaxCapacity.Size = new System.Drawing.Size(50, 13);
-          this.MaxCapacity.TabIndex = 11;
-          this.MaxCapacity.Text = "0";
-          this.MaxCapacity.TextAlign = System.Drawing.ContentAlignment.TopRight;
+          this.maxCapacity.Location = new System.Drawing.Point(92, 34);
+          this.maxCapacity.Name = "maxCapacity";
+          this.maxCapacity.Size = new System.Drawing.Size(50, 13);
+          this.maxCapacity.TabIndex = 11;
+          this.maxCapacity.Text = "0";
+          this.maxCapacity.TextAlign = System.Drawing.ContentAlignment.TopRight;
           // 
           // ShipMass
           // 
-          this.ShipMass.Location = new System.Drawing.Point(92, 19);
-          this.ShipMass.Name = "ShipMass";
-          this.ShipMass.Size = new System.Drawing.Size(50, 13);
-          this.ShipMass.TabIndex = 10;
-          this.ShipMass.Text = "0";
-          this.ShipMass.TextAlign = System.Drawing.ContentAlignment.TopRight;
+          this.shipMass.Location = new System.Drawing.Point(92, 19);
+          this.shipMass.Name = "shipMass";
+          this.shipMass.Size = new System.Drawing.Size(50, 13);
+          this.shipMass.TabIndex = 10;
+          this.shipMass.Text = "0";
+          this.shipMass.TextAlign = System.Drawing.ContentAlignment.TopRight;
           // 
           // label15
           // 
@@ -327,12 +327,12 @@ namespace Nova.WinForms.Gui
           // 
           // CapacityUnits
           // 
-          this.CapacityUnits.AutoSize = true;
-          this.CapacityUnits.Location = new System.Drawing.Point(143, 34);
-          this.CapacityUnits.Name = "CapacityUnits";
-          this.CapacityUnits.Size = new System.Drawing.Size(21, 13);
-          this.CapacityUnits.TabIndex = 6;
-          this.CapacityUnits.Text = "mg";
+          this.capacityUnits.AutoSize = true;
+          this.capacityUnits.Location = new System.Drawing.Point(143, 34);
+          this.capacityUnits.Name = "capacityUnits";
+          this.capacityUnits.Size = new System.Drawing.Size(21, 13);
+          this.capacityUnits.TabIndex = 6;
+          this.capacityUnits.Text = "mg";
           // 
           // label11
           // 
@@ -382,7 +382,7 @@ namespace Nova.WinForms.Gui
           // groupBox3
           // 
           this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-          this.groupBox3.Controls.Add(this.DesignResources);
+          this.groupBox3.Controls.Add(this.designResources);
           this.groupBox3.Location = new System.Drawing.Point(14, 435);
           this.groupBox3.Name = "groupBox3";
           this.groupBox3.Size = new System.Drawing.Size(166, 118);
@@ -392,18 +392,18 @@ namespace Nova.WinForms.Gui
           // 
           // DesignResources
           // 
-          this.DesignResources.Location = new System.Drawing.Point(9, 19);
-          this.DesignResources.Name = "DesignResources";
-          this.DesignResources.Size = new System.Drawing.Size(150, 64);
-          this.DesignResources.TabIndex = 10;
-          this.DesignResources.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+          this.designResources.Location = new System.Drawing.Point(9, 19);
+          this.designResources.Name = "designResources";
+          this.designResources.Size = new System.Drawing.Size(150, 64);
+          this.designResources.TabIndex = 10;
+          this.designResources.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
           // 
           // DesignName
           // 
-          this.DesignName.Location = new System.Drawing.Point(23, 34);
-          this.DesignName.Name = "DesignName";
-          this.DesignName.Size = new System.Drawing.Size(238, 20);
-          this.DesignName.TabIndex = 1;
+          this.designName.Location = new System.Drawing.Point(23, 34);
+          this.designName.Name = "designName";
+          this.designName.Size = new System.Drawing.Size(238, 20);
+          this.designName.TabIndex = 1;
           // 
           // label1
           // 
@@ -415,26 +415,26 @@ namespace Nova.WinForms.Gui
           // 
           // Done
           // 
-          this.Done.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-          this.Done.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-          this.Done.FlatStyle = System.Windows.Forms.FlatStyle.System;
-          this.Done.Location = new System.Drawing.Point(688, 583);
-          this.Done.Name = "Done";
-          this.Done.Size = new System.Drawing.Size(75, 23);
-          this.Done.TabIndex = 5;
-          this.Done.Text = "Done";
-          this.Done.Click += new System.EventHandler(this.Done_Click);
+          this.done.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+          this.done.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+          this.done.FlatStyle = System.Windows.Forms.FlatStyle.System;
+          this.done.Location = new System.Drawing.Point(688, 583);
+          this.done.Name = "done";
+          this.done.Size = new System.Drawing.Size(75, 23);
+          this.done.TabIndex = 5;
+          this.done.Text = "Done";
+          this.done.Click += new System.EventHandler(this.Done_Click);
           // 
           // Delete
           // 
-          this.Delete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
-          this.Delete.Location = new System.Drawing.Point(575, 584);
-          this.Delete.Name = "Delete";
-          this.Delete.Size = new System.Drawing.Size(75, 23);
-          this.Delete.TabIndex = 9;
-          this.Delete.Text = "Delete";
-          this.Delete.UseVisualStyleBackColor = true;
-          this.Delete.Click += new System.EventHandler(this.Delete_Click);
+          this.delete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+          this.delete.Location = new System.Drawing.Point(575, 584);
+          this.delete.Name = "delete";
+          this.delete.Size = new System.Drawing.Size(75, 23);
+          this.delete.TabIndex = 9;
+          this.delete.Text = "Delete";
+          this.delete.UseVisualStyleBackColor = true;
+          this.delete.Click += new System.EventHandler(this.Delete_Click);
           // 
           // label6
           // 
@@ -447,12 +447,12 @@ namespace Nova.WinForms.Gui
           // 
           // CargoCapacity
           // 
-          this.CargoCapacity.Location = new System.Drawing.Point(92, 94);
-          this.CargoCapacity.Name = "CargoCapacity";
-          this.CargoCapacity.Size = new System.Drawing.Size(50, 13);
-          this.CargoCapacity.TabIndex = 17;
-          this.CargoCapacity.Text = "0";
-          this.CargoCapacity.TextAlign = System.Drawing.ContentAlignment.TopRight;
+          this.cargoCapacity.Location = new System.Drawing.Point(92, 94);
+          this.cargoCapacity.Name = "cargoCapacity";
+          this.cargoCapacity.Size = new System.Drawing.Size(50, 13);
+          this.cargoCapacity.TabIndex = 17;
+          this.cargoCapacity.Text = "0";
+          this.cargoCapacity.TextAlign = System.Drawing.ContentAlignment.TopRight;
           // 
           // label7
           // 
@@ -468,10 +468,10 @@ namespace Nova.WinForms.Gui
           this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
           this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
           this.ClientSize = new System.Drawing.Size(778, 618);
-          this.Controls.Add(this.Delete);
+          this.Controls.Add(this.delete);
           this.Controls.Add(this.groupBox1);
           this.Controls.Add(this.groupBox2);
-          this.Controls.Add(this.Done);
+          this.Controls.Add(this.done);
           this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
           this.Name = "DesignManager";
           this.Text = "Nova Design Manager";
@@ -483,7 +483,7 @@ namespace Nova.WinForms.Gui
           this.groupBox6.PerformLayout();
           this.groupBox2.ResumeLayout(false);
           this.groupBox2.PerformLayout();
-          ((System.ComponentModel.ISupportInitialize)(this.HullImage)).EndInit();
+          ((System.ComponentModel.ISupportInitialize)(this.hullImage)).EndInit();
           this.groupBox4.ResumeLayout(false);
           this.groupBox4.PerformLayout();
           this.groupBox3.ResumeLayout(false);
@@ -495,41 +495,41 @@ namespace Nova.WinForms.Gui
 
       private System.Windows.Forms.GroupBox groupBox1;
       private System.Windows.Forms.GroupBox groupBox6;
-      private System.Windows.Forms.TextBox Description;
+      private System.Windows.Forms.TextBox description;
       private System.Windows.Forms.GroupBox groupBox2;
-      private System.Windows.Forms.PictureBox HullImage;
-      private ControlLibrary.HullGrid HullGrid;
+      private System.Windows.Forms.PictureBox hullImage;
+      private ControlLibrary.HullGrid hullGrid;
       private System.Windows.Forms.GroupBox groupBox4;
-      private System.Windows.Forms.Label ShipCloak;
-      private System.Windows.Forms.Label ShipShields;
-      private System.Windows.Forms.Label ShipArmor;
-      private System.Windows.Forms.Label MaxCapacity;
-      private System.Windows.Forms.Label ShipMass;
+      private System.Windows.Forms.Label shipCloak;
+      private System.Windows.Forms.Label shipShields;
+      private System.Windows.Forms.Label shipArmor;
+      private System.Windows.Forms.Label maxCapacity;
+      private System.Windows.Forms.Label shipMass;
       private System.Windows.Forms.Label label15;
       private System.Windows.Forms.Label label14;
       private System.Windows.Forms.Label label13;
-      private System.Windows.Forms.Label CapacityUnits;
+      private System.Windows.Forms.Label capacityUnits;
       private System.Windows.Forms.Label label11;
       private System.Windows.Forms.Label label8;
       private System.Windows.Forms.Label label5;
       private System.Windows.Forms.Label label4;
-      private System.Windows.Forms.Label CapacityType;
+      private System.Windows.Forms.Label capacityType;
       private System.Windows.Forms.Label label2;
       private System.Windows.Forms.GroupBox groupBox3;
-      private ControlLibrary.ResourceDisplay DesignResources;
-      private System.Windows.Forms.TextBox DesignName;
+      private ControlLibrary.ResourceDisplay designResources;
+      private System.Windows.Forms.TextBox designName;
       private System.Windows.Forms.Label label1;
-      private System.Windows.Forms.Button Done;
+      private System.Windows.Forms.Button done;
       private System.Windows.Forms.GroupBox groupBox7;
-      private System.Windows.Forms.ListView DesignList;
+      private System.Windows.Forms.ListView designList;
       private System.Windows.Forms.ColumnHeader columnHeader1;
       private System.Windows.Forms.ColumnHeader columnHeader2;
-      private System.Windows.Forms.Button Delete;
-      private System.Windows.Forms.TextBox ComponentSummary;
+      private System.Windows.Forms.Button delete;
+      private System.Windows.Forms.TextBox componentSummary;
       private System.Windows.Forms.Label label3;
-      private System.Windows.Forms.ComboBox DesignOwner;
+      private System.Windows.Forms.ComboBox designOwner;
       private System.Windows.Forms.Label label6;
       private System.Windows.Forms.Label label7;
-      private System.Windows.Forms.Label CargoCapacity;
+      private System.Windows.Forms.Label cargoCapacity;
    }
 }

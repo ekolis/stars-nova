@@ -40,8 +40,8 @@ namespace Nova.WinForms.Console
     public static class VictoryCheck
     {
 
-        private static ServerState StateData = ServerState.Data;
-        private static bool messageSent = false;
+        private static readonly ServerState StateData = ServerState.Data;
+        private static bool messageSent;
 
         /// ----------------------------------------------------------------------------
         /// <summary>

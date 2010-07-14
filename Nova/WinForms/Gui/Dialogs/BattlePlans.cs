@@ -50,10 +50,10 @@ namespace Nova.WinForms.Gui
 
             foreach (BattlePlan plan in ClientState.Data.BattlePlans.Values)
             {
-                PlanList.Items.Add(plan.Name);
+                this.planList.Items.Add(plan.Name);
             }
 
-            PlanList.SelectedIndex = 0;
+            this.planList.SelectedIndex = 0;
             UpdatePlanDetails();
         }
 
@@ -66,14 +66,14 @@ namespace Nova.WinForms.Gui
         private void UpdatePlanDetails()
         {
             Hashtable battlePlans = ClientState.Data.BattlePlans;
-            string selection = PlanList.SelectedItem as string;
+            string selection = this.planList.SelectedItem as string;
             BattlePlan plan = battlePlans[selection] as BattlePlan;
 
-            PlanName.Text = plan.Name;
-            PrimaryTarget.Text = plan.PrimaryTarget;
-            SecondaryTarget.Text = plan.SecondaryTarget;
-            Tactic.Text = plan.Tactic;
-            Attack.Text = plan.Attack;
+            this.planName.Text = plan.Name;
+            this.primaryTarget.Text = plan.PrimaryTarget;
+            this.secondaryTarget.Text = plan.SecondaryTarget;
+            this.tactic.Text = plan.Tactic;
+            this.attack.Text = plan.Attack;
         }
 
 

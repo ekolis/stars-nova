@@ -59,27 +59,27 @@ namespace Nova.WinForms.Gui
 
         #region Designer Generated Variables
         private System.ComponentModel.Container components = null;
-        private Label ReportAge;
-        private Label PlanetValue;
-        private Label Population;
+        private Label reportAge;
+        private Label planetValue;
+        private Label population;
         private Label label1;
         private Label label2;
         private Label label6;
         private Label label4;
         private Label label5;
         private Label label3;
-        private Gauge IroniumGauge;
-        private Gauge GermaniumGauge;
-        private Gauge BoraniumGauge;
-        private Gauge GravityGauge;
-        private Gauge TemperatureGauge;
-        private Gauge RadiationGauge;
+        private Gauge ironiumGauge;
+        private Gauge germaniumGauge;
+        private Gauge boraniumGauge;
+        private Gauge gravityGauge;
+        private Gauge temperatureGauge;
+        private Gauge radiationGauge;
         private Label label7;
         private Label label8;
         private Label label9;
-        private Label GravityLevel;
-        private Label TemperatureLevel;
-        private Label RadiationLevel;
+        private Label gravityLevel;
+        private Label temperatureLevel;
+        private Label radiationLevel;
         private Panel panel2;
         private Label label10;
         private Panel panel1;
@@ -120,9 +120,9 @@ namespace Nova.WinForms.Gui
         /// </summary>
         private void InitializeComponent()
         {
-            this.ReportAge = new System.Windows.Forms.Label();
-            this.PlanetValue = new System.Windows.Forms.Label();
-            this.Population = new System.Windows.Forms.Label();
+            this.reportAge = new System.Windows.Forms.Label();
+            this.planetValue = new System.Windows.Forms.Label();
+            this.population = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
@@ -132,17 +132,17 @@ namespace Nova.WinForms.Gui
             this.label7 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
-            this.GravityLevel = new System.Windows.Forms.Label();
-            this.TemperatureLevel = new System.Windows.Forms.Label();
-            this.RadiationLevel = new System.Windows.Forms.Label();
+            this.gravityLevel = new System.Windows.Forms.Label();
+            this.temperatureLevel = new System.Windows.Forms.Label();
+            this.radiationLevel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.IroniumGauge = new ControlLibrary.Gauge();
-            this.BoraniumGauge = new ControlLibrary.Gauge();
-            this.GermaniumGauge = new ControlLibrary.Gauge();
+            this.ironiumGauge = new ControlLibrary.Gauge();
+            this.boraniumGauge = new ControlLibrary.Gauge();
+            this.germaniumGauge = new ControlLibrary.Gauge();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.GravityGauge = new ControlLibrary.Gauge();
-            this.TemperatureGauge = new ControlLibrary.Gauge();
-            this.RadiationGauge = new ControlLibrary.Gauge();
+            this.gravityGauge = new ControlLibrary.Gauge();
+            this.temperatureGauge = new ControlLibrary.Gauge();
+            this.radiationGauge = new ControlLibrary.Gauge();
             this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -150,29 +150,29 @@ namespace Nova.WinForms.Gui
             // 
             // ReportAge
             // 
-            this.ReportAge.Location = new System.Drawing.Point(77, 0);
-            this.ReportAge.Name = "ReportAge";
-            this.ReportAge.Size = new System.Drawing.Size(120, 13);
-            this.ReportAge.TabIndex = 25;
-            this.ReportAge.Text = "Report is current";
+            this.reportAge.Location = new System.Drawing.Point(77, 0);
+            this.reportAge.Name = "reportAge";
+            this.reportAge.Size = new System.Drawing.Size(120, 13);
+            this.reportAge.TabIndex = 25;
+            this.reportAge.Text = "Report is current";
             // 
             // PlanetValue
             // 
-            this.PlanetValue.Location = new System.Drawing.Point(146, 15);
-            this.PlanetValue.Name = "PlanetValue";
-            this.PlanetValue.Size = new System.Drawing.Size(34, 13);
-            this.PlanetValue.TabIndex = 27;
-            this.PlanetValue.Text = "0";
-            this.PlanetValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.planetValue.Location = new System.Drawing.Point(146, 15);
+            this.planetValue.Name = "planetValue";
+            this.planetValue.Size = new System.Drawing.Size(34, 13);
+            this.planetValue.TabIndex = 27;
+            this.planetValue.Text = "0";
+            this.planetValue.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
             // Population
             // 
-            this.Population.Location = new System.Drawing.Point(187, 15);
-            this.Population.Name = "Population";
-            this.Population.Size = new System.Drawing.Size(120, 16);
-            this.Population.TabIndex = 26;
-            this.Population.Text = "Uninhabited";
-            this.Population.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.population.Location = new System.Drawing.Point(187, 15);
+            this.population.Name = "population";
+            this.population.Size = new System.Drawing.Size(120, 16);
+            this.population.TabIndex = 26;
+            this.population.Text = "Uninhabited";
+            this.population.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label1
             // 
@@ -257,38 +257,38 @@ namespace Nova.WinForms.Gui
             // 
             // GravityLevel
             // 
-            this.GravityLevel.AutoSize = true;
-            this.GravityLevel.Location = new System.Drawing.Point(308, 31);
-            this.GravityLevel.Name = "GravityLevel";
-            this.GravityLevel.Size = new System.Drawing.Size(19, 13);
-            this.GravityLevel.TabIndex = 40;
-            this.GravityLevel.Text = "1g";
+            this.gravityLevel.AutoSize = true;
+            this.gravityLevel.Location = new System.Drawing.Point(308, 31);
+            this.gravityLevel.Name = "gravityLevel";
+            this.gravityLevel.Size = new System.Drawing.Size(19, 13);
+            this.gravityLevel.TabIndex = 40;
+            this.gravityLevel.Text = "1g";
             // 
             // TemperatureLevel
             // 
-            this.TemperatureLevel.AutoSize = true;
-            this.TemperatureLevel.Location = new System.Drawing.Point(308, 47);
-            this.TemperatureLevel.Name = "TemperatureLevel";
-            this.TemperatureLevel.Size = new System.Drawing.Size(31, 13);
-            this.TemperatureLevel.TabIndex = 41;
-            this.TemperatureLevel.Text = "1deg";
+            this.temperatureLevel.AutoSize = true;
+            this.temperatureLevel.Location = new System.Drawing.Point(308, 47);
+            this.temperatureLevel.Name = "temperatureLevel";
+            this.temperatureLevel.Size = new System.Drawing.Size(31, 13);
+            this.temperatureLevel.TabIndex = 41;
+            this.temperatureLevel.Text = "1deg";
             // 
             // RadiationLevel
             // 
-            this.RadiationLevel.AutoSize = true;
-            this.RadiationLevel.Location = new System.Drawing.Point(308, 64);
-            this.RadiationLevel.Name = "RadiationLevel";
-            this.RadiationLevel.Size = new System.Drawing.Size(29, 13);
-            this.RadiationLevel.TabIndex = 42;
-            this.RadiationLevel.Text = "1mR";
+            this.radiationLevel.AutoSize = true;
+            this.radiationLevel.Location = new System.Drawing.Point(308, 64);
+            this.radiationLevel.Name = "radiationLevel";
+            this.radiationLevel.Size = new System.Drawing.Size(29, 13);
+            this.radiationLevel.TabIndex = 42;
+            this.radiationLevel.Text = "1mR";
             // 
             // panel1
             // 
             this.panel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel1.Controls.Add(this.IroniumGauge);
-            this.panel1.Controls.Add(this.BoraniumGauge);
-            this.panel1.Controls.Add(this.GermaniumGauge);
+            this.panel1.Controls.Add(this.ironiumGauge);
+            this.panel1.Controls.Add(this.boraniumGauge);
+            this.panel1.Controls.Add(this.germaniumGauge);
             this.panel1.Location = new System.Drawing.Point(76, 85);
             this.panel1.Name = "panel1";
             this.panel1.Size = new System.Drawing.Size(231, 51);
@@ -296,65 +296,65 @@ namespace Nova.WinForms.Gui
             // 
             // IroniumGauge
             // 
-            this.IroniumGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.IroniumGauge.BarColour = System.Drawing.Color.Blue;
-            this.IroniumGauge.BottomValue = 0;
-            this.IroniumGauge.Location = new System.Drawing.Point(0, 2);
-            this.IroniumGauge.Marker = 0;
-            this.IroniumGauge.MarkerColour = System.Drawing.Color.Blue;
-            this.IroniumGauge.Maximum = 5000;
-            this.IroniumGauge.Minimum = 0;
-            this.IroniumGauge.Name = "IroniumGauge";
-            this.IroniumGauge.ShowText = false;
-            this.IroniumGauge.Size = new System.Drawing.Size(230, 10);
-            this.IroniumGauge.TabIndex = 28;
-            this.IroniumGauge.TopValue = 500;
-            this.IroniumGauge.Units = null;
-            this.IroniumGauge.Value = 500;
+            this.ironiumGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.ironiumGauge.BarColour = System.Drawing.Color.Blue;
+            this.ironiumGauge.BottomValue = 0;
+            this.ironiumGauge.Location = new System.Drawing.Point(0, 2);
+            this.ironiumGauge.Marker = 0;
+            this.ironiumGauge.MarkerColour = System.Drawing.Color.Blue;
+            this.ironiumGauge.Maximum = 5000;
+            this.ironiumGauge.Minimum = 0;
+            this.ironiumGauge.Name = "ironiumGauge";
+            this.ironiumGauge.ShowText = false;
+            this.ironiumGauge.Size = new System.Drawing.Size(230, 10);
+            this.ironiumGauge.TabIndex = 28;
+            this.ironiumGauge.TopValue = 500;
+            this.ironiumGauge.Units = null;
+            this.ironiumGauge.Value = 500;
             // 
             // BoraniumGauge
             // 
-            this.BoraniumGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.BoraniumGauge.BarColour = System.Drawing.Color.GreenYellow;
-            this.BoraniumGauge.BottomValue = 0;
-            this.BoraniumGauge.Location = new System.Drawing.Point(0, 19);
-            this.BoraniumGauge.Marker = 0;
-            this.BoraniumGauge.MarkerColour = System.Drawing.Color.GreenYellow;
-            this.BoraniumGauge.Maximum = 5000;
-            this.BoraniumGauge.Minimum = 0;
-            this.BoraniumGauge.Name = "BoraniumGauge";
-            this.BoraniumGauge.ShowText = false;
-            this.BoraniumGauge.Size = new System.Drawing.Size(230, 10);
-            this.BoraniumGauge.TabIndex = 29;
-            this.BoraniumGauge.TopValue = 500;
-            this.BoraniumGauge.Units = null;
-            this.BoraniumGauge.Value = 500;
+            this.boraniumGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.boraniumGauge.BarColour = System.Drawing.Color.GreenYellow;
+            this.boraniumGauge.BottomValue = 0;
+            this.boraniumGauge.Location = new System.Drawing.Point(0, 19);
+            this.boraniumGauge.Marker = 0;
+            this.boraniumGauge.MarkerColour = System.Drawing.Color.GreenYellow;
+            this.boraniumGauge.Maximum = 5000;
+            this.boraniumGauge.Minimum = 0;
+            this.boraniumGauge.Name = "boraniumGauge";
+            this.boraniumGauge.ShowText = false;
+            this.boraniumGauge.Size = new System.Drawing.Size(230, 10);
+            this.boraniumGauge.TabIndex = 29;
+            this.boraniumGauge.TopValue = 500;
+            this.boraniumGauge.Units = null;
+            this.boraniumGauge.Value = 500;
             // 
             // GermaniumGauge
             // 
-            this.GermaniumGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.GermaniumGauge.BarColour = System.Drawing.Color.Yellow;
-            this.GermaniumGauge.BottomValue = 0;
-            this.GermaniumGauge.Location = new System.Drawing.Point(0, 36);
-            this.GermaniumGauge.Marker = 0;
-            this.GermaniumGauge.MarkerColour = System.Drawing.Color.Gold;
-            this.GermaniumGauge.Maximum = 5000;
-            this.GermaniumGauge.Minimum = 0;
-            this.GermaniumGauge.Name = "GermaniumGauge";
-            this.GermaniumGauge.ShowText = false;
-            this.GermaniumGauge.Size = new System.Drawing.Size(230, 10);
-            this.GermaniumGauge.TabIndex = 30;
-            this.GermaniumGauge.TopValue = 500;
-            this.GermaniumGauge.Units = null;
-            this.GermaniumGauge.Value = 500;
+            this.germaniumGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.germaniumGauge.BarColour = System.Drawing.Color.Yellow;
+            this.germaniumGauge.BottomValue = 0;
+            this.germaniumGauge.Location = new System.Drawing.Point(0, 36);
+            this.germaniumGauge.Marker = 0;
+            this.germaniumGauge.MarkerColour = System.Drawing.Color.Gold;
+            this.germaniumGauge.Maximum = 5000;
+            this.germaniumGauge.Minimum = 0;
+            this.germaniumGauge.Name = "germaniumGauge";
+            this.germaniumGauge.ShowText = false;
+            this.germaniumGauge.Size = new System.Drawing.Size(230, 10);
+            this.germaniumGauge.TabIndex = 30;
+            this.germaniumGauge.TopValue = 500;
+            this.germaniumGauge.Units = null;
+            this.germaniumGauge.Value = 500;
             // 
             // panel2
             // 
             this.panel2.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.panel2.Controls.Add(this.GravityGauge);
-            this.panel2.Controls.Add(this.TemperatureGauge);
-            this.panel2.Controls.Add(this.RadiationGauge);
+            this.panel2.Controls.Add(this.gravityGauge);
+            this.panel2.Controls.Add(this.temperatureGauge);
+            this.panel2.Controls.Add(this.radiationGauge);
             this.panel2.Location = new System.Drawing.Point(77, 29);
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(231, 51);
@@ -362,57 +362,57 @@ namespace Nova.WinForms.Gui
             // 
             // GravityGauge
             // 
-            this.GravityGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.GravityGauge.BarColour = System.Drawing.Color.Aquamarine;
-            this.GravityGauge.BottomValue = 2.5;
-            this.GravityGauge.Location = new System.Drawing.Point(-2, 2);
-            this.GravityGauge.Marker = 50;
-            this.GravityGauge.MarkerColour = System.Drawing.Color.Green;
-            this.GravityGauge.Maximum = 8;
-            this.GravityGauge.Minimum = 0;
-            this.GravityGauge.Name = "GravityGauge";
-            this.GravityGauge.ShowText = false;
-            this.GravityGauge.Size = new System.Drawing.Size(230, 10);
-            this.GravityGauge.TabIndex = 31;
-            this.GravityGauge.TopValue = 6;
-            this.GravityGauge.Units = null;
-            this.GravityGauge.Value = 6;
+            this.gravityGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.gravityGauge.BarColour = System.Drawing.Color.Aquamarine;
+            this.gravityGauge.BottomValue = 2.5;
+            this.gravityGauge.Location = new System.Drawing.Point(-2, 2);
+            this.gravityGauge.Marker = 50;
+            this.gravityGauge.MarkerColour = System.Drawing.Color.Green;
+            this.gravityGauge.Maximum = 8;
+            this.gravityGauge.Minimum = 0;
+            this.gravityGauge.Name = "gravityGauge";
+            this.gravityGauge.ShowText = false;
+            this.gravityGauge.Size = new System.Drawing.Size(230, 10);
+            this.gravityGauge.TabIndex = 31;
+            this.gravityGauge.TopValue = 6;
+            this.gravityGauge.Units = null;
+            this.gravityGauge.Value = 6;
             // 
             // TemperatureGauge
             // 
-            this.TemperatureGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.TemperatureGauge.BarColour = System.Drawing.Color.LightSteelBlue;
-            this.TemperatureGauge.BottomValue = -100;
-            this.TemperatureGauge.Location = new System.Drawing.Point(-2, 19);
-            this.TemperatureGauge.Marker = 50;
-            this.TemperatureGauge.MarkerColour = System.Drawing.Color.Blue;
-            this.TemperatureGauge.Maximum = 200;
-            this.TemperatureGauge.Minimum = -200;
-            this.TemperatureGauge.Name = "TemperatureGauge";
-            this.TemperatureGauge.ShowText = false;
-            this.TemperatureGauge.Size = new System.Drawing.Size(230, 10);
-            this.TemperatureGauge.TabIndex = 32;
-            this.TemperatureGauge.TopValue = 100;
-            this.TemperatureGauge.Units = null;
-            this.TemperatureGauge.Value = 100;
+            this.temperatureGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.temperatureGauge.BarColour = System.Drawing.Color.LightSteelBlue;
+            this.temperatureGauge.BottomValue = -100;
+            this.temperatureGauge.Location = new System.Drawing.Point(-2, 19);
+            this.temperatureGauge.Marker = 50;
+            this.temperatureGauge.MarkerColour = System.Drawing.Color.Blue;
+            this.temperatureGauge.Maximum = 200;
+            this.temperatureGauge.Minimum = -200;
+            this.temperatureGauge.Name = "temperatureGauge";
+            this.temperatureGauge.ShowText = false;
+            this.temperatureGauge.Size = new System.Drawing.Size(230, 10);
+            this.temperatureGauge.TabIndex = 32;
+            this.temperatureGauge.TopValue = 100;
+            this.temperatureGauge.Units = null;
+            this.temperatureGauge.Value = 100;
             // 
             // RadiationGauge
             // 
-            this.RadiationGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
-            this.RadiationGauge.BarColour = System.Drawing.Color.Plum;
-            this.RadiationGauge.BottomValue = 25;
-            this.RadiationGauge.Location = new System.Drawing.Point(-2, 36);
-            this.RadiationGauge.Marker = 50;
-            this.RadiationGauge.MarkerColour = System.Drawing.Color.Red;
-            this.RadiationGauge.Maximum = 100;
-            this.RadiationGauge.Minimum = 0;
-            this.RadiationGauge.Name = "RadiationGauge";
-            this.RadiationGauge.ShowText = false;
-            this.RadiationGauge.Size = new System.Drawing.Size(230, 10);
-            this.RadiationGauge.TabIndex = 33;
-            this.RadiationGauge.TopValue = 75;
-            this.RadiationGauge.Units = null;
-            this.RadiationGauge.Value = 75;
+            this.radiationGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.radiationGauge.BarColour = System.Drawing.Color.Plum;
+            this.radiationGauge.BottomValue = 25;
+            this.radiationGauge.Location = new System.Drawing.Point(-2, 36);
+            this.radiationGauge.Marker = 50;
+            this.radiationGauge.MarkerColour = System.Drawing.Color.Red;
+            this.radiationGauge.Maximum = 100;
+            this.radiationGauge.Minimum = 0;
+            this.radiationGauge.Name = "radiationGauge";
+            this.radiationGauge.ShowText = false;
+            this.radiationGauge.Size = new System.Drawing.Size(230, 10);
+            this.radiationGauge.TabIndex = 33;
+            this.radiationGauge.TopValue = 75;
+            this.radiationGauge.Units = null;
+            this.radiationGauge.Value = 75;
             // 
             // label10
             // 
@@ -425,13 +425,13 @@ namespace Nova.WinForms.Gui
             // 
             // PlanetSummary
             // 
-            this.Controls.Add(this.PlanetValue);
+            this.Controls.Add(this.planetValue);
             this.Controls.Add(this.label10);
             this.Controls.Add(this.panel2);
             this.Controls.Add(this.panel1);
-            this.Controls.Add(this.RadiationLevel);
-            this.Controls.Add(this.TemperatureLevel);
-            this.Controls.Add(this.GravityLevel);
+            this.Controls.Add(this.radiationLevel);
+            this.Controls.Add(this.temperatureLevel);
+            this.Controls.Add(this.gravityLevel);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
             this.Controls.Add(this.label7);
@@ -439,10 +439,10 @@ namespace Nova.WinForms.Gui
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.label6);
-            this.Controls.Add(this.ReportAge);
+            this.Controls.Add(this.reportAge);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.Population);
+            this.Controls.Add(this.population);
             this.Name = "PlanetSummary";
             this.Size = new System.Drawing.Size(342, 157);
             this.panel1.ResumeLayout(false);
@@ -464,15 +464,15 @@ namespace Nova.WinForms.Gui
             {
                 Race race = ClientState.Data.PlayerRace;
                 int habValue = (int)Math.Ceiling(value.HabitalValue(race) * 100);
-                PlanetValue.Text = habValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
+                this.planetValue.Text = habValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
 
                 if (habValue < 0)
                 {
-                    PlanetValue.ForeColor = Color.Red;
+                    this.planetValue.ForeColor = Color.Red;
                 }
                 else
                 {
-                    PlanetValue.ForeColor = Color.Black;
+                    this.planetValue.ForeColor = Color.Black;
                 }
 
                 StarReport report = ClientState.Data.StarReports[value.Name]
@@ -480,54 +480,54 @@ namespace Nova.WinForms.Gui
 
                 if (report.Population == 0)
                 {
-                    Population.Text = "Uninhabited";
+                    this.population.Text = "Uninhabited";
                 }
                 else
                 {
-                    Population.Text = "Population: " + report.Population;
+                    this.population.Text = "Population: " + report.Population;
                 }
 
                 if (report.Age == 0)
                 {
-                    ReportAge.Text = "Report is current";
+                    this.reportAge.Text = "Report is current";
                 }
                 else if (report.Age == 1)
                 {
-                    ReportAge.Text = "Report is 1 year old";
+                    this.reportAge.Text = "Report is 1 year old";
                 }
                 else
                 {
-                    ReportAge.Text = "Report is " + report.Age + " years old";
+                    this.reportAge.Text = "Report is " + report.Age + " years old";
                 }
 
-                IroniumGauge.Value = report.StarResources.Ironium;
-                BoraniumGauge.Value = report.StarResources.Boranium;
-                GermaniumGauge.Value = report.StarResources.Germanium;
+                this.ironiumGauge.Value = report.StarResources.Ironium;
+                this.boraniumGauge.Value = report.StarResources.Boranium;
+                this.germaniumGauge.Value = report.StarResources.Germanium;
 
-                IroniumGauge.Marker = (int)report.Concentration.Ironium;
-                BoraniumGauge.Marker = (int)report.Concentration.Boranium;
-                GermaniumGauge.Marker = (int)report.Concentration.Germanium;
+                this.ironiumGauge.Marker = (int)report.Concentration.Ironium;
+                this.boraniumGauge.Marker = (int)report.Concentration.Boranium;
+                this.germaniumGauge.Marker = (int)report.Concentration.Germanium;
 
-                RadiationGauge.Marker = report.Radiation;
-                GravityGauge.Marker = report.Gravity;
-                TemperatureGauge.Marker = report.Temperature;
+                this.radiationGauge.Marker = report.Radiation;
+                this.gravityGauge.Marker = report.Gravity;
+                this.temperatureGauge.Marker = report.Temperature;
 
                 double r = report.Radiation;
                 double g = report.Gravity / 10.0;
                 double t = -200 + ((400 * report.Temperature) / 100.0);
 
-                RadiationLevel.Text = r.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
-                GravityLevel.Text = g.ToString("F1") + "g";
-                TemperatureLevel.Text = t.ToString(System.Globalization.CultureInfo.InvariantCulture) + "C";
+                this.radiationLevel.Text = r.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
+                this.gravityLevel.Text = g.ToString("F1") + "g";
+                this.temperatureLevel.Text = t.ToString(System.Globalization.CultureInfo.InvariantCulture) + "C";
 
-                RadiationGauge.TopValue = race.RadiationTolerance.Maximum;
-                RadiationGauge.BottomValue = race.RadiationTolerance.Minimum;
+                this.radiationGauge.TopValue = race.RadiationTolerance.Maximum;
+                this.radiationGauge.BottomValue = race.RadiationTolerance.Minimum;
 
-                GravityGauge.TopValue = race.GravityTolerance.Maximum;
-                GravityGauge.BottomValue = race.GravityTolerance.Minimum;
+                this.gravityGauge.TopValue = race.GravityTolerance.Maximum;
+                this.gravityGauge.BottomValue = race.GravityTolerance.Minimum;
 
-                TemperatureGauge.TopValue = race.TemperatureTolerance.Maximum;
-                TemperatureGauge.BottomValue = race.TemperatureTolerance.Minimum;
+                this.temperatureGauge.TopValue = race.TemperatureTolerance.Maximum;
+                this.temperatureGauge.BottomValue = race.TemperatureTolerance.Minimum;
             }
         }
 

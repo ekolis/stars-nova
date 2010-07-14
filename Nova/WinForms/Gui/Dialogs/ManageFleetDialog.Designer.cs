@@ -29,15 +29,15 @@ namespace Nova.WinForms.Gui
       private void InitializeComponent()
       {
          this.groupBox1 = new System.Windows.Forms.GroupBox();
-         this.RenameButton = new System.Windows.Forms.Button();
-         this.FleetName = new System.Windows.Forms.Label();
+         this.renameButton = new System.Windows.Forms.Button();
+         this.fleetName = new System.Windows.Forms.Label();
          this.groupBox2 = new System.Windows.Forms.GroupBox();
          this.groupBox3 = new System.Windows.Forms.GroupBox();
-         this.MergeButton = new System.Windows.Forms.Button();
-         this.FleetComposition = new System.Windows.Forms.ListView();
-         this.DesignHeader = new System.Windows.Forms.ColumnHeader();
-         this.NumberHeader = new System.Windows.Forms.ColumnHeader();
-         this.CoLocatedFleets = new System.Windows.Forms.ListView();
+         this.mergeButton = new System.Windows.Forms.Button();
+         this.fleetComposition = new System.Windows.Forms.ListView();
+         this.designHeader = new System.Windows.Forms.ColumnHeader();
+         this.numberHeader = new System.Windows.Forms.ColumnHeader();
+         this.coLocatedFleets = new System.Windows.Forms.ListView();
          this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
          this.groupBox1.SuspendLayout();
          this.groupBox2.SuspendLayout();
@@ -46,8 +46,8 @@ namespace Nova.WinForms.Gui
          // 
          // groupBox1
          // 
-         this.groupBox1.Controls.Add(this.RenameButton);
-         this.groupBox1.Controls.Add(this.FleetName);
+         this.groupBox1.Controls.Add(this.renameButton);
+         this.groupBox1.Controls.Add(this.fleetName);
          this.groupBox1.Location = new System.Drawing.Point(13, 13);
          this.groupBox1.Name = "groupBox1";
          this.groupBox1.Size = new System.Drawing.Size(204, 70);
@@ -57,26 +57,26 @@ namespace Nova.WinForms.Gui
          // 
          // RenameButton
          // 
-         this.RenameButton.Location = new System.Drawing.Point(6, 38);
-         this.RenameButton.Name = "RenameButton";
-         this.RenameButton.Size = new System.Drawing.Size(60, 24);
-         this.RenameButton.TabIndex = 2;
-         this.RenameButton.Text = "Rename";
-         this.RenameButton.UseVisualStyleBackColor = true;
-         this.RenameButton.Click += new System.EventHandler(this.RenameButton_Click);
+         this.renameButton.Location = new System.Drawing.Point(6, 38);
+         this.renameButton.Name = "renameButton";
+         this.renameButton.Size = new System.Drawing.Size(60, 24);
+         this.renameButton.TabIndex = 2;
+         this.renameButton.Text = "Rename";
+         this.renameButton.UseVisualStyleBackColor = true;
+         this.renameButton.Click += new System.EventHandler(this.RenameButton_Click);
          // 
          // FleetName
          // 
-         this.FleetName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-         this.FleetName.Location = new System.Drawing.Point(6, 17);
-         this.FleetName.Name = "FleetName";
-         this.FleetName.Size = new System.Drawing.Size(188, 18);
-         this.FleetName.TabIndex = 1;
-         this.FleetName.Text = "Fleet Name";
+         this.fleetName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+         this.fleetName.Location = new System.Drawing.Point(6, 17);
+         this.fleetName.Name = "fleetName";
+         this.fleetName.Size = new System.Drawing.Size(188, 18);
+         this.fleetName.TabIndex = 1;
+         this.fleetName.Text = "Fleet Name";
          // 
          // groupBox2
          // 
-         this.groupBox2.Controls.Add(this.FleetComposition);
+         this.groupBox2.Controls.Add(this.fleetComposition);
          this.groupBox2.Location = new System.Drawing.Point(13, 90);
          this.groupBox2.Name = "groupBox2";
          this.groupBox2.Size = new System.Drawing.Size(204, 233);
@@ -86,7 +86,7 @@ namespace Nova.WinForms.Gui
          // 
          // groupBox3
          // 
-         this.groupBox3.Controls.Add(this.CoLocatedFleets);
+         this.groupBox3.Controls.Add(this.coLocatedFleets);
          this.groupBox3.Location = new System.Drawing.Point(276, 90);
          this.groupBox3.Name = "groupBox3";
          this.groupBox3.Size = new System.Drawing.Size(204, 233);
@@ -96,52 +96,52 @@ namespace Nova.WinForms.Gui
          // 
          // MergeButton
          // 
-         this.MergeButton.Enabled = false;
-         this.MergeButton.Location = new System.Drawing.Point(230, 166);
-         this.MergeButton.Name = "MergeButton";
-         this.MergeButton.Size = new System.Drawing.Size(33, 29);
-         this.MergeButton.TabIndex = 3;
-         this.MergeButton.Text = "<-";
-         this.MergeButton.UseVisualStyleBackColor = true;
-         this.MergeButton.Click += new System.EventHandler(this.MergeButton_Click);
+         this.mergeButton.Enabled = false;
+         this.mergeButton.Location = new System.Drawing.Point(230, 166);
+         this.mergeButton.Name = "mergeButton";
+         this.mergeButton.Size = new System.Drawing.Size(33, 29);
+         this.mergeButton.TabIndex = 3;
+         this.mergeButton.Text = "<-";
+         this.mergeButton.UseVisualStyleBackColor = true;
+         this.mergeButton.Click += new System.EventHandler(this.MergeButton_Click);
          // 
          // FleetComposition
          // 
-         this.FleetComposition.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.DesignHeader,
-            this.NumberHeader});
-         this.FleetComposition.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.FleetComposition.Location = new System.Drawing.Point(3, 16);
-         this.FleetComposition.Name = "FleetComposition";
-         this.FleetComposition.Size = new System.Drawing.Size(198, 214);
-         this.FleetComposition.Sorting = System.Windows.Forms.SortOrder.Ascending;
-         this.FleetComposition.TabIndex = 0;
-         this.FleetComposition.UseCompatibleStateImageBehavior = false;
-         this.FleetComposition.View = System.Windows.Forms.View.Details;
+         this.fleetComposition.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.designHeader,
+            this.numberHeader});
+         this.fleetComposition.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.fleetComposition.Location = new System.Drawing.Point(3, 16);
+         this.fleetComposition.Name = "fleetComposition";
+         this.fleetComposition.Size = new System.Drawing.Size(198, 214);
+         this.fleetComposition.Sorting = System.Windows.Forms.SortOrder.Ascending;
+         this.fleetComposition.TabIndex = 0;
+         this.fleetComposition.UseCompatibleStateImageBehavior = false;
+         this.fleetComposition.View = System.Windows.Forms.View.Details;
          // 
          // DesignHeader
          // 
-         this.DesignHeader.Text = "Design";
-         this.DesignHeader.Width = 140;
+         this.designHeader.Text = "Design";
+         this.designHeader.Width = 140;
          // 
          // NumberHeader
          // 
-         this.NumberHeader.Text = "Number";
-         this.NumberHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-         this.NumberHeader.Width = 54;
+         this.numberHeader.Text = "Number";
+         this.numberHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+         this.numberHeader.Width = 54;
          // 
          // CoLocatedFleets
          // 
-         this.CoLocatedFleets.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+         this.coLocatedFleets.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1});
-         this.CoLocatedFleets.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.CoLocatedFleets.Location = new System.Drawing.Point(3, 16);
-         this.CoLocatedFleets.Name = "CoLocatedFleets";
-         this.CoLocatedFleets.Size = new System.Drawing.Size(198, 214);
-         this.CoLocatedFleets.Sorting = System.Windows.Forms.SortOrder.Ascending;
-         this.CoLocatedFleets.TabIndex = 1;
-         this.CoLocatedFleets.UseCompatibleStateImageBehavior = false;
-         this.CoLocatedFleets.View = System.Windows.Forms.View.Details;
+         this.coLocatedFleets.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.coLocatedFleets.Location = new System.Drawing.Point(3, 16);
+         this.coLocatedFleets.Name = "coLocatedFleets";
+         this.coLocatedFleets.Size = new System.Drawing.Size(198, 214);
+         this.coLocatedFleets.Sorting = System.Windows.Forms.SortOrder.Ascending;
+         this.coLocatedFleets.TabIndex = 1;
+         this.coLocatedFleets.UseCompatibleStateImageBehavior = false;
+         this.coLocatedFleets.View = System.Windows.Forms.View.Details;
          // 
          // columnHeader1
          // 
@@ -153,7 +153,7 @@ namespace Nova.WinForms.Gui
          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
          this.ClientSize = new System.Drawing.Size(492, 332);
-         this.Controls.Add(this.MergeButton);
+         this.Controls.Add(this.mergeButton);
          this.Controls.Add(this.groupBox3);
          this.Controls.Add(this.groupBox2);
          this.Controls.Add(this.groupBox1);
@@ -171,15 +171,15 @@ namespace Nova.WinForms.Gui
       #endregion
 
       private System.Windows.Forms.GroupBox groupBox1;
-      private System.Windows.Forms.Label FleetName;
-      private System.Windows.Forms.Button RenameButton;
+      private System.Windows.Forms.Label fleetName;
+      private System.Windows.Forms.Button renameButton;
       private System.Windows.Forms.GroupBox groupBox2;
       private System.Windows.Forms.GroupBox groupBox3;
-      private System.Windows.Forms.Button MergeButton;
-      private System.Windows.Forms.ListView FleetComposition;
-      private System.Windows.Forms.ColumnHeader DesignHeader;
-      private System.Windows.Forms.ColumnHeader NumberHeader;
-      private System.Windows.Forms.ListView CoLocatedFleets;
+      private System.Windows.Forms.Button mergeButton;
+      private System.Windows.Forms.ListView fleetComposition;
+      private System.Windows.Forms.ColumnHeader designHeader;
+      private System.Windows.Forms.ColumnHeader numberHeader;
+      private System.Windows.Forms.ListView coLocatedFleets;
       private System.Windows.Forms.ColumnHeader columnHeader1;
    }
 }

@@ -44,12 +44,12 @@ namespace Nova.Common
     [Serializable]
     public class Ship : Item
     {
-        private ShipDesign Design = null;
-        private bool summaryUpdated = false;
+        private ShipDesign design;
+        private bool summaryUpdated;
 
         // These are the current shield / armor values, modified by damage.
-        public double Shields = 0;
-        public double Armor = 0;
+        public double Shields;
+        public double Armor;
 
         #region Construction
 
@@ -61,8 +61,8 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public Ship(ShipDesign shipDesign)
         {
-            Design = shipDesign;
-            Design.Update(); // ensure summary properties have been calculated
+            this.design = shipDesign;
+            this.design.Update(); // ensure summary properties have been calculated
 
             Shields = shipDesign.Shield;
             Armor = shipDesign.Armor;
@@ -87,8 +87,8 @@ namespace Nova.Common
         public Ship(Ship copy)
             : base(copy)
         {
-            Design = copy.Design;
-            Design.Update(); // ensure summary properties are calculated
+            this.design = copy.design;
+            this.design.Update(); // ensure summary properties are calculated
             Shields = copy.Shields;
             Armor = copy.Armor;
 
@@ -104,18 +104,18 @@ namespace Nova.Common
         /// <param name="design"></param>
         public void DesignUpdate(ShipDesign design)
         {
-            Design = design;
-            Design.Update(); // ensure summary properties have been calculated
+            this.design = design;
+            this.design.Update(); // ensure summary properties have been calculated
 
-            Shields = Design.Shield;
-            Armor = Design.Armor;
+            Shields = this.design.Shield;
+            Armor = this.design.Armor;
 
             // Initialise inherited fields.
-            Mass = Design.Mass;
-            Cost = Design.Cost;
-            Name = Design.Name;
-            Owner = Design.Owner;
-            Type = Design.Type;
+            Mass = this.design.Mass;
+            Cost = this.design.Cost;
+            Name = this.design.Name;
+            Owner = this.design.Owner;
+            Type = this.design.Type;
 
         }
 
@@ -127,7 +127,7 @@ namespace Nova.Common
         {
             if (!summaryUpdated)
             {
-                Design.Update();
+                this.design.Update();
                 summaryUpdated = true;
             }
         }
@@ -153,9 +153,9 @@ namespace Nova.Common
         public double FuelConsumption(int warp, Race race, int cargoMass)
         {
             if (warp == 0) return 0;
-            if (Design.Engine == null) return 0; // may be a star base
+            if (this.design.Engine == null) return 0; // may be a star base
 
-            double fuelFactor = Design.Engine.FuelConsumption[warp - 1];
+            double fuelFactor = this.design.Engine.FuelConsumption[warp - 1];
             double efficiency = fuelFactor / 100.0;
             double speed = warp * warp;
 
@@ -176,7 +176,7 @@ namespace Nova.Common
         {
             get
             {
-                return Design.Engine.FreeWarpSpeed; 
+                return design.Engine.FreeWarpSpeed; 
             }
         }
         /// <summary>
@@ -186,7 +186,7 @@ namespace Nova.Common
         {
             get
             {
-                return (Design.Summary.Properties.ContainsKey("Colonizer") == true);
+                return (design.Summary.Properties.ContainsKey("Colonizer") == true);
             }
         }
         /// <summary>
@@ -196,7 +196,7 @@ namespace Nova.Common
         {
             get
             {
-                return Design.BattleSpeed;
+                return this.design.BattleSpeed;
             }
         }
 
@@ -214,7 +214,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return Design.ConventionalBombs;
+                return this.design.ConventionalBombs;
             }
         }
 
@@ -226,7 +226,7 @@ namespace Nova.Common
         {
             get
             {
-                return Design.CanRefuel;
+                return this.design.CanRefuel;
             }
         }
 
@@ -239,7 +239,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return Design.CargoCapacity;
+                return this.design.CargoCapacity;
             }
         }
 
@@ -250,7 +250,7 @@ namespace Nova.Common
         {
             get
             {
-                return Design.Armor;
+                return this.design.Armor;
             }
         }
 
@@ -261,7 +261,7 @@ namespace Nova.Common
         {
             get
             {
-                return Design.Cost;
+                return this.design.Cost;
             }
         }
 
@@ -272,7 +272,7 @@ namespace Nova.Common
         {
             get
             {
-                return Design.Key;
+                return this.design.Key;
             }
         }
 
@@ -283,7 +283,7 @@ namespace Nova.Common
         {
             get
             {
-                return Design.Name;
+                return this.design.Name;
             }
         }
 
@@ -294,7 +294,7 @@ namespace Nova.Common
         {
             get
             {
-                return Design.Shield;
+                return this.design.Shield;
             }
         }
 
@@ -306,7 +306,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return Design.DockCapacity;
+                return this.design.DockCapacity;
             }
         }
         /// <summary>
@@ -317,7 +317,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return Design.FuelCapacity;
+                return this.design.FuelCapacity;
             }
         }
 
@@ -331,7 +331,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                if (Design.Weapons == null)
+                if (this.design.Weapons == null)
                 {
                     return false;
                 }
@@ -348,7 +348,7 @@ namespace Nova.Common
         {
             get
             {
-                return Design.ShipHull.ComponentImage;
+                return this.design.ShipHull.ComponentImage;
             }
         }
 
@@ -362,7 +362,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                if (Design.ConventionalBombs.PopKill == 0 && Design.SmartBombs.PopKill == 0)
+                if (this.design.ConventionalBombs.PopKill == 0 && this.design.SmartBombs.PopKill == 0)
                 {
                     return false;
                 }
@@ -377,7 +377,7 @@ namespace Nova.Common
         {
             get
             {
-                return Design.IsStarbase;
+                return this.design.IsStarbase;
             }
         }
 
@@ -394,7 +394,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return Design.StandardMines.LayerRate;
+                return this.design.StandardMines.LayerRate;
             }
         }
 
@@ -421,7 +421,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return Design.NormalScan;
+                return this.design.NormalScan;
             }
         }
 
@@ -433,7 +433,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return Design.PenetratingScan;
+                return this.design.PenetratingScan;
             }
         }
 
@@ -444,7 +444,7 @@ namespace Nova.Common
         {
             get
             {
-                return Design.Weapons;
+                return this.design.Weapons;
             }
         }
 
@@ -473,8 +473,8 @@ namespace Nova.Common
                     switch (subnode.Name.ToLower())
                     {
                         case "design":
-                            Design = new ShipDesign();
-                            Design.Name = ((XmlText)subnode.FirstChild).Value;
+                            this.design = new ShipDesign();
+                            this.design.Name = ((XmlText)subnode.FirstChild).Value;
                             break;
                         case "owner":
                             Owner = ((XmlText)subnode.FirstChild).Value;
@@ -496,7 +496,7 @@ namespace Nova.Common
 
                     subnode = subnode.NextSibling;
                 }
-                Design.Update(); // ensure summary properties are calculated
+                this.design.Update(); // ensure summary properties are calculated
             }
 
             catch (Exception e)
@@ -517,7 +517,7 @@ namespace Nova.Common
             XmlElement xmlelShip = xmldoc.CreateElement("Ship");
 
             // Design
-            Global.SaveData(xmldoc, xmlelShip, "Design", this.Design.Name);
+            Global.SaveData(xmldoc, xmlelShip, "Design", this.design.Name);
 
             // Item base class
             xmlelShip.AppendChild(base.ToXml(xmldoc));

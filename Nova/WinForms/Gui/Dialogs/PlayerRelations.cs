@@ -44,7 +44,7 @@ namespace Nova.WinForms.Gui
     /// </remarks>
     public partial class PlayerRelations : Form
     {
-        private Hashtable Relation = ClientState.Data.PlayerRelations;
+        private readonly Hashtable relation = ClientState.Data.PlayerRelations;
 
         #region Construction
 
@@ -59,13 +59,13 @@ namespace Nova.WinForms.Gui
             {
                 if (raceName != ClientState.Data.RaceName)
                 {
-                    RaceList.Items.Add(raceName);
+                    this.raceList.Items.Add(raceName);
                 }
             }
 
-            if (RaceList.Items.Count > 0)
+            if (this.raceList.Items.Count > 0)
             {
-                RaceList.SelectedIndex = 0;
+                this.raceList.SelectedIndex = 0;
             }
         }
 
@@ -95,19 +95,19 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void SelectedRaceChanged(object sender, EventArgs e)
         {
-            string selectedRace = RaceList.SelectedItem as string;
+            string selectedRace = this.raceList.SelectedItem as string;
 
-            if (Relation[selectedRace] as string == "Enemy")
+            if (this.relation[selectedRace] as string == "Enemy")
             {
-                EnemyButton.Checked = true;
+                this.enemyButton.Checked = true;
             }
-            else if (Relation[selectedRace] as string == "Neutral")
+            else if (this.relation[selectedRace] as string == "Neutral")
             {
-                NeutralButton.Checked = true;
+                this.neutralButton.Checked = true;
             }
             else
             {
-                FriendButton.Checked = true;
+                this.friendButton.Checked = true;
             }
         }
 
@@ -121,9 +121,9 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void RelationChanged(object sender, EventArgs e)
         {
-            string selectedRace = RaceList.SelectedItem as string;
+            string selectedRace = this.raceList.SelectedItem as string;
             RadioButton button = sender as RadioButton;
-            Relation[selectedRace] = button.Text;
+            this.relation[selectedRace] = button.Text;
         }
 
         #endregion

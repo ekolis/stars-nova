@@ -40,8 +40,8 @@ namespace Nova.Common
     {
         #region Data
 
-        private bool Initialised = false;
-        private Hashtable Settings = new Hashtable(); // string key, string value
+        private readonly Hashtable settings = new Hashtable(); // string key, string value
+        private bool initialised;
 
         #endregion
 
@@ -81,14 +81,14 @@ namespace Nova.Common
                     Config data = new Config();
                     data = (Config)s.Deserialize(confFile);
 
-                    foreach (DictionaryEntry setting in data.Settings)
+                    foreach (DictionaryEntry setting in data.settings)
                     {
-                        Settings.Add(setting.Key, setting.Value);
+                        this.settings.Add(setting.Key, setting.Value);
                     }
                 }
             }
 
-            Initialised = true;
+            this.initialised = true;
         }
 
         //-------------------------------------------------------------------
@@ -134,25 +134,25 @@ namespace Nova.Common
         {
             get
             {
-                if (!Initialised) 
+                if (!this.initialised) 
                     Restore();
 
                 if (String.IsNullOrEmpty(key)) 
                     return null;
 
-                object setting = Settings[key];
+                object setting = this.settings[key];
                 if (setting == null) return null;
                 return setting as string;
             }
 
             set
             {
-                if (!Initialised)
+                if (!this.initialised)
                     Restore();
 
                 if (String.IsNullOrEmpty(key)) 
                     return;
-                Settings[key] = value;
+                this.settings[key] = value;
             }
         }
 
@@ -162,8 +162,8 @@ namespace Nova.Common
         /// <param name="setting">The key of the setting to remove.</param>
         public void Remove(string setting)
         {
-            if (! Initialised) Restore();
-            Settings.Remove(setting);
+            if (! this.initialised) Restore();
+            this.settings.Remove(setting);
         }
 
         /// <summary>
@@ -172,7 +172,7 @@ namespace Nova.Common
         /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         public void Dispose()
         {
-            if (Settings.Count > 0)
+            if (this.settings.Count > 0)
             {
                 Save();
             }
@@ -189,7 +189,7 @@ namespace Nova.Common
 
         void IXmlSerializable.WriteXml(System.Xml.XmlWriter writer)
         {
-            foreach (DictionaryEntry setting in Settings)
+            foreach (DictionaryEntry setting in this.settings)
             {
                 writer.WriteStartElement("Setting");
                 writer.WriteElementString("Key", (string)setting.Key);
@@ -213,7 +213,7 @@ namespace Nova.Common
                 string key = reader.ReadElementContentAsString();
                 string value = reader.ReadElementContentAsString();
 
-                Settings.Add(key, value);
+                this.settings.Add(key, value);
 
                 reader.ReadEndElement();
                 reader.MoveToContent();

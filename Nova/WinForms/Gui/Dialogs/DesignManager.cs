@@ -41,9 +41,8 @@ namespace Nova.WinForms.Gui
     /// </summary>
     public partial class DesignManager : Form
     {
-
-        private ClientState StateData = null;
-        private Intel TurnData = null;
+        private readonly ClientState stateData;
+        private readonly Intel turnData;
 
         #region Construction
 
@@ -53,9 +52,9 @@ namespace Nova.WinForms.Gui
         public DesignManager()
         {
             InitializeComponent();
-            StateData = ClientState.Data;
-            TurnData = StateData.InputTurn;
-            HullGrid.ModuleSelected += DesignModuleSelected;
+            this.stateData = ClientState.Data;
+            this.turnData = this.stateData.InputTurn;
+            this.hullGrid.ModuleSelected += DesignModuleSelected;
         }
 
         #endregion
@@ -88,13 +87,13 @@ namespace Nova.WinForms.Gui
             // Populate the "Design Owner" ComboBox with a list of players and
             // select the current race as the default
 
-            foreach (string raceName in TurnData.AllRaceNames)
+            foreach (string raceName in this.turnData.AllRaceNames)
             {
-                DesignOwner.Items.Add(raceName);
+                this.designOwner.Items.Add(raceName);
             }
 
-            DesignOwner.SelectedItem = StateData.RaceName;
-            ListDesigns(StateData.RaceName);
+            this.designOwner.SelectedItem = this.stateData.RaceName;
+            ListDesigns(this.stateData.RaceName);
         }
 
 
@@ -107,13 +106,13 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DesignList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (DesignList.SelectedItems.Count <= 0) return;
+            if (this.designList.SelectedItems.Count <= 0) return;
 
-            string name = DesignList.SelectedItems[0].Text;
-            string race = DesignOwner.SelectedItem.ToString();
+            string name = this.designList.SelectedItems[0].Text;
+            string race = this.designOwner.SelectedItem.ToString();
 
             ShipDesign design =
-                       TurnData.AllDesigns[race + "/" + name] as ShipDesign;
+                       this.turnData.AllDesigns[race + "/" + name] as ShipDesign;
 
             DisplayDesign(design);
         }
@@ -138,7 +137,7 @@ namespace Nova.WinForms.Gui
 
             Nova.Common.Components.Component component = module.AllocatedComponent;
 
-            ComponentSummary.Text = component.Description;
+            this.componentSummary.Text = component.Description;
         }
 
 
@@ -169,7 +168,7 @@ Are you sure you want to do this?";
 
             if (result != DialogResult.Yes) return;
 
-            Design design = DesignList.SelectedItems[0].Tag as Design;
+            Design design = this.designList.SelectedItems[0].Tag as Design;
 
 
             // Note that we are not allowed to delete the ships or fleets on the
@@ -180,7 +179,7 @@ Are you sure you want to do this?";
 
             List<Fleet> fleetsToRemove = new List<Fleet>();
 
-            foreach (Fleet fleet in TurnData.AllFleets.Values)
+            foreach (Fleet fleet in this.turnData.AllFleets.Values)
             {
 
                 List<Ship> shipsToRemove = new List<Ship>();
@@ -206,11 +205,11 @@ Are you sure you want to do this?";
 
             foreach (Fleet fleet in fleetsToRemove)
             {
-                TurnData.AllFleets.Remove(fleet.Key);
-                StateData.DeletedFleets.Add(fleet.Key);
+                this.turnData.AllFleets.Remove(fleet.Key);
+                this.stateData.DeletedFleets.Add(fleet.Key);
             }
 
-            TurnData.AllDesigns.Remove(design.Key);
+            this.turnData.AllDesigns.Remove(design.Key);
             DesignOwner_SelectedIndexChanged(null, null);
 
             // Ensure the star map is updated in case we've completely removed any
@@ -232,25 +231,25 @@ Are you sure you want to do this?";
         /// ----------------------------------------------------------------------------
         private void DesignOwner_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListDesigns(DesignOwner.SelectedItem.ToString());
-            HullGrid.Clear(true);
-            DesignName.Text = null;
-            DesignResources.Value = new Nova.Common.Resources();
-            ShipMass.Text = "0";
-            MaxCapacity.Text = "0";
-            ShipArmor.Text = "0";
-            ShipShields.Text = "0";
-            ShipCloak.Text = "0";
+            ListDesigns(this.designOwner.SelectedItem.ToString());
+            this.hullGrid.Clear(true);
+            this.designName.Text = null;
+            this.designResources.Value = new Nova.Common.Resources();
+            this.shipMass.Text = "0";
+            this.maxCapacity.Text = "0";
+            this.shipArmor.Text = "0";
+            this.shipShields.Text = "0";
+            this.shipCloak.Text = "0";
 
-            string race = DesignOwner.SelectedItem.ToString();
+            string race = this.designOwner.SelectedItem.ToString();
 
-            if (race == StateData.RaceName)
+            if (race == this.stateData.RaceName)
             {
-                Delete.Enabled = true;
+                this.delete.Enabled = true;
             }
             else
             {
-                Delete.Enabled = false;
+                this.delete.Enabled = false;
             }
         }
 
@@ -268,17 +267,17 @@ Are you sure you want to do this?";
         /// ----------------------------------------------------------------------------
         private void ListDesigns(string raceName)
         {
-            DesignList.Items.Clear();
-            DesignList.BeginUpdate();
+            this.designList.Items.Clear();
+            this.designList.BeginUpdate();
 
-            foreach (Design design in TurnData.AllDesigns.Values)
+            foreach (Design design in this.turnData.AllDesigns.Values)
             {
                 if (design.Type == "Ship" || design.Type == "Starbase")
                 {
                     if (design.Owner == raceName)
                     {
-                        if (raceName == StateData.RaceName ||
-                            StateData.KnownEnemyDesigns.Contains(design.Key))
+                        if (raceName == this.stateData.RaceName ||
+                            this.stateData.KnownEnemyDesigns.Contains(design.Key))
                         {
 
                             AddToDesignList(design);
@@ -287,7 +286,7 @@ Are you sure you want to do this?";
                 }
             }
 
-            DesignList.EndUpdate();
+            this.designList.EndUpdate();
         }
 
 
@@ -304,7 +303,7 @@ Are you sure you want to do this?";
             itemToAdd.Text = design.Name;
             itemToAdd.Tag = design;
 
-            if (design.Owner == StateData.RaceName)
+            if (design.Owner == this.stateData.RaceName)
             {
                 int quantity = CountDesigns(design);
                 itemToAdd.SubItems.Add(quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
@@ -314,7 +313,7 @@ Are you sure you want to do this?";
                 itemToAdd.SubItems.Add("Unknown");
             }
 
-            DesignList.Items.Add(itemToAdd);
+            this.designList.Items.Add(itemToAdd);
         }
 
 
@@ -329,7 +328,7 @@ Are you sure you want to do this?";
         {
             int quantity = 0;
 
-            foreach (Fleet fleet in TurnData.AllFleets.Values)
+            foreach (Fleet fleet in this.turnData.AllFleets.Values)
             {
                 foreach (Ship ship in fleet.FleetShips)
                 {
@@ -353,27 +352,27 @@ Are you sure you want to do this?";
         private void DisplayDesign(ShipDesign design)
         {
             design.Update();
-            Hull HullProperties = design.ShipHull.Properties["Hull"] as Hull;
-            HullGrid.ActiveModules = HullProperties.Modules;
-            HullImage.Image = design.ShipHull.ComponentImage;
-            DesignResources.Value = design.Cost;
-            DesignName.Text = design.Name;
-            ShipMass.Text = design.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            ShipArmor.Text = design.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            ShipShields.Text = design.Shield.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            CargoCapacity.Text = design.CargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            Hull hullProperties = design.ShipHull.Properties["Hull"] as Hull;
+            this.hullGrid.ActiveModules = hullProperties.Modules;
+            this.hullImage.Image = design.ShipHull.ComponentImage;
+            this.designResources.Value = design.Cost;
+            this.designName.Text = design.Name;
+            this.shipMass.Text = design.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.shipArmor.Text = design.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.shipShields.Text = design.Shield.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.cargoCapacity.Text = design.CargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
             if (design.Type == "Starbase")
             {
-                CapacityType.Text = "Dock Capacity";
-                CapacityUnits.Text = "kT";
-                MaxCapacity.Text = design.DockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                this.capacityType.Text = "Dock Capacity";
+                this.capacityUnits.Text = "kT";
+                this.maxCapacity.Text = design.DockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
             else
             {
-                CapacityType.Text = "Fuel Capacity";
-                CapacityUnits.Text = "mg";
-                MaxCapacity.Text = design.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                this.capacityType.Text = "Fuel Capacity";
+                this.capacityUnits.Text = "mg";
+                this.maxCapacity.Text = design.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
         }
 

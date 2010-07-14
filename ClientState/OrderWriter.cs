@@ -55,9 +55,9 @@ namespace Nova.Client
 // Nova.Common Orders.cs
 // ---------------------------------------------------------------------------
 
-      private static ClientState StateData  = null;
-      private static Intel InputTurn = null; // TODO (priority 4) - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
-      private static string RaceName = null;
+      private static ClientState stateData;
+      private static Intel inputTurn; // TODO (priority 4) - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
+      private static string raceName;
 
       /// ----------------------------------------------------------------------------
       /// <summary>
@@ -68,22 +68,22 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       public static void WriteOrders()
       {
-         StateData  = ClientState.Data;
-         InputTurn  = StateData.InputTurn;
-         RaceName   = StateData.RaceName;
+         stateData  = ClientState.Data;
+         inputTurn  = stateData.InputTurn;
+         raceName   = stateData.RaceName;
 
          Orders outputTurn = new Orders();
          RaceData playerData = new RaceData();
          
-         playerData.TurnYear = StateData.TurnYear;
-         playerData.PlayerRelations = StateData.PlayerRelations;
-         playerData.BattlePlans = StateData.BattlePlans;
+         playerData.TurnYear = stateData.TurnYear;
+         playerData.PlayerRelations = stateData.PlayerRelations;
+         playerData.BattlePlans = stateData.BattlePlans;
          outputTurn.PlayerData = playerData;
          outputTurn.TechLevel = CountTechLevels();
 
-         foreach (Fleet fleet in InputTurn.AllFleets.Values)
+         foreach (Fleet fleet in inputTurn.AllFleets.Values)
          {
-             if (fleet.Owner == RaceName)
+             if (fleet.Owner == raceName)
              {
                  outputTurn.RaceFleets.Add(fleet.FleetID, fleet);
              }
@@ -95,39 +95,39 @@ namespace Nova.Client
          // local count so that we can "do" the research on the arrival of the
          // next turn.
 
-         StateData.ResearchAllocation = 0;
+         stateData.ResearchAllocation = 0;
 
-         foreach (Star star in InputTurn.AllStars.Values)
+         foreach (Star star in inputTurn.AllStars.Values)
          {
-             if (star.Owner == RaceName)
+             if (star.Owner == raceName)
              {
                  star.ResearchAllocation = (int)((star.ResourcesOnHand.Energy
-                                            * StateData.ResearchBudget) / 100);
+                                            * stateData.ResearchBudget) / 100);
 
-                 StateData.ResearchAllocation += star.ResearchAllocation;
+                 stateData.ResearchAllocation += star.ResearchAllocation;
                  outputTurn.RaceStars.Add(star);
              }
          }
 
-         foreach (Design design in InputTurn.AllDesigns.Values)
+         foreach (Design design in inputTurn.AllDesigns.Values)
          {
-             if (design.Owner == RaceName)
+             if (design.Owner == raceName)
              {
                  outputTurn.RaceDesigns.Add(design.Key, design);
              }
          }
 
-         foreach (string fleetName in StateData.DeletedFleets)
+         foreach (string fleetName in stateData.DeletedFleets)
          {
              outputTurn.DeletedFleets.Add(fleetName);
          }
 
-         foreach (string designKey in StateData.DeletedDesigns)
+         foreach (string designKey in stateData.DeletedDesigns)
          {
              outputTurn.DeletedFleets.Add(designKey);
          }
 
-         string turnFileName = Path.Combine(StateData.GameFolder, RaceName + Global.OrdersExtension);
+         string turnFileName = Path.Combine(stateData.GameFolder, raceName + Global.OrdersExtension);
 
          // outputTurn.ToBinary(turnFileName); // old binary serialised format
          outputTurn.ToXml(turnFileName); // human readable xml format
@@ -143,10 +143,10 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       private static int CountTechLevels()
       {
-          StateData = ClientState.Data;
+          stateData = ClientState.Data;
           int total = 0;
 
-          foreach (int techLevel in StateData.ResearchLevel)
+          foreach (int techLevel in stateData.ResearchLevel)
           {
               total += techLevel;
           }

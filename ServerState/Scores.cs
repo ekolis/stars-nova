@@ -37,7 +37,7 @@ namespace Nova.Server
     /// </summary>
     public class Scores
     {
-        private static ServerState StateData = null;
+        private static ServerState stateData;
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -68,9 +68,9 @@ namespace Nova.Server
         /// ----------------------------------------------------------------------------
         private static ScoreRecord GetScoreRecord(string raceName)
         {
-            double TotalScore = 0;
-            ScoreRecord Score = new ScoreRecord();
-            StateData = ServerState.Data;
+            double totalScore = 0;
+            ScoreRecord score = new ScoreRecord();
+            stateData = ServerState.Data;
 
             // ----------------------------------------------------------------------------
             // Count star-specific values
@@ -79,27 +79,27 @@ namespace Nova.Server
             int starBases = 0;
             int resources = 0;
 
-            foreach (Star star in StateData.AllStars.Values)
+            foreach (Star star in stateData.AllStars.Values)
             {
 
                 if (star.Owner == raceName)
                 {
-                    Score.Planets++;
+                    score.Planets++;
                     resources += (int)star.ResourcesOnHand.Energy;
 
                     if (star.Starbase != null)
                     {
                         starBases++;
-                        TotalScore += 3;
+                        totalScore += 3;
                     }
 
-                    TotalScore += star.Colonists / 100000;
+                    totalScore += star.Colonists / 100000;
                 }
             }
 
-            Score.Starbases = starBases;
-            Score.Resources = resources;
-            TotalScore += resources / 30;
+            score.Starbases = starBases;
+            score.Resources = resources;
+            totalScore += resources / 30;
 
             // ----------------------------------------------------------------------------
             // Count ship specific values
@@ -110,7 +110,7 @@ namespace Nova.Server
             int capitalShips = 0;
 
 
-            foreach (Fleet fleet in StateData.AllFleets.Values)
+            foreach (Fleet fleet in stateData.AllFleets.Values)
             {
 
                 if (fleet.Owner == raceName)
@@ -120,14 +120,14 @@ namespace Nova.Server
                         if (ship.HasWeapons == false)
                         {
                             unarmedShips++;
-                            TotalScore += 0.5;
+                            totalScore += 0.5;
                         }
                         else
                         {
                             if (ship.PowerRating < 2000)
                             {
                                 escortShips++;
-                                TotalScore += 2;
+                                totalScore += 2;
                             }
                             else
                             {
@@ -138,34 +138,34 @@ namespace Nova.Server
                 }
             }
 
-            Score.UnarmedShips = unarmedShips;
-            Score.EscortShips = escortShips;
-            Score.CapitalShips = capitalShips;
+            score.UnarmedShips = unarmedShips;
+            score.EscortShips = escortShips;
+            score.CapitalShips = capitalShips;
 
             if (capitalShips != 0)
             {
-                int stars = Score.Planets;
-                TotalScore += (8 * capitalShips * stars) / (capitalShips + stars);
+                int stars = score.Planets;
+                totalScore += (8 * capitalShips * stars) / (capitalShips + stars);
             }
 
             // ----------------------------------------------------------------------------
             // Single instance values
             // ----------------------------------------------------------------------------
 
-            Score.Race = raceName;
-            if (StateData.AllTechLevels.Contains(raceName))
+            score.Race = raceName;
+            if (stateData.AllTechLevels.Contains(raceName))
             {
-                Score.TechLevel = (int)StateData.AllTechLevels[raceName];
+                score.TechLevel = (int)stateData.AllTechLevels[raceName];
 
-                if (Score.TechLevel < 4) TotalScore += 1;
-                if (Score.TechLevel > 9) TotalScore += 4;
-                if (Score.TechLevel > 3 && Score.TechLevel < 7) TotalScore += 2;
-                if (Score.TechLevel > 6 && Score.TechLevel < 10) TotalScore += 3;
+                if (score.TechLevel < 4) totalScore += 1;
+                if (score.TechLevel > 9) totalScore += 4;
+                if (score.TechLevel > 3 && score.TechLevel < 7) totalScore += 2;
+                if (score.TechLevel > 6 && score.TechLevel < 10) totalScore += 3;
             }
 
-            Score.Score = (int)TotalScore;
+            score.Score = (int)totalScore;
 
-            return Score;
+            return score;
         }
 
 

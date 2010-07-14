@@ -41,10 +41,10 @@ namespace Nova.ControlLibrary
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label Ironium;
-        private System.Windows.Forms.Label Germanium;
-        private System.Windows.Forms.Label Boranium;
-        private System.Windows.Forms.Label Energy;
+        private System.Windows.Forms.Label ironium;
+        private System.Windows.Forms.Label germanium;
+        private System.Windows.Forms.Label boranium;
+        private System.Windows.Forms.Label energy;
         private System.ComponentModel.Container components = null;
 
         #region Construction and Disposal
@@ -93,10 +93,10 @@ namespace Nova.ControlLibrary
             this.label5 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
-            this.Ironium = new System.Windows.Forms.Label();
-            this.Energy = new System.Windows.Forms.Label();
-            this.Germanium = new System.Windows.Forms.Label();
-            this.Boranium = new System.Windows.Forms.Label();
+            this.ironium = new System.Windows.Forms.Label();
+            this.energy = new System.Windows.Forms.Label();
+            this.germanium = new System.Windows.Forms.Label();
+            this.boranium = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -164,50 +164,50 @@ namespace Nova.ControlLibrary
             // 
             // Ironium
             // 
-            this.Ironium.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Ironium.Location = new System.Drawing.Point(80, 0);
-            this.Ironium.Name = "Ironium";
-            this.Ironium.Size = new System.Drawing.Size(56, 16);
-            this.Ironium.TabIndex = 7;
-            this.Ironium.Text = "0";
-            this.Ironium.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.ironium.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ironium.Location = new System.Drawing.Point(80, 0);
+            this.ironium.Name = "ironium";
+            this.ironium.Size = new System.Drawing.Size(56, 16);
+            this.ironium.TabIndex = 7;
+            this.ironium.Text = "0";
+            this.ironium.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Energy
             // 
-            this.Energy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Energy.Location = new System.Drawing.Point(80, 48);
-            this.Energy.Name = "Energy";
-            this.Energy.Size = new System.Drawing.Size(56, 16);
-            this.Energy.TabIndex = 8;
-            this.Energy.Text = "0";
-            this.Energy.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.energy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.energy.Location = new System.Drawing.Point(80, 48);
+            this.energy.Name = "energy";
+            this.energy.Size = new System.Drawing.Size(56, 16);
+            this.energy.TabIndex = 8;
+            this.energy.Text = "0";
+            this.energy.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Germanium
             // 
-            this.Germanium.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Germanium.Location = new System.Drawing.Point(80, 32);
-            this.Germanium.Name = "Germanium";
-            this.Germanium.Size = new System.Drawing.Size(56, 16);
-            this.Germanium.TabIndex = 9;
-            this.Germanium.Text = "0";
-            this.Germanium.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.germanium.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.germanium.Location = new System.Drawing.Point(80, 32);
+            this.germanium.Name = "germanium";
+            this.germanium.Size = new System.Drawing.Size(56, 16);
+            this.germanium.TabIndex = 9;
+            this.germanium.Text = "0";
+            this.germanium.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // Boranium
             // 
-            this.Boranium.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.Boranium.Location = new System.Drawing.Point(80, 16);
-            this.Boranium.Name = "Boranium";
-            this.Boranium.Size = new System.Drawing.Size(56, 16);
-            this.Boranium.TabIndex = 10;
-            this.Boranium.Text = "0";
-            this.Boranium.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            this.boranium.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.boranium.Location = new System.Drawing.Point(80, 16);
+            this.boranium.Name = "boranium";
+            this.boranium.Size = new System.Drawing.Size(56, 16);
+            this.boranium.TabIndex = 10;
+            this.boranium.Text = "0";
+            this.boranium.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ResourceDisplay
             // 
-            this.Controls.Add(this.Boranium);
-            this.Controls.Add(this.Germanium);
-            this.Controls.Add(this.Energy);
-            this.Controls.Add(this.Ironium);
+            this.Controls.Add(this.boranium);
+            this.Controls.Add(this.germanium);
+            this.Controls.Add(this.energy);
+            this.Controls.Add(this.ironium);
             this.Controls.Add(this.label7);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.label5);
@@ -239,10 +239,10 @@ namespace Nova.ControlLibrary
 
                     Resources resources = value;
 
-                    Ironium.Text = Convert.ToInt32(resources.Ironium).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    Boranium.Text = Convert.ToInt32(resources.Boranium).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    Germanium.Text = Convert.ToInt32(resources.Germanium).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    Energy.Text = Convert.ToInt32(resources.Energy).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.ironium.Text = Convert.ToInt32(resources.Ironium).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.boranium.Text = Convert.ToInt32(resources.Boranium).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.germanium.Text = Convert.ToInt32(resources.Germanium).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.energy.Text = Convert.ToInt32(resources.Energy).ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
                 catch
                 {
@@ -254,10 +254,10 @@ namespace Nova.ControlLibrary
             {
                 Resources resources = new Resources();
 
-                resources.Ironium = Convert.ToInt32(Ironium.Text);
-                resources.Boranium = Convert.ToInt32(Boranium.Text);
-                resources.Germanium = Convert.ToInt32(Germanium.Text);
-                resources.Energy = Convert.ToInt32(Energy.Text);
+                resources.Ironium = Convert.ToInt32(this.ironium.Text);
+                resources.Boranium = Convert.ToInt32(this.boranium.Text);
+                resources.Germanium = Convert.ToInt32(this.germanium.Text);
+                resources.Energy = Convert.ToInt32(this.energy.Text);
 
                 return resources;
             }

@@ -54,9 +54,9 @@ namespace Nova.Common
         // These members are private to hide the 
         // implementaion of the hashtable and force access through the enums, 
         // in order to prevent errors due to using string literals (e.g. "Biotech" vs "Biotechnology")
-        private Hashtable TechValues = new Hashtable();
+        private readonly Hashtable techValues = new Hashtable();
         // used for internal access to the Hashtable
-        private static string[] ResearchKeys = 
+        private static readonly string[] ResearchKeys = 
         {
          "Biotechnology", "Electronics", "Energy", 
          "Propulsion",    "Weapons",     "Construction" 
@@ -73,7 +73,7 @@ namespace Nova.Common
         {
             foreach (string key in ResearchKeys)
             {
-                TechValues[key] = 0;
+                this.techValues[key] = 0;
             }
         }
 
@@ -88,7 +88,7 @@ namespace Nova.Common
         {
             foreach (string key in ResearchKeys)
             {
-                TechValues[key] = level;
+                this.techValues[key] = level;
             }
         }
 
@@ -106,12 +106,12 @@ namespace Nova.Common
         //----------------------------------------------------------------------------
         public TechLevel(int biotechnology, int electronics, int energy, int propulsion, int weapons, int construction)
         {
-            TechValues["Biotechnology"] = biotechnology;
-            TechValues["Electronics"] = electronics;
-            TechValues["Energy"] = energy;
-            TechValues["Propulsion"] = propulsion;
-            TechValues["Weapons"] = weapons;
-            TechValues["Construction"] = construction;
+            this.techValues["Biotechnology"] = biotechnology;
+            this.techValues["Electronics"] = electronics;
+            this.techValues["Energy"] = energy;
+            this.techValues["Propulsion"] = propulsion;
+            this.techValues["Weapons"] = weapons;
+            this.techValues["Construction"] = construction;
         }
 
 
@@ -123,7 +123,7 @@ namespace Nova.Common
         //----------------------------------------------------------------------------
         public TechLevel(TechLevel copy)
         {
-            TechValues = copy.TechValues.Clone() as Hashtable;
+            this.techValues = copy.techValues.Clone() as Hashtable;
         }
 
         #endregion
@@ -156,7 +156,7 @@ namespace Nova.Common
         {
             get
             {
-                if (TechValues == null)
+                if (this.techValues == null)
                 {
                     throw new System.NullReferenceException("TechLevel.cs : index operator - attempt to index with no TechValues defined.");
                 }
@@ -164,22 +164,22 @@ namespace Nova.Common
                 switch (index)
                 {
                     case ResearchField.Biotechnology:
-                        techLevel = (int)TechValues["Biotechnology"];
+                        techLevel = (int)this.techValues["Biotechnology"];
                         break;
                     case ResearchField.Construction:
-                        techLevel = (int)TechValues["Construction"];
+                        techLevel = (int)this.techValues["Construction"];
                         break;
                     case ResearchField.Electronics:
-                        techLevel = (int)TechValues["Electronics"];
+                        techLevel = (int)this.techValues["Electronics"];
                         break;
                     case ResearchField.Energy:
-                        techLevel = (int)TechValues["Energy"];
+                        techLevel = (int)this.techValues["Energy"];
                         break;
                     case ResearchField.Propulsion:
-                        techLevel = (int)TechValues["Propulsion"];
+                        techLevel = (int)this.techValues["Propulsion"];
                         break;
                     case ResearchField.Weapons:
-                        techLevel = (int)TechValues["Weapons"];
+                        techLevel = (int)this.techValues["Weapons"];
                         break;
                 }
                 if (techLevel == -1)
@@ -191,22 +191,22 @@ namespace Nova.Common
                 switch (index)
                 {
                     case ResearchField.Biotechnology:
-                        TechValues["Biotechnology"] = value;
+                        this.techValues["Biotechnology"] = value;
                         break;
                     case ResearchField.Construction:
-                        TechValues["Construction"] = value;
+                        this.techValues["Construction"] = value;
                         break;
                     case ResearchField.Electronics:
-                        TechValues["Electronics"] = value;
+                        this.techValues["Electronics"] = value;
                         break;
                     case ResearchField.Energy:
-                        TechValues["Energy"] = value;
+                        this.techValues["Energy"] = value;
                         break;
                     case ResearchField.Propulsion:
-                        TechValues["Propulsion"] = value;
+                        this.techValues["Propulsion"] = value;
                         break;
                     case ResearchField.Weapons:
-                        TechValues["Weapons"] = value;
+                        this.techValues["Weapons"] = value;
                         break;
                 }
             }
@@ -219,7 +219,7 @@ namespace Nova.Common
         //----------------------------------------------------------------------------
         public IEnumerator GetEnumerator()
         {
-            foreach (int level in TechValues.Values)
+            foreach (int level in this.techValues.Values)
             {
                 yield return level;
             }
@@ -251,8 +251,8 @@ namespace Nova.Common
         //----------------------------------------------------------------------------
         public static bool operator >=(TechLevel lhs, TechLevel rhs)
         {
-            Hashtable lhsT = lhs.TechValues;
-            Hashtable rhsT = rhs.TechValues;
+            Hashtable lhsT = lhs.techValues;
+            Hashtable rhsT = rhs.techValues;
 
             foreach (string key in TechLevel.ResearchKeys)
             {
@@ -275,8 +275,8 @@ namespace Nova.Common
         //----------------------------------------------------------------------------
         public static bool operator >(TechLevel lhs, TechLevel rhs)
         {
-            Hashtable lhsT = lhs.TechValues;
-            Hashtable rhsT = rhs.TechValues;
+            Hashtable lhsT = lhs.techValues;
+            Hashtable rhsT = rhs.techValues;
 
             return ! (lhs <= rhs);
         
@@ -290,8 +290,8 @@ namespace Nova.Common
         //----------------------------------------------------------------------------
         public static bool operator <(TechLevel lhs, TechLevel rhs)
         {
-            Hashtable lhsT = lhs.TechValues;
-            Hashtable rhsT = rhs.TechValues;
+            Hashtable lhsT = lhs.techValues;
+            Hashtable rhsT = rhs.techValues;
 
             foreach (string key in TechLevel.ResearchKeys)
             {
@@ -312,8 +312,8 @@ namespace Nova.Common
          //----------------------------------------------------------------------------
         public static bool operator <=(TechLevel lhs, TechLevel rhs)
         {
-            Hashtable lhsT = lhs.TechValues;
-            Hashtable rhsT = rhs.TechValues;
+            Hashtable lhsT = lhs.techValues;
+            Hashtable rhsT = rhs.techValues;
 
             foreach (string key in TechLevel.ResearchKeys)
             {
@@ -353,7 +353,7 @@ namespace Nova.Common
                     {
                         if (subnode.Name.ToLower() == key.ToLower())
                         {
-                            TechValues[key] = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            this.techValues[key] = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
 
                         }
                     }
@@ -380,7 +380,7 @@ namespace Nova.Common
             foreach (string key in TechLevel.ResearchKeys)
             {
                 XmlElement xmlelTech = xmldoc.CreateElement(key);
-                XmlText xmltxtTech = xmldoc.CreateTextNode(((int)this.TechValues[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
+                XmlText xmltxtTech = xmldoc.CreateTextNode(((int)this.techValues[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
                 xmlelTech.AppendChild(xmltxtTech);
                 xmlelResource.AppendChild(xmlelTech);
             }

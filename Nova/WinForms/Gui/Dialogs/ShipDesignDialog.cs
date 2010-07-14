@@ -45,14 +45,14 @@ namespace Nova.WinForms.Gui
     /// </summary>
     public class ShipDesignDialog : System.Windows.Forms.Form
     {
-        private ClientState StateData;
-        private Hashtable AllComponents;
-        private Hashtable AllDesigns;
-        private Hashtable ImageIndices = new Hashtable();
-        private Component SelectedHull;
+        private readonly ClientState stateData;
+        private readonly Hashtable allComponents;
+        private readonly Hashtable allDesigns;
+        private readonly Hashtable imageIndices = new Hashtable();
+        private readonly ImageList componentImages = new ImageList();
 
-        private ImageList ComponentImages = new ImageList();
-        private int DesignMass;
+        private Component selectedHull;
+        private int designMass;
 
         #region Designer Generated Code
 
@@ -711,12 +711,12 @@ namespace Nova.WinForms.Gui
 
             // Some abbreviations (just to save a bit of typing)
 
-            StateData = ClientState.Data;
-            AllComponents = Nova.Common.Components.AllComponents.Data.Components;
-            AllDesigns = StateData.InputTurn.AllDesigns;
+            this.stateData = ClientState.Data;
+            this.allComponents = Nova.Common.Components.AllComponents.Data.Components;
+            this.allDesigns = this.stateData.InputTurn.AllDesigns;
 
-            ComponentImages.ImageSize = new Size(64, 64);
-            ComponentImages.ColorDepth = ColorDepth.Depth32Bit;
+            this.componentImages.ImageSize = new Size(64, 64);
+            this.componentImages.ColorDepth = ColorDepth.Depth32Bit;
 
             PopulateComponentList();
             TreeView.ExpandAll();
@@ -725,7 +725,7 @@ namespace Nova.WinForms.Gui
             // first one in the list as the default. Also, make the default design
             // name the same as the hull name as a first guess. 
             HullList.Items.Clear();
-            foreach (Component component in StateData.AvailableComponents.Values)
+            foreach (Component component in this.stateData.AvailableComponents.Values)
             {
                 if (component.Properties.ContainsKey("Hull"))
                 {
@@ -737,8 +737,8 @@ namespace Nova.WinForms.Gui
             {
                 HullList.SelectedIndex = 0;
                 string selectedHullName = HullList.SelectedItem as string;
-                SelectedHull = StateData.AvailableComponents[selectedHullName];
-                SelectedHull.Name = selectedHullName;
+                this.selectedHull = this.stateData.AvailableComponents[selectedHullName];
+                this.selectedHull.Name = selectedHullName;
                 UpdateHullFields();
                 SaveButton.Enabled = true;
             }
@@ -750,7 +750,7 @@ namespace Nova.WinForms.Gui
             // Populate the tree view control from the AvailableComponents
             ArrayList techList = new ArrayList();
 
-            foreach (Component component in StateData.AvailableComponents.Values)
+            foreach (Component component in this.stateData.AvailableComponents.Values)
             {
                 if (component.Type.Contains("Planetary")) continue;
                 if (component.Type.Contains("Defenses")) continue;
@@ -815,17 +815,17 @@ namespace Nova.WinForms.Gui
         private void OK_Click(object sender, System.EventArgs e)
         {
             ShipDesign newDesign = new ShipDesign();
-            Hull HullProperties = SelectedHull.Properties["Hull"] as Hull;
+            Hull hullProperties = this.selectedHull.Properties["Hull"] as Hull;
 
-            HullProperties.Modules = HullGrid.ActiveModules;
+            hullProperties.Modules = HullGrid.ActiveModules;
             newDesign.Name = DesignName.Text;
-            newDesign.Owner = StateData.RaceName;
-            newDesign.ShipHull = SelectedHull;
+            newDesign.Owner = this.stateData.RaceName;
+            newDesign.ShipHull = this.selectedHull;
             newDesign.Cost = DesignResources.Value;
             newDesign.Mass = Convert.ToInt32(ShipMass.Text);
             newDesign.Update();
 
-            if (HullProperties.IsStarbase)
+            if (hullProperties.IsStarbase)
             {
                 newDesign.Type = "Starbase";
             }
@@ -853,7 +853,7 @@ namespace Nova.WinForms.Gui
            }
             */
 
-            AllDesigns[newDesign.Key] = newDesign;
+            this.allDesigns[newDesign.Key] = newDesign;
             Close();
         }
 
@@ -898,15 +898,15 @@ namespace Nova.WinForms.Gui
             ListView.Items.Clear();
             if (nodeType == null) return;
 
-            ListView.LargeImageList = ComponentImages;
+            ListView.LargeImageList = this.componentImages;
 
-            foreach (Component component in StateData.AvailableComponents.Values)
+            foreach (Component component in this.stateData.AvailableComponents.Values)
             {
                 if (component.Type == nodeType)
                 {
                     ListViewItem item = new ListViewItem();
                     item.Text = component.Name;
-                    item.ImageIndex = (int)ImageIndices[component.Name];
+                    item.ImageIndex = (int)this.imageIndices[component.Name];
 
                     ListView.Items.Add(item);
                 }
@@ -927,7 +927,7 @@ namespace Nova.WinForms.Gui
             if (ListView.SelectedItems.Count <= 0) return;
 
             ListViewItem item = ListView.SelectedItems[0];
-            Component selection = AllComponents[item.Text] as Component;
+            Component selection = this.allComponents[item.Text] as Component;
             ComponentCost.Value = selection.Cost;
             ComponentMass.Text = selection.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
             Description.Text = selection.Description;
@@ -954,9 +954,9 @@ namespace Nova.WinForms.Gui
             HullGrid.DragDropData dragData = new HullGrid.DragDropData();
 
             ListViewItem item = ListView.SelectedItems[0];
-            dragData.HullName = SelectedHull.Name;
+            dragData.HullName = this.selectedHull.Name;
             dragData.ComponentCount = 1;
-            dragData.SelectedComponent = AllComponents[item.Text]
+            dragData.SelectedComponent = this.allComponents[item.Text]
                                          as Nova.Common.Components.Component;
 
             if ((Control.ModifierKeys & Keys.Shift) != 0)
@@ -981,9 +981,9 @@ namespace Nova.WinForms.Gui
         /// </summary>
         private void UpdateDesignParameters()
         {
-            Hull hull = SelectedHull.Properties["Hull"] as Hull;
-            Resources cost = SelectedHull.Cost;
-            int mass = SelectedHull.Mass;
+            Hull hull = this.selectedHull.Properties["Hull"] as Hull;
+            Resources cost = this.selectedHull.Cost;
+            int mass = this.selectedHull.Mass;
             int armor = hull.ArmorStrength;
             int shield = 0;
             int cargo = hull.BaseCargo;
@@ -1020,9 +1020,9 @@ namespace Nova.WinForms.Gui
             }
 
             DesignResources.Value = cost;
-            DesignMass = mass;
+            this.designMass = mass;
 
-            ShipMass.Text = DesignMass.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            ShipMass.Text = this.designMass.ToString(System.Globalization.CultureInfo.InvariantCulture);
             ShipArmor.Text = armor.ToString(System.Globalization.CultureInfo.InvariantCulture);
             ShipShields.Text = shield.ToString(System.Globalization.CultureInfo.InvariantCulture);
             CargoCapacity.Text = cargo.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -1047,9 +1047,9 @@ namespace Nova.WinForms.Gui
             string selectedHullName = HullList.SelectedItem as string;
 
             DesignName.Text = selectedHullName;
-            Nova.Common.Components.Component hull = StateData.AvailableComponents[selectedHullName];
-            SelectedHull = new Nova.Common.Components.Component(hull);
-            SelectedHull.Name = selectedHullName;
+            Nova.Common.Components.Component hull = this.stateData.AvailableComponents[selectedHullName];
+            this.selectedHull = new Nova.Common.Components.Component(hull);
+            this.selectedHull.Name = selectedHullName;
 
             UpdateHullFields();
         }
@@ -1074,23 +1074,22 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void UpdateHullFields()
         {
+            Hull hullProperties = this.selectedHull.Properties["Hull"] as Hull;
+            HullGrid.ActiveModules = hullProperties.Modules;
+            HullImage.Image = this.selectedHull.ComponentImage;
+            Description.Text = this.selectedHull.Description;
 
-            Hull HullProperties = SelectedHull.Properties["Hull"] as Hull;
-            HullGrid.ActiveModules = HullProperties.Modules;
-            HullImage.Image = SelectedHull.ComponentImage;
-            Description.Text = SelectedHull.Description;
-
-            if (HullProperties.IsStarbase)
+            if (hullProperties.IsStarbase)
             {
                 CapacityType.Text = "Dock Capacity";
                 CapacityUnits.Text = "kT";
-                MaxCapacity.Text = HullProperties.DockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                MaxCapacity.Text = hullProperties.DockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
             else
             {
                 CapacityType.Text = "Fuel Capacity";
                 CapacityUnits.Text = "mg";
-                MaxCapacity.Text = HullProperties.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                MaxCapacity.Text = hullProperties.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
 
             UpdateDesignParameters();
@@ -1107,13 +1106,13 @@ namespace Nova.WinForms.Gui
         {
             int index = 0;
 
-            foreach (Component component in StateData.AvailableComponents.Values)
+            foreach (Component component in this.stateData.AvailableComponents.Values)
             {
                 // TODO (priority 4) - work out why it sometimes is null.
                 if (component != null)
                 {
-                    ImageIndices[component.Name] = index;
-                    ComponentImages.Images.Add(component.ComponentImage);
+                    this.imageIndices[component.Name] = index;
+                    this.componentImages.Images.Add(component.ComponentImage);
                     index++;
                 }
             }

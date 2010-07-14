@@ -37,7 +37,7 @@ namespace Nova.Common
     public class PointUtilities
     {
 
-        private static Random RandomNumber = new Random();
+        private static readonly Random Random = new Random();
 
 
         /// ----------------------------------------------------------------------------
@@ -56,8 +56,8 @@ namespace Nova.Common
             int boxSize = box.Width;
             Point position = new Point(box.X, box.Y);
 
-            position.X += RandomNumber.Next(boxBorder, boxSize - boxBorder);
-            position.Y += RandomNumber.Next(boxBorder, boxSize - boxBorder);
+            position.X += Random.Next(boxBorder, boxSize - boxBorder);
+            position.Y += Random.Next(boxBorder, boxSize - boxBorder);
 
             return position;
         }

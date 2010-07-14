@@ -43,9 +43,9 @@ namespace Nova.WinForms.Gui
     /// </summary>
     public partial class BattleViewer : Form
     {
-        private BattleReport TheBattle = null;
-        private int EventCount = 0;
-        private Hashtable MyStacks = new Hashtable();
+        private readonly BattleReport theBattle;
+        private readonly Hashtable myStacks = new Hashtable();
+        private int eventCount;
 
 
         #region Construction and Initialisation
@@ -57,15 +57,15 @@ namespace Nova.WinForms.Gui
         public BattleViewer(Nova.Common.BattleReport thisBattle)
         {
             InitializeComponent();
-            TheBattle = thisBattle;
-            EventCount = 0;
+            this.theBattle = thisBattle;
+            this.eventCount = 0;
 
             // Take a copy of all of the stacks so that we can mess with them
             // without disturbing the master copy in the global turn file.
 
-            foreach (Fleet stack in TheBattle.Stacks.Values)
+            foreach (Fleet stack in this.theBattle.Stacks.Values)
             {
-                MyStacks[stack.Name] = new Fleet(stack);
+                this.myStacks[stack.Name] = new Fleet(stack);
             }
         }
 
@@ -77,10 +77,10 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnLoad(object sender, EventArgs e)
         {
-            BattleLocation.Text = TheBattle.Location;
+            this.battleLocation.Text = this.theBattle.Location;
 
-            BattlePanel.BackgroundImage = Nova.Properties.Resources.Plasma;
-            BattlePanel.BackgroundImageLayout = ImageLayout.Stretch;
+            this.battlePanel.BackgroundImage = Nova.Properties.Resources.Plasma;
+            this.battlePanel.BackgroundImageLayout = ImageLayout.Stretch;
             SetStepNumber();
         }
 
@@ -99,14 +99,14 @@ namespace Nova.WinForms.Gui
             base.OnPaint(e); // added
 
             Graphics graphics = e.Graphics;
-            Size panelSize = BattlePanel.Size;
+            Size panelSize = this.battlePanel.Size;
             float scalingFactor = (float)panelSize.Width /
                                      (float)Global.MaxWeaponRange;
 
             graphics.PageScale = scalingFactor;
             graphics.ScaleTransform(0.5F, 0.5F);
 
-            foreach (Fleet stack in MyStacks.Values)
+            foreach (Fleet stack in this.myStacks.Values)
             {
                 graphics.DrawImage(stack.Image, stack.Position);
             }
@@ -120,7 +120,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void NextStep_Click(object sender, EventArgs e)
         {
-            object thisStep = TheBattle.Steps[EventCount];
+            object thisStep = this.theBattle.Steps[this.eventCount];
             SetStepNumber();
 
             if (thisStep is BattleReport.Movement)
@@ -140,13 +140,13 @@ namespace Nova.WinForms.Gui
                 UpdateDestroy(thisStep as BattleReport.Destroy);
             }
 
-            if (EventCount < TheBattle.Steps.Count - 1)
+            if (this.eventCount < this.theBattle.Steps.Count - 1)
             {
-                EventCount++;
+                this.eventCount++;
             }
             else
             {
-                NextStep.Enabled = false;
+                this.nextStep.Enabled = false;
             }
 
         }
@@ -161,9 +161,9 @@ namespace Nova.WinForms.Gui
         /// <param name="movement">movement to display</param>
         private void UpdateMovement(BattleReport.Movement movement)
         {
-            Fleet stack = MyStacks[movement.StackName] as Fleet;
-            MovedTo.Text = movement.Position.ToString();
-            StackOwner.Text = stack.Owner;
+            Fleet stack = this.myStacks[movement.StackName] as Fleet;
+            this.movedTo.Text = movement.Position.ToString();
+            this.stackOwner.Text = stack.Owner;
             stack.Position = movement.Position;
 
             // We have moved, clear out the other fields as they may change.
@@ -171,7 +171,7 @@ namespace Nova.WinForms.Gui
             UpdateTarget(null);
             UpdateWeapons(null);
 
-            BattlePanel.Invalidate();
+            this.battlePanel.Invalidate();
         }
 
 
@@ -183,17 +183,17 @@ namespace Nova.WinForms.Gui
         {
             if (target == null)
             {
-                TargetName.Text = "";
-                TargetOwner.Text = "";
-                TargetShields.Text = "";
-                TargetArmor.Text = "";
+                this.targetName.Text = "";
+                this.targetOwner.Text = "";
+                this.targetShields.Text = "";
+                this.targetArmor.Text = "";
                 return;
             }
 
-            TargetName.Text = target.TargetShip.Name;
-            TargetOwner.Text = target.TargetShip.Owner;
-            TargetShields.Text = target.TargetShip.Shields.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            TargetArmor.Text = target.TargetShip.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.targetName.Text = target.TargetShip.Name;
+            this.targetOwner.Text = target.TargetShip.Owner;
+            this.targetShields.Text = target.TargetShip.Shields.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.targetArmor.Text = target.TargetShip.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture);
         }
 
 
@@ -206,15 +206,15 @@ namespace Nova.WinForms.Gui
 
             if (weapons == null)
             {
-                WeaponPower.Text = "";
-                ComponentTarget.Text = "";
-                Damage.Text = "";
+                this.weaponPower.Text = "";
+                this.componentTarget.Text = "";
+                this.damage.Text = "";
                 return;
             }
 
-            WeaponPower.Text = weapons.HitPower.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            ComponentTarget.Text = weapons.Targeting;
-            Damage.Text = "Ship damaged";
+            this.weaponPower.Text = weapons.HitPower.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.componentTarget.Text = weapons.Targeting;
+            this.damage.Text = "Ship damaged";
 
             UpdateTarget(weapons.WeaponTarget);
         }
@@ -227,9 +227,9 @@ namespace Nova.WinForms.Gui
         /// <param name="destroy"></param>
         private void UpdateDestroy(BattleReport.Destroy destroy)
         {
-            Damage.Text = "Ship destroyed";
+            this.damage.Text = "Ship destroyed";
 
-            Fleet stack = MyStacks[destroy.StackName] as Fleet;
+            Fleet stack = this.myStacks[destroy.StackName] as Fleet;
             string shipName = stack.Owner + "/" + destroy.ShipName;
 
             if (stack.FleetShips.Contains(shipName))
@@ -239,8 +239,8 @@ namespace Nova.WinForms.Gui
 
             if (stack.FleetShips.Count == 0)
             {
-                MyStacks.Remove(stack.Name);
-                BattlePanel.Invalidate();
+                this.myStacks.Remove(stack.Name);
+                this.battlePanel.Invalidate();
             }
         }
 
@@ -254,10 +254,10 @@ namespace Nova.WinForms.Gui
 
             title.AppendFormat(
                 "Step {0} of {1}",
-                EventCount + 1,
-                TheBattle.Steps.Count);
+                this.eventCount + 1,
+                this.theBattle.Steps.Count);
 
-            StepNumber.Text = title.ToString();
+            this.stepNumber.Text = title.ToString();
         }
 
         #endregion

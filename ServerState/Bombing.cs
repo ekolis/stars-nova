@@ -80,8 +80,8 @@ namespace Nova.WinForms.Console
 
             // Bomb colonists
             double killFactor = totalBombs.PopKill / 100.0;
-            double DefenseFactor = 1.0 - Defenses.PopulationCoverage;
-            double populationKill = killFactor * DefenseFactor;
+            double defenseFactor = 1.0 - Defenses.PopulationCoverage;
+            double populationKill = killFactor * defenseFactor;
             double killed = (double)star.Colonists * populationKill;
 
             double minKilled = totalBombs.MinimumKill

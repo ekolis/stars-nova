@@ -43,11 +43,11 @@ namespace Nova.WinForms.Gui
     /// </summary>
     public partial class ResearchDialog : Form
     {
-        private Hashtable Buttons = new Hashtable();
-        private TechLevel CurrentLevel = null;
-        private int AvailableEnergy = 0;
-        private ClientState StateData = null;
-        private bool DialogInitialised = false;
+        private readonly Hashtable buttons = new Hashtable();
+        private readonly TechLevel currentLevel;
+        private readonly int availableEnergy;
+        private readonly ClientState stateData;
+        private readonly bool dialogInitialised;
 
         #region Construction
 
@@ -58,39 +58,39 @@ namespace Nova.WinForms.Gui
         {
             InitializeComponent();
 
-            StateData = ClientState.Data;
-            CurrentLevel = StateData.ResearchLevel;
+            this.stateData = ClientState.Data;
+            this.currentLevel = this.stateData.ResearchLevel;
 
             // Provide a convienient way of getting a button from it's name.
 
-            Buttons.Add("Energy", EnergyButton);
-            Buttons.Add("Weapons", WeaponsButton);
-            Buttons.Add("Propulsion", PropulsionButton);
-            Buttons.Add("Construction", ConstructionButton);
-            Buttons.Add("Electronics", ElectronicsButton);
-            Buttons.Add("Biotechnology", BiotechButton);
+            this.buttons.Add("Energy", this.energyButton);
+            this.buttons.Add("Weapons", this.weaponsButton);
+            this.buttons.Add("Propulsion", this.propulsionButton);
+            this.buttons.Add("Construction", this.constructionButton);
+            this.buttons.Add("Electronics", this.electronicsButton);
+            this.buttons.Add("Biotechnology", this.biotechButton);
 
             // Set the currently attained research levels
 
-            EnergyLevel.Text = CurrentLevel[TechLevel.ResearchField.Energy].ToString();
-            WeaponsLevel.Text = CurrentLevel[TechLevel.ResearchField.Weapons].ToString();
-            PropulsionLevel.Text = CurrentLevel[TechLevel.ResearchField.Propulsion].ToString();
-            ConstructionLevel.Text = CurrentLevel[TechLevel.ResearchField.Construction].ToString();
-            ElectronicsLevel.Text = CurrentLevel[TechLevel.ResearchField.Electronics].ToString();
-            BiotechLevel.Text = CurrentLevel[TechLevel.ResearchField.Biotechnology].ToString();
+            this.energyLevel.Text = this.currentLevel[TechLevel.ResearchField.Energy].ToString();
+            this.weaponsLevel.Text = this.currentLevel[TechLevel.ResearchField.Weapons].ToString();
+            this.propulsionLevel.Text = this.currentLevel[TechLevel.ResearchField.Propulsion].ToString();
+            this.constructionLevel.Text = this.currentLevel[TechLevel.ResearchField.Construction].ToString();
+            this.electronicsLevel.Text = this.currentLevel[TechLevel.ResearchField.Electronics].ToString();
+            this.biotechLevel.Text = this.currentLevel[TechLevel.ResearchField.Biotechnology].ToString();
 
             // Ensure that the correct RadioButton is checked to reflect the
             // current research selection and the budget up-down control is
             // initialised with the correct value.
 
-            RadioButton button = Buttons[Enum.GetName(typeof(TechLevel.ResearchField), StateData.ResearchTopic)] as RadioButton;
+            RadioButton button = this.buttons[Enum.GetName(typeof(TechLevel.ResearchField), this.stateData.ResearchTopic)] as RadioButton;
 
             button.Checked = true;
 
-            AvailableEnergy = CountEnergy();
-            AvailableResources.Text = AvailableEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            ResourceBudget.Value = StateData.ResearchBudget;
-            DialogInitialised = true;
+            this.availableEnergy = CountEnergy();
+            this.availableResources.Text = this.availableEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.resourceBudget.Value = this.stateData.ResearchBudget;
+            this.dialogInitialised = true;
 
             ParameterChanged(null, null);
         }
@@ -109,7 +109,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void CheckChanged(object sender, EventArgs e)
         {
-            if (DialogInitialised == false) return;
+            if (this.dialogInitialised == false) return;
 
             RadioButton button = sender as RadioButton;
 
@@ -152,48 +152,48 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void ParameterChanged(object sender, EventArgs e)
         {
-            int percentage = (int)ResourceBudget.Value;
-            int allocatedEnergy = ((int)AvailableEnergy * percentage) / 100;
+            int percentage = (int)this.resourceBudget.Value;
+            int allocatedEnergy = ((int)this.availableEnergy * percentage) / 100;
 
-            StateData.ResearchBudget = percentage;
-            StateData.ResearchAllocation = allocatedEnergy;
+            this.stateData.ResearchBudget = percentage;
+            this.stateData.ResearchAllocation = allocatedEnergy;
 
             double resourcesRequired = 0;
             double yearsToComplete = 0;
 
-            TechLevel researchLevels = StateData.ResearchLevel;
-            TechLevel researchResources = StateData.ResearchResources;
-            TechLevel.ResearchField researchArea = StateData.ResearchTopic;
+            TechLevel researchLevels = this.stateData.ResearchLevel;
+            TechLevel researchResources = this.stateData.ResearchResources;
+            TechLevel.ResearchField researchArea = this.stateData.ResearchTopic;
 
             int current = (int)researchResources[researchArea];
             int level = (int)researchLevels[researchArea];
             int target = Research.Cost(level + 1);
 
             resourcesRequired = target
-               - (int)StateData.ResearchResources[researchArea];
+               - (int)this.stateData.ResearchResources[researchArea];
 
-            CompletionResources.Text = ((int)resourcesRequired).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.completionResources.Text = ((int)resourcesRequired).ToString(System.Globalization.CultureInfo.InvariantCulture);
 
             if (percentage != 0)
             {
                 yearsToComplete = resourcesRequired / allocatedEnergy;
-                CompletionTime.Text = yearsToComplete.ToString("f1");
+                this.completionTime.Text = yearsToComplete.ToString("f1");
             }
             else
             {
-                CompletionTime.Text = "Never";
+                this.completionTime.Text = "Never";
             }
 
-            NumericResources.Text = allocatedEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.numericResources.Text = allocatedEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
             // Populate the expected research benefits list
 
             Hashtable allComponents = AllComponents.Data.Components;
-            TechLevel oldResearchLevel = StateData.ResearchLevel;
+            TechLevel oldResearchLevel = this.stateData.ResearchLevel;
             TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 
             newResearchLevel[researchArea] = level + 1;
-            ResearchBenefits.Items.Clear();
+            this.researchBenefits.Items.Clear();
 
             foreach (Nova.Common.Components.Component component in allComponents.Values)
             {
@@ -202,7 +202,7 @@ namespace Nova.WinForms.Gui
                 {
 
                     string available = component.Name + " " + component.Type;
-                    ResearchBenefits.Items.Add(available);
+                    this.researchBenefits.Items.Add(available);
                 }
             }
 
@@ -221,8 +221,8 @@ namespace Nova.WinForms.Gui
         private int CountEnergy()
         {
             double totalEnergy = 0;
-            string raceName = StateData.RaceName;
-            Intel turnData = StateData.InputTurn;
+            string raceName = this.stateData.RaceName;
+            Intel turnData = this.stateData.InputTurn;
 
             foreach (Star star in turnData.AllStars.Values)
             {

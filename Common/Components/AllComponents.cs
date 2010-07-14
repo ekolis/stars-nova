@@ -46,7 +46,10 @@ namespace Nova.Common.Components
     [Serializable]
     public sealed class AllComponents
     {
-        #region Data
+        #region Singleton Setup
+
+        private static readonly object Padlock = new object();
+        private static AllComponents instance;
 
         // ============================================================================
         // All component data
@@ -61,13 +64,6 @@ namespace Nova.Common.Components
 
         private static string saveFilePath;
         private static string graphicsFilePath;
-
-        #endregion
-
-        #region Singleton Setup
-
-        private static AllComponents Instance;
-        private static object Padlock = new object();
 
         /// <summary>
         /// Prevents a default instance of the AllComponents class from being created.
@@ -86,24 +82,24 @@ namespace Nova.Common.Components
         {
             get
             {
-                if (Instance == null)
+                if (instance == null)
                 {
                     lock (Padlock)
                     {
-                        if (Instance == null)
+                        if (instance == null)
                         {
-                            Instance = new AllComponents();
+                            instance = new AllComponents();
                         }
                     }
                 }
-                return Instance;
+                return instance;
             }
 
             // ----------------------------------------------------------------------------
 
             set
             {
-                Instance = value;
+                instance = value;
             }
         }
 
@@ -115,12 +111,12 @@ namespace Nova.Common.Components
         /// <summary>
         /// Check if AllComponents contains a particular Component.
         /// </summary>
-        /// <param name="ComponentName">The Name of the Component to look for.</param>
+        /// <param name="componentName">The Name of the Component to look for.</param>
         /// <returns>True if the component is included.</returns>
         /// ----------------------------------------------------------------------------
-        public bool Contains(string ComponentName)
+        public bool Contains(string componentName)
         {
-            return Data.Components.ContainsKey(ComponentName);
+            return Data.Components.ContainsKey(componentName);
         }
 
 
@@ -177,12 +173,12 @@ namespace Nova.Common.Components
         {
             lock (Padlock)
             {
-                if (Instance == null)
+                if (instance == null)
                 {
-                    Instance = new AllComponents();
+                    instance = new AllComponents();
                 }
             }
-            AllComponents.Instance.Components = new Hashtable();
+            AllComponents.instance.Components = new Hashtable();
             using (Config conf = new Config())
             {
                 conf.Remove(Global.ComponentFileName);

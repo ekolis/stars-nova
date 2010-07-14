@@ -43,8 +43,8 @@ namespace Nova.Client
 
    public static class IntelReader
    {
-      private static Intel TurnData = null;
-      private static ClientState StateData = null;
+      private static Intel turnData;
+      private static ClientState stateData;
 
       /// ----------------------------------------------------------------------------
       /// <summary>
@@ -108,17 +108,17 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       public static void ProcessIntel()
       {
-         StateData = ClientState.Data;
+         stateData = ClientState.Data;
 
           // copy the raw data from the intel to StateData
-         TurnData  = StateData.InputTurn;
-         StateData.TurnYear = TurnData.TurnYear;
-         StateData.PlayerRace = TurnData.MyRace;
+         turnData  = stateData.InputTurn;
+         stateData.TurnYear = turnData.TurnYear;
+         stateData.PlayerRace = turnData.MyRace;
 
           // Clear old turn data from StateData
-         StateData.DeletedFleets.Clear();
-         StateData.DeletedDesigns.Clear();
-         StateData.Messages.Clear();
+         stateData.DeletedFleets.Clear();
+         stateData.DeletedDesigns.Clear();
+         stateData.Messages.Clear();
          
           // Process the new intel
          DetermineOrbitingFleets();
@@ -142,12 +142,12 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       private static void ProcessMessages()
       {
-          foreach (Message message in TurnData.Messages)
+          foreach (Message message in turnData.Messages)
           {
               if ((message.Audience == ClientState.Data.RaceName) ||
                   (message.Audience == "*"))
               {
-                  StateData.Messages.Add(message);
+                  stateData.Messages.Add(message);
               }
           }
       }
@@ -162,12 +162,12 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       private static void DetermineOrbitingFleets()
       {
-          foreach (Star star in TurnData.AllStars.Values)
+          foreach (Star star in turnData.AllStars.Values)
           {
               star.OrbitingFleets = false;
           }
 
-          foreach (Fleet fleet in TurnData.AllFleets.Values)
+          foreach (Fleet fleet in turnData.AllFleets.Values)
           {
               if (fleet.InOrbit != null && fleet.Type != "Starbase")
               {
@@ -187,16 +187,16 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       private static void ProcessReports()
       {
-          foreach (StarReport report in StateData.StarReports.Values)
+          foreach (StarReport report in stateData.StarReports.Values)
           {
               report.Age++;
           }
 
-          foreach (Star star in StateData.PlayerStars.Values)
+          foreach (Star star in stateData.PlayerStars.Values)
           {
               if (star.Colonists != 0)
               {
-                  StateData.StarReports[star.Name] = new StarReport(star);
+                  stateData.StarReports[star.Name] = new StarReport(star);
               }
           }
       }
@@ -210,11 +210,11 @@ namespace Nova.Client
       private static void ProcessFleets()
       {
           // update the state data with the current fleets
-          foreach (Fleet fleet in StateData.InputTurn.AllFleets.Values)
+          foreach (Fleet fleet in stateData.InputTurn.AllFleets.Values)
           {
-              if (fleet.Owner == StateData.PlayerRace.Name)
+              if (fleet.Owner == stateData.PlayerRace.Name)
               {
-                  StateData.PlayerFleets.Add(fleet);
+                  stateData.PlayerFleets.Add(fleet);
 
 
                   if (fleet.IsStarbase)
@@ -237,19 +237,19 @@ namespace Nova.Client
 
                       // add to orbiting fleets list
                       Star star = fleet.InOrbit;
-                      StateData.StarReports[star.Name] = new StarReport(star);
+                      stateData.StarReports[star.Name] = new StarReport(star);
 
 
                   }
 
                   if (fleet.ShortRangeScan != 0)
                   {
-                      foreach (Star star in TurnData.AllStars.Values)
+                      foreach (Star star in turnData.AllStars.Values)
                       {
                           if (PointUtilities.Distance(star.Position, fleet.Position)
                               <= fleet.ShortRangeScan)
                           {
-                              StateData.StarReports[star.Name] = new StarReport(star);
+                              stateData.StarReports[star.Name] = new StarReport(star);
                           }
                       }
                   }
@@ -272,13 +272,13 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       private static void ProcessResearch()
       {
-          TechLevel.ResearchField area = StateData.ResearchTopic;
-          int areaResource = (int)StateData.ResearchResources[area];
-          int areaLevel = (int)StateData.ResearchLevel[area];
-          areaResource += (int)StateData.ResearchAllocation;
+          TechLevel.ResearchField area = stateData.ResearchTopic;
+          int areaResource = (int)stateData.ResearchResources[area];
+          int areaLevel = (int)stateData.ResearchLevel[area];
+          areaResource += (int)stateData.ResearchAllocation;
 
-          StateData.ResearchAllocation = 0;
-          StateData.ResearchResources[area] = areaResource;
+          stateData.ResearchAllocation = 0;
+          stateData.ResearchResources[area] = areaResource;
 
           while (true)
           {
@@ -308,11 +308,11 @@ namespace Nova.Client
           Message techAdvanceMessage = new Message(
               ClientState.Data.RaceName,
               null,
-              "Your race has advanced to Tech Level " + level + " in the " + StateData.ResearchTopic + " field");
-          StateData.Messages.Add(techAdvanceMessage);
+              "Your race has advanced to Tech Level " + level + " in the " + stateData.ResearchTopic + " field");
+          stateData.Messages.Add(techAdvanceMessage);
 
           Hashtable allComponents = AllComponents.Data.Components;
-          TechLevel oldResearchLevel = StateData.ResearchLevel;
+          TechLevel oldResearchLevel = stateData.ResearchLevel;
           TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 
           newResearchLevel[area] = level;
@@ -332,7 +332,7 @@ namespace Nova.Client
               }
           }
 
-          StateData.ResearchLevel = newResearchLevel;
+          stateData.ResearchLevel = newResearchLevel;
       }
 
 
@@ -345,15 +345,15 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       private static void DeterminePlayerFleets()
       {
-          StateData.PlayerFleets.Clear();
+          stateData.PlayerFleets.Clear();
 
-          foreach (Fleet fleet in TurnData.AllFleets.Values)
+          foreach (Fleet fleet in turnData.AllFleets.Values)
           {
-              if (fleet.Owner == StateData.RaceName)
+              if (fleet.Owner == stateData.RaceName)
               {
                   if (fleet.Type != "Starbase")
                   {
-                      StateData.PlayerFleets.Add(fleet);
+                      stateData.PlayerFleets.Add(fleet);
                   }
               }
           }
@@ -369,13 +369,13 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       private static void DeterminePlayerStars()
       {
-          StateData.PlayerStars.Clear();
+          stateData.PlayerStars.Clear();
 
-          foreach (Star star in TurnData.AllStars.Values)
+          foreach (Star star in turnData.AllStars.Values)
           {
-              if (star.Owner == StateData.RaceName)
+              if (star.Owner == stateData.RaceName)
               {
-                  StateData.PlayerStars.Add(star);
+                  stateData.PlayerStars.Add(star);
               }
           }
       }

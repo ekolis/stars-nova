@@ -67,7 +67,7 @@ namespace Nova.WinForms.Gui
         {
             const int NumColumns = 6;
 
-            BattleGridView.AutoSize = true;
+            this.battleGridView.AutoSize = true;
 
             foreach (BattleReport report in ClientState.Data.InputTurn.Battles)
             {
@@ -118,10 +118,10 @@ namespace Nova.WinForms.Gui
                 row[i++] = ourLosses.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 row[i++] = theirLosses.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-                BattleGridView.Rows.Add(row);
+                this.battleGridView.Rows.Add(row);
             }
 
-            BattleGridView.AutoResizeColumns();
+            this.battleGridView.AutoResizeColumns();
         }
 
 

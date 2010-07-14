@@ -48,9 +48,8 @@ namespace Nova.Server
 {
     public static class IntelWriter
     {
-        private static ServerState StateData = null;
-        private static Intel TurnData = null;
-
+        private static ServerState stateData;
+        private static Intel turnData;
 
         #region Methods
         /// -------------------------------------------------------------------
@@ -63,50 +62,50 @@ namespace Nova.Server
         /// -------------------------------------------------------------------
         public static void WriteIntel()
         {
-            StateData = ServerState.Data;
-            foreach (PlayerSettings player in StateData.AllPlayers)
+            stateData = ServerState.Data;
+            foreach (PlayerSettings player in stateData.AllPlayers)
             {
-                TurnData = new Intel();
-                TurnData.TurnYear = StateData.TurnYear;
-                TurnData.MyRace = ServerState.Data.AllRaces[player.RaceName] as Race;
-                TurnData.TurnYear = StateData.TurnYear;
-                TurnData.AllStars = StateData.AllStars;
-                TurnData.AllMinefields = StateData.AllMinefields;
-                TurnData.AllFleets = StateData.AllFleets;
-                TurnData.AllDesigns = StateData.AllDesigns;
+                turnData = new Intel();
+                turnData.TurnYear = stateData.TurnYear;
+                turnData.MyRace = ServerState.Data.AllRaces[player.RaceName] as Race;
+                turnData.TurnYear = stateData.TurnYear;
+                turnData.AllStars = stateData.AllStars;
+                turnData.AllMinefields = stateData.AllMinefields;
+                turnData.AllFleets = stateData.AllFleets;
+                turnData.AllDesigns = stateData.AllDesigns;
 
                 // Copy any messages
-                foreach (Message message in StateData.AllMessages)
+                foreach (Message message in stateData.AllMessages)
                 {
                     if (message.Audience == "*" || message.Audience == player.RaceName)
                     {
-                        TurnData.Messages.Add(message);
+                        turnData.Messages.Add(message);
                     }
                 }
 
                 // Copy the list of player races
-                foreach (Race race in StateData.AllRaces.Values)
+                foreach (Race race in stateData.AllRaces.Values)
                 {
-                    TurnData.AllRaceNames.Add(race.Name);
-                    TurnData.RaceIcons[race.Name] = race.Icon;
+                    turnData.AllRaceNames.Add(race.Name);
+                    turnData.RaceIcons[race.Name] = race.Icon;
                 }
 
                 // Copy any battle reports
-                foreach (BattleReport report in StateData.AllBattles)
+                foreach (BattleReport report in stateData.AllBattles)
                 {
-                    TurnData.Battles.Add(report);
+                    turnData.Battles.Add(report);
                 }
 
                 // Don't try and generate a scores report on the very start of a new
                 // game.
 
-                if (StateData.TurnYear > 2100)
+                if (stateData.TurnYear > 2100)
                 {
-                    TurnData.AllScores = Scores.GetScores();
+                    turnData.AllScores = Scores.GetScores();
                 }
                 else
                 {
-                    TurnData.AllScores = new ArrayList();
+                    turnData.AllScores = new ArrayList();
                 }
 
                 ServerState.Data.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
@@ -125,8 +124,8 @@ namespace Nova.Server
                     {
                         using (Stream turnFile = new FileStream(turnFileName, FileMode.Create))
                         {
-                            Serializer.Serialize(turnFile, TurnData.TurnYear);
-                            Serializer.Serialize(turnFile, TurnData);
+                            Serializer.Serialize(turnFile, turnData.TurnYear);
+                            Serializer.Serialize(turnFile, turnData);
                         }
                     }
                     catch (System.IO.IOException)

@@ -31,47 +31,47 @@ namespace Nova.WinForms.Gui
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
             System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ScoreReport));
-            this.ScoreGridView = new System.Windows.Forms.DataGridView();
-            this.Race = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Rank = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Score = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Planets = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Starbases = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.UnarmedShips = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.EscortShips = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.CapitalShips = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.TechLevels = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Resources = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            ((System.ComponentModel.ISupportInitialize)(this.ScoreGridView)).BeginInit();
+            this.scoreGridView = new System.Windows.Forms.DataGridView();
+            this.race = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.rank = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.score = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.planets = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.starbases = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.unarmedShips = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.escortShips = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.capitalShips = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.techLevels = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.resources = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)(this.scoreGridView)).BeginInit();
             this.SuspendLayout();
             // 
             // ScoreGridView
             // 
-            this.ScoreGridView.AllowUserToAddRows = false;
-            this.ScoreGridView.AllowUserToDeleteRows = false;
-            this.ScoreGridView.AllowUserToOrderColumns = true;
-            this.ScoreGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.scoreGridView.AllowUserToAddRows = false;
+            this.scoreGridView.AllowUserToDeleteRows = false;
+            this.scoreGridView.AllowUserToOrderColumns = true;
+            this.scoreGridView.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.ScoreGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.scoreGridView.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             dataGridViewCellStyle1.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Control;
             dataGridViewCellStyle1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             dataGridViewCellStyle1.ForeColor = System.Drawing.SystemColors.WindowText;
             dataGridViewCellStyle1.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle1.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            this.ScoreGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            this.ScoreGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.ScoreGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
-            this.Race,
-            this.Rank,
-            this.Score,
-            this.Planets,
-            this.Starbases,
-            this.UnarmedShips,
-            this.EscortShips,
-            this.CapitalShips,
-            this.TechLevels,
-            this.Resources});
+            this.scoreGridView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            this.scoreGridView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.scoreGridView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.race,
+            this.rank,
+            this.score,
+            this.planets,
+            this.starbases,
+            this.unarmedShips,
+            this.escortShips,
+            this.capitalShips,
+            this.techLevels,
+            this.resources});
             dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = System.Drawing.SystemColors.Window;
             dataGridViewCellStyle2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -79,72 +79,72 @@ namespace Nova.WinForms.Gui
             dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
             dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.ScoreGridView.DefaultCellStyle = dataGridViewCellStyle2;
-            this.ScoreGridView.Location = new System.Drawing.Point(0, 0);
-            this.ScoreGridView.Name = "ScoreGridView";
-            this.ScoreGridView.ReadOnly = true;
-            this.ScoreGridView.Size = new System.Drawing.Size(916, 24);
-            this.ScoreGridView.TabIndex = 0;
+            this.scoreGridView.DefaultCellStyle = dataGridViewCellStyle2;
+            this.scoreGridView.Location = new System.Drawing.Point(0, 0);
+            this.scoreGridView.Name = "scoreGridView";
+            this.scoreGridView.ReadOnly = true;
+            this.scoreGridView.Size = new System.Drawing.Size(916, 24);
+            this.scoreGridView.TabIndex = 0;
             // 
             // Race
             // 
-            this.Race.HeaderText = "Race";
-            this.Race.Name = "Race";
-            this.Race.ReadOnly = true;
+            this.race.HeaderText = "Race";
+            this.race.Name = "Race";
+            this.race.ReadOnly = true;
             // 
             // Rank
             // 
-            this.Rank.HeaderText = "Rank";
-            this.Rank.Name = "Rank";
-            this.Rank.ReadOnly = true;
+            this.rank.HeaderText = "Rank";
+            this.rank.Name = "Rank";
+            this.rank.ReadOnly = true;
             // 
             // Score
             // 
-            this.Score.HeaderText = "Score";
-            this.Score.Name = "Score";
-            this.Score.ReadOnly = true;
+            this.score.HeaderText = "Score";
+            this.score.Name = "Score";
+            this.score.ReadOnly = true;
             // 
             // Planets
             // 
-            this.Planets.HeaderText = "Planets";
-            this.Planets.Name = "Planets";
-            this.Planets.ReadOnly = true;
+            this.planets.HeaderText = "Planets";
+            this.planets.Name = "Planets";
+            this.planets.ReadOnly = true;
             // 
             // Starbases
             // 
-            this.Starbases.HeaderText = "Starbases";
-            this.Starbases.Name = "Starbases";
-            this.Starbases.ReadOnly = true;
+            this.starbases.HeaderText = "Starbases";
+            this.starbases.Name = "Starbases";
+            this.starbases.ReadOnly = true;
             // 
             // UnarmedShips
             // 
-            this.UnarmedShips.HeaderText = "Unarmed Ships";
-            this.UnarmedShips.Name = "UnarmedShips";
-            this.UnarmedShips.ReadOnly = true;
+            this.unarmedShips.HeaderText = "Unarmed Ships";
+            this.unarmedShips.Name = "UnarmedShips";
+            this.unarmedShips.ReadOnly = true;
             // 
             // EscortShips
             // 
-            this.EscortShips.HeaderText = "Escort Ships";
-            this.EscortShips.Name = "EscortShips";
-            this.EscortShips.ReadOnly = true;
+            this.escortShips.HeaderText = "Escort Ships";
+            this.escortShips.Name = "EscortShips";
+            this.escortShips.ReadOnly = true;
             // 
             // CapitalShips
             // 
-            this.CapitalShips.HeaderText = "Capital Ships";
-            this.CapitalShips.Name = "CapitalShips";
-            this.CapitalShips.ReadOnly = true;
+            this.capitalShips.HeaderText = "Capital Ships";
+            this.capitalShips.Name = "CapitalShips";
+            this.capitalShips.ReadOnly = true;
             // 
             // TechLevels
             // 
-            this.TechLevels.HeaderText = "Tech Levels";
-            this.TechLevels.Name = "TechLevels";
-            this.TechLevels.ReadOnly = true;
+            this.techLevels.HeaderText = "Tech Levels";
+            this.techLevels.Name = "TechLevels";
+            this.techLevels.ReadOnly = true;
             // 
             // Resources
             // 
-            this.Resources.HeaderText = "Resources";
-            this.Resources.Name = "Resources";
-            this.Resources.ReadOnly = true;
+            this.resources.HeaderText = "Resources";
+            this.resources.Name = "Resources";
+            this.resources.ReadOnly = true;
             // 
             // ScoreReport
             // 
@@ -152,31 +152,31 @@ namespace Nova.WinForms.Gui
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSize = true;
             this.ClientSize = new System.Drawing.Size(916, 24);
-            this.Controls.Add(this.ScoreGridView);
+            this.Controls.Add(this.scoreGridView);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "ScoreReport";
             this.Text = "Score Report";
             this.Load += new System.EventHandler(this.OnLoad);
-            ((System.ComponentModel.ISupportInitialize)(this.ScoreGridView)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.scoreGridView)).EndInit();
             this.ResumeLayout(false);
 
         }
 
         #endregion
 
-        private System.Windows.Forms.DataGridView ScoreGridView;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Race;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Rank;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Score;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Planets;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Starbases;
-        private System.Windows.Forms.DataGridViewTextBoxColumn UnarmedShips;
-        private System.Windows.Forms.DataGridViewTextBoxColumn EscortShips;
-        private System.Windows.Forms.DataGridViewTextBoxColumn CapitalShips;
-        private System.Windows.Forms.DataGridViewTextBoxColumn TechLevels;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Resources;
+        private System.Windows.Forms.DataGridView scoreGridView;
+        private System.Windows.Forms.DataGridViewTextBoxColumn race;
+        private System.Windows.Forms.DataGridViewTextBoxColumn rank;
+        private System.Windows.Forms.DataGridViewTextBoxColumn score;
+        private System.Windows.Forms.DataGridViewTextBoxColumn planets;
+        private System.Windows.Forms.DataGridViewTextBoxColumn starbases;
+        private System.Windows.Forms.DataGridViewTextBoxColumn unarmedShips;
+        private System.Windows.Forms.DataGridViewTextBoxColumn escortShips;
+        private System.Windows.Forms.DataGridViewTextBoxColumn capitalShips;
+        private System.Windows.Forms.DataGridViewTextBoxColumn techLevels;
+        private System.Windows.Forms.DataGridViewTextBoxColumn resources;
 
 
     }

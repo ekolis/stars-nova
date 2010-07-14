@@ -60,7 +60,7 @@ namespace Nova.WinForms.Gui
         private void OnLoad(object sender, EventArgs e)
         {
             ArrayList allScores = ClientState.Data.InputTurn.AllScores;
-            ScoreGridView.AutoSize = true;
+            this.scoreGridView.AutoSize = true;
 
             foreach (ScoreRecord score in allScores)
             {
@@ -79,10 +79,10 @@ namespace Nova.WinForms.Gui
                 row[i++] = score.TechLevel.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 row[i++] = score.Resources.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-                ScoreGridView.Rows.Add(row);
+                this.scoreGridView.Rows.Add(row);
             }
 
-            ScoreGridView.AutoResizeColumns();
+            this.scoreGridView.AutoResizeColumns();
         }
 
     }

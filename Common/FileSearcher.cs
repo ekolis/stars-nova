@@ -44,7 +44,7 @@ namespace Nova.Common
 {
     public static class FileSearcher
     {
-        private static bool DisableComponentGraphics = false; // if we can't find them the first time, stop asking.
+        private static bool disableComponentGraphics; // if we can't find them the first time, stop asking.
 
         #region Public Methods
 
@@ -56,16 +56,16 @@ namespace Nova.Common
         /// <returns>An Hashtable containing all the races</returns>
         public static Hashtable GetAvailableRaces()
         {
-            Hashtable AllRaces = new Hashtable();
+            Hashtable allRaces = new Hashtable();
 
-            string RaceFolder = GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
-            DirectoryInfo directory = new DirectoryInfo(RaceFolder);
+            string raceFolder = GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
+            DirectoryInfo directory = new DirectoryInfo(raceFolder);
 
             FileInfo[] raceFiles = directory.GetFiles("*" + Global.RaceExtension);
 
             if (raceFiles.Length == 0)
             {
-                Report.Error("No race files found in game folder: \"" + RaceFolder  + "\"");
+                Report.Error("No race files found in game folder: \"" + raceFolder  + "\"");
 
             }
             else
@@ -73,10 +73,10 @@ namespace Nova.Common
                 foreach (FileInfo file in raceFiles)
                 {
                     Race race = new Race(file.FullName);
-                    AllRaces[race.Name] = race;
+                    allRaces[race.Name] = race;
                 }
             }
-            return AllRaces;
+            return allRaces;
         }
 
 
@@ -94,8 +94,8 @@ namespace Nova.Common
             {
                 // if the settings file itself is not registered, look for any settings file in the ServerFolder
                 string serverFolder = GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
-                DirectoryInfo ServerFolderInfo = new DirectoryInfo(serverFolder);
-                foreach (FileInfo file in ServerFolderInfo.GetFiles())
+                DirectoryInfo serverFolderInfo = new DirectoryInfo(serverFolder);
+                foreach (FileInfo file in serverFolderInfo.GetFiles())
                 {
                     if (file.Extension == Global.SettingsExtension)
                     {
@@ -168,7 +168,7 @@ namespace Nova.Common
             {
                 bool updateConf = false;
 
-                if (DisableComponentGraphics) return null;
+                if (disableComponentGraphics) return null;
 
 
                 // Try the config file
@@ -179,8 +179,8 @@ namespace Nova.Common
                 {
                     updateConf = true;
                     // Try the default folder
-                    string NovaRoot = GetNovaRoot();
-                    graphicsPath = Path.Combine(NovaRoot, Global.GraphicsFolderName);
+                    string novaRoot = GetNovaRoot();
+                    graphicsPath = Path.Combine(novaRoot, Global.GraphicsFolderName);
                 }
 
                 if (!Directory.Exists(graphicsPath))
@@ -207,7 +207,7 @@ namespace Nova.Common
                 }
                 else
                 {
-                    DisableComponentGraphics = true;
+                    disableComponentGraphics = true;
                 }
             }
             return graphicsPath;
@@ -224,7 +224,7 @@ namespace Nova.Common
         public static string GetFile(string configKey, bool pathOnly, string developmentPath, string deployedPath, string fileName, bool askUser)
         {
             // Tempory storage for building the absolute path reference
-            string AbsoluteReference = null;
+            string absoluteReference = null;
             using (Config conf = new Config())
             {
                 bool confOk = true; // assume it is until we prove otherwise
@@ -232,51 +232,51 @@ namespace Nova.Common
                 if (configKey != null)
                 {
                     // Try the config file
-                    AbsoluteReference = conf[configKey];
-                    if (pathOnly) AbsoluteReference = Path.Combine(AbsoluteReference, fileName);
+                    absoluteReference = conf[configKey];
+                    if (pathOnly) absoluteReference = Path.Combine(absoluteReference, fileName);
                 }
 
                 // did we find it?
-                if (!File.Exists(AbsoluteReference))
+                if (!File.Exists(absoluteReference))
                 {
                     confOk = false;
                     // Try the deployed path
 
-                    AbsoluteReference = Path.Combine(Directory.GetCurrentDirectory(), deployedPath.Replace('/', Path.DirectorySeparatorChar));
-                    AbsoluteReference = Path.Combine(AbsoluteReference, fileName);
+                    absoluteReference = Path.Combine(Directory.GetCurrentDirectory(), deployedPath.Replace('/', Path.DirectorySeparatorChar));
+                    absoluteReference = Path.Combine(absoluteReference, fileName);
                 }
 
-                if (!File.Exists(AbsoluteReference))
+                if (!File.Exists(absoluteReference))
                 {
                     confOk = false;
                     // Try the development path
-                    AbsoluteReference = Path.Combine(System.IO.Directory.GetCurrentDirectory(), developmentPath.Replace('/', Path.DirectorySeparatorChar));
-                    AbsoluteReference = Path.Combine(AbsoluteReference, fileName);
+                    absoluteReference = Path.Combine(System.IO.Directory.GetCurrentDirectory(), developmentPath.Replace('/', Path.DirectorySeparatorChar));
+                    absoluteReference = Path.Combine(absoluteReference, fileName);
                 }
 
                 // Try searching the nova tree (brute force) - TODO (priority 4)
 
-                if (!File.Exists(AbsoluteReference))
+                if (!File.Exists(absoluteReference))
                 {
                     // Ask the user for help
-                    if (askUser) AbsoluteReference = AskUserForFile(fileName);
+                    if (askUser) absoluteReference = AskUserForFile(fileName);
                 }
 
                 // Finish up
-                if (!File.Exists(AbsoluteReference))
+                if (!File.Exists(absoluteReference))
                 {
-                    AbsoluteReference = null;
+                    absoluteReference = null;
                 }
                 else
                 {
                     if (!confOk && configKey != null)
                     {
 
-                        conf[configKey] = AbsoluteReference;
+                        conf[configKey] = absoluteReference;
                     }
                 }
             }
-            return AbsoluteReference;
+            return absoluteReference;
         }
 
         /// <summary>
@@ -288,7 +288,7 @@ namespace Nova.Common
         public static string GetFolder(string configKey, string defaultFolder)
         {
             // Tempory storage for building the absolute path reference
-            string FolderPath = null;
+            string folderPath = null;
             using (Config conf = new Config())
             {
                 bool configOk = true; // assume it is until we prove otherwise
@@ -296,48 +296,48 @@ namespace Nova.Common
                 if (configKey != null)
                 {
                     // Try the config file
-                    FolderPath = conf[configKey];
+                    folderPath = conf[configKey];
                 }
 
                 // did we find it?
-                if (FolderPath == null || !Directory.Exists(FolderPath))
+                if (folderPath == null || !Directory.Exists(folderPath))
                 {
                     configOk = false;
                     // Try the default folder
-                    string NovaRoot = GetNovaRoot();
+                    string novaRoot = GetNovaRoot();
 
-                    FolderPath = Path.Combine(NovaRoot, defaultFolder);
+                    folderPath = Path.Combine(novaRoot, defaultFolder);
                 }
 
                 // If the default folder doesn't exist, create it.
-                if (!Directory.Exists(FolderPath))
+                if (!Directory.Exists(folderPath))
                 {
                     try
                     {
-                        Directory.CreateDirectory(FolderPath);
+                        Directory.CreateDirectory(folderPath);
                     }
                     catch
                     {
-                        Report.Error("Unable to create directory: " + FolderPath);
-                        FolderPath = null;
+                        Report.Error("Unable to create directory: " + folderPath);
+                        folderPath = null;
                     }
                 }
 
                 // Finish Up
-                if (FolderPath == null || !Directory.Exists(FolderPath))
+                if (folderPath == null || !Directory.Exists(folderPath))
                 {
-                    Report.Error("Folder does not exist: " + FolderPath);
-                    FolderPath = null;
+                    Report.Error("Folder does not exist: " + folderPath);
+                    folderPath = null;
                 }
                 else
                 {
                     if (!configOk && configKey != null)
                     {
-                        conf[configKey] = FolderPath;
+                        conf[configKey] = folderPath;
                     }
                 }
             }
-            return FolderPath;
+            return folderPath;
         }
 
         #endregion

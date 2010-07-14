@@ -40,8 +40,8 @@ namespace Nova.Client
           this.label1 = new System.Windows.Forms.Label();
           this.groupBox1 = new System.Windows.Forms.GroupBox();
           this.RaceList = new System.Windows.Forms.ListBox();
-          this.OKButton = new System.Windows.Forms.Button();
-          this.RaceCancelButton = new System.Windows.Forms.Button();
+          this.okButton = new System.Windows.Forms.Button();
+          this.raceCancelButton = new System.Windows.Forms.Button();
           this.groupBox1.SuspendLayout();
           this.SuspendLayout();
           // 
@@ -57,8 +57,8 @@ namespace Nova.Client
           // groupBox1
           // 
           this.groupBox1.Controls.Add(this.RaceList);
-          this.groupBox1.Controls.Add(this.OKButton);
-          this.groupBox1.Controls.Add(this.RaceCancelButton);
+          this.groupBox1.Controls.Add(this.okButton);
+          this.groupBox1.Controls.Add(this.raceCancelButton);
           this.groupBox1.Dock = System.Windows.Forms.DockStyle.Fill;
           this.groupBox1.Location = new System.Drawing.Point(0, 0);
           this.groupBox1.Name = "groupBox1";
@@ -77,26 +77,26 @@ namespace Nova.Client
           // 
           // OKButton
           // 
-          this.OKButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-          this.OKButton.DialogResult = System.Windows.Forms.DialogResult.OK;
-          this.OKButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-          this.OKButton.Location = new System.Drawing.Point(6, 357);
-          this.OKButton.Name = "OKButton";
-          this.OKButton.Size = new System.Drawing.Size(75, 23);
-          this.OKButton.TabIndex = 1;
-          this.OKButton.Text = "OK";
-          this.OKButton.UseVisualStyleBackColor = true;
+          this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+          this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
+          this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
+          this.okButton.Location = new System.Drawing.Point(6, 357);
+          this.okButton.Name = "okButton";
+          this.okButton.Size = new System.Drawing.Size(75, 23);
+          this.okButton.TabIndex = 1;
+          this.okButton.Text = "OK";
+          this.okButton.UseVisualStyleBackColor = true;
           // 
           // RaceCancelButton
           // 
-          this.RaceCancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-          this.RaceCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-          this.RaceCancelButton.Location = new System.Drawing.Point(161, 357);
-          this.RaceCancelButton.Name = "RaceCancelButton";
-          this.RaceCancelButton.Size = new System.Drawing.Size(75, 23);
-          this.RaceCancelButton.TabIndex = 0;
-          this.RaceCancelButton.Text = "Cancel";
-          this.RaceCancelButton.UseVisualStyleBackColor = true;
+          this.raceCancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+          this.raceCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
+          this.raceCancelButton.Location = new System.Drawing.Point(161, 357);
+          this.raceCancelButton.Name = "raceCancelButton";
+          this.raceCancelButton.Size = new System.Drawing.Size(75, 23);
+          this.raceCancelButton.TabIndex = 0;
+          this.raceCancelButton.Text = "Cancel";
+          this.raceCancelButton.UseVisualStyleBackColor = true;
           // 
           // SelectRaceDialog
           // 
@@ -123,8 +123,8 @@ namespace Nova.Client
 
       private System.Windows.Forms.Label label1;
       private System.Windows.Forms.GroupBox groupBox1;
-      private System.Windows.Forms.Button OKButton;
-      private System.Windows.Forms.Button RaceCancelButton;
+      private System.Windows.Forms.Button okButton;
+      private System.Windows.Forms.Button raceCancelButton;
       public System.Windows.Forms.ListBox RaceList;
    }
 }

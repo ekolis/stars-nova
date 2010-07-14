@@ -42,30 +42,30 @@ namespace Nova.WinForms.ComponentEditor
 		  this.groupBox1 = new System.Windows.Forms.GroupBox();
 		  this.panel3 = new System.Windows.Forms.Panel();
 		  this.label2 = new System.Windows.Forms.Label();
-		  this.EnergyAmount = new System.Windows.Forms.NumericUpDown();
+		  this.energyAmount = new System.Windows.Forms.NumericUpDown();
 		  this.panel2 = new System.Windows.Forms.Panel();
 		  this.label1 = new System.Windows.Forms.Label();
 		  this.label4 = new System.Windows.Forms.Label();
 		  this.label10 = new System.Windows.Forms.Label();
 		  this.label5 = new System.Windows.Forms.Label();
 		  this.label7 = new System.Windows.Forms.Label();
-		  this.IroniumAmount = new System.Windows.Forms.NumericUpDown();
+		  this.ironiumAmount = new System.Windows.Forms.NumericUpDown();
 		  this.label6 = new System.Windows.Forms.Label();
-		  this.GermaniumAmount = new System.Windows.Forms.NumericUpDown();
-		  this.BoraniumAmount = new System.Windows.Forms.NumericUpDown();
+		  this.germaniumAmount = new System.Windows.Forms.NumericUpDown();
+		  this.boraniumAmount = new System.Windows.Forms.NumericUpDown();
 		  this.panel1 = new System.Windows.Forms.Panel();
 		  this.label3 = new System.Windows.Forms.Label();
 		  this.label9 = new System.Windows.Forms.Label();
-		  this.ComponentMass = new System.Windows.Forms.NumericUpDown();
+		  this.componentMass = new System.Windows.Forms.NumericUpDown();
 		  this.groupBox1.SuspendLayout();
 		  this.panel3.SuspendLayout();
-		  ((System.ComponentModel.ISupportInitialize)(this.EnergyAmount)).BeginInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.energyAmount)).BeginInit();
 		  this.panel2.SuspendLayout();
-		  ((System.ComponentModel.ISupportInitialize)(this.IroniumAmount)).BeginInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.GermaniumAmount)).BeginInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.BoraniumAmount)).BeginInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.ironiumAmount)).BeginInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.germaniumAmount)).BeginInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.boraniumAmount)).BeginInit();
 		  this.panel1.SuspendLayout();
-		  ((System.ComponentModel.ISupportInitialize)(this.ComponentMass)).BeginInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.componentMass)).BeginInit();
 		  this.SuspendLayout();
 		  // 
 		  // groupBox1
@@ -85,7 +85,7 @@ namespace Nova.WinForms.ComponentEditor
 		  this.panel3.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
 					  | System.Windows.Forms.AnchorStyles.Right)));
 		  this.panel3.Controls.Add(this.label2);
-		  this.panel3.Controls.Add(this.EnergyAmount);
+		  this.panel3.Controls.Add(this.energyAmount);
 		  this.panel3.Location = new System.Drawing.Point(9, 137);
 		  this.panel3.Name = "panel3";
 		  this.panel3.Size = new System.Drawing.Size(147, 34);
@@ -102,17 +102,17 @@ namespace Nova.WinForms.ComponentEditor
 		  // 
 		  // EnergyAmount
 		  // 
-		  this.EnergyAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-		  this.EnergyAmount.Location = new System.Drawing.Point(100, 7);
-		  this.EnergyAmount.Maximum = new decimal(new int[] {
+		  this.energyAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+		  this.energyAmount.Location = new System.Drawing.Point(100, 7);
+		  this.energyAmount.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
-		  this.EnergyAmount.Name = "EnergyAmount";
-		  this.EnergyAmount.Size = new System.Drawing.Size(45, 20);
-		  this.EnergyAmount.TabIndex = 5;
-		  this.EnergyAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+		  this.energyAmount.Name = "energyAmount";
+		  this.energyAmount.Size = new System.Drawing.Size(45, 20);
+		  this.energyAmount.TabIndex = 5;
+		  this.energyAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		  // 
 		  // panel2
 		  // 
@@ -123,10 +123,10 @@ namespace Nova.WinForms.ComponentEditor
 		  this.panel2.Controls.Add(this.label10);
 		  this.panel2.Controls.Add(this.label5);
 		  this.panel2.Controls.Add(this.label7);
-		  this.panel2.Controls.Add(this.IroniumAmount);
+		  this.panel2.Controls.Add(this.ironiumAmount);
 		  this.panel2.Controls.Add(this.label6);
-		  this.panel2.Controls.Add(this.GermaniumAmount);
-		  this.panel2.Controls.Add(this.BoraniumAmount);
+		  this.panel2.Controls.Add(this.germaniumAmount);
+		  this.panel2.Controls.Add(this.boraniumAmount);
 		  this.panel2.Location = new System.Drawing.Point(9, 53);
 		  this.panel2.Name = "panel2";
 		  this.panel2.Size = new System.Drawing.Size(147, 79);
@@ -184,18 +184,18 @@ namespace Nova.WinForms.ComponentEditor
 		  // 
 		  // IroniumAmount
 		  // 
-		  this.IroniumAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-		  this.IroniumAmount.ForeColor = System.Drawing.Color.Blue;
-		  this.IroniumAmount.Location = new System.Drawing.Point(100, 7);
-		  this.IroniumAmount.Maximum = new decimal(new int[] {
+		  this.ironiumAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+		  this.ironiumAmount.ForeColor = System.Drawing.Color.Blue;
+		  this.ironiumAmount.Location = new System.Drawing.Point(100, 7);
+		  this.ironiumAmount.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-		  this.IroniumAmount.Name = "IroniumAmount";
-		  this.IroniumAmount.Size = new System.Drawing.Size(45, 20);
-		  this.IroniumAmount.TabIndex = 2;
-		  this.IroniumAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+		  this.ironiumAmount.Name = "ironiumAmount";
+		  this.ironiumAmount.Size = new System.Drawing.Size(45, 20);
+		  this.ironiumAmount.TabIndex = 2;
+		  this.ironiumAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		  // 
 		  // label6
 		  // 
@@ -209,33 +209,33 @@ namespace Nova.WinForms.ComponentEditor
 		  // 
 		  // GermaniumAmount
 		  // 
-		  this.GermaniumAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-		  this.GermaniumAmount.ForeColor = System.Drawing.Color.Goldenrod;
-		  this.GermaniumAmount.Location = new System.Drawing.Point(100, 52);
-		  this.GermaniumAmount.Maximum = new decimal(new int[] {
+		  this.germaniumAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+		  this.germaniumAmount.ForeColor = System.Drawing.Color.Goldenrod;
+		  this.germaniumAmount.Location = new System.Drawing.Point(100, 52);
+		  this.germaniumAmount.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-		  this.GermaniumAmount.Name = "GermaniumAmount";
-		  this.GermaniumAmount.Size = new System.Drawing.Size(45, 20);
-		  this.GermaniumAmount.TabIndex = 4;
-		  this.GermaniumAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+		  this.germaniumAmount.Name = "germaniumAmount";
+		  this.germaniumAmount.Size = new System.Drawing.Size(45, 20);
+		  this.germaniumAmount.TabIndex = 4;
+		  this.germaniumAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		  // 
 		  // BoraniumAmount
 		  // 
-		  this.BoraniumAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-		  this.BoraniumAmount.ForeColor = System.Drawing.Color.Green;
-		  this.BoraniumAmount.Location = new System.Drawing.Point(100, 29);
-		  this.BoraniumAmount.Maximum = new decimal(new int[] {
+		  this.boraniumAmount.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+		  this.boraniumAmount.ForeColor = System.Drawing.Color.Green;
+		  this.boraniumAmount.Location = new System.Drawing.Point(100, 29);
+		  this.boraniumAmount.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-		  this.BoraniumAmount.Name = "BoraniumAmount";
-		  this.BoraniumAmount.Size = new System.Drawing.Size(45, 20);
-		  this.BoraniumAmount.TabIndex = 3;
-		  this.BoraniumAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+		  this.boraniumAmount.Name = "boraniumAmount";
+		  this.boraniumAmount.Size = new System.Drawing.Size(45, 20);
+		  this.boraniumAmount.TabIndex = 3;
+		  this.boraniumAmount.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		  // 
 		  // panel1
 		  // 
@@ -243,7 +243,7 @@ namespace Nova.WinForms.ComponentEditor
 					  | System.Windows.Forms.AnchorStyles.Right)));
 		  this.panel1.Controls.Add(this.label3);
 		  this.panel1.Controls.Add(this.label9);
-		  this.panel1.Controls.Add(this.ComponentMass);
+		  this.panel1.Controls.Add(this.componentMass);
 		  this.panel1.Location = new System.Drawing.Point(9, 19);
 		  this.panel1.Name = "panel1";
 		  this.panel1.Size = new System.Drawing.Size(147, 29);
@@ -270,17 +270,17 @@ namespace Nova.WinForms.ComponentEditor
 		  // 
 		  // ComponentMass
 		  // 
-		  this.ComponentMass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-		  this.ComponentMass.Location = new System.Drawing.Point(100, 5);
-		  this.ComponentMass.Maximum = new decimal(new int[] {
+		  this.componentMass.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+		  this.componentMass.Location = new System.Drawing.Point(100, 5);
+		  this.componentMass.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-		  this.ComponentMass.Name = "ComponentMass";
-		  this.ComponentMass.Size = new System.Drawing.Size(45, 20);
-		  this.ComponentMass.TabIndex = 1;
-		  this.ComponentMass.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+		  this.componentMass.Name = "componentMass";
+		  this.componentMass.Size = new System.Drawing.Size(45, 20);
+		  this.componentMass.TabIndex = 1;
+		  this.componentMass.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
 		  // 
 		  // BasicProperties
 		  // 
@@ -294,15 +294,15 @@ namespace Nova.WinForms.ComponentEditor
 		  this.groupBox1.ResumeLayout(false);
 		  this.panel3.ResumeLayout(false);
 		  this.panel3.PerformLayout();
-		  ((System.ComponentModel.ISupportInitialize)(this.EnergyAmount)).EndInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.energyAmount)).EndInit();
 		  this.panel2.ResumeLayout(false);
 		  this.panel2.PerformLayout();
-		  ((System.ComponentModel.ISupportInitialize)(this.IroniumAmount)).EndInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.GermaniumAmount)).EndInit();
-		  ((System.ComponentModel.ISupportInitialize)(this.BoraniumAmount)).EndInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.ironiumAmount)).EndInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.germaniumAmount)).EndInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.boraniumAmount)).EndInit();
 		  this.panel1.ResumeLayout(false);
 		  this.panel1.PerformLayout();
-		  ((System.ComponentModel.ISupportInitialize)(this.ComponentMass)).EndInit();
+		  ((System.ComponentModel.ISupportInitialize)(this.componentMass)).EndInit();
 		  this.ResumeLayout(false);
 
       }
@@ -310,11 +310,11 @@ namespace Nova.WinForms.ComponentEditor
       #endregion
 
       private System.Windows.Forms.GroupBox groupBox1;
-      private System.Windows.Forms.NumericUpDown BoraniumAmount;
-      private System.Windows.Forms.NumericUpDown EnergyAmount;
-      private System.Windows.Forms.NumericUpDown ComponentMass;
-      private System.Windows.Forms.NumericUpDown GermaniumAmount;
-      private System.Windows.Forms.NumericUpDown IroniumAmount;
+      private System.Windows.Forms.NumericUpDown boraniumAmount;
+      private System.Windows.Forms.NumericUpDown energyAmount;
+      private System.Windows.Forms.NumericUpDown componentMass;
+      private System.Windows.Forms.NumericUpDown germaniumAmount;
+      private System.Windows.Forms.NumericUpDown ironiumAmount;
       private System.Windows.Forms.Label label5;
       private System.Windows.Forms.Label label4;
       private System.Windows.Forms.Label label3;

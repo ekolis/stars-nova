@@ -36,9 +36,9 @@ namespace Nova.Common
     [Serializable]
     public class Minefield : Item
     {
-        public int NumberOfMines = 0;
+        public int NumberOfMines;
         public int SafeSpeed = 4;
-        private static int KeyID = 0;
+        private static int keyId;
 
 
         #region Construction
@@ -50,7 +50,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public Minefield()
         {
-            KeyID++;
+            keyId++;
         }
 
         #endregion
@@ -79,7 +79,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public override string Key
         {
-            get { return KeyID.ToString(System.Globalization.CultureInfo.InvariantCulture); }
+            get { return keyId.ToString(System.Globalization.CultureInfo.InvariantCulture); }
         }
 
         #endregion

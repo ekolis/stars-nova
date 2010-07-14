@@ -36,8 +36,8 @@ namespace Nova.WinForms.NewGame
 
     public class NameGenerator
     {
-        private Random RandomGenerator = new Random();
-        private ArrayList NamePool = new ArrayList();
+        private readonly Random randomGenerator = new Random();
+        private readonly ArrayList namePool = new ArrayList();
 
         #region Construction
 
@@ -47,9 +47,9 @@ namespace Nova.WinForms.NewGame
         /// </summary>
         public NameGenerator()
         {
-            foreach (string name in StarNames)
+            foreach (string name in this.starNames)
             {
-                NamePool.Add(name);
+                this.namePool.Add(name);
             }
         }
 
@@ -66,10 +66,10 @@ namespace Nova.WinForms.NewGame
         {
             get
             {
-                int index = RandomGenerator.Next(0, NamePool.Count - 1);
-                string name = (string)NamePool[index];
+                int index = this.randomGenerator.Next(0, this.namePool.Count - 1);
+                string name = (string)this.namePool[index];
 
-                NamePool.RemoveAt(index);
+                this.namePool.RemoveAt(index);
 
                 return name;
             }
@@ -85,7 +85,7 @@ namespace Nova.WinForms.NewGame
         {
             get
             {
-                return NamePool.Count;
+                return this.namePool.Count;
             }
         }
 
@@ -95,7 +95,7 @@ namespace Nova.WinForms.NewGame
         /// The list of star names we can return.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        private string[] StarNames = 
+        private readonly string[] starNames = 
         {
          "A'po",
          "Abacus",

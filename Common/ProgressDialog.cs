@@ -31,7 +31,7 @@ namespace Nova.Common
         private System.Threading.ManualResetEvent initEvent = new System.Threading.ManualResetEvent(false);
         private System.Threading.ManualResetEvent abortEvent = new System.Threading.ManualResetEvent(false);
         private bool requiresClose = true;
-        private bool OpSuccess = false; // shadow for property Success
+        private bool operationSuccess; // shadow for property Success
 
 
         public ProgressDialog()
@@ -118,11 +118,11 @@ namespace Nova.Common
         {
             get
             {
-                return OpSuccess;
+                return this.operationSuccess;
             }
             set
             {
-                OpSuccess = value;
+                this.operationSuccess = value;
             }
         }
 

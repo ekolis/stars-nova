@@ -73,24 +73,24 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OKButton_Click(object sender, EventArgs e)
         {
-            Hashtable AllFleets = ClientState.Data.InputTurn.AllFleets;
+            Hashtable allFleets = ClientState.Data.InputTurn.AllFleets;
 
-            string newName = NewName.Text;
+            string newName = this.newName.Text;
             string newKey = ClientState.Data.RaceName + "/" + newName;
-            string oldKey = ClientState.Data.RaceName + "/" + ExistingName.Text;
+            string oldKey = ClientState.Data.RaceName + "/" + this.ExistingName.Text;
 
-            if (AllFleets.Contains(newKey))
+            if (allFleets.Contains(newKey))
             {
                 Report.Error("A fleet already has that name");
                 return;
             }
 
-            Fleet fleet = AllFleets[oldKey] as Fleet;
-            AllFleets.Remove(oldKey);
+            Fleet fleet = allFleets[oldKey] as Fleet;
+            allFleets.Remove(oldKey);
             ClientState.Data.DeletedFleets.Add(oldKey);
 
             fleet.Name = newName;
-            AllFleets[newKey] = fleet;
+            allFleets[newKey] = fleet;
 
             // Ensure the main display gets updated to reflect the new name
 

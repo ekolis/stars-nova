@@ -68,21 +68,21 @@ namespace Nova.ControlLibrary
         // BoxOldRightPosition Previous value before a change (%)
         // ----------------------------------------------------------------------------
 
-        private Color BoxColor = Color.Yellow;
-        private SolidBrush BoxBrush = new SolidBrush(Color.Yellow);
-        private int BoxMinimum = 0;
-        private int BoxMaximum = 100;
-        private int BoxLeftPosition = 15;
-        private int BoxRightPosition = 85;
-        private int BoxOldLeftPosition = 15;
-        private int BoxOldRightPosition = 85;
-        private int BoxMoveIncrement = 1;
-        private TimerOptions TimerAction;
+        private Color boxColor = Color.Yellow;
+        private SolidBrush boxBrush = new SolidBrush(Color.Yellow);
+        private int boxMinimum = 0;
+        private int boxMaximum = 100;
+        private int boxLeftPosition = 15;
+        private int boxRightPosition = 85;
+        private int boxOldLeftPosition = 15;
+        private int boxOldRightPosition = 85;
+        private int boxMoveIncrement = 1;
+        private TimerOptions timerAction;
 
         // values used in converting the bar position to environment values
-        private double EnvironmentMinimum = 0.0; // Temp -200; Rad 0.0; Grav 0.0;
-        private double EnvironmentMaximum = 100.0; // Temp 200; Rad 100; Grav 10;
-        private string Units = "Units";
+        private double environmentMinimum = 0.0; // Temp -200; Rad 0.0; Grav 0.0;
+        private double environmentMaximum = 100.0; // Temp 200; Rad 100; Grav 10;
+        private string units = "Units";
 
         // Event and delegate definition for when the range is changed.
         // This event tells RaceDesigner to modify the race's advantage points
@@ -99,14 +99,14 @@ namespace Nova.ControlLibrary
 
 
         #region VS-created variables
-        private System.Windows.Forms.Button LeftScroll;
-        private System.Windows.Forms.Label Bar;
-        private System.Windows.Forms.Button RightScroll;
-        private System.Windows.Forms.Button Expand;
-        private System.Windows.Forms.Button Contract;
-        private System.Windows.Forms.GroupBox Title;
+        private System.Windows.Forms.Button leftScroll;
+        private System.Windows.Forms.Label bar;
+        private System.Windows.Forms.Button rightScroll;
+        private System.Windows.Forms.Button expand;
+        private System.Windows.Forms.Button contract;
+        private System.Windows.Forms.GroupBox title;
         private System.Windows.Forms.Timer timer1;
-        private System.Windows.Forms.Label BoxSpan;
+        private System.Windows.Forms.Label boxSpan;
         private System.ComponentModel.IContainer components;
         #endregion
 
@@ -149,93 +149,93 @@ namespace Nova.ControlLibrary
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.LeftScroll = new System.Windows.Forms.Button();
-            this.Bar = new System.Windows.Forms.Label();
-            this.RightScroll = new System.Windows.Forms.Button();
-            this.Expand = new System.Windows.Forms.Button();
-            this.Contract = new System.Windows.Forms.Button();
-            this.BoxSpan = new System.Windows.Forms.Label();
-            this.Title = new System.Windows.Forms.GroupBox();
+            this.leftScroll = new System.Windows.Forms.Button();
+            this.bar = new System.Windows.Forms.Label();
+            this.rightScroll = new System.Windows.Forms.Button();
+            this.expand = new System.Windows.Forms.Button();
+            this.contract = new System.Windows.Forms.Button();
+            this.boxSpan = new System.Windows.Forms.Label();
+            this.title = new System.Windows.Forms.GroupBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.Title.SuspendLayout();
+            this.title.SuspendLayout();
             this.SuspendLayout();
             // 
             // LeftScroll
             // 
-            this.LeftScroll.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.LeftScroll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.LeftScroll.Location = new System.Drawing.Point(20, 24);
-            this.LeftScroll.Name = "LeftScroll";
-            this.LeftScroll.Size = new System.Drawing.Size(20, 20);
-            this.LeftScroll.TabIndex = 1;
-            this.LeftScroll.Text = "<";
-            this.LeftScroll.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LeftScroll_MouseDown);
-            this.LeftScroll.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RangeMouseUp);
+            this.leftScroll.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.leftScroll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.leftScroll.Location = new System.Drawing.Point(20, 24);
+            this.leftScroll.Name = "leftScroll";
+            this.leftScroll.Size = new System.Drawing.Size(20, 20);
+            this.leftScroll.TabIndex = 1;
+            this.leftScroll.Text = "<";
+            this.leftScroll.MouseDown += new System.Windows.Forms.MouseEventHandler(this.LeftScroll_MouseDown);
+            this.leftScroll.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RangeMouseUp);
             // 
             // Bar
             // 
-            this.Bar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.Bar.Location = new System.Drawing.Point(48, 24);
-            this.Bar.Name = "Bar";
-            this.Bar.Size = new System.Drawing.Size(224, 20);
-            this.Bar.TabIndex = 2;
-            this.Bar.Paint += new System.Windows.Forms.PaintEventHandler(this.Bar_Paint);
+            this.bar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.bar.Location = new System.Drawing.Point(48, 24);
+            this.bar.Name = "bar";
+            this.bar.Size = new System.Drawing.Size(224, 20);
+            this.bar.TabIndex = 2;
+            this.bar.Paint += new System.Windows.Forms.PaintEventHandler(this.Bar_Paint);
             // 
             // RightScroll
             // 
-            this.RightScroll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.RightScroll.Location = new System.Drawing.Point(272, 23);
-            this.RightScroll.Name = "RightScroll";
-            this.RightScroll.Size = new System.Drawing.Size(20, 20);
-            this.RightScroll.TabIndex = 3;
-            this.RightScroll.Text = ">";
-            this.RightScroll.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RightScroll_MouseDown);
-            this.RightScroll.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RangeMouseUp);
+            this.rightScroll.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.rightScroll.Location = new System.Drawing.Point(272, 23);
+            this.rightScroll.Name = "rightScroll";
+            this.rightScroll.Size = new System.Drawing.Size(20, 20);
+            this.rightScroll.TabIndex = 3;
+            this.rightScroll.Text = ">";
+            this.rightScroll.MouseDown += new System.Windows.Forms.MouseEventHandler(this.RightScroll_MouseDown);
+            this.rightScroll.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RangeMouseUp);
             // 
             // Expand
             // 
-            this.Expand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Expand.Location = new System.Drawing.Point(40, 52);
-            this.Expand.Name = "Expand";
-            this.Expand.Size = new System.Drawing.Size(40, 24);
-            this.Expand.TabIndex = 4;
-            this.Expand.Text = "< >";
-            this.Expand.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Expand_MouseDown);
-            this.Expand.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RangeMouseUp);
+            this.expand.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.expand.Location = new System.Drawing.Point(40, 52);
+            this.expand.Name = "expand";
+            this.expand.Size = new System.Drawing.Size(40, 24);
+            this.expand.TabIndex = 4;
+            this.expand.Text = "< >";
+            this.expand.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Expand_MouseDown);
+            this.expand.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RangeMouseUp);
             // 
             // Contract
             // 
-            this.Contract.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.Contract.Location = new System.Drawing.Point(224, 51);
-            this.Contract.Name = "Contract";
-            this.Contract.Size = new System.Drawing.Size(40, 24);
-            this.Contract.TabIndex = 5;
-            this.Contract.Text = "> <";
-            this.Contract.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Contract_MouseDown);
-            this.Contract.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RangeMouseUp);
+            this.contract.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.contract.Location = new System.Drawing.Point(224, 51);
+            this.contract.Name = "contract";
+            this.contract.Size = new System.Drawing.Size(40, 24);
+            this.contract.TabIndex = 5;
+            this.contract.Text = "> <";
+            this.contract.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Contract_MouseDown);
+            this.contract.MouseUp += new System.Windows.Forms.MouseEventHandler(this.RangeMouseUp);
             // 
             // BoxSpan
             // 
-            this.BoxSpan.Location = new System.Drawing.Point(86, 52);
-            this.BoxSpan.Name = "BoxSpan";
-            this.BoxSpan.Size = new System.Drawing.Size(129, 15);
-            this.BoxSpan.TabIndex = 6;
-            this.BoxSpan.Text = "0 to 0";
-            this.BoxSpan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.boxSpan.Location = new System.Drawing.Point(86, 52);
+            this.boxSpan.Name = "boxSpan";
+            this.boxSpan.Size = new System.Drawing.Size(129, 15);
+            this.boxSpan.TabIndex = 6;
+            this.boxSpan.Text = "0 to 0";
+            this.boxSpan.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
             // Title
             // 
-            this.Title.Controls.Add(this.RightScroll);
-            this.Title.Controls.Add(this.BoxSpan);
-            this.Title.Controls.Add(this.Expand);
-            this.Title.Controls.Add(this.Contract);
-            this.Title.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.Title.Location = new System.Drawing.Point(8, 1);
-            this.Title.Name = "Title";
-            this.Title.Size = new System.Drawing.Size(308, 86);
-            this.Title.TabIndex = 7;
-            this.Title.TabStop = false;
-            this.Title.Text = "Not Defined";
+            this.title.Controls.Add(this.rightScroll);
+            this.title.Controls.Add(this.boxSpan);
+            this.title.Controls.Add(this.expand);
+            this.title.Controls.Add(this.contract);
+            this.title.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.title.Location = new System.Drawing.Point(8, 1);
+            this.title.Name = "title";
+            this.title.Size = new System.Drawing.Size(308, 86);
+            this.title.TabIndex = 7;
+            this.title.TabStop = false;
+            this.title.Text = "Not Defined";
             // 
             // timer1
             // 
@@ -243,12 +243,12 @@ namespace Nova.ControlLibrary
             // 
             // Range
             // 
-            this.Controls.Add(this.Bar);
-            this.Controls.Add(this.LeftScroll);
-            this.Controls.Add(this.Title);
+            this.Controls.Add(this.bar);
+            this.Controls.Add(this.leftScroll);
+            this.Controls.Add(this.title);
             this.Name = "Range";
             this.Size = new System.Drawing.Size(324, 95);
-            this.Title.ResumeLayout(false);
+            this.title.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -266,26 +266,26 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void Bar_Paint(object sender, PaintEventArgs e)
         {
-            int fillHeight = Bar.Size.Height;
+            int fillHeight = this.bar.Size.Height;
             int fillY = 0;
 
             // Need to convert the values from actual environment values to drawing co-ordinates.
-            int boxRange = BoxMaximum - BoxMinimum;
+            int boxRange = this.boxMaximum - this.boxMinimum;
             if (boxRange == 0) boxRange = 100; // gaurd against div by 0
-            int fillLeft = (int)((BoxLeftPosition * Bar.Size.Width) / boxRange);
-            int fillRight = (int)((BoxRightPosition * Bar.Size.Width) / boxRange);
+            int fillLeft = (int)((this.boxLeftPosition * this.bar.Size.Width) / boxRange);
+            int fillRight = (int)((this.boxRightPosition * this.bar.Size.Width) / boxRange);
             int fillWidth = fillRight - fillLeft;
 
 
             string realRange = String.Format(
                 "{0} to {1} {2}",
-                BarPositionToEnvironmentValue(BoxLeftPosition).ToString("F1"),
-                BarPositionToEnvironmentValue(BoxRightPosition).ToString("F1"),
-                Units);
+                BarPositionToEnvironmentValue(this.boxLeftPosition).ToString("F1"),
+                BarPositionToEnvironmentValue(this.boxRightPosition).ToString("F1"),
+                this.units);
 
-            BoxSpan.Text = realRange;
+            this.boxSpan.Text = realRange;
 
-            e.Graphics.FillRectangle(BoxBrush, fillLeft, fillY, fillWidth, fillHeight);
+            e.Graphics.FillRectangle(this.boxBrush, fillLeft, fillY, fillWidth, fillHeight);
 
         }
 
@@ -301,65 +301,65 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void Timer1_Tick(object sender, System.EventArgs e)
         {
-            int increment = BoxMoveIncrement;
+            int increment = this.boxMoveIncrement;
 
-            BoxOldRightPosition = BoxRightPosition;
-            BoxOldLeftPosition = BoxLeftPosition;
+            this.boxOldRightPosition = this.boxRightPosition;
+            this.boxOldLeftPosition = this.boxLeftPosition;
 
-            switch (TimerAction)
+            switch (this.timerAction)
             {
                 case TimerOptions.MoveLeft:
-                    if (BoxLeftPosition - increment < 0)
+                    if (this.boxLeftPosition - increment < 0)
                     {
-                        increment = BoxLeftPosition;
+                        increment = this.boxLeftPosition;
                     }
 
-                    BoxLeftPosition -= increment;
-                    BoxRightPosition -= increment;
+                    this.boxLeftPosition -= increment;
+                    this.boxRightPosition -= increment;
                     break;
 
                 case TimerOptions.MoveRight:
-                    if (BoxRightPosition + increment > 100)
+                    if (this.boxRightPosition + increment > 100)
                     {
-                        increment = 100 - BoxRightPosition;
+                        increment = 100 - this.boxRightPosition;
                     }
 
-                    BoxLeftPosition += increment;
-                    BoxRightPosition += increment;
+                    this.boxLeftPosition += increment;
+                    this.boxRightPosition += increment;
                     break;
 
                 case TimerOptions.Shrink:
-                    int boxWidth = BoxRightPosition - BoxLeftPosition;
+                    int boxWidth = this.boxRightPosition - this.boxLeftPosition;
                     if (boxWidth - increment < 20)
                     {
                         increment = (boxWidth - 20) / 2;
                     }
 
-                    BoxLeftPosition += increment;
-                    BoxRightPosition -= increment;
+                    this.boxLeftPosition += increment;
+                    this.boxRightPosition -= increment;
                     break;
 
                 case TimerOptions.Expand:
-                    if (BoxRightPosition + increment > BoxMaximum)
+                    if (this.boxRightPosition + increment > this.boxMaximum)
                     {
-                        increment = BoxMaximum - BoxRightPosition;
+                        increment = this.boxMaximum - this.boxRightPosition;
                     }
 
-                    BoxRightPosition += increment;
-                    increment = BoxMoveIncrement;
+                    this.boxRightPosition += increment;
+                    increment = this.boxMoveIncrement;
 
-                    if (BoxLeftPosition - increment < BoxMinimum)
+                    if (this.boxLeftPosition - increment < this.boxMinimum)
                     {
-                        increment = BoxLeftPosition;
+                        increment = this.boxLeftPosition;
                     }
 
-                    BoxLeftPosition -= increment;
+                    this.boxLeftPosition -= increment;
                     break;
             }
 
-            RangeChanged(this, BoxLeftPosition, BoxRightPosition, BoxOldLeftPosition, BoxOldRightPosition);
+            RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
 
-            Bar.Invalidate();
+            this.bar.Invalidate();
         }
 
 
@@ -372,7 +372,7 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void LeftScroll_MouseDown(object sender, MouseEventArgs e)
         {
-            TimerAction = TimerOptions.MoveLeft;
+            this.timerAction = TimerOptions.MoveLeft;
             timer1.Start();
         }
 
@@ -400,7 +400,7 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void RightScroll_MouseDown(object sender, MouseEventArgs e)
         {
-            TimerAction = TimerOptions.MoveRight;
+            this.timerAction = TimerOptions.MoveRight;
             timer1.Start();
         }
 
@@ -414,7 +414,7 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void Contract_MouseDown(object sender, MouseEventArgs e)
         {
-            TimerAction = TimerOptions.Shrink;
+            this.timerAction = TimerOptions.Shrink;
             timer1.Start();
         }
 
@@ -428,7 +428,7 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void Expand_MouseDown(object sender, MouseEventArgs e)
         {
-            TimerAction = TimerOptions.Expand;
+            this.timerAction = TimerOptions.Expand;
             timer1.Start();
         }
 
@@ -446,15 +446,15 @@ namespace Nova.ControlLibrary
         private double BarPositionToEnvironmentValue(int pos)
         {
             double env = 0; // the environment value to be calculated.
-            double environmentRange = EnvironmentMaximum - EnvironmentMinimum;
-            double boxRange = (double)(BoxMaximum - BoxMinimum);
+            double environmentRange = this.environmentMaximum - this.environmentMinimum;
+            double boxRange = (double)(this.boxMaximum - this.boxMinimum);
             if (boxRange == 0)
             {
                 environmentRange = 1000; // gaurd against div by 0
             }
             else
             {
-                env = ((((double)(pos - BoxMinimum)) * environmentRange) / boxRange) + EnvironmentMinimum;
+                env = ((((double)(pos - this.boxMinimum)) * environmentRange) / boxRange) + this.environmentMinimum;
             }
             return env;
         }
@@ -470,15 +470,15 @@ namespace Nova.ControlLibrary
         private int EnvironmentValueToBarPosition(double env)
         {
             int pos = 0;
-            double environmentRange = EnvironmentMaximum - EnvironmentMinimum;
+            double environmentRange = this.environmentMaximum - this.environmentMinimum;
             if (environmentRange == 0)
             {
                 pos = 100; // gaurd against div by 0
             }
             else
             {
-                double boxRange = (double)(BoxMaximum - BoxMinimum);
-                pos = (int)((((env - EnvironmentMinimum) * boxRange) / environmentRange) + BoxMinimum);
+                double boxRange = (double)(this.boxMaximum - this.boxMinimum);
+                pos = (int)((((env - this.environmentMinimum) * boxRange) / environmentRange) + this.boxMinimum);
             }
             return pos;
         }
@@ -498,22 +498,22 @@ namespace Nova.ControlLibrary
         {
             get
             {
-                double MinimumValue = BarPositionToEnvironmentValue(BoxLeftPosition);
-                double MaximumValue = BarPositionToEnvironmentValue(BoxRightPosition);
-                return new EnvironmentTolerance(MinimumValue, MaximumValue);
+                double minimumValue = BarPositionToEnvironmentValue(this.boxLeftPosition);
+                double maximumValue = BarPositionToEnvironmentValue(this.boxRightPosition);
+                return new EnvironmentTolerance(minimumValue, maximumValue);
             }
             set
             {
-                BoxOldRightPosition = BoxRightPosition;
-                BoxOldLeftPosition = BoxLeftPosition;
+                this.boxOldRightPosition = this.boxRightPosition;
+                this.boxOldLeftPosition = this.boxLeftPosition;
 
-                BoxLeftPosition = EnvironmentValueToBarPosition(value.Minimum);
-                BoxRightPosition = EnvironmentValueToBarPosition(value.Maximum);
+                this.boxLeftPosition = EnvironmentValueToBarPosition(value.Minimum);
+                this.boxRightPosition = EnvironmentValueToBarPosition(value.Maximum);
 
                 if (RangeChanged != null)
-                    RangeChanged(this, BoxLeftPosition, BoxRightPosition, BoxOldLeftPosition, BoxOldRightPosition);
+                    RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
 
-                Bar.Invalidate();
+                this.bar.Invalidate();
             }
         }
 
@@ -532,12 +532,12 @@ namespace Nova.ControlLibrary
         {
             get
             {
-                return Units;
+                return this.units;
             }
             set
             {
-                Units = value;
-                Bar.Invalidate();
+                this.units = value;
+                this.bar.Invalidate();
             }
         }
 
@@ -550,8 +550,8 @@ namespace Nova.ControlLibrary
         [Description("Title of range display."), Category("Nova")]
         public string RangeTitle
         {
-            get { return Title.Text; }
-            set { Title.Text = value; }
+            get { return this.title.Text; }
+            set { this.title.Text = value; }
         }
 
 
@@ -565,12 +565,12 @@ namespace Nova.ControlLibrary
         {
             get
             {
-                return EnvironmentMaximum;
+                return this.environmentMaximum;
             }
             set
             {
-                EnvironmentMaximum = value;
-                Bar.Invalidate();
+                this.environmentMaximum = value;
+                this.bar.Invalidate();
             }
         }
 
@@ -584,12 +584,12 @@ namespace Nova.ControlLibrary
         {
             get
             {
-                return EnvironmentMinimum;
+                return this.environmentMinimum;
             }
             set
             {
-                EnvironmentMinimum = value;
-                Bar.Invalidate();
+                this.environmentMinimum = value;
+                this.bar.Invalidate();
             }
         }
 
@@ -604,16 +604,16 @@ namespace Nova.ControlLibrary
         {
             get 
             { 
-                return BarPositionToEnvironmentValue(BoxRightPosition); 
+                return BarPositionToEnvironmentValue(this.boxRightPosition); 
             }
             set
             {
 
-                BoxOldRightPosition = BoxRightPosition;
-                BoxRightPosition = EnvironmentValueToBarPosition(value);
+                this.boxOldRightPosition = this.boxRightPosition;
+                this.boxRightPosition = EnvironmentValueToBarPosition(value);
                 if (RangeChanged != null)
-                    RangeChanged(this, BoxLeftPosition, BoxRightPosition, BoxOldLeftPosition, BoxOldRightPosition);
-                Bar.Invalidate();
+                    RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
+                this.bar.Invalidate();
             }
         }
 
@@ -628,15 +628,15 @@ namespace Nova.ControlLibrary
         {
             get
             {
-                return BarPositionToEnvironmentValue(BoxLeftPosition);
+                return BarPositionToEnvironmentValue(this.boxLeftPosition);
             }
             set
             {
-                BoxOldLeftPosition = BoxLeftPosition;
-                BoxLeftPosition = EnvironmentValueToBarPosition(value);
+                this.boxOldLeftPosition = this.boxLeftPosition;
+                this.boxLeftPosition = EnvironmentValueToBarPosition(value);
                 if (RangeChanged != null)
-                    RangeChanged(this, BoxLeftPosition, BoxRightPosition, BoxOldLeftPosition, BoxOldRightPosition);
-                Bar.Invalidate();
+                    RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
+                this.bar.Invalidate();
             }
         }
 
@@ -651,14 +651,14 @@ namespace Nova.ControlLibrary
         {
             get
             {
-                return BoxColor;
+                return this.boxColor;
             }
 
             set
             {
-                BoxColor = value;
-                BoxBrush = new SolidBrush(BoxColor);
-                Bar.Invalidate();
+                this.boxColor = value;
+                this.boxBrush = new SolidBrush(this.boxColor);
+                this.bar.Invalidate();
             }
         }
 

@@ -39,7 +39,7 @@ namespace Nova.WinForms.ComponentEditor
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ComponentEditorWindow));
-            this.ResetFileLocation = new System.Windows.Forms.ToolStripMenuItem();
+            this.resetFileLocation = new System.Windows.Forms.ToolStripMenuItem();
             this.newFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveFileMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -48,7 +48,7 @@ namespace Nova.WinForms.ComponentEditor
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.MainMenu = new System.Windows.Forms.MenuStrip();
+            this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.menuStripComponent = new System.Windows.Forms.ToolStripMenuItem();
             this.newComponentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.editComponentMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -92,106 +92,106 @@ namespace Nova.WinForms.ComponentEditor
             this.miningRobotToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.orbitalAdjusterToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.planetaryToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.DefenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.defenseToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.planetaryScannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.terraformingToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.scannerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.shieldToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.weaponToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.deleteSelectedPropertyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.RestrictionSummary = new System.Windows.Forms.TextBox();
+            this.restrictionSummary = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.Description = new System.Windows.Forms.TextBox();
+            this.description = new System.Windows.Forms.TextBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.ComponentList = new System.Windows.Forms.ListBox();
+            this.componentList = new System.Windows.Forms.ListBox();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.ComponentType = new System.Windows.Forms.ComboBox();
+            this.componentType = new System.Windows.Forms.ComboBox();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ComponentName = new System.Windows.Forms.TextBox();
+            this.componentName = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
-            this.PropertyTabs = new System.Windows.Forms.TabControl();
+            this.propertyTabs = new System.Windows.Forms.TabControl();
             this.tabArmor = new System.Windows.Forms.TabPage();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.label79 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.Armor = new System.Windows.Forms.NumericUpDown();
+            this.armor = new System.Windows.Forms.NumericUpDown();
             this.tabMovement = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.BattleMovement = new System.Windows.Forms.NumericUpDown();
+            this.battleMovement = new System.Windows.Forms.NumericUpDown();
             this.label14 = new System.Windows.Forms.Label();
             this.tabBomb = new System.Windows.Forms.TabPage();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.SmartBomb = new System.Windows.Forms.CheckBox();
-            this.MinimumPopKill = new System.Windows.Forms.NumericUpDown();
+            this.smartBomb = new System.Windows.Forms.CheckBox();
+            this.minimumPopKill = new System.Windows.Forms.NumericUpDown();
             this.label17 = new System.Windows.Forms.Label();
-            this.InstallationsDestroyed = new System.Windows.Forms.NumericUpDown();
-            this.PopulationKill = new System.Windows.Forms.NumericUpDown();
+            this.installationsDestroyed = new System.Windows.Forms.NumericUpDown();
+            this.populationKill = new System.Windows.Forms.NumericUpDown();
             this.label18 = new System.Windows.Forms.Label();
             this.label19 = new System.Windows.Forms.Label();
             this.tabCapacitor = new System.Windows.Forms.TabPage();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.label21 = new System.Windows.Forms.Label();
-            this.BeamDamage = new System.Windows.Forms.NumericUpDown();
+            this.beamDamage = new System.Windows.Forms.NumericUpDown();
             this.label20 = new System.Windows.Forms.Label();
             this.tabCargo = new System.Windows.Forms.TabPage();
             this.groupBox12 = new System.Windows.Forms.GroupBox();
             this.label23 = new System.Windows.Forms.Label();
-            this.CargoCapacity = new System.Windows.Forms.NumericUpDown();
+            this.cargoCapacity = new System.Windows.Forms.NumericUpDown();
             this.label22 = new System.Windows.Forms.Label();
             this.tabCloak = new System.Windows.Forms.TabPage();
             this.groupBox13 = new System.Windows.Forms.GroupBox();
-            this.Cloaking = new System.Windows.Forms.NumericUpDown();
+            this.cloaking = new System.Windows.Forms.NumericUpDown();
             this.label25 = new System.Windows.Forms.Label();
             this.label24 = new System.Windows.Forms.Label();
             this.tabColonization = new System.Windows.Forms.TabPage();
             this.groupBox14 = new System.Windows.Forms.GroupBox();
-            this.OrbitalColonizationModule = new System.Windows.Forms.RadioButton();
-            this.ColonizationModule = new System.Windows.Forms.RadioButton();
+            this.orbitalColonizationModule = new System.Windows.Forms.RadioButton();
+            this.colonizationModule = new System.Windows.Forms.RadioButton();
             this.tabComputer = new System.Windows.Forms.TabPage();
             this.groupBox15 = new System.Windows.Forms.GroupBox();
             this.label26 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.Initiative = new System.Windows.Forms.NumericUpDown();
+            this.initiative = new System.Windows.Forms.NumericUpDown();
             this.label3 = new System.Windows.Forms.Label();
-            this.Accuracy = new System.Windows.Forms.NumericUpDown();
+            this.accuracy = new System.Windows.Forms.NumericUpDown();
             this.tabDefense = new System.Windows.Forms.TabPage();
             this.groupBox16 = new System.Windows.Forms.GroupBox();
-            this.DefenseCover100 = new System.Windows.Forms.Label();
+            this.defenseCover100 = new System.Windows.Forms.Label();
             this.label35 = new System.Windows.Forms.Label();
             this.label36 = new System.Windows.Forms.Label();
-            this.DefenseCover80 = new System.Windows.Forms.Label();
-            this.DefenseCover40 = new System.Windows.Forms.Label();
+            this.defenseCover80 = new System.Windows.Forms.Label();
+            this.defenseCover40 = new System.Windows.Forms.Label();
             this.label32 = new System.Windows.Forms.Label();
             this.label31 = new System.Windows.Forms.Label();
             this.label30 = new System.Windows.Forms.Label();
-            this.DefenseCover1 = new System.Windows.Forms.NumericUpDown();
+            this.defenseCover1 = new System.Windows.Forms.NumericUpDown();
             this.label29 = new System.Windows.Forms.Label();
             this.label28 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.tabDeflector = new System.Windows.Forms.TabPage();
             this.groupBox32 = new System.Windows.Forms.GroupBox();
             this.label92 = new System.Windows.Forms.Label();
-            this.BeamDeflector = new System.Windows.Forms.NumericUpDown();
+            this.beamDeflector = new System.Windows.Forms.NumericUpDown();
             this.label91 = new System.Windows.Forms.Label();
             this.tabEnergyDampener = new System.Windows.Forms.TabPage();
             this.groupBox31 = new System.Windows.Forms.GroupBox();
             this.textBox6 = new System.Windows.Forms.TextBox();
-            this.EnergyDampener = new System.Windows.Forms.NumericUpDown();
+            this.energyDampener = new System.Windows.Forms.NumericUpDown();
             this.label90 = new System.Windows.Forms.Label();
             this.tabEngine = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.EngineFastestFreeSpeed = new System.Windows.Forms.NumericUpDown();
+            this.engineFastestFreeSpeed = new System.Windows.Forms.NumericUpDown();
             this.label85 = new System.Windows.Forms.Label();
             this.label84 = new System.Windows.Forms.Label();
             this.label83 = new System.Windows.Forms.Label();
             this.label82 = new System.Windows.Forms.Label();
             this.label81 = new System.Windows.Forms.Label();
-            this.EngineOptimalSpeed = new System.Windows.Forms.NumericUpDown();
+            this.engineOptimalSpeed = new System.Windows.Forms.NumericUpDown();
             this.label80 = new System.Windows.Forms.Label();
-            this.EngineFastestSafeSpeed = new System.Windows.Forms.NumericUpDown();
+            this.engineFastestSafeSpeed = new System.Windows.Forms.NumericUpDown();
             this.label39 = new System.Windows.Forms.Label();
-            this.RamScoopCheckBox = new System.Windows.Forms.CheckBox();
+            this.ramScoopCheckBox = new System.Windows.Forms.CheckBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
@@ -202,122 +202,122 @@ namespace Nova.WinForms.ComponentEditor
             this.label11 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
             this.label13 = new System.Windows.Forms.Label();
-            this.W2Fuel = new System.Windows.Forms.NumericUpDown();
-            this.W3Fuel = new System.Windows.Forms.NumericUpDown();
-            this.W4Fuel = new System.Windows.Forms.NumericUpDown();
-            this.W5Fuel = new System.Windows.Forms.NumericUpDown();
-            this.W6Fuel = new System.Windows.Forms.NumericUpDown();
-            this.W7Fuel = new System.Windows.Forms.NumericUpDown();
-            this.W8Fuel = new System.Windows.Forms.NumericUpDown();
-            this.W9Fuel = new System.Windows.Forms.NumericUpDown();
-            this.W10Fuel = new System.Windows.Forms.NumericUpDown();
-            this.W1Fuel = new System.Windows.Forms.NumericUpDown();
+            this.warp2Fuel = new System.Windows.Forms.NumericUpDown();
+            this.warp3Fuel = new System.Windows.Forms.NumericUpDown();
+            this.warp4Fuel = new System.Windows.Forms.NumericUpDown();
+            this.warp5Fuel = new System.Windows.Forms.NumericUpDown();
+            this.warp6Fuel = new System.Windows.Forms.NumericUpDown();
+            this.warp7Fuel = new System.Windows.Forms.NumericUpDown();
+            this.warp8Fuel = new System.Windows.Forms.NumericUpDown();
+            this.warp9Fuel = new System.Windows.Forms.NumericUpDown();
+            this.warp10Fuel = new System.Windows.Forms.NumericUpDown();
+            this.warp1Fuel = new System.Windows.Forms.NumericUpDown();
             this.tabFuel = new System.Windows.Forms.TabPage();
             this.groupBox18 = new System.Windows.Forms.GroupBox();
             this.label41 = new System.Windows.Forms.Label();
             this.label40 = new System.Windows.Forms.Label();
-            this.FuelCapacity = new System.Windows.Forms.NumericUpDown();
+            this.fuelCapacity = new System.Windows.Forms.NumericUpDown();
             this.labelFuelGeneration = new System.Windows.Forms.Label();
-            this.FuelGeneration = new System.Windows.Forms.NumericUpDown();
+            this.fuelGeneration = new System.Windows.Forms.NumericUpDown();
             this.lableFuelCapcity = new System.Windows.Forms.Label();
             this.tabGate = new System.Windows.Forms.TabPage();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.GateMassInfinite = new System.Windows.Forms.CheckBox();
-            this.GateRangeInfinite = new System.Windows.Forms.CheckBox();
+            this.gateMassInfinite = new System.Windows.Forms.CheckBox();
+            this.gateRangeInfinite = new System.Windows.Forms.CheckBox();
             this.label43 = new System.Windows.Forms.Label();
             this.label42 = new System.Windows.Forms.Label();
-            this.SafeRange = new System.Windows.Forms.NumericUpDown();
-            this.SafeHullMass = new System.Windows.Forms.NumericUpDown();
+            this.safeRange = new System.Windows.Forms.NumericUpDown();
+            this.safeHullMass = new System.Windows.Forms.NumericUpDown();
             this.label15 = new System.Windows.Forms.Label();
             this.label16 = new System.Windows.Forms.Label();
             this.tabHull = new System.Windows.Forms.TabPage();
             this.groupBox19 = new System.Windows.Forms.GroupBox();
-            this.InfiniteDock = new System.Windows.Forms.CheckBox();
+            this.infiniteDock = new System.Windows.Forms.CheckBox();
             this.label86 = new System.Windows.Forms.Label();
-            this.ARMaxPop = new System.Windows.Forms.NumericUpDown();
+            this.alternateRealityMaxPop = new System.Windows.Forms.NumericUpDown();
             this.label87 = new System.Windows.Forms.Label();
             this.buttonEditHull = new System.Windows.Forms.Button();
             this.label50 = new System.Windows.Forms.Label();
             this.label49 = new System.Windows.Forms.Label();
-            this.HullCargoCapacity = new System.Windows.Forms.NumericUpDown();
+            this.hullCargoCapacity = new System.Windows.Forms.NumericUpDown();
             this.label48 = new System.Windows.Forms.Label();
             this.labelBaseCargoKT = new System.Windows.Forms.Label();
             this.label47 = new System.Windows.Forms.Label();
             this.labelBaseCargo = new System.Windows.Forms.Label();
-            this.HullFuelCapacity = new System.Windows.Forms.NumericUpDown();
+            this.hullFuelCapacity = new System.Windows.Forms.NumericUpDown();
             this.label44 = new System.Windows.Forms.Label();
-            this.HullInitiative = new System.Windows.Forms.NumericUpDown();
-            this.HullDockCapacity = new System.Windows.Forms.NumericUpDown();
-            this.HullArmor = new System.Windows.Forms.NumericUpDown();
+            this.hullInitiative = new System.Windows.Forms.NumericUpDown();
+            this.hullDockCapacity = new System.Windows.Forms.NumericUpDown();
+            this.hullArmor = new System.Windows.Forms.NumericUpDown();
             this.label45 = new System.Windows.Forms.Label();
             this.label46 = new System.Windows.Forms.Label();
             this.tabHullAffinity = new System.Windows.Forms.TabPage();
             this.groupBox29 = new System.Windows.Forms.GroupBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
-            this.ComponentHullAffinity = new System.Windows.Forms.ComboBox();
+            this.componentHullAffinity = new System.Windows.Forms.ComboBox();
             this.tabJammer = new System.Windows.Forms.TabPage();
             this.groupBox20 = new System.Windows.Forms.GroupBox();
             this.label51 = new System.Windows.Forms.Label();
             this.label52 = new System.Windows.Forms.Label();
-            this.Deflection = new System.Windows.Forms.NumericUpDown();
+            this.deflection = new System.Windows.Forms.NumericUpDown();
             this.tabLayerEfficiency = new System.Windows.Forms.TabPage();
-            this.ImprovedMineLayingEfficiency = new System.Windows.Forms.GroupBox();
+            this.improvedMineLayingEfficiency = new System.Windows.Forms.GroupBox();
             this.textBox5 = new System.Windows.Forms.TextBox();
-            this.MineLayerEfficiency = new System.Windows.Forms.NumericUpDown();
+            this.mineLayerEfficiency = new System.Windows.Forms.NumericUpDown();
             this.label93 = new System.Windows.Forms.Label();
             this.tabDriver = new System.Windows.Forms.TabPage();
             this.groupBox21 = new System.Windows.Forms.GroupBox();
-            this.MassDriverSpeed = new System.Windows.Forms.NumericUpDown();
+            this.massDriverSpeed = new System.Windows.Forms.NumericUpDown();
             this.label53 = new System.Windows.Forms.Label();
             this.tabMineLayer = new System.Windows.Forms.TabPage();
             this.groupBox22 = new System.Windows.Forms.GroupBox();
-            this.MineMinRamScoopDamage = new System.Windows.Forms.NumericUpDown();
-            this.MineMinFleetDamage = new System.Windows.Forms.NumericUpDown();
-            this.MineDamagePerRamScoop = new System.Windows.Forms.NumericUpDown();
+            this.mineMinRamScoopDamage = new System.Windows.Forms.NumericUpDown();
+            this.mineMinFleetDamage = new System.Windows.Forms.NumericUpDown();
+            this.mineDamagePerRamScoop = new System.Windows.Forms.NumericUpDown();
             this.label54 = new System.Windows.Forms.Label();
             this.label55 = new System.Windows.Forms.Label();
             this.label56 = new System.Windows.Forms.Label();
-            this.MineDamagePerEngine = new System.Windows.Forms.NumericUpDown();
-            this.MineHitChance = new System.Windows.Forms.NumericUpDown();
-            this.MineSafeSpeed = new System.Windows.Forms.NumericUpDown();
+            this.mineDamagePerEngine = new System.Windows.Forms.NumericUpDown();
+            this.mineHitChance = new System.Windows.Forms.NumericUpDown();
+            this.mineSafeSpeed = new System.Windows.Forms.NumericUpDown();
             this.label57 = new System.Windows.Forms.Label();
             this.label58 = new System.Windows.Forms.Label();
             this.label59 = new System.Windows.Forms.Label();
-            this.MineLayingRate = new System.Windows.Forms.NumericUpDown();
+            this.mineLayingRate = new System.Windows.Forms.NumericUpDown();
             this.label60 = new System.Windows.Forms.Label();
             this.tabRadiation = new System.Windows.Forms.TabPage();
             this.groupBox28 = new System.Windows.Forms.GroupBox();
             this.textBox2 = new System.Windows.Forms.TextBox();
-            this.Radiation = new System.Windows.Forms.NumericUpDown();
+            this.radiation = new System.Windows.Forms.NumericUpDown();
             this.label78 = new System.Windows.Forms.Label();
             this.label77 = new System.Windows.Forms.Label();
             this.tabRobot = new System.Windows.Forms.TabPage();
             this.groupBox23 = new System.Windows.Forms.GroupBox();
             this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.label62 = new System.Windows.Forms.Label();
-            this.MiningRate = new System.Windows.Forms.NumericUpDown();
+            this.miningRate = new System.Windows.Forms.NumericUpDown();
             this.label61 = new System.Windows.Forms.Label();
             this.tabOrbitalAdjuster = new System.Windows.Forms.TabPage();
             this.groupBox24 = new System.Windows.Forms.GroupBox();
             this.label64 = new System.Windows.Forms.Label();
-            this.AdjusterRate = new System.Windows.Forms.NumericUpDown();
+            this.adjusterRate = new System.Windows.Forms.NumericUpDown();
             this.label63 = new System.Windows.Forms.Label();
             this.tabScanner = new System.Windows.Forms.TabPage();
             this.groupBox17 = new System.Windows.Forms.GroupBox();
             this.label38 = new System.Windows.Forms.Label();
             this.label37 = new System.Windows.Forms.Label();
-            this.NormalRange = new System.Windows.Forms.NumericUpDown();
+            this.normalRange = new System.Windows.Forms.NumericUpDown();
             this.label33 = new System.Windows.Forms.Label();
-            this.PenetratingRange = new System.Windows.Forms.NumericUpDown();
+            this.penetratingRange = new System.Windows.Forms.NumericUpDown();
             this.label34 = new System.Windows.Forms.Label();
             this.tabShield = new System.Windows.Forms.TabPage();
             this.groupBox25 = new System.Windows.Forms.GroupBox();
             this.label65 = new System.Windows.Forms.Label();
-            this.Shield = new System.Windows.Forms.NumericUpDown();
+            this.shield = new System.Windows.Forms.NumericUpDown();
             this.label66 = new System.Windows.Forms.Label();
             this.tabTachyonDetector = new System.Windows.Forms.TabPage();
             this.groupBox30 = new System.Windows.Forms.GroupBox();
-            this.TachyonDetector = new System.Windows.Forms.NumericUpDown();
+            this.tachyonDetector = new System.Windows.Forms.NumericUpDown();
             this.label89 = new System.Windows.Forms.Label();
             this.label88 = new System.Windows.Forms.Label();
             this.tabTerraforming = new System.Windows.Forms.TabPage();
@@ -326,9 +326,9 @@ namespace Nova.WinForms.ComponentEditor
             this.label73 = new System.Windows.Forms.Label();
             this.label72 = new System.Windows.Forms.Label();
             this.label71 = new System.Windows.Forms.Label();
-            this.RadiationMod = new System.Windows.Forms.NumericUpDown();
-            this.TemperatureMod = new System.Windows.Forms.NumericUpDown();
-            this.GravityMod = new System.Windows.Forms.NumericUpDown();
+            this.radiationMod = new System.Windows.Forms.NumericUpDown();
+            this.temperatureMod = new System.Windows.Forms.NumericUpDown();
+            this.gravityMod = new System.Windows.Forms.NumericUpDown();
             this.label69 = new System.Windows.Forms.Label();
             this.label68 = new System.Windows.Forms.Label();
             this.label67 = new System.Windows.Forms.Label();
@@ -342,158 +342,158 @@ namespace Nova.WinForms.ComponentEditor
             this.isSapper = new System.Windows.Forms.RadioButton();
             this.isStandardBeam = new System.Windows.Forms.RadioButton();
             this.groupBox27 = new System.Windows.Forms.GroupBox();
-            this.MinesSwept = new System.Windows.Forms.Label();
-            this.WeaponAccuracy = new System.Windows.Forms.NumericUpDown();
-            this.WeaponRange = new System.Windows.Forms.NumericUpDown();
-            this.WeaponInitiative = new System.Windows.Forms.NumericUpDown();
-            this.WeaponPower = new System.Windows.Forms.NumericUpDown();
+            this.minesSwept = new System.Windows.Forms.Label();
+            this.weaponAccuracy = new System.Windows.Forms.NumericUpDown();
+            this.weaponRange = new System.Windows.Forms.NumericUpDown();
+            this.weaponInitiative = new System.Windows.Forms.NumericUpDown();
+            this.weaponPower = new System.Windows.Forms.NumericUpDown();
             this.label70 = new System.Windows.Forms.Label();
             this.label74 = new System.Windows.Forms.Label();
             this.label75 = new System.Windows.Forms.Label();
             this.label76 = new System.Windows.Forms.Label();
-            this.ComponentImage = new Nova.WinForms.ComponentEditor.ImageDisplay();
-            this.TechRequirements = new Nova.WinForms.ComponentEditor.TechRequirements();
-            this.BasicProperties = new Nova.WinForms.ComponentEditor.BasicProperties();
-            this.MainMenu.SuspendLayout();
+            this.componentImage = new Nova.WinForms.ComponentEditor.ImageDisplay();
+            this.techRequirements = new Nova.WinForms.ComponentEditor.TechRequirements();
+            this.basicProperties = new Nova.WinForms.ComponentEditor.BasicProperties();
+            this.mainMenu.SuspendLayout();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox5.SuspendLayout();
-            this.PropertyTabs.SuspendLayout();
+            this.propertyTabs.SuspendLayout();
             this.tabArmor.SuspendLayout();
             this.groupBox8.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Armor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.armor)).BeginInit();
             this.tabMovement.SuspendLayout();
             this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BattleMovement)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.battleMovement)).BeginInit();
             this.tabBomb.SuspendLayout();
             this.groupBox10.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MinimumPopKill)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstallationsDestroyed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PopulationKill)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minimumPopKill)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.installationsDestroyed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.populationKill)).BeginInit();
             this.tabCapacitor.SuspendLayout();
             this.groupBox11.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BeamDamage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.beamDamage)).BeginInit();
             this.tabCargo.SuspendLayout();
             this.groupBox12.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CargoCapacity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cargoCapacity)).BeginInit();
             this.tabCloak.SuspendLayout();
             this.groupBox13.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Cloaking)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cloaking)).BeginInit();
             this.tabColonization.SuspendLayout();
             this.groupBox14.SuspendLayout();
             this.tabComputer.SuspendLayout();
             this.groupBox15.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Initiative)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Accuracy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.initiative)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accuracy)).BeginInit();
             this.tabDefense.SuspendLayout();
             this.groupBox16.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DefenseCover1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.defenseCover1)).BeginInit();
             this.tabDeflector.SuspendLayout();
             this.groupBox32.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BeamDeflector)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.beamDeflector)).BeginInit();
             this.tabEnergyDampener.SuspendLayout();
             this.groupBox31.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EnergyDampener)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.energyDampener)).BeginInit();
             this.tabEngine.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EngineFastestFreeSpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EngineOptimalSpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EngineFastestSafeSpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W2Fuel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W3Fuel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W4Fuel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W5Fuel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W6Fuel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W7Fuel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W8Fuel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W9Fuel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W10Fuel)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W1Fuel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.engineFastestFreeSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.engineOptimalSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.engineFastestSafeSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp2Fuel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp3Fuel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp4Fuel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp5Fuel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp6Fuel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp7Fuel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp8Fuel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp9Fuel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp10Fuel)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp1Fuel)).BeginInit();
             this.tabFuel.SuspendLayout();
             this.groupBox18.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FuelCapacity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FuelGeneration)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fuelCapacity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fuelGeneration)).BeginInit();
             this.tabGate.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SafeRange)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SafeHullMass)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.safeRange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.safeHullMass)).BeginInit();
             this.tabHull.SuspendLayout();
             this.groupBox19.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ARMaxPop)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HullCargoCapacity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HullFuelCapacity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HullInitiative)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HullDockCapacity)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HullArmor)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.alternateRealityMaxPop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hullCargoCapacity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hullFuelCapacity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hullInitiative)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hullDockCapacity)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hullArmor)).BeginInit();
             this.tabHullAffinity.SuspendLayout();
             this.groupBox29.SuspendLayout();
             this.tabJammer.SuspendLayout();
             this.groupBox20.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Deflection)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.deflection)).BeginInit();
             this.tabLayerEfficiency.SuspendLayout();
-            this.ImprovedMineLayingEfficiency.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MineLayerEfficiency)).BeginInit();
+            this.improvedMineLayingEfficiency.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mineLayerEfficiency)).BeginInit();
             this.tabDriver.SuspendLayout();
             this.groupBox21.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MassDriverSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.massDriverSpeed)).BeginInit();
             this.tabMineLayer.SuspendLayout();
             this.groupBox22.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MineMinRamScoopDamage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MineMinFleetDamage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MineDamagePerRamScoop)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MineDamagePerEngine)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MineHitChance)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MineSafeSpeed)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MineLayingRate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineMinRamScoopDamage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineMinFleetDamage)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineDamagePerRamScoop)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineDamagePerEngine)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineHitChance)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineSafeSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineLayingRate)).BeginInit();
             this.tabRadiation.SuspendLayout();
             this.groupBox28.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Radiation)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radiation)).BeginInit();
             this.tabRobot.SuspendLayout();
             this.groupBox23.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MiningRate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.miningRate)).BeginInit();
             this.tabOrbitalAdjuster.SuspendLayout();
             this.groupBox24.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AdjusterRate)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adjusterRate)).BeginInit();
             this.tabScanner.SuspendLayout();
             this.groupBox17.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NormalRange)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PenetratingRange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.normalRange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.penetratingRange)).BeginInit();
             this.tabShield.SuspendLayout();
             this.groupBox25.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Shield)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.shield)).BeginInit();
             this.tabTachyonDetector.SuspendLayout();
             this.groupBox30.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TachyonDetector)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tachyonDetector)).BeginInit();
             this.tabTerraforming.SuspendLayout();
             this.groupBox26.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.RadiationMod)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TemperatureMod)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GravityMod)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radiationMod)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.temperatureMod)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gravityMod)).BeginInit();
             this.tabTransportShipsOnly.SuspendLayout();
             this.tabWeapon.SuspendLayout();
             this.groupBoxWeaponType.SuspendLayout();
             this.groupBox27.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.WeaponAccuracy)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.WeaponRange)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.WeaponInitiative)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.WeaponPower)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponAccuracy)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponRange)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponInitiative)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponPower)).BeginInit();
             this.SuspendLayout();
             // 
             // ResetFileLocation
             // 
-            this.ResetFileLocation.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resetFileLocation.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newFileMenuItem,
             this.openFileMenuItem,
             this.saveFileMenuItem,
             this.saveFileAsMenuItem,
             this.toolStripMenuItem3,
             this.exitToolStripMenuItem});
-            this.ResetFileLocation.Name = "ResetFileLocation";
-            this.ResetFileLocation.Size = new System.Drawing.Size(37, 20);
-            this.ResetFileLocation.Text = "&File";
+            this.resetFileLocation.Name = "ResetFileLocation";
+            this.resetFileLocation.Size = new System.Drawing.Size(37, 20);
+            this.resetFileLocation.Text = "&File";
             // 
             // menuItem_NewFile
             // 
@@ -552,17 +552,17 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // MainMenu
             // 
-            this.MainMenu.BackColor = System.Drawing.SystemColors.Control;
-            this.MainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.ResetFileLocation,
+            this.mainMenu.BackColor = System.Drawing.SystemColors.Control;
+            this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.resetFileLocation,
             this.menuStripComponent,
             this.propertyToolStripMenuItem,
             this.helpToolStripMenuItem});
-            this.MainMenu.Location = new System.Drawing.Point(0, 0);
-            this.MainMenu.Name = "MainMenu";
-            this.MainMenu.Size = new System.Drawing.Size(904, 24);
-            this.MainMenu.TabIndex = 2;
-            this.MainMenu.Text = "menuStrip1";
+            this.mainMenu.Location = new System.Drawing.Point(0, 0);
+            this.mainMenu.Name = "mainMenu";
+            this.mainMenu.Size = new System.Drawing.Size(904, 24);
+            this.mainMenu.TabIndex = 2;
+            this.mainMenu.Text = "menuStrip1";
             // 
             // menuStripComponent
             // 
@@ -901,7 +901,7 @@ namespace Nova.WinForms.ComponentEditor
             // planetaryToolStripMenuItem
             // 
             this.planetaryToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.DefenseToolStripMenuItem,
+            this.defenseToolStripMenuItem,
             this.planetaryScannerToolStripMenuItem,
             this.terraformingToolStripMenuItem});
             this.planetaryToolStripMenuItem.Name = "planetaryToolStripMenuItem";
@@ -910,10 +910,10 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // DefenseToolStripMenuItem
             // 
-            this.DefenseToolStripMenuItem.Name = "DefenseToolStripMenuItem";
-            this.DefenseToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
-            this.DefenseToolStripMenuItem.Text = "Defense";
-            this.DefenseToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
+            this.defenseToolStripMenuItem.Name = "DefenseToolStripMenuItem";
+            this.defenseToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
+            this.defenseToolStripMenuItem.Text = "Defense";
+            this.defenseToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
             // 
             // planetaryScannerToolStripMenuItem
             // 
@@ -959,19 +959,19 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // RestrictionSummary
             // 
-            this.RestrictionSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.restrictionSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                       | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.tableLayoutPanel1.SetColumnSpan(this.RestrictionSummary, 2);
-            this.RestrictionSummary.ForeColor = System.Drawing.Color.Maroon;
-            this.RestrictionSummary.Location = new System.Drawing.Point(403, 178);
-            this.RestrictionSummary.Multiline = true;
-            this.RestrictionSummary.Name = "RestrictionSummary";
-            this.RestrictionSummary.ReadOnly = true;
-            this.RestrictionSummary.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.RestrictionSummary.Size = new System.Drawing.Size(498, 82);
-            this.RestrictionSummary.TabIndex = 19;
-            this.RestrictionSummary.Text = "This component only available to the primary racial trait \'Inner Strength\'.";
+            this.tableLayoutPanel1.SetColumnSpan(this.restrictionSummary, 2);
+            this.restrictionSummary.ForeColor = System.Drawing.Color.Maroon;
+            this.restrictionSummary.Location = new System.Drawing.Point(403, 178);
+            this.restrictionSummary.Multiline = true;
+            this.restrictionSummary.Name = "restrictionSummary";
+            this.restrictionSummary.ReadOnly = true;
+            this.restrictionSummary.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.restrictionSummary.Size = new System.Drawing.Size(498, 82);
+            this.restrictionSummary.TabIndex = 19;
+            this.restrictionSummary.Text = "This component only available to the primary racial trait \'Inner Strength\'.";
             // 
             // tableLayoutPanel1
             // 
@@ -985,13 +985,13 @@ namespace Nova.WinForms.ComponentEditor
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 125F));
             this.tableLayoutPanel1.Controls.Add(this.groupBox3, 2, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBox4, 0, 1);
-            this.tableLayoutPanel1.Controls.Add(this.RestrictionSummary, 2, 2);
+            this.tableLayoutPanel1.Controls.Add(this.restrictionSummary, 2, 2);
             this.tableLayoutPanel1.Controls.Add(this.groupBox1, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBox2, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.groupBox5, 2, 3);
-            this.tableLayoutPanel1.Controls.Add(this.ComponentImage, 3, 0);
-            this.tableLayoutPanel1.Controls.Add(this.TechRequirements, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.BasicProperties, 1, 3);
+            this.tableLayoutPanel1.Controls.Add(this.componentImage, 3, 0);
+            this.tableLayoutPanel1.Controls.Add(this.techRequirements, 1, 1);
+            this.tableLayoutPanel1.Controls.Add(this.basicProperties, 1, 3);
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 27);
             this.tableLayoutPanel1.MinimumSize = new System.Drawing.Size(904, 528);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -1008,7 +1008,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                       | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox3.Controls.Add(this.Description);
+            this.groupBox3.Controls.Add(this.description);
             this.groupBox3.Location = new System.Drawing.Point(403, 3);
             this.groupBox3.Name = "groupBox3";
             this.tableLayoutPanel1.SetRowSpan(this.groupBox3, 2);
@@ -1019,22 +1019,22 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // Description
             // 
-            this.Description.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.description.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                       | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.Description.Location = new System.Drawing.Point(7, 16);
-            this.Description.Multiline = true;
-            this.Description.Name = "Description";
-            this.Description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.Description.Size = new System.Drawing.Size(360, 147);
-            this.Description.TabIndex = 9;
+            this.description.Location = new System.Drawing.Point(7, 16);
+            this.description.Multiline = true;
+            this.description.Name = "description";
+            this.description.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
+            this.description.Size = new System.Drawing.Size(360, 147);
+            this.description.TabIndex = 9;
             // 
             // groupBox4
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                       | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox4.Controls.Add(this.ComponentList);
+            this.groupBox4.Controls.Add(this.componentList);
             this.groupBox4.Location = new System.Drawing.Point(3, 53);
             this.groupBox4.Name = "groupBox4";
             this.tableLayoutPanel1.SetRowSpan(this.groupBox4, 3);
@@ -1045,16 +1045,16 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // ComponentList
             // 
-            this.ComponentList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.componentList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                       | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.ComponentList.FormattingEnabled = true;
-            this.ComponentList.Location = new System.Drawing.Point(3, 16);
-            this.ComponentList.Name = "ComponentList";
-            this.ComponentList.Size = new System.Drawing.Size(188, 446);
-            this.ComponentList.Sorted = true;
-            this.ComponentList.TabIndex = 8;
-            this.ComponentList.SelectedIndexChanged += new System.EventHandler(this.ComponentList_SelectedIndexChanged);
+            this.componentList.FormattingEnabled = true;
+            this.componentList.Location = new System.Drawing.Point(3, 16);
+            this.componentList.Name = "componentList";
+            this.componentList.Size = new System.Drawing.Size(188, 446);
+            this.componentList.Sorted = true;
+            this.componentList.TabIndex = 8;
+            this.componentList.SelectedIndexChanged += new System.EventHandler(this.ComponentList_SelectedIndexChanged);
             // 
             // groupBox1
             // 
@@ -1062,7 +1062,7 @@ namespace Nova.WinForms.ComponentEditor
                       | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.groupBox1.Controls.Add(this.ComponentType);
+            this.groupBox1.Controls.Add(this.componentType);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
             this.groupBox1.Name = "groupBox1";
             this.groupBox1.Size = new System.Drawing.Size(194, 44);
@@ -1072,10 +1072,10 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // ComponentType
             // 
-            this.ComponentType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
-            this.ComponentType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
-            this.ComponentType.FormattingEnabled = true;
-            this.ComponentType.Items.AddRange(new object[] {
+            this.componentType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
+            this.componentType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.componentType.FormattingEnabled = true;
+            this.componentType.Items.AddRange(new object[] {
             "Armor",
             "Beam Weapons",
             "Bomb",
@@ -1091,20 +1091,20 @@ namespace Nova.WinForms.ComponentEditor
             "Shield",
             "Terraforming",
             "Torpedoes"});
-            this.ComponentType.Location = new System.Drawing.Point(14, 15);
-            this.ComponentType.MaxDropDownItems = 15;
-            this.ComponentType.Name = "ComponentType";
-            this.ComponentType.Size = new System.Drawing.Size(174, 21);
-            this.ComponentType.Sorted = true;
-            this.ComponentType.TabIndex = 0;
-            this.ComponentType.SelectedIndexChanged += new System.EventHandler(this.ComponentType_Changed);
+            this.componentType.Location = new System.Drawing.Point(14, 15);
+            this.componentType.MaxDropDownItems = 15;
+            this.componentType.Name = "componentType";
+            this.componentType.Size = new System.Drawing.Size(174, 21);
+            this.componentType.Sorted = true;
+            this.componentType.TabIndex = 0;
+            this.componentType.SelectedIndexChanged += new System.EventHandler(this.ComponentType_Changed);
             // 
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                       | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.ComponentName);
+            this.groupBox2.Controls.Add(this.componentName);
             this.groupBox2.Location = new System.Drawing.Point(203, 3);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(194, 44);
@@ -1114,11 +1114,11 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // ComponentName
             // 
-            this.ComponentName.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ComponentName.Location = new System.Drawing.Point(3, 16);
-            this.ComponentName.Name = "ComponentName";
-            this.ComponentName.Size = new System.Drawing.Size(188, 20);
-            this.ComponentName.TabIndex = 7;
+            this.componentName.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.componentName.Location = new System.Drawing.Point(3, 16);
+            this.componentName.Name = "componentName";
+            this.componentName.Size = new System.Drawing.Size(188, 20);
+            this.componentName.TabIndex = 7;
             // 
             // groupBox5
             // 
@@ -1126,7 +1126,7 @@ namespace Nova.WinForms.ComponentEditor
                       | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox5, 2);
-            this.groupBox5.Controls.Add(this.PropertyTabs);
+            this.groupBox5.Controls.Add(this.propertyTabs);
             this.groupBox5.Location = new System.Drawing.Point(403, 266);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(498, 259);
@@ -1136,49 +1136,49 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // PropertyTabs
             // 
-            this.PropertyTabs.Alignment = System.Windows.Forms.TabAlignment.Right;
-            this.PropertyTabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.propertyTabs.Alignment = System.Windows.Forms.TabAlignment.Right;
+            this.propertyTabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                       | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
-            this.PropertyTabs.Controls.Add(this.tabArmor);
-            this.PropertyTabs.Controls.Add(this.tabMovement);
-            this.PropertyTabs.Controls.Add(this.tabBomb);
-            this.PropertyTabs.Controls.Add(this.tabCapacitor);
-            this.PropertyTabs.Controls.Add(this.tabCargo);
-            this.PropertyTabs.Controls.Add(this.tabCloak);
-            this.PropertyTabs.Controls.Add(this.tabColonization);
-            this.PropertyTabs.Controls.Add(this.tabComputer);
-            this.PropertyTabs.Controls.Add(this.tabDefense);
-            this.PropertyTabs.Controls.Add(this.tabDeflector);
-            this.PropertyTabs.Controls.Add(this.tabEnergyDampener);
-            this.PropertyTabs.Controls.Add(this.tabEngine);
-            this.PropertyTabs.Controls.Add(this.tabFuel);
-            this.PropertyTabs.Controls.Add(this.tabGate);
-            this.PropertyTabs.Controls.Add(this.tabHull);
-            this.PropertyTabs.Controls.Add(this.tabHullAffinity);
-            this.PropertyTabs.Controls.Add(this.tabJammer);
-            this.PropertyTabs.Controls.Add(this.tabLayerEfficiency);
-            this.PropertyTabs.Controls.Add(this.tabDriver);
-            this.PropertyTabs.Controls.Add(this.tabMineLayer);
-            this.PropertyTabs.Controls.Add(this.tabRadiation);
-            this.PropertyTabs.Controls.Add(this.tabRobot);
-            this.PropertyTabs.Controls.Add(this.tabOrbitalAdjuster);
-            this.PropertyTabs.Controls.Add(this.tabScanner);
-            this.PropertyTabs.Controls.Add(this.tabShield);
-            this.PropertyTabs.Controls.Add(this.tabTachyonDetector);
-            this.PropertyTabs.Controls.Add(this.tabTerraforming);
-            this.PropertyTabs.Controls.Add(this.tabTransportShipsOnly);
-            this.PropertyTabs.Controls.Add(this.tabWeapon);
-            this.PropertyTabs.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.PropertyTabs.ItemSize = new System.Drawing.Size(25, 100);
-            this.PropertyTabs.Location = new System.Drawing.Point(3, 19);
-            this.PropertyTabs.Multiline = true;
-            this.PropertyTabs.Name = "PropertyTabs";
-            this.PropertyTabs.SelectedIndex = 0;
-            this.PropertyTabs.Size = new System.Drawing.Size(780, 238);
-            this.PropertyTabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.PropertyTabs.TabIndex = 4;
-            this.PropertyTabs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.PropertyTabs_DrawItem);
+            this.propertyTabs.Controls.Add(this.tabArmor);
+            this.propertyTabs.Controls.Add(this.tabMovement);
+            this.propertyTabs.Controls.Add(this.tabBomb);
+            this.propertyTabs.Controls.Add(this.tabCapacitor);
+            this.propertyTabs.Controls.Add(this.tabCargo);
+            this.propertyTabs.Controls.Add(this.tabCloak);
+            this.propertyTabs.Controls.Add(this.tabColonization);
+            this.propertyTabs.Controls.Add(this.tabComputer);
+            this.propertyTabs.Controls.Add(this.tabDefense);
+            this.propertyTabs.Controls.Add(this.tabDeflector);
+            this.propertyTabs.Controls.Add(this.tabEnergyDampener);
+            this.propertyTabs.Controls.Add(this.tabEngine);
+            this.propertyTabs.Controls.Add(this.tabFuel);
+            this.propertyTabs.Controls.Add(this.tabGate);
+            this.propertyTabs.Controls.Add(this.tabHull);
+            this.propertyTabs.Controls.Add(this.tabHullAffinity);
+            this.propertyTabs.Controls.Add(this.tabJammer);
+            this.propertyTabs.Controls.Add(this.tabLayerEfficiency);
+            this.propertyTabs.Controls.Add(this.tabDriver);
+            this.propertyTabs.Controls.Add(this.tabMineLayer);
+            this.propertyTabs.Controls.Add(this.tabRadiation);
+            this.propertyTabs.Controls.Add(this.tabRobot);
+            this.propertyTabs.Controls.Add(this.tabOrbitalAdjuster);
+            this.propertyTabs.Controls.Add(this.tabScanner);
+            this.propertyTabs.Controls.Add(this.tabShield);
+            this.propertyTabs.Controls.Add(this.tabTachyonDetector);
+            this.propertyTabs.Controls.Add(this.tabTerraforming);
+            this.propertyTabs.Controls.Add(this.tabTransportShipsOnly);
+            this.propertyTabs.Controls.Add(this.tabWeapon);
+            this.propertyTabs.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.propertyTabs.ItemSize = new System.Drawing.Size(25, 100);
+            this.propertyTabs.Location = new System.Drawing.Point(3, 19);
+            this.propertyTabs.Multiline = true;
+            this.propertyTabs.Name = "propertyTabs";
+            this.propertyTabs.SelectedIndex = 0;
+            this.propertyTabs.Size = new System.Drawing.Size(780, 238);
+            this.propertyTabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.propertyTabs.TabIndex = 4;
+            this.propertyTabs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.PropertyTabs_DrawItem);
             // 
             // tabArmor
             // 
@@ -1196,7 +1196,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox8.BackColor = System.Drawing.SystemColors.Control;
             this.groupBox8.Controls.Add(this.label79);
             this.groupBox8.Controls.Add(this.label1);
-            this.groupBox8.Controls.Add(this.Armor);
+            this.groupBox8.Controls.Add(this.armor);
             this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox8.Location = new System.Drawing.Point(3, 3);
             this.groupBox8.Name = "groupBox8";
@@ -1225,21 +1225,21 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // Armor
             // 
-            this.Armor.Increment = new decimal(new int[] {
+            this.armor.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.Armor.Location = new System.Drawing.Point(77, 34);
-            this.Armor.Maximum = new decimal(new int[] {
+            this.armor.Location = new System.Drawing.Point(77, 34);
+            this.armor.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
-            this.Armor.Name = "Armor";
-            this.Armor.Size = new System.Drawing.Size(77, 20);
-            this.Armor.TabIndex = 1;
-            this.Armor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.armor.Name = "armor";
+            this.armor.Size = new System.Drawing.Size(77, 20);
+            this.armor.TabIndex = 1;
+            this.armor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // tabMovement
             // 
@@ -1254,7 +1254,7 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // groupBox9
             // 
-            this.groupBox9.Controls.Add(this.BattleMovement);
+            this.groupBox9.Controls.Add(this.battleMovement);
             this.groupBox9.Controls.Add(this.label14);
             this.groupBox9.Location = new System.Drawing.Point(11, 13);
             this.groupBox9.Name = "groupBox9";
@@ -1265,27 +1265,27 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // BattleMovement
             // 
-            this.BattleMovement.DecimalPlaces = 2;
-            this.BattleMovement.Increment = new decimal(new int[] {
+            this.battleMovement.DecimalPlaces = 2;
+            this.battleMovement.Increment = new decimal(new int[] {
             25,
             0,
             0,
             131072});
-            this.BattleMovement.Location = new System.Drawing.Point(112, 26);
-            this.BattleMovement.Maximum = new decimal(new int[] {
+            this.battleMovement.Location = new System.Drawing.Point(112, 26);
+            this.battleMovement.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.BattleMovement.Minimum = new decimal(new int[] {
+            this.battleMovement.Minimum = new decimal(new int[] {
             10,
             0,
             0,
             -2147483648});
-            this.BattleMovement.Name = "BattleMovement";
-            this.BattleMovement.Size = new System.Drawing.Size(57, 20);
-            this.BattleMovement.TabIndex = 1;
-            this.BattleMovement.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.battleMovement.Name = "battleMovement";
+            this.battleMovement.Size = new System.Drawing.Size(57, 20);
+            this.battleMovement.TabIndex = 1;
+            this.battleMovement.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label14
             // 
@@ -1309,11 +1309,11 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // groupBox10
             // 
-            this.groupBox10.Controls.Add(this.SmartBomb);
-            this.groupBox10.Controls.Add(this.MinimumPopKill);
+            this.groupBox10.Controls.Add(this.smartBomb);
+            this.groupBox10.Controls.Add(this.minimumPopKill);
             this.groupBox10.Controls.Add(this.label17);
-            this.groupBox10.Controls.Add(this.InstallationsDestroyed);
-            this.groupBox10.Controls.Add(this.PopulationKill);
+            this.groupBox10.Controls.Add(this.installationsDestroyed);
+            this.groupBox10.Controls.Add(this.populationKill);
             this.groupBox10.Controls.Add(this.label18);
             this.groupBox10.Controls.Add(this.label19);
             this.groupBox10.Location = new System.Drawing.Point(11, 13);
@@ -1325,31 +1325,31 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // SmartBomb
             // 
-            this.SmartBomb.AutoSize = true;
-            this.SmartBomb.Location = new System.Drawing.Point(9, 106);
-            this.SmartBomb.Name = "SmartBomb";
-            this.SmartBomb.Size = new System.Drawing.Size(83, 17);
-            this.SmartBomb.TabIndex = 10;
-            this.SmartBomb.Text = "Smart Bomb";
-            this.SmartBomb.UseVisualStyleBackColor = true;
+            this.smartBomb.AutoSize = true;
+            this.smartBomb.Location = new System.Drawing.Point(9, 106);
+            this.smartBomb.Name = "smartBomb";
+            this.smartBomb.Size = new System.Drawing.Size(83, 17);
+            this.smartBomb.TabIndex = 10;
+            this.smartBomb.Text = "Smart Bomb";
+            this.smartBomb.UseVisualStyleBackColor = true;
             // 
             // MinimumPopKill
             // 
-            this.MinimumPopKill.Increment = new decimal(new int[] {
+            this.minimumPopKill.Increment = new decimal(new int[] {
             1,
             0,
             0,
             131072});
-            this.MinimumPopKill.Location = new System.Drawing.Point(112, 53);
-            this.MinimumPopKill.Maximum = new decimal(new int[] {
+            this.minimumPopKill.Location = new System.Drawing.Point(112, 53);
+            this.minimumPopKill.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.MinimumPopKill.Name = "MinimumPopKill";
-            this.MinimumPopKill.Size = new System.Drawing.Size(56, 20);
-            this.MinimumPopKill.TabIndex = 8;
-            this.MinimumPopKill.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.minimumPopKill.Name = "minimumPopKill";
+            this.minimumPopKill.Size = new System.Drawing.Size(56, 20);
+            this.minimumPopKill.TabIndex = 8;
+            this.minimumPopKill.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label17
             // 
@@ -1362,25 +1362,25 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // InstallationsDestroyed
             // 
-            this.InstallationsDestroyed.Location = new System.Drawing.Point(112, 79);
-            this.InstallationsDestroyed.Name = "InstallationsDestroyed";
-            this.InstallationsDestroyed.Size = new System.Drawing.Size(56, 20);
-            this.InstallationsDestroyed.TabIndex = 9;
-            this.InstallationsDestroyed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.installationsDestroyed.Location = new System.Drawing.Point(112, 79);
+            this.installationsDestroyed.Name = "installationsDestroyed";
+            this.installationsDestroyed.Size = new System.Drawing.Size(56, 20);
+            this.installationsDestroyed.TabIndex = 9;
+            this.installationsDestroyed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // PopulationKill
             // 
-            this.PopulationKill.DecimalPlaces = 1;
-            this.PopulationKill.Increment = new decimal(new int[] {
+            this.populationKill.DecimalPlaces = 1;
+            this.populationKill.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.PopulationKill.Location = new System.Drawing.Point(112, 27);
-            this.PopulationKill.Name = "PopulationKill";
-            this.PopulationKill.Size = new System.Drawing.Size(56, 20);
-            this.PopulationKill.TabIndex = 7;
-            this.PopulationKill.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.populationKill.Location = new System.Drawing.Point(112, 27);
+            this.populationKill.Name = "populationKill";
+            this.populationKill.Size = new System.Drawing.Size(56, 20);
+            this.populationKill.TabIndex = 7;
+            this.populationKill.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label18
             // 
@@ -1413,7 +1413,7 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox11
             // 
             this.groupBox11.Controls.Add(this.label21);
-            this.groupBox11.Controls.Add(this.BeamDamage);
+            this.groupBox11.Controls.Add(this.beamDamage);
             this.groupBox11.Controls.Add(this.label20);
             this.groupBox11.Location = new System.Drawing.Point(8, 13);
             this.groupBox11.Name = "groupBox11";
@@ -1433,26 +1433,26 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // BeamDamage
             // 
-            this.BeamDamage.Increment = new decimal(new int[] {
+            this.beamDamage.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.BeamDamage.Location = new System.Drawing.Point(98, 27);
-            this.BeamDamage.Maximum = new decimal(new int[] {
+            this.beamDamage.Location = new System.Drawing.Point(98, 27);
+            this.beamDamage.Maximum = new decimal(new int[] {
             250,
             0,
             0,
             0});
-            this.BeamDamage.Minimum = new decimal(new int[] {
+            this.beamDamage.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.BeamDamage.Name = "BeamDamage";
-            this.BeamDamage.Size = new System.Drawing.Size(62, 20);
-            this.BeamDamage.TabIndex = 1;
-            this.BeamDamage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.beamDamage.Name = "beamDamage";
+            this.beamDamage.Size = new System.Drawing.Size(62, 20);
+            this.beamDamage.TabIndex = 1;
+            this.beamDamage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label20
             // 
@@ -1476,7 +1476,7 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox12
             // 
             this.groupBox12.Controls.Add(this.label23);
-            this.groupBox12.Controls.Add(this.CargoCapacity);
+            this.groupBox12.Controls.Add(this.cargoCapacity);
             this.groupBox12.Controls.Add(this.label22);
             this.groupBox12.Location = new System.Drawing.Point(10, 13);
             this.groupBox12.Name = "groupBox12";
@@ -1496,21 +1496,21 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // CargoCapacity
             // 
-            this.CargoCapacity.Increment = new decimal(new int[] {
+            this.cargoCapacity.Increment = new decimal(new int[] {
             50,
             0,
             0,
             0});
-            this.CargoCapacity.Location = new System.Drawing.Point(100, 27);
-            this.CargoCapacity.Maximum = new decimal(new int[] {
+            this.cargoCapacity.Location = new System.Drawing.Point(100, 27);
+            this.cargoCapacity.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.CargoCapacity.Name = "CargoCapacity";
-            this.CargoCapacity.Size = new System.Drawing.Size(78, 20);
-            this.CargoCapacity.TabIndex = 1;
-            this.CargoCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.cargoCapacity.Name = "cargoCapacity";
+            this.cargoCapacity.Size = new System.Drawing.Size(78, 20);
+            this.cargoCapacity.TabIndex = 1;
+            this.cargoCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label22
             // 
@@ -1533,7 +1533,7 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // groupBox13
             // 
-            this.groupBox13.Controls.Add(this.Cloaking);
+            this.groupBox13.Controls.Add(this.cloaking);
             this.groupBox13.Controls.Add(this.label25);
             this.groupBox13.Controls.Add(this.label24);
             this.groupBox13.Location = new System.Drawing.Point(7, 7);
@@ -1545,16 +1545,16 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // Cloaking
             // 
-            this.Cloaking.Increment = new decimal(new int[] {
+            this.cloaking.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.Cloaking.Location = new System.Drawing.Point(76, 33);
-            this.Cloaking.Name = "Cloaking";
-            this.Cloaking.Size = new System.Drawing.Size(62, 20);
-            this.Cloaking.TabIndex = 3;
-            this.Cloaking.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.cloaking.Location = new System.Drawing.Point(76, 33);
+            this.cloaking.Name = "cloaking";
+            this.cloaking.Size = new System.Drawing.Size(62, 20);
+            this.cloaking.TabIndex = 3;
+            this.cloaking.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label25
             // 
@@ -1586,8 +1586,8 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // groupBox14
             // 
-            this.groupBox14.Controls.Add(this.OrbitalColonizationModule);
-            this.groupBox14.Controls.Add(this.ColonizationModule);
+            this.groupBox14.Controls.Add(this.orbitalColonizationModule);
+            this.groupBox14.Controls.Add(this.colonizationModule);
             this.groupBox14.Location = new System.Drawing.Point(9, 9);
             this.groupBox14.Name = "groupBox14";
             this.groupBox14.Size = new System.Drawing.Size(348, 214);
@@ -1597,25 +1597,25 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // OrbitalColonizationModule
             // 
-            this.OrbitalColonizationModule.AutoSize = true;
-            this.OrbitalColonizationModule.Location = new System.Drawing.Point(6, 52);
-            this.OrbitalColonizationModule.Name = "OrbitalColonizationModule";
-            this.OrbitalColonizationModule.Size = new System.Drawing.Size(153, 17);
-            this.OrbitalColonizationModule.TabIndex = 1;
-            this.OrbitalColonizationModule.Text = "Orbital Colonization Module";
-            this.OrbitalColonizationModule.UseVisualStyleBackColor = true;
+            this.orbitalColonizationModule.AutoSize = true;
+            this.orbitalColonizationModule.Location = new System.Drawing.Point(6, 52);
+            this.orbitalColonizationModule.Name = "orbitalColonizationModule";
+            this.orbitalColonizationModule.Size = new System.Drawing.Size(153, 17);
+            this.orbitalColonizationModule.TabIndex = 1;
+            this.orbitalColonizationModule.Text = "Orbital Colonization Module";
+            this.orbitalColonizationModule.UseVisualStyleBackColor = true;
             // 
             // ColonizationModule
             // 
-            this.ColonizationModule.AutoSize = true;
-            this.ColonizationModule.Checked = true;
-            this.ColonizationModule.Location = new System.Drawing.Point(6, 29);
-            this.ColonizationModule.Name = "ColonizationModule";
-            this.ColonizationModule.Size = new System.Drawing.Size(120, 17);
-            this.ColonizationModule.TabIndex = 0;
-            this.ColonizationModule.TabStop = true;
-            this.ColonizationModule.Text = "Colonization Module";
-            this.ColonizationModule.UseVisualStyleBackColor = true;
+            this.colonizationModule.AutoSize = true;
+            this.colonizationModule.Checked = true;
+            this.colonizationModule.Location = new System.Drawing.Point(6, 29);
+            this.colonizationModule.Name = "colonizationModule";
+            this.colonizationModule.Size = new System.Drawing.Size(120, 17);
+            this.colonizationModule.TabIndex = 0;
+            this.colonizationModule.TabStop = true;
+            this.colonizationModule.Text = "Colonization Module";
+            this.colonizationModule.UseVisualStyleBackColor = true;
             // 
             // tabComputer
             // 
@@ -1631,9 +1631,9 @@ namespace Nova.WinForms.ComponentEditor
             // 
             this.groupBox15.Controls.Add(this.label26);
             this.groupBox15.Controls.Add(this.label2);
-            this.groupBox15.Controls.Add(this.Initiative);
+            this.groupBox15.Controls.Add(this.initiative);
             this.groupBox15.Controls.Add(this.label3);
-            this.groupBox15.Controls.Add(this.Accuracy);
+            this.groupBox15.Controls.Add(this.accuracy);
             this.groupBox15.Location = new System.Drawing.Point(8, 11);
             this.groupBox15.Name = "groupBox15";
             this.groupBox15.Size = new System.Drawing.Size(352, 209);
@@ -1661,11 +1661,11 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // Initiative
             // 
-            this.Initiative.Location = new System.Drawing.Point(80, 55);
-            this.Initiative.Name = "Initiative";
-            this.Initiative.Size = new System.Drawing.Size(76, 20);
-            this.Initiative.TabIndex = 2;
-            this.Initiative.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.initiative.Location = new System.Drawing.Point(80, 55);
+            this.initiative.Name = "initiative";
+            this.initiative.Size = new System.Drawing.Size(76, 20);
+            this.initiative.TabIndex = 2;
+            this.initiative.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label3
             // 
@@ -1678,16 +1678,16 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // Accuracy
             // 
-            this.Accuracy.Increment = new decimal(new int[] {
+            this.accuracy.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.Accuracy.Location = new System.Drawing.Point(80, 29);
-            this.Accuracy.Name = "Accuracy";
-            this.Accuracy.Size = new System.Drawing.Size(77, 20);
-            this.Accuracy.TabIndex = 1;
-            this.Accuracy.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.accuracy.Location = new System.Drawing.Point(80, 29);
+            this.accuracy.Name = "accuracy";
+            this.accuracy.Size = new System.Drawing.Size(77, 20);
+            this.accuracy.TabIndex = 1;
+            this.accuracy.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // tabDefense
             // 
@@ -1701,15 +1701,15 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // groupBox16
             // 
-            this.groupBox16.Controls.Add(this.DefenseCover100);
+            this.groupBox16.Controls.Add(this.defenseCover100);
             this.groupBox16.Controls.Add(this.label35);
             this.groupBox16.Controls.Add(this.label36);
-            this.groupBox16.Controls.Add(this.DefenseCover80);
-            this.groupBox16.Controls.Add(this.DefenseCover40);
+            this.groupBox16.Controls.Add(this.defenseCover80);
+            this.groupBox16.Controls.Add(this.defenseCover40);
             this.groupBox16.Controls.Add(this.label32);
             this.groupBox16.Controls.Add(this.label31);
             this.groupBox16.Controls.Add(this.label30);
-            this.groupBox16.Controls.Add(this.DefenseCover1);
+            this.groupBox16.Controls.Add(this.defenseCover1);
             this.groupBox16.Controls.Add(this.label29);
             this.groupBox16.Controls.Add(this.label28);
             this.groupBox16.Controls.Add(this.label27);
@@ -1722,12 +1722,12 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // DefenseCover100
             // 
-            this.DefenseCover100.AutoSize = true;
-            this.DefenseCover100.Location = new System.Drawing.Point(138, 115);
-            this.DefenseCover100.Name = "DefenseCover100";
-            this.DefenseCover100.Size = new System.Drawing.Size(28, 13);
-            this.DefenseCover100.TabIndex = 11;
-            this.DefenseCover100.Text = "0.00";
+            this.defenseCover100.AutoSize = true;
+            this.defenseCover100.Location = new System.Drawing.Point(138, 115);
+            this.defenseCover100.Name = "defenseCover100";
+            this.defenseCover100.Size = new System.Drawing.Size(28, 13);
+            this.defenseCover100.TabIndex = 11;
+            this.defenseCover100.Text = "0.00";
             // 
             // label35
             // 
@@ -1749,21 +1749,21 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // DefenseCover80
             // 
-            this.DefenseCover80.AutoSize = true;
-            this.DefenseCover80.Location = new System.Drawing.Point(138, 91);
-            this.DefenseCover80.Name = "DefenseCover80";
-            this.DefenseCover80.Size = new System.Drawing.Size(28, 13);
-            this.DefenseCover80.TabIndex = 8;
-            this.DefenseCover80.Text = "0.00";
+            this.defenseCover80.AutoSize = true;
+            this.defenseCover80.Location = new System.Drawing.Point(138, 91);
+            this.defenseCover80.Name = "defenseCover80";
+            this.defenseCover80.Size = new System.Drawing.Size(28, 13);
+            this.defenseCover80.TabIndex = 8;
+            this.defenseCover80.Text = "0.00";
             // 
             // DefenseCover40
             // 
-            this.DefenseCover40.AutoSize = true;
-            this.DefenseCover40.Location = new System.Drawing.Point(138, 66);
-            this.DefenseCover40.Name = "DefenseCover40";
-            this.DefenseCover40.Size = new System.Drawing.Size(28, 13);
-            this.DefenseCover40.TabIndex = 7;
-            this.DefenseCover40.Text = "0.00";
+            this.defenseCover40.AutoSize = true;
+            this.defenseCover40.Location = new System.Drawing.Point(138, 66);
+            this.defenseCover40.Name = "defenseCover40";
+            this.defenseCover40.Size = new System.Drawing.Size(28, 13);
+            this.defenseCover40.TabIndex = 7;
+            this.defenseCover40.Text = "0.00";
             // 
             // label32
             // 
@@ -1794,16 +1794,16 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // DefenseCover1
             // 
-            this.DefenseCover1.DecimalPlaces = 2;
-            this.DefenseCover1.Increment = new decimal(new int[] {
+            this.defenseCover1.DecimalPlaces = 2;
+            this.defenseCover1.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.DefenseCover1.Location = new System.Drawing.Point(134, 30);
-            this.DefenseCover1.Name = "DefenseCover1";
-            this.DefenseCover1.Size = new System.Drawing.Size(57, 20);
-            this.DefenseCover1.TabIndex = 3;
+            this.defenseCover1.Location = new System.Drawing.Point(134, 30);
+            this.defenseCover1.Name = "defenseCover1";
+            this.defenseCover1.Size = new System.Drawing.Size(57, 20);
+            this.defenseCover1.TabIndex = 3;
             // 
             // label29
             // 
@@ -1845,7 +1845,7 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox32
             // 
             this.groupBox32.Controls.Add(this.label92);
-            this.groupBox32.Controls.Add(this.BeamDeflector);
+            this.groupBox32.Controls.Add(this.beamDeflector);
             this.groupBox32.Controls.Add(this.label91);
             this.groupBox32.Location = new System.Drawing.Point(11, 11);
             this.groupBox32.Name = "groupBox32";
@@ -1865,11 +1865,11 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // BeamDeflector
             // 
-            this.BeamDeflector.Location = new System.Drawing.Point(80, 29);
-            this.BeamDeflector.Name = "BeamDeflector";
-            this.BeamDeflector.Size = new System.Drawing.Size(63, 20);
-            this.BeamDeflector.TabIndex = 1;
-            this.BeamDeflector.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.beamDeflector.Location = new System.Drawing.Point(80, 29);
+            this.beamDeflector.Name = "beamDeflector";
+            this.beamDeflector.Size = new System.Drawing.Size(63, 20);
+            this.beamDeflector.TabIndex = 1;
+            this.beamDeflector.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label91
             // 
@@ -1893,7 +1893,7 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox31
             // 
             this.groupBox31.Controls.Add(this.textBox6);
-            this.groupBox31.Controls.Add(this.EnergyDampener);
+            this.groupBox31.Controls.Add(this.energyDampener);
             this.groupBox31.Controls.Add(this.label90);
             this.groupBox31.Location = new System.Drawing.Point(8, 11);
             this.groupBox31.Name = "groupBox31";
@@ -1914,22 +1914,22 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // EnergyDampener
             // 
-            this.EnergyDampener.DecimalPlaces = 2;
-            this.EnergyDampener.Increment = new decimal(new int[] {
+            this.energyDampener.DecimalPlaces = 2;
+            this.energyDampener.Increment = new decimal(new int[] {
             25,
             0,
             0,
             131072});
-            this.EnergyDampener.Location = new System.Drawing.Point(132, 29);
-            this.EnergyDampener.Maximum = new decimal(new int[] {
+            this.energyDampener.Location = new System.Drawing.Point(132, 29);
+            this.energyDampener.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.EnergyDampener.Name = "EnergyDampener";
-            this.EnergyDampener.Size = new System.Drawing.Size(65, 20);
-            this.EnergyDampener.TabIndex = 1;
-            this.EnergyDampener.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.energyDampener.Name = "energyDampener";
+            this.energyDampener.Size = new System.Drawing.Size(65, 20);
+            this.energyDampener.TabIndex = 1;
+            this.energyDampener.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label90
             // 
@@ -1952,17 +1952,17 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.EngineFastestFreeSpeed);
+            this.groupBox6.Controls.Add(this.engineFastestFreeSpeed);
             this.groupBox6.Controls.Add(this.label85);
             this.groupBox6.Controls.Add(this.label84);
             this.groupBox6.Controls.Add(this.label83);
             this.groupBox6.Controls.Add(this.label82);
             this.groupBox6.Controls.Add(this.label81);
-            this.groupBox6.Controls.Add(this.EngineOptimalSpeed);
+            this.groupBox6.Controls.Add(this.engineOptimalSpeed);
             this.groupBox6.Controls.Add(this.label80);
-            this.groupBox6.Controls.Add(this.EngineFastestSafeSpeed);
+            this.groupBox6.Controls.Add(this.engineFastestSafeSpeed);
             this.groupBox6.Controls.Add(this.label39);
-            this.groupBox6.Controls.Add(this.RamScoopCheckBox);
+            this.groupBox6.Controls.Add(this.ramScoopCheckBox);
             this.groupBox6.Controls.Add(this.label10);
             this.groupBox6.Controls.Add(this.label9);
             this.groupBox6.Controls.Add(this.label8);
@@ -1973,16 +1973,16 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox6.Controls.Add(this.label11);
             this.groupBox6.Controls.Add(this.label12);
             this.groupBox6.Controls.Add(this.label13);
-            this.groupBox6.Controls.Add(this.W2Fuel);
-            this.groupBox6.Controls.Add(this.W3Fuel);
-            this.groupBox6.Controls.Add(this.W4Fuel);
-            this.groupBox6.Controls.Add(this.W5Fuel);
-            this.groupBox6.Controls.Add(this.W6Fuel);
-            this.groupBox6.Controls.Add(this.W7Fuel);
-            this.groupBox6.Controls.Add(this.W8Fuel);
-            this.groupBox6.Controls.Add(this.W9Fuel);
-            this.groupBox6.Controls.Add(this.W10Fuel);
-            this.groupBox6.Controls.Add(this.W1Fuel);
+            this.groupBox6.Controls.Add(this.warp2Fuel);
+            this.groupBox6.Controls.Add(this.warp3Fuel);
+            this.groupBox6.Controls.Add(this.warp4Fuel);
+            this.groupBox6.Controls.Add(this.warp5Fuel);
+            this.groupBox6.Controls.Add(this.warp6Fuel);
+            this.groupBox6.Controls.Add(this.warp7Fuel);
+            this.groupBox6.Controls.Add(this.warp8Fuel);
+            this.groupBox6.Controls.Add(this.warp9Fuel);
+            this.groupBox6.Controls.Add(this.warp10Fuel);
+            this.groupBox6.Controls.Add(this.warp1Fuel);
             this.groupBox6.Location = new System.Drawing.Point(8, 8);
             this.groupBox6.Name = "groupBox6";
             this.groupBox6.Size = new System.Drawing.Size(349, 213);
@@ -1992,17 +1992,17 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // EngineFastestFreeSpeed
             // 
-            this.EngineFastestFreeSpeed.Location = new System.Drawing.Point(139, 70);
-            this.EngineFastestFreeSpeed.Maximum = new decimal(new int[] {
+            this.engineFastestFreeSpeed.Location = new System.Drawing.Point(139, 70);
+            this.engineFastestFreeSpeed.Maximum = new decimal(new int[] {
             12,
             0,
             0,
             0});
-            this.EngineFastestFreeSpeed.Name = "EngineFastestFreeSpeed";
-            this.EngineFastestFreeSpeed.ReadOnly = true;
-            this.EngineFastestFreeSpeed.Size = new System.Drawing.Size(48, 20);
-            this.EngineFastestFreeSpeed.TabIndex = 30;
-            this.EngineFastestFreeSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.engineFastestFreeSpeed.Name = "engineFastestFreeSpeed";
+            this.engineFastestFreeSpeed.ReadOnly = true;
+            this.engineFastestFreeSpeed.Size = new System.Drawing.Size(48, 20);
+            this.engineFastestFreeSpeed.TabIndex = 30;
+            this.engineFastestFreeSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label85
             // 
@@ -2051,16 +2051,16 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // EngineOptimalSpeed
             // 
-            this.EngineOptimalSpeed.Location = new System.Drawing.Point(139, 20);
-            this.EngineOptimalSpeed.Maximum = new decimal(new int[] {
+            this.engineOptimalSpeed.Location = new System.Drawing.Point(139, 20);
+            this.engineOptimalSpeed.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.EngineOptimalSpeed.Name = "EngineOptimalSpeed";
-            this.EngineOptimalSpeed.Size = new System.Drawing.Size(48, 20);
-            this.EngineOptimalSpeed.TabIndex = 22;
-            this.EngineOptimalSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.engineOptimalSpeed.Name = "engineOptimalSpeed";
+            this.engineOptimalSpeed.Size = new System.Drawing.Size(48, 20);
+            this.engineOptimalSpeed.TabIndex = 22;
+            this.engineOptimalSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label80
             // 
@@ -2073,16 +2073,16 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // EngineFastestSafeSpeed
             // 
-            this.EngineFastestSafeSpeed.Location = new System.Drawing.Point(139, 45);
-            this.EngineFastestSafeSpeed.Maximum = new decimal(new int[] {
+            this.engineFastestSafeSpeed.Location = new System.Drawing.Point(139, 45);
+            this.engineFastestSafeSpeed.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.EngineFastestSafeSpeed.Name = "EngineFastestSafeSpeed";
-            this.EngineFastestSafeSpeed.Size = new System.Drawing.Size(48, 20);
-            this.EngineFastestSafeSpeed.TabIndex = 10;
-            this.EngineFastestSafeSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.engineFastestSafeSpeed.Name = "engineFastestSafeSpeed";
+            this.engineFastestSafeSpeed.Size = new System.Drawing.Size(48, 20);
+            this.engineFastestSafeSpeed.TabIndex = 10;
+            this.engineFastestSafeSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label39
             // 
@@ -2095,13 +2095,13 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // RamScoopCheckBox
             // 
-            this.RamScoopCheckBox.AutoSize = true;
-            this.RamScoopCheckBox.Location = new System.Drawing.Point(213, 19);
-            this.RamScoopCheckBox.Name = "RamScoopCheckBox";
-            this.RamScoopCheckBox.Size = new System.Drawing.Size(118, 17);
-            this.RamScoopCheckBox.TabIndex = 11;
-            this.RamScoopCheckBox.Text = "Ram Scoop Engine";
-            this.RamScoopCheckBox.UseVisualStyleBackColor = true;
+            this.ramScoopCheckBox.AutoSize = true;
+            this.ramScoopCheckBox.Location = new System.Drawing.Point(213, 19);
+            this.ramScoopCheckBox.Name = "ramScoopCheckBox";
+            this.ramScoopCheckBox.Size = new System.Drawing.Size(118, 17);
+            this.ramScoopCheckBox.TabIndex = 11;
+            this.ramScoopCheckBox.Text = "Ram Scoop Engine";
+            this.ramScoopCheckBox.UseVisualStyleBackColor = true;
             // 
             // label10
             // 
@@ -2195,133 +2195,133 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // W2Fuel
             // 
-            this.W2Fuel.Location = new System.Drawing.Point(139, 109);
-            this.W2Fuel.Maximum = new decimal(new int[] {
+            this.warp2Fuel.Location = new System.Drawing.Point(139, 109);
+            this.warp2Fuel.Maximum = new decimal(new int[] {
             5000,
             0,
             0,
             0});
-            this.W2Fuel.Name = "W2Fuel";
-            this.W2Fuel.Size = new System.Drawing.Size(46, 20);
-            this.W2Fuel.TabIndex = 1;
-            this.W2Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp2Fuel.Name = "warp2Fuel";
+            this.warp2Fuel.Size = new System.Drawing.Size(46, 20);
+            this.warp2Fuel.TabIndex = 1;
+            this.warp2Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // W3Fuel
             // 
-            this.W3Fuel.Location = new System.Drawing.Point(237, 109);
-            this.W3Fuel.Maximum = new decimal(new int[] {
+            this.warp3Fuel.Location = new System.Drawing.Point(237, 109);
+            this.warp3Fuel.Maximum = new decimal(new int[] {
             5000,
             0,
             0,
             0});
-            this.W3Fuel.Name = "W3Fuel";
-            this.W3Fuel.Size = new System.Drawing.Size(46, 20);
-            this.W3Fuel.TabIndex = 2;
-            this.W3Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp3Fuel.Name = "warp3Fuel";
+            this.warp3Fuel.Size = new System.Drawing.Size(46, 20);
+            this.warp3Fuel.TabIndex = 2;
+            this.warp3Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // W4Fuel
             // 
-            this.W4Fuel.Location = new System.Drawing.Point(47, 135);
-            this.W4Fuel.Maximum = new decimal(new int[] {
+            this.warp4Fuel.Location = new System.Drawing.Point(47, 135);
+            this.warp4Fuel.Maximum = new decimal(new int[] {
             5000,
             0,
             0,
             0});
-            this.W4Fuel.Name = "W4Fuel";
-            this.W4Fuel.Size = new System.Drawing.Size(46, 20);
-            this.W4Fuel.TabIndex = 3;
-            this.W4Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp4Fuel.Name = "warp4Fuel";
+            this.warp4Fuel.Size = new System.Drawing.Size(46, 20);
+            this.warp4Fuel.TabIndex = 3;
+            this.warp4Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // W5Fuel
             // 
-            this.W5Fuel.Location = new System.Drawing.Point(139, 135);
-            this.W5Fuel.Maximum = new decimal(new int[] {
+            this.warp5Fuel.Location = new System.Drawing.Point(139, 135);
+            this.warp5Fuel.Maximum = new decimal(new int[] {
             5000,
             0,
             0,
             0});
-            this.W5Fuel.Name = "W5Fuel";
-            this.W5Fuel.Size = new System.Drawing.Size(46, 20);
-            this.W5Fuel.TabIndex = 4;
-            this.W5Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp5Fuel.Name = "warp5Fuel";
+            this.warp5Fuel.Size = new System.Drawing.Size(46, 20);
+            this.warp5Fuel.TabIndex = 4;
+            this.warp5Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // W6Fuel
             // 
-            this.W6Fuel.Location = new System.Drawing.Point(237, 136);
-            this.W6Fuel.Maximum = new decimal(new int[] {
+            this.warp6Fuel.Location = new System.Drawing.Point(237, 136);
+            this.warp6Fuel.Maximum = new decimal(new int[] {
             5000,
             0,
             0,
             0});
-            this.W6Fuel.Name = "W6Fuel";
-            this.W6Fuel.Size = new System.Drawing.Size(46, 20);
-            this.W6Fuel.TabIndex = 5;
-            this.W6Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp6Fuel.Name = "warp6Fuel";
+            this.warp6Fuel.Size = new System.Drawing.Size(46, 20);
+            this.warp6Fuel.TabIndex = 5;
+            this.warp6Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // W7Fuel
             // 
-            this.W7Fuel.Location = new System.Drawing.Point(47, 161);
-            this.W7Fuel.Maximum = new decimal(new int[] {
+            this.warp7Fuel.Location = new System.Drawing.Point(47, 161);
+            this.warp7Fuel.Maximum = new decimal(new int[] {
             5000,
             0,
             0,
             0});
-            this.W7Fuel.Name = "W7Fuel";
-            this.W7Fuel.Size = new System.Drawing.Size(46, 20);
-            this.W7Fuel.TabIndex = 6;
-            this.W7Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp7Fuel.Name = "warp7Fuel";
+            this.warp7Fuel.Size = new System.Drawing.Size(46, 20);
+            this.warp7Fuel.TabIndex = 6;
+            this.warp7Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // W8Fuel
             // 
-            this.W8Fuel.Location = new System.Drawing.Point(139, 161);
-            this.W8Fuel.Maximum = new decimal(new int[] {
+            this.warp8Fuel.Location = new System.Drawing.Point(139, 161);
+            this.warp8Fuel.Maximum = new decimal(new int[] {
             5000,
             0,
             0,
             0});
-            this.W8Fuel.Name = "W8Fuel";
-            this.W8Fuel.Size = new System.Drawing.Size(46, 20);
-            this.W8Fuel.TabIndex = 7;
-            this.W8Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp8Fuel.Name = "warp8Fuel";
+            this.warp8Fuel.Size = new System.Drawing.Size(46, 20);
+            this.warp8Fuel.TabIndex = 7;
+            this.warp8Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // W9Fuel
             // 
-            this.W9Fuel.Location = new System.Drawing.Point(237, 161);
-            this.W9Fuel.Maximum = new decimal(new int[] {
+            this.warp9Fuel.Location = new System.Drawing.Point(237, 161);
+            this.warp9Fuel.Maximum = new decimal(new int[] {
             5000,
             0,
             0,
             0});
-            this.W9Fuel.Name = "W9Fuel";
-            this.W9Fuel.Size = new System.Drawing.Size(46, 20);
-            this.W9Fuel.TabIndex = 8;
-            this.W9Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp9Fuel.Name = "warp9Fuel";
+            this.warp9Fuel.Size = new System.Drawing.Size(46, 20);
+            this.warp9Fuel.TabIndex = 8;
+            this.warp9Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // W10Fuel
             // 
-            this.W10Fuel.Location = new System.Drawing.Point(47, 187);
-            this.W10Fuel.Maximum = new decimal(new int[] {
+            this.warp10Fuel.Location = new System.Drawing.Point(47, 187);
+            this.warp10Fuel.Maximum = new decimal(new int[] {
             5000,
             0,
             0,
             0});
-            this.W10Fuel.Name = "W10Fuel";
-            this.W10Fuel.Size = new System.Drawing.Size(46, 20);
-            this.W10Fuel.TabIndex = 9;
-            this.W10Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp10Fuel.Name = "warp10Fuel";
+            this.warp10Fuel.Size = new System.Drawing.Size(46, 20);
+            this.warp10Fuel.TabIndex = 9;
+            this.warp10Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // W1Fuel
             // 
-            this.W1Fuel.Location = new System.Drawing.Point(47, 109);
-            this.W1Fuel.Maximum = new decimal(new int[] {
+            this.warp1Fuel.Location = new System.Drawing.Point(47, 109);
+            this.warp1Fuel.Maximum = new decimal(new int[] {
             5000,
             0,
             0,
             0});
-            this.W1Fuel.Name = "W1Fuel";
-            this.W1Fuel.Size = new System.Drawing.Size(46, 20);
-            this.W1Fuel.TabIndex = 0;
-            this.W1Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp1Fuel.Name = "warp1Fuel";
+            this.warp1Fuel.Size = new System.Drawing.Size(46, 20);
+            this.warp1Fuel.TabIndex = 0;
+            this.warp1Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // tabFuel
             // 
@@ -2337,9 +2337,9 @@ namespace Nova.WinForms.ComponentEditor
             // 
             this.groupBox18.Controls.Add(this.label41);
             this.groupBox18.Controls.Add(this.label40);
-            this.groupBox18.Controls.Add(this.FuelCapacity);
+            this.groupBox18.Controls.Add(this.fuelCapacity);
             this.groupBox18.Controls.Add(this.labelFuelGeneration);
-            this.groupBox18.Controls.Add(this.FuelGeneration);
+            this.groupBox18.Controls.Add(this.fuelGeneration);
             this.groupBox18.Controls.Add(this.lableFuelCapcity);
             this.groupBox18.Location = new System.Drawing.Point(8, 9);
             this.groupBox18.Name = "groupBox18";
@@ -2368,16 +2368,16 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // FuelCapacity
             // 
-            this.FuelCapacity.Location = new System.Drawing.Point(91, 25);
-            this.FuelCapacity.Maximum = new decimal(new int[] {
+            this.fuelCapacity.Location = new System.Drawing.Point(91, 25);
+            this.fuelCapacity.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.FuelCapacity.Name = "FuelCapacity";
-            this.FuelCapacity.Size = new System.Drawing.Size(75, 20);
-            this.FuelCapacity.TabIndex = 1;
-            this.FuelCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.fuelCapacity.Name = "fuelCapacity";
+            this.fuelCapacity.Size = new System.Drawing.Size(75, 20);
+            this.fuelCapacity.TabIndex = 1;
+            this.fuelCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // labelFuelGeneration
             // 
@@ -2390,16 +2390,16 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // FuelGeneration
             // 
-            this.FuelGeneration.Location = new System.Drawing.Point(91, 55);
-            this.FuelGeneration.Maximum = new decimal(new int[] {
+            this.fuelGeneration.Location = new System.Drawing.Point(91, 55);
+            this.fuelGeneration.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.FuelGeneration.Name = "FuelGeneration";
-            this.FuelGeneration.Size = new System.Drawing.Size(75, 20);
-            this.FuelGeneration.TabIndex = 2;
-            this.FuelGeneration.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.fuelGeneration.Name = "fuelGeneration";
+            this.fuelGeneration.Size = new System.Drawing.Size(75, 20);
+            this.fuelGeneration.TabIndex = 2;
+            this.fuelGeneration.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // lableFuelCapcity
             // 
@@ -2422,12 +2422,12 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // groupBox7
             // 
-            this.groupBox7.Controls.Add(this.GateMassInfinite);
-            this.groupBox7.Controls.Add(this.GateRangeInfinite);
+            this.groupBox7.Controls.Add(this.gateMassInfinite);
+            this.groupBox7.Controls.Add(this.gateRangeInfinite);
             this.groupBox7.Controls.Add(this.label43);
             this.groupBox7.Controls.Add(this.label42);
-            this.groupBox7.Controls.Add(this.SafeRange);
-            this.groupBox7.Controls.Add(this.SafeHullMass);
+            this.groupBox7.Controls.Add(this.safeRange);
+            this.groupBox7.Controls.Add(this.safeHullMass);
             this.groupBox7.Controls.Add(this.label15);
             this.groupBox7.Controls.Add(this.label16);
             this.groupBox7.Location = new System.Drawing.Point(9, 10);
@@ -2439,23 +2439,23 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // GateMassInfinite
             // 
-            this.GateMassInfinite.AutoSize = true;
-            this.GateMassInfinite.Location = new System.Drawing.Point(209, 29);
-            this.GateMassInfinite.Name = "GateMassInfinite";
-            this.GateMassInfinite.Size = new System.Drawing.Size(85, 17);
-            this.GateMassInfinite.TabIndex = 7;
-            this.GateMassInfinite.Text = "Infinite Mass";
-            this.GateMassInfinite.UseVisualStyleBackColor = true;
+            this.gateMassInfinite.AutoSize = true;
+            this.gateMassInfinite.Location = new System.Drawing.Point(209, 29);
+            this.gateMassInfinite.Name = "gateMassInfinite";
+            this.gateMassInfinite.Size = new System.Drawing.Size(85, 17);
+            this.gateMassInfinite.TabIndex = 7;
+            this.gateMassInfinite.Text = "Infinite Mass";
+            this.gateMassInfinite.UseVisualStyleBackColor = true;
             // 
             // GateRangeInfinite
             // 
-            this.GateRangeInfinite.AutoSize = true;
-            this.GateRangeInfinite.Location = new System.Drawing.Point(209, 57);
-            this.GateRangeInfinite.Name = "GateRangeInfinite";
-            this.GateRangeInfinite.Size = new System.Drawing.Size(92, 17);
-            this.GateRangeInfinite.TabIndex = 6;
-            this.GateRangeInfinite.Text = "Infinite Range";
-            this.GateRangeInfinite.UseVisualStyleBackColor = true;
+            this.gateRangeInfinite.AutoSize = true;
+            this.gateRangeInfinite.Location = new System.Drawing.Point(209, 57);
+            this.gateRangeInfinite.Name = "gateRangeInfinite";
+            this.gateRangeInfinite.Size = new System.Drawing.Size(92, 17);
+            this.gateRangeInfinite.TabIndex = 6;
+            this.gateRangeInfinite.Text = "Infinite Range";
+            this.gateRangeInfinite.UseVisualStyleBackColor = true;
             // 
             // label43
             // 
@@ -2477,39 +2477,39 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // SafeRange
             // 
-            this.SafeRange.Location = new System.Drawing.Point(102, 54);
-            this.SafeRange.Maximum = new decimal(new int[] {
+            this.safeRange.Location = new System.Drawing.Point(102, 54);
+            this.safeRange.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.SafeRange.Minimum = new decimal(new int[] {
+            this.safeRange.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             -2147483648});
-            this.SafeRange.Name = "SafeRange";
-            this.SafeRange.Size = new System.Drawing.Size(71, 20);
-            this.SafeRange.TabIndex = 2;
-            this.SafeRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.safeRange.Name = "safeRange";
+            this.safeRange.Size = new System.Drawing.Size(71, 20);
+            this.safeRange.TabIndex = 2;
+            this.safeRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // SafeHullMass
             // 
-            this.SafeHullMass.Location = new System.Drawing.Point(102, 28);
-            this.SafeHullMass.Maximum = new decimal(new int[] {
+            this.safeHullMass.Location = new System.Drawing.Point(102, 28);
+            this.safeHullMass.Maximum = new decimal(new int[] {
             9999,
             0,
             0,
             0});
-            this.SafeHullMass.Minimum = new decimal(new int[] {
+            this.safeHullMass.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             -2147483648});
-            this.SafeHullMass.Name = "SafeHullMass";
-            this.SafeHullMass.Size = new System.Drawing.Size(71, 20);
-            this.SafeHullMass.TabIndex = 1;
-            this.SafeHullMass.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.safeHullMass.Name = "safeHullMass";
+            this.safeHullMass.Size = new System.Drawing.Size(71, 20);
+            this.safeHullMass.TabIndex = 1;
+            this.safeHullMass.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label15
             // 
@@ -2541,23 +2541,23 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // groupBox19
             // 
-            this.groupBox19.Controls.Add(this.InfiniteDock);
+            this.groupBox19.Controls.Add(this.infiniteDock);
             this.groupBox19.Controls.Add(this.label86);
-            this.groupBox19.Controls.Add(this.ARMaxPop);
+            this.groupBox19.Controls.Add(this.alternateRealityMaxPop);
             this.groupBox19.Controls.Add(this.label87);
             this.groupBox19.Controls.Add(this.buttonEditHull);
             this.groupBox19.Controls.Add(this.label50);
             this.groupBox19.Controls.Add(this.label49);
-            this.groupBox19.Controls.Add(this.HullCargoCapacity);
+            this.groupBox19.Controls.Add(this.hullCargoCapacity);
             this.groupBox19.Controls.Add(this.label48);
             this.groupBox19.Controls.Add(this.labelBaseCargoKT);
             this.groupBox19.Controls.Add(this.label47);
             this.groupBox19.Controls.Add(this.labelBaseCargo);
-            this.groupBox19.Controls.Add(this.HullFuelCapacity);
+            this.groupBox19.Controls.Add(this.hullFuelCapacity);
             this.groupBox19.Controls.Add(this.label44);
-            this.groupBox19.Controls.Add(this.HullInitiative);
-            this.groupBox19.Controls.Add(this.HullDockCapacity);
-            this.groupBox19.Controls.Add(this.HullArmor);
+            this.groupBox19.Controls.Add(this.hullInitiative);
+            this.groupBox19.Controls.Add(this.hullDockCapacity);
+            this.groupBox19.Controls.Add(this.hullArmor);
             this.groupBox19.Controls.Add(this.label45);
             this.groupBox19.Controls.Add(this.label46);
             this.groupBox19.Location = new System.Drawing.Point(6, 7);
@@ -2569,13 +2569,13 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // InfiniteDock
             // 
-            this.InfiniteDock.AutoSize = true;
-            this.InfiniteDock.Location = new System.Drawing.Point(181, 133);
-            this.InfiniteDock.Name = "InfiniteDock";
-            this.InfiniteDock.Size = new System.Drawing.Size(130, 17);
-            this.InfiniteDock.TabIndex = 20;
-            this.InfiniteDock.Text = "Infinite Dock Capacity";
-            this.InfiniteDock.UseVisualStyleBackColor = true;
+            this.infiniteDock.AutoSize = true;
+            this.infiniteDock.Location = new System.Drawing.Point(181, 133);
+            this.infiniteDock.Name = "infiniteDock";
+            this.infiniteDock.Size = new System.Drawing.Size(130, 17);
+            this.infiniteDock.TabIndex = 20;
+            this.infiniteDock.Text = "Infinite Dock Capacity";
+            this.infiniteDock.UseVisualStyleBackColor = true;
             // 
             // label86
             // 
@@ -2588,16 +2588,16 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // ARMaxPop
             // 
-            this.ARMaxPop.Location = new System.Drawing.Point(89, 158);
-            this.ARMaxPop.Maximum = new decimal(new int[] {
+            this.alternateRealityMaxPop.Location = new System.Drawing.Point(89, 158);
+            this.alternateRealityMaxPop.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.ARMaxPop.Name = "ARMaxPop";
-            this.ARMaxPop.Size = new System.Drawing.Size(50, 20);
-            this.ARMaxPop.TabIndex = 21;
-            this.ARMaxPop.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.alternateRealityMaxPop.Name = "alternateRealityMaxPop";
+            this.alternateRealityMaxPop.Size = new System.Drawing.Size(50, 20);
+            this.alternateRealityMaxPop.TabIndex = 21;
+            this.alternateRealityMaxPop.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label87
             // 
@@ -2638,21 +2638,21 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // HullCargoCapacity
             // 
-            this.HullCargoCapacity.Increment = new decimal(new int[] {
+            this.hullCargoCapacity.Increment = new decimal(new int[] {
             5,
             0,
             0,
             0});
-            this.HullCargoCapacity.Location = new System.Drawing.Point(89, 106);
-            this.HullCargoCapacity.Maximum = new decimal(new int[] {
+            this.hullCargoCapacity.Location = new System.Drawing.Point(89, 106);
+            this.hullCargoCapacity.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.HullCargoCapacity.Name = "HullCargoCapacity";
-            this.HullCargoCapacity.Size = new System.Drawing.Size(50, 20);
-            this.HullCargoCapacity.TabIndex = 18;
-            this.HullCargoCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.hullCargoCapacity.Name = "hullCargoCapacity";
+            this.hullCargoCapacity.Size = new System.Drawing.Size(50, 20);
+            this.hullCargoCapacity.TabIndex = 18;
+            this.hullCargoCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label48
             // 
@@ -2692,16 +2692,16 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // HullFuelCapacity
             // 
-            this.HullFuelCapacity.Location = new System.Drawing.Point(89, 28);
-            this.HullFuelCapacity.Maximum = new decimal(new int[] {
+            this.hullFuelCapacity.Location = new System.Drawing.Point(89, 28);
+            this.hullFuelCapacity.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.HullFuelCapacity.Name = "HullFuelCapacity";
-            this.HullFuelCapacity.Size = new System.Drawing.Size(50, 20);
-            this.HullFuelCapacity.TabIndex = 15;
-            this.HullFuelCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.hullFuelCapacity.Name = "hullFuelCapacity";
+            this.hullFuelCapacity.Size = new System.Drawing.Size(50, 20);
+            this.hullFuelCapacity.TabIndex = 15;
+            this.hullFuelCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label44
             // 
@@ -2714,42 +2714,42 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // HullInitiative
             // 
-            this.HullInitiative.Location = new System.Drawing.Point(89, 80);
-            this.HullInitiative.Name = "HullInitiative";
-            this.HullInitiative.Size = new System.Drawing.Size(50, 20);
-            this.HullInitiative.TabIndex = 17;
-            this.HullInitiative.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.hullInitiative.Location = new System.Drawing.Point(89, 80);
+            this.hullInitiative.Name = "hullInitiative";
+            this.hullInitiative.Size = new System.Drawing.Size(50, 20);
+            this.hullInitiative.TabIndex = 17;
+            this.hullInitiative.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // HullDockCapacity
             // 
-            this.HullDockCapacity.Location = new System.Drawing.Point(89, 132);
-            this.HullDockCapacity.Maximum = new decimal(new int[] {
+            this.hullDockCapacity.Location = new System.Drawing.Point(89, 132);
+            this.hullDockCapacity.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.HullDockCapacity.Minimum = new decimal(new int[] {
+            this.hullDockCapacity.Minimum = new decimal(new int[] {
             1,
             0,
             0,
             -2147483648});
-            this.HullDockCapacity.Name = "HullDockCapacity";
-            this.HullDockCapacity.Size = new System.Drawing.Size(50, 20);
-            this.HullDockCapacity.TabIndex = 19;
-            this.HullDockCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.hullDockCapacity.Name = "hullDockCapacity";
+            this.hullDockCapacity.Size = new System.Drawing.Size(50, 20);
+            this.hullDockCapacity.TabIndex = 19;
+            this.hullDockCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // HullArmor
             // 
-            this.HullArmor.Location = new System.Drawing.Point(89, 54);
-            this.HullArmor.Maximum = new decimal(new int[] {
+            this.hullArmor.Location = new System.Drawing.Point(89, 54);
+            this.hullArmor.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.HullArmor.Name = "HullArmor";
-            this.HullArmor.Size = new System.Drawing.Size(50, 20);
-            this.HullArmor.TabIndex = 16;
-            this.HullArmor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.hullArmor.Name = "hullArmor";
+            this.hullArmor.Size = new System.Drawing.Size(50, 20);
+            this.hullArmor.TabIndex = 16;
+            this.hullArmor.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label45
             // 
@@ -2782,7 +2782,7 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox29
             // 
             this.groupBox29.Controls.Add(this.textBox3);
-            this.groupBox29.Controls.Add(this.ComponentHullAffinity);
+            this.groupBox29.Controls.Add(this.componentHullAffinity);
             this.groupBox29.Location = new System.Drawing.Point(11, 12);
             this.groupBox29.Name = "groupBox29";
             this.groupBox29.Size = new System.Drawing.Size(346, 210);
@@ -2802,12 +2802,12 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // ComponentHullAffinity
             // 
-            this.ComponentHullAffinity.FormattingEnabled = true;
-            this.ComponentHullAffinity.Location = new System.Drawing.Point(19, 31);
-            this.ComponentHullAffinity.Name = "ComponentHullAffinity";
-            this.ComponentHullAffinity.Size = new System.Drawing.Size(187, 21);
-            this.ComponentHullAffinity.Sorted = true;
-            this.ComponentHullAffinity.TabIndex = 0;
+            this.componentHullAffinity.FormattingEnabled = true;
+            this.componentHullAffinity.Location = new System.Drawing.Point(19, 31);
+            this.componentHullAffinity.Name = "componentHullAffinity";
+            this.componentHullAffinity.Size = new System.Drawing.Size(187, 21);
+            this.componentHullAffinity.Sorted = true;
+            this.componentHullAffinity.TabIndex = 0;
             // 
             // tabJammer
             // 
@@ -2823,7 +2823,7 @@ namespace Nova.WinForms.ComponentEditor
             // 
             this.groupBox20.Controls.Add(this.label51);
             this.groupBox20.Controls.Add(this.label52);
-            this.groupBox20.Controls.Add(this.Deflection);
+            this.groupBox20.Controls.Add(this.deflection);
             this.groupBox20.Location = new System.Drawing.Point(9, 13);
             this.groupBox20.Name = "groupBox20";
             this.groupBox20.Size = new System.Drawing.Size(348, 207);
@@ -2851,21 +2851,21 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // Deflection
             // 
-            this.Deflection.Increment = new decimal(new int[] {
+            this.deflection.Increment = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.Deflection.Location = new System.Drawing.Point(80, 27);
-            this.Deflection.Name = "Deflection";
-            this.Deflection.Size = new System.Drawing.Size(60, 20);
-            this.Deflection.TabIndex = 5;
-            this.Deflection.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.deflection.Location = new System.Drawing.Point(80, 27);
+            this.deflection.Name = "deflection";
+            this.deflection.Size = new System.Drawing.Size(60, 20);
+            this.deflection.TabIndex = 5;
+            this.deflection.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // tabLayerEfficiency
             // 
             this.tabLayerEfficiency.BackColor = System.Drawing.SystemColors.Control;
-            this.tabLayerEfficiency.Controls.Add(this.ImprovedMineLayingEfficiency);
+            this.tabLayerEfficiency.Controls.Add(this.improvedMineLayingEfficiency);
             this.tabLayerEfficiency.Location = new System.Drawing.Point(4, 4);
             this.tabLayerEfficiency.Name = "tabLayerEfficiency";
             this.tabLayerEfficiency.Size = new System.Drawing.Size(372, 230);
@@ -2874,15 +2874,15 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // ImprovedMineLayingEfficiency
             // 
-            this.ImprovedMineLayingEfficiency.Controls.Add(this.textBox5);
-            this.ImprovedMineLayingEfficiency.Controls.Add(this.MineLayerEfficiency);
-            this.ImprovedMineLayingEfficiency.Controls.Add(this.label93);
-            this.ImprovedMineLayingEfficiency.Location = new System.Drawing.Point(10, 11);
-            this.ImprovedMineLayingEfficiency.Name = "ImprovedMineLayingEfficiency";
-            this.ImprovedMineLayingEfficiency.Size = new System.Drawing.Size(344, 211);
-            this.ImprovedMineLayingEfficiency.TabIndex = 0;
-            this.ImprovedMineLayingEfficiency.TabStop = false;
-            this.ImprovedMineLayingEfficiency.Text = "Improved Mine Laying";
+            this.improvedMineLayingEfficiency.Controls.Add(this.textBox5);
+            this.improvedMineLayingEfficiency.Controls.Add(this.mineLayerEfficiency);
+            this.improvedMineLayingEfficiency.Controls.Add(this.label93);
+            this.improvedMineLayingEfficiency.Location = new System.Drawing.Point(10, 11);
+            this.improvedMineLayingEfficiency.Name = "improvedMineLayingEfficiency";
+            this.improvedMineLayingEfficiency.Size = new System.Drawing.Size(344, 211);
+            this.improvedMineLayingEfficiency.TabIndex = 0;
+            this.improvedMineLayingEfficiency.TabStop = false;
+            this.improvedMineLayingEfficiency.Text = "Improved Mine Laying";
             // 
             // textBox5
             // 
@@ -2897,17 +2897,17 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // MineLayerEfficiency
             // 
-            this.MineLayerEfficiency.DecimalPlaces = 2;
-            this.MineLayerEfficiency.Location = new System.Drawing.Point(112, 22);
-            this.MineLayerEfficiency.Maximum = new decimal(new int[] {
+            this.mineLayerEfficiency.DecimalPlaces = 2;
+            this.mineLayerEfficiency.Location = new System.Drawing.Point(112, 22);
+            this.mineLayerEfficiency.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.MineLayerEfficiency.Name = "MineLayerEfficiency";
-            this.MineLayerEfficiency.Size = new System.Drawing.Size(64, 20);
-            this.MineLayerEfficiency.TabIndex = 2;
-            this.MineLayerEfficiency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.mineLayerEfficiency.Name = "mineLayerEfficiency";
+            this.mineLayerEfficiency.Size = new System.Drawing.Size(64, 20);
+            this.mineLayerEfficiency.TabIndex = 2;
+            this.mineLayerEfficiency.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label93
             // 
@@ -2930,7 +2930,7 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // groupBox21
             // 
-            this.groupBox21.Controls.Add(this.MassDriverSpeed);
+            this.groupBox21.Controls.Add(this.massDriverSpeed);
             this.groupBox21.Controls.Add(this.label53);
             this.groupBox21.Location = new System.Drawing.Point(9, 9);
             this.groupBox21.Name = "groupBox21";
@@ -2941,16 +2941,16 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // MassDriverSpeed
             // 
-            this.MassDriverSpeed.Location = new System.Drawing.Point(134, 31);
-            this.MassDriverSpeed.Maximum = new decimal(new int[] {
+            this.massDriverSpeed.Location = new System.Drawing.Point(134, 31);
+            this.massDriverSpeed.Maximum = new decimal(new int[] {
             20,
             0,
             0,
             0});
-            this.MassDriverSpeed.Name = "MassDriverSpeed";
-            this.MassDriverSpeed.Size = new System.Drawing.Size(48, 20);
-            this.MassDriverSpeed.TabIndex = 22;
-            this.MassDriverSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.massDriverSpeed.Name = "massDriverSpeed";
+            this.massDriverSpeed.Size = new System.Drawing.Size(48, 20);
+            this.massDriverSpeed.TabIndex = 22;
+            this.massDriverSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label53
             // 
@@ -2973,19 +2973,19 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // groupBox22
             // 
-            this.groupBox22.Controls.Add(this.MineMinRamScoopDamage);
-            this.groupBox22.Controls.Add(this.MineMinFleetDamage);
-            this.groupBox22.Controls.Add(this.MineDamagePerRamScoop);
+            this.groupBox22.Controls.Add(this.mineMinRamScoopDamage);
+            this.groupBox22.Controls.Add(this.mineMinFleetDamage);
+            this.groupBox22.Controls.Add(this.mineDamagePerRamScoop);
             this.groupBox22.Controls.Add(this.label54);
             this.groupBox22.Controls.Add(this.label55);
             this.groupBox22.Controls.Add(this.label56);
-            this.groupBox22.Controls.Add(this.MineDamagePerEngine);
-            this.groupBox22.Controls.Add(this.MineHitChance);
-            this.groupBox22.Controls.Add(this.MineSafeSpeed);
+            this.groupBox22.Controls.Add(this.mineDamagePerEngine);
+            this.groupBox22.Controls.Add(this.mineHitChance);
+            this.groupBox22.Controls.Add(this.mineSafeSpeed);
             this.groupBox22.Controls.Add(this.label57);
             this.groupBox22.Controls.Add(this.label58);
             this.groupBox22.Controls.Add(this.label59);
-            this.groupBox22.Controls.Add(this.MineLayingRate);
+            this.groupBox22.Controls.Add(this.mineLayingRate);
             this.groupBox22.Controls.Add(this.label60);
             this.groupBox22.Location = new System.Drawing.Point(8, 6);
             this.groupBox22.Name = "groupBox22";
@@ -2996,22 +2996,22 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // MineMinRamScoopDamage
             // 
-            this.MineMinRamScoopDamage.Increment = new decimal(new int[] {
+            this.mineMinRamScoopDamage.Increment = new decimal(new int[] {
             25,
             0,
             0,
             0});
-            this.MineMinRamScoopDamage.Location = new System.Drawing.Point(128, 183);
-            this.MineMinRamScoopDamage.Maximum = new decimal(new int[] {
+            this.mineMinRamScoopDamage.Location = new System.Drawing.Point(128, 183);
+            this.mineMinRamScoopDamage.Maximum = new decimal(new int[] {
             9000,
             0,
             0,
             0});
-            this.MineMinRamScoopDamage.Name = "MineMinRamScoopDamage";
-            this.MineMinRamScoopDamage.Size = new System.Drawing.Size(57, 20);
-            this.MineMinRamScoopDamage.TabIndex = 7;
-            this.MineMinRamScoopDamage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.MineMinRamScoopDamage.Value = new decimal(new int[] {
+            this.mineMinRamScoopDamage.Name = "mineMinRamScoopDamage";
+            this.mineMinRamScoopDamage.Size = new System.Drawing.Size(57, 20);
+            this.mineMinRamScoopDamage.TabIndex = 7;
+            this.mineMinRamScoopDamage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.mineMinRamScoopDamage.Value = new decimal(new int[] {
             600,
             0,
             0,
@@ -3019,22 +3019,22 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // MineMinFleetDamage
             // 
-            this.MineMinFleetDamage.Increment = new decimal(new int[] {
+            this.mineMinFleetDamage.Increment = new decimal(new int[] {
             25,
             0,
             0,
             0});
-            this.MineMinFleetDamage.Location = new System.Drawing.Point(128, 157);
-            this.MineMinFleetDamage.Maximum = new decimal(new int[] {
+            this.mineMinFleetDamage.Location = new System.Drawing.Point(128, 157);
+            this.mineMinFleetDamage.Maximum = new decimal(new int[] {
             9000,
             0,
             0,
             0});
-            this.MineMinFleetDamage.Name = "MineMinFleetDamage";
-            this.MineMinFleetDamage.Size = new System.Drawing.Size(57, 20);
-            this.MineMinFleetDamage.TabIndex = 6;
-            this.MineMinFleetDamage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.MineMinFleetDamage.Value = new decimal(new int[] {
+            this.mineMinFleetDamage.Name = "mineMinFleetDamage";
+            this.mineMinFleetDamage.Size = new System.Drawing.Size(57, 20);
+            this.mineMinFleetDamage.TabIndex = 6;
+            this.mineMinFleetDamage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.mineMinFleetDamage.Value = new decimal(new int[] {
             500,
             0,
             0,
@@ -3042,22 +3042,22 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // MineDamagePerRamScoop
             // 
-            this.MineDamagePerRamScoop.Increment = new decimal(new int[] {
+            this.mineDamagePerRamScoop.Increment = new decimal(new int[] {
             25,
             0,
             0,
             0});
-            this.MineDamagePerRamScoop.Location = new System.Drawing.Point(128, 131);
-            this.MineDamagePerRamScoop.Maximum = new decimal(new int[] {
+            this.mineDamagePerRamScoop.Location = new System.Drawing.Point(128, 131);
+            this.mineDamagePerRamScoop.Maximum = new decimal(new int[] {
             9000,
             0,
             0,
             0});
-            this.MineDamagePerRamScoop.Name = "MineDamagePerRamScoop";
-            this.MineDamagePerRamScoop.Size = new System.Drawing.Size(57, 20);
-            this.MineDamagePerRamScoop.TabIndex = 5;
-            this.MineDamagePerRamScoop.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.MineDamagePerRamScoop.Value = new decimal(new int[] {
+            this.mineDamagePerRamScoop.Name = "mineDamagePerRamScoop";
+            this.mineDamagePerRamScoop.Size = new System.Drawing.Size(57, 20);
+            this.mineDamagePerRamScoop.TabIndex = 5;
+            this.mineDamagePerRamScoop.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.mineDamagePerRamScoop.Value = new decimal(new int[] {
             125,
             0,
             0,
@@ -3092,22 +3092,22 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // MineDamagePerEngine
             // 
-            this.MineDamagePerEngine.Increment = new decimal(new int[] {
+            this.mineDamagePerEngine.Increment = new decimal(new int[] {
             25,
             0,
             0,
             0});
-            this.MineDamagePerEngine.Location = new System.Drawing.Point(128, 105);
-            this.MineDamagePerEngine.Maximum = new decimal(new int[] {
+            this.mineDamagePerEngine.Location = new System.Drawing.Point(128, 105);
+            this.mineDamagePerEngine.Maximum = new decimal(new int[] {
             9000,
             0,
             0,
             0});
-            this.MineDamagePerEngine.Name = "MineDamagePerEngine";
-            this.MineDamagePerEngine.Size = new System.Drawing.Size(57, 20);
-            this.MineDamagePerEngine.TabIndex = 4;
-            this.MineDamagePerEngine.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.MineDamagePerEngine.Value = new decimal(new int[] {
+            this.mineDamagePerEngine.Name = "mineDamagePerEngine";
+            this.mineDamagePerEngine.Size = new System.Drawing.Size(57, 20);
+            this.mineDamagePerEngine.TabIndex = 4;
+            this.mineDamagePerEngine.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.mineDamagePerEngine.Value = new decimal(new int[] {
             100,
             0,
             0,
@@ -3115,23 +3115,23 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // MineHitChance
             // 
-            this.MineHitChance.DecimalPlaces = 1;
-            this.MineHitChance.Increment = new decimal(new int[] {
+            this.mineHitChance.DecimalPlaces = 1;
+            this.mineHitChance.Increment = new decimal(new int[] {
             1,
             0,
             0,
             65536});
-            this.MineHitChance.Location = new System.Drawing.Point(128, 79);
-            this.MineHitChance.Maximum = new decimal(new int[] {
+            this.mineHitChance.Location = new System.Drawing.Point(128, 79);
+            this.mineHitChance.Maximum = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.MineHitChance.Name = "MineHitChance";
-            this.MineHitChance.Size = new System.Drawing.Size(57, 20);
-            this.MineHitChance.TabIndex = 3;
-            this.MineHitChance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.MineHitChance.Value = new decimal(new int[] {
+            this.mineHitChance.Name = "mineHitChance";
+            this.mineHitChance.Size = new System.Drawing.Size(57, 20);
+            this.mineHitChance.TabIndex = 3;
+            this.mineHitChance.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.mineHitChance.Value = new decimal(new int[] {
             3,
             0,
             0,
@@ -3139,17 +3139,17 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // MineSafeSpeed
             // 
-            this.MineSafeSpeed.Location = new System.Drawing.Point(128, 53);
-            this.MineSafeSpeed.Maximum = new decimal(new int[] {
+            this.mineSafeSpeed.Location = new System.Drawing.Point(128, 53);
+            this.mineSafeSpeed.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.MineSafeSpeed.Name = "MineSafeSpeed";
-            this.MineSafeSpeed.Size = new System.Drawing.Size(57, 20);
-            this.MineSafeSpeed.TabIndex = 2;
-            this.MineSafeSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.MineSafeSpeed.Value = new decimal(new int[] {
+            this.mineSafeSpeed.Name = "mineSafeSpeed";
+            this.mineSafeSpeed.Size = new System.Drawing.Size(57, 20);
+            this.mineSafeSpeed.TabIndex = 2;
+            this.mineSafeSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.mineSafeSpeed.Value = new decimal(new int[] {
             4,
             0,
             0,
@@ -3184,17 +3184,17 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // MineLayingRate
             // 
-            this.MineLayingRate.Location = new System.Drawing.Point(128, 27);
-            this.MineLayingRate.Maximum = new decimal(new int[] {
+            this.mineLayingRate.Location = new System.Drawing.Point(128, 27);
+            this.mineLayingRate.Maximum = new decimal(new int[] {
             1000,
             0,
             0,
             0});
-            this.MineLayingRate.Name = "MineLayingRate";
-            this.MineLayingRate.Size = new System.Drawing.Size(57, 20);
-            this.MineLayingRate.TabIndex = 1;
-            this.MineLayingRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.MineLayingRate.Value = new decimal(new int[] {
+            this.mineLayingRate.Name = "mineLayingRate";
+            this.mineLayingRate.Size = new System.Drawing.Size(57, 20);
+            this.mineLayingRate.TabIndex = 1;
+            this.mineLayingRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.mineLayingRate.Value = new decimal(new int[] {
             50,
             0,
             0,
@@ -3222,7 +3222,7 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox28
             // 
             this.groupBox28.Controls.Add(this.textBox2);
-            this.groupBox28.Controls.Add(this.Radiation);
+            this.groupBox28.Controls.Add(this.radiation);
             this.groupBox28.Controls.Add(this.label78);
             this.groupBox28.Controls.Add(this.label77);
             this.groupBox28.Location = new System.Drawing.Point(7, 9);
@@ -3244,11 +3244,11 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // Radiation
             // 
-            this.Radiation.DecimalPlaces = 1;
-            this.Radiation.Location = new System.Drawing.Point(110, 33);
-            this.Radiation.Name = "Radiation";
-            this.Radiation.Size = new System.Drawing.Size(58, 20);
-            this.Radiation.TabIndex = 2;
+            this.radiation.DecimalPlaces = 1;
+            this.radiation.Location = new System.Drawing.Point(110, 33);
+            this.radiation.Name = "radiation";
+            this.radiation.Size = new System.Drawing.Size(58, 20);
+            this.radiation.TabIndex = 2;
             // 
             // label78
             // 
@@ -3282,7 +3282,7 @@ namespace Nova.WinForms.ComponentEditor
             // 
             this.groupBox23.Controls.Add(this.richTextBox1);
             this.groupBox23.Controls.Add(this.label62);
-            this.groupBox23.Controls.Add(this.MiningRate);
+            this.groupBox23.Controls.Add(this.miningRate);
             this.groupBox23.Controls.Add(this.label61);
             this.groupBox23.Location = new System.Drawing.Point(7, 10);
             this.groupBox23.Name = "groupBox23";
@@ -3315,11 +3315,11 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // MiningRate
             // 
-            this.MiningRate.Location = new System.Drawing.Point(85, 30);
-            this.MiningRate.Name = "MiningRate";
-            this.MiningRate.Size = new System.Drawing.Size(66, 20);
-            this.MiningRate.TabIndex = 1;
-            this.MiningRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.miningRate.Location = new System.Drawing.Point(85, 30);
+            this.miningRate.Name = "miningRate";
+            this.miningRate.Size = new System.Drawing.Size(66, 20);
+            this.miningRate.TabIndex = 1;
+            this.miningRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label61
             // 
@@ -3343,7 +3343,7 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox24
             // 
             this.groupBox24.Controls.Add(this.label64);
-            this.groupBox24.Controls.Add(this.AdjusterRate);
+            this.groupBox24.Controls.Add(this.adjusterRate);
             this.groupBox24.Controls.Add(this.label63);
             this.groupBox24.Location = new System.Drawing.Point(9, 11);
             this.groupBox24.Name = "groupBox24";
@@ -3363,16 +3363,16 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // AdjusterRate
             // 
-            this.AdjusterRate.Location = new System.Drawing.Point(104, 29);
-            this.AdjusterRate.Minimum = new decimal(new int[] {
+            this.adjusterRate.Location = new System.Drawing.Point(104, 29);
+            this.adjusterRate.Minimum = new decimal(new int[] {
             100,
             0,
             0,
             -2147483648});
-            this.AdjusterRate.Name = "AdjusterRate";
-            this.AdjusterRate.Size = new System.Drawing.Size(57, 20);
-            this.AdjusterRate.TabIndex = 1;
-            this.AdjusterRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.adjusterRate.Name = "adjusterRate";
+            this.adjusterRate.Size = new System.Drawing.Size(57, 20);
+            this.adjusterRate.TabIndex = 1;
+            this.adjusterRate.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label63
             // 
@@ -3397,9 +3397,9 @@ namespace Nova.WinForms.ComponentEditor
             // 
             this.groupBox17.Controls.Add(this.label38);
             this.groupBox17.Controls.Add(this.label37);
-            this.groupBox17.Controls.Add(this.NormalRange);
+            this.groupBox17.Controls.Add(this.normalRange);
             this.groupBox17.Controls.Add(this.label33);
-            this.groupBox17.Controls.Add(this.PenetratingRange);
+            this.groupBox17.Controls.Add(this.penetratingRange);
             this.groupBox17.Controls.Add(this.label34);
             this.groupBox17.Location = new System.Drawing.Point(10, 12);
             this.groupBox17.Name = "groupBox17";
@@ -3428,21 +3428,21 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // NormalRange
             // 
-            this.NormalRange.Increment = new decimal(new int[] {
+            this.normalRange.Increment = new decimal(new int[] {
             50,
             0,
             0,
             0});
-            this.NormalRange.Location = new System.Drawing.Point(108, 25);
-            this.NormalRange.Maximum = new decimal(new int[] {
+            this.normalRange.Location = new System.Drawing.Point(108, 25);
+            this.normalRange.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.NormalRange.Name = "NormalRange";
-            this.NormalRange.Size = new System.Drawing.Size(75, 20);
-            this.NormalRange.TabIndex = 4;
-            this.NormalRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.normalRange.Name = "normalRange";
+            this.normalRange.Size = new System.Drawing.Size(75, 20);
+            this.normalRange.TabIndex = 4;
+            this.normalRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label33
             // 
@@ -3455,21 +3455,21 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // PenetratingRange
             // 
-            this.PenetratingRange.Increment = new decimal(new int[] {
+            this.penetratingRange.Increment = new decimal(new int[] {
             50,
             0,
             0,
             0});
-            this.PenetratingRange.Location = new System.Drawing.Point(108, 55);
-            this.PenetratingRange.Maximum = new decimal(new int[] {
+            this.penetratingRange.Location = new System.Drawing.Point(108, 55);
+            this.penetratingRange.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.PenetratingRange.Name = "PenetratingRange";
-            this.PenetratingRange.Size = new System.Drawing.Size(75, 20);
-            this.PenetratingRange.TabIndex = 5;
-            this.PenetratingRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.penetratingRange.Name = "penetratingRange";
+            this.penetratingRange.Size = new System.Drawing.Size(75, 20);
+            this.penetratingRange.TabIndex = 5;
+            this.penetratingRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label34
             // 
@@ -3493,7 +3493,7 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox25
             // 
             this.groupBox25.Controls.Add(this.label65);
-            this.groupBox25.Controls.Add(this.Shield);
+            this.groupBox25.Controls.Add(this.shield);
             this.groupBox25.Controls.Add(this.label66);
             this.groupBox25.Location = new System.Drawing.Point(8, 8);
             this.groupBox25.Name = "groupBox25";
@@ -3513,21 +3513,21 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // Shield
             // 
-            this.Shield.Increment = new decimal(new int[] {
+            this.shield.Increment = new decimal(new int[] {
             50,
             0,
             0,
             0});
-            this.Shield.Location = new System.Drawing.Point(104, 32);
-            this.Shield.Maximum = new decimal(new int[] {
+            this.shield.Location = new System.Drawing.Point(104, 32);
+            this.shield.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.Shield.Name = "Shield";
-            this.Shield.Size = new System.Drawing.Size(75, 20);
-            this.Shield.TabIndex = 9;
-            this.Shield.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.shield.Name = "shield";
+            this.shield.Size = new System.Drawing.Size(75, 20);
+            this.shield.TabIndex = 9;
+            this.shield.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label66
             // 
@@ -3550,7 +3550,7 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // groupBox30
             // 
-            this.groupBox30.Controls.Add(this.TachyonDetector);
+            this.groupBox30.Controls.Add(this.tachyonDetector);
             this.groupBox30.Controls.Add(this.label89);
             this.groupBox30.Controls.Add(this.label88);
             this.groupBox30.Location = new System.Drawing.Point(8, 10);
@@ -3562,11 +3562,11 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // TachyonDetector
             // 
-            this.TachyonDetector.Location = new System.Drawing.Point(73, 25);
-            this.TachyonDetector.Name = "TachyonDetector";
-            this.TachyonDetector.Size = new System.Drawing.Size(56, 20);
-            this.TachyonDetector.TabIndex = 2;
-            this.TachyonDetector.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.tachyonDetector.Location = new System.Drawing.Point(73, 25);
+            this.tachyonDetector.Name = "tachyonDetector";
+            this.tachyonDetector.Size = new System.Drawing.Size(56, 20);
+            this.tachyonDetector.TabIndex = 2;
+            this.tachyonDetector.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label89
             // 
@@ -3602,9 +3602,9 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox26.Controls.Add(this.label73);
             this.groupBox26.Controls.Add(this.label72);
             this.groupBox26.Controls.Add(this.label71);
-            this.groupBox26.Controls.Add(this.RadiationMod);
-            this.groupBox26.Controls.Add(this.TemperatureMod);
-            this.groupBox26.Controls.Add(this.GravityMod);
+            this.groupBox26.Controls.Add(this.radiationMod);
+            this.groupBox26.Controls.Add(this.temperatureMod);
+            this.groupBox26.Controls.Add(this.gravityMod);
             this.groupBox26.Controls.Add(this.label69);
             this.groupBox26.Controls.Add(this.label68);
             this.groupBox26.Controls.Add(this.label67);
@@ -3655,27 +3655,27 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // RadiationMod
             // 
-            this.RadiationMod.Location = new System.Drawing.Point(118, 77);
-            this.RadiationMod.Name = "RadiationMod";
-            this.RadiationMod.Size = new System.Drawing.Size(60, 20);
-            this.RadiationMod.TabIndex = 6;
-            this.RadiationMod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.radiationMod.Location = new System.Drawing.Point(118, 77);
+            this.radiationMod.Name = "radiationMod";
+            this.radiationMod.Size = new System.Drawing.Size(60, 20);
+            this.radiationMod.TabIndex = 6;
+            this.radiationMod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // TemperatureMod
             // 
-            this.TemperatureMod.Location = new System.Drawing.Point(118, 51);
-            this.TemperatureMod.Name = "TemperatureMod";
-            this.TemperatureMod.Size = new System.Drawing.Size(60, 20);
-            this.TemperatureMod.TabIndex = 5;
-            this.TemperatureMod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.temperatureMod.Location = new System.Drawing.Point(118, 51);
+            this.temperatureMod.Name = "temperatureMod";
+            this.temperatureMod.Size = new System.Drawing.Size(60, 20);
+            this.temperatureMod.TabIndex = 5;
+            this.temperatureMod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // GravityMod
             // 
-            this.GravityMod.Location = new System.Drawing.Point(118, 25);
-            this.GravityMod.Name = "GravityMod";
-            this.GravityMod.Size = new System.Drawing.Size(60, 20);
-            this.GravityMod.TabIndex = 4;
-            this.GravityMod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.gravityMod.Location = new System.Drawing.Point(118, 25);
+            this.gravityMod.Name = "gravityMod";
+            this.gravityMod.Size = new System.Drawing.Size(60, 20);
+            this.gravityMod.TabIndex = 4;
+            this.gravityMod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label69
             // 
@@ -3803,11 +3803,11 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // groupBox27
             // 
-            this.groupBox27.Controls.Add(this.MinesSwept);
-            this.groupBox27.Controls.Add(this.WeaponAccuracy);
-            this.groupBox27.Controls.Add(this.WeaponRange);
-            this.groupBox27.Controls.Add(this.WeaponInitiative);
-            this.groupBox27.Controls.Add(this.WeaponPower);
+            this.groupBox27.Controls.Add(this.minesSwept);
+            this.groupBox27.Controls.Add(this.weaponAccuracy);
+            this.groupBox27.Controls.Add(this.weaponRange);
+            this.groupBox27.Controls.Add(this.weaponInitiative);
+            this.groupBox27.Controls.Add(this.weaponPower);
             this.groupBox27.Controls.Add(this.label70);
             this.groupBox27.Controls.Add(this.label74);
             this.groupBox27.Controls.Add(this.label75);
@@ -3821,49 +3821,49 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // MinesSwept
             // 
-            this.MinesSwept.AutoSize = true;
-            this.MinesSwept.Location = new System.Drawing.Point(6, 147);
-            this.MinesSwept.Name = "MinesSwept";
-            this.MinesSwept.Size = new System.Drawing.Size(66, 13);
-            this.MinesSwept.TabIndex = 5;
-            this.MinesSwept.Text = "Mines swept";
+            this.minesSwept.AutoSize = true;
+            this.minesSwept.Location = new System.Drawing.Point(6, 147);
+            this.minesSwept.Name = "minesSwept";
+            this.minesSwept.Size = new System.Drawing.Size(66, 13);
+            this.minesSwept.TabIndex = 5;
+            this.minesSwept.Text = "Mines swept";
             // 
             // WeaponAccuracy
             // 
-            this.WeaponAccuracy.Location = new System.Drawing.Point(96, 106);
-            this.WeaponAccuracy.Name = "WeaponAccuracy";
-            this.WeaponAccuracy.Size = new System.Drawing.Size(56, 20);
-            this.WeaponAccuracy.TabIndex = 4;
-            this.WeaponAccuracy.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.weaponAccuracy.Location = new System.Drawing.Point(96, 106);
+            this.weaponAccuracy.Name = "weaponAccuracy";
+            this.weaponAccuracy.Size = new System.Drawing.Size(56, 20);
+            this.weaponAccuracy.TabIndex = 4;
+            this.weaponAccuracy.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // WeaponRange
             // 
-            this.WeaponRange.Location = new System.Drawing.Point(96, 58);
-            this.WeaponRange.Name = "WeaponRange";
-            this.WeaponRange.Size = new System.Drawing.Size(56, 20);
-            this.WeaponRange.TabIndex = 2;
-            this.WeaponRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.weaponRange.Location = new System.Drawing.Point(96, 58);
+            this.weaponRange.Name = "weaponRange";
+            this.weaponRange.Size = new System.Drawing.Size(56, 20);
+            this.weaponRange.TabIndex = 2;
+            this.weaponRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // WeaponInitiative
             // 
-            this.WeaponInitiative.Location = new System.Drawing.Point(96, 82);
-            this.WeaponInitiative.Name = "WeaponInitiative";
-            this.WeaponInitiative.Size = new System.Drawing.Size(56, 20);
-            this.WeaponInitiative.TabIndex = 3;
-            this.WeaponInitiative.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.weaponInitiative.Location = new System.Drawing.Point(96, 82);
+            this.weaponInitiative.Name = "weaponInitiative";
+            this.weaponInitiative.Size = new System.Drawing.Size(56, 20);
+            this.weaponInitiative.TabIndex = 3;
+            this.weaponInitiative.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // WeaponPower
             // 
-            this.WeaponPower.Location = new System.Drawing.Point(96, 34);
-            this.WeaponPower.Maximum = new decimal(new int[] {
+            this.weaponPower.Location = new System.Drawing.Point(96, 34);
+            this.weaponPower.Maximum = new decimal(new int[] {
             10000,
             0,
             0,
             0});
-            this.WeaponPower.Name = "WeaponPower";
-            this.WeaponPower.Size = new System.Drawing.Size(56, 20);
-            this.WeaponPower.TabIndex = 1;
-            this.WeaponPower.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.weaponPower.Name = "weaponPower";
+            this.weaponPower.Size = new System.Drawing.Size(56, 20);
+            this.weaponPower.TabIndex = 1;
+            this.weaponPower.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
             // label70
             // 
@@ -3903,37 +3903,37 @@ namespace Nova.WinForms.ComponentEditor
             // 
             // ComponentImage
             // 
-            this.ComponentImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ComponentImage.AutoSize = true;
-            this.ComponentImage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.ComponentImage.Image = null;
-            this.ComponentImage.Location = new System.Drawing.Point(783, 3);
-            this.ComponentImage.MaximumSize = new System.Drawing.Size(118, 166);
-            this.ComponentImage.MinimumSize = new System.Drawing.Size(118, 166);
-            this.ComponentImage.Name = "ComponentImage";
-            this.tableLayoutPanel1.SetRowSpan(this.ComponentImage, 2);
-            this.ComponentImage.Size = new System.Drawing.Size(118, 166);
-            this.ComponentImage.TabIndex = 29;
+            this.componentImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.componentImage.AutoSize = true;
+            this.componentImage.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.componentImage.Image = null;
+            this.componentImage.Location = new System.Drawing.Point(783, 3);
+            this.componentImage.MaximumSize = new System.Drawing.Size(118, 166);
+            this.componentImage.MinimumSize = new System.Drawing.Size(118, 166);
+            this.componentImage.Name = "componentImage";
+            this.tableLayoutPanel1.SetRowSpan(this.componentImage, 2);
+            this.componentImage.Size = new System.Drawing.Size(118, 166);
+            this.componentImage.TabIndex = 29;
             // 
             // TechRequirements
             // 
-            this.TechRequirements.Location = new System.Drawing.Point(203, 53);
-            this.TechRequirements.Name = "TechRequirements";
-            this.tableLayoutPanel1.SetRowSpan(this.TechRequirements, 2);
-            this.TechRequirements.Size = new System.Drawing.Size(171, 190);
-            this.TechRequirements.TabIndex = 0;
-            this.TechRequirements.Value = new Nova.Common.TechLevel(0, 0, 0, 0, 0, 0);
+            this.techRequirements.Location = new System.Drawing.Point(203, 53);
+            this.techRequirements.Name = "techRequirements";
+            this.tableLayoutPanel1.SetRowSpan(this.techRequirements, 2);
+            this.techRequirements.Size = new System.Drawing.Size(171, 190);
+            this.techRequirements.TabIndex = 0;
+            this.techRequirements.Value = new Nova.Common.TechLevel(0, 0, 0, 0, 0, 0);
             // 
             // BasicProperties
             // 
-            this.BasicProperties.AutoSize = true;
-            this.BasicProperties.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.BasicProperties.Cost = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
-            this.BasicProperties.Location = new System.Drawing.Point(203, 266);
-            this.BasicProperties.Mass = 0;
-            this.BasicProperties.Name = "BasicProperties";
-            this.BasicProperties.Size = new System.Drawing.Size(171, 192);
-            this.BasicProperties.TabIndex = 21;
+            this.basicProperties.AutoSize = true;
+            this.basicProperties.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.basicProperties.Cost = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+            this.basicProperties.Location = new System.Drawing.Point(203, 266);
+            this.basicProperties.Mass = 0;
+            this.basicProperties.Name = "basicProperties";
+            this.basicProperties.Size = new System.Drawing.Size(171, 192);
+            this.basicProperties.TabIndex = 21;
             // 
             // ComponentEditorWindow
             // 
@@ -3941,15 +3941,15 @@ namespace Nova.WinForms.ComponentEditor
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(904, 564);
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Controls.Add(this.MainMenu);
+            this.Controls.Add(this.mainMenu);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
-            this.MainMenuStrip = this.MainMenu;
+            this.MainMenuStrip = this.mainMenu;
             this.Name = "ComponentEditorWindow";
             this.Text = "Nova Component Editor";
             this.Load += new System.EventHandler(this.OnLoad);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
-            this.MainMenu.ResumeLayout(false);
-            this.MainMenu.PerformLayout();
+            this.mainMenu.ResumeLayout(false);
+            this.mainMenu.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.groupBox3.ResumeLayout(false);
@@ -3959,144 +3959,144 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             this.groupBox5.ResumeLayout(false);
-            this.PropertyTabs.ResumeLayout(false);
+            this.propertyTabs.ResumeLayout(false);
             this.tabArmor.ResumeLayout(false);
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Armor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.armor)).EndInit();
             this.tabMovement.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BattleMovement)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.battleMovement)).EndInit();
             this.tabBomb.ResumeLayout(false);
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MinimumPopKill)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.InstallationsDestroyed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PopulationKill)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.minimumPopKill)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.installationsDestroyed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.populationKill)).EndInit();
             this.tabCapacitor.ResumeLayout(false);
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BeamDamage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.beamDamage)).EndInit();
             this.tabCargo.ResumeLayout(false);
             this.groupBox12.ResumeLayout(false);
             this.groupBox12.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.CargoCapacity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cargoCapacity)).EndInit();
             this.tabCloak.ResumeLayout(false);
             this.groupBox13.ResumeLayout(false);
             this.groupBox13.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Cloaking)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.cloaking)).EndInit();
             this.tabColonization.ResumeLayout(false);
             this.groupBox14.ResumeLayout(false);
             this.groupBox14.PerformLayout();
             this.tabComputer.ResumeLayout(false);
             this.groupBox15.ResumeLayout(false);
             this.groupBox15.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Initiative)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.Accuracy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.initiative)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.accuracy)).EndInit();
             this.tabDefense.ResumeLayout(false);
             this.groupBox16.ResumeLayout(false);
             this.groupBox16.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.DefenseCover1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.defenseCover1)).EndInit();
             this.tabDeflector.ResumeLayout(false);
             this.groupBox32.ResumeLayout(false);
             this.groupBox32.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.BeamDeflector)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.beamDeflector)).EndInit();
             this.tabEnergyDampener.ResumeLayout(false);
             this.groupBox31.ResumeLayout(false);
             this.groupBox31.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EnergyDampener)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.energyDampener)).EndInit();
             this.tabEngine.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.EngineFastestFreeSpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EngineOptimalSpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.EngineFastestSafeSpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W2Fuel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W3Fuel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W4Fuel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W5Fuel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W6Fuel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W7Fuel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W8Fuel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W9Fuel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W10Fuel)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.W1Fuel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.engineFastestFreeSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.engineOptimalSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.engineFastestSafeSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp2Fuel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp3Fuel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp4Fuel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp5Fuel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp6Fuel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp7Fuel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp8Fuel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp9Fuel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp10Fuel)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.warp1Fuel)).EndInit();
             this.tabFuel.ResumeLayout(false);
             this.groupBox18.ResumeLayout(false);
             this.groupBox18.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.FuelCapacity)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.FuelGeneration)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fuelCapacity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.fuelGeneration)).EndInit();
             this.tabGate.ResumeLayout(false);
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.SafeRange)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.SafeHullMass)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.safeRange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.safeHullMass)).EndInit();
             this.tabHull.ResumeLayout(false);
             this.groupBox19.ResumeLayout(false);
             this.groupBox19.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ARMaxPop)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HullCargoCapacity)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HullFuelCapacity)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HullInitiative)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HullDockCapacity)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.HullArmor)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.alternateRealityMaxPop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hullCargoCapacity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hullFuelCapacity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hullInitiative)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hullDockCapacity)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.hullArmor)).EndInit();
             this.tabHullAffinity.ResumeLayout(false);
             this.groupBox29.ResumeLayout(false);
             this.groupBox29.PerformLayout();
             this.tabJammer.ResumeLayout(false);
             this.groupBox20.ResumeLayout(false);
             this.groupBox20.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Deflection)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.deflection)).EndInit();
             this.tabLayerEfficiency.ResumeLayout(false);
-            this.ImprovedMineLayingEfficiency.ResumeLayout(false);
-            this.ImprovedMineLayingEfficiency.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MineLayerEfficiency)).EndInit();
+            this.improvedMineLayingEfficiency.ResumeLayout(false);
+            this.improvedMineLayingEfficiency.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.mineLayerEfficiency)).EndInit();
             this.tabDriver.ResumeLayout(false);
             this.groupBox21.ResumeLayout(false);
             this.groupBox21.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MassDriverSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.massDriverSpeed)).EndInit();
             this.tabMineLayer.ResumeLayout(false);
             this.groupBox22.ResumeLayout(false);
             this.groupBox22.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MineMinRamScoopDamage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MineMinFleetDamage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MineDamagePerRamScoop)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MineDamagePerEngine)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MineHitChance)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MineSafeSpeed)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.MineLayingRate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineMinRamScoopDamage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineMinFleetDamage)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineDamagePerRamScoop)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineDamagePerEngine)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineHitChance)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineSafeSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.mineLayingRate)).EndInit();
             this.tabRadiation.ResumeLayout(false);
             this.groupBox28.ResumeLayout(false);
             this.groupBox28.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Radiation)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radiation)).EndInit();
             this.tabRobot.ResumeLayout(false);
             this.groupBox23.ResumeLayout(false);
             this.groupBox23.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.MiningRate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.miningRate)).EndInit();
             this.tabOrbitalAdjuster.ResumeLayout(false);
             this.groupBox24.ResumeLayout(false);
             this.groupBox24.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.AdjusterRate)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.adjusterRate)).EndInit();
             this.tabScanner.ResumeLayout(false);
             this.groupBox17.ResumeLayout(false);
             this.groupBox17.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.NormalRange)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.PenetratingRange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.normalRange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.penetratingRange)).EndInit();
             this.tabShield.ResumeLayout(false);
             this.groupBox25.ResumeLayout(false);
             this.groupBox25.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.Shield)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.shield)).EndInit();
             this.tabTachyonDetector.ResumeLayout(false);
             this.groupBox30.ResumeLayout(false);
             this.groupBox30.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.TachyonDetector)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.tachyonDetector)).EndInit();
             this.tabTerraforming.ResumeLayout(false);
             this.groupBox26.ResumeLayout(false);
             this.groupBox26.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.RadiationMod)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.TemperatureMod)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.GravityMod)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.radiationMod)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.temperatureMod)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.gravityMod)).EndInit();
             this.tabTransportShipsOnly.ResumeLayout(false);
             this.tabTransportShipsOnly.PerformLayout();
             this.tabWeapon.ResumeLayout(false);
@@ -4104,10 +4104,10 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBoxWeaponType.PerformLayout();
             this.groupBox27.ResumeLayout(false);
             this.groupBox27.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.WeaponAccuracy)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.WeaponRange)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.WeaponInitiative)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.WeaponPower)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponAccuracy)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponRange)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponInitiative)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.weaponPower)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -4115,11 +4115,11 @@ namespace Nova.WinForms.ComponentEditor
         
         #endregion
         
-        private System.Windows.Forms.ToolStripMenuItem ResetFileLocation;
+        private System.Windows.Forms.ToolStripMenuItem resetFileLocation;
         private System.Windows.Forms.ToolStripMenuItem exitToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem aboutToolStripMenuItem;
-        private System.Windows.Forms.MenuStrip MainMenu;
+        private System.Windows.Forms.MenuStrip mainMenu;
         private System.Windows.Forms.ToolStripMenuItem newFileMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openFileMenuItem;
         private System.Windows.Forms.ToolStripMenuItem menuStripComponent;
@@ -4153,7 +4153,7 @@ namespace Nova.WinForms.ComponentEditor
         private System.Windows.Forms.ToolStripMenuItem editComponentMenuItem;
         private System.Windows.Forms.ToolStripMenuItem discardComponentChangesMenuItem;
         private System.Windows.Forms.ToolStripMenuItem copyToolStripMenuItem;
-        private System.Windows.Forms.TextBox RestrictionSummary;
+        private System.Windows.Forms.TextBox restrictionSummary;
         private System.Windows.Forms.ToolStripMenuItem layerEfficencyToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem electricalToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem capacitorToolStripMenuItem;
@@ -4168,7 +4168,7 @@ namespace Nova.WinForms.ComponentEditor
         private System.Windows.Forms.ToolStripMenuItem colonizationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem fuelToolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem planetaryToolStripMenuItem;
-        private System.Windows.Forms.ToolStripMenuItem DefenseToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem defenseToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem limitationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem hullAffinityToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem radiationToolStripMenuItem;
@@ -4178,98 +4178,98 @@ namespace Nova.WinForms.ComponentEditor
         private System.Windows.Forms.ToolStripMenuItem battleMovementToolStripMenuItem;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.GroupBox groupBox4;
-        private System.Windows.Forms.ListBox ComponentList;
+        private System.Windows.Forms.ListBox componentList;
         private System.Windows.Forms.GroupBox groupBox1;
-        private System.Windows.Forms.ComboBox ComponentType;
+        private System.Windows.Forms.ComboBox componentType;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.TextBox ComponentName;
-        private BasicProperties BasicProperties;
+        private System.Windows.Forms.TextBox componentName;
+        private BasicProperties basicProperties;
         private System.Windows.Forms.GroupBox groupBox5;
-        private ImageDisplay ComponentImage;
+        private ImageDisplay componentImage;
         private System.Windows.Forms.GroupBox groupBox3;
-        private System.Windows.Forms.TextBox Description;
-        private System.Windows.Forms.TabControl PropertyTabs;
+        private System.Windows.Forms.TextBox description;
+        private System.Windows.Forms.TabControl propertyTabs;
         private System.Windows.Forms.TabPage tabArmor;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.Label label79;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.NumericUpDown Armor;
+        private System.Windows.Forms.NumericUpDown armor;
         private System.Windows.Forms.TabPage tabMovement;
         private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.NumericUpDown BattleMovement;
+        private System.Windows.Forms.NumericUpDown battleMovement;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.TabPage tabBomb;
         private System.Windows.Forms.GroupBox groupBox10;
-        private System.Windows.Forms.CheckBox SmartBomb;
-        private System.Windows.Forms.NumericUpDown MinimumPopKill;
+        private System.Windows.Forms.CheckBox smartBomb;
+        private System.Windows.Forms.NumericUpDown minimumPopKill;
         private System.Windows.Forms.Label label17;
-        private System.Windows.Forms.NumericUpDown InstallationsDestroyed;
-        private System.Windows.Forms.NumericUpDown PopulationKill;
+        private System.Windows.Forms.NumericUpDown installationsDestroyed;
+        private System.Windows.Forms.NumericUpDown populationKill;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.TabPage tabCapacitor;
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.Label label21;
-        private System.Windows.Forms.NumericUpDown BeamDamage;
+        private System.Windows.Forms.NumericUpDown beamDamage;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.TabPage tabCargo;
         private System.Windows.Forms.GroupBox groupBox12;
         private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.NumericUpDown CargoCapacity;
+        private System.Windows.Forms.NumericUpDown cargoCapacity;
         private System.Windows.Forms.Label label22;
         private System.Windows.Forms.TabPage tabCloak;
         private System.Windows.Forms.GroupBox groupBox13;
-        private System.Windows.Forms.NumericUpDown Cloaking;
+        private System.Windows.Forms.NumericUpDown cloaking;
         private System.Windows.Forms.Label label25;
         private System.Windows.Forms.Label label24;
         private System.Windows.Forms.TabPage tabColonization;
         private System.Windows.Forms.GroupBox groupBox14;
-        private System.Windows.Forms.RadioButton OrbitalColonizationModule;
-        private System.Windows.Forms.RadioButton ColonizationModule;
+        private System.Windows.Forms.RadioButton orbitalColonizationModule;
+        private System.Windows.Forms.RadioButton colonizationModule;
         private System.Windows.Forms.TabPage tabComputer;
         private System.Windows.Forms.GroupBox groupBox15;
         private System.Windows.Forms.Label label26;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.NumericUpDown Initiative;
+        private System.Windows.Forms.NumericUpDown initiative;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.NumericUpDown Accuracy;
+        private System.Windows.Forms.NumericUpDown accuracy;
         private System.Windows.Forms.TabPage tabDefense;
         private System.Windows.Forms.GroupBox groupBox16;
-        private System.Windows.Forms.Label DefenseCover100;
+        private System.Windows.Forms.Label defenseCover100;
         private System.Windows.Forms.Label label35;
         private System.Windows.Forms.Label label36;
-        private System.Windows.Forms.Label DefenseCover80;
-        private System.Windows.Forms.Label DefenseCover40;
+        private System.Windows.Forms.Label defenseCover80;
+        private System.Windows.Forms.Label defenseCover40;
         private System.Windows.Forms.Label label32;
         private System.Windows.Forms.Label label31;
         private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.NumericUpDown DefenseCover1;
+        private System.Windows.Forms.NumericUpDown defenseCover1;
         private System.Windows.Forms.Label label29;
         private System.Windows.Forms.Label label28;
         private System.Windows.Forms.Label label27;
         private System.Windows.Forms.TabPage tabDeflector;
         private System.Windows.Forms.GroupBox groupBox32;
         private System.Windows.Forms.Label label92;
-        private System.Windows.Forms.NumericUpDown BeamDeflector;
+        private System.Windows.Forms.NumericUpDown beamDeflector;
         private System.Windows.Forms.Label label91;
         private System.Windows.Forms.TabPage tabEnergyDampener;
         private System.Windows.Forms.GroupBox groupBox31;
         private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.NumericUpDown EnergyDampener;
+        private System.Windows.Forms.NumericUpDown energyDampener;
         private System.Windows.Forms.Label label90;
         private System.Windows.Forms.TabPage tabEngine;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.NumericUpDown EngineFastestFreeSpeed;
+        private System.Windows.Forms.NumericUpDown engineFastestFreeSpeed;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.Label label83;
         private System.Windows.Forms.Label label82;
         private System.Windows.Forms.Label label81;
-        private System.Windows.Forms.NumericUpDown EngineOptimalSpeed;
+        private System.Windows.Forms.NumericUpDown engineOptimalSpeed;
         private System.Windows.Forms.Label label80;
-        private System.Windows.Forms.NumericUpDown EngineFastestSafeSpeed;
+        private System.Windows.Forms.NumericUpDown engineFastestSafeSpeed;
         private System.Windows.Forms.Label label39;
-        private System.Windows.Forms.CheckBox RamScoopCheckBox;
+        private System.Windows.Forms.CheckBox ramScoopCheckBox;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label8;
@@ -4280,122 +4280,122 @@ namespace Nova.WinForms.ComponentEditor
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.NumericUpDown W2Fuel;
-        private System.Windows.Forms.NumericUpDown W3Fuel;
-        private System.Windows.Forms.NumericUpDown W4Fuel;
-        private System.Windows.Forms.NumericUpDown W5Fuel;
-        private System.Windows.Forms.NumericUpDown W6Fuel;
-        private System.Windows.Forms.NumericUpDown W7Fuel;
-        private System.Windows.Forms.NumericUpDown W8Fuel;
-        private System.Windows.Forms.NumericUpDown W9Fuel;
-        private System.Windows.Forms.NumericUpDown W10Fuel;
-        private System.Windows.Forms.NumericUpDown W1Fuel;
+        private System.Windows.Forms.NumericUpDown warp2Fuel;
+        private System.Windows.Forms.NumericUpDown warp3Fuel;
+        private System.Windows.Forms.NumericUpDown warp4Fuel;
+        private System.Windows.Forms.NumericUpDown warp5Fuel;
+        private System.Windows.Forms.NumericUpDown warp6Fuel;
+        private System.Windows.Forms.NumericUpDown warp7Fuel;
+        private System.Windows.Forms.NumericUpDown warp8Fuel;
+        private System.Windows.Forms.NumericUpDown warp9Fuel;
+        private System.Windows.Forms.NumericUpDown warp10Fuel;
+        private System.Windows.Forms.NumericUpDown warp1Fuel;
         private System.Windows.Forms.TabPage tabFuel;
         private System.Windows.Forms.GroupBox groupBox18;
         private System.Windows.Forms.Label label41;
         private System.Windows.Forms.Label label40;
-        private System.Windows.Forms.NumericUpDown FuelCapacity;
+        private System.Windows.Forms.NumericUpDown fuelCapacity;
         private System.Windows.Forms.Label labelFuelGeneration;
-        private System.Windows.Forms.NumericUpDown FuelGeneration;
+        private System.Windows.Forms.NumericUpDown fuelGeneration;
         private System.Windows.Forms.Label lableFuelCapcity;
         private System.Windows.Forms.TabPage tabGate;
         private System.Windows.Forms.GroupBox groupBox7;
-        private System.Windows.Forms.CheckBox GateMassInfinite;
-        private System.Windows.Forms.CheckBox GateRangeInfinite;
+        private System.Windows.Forms.CheckBox gateMassInfinite;
+        private System.Windows.Forms.CheckBox gateRangeInfinite;
         private System.Windows.Forms.Label label43;
         private System.Windows.Forms.Label label42;
-        private System.Windows.Forms.NumericUpDown SafeRange;
-        private System.Windows.Forms.NumericUpDown SafeHullMass;
+        private System.Windows.Forms.NumericUpDown safeRange;
+        private System.Windows.Forms.NumericUpDown safeHullMass;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.TabPage tabHull;
         private System.Windows.Forms.GroupBox groupBox19;
-        private System.Windows.Forms.CheckBox InfiniteDock;
+        private System.Windows.Forms.CheckBox infiniteDock;
         private System.Windows.Forms.Label label86;
-        private System.Windows.Forms.NumericUpDown ARMaxPop;
+        private System.Windows.Forms.NumericUpDown alternateRealityMaxPop;
         private System.Windows.Forms.Label label87;
         private System.Windows.Forms.Button buttonEditHull;
         private System.Windows.Forms.Label label50;
         private System.Windows.Forms.Label label49;
-        private System.Windows.Forms.NumericUpDown HullCargoCapacity;
+        private System.Windows.Forms.NumericUpDown hullCargoCapacity;
         private System.Windows.Forms.Label label48;
         private System.Windows.Forms.Label labelBaseCargoKT;
         private System.Windows.Forms.Label label47;
         private System.Windows.Forms.Label labelBaseCargo;
-        private System.Windows.Forms.NumericUpDown HullFuelCapacity;
+        private System.Windows.Forms.NumericUpDown hullFuelCapacity;
         private System.Windows.Forms.Label label44;
-        private System.Windows.Forms.NumericUpDown HullInitiative;
-        private System.Windows.Forms.NumericUpDown HullDockCapacity;
-        private System.Windows.Forms.NumericUpDown HullArmor;
+        private System.Windows.Forms.NumericUpDown hullInitiative;
+        private System.Windows.Forms.NumericUpDown hullDockCapacity;
+        private System.Windows.Forms.NumericUpDown hullArmor;
         private System.Windows.Forms.Label label45;
         private System.Windows.Forms.Label label46;
         private System.Windows.Forms.TabPage tabHullAffinity;
         private System.Windows.Forms.GroupBox groupBox29;
         private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.ComboBox ComponentHullAffinity;
+        private System.Windows.Forms.ComboBox componentHullAffinity;
         private System.Windows.Forms.TabPage tabJammer;
         private System.Windows.Forms.GroupBox groupBox20;
         private System.Windows.Forms.Label label51;
         private System.Windows.Forms.Label label52;
-        private System.Windows.Forms.NumericUpDown Deflection;
+        private System.Windows.Forms.NumericUpDown deflection;
         private System.Windows.Forms.TabPage tabLayerEfficiency;
-        private System.Windows.Forms.GroupBox ImprovedMineLayingEfficiency;
+        private System.Windows.Forms.GroupBox improvedMineLayingEfficiency;
         private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.NumericUpDown MineLayerEfficiency;
+        private System.Windows.Forms.NumericUpDown mineLayerEfficiency;
         private System.Windows.Forms.Label label93;
         private System.Windows.Forms.TabPage tabDriver;
         private System.Windows.Forms.GroupBox groupBox21;
-        private System.Windows.Forms.NumericUpDown MassDriverSpeed;
+        private System.Windows.Forms.NumericUpDown massDriverSpeed;
         private System.Windows.Forms.Label label53;
         private System.Windows.Forms.TabPage tabMineLayer;
         private System.Windows.Forms.GroupBox groupBox22;
-        private System.Windows.Forms.NumericUpDown MineMinRamScoopDamage;
-        private System.Windows.Forms.NumericUpDown MineMinFleetDamage;
-        private System.Windows.Forms.NumericUpDown MineDamagePerRamScoop;
+        private System.Windows.Forms.NumericUpDown mineMinRamScoopDamage;
+        private System.Windows.Forms.NumericUpDown mineMinFleetDamage;
+        private System.Windows.Forms.NumericUpDown mineDamagePerRamScoop;
         private System.Windows.Forms.Label label54;
         private System.Windows.Forms.Label label55;
         private System.Windows.Forms.Label label56;
-        private System.Windows.Forms.NumericUpDown MineDamagePerEngine;
-        private System.Windows.Forms.NumericUpDown MineHitChance;
-        private System.Windows.Forms.NumericUpDown MineSafeSpeed;
+        private System.Windows.Forms.NumericUpDown mineDamagePerEngine;
+        private System.Windows.Forms.NumericUpDown mineHitChance;
+        private System.Windows.Forms.NumericUpDown mineSafeSpeed;
         private System.Windows.Forms.Label label57;
         private System.Windows.Forms.Label label58;
         private System.Windows.Forms.Label label59;
-        private System.Windows.Forms.NumericUpDown MineLayingRate;
+        private System.Windows.Forms.NumericUpDown mineLayingRate;
         private System.Windows.Forms.Label label60;
         private System.Windows.Forms.TabPage tabRadiation;
         private System.Windows.Forms.GroupBox groupBox28;
         private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.NumericUpDown Radiation;
+        private System.Windows.Forms.NumericUpDown radiation;
         private System.Windows.Forms.Label label78;
         private System.Windows.Forms.Label label77;
         private System.Windows.Forms.TabPage tabRobot;
         private System.Windows.Forms.GroupBox groupBox23;
         private System.Windows.Forms.RichTextBox richTextBox1;
         private System.Windows.Forms.Label label62;
-        private System.Windows.Forms.NumericUpDown MiningRate;
+        private System.Windows.Forms.NumericUpDown miningRate;
         private System.Windows.Forms.Label label61;
         private System.Windows.Forms.TabPage tabOrbitalAdjuster;
         private System.Windows.Forms.GroupBox groupBox24;
         private System.Windows.Forms.Label label64;
-        private System.Windows.Forms.NumericUpDown AdjusterRate;
+        private System.Windows.Forms.NumericUpDown adjusterRate;
         private System.Windows.Forms.Label label63;
         private System.Windows.Forms.TabPage tabScanner;
         private System.Windows.Forms.GroupBox groupBox17;
         private System.Windows.Forms.Label label38;
         private System.Windows.Forms.Label label37;
-        private System.Windows.Forms.NumericUpDown NormalRange;
+        private System.Windows.Forms.NumericUpDown normalRange;
         private System.Windows.Forms.Label label33;
-        private System.Windows.Forms.NumericUpDown PenetratingRange;
+        private System.Windows.Forms.NumericUpDown penetratingRange;
         private System.Windows.Forms.Label label34;
         private System.Windows.Forms.TabPage tabShield;
         private System.Windows.Forms.GroupBox groupBox25;
         private System.Windows.Forms.Label label65;
-        private System.Windows.Forms.NumericUpDown Shield;
+        private System.Windows.Forms.NumericUpDown shield;
         private System.Windows.Forms.Label label66;
         private System.Windows.Forms.TabPage tabTachyonDetector;
         private System.Windows.Forms.GroupBox groupBox30;
-        private System.Windows.Forms.NumericUpDown TachyonDetector;
+        private System.Windows.Forms.NumericUpDown tachyonDetector;
         private System.Windows.Forms.Label label89;
         private System.Windows.Forms.Label label88;
         private System.Windows.Forms.TabPage tabTerraforming;
@@ -4404,9 +4404,9 @@ namespace Nova.WinForms.ComponentEditor
         private System.Windows.Forms.Label label73;
         private System.Windows.Forms.Label label72;
         private System.Windows.Forms.Label label71;
-        private System.Windows.Forms.NumericUpDown RadiationMod;
-        private System.Windows.Forms.NumericUpDown TemperatureMod;
-        private System.Windows.Forms.NumericUpDown GravityMod;
+        private System.Windows.Forms.NumericUpDown radiationMod;
+        private System.Windows.Forms.NumericUpDown temperatureMod;
+        private System.Windows.Forms.NumericUpDown gravityMod;
         private System.Windows.Forms.Label label69;
         private System.Windows.Forms.Label label68;
         private System.Windows.Forms.Label label67;
@@ -4420,16 +4420,16 @@ namespace Nova.WinForms.ComponentEditor
         private System.Windows.Forms.RadioButton isSapper;
         private System.Windows.Forms.RadioButton isStandardBeam;
         private System.Windows.Forms.GroupBox groupBox27;
-        private System.Windows.Forms.Label MinesSwept;
-        private System.Windows.Forms.NumericUpDown WeaponAccuracy;
-        private System.Windows.Forms.NumericUpDown WeaponRange;
-        private System.Windows.Forms.NumericUpDown WeaponInitiative;
-        private System.Windows.Forms.NumericUpDown WeaponPower;
+        private System.Windows.Forms.Label minesSwept;
+        private System.Windows.Forms.NumericUpDown weaponAccuracy;
+        private System.Windows.Forms.NumericUpDown weaponRange;
+        private System.Windows.Forms.NumericUpDown weaponInitiative;
+        private System.Windows.Forms.NumericUpDown weaponPower;
         private System.Windows.Forms.Label label70;
         private System.Windows.Forms.Label label74;
         private System.Windows.Forms.Label label75;
         private System.Windows.Forms.Label label76;
-        private TechRequirements TechRequirements;
+        private TechRequirements techRequirements;
     }
 }
 

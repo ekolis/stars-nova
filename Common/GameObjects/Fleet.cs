@@ -577,14 +577,14 @@ namespace Nova.Common
         {
             get
             {
-                double Armor = 0;
+                double armor = 0;
 
                 foreach (Ship ship in FleetShips)
                 {
-                    Armor += ship.Armor;
+                    armor += ship.Armor;
                 }
 
-                return Armor;
+                return armor;
             }
         }
 

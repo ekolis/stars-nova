@@ -45,14 +45,14 @@ namespace Nova.WinForms.ComponentEditor
           this.Description = new System.Windows.Forms.TextBox();
           this.groupBox2 = new System.Windows.Forms.GroupBox();
           this.ComponentName = new System.Windows.Forms.TextBox();
-          this.ScannerListGroupBox = new System.Windows.Forms.GroupBox();
+          this.scannerListGroupBox = new System.Windows.Forms.GroupBox();
           this.ComponentList = new System.Windows.Forms.ListBox();
           this.ComponentImage = new ComponentEditor.ImageDisplay();
           this.TechRequirements = new ComponentEditor.TechRequirements();
           this.BasicProperties = new ComponentEditor.BasicProperties();
           this.groupBox3.SuspendLayout();
           this.groupBox2.SuspendLayout();
-          this.ScannerListGroupBox.SuspendLayout();
+          this.scannerListGroupBox.SuspendLayout();
           this.SuspendLayout();
           // 
           // groupBox3
@@ -99,13 +99,13 @@ namespace Nova.WinForms.ComponentEditor
           // 
           // ScannerListGroupBox
           // 
-          this.ScannerListGroupBox.Controls.Add(this.ComponentList);
-          this.ScannerListGroupBox.Location = new System.Drawing.Point(6, 65);
-          this.ScannerListGroupBox.Name = "ScannerListGroupBox";
-          this.ScannerListGroupBox.Size = new System.Drawing.Size(187, 271);
-          this.ScannerListGroupBox.TabIndex = 11;
-          this.ScannerListGroupBox.TabStop = false;
-          this.ScannerListGroupBox.Text = "Available Types";
+          this.scannerListGroupBox.Controls.Add(this.ComponentList);
+          this.scannerListGroupBox.Location = new System.Drawing.Point(6, 65);
+          this.scannerListGroupBox.Name = "scannerListGroupBox";
+          this.scannerListGroupBox.Size = new System.Drawing.Size(187, 271);
+          this.scannerListGroupBox.TabIndex = 11;
+          this.scannerListGroupBox.TabStop = false;
+          this.scannerListGroupBox.Text = "Available Types";
           // 
           // ComponentList
           // 
@@ -154,14 +154,14 @@ namespace Nova.WinForms.ComponentEditor
           this.Controls.Add(this.groupBox2);
           this.Controls.Add(this.TechRequirements);
           this.Controls.Add(this.BasicProperties);
-          this.Controls.Add(this.ScannerListGroupBox);
+          this.Controls.Add(this.scannerListGroupBox);
           this.Name = "CommonProperties";
           this.Size = new System.Drawing.Size(581, 458);
           this.groupBox3.ResumeLayout(false);
           this.groupBox3.PerformLayout();
           this.groupBox2.ResumeLayout(false);
           this.groupBox2.PerformLayout();
-          this.ScannerListGroupBox.ResumeLayout(false);
+          this.scannerListGroupBox.ResumeLayout(false);
           this.ResumeLayout(false);
 
       }
@@ -170,7 +170,7 @@ namespace Nova.WinForms.ComponentEditor
 
       private System.Windows.Forms.GroupBox groupBox3;
       private System.Windows.Forms.GroupBox groupBox2;
-      private System.Windows.Forms.GroupBox ScannerListGroupBox;
+      private System.Windows.Forms.GroupBox scannerListGroupBox;
       public System.Windows.Forms.ListBox ComponentList;
       public System.Windows.Forms.TextBox ComponentName;
       public TechRequirements TechRequirements;

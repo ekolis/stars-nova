@@ -43,7 +43,7 @@ namespace Nova.WinForms.NewGame
     {
         private ServerState stateData = ServerState.Data;
         public Hashtable KnownRaces = new Hashtable();
-        private int NumberOfPlayers = 0;
+        private int numberOfPlayers;
 
 
         #region Initialisation
@@ -65,14 +65,14 @@ namespace Nova.WinForms.NewGame
                 raceSelectionBox.Items.Add(raceName);
 
                 // add known race to list of players
-                NumberOfPlayers++;
-                ListViewItem player = new ListViewItem("  " + NumberOfPlayers.ToString());
+                this.numberOfPlayers++;
+                ListViewItem player = new ListViewItem("  " + this.numberOfPlayers.ToString());
                 player.SubItems.Add(raceName);
                 player.SubItems.Add("Human");
                 playerList.Items.Add(player);
 
             }
-            if (NumberOfPlayers > 0)
+            if (this.numberOfPlayers > 0)
             {
                 raceSelectionBox.SelectedIndex = 0;
             }
@@ -96,15 +96,15 @@ namespace Nova.WinForms.NewGame
         private void OkButton_Click(object sender, EventArgs e)
         {
             GameSettings.Data.GameName = gameName.Text;
-            GameSettings.Data.PlanetsOwned = PlanetsOwned.Value;
-            GameSettings.Data.TechLevels = TechLevels.Value;
-            GameSettings.Data.NumberOfFields = NumberOfFields.Value;
-            GameSettings.Data.TotalScore = TotalScore.Value;
-            GameSettings.Data.ProductionCapacity = ProductionCapacity.Value;
-            GameSettings.Data.CapitalShips = CapitalShips.Value;
-            GameSettings.Data.HighestScore = HighestScore.Value;
-            GameSettings.Data.TargetsToMeet = Int32.Parse(TargetsToMeet.Text, System.Globalization.CultureInfo.InvariantCulture);
-            GameSettings.Data.MinimumGameTime = Int32.Parse(MinimumGameTime.Text, System.Globalization.CultureInfo.InvariantCulture);
+            GameSettings.Data.PlanetsOwned = this.planetsOwned.Value;
+            GameSettings.Data.TechLevels = this.techLevels.Value;
+            GameSettings.Data.NumberOfFields = this.numberOfFields.Value;
+            GameSettings.Data.TotalScore = this.totalScore.Value;
+            GameSettings.Data.ProductionCapacity = this.productionCapacity.Value;
+            GameSettings.Data.CapitalShips = this.capitalShips.Value;
+            GameSettings.Data.HighestScore = this.highestScore.Value;
+            GameSettings.Data.TargetsToMeet = Int32.Parse(this.targetsToMeet.Text, System.Globalization.CultureInfo.InvariantCulture);
+            GameSettings.Data.MinimumGameTime = Int32.Parse(this.minimumGameTime.Text, System.Globalization.CultureInfo.InvariantCulture);
 
             GameSettings.Data.MapHeight = (int)mapHeight.Value;
             GameSettings.Data.MapWidth = (int)mapWidth.Value;
@@ -150,7 +150,7 @@ namespace Nova.WinForms.NewGame
 
             playerList.SelectedIndices.Clear();
             playerList.SelectedIndices.Add(playerList.Items.Count - 1);
-            NumberOfPlayers = playerList.Items.Count;
+            this.numberOfPlayers = playerList.Items.Count;
 
         }
 
@@ -207,11 +207,11 @@ namespace Nova.WinForms.NewGame
             }
 
             // update the number of players
-            NumberOfPlayers = playerList.Items.Count;
+            this.numberOfPlayers = playerList.Items.Count;
 
             RenumberPlayers();
 
-            if (selectedIndex != -1 && NumberOfPlayers > 0)
+            if (selectedIndex != -1 && this.numberOfPlayers > 0)
             {
                 playerList.SelectedIndices.Clear();
                 if (selectedIndex >= playerList.Items.Count)
@@ -271,7 +271,7 @@ namespace Nova.WinForms.NewGame
             {
                 selectedIndex = index;
                 // there will be only one, this is the best way I can figure to find it.
-                if (index == NumberOfPlayers - 1)
+                if (index == this.numberOfPlayers - 1)
                 {
                     playerDownButton.Enabled = false;
                     return;
@@ -424,21 +424,21 @@ namespace Nova.WinForms.NewGame
         /// ----------------------------------------------------------------------------
         private void UpdatePlayerListButtons()
         {
-            NumberOfPlayers = playerList.Items.Count;
+            this.numberOfPlayers = playerList.Items.Count;
             // Up button
-            if (NumberOfPlayers == 0 || playerList.SelectedIndices.Contains(0))
+            if (this.numberOfPlayers == 0 || playerList.SelectedIndices.Contains(0))
                 playerUpButton.Enabled = false;
             else
                 playerUpButton.Enabled = true;
 
             // Down button
-            if (NumberOfPlayers == 0 || playerList.SelectedIndices.Contains(NumberOfPlayers - 1))
+            if (this.numberOfPlayers == 0 || playerList.SelectedIndices.Contains(this.numberOfPlayers - 1))
                 playerDownButton.Enabled = false;
             else
                 playerDownButton.Enabled = true;
 
             // delete button
-            if (NumberOfPlayers == 0)
+            if (this.numberOfPlayers == 0)
                 playerDeleteButton.Enabled = false;
             else
                 playerDeleteButton.Enabled = true;

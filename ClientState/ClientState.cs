@@ -80,9 +80,9 @@ namespace Nova.Client
         // Data private to this module.
         // ============================================================================
 
-        private static ClientState Instance;
-        private static string StatePathName; // path&filename
-        private static AllComponents ComponentData = AllComponents.Data;
+        private static ClientState instance;
+        private static string statePathName; // path&filename
+        private static AllComponents componentData = AllComponents.Data;
 
 
         #region Constructors
@@ -112,17 +112,17 @@ namespace Nova.Client
 
                 lock (padlock)
                 {
-                    if (Instance == null)
+                    if (instance == null)
                     {
-                        Instance = new ClientState();
+                        instance = new ClientState();
                     }
                 }
-                return Instance;
+                return instance;
             }
 
             set
             {
-                Instance = value;
+                instance = value;
             }
         }
         #endregion
@@ -161,10 +161,10 @@ namespace Nova.Client
             //    (The race name and game folder will be loaded from the state file)
 
 
-            StatePathName = null;
+            statePathName = null;
             Data.RaceName = null;
-            string IntelFileName = null;
-            int TurnToPlay = -1;
+            string intelFileName = null;
+            int turnToPlay = -1;
 
             // process the arguments
             CommandArguments commandArguments = new CommandArguments(argArray);
@@ -177,7 +177,7 @@ namespace Nova.Client
             {
                 try
                 {
-                    TurnToPlay = int.Parse(commandArguments[CommandArguments.Option.Turn], System.Globalization.CultureInfo.InvariantCulture);
+                    turnToPlay = int.Parse(commandArguments[CommandArguments.Option.Turn], System.Globalization.CultureInfo.InvariantCulture);
                 }
                 catch
                 {
@@ -188,11 +188,11 @@ namespace Nova.Client
             }
             if (commandArguments.Contains(CommandArguments.Option.StateFileName))
             {
-                StatePathName = commandArguments[CommandArguments.Option.StateFileName];
+                statePathName = commandArguments[CommandArguments.Option.StateFileName];
             }
             if (commandArguments.Contains(CommandArguments.Option.IntelFileName))
             {
-                IntelFileName = commandArguments[CommandArguments.Option.IntelFileName];
+                intelFileName = commandArguments[CommandArguments.Option.IntelFileName];
             }
 
 
@@ -245,7 +245,7 @@ namespace Nova.Client
                         {
                             Report.FatalError("ClientState.cs Initialize() - Open Game dialog canceled. Exiting. Try running the NovaLauncher.");
                         }
-                        IntelFileName = fd.FileName;
+                        intelFileName = fd.FileName;
                     }
                     catch
                     {
@@ -259,17 +259,17 @@ namespace Nova.Client
 
             // 2. the Nova GUI was started from the launcher open a game option. 
             //    There will be a .intel file listed in the argArray.
-            if (! isLoaded && IntelFileName != null)
+            if (! isLoaded && intelFileName != null)
             {
-                if (File.Exists(IntelFileName))
+                if (File.Exists(intelFileName))
                 {
                     // Evenything we need should be found in there. 
-                    IntelReader.ReadIntel(IntelFileName);
+                    IntelReader.ReadIntel(intelFileName);
                     isLoaded = true;
                 }
                 else
                 {
-                    Report.FatalError("ClientState.cs Initialize() - Could not locate .intel file \"" + IntelFileName + "\".");
+                    Report.FatalError("ClientState.cs Initialize() - Could not locate .intel file \"" + intelFileName + "\".");
                 }
             }
 
@@ -284,17 +284,17 @@ namespace Nova.Client
                 // for this race. What race? The state file can tell us.
                 // (i.e. The race name and game folder will be loaded from the state file)
                 // If it is missing - FatalError.
-                if (File.Exists(StatePathName))
+                if (File.Exists(statePathName))
                 {
                     ClientState.Restore();
-                    string newIntelFileName = Path.GetDirectoryName(StatePathName) +
+                    string newIntelFileName = Path.GetDirectoryName(statePathName) +
                         ClientState.Data.RaceName + Global.IntelExtension;
-                    IntelReader.ReadIntel(IntelFileName);
+                    IntelReader.ReadIntel(intelFileName);
                     isLoaded = true;
                 }
                 else
                 {
-                    Report.FatalError("ClientState.cs Initialize() - File not found. Could not continue game \"" + StatePathName + "\".");
+                    Report.FatalError("ClientState.cs Initialize() - File not found. Could not continue game \"" + statePathName + "\".");
                 }
 
             }
@@ -680,13 +680,13 @@ namespace Nova.Client
         public static void Restore(string gameFolder, string raceName)
         {
 
-            StatePathName = Path.Combine(gameFolder, raceName + Global.ClientStateExtension);
+            statePathName = Path.Combine(gameFolder, raceName + Global.ClientStateExtension);
 
-            if (File.Exists(StatePathName))
+            if (File.Exists(statePathName))
             {
                 try
                 {
-                    using (Stream stateFile = new FileStream(StatePathName, FileMode.Open))
+                    using (Stream stateFile = new FileStream(statePathName, FileMode.Open))
                     {
 
                         // Read in binary state file
@@ -718,7 +718,7 @@ namespace Nova.Client
         public static void Save()
         {
 
-            using (Stream stateFile = new FileStream(StatePathName, FileMode.Create))
+            using (Stream stateFile = new FileStream(statePathName, FileMode.Create))
             {
                 // Binary Serialization (old)
                 Serializer.Serialize(stateFile, ClientState.Data);

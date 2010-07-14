@@ -42,10 +42,10 @@ namespace Nova.Common
     /// ----------------------------------------------------------------------------
     public class SpaceAllocator
     {
-        public int GridAxisCount = 0;
+        public int GridAxisCount;
 
-        private ArrayList AvailableBoxes = new ArrayList();
-        private Random RandomNumber = new Random();
+        private readonly ArrayList availableBoxes = new ArrayList();
+        private readonly Random random = new Random();
 
 
         /// ----------------------------------------------------------------------------
@@ -99,7 +99,7 @@ namespace Nova.Common
                 {
                     currentPosition.X = x * boxSide;
                     Rectangle box = new Rectangle(currentPosition, boxSize);
-                    AvailableBoxes.Add(box);
+                    this.availableBoxes.Add(box);
                 }
             }
         }
@@ -114,10 +114,10 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public Rectangle GetBox()
         {
-            int boxNumber = RandomNumber.Next(0, AvailableBoxes.Count - 1);
-            Rectangle box = (Rectangle)AvailableBoxes[boxNumber];
+            int boxNumber = this.random.Next(0, this.availableBoxes.Count - 1);
+            Rectangle box = (Rectangle)this.availableBoxes[boxNumber];
 
-            AvailableBoxes.RemoveAt(boxNumber);
+            this.availableBoxes.RemoveAt(boxNumber);
             return box;
         }
 

@@ -68,13 +68,13 @@ namespace Nova.WinForms.Gui
         {
             if (ClientState.Data.StarReports.Contains(item.Name) == false)
             {
-                SelectedItem.Text = item.Name + " is unexplored";
+                this.selectedItem.Text = item.Name + " is unexplored";
                 summaryItem = null;
-                SelectedItem.Controls.Clear();
+                this.selectedItem.Controls.Clear();
                 return;
             }
 
-            SelectedItem.Text = "Summary of " + item.Name;
+            this.selectedItem.Text = "Summary of " + item.Name;
             planetSummary.Location = new Point(5, 15);
             planetSummary.Value = item as Star;
 
@@ -83,8 +83,8 @@ namespace Nova.WinForms.Gui
 
             if (summaryItem is Fleet || summaryItem == null)
             {
-                SelectedItem.Controls.Clear();
-                SelectedItem.Controls.Add(planetSummary);
+                this.selectedItem.Controls.Clear();
+                this.selectedItem.Controls.Add(planetSummary);
             }
 
             summaryItem = item;
@@ -99,14 +99,14 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplayFleet(Item item)
         {
-            SelectedItem.Text = "Summary of " + item.Name;
+            this.selectedItem.Text = "Summary of " + item.Name;
             fleetSummary.Location = new Point(5, 15);
             fleetSummary.Value = item as Fleet;
 
             if (summaryItem is Star || summaryItem == null)
             {
-                SelectedItem.Controls.Clear();
-                SelectedItem.Controls.Add(fleetSummary);
+                this.selectedItem.Controls.Clear();
+                this.selectedItem.Controls.Add(fleetSummary);
             }
 
             summaryItem = item;
@@ -126,8 +126,8 @@ namespace Nova.WinForms.Gui
         {
             if (item == null)
             {
-                SelectedItem.Text = "Nothing Selected";
-                SelectedItem.Controls.Clear();
+                this.selectedItem.Text = "Nothing Selected";
+                this.selectedItem.Controls.Clear();
                 return;
             }
 

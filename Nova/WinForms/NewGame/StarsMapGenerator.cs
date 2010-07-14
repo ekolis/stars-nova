@@ -47,29 +47,28 @@ namespace Nova.WinForms.NewGame
         // the number of failed attempts to stop after
         private const int FailuresThreshold = 5000;
 
-        // the width and height of the frame where the density values will be updated after placing the star
-        private int UpdateFrameSize;
-
         // map settings
-        private int MapWidth;
-        private int MapHeight;
-        private int StarSeparation;
-        private int StarDensity;
-        private int StarUniformity;
-
-        // values calculated from map parameters, which define the shape of reduce function
-        private double BaseDensity;
-        private double MaxRadius;
+        private readonly int mapWidth;
+        private readonly int mapHeight;
+        private readonly int starSeparation;
+        private readonly int starDensity;
+        private readonly int starUniformity;
 
         // non-normalized probability density function
         // values are between 0 and 1
-        private double[,] Density;
+        private readonly double[,] density;
 
-        private Random RNG = new Random();
+        private readonly Random random = new Random();
 
         // List of stars positions int[2]; int[0] - x, int[1] - y
-        private List<int[]> Stars = new List<int[]>();
+        private readonly List<int[]> stars = new List<int[]>();
 
+        // the width and height of the frame where the density values will be updated after placing the star
+        private int updateFrameSize;
+
+        // values calculated from map parameters, which define the shape of reduce function
+        private double baseDensity;
+        private double maxRadius;
 
         /// <summary>
         /// Initializes a new instance of the StarsMapGenerator class.
@@ -78,21 +77,21 @@ namespace Nova.WinForms.NewGame
         /// <param name="mapHeight">Height of the map in ly.</param>
         public StarsMapGenerator(int mapWidth, int mapHeight, int starSeparation, int starDensity, int starUniformity)
         {
-            this.MapWidth = mapWidth;
-            this.MapHeight = mapHeight;
+            this.mapWidth = mapWidth;
+            this.mapHeight = mapHeight;
 
-            this.StarSeparation = starSeparation;
-            this.StarDensity = starDensity;
-            this.StarUniformity = starUniformity;
+            this.starSeparation = starSeparation;
+            this.starDensity = starDensity;
+            this.starUniformity = starUniformity;
             
 #if(DEBUG)
                 // Just to test that the form data has been passed in successfully - Dan 9 May 10
-                System.Windows.Forms.MessageBox.Show("Star Separation = " + StarSeparation.ToString() +
-                                                     " Star Density = " + StarDensity.ToString() +
-                                                     " Star Uniformity = " + StarUniformity.ToString());
+                System.Windows.Forms.MessageBox.Show("Star Separation = " + this.starSeparation.ToString() +
+                                                     " Star Density = " + this.starDensity.ToString() +
+                                                     " Star Uniformity = " + this.starUniformity.ToString());
 #endif
 
-            Density = new double[mapWidth, mapHeight];
+            this.density = new double[mapWidth, mapHeight];
         }
 
 
@@ -105,24 +104,24 @@ namespace Nova.WinForms.NewGame
         /// ----------------------------------------------------------------------------
         public List<int[]> Generate()
         {
-            BaseDensity = ((2.0 * (StarUniformity - 1)) + (0.11 * (100 - StarUniformity))) / 99.0;
-            MaxRadius = ((100.0 * (StarUniformity - 1)) + (400 * (100 - StarUniformity))) / 99.0;
+            this.baseDensity = ((2.0 * (this.starUniformity - 1)) + (0.11 * (100 - this.starUniformity))) / 99.0;
+            this.maxRadius = ((100.0 * (this.starUniformity - 1)) + (400 * (100 - this.starUniformity))) / 99.0;
 
             // middle value of uniformity produces low density (~ x0.63), so equalizing this a bit with border values
-            double DensityBalancer = ((1 * Math.Abs(50.0 - StarUniformity)) / 50.0) + (0.63 * (1 - (Math.Abs(50.0 - StarUniformity) / 50.0)));
+            double densityBalancer = ((1 * Math.Abs(50.0 - this.starUniformity)) / 50.0) + (0.63 * (1 - (Math.Abs(50.0 - this.starUniformity) / 50.0)));
 
-            BaseDensity *= DensityBalancer;
-            MaxRadius *= DensityBalancer;
+            this.baseDensity *= densityBalancer;
+            this.maxRadius *= densityBalancer;
 
-            double DensityApplied = (0.5 * ((StarDensity - 1) / 99.0)) + ((2.0 * (100 - StarDensity)) / 99.0);
+            double densityApplied = (0.5 * ((this.starDensity - 1) / 99.0)) + ((2.0 * (100 - this.starDensity)) / 99.0);
 
-            BaseDensity *= DensityApplied;
-            MaxRadius *= DensityApplied;
+            this.baseDensity *= densityApplied;
+            this.maxRadius *= densityApplied;
 
-            UpdateFrameSize = (int)Math.Ceiling(MaxRadius);
+            this.updateFrameSize = (int)Math.Ceiling(this.maxRadius);
 
             DoGeneration();
-            return Stars;
+            return this.stars;
         }
 
 
@@ -138,13 +137,13 @@ namespace Nova.WinForms.NewGame
         /// ----------------------------------------------------------------------------
         private double Reduce(double distance)
         {   
-            if (distance < StarSeparation) 
+            if (distance < this.starSeparation) 
             {
                 return 1.0;
             }
-            else if (distance < MaxRadius)
+            else if (distance < this.maxRadius)
             {
-                return (MaxRadius - distance) / (MaxRadius - StarSeparation) * BaseDensity;
+                return (this.maxRadius - distance) / (this.maxRadius - this.starSeparation) * this.baseDensity;
             }
             
             return 0.0;
@@ -160,11 +159,11 @@ namespace Nova.WinForms.NewGame
         {
             // initialize density function
             // the initial values can influence the shape of generated map
-            for (int i = 0; i < MapWidth; ++i)
+            for (int i = 0; i < this.mapWidth; ++i)
             {
-                for (int j = 0; j < MapHeight; ++j)
+                for (int j = 0; j < this.mapHeight; ++j)
                 {
-                    Density[i, j] = 1.0;
+                    this.density[i, j] = 1.0;
                 }
             }
 
@@ -177,10 +176,10 @@ namespace Nova.WinForms.NewGame
                 int count = 0;
                 while (true)
                 {
-                    x = RNG.Next(MapWidth);
-                    y = RNG.Next(MapHeight);
-                    double height = RNG.NextDouble();
-                    if (Density[x, y] >= height)
+                    x = this.random.Next(this.mapWidth);
+                    y = this.random.Next(this.mapHeight);
+                    double height = this.random.NextDouble();
+                    if (this.density[x, y] >= height)
                     {   // the star can be placed at this position
                         break;
                     }
@@ -194,7 +193,7 @@ namespace Nova.WinForms.NewGame
                     }
                 }
 
-                Stars.Add(new int[] { x, y });
+                this.stars.Add(new int[] { x, y });
                 UpdateDensities(x, y);
 
             }
@@ -210,12 +209,12 @@ namespace Nova.WinForms.NewGame
         /// ----------------------------------------------------------------------------
         private void UpdateDensities(int x, int y)
         {
-            for (int i = (x - (UpdateFrameSize / 2) > 0) ? (x - (UpdateFrameSize / 2)) : 0; i <= ((x + (UpdateFrameSize / 2) < MapWidth) ? (x + (UpdateFrameSize / 2)) : (MapWidth - 1)); ++i)
+            for (int i = (x - (this.updateFrameSize / 2) > 0) ? (x - (this.updateFrameSize / 2)) : 0; i <= ((x + (this.updateFrameSize / 2) < this.mapWidth) ? (x + (this.updateFrameSize / 2)) : (this.mapWidth - 1)); ++i)
             {
-                for (int j = (y - (UpdateFrameSize / 2) > 0) ? (y - (UpdateFrameSize / 2)) : 0; j <= ((y + (UpdateFrameSize / 2) < MapHeight) ? (y + (UpdateFrameSize / 2)) : (MapHeight - 1)); ++j)
+                for (int j = (y - (this.updateFrameSize / 2) > 0) ? (y - (this.updateFrameSize / 2)) : 0; j <= ((y + (this.updateFrameSize / 2) < this.mapHeight) ? (y + (this.updateFrameSize / 2)) : (this.mapHeight - 1)); ++j)
                 {
                     double d = Math.Sqrt(((x - i) * (x - i)) + ((y - j) * (y - j)));
-                    Density[i, j] -= Reduce(d);
+                    this.density[i, j] -= Reduce(d);
                 }
             }
         }

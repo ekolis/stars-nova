@@ -38,54 +38,54 @@ namespace Nova.WinForms.Gui
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.BiotechLevel = new System.Windows.Forms.Label();
-            this.ElectronicsLevel = new System.Windows.Forms.Label();
-            this.ConstructionLevel = new System.Windows.Forms.Label();
-            this.PropulsionLevel = new System.Windows.Forms.Label();
-            this.WeaponsLevel = new System.Windows.Forms.Label();
-            this.EnergyLevel = new System.Windows.Forms.Label();
-            this.BiotechButton = new System.Windows.Forms.RadioButton();
-            this.ElectronicsButton = new System.Windows.Forms.RadioButton();
-            this.ConstructionButton = new System.Windows.Forms.RadioButton();
-            this.PropulsionButton = new System.Windows.Forms.RadioButton();
-            this.WeaponsButton = new System.Windows.Forms.RadioButton();
-            this.EnergyButton = new System.Windows.Forms.RadioButton();
+            this.biotechLevel = new System.Windows.Forms.Label();
+            this.electronicsLevel = new System.Windows.Forms.Label();
+            this.constructionLevel = new System.Windows.Forms.Label();
+            this.propulsionLevel = new System.Windows.Forms.Label();
+            this.weaponsLevel = new System.Windows.Forms.Label();
+            this.energyLevel = new System.Windows.Forms.Label();
+            this.biotechButton = new System.Windows.Forms.RadioButton();
+            this.electronicsButton = new System.Windows.Forms.RadioButton();
+            this.constructionButton = new System.Windows.Forms.RadioButton();
+            this.propulsionButton = new System.Windows.Forms.RadioButton();
+            this.weaponsButton = new System.Windows.Forms.RadioButton();
+            this.energyButton = new System.Windows.Forms.RadioButton();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.OKButton = new System.Windows.Forms.Button();
+            this.okButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.ResearchBenefits = new System.Windows.Forms.ListBox();
+            this.researchBenefits = new System.Windows.Forms.ListBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.NumericResources = new System.Windows.Forms.Label();
+            this.numericResources = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.ResourceBudget = new System.Windows.Forms.NumericUpDown();
+            this.resourceBudget = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
-            this.AvailableResources = new System.Windows.Forms.Label();
+            this.availableResources = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.CompletionTime = new System.Windows.Forms.Label();
+            this.completionTime = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.CompletionResources = new System.Windows.Forms.Label();
+            this.completionResources = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ResourceBudget)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resourceBudget)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
-            this.groupBox1.Controls.Add(this.BiotechLevel);
-            this.groupBox1.Controls.Add(this.ElectronicsLevel);
-            this.groupBox1.Controls.Add(this.ConstructionLevel);
-            this.groupBox1.Controls.Add(this.PropulsionLevel);
-            this.groupBox1.Controls.Add(this.WeaponsLevel);
-            this.groupBox1.Controls.Add(this.EnergyLevel);
-            this.groupBox1.Controls.Add(this.BiotechButton);
-            this.groupBox1.Controls.Add(this.ElectronicsButton);
-            this.groupBox1.Controls.Add(this.ConstructionButton);
-            this.groupBox1.Controls.Add(this.PropulsionButton);
-            this.groupBox1.Controls.Add(this.WeaponsButton);
-            this.groupBox1.Controls.Add(this.EnergyButton);
+            this.groupBox1.Controls.Add(this.biotechLevel);
+            this.groupBox1.Controls.Add(this.electronicsLevel);
+            this.groupBox1.Controls.Add(this.constructionLevel);
+            this.groupBox1.Controls.Add(this.propulsionLevel);
+            this.groupBox1.Controls.Add(this.weaponsLevel);
+            this.groupBox1.Controls.Add(this.energyLevel);
+            this.groupBox1.Controls.Add(this.biotechButton);
+            this.groupBox1.Controls.Add(this.electronicsButton);
+            this.groupBox1.Controls.Add(this.constructionButton);
+            this.groupBox1.Controls.Add(this.propulsionButton);
+            this.groupBox1.Controls.Add(this.weaponsButton);
+            this.groupBox1.Controls.Add(this.energyButton);
             this.groupBox1.Controls.Add(this.label2);
             this.groupBox1.Controls.Add(this.label1);
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
@@ -97,129 +97,129 @@ namespace Nova.WinForms.Gui
             // 
             // BiotechLevel
             // 
-            this.BiotechLevel.AutoSize = true;
-            this.BiotechLevel.Location = new System.Drawing.Point(173, 211);
-            this.BiotechLevel.Name = "BiotechLevel";
-            this.BiotechLevel.Size = new System.Drawing.Size(13, 13);
-            this.BiotechLevel.TabIndex = 13;
-            this.BiotechLevel.Text = "0";
+            this.biotechLevel.AutoSize = true;
+            this.biotechLevel.Location = new System.Drawing.Point(173, 211);
+            this.biotechLevel.Name = "biotechLevel";
+            this.biotechLevel.Size = new System.Drawing.Size(13, 13);
+            this.biotechLevel.TabIndex = 13;
+            this.biotechLevel.Text = "0";
             // 
             // ElectronicsLevel
             // 
-            this.ElectronicsLevel.AutoSize = true;
-            this.ElectronicsLevel.Location = new System.Drawing.Point(173, 180);
-            this.ElectronicsLevel.Name = "ElectronicsLevel";
-            this.ElectronicsLevel.Size = new System.Drawing.Size(13, 13);
-            this.ElectronicsLevel.TabIndex = 12;
-            this.ElectronicsLevel.Text = "0";
+            this.electronicsLevel.AutoSize = true;
+            this.electronicsLevel.Location = new System.Drawing.Point(173, 180);
+            this.electronicsLevel.Name = "electronicsLevel";
+            this.electronicsLevel.Size = new System.Drawing.Size(13, 13);
+            this.electronicsLevel.TabIndex = 12;
+            this.electronicsLevel.Text = "0";
             // 
             // ConstructionLevel
             // 
-            this.ConstructionLevel.AutoSize = true;
-            this.ConstructionLevel.Location = new System.Drawing.Point(173, 149);
-            this.ConstructionLevel.Name = "ConstructionLevel";
-            this.ConstructionLevel.Size = new System.Drawing.Size(13, 13);
-            this.ConstructionLevel.TabIndex = 11;
-            this.ConstructionLevel.Text = "0";
+            this.constructionLevel.AutoSize = true;
+            this.constructionLevel.Location = new System.Drawing.Point(173, 149);
+            this.constructionLevel.Name = "constructionLevel";
+            this.constructionLevel.Size = new System.Drawing.Size(13, 13);
+            this.constructionLevel.TabIndex = 11;
+            this.constructionLevel.Text = "0";
             // 
             // PropulsionLevel
             // 
-            this.PropulsionLevel.AutoSize = true;
-            this.PropulsionLevel.Location = new System.Drawing.Point(173, 118);
-            this.PropulsionLevel.Name = "PropulsionLevel";
-            this.PropulsionLevel.Size = new System.Drawing.Size(13, 13);
-            this.PropulsionLevel.TabIndex = 10;
-            this.PropulsionLevel.Text = "0";
+            this.propulsionLevel.AutoSize = true;
+            this.propulsionLevel.Location = new System.Drawing.Point(173, 118);
+            this.propulsionLevel.Name = "propulsionLevel";
+            this.propulsionLevel.Size = new System.Drawing.Size(13, 13);
+            this.propulsionLevel.TabIndex = 10;
+            this.propulsionLevel.Text = "0";
             // 
             // WeaponsLevel
             // 
-            this.WeaponsLevel.AutoSize = true;
-            this.WeaponsLevel.Location = new System.Drawing.Point(173, 89);
-            this.WeaponsLevel.Name = "WeaponsLevel";
-            this.WeaponsLevel.Size = new System.Drawing.Size(13, 13);
-            this.WeaponsLevel.TabIndex = 9;
-            this.WeaponsLevel.Text = "0";
+            this.weaponsLevel.AutoSize = true;
+            this.weaponsLevel.Location = new System.Drawing.Point(173, 89);
+            this.weaponsLevel.Name = "weaponsLevel";
+            this.weaponsLevel.Size = new System.Drawing.Size(13, 13);
+            this.weaponsLevel.TabIndex = 9;
+            this.weaponsLevel.Text = "0";
             // 
             // EnergyLevel
             // 
-            this.EnergyLevel.AutoSize = true;
-            this.EnergyLevel.Location = new System.Drawing.Point(173, 56);
-            this.EnergyLevel.Name = "EnergyLevel";
-            this.EnergyLevel.Size = new System.Drawing.Size(13, 13);
-            this.EnergyLevel.TabIndex = 8;
-            this.EnergyLevel.Text = "0";
+            this.energyLevel.AutoSize = true;
+            this.energyLevel.Location = new System.Drawing.Point(173, 56);
+            this.energyLevel.Name = "energyLevel";
+            this.energyLevel.Size = new System.Drawing.Size(13, 13);
+            this.energyLevel.TabIndex = 8;
+            this.energyLevel.Text = "0";
             // 
             // BiotechButton
             // 
-            this.BiotechButton.AutoSize = true;
-            this.BiotechButton.Location = new System.Drawing.Point(6, 207);
-            this.BiotechButton.Name = "BiotechButton";
-            this.BiotechButton.Size = new System.Drawing.Size(92, 17);
-            this.BiotechButton.TabIndex = 7;
-            this.BiotechButton.Tag = "6";
-            this.BiotechButton.Text = "Biotechnology";
-            this.BiotechButton.UseVisualStyleBackColor = true;
-            this.BiotechButton.CheckedChanged += new System.EventHandler(this.CheckChanged);
+            this.biotechButton.AutoSize = true;
+            this.biotechButton.Location = new System.Drawing.Point(6, 207);
+            this.biotechButton.Name = "biotechButton";
+            this.biotechButton.Size = new System.Drawing.Size(92, 17);
+            this.biotechButton.TabIndex = 7;
+            this.biotechButton.Tag = "6";
+            this.biotechButton.Text = "Biotechnology";
+            this.biotechButton.UseVisualStyleBackColor = true;
+            this.biotechButton.CheckedChanged += new System.EventHandler(this.CheckChanged);
             // 
             // ElectronicsButton
             // 
-            this.ElectronicsButton.AutoSize = true;
-            this.ElectronicsButton.Location = new System.Drawing.Point(6, 176);
-            this.ElectronicsButton.Name = "ElectronicsButton";
-            this.ElectronicsButton.Size = new System.Drawing.Size(77, 17);
-            this.ElectronicsButton.TabIndex = 6;
-            this.ElectronicsButton.Tag = "5";
-            this.ElectronicsButton.Text = "Electronics";
-            this.ElectronicsButton.UseVisualStyleBackColor = true;
-            this.ElectronicsButton.CheckedChanged += new System.EventHandler(this.CheckChanged);
+            this.electronicsButton.AutoSize = true;
+            this.electronicsButton.Location = new System.Drawing.Point(6, 176);
+            this.electronicsButton.Name = "electronicsButton";
+            this.electronicsButton.Size = new System.Drawing.Size(77, 17);
+            this.electronicsButton.TabIndex = 6;
+            this.electronicsButton.Tag = "5";
+            this.electronicsButton.Text = "Electronics";
+            this.electronicsButton.UseVisualStyleBackColor = true;
+            this.electronicsButton.CheckedChanged += new System.EventHandler(this.CheckChanged);
             // 
             // ConstructionButton
             // 
-            this.ConstructionButton.AutoSize = true;
-            this.ConstructionButton.Location = new System.Drawing.Point(6, 145);
-            this.ConstructionButton.Name = "ConstructionButton";
-            this.ConstructionButton.Size = new System.Drawing.Size(84, 17);
-            this.ConstructionButton.TabIndex = 5;
-            this.ConstructionButton.Tag = "4";
-            this.ConstructionButton.Text = "Construction";
-            this.ConstructionButton.UseVisualStyleBackColor = true;
-            this.ConstructionButton.CheckedChanged += new System.EventHandler(this.CheckChanged);
+            this.constructionButton.AutoSize = true;
+            this.constructionButton.Location = new System.Drawing.Point(6, 145);
+            this.constructionButton.Name = "constructionButton";
+            this.constructionButton.Size = new System.Drawing.Size(84, 17);
+            this.constructionButton.TabIndex = 5;
+            this.constructionButton.Tag = "4";
+            this.constructionButton.Text = "Construction";
+            this.constructionButton.UseVisualStyleBackColor = true;
+            this.constructionButton.CheckedChanged += new System.EventHandler(this.CheckChanged);
             // 
             // PropulsionButton
             // 
-            this.PropulsionButton.AutoSize = true;
-            this.PropulsionButton.Location = new System.Drawing.Point(6, 114);
-            this.PropulsionButton.Name = "PropulsionButton";
-            this.PropulsionButton.Size = new System.Drawing.Size(74, 17);
-            this.PropulsionButton.TabIndex = 4;
-            this.PropulsionButton.Tag = "3";
-            this.PropulsionButton.Text = "Propulsion";
-            this.PropulsionButton.UseVisualStyleBackColor = true;
-            this.PropulsionButton.CheckedChanged += new System.EventHandler(this.CheckChanged);
+            this.propulsionButton.AutoSize = true;
+            this.propulsionButton.Location = new System.Drawing.Point(6, 114);
+            this.propulsionButton.Name = "propulsionButton";
+            this.propulsionButton.Size = new System.Drawing.Size(74, 17);
+            this.propulsionButton.TabIndex = 4;
+            this.propulsionButton.Tag = "3";
+            this.propulsionButton.Text = "Propulsion";
+            this.propulsionButton.UseVisualStyleBackColor = true;
+            this.propulsionButton.CheckedChanged += new System.EventHandler(this.CheckChanged);
             // 
             // WeaponsButton
             // 
-            this.WeaponsButton.AutoSize = true;
-            this.WeaponsButton.Location = new System.Drawing.Point(6, 85);
-            this.WeaponsButton.Name = "WeaponsButton";
-            this.WeaponsButton.Size = new System.Drawing.Size(71, 17);
-            this.WeaponsButton.TabIndex = 3;
-            this.WeaponsButton.Tag = "2";
-            this.WeaponsButton.Text = "Weapons";
-            this.WeaponsButton.UseVisualStyleBackColor = true;
-            this.WeaponsButton.CheckedChanged += new System.EventHandler(this.CheckChanged);
+            this.weaponsButton.AutoSize = true;
+            this.weaponsButton.Location = new System.Drawing.Point(6, 85);
+            this.weaponsButton.Name = "weaponsButton";
+            this.weaponsButton.Size = new System.Drawing.Size(71, 17);
+            this.weaponsButton.TabIndex = 3;
+            this.weaponsButton.Tag = "2";
+            this.weaponsButton.Text = "Weapons";
+            this.weaponsButton.UseVisualStyleBackColor = true;
+            this.weaponsButton.CheckedChanged += new System.EventHandler(this.CheckChanged);
             // 
             // EnergyButton
             // 
-            this.EnergyButton.AutoSize = true;
-            this.EnergyButton.Location = new System.Drawing.Point(6, 52);
-            this.EnergyButton.Name = "EnergyButton";
-            this.EnergyButton.Size = new System.Drawing.Size(58, 17);
-            this.EnergyButton.TabIndex = 2;
-            this.EnergyButton.Tag = "1";
-            this.EnergyButton.Text = "Energy";
-            this.EnergyButton.UseVisualStyleBackColor = true;
-            this.EnergyButton.CheckedChanged += new System.EventHandler(this.CheckChanged);
+            this.energyButton.AutoSize = true;
+            this.energyButton.Location = new System.Drawing.Point(6, 52);
+            this.energyButton.Name = "energyButton";
+            this.energyButton.Size = new System.Drawing.Size(58, 17);
+            this.energyButton.TabIndex = 2;
+            this.energyButton.Tag = "1";
+            this.energyButton.Text = "Energy";
+            this.energyButton.UseVisualStyleBackColor = true;
+            this.energyButton.CheckedChanged += new System.EventHandler(this.CheckChanged);
             // 
             // label2
             // 
@@ -245,17 +245,17 @@ namespace Nova.WinForms.Gui
             // 
             // OKButton
             // 
-            this.OKButton.Location = new System.Drawing.Point(459, 274);
-            this.OKButton.Name = "OKButton";
-            this.OKButton.Size = new System.Drawing.Size(75, 23);
-            this.OKButton.TabIndex = 1;
-            this.OKButton.Text = "OK";
-            this.OKButton.UseVisualStyleBackColor = true;
-            this.OKButton.Click += new System.EventHandler(this.OKClicked);
+            this.okButton.Location = new System.Drawing.Point(459, 274);
+            this.okButton.Name = "okButton";
+            this.okButton.Size = new System.Drawing.Size(75, 23);
+            this.okButton.TabIndex = 1;
+            this.okButton.Text = "OK";
+            this.okButton.UseVisualStyleBackColor = true;
+            this.okButton.Click += new System.EventHandler(this.OKClicked);
             // 
             // groupBox2
             // 
-            this.groupBox2.Controls.Add(this.ResearchBenefits);
+            this.groupBox2.Controls.Add(this.researchBenefits);
             this.groupBox2.Location = new System.Drawing.Point(250, 149);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(304, 108);
@@ -265,23 +265,23 @@ namespace Nova.WinForms.Gui
             // 
             // ResearchBenefits
             // 
-            this.ResearchBenefits.FormattingEnabled = true;
-            this.ResearchBenefits.Location = new System.Drawing.Point(10, 20);
-            this.ResearchBenefits.Name = "ResearchBenefits";
-            this.ResearchBenefits.Size = new System.Drawing.Size(288, 82);
-            this.ResearchBenefits.TabIndex = 0;
+            this.researchBenefits.FormattingEnabled = true;
+            this.researchBenefits.Location = new System.Drawing.Point(10, 20);
+            this.researchBenefits.Name = "researchBenefits";
+            this.researchBenefits.Size = new System.Drawing.Size(288, 82);
+            this.researchBenefits.TabIndex = 0;
             // 
             // groupBox3
             // 
-            this.groupBox3.Controls.Add(this.NumericResources);
+            this.groupBox3.Controls.Add(this.numericResources);
             this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.ResourceBudget);
+            this.groupBox3.Controls.Add(this.resourceBudget);
             this.groupBox3.Controls.Add(this.label7);
-            this.groupBox3.Controls.Add(this.AvailableResources);
+            this.groupBox3.Controls.Add(this.availableResources);
             this.groupBox3.Controls.Add(this.label5);
-            this.groupBox3.Controls.Add(this.CompletionTime);
+            this.groupBox3.Controls.Add(this.completionTime);
             this.groupBox3.Controls.Add(this.label4);
-            this.groupBox3.Controls.Add(this.CompletionResources);
+            this.groupBox3.Controls.Add(this.completionResources);
             this.groupBox3.Controls.Add(this.label3);
             this.groupBox3.Location = new System.Drawing.Point(250, 23);
             this.groupBox3.Name = "groupBox3";
@@ -292,13 +292,13 @@ namespace Nova.WinForms.Gui
             // 
             // NumericResources
             // 
-            this.NumericResources.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.NumericResources.Location = new System.Drawing.Point(236, 86);
-            this.NumericResources.Name = "NumericResources";
-            this.NumericResources.Size = new System.Drawing.Size(53, 13);
-            this.NumericResources.TabIndex = 11;
-            this.NumericResources.Text = "0";
-            this.NumericResources.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.numericResources.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.numericResources.Location = new System.Drawing.Point(236, 86);
+            this.numericResources.Name = "numericResources";
+            this.numericResources.Size = new System.Drawing.Size(53, 13);
+            this.numericResources.TabIndex = 11;
+            this.numericResources.Text = "0";
+            this.numericResources.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label8
             // 
@@ -311,20 +311,20 @@ namespace Nova.WinForms.Gui
             // 
             // ResourceBudget
             // 
-            this.ResourceBudget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.ResourceBudget.BackColor = System.Drawing.SystemColors.Info;
-            this.ResourceBudget.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.ResourceBudget.Location = new System.Drawing.Point(248, 70);
-            this.ResourceBudget.Name = "ResourceBudget";
-            this.ResourceBudget.Size = new System.Drawing.Size(53, 16);
-            this.ResourceBudget.TabIndex = 9;
-            this.ResourceBudget.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.ResourceBudget.Value = new decimal(new int[] {
+            this.resourceBudget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.resourceBudget.BackColor = System.Drawing.SystemColors.Info;
+            this.resourceBudget.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.resourceBudget.Location = new System.Drawing.Point(248, 70);
+            this.resourceBudget.Name = "resourceBudget";
+            this.resourceBudget.Size = new System.Drawing.Size(53, 16);
+            this.resourceBudget.TabIndex = 9;
+            this.resourceBudget.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.resourceBudget.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.ResourceBudget.ValueChanged += new System.EventHandler(this.ParameterChanged);
+            this.resourceBudget.ValueChanged += new System.EventHandler(this.ParameterChanged);
             // 
             // label7
             // 
@@ -337,13 +337,13 @@ namespace Nova.WinForms.Gui
             // 
             // AvailableResources
             // 
-            this.AvailableResources.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.AvailableResources.Location = new System.Drawing.Point(236, 52);
-            this.AvailableResources.Name = "AvailableResources";
-            this.AvailableResources.Size = new System.Drawing.Size(53, 13);
-            this.AvailableResources.TabIndex = 7;
-            this.AvailableResources.Text = "0";
-            this.AvailableResources.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.availableResources.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.availableResources.Location = new System.Drawing.Point(236, 52);
+            this.availableResources.Name = "availableResources";
+            this.availableResources.Size = new System.Drawing.Size(53, 13);
+            this.availableResources.TabIndex = 7;
+            this.availableResources.Text = "0";
+            this.availableResources.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label5
             // 
@@ -356,13 +356,13 @@ namespace Nova.WinForms.Gui
             // 
             // CompletionTime
             // 
-            this.CompletionTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CompletionTime.Location = new System.Drawing.Point(236, 35);
-            this.CompletionTime.Name = "CompletionTime";
-            this.CompletionTime.Size = new System.Drawing.Size(53, 13);
-            this.CompletionTime.TabIndex = 4;
-            this.CompletionTime.Text = "0";
-            this.CompletionTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.completionTime.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.completionTime.Location = new System.Drawing.Point(236, 35);
+            this.completionTime.Name = "completionTime";
+            this.completionTime.Size = new System.Drawing.Size(53, 13);
+            this.completionTime.TabIndex = 4;
+            this.completionTime.Text = "0";
+            this.completionTime.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label4
             // 
@@ -375,13 +375,13 @@ namespace Nova.WinForms.Gui
             // 
             // CompletionResources
             // 
-            this.CompletionResources.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.CompletionResources.Location = new System.Drawing.Point(236, 18);
-            this.CompletionResources.Name = "CompletionResources";
-            this.CompletionResources.Size = new System.Drawing.Size(53, 13);
-            this.CompletionResources.TabIndex = 2;
-            this.CompletionResources.Text = "0";
-            this.CompletionResources.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.completionResources.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.completionResources.Location = new System.Drawing.Point(236, 18);
+            this.completionResources.Name = "completionResources";
+            this.completionResources.Size = new System.Drawing.Size(53, 13);
+            this.completionResources.TabIndex = 2;
+            this.completionResources.Text = "0";
+            this.completionResources.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label3
             // 
@@ -399,7 +399,7 @@ namespace Nova.WinForms.Gui
             this.ClientSize = new System.Drawing.Size(562, 309);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
-            this.Controls.Add(this.OKButton);
+            this.Controls.Add(this.okButton);
             this.Controls.Add(this.groupBox1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
             this.MaximizeBox = false;
@@ -411,7 +411,7 @@ namespace Nova.WinForms.Gui
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.ResourceBudget)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.resourceBudget)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -421,32 +421,32 @@ namespace Nova.WinForms.Gui
        private System.Windows.Forms.GroupBox groupBox1;
        private System.Windows.Forms.Label label2;
        private System.Windows.Forms.Label label1;
-       private System.Windows.Forms.Button OKButton;
-       private System.Windows.Forms.RadioButton BiotechButton;
-       private System.Windows.Forms.RadioButton ElectronicsButton;
-       private System.Windows.Forms.RadioButton ConstructionButton;
-       private System.Windows.Forms.RadioButton PropulsionButton;
-       private System.Windows.Forms.RadioButton WeaponsButton;
-       private System.Windows.Forms.RadioButton EnergyButton;
+       private System.Windows.Forms.Button okButton;
+       private System.Windows.Forms.RadioButton biotechButton;
+       private System.Windows.Forms.RadioButton electronicsButton;
+       private System.Windows.Forms.RadioButton constructionButton;
+       private System.Windows.Forms.RadioButton propulsionButton;
+       private System.Windows.Forms.RadioButton weaponsButton;
+       private System.Windows.Forms.RadioButton energyButton;
        private System.Windows.Forms.GroupBox groupBox2;
-       private System.Windows.Forms.Label BiotechLevel;
-       private System.Windows.Forms.Label ElectronicsLevel;
-       private System.Windows.Forms.Label ConstructionLevel;
-       private System.Windows.Forms.Label PropulsionLevel;
-       private System.Windows.Forms.Label WeaponsLevel;
-       private System.Windows.Forms.Label EnergyLevel;
+       private System.Windows.Forms.Label biotechLevel;
+       private System.Windows.Forms.Label electronicsLevel;
+       private System.Windows.Forms.Label constructionLevel;
+       private System.Windows.Forms.Label propulsionLevel;
+       private System.Windows.Forms.Label weaponsLevel;
+       private System.Windows.Forms.Label energyLevel;
        private System.Windows.Forms.GroupBox groupBox3;
-       private System.Windows.Forms.Label CompletionTime;
+       private System.Windows.Forms.Label completionTime;
        private System.Windows.Forms.Label label4;
-       private System.Windows.Forms.Label CompletionResources;
+       private System.Windows.Forms.Label completionResources;
        private System.Windows.Forms.Label label3;
-       private System.Windows.Forms.NumericUpDown ResourceBudget;
+       private System.Windows.Forms.NumericUpDown resourceBudget;
        private System.Windows.Forms.Label label7;
-       private System.Windows.Forms.Label AvailableResources;
+       private System.Windows.Forms.Label availableResources;
        private System.Windows.Forms.Label label5;
-       private System.Windows.Forms.Label NumericResources;
+       private System.Windows.Forms.Label numericResources;
        private System.Windows.Forms.Label label8;
-       private System.Windows.Forms.ListBox ResearchBenefits;
+       private System.Windows.Forms.ListBox researchBenefits;
 
 
 
