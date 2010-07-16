@@ -359,7 +359,8 @@ namespace Nova.WinForms.Gui
             {
                 if (design.Owner == ClientState.Data.RaceName || design.Owner == "*")
                 {
-                    if (starbase != null && starbase.Composition.ContainsKey(design.Name)) continue;
+//   what the purpose of this next line (shadallark)?					
+                   if (starbase != null && starbase.Composition.ContainsKey(design.Name)) continue;
 
                     if (design.Type == "Ship")
                     {
@@ -378,6 +379,28 @@ namespace Nova.WinForms.Gui
             this.designList.EndUpdate();
 
             Gui.QueueList.Populate(this.queueList, this.queueStar.ManufacturingQueue);
+			// check if a starbase design is in the Production Queue and if so remove it from the Design List
+			int i = 0;	// outer loop counter used for stepping through the Production Queue
+			for (i = 0; i < this.queueList.Items.Count; i++)
+			{
+			   // is it a starbase?
+			   string tempName = this.queueList.Items[i].Text;
+			   Design tempDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + tempName] as Design;
+			   if (tempDesign.Type == "Starbase")
+			   {
+			      int j = 0;	// inner loop counter used for stepping through the Design List
+			      for (j = 0; j < this.designList.Items.Count; j++)
+			      {
+			         if (this.queueList.Items[i].Text == this.designList.Items[j].Text)
+			         {
+			            // remove the starbase from the Design List
+			            designList.Items.RemoveAt(j);
+			            j--; // after having removed one item from the list decrement by 1 to allow the rest of the list to be examined
+			         }
+			      }
+			   }
+			}
+			
             UpdateProductionCost();
         }
 
