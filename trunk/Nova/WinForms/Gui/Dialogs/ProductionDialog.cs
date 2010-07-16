@@ -508,6 +508,10 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void RemoveFromQueue_Click(object sender, EventArgs e)
         {
+			int s = queueList.SelectedIndices[0];
+			int currentQuantity = Convert.ToInt32(queueList.Items[s].SubItems[1].Text);
+			int numToRemove = 0;
+			
             if (this.queueList.SelectedItems.Count > 0)
             {
                 Design tmp = queueList.Items[queueList.SelectedIndices[0]].Tag as Design;
@@ -515,8 +519,32 @@ namespace Nova.WinForms.Gui
                 {
                     designList.Items.Add(new ListViewItem(tmp.Name));
                 }
-                queueList.Items.RemoveAt(queueList.SelectedIndices[0]);
 
+		    	   // Ctrl	-Remove 100 items
+            	   // Shift	-Remove 10 items
+            	   // 		-Remove 1 item
+				switch (Button.ModifierKeys){
+				case Keys.Control:
+				   numToRemove = 100;
+				   break;
+				case Keys.Shift:
+				   numToRemove = 10;
+				   break;
+				default:
+				   numToRemove = 1;
+				   break;
+				}
+				
+				if (numToRemove >= currentQuantity)
+				{	
+				   queueList.Items.RemoveAt(queueList.SelectedIndices[0]);
+				}
+				else
+				{
+				   int remaining = currentQuantity-numToRemove;
+				   queueList.Items[s].SubItems[1].Text = remaining.ToString();
+				}
+				
                 UpdateProductionCost();
             }
         }
