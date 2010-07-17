@@ -143,7 +143,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="star">The current star.</param>
         /// <returns>The next star, or the current star if there is only one.</returns>
-        /// <exception cref="">NullReferenceException if star is null.</exception>
+        /// <exception cref="NullReferenceException"> if star is null.</exception>
         /// ----------------------------------------------------------------------------
         public Star GetNext(Star star)
         {
@@ -164,7 +164,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="star">The current star.</param>
         /// <returns>The previous star, or the current star if there is only one.</returns>
-        /// <exception cref="">NullReferenceException if star is null.</exception>
+        /// <exception cref="NullReferenceException"> if star is null.</exception>
         /// ----------------------------------------------------------------------------
         public Star GetPrevious(Star star)
         {

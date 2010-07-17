@@ -124,7 +124,7 @@ namespace Nova.Common.Components
         /// <summary>
         /// Check if AllComponents contains a particular Component.
         /// </summary>
-        /// <param name="Component">The Component to look for.</param>
+        /// <param name="component">The Component to look for.</param>
         /// <returns>True if the component is included.</returns>
         /// ----------------------------------------------------------------------------
         public bool Contains(Component component)
@@ -346,7 +346,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Path & file name of the component definition file, automatically located and persisted, or null.
+        /// Path and file name of the component definition file, automatically located and persisted, or null.
         /// </summary>
         public static string ComponentFile
         {

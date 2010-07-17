@@ -181,7 +181,7 @@ namespace Nova.Common
         /// <summary>
         /// Save: Return an XmlElement representation of the <see cref="Item"/>.
         /// </summary>
-        /// <param name="xmldoc">The parent <see cref=XmlDocument/>.</param>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
         /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)

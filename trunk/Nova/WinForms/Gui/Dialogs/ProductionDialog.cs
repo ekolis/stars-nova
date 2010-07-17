@@ -357,11 +357,14 @@ namespace Nova.WinForms.Gui
 
             foreach (Design design in this.turnData.AllDesigns.Values)
             {
+                // check if this design belongs to this race
                 if (design.Owner == ClientState.Data.RaceName || design.Owner == "*")
                 {
-//   what the purpose of this next line (shadallark)?					
-                   if (starbase != null && starbase.Composition.ContainsKey(design.Name)) continue;
+                    // what the purpose of this next line (shadallark) ???
+                    // Looks like it is ment to prevent the current starbase design being re-used - Dan.
+                    if (starbase != null && starbase.Composition.ContainsKey(design.Name)) continue;
 
+                    // Check if this design can be built at this star - ships are limited by dock capacity of the starbase.
                     if (design.Type == "Ship")
                     {
                         if (dockCapacity > design.Mass)
@@ -379,28 +382,28 @@ namespace Nova.WinForms.Gui
             this.designList.EndUpdate();
 
             Gui.QueueList.Populate(this.queueList, this.queueStar.ManufacturingQueue);
-			// check if a starbase design is in the Production Queue and if so remove it from the Design List
-			int i = 0;	// outer loop counter used for stepping through the Production Queue
-			for (i = 0; i < this.queueList.Items.Count; i++)
-			{
-			   // is it a starbase?
-			   string tempName = this.queueList.Items[i].Text;
-			   Design tempDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + tempName] as Design;
-			   if (tempDesign.Type == "Starbase")
-			   {
-			      int j = 0;	// inner loop counter used for stepping through the Design List
-			      for (j = 0; j < this.designList.Items.Count; j++)
-			      {
-			         if (this.queueList.Items[i].Text == this.designList.Items[j].Text)
-			         {
-			            // remove the starbase from the Design List
-			            designList.Items.RemoveAt(j);
-			            j--; // after having removed one item from the list decrement by 1 to allow the rest of the list to be examined
-			         }
-			      }
-			   }
-			}
-			
+            // check if a starbase design is in the Production Queue and if so remove it from the Design List
+            int i = 0; // outer loop counter used for stepping through the Production Queue
+            for (i = 0; i < this.queueList.Items.Count; i++)
+            {
+                // is it a starbase?
+                string tempName = this.queueList.Items[i].Text;
+                Design tempDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + tempName] as Design;
+                if (tempDesign.Type == "Starbase")
+                {
+                    int j = 0; // inner loop counter used for stepping through the Design List
+                    for (j = 0; j < this.designList.Items.Count; j++)
+                    {
+                        if (this.queueList.Items[i].Text == this.designList.Items[j].Text)
+                        {
+                            // remove the starbase from the Design List
+                            designList.Items.RemoveAt(j);
+                            j--; // after having removed one item from the list decrement by 1 to allow the rest of the list to be examined
+                        }
+                    }
+                }
+            }
+
             UpdateProductionCost();
         }
 
@@ -531,10 +534,10 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void RemoveFromQueue_Click(object sender, EventArgs e)
         {
-			int s = queueList.SelectedIndices[0];
-			int currentQuantity = Convert.ToInt32(queueList.Items[s].SubItems[1].Text);
-			int numToRemove = 0;
-			
+            int s = queueList.SelectedIndices[0];
+            int currentQuantity = Convert.ToInt32(queueList.Items[s].SubItems[1].Text);
+            int numToRemove = 0;
+
             if (this.queueList.SelectedItems.Count > 0)
             {
                 Design tmp = queueList.Items[queueList.SelectedIndices[0]].Tag as Design;
@@ -543,31 +546,32 @@ namespace Nova.WinForms.Gui
                     designList.Items.Add(new ListViewItem(tmp.Name));
                 }
 
-		    	   // Ctrl	-Remove 100 items
-            	   // Shift	-Remove 10 items
-            	   // 		-Remove 1 item
-				switch (Button.ModifierKeys){
-				case Keys.Control:
-				   numToRemove = 100;
-				   break;
-				case Keys.Shift:
-				   numToRemove = 10;
-				   break;
-				default:
-				   numToRemove = 1;
-				   break;
-				}
-				
-				if (numToRemove >= currentQuantity)
-				{	
-				   queueList.Items.RemoveAt(queueList.SelectedIndices[0]);
-				}
-				else
-				{
-				   int remaining = currentQuantity-numToRemove;
-				   queueList.Items[s].SubItems[1].Text = remaining.ToString();
-				}
-				
+                // Ctrl -Remove 100 items
+                // Shift -Remove 10 items
+                //       -Remove 1 item
+                switch (Button.ModifierKeys)
+                {
+                    case Keys.Control:
+                        numToRemove = 100;
+                        break;
+                    case Keys.Shift:
+                        numToRemove = 10;
+                        break;
+                    default:
+                        numToRemove = 1;
+                        break;
+                }
+
+                if (numToRemove >= currentQuantity)
+                {
+                    queueList.Items.RemoveAt(queueList.SelectedIndices[0]);
+                }
+                else
+                {
+                    int remaining = currentQuantity - numToRemove;
+                    queueList.Items[s].SubItems[1].Text = remaining.ToString();
+                }
+
                 UpdateProductionCost();
             }
         }

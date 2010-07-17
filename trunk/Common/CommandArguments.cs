@@ -194,10 +194,10 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Convert the CommandArguments to a single string as they would appear on the command line. Use for parsing the options&arguments to Process.Start()
+        /// Convert the CommandArguments to a single string as they would appear on the command line. Use for parsing the options and arguments to Process.Start()
         /// The arguments are returned in the same order that they were added.
         /// </summary>
-        /// <returns>a single string representing the option&argument pairs</returns>
+        /// <returns>a single string representing the option and argument pairs</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -214,7 +214,7 @@ namespace Nova.Common
         /// Convert the CommandArguments to an array of strings as they would be recieved by a main function.
         /// The arguments are returned in the same order that they were added.
         /// </summary>
-        /// <returns>an array of strings containing all the option&argument pairs</returns>
+        /// <returns>an array of strings containing all the option and argument pairs</returns>
         public string[] ToArray()
         {
             List<string> commandLine = new List<string>();
@@ -270,7 +270,7 @@ namespace Nova.Common
         /// <summary>
         /// process one or more arguments passed as a string[]
         /// </summary>
-        /// <param name="argument"></param>
+        /// <param name="args">The aray of string arguments.</param>
         private void Parse(string[] args)
         {
             Queue<string> arguments = new Queue<string>(args);

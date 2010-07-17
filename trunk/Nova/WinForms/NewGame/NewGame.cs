@@ -223,7 +223,7 @@ namespace Nova.WinForms.NewGame
         {
             SpaceAllocator spaceAllocator = new SpaceAllocator(ServerState.Data.AllRaces.Count);
 
-            // FIXME (priority 4) ignores map height
+            // FIXME (priority 8) ignores map height
             spaceAllocator.AllocateSpace(GameSettings.Data.MapWidth);
 
             foreach (Race race in ServerState.Data.AllRaces.Values)

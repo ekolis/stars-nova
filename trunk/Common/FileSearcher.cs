@@ -83,7 +83,7 @@ namespace Nova.Common
         /// <summary>
         /// Get the game settings file.
         /// </summary>
-        /// <returns>The full path&name of the game settings file or null.</returns>
+        /// <returns>The full path and name of the game settings file or null.</returns>
         public static string GetSettingsFile()
         {
             string settings;
@@ -151,7 +151,7 @@ namespace Nova.Common
         /// <summary>
         /// Get the game settings file.
         /// </summary>
-        /// <returns>The full path&name of the nova.config file or null.</returns>
+        /// <returns>The full path and name of the nova.config file or null.</returns>
         public static string GetConfigFile()
         {
             string config;
@@ -218,7 +218,8 @@ namespace Nova.Common
         /// </summary>
         /// <param name="configKey">The config file key we would like to store the file path in. If this key is not set and we find the file, then it will be set to save searching next time. Ideally this key is set when the application is installed.</param>
         /// <param name="pathOnly">true if the config file should contain only the path. False if it is the path+file name</param>
-        /// <param name="relativePath">The expected path relative to the running application.</param>
+        /// <param name="developmentPath">The expected path relative to the running application, in the development environment.</param>
+        /// <param name="deployedPath">The expected path relative to the running application, in the deployed environment.</param>
         /// <param name="fileName">The name of the file we are looing for.</param>
         /// <returns>The absolute path, including the file name. null if the file can't be found.</returns>
         public static string GetFile(string configKey, bool pathOnly, string developmentPath, string deployedPath, string fileName, bool askUser)
@@ -283,7 +284,7 @@ namespace Nova.Common
         /// Find a folder. Use this if you are going to store something there. If you intend to open or use a file, use GetFile() instead.
         /// </summary>
         /// <param name="configKey">The config file key we would like the folder path to be stored in.</param>
-        /// <param name="relativePath">The default folder name, as in NovaRoot\defaultFolder, to use if the key is not set.</param>
+        /// <param name="defaultFolder">The default folder name, as in NovaRoot\defaultFolder, to use if the key is not set.</param>
         /// <returns>The path to the folder, being either the folder defined by the key, or Path.Combine(NovaRoot, defaultFolder). Will create the folder if neccessary</returns>
         public static string GetFolder(string configKey, string defaultFolder)
         {
@@ -387,7 +388,7 @@ namespace Nova.Common
         /// Ask the user to locate a file.
         /// </summary>
         /// <param name="fileName">The name of the file to loacate.</param>
-        /// <returns>The path & filename given or null.</returns>
+        /// <returns>The path and filename given or null.</returns>
         private static string AskUserForFile(string fileName)
         {
             Report.Information("Please locate the file \"" + fileName + "\".");
