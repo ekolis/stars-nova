@@ -57,7 +57,7 @@ namespace Nova
                     WinForms.Gui.NovaGUI.Main(coreArgs);
                     break;
                 case CommandArguments.Option.NewGameSwitch:
-                    WinForms.NewGame.NewGame.Main();
+                    WinForms.NewGameWizard.Main();
                     break;
                 case CommandArguments.Option.AiSwitch:
                     Ai.Program.Main(coreArgs);
