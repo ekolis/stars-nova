@@ -153,7 +153,7 @@ namespace Nova.Common
             ArrayList keyList = new ArrayList();
             keyList.AddRange(Dictionary.Keys);
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(star) + 1;
+            int nextIndex = keyList.IndexOf(star.Name) + 1;
             if (nextIndex >= keyList.Count) nextIndex = 0;
             return Dictionary[keyList[nextIndex]] as Star;
         }
@@ -174,7 +174,7 @@ namespace Nova.Common
             ArrayList keyList = new ArrayList();
             keyList.AddRange(Dictionary.Keys);
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(star) - 1;
+            int nextIndex = keyList.IndexOf(star.Name) - 1;
             if (nextIndex < 0) nextIndex = keyList.Count - 1;
             return Dictionary[keyList[nextIndex]] as Star;
 
