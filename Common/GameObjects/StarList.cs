@@ -150,7 +150,8 @@ namespace Nova.Common
             if (star == null) throw new ArgumentNullException("star");
             if (Dictionary.Count <= 1) return star;
 
-            ArrayList keyList = Dictionary.Keys as ArrayList;
+            ArrayList keyList = new ArrayList();
+            keyList.AddRange(Dictionary.Keys);
             keyList.Sort();
             int nextIndex = keyList.IndexOf(star) + 1;
             if (nextIndex >= keyList.Count) nextIndex = 0;
@@ -170,7 +171,8 @@ namespace Nova.Common
             if (star == null) throw new ArgumentNullException("star");
             if (Dictionary.Count <= 1) return star;
 
-            ArrayList keyList = Dictionary.Keys as ArrayList;
+            ArrayList keyList = new ArrayList();
+            keyList.AddRange(Dictionary.Keys);
             keyList.Sort();
             int nextIndex = keyList.IndexOf(star) - 1;
             if (nextIndex < 0) nextIndex = keyList.Count - 1;
