@@ -39,6 +39,7 @@ namespace Nova.ControlLibrary
     public partial class HullGrid : UserControl
     {
         public event EventHandler ModuleSelected;
+        public event EventHandler ModuleUpdated;
 
         private Panel[] panelMap        = new Panel[25];
         private bool emptyModulesHidden = false;
@@ -57,6 +58,9 @@ namespace Nova.ControlLibrary
             public Nova.Common.Components.Component SelectedComponent;
             public int ComponentCount;
             public string HullName;
+            public DragDropEffects Operation = DragDropEffects.Copy;
+            public HullModule SourceHullModule;
+            public HullModule TargetHullModule;
         }
 
         #region Construction
@@ -237,6 +241,53 @@ namespace Nova.ControlLibrary
             hullCell.Invalidate();
         }
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Instigate Drag and Drop of the selected grid item
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        /// ----------------------------------------------------------------------------
+        private void Grid_DragBegin(object sender, MouseEventArgs e)
+        {
+            Panel panel = sender as Panel;
+            HullModule cell = panel.Tag as HullModule;
+            Component component = cell.AllocatedComponent;
+            if (component == null) return;
+            if (cell.ComponentCount == 0) return;
+
+            DragDropData dragData = new DragDropData();
+            dragData.HullName = HullName;
+            dragData.ComponentCount = 1;
+            dragData.SelectedComponent = component;
+            dragData.Operation = DragDropEffects.Move;
+            dragData.SourceHullModule = cell;
+
+            if ((ModifierKeys & Keys.Shift) != 0)
+            {
+                dragData.ComponentCount = Math.Min(10, cell.ComponentCount);
+            }
+
+            DragDropEffects result = DoDragDrop(dragData, DragDropEffects.Move);
+
+            if (dragData.SourceHullModule == dragData.TargetHullModule && dragData.SourceHullModule != null) return;
+            if (result == DragDropEffects.Move || result == DragDropEffects.None)
+            {
+                cell.ComponentCount -= dragData.ComponentCount;
+                if (cell.ComponentCount <= 0)
+                {
+                    cell.AllocatedComponent = null;
+                }
+                DoModuleUpdated(sender, new EventArgs());
+                panel.Invalidate();
+            }
+        }
+
+        protected virtual void DoModuleUpdated(object sender, EventArgs eventArgs)
+        {
+            if (ModuleUpdated == null) return;
+            ModuleUpdated(sender, eventArgs);
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -262,7 +313,6 @@ namespace Nova.ControlLibrary
 
             DragDropData data = e.Data.GetData(typeof(DragDropData))
                                 as DragDropData;
-
 
             // Not the right component for this cell.
             if (!cell.ComponentType.Contains(data.SelectedComponent.Type) &&
@@ -308,8 +358,7 @@ namespace Nova.ControlLibrary
                 }
             }
 
-
-            e.Effect = DragDropEffects.Copy;
+            e.Effect = data.Operation;
         }
 
 
@@ -327,6 +376,9 @@ namespace Nova.ControlLibrary
 
             Panel panel = sender as Panel;
             HullModule cell = panel.Tag as HullModule;
+            data.TargetHullModule = cell;
+
+            if (data.SourceHullModule == data.TargetHullModule && data.SourceHullModule != null) return;
 
             if (cell.AllocatedComponent != data.SelectedComponent)
             {
@@ -571,6 +623,8 @@ namespace Nova.ControlLibrary
                 }
             }
         }
+
+        public string HullName { get; set; }
 
         #endregion
 
