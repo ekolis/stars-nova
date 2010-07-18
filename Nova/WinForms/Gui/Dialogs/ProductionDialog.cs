@@ -403,7 +403,7 @@ namespace Nova.WinForms.Gui
                     }
                 }
             }
-
+			this.queueList.Items[this.queueList.Items.Count - 1].Selected = true;
             UpdateProductionCost();
         }
 
@@ -628,6 +628,10 @@ namespace Nova.WinForms.Gui
         /// the queue, add the new one on the end. If an item is selected and it is the
         /// same type as the one being added then just increment the quantity.
         /// Otherwise, just add the item on at the end of the queue.
+        /// NOTE: In Stars!, if an item is selected in the queue and it is a different type
+        ///   from the one being added the next item in the queue is checked to see if it
+        ///   is the same as the one being added, if so it gets incremented, if not the item
+        ///   being added is placed after the item selected in the queue
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
@@ -641,6 +645,7 @@ namespace Nova.WinForms.Gui
             itemToAdd.Tag = design;
             itemToAdd.SubItems.Add(quantity.ToString());
 
+			// if the queue is empty add the quantity of design as indicated
             if (this.queueList.SelectedItems.Count == 0)
             {
                 itemAdded = this.queueList.Items.Add(itemToAdd);
@@ -650,6 +655,7 @@ namespace Nova.WinForms.Gui
             {
                 int s = this.queueList.SelectedIndices[0];
 
+				// if the item selected in the queue is the same as the design being added increase the quantity
                 if (design.Name == this.queueList.Items[s].Text)
                 {
                     itemAdded = this.queueList.Items[s];
@@ -659,9 +665,32 @@ namespace Nova.WinForms.Gui
                 }
                 else
                 {
-                    this.queueList.Items[s].Selected = false;
-                    itemAdded = this.queueList.Items.Add(itemToAdd);
-                    itemAdded.Selected = true;
+                	// if the item selected in the queue is different from the design being added check the item
+                	// below the selected item (first confirm it exists) to see if it matches, if so increase its
+                	// quantity, if not add the item after the item selected in the queue
+                	int numInQueue = this.queueList.Items.Count;
+                	int nextIndex = s+1;
+                	if (numInQueue > nextIndex)	// count starts at 1 index starts at 0
+                	{
+                		if (design.Name == this.queueList.Items[nextIndex].Text)
+                		{	// the design is the same as the item after the selected item in the queue so update the item after
+                			itemAdded = this.queueList.Items[nextIndex];
+                    		int total = quantity;
+                    		total += Convert.ToInt32(this.queueList.Items[nextIndex].SubItems[1].Text);
+                    		this.queueList.Items[nextIndex].SubItems[1].Text = total.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                		}
+                		else
+                		{
+                			// add the design after the item selected in the queue
+                			itemAdded = this.queueList.Items.Insert(nextIndex, itemToAdd);
+                		}
+                	}
+                	else
+                	{
+                    	this.queueList.Items[s].Selected = false;
+                    	itemAdded = this.queueList.Items.Add(itemToAdd);
+                    	itemAdded.Selected = true;
+                    }
                 }
             }
 
