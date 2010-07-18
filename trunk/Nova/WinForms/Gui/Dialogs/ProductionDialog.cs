@@ -403,7 +403,11 @@ namespace Nova.WinForms.Gui
                     }
                 }
             }
-			this.queueList.Items[this.queueList.Items.Count - 1].Selected = true;
+            if (this.queueList.Items.Count >0)
+            {
+				this.queueList.Items[this.queueList.Items.Count - 1].Selected = true;
+			}
+			
             UpdateProductionCost();
         }
 
@@ -466,7 +470,10 @@ namespace Nova.WinForms.Gui
             {
                 this.removeFromQueue.Enabled = false;
             }
+			// it does not matter if an item is selected the Production Costs can still be updated.
+			UpdateProductionCost();
         }
+		
         /// <summary>
         /// Add to queue when double click on Design List
         /// </summary>
@@ -780,50 +787,54 @@ namespace Nova.WinForms.Gui
             Nova.Common.Resources cost = new Nova.Common.Resources();
             int t = this.queueList.SelectedItems.Count;
  
-			// if no item is selected sum up the Production Costs for all items in the queue
-			if (t == 0)
+			// check if there are any items in the Production Queue before attempting to determine costs
+			if (this.queueList.Items.Count >0)
 			{
-	            foreach (ListViewItem item in this.queueList.Items)
-    	        {
-        	        string name = item.Text;
+				// if no item is selected sum up the Production Costs for all items in the queue
+				if (t == 0)
+				{
+	        	    foreach (ListViewItem item in this.queueList.Items)
+    	        	{
+	        	        string name = item.Text;
 
-	                Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
+		                Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
 
-	                if (design == null)
-    	            {
-        	            Report.FatalError("ProducationDialog.cs UpdateProducionCost() - Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
-            	    }
+		                if (design == null)
+    		            {
+        		            Report.FatalError("ProducationDialog.cs UpdateProducionCost() - Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
+            		    }
 
-	                int quantity = Convert.ToInt32(item.SubItems[1].Text);
+		                int quantity = Convert.ToInt32(item.SubItems[1].Text);
 
-	                cost.Ironium += design.Cost.Ironium * quantity;
-    	            cost.Boranium += design.Cost.Boranium * quantity;
-        	        cost.Germanium += design.Cost.Germanium * quantity;
-            	    cost.Energy += design.Cost.Energy * quantity;
-            	}
-            }
-            else
-            {
-            	int s = this.queueList.SelectedIndices[0];
-            	ListViewItem tempItem = this.queueList.Items[s];
-            	string name = tempItem.Text;
+		                cost.Ironium += design.Cost.Ironium * quantity;
+    		            cost.Boranium += design.Cost.Boranium * quantity;
+        		        cost.Germanium += design.Cost.Germanium * quantity;
+            		    cost.Energy += design.Cost.Energy * quantity;
+            		}
+	            }
+    	        else
+        	    {
+            		int s = this.queueList.SelectedIndices[0];
+            		ListViewItem tempItem = this.queueList.Items[s];
+	            	string name = tempItem.Text;
 				
-  	                Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
+  		                Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
 
-	                if (design == null)
-    	            {
-        	            Report.FatalError("ProducationDialog.cs UpdateProducionCost() - Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
-            	    }
+	    	            if (design == null)
+    	    	        {
+        	    	        Report.FatalError("ProducationDialog.cs UpdateProducionCost() - Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
+            	    	}
 
-	                int quantity = Convert.ToInt32(tempItem.SubItems[1].Text);
+		                int quantity = Convert.ToInt32(tempItem.SubItems[1].Text);
 
-	                cost.Ironium += design.Cost.Ironium * quantity;
-    	            cost.Boranium += design.Cost.Boranium * quantity;
-        	        cost.Germanium += design.Cost.Germanium * quantity;
-            	    cost.Energy += design.Cost.Energy * quantity;
-			}
+		                cost.Ironium += design.Cost.Ironium * quantity;
+    		            cost.Boranium += design.Cost.Boranium * quantity;
+        		        cost.Germanium += design.Cost.Germanium * quantity;
+            		    cost.Energy += design.Cost.Energy * quantity;
+				}
 
-            this.productionCost.Value = cost;
+	            this.productionCost.Value = cost;
+			}	            
         }
 
         #endregion
