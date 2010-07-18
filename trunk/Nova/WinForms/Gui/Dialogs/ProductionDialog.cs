@@ -626,12 +626,10 @@ namespace Nova.WinForms.Gui
         /// <summary>
         /// Add a selected item into the production queue. If no item is selected in
         /// the queue, add the new one on the end. If an item is selected and it is the
-        /// same type as the one being added then just increment the quantity.
-        /// Otherwise, just add the item on at the end of the queue.
-        /// NOTE: In Stars!, if an item is selected in the queue and it is a different type
-        ///   from the one being added the next item in the queue is checked to see if it
-        ///   is the same as the one being added, if so it gets incremented, if not the item
-        ///   being added is placed after the item selected in the queue
+        /// same type as the one being added then just increment the quantity, if it is not
+        /// the same type check if the next item in the queue is the same type, if it is then
+        /// increment the quantity of that item, if it does not match, insert the design after
+        /// the selected item in the production queue.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
@@ -780,25 +778,50 @@ namespace Nova.WinForms.Gui
         private void UpdateProductionCost()
         {
             Nova.Common.Resources cost = new Nova.Common.Resources();
+            int t = this.queueList.SelectedItems.Count;
+ 
+			// if no item is selected sum up the Production Costs for all items in the queue
+			if (t == 0)
+			{
+	            foreach (ListViewItem item in this.queueList.Items)
+    	        {
+        	        string name = item.Text;
 
-            foreach (ListViewItem item in this.queueList.Items)
-            {
-                string name = item.Text;
+	                Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
 
-                Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
+	                if (design == null)
+    	            {
+        	            Report.FatalError("ProducationDialog.cs UpdateProducionCost() - Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
+            	    }
 
-                if (design == null)
-                {
-                    Report.FatalError("ProducationDialog.cs UpdateProducionCost() - Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
-                }
+	                int quantity = Convert.ToInt32(item.SubItems[1].Text);
 
-                int quantity = Convert.ToInt32(item.SubItems[1].Text);
-
-                cost.Ironium += design.Cost.Ironium * quantity;
-                cost.Boranium += design.Cost.Boranium * quantity;
-                cost.Germanium += design.Cost.Germanium * quantity;
-                cost.Energy += design.Cost.Energy * quantity;
+	                cost.Ironium += design.Cost.Ironium * quantity;
+    	            cost.Boranium += design.Cost.Boranium * quantity;
+        	        cost.Germanium += design.Cost.Germanium * quantity;
+            	    cost.Energy += design.Cost.Energy * quantity;
+            	}
             }
+            else
+            {
+            	int s = this.queueList.SelectedIndices[0];
+            	ListViewItem tempItem = this.queueList.Items[s];
+            	string name = tempItem.Text;
+				
+  	                Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
+
+	                if (design == null)
+    	            {
+        	            Report.FatalError("ProducationDialog.cs UpdateProducionCost() - Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
+            	    }
+
+	                int quantity = Convert.ToInt32(tempItem.SubItems[1].Text);
+
+	                cost.Ironium += design.Cost.Ironium * quantity;
+    	            cost.Boranium += design.Cost.Boranium * quantity;
+        	        cost.Germanium += design.Cost.Germanium * quantity;
+            	    cost.Energy += design.Cost.Energy * quantity;
+			}
 
             this.productionCost.Value = cost;
         }
