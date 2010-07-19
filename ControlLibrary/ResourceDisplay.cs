@@ -162,9 +162,10 @@ namespace Nova.ControlLibrary
             this.label7.TabIndex = 6;
             this.label7.Text = "kT";
             // 
-            // Ironium
+            // ironium
             // 
-            this.ironium.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ironium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.ironium.Location = new System.Drawing.Point(80, 0);
             this.ironium.Name = "ironium";
             this.ironium.Size = new System.Drawing.Size(56, 16);
@@ -172,9 +173,10 @@ namespace Nova.ControlLibrary
             this.ironium.Text = "0";
             this.ironium.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // Energy
+            // energy
             // 
-            this.energy.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.energy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.energy.Location = new System.Drawing.Point(80, 48);
             this.energy.Name = "energy";
             this.energy.Size = new System.Drawing.Size(56, 16);
@@ -182,9 +184,10 @@ namespace Nova.ControlLibrary
             this.energy.Text = "0";
             this.energy.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // Germanium
+            // germanium
             // 
-            this.germanium.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.germanium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.germanium.Location = new System.Drawing.Point(80, 32);
             this.germanium.Name = "germanium";
             this.germanium.Size = new System.Drawing.Size(56, 16);
@@ -192,9 +195,10 @@ namespace Nova.ControlLibrary
             this.germanium.Text = "0";
             this.germanium.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // Boranium
+            // boranium
             // 
-            this.boranium.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.boranium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.boranium.Location = new System.Drawing.Point(80, 16);
             this.boranium.Name = "boranium";
             this.boranium.Size = new System.Drawing.Size(56, 16);
