@@ -29,12 +29,12 @@
 
 using System.Collections.Generic;
 using System.Drawing;
-using System.Windows.Forms;
 using System.IO;
+using System.Windows.Forms;
 
 using Nova.Common;
-using Nova.Server;
 using Nova.NewGame;
+using Nova.Server;
 
 using NUnit.Framework;
 
