@@ -685,11 +685,11 @@ namespace Nova.WinForms.Gui
                     }
                 }
             }
-            if (this.queueList.Items.Count >0)
+            if (this.queueList.Items.Count > 0)
             {
-				this.queueList.Items[this.queueList.Items.Count - 1].Selected = true;
-			}
-			
+                this.queueList.Items[this.queueList.Items.Count - 1].Selected = true;
+            }
+            
             UpdateProductionCost();
         }
 
@@ -752,10 +752,10 @@ namespace Nova.WinForms.Gui
             {
                 this.removeFromQueue.Enabled = false;
             }
-			// it does not matter if an item is selected the Production Costs can still be updated.
-			UpdateProductionCost();
+            // it does not matter if an item is selected the Production Costs can still be updated.
+            UpdateProductionCost();
         }
-		
+        
         /// <summary>
         /// Add to queue when double click on Design List
         /// </summary>
@@ -932,7 +932,7 @@ namespace Nova.WinForms.Gui
             itemToAdd.Tag = design;
             itemToAdd.SubItems.Add(quantity.ToString());
 
-			// if the queue is empty add the quantity of design as indicated
+            // if the queue is empty add the quantity of design as indicated
             if (this.queueList.SelectedItems.Count == 0)
             {
                 itemAdded = this.queueList.Items.Add(itemToAdd);
@@ -940,43 +940,44 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                int s = this.queueList.SelectedIndices[0];
+                int selectedProduction = this.queueList.SelectedIndices[0];
 
-				// if the item selected in the queue is the same as the design being added increase the quantity
-                if (design.Name == this.queueList.Items[s].Text)
+                // if the item selected in the queue is the same as the design being added increase the quantity
+                if (design.Name == this.queueList.Items[selectedProduction].Text)
                 {
-                    itemAdded = this.queueList.Items[s];
+                    itemAdded = this.queueList.Items[selectedProduction];
                     int total = quantity;
-                    total += Convert.ToInt32(this.queueList.Items[s].SubItems[1].Text);
-                    this.queueList.Items[s].SubItems[1].Text = total.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    total += Convert.ToInt32(this.queueList.Items[selectedProduction].SubItems[1].Text);
+                    this.queueList.Items[selectedProduction].SubItems[1].Text = total.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
                 else
                 {
-                	// if the item selected in the queue is different from the design being added check the item
-                	// below the selected item (first confirm it exists) to see if it matches, if so increase its
-                	// quantity, if not add the item after the item selected in the queue
-                	int numInQueue = this.queueList.Items.Count;
-                	int nextIndex = s+1;
-                	if (numInQueue > nextIndex)	// count starts at 1 index starts at 0
-                	{
-                		if (design.Name == this.queueList.Items[nextIndex].Text)
-                		{	// the design is the same as the item after the selected item in the queue so update the item after
-                			itemAdded = this.queueList.Items[nextIndex];
-                    		int total = quantity;
-                    		total += Convert.ToInt32(this.queueList.Items[nextIndex].SubItems[1].Text);
-                    		this.queueList.Items[nextIndex].SubItems[1].Text = total.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                		}
-                		else
-                		{
-                			// add the design after the item selected in the queue
-                			itemAdded = this.queueList.Items.Insert(nextIndex, itemToAdd);
-                		}
-                	}
-                	else
-                	{
-                    	this.queueList.Items[s].Selected = false;
-                    	itemAdded = this.queueList.Items.Add(itemToAdd);
-                    	itemAdded.Selected = true;
+                    // if the item selected in the queue is different from the design being added check the item
+                    // below the selected item (first confirm it exists) to see if it matches, if so increase its
+                    // quantity, if not add the item after the item selected in the queue
+                    int numInQueue = this.queueList.Items.Count;
+                    int nextIndex = selectedProduction + 1;
+                    if (numInQueue > nextIndex)    
+                    {
+                        if (design.Name == this.queueList.Items[nextIndex].Text)
+                        {    
+                            // the design is the same as the item after the selected item in the queue so update the item after
+                            itemAdded = this.queueList.Items[nextIndex];
+                            int total = quantity;
+                            total += Convert.ToInt32(this.queueList.Items[nextIndex].SubItems[1].Text);
+                            this.queueList.Items[nextIndex].SubItems[1].Text = total.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        }
+                        else
+                        {
+                            // add the design after the item selected in the queue
+                            itemAdded = this.queueList.Items.Insert(nextIndex, itemToAdd);
+                        }
+                    }
+                    else
+                    {
+                        this.queueList.Items[selectedProduction].Selected = false;
+                        itemAdded = this.queueList.Items.Add(itemToAdd);
+                        itemAdded.Selected = true;
                     }
                 }
             }
@@ -1066,7 +1067,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void UpdateProductionCost()
         { 
-			// check if there are any items in the Production Queue before attempting to determine costs
+            // check if there are any items in the Production Queue before attempting to determine costs
             if (this.queueList.Items.Count > 0)
             {
                 // Update the cost for the selected item
@@ -1121,10 +1122,10 @@ namespace Nova.WinForms.Gui
                 totalCost.Energy += design.Cost.Energy * quantity;
             }
 
-            totalCostIronium.Text = ((int)(totalCost.Ironium)).ToString();
-            totalCostBoranium.Text = ((int)(totalCost.Boranium)).ToString();
-            totalCostGermanium.Text = ((int)(totalCost.Germanium)).ToString();
-            totalCostEnergy.Text = ((int)(totalCost.Energy)).ToString();
+            totalCostIronium.Text = ((int)totalCost.Ironium).ToString();
+            totalCostBoranium.Text = ((int)totalCost.Boranium).ToString();
+            totalCostGermanium.Text = ((int)totalCost.Germanium).ToString();
+            totalCostEnergy.Text = ((int)totalCost.Energy).ToString();
         }
 
         #endregion
