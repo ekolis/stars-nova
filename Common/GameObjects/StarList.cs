@@ -143,17 +143,16 @@ namespace Nova.Common
         /// </summary>
         /// <param name="star">The current star.</param>
         /// <returns>The next star, or the current star if there is only one.</returns>
-        /// <exception cref="NullReferenceException"> if star is null.</exception>
+        /// <exception cref="">NullReferenceException if star is null.</exception>
         /// ----------------------------------------------------------------------------
         public Star GetNext(Star star)
         {
             if (star == null) throw new ArgumentNullException("star");
             if (Dictionary.Count <= 1) return star;
 
-            ArrayList keyList = new ArrayList();
-            keyList.AddRange(Dictionary.Keys);
+            ArrayList keyList = Dictionary.Keys as ArrayList;
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(star.Name) + 1;
+            int nextIndex = keyList.IndexOf(star) + 1;
             if (nextIndex >= keyList.Count) nextIndex = 0;
             return Dictionary[keyList[nextIndex]] as Star;
         }
@@ -164,17 +163,16 @@ namespace Nova.Common
         /// </summary>
         /// <param name="star">The current star.</param>
         /// <returns>The previous star, or the current star if there is only one.</returns>
-        /// <exception cref="NullReferenceException"> if star is null.</exception>
+        /// <exception cref="">NullReferenceException if star is null.</exception>
         /// ----------------------------------------------------------------------------
         public Star GetPrevious(Star star)
         {
             if (star == null) throw new ArgumentNullException("star");
             if (Dictionary.Count <= 1) return star;
 
-            ArrayList keyList = new ArrayList();
-            keyList.AddRange(Dictionary.Keys);
+            ArrayList keyList = Dictionary.Keys as ArrayList;
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(star.Name) - 1;
+            int nextIndex = keyList.IndexOf(star) - 1;
             if (nextIndex < 0) nextIndex = keyList.Count - 1;
             return Dictionary[keyList[nextIndex]] as Star;
 

@@ -54,7 +54,7 @@ namespace Nova.Common
         /// <summary>
         /// Add a new trait to the race's collection of traits.
         /// </summary>
-        /// <param name="new_trait">A TraitEntry, such as those in SecondaryTraits.</param>
+        /// <param name="NewTrait">A TraitEntry, such as those in SecondaryTraits.</param>
         /// ----------------------------------------------------------------------------
         public void Add(TraitEntry new_trait)
         {

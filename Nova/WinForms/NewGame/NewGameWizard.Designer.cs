@@ -1,7 +1,7 @@
 using Nova.Common;
 using Nova.ControlLibrary;
 
-namespace Nova.WinForms
+namespace Nova.WinForms.NewGame
 {
    public partial class NewGameWizard
    {

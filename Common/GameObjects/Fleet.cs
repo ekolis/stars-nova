@@ -787,6 +787,5 @@ namespace Nova.Common
 
         #endregion
 
-
     }
 }

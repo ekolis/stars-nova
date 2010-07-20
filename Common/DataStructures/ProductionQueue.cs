@@ -79,7 +79,7 @@ namespace Nova.Common
             /// <summary>
             /// Load: Read in a ProductionQueue.Item from and XmlNode representation.
             /// </summary>
-            /// <param name="node">An XmlNode containing a representation of a ProductionQueue.Item</param>
+            /// <param name="xmlnode">An XmlNode containing a representation of a ProductionQueue.Item</param>
             /// ----------------------------------------------------------------------------
             public Item(XmlNode node)
             {
@@ -152,7 +152,7 @@ namespace Nova.Common
         /// <summary>
         /// Read in a ProductionQueue from an XmlElement representation
         /// </summary>
-        /// <param name="node">A ProductionQueue XmlNode, normally read from a nova data file.</param>
+        /// <param name="xmlel">A ProductionQueue XmlNode, normally read from a nova data file.</param>
         /// ----------------------------------------------------------------------------
         public ProductionQueue(XmlNode node)
         {

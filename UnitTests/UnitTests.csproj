@@ -54,7 +54,6 @@
     <Compile Include="..\VersionInfo.cs" />
     <Compile Include="BattleEngineTest.cs" />
     <Compile Include="BombingTest.cs" />
-    <Compile Include="NewGameTest.cs" />
     <Compile Include="ServerStateTest.cs" />
     <Compile Include="DefencesTest.cs" />
     <Compile Include="GlobalTests.cs" />
@@ -64,10 +63,6 @@
     <ProjectReference Include="..\Common\Common.csproj">
       <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
       <Name>Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NewGame\NewGame.csproj">
-      <Project>{C706B9E5-0A51-4580-A8B7-5798F47CE040}</Project>
-      <Name>NewGame</Name>
     </ProjectReference>
     <ProjectReference Include="..\Nova\Nova.csproj">
       <Project>{184F17D9-28F2-4784-B5F0-8E9538A31BF7}</Project>

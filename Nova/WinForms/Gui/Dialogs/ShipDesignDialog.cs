@@ -135,7 +135,7 @@ namespace Nova.WinForms.Gui
             this.SaveButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.HullImage = new System.Windows.Forms.PictureBox();
-            this.HullGrid = new Nova.ControlLibrary.HullGrid();
+            this.HullGrid = new ControlLibrary.HullGrid();
             this.label10 = new System.Windows.Forms.Label();
             this.HullList = new System.Windows.Forms.ComboBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
@@ -158,7 +158,7 @@ namespace Nova.WinForms.Gui
             this.CapacityType = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
-            this.DesignResources = new Nova.ControlLibrary.ResourceDisplay();
+            this.DesignResources = new ControlLibrary.ResourceDisplay();
             this.DesignName = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -169,7 +169,7 @@ namespace Nova.WinForms.Gui
             this.ComponentMass = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
-            this.ComponentCost = new Nova.ControlLibrary.ResourceDisplay();
+            this.ComponentCost = new ControlLibrary.ResourceDisplay();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.TreeView = new System.Windows.Forms.TreeView();
@@ -245,7 +245,6 @@ namespace Nova.WinForms.Gui
             this.HullGrid.Name = "HullGrid";
             this.HullGrid.Size = new System.Drawing.Size(338, 338);
             this.HullGrid.TabIndex = 18;
-            this.HullGrid.ModuleUpdated += new System.EventHandler(this.HullGrid_ModuleUpdated);
             // 
             // label10
             // 
@@ -740,7 +739,6 @@ namespace Nova.WinForms.Gui
                 string selectedHullName = HullList.SelectedItem as string;
                 this.selectedHull = this.stateData.AvailableComponents[selectedHullName];
                 this.selectedHull.Name = selectedHullName;
-                HullGrid.HullName = selectedHullName;
                 UpdateHullFields();
                 SaveButton.Enabled = true;
             }
@@ -960,7 +958,6 @@ namespace Nova.WinForms.Gui
             dragData.ComponentCount = 1;
             dragData.SelectedComponent = this.allComponents[item.Text]
                                          as Nova.Common.Components.Component;
-            dragData.Operation = DragDropEffects.Copy;
 
             if ((Control.ModifierKeys & Keys.Shift) != 0)
             {
@@ -976,12 +973,6 @@ namespace Nova.WinForms.Gui
 
             // The component has been dropped into the design. Update the relevant
             // design summary fields.
-            UpdateDesignParameters();
-        }
-
-        private void HullGrid_ModuleUpdated(object sender, EventArgs e)
-        {
-            // A module has been updated. Update the relevant design summary fields.
             UpdateDesignParameters();
         }
 
@@ -1059,7 +1050,6 @@ namespace Nova.WinForms.Gui
             Nova.Common.Components.Component hull = this.stateData.AvailableComponents[selectedHullName];
             this.selectedHull = new Nova.Common.Components.Component(hull);
             this.selectedHull.Name = selectedHullName;
-            HullGrid.HullName = selectedHullName;
 
             UpdateHullFields();
         }

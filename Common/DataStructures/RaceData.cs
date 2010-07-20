@@ -68,7 +68,7 @@ namespace Nova.Common
         /// <summary>
         /// Load: constructor to load RaceData from an XmlNode representation.
         /// </summary>
-        /// <param name="node">An XmlNode containing a RaceData representation (from a save file)</param>
+        /// <param name="xmldoc">An XmlNode containing a RaceData representation (from a save file)</param>
         /// ----------------------------------------------------------------------------
         public RaceData(XmlNode node)
         {

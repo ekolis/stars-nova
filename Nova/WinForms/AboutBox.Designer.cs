@@ -70,17 +70,15 @@ namespace Nova.WinForms
           this.tableLayoutPanel.Controls.Add(this.labelProductName, 1, 0);
           this.tableLayoutPanel.Controls.Add(this.labelVersion, 1, 1);
           this.tableLayoutPanel.Controls.Add(this.Description, 1, 2);
-          this.tableLayoutPanel.Controls.Add(this.okButton, 1, 5);
+          this.tableLayoutPanel.Controls.Add(this.okButton, 1, 3);
           this.tableLayoutPanel.Dock = System.Windows.Forms.DockStyle.Fill;
           this.tableLayoutPanel.Location = new System.Drawing.Point(9, 9);
           this.tableLayoutPanel.Name = "tableLayoutPanel";
           this.tableLayoutPanel.RowCount = 4;
           this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
           this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
-          this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 76.03687F));
-          this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 4.608295F));
-          this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 8F));
-          this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 38F));
+          this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
+          this.tableLayoutPanel.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
           this.tableLayoutPanel.Size = new System.Drawing.Size(417, 265);
           this.tableLayoutPanel.TabIndex = 0;
           // 
@@ -111,7 +109,7 @@ namespace Nova.WinForms
           // labelVersion
           // 
           this.labelVersion.Dock = System.Windows.Forms.DockStyle.Fill;
-          this.labelVersion.Location = new System.Drawing.Point(143, 21);
+          this.labelVersion.Location = new System.Drawing.Point(143, 26);
           this.labelVersion.Margin = new System.Windows.Forms.Padding(6, 0, 3, 0);
           this.labelVersion.MaximumSize = new System.Drawing.Size(0, 17);
           this.labelVersion.Name = "labelVersion";
@@ -123,13 +121,13 @@ namespace Nova.WinForms
           // Description
           // 
           this.Description.Dock = System.Windows.Forms.DockStyle.Fill;
-          this.Description.Location = new System.Drawing.Point(143, 45);
+          this.Description.Location = new System.Drawing.Point(143, 107);
           this.Description.Margin = new System.Windows.Forms.Padding(6, 3, 3, 3);
           this.Description.Multiline = true;
           this.Description.Name = "Description";
           this.Description.ReadOnly = true;
           this.Description.ScrollBars = System.Windows.Forms.ScrollBars.Both;
-          this.Description.Size = new System.Drawing.Size(271, 159);
+          this.Description.Size = new System.Drawing.Size(271, 126);
           this.Description.TabIndex = 23;
           this.Description.TabStop = false;
           this.Description.Text = "Description";
@@ -138,9 +136,9 @@ namespace Nova.WinForms
           // 
           this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
           this.okButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-          this.okButton.Location = new System.Drawing.Point(331, 235);
+          this.okButton.Location = new System.Drawing.Point(339, 239);
           this.okButton.Name = "okButton";
-          this.okButton.Size = new System.Drawing.Size(83, 27);
+          this.okButton.Size = new System.Drawing.Size(75, 23);
           this.okButton.TabIndex = 24;
           this.okButton.Text = "&OK";
           // 

@@ -107,7 +107,7 @@
       <DependentUpon>RaceRestrictionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\ComponentEditor\Program.cs" />
-    <Compile Include="WinForms\NovaConsole.cs">
+    <Compile Include="WinForms\Console\NovaConsole.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WinForms\Gui\Controls\FleetDetail.cs">
@@ -237,12 +237,15 @@
       <DependentUpon>NovaLauncer.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\Launcher\Program.cs" />
-    <Compile Include="WinForms\NewGameWizard.cs">
+    <Compile Include="WinForms\NewGame\NameGenerator.cs" />
+    <Compile Include="WinForms\NewGame\NewGame.cs" />
+    <Compile Include="WinForms\NewGame\NewGameWizard.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WinForms\NewGameWizard.Designer.cs">
+    <Compile Include="WinForms\NewGame\NewGameWizard.Designer.cs">
       <DependentUpon>NewGameWizard.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinForms\NewGame\StarsMapGenerator.cs" />
     <Compile Include="WinForms\RaceDesigner\ParameterEntry.cs" />
     <Compile Include="WinForms\RaceDesigner\ParameterCosts.cs" />
     <Compile Include="WinForms\RaceDesigner\RaceDesigner.cs">
@@ -288,7 +291,7 @@
       <DependentUpon>RaceRestrictionDialog.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\NovaConsole.resx">
+    <EmbeddedResource Include="WinForms\Console\NovaConsole.resx">
       <DependentUpon>NovaConsole.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -384,7 +387,7 @@
       <DependentUpon>NovaLauncer.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\NewGameWizard.resx">
+    <EmbeddedResource Include="WinForms\NewGame\NewGameWizard.resx">
       <DependentUpon>NewGameWizard.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
@@ -408,10 +411,6 @@
     <ProjectReference Include="..\ControlLibrary\ControlLibrary.csproj">
       <Project>{AA9C1AA7-AB64-4560-91C7-95BB2A88FA1F}</Project>
       <Name>ControlLibrary</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\NewGame\NewGame.csproj">
-      <Project>{C706B9E5-0A51-4580-A8B7-5798F47CE040}</Project>
-      <Name>NewGame</Name>
     </ProjectReference>
     <ProjectReference Include="..\ServerState\Server.csproj">
       <Project>{0C92C1D5-9084-4E4A-82F1-889B74019A33}</Project>

@@ -145,7 +145,7 @@ namespace Nova.Common.Components
         /// <summary>
         /// Add a Component to the list of available components.
         /// </summary>
-        /// <param name="componentName">The Name of the Component to add.</param>
+        /// <param name="NewTrait">The Name of the Component to add.</param>
         /// ----------------------------------------------------------------------------
         public void Add(string componentName)
         {
@@ -178,7 +178,7 @@ namespace Nova.Common.Components
         /// <summary>
         /// Remove a Component from the race's RaceComponents list.
         /// </summary>
-        /// <param name="componentToRemove">The Name of the Component to remove.</param>
+        /// <param name="TraitToRemove">The Name of the Component to remove.</param>
         /// ----------------------------------------------------------------------------
         public void Remove(string componentToRemove)
         {

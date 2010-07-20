@@ -206,7 +206,7 @@ namespace Nova.Common
         /// <summary>
         /// Write out the orders using xml format
         /// </summary>
-        /// <param name="ordersFileName">The path and filename to save the orders too.</param>
+        /// <param name="ordersFileName">The path&filename to save the orders too.</param>
         /// ----------------------------------------------------------------------------
         public void ToXml(string ordersFileName)
         {

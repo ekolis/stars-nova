@@ -121,7 +121,8 @@ namespace Nova.Common
         /// <summary>
         /// Test for equality.
         /// </summary>
-        /// <param name="trait">Trait to compare.</param>
+        /// <param name="a">Trait to compare.</param>
+        /// <param name="b">Trait to compare</param>
         /// <returns>true if the traits are the same trait.</returns>
         /// ----------------------------------------------------------------------------
         public override bool Equals(object trait)
