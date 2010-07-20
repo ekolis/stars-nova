@@ -954,7 +954,7 @@ namespace Nova.WinForms.Gui
                 {
                     // if the item selected in the queue is different from the design being added check the item
                     // below the selected item (first confirm it exists) to see if it matches, if so increase its
-                    // quantity, if not add the item after the item selected in the queue
+                    // quantity and have it become the selected item, if not add the item after the item selected in the queue
                     int numInQueue = this.queueList.Items.Count;
                     int nextIndex = selectedProduction + 1;
                     if (numInQueue > nextIndex)    
@@ -966,11 +966,13 @@ namespace Nova.WinForms.Gui
                             int total = quantity;
                             total += Convert.ToInt32(this.queueList.Items[nextIndex].SubItems[1].Text);
                             this.queueList.Items[nextIndex].SubItems[1].Text = total.ToString(System.Globalization.CultureInfo.InvariantCulture);
+							this.queueList.Items[nextIndex].Selected=true;
                         }
                         else
                         {
                             // add the design after the item selected in the queue
                             itemAdded = this.queueList.Items.Insert(nextIndex, itemToAdd);
+                            this.queueList.Items[nextIndex].Selected=true;
                         }
                     }
                     else
