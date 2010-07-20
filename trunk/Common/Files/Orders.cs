@@ -211,9 +211,7 @@ namespace Nova.Common
         public void ToXml(string ordersFileName)
         {
             FileStream ordersFile = new FileStream(ordersFileName, FileMode.Create);
-#if (!DEBUG)
-           GZipStream compressionStream = new GZipStream(ordersFile, CompressionMode.Compress);
-#endif
+            GZipStream compressionStream = new GZipStream(ordersFile, CompressionMode.Compress);
 
             // Setup the XML document
             XmlDocument xmldoc = new XmlDocument();
@@ -268,16 +266,8 @@ namespace Nova.Common
             xmlelOrders.AppendChild(PlayerData.ToXml(xmldoc));
             Global.SaveData(xmldoc, xmlelOrders, "TechLevel", TechLevel.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
-
-            // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
-            // manual inspection of the save file. Generally though it can be opened by any archiving tool that
-            // reads gzip format.
-#if (DEBUG)
-            xmldoc.Save(ordersFile);
-#else
-           xmldoc.Save(compressionStream);
-           compressionStream.Close();
-#endif
+            xmldoc.Save(compressionStream);
+            compressionStream.Close();
 
             ordersFile.Close();
         }

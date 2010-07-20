@@ -82,28 +82,13 @@ namespace Nova.Server
                     return;
                 }
 
-                // Load from a binary serialised file (old format).
-                /*
-                Orders playerOrders = new Orders();
-                FileStream turnFile = new FileStream(fileName, FileMode.Open);
-                playerOrders = Formatter.Deserialize(turnFile) as Orders;
-                turnFile.Close();
-                */
-
                 // Load from an xml file
-
                 XmlDocument xmldoc = new XmlDocument();
-#if (DEBUG)
-                xmldoc.Load(fileName);
-                playerOrders = new Orders(xmldoc.DocumentElement);
-#else
                 FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
                 GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
                 xmldoc.Load(compressionStream);
                 playerOrders = new Orders(xmldoc.DocumentElement);
                 fileStream.Close();
-#endif
-
             }
             catch (Exception e)
             {
@@ -201,8 +186,6 @@ namespace Nova.Server
                     }
                 }
             }
-
-
         }
 
         #endregion
