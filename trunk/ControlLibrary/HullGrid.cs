@@ -470,7 +470,6 @@ namespace Nova.ControlLibrary
 
             HullModule cell = panel.Tag as HullModule;
             string text = cell.ComponentType;
-            int capacity = cell.ComponentMaximum;
 
             if (cell.ComponentMaximum > 1)
             {

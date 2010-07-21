@@ -36,15 +36,12 @@ namespace Nova.WinForms.ComponentEditor
 {
     public partial class HullDialog : Form
     {
-        private Hashtable allComponents;
-
         /// <summary>
         /// Initializes a new instance of the HullDialog class.
         /// </summary>
         public HullDialog()
         {
             InitializeComponent();
-            this.allComponents = Nova.Common.Components.AllComponents.Data.Components;
         }
 
 

@@ -1879,7 +1879,7 @@ namespace Nova.WinForms.RaceDesigner
 
                 // Setup the XML document
                 XmlDocument xmldoc = new XmlDocument();
-                XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
+                Global.InitializeXmlDocument(xmldoc);
 
                 // add the components to the document
                 xmldoc.ChildNodes.Item(1).AppendChild(raceParameters.ToXml(xmldoc));

@@ -1,4 +1,4 @@
-﻿#region Copyright Notice
+#region Copyright Notice
 // ============================================================================
 // Copyright (C) 2009, 2010 stars-nova
 //
@@ -60,7 +60,6 @@ namespace Nova.NewGame
         public static void GenerateStars()
         {
             NameGenerator nameGenerator = new NameGenerator();
-            int numberOfStars = GameSettings.Data.NumberOfStars;
 
             StarsMapGenerator map = new StarsMapGenerator(GameSettings.Data.MapWidth, GameSettings.Data.MapHeight, GameSettings.Data.StarSeparation, GameSettings.Data.StarDensity, GameSettings.Data.StarUniformity);
             List<int[]> allStarPositions = map.Generate();

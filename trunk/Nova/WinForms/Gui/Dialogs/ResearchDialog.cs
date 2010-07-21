@@ -162,10 +162,8 @@ namespace Nova.WinForms.Gui
             double yearsToComplete = 0;
 
             TechLevel researchLevels = this.stateData.ResearchLevel;
-            TechLevel researchResources = this.stateData.ResearchResources;
             TechLevel.ResearchField researchArea = this.stateData.ResearchTopic;
 
-            int current = (int)researchResources[researchArea];
             int level = (int)researchLevels[researchArea];
             int target = Research.Cost(level + 1);
 

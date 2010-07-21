@@ -82,7 +82,6 @@ namespace Nova.Client
 
         private static ClientState instance;
         private static string statePathName; // path&filename
-        private static AllComponents componentData = AllComponents.Data;
 
 
         #region Constructors
@@ -164,7 +163,6 @@ namespace Nova.Client
             statePathName = null;
             Data.RaceName = null;
             string intelFileName = null;
-            int turnToPlay = -1;
 
             // process the arguments
             CommandArguments commandArguments = new CommandArguments(argArray);
@@ -172,19 +170,6 @@ namespace Nova.Client
             if (commandArguments.Contains(CommandArguments.Option.RaceName))
             {
                 Data.RaceName = commandArguments[CommandArguments.Option.RaceName];
-            }
-            if (commandArguments.Contains(CommandArguments.Option.Turn))
-            {
-                try
-                {
-                    turnToPlay = int.Parse(commandArguments[CommandArguments.Option.Turn], System.Globalization.CultureInfo.InvariantCulture);
-                }
-                catch
-                {
-                    string message = "ClientState.cs: Initialize() - Invalid turn number \"" + commandArguments[CommandArguments.Option.Turn] + "\".";
-                    Report.FatalError(message);
-
-                }
             }
             if (commandArguments.Contains(CommandArguments.Option.StateFileName))
             {
@@ -287,8 +272,6 @@ namespace Nova.Client
                 if (File.Exists(statePathName))
                 {
                     ClientState.Restore();
-                    string newIntelFileName = Path.GetDirectoryName(statePathName) +
-                        ClientState.Data.RaceName + Global.IntelExtension;
                     IntelReader.ReadIntel(intelFileName);
                     isLoaded = true;
                 }

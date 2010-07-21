@@ -60,7 +60,6 @@ namespace Nova.WinForms.Gui
 
         private System.ComponentModel.IContainer components;
         private System.Windows.Forms.GroupBox groupBox2;
-        private System.Windows.Forms.ToolTip toolTips;
 
         private MenuStrip mainMenu;
         private ToolStripMenuItem fileToolStripMenuItem;
@@ -125,7 +124,6 @@ namespace Nova.WinForms.Gui
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaGUI));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.MapControl = new StarMap();
-            this.toolTips = new System.Windows.Forms.ToolTip(this.components);
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();

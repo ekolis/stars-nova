@@ -121,7 +121,6 @@ namespace Nova.WinForms.Console
             string designName = star.Owner + "/" + item.Name;
             Design design = stateData.AllDesigns[designName] as Design;
             Nova.Common.Resources needed = item.BuildState;
-            Race race = stateData.AllRaces[star.Owner] as Race;
 
             // If we've ran out of resources then give up. Note that there may be
             // a surplus in some areas and a deficit in others so we have to check

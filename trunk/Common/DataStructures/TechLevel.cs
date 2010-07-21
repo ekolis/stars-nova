@@ -275,10 +275,7 @@ namespace Nova.Common
         //----------------------------------------------------------------------------
         public static bool operator >(TechLevel lhs, TechLevel rhs)
         {
-            Hashtable lhsT = lhs.techValues;
-            Hashtable rhsT = rhs.techValues;
-
-            return ! (lhs <= rhs);
+            return !(lhs <= rhs);
         
         }
 
