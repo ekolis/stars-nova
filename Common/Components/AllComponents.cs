@@ -288,7 +288,7 @@ namespace Nova.Common.Components
 
                 // Setup the XML document
                 XmlDocument xmldoc = new XmlDocument();
-                XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
+                Global.InitializeXmlDocument(xmldoc);
 
                 // add the components to the document
                 foreach (Component thing in AllComponents.Data.Components.Values)

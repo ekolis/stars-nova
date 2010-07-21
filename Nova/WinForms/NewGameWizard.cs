@@ -43,7 +43,6 @@ namespace Nova.WinForms
     /// </summary>
     public partial class NewGameWizard : Form
     {
-        private ServerState stateData = ServerState.Data;
         public Hashtable KnownRaces = new Hashtable();
         private int numberOfPlayers;
 

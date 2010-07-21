@@ -1,4 +1,4 @@
-﻿#region Copyright Notice
+#region Copyright Notice
 // ============================================================================
 // Copyright (C) 2010 stars-nova
 //
@@ -38,8 +38,6 @@ namespace Nova.Common
     /// ----------------------------------------------------------------------------
     public class DefenseProductionUnit : IProductionUnit
     {
-        private Star star;
-
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising constructor.
@@ -48,7 +46,6 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public DefenseProductionUnit(Star star)
         {
-            this.star = star;
         }
 
         #region ProductionUnit Members

@@ -1,4 +1,4 @@
-﻿#region Copyright Notice
+#region Copyright Notice
 // ============================================================================
 // Copyright (C) 2010 stars-nova
 //
@@ -37,7 +37,6 @@ namespace Nova.Common
     /// </summary>
     public class ShipProductionUnit : IProductionUnit
     {
-        private Star star;
         private ShipDesign shipDesign;
 
 
@@ -50,7 +49,6 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public ShipProductionUnit(Star star, ShipDesign shipDesign)
         {
-            this.star = star;
             this.shipDesign = shipDesign;
         }
         

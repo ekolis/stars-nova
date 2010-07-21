@@ -65,8 +65,6 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public Waypoint(XmlNode node)
         {
-            XmlSerializer x = new XmlSerializer(typeof(Waypoint));
-
             XmlNode subnode = node.FirstChild;
             while (subnode != null)
             {

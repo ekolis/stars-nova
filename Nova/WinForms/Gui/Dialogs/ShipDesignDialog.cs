@@ -896,27 +896,6 @@ namespace Nova.WinForms.Gui
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Build a WeaponSystem. We have a simplification that only weapons of the
-        /// same type can be in the module.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// <returns>Returns a <see cref="Weapon"/> representing all the weapon components in a single module.</returns>
-        /// ----------------------------------------------------------------------------
-        private Weapon BuildWeaponSystem(int number, Nova.Common.Components.Component component)
-        {
-            if (component == null) return null;
-
-            // Find the weapon property of the component
-            if (!component.Properties.ContainsKey("Weapon")) return null;
-            Weapon weaponSystem = new Weapon((Weapon)component.Properties["Weapon"]);
-
-            return weaponSystem;
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
         /// A new tree node has been selected. Update the list control
         /// </summary>
         /// <param name="sender">The source of the event.</param>
