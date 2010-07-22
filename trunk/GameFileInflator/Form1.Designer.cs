@@ -57,6 +57,7 @@
             this.gameFilesBrowseButton.TabIndex = 2;
             this.gameFilesBrowseButton.Text = "Browse";
             this.gameFilesBrowseButton.UseVisualStyleBackColor = true;
+            this.gameFilesBrowseButton.Click += new System.EventHandler(this.GameFilesBrowseButton_Click);
             // 
             // groupBox1
             // 
@@ -104,6 +105,7 @@
             this.decompressButton.TabIndex = 6;
             this.decompressButton.Text = "De-compress";
             this.decompressButton.UseVisualStyleBackColor = true;
+            this.decompressButton.Click += new System.EventHandler(this.DecompressButton_Click);
             // 
             // GameFileInflator
             // 
