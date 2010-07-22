@@ -143,26 +143,26 @@ namespace Nova.Common
         /// <returns>The normalised habitability of this star (-1 to +1).</returns>
         /// <remarks>
         /// This algorithm is taken from the Stars! Technical FAQ:
-        // http://www.starsfaq.com/advfaq/contents.htm
-        //
-        // Return the habital value of this star for the specified race (in the range
-        // -1 to +1 where 1 = 100%). Note that the star environment values are
-        // percentages of the total range.
-        //
-        // The full equation (from the Stars! Technical FAQ) is: 
-        //
-        // Hab% = SQRT[(1-g)^2+(1-t)^2+(1-r)^2]*(1-x)*(1-y)*(1-z)/SQRT[3] 
-        //
-        // Where g, t,and r (stand for gravity, temperature, and radiation)are given
-        // by Clicks_from_center/Total_clicks_from_center_to_edge and where x,y, and z
-        // are:
-        //
-        // x=g-1/2 for g>1/2
-        // x=0 for g<1/2 
-        // y=t-1/2 for t>1/2
-        // y=0 for t<1/2 
-        // z=r-1/2 for r>1/2
-        // z=0 for r<1/2 
+        /// http://www.starsfaq.com/advfaq/contents.htm
+        ///
+        /// Return the habital value of this star for the specified race (in the range
+        /// -1 to +1 where 1 = 100%). Note that the star environment values are
+        /// percentages of the total range.
+        ///
+        /// The full equation (from the Stars! Technical FAQ) is: 
+        ///
+        /// Hab% = SQRT[(1-g)^2+(1-t)^2+(1-r)^2]*(1-x)*(1-y)*(1-z)/SQRT[3] 
+        ///
+        /// Where g, t,and r (stand for gravity, temperature, and radiation)are given
+        /// by Clicks_from_center/Total_clicks_from_center_to_edge and where x,y, and z
+        /// are:
+        ///
+        /// x=g-1/2 for g>1/2
+        /// x=0 for g less than 1/2 
+        /// y=t-1/2 for t>1/2
+        /// y=0 for t less than 1/2 
+        /// z=r-1/2 for r>1/2
+        /// z=0 for r less than 1/2 
         /// </remarks>
         /// ----------------------------------------------------------------------------
         public double HabitalValue(Race race)

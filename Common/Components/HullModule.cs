@@ -146,7 +146,7 @@ namespace Nova.Common.Components
         /// <summary>
         /// Serialise a <see cref="HullModule"/> to xml.
         /// </summary>
-        /// <param name="xmldoc">The parent <see cref="XmlDocument/>.</param>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>an XmlElement representation of the HullModule</returns>
         /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)

@@ -147,7 +147,7 @@ namespace Nova.Common
         /// just drop speed into the above equation and end up with mg per year. 
         ///
         /// If the secondary racial trait "improved fuel efficiency" is set then
-        // fuel consumption is 15% less than advertised.
+        /// fuel consumption is 15% less than advertised.
         /// </remarks>
         /// ----------------------------------------------------------------------------
         public double FuelConsumption(int warp, Race race, int cargoMass)
@@ -529,6 +529,7 @@ namespace Nova.Common
         }
 
         #endregion
+
 
     }
 }
