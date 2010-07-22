@@ -89,7 +89,7 @@ namespace Nova.ControlLibrary
           this.cellContextMenu.SuspendLayout();
           this.SuspendLayout();
           // 
-          // HullDisplay
+          // hullDisplay
           // 
           this.hullDisplay.Controls.Add(this.grid12);
           this.hullDisplay.Controls.Add(this.grid24);
@@ -121,7 +121,7 @@ namespace Nova.ControlLibrary
           this.hullDisplay.Size = new System.Drawing.Size(333, 332);
           this.hullDisplay.TabIndex = 3;
           // 
-          // Grid12
+          // grid12
           // 
           this.grid12.AllowDrop = true;
           this.grid12.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -134,9 +134,10 @@ namespace Nova.ControlLibrary
           this.grid12.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid12.Click += new System.EventHandler(this.GridCell_Click);
           this.grid12.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid12.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid12.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // CellContextMenu
+          // cellContextMenu
           // 
           this.cellContextMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.armorToolStripMenuItem,
@@ -174,9 +175,9 @@ namespace Nova.ControlLibrary
           this.cellContextMenu.Text = "CargoPod";
           this.cellContextMenu.ItemClicked += new System.Windows.Forms.ToolStripItemClickedEventHandler(this.CellContextMenuItem);
           // 
-          // ArmorToolStripMenuItem
+          // armorToolStripMenuItem
           // 
-          this.armorToolStripMenuItem.Name = "ArmorToolStripMenuItem";
+          this.armorToolStripMenuItem.Name = "armorToolStripMenuItem";
           this.armorToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
           this.armorToolStripMenuItem.Text = "Armor";
           // 
@@ -205,9 +206,9 @@ namespace Nova.ControlLibrary
           this.mechanicalToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
           this.mechanicalToolStripMenuItem.Text = "Mechanical";
           // 
-          // MinelayeystoolStripMenuItem
+          // minelayeystoolStripMenuItem
           // 
-          this.minelayeystoolStripMenuItem.Name = "MinelayeystoolStripMenuItem";
+          this.minelayeystoolStripMenuItem.Name = "minelayeystoolStripMenuItem";
           this.minelayeystoolStripMenuItem.Size = new System.Drawing.Size(221, 22);
           this.minelayeystoolStripMenuItem.Tag = "MineLayer";
           this.minelayeystoolStripMenuItem.Text = "Mine Layer";
@@ -247,9 +248,9 @@ namespace Nova.ControlLibrary
           this.toolStripSeparator1.Name = "toolStripSeparator1";
           this.toolStripSeparator1.Size = new System.Drawing.Size(218, 6);
           // 
-          // DecrementStripMenuItem
+          // decrementStripMenuItem
           // 
-          this.decrementStripMenuItem.Name = "DecrementStripMenuItem";
+          this.decrementStripMenuItem.Name = "decrementStripMenuItem";
           this.decrementStripMenuItem.Size = new System.Drawing.Size(221, 22);
           this.decrementStripMenuItem.Text = "Decrement Modules";
           // 
@@ -259,9 +260,9 @@ namespace Nova.ControlLibrary
           this.incrementModulesToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
           this.incrementModulesToolStripMenuItem.Text = "Increment Modules";
           // 
-          // IncrementStripMenuItem
+          // incrementStripMenuItem
           // 
-          this.incrementStripMenuItem.Name = "IncrementStripMenuItem";
+          this.incrementStripMenuItem.Name = "incrementStripMenuItem";
           this.incrementStripMenuItem.Size = new System.Drawing.Size(221, 22);
           this.incrementStripMenuItem.Text = "Add 10";
           // 
@@ -341,7 +342,7 @@ namespace Nova.ControlLibrary
           this.spaceDockToolStripMenuItem.Size = new System.Drawing.Size(221, 22);
           this.spaceDockToolStripMenuItem.Text = "Space Dock";
           // 
-          // Grid24
+          // grid24
           // 
           this.grid24.AllowDrop = true;
           this.grid24.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -354,9 +355,10 @@ namespace Nova.ControlLibrary
           this.grid24.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid24.Click += new System.EventHandler(this.GridCell_Click);
           this.grid24.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid24.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid24.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid23
+          // grid23
           // 
           this.grid23.AllowDrop = true;
           this.grid23.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -369,9 +371,10 @@ namespace Nova.ControlLibrary
           this.grid23.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid23.Click += new System.EventHandler(this.GridCell_Click);
           this.grid23.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid23.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid23.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid22
+          // grid22
           // 
           this.grid22.AllowDrop = true;
           this.grid22.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -384,9 +387,10 @@ namespace Nova.ControlLibrary
           this.grid22.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid22.Click += new System.EventHandler(this.GridCell_Click);
           this.grid22.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid22.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid22.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid21
+          // grid21
           // 
           this.grid21.AllowDrop = true;
           this.grid21.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -399,9 +403,10 @@ namespace Nova.ControlLibrary
           this.grid21.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid21.Click += new System.EventHandler(this.GridCell_Click);
           this.grid21.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid21.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid21.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid20
+          // grid20
           // 
           this.grid20.AllowDrop = true;
           this.grid20.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -414,9 +419,10 @@ namespace Nova.ControlLibrary
           this.grid20.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid20.Click += new System.EventHandler(this.GridCell_Click);
           this.grid20.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid20.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid20.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid19
+          // grid19
           // 
           this.grid19.AllowDrop = true;
           this.grid19.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -429,9 +435,10 @@ namespace Nova.ControlLibrary
           this.grid19.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid19.Click += new System.EventHandler(this.GridCell_Click);
           this.grid19.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid19.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid19.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid18
+          // grid18
           // 
           this.grid18.AllowDrop = true;
           this.grid18.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -444,9 +451,10 @@ namespace Nova.ControlLibrary
           this.grid18.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid18.Click += new System.EventHandler(this.GridCell_Click);
           this.grid18.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid18.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid18.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid17
+          // grid17
           // 
           this.grid17.AllowDrop = true;
           this.grid17.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -459,9 +467,10 @@ namespace Nova.ControlLibrary
           this.grid17.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid17.Click += new System.EventHandler(this.GridCell_Click);
           this.grid17.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid17.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid17.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid16
+          // grid16
           // 
           this.grid16.AllowDrop = true;
           this.grid16.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -474,9 +483,10 @@ namespace Nova.ControlLibrary
           this.grid16.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid16.Click += new System.EventHandler(this.GridCell_Click);
           this.grid16.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid16.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid16.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid15
+          // grid15
           // 
           this.grid15.AllowDrop = true;
           this.grid15.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -489,9 +499,10 @@ namespace Nova.ControlLibrary
           this.grid15.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid15.Click += new System.EventHandler(this.GridCell_Click);
           this.grid15.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid15.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid15.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid14
+          // grid14
           // 
           this.grid14.AllowDrop = true;
           this.grid14.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -504,9 +515,10 @@ namespace Nova.ControlLibrary
           this.grid14.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid14.Click += new System.EventHandler(this.GridCell_Click);
           this.grid14.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid14.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid14.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid13
+          // grid13
           // 
           this.grid13.AllowDrop = true;
           this.grid13.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -519,9 +531,10 @@ namespace Nova.ControlLibrary
           this.grid13.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid13.Click += new System.EventHandler(this.GridCell_Click);
           this.grid13.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid13.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid13.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid11
+          // grid11
           // 
           this.grid11.AllowDrop = true;
           this.grid11.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -534,9 +547,10 @@ namespace Nova.ControlLibrary
           this.grid11.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid11.Click += new System.EventHandler(this.GridCell_Click);
           this.grid11.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid11.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid11.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid9
+          // grid9
           // 
           this.grid9.AllowDrop = true;
           this.grid9.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -549,9 +563,10 @@ namespace Nova.ControlLibrary
           this.grid9.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid9.Click += new System.EventHandler(this.GridCell_Click);
           this.grid9.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid9.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid9.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid8
+          // grid8
           // 
           this.grid8.AllowDrop = true;
           this.grid8.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -564,9 +579,10 @@ namespace Nova.ControlLibrary
           this.grid8.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid8.Click += new System.EventHandler(this.GridCell_Click);
           this.grid8.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid8.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid8.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid7
+          // grid7
           // 
           this.grid7.AllowDrop = true;
           this.grid7.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -579,9 +595,10 @@ namespace Nova.ControlLibrary
           this.grid7.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid7.Click += new System.EventHandler(this.GridCell_Click);
           this.grid7.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid7.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid7.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid6
+          // grid6
           // 
           this.grid6.AllowDrop = true;
           this.grid6.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -594,9 +611,10 @@ namespace Nova.ControlLibrary
           this.grid6.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid6.Click += new System.EventHandler(this.GridCell_Click);
           this.grid6.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid6.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid6.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid5
+          // grid5
           // 
           this.grid5.AllowDrop = true;
           this.grid5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -609,9 +627,10 @@ namespace Nova.ControlLibrary
           this.grid5.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid5.Click += new System.EventHandler(this.GridCell_Click);
           this.grid5.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid5.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid5.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid1
+          // grid1
           // 
           this.grid1.AllowDrop = true;
           this.grid1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -624,9 +643,10 @@ namespace Nova.ControlLibrary
           this.grid1.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid1.Click += new System.EventHandler(this.GridCell_Click);
           this.grid1.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid1.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid3
+          // grid3
           // 
           this.grid3.AllowDrop = true;
           this.grid3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -639,9 +659,10 @@ namespace Nova.ControlLibrary
           this.grid3.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid3.Click += new System.EventHandler(this.GridCell_Click);
           this.grid3.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid3.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid3.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid10
+          // grid10
           // 
           this.grid10.AllowDrop = true;
           this.grid10.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -654,9 +675,10 @@ namespace Nova.ControlLibrary
           this.grid10.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid10.Click += new System.EventHandler(this.GridCell_Click);
           this.grid10.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid10.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid10.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid2
+          // grid2
           // 
           this.grid2.AllowDrop = true;
           this.grid2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -669,9 +691,10 @@ namespace Nova.ControlLibrary
           this.grid2.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid2.Click += new System.EventHandler(this.GridCell_Click);
           this.grid2.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid2.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid2.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid4
+          // grid4
           // 
           this.grid4.AllowDrop = true;
           this.grid4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -684,9 +707,10 @@ namespace Nova.ControlLibrary
           this.grid4.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid4.Click += new System.EventHandler(this.GridCell_Click);
           this.grid4.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid4.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid4.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
-          // Grid0
+          // grid0
           // 
           this.grid0.AllowDrop = true;
           this.grid0.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -699,6 +723,7 @@ namespace Nova.ControlLibrary
           this.grid0.Paint += new System.Windows.Forms.PaintEventHandler(this.Grid0_Paint);
           this.grid0.Click += new System.EventHandler(this.GridCell_Click);
           this.grid0.DragDrop += new System.Windows.Forms.DragEventHandler(this.Grid_DragDrop);
+          this.grid0.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Grid_DragBegin);
           this.grid0.DragEnter += new System.Windows.Forms.DragEventHandler(this.Grid_DragEnter);
           // 
           // electricalOrMechanicalToolStripMenuItem

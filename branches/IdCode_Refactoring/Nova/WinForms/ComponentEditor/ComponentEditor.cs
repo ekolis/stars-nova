@@ -467,7 +467,7 @@ namespace Nova.WinForms.ComponentEditor
        {
            EditModeOn();
            RaceRestrictionDialog dialog = new RaceRestrictionDialog(this.componentName.Text, (Bitmap)this.componentImage.Image, restrictions);
-           DialogResult result = dialog.ShowDialog();
+           dialog.ShowDialog();
            restrictions = new RaceRestriction(dialog.Restrictions);
            componentDirty = true;
 
@@ -999,9 +999,7 @@ namespace Nova.WinForms.ComponentEditor
                        hullMap.Clear();
                        foreach (HullModule module in hullProperties.Modules)
                        {
-                           HullModule newModule = new HullModule(module);
                            hullMap.Add(module);
-
                        }
                    }
                    catch
@@ -1135,7 +1133,6 @@ namespace Nova.WinForms.ComponentEditor
                }
                if (selectedComponent.Properties.ContainsKey("Transport Ships Only"))
                {
-                   SimpleProperty mineLayerProperties = selectedComponent.Properties["Transport Ships Only"] as SimpleProperty;
                    this.propertyTabs.TabPages.Add(tabTransportShipsOnly);
                    this.propertyTabs.SelectedTab = tabTransportShipsOnly;
                }
@@ -1251,139 +1248,6 @@ namespace Nova.WinForms.ComponentEditor
 
 
        /// <summary>
-       /// Update the defense cover display. Shows the coverage for 40/80/100 
-       /// defenses.
-       /// </summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void DefenseCover1_ValueChanged(object sender, EventArgs e)
-       {
-           componentDirty = true;
-
-           this.defenseCover40.Text = ((1.0 - Math.Pow((double)(1.00M - (this.defenseCover1.Value / 100)), 40.0)) * 100).ToString("f2");
-           this.defenseCover80.Text = ((1.0 - Math.Pow((double)(1.00M - (this.defenseCover1.Value / 100)), 80.0)) * 100).ToString("f2");
-           this.defenseCover100.Text = ((1.0 - Math.Pow((double)(1.00M - (this.defenseCover1.Value / 100)), 100.0)) * 100).ToString("f2");
-       }
-
-
-       /// <summary>
-       /// Update the display of the number of mines a weapon will sweep.
-       /// </summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void UpdateMinesSwept(object sender, EventArgs e)
-       {
-           if (isStandardBeam.Checked)
-           {
-               decimal minesSwept = this.weaponRange.Value * this.weaponPower.Value;
-               this.minesSwept.Text = minesSwept.ToString(System.Globalization.CultureInfo.InvariantCulture) + " mines swept per year.";
-           }
-           else if (isGattling.Checked)
-           {
-               decimal minesSwept = 16 * this.weaponPower.Value;
-               this.minesSwept.Text = minesSwept.ToString(System.Globalization.CultureInfo.InvariantCulture) + " mines swept per year.";
-           }
-           else
-           {
-               this.minesSwept.Text = "Weapon doesn't sweep mines.";
-           }
-       }
-
-
-       /// <summary>
-       /// Update the display of the engine free speed - the highest warp speed with fuel cost of 0.
-       /// </summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void UpdateFastestFreeSpeed(object sender, EventArgs e)
-       {
-           if (this.warp10Fuel.Value == 0)
-               this.engineFastestFreeSpeed.Value = 10;
-           else if (this.warp9Fuel.Value == 0)
-               this.engineFastestFreeSpeed.Value = 9;
-           else if (this.warp8Fuel.Value == 0)
-               this.engineFastestFreeSpeed.Value = 8;
-           else if (this.warp7Fuel.Value == 0)
-               this.engineFastestFreeSpeed.Value = 7;
-           else if (this.warp6Fuel.Value == 0)
-               this.engineFastestFreeSpeed.Value = 6;
-           else if (this.warp5Fuel.Value == 0)
-               this.engineFastestFreeSpeed.Value = 5;
-           else if (this.warp4Fuel.Value == 0)
-               this.engineFastestFreeSpeed.Value = 4;
-           else if (this.warp3Fuel.Value == 0)
-               this.engineFastestFreeSpeed.Value = 3;
-           else if (this.warp2Fuel.Value == 0)
-               this.engineFastestFreeSpeed.Value = 2;
-           else
-               this.engineFastestFreeSpeed.Value = 1;
-
-
-       }
-
-
-       /// <summary>
-       /// Provide a convenient way of setting gates with infinite capabilities.
-       /// The value -1 is used as the internal representation of infinite capabilities.
-       /// </summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void GateMassInfinite_CheckedChanged(object sender, EventArgs e)
-       {
-           if (this.gateMassInfinite.Checked)
-           {
-               this.safeHullMass.Value = -1;
-               this.safeHullMass.ReadOnly = true;
-           }
-           else
-           {
-               this.safeHullMass.ReadOnly = false;
-           }
-       }
-
-
-       /// <summary>
-       ///  Provide a convenient way of setting gates with infinite capabilities.
-       /// The value -1 is used as the internal representation of infinite capabilities.
-       /// </summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void GateRangeInfinite_CheckedChanged(object sender, EventArgs e)
-       {
-           if (this.gateRangeInfinite.Checked)
-           {
-               this.safeRange.Value = -1;
-               this.safeRange.ReadOnly = true;
-           }
-           else
-           {
-               this.safeRange.ReadOnly = false;
-           }
-       }
-
-
-       /// <summary>
-       /// Provide a convenient way of setting space stations with infinite dock capabilities.
-       /// The value -1 is used as the internal representation of infinite capabilities.
-       /// </summary>
-       /// <param name="sender"></param>
-       /// <param name="e"></param>
-       private void InfiniteDock_CheckedChanged(object sender, EventArgs e)
-       {
-           if (this.infiniteDock.Checked)
-           {
-               this.hullDockCapacity.Value = -1;
-               this.hullDockCapacity.ReadOnly = true;
-           }
-           else
-           {
-               this.hullDockCapacity.ReadOnly = false;
-           }
-
-       }
-
-
-       /// <summary>
        /// When the 'Edit Hull' button is clicked, pop up the <see cref='HullDialog'/>.
        /// </summary>
        /// <param name="sender">The source of the event.</param>
@@ -1405,18 +1269,6 @@ namespace Nova.WinForms.ComponentEditor
 
            dialog.Dispose();
 
-       }
-
-
-       /// <summary>
-       /// As the defense coverage changes, update the coverage display for 
-       /// multiple defenses.
-       /// </summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void SetComponentDirty(object sender, EventArgs e)
-       {
-           componentDirty = true;
        }
 
 

@@ -31,8 +31,11 @@
 using System;
 using System.Collections.Generic;
 
-namespace Nova.WinForms.NewGame
+namespace Nova.NewGame
 {
+
+    #region StarMap
+
     /// <summary>
     /// This class is used to generate stars map.
     /// </summary>
@@ -84,13 +87,6 @@ namespace Nova.WinForms.NewGame
             this.starDensity = starDensity;
             this.starUniformity = starUniformity;
             
-#if(DEBUG)
-                // Just to test that the form data has been passed in successfully - Dan 9 May 10
-                System.Windows.Forms.MessageBox.Show("Star Separation = " + this.starSeparation.ToString() +
-                                                     " Star Density = " + this.starDensity.ToString() +
-                                                     " Star Uniformity = " + this.starUniformity.ToString());
-#endif
-
             this.density = new double[mapWidth, mapHeight];
         }
 
@@ -219,5 +215,9 @@ namespace Nova.WinForms.NewGame
             }
         }
 
+    #endregion
+
+
     }
+
 }

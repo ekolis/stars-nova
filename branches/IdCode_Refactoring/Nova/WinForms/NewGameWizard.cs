@@ -28,20 +28,21 @@
 using System;
 using System.Collections;
 using System.Diagnostics;
+using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
 
 using Nova.Common;
+using Nova.NewGame;
 using Nova.Server;
 
-namespace Nova.WinForms.NewGame
+namespace Nova.WinForms
 {
     /// <summary>
     /// The Stars! Nova - New Game Wizard <see cref="Form"/>.
     /// </summary>
     public partial class NewGameWizard : Form
     {
-        private ServerState stateData = ServerState.Data;
         public Hashtable KnownRaces = new Hashtable();
         private int numberOfPlayers;
 
@@ -81,6 +82,125 @@ namespace Nova.WinForms.NewGame
             UpdatePlayerDetails();
             UpdatePlayerListButtons();
         }
+
+        #endregion
+
+        #region Main
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// The main entry point for the application.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        [STAThread]
+        public static void Main()
+        {
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // Establish the victory conditions:
+            NewGameWizard newGameWizard = new NewGameWizard();
+
+            do
+            {
+                DialogResult result = newGameWizard.ShowDialog();
+
+                // Check for cancel being pressed.
+                if (result != DialogResult.OK)
+                {
+                    // return to the game launcher
+                    try
+                    {
+                        Process.Start(Assembly.GetExecutingAssembly().Location, CommandArguments.Option.LauncherSwitch);
+                    }
+                    catch
+                    {
+                        // there was a problem returning to the launcher and the user doesn't want the new game dialog open. Just quit.
+                        Report.FatalError("Could not return to the Launcher.");
+                    }
+                    Application.Exit();
+                    return; // need this as well to prevent execution of the rest of the loop, which will restart the NewGame dialog.
+                }
+
+                // New game dialog was OK, create a game
+                // Get a location to save the game:
+                FolderBrowserDialog gameFolderBrowser = new FolderBrowserDialog();
+                gameFolderBrowser.RootFolder = Environment.SpecialFolder.Desktop;
+                gameFolderBrowser.SelectedPath = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
+                gameFolderBrowser.Description = "Choose New Game Folder";
+                DialogResult gameFolderBrowserResult = gameFolderBrowser.ShowDialog();
+
+                // Check for cancel being pressed (in the new game save file dialog).
+                if (gameFolderBrowserResult != DialogResult.OK)
+                {
+                    // return to the new game wizard
+                    continue;
+                }
+
+                // store the updated Game Folder information
+                using (Config conf = new Config())
+                {
+                    conf[Global.ServerFolderKey] = gameFolderBrowser.SelectedPath;
+
+                    ServerState.Data.GameFolder = gameFolderBrowser.SelectedPath;
+                    // Don't set ClientFolderKey in case we want to simulate a LAN game 
+                    // on one PC for testing. 
+                    // Should be set when the ClientState is initialised. If that is by 
+                    // launching Nova GUI from the console then the GameFolder will be 
+                    // passed as the path to the .intel and the ClientFolderKey will then 
+                    // be updated.
+
+                    // Construct appropriate state and settings file names
+                    ServerState.Data.StatePathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
+                                                     GameSettings.Data.GameName + Global.ServerStateExtension;
+                    GameSettings.Data.SettingsPathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
+                                                         GameSettings.Data.GameName + Global.SettingsExtension;
+                    conf[Global.ServerStateKey] = ServerState.Data.StatePathName;
+                }
+                // Copy the player & race data to the ServerState
+                ServerState.Data.AllPlayers = newGameWizard.Players;
+                foreach (PlayerSettings settings in ServerState.Data.AllPlayers)
+                {
+                    // TODO (priority 7) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
+                    // Stars! solution is to rename the race using a list of standard names. 
+                    if (!ServerState.Data.AllRaces.Contains(settings.RaceName))
+                        ServerState.Data.AllRaces.Add(settings.RaceName, newGameWizard.KnownRaces[settings.RaceName]);
+                }
+
+                
+
+                StarMapInitialiser.GenerateStars();
+
+                StarMapInitialiser.InitialisePlayerData();
+
+                try
+                {
+                    IntelWriter.WriteIntel();
+                    ServerState.Save();
+                    GameSettings.Save();
+                }
+                catch
+                {
+                    Report.Error("Creation of new game failed.");
+                    continue;
+                }
+
+                // start the server
+                try
+                {
+                    Process.Start(Assembly.GetExecutingAssembly().Location, CommandArguments.Option.ConsoleSwitch);
+                    Application.Exit();
+                    return;
+                }
+                catch
+                {
+                    Report.FatalError("Unable to launch Console.");
+                }
+
+            }
+            while (true); // keep trying to make a new game
+
+        } // Main
 
         #endregion
 

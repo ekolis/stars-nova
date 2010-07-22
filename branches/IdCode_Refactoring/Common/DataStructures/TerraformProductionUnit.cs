@@ -1,4 +1,4 @@
-﻿#region Copyright Notice
+#region Copyright Notice
 // ============================================================================
 // Copyright (C) 2010 stars-nova
 //
@@ -36,8 +36,6 @@ namespace Nova.Common
     /// </summary>
     public class TerraformProductionUnit : IProductionUnit
     {
-        private Star star;
-
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising constructor
@@ -46,7 +44,6 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public TerraformProductionUnit(Star star)
         {
-            this.star = star;
         }
 
         #region ProductionUnit Members

@@ -196,24 +196,6 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
-        /*
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
-        }
-        */
-
-        /// <summary>
         /// Handler for 'Close' clicking
         /// </summary>
         /// <param name="e"></param>

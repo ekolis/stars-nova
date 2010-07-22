@@ -40,7 +40,6 @@ namespace Nova.WinForms.ComponentEditor
       /// </summary>
       private void InitializeComponent()
       {
-          System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CommonProperties));
           this.groupBox3 = new System.Windows.Forms.GroupBox();
           this.Description = new System.Windows.Forms.TextBox();
           this.groupBox2 = new System.Windows.Forms.GroupBox();

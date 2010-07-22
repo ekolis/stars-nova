@@ -503,7 +503,6 @@ namespace Nova.WinForms.Console
                     {
                         Point from = stack.Position;
                         Point to = stack.Target.Position;
-                        double distance = PointUtilities.Distance(from, to);
 
                         // stack accumulates its full movement over the course of the 3 phases
                         residualMovement[stack] += stack.BattleSpeed / (double)phases;
