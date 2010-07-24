@@ -685,18 +685,18 @@ namespace Nova.WinForms.Gui
                     }
                 }
             }
-			
-			// add the "--- Top of Queue ---" or "--- Queue Empty ---" message to the production Queue
+            
+            // add the "--- Top of Queue ---" or "--- Queue Empty ---" message to the production Queue
             if (this.queueList.Items.Count == 0)
-			{
-				this.queueList.Items.Insert(0,"--- Queue is Empty ---");
-			}
-			else
             {
-            	this.queueList.Items.Insert(0,"--- Top of Queue ---");
+                this.queueList.Items.Insert(0, "--- Queue is Empty ---");
+            }
+            else
+            {
+                this.queueList.Items.Insert(0, "--- Top of Queue ---");
             }
             this.queueList.Items[this.queueList.Items.Count - 1].Selected = true;
-			
+            
             UpdateProductionCost();
         }
 
@@ -735,49 +735,49 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void QueueSelected(object sender, EventArgs e)
         {
-			// check if selected item is the "--- Top of Queue ---" which cannot be moved down or removed
-			if (this.queueList.SelectedItems.Count > 0)
-   	        {
-				if (this.queueList.SelectedIndices[0] == 0)
-				{
-					// "--- Top of Queue ---" selected
-					this.queueUp.Enabled = false;
-					this.queueDown.Enabled = false;
-					this.removeFromQueue.Enabled = false;
-					this.addToQueue.Enabled = true;
-				}
-				else
-				{
-    	   	        this.removeFromQueue.Enabled = true;
-    	   	        // check if >1 to ignore top two items ("--- Top of Queue ---" placeholder which cannot be moved and item below it)
-        	   	    if (this.queueList.SelectedIndices[0] > 1)
-        	   	    {
-        	   	    	this.queueUp.Enabled = true;
-       	   	    	}
-       	   	    	else
-       	   	    	{
-       	   	    			this.queueUp.Enabled = false;
-       	   	    	}
-       	   	    	
-       	   	    	
-       	   	    	if (this.queueList.SelectedIndices[0] < this.queueList.Items.Count -1)
-       	   	    	{
-       	   	    		this.queueDown.Enabled = true;
-       	   	    	}
-       	   	    	else
-       	   	    	{
-       	   	    		this.queueDown.Enabled = false;
-       	   	    	}     	   	    	
-				}
-           	}
+            // check if selected item is the "--- Top of Queue ---" which cannot be moved down or removed
+            if (this.queueList.SelectedItems.Count > 0)
+               {
+                if (this.queueList.SelectedIndices[0] == 0)
+                {
+                    // "--- Top of Queue ---" selected
+                    this.queueUp.Enabled = false;
+                    this.queueDown.Enabled = false;
+                    this.removeFromQueue.Enabled = false;
+                    this.addToQueue.Enabled = true;
+                }
+                else
+                {
+                       this.removeFromQueue.Enabled = true;
+                       // check if >1 to ignore top two items ("--- Top of Queue ---" placeholder which cannot be moved and item below it)
+                       if (this.queueList.SelectedIndices[0] > 1)
+                       {
+                           this.queueUp.Enabled = true;
+                          }
+                          else
+                          {
+                                  this.queueUp.Enabled = false;
+                          }
+                          
+                          
+                          if (this.queueList.SelectedIndices[0] < this.queueList.Items.Count - 1)
+                          {
+                              this.queueDown.Enabled = true;
+                          }
+                          else
+                          {
+                              this.queueDown.Enabled = false;
+                          }                        
+                }
+               }
             else
-   	        {
-				// no items are selected
-				this.queueUp.Enabled = false;
-				this.queueDown.Enabled = false;
-       	        this.removeFromQueue.Enabled = false;
-           	}
-			
+               {
+                // no items are selected
+                this.queueUp.Enabled = false;
+                this.queueDown.Enabled = false;
+                   this.removeFromQueue.Enabled = false;
+               }
+            
             // it does not matter if an item is selected the Production Costs can still be updated.
             UpdateProductionCost();
         }
@@ -828,15 +828,15 @@ namespace Nova.WinForms.Gui
             {
                 AddDesign(design, 1);
             }
-			
-			// confirm the Production Queue is not empty and ensure top of queue placeholder is labelled correctly
-			if (this.queueList.Items.Count == 1)
-			{
-				this.queueList.Items.RemoveAt(0);
-				this.queueList.Items.Insert(0,"--- Top of Queue ---");
-				//this.queueList.Items[0].Selected = true;
-			}
-		}
+            
+            // confirm the Production Queue is not empty and ensure top of queue placeholder is labelled correctly
+            if (this.queueList.Items.Count == 1)
+            {
+                this.queueList.Items.RemoveAt(0);
+                this.queueList.Items.Insert(0, "--- Top of Queue ---");
+                // this.queueList.Items[0].Selected = true;
+            }
+        }
 
         /// <summary>
         /// Removes from queue on double click
@@ -895,14 +895,14 @@ namespace Nova.WinForms.Gui
                 }
 
                 UpdateProductionCost();
-				
-				// check if the Production Queue is now empty and if so change the text of the top of queue place holder
-				if (this.queueList.Items.Count == 1)
-				{
-					this.queueList.Items.RemoveAt(0);
-					this.queueList.Items.Insert(0,"--- Queue is Empty ---");
-					this.queueList.Items[0].Selected = true;
-				}
+                
+                // check if the Production Queue is now empty and if so change the text of the top of queue place holder
+                if (this.queueList.Items.Count == 1)
+                {
+                    this.queueList.Items.RemoveAt(0);
+                    this.queueList.Items.Insert(0, "--- Queue is Empty ---");
+                    this.queueList.Items[0].Selected = true;
+                }
             }
         }
 
@@ -927,7 +927,7 @@ namespace Nova.WinForms.Gui
                     this.queueList.Items.RemoveAt(source - 1);
                     this.queueList.Items.Insert(source - 1, newItem);
                     this.queueList.Items.Insert(source, oldItem);
-                	this.queueDown.Enabled = true;
+                    this.queueDown.Enabled = true;
                 }                
             }
         }
@@ -944,7 +944,7 @@ namespace Nova.WinForms.Gui
             if (this.queueList.SelectedItems.Count > 0)
             {
                 int source = this.queueList.SelectedIndices[0];
-             	// check if > 0 for Top of Queue place holder
+                 // check if > 0 for Top of Queue place holder
                 if (source < this.queueList.Items.Count - 1 && source > 0)
                 {
                     ListViewItem newItem = this.queueList.Items[source];
@@ -953,7 +953,7 @@ namespace Nova.WinForms.Gui
                     this.queueList.Items.RemoveAt(source);
                     this.queueList.Items.Insert(source, oldItem);
                     this.queueList.Items.Insert(source + 1, newItem);
-                    this.queueList.Items[source+1].Selected = true;
+                    this.queueList.Items[source + 1].Selected = true;
                 }
             }
         }
@@ -1012,13 +1012,13 @@ namespace Nova.WinForms.Gui
                             int total = quantity;
                             total += Convert.ToInt32(this.queueList.Items[nextIndex].SubItems[1].Text);
                             this.queueList.Items[nextIndex].SubItems[1].Text = total.ToString(System.Globalization.CultureInfo.InvariantCulture);
-							this.queueList.Items[nextIndex].Selected=true;
+                            this.queueList.Items[nextIndex].Selected = true;
                         }
                         else
                         {
                             // add the design after the item selected in the queue
                             itemAdded = this.queueList.Items.Insert(nextIndex, itemToAdd);
-                            this.queueList.Items[nextIndex].Selected=true;
+                            this.queueList.Items[nextIndex].Selected = true;
                         }
                     }
                     else
@@ -1064,10 +1064,10 @@ namespace Nova.WinForms.Gui
         private void OK_Click(object sender, System.EventArgs e)
         {
             this.queueStar.ManufacturingQueue.Queue.Clear();
-			
-			// remove the "--- Top of Queue ---" / "--- Queue Empty ---" placeholder prior to saving the Production Queue
-			queueList.Items.RemoveAt(0);
-			
+            
+            // remove the "--- Top of Queue ---" / "--- Queue Empty ---" placeholder prior to saving the Production Queue
+            queueList.Items.RemoveAt(0);
+            
             foreach (ListViewItem i in this.queueList.Items)
             {
                 ProductionQueue.Item item = new ProductionQueue.Item();
@@ -1122,44 +1122,44 @@ namespace Nova.WinForms.Gui
             // check if there are any items in the Production Queue before attempting to determine costs
             // check if Items.Count > than 1 due to Placeholder value at Top of the Queue
             // also check if an item is selected
-            if (this.queueList.Items.Count > 1 && this.queueList.SelectedItems.Count >0)
+            if (this.queueList.Items.Count > 1 && this.queueList.SelectedItems.Count > 0)
             {
                 // Update the cost for the selected item
                 int s = this.queueList.SelectedIndices[0];
                 if (s > 0)
                 {
-	    	    	ListViewItem tempItem = this.queueList.Items[s];
-       	      		string name = tempItem.Text;
-                	    
-	           		Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
+                    ListViewItem tempItem = this.queueList.Items[s];
+                         string name = tempItem.Text;
+                        
+                       Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
 
-	            	if (design == null)
-    	        	{
-        				Report.FatalError("ProducationDialog.cs UpdateProducionCost() Selected Cost- Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
-    	    		}
+                    if (design == null)
+                    {
+                        Report.FatalError("ProducationDialog.cs UpdateProducionCost() Selected Cost- Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
+                    }
 
-		        	int quantity = Convert.ToInt32(tempItem.SubItems[1].Text);
+                    int quantity = Convert.ToInt32(tempItem.SubItems[1].Text);
 
-	            	selectedCostIronium.Text = ((int)(design.Cost.Ironium * quantity)).ToString();
-    	    		selectedCostBoranium.Text = ((int)(design.Cost.Boranium * quantity)).ToString();
-    		    	selectedCostGermanium.Text = ((int)(design.Cost.Germanium * quantity)).ToString();
-	        		selectedCostEnergy.Text = ((int)(design.Cost.Energy * quantity)).ToString();
-	        	}
-	        	else
-	        	{
-	        		selectedCostIronium.Text = "0";
-              		selectedCostBoranium.Text = "0";
-             		selectedCostGermanium.Text = "0";
-               		selectedCostEnergy.Text = "0";
-	        	}
-         	}
+                    selectedCostIronium.Text = ((int)(design.Cost.Ironium * quantity)).ToString();
+                    selectedCostBoranium.Text = ((int)(design.Cost.Boranium * quantity)).ToString();
+                    selectedCostGermanium.Text = ((int)(design.Cost.Germanium * quantity)).ToString();
+                    selectedCostEnergy.Text = ((int)(design.Cost.Energy * quantity)).ToString();
+                }
+                else
+                {
+                    selectedCostIronium.Text = "0";
+                      selectedCostBoranium.Text = "0";
+                     selectedCostGermanium.Text = "0";
+                       selectedCostEnergy.Text = "0";
+                }
+             }
             else
             {
-            	selectedCostIronium.Text = "0";
-              	selectedCostBoranium.Text = "0";
-             	selectedCostGermanium.Text = "0";
-               	selectedCostEnergy.Text = "0";
-            } 	
+                selectedCostIronium.Text = "0";
+                  selectedCostBoranium.Text = "0";
+                 selectedCostGermanium.Text = "0";
+                   selectedCostEnergy.Text = "0";
+            }     
 
             // sum up the Production Costs for all items in the queue (even if empty)
             Nova.Common.Resources totalCost = new Nova.Common.Resources();
@@ -1170,30 +1170,30 @@ namespace Nova.WinForms.Gui
                 
                 if (name == "--- Top of Queue ---" || name == "--- Queue is Empty ---")
                 {
-                	// do nothing in this case
-                	totalCost.Ironium += 0;
-    	            totalCost.Boranium += 0;
-        	        totalCost.Germanium += 0;
-            	    totalCost.Energy += 0;                
+                    // do nothing in this case
+                    totalCost.Ironium += 0;
+                    totalCost.Boranium += 0;
+                    totalCost.Germanium += 0;
+                    totalCost.Energy += 0;                
                 }
-				else
-				{
-                	Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
+                else
+                {
+                    Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
 
-	                if (design == null)
-    	            {
-        	            Report.FatalError("ProducationDialog.cs UpdateProducionCost() Total Cost - Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
-            	    }
+                    if (design == null)
+                    {
+                        Report.FatalError("ProducationDialog.cs UpdateProducionCost() Total Cost - Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
+                    }
 
-                	int quantity = Convert.ToInt32(item.SubItems[1].Text);
+                    int quantity = Convert.ToInt32(item.SubItems[1].Text);
 
-	                totalCost.Ironium += design.Cost.Ironium * quantity;
-    	            totalCost.Boranium += design.Cost.Boranium * quantity;
-        	        totalCost.Germanium += design.Cost.Germanium * quantity;
-            	    totalCost.Energy += design.Cost.Energy * quantity;
-	            }
-	        }
-	        
+                    totalCost.Ironium += design.Cost.Ironium * quantity;
+                    totalCost.Boranium += design.Cost.Boranium * quantity;
+                    totalCost.Germanium += design.Cost.Germanium * quantity;
+                    totalCost.Energy += design.Cost.Energy * quantity;
+                }
+            }
+            
             totalCostIronium.Text = ((int)totalCost.Ironium).ToString();
             totalCostBoranium.Text = ((int)totalCost.Boranium).ToString();
             totalCostGermanium.Text = ((int)totalCost.Germanium).ToString();

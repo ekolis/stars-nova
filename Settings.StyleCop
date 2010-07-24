@@ -292,6 +292,9 @@
           <Value>r</Value>
           <Value>sr</Value>
           <Value>up</Value>
+          <Value>x</Value>
+          <Value>y</Value>
+          <Value>z</Value>
         </CollectionProperty>
       </AnalyzerSettings>
     </Analyzer>
