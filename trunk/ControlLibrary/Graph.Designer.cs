@@ -1,6 +1,6 @@
 ﻿namespace Nova.ControlLibrary
 {
-    partial class Graph
+    public partial class Graph
     {
         /// <summary> 
         /// Required designer variable.

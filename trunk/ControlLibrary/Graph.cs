@@ -28,16 +28,16 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
+using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Text;
 using System.Windows.Forms;
-using System.Drawing.Drawing2D;
 
 namespace Nova.ControlLibrary
 {
     /// <summary>
-    /// Simple control that can display 2d graph
+    /// Simple control that can display 2d graph.
     /// </summary>
     public partial class Graph : UserControl
     {
@@ -45,7 +45,7 @@ namespace Nova.ControlLibrary
         private int[] data;
         private int minVal = int.MaxValue;
         private int maxVal = int.MinValue;
-        private Rectangle GraphBounds;
+        private Rectangle graphBounds;
         #endregion
 
         #region Properties
@@ -59,7 +59,10 @@ namespace Nova.ControlLibrary
         public string Title { get; set; }
         public int[] Data
         {
-            get { return data; }
+            get 
+            { 
+                return data; 
+            }
             set
             {
                 data = value;
@@ -69,6 +72,10 @@ namespace Nova.ControlLibrary
         #endregion
 
         #region Methods
+
+        /// <summary>
+        /// 
+        /// </summary>
         private void CalcMinMaxVal()
         {
             for (int i = 0; i < Data.Length; i++)
@@ -77,61 +84,92 @@ namespace Nova.ControlLibrary
                 maxVal = Math.Max(maxVal, data[i]);
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
         private void DrawData(ref Graphics g)
         {
-            double Ytick = (GraphBounds.Bottom - GraphBounds.Top * 1.0) / (maxVal - minVal * 1.0)*0.9;
-            double Xtick = (GraphBounds.Right - GraphBounds.Left) / Data.Length;
+            double yTick = (graphBounds.Bottom - (graphBounds.Top * 1.0)) / (maxVal - (minVal * 1.0)) * 0.9;
+            double xTick = (graphBounds.Right - graphBounds.Left) / Data.Length;
             SolidBrush brush = new SolidBrush(LineColor);
-            Pen p = new Pen(brush);
+            Pen linePen = new Pen(brush);
             for (int i = 1; i < Data.Length; i++)
             {
-                g.DrawLine(p, GraphBounds.Left + 3+(int)(Xtick * (i - 1)), GraphBounds.Bottom - 2 - (int)(Ytick * Data[i - 1]), 
-                    GraphBounds.Left + 3 +(int)(Xtick * i), GraphBounds.Bottom - 2 - (int)(Ytick * Data[i]));
+                g.DrawLine(
+                    linePen, 
+                    graphBounds.Left + 3 + (int)(xTick * (i - 1)), 
+                    graphBounds.Bottom - 2 - (int)(yTick * Data[i - 1]), 
+                    graphBounds.Left + 3 + (int)(xTick * i), 
+                    graphBounds.Bottom - 2 - (int)(yTick * Data[i]));
             }
-            p.Dispose();
+            linePen.Dispose();
             brush.Dispose();
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
         private void DrawAxis(ref Graphics g)
         {
             SolidBrush brush = new SolidBrush(AxisColor);
             Pen p = new Pen(brush);
-            p.EndCap = LineCap.ArrowAnchor ;
-            g.DrawLine(p, GraphBounds.Left + 3, GraphBounds.Bottom - 2, GraphBounds.Left + 3, GraphBounds.Top + 2);
-            g.DrawLine(p, GraphBounds.Left + 3, GraphBounds.Bottom - 2, GraphBounds.Right - 3, GraphBounds.Bottom - 2);
+            p.EndCap = LineCap.ArrowAnchor;
+            g.DrawLine(p, graphBounds.Left + 3, graphBounds.Bottom - 2, graphBounds.Left + 3, graphBounds.Top + 2);
+            g.DrawLine(p, graphBounds.Left + 3, graphBounds.Bottom - 2, graphBounds.Right - 3, graphBounds.Bottom - 2);
             p.Dispose();
             brush.Dispose();
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="g"></param>
         private void DrawTitle(ref Graphics g)
         {
             int width = pictureBox.Width;
             int height = pictureBox.Height;
 
-            Rectangle titleBounds = new Rectangle((int)(width * HoriozontalSpace),
-                    (int)(height * VerticalSpace),
-                    (int)(width * (1 - 2 * HoriozontalSpace)),
-                    (int)(TitleSize * (1 + VerticalSpace)));
+            Rectangle titleBounds = new Rectangle(
+                (int)(width * HoriozontalSpace),
+                (int)(height * VerticalSpace),
+                (int)(width * (1 - (2 * HoriozontalSpace))),
+                (int)(TitleSize * (1 + VerticalSpace)));
             g.DrawRectangle(Pens.Black, titleBounds);
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
         private void CalcBounds(int width, int height)
         {
             if (string.IsNullOrEmpty(Title) == false)
-                GraphBounds = new Rectangle((int)(width * HoriozontalSpace),
+                graphBounds = new Rectangle(
+                    (int)(width * HoriozontalSpace),
                     (int)(height * VerticalSpace),
-                    (int)(width * (1 - 2 * HoriozontalSpace)),
-                    (int)(height * (1 - 2 * VerticalSpace)));
-            else //reserve space for title
-                GraphBounds = new Rectangle((int)(width * HoriozontalSpace),
-                    (int)(height * VerticalSpace + TitleSize * (1 + VerticalSpace)),
-                    (int)(width * (1 - 2 * HoriozontalSpace)),
-                    (int)((height - TitleSize * (1 + VerticalSpace)) * (1 - 2 * VerticalSpace)));
+                    (int)(width * (1 - (2 * HoriozontalSpace))),
+                    (int)(height * (1 - (2 * VerticalSpace))));
+            else // reserve space for title
+                graphBounds = new Rectangle(
+                    (int)(width * HoriozontalSpace),
+                    (int)((height * VerticalSpace) + (TitleSize * (1 + VerticalSpace))),
+                    (int)(width * (1 - (2 * HoriozontalSpace))),
+                    (int)((height - (TitleSize * (1 + VerticalSpace))) * (1 - (2 * VerticalSpace))));
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
         public void RefreshDiagram()
         {
             if (Data != null && Data.Length > 0)
             {
                 CalcMinMaxVal();
-                Image = new Bitmap((int)(pictureBox.Width* 0.95), pictureBox.Height);
+                Image = new Bitmap((int)(pictureBox.Width * 0.95), pictureBox.Height);
                 Graphics g = Graphics.FromImage(Image);
                 CalcBounds(pictureBox.Width, pictureBox.Height);
                 if (string.IsNullOrEmpty(Title) == false)
@@ -149,6 +187,10 @@ namespace Nova.ControlLibrary
         #endregion
 
         #region Constructors
+
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
         public Graph()
         {
             InitializeComponent();
@@ -158,11 +200,17 @@ namespace Nova.ControlLibrary
             VerticalSpace = 0.02;
             TitleSize = 13;
         }
+
+        /// <summary>
+        /// Initialising constructor.
+        /// </summary>
+        /// <param name="data"></param>
         public Graph(int[] data)
             : this()
         {
             Data = data;
         }
+
         #endregion
     }
 }
