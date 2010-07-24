@@ -37,7 +37,7 @@ using System.Windows.Forms;
 namespace Nova.ControlLibrary
 {
     /// <summary>
-    /// Simple control that can display 2d graph.
+    /// Simple control that can display 2d graph
     /// </summary>
     public partial class Graph : UserControl
     {
@@ -49,20 +49,40 @@ namespace Nova.ControlLibrary
         #endregion
 
         #region Properties
+        /// <summary>
+        /// Gets or sets data line color
+        /// </summary>
         public Color LineColor { get; set; }
+        /// <summary>
+        /// Gets or sets axis color
+        /// </summary>
         public Color AxisColor { get; set; }
 
+        /// <summary>
+        /// How much horizontal space should be left blank on left side of the graph. Value in percent 0.03 = 3%
+        /// </summary>
         public double HoriozontalSpace { get; set; }
+        /// <summary>
+        /// How much veritcal space should be left blank on left side of the graph. Value in percent 0.03 = 3%
+        /// </summary>
         public double VerticalSpace { get; set; }
+        /// <summary>
+        /// Size of the tile box in pixels
+        /// </summary>
         public double TitleSize { get; set; }
+        /// <summary>
+        /// Gets or sets graph image
+        /// </summary>
         public Image Image { get; set; }
+        /// <summary>
+        /// Gets or sets Title 
+        /// </summary>
         public string Title { get; set; }
+        /// <summary>
+        /// Gets or sets data
+        /// </summary>
         public int[] Data
         {
-            get 
-            { 
-                return data; 
-            }
             set
             {
                 data = value;
@@ -72,44 +92,41 @@ namespace Nova.ControlLibrary
         #endregion
 
         #region Methods
-
-        /// <summary>
-        /// 
-        /// </summary>
         private void CalcMinMaxVal()
         {
-            for (int i = 0; i < Data.Length; i++)
+            for (int i = 0; i < data.Length; i++)
             {
                 minVal = Math.Min(minVal, data[i]);
                 maxVal = Math.Max(maxVal, data[i]);
             }
         }
-
         /// <summary>
-        /// 
+        /// Draws data on the graphics object
         /// </summary>
         /// <param name="g"></param>
         private void DrawData(ref Graphics g)
         {
-            double yTick = (graphBounds.Bottom - (graphBounds.Top * 1.0)) / (maxVal - (minVal * 1.0)) * 0.9;
-            double xTick = (graphBounds.Right - graphBounds.Left) / Data.Length;
+            double tickY = ((graphBounds.Bottom - graphBounds.Top) / (maxVal - (double)minVal)) * 0.9;
+            double tickX = (graphBounds.Right - graphBounds.Left) / data.Length;
             SolidBrush brush = new SolidBrush(LineColor);
-            Pen linePen = new Pen(brush);
-            for (int i = 1; i < Data.Length; i++)
+            Pen p = new Pen(brush);
+            Pen markPen = new Pen(new SolidBrush(AxisColor));
+            for (int i = 1; i < data.Length; i++)
             {
                 g.DrawLine(
-                    linePen, 
-                    graphBounds.Left + 3 + (int)(xTick * (i - 1)), 
-                    graphBounds.Bottom - 2 - (int)(yTick * Data[i - 1]), 
-                    graphBounds.Left + 3 + (int)(xTick * i), 
-                    graphBounds.Bottom - 2 - (int)(yTick * Data[i]));
+                    p,
+                    graphBounds.Left + 3 + (int)(tickX * (i - 1)),
+                    graphBounds.Bottom - 2 - (int)(tickY * data[i - 1]),
+                    graphBounds.Left + 3 + (int)(tickX * i),
+                    graphBounds.Bottom - 2 - (int)(tickY * data[i]));
+                g.DrawLine(markPen, (int)(tickX * i), graphBounds.Bottom, (int)(tickX * i), graphBounds.Bottom - 4);
             }
-            linePen.Dispose();
+            markPen.Dispose();
+            p.Dispose();
             brush.Dispose();
         }
-
         /// <summary>
-        /// 
+        /// Draw axis on graphic object
         /// </summary>
         /// <param name="g"></param>
         private void DrawAxis(ref Graphics g)
@@ -122,56 +139,63 @@ namespace Nova.ControlLibrary
             p.Dispose();
             brush.Dispose();
         }
-
         /// <summary>
-        /// 
+        /// Draw title
         /// </summary>
         /// <param name="g"></param>
         private void DrawTitle(ref Graphics g)
         {
-            int width = pictureBox.Width;
-            int height = pictureBox.Height;
+            int width = Image.Width;
+            int height = Image.Height;
 
             Rectangle titleBounds = new Rectangle(
-                (int)(width * HoriozontalSpace),
-                (int)(height * VerticalSpace),
-                (int)(width * (1 - (2 * HoriozontalSpace))),
-                (int)(TitleSize * (1 + VerticalSpace)));
-            g.DrawRectangle(Pens.Black, titleBounds);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        private void CalcBounds(int width, int height)
-        {
-            if (string.IsNullOrEmpty(Title) == false)
-                graphBounds = new Rectangle(
                     (int)(width * HoriozontalSpace),
                     (int)(height * VerticalSpace),
                     (int)(width * (1 - (2 * HoriozontalSpace))),
-                    (int)(height * (1 - (2 * VerticalSpace))));
-            else // reserve space for title
-                graphBounds = new Rectangle(
-                    (int)(width * HoriozontalSpace),
-                    (int)((height * VerticalSpace) + (TitleSize * (1 + VerticalSpace))),
-                    (int)(width * (1 - (2 * HoriozontalSpace))),
-                    (int)((height - (TitleSize * (1 + VerticalSpace))) * (1 - (2 * VerticalSpace))));
+                    (int)(TitleSize * (1 + VerticalSpace)));
+            
+            g.DrawString(Title, Control.DefaultFont, Brushes.Black, titleBounds);
         }
-
         /// <summary>
-        /// 
+        /// Calculate graph bounds for given image size
+        /// </summary>
+        /// <param name="imageWidth"></param>
+        /// <param name="imageHeight"></param>
+        private void CalcBounds(int imageWidth, int imageHeight)
+        {
+            int posX = (int)(imageWidth * HoriozontalSpace);
+            int posY = (int)(imageHeight * VerticalSpace);
+            double leftOverHorizontal = 1.0 - (2.0 * HoriozontalSpace);
+            double leftOverVertical = 1.0 - (2.0 * VerticalSpace);
+            if (string.IsNullOrEmpty(Title) == true)
+            {
+                graphBounds = new Rectangle(
+                    posX,
+                    posY,
+                    (int)(imageWidth * leftOverHorizontal),
+                    (int)(imageHeight * leftOverVertical));
+            }
+            else
+            {
+                // reserve space at the top for title
+                graphBounds = new Rectangle(
+                    posX,
+                    (int)(posY + (TitleSize * (1.0 + VerticalSpace))),
+                    (int)(imageWidth * leftOverHorizontal),
+                    (int)(imageHeight - (TitleSize * (1.0 + VerticalSpace) * leftOverVertical)));
+            }
+        }
+        /// <summary>
+        /// Refreshes the diagram
         /// </summary>
         public void RefreshDiagram()
         {
-            if (Data != null && Data.Length > 0)
+            if (data != null && data.Length > 0)
             {
                 CalcMinMaxVal();
                 Image = new Bitmap((int)(pictureBox.Width * 0.95), pictureBox.Height);
                 Graphics g = Graphics.FromImage(Image);
-                CalcBounds(pictureBox.Width, pictureBox.Height);
+                CalcBounds(Image.Width, Image.Height);
                 if (string.IsNullOrEmpty(Title) == false)
                     DrawTitle(ref g);
 
@@ -187,10 +211,6 @@ namespace Nova.ControlLibrary
         #endregion
 
         #region Constructors
-
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
         public Graph()
         {
             InitializeComponent();
@@ -200,17 +220,11 @@ namespace Nova.ControlLibrary
             VerticalSpace = 0.02;
             TitleSize = 13;
         }
-
-        /// <summary>
-        /// Initialising constructor.
-        /// </summary>
-        /// <param name="data"></param>
         public Graph(int[] data)
             : this()
         {
             Data = data;
         }
-
         #endregion
     }
 }
