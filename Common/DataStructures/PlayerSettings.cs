@@ -39,7 +39,7 @@ namespace Nova.Common
         public string RaceName; // The path & file name of the race.
         public string AiProgram; // The path & file name of the AI application or "Human"
         public int PlayerNumber; // The order number of the player from 1 - Global.MaxPlayers
-        
+        public string PlayerIdCode;    // The IdCode used to differentiate between races (allows for the use of the same name for players
 
     }
 }
