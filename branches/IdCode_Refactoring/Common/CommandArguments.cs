@@ -91,6 +91,8 @@ namespace Nova.Common
             public static string IntelFileName = "-i";
             public static string Password = "-p";
             public static string RaceName = "-r";
+            // PlayerIdCode used to identify players rather than race name (allows same race names)
+            public static string PlayerIdCode = "-pid";
             public static string StateFileName = "-s";
             public static string Turn = "-t";
         }

@@ -666,6 +666,8 @@ namespace Nova.WinForms.Console
                 // Launch the nova GUI
                 CommandArguments args = new CommandArguments();
                 args.Add(CommandArguments.Option.GuiSwitch);
+                // FIXME (priority 7) - need to use PlayerIdCode rather than RaceName to allow same race names
+                args.Add(CommandArguments.Option.PlayerIdCode,"1000");
                 args.Add(CommandArguments.Option.RaceName, raceName);
                 args.Add(CommandArguments.Option.Turn, ServerState.Data.TurnYear + 1);
                 args.Add(CommandArguments.Option.IntelFileName, Path.Combine(ServerState.Data.GameFolder, raceName + Global.IntelExtension));
@@ -749,6 +751,8 @@ namespace Nova.WinForms.Console
 
                 // Show what turn the race/player last submitted, 
                 // and color code to highlight which races we are waiting on (if we wait).
+                // FIXME (priority 7) the player settings have the IdCode available her now
+                //    now we need to switch away from using settings.RaceName to settings.IdCode
 
                 RaceData raceData = stateData.AllRaceData[settings.RaceName] as RaceData;
 

@@ -162,7 +162,8 @@ namespace Nova.WinForms
                 foreach (PlayerSettings settings in ServerState.Data.AllPlayers)
                 {
                     // TODO (priority 7) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
-                    // Stars! solution is to rename the race using a list of standard names. 
+                    // Stars! solution is to rename the race using a list of standard names.
+                    // Report.Debug(settings.PlayerIdCode);
                     if (!ServerState.Data.AllRaces.Contains(settings.RaceName))
                         ServerState.Data.AllRaces.Add(settings.RaceName, newGameWizard.KnownRaces[settings.RaceName]);
                 }
@@ -602,6 +603,8 @@ namespace Nova.WinForms
                     settings.PlayerNumber = Int32.Parse(player.SubItems[0].Text);
                     settings.RaceName = player.SubItems[1].Text;
                     settings.AiProgram = player.SubItems[2].Text;
+                    int numberPartOfCode = settings.PlayerNumber + 1000;    // adding 1000 means codes should all be four digits
+                    settings.PlayerIdCode = numberPartOfCode.ToString() + settings.RaceName;    // unique player IdCode
 
                     players.Add(settings);
                 }

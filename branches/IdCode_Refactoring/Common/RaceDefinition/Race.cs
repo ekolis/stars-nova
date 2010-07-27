@@ -55,6 +55,8 @@ namespace Nova.Common
         public string PluralName;
         public string Name;
         public string Password;
+		// TODO (priority 7) - use of ID Code for identifying players rather than race name
+		public string IdCode;
         public RaceIcon Icon = new RaceIcon();
 
         // These parameters affect the production rate of each star (used in the
@@ -277,6 +279,9 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelRace, "Name", Name);
             // Password 
             Global.SaveData(xmldoc, xmlelRace, "Password", Password);
+			// IdCode
+			// TODO (priority 7) - use of ID Code for identifying players rather than race name
+			Global.SaveData(xmldoc, xmlelRace, "IdCode", IdCode);
             // RaceIconName
             Global.SaveData(xmldoc, xmlelRace, "RaceIconName", Icon.Source);
             // Factory Build Cost
@@ -357,6 +362,10 @@ namespace Nova.Common
                         case "password":
                             this.Password = xmlnode.FirstChild.Value;
                             break;
+						// TODO (priority 7) - use of ID Code for identifying players rather than race name
+						case "idcode":
+							this.IdCode = xmlnode.FirstChild.Value;
+							break;
 
                         // TODO (priority 5) - load the RaceIcon
                         case "raceiconname":

@@ -74,6 +74,8 @@ namespace Nova.Client
         public string GameFolder = null;
         public string RaceName = null;
         public TechLevel.ResearchField ResearchTopic = TechLevel.ResearchField.Energy;
+        // add in IdCode to identify the players (allows for the same race name)
+        public string PlayerIdCode = null;
 
 
         // ============================================================================
@@ -162,6 +164,8 @@ namespace Nova.Client
 
             statePathName = null;
             Data.RaceName = null;
+            // PlayerIdCode is to be used rather than RaceName to identify players (allows the same race name)
+            Data.PlayerIdCode = null;
             string intelFileName = null;
 
             // process the arguments
@@ -170,6 +174,10 @@ namespace Nova.Client
             if (commandArguments.Contains(CommandArguments.Option.RaceName))
             {
                 Data.RaceName = commandArguments[CommandArguments.Option.RaceName];
+            }
+            if (commandArguments.Contains(CommandArguments.Option.PlayerIdCode))
+            {
+                Data.PlayerIdCode = commandArguments[CommandArguments.Option.PlayerIdCode];
             }
             if (commandArguments.Contains(CommandArguments.Option.StateFileName))
             {
