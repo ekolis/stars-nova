@@ -232,7 +232,7 @@ namespace Nova.Client
                   // --------------------------------------------------------------------------------
                   // FIXME (priority 5) - discovery of planetary information should be done by the server. It should not be possible for a hacked client to get this information.
 
-                  if ((fleet.InOrbit != null) && (!fleet.IsStarbase))
+                  if ((fleet.InOrbit != null) && (!fleet.IsStarbase) && (fleet.ShortRangeScan != 0))
                   {
 
                       // add to orbiting fleets list
