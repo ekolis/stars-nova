@@ -76,6 +76,7 @@ namespace Nova.WinForms.Console
         private CheckBox autoGenerateCheckBox;
         private CheckBox runAiCheckBox;
         private Timer consoleTimer;
+        private ContextMenuStrip playerMenu;
         private IContainer components;
         #endregion
 
@@ -146,6 +147,7 @@ namespace Nova.WinForms.Console
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.guiLaunchLabel = new System.Windows.Forms.Label();
             this.consoleTimer = new System.Windows.Forms.Timer(this.components);
+            this.playerMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.mainMenu.SuspendLayout();
@@ -164,7 +166,7 @@ namespace Nova.WinForms.Console
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Players";
             // 
-            // PlayerList
+            // playerList
             // 
             this.playerList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.ai,
@@ -180,19 +182,20 @@ namespace Nova.WinForms.Console
             this.playerList.TabIndex = 0;
             this.playerList.UseCompatibleStateImageBehavior = false;
             this.playerList.View = System.Windows.Forms.View.Details;
+            this.playerList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PlayerList_MouseClick);
             this.playerList.DoubleClick += new System.EventHandler(this.PlayerList_DoubleClick);
             // 
-            // AI
+            // ai
             // 
             this.ai.Text = "AI";
             this.ai.Width = 112;
             // 
-            // RaceName
+            // raceName
             // 
             this.raceName.Text = "Race Name";
             this.raceName.Width = 209;
             // 
-            // TurnIn
+            // turnIn
             // 
             this.turnIn.Text = "Last Turned In";
             this.turnIn.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -238,7 +241,7 @@ namespace Nova.WinForms.Console
             this.autoGenerateCheckBox.Text = "Auto Generate Turns";
             this.autoGenerateCheckBox.UseVisualStyleBackColor = true;
             // 
-            // StatusBox
+            // statusBox
             // 
             this.statusBox.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
@@ -251,7 +254,7 @@ namespace Nova.WinForms.Console
             this.statusBox.Size = new System.Drawing.Size(431, 69);
             this.statusBox.TabIndex = 9;
             // 
-            // FolderPath
+            // folderPath
             // 
             this.folderPath.AutoSize = true;
             this.folderPath.Location = new System.Drawing.Point(76, 19);
@@ -288,7 +291,7 @@ namespace Nova.WinForms.Console
             this.label1.Text = "Game Name: ";
             this.label1.TextAlign = System.Drawing.ContentAlignment.BottomLeft;
             // 
-            // MainMenu
+            // mainMenu
             // 
             this.mainMenu.BackColor = System.Drawing.SystemColors.Control;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -313,9 +316,9 @@ namespace Nova.WinForms.Console
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";
             // 
-            // NewGameMenuItem
+            // newGameMenuItem
             // 
-            this.newGameMenuItem.Name = "NewGameMenuItem";
+            this.newGameMenuItem.Name = "newGameMenuItem";
             this.newGameMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.N)));
             this.newGameMenuItem.Size = new System.Drawing.Size(180, 22);
             this.newGameMenuItem.Text = "&New Game";
@@ -329,9 +332,9 @@ namespace Nova.WinForms.Console
             this.openGameToolStripMenuItem.Text = "&Open Game";
             this.openGameToolStripMenuItem.Click += new System.EventHandler(this.OpenGameToolStripMenuItem_Click);
             // 
-            // SelectNewFolderMenuItem
+            // selectNewFolderMenuItem
             // 
-            this.selectNewFolderMenuItem.Name = "SelectNewFolderMenuItem";
+            this.selectNewFolderMenuItem.Name = "selectNewFolderMenuItem";
             this.selectNewFolderMenuItem.Size = new System.Drawing.Size(180, 22);
             this.selectNewFolderMenuItem.Text = "&Select New Folder";
             this.selectNewFolderMenuItem.Click += new System.EventHandler(this.SelectNewFolder);
@@ -341,9 +344,9 @@ namespace Nova.WinForms.Console
             this.toolStripSeparator1.Name = "toolStripSeparator1";
             this.toolStripSeparator1.Size = new System.Drawing.Size(177, 6);
             // 
-            // ExitMenuItem
+            // exitMenuItem
             // 
-            this.exitMenuItem.Name = "ExitMenuItem";
+            this.exitMenuItem.Name = "exitMenuItem";
             this.exitMenuItem.Size = new System.Drawing.Size(180, 22);
             this.exitMenuItem.Text = "E&xit";
             this.exitMenuItem.Click += new System.EventHandler(this.ExitMenuItem_Click);
@@ -359,17 +362,17 @@ namespace Nova.WinForms.Console
             this.turnToolStripMenuItem.Size = new System.Drawing.Size(44, 20);
             this.turnToolStripMenuItem.Text = "&Turn";
             // 
-            // GenerateTurnMenuItem
+            // generateTurnMenuItem
             // 
-            this.generateTurnMenuItem.Name = "GenerateTurnMenuItem";
+            this.generateTurnMenuItem.Name = "generateTurnMenuItem";
             this.generateTurnMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F9;
             this.generateTurnMenuItem.Size = new System.Drawing.Size(183, 22);
             this.generateTurnMenuItem.Text = "&Generate";
             this.generateTurnMenuItem.Click += new System.EventHandler(this.GenerateTurnMenuItem_Click);
             // 
-            // ForceMenuItem
+            // forceMenuItem
             // 
-            this.forceMenuItem.Name = "ForceMenuItem";
+            this.forceMenuItem.Name = "forceMenuItem";
             this.forceMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F12;
             this.forceMenuItem.Size = new System.Drawing.Size(183, 22);
             this.forceMenuItem.Text = "&Force Next Turn";
@@ -380,9 +383,9 @@ namespace Nova.WinForms.Console
             this.toolStripSeparator2.Name = "toolStripSeparator2";
             this.toolStripSeparator2.Size = new System.Drawing.Size(180, 6);
             // 
-            // RefreshMenuItem
+            // refreshMenuItem
             // 
-            this.refreshMenuItem.Name = "RefreshMenuItem";
+            this.refreshMenuItem.Name = "refreshMenuItem";
             this.refreshMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F5;
             this.refreshMenuItem.Size = new System.Drawing.Size(183, 22);
             this.refreshMenuItem.Text = "&Refresh";
@@ -403,7 +406,7 @@ namespace Nova.WinForms.Console
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.OnAboutClick);
             // 
-            // GuiLaunchLabel
+            // guiLaunchLabel
             // 
             this.guiLaunchLabel.Anchor = System.Windows.Forms.AnchorStyles.Top;
             this.guiLaunchLabel.AutoSize = true;
@@ -418,6 +421,11 @@ namespace Nova.WinForms.Console
             this.consoleTimer.Enabled = true;
             this.consoleTimer.Interval = 5000;
             this.consoleTimer.Tick += new System.EventHandler(this.ConsoleTimer_Tick);
+            // 
+            // playerMenu
+            // 
+            this.playerMenu.Name = "playerMenu";
+            this.playerMenu.Size = new System.Drawing.Size(61, 4);
             // 
             // NovaConsoleMain
             // 
@@ -719,7 +727,81 @@ namespace Nova.WinForms.Console
                 if (runAiCheckBox.Checked) RunAI();
             }
         }
+        private void OpenGameToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            // have the user identify the game to open
+            try
+            {
+                OpenFileDialog fd = new OpenFileDialog();
+                fd.Title = "Open Game";
+                fd.FileName = "NovaServer" + Global.ServerStateExtension;
+                DialogResult result = fd.ShowDialog();
+                if (result != DialogResult.OK)
+                {
+                    return;
+                }
+                ServerState.Data.StatePathName = fd.FileName;
+            }
+            catch
+            {
+                Report.FatalError("Unable to open a game.");
+            }
 
+            // TODO (priority 4) - This code is a repeat of what we do when the console is normally opened. Consider consolodating these sections.
+            ServerState.Data.GameFolder = System.IO.Path.GetDirectoryName(ServerState.Data.StatePathName);
+            this.folderPath.Text = ServerState.Data.GameFolder;
+            ServerState.Restore();
+
+            AllComponents.Restore();
+
+            if (File.Exists(ServerState.Data.StatePathName))
+            {
+                // We have a known game in progress. Load it:
+                ServerState.Data.GameInProgress = true;
+                turnYearLabel.Text = ServerState.Data.TurnYear.ToString();
+                // load the game settings also
+                GameSettings.Restore();
+                this.generateTurnMenuItem.Enabled = true;
+                turnYearLabel.Text = ServerState.Data.TurnYear.ToString();
+                OrderReader.ReadOrders();
+                SetPlayerList();
+                Invalidate();
+            }
+            else
+            {
+                /// If nothing is defined then the only option is to enable the 
+                /// "New Game" button. 
+                ServerState.Data.GameInProgress = false;
+                this.newGameMenuItem.Enabled = true;
+                turnYearLabel.Text = "Create a new game.";
+            }
+
+
+        }
+
+        private void PlayerList_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+            {
+                if (playerList.Items.Count > 0)
+                {
+                    ListViewItem item;
+                    if (playerList.FocusedItem == null)
+                    {
+                        item = playerList.GetItemAt(e.X, e.Y);
+                    }
+                    else
+                    {
+                        item = playerList.FocusedItem;
+                    }
+                    playerMenu.Items.Clear();
+                    playerMenu.Items.Add(item.Text);
+                    playerMenu.Items.Add("-");
+                    playerMenu.Show(playerList, new System.Drawing.Point(e.X, e.Y));
+
+                }
+            }
+        }
         #endregion
 
         #region Utility Methods
@@ -875,58 +957,5 @@ namespace Nova.WinForms.Console
 
         #endregion
 
-        private void OpenGameToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            // have the user identify the game to open
-            try
-            {
-                OpenFileDialog fd = new OpenFileDialog();
-                fd.Title = "Open Game";
-                fd.FileName = "NovaServer" + Global.ServerStateExtension;
-                DialogResult result = fd.ShowDialog();
-                if (result != DialogResult.OK)
-                {
-                    return;
-                }
-                ServerState.Data.StatePathName = fd.FileName;
-            }
-            catch
-            {
-                Report.FatalError("Unable to open a game.");
-            }
-
-            // TODO (priority 4) - This code is a repeat of what we do when the console is normally opened. Consider consolodating these sections.
-            ServerState.Data.GameFolder = System.IO.Path.GetDirectoryName(ServerState.Data.StatePathName);
-            this.folderPath.Text = ServerState.Data.GameFolder;
-            ServerState.Restore();
-
-            AllComponents.Restore(); 
-
-            if (File.Exists(ServerState.Data.StatePathName))
-            {
-                // We have a known game in progress. Load it:
-                ServerState.Data.GameInProgress = true;
-                turnYearLabel.Text = ServerState.Data.TurnYear.ToString();
-                // load the game settings also
-                GameSettings.Restore();
-                this.generateTurnMenuItem.Enabled = true;
-                turnYearLabel.Text = ServerState.Data.TurnYear.ToString();
-                OrderReader.ReadOrders();
-                SetPlayerList();
-                Invalidate();
-            }
-            else
-            {
-                /// If nothing is defined then the only option is to enable the 
-                /// "New Game" button. 
-                ServerState.Data.GameInProgress = false;
-                this.newGameMenuItem.Enabled = true;
-                turnYearLabel.Text = "Create a new game.";
-            }
-
-
-        }
-
     }
-
 }
