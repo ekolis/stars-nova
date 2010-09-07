@@ -644,6 +644,7 @@ namespace Nova.WinForms.Gui
                 {
                     // what the purpose of this next line (shadallark) ???
                     // Looks like it is ment to prevent the current starbase design being re-used - Dan.
+                    // prevent the current starbase design from being re-used
                     if (starbase != null && starbase.Composition.ContainsKey(design.Name)) continue;
 
                     // Check if this design can be built at this star - ships are limited by dock capacity of the starbase.
@@ -661,28 +662,37 @@ namespace Nova.WinForms.Gui
                 }
             }
 
+
+
             this.designList.EndUpdate();
+            this.addToQueue.Enabled = false;
+
 
             Gui.QueueList.Populate(this.queueList, this.queueStar.ManufacturingQueue);
             // check if a starbase design is in the Production Queue and if so remove it from the Design List
-            int i = 0; // outer loop counter used for stepping through the Production Queue
-            for (i = 0; i < this.queueList.Items.Count; i++)
+            int itemLoopCounter = 0; // outer loop counter used for stepping through the Production Queue
+            for (itemLoopCounter = 0; itemLoopCounter < this.queueList.Items.Count; itemLoopCounter++)
             {
                 // is it a starbase?
-                string tempName = this.queueList.Items[i].Text;
+                string tempName = this.queueList.Items[itemLoopCounter].Text;
                 Design tempDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + tempName] as Design;
                 if (tempDesign.Type == "Starbase")
                 {
-                    int j = 0; // inner loop counter used for stepping through the Design List
-                    for (j = 0; j < this.designList.Items.Count; j++)
+                    this.queueList.Items[itemLoopCounter].Checked = true;
+                    int designsLoopCounter = 0; // inner loop counter used for stepping through the Design List
+                    for (designsLoopCounter = 0; designsLoopCounter < this.designList.Items.Count; designsLoopCounter++)
                     {
-                        if (this.queueList.Items[i].Text == this.designList.Items[j].Text)
+                        if (this.queueList.Items[itemLoopCounter].Text == this.designList.Items[designsLoopCounter].Text)
                         {
                             // remove the starbase from the Design List
-                            designList.Items.RemoveAt(j);
-                            j--; // after having removed one item from the list decrement by 1 to allow the rest of the list to be examined
+                            designList.Items.RemoveAt(designsLoopCounter);
+                            designsLoopCounter--; // after having removed one item from the list decrement by 1 to allow the rest of the list to be examined
                         }
                     }
+                }
+                else
+                {
+                    this.queueList.Items[itemLoopCounter].Checked = false;
                 }
             }
             
@@ -710,7 +720,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void AvailableSelected(object sender, System.EventArgs e)
         {
-            if (this.designList.SelectedItems.Count <= 0)
+            if (this.designList.SelectedItems.Count <= 0)  // nothing selected in the design list
             {
                 this.addToQueue.Enabled = false;
                 Resources emptyResources = new Resources();
@@ -720,7 +730,6 @@ namespace Nova.WinForms.Gui
             else
             {
                 this.addToQueue.Enabled = true;
-
                 string name = this.designList.SelectedItems[0].Text;
 
                 Design design =
@@ -742,45 +751,46 @@ namespace Nova.WinForms.Gui
         {
             // check if selected item is the "--- Top of Queue ---" which cannot be moved down or removed
             if (this.queueList.SelectedItems.Count > 0)
-               {
+            {
                 if (this.queueList.SelectedIndices[0] == 0)
                 {
                     // "--- Top of Queue ---" selected
                     this.queueUp.Enabled = false;
                     this.queueDown.Enabled = false;
                     this.removeFromQueue.Enabled = false;
+                    //this.addToQueue.Enabled = true;
                 }
                 else
                 {
-                       this.removeFromQueue.Enabled = true;
-                       // check if >1 to ignore top two items ("--- Top of Queue ---" placeholder which cannot be moved and item below it)
-                       if (this.queueList.SelectedIndices[0] > 1)
-                       {
-                           this.queueUp.Enabled = true;
-                          }
-                          else
-                          {
-                                  this.queueUp.Enabled = false;
-                          }
+                    this.removeFromQueue.Enabled = true;
+                    // check if >1 to ignore top two items ("--- Top of Queue ---" placeholder which cannot be moved and item below it)
+                    if (this.queueList.SelectedIndices[0] > 1)
+                    {
+                        this.queueUp.Enabled = true;
+                    }
+                    else
+                    {
+                        this.queueUp.Enabled = false;
+                    }
                           
                           
-                          if (this.queueList.SelectedIndices[0] < this.queueList.Items.Count - 1)
-                          {
-                              this.queueDown.Enabled = true;
-                          }
-                          else
-                          {
-                              this.queueDown.Enabled = false;
-                          }                        
+                    if (this.queueList.SelectedIndices[0] < this.queueList.Items.Count - 1)
+                    {
+                        this.queueDown.Enabled = true;
+                    }
+                    else
+                    {
+                        this.queueDown.Enabled = false;
+                    }
                 }
-               }
+            }
             else
-               {
+            {
                 // no items are selected
                 this.queueUp.Enabled = false;
                 this.queueDown.Enabled = false;
-                   this.removeFromQueue.Enabled = false;
-               }
+                this.removeFromQueue.Enabled = false;
+            }
             
             // it does not matter if an item is selected the Production Costs can still be updated.
             UpdateProductionCost();
@@ -866,10 +876,13 @@ namespace Nova.WinForms.Gui
 
             if (this.queueList.SelectedItems.Count > 0)
             {
-                Design tmp = queueList.Items[queueList.SelectedIndices[0]].Tag as Design;
-                if (tmp != null && tmp.Type == "Starbase")
+                //Design selectedDesign = queueList.Items[queueList.SelectedIndices[0]].Tag as Design;
+                string designName = this.queueList.Items[queueList.SelectedIndices[0]].Text;
+                //Design selectedDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + designName] as Design;
+                //if (selectedDesign != null && selectedDesign.Type == "Starbase")
+                if (queueList.Items[s].Checked == true)
                 {
-                    designList.Items.Add(new ListViewItem(tmp.Name));
+                    designList.Items.Add(new ListViewItem(designName));
                 }
 
                 // Ctrl -Remove 100 items
@@ -979,8 +992,18 @@ namespace Nova.WinForms.Gui
             ListViewItem itemAdded;
 
             itemToAdd.Text = design.Name;
-            itemToAdd.Tag = design;
             itemToAdd.SubItems.Add(quantity.ToString());
+            itemToAdd.Tag = design.Cost;    // when first added the partial BuildState is the full design cost
+            // set the Checked Status if this is a Starbase
+            if (design.Type == "Starbase")
+            {
+                itemToAdd.Checked = true;
+            }
+            else
+            {
+                itemToAdd.Checked = false;
+            }
+
 
             // if no items are selected add the quantity of design as indicated
             if (this.queueList.SelectedItems.Count == 0)
@@ -1002,7 +1025,7 @@ namespace Nova.WinForms.Gui
                 }
                 else
                 {
-                    // if the item selected in the queue is different from the design being added check the item
+                    // as the item selected in the queue is different from the design being added check the item
                     // below the selected item (first confirm it exists) to see if it matches, if so increase its
                     // quantity and have it become the selected item, if not add the item after the item selected in the queue
                     int numInQueue = this.queueList.Items.Count;
@@ -1035,6 +1058,7 @@ namespace Nova.WinForms.Gui
             }
 
             // Limit the number of defenses built.
+            // TODO (Priority 4) - update this section to handle the quantity when too many have been added!
             if (design.Name == "Defenses")
             {
                 int newDefensesAllowed = Global.MaxDefenses - this.queueStar.Defenses;
@@ -1049,9 +1073,7 @@ namespace Nova.WinForms.Gui
                     {
                         itemAdded.SubItems[1].Text = newDefensesAllowed.ToString();
                     }
-
                 }
-
             }
             this.queueList.Items[0].Text = "--- Top of Queue ---";
             UpdateProductionCost();
@@ -1072,16 +1094,16 @@ namespace Nova.WinForms.Gui
             // remove the "--- Top of Queue ---" / "--- Queue Empty ---" placeholder prior to saving the Production Queue
             queueList.Items.RemoveAt(0);
             
-            foreach (ListViewItem i in this.queueList.Items)
+            foreach (ListViewItem itemInList in this.queueList.Items)
             {
                 ProductionQueue.Item item = new ProductionQueue.Item();
 
-                item.Name = i.SubItems[0].Text;
-                item.Quantity = Convert.ToInt32(i.SubItems[1].Text);
+                item.Name = itemInList.SubItems[0].Text;
+                item.Quantity = Convert.ToInt32(itemInList.SubItems[1].Text);
 
                 Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + item.Name] as Design;
 
-                item.BuildState = design.Cost;
+                item.BuildState = itemInList.Tag as Resources;
 
                 this.queueStar.ManufacturingQueue.Queue.Add(item);
             }
@@ -1119,6 +1141,9 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Update production queue cost
+        /// For each stack of items the first item might be partially built as defined by
+        /// the BuildState and therefore require less Resources than the rest of the items
+        /// in the stack which require the design.cost
         /// </summary>
         /// ----------------------------------------------------------------------------
         private void UpdateProductionCost()
@@ -1129,40 +1154,53 @@ namespace Nova.WinForms.Gui
             if (this.queueList.Items.Count > 1 && this.queueList.SelectedItems.Count > 0)
             {
                 // Update the cost for the selected item
-                int s = this.queueList.SelectedIndices[0];
-                if (s > 0)
+                int selectedIndex = this.queueList.SelectedIndices[0];
+                if (selectedIndex > 0)
                 {
-                    ListViewItem tempItem = this.queueList.Items[s];
-                         string name = tempItem.Text;
-                        
-                       Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
+                    ListViewItem tempItem = this.queueList.Items[selectedIndex];
 
-                    if (design == null)
+                    if (this.queueList.Items[selectedIndex].Tag == null)
                     {
-                        Report.FatalError("ProducationDialog.cs UpdateProducionCost() Selected Cost- Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
+                        Report.FatalError("ProducationDialog.cs UpdateProducionCost() Selected Cost- BuildState values missing!");
                     }
 
-                    int quantity = Convert.ToInt32(tempItem.SubItems[1].Text);
+                    Resources selectionBuildState = this.queueList.Items[selectedIndex].Tag as Resources;
+                    int quantityInStack = Convert.ToInt32(this.queueList.Items[selectedIndex].SubItems[1].Text);
 
-                    selectedCostIronium.Text = ((int)(design.Cost.Ironium * quantity)).ToString();
-                    selectedCostBoranium.Text = ((int)(design.Cost.Boranium * quantity)).ToString();
-                    selectedCostGermanium.Text = ((int)(design.Cost.Germanium * quantity)).ToString();
-                    selectedCostEnergy.Text = ((int)(design.Cost.Energy * quantity)).ToString();
+                    if (quantityInStack > 1 )
+                    {   // more than one item in the selected stack
+                        string tempName = this.queueList.Items[selectedIndex].Text;
+                        Design tempDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + tempName] as Design;
+                        Resources totallingCost = new Resources();
+                        totallingCost = selectionBuildState + (tempDesign.Cost * (quantityInStack - 1));
+
+                        selectedCostIronium.Text = totallingCost.Ironium.ToString();
+                        selectedCostBoranium.Text = totallingCost.Boranium.ToString();
+                        selectedCostGermanium.Text = totallingCost.Germanium.ToString();
+                        selectedCostEnergy.Text = totallingCost.Energy.ToString();
+                    }
+                    else
+                    {
+                        selectedCostIronium.Text = selectionBuildState.Ironium.ToString();
+                        selectedCostBoranium.Text = selectionBuildState.Boranium.ToString();
+                        selectedCostGermanium.Text = selectionBuildState.Germanium.ToString();
+                        selectedCostEnergy.Text = selectionBuildState.Energy.ToString();
+                    }
                 }
                 else
                 {
                     selectedCostIronium.Text = "0";
-                      selectedCostBoranium.Text = "0";
-                     selectedCostGermanium.Text = "0";
-                       selectedCostEnergy.Text = "0";
+                    selectedCostBoranium.Text = "0";
+                    selectedCostGermanium.Text = "0";
+                    selectedCostEnergy.Text = "0";
                 }
-             }
+            }
             else
             {
                 selectedCostIronium.Text = "0";
-                  selectedCostBoranium.Text = "0";
-                 selectedCostGermanium.Text = "0";
-                   selectedCostEnergy.Text = "0";
+                selectedCostBoranium.Text = "0";
+                selectedCostGermanium.Text = "0";
+                selectedCostEnergy.Text = "0";
             }     
 
             // sum up the Production Costs for all items in the queue (even if empty)
@@ -1182,19 +1220,20 @@ namespace Nova.WinForms.Gui
                 }
                 else
                 {
-                    Design design = this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
-
-                    if (design == null)
+                    if (item.Tag == null)
                     {
-                        Report.FatalError("ProducationDialog.cs UpdateProducionCost() Total Cost - Design \"" + this.stateData.RaceName + "/" + name + "\" no longer exists.");
+                        Report.FatalError("ProducationDialog.cs UpdateProducionCost() Total Cost - BuildState missing!");
                     }
 
-                    int quantity = Convert.ToInt32(item.SubItems[1].Text);
+                    Resources itemBuildState = item.Tag as Resources;
+                    int quantityInStack = Convert.ToInt32(item.SubItems[1].Text);
+                    string tempName = item.Text;
+                    Design tempDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + tempName] as Design;
 
-                    totalCost.Ironium += design.Cost.Ironium * quantity;
-                    totalCost.Boranium += design.Cost.Boranium * quantity;
-                    totalCost.Germanium += design.Cost.Germanium * quantity;
-                    totalCost.Energy += design.Cost.Energy * quantity;
+                    totalCost.Ironium += (itemBuildState.Ironium + (tempDesign.Cost.Ironium * (quantityInStack - 1)));
+                    totalCost.Boranium += (itemBuildState.Boranium + (tempDesign.Cost.Boranium * (quantityInStack - 1)));
+                    totalCost.Germanium += (itemBuildState.Germanium + (tempDesign.Cost.Germanium * (quantityInStack - 1)));
+                    totalCost.Energy += (itemBuildState.Energy + (tempDesign.Cost.Energy * (quantityInStack - 1)));
                 }
             }
             

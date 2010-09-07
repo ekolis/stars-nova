@@ -109,8 +109,8 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Build one instance of a particular design. Even if we can't complete
-        /// manufacture this year decrement the required resources with what we can
-        /// donate.
+        /// manufacture this year decrement the required resources by the percentage
+        /// we can achieve.
         /// </summary>
         /// <param name="item">An item to be produced.</param>
         /// <param name="star">The star system doing production</param>
@@ -128,7 +128,7 @@ namespace Nova.WinForms.Console
 
             if (!(star.ResourcesOnHand >= needed))
             {
-                DonateResources(item.BuildState, needed, star.ResourcesOnHand);
+                PartialBuild(item, needed, star);
                 return true;
             }
 
@@ -182,45 +182,54 @@ namespace Nova.WinForms.Console
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// We don't have quite enough resources to complete manufacture so donate
-        /// what we can and deplete the reserves accordingly.
+        /// We do not have quite enough resources to complete production so use the percent
+        /// that we can achieve, deplete the reserves, and adjust the BuildState accordingly.
         /// </summary>
-        /// <param name="currentResources">???</param>
-        /// <param name="neededResources">???</param>
-        /// <param name="availableResources">???</param>
+        /// <param name="item">The item to be partially produced.</param>
+        /// <param name="neededResources">The Resources cost to complete production of the item (either BuildState or design.Cost).</param>
+        /// <param name="star">The Star System doing the production.</param>
         /// ----------------------------------------------------------------------------
-        private static void DonateResources(
-            Resources currentResources,
+        private static void PartialBuild(
+            ProductionQueue.Item item,
             Resources neededResources,
-            Resources availableResources)
+            Star star)
         {
-            neededResources -= availableResources;
-            availableResources = new Resources();
+            Resources insufficientResources = new Resources();  // used to temporarily store the amount of resources we are short for any resources that are short
+            insufficientResources = neededResources - star.ResourcesOnHand;
 
-            if (neededResources.Ironium < 0)
+            // determine which resource limits production (i.e. is able to complete the smallest percentage of production)
+            double percentCompleted = 1.0;
+            if(percentCompleted > (1 - (float)insufficientResources.Ironium / neededResources.Ironium) && insufficientResources.Ironium > 0)
             {
-                availableResources.Ironium = Math.Abs(neededResources.Ironium);
-                neededResources.Ironium = 0;
+                percentCompleted = (1 - (float)insufficientResources.Ironium / neededResources.Ironium);
+            }
+
+            if(percentCompleted > (1 - (float)insufficientResources.Boranium / neededResources.Boranium) && insufficientResources.Boranium > 0)
+            {
+                percentCompleted = (1- (float)insufficientResources.Boranium / neededResources.Boranium);
+            }
+
+            if(percentCompleted > (1 - (float)insufficientResources.Germanium / neededResources.Germanium) && insufficientResources.Germanium > 0)
+            {
+                percentCompleted = (1 - (float)insufficientResources.Germanium / neededResources.Germanium);
+            }
+
+            if(percentCompleted > (1 - (float)insufficientResources.Energy / neededResources.Energy) && insufficientResources.Energy > 0)
+            {
+                percentCompleted = (1 - (float)insufficientResources.Energy / neededResources.Energy);
             }
 
 
-            if (neededResources.Boranium < 0)
-            {
-                availableResources.Boranium = Math.Abs(neededResources.Boranium);
-                neededResources.Boranium = 0;
-            }
+            Resources usedResources = new Resources();
+            usedResources.Ironium = Convert.ToInt32(percentCompleted * neededResources.Ironium);
+            usedResources.Boranium = Convert.ToInt32(percentCompleted * neededResources.Boranium);
+            usedResources.Germanium = Convert.ToInt32(percentCompleted * neededResources.Germanium);
+            usedResources.Energy = Convert.ToInt32(percentCompleted * neededResources.Energy);
 
-            if (neededResources.Germanium < 0)
-            {
-                availableResources.Germanium = Math.Abs(neededResources.Germanium);
-                neededResources.Germanium = 0;
-            }
+            star.ResourcesOnHand = star.ResourcesOnHand - usedResources;
 
-            if (neededResources.Energy < 0)
-            {
-                availableResources.Energy = Math.Abs(neededResources.Energy);
-                neededResources.Energy = 0;
-            }
+            neededResources = neededResources - usedResources;
+            item.BuildState = neededResources;
         }
 
 
