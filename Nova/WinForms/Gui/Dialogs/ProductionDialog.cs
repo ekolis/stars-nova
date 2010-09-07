@@ -710,18 +710,23 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void AvailableSelected(object sender, System.EventArgs e)
         {
-            if (this.designList.SelectedItems.Count <= 0) return;
-
-            string name = this.designList.SelectedItems[0].Text;
-
-            Design design =
-               this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
-
-            this.designCost.Value = design.Cost;
-
-            if (this.addToQueue.Enabled == false)
+            if (this.designList.SelectedItems.Count <= 0)
+            {
+                this.addToQueue.Enabled = false;
+                Resources emptyResources = new Resources();
+                this.designCost.Value = emptyResources;
+                return;
+            }
+            else
             {
                 this.addToQueue.Enabled = true;
+
+                string name = this.designList.SelectedItems[0].Text;
+
+                Design design =
+                   this.turnData.AllDesigns[this.stateData.RaceName + "/" + name] as Design;
+
+                this.designCost.Value = design.Cost;
             }
         }
 
@@ -744,7 +749,6 @@ namespace Nova.WinForms.Gui
                     this.queueUp.Enabled = false;
                     this.queueDown.Enabled = false;
                     this.removeFromQueue.Enabled = false;
-                    this.addToQueue.Enabled = true;
                 }
                 else
                 {
