@@ -51,11 +51,14 @@ namespace Nova.WinForms.Gui
             listView.Items.Clear();
             listView.BeginUpdate();
 
-            foreach (ProductionQueue.Item i in toMake.Queue)
+            foreach (ProductionQueue.Item itemToMake in toMake.Queue)
             {
                 ListViewItem item = new ListViewItem();
-                item.Text = i.Name;
-                item.SubItems.Add(i.Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                item.Text = itemToMake.Name;
+                item.SubItems.Add(itemToMake.Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                // add the BuildState to the ListViewItem.Tag
+                item.Tag = itemToMake.BuildState;
+                // either set the Checked stat here for Starbases or in the OnLoad Method of ProductionDialog.cs
 
                 listView.Items.Add(item);
             }
