@@ -88,6 +88,9 @@ namespace Nova.WinForms.Gui
         private Label totalCostYears;
         private Label selectedCostYears;
         private Label label17;
+        private Label label10;
+        private Label label8;
+        private Label selectedPercentComplete;
         private Button queueDown;
         #endregion
 
@@ -126,10 +129,20 @@ namespace Nova.WinForms.Gui
             this.ok = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.designCost = new Nova.ControlLibrary.ResourceDisplay();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
-            this.removeFromQueue = new System.Windows.Forms.Button();
-            this.queueUp = new System.Windows.Forms.Button();
-            this.queueDown = new System.Windows.Forms.Button();
+            this.totalCostYears = new System.Windows.Forms.Label();
+            this.selectedCostYears = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.totalCostBoranium = new System.Windows.Forms.Label();
+            this.totalCostGermanium = new System.Windows.Forms.Label();
+            this.totalCostEnergy = new System.Windows.Forms.Label();
+            this.totalCostIronium = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
             this.selectedCostBoranium = new System.Windows.Forms.Label();
             this.selectedCostGermanium = new System.Windows.Forms.Label();
             this.selectedCostEnergy = new System.Windows.Forms.Label();
@@ -141,19 +154,12 @@ namespace Nova.WinForms.Gui
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.totalCostBoranium = new System.Windows.Forms.Label();
-            this.totalCostGermanium = new System.Windows.Forms.Label();
-            this.totalCostEnergy = new System.Windows.Forms.Label();
-            this.totalCostIronium = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.selectedCostYears = new System.Windows.Forms.Label();
-            this.totalCostYears = new System.Windows.Forms.Label();
-            this.designCost = new Nova.ControlLibrary.ResourceDisplay();
+            this.removeFromQueue = new System.Windows.Forms.Button();
+            this.queueUp = new System.Windows.Forms.Button();
+            this.queueDown = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label10 = new System.Windows.Forms.Label();
+            this.selectedPercentComplete = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -256,7 +262,7 @@ namespace Nova.WinForms.Gui
             // 
             this.ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ok.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.ok.Location = new System.Drawing.Point(446, 474);
+            this.ok.Location = new System.Drawing.Point(446, 494);
             this.ok.Name = "ok";
             this.ok.Size = new System.Drawing.Size(64, 24);
             this.ok.TabIndex = 3;
@@ -268,7 +274,7 @@ namespace Nova.WinForms.Gui
             this.cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.cancel.Location = new System.Drawing.Point(526, 474);
+            this.cancel.Location = new System.Drawing.Point(526, 494);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(64, 24);
             this.cancel.TabIndex = 4;
@@ -285,8 +291,19 @@ namespace Nova.WinForms.Gui
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Design Cost";
             // 
+            // designCost
+            // 
+            this.designCost.Location = new System.Drawing.Point(8, 16);
+            this.designCost.Name = "designCost";
+            this.designCost.Size = new System.Drawing.Size(240, 64);
+            this.designCost.TabIndex = 0;
+            this.designCost.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+            // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.selectedPercentComplete);
+            this.groupBox4.Controls.Add(this.label10);
+            this.groupBox4.Controls.Add(this.label8);
             this.groupBox4.Controls.Add(this.totalCostYears);
             this.groupBox4.Controls.Add(this.selectedCostYears);
             this.groupBox4.Controls.Add(this.label17);
@@ -313,43 +330,126 @@ namespace Nova.WinForms.Gui
             this.groupBox4.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox4.Location = new System.Drawing.Point(328, 344);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(256, 119);
+            this.groupBox4.Size = new System.Drawing.Size(256, 142);
             this.groupBox4.TabIndex = 6;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Production Cost";
             // 
-            // removeFromQueue
+            // totalCostYears
             // 
-            this.removeFromQueue.Enabled = false;
-            this.removeFromQueue.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.removeFromQueue.Location = new System.Drawing.Point(272, 210);
-            this.removeFromQueue.Name = "removeFromQueue";
-            this.removeFromQueue.Size = new System.Drawing.Size(48, 24);
-            this.removeFromQueue.TabIndex = 7;
-            this.removeFromQueue.Text = "Remove";
-            this.removeFromQueue.Click += new System.EventHandler(this.RemoveFromQueue_Click);
+            this.totalCostYears.AutoSize = true;
+            this.totalCostYears.Location = new System.Drawing.Point(204, 95);
+            this.totalCostYears.Name = "totalCostYears";
+            this.totalCostYears.Size = new System.Drawing.Size(25, 13);
+            this.totalCostYears.TabIndex = 33;
+            this.totalCostYears.Text = "???";
             // 
-            // queueUp
+            // selectedCostYears
             // 
-            this.queueUp.Enabled = false;
-            this.queueUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.queueUp.Location = new System.Drawing.Point(272, 150);
-            this.queueUp.Name = "queueUp";
-            this.queueUp.Size = new System.Drawing.Size(48, 24);
-            this.queueUp.TabIndex = 8;
-            this.queueUp.Text = "Up";
-            this.queueUp.Click += new System.EventHandler(this.QueueUp_Click);
+            this.selectedCostYears.AutoSize = true;
+            this.selectedCostYears.Location = new System.Drawing.Point(118, 95);
+            this.selectedCostYears.Name = "selectedCostYears";
+            this.selectedCostYears.Size = new System.Drawing.Size(25, 13);
+            this.selectedCostYears.TabIndex = 32;
+            this.selectedCostYears.Text = "???";
             // 
-            // queueDown
+            // label17
             // 
-            this.queueDown.Enabled = false;
-            this.queueDown.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.queueDown.Location = new System.Drawing.Point(272, 180);
-            this.queueDown.Name = "queueDown";
-            this.queueDown.Size = new System.Drawing.Size(48, 24);
-            this.queueDown.TabIndex = 9;
-            this.queueDown.Text = "Down";
-            this.queueDown.Click += new System.EventHandler(this.QueueDown_Click);
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(7, 95);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(34, 13);
+            this.label17.TabIndex = 31;
+            this.label17.Text = "Years";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(198, 14);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(31, 13);
+            this.label16.TabIndex = 30;
+            this.label16.Text = "Total";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(94, 14);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(49, 13);
+            this.label15.TabIndex = 29;
+            this.label15.Text = "Selected";
+            // 
+            // totalCostBoranium
+            // 
+            this.totalCostBoranium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalCostBoranium.Location = new System.Drawing.Point(173, 47);
+            this.totalCostBoranium.Name = "totalCostBoranium";
+            this.totalCostBoranium.Size = new System.Drawing.Size(56, 16);
+            this.totalCostBoranium.TabIndex = 28;
+            this.totalCostBoranium.Text = "0";
+            this.totalCostBoranium.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // totalCostGermanium
+            // 
+            this.totalCostGermanium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalCostGermanium.Location = new System.Drawing.Point(173, 63);
+            this.totalCostGermanium.Name = "totalCostGermanium";
+            this.totalCostGermanium.Size = new System.Drawing.Size(56, 16);
+            this.totalCostGermanium.TabIndex = 27;
+            this.totalCostGermanium.Text = "0";
+            this.totalCostGermanium.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // totalCostEnergy
+            // 
+            this.totalCostEnergy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalCostEnergy.Location = new System.Drawing.Point(173, 79);
+            this.totalCostEnergy.Name = "totalCostEnergy";
+            this.totalCostEnergy.Size = new System.Drawing.Size(56, 16);
+            this.totalCostEnergy.TabIndex = 26;
+            this.totalCostEnergy.Text = "0";
+            this.totalCostEnergy.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // totalCostIronium
+            // 
+            this.totalCostIronium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalCostIronium.Location = new System.Drawing.Point(173, 31);
+            this.totalCostIronium.Name = "totalCostIronium";
+            this.totalCostIronium.Size = new System.Drawing.Size(56, 16);
+            this.totalCostIronium.TabIndex = 25;
+            this.totalCostIronium.Text = "0";
+            this.totalCostIronium.TextAlign = System.Drawing.ContentAlignment.TopRight;
+            // 
+            // label12
+            // 
+            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.Location = new System.Drawing.Point(229, 47);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(24, 16);
+            this.label12.TabIndex = 24;
+            this.label12.Text = "kT";
+            // 
+            // label13
+            // 
+            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label13.Location = new System.Drawing.Point(229, 63);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(24, 16);
+            this.label13.TabIndex = 23;
+            this.label13.Text = "kT";
+            // 
+            // label14
+            // 
+            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label14.Location = new System.Drawing.Point(229, 31);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(24, 16);
+            this.label14.TabIndex = 22;
+            this.label14.Text = "kT";
             // 
             // selectedCostBoranium
             // 
@@ -458,134 +558,72 @@ namespace Nova.WinForms.Gui
             this.label1.TabIndex = 11;
             this.label1.Text = "Ironium";
             // 
-            // totalCostBoranium
+            // removeFromQueue
             // 
-            this.totalCostBoranium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.removeFromQueue.Enabled = false;
+            this.removeFromQueue.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.removeFromQueue.Location = new System.Drawing.Point(272, 210);
+            this.removeFromQueue.Name = "removeFromQueue";
+            this.removeFromQueue.Size = new System.Drawing.Size(48, 24);
+            this.removeFromQueue.TabIndex = 7;
+            this.removeFromQueue.Text = "Remove";
+            this.removeFromQueue.Click += new System.EventHandler(this.RemoveFromQueue_Click);
+            // 
+            // queueUp
+            // 
+            this.queueUp.Enabled = false;
+            this.queueUp.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.queueUp.Location = new System.Drawing.Point(272, 150);
+            this.queueUp.Name = "queueUp";
+            this.queueUp.Size = new System.Drawing.Size(48, 24);
+            this.queueUp.TabIndex = 8;
+            this.queueUp.Text = "Up";
+            this.queueUp.Click += new System.EventHandler(this.QueueUp_Click);
+            // 
+            // queueDown
+            // 
+            this.queueDown.Enabled = false;
+            this.queueDown.FlatStyle = System.Windows.Forms.FlatStyle.System;
+            this.queueDown.Location = new System.Drawing.Point(272, 180);
+            this.queueDown.Name = "queueDown";
+            this.queueDown.Size = new System.Drawing.Size(48, 24);
+            this.queueDown.TabIndex = 9;
+            this.queueDown.Text = "Down";
+            this.queueDown.Click += new System.EventHandler(this.QueueDown_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(6, 112);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(62, 13);
+            this.label8.TabIndex = 34;
+            this.label8.Text = "% Complete";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(143, 112);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(15, 13);
+            this.label10.TabIndex = 36;
+            this.label10.Text = "%";
+            // 
+            // selectedPercentComplete
+            // 
+            this.selectedPercentComplete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.totalCostBoranium.Location = new System.Drawing.Point(173, 47);
-            this.totalCostBoranium.Name = "totalCostBoranium";
-            this.totalCostBoranium.Size = new System.Drawing.Size(56, 16);
-            this.totalCostBoranium.TabIndex = 28;
-            this.totalCostBoranium.Text = "0";
-            this.totalCostBoranium.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // totalCostGermanium
-            // 
-            this.totalCostGermanium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.totalCostGermanium.Location = new System.Drawing.Point(173, 63);
-            this.totalCostGermanium.Name = "totalCostGermanium";
-            this.totalCostGermanium.Size = new System.Drawing.Size(56, 16);
-            this.totalCostGermanium.TabIndex = 27;
-            this.totalCostGermanium.Text = "0";
-            this.totalCostGermanium.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // totalCostEnergy
-            // 
-            this.totalCostEnergy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.totalCostEnergy.Location = new System.Drawing.Point(173, 79);
-            this.totalCostEnergy.Name = "totalCostEnergy";
-            this.totalCostEnergy.Size = new System.Drawing.Size(56, 16);
-            this.totalCostEnergy.TabIndex = 26;
-            this.totalCostEnergy.Text = "0";
-            this.totalCostEnergy.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // totalCostIronium
-            // 
-            this.totalCostIronium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.totalCostIronium.Location = new System.Drawing.Point(173, 31);
-            this.totalCostIronium.Name = "totalCostIronium";
-            this.totalCostIronium.Size = new System.Drawing.Size(56, 16);
-            this.totalCostIronium.TabIndex = 25;
-            this.totalCostIronium.Text = "0";
-            this.totalCostIronium.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            // 
-            // label12
-            // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label12.Location = new System.Drawing.Point(229, 47);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(24, 16);
-            this.label12.TabIndex = 24;
-            this.label12.Text = "kT";
-            // 
-            // label13
-            // 
-            this.label13.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label13.Location = new System.Drawing.Point(229, 63);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(24, 16);
-            this.label13.TabIndex = 23;
-            this.label13.Text = "kT";
-            // 
-            // label14
-            // 
-            this.label14.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.label14.Location = new System.Drawing.Point(229, 31);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(24, 16);
-            this.label14.TabIndex = 22;
-            this.label14.Text = "kT";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(94, 14);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(49, 13);
-            this.label15.TabIndex = 29;
-            this.label15.Text = "Selected";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(198, 14);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(31, 13);
-            this.label16.TabIndex = 30;
-            this.label16.Text = "Total";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(7, 95);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(34, 13);
-            this.label17.TabIndex = 31;
-            this.label17.Text = "Years";
-            // 
-            // selectedCostYears
-            // 
-            this.selectedCostYears.AutoSize = true;
-            this.selectedCostYears.Location = new System.Drawing.Point(118, 95);
-            this.selectedCostYears.Name = "selectedCostYears";
-            this.selectedCostYears.Size = new System.Drawing.Size(25, 13);
-            this.selectedCostYears.TabIndex = 32;
-            this.selectedCostYears.Text = "???";
-            // 
-            // totalCostYears
-            // 
-            this.totalCostYears.AutoSize = true;
-            this.totalCostYears.Location = new System.Drawing.Point(204, 95);
-            this.totalCostYears.Name = "totalCostYears";
-            this.totalCostYears.Size = new System.Drawing.Size(25, 13);
-            this.totalCostYears.TabIndex = 33;
-            this.totalCostYears.Text = "???";
-            // 
-            // designCost
-            // 
-            this.designCost.Location = new System.Drawing.Point(8, 16);
-            this.designCost.Name = "designCost";
-            this.designCost.Size = new System.Drawing.Size(240, 64);
-            this.designCost.TabIndex = 0;
-            this.designCost.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+            this.selectedPercentComplete.Location = new System.Drawing.Point(87, 112);
+            this.selectedPercentComplete.Name = "selectedPercentComplete";
+            this.selectedPercentComplete.Size = new System.Drawing.Size(56, 16);
+            this.selectedPercentComplete.TabIndex = 37;
+            this.selectedPercentComplete.Text = "0";
+            this.selectedPercentComplete.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // ProductionDialog
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(600, 506);
+            this.ClientSize = new System.Drawing.Size(600, 526);
             this.Controls.Add(this.queueDown);
             this.Controls.Add(this.queueUp);
             this.Controls.Add(this.removeFromQueue);
