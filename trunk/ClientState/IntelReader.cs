@@ -376,6 +376,7 @@ namespace Nova.Client
               if (star.Owner == stateData.RaceName)
               {
                   stateData.PlayerStars.Add(star);
+                  star.ThisRace = stateData.PlayerRace;
               }
           }
       }
