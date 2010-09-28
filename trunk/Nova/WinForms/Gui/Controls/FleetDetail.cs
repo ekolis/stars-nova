@@ -197,7 +197,7 @@ namespace Nova.WinForms.Gui
             this.label15.TabIndex = 71;
             this.label15.Text = "Fuel";
             // 
-            // Fuel
+            // fuel
             // 
             this.fuel.BarColour = System.Drawing.Color.LightGreen;
             this.fuel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -249,12 +249,12 @@ namespace Nova.WinForms.Gui
             this.legFuel.Text = "0";
             this.legFuel.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // WarpFactor
+            // warpFactor
             // 
             this.warpFactor.AutoSize = false;
             this.warpFactor.Location = new System.Drawing.Point(57, 62);
             this.warpFactor.Name = "warpFactor";
-            this.warpFactor.Size = new System.Drawing.Size(104, 16);
+            this.warpFactor.Size = new System.Drawing.Size(104, 26);
             this.warpFactor.TabIndex = 75;
             this.warpFactor.TabStop = false;
             this.warpFactor.TickStyle = System.Windows.Forms.TickStyle.None;
@@ -321,7 +321,7 @@ namespace Nova.WinForms.Gui
             this.label4.TabIndex = 87;
             this.label4.Text = "Cargo";
             // 
-            // Cargo
+            // cargo
             // 
             this.cargo.BarColour = System.Drawing.Color.Tan;
             this.cargo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
@@ -339,7 +339,7 @@ namespace Nova.WinForms.Gui
             this.cargo.Units = "kT";
             this.cargo.Value = 0;
             // 
-            // CargoButton
+            // cargoButton
             // 
             this.cargoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.cargoButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -376,7 +376,7 @@ namespace Nova.WinForms.Gui
             this.label7.TabIndex = 91;
             this.label7.Text = "yr";
             // 
-            // ManageFleet
+            // manageFleet
             // 
             this.manageFleet.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.manageFleet.Location = new System.Drawing.Point(15, 206);
@@ -387,7 +387,7 @@ namespace Nova.WinForms.Gui
             this.manageFleet.UseVisualStyleBackColor = true;
             this.manageFleet.Click += new System.EventHandler(this.MangeFleet_Click);
             // 
-            // WayPoints
+            // wayPoints
             // 
             this.wayPoints.FormattingEnabled = true;
             this.wayPoints.Location = new System.Drawing.Point(9, 83);
@@ -471,7 +471,7 @@ namespace Nova.WinForms.Gui
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Fleet Composition";
             // 
-            // FleetComposition
+            // fleetComposition
             // 
             this.fleetComposition.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.typeHeader,
@@ -484,12 +484,12 @@ namespace Nova.WinForms.Gui
             this.fleetComposition.UseCompatibleStateImageBehavior = false;
             this.fleetComposition.View = System.Windows.Forms.View.Details;
             // 
-            // TypeHeader
+            // typeHeader
             // 
             this.typeHeader.Text = "Type";
             this.typeHeader.Width = 84;
             // 
-            // NumberHeader
+            // numberHeader
             // 
             this.numberHeader.Text = "Number";
             this.numberHeader.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
@@ -506,7 +506,7 @@ namespace Nova.WinForms.Gui
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Fleet Selection";
             // 
-            // PreviousFleet
+            // previousFleet
             // 
             this.previousFleet.Enabled = false;
             this.previousFleet.Location = new System.Drawing.Point(101, 23);
@@ -517,7 +517,7 @@ namespace Nova.WinForms.Gui
             this.previousFleet.UseVisualStyleBackColor = true;
             this.previousFleet.Click += new System.EventHandler(this.PreviousFleet_Click);
             // 
-            // NextFleet
+            // nextFleet
             // 
             this.nextFleet.Enabled = false;
             this.nextFleet.Location = new System.Drawing.Point(7, 23);
