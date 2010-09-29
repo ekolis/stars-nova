@@ -199,24 +199,24 @@ namespace Nova.WinForms.Console
 
             // determine which resource limits production (i.e. is able to complete the smallest percentage of production)
             double percentCompleted = 1.0;
-            if(percentCompleted > (1 - (float)insufficientResources.Ironium / neededResources.Ironium) && insufficientResources.Ironium > 0)
+            if (percentCompleted > (1 - ((float)insufficientResources.Ironium / neededResources.Ironium)) && insufficientResources.Ironium > 0)
             {
-                percentCompleted = (1 - (float)insufficientResources.Ironium / neededResources.Ironium);
+                percentCompleted = 1 - ((float)insufficientResources.Ironium / neededResources.Ironium);
             }
 
-            if(percentCompleted > (1 - (float)insufficientResources.Boranium / neededResources.Boranium) && insufficientResources.Boranium > 0)
+            if (percentCompleted > (1 - ((float)insufficientResources.Boranium / neededResources.Boranium)) && insufficientResources.Boranium > 0)
             {
-                percentCompleted = (1- (float)insufficientResources.Boranium / neededResources.Boranium);
+                percentCompleted = 1 - ((float)insufficientResources.Boranium / neededResources.Boranium);
             }
 
-            if(percentCompleted > (1 - (float)insufficientResources.Germanium / neededResources.Germanium) && insufficientResources.Germanium > 0)
+            if (percentCompleted > (1 - ((float)insufficientResources.Germanium / neededResources.Germanium)) && insufficientResources.Germanium > 0)
             {
-                percentCompleted = (1 - (float)insufficientResources.Germanium / neededResources.Germanium);
+                percentCompleted = 1 - ((float)insufficientResources.Germanium / neededResources.Germanium);
             }
 
-            if(percentCompleted > (1 - (float)insufficientResources.Energy / neededResources.Energy) && insufficientResources.Energy > 0)
+            if (percentCompleted > (1 - ((float)insufficientResources.Energy / neededResources.Energy)) && insufficientResources.Energy > 0)
             {
-                percentCompleted = (1 - (float)insufficientResources.Energy / neededResources.Energy);
+                percentCompleted = 1 - ((float)insufficientResources.Energy / neededResources.Energy);
             }
 
 

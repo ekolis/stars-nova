@@ -758,8 +758,9 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void AvailableSelected(object sender, System.EventArgs e)
         {
-            if (this.designList.SelectedItems.Count <= 0)  // nothing selected in the design list
+            if (this.designList.SelectedItems.Count <= 0)  
             {
+                // nothing selected in the design list
                 this.addToQueue.Enabled = false;
                 Resources emptyResources = new Resources();
                 this.designCost.Value = emptyResources;
@@ -796,7 +797,7 @@ namespace Nova.WinForms.Gui
                     this.queueUp.Enabled = false;
                     this.queueDown.Enabled = false;
                     this.removeFromQueue.Enabled = false;
-                    //this.addToQueue.Enabled = true;
+                    // this.addToQueue.Enabled = true;
                 }
                 else
                 {
@@ -914,10 +915,10 @@ namespace Nova.WinForms.Gui
 
             if (this.queueList.SelectedItems.Count > 0)
             {
-                //Design selectedDesign = queueList.Items[queueList.SelectedIndices[0]].Tag as Design;
+                // Design selectedDesign = queueList.Items[queueList.SelectedIndices[0]].Tag as Design;
                 string designName = this.queueList.Items[queueList.SelectedIndices[0]].Text;
-                //Design selectedDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + designName] as Design;
-                //if (selectedDesign != null && selectedDesign.Type == "Starbase")
+                // Design selectedDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + designName] as Design;
+                // if (selectedDesign != null && selectedDesign.Type == "Starbase")
                 if (queueList.Items[s].Checked == true)
                 {
                     designList.Items.Add(new ListViewItem(designName));
@@ -1205,7 +1206,7 @@ namespace Nova.WinForms.Gui
                     Resources selectionBuildState = this.queueList.Items[selectedIndex].Tag as Resources;
                     int quantityInStack = Convert.ToInt32(this.queueList.Items[selectedIndex].SubItems[1].Text);
 
-                    if (quantityInStack > 1 )
+                    if (quantityInStack > 1)
                     {   // more than one item in the selected stack
                         string tempName = this.queueList.Items[selectedIndex].Text;
                         Design tempDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + tempName] as Design;
@@ -1268,10 +1269,10 @@ namespace Nova.WinForms.Gui
                     string tempName = item.Text;
                     Design tempDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + tempName] as Design;
 
-                    totalCost.Ironium += (itemBuildState.Ironium + (tempDesign.Cost.Ironium * (quantityInStack - 1)));
-                    totalCost.Boranium += (itemBuildState.Boranium + (tempDesign.Cost.Boranium * (quantityInStack - 1)));
-                    totalCost.Germanium += (itemBuildState.Germanium + (tempDesign.Cost.Germanium * (quantityInStack - 1)));
-                    totalCost.Energy += (itemBuildState.Energy + (tempDesign.Cost.Energy * (quantityInStack - 1)));
+                    totalCost.Ironium += itemBuildState.Ironium + (tempDesign.Cost.Ironium * (quantityInStack - 1));
+                    totalCost.Boranium += itemBuildState.Boranium + (tempDesign.Cost.Boranium * (quantityInStack - 1));
+                    totalCost.Germanium += itemBuildState.Germanium + (tempDesign.Cost.Germanium * (quantityInStack - 1));
+                    totalCost.Energy += itemBuildState.Energy + (tempDesign.Cost.Energy * (quantityInStack - 1));
                 }
             }
             
