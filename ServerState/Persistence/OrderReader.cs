@@ -167,8 +167,9 @@ namespace Nova.Server
             // Star reference to Fleet (starbase)
             foreach (Star star in playerOrders.RaceStars)
             {
-                if (star.Owner != null)
-                    star.ThisRace = StateData.AllRaces[star.Owner] as Race;
+//                if (star.Owner != null)
+                if (star.ThisRace != null)
+                    star.ThisRace = StateData.AllRaces[star.ThisRace.Name] as Race;
                 if (star.Starbase != null)
                     star.Starbase = playerOrders.RaceFleets[star.Starbase.FleetID] as Fleet;
             }

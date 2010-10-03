@@ -986,6 +986,7 @@ namespace Nova.WinForms.Gui
                     this.queueDown.Enabled = true;
                 }                
             }
+            UpdateProductionCost();
         }
         
         /// ----------------------------------------------------------------------------
@@ -1012,6 +1013,7 @@ namespace Nova.WinForms.Gui
                     this.queueList.Items[source + 1].Selected = true;
                 }
             }
+            UpdateProductionCost();
         }
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -1110,7 +1112,7 @@ namespace Nova.WinForms.Gui
                     }
                     else
                     {
-                        itemAdded.SubItems[1].Text = newDefensesAllowed.ToString();
+                        itemAdded.SubItems[1].Text = newDefensesAllowed.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     }
                 }
             }
@@ -1186,100 +1188,448 @@ namespace Nova.WinForms.Gui
         /// </summary>
         /// ----------------------------------------------------------------------------
         private void UpdateProductionCost()
-        { 
-            // check if there are any items in the Production Queue before attempting to determine costs
-            // check if Items.Count > than 1 due to Placeholder value at Top of the Queue
-            // also check if an item is selected
-            if (this.queueList.Items.Count > 1 && this.queueList.SelectedItems.Count > 0)
+        {
+            Resources wholeQueueCost = new Resources(0,0,0,0);      // resources required to build everything in the Production Queue
+            Resources selectedItemCost = new Resources(0,0,0,0);    // resources required to build the selected item stack in the Production Queue
+            double percentComplete = 0.0;
+            int minesInQueue = 0;
+            int factoriesInQueue = 0;
+            double potentialFactories, factoriesInUse;
+            double currentFactories = this.queueStar.Factories;
+            double potentialMines, minesInUse;
+            double currentMines = this.queueStar.Mines;
+            int minYearsCurrent, maxYearsCurrent, minYearsSelected, maxYearsSelected, minYearsTotal, maxYearsTotal;
+            int yearsSoFar, yearsToCompleteOne;
+            minYearsSelected = maxYearsSelected = minYearsTotal = maxYearsTotal = 0;
+
+            Race starOwnerRace = this.queueStar.ThisRace;
+            Resources potentialResources = new Resources();
+
+            if(starOwnerRace == null)
             {
-                // Update the cost for the selected item
-                int selectedIndex = this.queueList.SelectedIndices[0];
-                if (selectedIndex > 0)
+                // set potentialResources to zero as they are unknown without knowing the Race that owns the Star
+                // and set yearsSoFar to -1 to cause the calculations of years to complete to be skipped
+                yearsSoFar = -1;
+            }
+            else
+            {
+                yearsSoFar = 1;
+                // initialize the mineral portion of the potentialResources
+                potentialResources.Ironium = this.queueStar.ResourcesOnHand.Ironium;
+                potentialResources.Boranium = this.queueStar.ResourcesOnHand.Boranium;
+                potentialResources.Germanium = this.queueStar.ResourcesOnHand.Germanium;
+            }
+
+            // check if there are any items in the Production Queue before attempting to determine costs
+            // requires checking if this.queueList.Items.Count > than 1 due to Placeholder value at Top of the Queue
+            if (this.queueList.Items.Count > 1)
+            {
+                int selectedItemIndex = 0;
+                if (this.queueList.SelectedItems.Count > 0)
                 {
-                    ListViewItem tempItem = this.queueList.Items[selectedIndex];
-
-                    if (this.queueList.Items[selectedIndex].Tag == null)
+                    selectedItemIndex = this.queueList.SelectedIndices[0];
+                    if (selectedItemIndex == 0)
                     {
-                        Report.FatalError("ProducationDialog.cs UpdateProducionCost() Selected Cost- BuildState values missing!");
-                    }
-
-                    Resources selectionBuildState = this.queueList.Items[selectedIndex].Tag as Resources;
-                    int quantityInStack = Convert.ToInt32(this.queueList.Items[selectedIndex].SubItems[1].Text);
-
-                    if (quantityInStack > 1)
-                    {   // more than one item in the selected stack
-                        string tempName = this.queueList.Items[selectedIndex].Text;
-                        Design tempDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + tempName] as Design;
-                        Resources totallingCost = new Resources();
-                        totallingCost = selectionBuildState + (tempDesign.Cost * (quantityInStack - 1));
-
-                        selectedCostIronium.Text = totallingCost.Ironium.ToString();
-                        selectedCostBoranium.Text = totallingCost.Boranium.ToString();
-                        selectedCostGermanium.Text = totallingCost.Germanium.ToString();
-                        selectedCostEnergy.Text = totallingCost.Energy.ToString();
-                    }
-                    else
-                    {
-                        selectedCostIronium.Text = selectionBuildState.Ironium.ToString();
-                        selectedCostBoranium.Text = selectionBuildState.Boranium.ToString();
-                        selectedCostGermanium.Text = selectionBuildState.Germanium.ToString();
-                        selectedCostEnergy.Text = selectionBuildState.Energy.ToString();
+                        minYearsSelected = maxYearsSelected = -2;
                     }
                 }
                 else
                 {
-                    selectedCostIronium.Text = "0";
-                    selectedCostBoranium.Text = "0";
-                    selectedCostGermanium.Text = "0";
-                    selectedCostEnergy.Text = "0";
+                    minYearsSelected = maxYearsSelected = -2;
+                }
+
+                // initialize / setup variables:
+                //  currentStackCost : used to store the cost of the Stack of items being evaluated
+                //  allBuilt : used to determine if all items remaining in the stack can be built
+                //  quantityYetToBuild : used to track how many items in the current stack still need to have their build time estimated
+                Resources currentStackCost = new Resources();
+                bool allBuilt = false;
+                int quantityYetToBuild;
+
+                for (int queueIndex = 1; queueIndex < this.queueList.Items.Count; queueIndex++)
+                {
+                    string designName = this.queueList.Items[queueIndex].Text;
+                    Design currentDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + designName] as Design;
+
+                    quantityYetToBuild = Convert.ToInt32(this.queueList.Items[queueIndex].SubItems[1].Text);
+                    currentStackCost = getProductionCosts (this.queueList.Items[queueIndex]);
+                    wholeQueueCost += currentStackCost;
+
+                    if (yearsSoFar < 0)
+                    {   // if yearsSoFar is less than zero than the item cannot currently be built because
+                        // an item further up the queue cannot be built
+                        this.queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Red;
+                        minYearsCurrent = maxYearsTotal = -1;
+                        if (minYearsTotal == 0)
+                        {
+                            minYearsTotal = -1;
+                        }
+                        maxYearsTotal = -1;
+                        if (queueIndex == selectedItemIndex)
+                        {
+                            minYearsSelected = maxYearsSelected = -1;
+                        }
+                    }
+                    else
+                    {
+                        // loop to determine the number of years to complete the current stack of items
+                        allBuilt = false;
+                        minYearsCurrent = maxYearsCurrent = yearsToCompleteOne = 0;
+                        while (yearsSoFar >= 0 && !allBuilt)
+                        {
+                            // need to determine / update the resources available at this point (resources on
+                            // planet plus those already handled in the queue - including those from
+                            // each year of this loop)
+
+                            // determine the potentialResources based on the population, factories, and mines that actually exist
+                            // determine the number of years to build this based on current mines / factories
+                            // then update to include the effect of any mines or factories in the queue
+                            // if wanting to include the effects of population growth can replace this.queueStar.Colonists with
+                            // a variable that estimates population growth
+                            potentialResources.Energy = this.queueStar.Colonists / starOwnerRace.ColonistsPerResource;
+                            potentialFactories = this.queueStar.Colonists / starOwnerRace.OperableFactories;
+                            factoriesInUse = Math.Min((currentFactories + factoriesInQueue), potentialFactories);
+
+                            potentialResources.Energy += factoriesInUse * starOwnerRace.FactoryProduction / Global.FactoriesPerFactoryProductionUnit
+                                    - this.queueStar.ResearchAllocation;
+
+                            // need to know how much of each mineral is currently available on the star (this.queueStar.ResourcesOnHand)
+                            // need race information to determine how many minerals are produced by each mine each year
+                            // need to make sure that no more than the maximum number of mines operable by colonists are being operated
+                            // if wanting to include the effects of population growth can replace this.queueStar.Colonists with
+                            // a variable that estimates population growth
+                            potentialMines = (this.queueStar.Colonists / Global.ColonistsPerOperableMiningUnit) * starOwnerRace.OperableMines;
+                            minesInUse = Math.Min(currentMines + minesInQueue, potentialMines);
+
+                            // add one year of mining results to the remaining potentialResources
+                            potentialResources.Ironium += ((minesInUse / Global.MinesPerMineProductionUnit) * starOwnerRace.MineProductionRate)
+                                         * (this.queueStar.MineralConcentration.Ironium / 100);
+                            potentialResources.Boranium += ((minesInUse / Global.MinesPerMineProductionUnit) * starOwnerRace.MineProductionRate)
+                                         * (this.queueStar.MineralConcentration.Boranium / 100);
+                            potentialResources.Germanium += ((minesInUse / Global.MinesPerMineProductionUnit) * starOwnerRace.MineProductionRate)
+                                         * (this.queueStar.MineralConcentration.Germanium / 100);
+
+                            // check how much can be done with resources available
+
+                            if (potentialResources >= currentStackCost)
+                            {
+                                // everything remaining in this stack can be done
+                                // therefore set allBuilt to true and reduce potential resources
+                                // do not increment the yearsSoFar as other items might be able to be completed
+                                //    this year with the remaining resources
+                                allBuilt = true;
+                                yearsToCompleteOne = 0;
+                                potentialResources = potentialResources - currentStackCost;
+                                if (minYearsCurrent == 0)
+                                {
+                                    minYearsCurrent = yearsSoFar;
+                                }
+                                maxYearsCurrent = yearsSoFar;
+
+                                if(queueIndex == selectedItemIndex)
+                                {
+                                    if (minYearsSelected == 0)
+                                    {
+                                        minYearsSelected = yearsSoFar;
+                                    }
+                                    maxYearsSelected = yearsSoFar;
+                                }
+                                if (minYearsTotal == 0)
+                                {
+                                    minYearsTotal = yearsSoFar;
+                                }
+                                maxYearsTotal = yearsSoFar;
+                                if (currentDesign.Type == "Mine")
+                                {
+                                    minesInQueue += quantityYetToBuild;
+                                }
+                                if (currentDesign.Type == "Factory")
+                                {
+                                    factoriesInQueue += quantityYetToBuild;
+                                }
+                            }
+                            else
+                            {
+                                // not everything in the stack can be built this year
+
+                                // the current build state is the cost of the first item found by (total cost - (cost of all but one))
+                                Resources currentBuildState = new Resources();
+                                currentBuildState = currentStackCost - (quantityYetToBuild - 1) * currentDesign.Cost;
+
+                                // determine the percentage able to be completed by whichever resource is limiting production
+                                double fractionComplete = 1.0;
+                                if (currentStackCost.Ironium > 0)
+                                {
+                                    fractionComplete = Convert.ToDouble(potentialResources.Ironium) / currentStackCost.Ironium;
+                                }
+                                if (currentStackCost.Boranium > 0)
+                                {
+                                    if (Convert.ToDouble(potentialResources.Boranium) / currentStackCost.Boranium < fractionComplete)
+                                    {
+                                        fractionComplete = Convert.ToDouble(potentialResources.Boranium) / currentStackCost.Boranium;
+                                    }
+                                }
+                                if (currentStackCost.Germanium > 0)
+                                {
+                                    if (Convert.ToDouble(potentialResources.Germanium) / currentStackCost.Germanium < fractionComplete)
+                                    {
+                                        fractionComplete = Convert.ToDouble(potentialResources.Germanium) / currentStackCost.Germanium;
+                                    }
+                                }
+                                if (currentStackCost.Energy > 0)
+                                {
+                                    if (Convert.ToDouble(potentialResources.Energy) / currentStackCost.Energy < fractionComplete)
+                                    {
+                                        fractionComplete = Convert.ToDouble(potentialResources.Energy) / currentStackCost.Energy;
+                                    }
+                                }
+                                // apply this percentage to the currentStackCost to determine how much to remove from
+                                // potentialResources and currentStackCost
+                                Resources amountUsed = new Resources();
+                                amountUsed.Ironium = fractionComplete * currentStackCost.Ironium;
+                                amountUsed.Boranium = fractionComplete * currentStackCost.Boranium;
+                                amountUsed.Germanium = fractionComplete * currentStackCost.Germanium;
+                                amountUsed.Energy = fractionComplete * currentStackCost.Energy;
+                                potentialResources = potentialResources - amountUsed;
+                                currentStackCost = currentStackCost - amountUsed;
+
+                                // check if at least one item in the stack can be built "this" year
+                                if (amountUsed >= currentBuildState)
+                                {
+                                    // at least one item can be built this year
+                                    yearsToCompleteOne = 0;
+                                    if (minYearsCurrent == 0)
+                                    {
+                                        minYearsCurrent = yearsSoFar;
+                                    }
+                                    if (queueIndex == selectedItemIndex && minYearsSelected == 0)
+                                    {
+                                        minYearsSelected = yearsSoFar;
+                                    }
+                                    if (minYearsTotal == 0)
+                                    {
+                                        minYearsTotal = yearsSoFar;
+                                    }
+                                    // determine how many items are able to be built and reduce quantity accordingly
+                                    for (int quantityStepper = 1; quantityStepper < quantityYetToBuild; quantityStepper++)
+                                    {
+                                        if (amountUsed <= (currentBuildState + quantityStepper * currentDesign.Cost))
+                                        {
+                                            quantityYetToBuild = quantityYetToBuild - quantityStepper;
+                                            quantityStepper = quantityYetToBuild + 1;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    // not able to complete even one item this year
+                                    yearsToCompleteOne++;
+                                }
+
+
+                                if (yearsToCompleteOne > 20)
+                                {
+                                    // an item is considered to be unbuildable if it will take more than
+                                    // 20 years to build it
+                                    yearsSoFar = -1;
+                                    if (minYearsCurrent == 0)
+                                    {
+                                        minYearsCurrent = -1;
+                                    }
+                                    maxYearsCurrent = -1;
+                                    if (minYearsTotal == 0)
+                                    {
+                                        minYearsTotal = -1;
+                                    }
+                                    maxYearsTotal = -1;
+                                }
+                                allBuilt = false;
+                                yearsSoFar++;
+                            }
+                        }
+                        // end of the while loop to determine years to build items in the stack
+
+                        // once *YearsCurrent have been determined set font colour appropriately
+                        if (minYearsCurrent == 1)
+                        {
+                            if (maxYearsCurrent == 1)
+                            {
+                                this.queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Green;
+                            }
+                            else
+                            {
+                                this.queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Blue;
+                            }
+                        }
+                        else
+                        {
+                            if (minYearsCurrent == -1)
+                            {
+                                this.queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Red;
+                            }
+                            else
+                            {
+                                this.queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Black;
+                            }
+                        }
+                    }
+
+                    if (queueIndex == selectedItemIndex)
+                    {
+                        selectedItemCost = getProductionCosts (this.queueList.Items[queueIndex]);
+
+                        Resources currentBuildState = this.queueList.Items[queueIndex].Tag as Resources;
+
+                        // determine the percent complete; defined as the resource that is the most complete
+                        if (currentDesign.Cost.Ironium > 0)
+                        {
+                            percentComplete = 100 * (1.0 - (Convert.ToDouble(currentBuildState.Ironium) / currentDesign.Cost.Ironium));
+                        }
+                        if (currentDesign.Cost.Boranium > 0 && percentComplete < 100 * (1.0 - (Convert.ToDouble(currentBuildState.Boranium) / currentDesign.Cost.Boranium)))
+                        {
+                            percentComplete = 100 * (1.0 - (Convert.ToDouble(currentBuildState.Boranium) / currentDesign.Cost.Boranium));
+                        }
+                        if (currentDesign.Cost.Germanium > 0 && percentComplete < 100 * (1.0 - (Convert.ToDouble(currentBuildState.Germanium) / currentDesign.Cost.Germanium)))
+                        {
+                            percentComplete = 100 * (1.0 - (Convert.ToDouble(currentBuildState.Germanium) / currentDesign.Cost.Germanium));
+                        }
+                        if (currentDesign.Cost.Energy > 0 && percentComplete < 100 * (1.0 - (Convert.ToDouble(currentBuildState.Energy) / currentDesign.Cost.Energy)))
+                        {
+                            percentComplete = 100 * (1.0 - (Convert.ToDouble(currentBuildState.Energy) / currentDesign.Cost.Energy));
+                        }
+                    }
+                }
+            }
+            else
+            {       // as there are no items in the queue set all fields to "0"
+                wholeQueueCost = new Resources(0,0,0,0);
+                selectedItemCost = wholeQueueCost;
+                minYearsSelected = maxYearsSelected = -2;
+                minYearsTotal = maxYearsTotal = -2;
+                yearsSoFar = -1;
+            }
+
+
+            // set the costs display fields
+            totalCostIronium.Text = ((int)wholeQueueCost.Ironium).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            totalCostBoranium.Text = ((int)wholeQueueCost.Boranium).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            totalCostGermanium.Text = ((int)wholeQueueCost.Germanium).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            totalCostEnergy.Text = ((int)wholeQueueCost.Energy).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            if (yearsSoFar < 0)
+            {
+                if (minYearsTotal == -2)
+                {
+                    totalCostYears.Text = "N / A";
+                }
+                else
+                {
+                    totalCostYears.Text = "Never!";
                 }
             }
             else
             {
-                selectedCostIronium.Text = "0";
-                selectedCostBoranium.Text = "0";
-                selectedCostGermanium.Text = "0";
-                selectedCostEnergy.Text = "0";
-            }     
-
-            // sum up the Production Costs for all items in the queue (even if empty)
-            Nova.Common.Resources totalCost = new Nova.Common.Resources();
-
-            foreach (ListViewItem item in this.queueList.Items)
-            {
-                string name = item.Text;
-                
-                if (name == "--- Top of Queue ---" || name == "--- Queue is Empty ---")
+                if (minYearsTotal == maxYearsTotal && minYearsTotal == 1)
                 {
-                    // do nothing in this case
-                    totalCost.Ironium += 0;
-                    totalCost.Boranium += 0;
-                    totalCost.Germanium += 0;
-                    totalCost.Energy += 0;                
+                    totalCostYears.Text = "1 year.";
                 }
                 else
                 {
-                    if (item.Tag == null)
+                    if (maxYearsTotal < 0)
                     {
-                        Report.FatalError("ProducationDialog.cs UpdateProducionCost() Total Cost - BuildState missing!");
+                        totalCostYears.Text = minYearsTotal.ToString(System.Globalization.CultureInfo.InvariantCulture) + " - ???? years." ;
                     }
-
-                    Resources itemBuildState = item.Tag as Resources;
-                    int quantityInStack = Convert.ToInt32(item.SubItems[1].Text);
-                    string tempName = item.Text;
-                    Design tempDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + tempName] as Design;
-
-                    totalCost.Ironium += itemBuildState.Ironium + (tempDesign.Cost.Ironium * (quantityInStack - 1));
-                    totalCost.Boranium += itemBuildState.Boranium + (tempDesign.Cost.Boranium * (quantityInStack - 1));
-                    totalCost.Germanium += itemBuildState.Germanium + (tempDesign.Cost.Germanium * (quantityInStack - 1));
-                    totalCost.Energy += itemBuildState.Energy + (tempDesign.Cost.Energy * (quantityInStack - 1));
+                    else
+                    {
+                        if (minYearsTotal == maxYearsTotal)
+                        {
+                            totalCostYears.Text = minYearsTotal.ToString(System.Globalization.CultureInfo.InvariantCulture) + " years.";
+                        }
+                        else
+                        {
+                            totalCostYears.Text = minYearsTotal.ToString(System.Globalization.CultureInfo.InvariantCulture) + " - " + maxYearsTotal.ToString(System.Globalization.CultureInfo.InvariantCulture) + " years.";
+                        }
+                    }
                 }
             }
-            
-            totalCostIronium.Text = ((int)totalCost.Ironium).ToString();
-            totalCostBoranium.Text = ((int)totalCost.Boranium).ToString();
-            totalCostGermanium.Text = ((int)totalCost.Germanium).ToString();
-            totalCostEnergy.Text = ((int)totalCost.Energy).ToString();
+            selectedCostIronium.Text = ((int)selectedItemCost.Ironium).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            selectedCostBoranium.Text = ((int)selectedItemCost.Boranium).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            selectedCostGermanium.Text = ((int)selectedItemCost.Germanium).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            selectedCostEnergy.Text = ((int)selectedItemCost.Energy).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            selectedPercentComplete.Text = percentComplete.ToString("N1");
+            if (minYearsSelected < 0)
+            {
+                if (minYearsSelected == -2)
+                {
+                    selectedCostYears.Text = "N / A";
+                }
+                else
+                {
+                    selectedCostYears.Text = "Never!";
+                }
+            }
+            else
+            {
+                if (minYearsSelected == 1 && maxYearsSelected == 1)
+                {
+                    selectedCostYears.Text = "1 year." ;
+                }
+                else
+                {
+                    if (maxYearsSelected < 0)
+                    {
+                        selectedCostYears.Text = minYearsSelected.ToString(System.Globalization.CultureInfo.InvariantCulture) + " - ???? years." ;
+                    }
+                    else
+                    {
+                        if (minYearsSelected == maxYearsSelected)
+                        {
+                            selectedCostYears.Text = minYearsSelected.ToString(System.Globalization.CultureInfo.InvariantCulture) + " years.";
+                        }
+                        else
+                        {
+                            selectedCostYears.Text = minYearsSelected.ToString(System.Globalization.CultureInfo.InvariantCulture) + " - " + maxYearsSelected.ToString(System.Globalization.CultureInfo.InvariantCulture) + " years.";
+                        }
+                    }
+                }
+            }
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Determine the amount of Resources required to produce a stack of items from the ListView
+        /// For each stack of items the first item might be partially built as defined by
+        /// the BuildState and therefore require less Resources than the rest of the items
+        /// in the stack which require the design.cost
+        /// </summary>
+        /// <returns>The resources required to produce the item(s) of interest.</returns>
+        /// <param name="itemOfInterest">The item(s) from the Production ListView to be evaluated</param>
+        /// ----------------------------------------------------------------------------
+        private Resources getProductionCosts(ListViewItem stackOfInterest)
+        {
+            Resources costsToProduce = new Resources();
+
+            if (stackOfInterest.Tag == null)
+            {
+                Report.Error("No Buildstate associated with: " + stackOfInterest.Text);
+                return costsToProduce;
+            }
+            else
+            {
+                costsToProduce = stackOfInterest.Tag as Resources;
+            }
+
+            int stackQuantity = Convert.ToInt32(stackOfInterest.SubItems[1].Text);
+
+            if (stackQuantity > 1)  // this check should not be required, but better to be safe than sorry
+            {
+                string designName = stackOfInterest.Text;
+                Design currentDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + designName] as Design;
+                    // as the first item in the stack costs BuildState to complete the design cost
+                    // is multiplied by the quantity - 1
+                costsToProduce += (currentDesign.Cost * (stackQuantity - 1));
+            }
+
+            return costsToProduce;
         }
 
         #endregion

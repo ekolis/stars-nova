@@ -59,11 +59,11 @@ namespace Nova.Common
 
         // These parameters affect the production rate of each star (used in the
         // Star class Update method).
-        public int FactoryBuildCost;
+        public int FactoryBuildCost;        // defined in the Race Designer as the amount of Resourcesrequired to build one factory
         public double ColonistsPerResource;
-        public double FactoryProduction;
+        public double FactoryProduction;    // defined in the Race Designer as the amount of resources produced by 10 factories
         public double OperableFactories;
-        public double MineProductionRate;
+        public double MineProductionRate;   // defined in the Race Designer as the amount of minerals (kT) mined by every 10 mines
         public double OperableMines;
 
         public double GrowthRate;
