@@ -65,6 +65,9 @@ namespace Nova.Client
         public List<Fleet> PlayerFleets = new List<Fleet>();
         public StarList PlayerStars = new StarList(); 
         public Race PlayerRace = new Race();
+        /// <summary>
+        /// Gets information about technology levels for current client
+        /// </summary>
         public TechLevel ResearchLevel = new TechLevel(); // current level of technology
         public TechLevel ResearchResources = new TechLevel();
         public bool FirstTurn = true;
@@ -73,6 +76,9 @@ namespace Nova.Client
         public int TurnYear = 0;
         public string GameFolder = null;
         public string RaceName = null;
+        /// <summary>
+        /// Gets or sets current research topic
+        /// </summary>
         public TechLevel.ResearchField ResearchTopic = TechLevel.ResearchField.Energy;
 
 
