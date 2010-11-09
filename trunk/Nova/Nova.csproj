@@ -50,6 +50,8 @@
     <Compile Include="..\VersionInfo.cs">
       <Link>VersionInfo.cs</Link>
     </Compile>
+    <Compile Include="Ai\AbstractAI.cs" />
+    <Compile Include="Ai\AiRunner.cs" />
     <Compile Include="Ai\DefaultAi.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
