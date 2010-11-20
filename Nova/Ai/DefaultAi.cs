@@ -102,9 +102,9 @@ namespace Nova.Ai
         private void HandleResearch()
         {
             //check if messages contains info about tech advence
-            foreach(string msg in ClientState.Data.Messages )
+            foreach(Message msg in ClientState.Data.Messages )
             {
-                if(msg.Contains("Your race has advanced to Tech Level") == true)
+                if(msg.Text.Contains("Your race has advanced to Tech Level") == true)
                 {
                     int minLevel = int.MaxValue;
                     Nova.Common.TechLevel.ResearchField rs = TechLevel.ResearchField.Electronics;
