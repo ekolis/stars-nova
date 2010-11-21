@@ -32,6 +32,8 @@
 
 using System.Collections;
 using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 
 using Nova.Common;
 using Nova.Common.Components;
@@ -76,14 +78,14 @@ namespace Nova.Client
 
           using (Stream turnFile = new FileStream(turnFileName, FileMode.Open))
           {
-              int turnYearInFile = (int)Serializer.Deserialize(turnFile);
+              XmlDocument xmldoc = new XmlDocument();
 
+              xmldoc.Load(turnFile);
+              Intel newIntel = new Intel(xmldoc);
 
               // check this is a new turn, not the one just played
-              if (turnYearInFile != ClientState.Data.TurnYear)
+              if (newIntel.TurnYear != ClientState.Data.TurnYear)
               {
-                  Intel newIntel = Serializer.Deserialize(turnFile)
-                                            as Intel;
                   ClientState.Data.RaceName = newIntel.MyRace.Name;
                   ClientState.Data.GameFolder = Path.GetDirectoryName(turnFileName);
                   ClientState.Restore();
@@ -119,7 +121,10 @@ namespace Nova.Client
          stateData.DeletedFleets.Clear();
          stateData.DeletedDesigns.Clear();
          stateData.Messages.Clear();
-         
+
+          // fix object references after loading
+         LinkIntelReferences();
+
           // Process the new intel
          DetermineOrbitingFleets();
          DeterminePlayerStars();
@@ -129,6 +134,67 @@ namespace Nova.Client
          ProcessFleets();
          ProcessReports();
          ProcessResearch();
+      }
+
+
+      /// ----------------------------------------------------------------------------
+      /// <summary>
+      /// When intel is loaded from file, objects may contain references to other objects.
+      /// As these may be loaded in any order (or be cross linked) it is necessary to tidy
+      /// up these references once the file is fully loaded and all objects exist.
+      /// In most cases a placeholder object has been created with the Name set from the file,
+      /// and we need to find the actual reference using this Name.
+      /// Objects can't do this themselves as they don't have access to the state data, 
+      /// so we do it here.
+      /// </summary>
+      /// ----------------------------------------------------------------------------
+      private static void LinkIntelReferences()
+      {
+          Intel turnData = ClientState.Data.InputTurn;
+
+          // Fleet reference to Star
+          foreach (Fleet fleet in turnData.AllFleets.Values)
+          {
+              if (fleet.InOrbit != null)
+                  fleet.InOrbit = turnData.AllStars[fleet.InOrbit.Name] as Star;
+              // Ship reference to Design
+              foreach (Ship ship in fleet.FleetShips)
+              {
+                  // FIXME (priority 4) - this way of forming the key is a kludge
+                  ship.DesignUpdate(turnData.AllDesigns[ship.Owner + "/" + ship.DesignName] as ShipDesign);
+              }
+          }
+          // Star reference to Race
+          // Star reference to Fleet (starbase)
+          foreach (Star star in turnData.AllStars.Values)
+          {
+
+              if (star.ThisRace != null)
+              {
+                  if (star.Owner == stateData.PlayerRace.Name)
+                      star.ThisRace = stateData.PlayerRace;
+                  else
+                      star.ThisRace = null;
+              }
+
+                  if (star.Starbase != null)
+                      star.Starbase = turnData.AllFleets[star.Starbase.FleetID] as Fleet;
+              
+          }
+
+          // HullModule reference to a component
+          foreach (Design design in turnData.AllDesigns.Values)
+          {
+              if (design.Type == "Ship")
+              {
+                  ShipDesign ship = design as ShipDesign;
+                  foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)
+                  {
+                      if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
+                          module.AllocatedComponent = AllComponents.Data.Components[module.AllocatedComponent.Name] as Component;
+                  }
+              }
+          }
       }
 
 
@@ -171,8 +237,7 @@ namespace Nova.Client
           {
               if (fleet.InOrbit != null && fleet.Type != "Starbase")
               {
-                  Star star = fleet.InOrbit;
-                  star.OrbitingFleets = true;
+                  fleet.InOrbit.OrbitingFleets = true;                  
               }
           }
       }
@@ -216,7 +281,6 @@ namespace Nova.Client
               {
                   stateData.PlayerFleets.Add(fleet);
 
-
                   if (fleet.IsStarbase)
                   {
                       // update the reference from the star to its starbase and vice versa (the fleet should know the name of the star, but the reference is a dummy)
@@ -232,14 +296,12 @@ namespace Nova.Client
                   // --------------------------------------------------------------------------------
                   // FIXME (priority 5) - discovery of planetary information should be done by the server. It should not be possible for a hacked client to get this information.
 
-                  if ((fleet.InOrbit != null) && (!fleet.IsStarbase) && (fleet.ShortRangeScan != 0))
+                  
+                  if ((fleet.InOrbit != null) && (!fleet.IsStarbase) && fleet.CanScan)
                   {
-
                       // add to orbiting fleets list
                       Star star = fleet.InOrbit;
                       stateData.StarReports[star.Name] = new StarReport(star);
-
-
                   }
 
                   if (fleet.ShortRangeScan != 0)
@@ -253,8 +315,8 @@ namespace Nova.Client
                           }
                       }
                   }
-                  // END OF FIX ME --------------------------------------------------------------------------------
 
+                  // END OF FIX ME --------------------------------------------------------------------------------
 
               }
           }

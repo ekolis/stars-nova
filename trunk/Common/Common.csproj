@@ -66,6 +66,10 @@
     <RootNamespace>NovaCommon</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="nunit.framework, Version=2.4.0.2, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Libraries\nunit.framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core">
       <RequiredTargetFramework>3.5</RequiredTargetFramework>
@@ -193,6 +197,7 @@
     </Compile>
     <Compile Include="SpaceAllocator.cs" />
     <Compile Include="..\VersionInfo.cs" />
+    <Compile Include="TestControls.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProgressDialog.resx">

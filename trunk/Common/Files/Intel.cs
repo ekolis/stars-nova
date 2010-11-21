@@ -29,6 +29,7 @@
 #endregion
 
 #region Using Statements
+
 using System;
 using System.Collections;
 using System.Drawing;
@@ -38,6 +39,13 @@ using System.Resources;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml;
+using System.Xml.Serialization;
+
+using Nova.Common.Components;
+
+using NUnit.Framework;
+
 #endregion
 
 // ============================================================================
@@ -51,74 +59,449 @@ namespace Nova.Common
    public sealed class Intel
    {
 
-// ============================================================================
-// The data items created by the Nova Console and read by the Nova GUI.
-// ============================================================================
+       // ============================================================================
+       // The data items created by the Nova Console and read by the Nova GUI.
+       // ============================================================================
 
-      public int TurnYear = 2100;
-      public Race MyRace = new Race();
-      public ArrayList Messages = new ArrayList();
-      public ArrayList Battles = new ArrayList();
-      public ArrayList AllRaceNames = new ArrayList();
-      public ArrayList AllScores = new ArrayList();
-      public Hashtable RaceIcons = new Hashtable();
-      public Hashtable AllFleets = new Hashtable();
-      public Hashtable AllDesigns = new Hashtable();
-      public Hashtable AllStars = new Hashtable();
-      public Hashtable AllMinefields = new Hashtable();
+       public int TurnYear = 2100;
+       public Race MyRace = new Race();
+       public ArrayList Messages = new ArrayList();
+       public ArrayList Battles = new ArrayList();
+       public ArrayList AllRaceNames = new ArrayList();
+       public ArrayList AllScores = new ArrayList();
 
-      /// ----------------------------------------------------------------------------
-      /// <summary>
-      /// Reset all data structures.
-      /// </summary>
-      /// ----------------------------------------------------------------------------
-      public void Clear()
-      {
-          MyRace = null;
-          AllDesigns.Clear();
-          AllFleets.Clear();
-          AllRaceNames.Clear();
-          AllStars.Clear();
-          AllMinefields.Clear();
-          Battles.Clear();
-          Messages.Clear();
+       /// <summary>
+       /// Provide access for the client/GUI to a list of race icons for races the player has encountered, indexed by race name.
+       /// Disambiguation: The AllRaceIcons singleton is a collection of all posible icons for use when creating races.
+       /// The server/console should obtain race icon information from ServerState.Data.AllRaces. The client can not maintain such a collection as it has insuficient data on all races.
+       /// </summary>
+       public Hashtable RaceIcons = new Hashtable();
 
-          TurnYear = 2100;
-      }
+       public Hashtable AllFleets = new Hashtable();
+       public Hashtable AllDesigns = new Hashtable();
+       public Hashtable AllStars = new Hashtable();
+       public Hashtable AllMinefields = new Hashtable();
 
-      // ============================================================================
-      // Return an XmlElement representation of the Intel
-      // ============================================================================      
-       /*      public XmlElement ToXml(XmlDocument xmldoc)
-   {
-       System.Xml.XmlElement xmlelModule = xmldoc.CreateElement("Module");
+       /// <summary>
+       /// Default constructor.
+       /// </summary>
+       public Intel()
+       {
+       }
+
+       /// ----------------------------------------------------------------------------
+       /// <summary>
+       /// Reset all data structures.
+       /// </summary>
+       /// ----------------------------------------------------------------------------
+       public void Clear()
+       {
+           MyRace = null;
+           AllDesigns.Clear();
+           AllFleets.Clear();
+           AllRaceNames.Clear();
+           AllStars.Clear();
+           AllMinefields.Clear();
+           Battles.Clear();
+           Messages.Clear();
+
+           TurnYear = 2100;
+       }
+
+       #region To From Xml
 
 
-       // CellNumber
-       XmlElement xmlelCellNumber = xmldoc.CreateElement("CellNumber");
-       XmlText xmltxtCellNumber = xmldoc.CreateTextNode(this.CellNumber.ToString(System.Globalization.CultureInfo.InvariantCulture));
-       xmlelCellNumber.AppendChild(xmltxtCellNumber);
-       xmlelModule.AppendChild(xmlelCellNumber);
-       // ComponentCount
-       XmlElement xmlelComponentCount = xmldoc.CreateElement("ComponentCount");
-       XmlText xmltxtComponentCount = xmldoc.CreateTextNode(this.ComponentCount.ToString(System.Globalization.CultureInfo.InvariantCulture));
-       xmlelComponentCount.AppendChild(xmltxtComponentCount);
-       xmlelModule.AppendChild(xmlelComponentCount);
-       // ComponentMaximum
-       XmlElement xmlelComponentMaximum = xmldoc.CreateElement("ComponentMaximum");
-       XmlText xmltxtComponentMaximum = xmldoc.CreateTextNode(this.ComponentMaximum.ToString(System.Globalization.CultureInfo.InvariantCulture));
-       xmlelComponentMaximum.AppendChild(xmltxtComponentMaximum);
-       xmlelModule.AppendChild(xmlelComponentMaximum);
-       // ComponentType
-       XmlElement xmlelComponentType = xmldoc.CreateElement("ComponentType");
-       XmlText xmltxtComponentType = xmldoc.CreateTextNode(this.ComponentType);
-       xmlelComponentType.AppendChild(xmltxtComponentType);
-       xmlelModule.AppendChild(xmlelComponentType);
+       /// ----------------------------------------------------------------------------
+       /// <summary>
+       /// Load <see cref="Intel">Intel</see> from an xml document 
+       /// </summary>
+       /// <param name="xmldoc">produced using XmlDocument.Load(filename)</param>
+       /// ----------------------------------------------------------------------------
+       public Intel(XmlDocument xmldoc)
+       {
 
-        
+           // re-initialise
+           TurnYear = 2100;
+           MyRace = new Race();
+           Messages = new ArrayList();
+           Battles = new ArrayList();
+           AllRaceNames = new ArrayList();
+           AllScores = new ArrayList();
+           RaceIcons = new Hashtable();
+           AllFleets = new Hashtable();
+           AllDesigns = new Hashtable();
+           AllStars = new Hashtable();
+           AllMinefields = new Hashtable();
 
-       return xmlelModule;
-   }  */
+           XmlNode xmlnode = xmldoc.DocumentElement;
+           while (xmlnode != null)
+           {
+               try
+               {
+                   switch (xmlnode.Name.ToLower())
+                   {
+                       case "root":
+                           xmlnode = xmlnode.FirstChild;
+                           continue;
+                       case "intel":
+                           xmlnode = xmlnode.FirstChild;
+                           continue;
+
+                       case "turnyear":
+                           TurnYear = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                           break;
+
+                       case "race":
+                           MyRace = new Race();
+                           MyRace.LoadRaceFromXml(xmlnode);
+                           break;
+
+                       case "message":
+                           Message message = new Message(xmlnode);
+                           Messages.Add(message);
+                           break;
+
+                       case "battlereport":
+                           BattleReport battle = new BattleReport(xmlnode);
+                           Battles.Add(battle);
+                           break;
+
+                       case "racename":
+                           AllRaceNames.Add(xmlnode.FirstChild.Value);
+                           break;
+
+                       case "scorerecord":
+                           ScoreRecord newScore = new ScoreRecord(xmlnode);
+                           AllScores.Add(newScore);
+                           break;
+
+                           
+                       case "raceiconrecord":
+                           // The race icon record is a dictionary entry (i.e. key/value pair) which links the race name to a given RaceIcon.
+                           // This provides the client/GUI with a way to find icons for known races (as it doesn't/can't have AllRace data). 
+                           // Both key and value must be serialised as the race name is not something that can be generated from the icon.
+                           try
+                           {
+                               // first node should be the race name
+                               string raceName;
+                               XmlNode raceNameNode = xmlnode.FirstChild;
+                               if (raceNameNode.Name.ToLower() == "racename")
+                               {
+                                   raceName = raceNameNode.FirstChild.Value;
+                               }
+                               else
+                               {
+                                   throw new Exception("Intel.cs : Xml Constructor - failed to load race icon record: race name not found.");
+                               }
+
+                               // second node should be the RaceIcon
+                               RaceIcon newIcon = null;
+                               XmlNode iconSourceNode = raceNameNode.NextSibling;
+                               if (iconSourceNode.Name.ToLower() == "raceicon")
+                               {
+                                   newIcon = new RaceIcon(xmlnode.FirstChild);
+                               }
+                               else
+                               {
+                                   throw new Exception("Intel.cs : Xml Constructor - failed to load race icon record: RaceIcon not found");
+                               }
+
+                               RaceIcons.Add(raceName, newIcon); 
+                           }
+                           catch (Exception e)
+                           {
+                               Report.FatalError(e.Message + "\n Details: \n" + e);
+
+                           }
+                           break;
+                           
+                           // FIXME (priority 8) - these were all serialised from hashtables, but the key was not saved. 
+                           // It may be ok to regenerate the key, but saving and loading the key may be better (unless we don't trust the .intel file???).
+
+                       case "fleet":
+                           Fleet newFleet = new Fleet(xmlnode);
+                           AllFleets.Add(newFleet.Key, newFleet);
+                           break;
+
+                       case "design":
+                           Design newDesign = new Design(xmlnode);
+                           AllDesigns.Add(newDesign.Key, newDesign);
+                           break;
+
+                       case "shipdesign":
+                           ShipDesign newShipDesign = new ShipDesign(xmlnode);
+                           AllDesigns.Add(newShipDesign.Key, newShipDesign);
+                           break;
+
+                       case "star":
+                           Star newStar = new Star(xmlnode);
+                           AllStars.Add(newStar.Key, newStar);
+                           break;
+
+                       case "minefield":
+                           Minefield minefield = new Minefield(xmlnode);
+                           AllMinefields.Add(minefield.Key, minefield);
+                           break;
+
+                       default: break;
+                   }
+
+               }
+               catch (Exception e)
+               {
+                   Report.FatalError(e.Message + "\n Details: \n" + e);
+               }
+
+               xmlnode = xmlnode.NextSibling;
+           }
+       }
+
+
+       /// ----------------------------------------------------------------------------
+       /// <summary>
+       /// Save: Serialise this object to an <see cref="XmlElement"/>.
+       /// </summary>
+       /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+       /// <returns>An <see cref="XmlElement"/> representation of the Intel</returns>
+       /// ----------------------------------------------------------------------------     
+       public XmlElement ToXml(XmlDocument xmldoc)
+       {
+           // create the outer element
+           XmlElement xmlelIntel = xmldoc.CreateElement("Intel");
+
+           // TurnYear
+           Global.SaveData(xmldoc, xmlelIntel, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+           // MyRace 
+           xmlelIntel.AppendChild(MyRace.ToXml(xmldoc));
+
+           // Messages 
+           if (Messages.Count > 0)
+           {
+               foreach (Message message in Messages)
+               {
+                   xmlelIntel.AppendChild(message.ToXml(xmldoc));
+               }
+           }
+
+           // Battles 
+           if (Battles.Count > 0)
+           {
+               foreach (BattleReport battle in Battles)
+               {
+                   xmlelIntel.AppendChild(battle.ToXml(xmldoc));
+               }
+           }
+
+           // AllRaceNames 
+           foreach (string raceName in AllRaceNames)
+           {
+               Global.SaveData(xmldoc, xmlelIntel, "RaceName", raceName.ToString());
+           }
+
+           // AllScores 
+           foreach (ScoreRecord score in AllScores)
+           {
+               xmlelIntel.AppendChild(score.ToXml(xmldoc));
+           }
+
+           // RaceIcons
+           foreach (DictionaryEntry raceIconRecord in RaceIcons)
+           {
+               XmlElement xmlelRaceIconRecord = xmldoc.CreateElement("RaceIconRecord");
+               Global.SaveData(xmldoc, xmlelRaceIconRecord, "RaceName", raceIconRecord.Key.ToString());
+               xmlelRaceIconRecord.AppendChild(((RaceIcon)raceIconRecord.Value).ToXml(xmldoc));
+               xmlelIntel.AppendChild(xmlelRaceIconRecord);
+           }
+
+           // AllFleets
+           foreach (Fleet fleet in AllFleets.Values)
+           {
+               xmlelIntel.AppendChild(fleet.ToXml(xmldoc));
+           }
+
+           // AllDesigns 
+           foreach (Design design in AllDesigns.Values)
+           {
+               if (design.Type == "Starbase" || design.Type == "Ship")
+               {
+                   xmlelIntel.AppendChild(((ShipDesign)design).ToXml(xmldoc));
+               }
+               else
+               {
+                   xmlelIntel.AppendChild(design.ToXml(xmldoc));
+               }
+           }
+
+           // AllStars
+           foreach (Star star in AllStars.Values)
+           {
+               xmlelIntel.AppendChild(star.ToXml(xmldoc));
+           }
+
+           // AllMinefields
+           foreach (Minefield mine in AllMinefields)
+           {
+               xmlelIntel.AppendChild(mine.ToXml(xmldoc));
+           }
+
+           // return the outer element
+           return xmlelIntel;
+       }
+
+       #endregion
+
+       #region Unit Test
+
+       /// <summary>
+       /// This is a test of the Intel's serialisation, with empty Intel.
+       /// </summary>
+       [Test]
+       public void SerialisationTestEmptyIntel()
+       {
+           StringWriter stringStream = new StringWriter();
+           try
+           {
+
+               // setup a test object
+               Intel testData = new Intel();
+
+               // setup the file name
+               string saveFileName = "IntelTest.xml";
+
+               // setup the streams
+               MemoryStream memoryStream = new MemoryStream();
+               
+               // Setup the XML document
+               XmlDocument xmldoc = new XmlDocument();
+               Global.InitializeXmlDocument(xmldoc);
+
+               // add the Intel to the document
+               xmldoc.ChildNodes.Item(1).AppendChild(testData.ToXml(xmldoc));
+
+               xmldoc.Save(memoryStream);
+               xmldoc.Save(stringStream);
+
+               // serialise to file
+               if (TestControls.CreateFiles)
+               {
+                   using (Stream fileStream = new FileStream(saveFileName, FileMode.Create))
+                   {
+                       xmldoc.Save(fileStream);
+                   }
+               }
+
+               // deserialize 
+               Intel loadedData;
+               xmldoc.RemoveAll();
+
+               if (TestControls.CreateFiles)
+               {
+                   using (FileStream saveFileStream = new FileStream(saveFileName, FileMode.Open, FileAccess.Read))
+                   {
+                       xmldoc.Load(saveFileStream);
+                       loadedData = new Intel(xmldoc);
+                   }
+               }
+               else
+               {
+                   // move to start of memory stream
+                   memoryStream.Seek(0, SeekOrigin.Begin);
+                   xmldoc.Load(memoryStream);
+                   loadedData = new Intel(xmldoc);
+               }
+
+               // test if it worked
+               // CheckTestIntel(loadedData);
+           }
+           catch (Exception e)
+           {
+               System.Windows.Forms.MessageBox.Show("Item.cs ItemSerialisationTest failed:" + Environment.NewLine + e.Message + Environment.NewLine + stringStream.ToString()); 
+               throw e; // fail the test
+           }
+       }
+
+       /// <summary>
+       /// This is a test of the Intel's serialisation with initialized data.
+       /// </summary>
+       [Test]
+       public void SerialisationTestIntel()
+       {
+           StringWriter stringStream = new StringWriter();
+           try
+           {
+
+               // setup a test object
+               Intel testData = new Intel();
+
+               // setup the test data
+               testData.TurnYear = 3500;
+               Star testStar = new Star();
+               testStar.Name = "Pluto";
+               testStar.Colonists = 25000;
+               testData.AllStars.Add("Pluto", testStar);
+
+
+               // setup the file name
+               string saveFileName = "IntelTest.xml";
+
+               // setup the streams
+               MemoryStream memoryStream = new MemoryStream();
+               
+               // Setup the XML document
+               XmlDocument xmldoc = new XmlDocument();
+               Global.InitializeXmlDocument(xmldoc);
+
+               // add the Intel to the document
+               xmldoc.ChildNodes.Item(1).AppendChild(testData.ToXml(xmldoc));
+
+               xmldoc.Save(memoryStream);
+               xmldoc.Save(stringStream);
+
+               // serialise to file
+               if (TestControls.CreateFiles)
+               {
+                   using (Stream fileStream = new FileStream(saveFileName, FileMode.Create))
+                   {
+                       xmldoc.Save(fileStream);
+                   }
+               }
+
+               // deserialize 
+               Intel loadedData;
+               xmldoc.RemoveAll();
+
+               if (TestControls.CreateFiles)
+               {
+                   using (FileStream saveFileStream = new FileStream(saveFileName, FileMode.Open, FileAccess.Read))
+                   {
+                       xmldoc.Load(saveFileStream);
+                       loadedData = new Intel(xmldoc);
+                   }
+               }
+               else
+               {
+                   // move to start of memory stream
+                   memoryStream.Seek(0, SeekOrigin.Begin);
+                   xmldoc.Load(memoryStream);
+                   loadedData = new Intel(xmldoc);
+               }
+
+               // test if it worked
+               Assert.IsTrue(loadedData.TurnYear == 3500);
+               Assert.IsTrue(loadedData.AllStars.Contains("Pluto") && ((Star)loadedData.AllStars["Pluto"]).Name == "Pluto");
+               Assert.IsTrue(loadedData.AllStars.Contains("Pluto") && ((Star)loadedData.AllStars["Pluto"]).Colonists == 25000);
+
+           }
+           catch (Exception e)
+           {
+               System.Windows.Forms.MessageBox.Show("Item.cs ItemSerialisationTest failed:" + Environment.NewLine + e.Message + Environment.NewLine + stringStream.ToString()); 
+               throw e; // fail the test
+           }
+       }
+
+
+       #endregion
    }
 
 }

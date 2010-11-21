@@ -66,6 +66,21 @@ namespace Nova.Common.Components
             this.IsSmart = existing.IsSmart;
         }
 
+        /// <summary>
+        /// Initialising constructor.
+        /// </summary>
+        /// <param name="installations">Initial value for the number of installation destroyed per bomb.</param>
+        /// <param name="popKill">Initial value for the amount of population killed per bomb.</param>
+        /// <param name="minimumKill">Initial value for the minimum number of colonists killed per bomb strike.</param>
+        /// <param name="isSmart">True if this is a smart bomb.</param>
+        public Bomb(int installations, double popKill, int minimumKill, bool isSmart)
+        {
+            this.Installations = installations;
+            this.PopKill = popKill;
+            this.MinimumKill = minimumKill;
+            this.IsSmart = isSmart;
+        }
+
         #endregion
 
         #region Interface ICloneable
@@ -208,9 +223,9 @@ namespace Nova.Common.Components
                         IsSmart = bool.Parse(((XmlText)subnode.FirstChild).Value);
                     }
                 }
-                catch
+                catch (Exception e)
                 {
-                    // ignore incomplete or unset values
+                    Report.FatalError(e.Message + "\n Details: \n" + e);
                 }
                 subnode = subnode.NextSibling;
             }

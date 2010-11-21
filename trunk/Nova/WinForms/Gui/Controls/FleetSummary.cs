@@ -58,14 +58,14 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplaySummary(Fleet fleet)
         {
-            string race = fleet.Owner;
+            string ownerRaceName = fleet.Owner;
             this.fleetShipCount.Text = fleet.Composition.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.fleetMass.Text = fleet.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.fleetSpeed.Text = fleet.Speed.ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.fleetImage.Image = fleet.Image;
-            this.fleetOwner.Text = race;
+            this.fleetOwner.Text = ownerRaceName;
 
-            this.raceIcon.Image = ClientState.Data.InputTurn.RaceIcons[race] as Image;
+            this.raceIcon.Image = ClientState.Data.InputTurn.RaceIcons[ownerRaceName] as Image;
         }
 
 

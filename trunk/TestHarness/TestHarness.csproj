@@ -49,6 +49,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Common\Common.csproj">
+      <Project>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</Project>
+      <Name>Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\UnitTests\UnitTests.csproj">
       <Project>{86291ACF-4BAD-4926-B647-8BCDBB5E8EF7}</Project>
       <Name>UnitTests</Name>

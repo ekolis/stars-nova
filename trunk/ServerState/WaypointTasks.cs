@@ -229,44 +229,50 @@ namespace Nova.WinForms.Console
             Race race = ServerState.Data.AllRaces[fleet.Owner] as Race;
             double resources = 0;
 
-            if (race.HasTrait("UR"))
+            if (star != null)
             {
-                if (star != null)
+                if (race.HasTrait("UR"))
                 {
-                    if (star.Starbase != null)
+                    if (star != null)
                     {
-                        amount = 90;
-                        resources = 70;
+                        if (star.Starbase != null)
+                        {
+                            amount = 90;
+                            resources = 70;
+                        }
+                        else
+                        {
+                            amount = 45;
+                        }
                     }
-                    else
+                }
+                else
+                {
+                    if (colonise)
                     {
-                        amount = 45;
+                        amount = 75;
                     }
+                    else if (star != null)
+                    {
+                        if (star.Starbase != null)
+                        {
+                            amount = 80;
+                        }
+                        else
+                        {
+                            amount = 33;
+                        }
+                    }
+                }
+
+                foreach (Ship ship in fleet.FleetShips)
+                {
+                    Scrap(ship, star, amount, resources);
                 }
             }
             else
             {
-                if (colonise)
-                {
-                    amount = 75;
-                }
-                else if (star != null)
-                {
-                    if (star.Starbase != null)
-                    {
-                        amount = 80;
-                    }
-                    else
-                    {
-                        amount = 33;
-                    }
-                }
-            }
-
-
-            foreach (Ship ship in fleet.FleetShips)
-            {
-                Scrap(ship, star, amount, resources);
+                // TODO (priority 4) - create a scrap packet in space
             }
 
             // ServerState.Data.AllFleets.Remove(fleet.Key); // issue 2998887 - causes a crash on colonising due to modification of the itterator list

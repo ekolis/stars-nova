@@ -30,6 +30,7 @@
 #endregion
 
 using System;
+using System.Xml;
 
 namespace Nova.Common
 {
@@ -80,6 +81,69 @@ namespace Nova.Common
         public override string Key
         {
             get { return keyId.ToString(System.Globalization.CultureInfo.InvariantCulture); }
+        }
+
+        #endregion
+
+        #region To From Xml
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Generate an XmlElement representation of the Minefield for saving to file.
+        /// </summary>
+        /// <param name="xmldoc">The parent XmlDocument</param>
+        /// <returns>An XmlElement representing the Minefield</returns>
+        /// ----------------------------------------------------------------------------
+        public new XmlElement ToXml(XmlDocument xmldoc)
+        {
+            XmlElement xmlelMinefield = xmldoc.CreateElement("Minefiled");
+
+            xmlelMinefield.AppendChild(base.ToXml(xmldoc));
+
+            Global.SaveData(xmldoc, xmlelMinefield, "NumberOfMines", NumberOfMines.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelMinefield, "SafeSpeed", SafeSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelMinefield, "keyId", keyId.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+            return xmlelMinefield;
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Load: Initialising Constructor from an xml node.
+        /// </summary>
+        /// <param name="node">A <see cref="Minefield"/> node Nova save file (xml document)</param>
+        /// ----------------------------------------------------------------------------
+        public Minefield(XmlNode node)
+            : base(node.SelectSingleNode("Item"))
+        {
+            XmlNode subnode = node.FirstChild;
+            while (subnode != null)
+            {
+                try
+                {
+                    switch (subnode.Name.ToLower())
+                    {
+                        case "numberofmines":
+                            NumberOfMines = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+
+                        case "safespeed":
+                            SafeSpeed = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+
+                        case "keyid":
+                            keyId = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                    }
+                }
+                catch (Exception e)
+                {
+                    Report.Error("Error loading Minefield : " + e.Message);
+                }
+                subnode = subnode.NextSibling;
+            }   
         }
 
         #endregion

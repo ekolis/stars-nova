@@ -29,6 +29,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Xml;
 
 
 namespace Nova.Common
@@ -50,6 +51,12 @@ namespace Nova.Common
         public int TechLevel;
         public int Resources;
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public ScoreRecord()
+        {
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -62,5 +69,121 @@ namespace Nova.Common
             ScoreRecord rhs = (ScoreRecord)rightHandSide;
             return rhs.Score.CompareTo(this.Score);
         }
+
+        #region Xml
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Load from XML: Initialising constructor from an XML node.
+        /// </summary>
+        /// <param name="xmlnode">An <see cref="XmlNode"/> within 
+        /// a Nova game file (xml document).
+        /// </param>
+        /// ----------------------------------------------------------------------------
+        public ScoreRecord(XmlNode xmlnode)
+        {
+            XmlNode subnode = xmlnode.FirstChild;
+            while (subnode != null)
+            {
+                try
+                {
+                    switch (subnode.Name.ToLower())
+                    {
+                        case "race":
+                            Race = subnode.FirstChild.Value;
+                            break;
+
+                        case "rank":
+                            Rank = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+
+                        case "score":
+                            Score = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+
+                        case "planets":
+                            Planets = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+
+                        case "starbases":
+                            Starbases = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+
+                        case "unarmedships":
+                            UnarmedShips = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+
+                        case "escortships":
+                            EscortShips = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+
+                        case "capitalships":
+                            CapitalShips = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+
+                        case "techlevel":
+                            TechLevel = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+
+                        case "resources":
+                            Resources = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    Report.FatalError(e.Message + "\n Details: \n" + e);
+                }
+                subnode = subnode.NextSibling;
+            }
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Save: Serialise this object to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the ScoreRecord</returns>
+        /// ----------------------------------------------------------------------------
+        public XmlElement ToXml(XmlDocument xmldoc)
+        {
+            XmlElement xmlelScoreRecord = xmldoc.CreateElement("ScoreRecord");
+
+            // Race;
+            Global.SaveData(xmldoc, xmlelScoreRecord, "Race", Race);
+
+            // Rank;
+            Global.SaveData(xmldoc, xmlelScoreRecord, "Rank", Rank.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+            // Score;
+            Global.SaveData(xmldoc, xmlelScoreRecord, "Score", Score.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+            // Planets;
+            Global.SaveData(xmldoc, xmlelScoreRecord, "Planets", Planets.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+            // Starbases;
+            Global.SaveData(xmldoc, xmlelScoreRecord, "Starbases", Starbases.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+            // UnarmedShips;
+            Global.SaveData(xmldoc, xmlelScoreRecord, "UnarmedShips", UnarmedShips.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+            // EscortShips;
+            Global.SaveData(xmldoc, xmlelScoreRecord, "EscortShips", EscortShips.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+            // CapitalShips;
+            Global.SaveData(xmldoc, xmlelScoreRecord, "CapitalShips", CapitalShips.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+            // TechLevel;
+            Global.SaveData(xmldoc, xmlelScoreRecord, "TechLevel", TechLevel.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+            // Resources;
+            Global.SaveData(xmldoc, xmlelScoreRecord, "Resources", Resources.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+            return xmlelScoreRecord;
+        }
+
+
+        #endregion
     }
 }

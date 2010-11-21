@@ -142,6 +142,19 @@ namespace Nova.Client
         /// ----------------------------------------------------------------------------
         public static void Initialize(string[] argArray)
         {
+            // ----------------------------------------------------------------------------
+            // Restore the component definitions. Must be done first so that components used
+            // in designs can be linked to when loading the .intel file.
+            // ----------------------------------------------------------------------------
+            try
+            {
+                AllComponents.Restore();
+            }
+            catch
+            {
+                Report.FatalError("Could not restore component definition file.");
+            }
+
             // Need to identify the RaceName so we can load the correct race's intel.
             // We also want to identify the ClientState data store, if any, so we
             // can load it and use any historical information in there. 
@@ -294,20 +307,20 @@ namespace Nova.Client
                 Report.FatalError("ClientState.cs Initialise() - Failed to find any .intel when initialising turn");
             }
 
-            // ----------------------------------------------------------------------------
-            // Restore the component definitions.
-            // ----------------------------------------------------------------------------
 
 
+            // Add the default battle plan if this is the first turn.
             if (ClientState.Data.FirstTurn)
             {
                 ClientState.Data.BattlePlans.Add("Default", new BattlePlan());
                 ProcessRaceDefinition();
             }
 
+            // ----------------------------------------------------------------------------
+            // Determine which tech components the player has access too.
+            // ----------------------------------------------------------------------------
             try
             {
-                AllComponents.Restore();
                 ClientState.Data.AvailableComponents.DetermineRaceComponents(ClientState.Data.PlayerRace, Data.ResearchLevel);
             }
             catch

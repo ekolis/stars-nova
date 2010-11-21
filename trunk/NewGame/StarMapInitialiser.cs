@@ -29,6 +29,7 @@
 using System;
 using System.Collections.Generic;
 using System.Drawing;
+using System.Threading;
 
 using Nova.Common;
 using Nova.Common.Components;
@@ -64,10 +65,10 @@ namespace Nova.NewGame
             StarsMapGenerator map = new StarsMapGenerator(GameSettings.Data.MapWidth, GameSettings.Data.MapHeight, GameSettings.Data.StarSeparation, GameSettings.Data.StarDensity, GameSettings.Data.StarUniformity);
             List<int[]> allStarPositions = map.Generate();
 
+            Random random = new Random(); // NB: do this outside the loop so that Random is seeded only once.
             foreach (int[] starPosition in allStarPositions)
             {
                 Star star = new Star();
-                Random random = new Random();
 
                 star.Position.X = starPosition[0];
                 star.Position.Y = starPosition[1];
@@ -80,7 +81,6 @@ namespace Nova.NewGame
 
                 // The following values are percentages of the permissable range of
                 // each environment parameter expressed as a percentage.
-
                 star.Radiation = random.Next(1, 99);
                 star.Gravity = random.Next(1, 99);
                 star.Temperature = random.Next(1, 99);

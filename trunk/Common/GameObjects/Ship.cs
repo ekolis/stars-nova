@@ -412,6 +412,17 @@ namespace Nova.Common
             }
         }
 
+        /// <summary>
+        /// true if the ship has any sort of scanner.
+        /// </summary>
+        public bool CanScan
+        {
+            get
+            {
+                if (design.CanScan) return true;
+                else return false;
+            }
+        }
 
         /// <summary>
         /// The range of the ship's normal scanners.

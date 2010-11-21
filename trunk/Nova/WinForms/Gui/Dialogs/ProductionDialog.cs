@@ -1189,8 +1189,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void UpdateProductionCost()
         {
-            Resources wholeQueueCost = new Resources(0,0,0,0);      // resources required to build everything in the Production Queue
-            Resources selectedItemCost = new Resources(0,0,0,0);    // resources required to build the selected item stack in the Production Queue
+            Resources wholeQueueCost = new Resources(0, 0, 0, 0);      // resources required to build everything in the Production Queue
+            Resources selectedItemCost = new Resources(0, 0, 0, 0);    // resources required to build the selected item stack in the Production Queue
             double percentComplete = 0.0;
             int minesInQueue = 0;
             int factoriesInQueue = 0;
@@ -1205,7 +1205,7 @@ namespace Nova.WinForms.Gui
             Race starOwnerRace = this.queueStar.ThisRace;
             Resources potentialResources = new Resources();
 
-            if(starOwnerRace == null)
+            if (starOwnerRace == null)
             {
                 // set potentialResources to zero as they are unknown without knowing the Race that owns the Star
                 // and set yearsSoFar to -1 to cause the calculations of years to complete to be skipped
@@ -1252,7 +1252,7 @@ namespace Nova.WinForms.Gui
                     Design currentDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + designName] as Design;
 
                     quantityYetToBuild = Convert.ToInt32(this.queueList.Items[queueIndex].SubItems[1].Text);
-                    currentStackCost = getProductionCosts (this.queueList.Items[queueIndex]);
+                    currentStackCost = GetProductionCosts(this.queueList.Items[queueIndex]);
                     wholeQueueCost += currentStackCost;
 
                     if (yearsSoFar < 0)
@@ -1290,7 +1290,7 @@ namespace Nova.WinForms.Gui
                             potentialFactories = this.queueStar.Colonists / starOwnerRace.OperableFactories;
                             factoriesInUse = Math.Min((currentFactories + factoriesInQueue), potentialFactories);
 
-                            potentialResources.Energy += factoriesInUse * starOwnerRace.FactoryProduction / Global.FactoriesPerFactoryProductionUnit
+                            potentialResources.Energy += (factoriesInUse * starOwnerRace.FactoryProduction / Global.FactoriesPerFactoryProductionUnit)
                                     - this.queueStar.ResearchAllocation;
 
                             // need to know how much of each mineral is currently available on the star (this.queueStar.ResourcesOnHand)
@@ -1326,7 +1326,7 @@ namespace Nova.WinForms.Gui
                                 }
                                 maxYearsCurrent = yearsSoFar;
 
-                                if(queueIndex == selectedItemIndex)
+                                if (queueIndex == selectedItemIndex)
                                 {
                                     if (minYearsSelected == 0)
                                     {
@@ -1354,7 +1354,7 @@ namespace Nova.WinForms.Gui
 
                                 // the current build state is the cost of the first item found by (total cost - (cost of all but one))
                                 Resources currentBuildState = new Resources();
-                                currentBuildState = currentStackCost - (quantityYetToBuild - 1) * currentDesign.Cost;
+                                currentBuildState = currentStackCost - ((quantityYetToBuild - 1) * currentDesign.Cost);
 
                                 // determine the percentage able to be completed by whichever resource is limiting production
                                 double fractionComplete = 1.0;
@@ -1413,7 +1413,7 @@ namespace Nova.WinForms.Gui
                                     // determine how many items are able to be built and reduce quantity accordingly
                                     for (int quantityStepper = 1; quantityStepper < quantityYetToBuild; quantityStepper++)
                                     {
-                                        if (amountUsed <= (currentBuildState + quantityStepper * currentDesign.Cost))
+                                        if (amountUsed <= (currentBuildState + (quantityStepper * currentDesign.Cost)))
                                         {
                                             quantityYetToBuild = quantityYetToBuild - quantityStepper;
                                             quantityStepper = quantityYetToBuild + 1;
@@ -1476,7 +1476,7 @@ namespace Nova.WinForms.Gui
 
                     if (queueIndex == selectedItemIndex)
                     {
-                        selectedItemCost = getProductionCosts (this.queueList.Items[queueIndex]);
+                        selectedItemCost = GetProductionCosts(this.queueList.Items[queueIndex]);
 
                         Resources currentBuildState = this.queueList.Items[queueIndex].Tag as Resources;
 
@@ -1502,7 +1502,7 @@ namespace Nova.WinForms.Gui
             }
             else
             {       // as there are no items in the queue set all fields to "0"
-                wholeQueueCost = new Resources(0,0,0,0);
+                wholeQueueCost = new Resources(0, 0, 0, 0);
                 selectedItemCost = wholeQueueCost;
                 minYearsSelected = maxYearsSelected = -2;
                 minYearsTotal = maxYearsTotal = -2;
@@ -1536,7 +1536,7 @@ namespace Nova.WinForms.Gui
                 {
                     if (maxYearsTotal < 0)
                     {
-                        totalCostYears.Text = minYearsTotal.ToString(System.Globalization.CultureInfo.InvariantCulture) + " - ???? years." ;
+                        totalCostYears.Text = minYearsTotal.ToString(System.Globalization.CultureInfo.InvariantCulture) + " - ???? years.";
                     }
                     else
                     {
@@ -1571,13 +1571,13 @@ namespace Nova.WinForms.Gui
             {
                 if (minYearsSelected == 1 && maxYearsSelected == 1)
                 {
-                    selectedCostYears.Text = "1 year." ;
+                    selectedCostYears.Text = "1 year.";
                 }
                 else
                 {
                     if (maxYearsSelected < 0)
                     {
-                        selectedCostYears.Text = minYearsSelected.ToString(System.Globalization.CultureInfo.InvariantCulture) + " - ???? years." ;
+                        selectedCostYears.Text = minYearsSelected.ToString(System.Globalization.CultureInfo.InvariantCulture) + " - ???? years.";
                     }
                     else
                     {
@@ -1604,7 +1604,7 @@ namespace Nova.WinForms.Gui
         /// <returns>The resources required to produce the item(s) of interest.</returns>
         /// <param name="itemOfInterest">The item(s) from the Production ListView to be evaluated</param>
         /// ----------------------------------------------------------------------------
-        private Resources getProductionCosts(ListViewItem stackOfInterest)
+        private Resources GetProductionCosts(ListViewItem stackOfInterest)
         {
             Resources costsToProduce = new Resources();
 
@@ -1620,13 +1620,14 @@ namespace Nova.WinForms.Gui
 
             int stackQuantity = Convert.ToInt32(stackOfInterest.SubItems[1].Text);
 
-            if (stackQuantity > 1)  // this check should not be required, but better to be safe than sorry
+            // this check should not be required, but better to be safe than sorry
+            if (stackQuantity > 1)  
             {
                 string designName = stackOfInterest.Text;
                 Design currentDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + designName] as Design;
                     // as the first item in the stack costs BuildState to complete the design cost
                     // is multiplied by the quantity - 1
-                costsToProduce += (currentDesign.Cost * (stackQuantity - 1));
+                costsToProduce += currentDesign.Cost * (stackQuantity - 1);
             }
 
             return costsToProduce;

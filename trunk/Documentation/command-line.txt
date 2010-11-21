@@ -18,8 +18,11 @@
 Some example command lines:
 
 To open the GUI with the Googly race on Dan's computer:
-Nova --gui -r Googly -t 2114 -i "D:\Dan\src\stars\nova\stars-nova\GameFiles\Test Game\Googly.intel"
+Nova --gui -r Humanoid -t 2114 -i "C:\Users\Daniel\Desktop\StarTest\Humanoid.intel"
 
 To open the Nova Console on Dan's computer:
 Nova --console
+
+To run the Nova AI on Dan's computer:
+Nova --ai -r Insectoid -t 2101 -i C:\Users\Daniel\Desktop\XmlIntel\insectoid.intel
 

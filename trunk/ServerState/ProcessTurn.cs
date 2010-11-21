@@ -58,42 +58,45 @@ namespace Nova.WinForms.Console
 
             OrderReader.ReadOrders();
 
+            // Do all fleet movement and actions 
+            // TODO (priority 4) - split this up into waypoint zero and waypoint 1 actions
             foreach (Fleet fleet in stateData.AllFleets.Values)
             {
-                bool destroyed = ProcessFleet(fleet);
-                if (destroyed)
-                {
-                    stateData.AllFleets.Remove(fleet.Key);
-                }
+                ProcessFleet(fleet);
             }
+            CleanupFleets();
 
+            // Handle star based actions - growth and production
+            // TODO (priority 4) - split these up as per Stars! turn order
             foreach (Star star in stateData.AllStars.Values)
             {
                 ProcessStar(star);
             }
-
-            // ------------------------------------------------------------------------------------------------------------------------------
-            // FIXME (priority 6) - Fix up the removal of destroyed fleets and space stations.
-            // currently this is done multiple times to ensure the fleets are removed. This is done out of ignorance.
-            // need to analyse the way the turn is procecessed and ensure fleets are removed as soon as possible after being destroyed.
-            // NB: may need to generate player messages or some other action before the fleet removed from the game.
-
-            // First shot at removing fleets in order to make sure dead fleets are gone before running the battle engine.
-            ArrayList destroyedFleets = new ArrayList();
-            foreach (Fleet fleet in ServerState.Data.AllFleets.Values)
-            {
-                if (fleet.FleetShips.Count == 0)
-                    destroyedFleets.Add(fleet.Key);
-            }
-            foreach (string key in destroyedFleets)
-            {
-                ServerState.Data.AllFleets.Remove(key);
-            }
+            CleanupFleets();
 
             BattleEngine.Run();
+            CleanupFleets();
 
-            // Second shot at removing fleets post battle.
-            destroyedFleets = new ArrayList();
+            
+
+            VictoryCheck.Victor();
+
+            stateData.TurnYear++;
+            IntelWriter.WriteIntel();
+
+            // remove old messages, do this last so that the 1st turn intro message is not removed before it is delivered.
+            stateData.AllMessages = new ArrayList();
+
+        }
+
+        /// <summary>
+        /// Remove fleets that no longer have ships.
+        /// This needs to be done after each time the fleet list is processed, as fleets can not be destroyed until the itterator complets.
+        /// </summary>
+        private static void CleanupFleets()
+        {
+            // create a list of all fleets that have been destroyed
+            ArrayList destroyedFleets = new ArrayList();
             foreach (Fleet fleet in ServerState.Data.AllFleets.Values)
             {
                 if (fleet.FleetShips.Count == 0)
@@ -116,19 +119,8 @@ namespace Nova.WinForms.Console
                 ((Star)ServerState.Data.AllStars[key]).Starbase = null;
 
             }
-
-            // END OF FIX ME--------------------------------------------------------------------------------------------------------------------------
-
-            VictoryCheck.Victor();
-
-            stateData.TurnYear++;
-            IntelWriter.WriteIntel();
-
-            // remove old messages, do this last so that the 1st turn intro message is not removed before it is delivered.
-            stateData.AllMessages = new ArrayList();
-
+            
         }
-
 
         /// ----------------------------------------------------------------------------
         /// <summary>
