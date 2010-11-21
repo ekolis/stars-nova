@@ -33,7 +33,6 @@ using System.Xml;
 
 namespace Nova.Common
 {
-
     // ===========================================================================
     // Item class. It is used as the base class for most game items. It consists
     // of the following members:
@@ -42,7 +41,7 @@ namespace Nova.Common
     // Mass     The mass of the item (in kT).
     // Name     The name of the derived item, for example the name of a star.
     // Owner    The race name of the owner of this item (null if no owner). 
-    // Type     The type of the derived item (e.g. "ship", "star", etc.)
+    // Type     The type of the derived item (e.g. "Ship", "Star", "Starbase", etc.)
     // Position Position of the Item (if any)
     // ===========================================================================
 
@@ -53,7 +52,10 @@ namespace Nova.Common
         public Resources Cost = new Resources();
         public string Name;
         public string Owner;
+
+        // FIXME (priority 5) - An enumerated type would improve data matching and avoid unneccessary errors.
         public string Type;
+
         public Point Position = new Point(0, 0);
 
         #region Construction
@@ -188,11 +190,11 @@ namespace Nova.Common
         {
             XmlElement xmlelItem = xmldoc.CreateElement("Item");
 
-            if (Mass != 0) Global.SaveData(xmldoc, xmlelItem, "Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Cost != null) xmlelItem.AppendChild(Cost.ToXml(xmldoc));
             if (Name != null) Global.SaveData(xmldoc, xmlelItem, "Name", Name);
             if (Owner != null) Global.SaveData(xmldoc, xmlelItem, "Owner", Owner);
             if (Type != null) Global.SaveData(xmldoc, xmlelItem, "Type", Type);
+            if (Mass != 0) Global.SaveData(xmldoc, xmlelItem, "Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            if (Cost != null) xmlelItem.AppendChild(Cost.ToXml(xmldoc));
 
             if (Position.X != 0 || Position.Y != 0)
             {

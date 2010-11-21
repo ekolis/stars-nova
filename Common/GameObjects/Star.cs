@@ -64,7 +64,10 @@ namespace Nova.Common
         public int Radiation = 0;
         public int Temperature = 0;
 
-        // the current owner of the star, if any.
+        /// <summary>
+        /// A reference the the race information for the owner of this star.
+        /// This is a convinience for the server. It will be null for races other than the player's race in the client.
+        /// </summary>
         public Race ThisRace = null;
 
         #region Construction
@@ -402,6 +405,21 @@ namespace Nova.Common
                 {
                     Report.Debug("Max defenses exceeded.");
                     return Global.MaxDefenses;
+                }
+            }
+        }
+
+        public override string Key
+        {
+            get
+            {
+                if (Name != null && Name != "")
+                {
+                    return Name;
+                }
+                else
+                {
+                    throw new Exception("Star with no name cannot generate a key.");
                 }
             }
         }

@@ -87,7 +87,8 @@ namespace Nova.Common
             FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
 
             xmldoc.Load(fileName);
-            LoadRaceFromXml(xmldoc);
+            XmlNode xmlnode = xmldoc.DocumentElement;
+            LoadRaceFromXml(xmlnode);
 
             fileStream.Close();
         }
@@ -272,13 +273,13 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelRace, "MineBuildCost", MineBuildCost.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             // Plural Name
-            Global.SaveData(xmldoc, xmlelRace, "PluralName", PluralName);
+            if (PluralName != null && PluralName != "") Global.SaveData(xmldoc, xmlelRace, "PluralName", PluralName);
             // Name
-            Global.SaveData(xmldoc, xmlelRace, "Name", Name);
+            if (Name != null && Name != "") Global.SaveData(xmldoc, xmlelRace, "Name", Name);
             // Password 
-            Global.SaveData(xmldoc, xmlelRace, "Password", Password);
+            if (Password != null && Password != "") Global.SaveData(xmldoc, xmlelRace, "Password", Password);
             // RaceIconName
-            Global.SaveData(xmldoc, xmlelRace, "RaceIconName", Icon.Source);
+            if (Icon.Source != null && Icon.Source != "") Global.SaveData(xmldoc, xmlelRace, "RaceIconName", Icon.Source);
             // Factory Build Cost
             Global.SaveData(xmldoc, xmlelRace, "FactoryBuildCost", FactoryBuildCost.ToString(System.Globalization.CultureInfo.InvariantCulture));
             // ColonistsPerResource
@@ -303,16 +304,15 @@ namespace Nova.Common
         /// <summary>
         /// Load a Race from an xml document 
         /// </summary>
-        /// <param name="xmldoc">produced using XmlDocument.Load(), see Race constructor</param>
+        /// <param name="xmlnode">An XmlNode, see Race constructor for generation.</param>
         /// ----------------------------------------------------------------------------
-        private void LoadRaceFromXml(XmlDocument xmldoc)
+        public void LoadRaceFromXml(XmlNode xmlnode)
         {
 
             GravityTolerance = new EnvironmentTolerance();
             RadiationTolerance = new EnvironmentTolerance();
             TemperatureTolerance = new EnvironmentTolerance();
 
-            XmlNode xmlnode = xmldoc.DocumentElement;
             while (xmlnode != null)
             {
                 try
@@ -349,18 +349,24 @@ namespace Nova.Common
                             this.Traits.SetPrimary(xmlnode.FirstChild.Value);
                             break;
                         case "pluralname":
-                            this.PluralName = xmlnode.FirstChild.Value;
+                            if (xmlnode.FirstChild != null)
+                            {
+                                this.PluralName = xmlnode.FirstChild.Value;
+                            }
                             break;
                         case "name":
-                            this.Name = xmlnode.FirstChild.Value;
+                            if (xmlnode.FirstChild != null)
+                                this.Name = xmlnode.FirstChild.Value;
                             break;
                         case "password":
-                            this.Password = xmlnode.FirstChild.Value;
+                            if (xmlnode.FirstChild != null)
+                                this.Password = xmlnode.FirstChild.Value;
                             break;
 
                         // TODO (priority 5) - load the RaceIcon
                         case "raceiconname":
-                            this.Icon.Source = xmlnode.FirstChild.Value;
+                            if (xmlnode.FirstChild != null)
+                                this.Icon.Source = xmlnode.FirstChild.Value;
                             break;
 
                         case "factorybuildcost":

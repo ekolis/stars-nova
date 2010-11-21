@@ -295,6 +295,22 @@ namespace Nova.Common
                 return returnVal;
             }
         }
+
+        /// <summary>
+        /// true if the fleet has at least one ship with a scanner.
+        /// </summary>
+        public bool CanScan
+        {
+            get
+            {
+                foreach (Ship ship in FleetShips)
+                {
+                    if (ship.CanScan) return true;
+                }
+                return false;
+            }
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the long range scan capability of the fleet.
@@ -345,7 +361,7 @@ namespace Nova.Common
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// // Return the composition of a fleet (ship design and number of ships of that
+        /// Return the composition of a fleet (ship design and number of ships of that
         /// design).
         /// </summary>
         /// ----------------------------------------------------------------------------

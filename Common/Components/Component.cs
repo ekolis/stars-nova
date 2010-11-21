@@ -126,6 +126,7 @@ namespace Nova.Common.Components
                 {
                     switch (subnode.Name.ToLower())
                     {
+                            /* These belong to the base class Item
                         case "name":
                             this.Name = ((XmlText)subnode.FirstChild).Value;
                             break;
@@ -138,6 +139,7 @@ namespace Nova.Common.Components
                         case "resource":
                             this.Cost = new Resources(subnode);
                             break;
+                            */
                         case "tech":
                             this.RequiredTech = new TechLevel(subnode);
                             break;
@@ -399,9 +401,6 @@ namespace Nova.Common.Components
             XmlElement xmlelComponent = xmldoc.CreateElement("Component");
 
             xmlelComponent.AppendChild(base.ToXml(xmldoc));
-
-            // Resource
-            xmlelComponent.AppendChild(this.Cost.ToXml(xmldoc));
 
             // Tech
             xmlelComponent.AppendChild(this.RequiredTech.ToXml(xmldoc));

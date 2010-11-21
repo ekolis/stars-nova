@@ -31,6 +31,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
+using Nova.Common;
 using Nova.UnitTests;
 
 namespace TestHarness
@@ -43,8 +44,15 @@ namespace TestHarness
     {
         public static void Main(string[] args)
         {
-            NewGameTest test = new NewGameTest();
-            test.Map800x400Test();
+            // Run the New Game Test
+            // NewGameTest test = new NewGameTest();
+            // test.Map800x400Test();
+
+            // Run the Intel Serialization Test
+            Intel test = new Intel();
+            test.SerialisationTestEmptyIntel();
+            test.SerialisationTestIntel();             
+
         }
     }
 }

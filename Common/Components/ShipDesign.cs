@@ -44,22 +44,21 @@ namespace Nova.Common.Components
         // This is the component that contains the Hull property, to which all other ships components attach.
         public Component ShipHull = null;
 
-        // The following information could be found from a scan of the the ShipHull
-        // HullModules but the ship designer fills them in for us as a
-        // convenience to save having to keep looking them up.
-
         // Note there are get properties for: Armor, Shield, FuelCapcity, CargoCapacity, etc
 
         // The Summary is a 'super' component with properties representing the sum of all 
         // components added to the ship. 
         public Component Summary = new Component();
+
         // The following items can't be fully sumarised, as their properties can't be simply added.
         // For example each weapon stack will fire separately at its own initiative.
         public List<Weapon> Weapons = new List<Weapon>();
+
         // The bombing capability of a ship can be summarised by the sum of its 
         // Conventional bombs and the sum of its smart bombs.
-        public Bomb ConventionalBombs = new Bomb();
-        public Bomb SmartBombs = new Bomb();
+        public Bomb ConventionalBombs = new Bomb(0, 0, 0, false);
+        public Bomb SmartBombs = new Bomb(0, 0, 0, true);
+
         // Mine layers which create different types of minefields.
         // Note we assume that there will be three types of minefields: standard, heavy and speed bump
         // and they can be distinguised by the % chance of collision. (0.3, 1.0 and 3.5 respectivly).
@@ -347,6 +346,18 @@ namespace Nova.Common.Components
                 {
                     return 0;
                 }
+            }
+        }
+
+        /// <summary>
+        /// true if the ship design includes a scanner
+        /// </summary>
+        public bool CanScan
+        {
+            get
+            {
+                if (Summary.Properties.ContainsKey("Scanner")) return true;
+                else return false;
             }
         }
 

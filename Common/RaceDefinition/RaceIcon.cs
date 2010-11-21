@@ -29,6 +29,7 @@
 
 using System;
 using System.Drawing;
+using System.Xml;
 
 namespace Nova.Common
 {
@@ -39,7 +40,29 @@ namespace Nova.Common
     public class RaceIcon : ICloneable
     {
         public string Source = string.Empty;
-        public Bitmap Image;
+        private Bitmap image; 
+        public Bitmap Image
+        {
+            get
+            {
+                if (image == null)
+                {
+                    // atempt to retrieve image
+                    try
+                    {
+                        image = new Bitmap(Source);
+                    }
+                    catch
+                    {
+                    }
+                }
+                return image;
+            }
+            set
+            {
+                image = value;
+            }
+        }
 
         #region Construction
 
@@ -121,6 +144,61 @@ namespace Nova.Common
             RaceIcon clone = new RaceIcon(Source, Image);
             return clone as object;
         }
+
+        #endregion
+
+
+        #region Xml
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Load from XML: Initialising constructor from an XML node.
+        /// </summary>
+        /// <param name="xmlnode">An <see cref="XmlNode"/> within 
+        /// a Nova game file (xml document).
+        /// </param>
+        /// ----------------------------------------------------------------------------
+        public RaceIcon(XmlNode xmlnode)
+        {
+            XmlNode subnode = xmlnode.FirstChild;
+            while (subnode != null)
+            {
+                try
+                {
+                    if (subnode.Name.ToLower() == "raceicon")
+                    {
+                        Source = subnode.FirstChild.Value;
+
+                    }
+                }
+                catch (Exception e)
+                {
+                    Report.FatalError(e.Message + "\n Details: \n" + e);
+                }
+                subnode = subnode.NextSibling;
+            }
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Save: Serialise this object to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the ScoreRecord</returns>
+        /// <remarks>FIXME (priority 6) - Currently the icon is saved as the path to the icon. This is broken if the server is saving .intel and the client then loads it with the icons in a different location.</remarks>
+        /// ----------------------------------------------------------------------------
+        public XmlElement ToXml(XmlDocument xmldoc)
+        {
+            XmlElement xmlelRaceIcon = xmldoc.CreateElement("RaceIcon");
+
+            // Source;
+            Global.SaveData(xmldoc, xmlelRaceIcon, "RaceIcon", Source);
+
+            return xmlelRaceIcon;
+        }
+
 
         #endregion
     }

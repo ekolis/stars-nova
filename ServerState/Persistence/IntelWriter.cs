@@ -36,6 +36,7 @@ using System.Collections;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
+using System.Xml;
 
 using Nova.Common;
 #endregion
@@ -116,16 +117,25 @@ namespace Nova.Server
                 }
                 string turnFileName = Path.Combine(ServerState.Data.GameFolder, player.RaceName + Global.IntelExtension);
 
+                // Write out the intel file, as xml, but also handle the case of it being locked (in use).
                 bool locked = false;
+               
                 do
                 {
                     locked = false;
                     try
                     {
-                        using (Stream turnFile = new FileStream(turnFileName, FileMode.Create))
+                        using (Stream turnFile = new FileStream(turnFileName /*+ ".xml"*/, FileMode.Create))
                         {
-                            Serializer.Serialize(turnFile, turnData.TurnYear);
-                            Serializer.Serialize(turnFile, turnData);
+
+                            // Setup the XML document
+                            XmlDocument xmldoc = new XmlDocument();
+                            Global.InitializeXmlDocument(xmldoc);
+
+                            // add the Intel to the document
+                            xmldoc.ChildNodes.Item(1).AppendChild(turnData.ToXml(xmldoc));
+
+                            xmldoc.Save(turnFile);
                         }
                     }
                     catch (System.IO.IOException)

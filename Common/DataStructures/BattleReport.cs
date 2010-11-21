@@ -29,6 +29,7 @@
 using System;
 using System.Collections;
 using System.Drawing;
+using System.Xml;
 
 namespace Nova.Common
 {
@@ -99,5 +100,86 @@ namespace Nova.Common
         public Hashtable Stacks = new Hashtable();
         public Hashtable Losses = new Hashtable();
 
+        /// <summary>
+        /// Default constructor.
+        /// </summary>
+        public BattleReport()
+        {
+        }
+
+        #region Xml
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Load: Initialising Constructor from an xml node.
+        /// </summary>
+        /// <param name="node">A <see cref="BattleReport"/> XmlNode from a Nova save file (xml document)</param>
+        /// ----------------------------------------------------------------------------
+        public BattleReport(XmlNode node)
+        {
+            XmlNode subnode = node.FirstChild;
+            while (subnode != null)
+            {
+                try
+                {
+
+                    switch (subnode.Name.ToLower())
+                    {
+                        case "location":
+                            Location = subnode.FirstChild.Value;
+                            break;
+
+                        case "spacesize":
+                            SpaceSize = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+
+                        // TODO (priority 6) - load the rest of the battle report.
+                    }
+                }
+                catch (Exception e)
+                {
+                    Report.Error("Error loading Battle Report : " + e.Message);
+                }
+                subnode = subnode.NextSibling;
+            }
+            
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Generate an XmlElement representation of the ShipDesign for saving to file.
+        /// Note this uses the minimal approach of storing the ship hull object 
+        /// (and recursing through all components). All figured values will need to be 
+        /// recalculated on loading.
+        /// </summary>
+        /// <param name="xmldoc">The parent XmlDocument</param>
+        /// <returns>An XmlElement representing the ShipDesign</returns>
+        /// ----------------------------------------------------------------------------
+        public new XmlElement ToXml(XmlDocument xmldoc)
+        {
+            
+            XmlElement xmlelBattleReport = xmldoc.CreateElement("BattleReport");
+
+            
+            if (Location != null) Global.SaveData(xmldoc, xmlelBattleReport, "Location", Location);
+            Global.SaveData(xmldoc, xmlelBattleReport, "SpaceSize", SpaceSize.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+
+            // TODO (priority 6) - finish battle report ToXml()
+
+            // TODO (priority 2) - remove when done
+
+            // public ArrayList Steps  = new ArrayList();
+            // public Hashtable Stacks = new Hashtable();
+            // public Hashtable Losses = new Hashtable();
+
+            return xmlelBattleReport;
+
+        }
+
+
+        #endregion
     }
 }
