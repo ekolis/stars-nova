@@ -609,7 +609,7 @@ namespace Nova.WinForms.Gui
                 cargoDialog.SetTarget(this.selectedFleet);
                 cargoDialog.ShowDialog();
                 cargoDialog.Dispose();
-
+                ClientState.Data.StarReports[this.selectedFleet.InOrbit.Name] = new StarReport(this.selectedFleet.InOrbit);
                 this.cargo.Value = this.selectedFleet.Cargo.Mass;
             }
             catch
