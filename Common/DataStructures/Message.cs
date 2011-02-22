@@ -93,12 +93,15 @@ namespace Nova.Common
                     switch (subnode.Name.ToLower())
                     {
                         case "text":
-                            Text = ((XmlText)subnode.FirstChild).Value;
+                            if (subnode.FirstChild != null)
+                                Text = ((XmlText)subnode.FirstChild).Value;
                             break;
                         case "audience":
-                            Audience = ((XmlText)subnode.FirstChild).Value;
+                            if (subnode.FirstChild != null)
+                                Audience = ((XmlText)subnode.FirstChild).Value;
                             break;
                         case "type":
+                            if (subnode.FirstChild != null)
                             Type = subnode.FirstChild.Value;
                             break;
                         case "event":
@@ -131,9 +134,9 @@ namespace Nova.Common
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelMessage = xmldoc.CreateElement("Message");
-            Global.SaveData(xmldoc, xmlelMessage, "Text", Text);
-            Global.SaveData(xmldoc, xmlelMessage, "Audience", Audience);
-            Global.SaveData(xmldoc, xmlelMessage, "Type", Type);
+            if (Text != null) Global.SaveData(xmldoc, xmlelMessage, "Text", Text);
+            if (Audience != null) Global.SaveData(xmldoc, xmlelMessage, "Audience", Audience);
+            if (Type != null) Global.SaveData(xmldoc, xmlelMessage, "Type", Type);
 
             
             if (Event != null)
