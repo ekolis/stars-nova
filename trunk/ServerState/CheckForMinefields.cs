@@ -34,6 +34,7 @@ using System.Drawing;
 using System.Text;
 
 using Nova.Common;
+using Nova.Common.DataStructures;
 using Nova.Server;
 
 namespace Nova.WinForms.Console
@@ -135,9 +136,9 @@ namespace Nova.WinForms.Console
             // lesser of the distance to the next waypoint and the radius of the
             // field.
 
-            Point currentPosition = fleet.Position;
+            NovaPoint currentPosition = fleet.Position;
             Waypoint targetWaypoint = fleet.Waypoints[0] as Waypoint;
-            Point targetPosition = targetWaypoint.Position;
+            NovaPoint targetPosition = targetWaypoint.Position;
 
             double travelDistance = PointUtilities.Distance(currentPosition, targetPosition);
             if (minefield.Radius > (int)travelDistance)

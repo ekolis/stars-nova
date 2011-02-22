@@ -22,41 +22,56 @@
 
 #region Module Description
 // ===========================================================================
-// Base class for most game items.
+// See Item summary.
 // ===========================================================================
 #endregion
 
-
-using System;
-using System.Drawing;
-using System.Xml;
-
 namespace Nova.Common
 {
-    // ===========================================================================
-    // Item class. It is used as the base class for most game items. It consists
-    // of the following members:
-    // 
-    // Cost     The resource cost to build (germanium, ironium, etc.).
-    // Mass     The mass of the item (in kT).
-    // Name     The name of the derived item, for example the name of a star.
-    // Owner    The race name of the owner of this item (null if no owner). 
-    // Type     The type of the derived item (e.g. "Ship", "Star", "Starbase", etc.)
-    // Position Position of the Item (if any)
-    // ===========================================================================
+    using System;
+    using System.Drawing;
+    using System.Xml;
 
+    using Nova.Common.DataStructures;
+
+    /// <summary>
+    /// Base class for most game items. 
+    /// </summary>
     [Serializable]
     public class Item
     {
+        /// <summary>
+        /// The mass of the item (in kT).
+        /// </summary>
         public int Mass;
+
+        /// <summary>
+        /// The resource cost to build (germanium, ironium, etc.).
+        /// </summary>
         public Resources Cost = new Resources();
+
+        /// <summary>
+        /// The name of the derived item, for example the name of a star.
+        /// </summary>
         public string Name;
+
+        /// <summary>
+        /// The race name of the owner of this item (null if no owner). 
+        /// </summary>
         public string Owner;
 
-        // FIXME (priority 5) - An enumerated type would improve data matching and avoid unneccessary errors.
+        /// <summary>
+        /// The type of the derived item (e.g. "Ship", "Star", "Starbase", etc.)
+        /// <remarks>
+        /// FIXME (priority 5) - An enumerated type would improve data matching and avoid unneccessary errors.
+        /// </remarks>
+        /// </summary>
         public string Type;
 
-        public Point Position = new Point(0, 0);
+        /// <summary>
+        /// Position of the Item (if any)
+        /// </summary>
+        public NovaPoint Position = new NovaPoint();
 
         #region Construction
 
@@ -119,7 +134,6 @@ namespace Nova.Common
             // There are two acceptable entry points to this constructor. Either node is 
             // an Item node, or it is a parent node of an Item node. The second case is allowed
             // for loading objects which inherit from Item.
-
 
             // Check if this is an Item node, or a parent of an Item
             XmlNode itemNode;

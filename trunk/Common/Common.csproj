@@ -87,6 +87,8 @@
     <Compile Include="Converters\InstanceDescriptorConverter.cs" />
     <Compile Include="Converters\ResourcesConverter.cs" />
     <Compile Include="Converters\TechLevelConverter.cs" />
+    <Compile Include="DataStructures\NovaPoint.cs" />
+    <Compile Include="DataStructures\XmlSerializableDictionary.cs" />
     <Compile Include="Files\Config.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

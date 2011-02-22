@@ -49,9 +49,22 @@ namespace TestHarness
             // test.Map800x400Test();
 
             // Run the Intel Serialization Test
+            /*
             Intel test = new Intel();
             test.SerialisationTestEmptyIntel();
             test.SerialisationTestIntel();             
+             * */
+
+            // Debuging battle test
+            /*
+            BattleEngineTest test = new BattleEngineTest();
+            test.Test1DetermineCoLocatedFleets();
+             */
+
+            // BattleReport
+            BattleReport test = new BattleReport();
+            test.SerialisationTestBattleReport();
+
 
         }
     }

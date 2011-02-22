@@ -284,10 +284,10 @@ namespace Nova.ControlLibrary
         {
             fleet = targetFleet;
 
-            this.ironiumTransfer.Maximum = fleet.CargoCapacity;
-            boroniumTransfer.Maximum = fleet.CargoCapacity;
-            this.germaniumTransfer.Maximum = fleet.CargoCapacity;
-            colonistsTransfer.Maximum = fleet.CargoCapacity;
+            this.ironiumTransfer.Maximum = fleet.TotalCargoCapacity;
+            boroniumTransfer.Maximum = fleet.TotalCargoCapacity;
+            this.germaniumTransfer.Maximum = fleet.TotalCargoCapacity;
+            colonistsTransfer.Maximum = fleet.TotalCargoCapacity;
 
             this.ironiumTransfer.Value = (int)fleet.Cargo.Ironium;
             boroniumTransfer.Value = (int)fleet.Cargo.Boranium;
@@ -305,7 +305,7 @@ namespace Nova.ControlLibrary
             this.germaniumTransfer.Limit = this.cargoBay;
             colonistsTransfer.Limit = this.cargoBay;
 
-            this.cargoBay.Maximum = fleet.CargoCapacity;
+            this.cargoBay.Maximum = fleet.TotalCargoCapacity;
             this.cargoBay.Value = fleet.Cargo.Mass;
         }
 

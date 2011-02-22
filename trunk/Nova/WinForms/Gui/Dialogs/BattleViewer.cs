@@ -35,11 +35,9 @@ using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
-    // ============================================================================
-    // Dialog for viewing battle progress and outcome.
-    // ============================================================================
+
     /// <summary>
-    /// 
+    /// Dialog for viewing battle progress and outcome.
     /// </summary>
     public partial class BattleViewer : Form
     {
@@ -108,7 +106,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet stack in this.myStacks.Values)
             {
-                graphics.DrawImage(stack.Image, stack.Position);
+                graphics.DrawImage(stack.Image, (Point)stack.Position);
             }
         }
 
@@ -123,21 +121,21 @@ namespace Nova.WinForms.Gui
             object thisStep = this.theBattle.Steps[this.eventCount];
             SetStepNumber();
 
-            if (thisStep is BattleReport.Movement)
+            if (thisStep is BattleStepMovement)
             {
-                UpdateMovement(thisStep as BattleReport.Movement);
+                UpdateMovement(thisStep as BattleStepMovement);
             }
-            else if (thisStep is BattleReport.Target)
+            else if (thisStep is BattleStepTarget)
             {
-                UpdateTarget(thisStep as BattleReport.Target);
+                UpdateTarget(thisStep as BattleStepTarget);
             }
-            else if (thisStep is BattleReport.Weapons)
+            else if (thisStep is BattleStepWeapons)
             {
-                UpdateWeapons(thisStep as BattleReport.Weapons);
+                UpdateWeapons(thisStep as BattleStepWeapons);
             }
-            else if (thisStep is BattleReport.Destroy)
+            else if (thisStep is BattleStepDestroy)
             {
-                UpdateDestroy(thisStep as BattleReport.Destroy);
+                UpdateDestroy(thisStep as BattleStepDestroy);
             }
 
             if (this.eventCount < this.theBattle.Steps.Count - 1)
@@ -159,7 +157,7 @@ namespace Nova.WinForms.Gui
         /// Update the movement of a stack.
         /// </summary>
         /// <param name="movement">movement to display</param>
-        private void UpdateMovement(BattleReport.Movement movement)
+        private void UpdateMovement(BattleStepMovement movement)
         {
             Fleet stack = this.myStacks[movement.StackName] as Fleet;
             this.movedTo.Text = movement.Position.ToString();
@@ -179,21 +177,41 @@ namespace Nova.WinForms.Gui
         /// Update the current target details.
         /// </summary>
         /// <param name="target">Target ship to display.</param>
-        private void UpdateTarget(BattleReport.Target target)
+        private void UpdateTarget(BattleStepTarget targetKey)
         {
-            if (target == null)
+            if (targetKey == null)
             {
-                this.targetName.Text = "";
-                this.targetOwner.Text = "";
-                this.targetShields.Text = "";
-                this.targetArmor.Text = "";
-                return;
+                ClearTargetDetails();
             }
+            else
+            {
+                Fleet target = theBattle.Stacks[targetKey] as Fleet;
 
-            this.targetName.Text = target.TargetShip.Name;
-            this.targetOwner.Text = target.TargetShip.Owner;
-            this.targetShields.Text = target.TargetShip.Shields.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            this.targetArmor.Text = target.TargetShip.Armor.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                if (target == null)
+                {
+                    ClearTargetDetails();
+                }
+                else
+                {
+                    targetName.Text = target.Name;
+                    targetOwner.Text = target.Owner;
+
+                    // FIXME (priority 6) - display shields and armor
+                    targetShields.Text = target.TotalShieldStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    targetArmor.Text = target.TotalArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                }
+            }
+        }
+
+        /// <summary>
+        /// Set the details for the target to "" on the UI.
+        /// </summary>
+        private void ClearTargetDetails()
+        {
+            this.targetName.Text = "";
+            this.targetOwner.Text = "";
+            this.targetShields.Text = "";
+            this.targetArmor.Text = "";
         }
 
 
@@ -201,7 +219,7 @@ namespace Nova.WinForms.Gui
         /// Deal with weapons being fired.
         /// </summary>
         /// <param name="weapons">weapon to display</param>
-        private void UpdateWeapons(BattleReport.Weapons weapons)
+        private void UpdateWeapons(BattleStepWeapons weapons)
         {
 
             if (weapons == null)
@@ -225,7 +243,7 @@ namespace Nova.WinForms.Gui
         /// if the stack fleet count drops to zero, destroy the whole stack.
         /// </summary>
         /// <param name="destroy"></param>
-        private void UpdateDestroy(BattleReport.Destroy destroy)
+        private void UpdateDestroy(BattleStepDestroy destroy)
         {
             this.damage.Text = "Ship destroyed";
 

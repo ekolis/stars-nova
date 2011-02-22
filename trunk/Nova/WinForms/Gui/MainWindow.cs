@@ -34,7 +34,7 @@ namespace Nova.WinForms.Gui
             {
                 if (star.Owner == ClientState.Data.RaceName)
                 {
-                    Nova.MapControl.SetCursor(star.Position);
+                    Nova.MapControl.SetCursor((System.Drawing.Point)star.Position);
                     Nova.SelectionDetail.Value = star;
                     Nova.SelectionSummary.Value = star;
                     break;
@@ -64,7 +64,7 @@ namespace Nova.WinForms.Gui
             {
                 if (star.Owner == ClientState.Data.RaceName)
                 {
-                    Nova.MapControl.SetCursor(star.Position);
+                    Nova.MapControl.SetCursor((System.Drawing.Point)star.Position);
                     Nova.SelectionDetail.Value = star;
                     Nova.SelectionSummary.Value = star;
                     break;

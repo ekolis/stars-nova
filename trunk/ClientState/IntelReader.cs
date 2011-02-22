@@ -195,6 +195,59 @@ namespace Nova.Client
                   }
               }
           }
+
+          // link the ship designs to the stacks
+          foreach (BattleReport battle in ClientState.Data.InputTurn.Battles)
+          {
+              foreach (Fleet fleet in battle.Stacks.Values)
+              {
+                  foreach (Ship ship in fleet.FleetShips)
+                  {
+                      if (ClientState.Data.KnownEnemyDesigns.ContainsKey(ship.DesignName))
+                      {
+                          // FIXME (priority 4) - this way of forming the key is a kludge
+                          ship.DesignUpdate((ShipDesign)ClientState.Data.KnownEnemyDesigns[ship.Owner + "/" + ship.DesignName]);
+                      }
+                      else
+                      {
+                          // FIXME (priority 4) - this way of forming the key is a kludge
+                          ship.DesignUpdate((ShipDesign)ClientState.Data.InputTurn.AllDesigns[ship.Owner + "/" + ship.DesignName]);
+                      }
+                  }
+              }
+          }
+
+          // Messages to Event objects
+          foreach (Message message in turnData.Messages)
+          {
+              switch (message.Type)
+              {
+                  case "TechAdvance":
+                      // TODO (priority 5) - link the tech advance message to the research control panel.
+                      break;
+
+                  case "NewComponent":
+                      // TODO (priority 5) - Link the new component message to the technology browser (when it is available in game).
+                      break;
+
+                  case "BattleReport":
+                      // The message is loaded such that the Event is a string containing the BattleReport.Key.
+                      // FIXME (priority 4) - linking battle messages to the right battle report is inefficient because the turnData.Battles does not have a meaningful key.
+                      foreach (BattleReport battle in turnData.Battles)
+                      {
+                          if (battle.Key == ((string)message.Event))
+                          {
+                              message.Event = battle;
+                              break;
+                          }
+                      }
+                      break;
+
+                  default:
+                      message.Event = null;
+                      break;
+              }
+          }
       }
 
 
@@ -369,8 +422,9 @@ namespace Nova.Client
       {
           Message techAdvanceMessage = new Message(
               ClientState.Data.RaceName,
-              null,
-              "Your race has advanced to Tech Level " + level + " in the " + stateData.ResearchTopic + " field");
+              "Your race has advanced to Tech Level " + level + " in the " + stateData.ResearchTopic + " field",
+              "TechAdvance",
+              null);
           stateData.Messages.Add(techAdvanceMessage);
 
           Hashtable allComponents = AllComponents.Data.Components;
@@ -388,8 +442,9 @@ namespace Nova.Client
                   ClientState.Data.AvailableComponents.Add(component);
                   Message newComponentMessage = new Message(
                       ClientState.Data.RaceName,
-                      null,
-                      "You now have available the " + component.Name + " " + component.Type + " component");
+                      "You now have available the " + component.Name + " " + component.Type + " component",
+                      "NewComponent",
+                      null);
                   ClientState.Data.Messages.Add(newComponentMessage);
               }
           }

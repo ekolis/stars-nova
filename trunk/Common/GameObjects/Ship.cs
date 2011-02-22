@@ -172,6 +172,10 @@ namespace Nova.Common
         #endregion
 
         #region Properties
+
+        /// <summary>
+        /// Get the highest speed the ship can travel for 0 fuel.
+        /// </summary>
         public int FreeWarpSpeed
         {
             get
@@ -179,6 +183,7 @@ namespace Nova.Common
                 return design.Engine.FreeWarpSpeed; 
             }
         }
+
         /// <summary>
         /// Checks if ship can colonize
         /// </summary>
@@ -189,6 +194,7 @@ namespace Nova.Common
                 return design.Summary.Properties.ContainsKey("Colonizer");
             }
         }
+
         /// <summary>
         /// The battle speed of a ship.
         /// </summary>
@@ -309,6 +315,7 @@ namespace Nova.Common
                 return this.design.DockCapacity;
             }
         }
+
         /// <summary>
         /// The fuel capacity of this ship.
         /// </summary>
@@ -485,7 +492,7 @@ namespace Nova.Common
                     {
                         case "design":
                             this.design = new ShipDesign();
-                            this.design.Name = ((XmlText)subnode.FirstChild).Value;
+                            this.design.Name = ((XmlText)subnode.FirstChild).Value; // Only the DesignName is loaded. This design must be replaced in the post load linking.
                             break;
                         case "owner":
                             Owner = ((XmlText)subnode.FirstChild).Value;
