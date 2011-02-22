@@ -267,7 +267,7 @@ namespace Nova.WinForms.Console
             // refuel
             if (star != null && star.Owner == fleet.Owner /* TODO (priority 6) or friendly*/ && star.Starbase != null && star.Starbase.CanRefuel)
             {
-                fleet.FuelAvailable = fleet.FuelCapacity;
+                fleet.FuelAvailable = fleet.TotalFuelCapacity;
             }
 
             // repair, TODO (priority 3) skip if fleet has no damage, if that is more efficient 

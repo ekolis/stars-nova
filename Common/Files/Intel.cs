@@ -416,7 +416,7 @@ namespace Nova.Common
            }
            catch (Exception e)
            {
-               System.Windows.Forms.MessageBox.Show("Item.cs ItemSerialisationTest failed:" + Environment.NewLine + e.Message + Environment.NewLine + stringStream.ToString()); 
+               System.Windows.Forms.MessageBox.Show("Intel.cs SerialisationTestEmptyIntel() failed:" + Environment.NewLine + e.Message + Environment.NewLine + stringStream.ToString()); 
                throw e; // fail the test
            }
        }
@@ -495,7 +495,7 @@ namespace Nova.Common
            }
            catch (Exception e)
            {
-               System.Windows.Forms.MessageBox.Show("Item.cs ItemSerialisationTest failed:" + Environment.NewLine + e.Message + Environment.NewLine + stringStream.ToString()); 
+               System.Windows.Forms.MessageBox.Show("Intel.cs SerialisationTestIntel() failed:" + Environment.NewLine + e.Message + Environment.NewLine + stringStream.ToString()); 
                throw e; // fail the test
            }
        }

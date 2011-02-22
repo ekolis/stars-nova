@@ -672,7 +672,7 @@ namespace Nova.WinForms.Gui
 
             if (starbase != null)
             {
-                dockCapacity = starbase.DockCapacity;
+                dockCapacity = starbase.TotalDockCapacity;
             }
 
             foreach (Design design in this.turnData.AllDesigns.Values)

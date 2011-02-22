@@ -33,6 +33,7 @@ using System.Drawing;
 
 using Nova.Common;
 using Nova.Common.Components;
+using Nova.Common.DataStructures;
 using Nova.Server;
 
 namespace Nova.WinForms.Console
@@ -224,7 +225,7 @@ namespace Nova.WinForms.Console
 
             foreach (Ship ship in fleet.FleetShips)
             {
-                ship.Cost = ship.DesignCost;
+                ship.Cost = ship.DesignCost; // ??? why is the cost of the ship being reset here?
                 Fleet stack = fleetStacks[ship.DesignName] as Fleet;
 
                 // If no stack exists for this design then create one now.
@@ -232,8 +233,9 @@ namespace Nova.WinForms.Console
                 if (stack == null)
                 {
                     string name = "Stack #" + stackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    stackId++;
                     stack = new Fleet(name, fleet.Owner, fleet.Position);
+                    stack.FleetID = stackId;
+                    stackId++;
 
                     stack.BattlePlan = fleet.BattlePlan;
                     stack.BattleSpeed = ship.BattleSpeed;
@@ -501,8 +503,8 @@ namespace Nova.WinForms.Console
                 {
                     if (stack.Target != null)
                     {
-                        Point from = stack.Position;
-                        Point to = stack.Target.Position;
+                        NovaPoint from = stack.Position;
+                        NovaPoint to = stack.Target.Position;
 
                         // stack accumulates its full movement over the course of the 3 phases
                         residualMovement[stack] += stack.BattleSpeed / (double)phases;
@@ -516,7 +518,7 @@ namespace Nova.WinForms.Console
 
                         // Update the battle report with these movements.
 
-                        BattleReport.Movement report = new BattleReport.Movement();
+                        BattleStepMovement report = new BattleStepMovement();
                         report.StackName = stack.Name;
                         report.Position = stack.Position;
                         battle.Steps.Add(report);
@@ -620,8 +622,8 @@ namespace Nova.WinForms.Console
             // If the target stack is not within the range of this weapon system
             // then there is no point in trying to fire it.
 
-            Point from = weapon.SourceStack.Position;
-            Point to = targetStack.Position;
+            NovaPoint from = weapon.SourceStack.Position;
+            NovaPoint to = targetStack.Position;
             double targetDistance = PointUtilities.Distance(from, to);
 
             if (targetDistance > weapon.Weapon.Range)
@@ -648,8 +650,8 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private static void DischargeWeapon(Ship ship, WeaponDetails details, Ship target)
         {
-            BattleReport.Target report = new BattleReport.Target();
-            report.TargetShip = new Ship(target);
+            BattleStepTarget report = new BattleStepTarget();
+            report.TargetShip = target.Key;
             battle.Steps.Add(report);
 
             // Identify the attack parameters that have to take into account
@@ -682,7 +684,7 @@ namespace Nova.WinForms.Console
 
             details.TargetStack.FleetShips.Remove(target);
 
-            BattleReport.Destroy destroy = new BattleReport.Destroy();
+            BattleStepDestroy destroy = new BattleStepDestroy();
             destroy.ShipName = target.Name;
             destroy.StackName = details.TargetStack.Name;
 
@@ -782,10 +784,10 @@ namespace Nova.WinForms.Console
 
             hitPower -= initialShields - target.Shields; // FIXME (priority 6) - This seems wrong, has it been tested? Why reduce the hitPower twice? - Dan 25/4/10
 
-            BattleReport.Weapons fire = new BattleReport.Weapons();
+            BattleStepWeapons fire = new BattleStepWeapons();
             fire.HitPower = hitPower;
             fire.Targeting = "Shields";
-            fire.WeaponTarget.TargetShip = new Ship(target);
+            fire.WeaponTarget.TargetShip = target.Key;
             battle.Steps.Add(fire);
 
             return hitPower;
@@ -803,10 +805,10 @@ namespace Nova.WinForms.Console
         {
             target.Armor -= hitPower;
 
-            BattleReport.Weapons armor = new BattleReport.Weapons();
+            BattleStepWeapons armor = new BattleStepWeapons();
             armor.HitPower = hitPower;
             armor.Targeting = "Armor";
-            armor.WeaponTarget.TargetShip = new Ship(target);
+            armor.WeaponTarget.TargetShip = target.Key;
             battle.Steps.Add(armor);
         }
 
@@ -890,11 +892,11 @@ namespace Nova.WinForms.Console
         {
             foreach (string race in battle.Losses.Keys)
             {
-                Message message = new Message();
-                message.Audience = race;
-                message.Event = battle;
-
-                message.Text = "There was a battle at " + battle.Location + "\r\n";
+                Message message = new Message(
+                    race,
+                    "There was a battle at " + battle.Location + "\r\n",
+                    "BattleReport",
+                    battle);
 
                 if ((int)battle.Losses[race] == 0)
                 {

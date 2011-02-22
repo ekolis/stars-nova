@@ -39,7 +39,8 @@ namespace Nova.Common
     public class Message
     {
         public string Text;      // The text to display in the message box.
-        public string Audience;  // A string representing the destination of the message. Either a race name or and asterix. 
+        public string Audience;  // A string representing the destination of the message. Either a race name or an asterix. 
+        public string Type;      // Text that indicates the type of event that generated the message.
         public object Event;     // An object used with the Goto button to display more information to the player. See Messages.GotoButton_Click
         // Ensure when adding new message types to add code to the Xml functions to handle your object type.
 
@@ -60,12 +61,12 @@ namespace Nova.Common
         /// <param name="messageEvent">An object used with the Goto button to display more information to the player. See Messages.GotoButton_Click</param>
         /// <param name="text">The text to display in the message box.</param>
         /// ----------------------------------------------------------------------------
-        public Message(string audience, object messageEvent, string text)
+        public Message(string audience, string text, string messageType, object messageEvent)
         {
             Audience = audience;
-            Event    = messageEvent;
             Text     = text;
-
+            Type     = messageType;
+            Event    = messageEvent;
         }
 
         #endregion
@@ -97,10 +98,13 @@ namespace Nova.Common
                         case "audience":
                             Audience = ((XmlText)subnode.FirstChild).Value;
                             break;
-                        case "BattleReport":
-                            // TODO (priority 6) - when messages are being saved as xml, this will need to be converted into a link to the actual battle report.
-                            Event = ((XmlText)subnode.FirstChild).Value;
+                        case "type":
+                            Type = subnode.FirstChild.Value;
                             break;
+                        case "event":
+                            Event = (object)subnode.FirstChild.Value;
+                            break;
+
                         case "Minefield":
                             Event = ((XmlText)subnode.FirstChild).Value;
                             break;
@@ -129,28 +133,33 @@ namespace Nova.Common
             XmlElement xmlelMessage = xmldoc.CreateElement("Message");
             Global.SaveData(xmldoc, xmlelMessage, "Text", Text);
             Global.SaveData(xmldoc, xmlelMessage, "Audience", Audience);
+            Global.SaveData(xmldoc, xmlelMessage, "Type", Type);
 
+            
             if (Event != null)
             {
-                if (Event is BattleReport)
+                switch (Type)
                 {
-                    // save just a reference to the full report
-                    BattleReport battle = Event as BattleReport;
-                    if (battle.Location != null)
-                        Global.SaveData(xmldoc, xmlelMessage, "BattleReport", battle.Location);
+                    case "TechAdvance":
+                    case "NewComponent":
+                        // No object reference required to be saved.
+                        break;
+
+                    case "Minefield":
+                        Global.SaveData(xmldoc, xmlelMessage, "Event", ((Minefield)Event).Key);
+                        break;
+
+                    case "BattleReport":
+                        Global.SaveData(xmldoc, xmlelMessage, "Event", ((BattleReport)Event).Key);
+                        break;
+
+                    default:
+                        Report.Error("Message.ToXml() - Unable to convert Message.Event of type " + Event.ToString());
+                        break;
+
                 }
-                if (Event is string)
-                {
-                    string eventString = Event as string;
-                    if (eventString == "Minefield")
-                    {
-                        Global.SaveData(xmldoc, xmlelMessage, "Minefield", "Minefield");
-                    }
-                }
-                else
-                {
-                    Report.Error("Message.ToXml() - Unable to convert Message.Event of type " + Event.ToString());
-                }
+
+
             }
 
             return xmlelMessage;

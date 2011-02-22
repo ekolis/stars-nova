@@ -26,19 +26,22 @@
 // ===========================================================================
 #endregion
 
-#region Using
-using System;
-using System.Collections;
-using System.Drawing;
-using System.Drawing.Drawing2D;
-using System.Windows.Forms;
 
-using Nova.Client;
-using Nova.Common;
-#endregion
 
 namespace Nova.WinForms.Gui
 {
+    #region Using
+    using System;
+    using System.Collections;
+    using System.Drawing;
+    using System.Drawing.Drawing2D;
+    using System.Windows.Forms;
+
+    using Nova.Client;
+    using Nova.Common;
+    using Nova.Common.DataStructures;
+    #endregion
+
     public partial class StarMap : UserControl
     {
         private readonly Point[] triangle = 
@@ -58,18 +61,18 @@ namespace Nova.WinForms.Gui
         private readonly BufferedGraphicsContext bufferedContext;
         private Intel turnData;
         private ClientState stateData;
-        private Point cursorPosition = new Point(0, 0);
-        private Point lastClick = new Point(0, 0);
-        private Point logical = new Point(0, 0);  // Size of the logical co-ordinate system (size of the game universe).
-        private Point origin = new Point(0, 0);  // Top left starting point of the displayed map within the logical map.
-        private Point center = new Point(0, 0);  // Focal point of the displayed map.
-        private Point extent = new Point(0, 0);  // Extent of the currently displayed map, from Origin.
+        private NovaPoint cursorPosition = new Point(0, 0);
+        private NovaPoint lastClick = new Point(0, 0);
+        private NovaPoint logical = new Point(0, 0);  // Size of the logical co-ordinate system (size of the game universe).
+        private NovaPoint origin = new Point(0, 0);   // Top left starting point of the displayed map within the logical map.
+        private NovaPoint center = new Point(0, 0);   // Focal point of the displayed map.
+        private NovaPoint extent = new Point(0, 0);   // Extent of the currently displayed map, from Origin.
         private double zoomFactor = 0.8;              // Is used to adjust the Extent of the map.
         private Graphics graphics;
         private bool isInitialised;
         private bool displayStarNames = true;
         private int horizontalScroll = 50; // 0 to 100, used to position the Center, initially centered
-        private int verticalScroll = 50; // 0 to 100, used to position the Center, initially centered
+        private int verticalScroll = 50;   // 0 to 100, used to position the Center, initially centered
         private int selection;
         #endregion
 
@@ -188,8 +191,8 @@ namespace Nova.WinForms.Gui
 
             graphics = bg.Graphics;
 
-            Point backgroundOrigin = LogicalToDevice(new Point(0, 0));
-            Point backgroundExtent = LogicalToDeviceRelative(new Point(this.logical.X, this.logical.Y));
+            NovaPoint backgroundOrigin = LogicalToDevice(new NovaPoint(0, 0));
+            NovaPoint backgroundExtent = LogicalToDeviceRelative(new NovaPoint(this.logical.X, this.logical.Y));
             graphics.DrawImage(Nova.Properties.Resources.Plasma, backgroundOrigin.X, backgroundOrigin.Y, backgroundExtent.X, backgroundExtent.Y);
 
             this.MapPanel.BackgroundImage = Nova.Properties.Resources.Plasma;
@@ -207,7 +210,7 @@ namespace Nova.WinForms.Gui
             {
                 if (star.Owner == ClientState.Data.RaceName)
                 {
-                    DrawCircle(lrScanBrush, star.Position, star.ScanRange);
+                    DrawCircle(lrScanBrush, (Point)star.Position, star.ScanRange);
                 }
             }
 
@@ -217,7 +220,7 @@ namespace Nova.WinForms.Gui
             {
                 if (fleet.Owner == this.stateData.RaceName)
                 {
-                    DrawCircle(lrScanBrush, fleet.Position, fleet.LongRangeScan);
+                    DrawCircle(lrScanBrush, (Point)fleet.Position, fleet.LongRangeScan);
                 }
             }
 
@@ -227,7 +230,7 @@ namespace Nova.WinForms.Gui
             {
                 if (fleet.Owner == this.stateData.RaceName)
                 {
-                    DrawCircle(srScanBrush, fleet.Position, fleet.ShortRangeScan);
+                    DrawCircle(srScanBrush, (Point)fleet.Position, fleet.ShortRangeScan);
                 }
             }
 
@@ -253,7 +256,7 @@ namespace Nova.WinForms.Gui
                 HatchStyle style = HatchStyle.DiagonalCross | HatchStyle.Percent50;
                 HatchBrush srMineBrush = new HatchBrush(style, cf, cb);
                 int radius = minefield.Radius;
-                DrawCircle(srMineBrush, minefield.Position, radius);
+                DrawCircle(srMineBrush, (Point)minefield.Position, radius);
             }
 
 
@@ -276,7 +279,7 @@ namespace Nova.WinForms.Gui
                 DrawOrbitingFleets(star);
             }
 
-            Point position;
+            NovaPoint position;
             foreach (Fleet fleet in this.stateData.PlayerFleets)
             {
                 if (fleet.InOrbit != null)
@@ -297,7 +300,7 @@ namespace Nova.WinForms.Gui
             position = LogicalToDevice(this.cursorPosition);
             position.X -= (this.cursorBitmap.Width / 2) + 1;
             position.Y += 2;
-            graphics.DrawImage(this.cursorBitmap, position);
+            graphics.DrawImage(this.cursorBitmap, (Point)position);
 
             // (7) Zoom/Scroll/Cursor info for debugging.
 #if (DEBUG)
@@ -348,15 +351,15 @@ namespace Nova.WinForms.Gui
         /// <param name="where"></param>
         /// <param name="radius"></param>
         /// ----------------------------------------------------------------------------
-        private void DrawCircle(Brush brush, Point where, int radius)
+        private void DrawCircle(Brush brush, NovaPoint where, int radius)
         {
             if (radius == 0) return;
 
-            Point position = LogicalToDevice(where);
-            Point logical = new Point(radius, 0);
-            Point device = LogicalToDeviceRelative(logical);
+            NovaPoint position = LogicalToDevice(where);
+            NovaPoint logical = new NovaPoint(radius, 0);
+            NovaPoint device = LogicalToDeviceRelative(logical);
 
-            FillCircle(brush, position, device.X);
+            FillCircle(brush, (Point)position, device.X);
         }
 
 
@@ -371,7 +374,7 @@ namespace Nova.WinForms.Gui
         {
             if (fleet.InOrbit == null)
             {
-                Point position = LogicalToDevice(fleet.Position);
+                NovaPoint position = LogicalToDevice(fleet.Position);
 
                 graphics.TranslateTransform(position.X, position.Y);
                 graphics.RotateTransform((float)fleet.Bearing);
@@ -391,12 +394,12 @@ namespace Nova.WinForms.Gui
             if (fleet.Owner == this.stateData.RaceName)
             {
                 Waypoint first = fleet.Waypoints[0] as Waypoint;
-                Point from = LogicalToDevice(first.Position);
+                NovaPoint from = LogicalToDevice(first.Position);
 
                 foreach (Waypoint waypoint in fleet.Waypoints)
                 {
-                    Point position = waypoint.Position;
-                    graphics.DrawLine(Pens.Blue, from, LogicalToDevice(position));
+                    NovaPoint position = waypoint.Position;
+                    graphics.DrawLine(Pens.Blue, (Point)from, (Point)LogicalToDevice(position));
                     from = LogicalToDevice(position);
                 }
             }
@@ -419,7 +422,7 @@ namespace Nova.WinForms.Gui
         private void DrawStar(Star star)
         {
             StarReport report = this.stateData.StarReports[star.Name] as StarReport;
-            Point position = LogicalToDevice(star.Position);
+            NovaPoint position = LogicalToDevice(star.Position);
             int size = 1;
             Brush starBrush = Brushes.White;
             string owner = "?";
@@ -447,7 +450,7 @@ namespace Nova.WinForms.Gui
                 }
             }
 
-            FillCircle(starBrush, position, size);
+            FillCircle(starBrush, (Point)position, size);
 
             // If the star name display is turned on then add the name
 
@@ -455,8 +458,7 @@ namespace Nova.WinForms.Gui
             {
                 StringFormat format = new StringFormat();
                 format.Alignment = StringAlignment.Center;
-                graphics.DrawString(
-                star.Name, this.nameFont, Brushes.White, position, format);
+                graphics.DrawString(star.Name, this.nameFont, Brushes.White, (Point)position, format);
             }
         }
 
@@ -471,7 +473,7 @@ namespace Nova.WinForms.Gui
         private void DrawOrbitingFleets(Star star)
         {
             StarReport report = this.stateData.StarReports[star.Name] as StarReport;
-            Point position = LogicalToDevice(star.Position);
+            NovaPoint position = LogicalToDevice(star.Position);
             int size = 16;
 
             if (report == null)
@@ -672,9 +674,9 @@ namespace Nova.WinForms.Gui
         /// <param name="p">The point to convert.</param>
         /// <returns>A converted point.</returns>
         /// ----------------------------------------------------------------------------
-        private Point LogicalToDevice(Point p)
+        private NovaPoint LogicalToDevice(NovaPoint p)
         {
-            Point result = new Point();
+            NovaPoint result = new NovaPoint();
 
             int minLength = Math.Min(this.MapPanel.Size.Width, this.MapPanel.Size.Height); // maintain 1:1 aspect ratio
 
@@ -692,9 +694,9 @@ namespace Nova.WinForms.Gui
         /// <param name="p">The point to convert.</param>
         /// <returns>The converted point.</returns>
         /// ----------------------------------------------------------------------------
-        private Point LogicalToDeviceRelative(Point p)
+        private NovaPoint LogicalToDeviceRelative(NovaPoint p)
         {
-            Point result = new Point();
+            NovaPoint result = new NovaPoint();
 
             int minLength = Math.Min(this.MapPanel.Size.Width, this.MapPanel.Size.Height); // maintain 1:1 aspect ratio
 
@@ -712,9 +714,9 @@ namespace Nova.WinForms.Gui
         /// <param name="p">The point to convert.</param>
         /// <returns>The converted point.</returns>
         /// ----------------------------------------------------------------------------
-        private Point DeviceToLogical(Point p)
+        private NovaPoint DeviceToLogical(NovaPoint p)
         {
-            Point result = new Point();
+            NovaPoint result = new NovaPoint();
 
             int minLength = Math.Min(this.MapPanel.Size.Width, this.MapPanel.Size.Height); // maintain 1:1 aspect ratio
 
@@ -924,9 +926,9 @@ namespace Nova.WinForms.Gui
             FleetDetail fleetDetail = MainWindow.Nova.SelectionDetail.Control
                                       as FleetDetail;
 
-            Point click = new Point(e.X, e.Y);
+            NovaPoint click = new NovaPoint(e.X, e.Y);
             Fleet fleet = item as Fleet;
-            Point position = DeviceToLogical(click);
+            NovaPoint position = DeviceToLogical(click);
             ArrayList nearObjects = FindNearObjects(position);
             Waypoint waypoint = new Waypoint();
 
@@ -957,7 +959,7 @@ namespace Nova.WinForms.Gui
 
             int lastIndex = fleet.Waypoints.Count - 1;
             Waypoint lastWaypoint = fleet.Waypoints[lastIndex] as Waypoint;
-            Point lastPosition = lastWaypoint.Position;
+            NovaPoint lastPosition = lastWaypoint.Position;
 
             if (waypoint.Destination == lastWaypoint.Destination)
             {
@@ -967,11 +969,11 @@ namespace Nova.WinForms.Gui
             // Draw the new waypoint on the map and add it to the list of
             // waypoints for the fleet.
 
-            Point from = LogicalToDevice(lastPosition);
-            Point to = LogicalToDevice(waypoint.Position);
+            NovaPoint from = LogicalToDevice(lastPosition);
+            NovaPoint to = LogicalToDevice(waypoint.Position);
             Graphics g = this.MapPanel.CreateGraphics();
 
-            g.DrawLine(Pens.Yellow, from, to);
+            g.DrawLine(Pens.Yellow, (Point)from, (Point)to);
             g.Dispose();
 
             fleet.Waypoints.Add(waypoint);
@@ -987,8 +989,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void LeftMouse(MouseEventArgs e)
         {
-            Point position = new Point();
-            Point click = new Point();
+            NovaPoint position = new NovaPoint();
+            NovaPoint click = new NovaPoint();
             click.X = e.X;
             click.Y = e.Y;
             position = DeviceToLogical(click);
@@ -1036,7 +1038,7 @@ namespace Nova.WinForms.Gui
         /// </summary>
         /// <param name="position">Whete the cursor is to be put.</param>
         /// ----------------------------------------------------------------------------
-        public void SetCursor(Point position)
+        public void SetCursor(NovaPoint position)
         {
             this.cursorPosition = position;
 
@@ -1070,7 +1072,7 @@ namespace Nova.WinForms.Gui
         /// <param name="position">Starting point for the search.</param>
         /// <returns>ArrayList of Fleet and Star objects.</returns>
         /// ----------------------------------------------------------------------------
-        private ArrayList FindNearObjects(Point position)
+        private ArrayList FindNearObjects(NovaPoint position)
         {
             ArrayList nearObjects = new ArrayList();
 

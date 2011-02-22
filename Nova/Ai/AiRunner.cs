@@ -43,7 +43,7 @@ namespace Nova.Ai
 {
     public class Program
     {
-        static AbstractAI AI = new DefaultAi();
+        private static AbstractAI AI = new DefaultAi();
         public static void Main(string[] args)
         {
             string raceName;

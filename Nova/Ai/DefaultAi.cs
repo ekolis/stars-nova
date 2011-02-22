@@ -23,15 +23,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Nova.Common;
+
 using Nova.Client;
+using Nova.Common;
 using Nova.Common.Components;
 
 namespace Nova.Ai
 {
-    class DefaultAi : AbstractAI
+    public class DefaultAi : AbstractAI
     {
-        Intel turnData;
+        private Intel turnData;
 
         private void HandleProduction()
         {
@@ -101,10 +102,10 @@ namespace Nova.Ai
         /// </summary>
         private void HandleResearch()
         {
-            //check if messages contains info about tech advence
-            foreach(Message msg in ClientState.Data.Messages )
+            // check if messages contains info about tech advence
+            foreach (Message msg in ClientState.Data.Messages)
             {
-                if(msg.Text.Contains("Your race has advanced to Tech Level") == true)
+                if (msg.Text.Contains("Your race has advanced to Tech Level") == true)
                 {
                     int minLevel = int.MaxValue;
                     Nova.Common.TechLevel.ResearchField rs = TechLevel.ResearchField.Electronics;

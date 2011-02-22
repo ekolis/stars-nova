@@ -874,8 +874,8 @@ namespace Nova.WinForms.Gui
             }
 
             Fleet starbase = star.Starbase;
-            this.starbaseArmor.Text = starbase.ArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            this.starbaseCapacity.Text = starbase.DockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.starbaseArmor.Text = starbase.TotalArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.starbaseCapacity.Text = starbase.TotalDockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.starbaseDamage.Text = "0";
             this.starbasePanel.Enabled = true;
             this.starbasePanel.Text = starbase.Name;

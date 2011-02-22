@@ -30,7 +30,9 @@
 using System;
 using System.Collections;
 using System.Drawing;
+
 using Nova.Common;
+using Nova.Common.DataStructures;
 
 namespace Nova.Client
 {
@@ -51,7 +53,7 @@ namespace Nova.Client
         public int Temperature;
         public string Owner;
         public Fleet Starbase;
-        public Point Position;
+        public NovaPoint Position;
         public bool OrbitingFleets;
 
         /// <summary>

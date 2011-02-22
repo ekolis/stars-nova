@@ -22,17 +22,18 @@
 
 #region Module Description
 // ===========================================================================
-// The details of an individual Waypoint.
+// See Waypoint class summary.
 // ===========================================================================
 #endregion
 
-using System;
-using System.Drawing;
-using System.Xml;
-using System.Xml.Serialization;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Drawing;
+    using System.Xml;
+    using System.Xml.Serialization;
+
+    using Nova.Common.DataStructures;
 
     /// <summary>
     /// Waypoints have a position (i.e. where to go), a destination description
@@ -42,7 +43,7 @@ namespace Nova.Common
     [Serializable]
     public class Waypoint
     {
-        public Point Position;
+        public NovaPoint Position;
         public string Destination;
         public int WarpFactor = 6;
         public string Task = "None";
@@ -85,8 +86,7 @@ namespace Nova.Common
                             break;
 
                         case "position":
-                            Position.X = int.Parse(subnode.SelectSingleNode("X").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            Position.Y = int.Parse(subnode.SelectSingleNode("Y").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Position = new NovaPoint(subnode);
                             break;
                     }
                 }

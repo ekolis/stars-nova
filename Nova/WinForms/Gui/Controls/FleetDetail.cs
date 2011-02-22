@@ -29,6 +29,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Windows.Forms;
 
 using Nova.Client;
@@ -743,7 +744,7 @@ namespace Nova.WinForms.Gui
             MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
             MainWindow.Nova.SelectionSummary.Value = this.selectedFleet;
 
-            MainWindow.Nova.MapControl.SetCursor(this.selectedFleet.Position);
+            MainWindow.Nova.MapControl.SetCursor((Point)this.selectedFleet.Position);
         }
 
 
@@ -780,7 +781,7 @@ namespace Nova.WinForms.Gui
             MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
             MainWindow.Nova.SelectionSummary.Value = this.selectedFleet;
 
-            MainWindow.Nova.MapControl.SetCursor(this.selectedFleet.Position);
+            MainWindow.Nova.MapControl.SetCursor((Point)this.selectedFleet.Position);
         }
 
         #endregion
@@ -913,9 +914,9 @@ namespace Nova.WinForms.Gui
                 this.fleetComposition.Items.Add(listItem);
             }
 
-            this.fuel.Maximum = (int)fleet.FuelCapacity;
+            this.fuel.Maximum = (int)fleet.TotalFuelCapacity;
             this.fuel.Value = (int)fleet.FuelAvailable;
-            this.cargo.Maximum = (int)fleet.CargoCapacity;
+            this.cargo.Maximum = (int)fleet.TotalCargoCapacity;
             this.cargo.Value = (int)fleet.Cargo.Mass;
 
             this.wayPoints.Items.Clear();
@@ -932,7 +933,7 @@ namespace Nova.WinForms.Gui
 
             if (fleet.InOrbit != null)
             {
-                if (fleet.CargoCapacity > 0)
+                if (fleet.TotalCargoCapacity > 0)
                 {
                     this.cargoButton.Enabled = true;
                 }

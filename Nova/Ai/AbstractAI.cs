@@ -23,15 +23,15 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using Nova.Common;
 using Nova.Client;
+using Nova.Common;
 
 namespace Nova.Ai
 {
     public abstract class AbstractAI
     {
-        string raceName;
-        int turnNumber = -1;
+        protected string raceName;
+        protected int turnNumber = -1;
 
         public void Initialize(CommandArguments commandArguments)
         {
@@ -40,6 +40,6 @@ namespace Nova.Ai
             ClientState.Initialize(commandArguments.ToArray()); 
         }
 
-        public abstract  void DoMove();
+        public abstract void DoMove();
     }
 }

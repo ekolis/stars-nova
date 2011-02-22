@@ -22,20 +22,30 @@
 
 #region Module Description
 // ===========================================================================
-// Some general utilities for handling points.
+// See PointUtilities class summary.
 // ===========================================================================
 #endregion
 
-using System;
-using System.Drawing;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Drawing;
+    using System.Reflection;
+
+    using Nova.Common.DataStructures;
+
+    using NUnit.Framework;
+
     /// <summary>
-    /// Point Utility Functions.
+    /// Some general utilities for handling points.
     /// </summary>
+    /// <remarks>
+    /// TODO (priority 4) - should these be merged with NovaPoint? - Dan 28 Nova 10
+    /// </remarks>
     public class PointUtilities
     {
+
+
 
         private static readonly Random Random = new Random();
 
@@ -51,10 +61,10 @@ namespace Nova.Common
         /// <param name="boxBorder">The minimum distance between the point and the edge of the box.</param>
         /// <returns>A <see cref="Point"/> within the box.</returns>
         /// ----------------------------------------------------------------------------
-        public static Point GetPositionInBox(Rectangle box, int boxBorder)
+        public static NovaPoint GetPositionInBox(Rectangle box, int boxBorder)
         {
             int boxSize = box.Width;
-            Point position = new Point(box.X, box.Y);
+            NovaPoint position = new NovaPoint(box.X, box.Y);
 
             position.X += Random.Next(boxBorder, boxSize - boxBorder);
             position.Y += Random.Next(boxBorder, boxSize - boxBorder);
@@ -67,14 +77,14 @@ namespace Nova.Common
         /// <summary>
         /// Determine if a point is within a bounding box. 
         /// </summary>
-        /// <param name="p">The <see cref="Point"/> in question.</param>
+        /// <param name="p">The <see cref="NovaPoint"/> in question.</param>
         /// <param name="box">The <see cref="Rectangle"/> defining the space to check.</param>
         /// <returns>True if point p is in the box.</returns>
         /// ----------------------------------------------------------------------------
-        public static bool InBox(Point p, Rectangle box)
+        public static bool InBox(NovaPoint p, Rectangle box)
         {
-            Point upperLeft = box.Location;
-            Point bottomRight = box.Location;
+            NovaPoint upperLeft = new NovaPoint(box.Location);
+            NovaPoint bottomRight = new NovaPoint(box.Location);
 
             bottomRight.Offset(box.Width, box.Height);
 
@@ -103,7 +113,7 @@ namespace Nova.Common
         /// <param name="r2">Radius of the second circle.</param>
         /// <returns></returns>
         /// ----------------------------------------------------------------------------
-        public static bool CirclesOverlap(Point p1, Point p2, double r1, double r2)
+        public static bool CirclesOverlap(NovaPoint p1, NovaPoint p2, double r1, double r2)
         {
             double x1 = p1.X;
             double x2 = p2.X;
@@ -131,11 +141,11 @@ namespace Nova.Common
         /// <param name="position2">The second position.</param>
         /// <returns>true if position 2 is within a 40x40 box around position 1.</returns>
         /// ----------------------------------------------------------------------------
-        public static bool IsNear(Point position1, Point position2)
+        public static bool IsNear(NovaPoint position1, NovaPoint position2)
         {
-            Point topCorner = position1;
+            NovaPoint topCorner = new NovaPoint(position1);
             topCorner.Offset(-20, -20);
-            Rectangle scanArea = new Rectangle(topCorner, new Size(40, 40));
+            Rectangle scanArea = new Rectangle(topCorner.X, topCorner.Y, 40, 40);
 
             if (InBox(position2, scanArea))
             {
@@ -158,7 +168,7 @@ namespace Nova.Common
         /// <returns>Distance between the start and end points.</returns>
         /// TODO (priority 3) - Find calls to this function that could use DistanceSquare instead (for speed).
         /// ----------------------------------------------------------------------------
-        public static double Distance(Point start, Point end)
+        public static double Distance(NovaPoint start, NovaPoint end)
         {
             double xo = start.X - end.X;
             double yo = start.Y - end.Y;
@@ -179,7 +189,7 @@ namespace Nova.Common
         /// <param name="end">Another point.</param>
         /// <returns>The distance between start and end, squared.</returns>
         /// ----------------------------------------------------------------------------
-        public static double DistanceSquare(Point start, Point end)
+        public static double DistanceSquare(NovaPoint start, NovaPoint end)
         {
             double xo = start.X - end.X;
             double yo = start.Y - end.Y;
@@ -196,16 +206,15 @@ namespace Nova.Common
         /// FIXME (priority 6) - rounding can cause no movement to occur. 
         /// Fix added, requires testing - Dan 4 Apr 10
         /// </remarks>
-        /// <param name="from">The stating <see cref="Point"/></param>
-        /// <param name="to">The destination <see cref="Point"/></param>
+        /// <param name="from">The stating <see cref="NovaPoint"/></param>
+        /// <param name="to">The destination <see cref="NovaPoint"/></param>
         /// <param name="distance">The actual distance to move.</param>
         /// <returns>If the distance between from and to is less than 'distance' then returns 'to.
         /// Otherwise a point 'distance' away from 'from' in the direction of 'to'.</returns>
         /// ----------------------------------------------------------------------------
-        public static Point MoveTo(Point from, Point to, double distance)
+        public static NovaPoint MoveTo(NovaPoint from, NovaPoint to, double distance)
         {
-            Point result = new Point();
-            result = from;
+            NovaPoint result = new NovaPoint(from);
 
             double my = to.Y - from.Y;
             double mx = to.X - from.X;
@@ -244,10 +253,9 @@ namespace Nova.Common
         /// <param name="to">The destingation position.</param>
         /// <returns>A position 1 square closer to the destination (diagonal movement counts as 1).</returns>
         /// ----------------------------------------------------------------------------
-        public static Point BattleMoveTo(Point from, Point to)
+        public static NovaPoint BattleMoveTo(NovaPoint from, NovaPoint to)
         {
-            Point result = new Point();
-            result = from;
+            NovaPoint result = new NovaPoint(from);
 
             if (from.Y > to.Y) result.Y--;
             else if (from.Y < to.Y) result.Y++;
@@ -257,6 +265,21 @@ namespace Nova.Common
 
             return result;
         }
+
+        [Test]
+        public void TestIsNearDoesNotChangeParams()
+        {
+            NovaPoint a = new NovaPoint(1, 2);
+            NovaPoint b = new NovaPoint(3, 4);
+
+            bool testNear = IsNear(a, b);
+
+            Assert.IsTrue(a.X == 1);
+            Assert.IsTrue(a.Y == 2);
+            Assert.IsTrue(b.X == 3);
+            Assert.IsTrue(b.Y == 4);
+        }
+
 
     }
 }
