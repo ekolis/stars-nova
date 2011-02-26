@@ -1351,6 +1351,7 @@ namespace Nova.WinForms.Gui
                             else
                             {
                                 // not everything in the stack can be built this year
+                                maxYearsSelected = -1;
 
                                 // the current build state is the cost of the first item found by (total cost - (cost of all but one))
                                 Resources currentBuildState = new Resources();
@@ -1444,7 +1445,7 @@ namespace Nova.WinForms.Gui
                                     maxYearsTotal = -1;
                                 }
                                 allBuilt = false;
-                                yearsSoFar++;
+                                if (yearsSoFar >= 0) yearsSoFar++;
                             }
                         }
                         // end of the while loop to determine years to build items in the stack
@@ -1536,7 +1537,7 @@ namespace Nova.WinForms.Gui
                 {
                     if (maxYearsTotal < 0)
                     {
-                        totalCostYears.Text = minYearsTotal.ToString(System.Globalization.CultureInfo.InvariantCulture) + " - ???? years.";
+                        totalCostYears.Text = minYearsTotal.ToString(System.Globalization.CultureInfo.InvariantCulture) + " - ??? years.";
                     }
                     else
                     {
