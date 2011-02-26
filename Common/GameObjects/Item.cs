@@ -192,7 +192,6 @@ namespace Nova.Common
 
         }
 
-
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Return an XmlElement representation of the <see cref="Item"/>.
