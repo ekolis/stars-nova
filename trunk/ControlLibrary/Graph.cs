@@ -126,7 +126,7 @@ namespace Nova.ControlLibrary
                     fuel100PercentPen,
                     graphBounds.Left + 3 + (int)(tickX * (i - 1)),
                     graphBounds.Bottom - 2 - (int)(tickY * 100),
-                    graphBounds.Left + 3 + (int)(tickX * (i - 1) + tickX / 2),
+                    graphBounds.Left + 3 + (int)((tickX * (i - 1)) + (tickX / 2)),
                     graphBounds.Bottom - 2 - (int)(tickY * 100));
 
                 // Tick marks on bottom (warp speed)
