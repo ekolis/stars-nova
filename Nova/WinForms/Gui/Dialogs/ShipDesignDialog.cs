@@ -686,7 +686,7 @@ namespace Nova.WinForms.Gui
             // graph1
             // 
             this.graph1.AxisColor = System.Drawing.Color.Black;
-            this.graph1.Data = null;
+//            this.graph1.Data = null;
             this.graph1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.graph1.HoriozontalSpace = 0.03;
             this.graph1.Image = null;
@@ -949,6 +949,7 @@ namespace Nova.WinForms.Gui
 
             if (selection.Type == "Engine")
                 graph1.Data = (selection.Properties["Engine"] as Engine).FuelConsumption;
+                
             else
                 graph1.Data = null;
             // Call the Mouse down routine (it must have gone down to change the

@@ -111,6 +111,7 @@ namespace Nova.ControlLibrary
             SolidBrush brush = new SolidBrush(LineColor);
             Pen p = new Pen(brush);
             Pen markPen = new Pen(new SolidBrush(AxisColor));
+            Pen fuel100PercentPen = new Pen(new SolidBrush(System.Drawing.Color.Gray));
             for (int i = 1; i < data.Length; i++)
             {
                 g.DrawLine(
@@ -119,8 +120,22 @@ namespace Nova.ControlLibrary
                     graphBounds.Bottom - 2 - (int)(tickY * data[i - 1]),
                     graphBounds.Left + 3 + (int)(tickX * i),
                     graphBounds.Bottom - 2 - (int)(tickY * data[i]));
+
+                // Draw a dashed line at 100% fuel
+                g.DrawLine(
+                    fuel100PercentPen,
+                    graphBounds.Left + 3 + (int)(tickX * (i - 1)),
+                    graphBounds.Bottom - 2 - (int)(tickY * 100),
+                    graphBounds.Left + 3 + (int)(tickX * (i - 1) + tickX / 2),
+                    graphBounds.Bottom - 2 - (int)(tickY * 100));
+
+                // Tick marks on bottom (warp speed)
                 g.DrawLine(markPen, (int)(tickX * i), graphBounds.Bottom, (int)(tickX * i), graphBounds.Bottom - 4);
             }
+
+
+
+
             markPen.Dispose();
             p.Dispose();
             brush.Dispose();
@@ -136,6 +151,7 @@ namespace Nova.ControlLibrary
             p.EndCap = LineCap.ArrowAnchor;
             g.DrawLine(p, graphBounds.Left + 3, graphBounds.Bottom - 2, graphBounds.Left + 3, graphBounds.Top + 2);
             g.DrawLine(p, graphBounds.Left + 3, graphBounds.Bottom - 2, graphBounds.Right - 3, graphBounds.Bottom - 2);
+
             p.Dispose();
             brush.Dispose();
         }
