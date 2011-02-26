@@ -181,7 +181,8 @@ namespace Nova.WinForms.Console
                 remainingAttackers = Math.Max(remainingAttackers, Global.ColonistsPerKiloton);
                 int attackersKilled = troops - remainingAttackers;
                 star.Colonists = remainingAttackers;
-                star.Owner = fleet.Owner;
+                // star.Owner = fleet.Owner; // This doesn't work. Is star a copy?
+                ((Star)ServerState.Data.AllStars[star.Name]).Owner = fleet.Owner;
 
                 messageText += "The defenders were slain but "
                             + attackersKilled +
