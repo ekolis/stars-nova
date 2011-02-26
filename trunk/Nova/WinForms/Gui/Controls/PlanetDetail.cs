@@ -879,7 +879,7 @@ namespace Nova.WinForms.Gui
             this.starbaseDamage.Text = "0";
             this.starbasePanel.Enabled = true;
             this.starbasePanel.Text = starbase.Name;
-            this.starbaseShields.Text = "0";
+            this.starbaseShields.Text = starbase.TotalShieldStrength.ToString();
 
             this.massDriverType.Text = "None";
             this.massDriverDestination.Text = "None";

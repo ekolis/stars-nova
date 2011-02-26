@@ -152,6 +152,20 @@ namespace Nova.Client
       {
           Intel turnData = ClientState.Data.InputTurn;
 
+          // HullModule reference to a component
+          foreach (Design design in turnData.AllDesigns.Values)
+          {
+              if (design.Type.ToLower() == "ship" || design.Type.ToLower() == "starbase")
+              {
+                  ShipDesign ship = design as ShipDesign;
+                  foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)
+                  {
+                      if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
+                          module.AllocatedComponent = AllComponents.Data.Components[module.AllocatedComponent.Name] as Component;
+                  }
+              }
+          }
+
           // Fleet reference to Star
           foreach (Fleet fleet in turnData.AllFleets.Values)
           {
@@ -182,21 +196,8 @@ namespace Nova.Client
               
           }
 
-          // HullModule reference to a component
-          foreach (Design design in turnData.AllDesigns.Values)
-          {
-              if (design.Type == "Ship")
-              {
-                  ShipDesign ship = design as ShipDesign;
-                  foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)
-                  {
-                      if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
-                          module.AllocatedComponent = AllComponents.Data.Components[module.AllocatedComponent.Name] as Component;
-                  }
-              }
-          }
 
-          // link the ship designs to the stacks
+          // link the ship designs in battle reports to the stacks
           foreach (BattleReport battle in ClientState.Data.InputTurn.Battles)
           {
               foreach (Fleet fleet in battle.Stacks.Values)
