@@ -46,14 +46,24 @@ using Nova.Common.Components;
 
 namespace Nova.Common
 {
+
     [Serializable]
     public sealed class Orders
     {
         public Hashtable RaceFleets = new Hashtable();      // For fleet orders
         public Hashtable RaceDesigns = new Hashtable();     // For any new designs
         public ArrayList RaceStars = new ArrayList();       // For production queues
-        public ArrayList DeletedFleets = new ArrayList();   // To delete fleets
-        public ArrayList DeletedDesigns = new ArrayList();  // To delete designs
+        
+        /// <summary>
+        /// List of fleets (Fleet.Key) to delete
+        /// </summary>
+        public StrongList<string> DeletedFleets = new StrongList<string>();
+
+        /// <summary>
+        /// List of designs (Design.Key) to delete
+        /// </summary>
+        public StrongList<string> DeletedDesigns = new StrongList<string>(); 
+
         public RaceData PlayerData = new RaceData();        // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.)
         public int TechLevel;                               // FIXME (priority 5): should send our research orders; server should control actual player tech level ??? what does this int mean? it is not a TechLevel type.
 
@@ -148,17 +158,8 @@ namespace Nova.Common
                             XmlNode deletedDesignsNode = xmlnode.FirstChild;
                             while (deletedDesignsNode != null)
                             {
-                                string type = deletedDesignsNode.FirstChild.SelectSingleNode("Type").FirstChild.Value;
-                                if (type.ToLower() == "ship" || type == "starbase")
-                                {
-                                    shipDesign = new ShipDesign(deletedDesignsNode);
-                                    DeletedDesigns.Add(shipDesign);
-                                }
-                                else
-                                {
-                                    design = new Design(deletedDesignsNode);
-                                    DeletedDesigns.Add(design);
-                                }
+                                // only the fleet.key is stored in the xml file
+                                DeletedDesigns.Add(deletedDesignsNode.FirstChild.Value);
                                 deletedDesignsNode = deletedDesignsNode.NextSibling;
                             }
                             break;
@@ -179,8 +180,8 @@ namespace Nova.Common
                             XmlNode deletedFleetsNode = xmlnode.FirstChild;
                             while (deletedFleetsNode != null)
                             {
-                                fleet = new Fleet(deletedFleetsNode);
-                                DeletedFleets.Add(fleet);
+                                // only the fleet.key is stored in the xml file
+                                DeletedFleets.Add(deletedFleetsNode.FirstChild.Value);
                                 deletedFleetsNode = deletedFleetsNode.NextSibling;
                             }
                             break;
@@ -247,19 +248,17 @@ namespace Nova.Common
             // so they can be told appart from current designs and fleets when
             // loaded.
             XmlElement xmlelDeletedFleets = xmldoc.CreateElement("DeletedFleets");
-            foreach (Fleet fleet in DeletedFleets)
+            foreach (string fleetKey in DeletedFleets)
             {
-                xmlelDeletedFleets.AppendChild(fleet.ToXml(xmldoc));
+                // only need to store enough data to find the deleted fleet.
+                Global.SaveData(xmldoc, xmlelDeletedFleets, "FleetKey", fleetKey);
             }
             xmlelOrders.AppendChild(xmlelDeletedFleets);
 
             XmlElement xmlelDeletedDesigns = xmldoc.CreateElement("DeletedDesigns");
-            foreach (Design design in DeletedDesigns)
+            foreach (string designKey in DeletedDesigns)
             {
-                if (design.Type == "Ship" || design.Type == "Starbase")
-                    xmlelDeletedDesigns.AppendChild(((ShipDesign)design).ToXml(xmldoc));
-                else
-                    xmlelDeletedDesigns.AppendChild(design.ToXml(xmldoc));
+                Global.SaveData(xmldoc, xmlelDeletedDesigns, "DesignKey", designKey);
             }
             xmlelOrders.AppendChild(xmlelDeletedDesigns);
 

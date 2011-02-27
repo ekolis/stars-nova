@@ -117,20 +117,19 @@ namespace Nova.Client
              }
          }
 
-         foreach (string fleetName in stateData.DeletedFleets)
+         foreach (string fleetKey in stateData.DeletedFleets)
          {
-             outputTurn.DeletedFleets.Add(fleetName);
+             outputTurn.DeletedFleets.Add(fleetKey);
          }
 
          foreach (string designKey in stateData.DeletedDesigns)
          {
-             outputTurn.DeletedFleets.Add(designKey);
+             outputTurn.DeletedDesigns.Add(designKey);
          }
 
          string turnFileName = Path.Combine(stateData.GameFolder, raceName + Global.OrdersExtension);
 
-         // outputTurn.ToBinary(turnFileName); // old binary serialised format
-         outputTurn.ToXml(turnFileName); // human readable xml format
+         outputTurn.ToXml(turnFileName); 
 
       }
 
