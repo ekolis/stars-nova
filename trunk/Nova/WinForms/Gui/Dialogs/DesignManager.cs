@@ -209,6 +209,7 @@ Are you sure you want to do this?";
                 this.stateData.DeletedFleets.Add(fleet.Key);
             }
 
+            stateData.DeletedDesigns.Add(design.Key);
             this.turnData.AllDesigns.Remove(design.Key);
             DesignOwner_SelectedIndexChanged(null, null);
 
