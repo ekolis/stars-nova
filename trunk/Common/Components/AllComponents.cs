@@ -211,44 +211,47 @@ namespace Nova.Common.Components
 
                 XmlDocument xmldoc = new XmlDocument();
 
-                xmldoc.Load(saveFilePath);
-
-                XmlNode xmlnode = xmldoc.DocumentElement;
-
-                int nodesLoaded = 0;
-                while (xmlnode != null)
+                using (FileStream componentFileStream = new FileStream(saveFilePath, FileMode.Open, FileAccess.Read))
                 {
+                    xmldoc.Load(componentFileStream);
 
-                    // Report.Information("node name = '" + xmlnode.Name + "'");
-                    if (xmlnode.Name == "ROOT")
-                    {
-                        callback.Begin(0, xmlnode.ChildNodes.Count);
+                    XmlNode xmlnode = xmldoc.DocumentElement;
 
-                        xmlnode = xmlnode.FirstChild;
-                    }
-                    else if (xmlnode.Name == "Component")
+                    int nodesLoaded = 0;
+                    while (xmlnode != null)
                     {
-                        ++nodesLoaded;
-                        callback.SetText(String.Format("Loading component: {0}", nodesLoaded));
-                        callback.StepTo(nodesLoaded);
-                        Component newComponent = new Component(xmlnode);
-                        AllComponents.Data.Components[newComponent.Name] = newComponent;
-                        xmlnode = xmlnode.NextSibling;
-                    }
-                    else
-                    {
-                        xmlnode = xmlnode.NextSibling;
-                    }
 
-                    // check for user Cancel
-                    if (callback.IsAborting)
-                    {
-                        return;
-                    }
+                        // Report.Information("node name = '" + xmlnode.Name + "'");
+                        if (xmlnode.Name == "ROOT")
+                        {
+                            callback.Begin(0, xmlnode.ChildNodes.Count);
 
+                            xmlnode = xmlnode.FirstChild;
+                        }
+                        else if (xmlnode.Name == "Component")
+                        {
+                            ++nodesLoaded;
+                            callback.SetText(String.Format("Loading component: {0}", nodesLoaded));
+                            callback.StepTo(nodesLoaded);
+                            Component newComponent = new Component(xmlnode);
+                            AllComponents.Data.Components[newComponent.Name] = newComponent;
+                            xmlnode = xmlnode.NextSibling;
+                        }
+                        else
+                        {
+                            xmlnode = xmlnode.NextSibling;
+                        }
+
+                        // check for user Cancel
+                        if (callback.IsAborting)
+                        {
+                            return;
+                        }
+
+                    }
+                    callback.Success = true;
                 }
-                callback.Success = true;
-
+                
             }
             catch (System.Threading.ThreadAbortException)
             {
