@@ -38,6 +38,7 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using Nova.Common;
+using Nova.Common.DataStructures;
 
 namespace Nova.ControlLibrary
 {
@@ -276,12 +277,23 @@ namespace Nova.ControlLibrary
             int fillRight = (int)((this.boxRightPosition * this.bar.Size.Width) / boxRange);
             int fillWidth = fillRight - fillLeft;
 
-
-            string realRange = String.Format(
-                "{0} to {1} {2}",
-                BarPositionToEnvironmentValue(this.boxLeftPosition).ToString("F1"),
-                BarPositionToEnvironmentValue(this.boxRightPosition).ToString("F1"),
-                this.units);
+            string realRange;
+            if (this.units == "g")
+            {
+                realRange = String.Format(
+                    "{0}{2} to {1}{2}",
+                    Gravity.BarPositionToEnvironmentValue(this.boxLeftPosition).ToString("F2"),
+                    Gravity.BarPositionToEnvironmentValue(this.boxRightPosition).ToString("F2"),
+                    this.units);
+            }
+            else
+            {
+                realRange = String.Format(
+                    "{0}{2} to {1}{2}",
+                    BarPositionToEnvironmentValue(this.boxLeftPosition).ToString("F0"),
+                    BarPositionToEnvironmentValue(this.boxRightPosition).ToString("F0"),
+                    this.units);
+            }
 
             this.boxSpan.Text = realRange;
 
