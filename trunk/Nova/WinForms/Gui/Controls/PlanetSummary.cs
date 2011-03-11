@@ -33,6 +33,7 @@ using System.Windows.Forms;
 using Nova.Client;
 using Nova.Common;
 using Nova.ControlLibrary;
+using Nova.Common.DataStructures;
 
 namespace Nova.WinForms.Gui
 {
@@ -502,7 +503,7 @@ namespace Nova.WinForms.Gui
                 double t = -200 + ((400 * report.Temperature) / 100.0);
 
                 this.radiationLevel.Text = r.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
-                this.gravityLevel.Text = g.ToString("F1") + "g";
+                this.gravityLevel.Text = Gravity.BarPositionToEnvironmentValue(report.Gravity).ToString("F2") + "g"; 
                 this.temperatureLevel.Text = t.ToString(System.Globalization.CultureInfo.InvariantCulture) + "C";
 
                 this.radiationGauge.TopValue = race.RadiationTolerance.Maximum;
