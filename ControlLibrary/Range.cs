@@ -271,20 +271,18 @@ namespace Nova.ControlLibrary
             int fillY = 0;
 
             // Need to convert the values from actual environment values to drawing co-ordinates.
-            int boxRange = this.boxMaximum - this.boxMinimum;
-            if (boxRange == 0) boxRange = 100; // gaurd against div by 0
-            int fillLeft = (int)((this.boxLeftPosition * this.bar.Size.Width) / boxRange);
-            int fillRight = (int)((this.boxRightPosition * this.bar.Size.Width) / boxRange);
+            int fillLeft = (int)((this.boxLeftPosition * this.bar.Size.Width) / GetBoxRange());
+            int fillRight = (int)((this.boxRightPosition * this.bar.Size.Width) / GetBoxRange());
             int fillWidth = fillRight - fillLeft;
 
             string realRange;
-            if (this.units == "g")
+            if (this.units == Gravity.GetUnit())
             {
                 realRange = String.Format(
                     "{0}{2} to {1}{2}",
                     Gravity.BarPositionToEnvironmentValue(this.boxLeftPosition).ToString("F2"),
                     Gravity.BarPositionToEnvironmentValue(this.boxRightPosition).ToString("F2"),
-                    this.units);
+                    Gravity.GetUnit());
             }
             else
             {
@@ -457,20 +455,8 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private double BarPositionToEnvironmentValue(int pos)
         {
-            double env = 0; // the environment value to be calculated.
-            double environmentRange = this.environmentMaximum - this.environmentMinimum;
-            double boxRange = (double)(this.boxMaximum - this.boxMinimum);
-            if (boxRange == 0)
-            {
-                environmentRange = 1000; // gaurd against div by 0
-            }
-            else
-            {
-                env = ((((double)(pos - this.boxMinimum)) * environmentRange) / boxRange) + this.environmentMinimum;
-            }
-            return env;
+            return ((((double)(pos - this.boxMinimum)) * GetEnvironmentRange()) / (double)GetBoxRange()) + this.environmentMinimum;
         }
-
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -481,18 +467,17 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private int EnvironmentValueToBarPosition(double env)
         {
-            int pos = 0;
-            double environmentRange = this.environmentMaximum - this.environmentMinimum;
-            if (environmentRange == 0)
-            {
-                pos = 100; // gaurd against div by 0
-            }
-            else
-            {
-                double boxRange = (double)(this.boxMaximum - this.boxMinimum);
-                pos = (int)((((env - this.environmentMinimum) * boxRange) / environmentRange) + this.boxMinimum);
-            }
-            return pos;
+            return (int)((((env - this.environmentMinimum) * (double)GetBoxRange()) / GetEnvironmentRange()) + this.boxMinimum);
+        }
+
+        private int GetBoxRange()
+        {
+            return this.boxMaximum - this.boxMinimum;
+        }
+
+        private double GetEnvironmentRange()
+        {
+            return this.environmentMaximum - this.environmentMinimum;
         }
 
         #endregion Utility Methods

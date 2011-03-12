@@ -498,12 +498,10 @@ namespace Nova.WinForms.Gui
                 this.gravityGauge.Marker = report.Gravity;
                 this.temperatureGauge.Marker = report.Temperature;
 
-                double r = report.Radiation;
-                double g = report.Gravity / 10.0;
                 double t = -200 + ((400 * report.Temperature) / 100.0);
 
-                this.radiationLevel.Text = r.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
-                this.gravityLevel.Text = Gravity.BarPositionToEnvironmentValue(report.Gravity).ToString("F2") + "g"; 
+                this.radiationLevel.Text = report.Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
+                this.gravityLevel.Text = Gravity.FormatWithUnit(report.Gravity); 
                 this.temperatureLevel.Text = t.ToString(System.Globalization.CultureInfo.InvariantCulture) + "C";
 
                 this.radiationGauge.TopValue = race.RadiationTolerance.Maximum;
