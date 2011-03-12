@@ -103,31 +103,9 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public EnvironmentTolerance(XmlNode node)
         {
-            XmlNode subnode = node.FirstChild;
-            while (subnode != null)
-            {
-                try
-                {
-                    switch (subnode.Name.ToLower())
-                    {
-                        case "min":
-                            Minimum = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
-                        case "max":
-                            Maximum = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
-                    }
-                }
-                catch
-                {
-                    // ignore incomplete or unset values
-                }
-
-                subnode = subnode.NextSibling;
-            }
-
+            Minimum = Global.ParseDoubleSubnode(node,"Min");
+            Maximum = Global.ParseDoubleSubnode(node,"Max");
         }
-
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -139,13 +117,11 @@ namespace Nova.Common
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement("EnvironmentTolerance");
-
-            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Min", Minimum.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Max", Maximum.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Min", Minimum);
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Max", Maximum);
             return xmlelEnvironmentTolerance;
         }
 
         #endregion
-
     }
 }

@@ -152,6 +152,17 @@ namespace Nova.Common
            parent.AppendChild(xmlelData);
        }
 
+       public static void SaveData(XmlDocument xmldoc, XmlElement parent, string tag, double value)
+       {
+           Global.SaveData(xmldoc, parent, tag, value.ToString(System.Globalization.CultureInfo.InvariantCulture));
+       }
+
+       public static double ParseDoubleSubnode(XmlNode node, string tag)
+       {
+           XmlNode subnode = ((XmlText)node.SelectSingleNode("descendant::" + tag).FirstChild);
+           return double.Parse(subnode.Value, System.Globalization.CultureInfo.InvariantCulture);
+       }
+
        #endregion Xml
 
        #region Paths

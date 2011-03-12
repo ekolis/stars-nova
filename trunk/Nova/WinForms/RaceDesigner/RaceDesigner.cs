@@ -968,7 +968,7 @@ namespace Nova.WinForms.RaceDesigner
             this.gravityTolerance.Name = "gravityTolerance";
             this.gravityTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.gravityTolerance.RangeTitle = "Gravity";
-            this.gravityTolerance.RangeUnits = "g";
+            this.gravityTolerance.RangeUnits = Gravity.GetUnit();
             this.gravityTolerance.Size = new System.Drawing.Size(324, 95);
             this.gravityTolerance.TabIndex = 0;
             this.gravityTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);

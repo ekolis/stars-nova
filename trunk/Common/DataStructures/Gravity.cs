@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Nova.Common.DataStructures
+namespace Nova.Common
 {
     public class Gravity
     {
@@ -40,7 +40,7 @@ namespace Nova.Common.DataStructures
         //      inverse of F(x)= F(x)'= G(y), where y is the grav value input by a
         //      user, then
         //      x= G(y)= (y + 16.24) / 0.24 
-    	  // ...
+    	// ...
         //                                  1     2     3     4     5     6     7     8     9    10
         private static double[] gValues = {                                                      0.125,  //   0
                                            0.129,0.133,0.137,0.142,0.147,0.152,0.158,0.164,0.171,0.178,  //  10
@@ -61,18 +61,30 @@ namespace Nova.Common.DataStructures
             {
                 return gValues[100];
             }
-
-            if (pos < 0)
+            else if (pos < 0)
             {
                 return gValues[0];
             }
-            return gValues[pos];
+            else
+            {
+                return gValues[pos];
+            }
         }
         
-        public static string Format(double value) 
+        public static string Format(int value) 
         {
-        	  // always trunkate for GUI values
-            return value.ToString("F");
+        	// always trunkate gravity for GUI values to two decimal points
+            return BarPositionToEnvironmentValue(value).ToString("F2");
+        }
+
+        public static string FormatWithUnit(int value)
+        {
+            return Format(value) + GetUnit();
+        }
+
+        public static string GetUnit()
+        {
+            return "g";
         }
     }
 }
