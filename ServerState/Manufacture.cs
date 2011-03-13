@@ -157,6 +157,13 @@ namespace Nova.WinForms.Console
                     break;
 
                 case "Starbase":
+                    // first remove the old starbase
+                    if (star.Starbase != null)
+                    {
+                        stateData.AllFleets.Remove(star.Starbase.Key);
+                        star.Starbase = null;
+                    }
+
                     CreateShip(design as ShipDesign, star);
                     break;
 

@@ -84,11 +84,18 @@ namespace Nova.Server
 
                 // Load from an xml file
                 XmlDocument xmldoc = new XmlDocument();
-                FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read);
-                GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
-                xmldoc.Load(compressionStream);
-                playerOrders = new Orders(xmldoc.DocumentElement);
-                fileStream.Close();
+                using (FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+                {
+                    GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
+                    xmldoc.Load(compressionStream);
+
+                    // check these orders are for the right turn
+                    int ordersTurn = int.Parse(xmldoc.SelectSingleNode("ROOT/Orders/Turn").InnerText);
+                    if (ordersTurn != StateData.TurnYear)
+                        return;
+
+                    playerOrders = new Orders(xmldoc.DocumentElement);
+                }
             }
             catch (Exception e)
             {
@@ -97,12 +104,13 @@ namespace Nova.Server
             }
             try
             {
-
                 // Regardless of how it was loaded:
                 LinkOrderReferences(playerOrders);
 
+                // Load the information from the orders
+
                 // TODO (priority 4) - check we are on the right turn before processing, and perhaps flag when we have processed the orders
-                // TODO (priority 5) fine tune so the client can't modify things like a star's position, i.e. treat the data as orders only.
+                // TODO (priority 5) - fine tune so the client can't modify things like a star's position, i.e. treat the data as orders only.
                 foreach (Design design in playerOrders.RaceDesigns.Values)
                 {
                     StateData.AllDesigns[design.Key] = design;
