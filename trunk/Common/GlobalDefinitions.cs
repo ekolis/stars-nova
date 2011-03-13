@@ -159,7 +159,7 @@ namespace Nova.Common
 
        public static double ParseDoubleSubnode(XmlNode node, string tag)
        {
-           XmlNode subnode = ((XmlText)node.SelectSingleNode("descendant::" + tag).FirstChild);
+           XmlNode subnode = (XmlText)node.SelectSingleNode("descendant::" + tag).FirstChild;
            return double.Parse(subnode.Value, System.Globalization.CultureInfo.InvariantCulture);
        }
 

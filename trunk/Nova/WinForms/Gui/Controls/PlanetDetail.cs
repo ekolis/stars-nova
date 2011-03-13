@@ -144,7 +144,7 @@ namespace Nova.WinForms.Gui
             this.factories = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.defenseCoverage = new System.Windows.Forms.Label();
-            this.resourceDisplay = new ControlLibrary.ResourceDisplay();
+            this.resourceDisplay = new Nova.ControlLibrary.ResourceDisplay();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -189,12 +189,12 @@ namespace Nova.WinForms.Gui
             this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
-            // Mines
+            // mines
             // 
             this.mines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.mines.Location = new System.Drawing.Point(92, 35);
+            this.mines.Location = new System.Drawing.Point(67, 35);
             this.mines.Name = "mines";
-            this.mines.Size = new System.Drawing.Size(64, 16);
+            this.mines.Size = new System.Drawing.Size(89, 16);
             this.mines.TabIndex = 14;
             this.mines.Text = "0 of 0";
             this.mines.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -215,7 +215,7 @@ namespace Nova.WinForms.Gui
             this.label5.TabIndex = 18;
             this.label5.Text = "Mines";
             // 
-            // ProductionQueue
+            // productionQueue
             // 
             this.productionQueue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
@@ -234,18 +234,18 @@ namespace Nova.WinForms.Gui
             this.productionQueue.UseCompatibleStateImageBehavior = false;
             this.productionQueue.View = System.Windows.Forms.View.Details;
             // 
-            // Description
+            // description
             // 
             this.description.Text = "Description";
             this.description.Width = 92;
             // 
-            // Quantity
+            // quantity
             // 
             this.quantity.Text = "Quantity";
             this.quantity.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             this.quantity.Width = 59;
             // 
-            // ChangeProductionQueue
+            // changeProductionQueue
             // 
             this.changeProductionQueue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.changeProductionQueue.Location = new System.Drawing.Point(5, 137);
@@ -270,7 +270,7 @@ namespace Nova.WinForms.Gui
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Production Queue";
             // 
-            // Population
+            // population
             // 
             this.population.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.population.Location = new System.Drawing.Point(78, 84);
@@ -288,12 +288,12 @@ namespace Nova.WinForms.Gui
             this.label6.TabIndex = 19;
             this.label6.Text = "Factories";
             // 
-            // Factories
+            // factories
             // 
             this.factories.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.factories.Location = new System.Drawing.Point(92, 19);
+            this.factories.Location = new System.Drawing.Point(64, 19);
             this.factories.Name = "factories";
-            this.factories.Size = new System.Drawing.Size(64, 16);
+            this.factories.Size = new System.Drawing.Size(92, 16);
             this.factories.TabIndex = 17;
             this.factories.Text = "0 of 0";
             this.factories.TextAlign = System.Drawing.ContentAlignment.TopRight;
@@ -303,11 +303,11 @@ namespace Nova.WinForms.Gui
             this.label4.AutoSize = true;
             this.label4.Location = new System.Drawing.Point(6, 18);
             this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(114, 13);
+            this.label4.Size = new System.Drawing.Size(113, 13);
             this.label4.TabIndex = 23;
             this.label4.Text = "Defense Coverage (%)";
             // 
-            // DefenseCoverage
+            // defenseCoverage
             // 
             this.defenseCoverage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.defenseCoverage.Location = new System.Drawing.Point(128, 18);
@@ -317,7 +317,7 @@ namespace Nova.WinForms.Gui
             this.defenseCoverage.Text = "0";
             this.defenseCoverage.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // ResourceDisplay
+            // resourceDisplay
             // 
             this.resourceDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -364,7 +364,7 @@ namespace Nova.WinForms.Gui
             this.label11.Text = "ly";
             this.label11.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // ScannerRange
+            // scannerRange
             // 
             this.scannerRange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.scannerRange.Location = new System.Drawing.Point(94, 36);
@@ -374,7 +374,7 @@ namespace Nova.WinForms.Gui
             this.scannerRange.Text = "0";
             this.scannerRange.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // ScannerType
+            // scannerType
             // 
             this.scannerType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.scannerType.Location = new System.Drawing.Point(90, 16);
@@ -409,7 +409,7 @@ namespace Nova.WinForms.Gui
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(6, 35);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(53, 13);
+            this.label1.Size = new System.Drawing.Size(52, 13);
             this.label1.TabIndex = 25;
             this.label1.Text = "Defenses";
             // 
@@ -418,12 +418,12 @@ namespace Nova.WinForms.Gui
             this.label2.AutoSize = true;
             this.label2.Location = new System.Drawing.Point(6, 51);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(75, 13);
+            this.label2.Size = new System.Drawing.Size(74, 13);
             this.label2.TabIndex = 26;
             this.label2.Text = "Defense Type";
             this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // DefenseType
+            // defenseType
             // 
             this.defenseType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.defenseType.Location = new System.Drawing.Point(93, 53);
@@ -433,7 +433,7 @@ namespace Nova.WinForms.Gui
             this.defenseType.Text = "None";
             this.defenseType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // Defenses
+            // defenses
             // 
             this.defenses.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.defenses.Location = new System.Drawing.Point(128, 35);
@@ -471,7 +471,7 @@ namespace Nova.WinForms.Gui
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Production";
             // 
-            // StarbasePanel
+            // starbasePanel
             // 
             this.starbasePanel.Controls.Add(this.label21);
             this.starbasePanel.Controls.Add(this.label26);
@@ -551,7 +551,7 @@ namespace Nova.WinForms.Gui
             this.label25.TabIndex = 16;
             this.label25.Text = "__________________________________";
             // 
-            // TargetButton
+            // targetButton
             // 
             this.targetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.targetButton.Enabled = false;
@@ -562,7 +562,7 @@ namespace Nova.WinForms.Gui
             this.targetButton.Text = "Target";
             this.targetButton.UseVisualStyleBackColor = true;
             // 
-            // StarbaseCapacity
+            // starbaseCapacity
             // 
             this.starbaseCapacity.Location = new System.Drawing.Point(83, 71);
             this.starbaseCapacity.Name = "starbaseCapacity";
@@ -571,7 +571,7 @@ namespace Nova.WinForms.Gui
             this.starbaseCapacity.Text = "0";
             this.starbaseCapacity.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // MassDriverDestination
+            // massDriverDestination
             // 
             this.massDriverDestination.Location = new System.Drawing.Point(83, 144);
             this.massDriverDestination.Name = "massDriverDestination";
@@ -589,7 +589,7 @@ namespace Nova.WinForms.Gui
             this.label18.TabIndex = 5;
             this.label18.Text = "Destination";
             // 
-            // StarbaseDamage
+            // starbaseDamage
             // 
             this.starbaseDamage.Location = new System.Drawing.Point(74, 52);
             this.starbaseDamage.Name = "starbaseDamage";
@@ -598,7 +598,7 @@ namespace Nova.WinForms.Gui
             this.starbaseDamage.Text = "0";
             this.starbaseDamage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // MassDriverType
+            // massDriverType
             // 
             this.massDriverType.Location = new System.Drawing.Point(76, 126);
             this.massDriverType.Name = "massDriverType";
@@ -608,7 +608,7 @@ namespace Nova.WinForms.Gui
             this.massDriverType.Text = "None";
             this.massDriverType.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // StarbaseShields
+            // starbaseShields
             // 
             this.starbaseShields.Location = new System.Drawing.Point(80, 34);
             this.starbaseShields.Name = "starbaseShields";
@@ -626,7 +626,7 @@ namespace Nova.WinForms.Gui
             this.label17.TabIndex = 4;
             this.label17.Text = "Mass Driver";
             // 
-            // StarbaseArmor
+            // starbaseArmor
             // 
             this.starbaseArmor.Location = new System.Drawing.Point(87, 16);
             this.starbaseArmor.Name = "starbaseArmor";
@@ -667,11 +667,11 @@ namespace Nova.WinForms.Gui
             this.label13.AutoSize = true;
             this.label13.Location = new System.Drawing.Point(6, 16);
             this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(40, 13);
+            this.label13.Size = new System.Drawing.Size(34, 13);
             this.label13.TabIndex = 0;
             this.label13.Text = "Armor";
             // 
-            // NextPlanet
+            // nextPlanet
             // 
             this.nextPlanet.Enabled = false;
             this.nextPlanet.Location = new System.Drawing.Point(9, 19);
@@ -682,7 +682,7 @@ namespace Nova.WinForms.Gui
             this.nextPlanet.UseVisualStyleBackColor = true;
             this.nextPlanet.Click += new System.EventHandler(this.NextPlanet_Click);
             // 
-            // PreviousPlanet
+            // previousPlanet
             // 
             this.previousPlanet.Enabled = false;
             this.previousPlanet.Location = new System.Drawing.Point(93, 19);

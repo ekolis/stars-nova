@@ -68,7 +68,7 @@ namespace Nova.Server
             {
                 turnData = new Intel();
                 turnData.TurnYear = stateData.TurnYear;
-                turnData.MyRace = ServerState.Data.AllRaces[player.RaceName] as Race;
+                turnData.MyRace = stateData.AllRaces[player.RaceName] as Race;
                 turnData.TurnYear = stateData.TurnYear;
                 turnData.AllStars = stateData.AllStars;
                 turnData.AllMinefields = stateData.AllMinefields;
