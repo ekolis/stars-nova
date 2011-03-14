@@ -134,27 +134,6 @@ namespace Nova.Common
             return this.Traits.Contains(trait);
         }
 
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Return the Median value of an integer range.
-        /// </summary>
-        /// <param name="tolerance">An <see cref="EnvironmentTolerance"/> to determine the Median of.</param>
-        /// <remarks>
-        /// FIXME (priority 3) - Mathematically this finds the mean, which in some
-        /// circumstances is different from the Median. 
-        /// TODO (priority 3) - It would make more sense for this to be a member of EnvironmentTolerance
-        /// or a general purpose method.
-        /// </remarks>
-        /// ----------------------------------------------------------------------------
-        private int Median(EnvironmentTolerance tolerance)
-        {
-            int result = (int)(((tolerance.Maximum - tolerance.Minimum) / 2)
-                        + tolerance.Minimum);
-
-            return result;
-        }
-
         #endregion
 
         #region Properties
@@ -167,7 +146,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public int OptimumRadiationLevel
         {
-            get { return Median(RadiationTolerance); }
+            get { return RadiationTolerance.Median(); }
         }
 
 
@@ -179,7 +158,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public int OptimumTemperatureLevel
         {
-            get { return (200 + Median(TemperatureTolerance)) / 4; }
+            get { return (200 + TemperatureTolerance.Median()) / 4; }
         }
 
 
@@ -191,7 +170,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public int OptimumGravityLevel
         {
-            get { return Median(GravityTolerance) * 10; }
+            get { return GravityTolerance.Median() * 10; }
         }
 
         /// <summary>

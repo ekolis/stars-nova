@@ -504,8 +504,8 @@ namespace Nova.ControlLibrary
                 this.boxOldRightPosition = this.boxRightPosition;
                 this.boxOldLeftPosition = this.boxLeftPosition;
 
-                this.boxLeftPosition = EnvironmentValueToBarPosition(value.Minimum);
-                this.boxRightPosition = EnvironmentValueToBarPosition(value.Maximum);
+                this.boxLeftPosition = EnvironmentValueToBarPosition(value.MinimumRealValue);
+                this.boxRightPosition = EnvironmentValueToBarPosition(value.MaximumRealValue);
 
                 if (RangeChanged != null)
                     RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
