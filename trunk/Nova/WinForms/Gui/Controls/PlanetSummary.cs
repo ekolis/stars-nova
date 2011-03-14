@@ -504,14 +504,14 @@ namespace Nova.WinForms.Gui
                 this.gravityLevel.Text = Gravity.FormatWithUnit(report.Gravity); 
                 this.temperatureLevel.Text = t.ToString(System.Globalization.CultureInfo.InvariantCulture) + "C";
 
-                this.radiationGauge.TopValue = race.RadiationTolerance.Maximum;
-                this.radiationGauge.BottomValue = race.RadiationTolerance.Minimum;
+                this.radiationGauge.TopValue = race.RadiationTolerance.MaximumRealValue;
+                this.radiationGauge.BottomValue = race.RadiationTolerance.MinimumRealValue;
 
-                this.gravityGauge.TopValue = race.GravityTolerance.Maximum;
-                this.gravityGauge.BottomValue = race.GravityTolerance.Minimum;
+                this.gravityGauge.TopValue = race.GravityTolerance.MaximumRealValue;
+                this.gravityGauge.BottomValue = race.GravityTolerance.MinimumRealValue;
 
-                this.temperatureGauge.TopValue = race.TemperatureTolerance.Maximum;
-                this.temperatureGauge.BottomValue = race.TemperatureTolerance.Minimum;
+                this.temperatureGauge.TopValue = race.TemperatureTolerance.MaximumRealValue;
+                this.temperatureGauge.BottomValue = race.TemperatureTolerance.MinimumRealValue;
             }
         }
 

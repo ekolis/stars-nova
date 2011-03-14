@@ -175,8 +175,8 @@ namespace Nova.Common
             // range 0-100 so the values already can be thought of as a
             // percentage.
 
-            double rMinimum = race.RadiationTolerance.Minimum;
-            double rMaximum = race.RadiationTolerance.Maximum;
+            double rMinimum = race.RadiationTolerance.MinimumRealValue;
+            double rMaximum = race.RadiationTolerance.MaximumRealValue;
 
             // Get the span of the range and its centre.
 
@@ -194,8 +194,8 @@ namespace Nova.Common
             // Now do the same for the other two parameters. Gravity is in the
             // range 0 to 10.
 
-            double gMinimum = race.GravityTolerance.Minimum * 10;
-            double gMaximum = race.GravityTolerance.Maximum * 10;
+            double gMinimum = race.GravityTolerance.MinimumRealValue * 10;
+            double gMaximum = race.GravityTolerance.MaximumRealValue * 10;
             double gSpan = gMaximum - gMinimum;
             double gCentre = gMinimum + (gSpan / 2);
             double gDistance = Math.Abs(gCentre - Gravity);
@@ -203,8 +203,8 @@ namespace Nova.Common
 
             // Temperature is in the range -200 to 200.
 
-            double temperatureMinimum = (200 + race.TemperatureTolerance.Minimum) / 4;
-            double temperatureMaximum = (200 + race.TemperatureTolerance.Maximum) / 4;
+            double temperatureMinimum = (200 + race.TemperatureTolerance.MinimumRealValue) / 4;
+            double temperatureMaximum = (200 + race.TemperatureTolerance.MaximumRealValue) / 4;
             double temperatureSpan = temperatureMaximum - temperatureMinimum;
             double temperatureCentre = temperatureMinimum + (temperatureSpan / 2);
             double temperatureDistance = Math.Abs(temperatureCentre - Temperature);

@@ -63,7 +63,7 @@ namespace TestHarness
 
             // BattleReport
             BattleReport test = new BattleReport();
-            test.SerialisationTestBattleReport();
+            // test.SerialisationTestBattleReport();
 
 
         }

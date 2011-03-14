@@ -42,8 +42,8 @@ namespace Nova.Common.Converters
 
             ICollection arguments = new object[]
                 {
-                    value.Minimum,
-                    value.Maximum
+                    value.MinimumRealValue,
+                    value.MaximumRealValue
                 };
 
             return new InstanceDescriptor(constructor, arguments);

@@ -64,8 +64,12 @@ namespace Nova.Common
     [TypeConverter(typeof(EnvironmentToleranceConverter))]
     public sealed class EnvironmentTolerance
     {
-        public double Minimum = 0;
-        public double Maximum = 0;
+        public double minimumRealValue = 0;
+        public double maximumRealValue = 0;
+
+        private int minimumInternalValue = 15;
+        private int maximumInternalValue = 85;
+
 
         #region Construction
 
@@ -85,11 +89,53 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public EnvironmentTolerance(double minv, double maxv)
         {
-            Minimum = minv;
-            Maximum = maxv;
+            MinimumRealValue = minv;
+            MaximumRealValue = maxv;
         }
 
         #endregion
+
+        // ToDo: 1. Verwendung ersetzen, 2. InternalValue (auch) speichern, bzw. speichern von Anzeige-Wert und Verarbeitungs-Wert trennen, 3. auch bei RealValue InternalValue nutzen
+        // 4. Anzeige-Wert überall über Gravity etc. berechnen lassen
+
+        public double MinimumRealValue
+        {
+            get { return minimumRealValue; }
+            set { minimumRealValue = value; }
+        }
+
+        public double MaximumRealValue
+        {
+            get { return maximumRealValue; }
+            set { maximumRealValue = value; }
+        }
+
+        public int MinimumInternalValue
+        {
+            get { return minimumInternalValue; }
+            set { minimumInternalValue = value; }
+        }
+
+        public int MaximumInternalValue
+        {
+            get { return maximumInternalValue; }
+            set { maximumInternalValue = value; }
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Return the Median value of an integer range.
+        /// </summary>
+        /// <param name="tolerance">An <see cref="EnvironmentTolerance"/> to determine the Median of.</param>
+        /// <remarks>
+        /// FIXME (priority 3) - Mathematically this finds the mean, which in some
+        /// circumstances is different from the Median. 
+        /// </remarks>
+        /// ----------------------------------------------------------------------------
+        public int Median()
+        {
+            return (int)(((MaximumRealValue - MinimumRealValue) / 2) + MinimumRealValue);
+        }
 
         #region Load Save Xml
 
@@ -103,8 +149,8 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public EnvironmentTolerance(XmlNode node)
         {
-            Minimum = Global.ParseDoubleSubnode(node,"Min");
-            Maximum = Global.ParseDoubleSubnode(node,"Max");
+            MinimumRealValue = Global.ParseDoubleSubnode(node, "Min");
+            MaximumRealValue = Global.ParseDoubleSubnode(node, "Max");
         }
 
         /// ----------------------------------------------------------------------------
@@ -117,8 +163,8 @@ namespace Nova.Common
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement("EnvironmentTolerance");
-            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Min", Minimum);
-            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Max", Maximum);
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Min", MinimumRealValue);
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Max", MaximumRealValue);
             return xmlelEnvironmentTolerance;
         }
 
