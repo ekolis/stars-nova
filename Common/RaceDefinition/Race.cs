@@ -267,11 +267,6 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public void LoadRaceFromXml(XmlNode xmlnode)
         {
-
-            GravityTolerance = new EnvironmentTolerance();
-            RadiationTolerance = new EnvironmentTolerance();
-            TemperatureTolerance = new EnvironmentTolerance();
-
             while (xmlnode != null)
             {
                 try
