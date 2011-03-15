@@ -196,17 +196,21 @@ namespace Nova.WinForms.RaceDesigner
             // TODO (priority 6) - put all these literal values somewhere sensible (EnvironmentTolerance object?)
             this.temperatureTolerance.RangeMinimum = -200;
             this.temperatureTolerance.RangeMaximum = 200;
-            this.temperatureTolerance.BarLower = -140;
-            this.temperatureTolerance.BarUpper = 140;
+            this.temperatureTolerance.MinimumValue = -140;
+            this.temperatureTolerance.MaximumValue = 140;
+            this.temperatureTolerance.ActivateRangeChange();
+
             this.gravityTolerance.RangeMinimum = 0;
             this.gravityTolerance.RangeMaximum = 10;
-            this.gravityTolerance.BarLower = 1.5;
-            this.gravityTolerance.BarUpper = 8.5;
+            this.gravityTolerance.MinimumValue = 1.5;
+            this.gravityTolerance.MaximumValue = 8.5;
+            this.gravityTolerance.ActivateRangeChange();
+
             this.radiationTolerance.RangeMinimum = 0;
             this.radiationTolerance.RangeMaximum = 100;
-            this.radiationTolerance.BarLower = 15;
-            this.radiationTolerance.BarUpper = 85;
-
+            this.radiationTolerance.MinimumValue = 15;
+            this.radiationTolerance.MaximumValue = 85;
+            this.radiationTolerance.ActivateRangeChange();
         }
 
         #endregion
@@ -929,8 +933,8 @@ namespace Nova.WinForms.RaceDesigner
             // 
             this.radiationTolerance.RangeMaximum = 100;
             this.radiationTolerance.RangeMinimum = 0;
-            this.radiationTolerance.BarLower = 15;
-            this.radiationTolerance.BarUpper = 85;
+            this.radiationTolerance.MinimumValue = 15;
+            this.radiationTolerance.MaximumValue = 85;
             this.radiationTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(15, 85);
             this.radiationTolerance.Location = new System.Drawing.Point(14, 220);
             this.radiationTolerance.Name = "radiationTolerance";
@@ -945,8 +949,8 @@ namespace Nova.WinForms.RaceDesigner
             // 
             this.temperatureTolerance.RangeMaximum = 200;
             this.temperatureTolerance.RangeMinimum = -200;
-            this.temperatureTolerance.BarLower = -140;
-            this.temperatureTolerance.BarUpper = 140;
+            this.temperatureTolerance.MinimumValue = -140;
+            this.temperatureTolerance.MaximumValue = 140;
             this.temperatureTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(-140, 140);
             this.temperatureTolerance.Location = new System.Drawing.Point(14, 118);
             this.temperatureTolerance.Name = "temperatureTolerance";
@@ -961,8 +965,8 @@ namespace Nova.WinForms.RaceDesigner
             // 
             this.gravityTolerance.RangeMaximum = 10;
             this.gravityTolerance.RangeMinimum = 0;
-            this.gravityTolerance.BarLower = 1.5;
-            this.gravityTolerance.BarUpper = 8.5;
+            this.gravityTolerance.MinimumValue = 1.5;
+            this.gravityTolerance.MaximumValue = 8.5;
             this.gravityTolerance.EnvironmentValues = new Nova.Common.EnvironmentTolerance(1.5, 8.5);
             this.gravityTolerance.Location = new System.Drawing.Point(14, 19);
             this.gravityTolerance.Name = "gravityTolerance";
@@ -2113,11 +2117,17 @@ namespace Nova.WinForms.RaceDesigner
         {
             this.gravityTolerance.MinimumValue = raceParameters.GravityTolerance.MinimumRealValue;
             this.gravityTolerance.MaximumValue = raceParameters.GravityTolerance.MaximumRealValue;
+            this.gravityTolerance.ActivateRangeChange();
+
             this.radiationTolerance.MinimumValue = raceParameters.RadiationTolerance.MinimumRealValue;
             this.radiationTolerance.MaximumValue = raceParameters.RadiationTolerance.MaximumRealValue;
+            this.radiationTolerance.ActivateRangeChange();
+
             this.temperatureTolerance.MinimumValue = raceParameters.TemperatureTolerance.MinimumRealValue;
             this.temperatureTolerance.MaximumValue = raceParameters.TemperatureTolerance.MaximumRealValue;
-            this.maxGrowth.Value                        = (decimal)raceParameters.GrowthRate;
+            this.temperatureTolerance.ActivateRangeChange();
+
+            this.maxGrowth.Value = (decimal)raceParameters.GrowthRate;
         }
 
 
