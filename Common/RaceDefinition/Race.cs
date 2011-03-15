@@ -248,14 +248,14 @@ namespace Nova.Common
 
         private void ActualizeInternalToleranceValues()
         {
-            RadiationTolerance.MinimumInternalValue = RadiationTolerance.GetRadiationInternalMinimumValue();
-            RadiationTolerance.MaximumInternalValue = RadiationTolerance.GetRadiationInternalMaximumValue();
+            RadiationTolerance.MinimumInternalValue = RadiationTolerance.RadiationInternalMinimumValue;
+            RadiationTolerance.MaximumInternalValue = RadiationTolerance.RadiationInternalMaximumValue;
             RadiationTolerance.Name = "RadiationTolerance";
-            TemperatureTolerance.MinimumInternalValue = TemperatureTolerance.GetTemperatureInternalMinimumValue();
-            TemperatureTolerance.MaximumInternalValue = TemperatureTolerance.GetTemperatureInternalMaximumValue();
+            TemperatureTolerance.MinimumInternalValue = TemperatureTolerance.TemperatureInternalMinimumValue;
+            TemperatureTolerance.MaximumInternalValue = TemperatureTolerance.TemperatureInternalMaximumValue;
             TemperatureTolerance.Name = "TemperatureTolerance";
-            GravityTolerance.MinimumInternalValue = GravityTolerance.GetGravityInternalMinimumValue();
-            GravityTolerance.MaximumInternalValue = GravityTolerance.GetGravityInternalMaximumValue();
+            GravityTolerance.MinimumInternalValue = GravityTolerance.GravityInternalMinimumValue;
+            GravityTolerance.MaximumInternalValue = GravityTolerance.GravityInternalMaximumValue;
             GravityTolerance.Name = "GravityTolerance";
         }
 

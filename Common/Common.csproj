@@ -83,7 +83,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Converters\EnabledValueConverter.cs" />
-    <Compile Include="Converters\EnvironmentToleranceConverter.cs" />
     <Compile Include="Converters\InstanceDescriptorConverter.cs" />
     <Compile Include="Converters\ResourcesConverter.cs" />
     <Compile Include="Converters\TechLevelConverter.cs" />

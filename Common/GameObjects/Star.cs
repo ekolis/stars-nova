@@ -170,16 +170,16 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public double HabitalValue(Race race)
         {
-            double r = NormalizeHabitalityDistance(race.RadiationTolerance.GetRadiationInternalMinimumValue(),
-                                                   race.RadiationTolerance.GetRadiationInternalMaximumValue(),
+            double r = NormalizeHabitalityDistance(race.RadiationTolerance.RadiationInternalMinimumValue,
+                                                   race.RadiationTolerance.RadiationInternalMaximumValue,
                                                    Radiation);
 
-            double g = NormalizeHabitalityDistance(race.GravityTolerance.GetGravityInternalMinimumValue(),
-                                                   race.GravityTolerance.GetGravityInternalMaximumValue(),
+            double g = NormalizeHabitalityDistance(race.GravityTolerance.GravityInternalMinimumValue,
+                                                   race.GravityTolerance.GravityInternalMaximumValue,
                                                    Gravity);
 
-            double t = NormalizeHabitalityDistance(race.TemperatureTolerance.GetTemperatureInternalMinimumValue(),
-                                                   race.TemperatureTolerance.GetTemperatureInternalMaximumValue(),
+            double t = NormalizeHabitalityDistance(race.TemperatureTolerance.TemperatureInternalMinimumValue,
+                                                   race.TemperatureTolerance.TemperatureInternalMaximumValue,
                                                    Temperature);
 
             double x = 0;

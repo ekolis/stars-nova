@@ -38,7 +38,6 @@ using System.Drawing;
 using System.Windows.Forms;
 
 using Nova.Common;
-using Nova.Common.DataStructures;
 
 namespace Nova.ControlLibrary
 {
@@ -448,9 +447,9 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Conversion from bar position (1-100 scale) to environment value (EnvironmentMinimum - EnvironmentMaximum).
+        /// Conversion from bar position (0-100 scale) to environment value (EnvironmentMinimum - EnvironmentMaximum).
         /// </summary>
-        /// <param name="pos">A bar position value from 1-100.</param>
+        /// <param name="pos">A bar position value from 0-100.</param>
         /// <returns>An environment value.</returns>
         /// ----------------------------------------------------------------------------
         private double BarPositionToEnvironmentValue(int pos)
@@ -503,6 +502,12 @@ namespace Nova.ControlLibrary
             }
         }
 
+        [Browsable(false)]
+        public int MinimumBoxValue
+        {
+            get { return this.boxLeftPosition; }
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set range control uper value.
@@ -522,6 +527,11 @@ namespace Nova.ControlLibrary
             }
         }
 
+        [Browsable(false)]
+        public int MaximumBoxValue
+        {
+            get { return this.boxRightPosition; }
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
