@@ -217,6 +217,11 @@ namespace Nova.Common
             return (int)value;
         }
 
+        private static double GetRadiationRealValue(int value)
+        {
+            return (double)value;
+        }
+
         // Calculate the minimum and maximum values of the tolerance ranges
         // expressed as a percentage of the total range. 
         // Temperature is in the range -200 to 200.
@@ -225,12 +230,22 @@ namespace Nova.Common
             return (int)((200 + value) / 4);
         }
 
+        private static double GetTemperatureRealValue(int value)
+        {
+            return (double)(value * 4 - 200);
+        }
+
         // Calculate the minimum and maximum values of the tolerance ranges
         // expressed as a percentage of the total range. 
         // Gravity is in the range 0 to 10.
         private static int GetGravityInternalValue(double value)
         {
             return (int)(value * 10);
+        }
+
+        private static double GetGravityRealValue(int value)
+        {
+            return (double)(value / 10.0);
         }
 
         #region Load Save Xml
@@ -287,23 +302,20 @@ namespace Nova.Common
                 // This Tolerance was saved already with internal values 
                 if ("RadiationTolerance".Equals(Name))
                 {
-                    MinimumRealValue = (double)MinimumInternalValue;
-                    MaximumRealValue = (double)MaximumInternalValue;
+                    MinimumRealValue = GetRadiationRealValue(MinimumInternalValue);
+                    MaximumRealValue = GetRadiationRealValue(MaximumInternalValue);
                 }
                 else if ("TemperatureTolerance".Equals(Name))
                 {
-                    MinimumRealValue = (double)MinimumInternalValue * 4 - 200;
-                    MaximumRealValue = (double)MaximumInternalValue * 4 - 200;
+                    MinimumRealValue = GetTemperatureRealValue(MinimumInternalValue);
+                    MaximumRealValue = GetTemperatureInternalValue(MaximumInternalValue);
                 }
                 else // ("GravityTolerance".Equals(Name))
                 {
-                    MinimumRealValue = (double)MinimumInternalValue / 10;
-                    MaximumRealValue = (double)MaximumInternalValue / 10;
+                    MinimumRealValue = GetGravityRealValue(MinimumInternalValue);
+                    MaximumRealValue = GetGravityRealValue(MaximumInternalValue);
                 }
             }
-
-            //MinimumRealValue = Global.ParseDoubleSubnode(node, "Min");
-            //MaximumRealValue = Global.ParseDoubleSubnode(node, "Max");
         }
 
         /// ----------------------------------------------------------------------------

@@ -1832,9 +1832,12 @@ namespace Nova.WinForms.RaceDesigner
             // Environmental Tolerance
             // ----------------------------------------------------------------------------
 
-            raceParameters.GravityTolerance     = this.gravityTolerance.EnvironmentValues;
-            raceParameters.RadiationTolerance   = this.radiationTolerance.EnvironmentValues;
-            raceParameters.TemperatureTolerance = this.temperatureTolerance.EnvironmentValues;
+            raceParameters.GravityTolerance.MinimumRealValue = this.gravityTolerance.MinimumValue;
+            raceParameters.GravityTolerance.MaximumRealValue = this.gravityTolerance.MaximumValue;
+            raceParameters.RadiationTolerance.MinimumRealValue = this.radiationTolerance.MinimumValue;
+            raceParameters.RadiationTolerance.MaximumRealValue = this.radiationTolerance.MaximumValue;
+            raceParameters.TemperatureTolerance.MinimumRealValue = this.temperatureTolerance.MinimumValue;
+            raceParameters.TemperatureTolerance.MaximumRealValue = this.temperatureTolerance.MaximumValue;
             raceParameters.GrowthRate           = (double)this.maxGrowth.Value;
 
             // ----------------------------------------------------------------------------
@@ -2108,10 +2111,12 @@ namespace Nova.WinForms.RaceDesigner
         /// ----------------------------------------------------------------------------
         public void ReloadEnvironmentalTolerance(Race raceParameters)
         {
-
-            this.gravityTolerance.EnvironmentValues     = raceParameters.GravityTolerance;
-            this.radiationTolerance.EnvironmentValues   = raceParameters.RadiationTolerance;
-            this.temperatureTolerance.EnvironmentValues = raceParameters.TemperatureTolerance;
+            this.gravityTolerance.MinimumValue = raceParameters.GravityTolerance.MinimumRealValue;
+            this.gravityTolerance.MaximumValue = raceParameters.GravityTolerance.MaximumRealValue;
+            this.radiationTolerance.MinimumValue = raceParameters.RadiationTolerance.MinimumRealValue;
+            this.radiationTolerance.MaximumValue = raceParameters.RadiationTolerance.MaximumRealValue;
+            this.temperatureTolerance.MinimumValue = raceParameters.TemperatureTolerance.MinimumRealValue;
+            this.temperatureTolerance.MaximumValue = raceParameters.TemperatureTolerance.MaximumRealValue;
             this.maxGrowth.Value                        = (decimal)raceParameters.GrowthRate;
         }
 
