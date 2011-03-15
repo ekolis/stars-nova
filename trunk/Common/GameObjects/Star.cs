@@ -170,45 +170,17 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public double HabitalValue(Race race)
         {
-            // Calculate the minimum and maximum values of the tolerance ranges
-            // expressed as a percentage of the total range. (Radiation is in the
-            // range 0-100 so the values already can be thought of as a
-            // percentage.
+            double r = NormalizeHabitalityDistance(race.RadiationTolerance.GetRadiationInternalMinimumValue(),
+                                                   race.RadiationTolerance.GetRadiationInternalMaximumValue(),
+                                                   Radiation);
 
-            double rMinimum = race.RadiationTolerance.MinimumRealValue;
-            double rMaximum = race.RadiationTolerance.MaximumRealValue;
+            double g = NormalizeHabitalityDistance(race.GravityTolerance.GetGravityInternalMinimumValue(),
+                                                   race.GravityTolerance.GetGravityInternalMaximumValue(),
+                                                   Gravity);
 
-            // Get the span of the range and its centre.
-
-            double rSpan = rMaximum - rMinimum;
-            double rCentre = rMinimum + (rSpan / 2);
-
-            // Find out how far away the star value is from the ideal.
-
-            double rDistance = Math.Abs(rCentre - Radiation);
-
-            // Normalisize the distance to be in the range 0 to 1.
-
-            double r = rDistance / rSpan;
-
-            // Now do the same for the other two parameters. Gravity is in the
-            // range 0 to 10.
-
-            double gMinimum = race.GravityTolerance.MinimumRealValue * 10;
-            double gMaximum = race.GravityTolerance.MaximumRealValue * 10;
-            double gSpan = gMaximum - gMinimum;
-            double gCentre = gMinimum + (gSpan / 2);
-            double gDistance = Math.Abs(gCentre - Gravity);
-            double g = gDistance / gSpan;
-
-            // Temperature is in the range -200 to 200.
-
-            double temperatureMinimum = (200 + race.TemperatureTolerance.MinimumRealValue) / 4;
-            double temperatureMaximum = (200 + race.TemperatureTolerance.MaximumRealValue) / 4;
-            double temperatureSpan = temperatureMaximum - temperatureMinimum;
-            double temperatureCentre = temperatureMinimum + (temperatureSpan / 2);
-            double temperatureDistance = Math.Abs(temperatureCentre - Temperature);
-            double t = temperatureDistance / temperatureSpan;
+            double t = NormalizeHabitalityDistance(race.TemperatureTolerance.GetTemperatureInternalMinimumValue(),
+                                                   race.TemperatureTolerance.GetTemperatureInternalMaximumValue(),
+                                                   Temperature);
 
             double x = 0;
             double y = 0;
@@ -222,6 +194,15 @@ namespace Nova.Common
                             ((1 - g) * (1 - g)) + ((1 - t) * (1 - t)) + ((1 - r) * (1 - r))) * (1 - x) * (1 - y) * (1 - z)
                                  / Math.Sqrt(3.0);
             return h;
+        }
+
+        // Clicks_from_center/Total_clicks_from_center_to_edge
+        private double NormalizeHabitalityDistance(int minv, int maxv, int starValue)
+        {
+            int span = maxv - minv;
+            double centre = minv + (span / 2);
+            double distance = Math.Abs(centre - starValue);
+            return distance / span;
         }
 
         #endregion

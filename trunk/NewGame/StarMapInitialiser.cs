@@ -204,9 +204,9 @@ namespace Nova.NewGame
             // This should result in a planet value of 100% for this race's home
             // world.
 
-            star.Radiation = race.OptimumRadiationLevel;
-            star.Temperature = race.OptimumTemperatureLevel;
-            star.Gravity = race.OptimumGravityLevel;
+            star.Radiation = race.RadiationTolerance.OptimumRadiationLevel;
+            star.Temperature = race.TemperatureTolerance.OptimumTemperatureLevel;
+            star.Gravity = race.GravityTolerance.OptimumGravityLevel;
             star.Colonists = race.GetStartingPopulation();
         }
 
