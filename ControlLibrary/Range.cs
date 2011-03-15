@@ -484,7 +484,47 @@ namespace Nova.ControlLibrary
 
         #region Properties
 
+        // in real environment units
+        public double MinimumValue
+        {
+            get
+            {
+                return BarPositionToEnvironmentValue(this.boxLeftPosition);
+            }
+            set 
+            { 
+                this.boxOldLeftPosition = this.boxLeftPosition;
+                this.boxLeftPosition = EnvironmentValueToBarPosition(value);
 
+                if (RangeChanged != null)
+                {
+                    RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
+                }
+
+                this.bar.Invalidate();
+            }
+        }
+
+        // in real environment units
+        public double MaximumValue
+        {
+            get
+            {
+                return BarPositionToEnvironmentValue(this.boxRightPosition);
+            }
+            set
+            {
+                this.boxOldRightPosition = this.boxRightPosition;
+                this.boxRightPosition = EnvironmentValueToBarPosition(value);
+
+                if (RangeChanged != null)
+                {
+                    RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
+                }
+
+                this.bar.Invalidate();
+            }
+        }
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return or set the range minimum and maxium values and the upper and lower bounds
@@ -495,24 +535,16 @@ namespace Nova.ControlLibrary
         {
             get
             {
-                double minimumValue = BarPositionToEnvironmentValue(this.boxLeftPosition);
-                double maximumValue = BarPositionToEnvironmentValue(this.boxRightPosition);
-                return new EnvironmentTolerance(minimumValue, maximumValue);
+                return new EnvironmentTolerance(MinimumValue, MaximumValue);
             }
             set
             {
-                this.boxOldRightPosition = this.boxRightPosition;
-                this.boxOldLeftPosition = this.boxLeftPosition;
-
-                this.boxLeftPosition = EnvironmentValueToBarPosition(value.MinimumRealValue);
-                this.boxRightPosition = EnvironmentValueToBarPosition(value.MaximumRealValue);
-
-                if (RangeChanged != null)
-                    RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
-
-                this.bar.Invalidate();
+                MinimumValue = value.MinimumRealValue;
+                MaximumValue = value.MaximumRealValue;
             }
         }
+
+
 
 
         /// ----------------------------------------------------------------------------
