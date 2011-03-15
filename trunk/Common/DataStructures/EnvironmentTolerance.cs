@@ -121,7 +121,6 @@ namespace Nova.Common
         /// <summary>
         /// Return the Median value of an integer range.
         /// </summary>
-        /// <param name="tolerance">An <see cref="EnvironmentTolerance"/> to determine the Median of.</param>
         /// <remarks>
         /// FIXME (priority 3) - Mathematically this finds the mean, which in some
         /// circumstances is different from the Median. 
@@ -133,34 +132,64 @@ namespace Nova.Common
             return (int)(((MaximumRealValue - MinimumRealValue) / 2) + MinimumRealValue);
         }
 
-        public int GetRadiationInternalMaximumValue()
+        public int RadiationInternalMaximumValue
         {
-            return GetRadiationInternalValue(MaximumRealValue);
+            get { return GetRadiationInternalValue(MaximumRealValue); }
+            set
+            {
+                MaximumRealValue = GetRadiationRealValue(value);
+                MaximumInternalValue = value;
+            }
         }
 
-        public int GetRadiationInternalMinimumValue()
+        public int RadiationInternalMinimumValue
         {
-            return GetRadiationInternalValue(MinimumRealValue);
+            get { return GetRadiationInternalValue(MinimumRealValue); }
+            set
+            {
+                MinimumRealValue = GetRadiationRealValue(value);
+                MinimumInternalValue = value;
+            }
         }
 
-        public int GetGravityInternalMaximumValue()
+        public int GravityInternalMaximumValue
         {
-            return GetGravityInternalValue(MaximumRealValue);
+            get { return GetGravityInternalValue(MaximumRealValue); }
+            set
+            {
+                MaximumRealValue = GetGravityRealValue(value);
+                MaximumInternalValue = value;
+            }
         }
 
-        public int GetGravityInternalMinimumValue()
+        public int GravityInternalMinimumValue
         {
-            return GetGravityInternalValue(MinimumRealValue);
+            get { return GetGravityInternalValue(MinimumRealValue); }
+            set
+            {
+                MinimumRealValue = GetGravityRealValue(value);
+                MinimumInternalValue = value;
+            }
         }
 
-        public int GetTemperatureInternalMaximumValue()
+        public int TemperatureInternalMaximumValue
         {
-            return GetTemperatureInternalValue(MaximumRealValue);
+            get { return GetTemperatureInternalValue(MaximumRealValue); }
+            set
+            {
+                MaximumRealValue = GetTemperatureRealValue(value);
+                MaximumInternalValue = value;
+            }
         }
 
-        public int GetTemperatureInternalMinimumValue()
+        public int TemperatureInternalMinimumValue
         {
-            return GetTemperatureInternalValue(MinimumRealValue);
+            get { return GetTemperatureInternalValue(MinimumRealValue); }
+            set
+            {
+                MinimumRealValue = GetTemperatureRealValue(value);
+                MinimumInternalValue = value;
+            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -197,12 +226,12 @@ namespace Nova.Common
         // Calculate the minimum and maximum values of the tolerance ranges
         // expressed as a percentage of the total range. 
         // Radiation is in the range 0 to 100.
-        private static int GetRadiationInternalValue(double value)
+        public int GetRadiationInternalValue(double value)
         {
             return (int)value;
         }
 
-        private static double GetRadiationRealValue(int value)
+        public static double GetRadiationRealValue(int value)
         {
             return (double)value;
         }
@@ -210,12 +239,12 @@ namespace Nova.Common
         // Calculate the minimum and maximum values of the tolerance ranges
         // expressed as a percentage of the total range. 
         // Temperature is in the range -200 to 200.
-        private static int GetTemperatureInternalValue(double value)
+        public static int GetTemperatureInternalValue(double value)
         {
             return (int)((200 + value) / 4);
         }
 
-        private static double GetTemperatureRealValue(int value)
+        public static double GetTemperatureRealValue(int value)
         {
             return (double)(value * 4 - 200);
         }
@@ -223,12 +252,12 @@ namespace Nova.Common
         // Calculate the minimum and maximum values of the tolerance ranges
         // expressed as a percentage of the total range. 
         // Gravity is in the range 0 to 10.
-        private static int GetGravityInternalValue(double value)
+        public static int GetGravityInternalValue(double value)
         {
             return (int)(value * 10);
         }
 
-        private static double GetGravityRealValue(int value)
+        public static double GetGravityRealValue(int value)
         {
             return (double)(value / 10.0);
         }
