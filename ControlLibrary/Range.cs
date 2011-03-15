@@ -484,7 +484,12 @@ namespace Nova.ControlLibrary
 
         #region Properties
 
-        // in real environment units
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Get or Set range control lower bar value.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        [Description("Lower value of range bar."), Category("Nova")]
         public double MinimumValue
         {
             get
@@ -495,17 +500,15 @@ namespace Nova.ControlLibrary
             { 
                 this.boxOldLeftPosition = this.boxLeftPosition;
                 this.boxLeftPosition = EnvironmentValueToBarPosition(value);
-
-                if (RangeChanged != null)
-                {
-                    RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
-                }
-
-                this.bar.Invalidate();
             }
         }
 
-        // in real environment units
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Get or Set range control uper value.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        [Description("Upper value of range bar."), Category("Nova")]
         public double MaximumValue
         {
             get
@@ -516,13 +519,6 @@ namespace Nova.ControlLibrary
             {
                 this.boxOldRightPosition = this.boxRightPosition;
                 this.boxRightPosition = EnvironmentValueToBarPosition(value);
-
-                if (RangeChanged != null)
-                {
-                    RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
-                }
-
-                this.bar.Invalidate();
             }
         }
         /// ----------------------------------------------------------------------------
@@ -541,6 +537,7 @@ namespace Nova.ControlLibrary
             {
                 MinimumValue = value.MinimumRealValue;
                 MaximumValue = value.MaximumRealValue;
+                ActivateRangeChange();
             }
         }
 
@@ -622,53 +619,12 @@ namespace Nova.ControlLibrary
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Get or Set range control uper value.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        [Description("Upper value of range bar."), Category("Nova")]
-        public double BarUpper
+        public void ActivateRangeChange()
         {
-            get 
-            { 
-                return BarPositionToEnvironmentValue(this.boxRightPosition); 
-            }
-            set
-            {
-
-                this.boxOldRightPosition = this.boxRightPosition;
-                this.boxRightPosition = EnvironmentValueToBarPosition(value);
                 if (RangeChanged != null)
                     RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
                 this.bar.Invalidate();
-            }
         }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Get or Set range control lower bar value.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        [Description("Lower value of range bar."), Category("Nova")]
-        public double BarLower
-        {
-            get
-            {
-                return BarPositionToEnvironmentValue(this.boxLeftPosition);
-            }
-            set
-            {
-                this.boxOldLeftPosition = this.boxLeftPosition;
-                this.boxLeftPosition = EnvironmentValueToBarPosition(value);
-                if (RangeChanged != null)
-                    RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
-                this.bar.Invalidate();
-            }
-        }
-
 
         /// ----------------------------------------------------------------------------
         /// <summary>
