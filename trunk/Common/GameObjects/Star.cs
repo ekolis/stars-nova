@@ -170,17 +170,11 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public double HabitalValue(Race race)
         {
-            double r = NormalizeHabitalityDistance(race.RadiationTolerance.RadiationInternalMinimumValue,
-                                                   race.RadiationTolerance.RadiationInternalMaximumValue,
-                                                   Radiation);
+            double r = NormalizeHabitalityDistance(race.RadiationTolerance, Radiation);
 
-            double g = NormalizeHabitalityDistance(race.GravityTolerance.GravityInternalMinimumValue,
-                                                   race.GravityTolerance.GravityInternalMaximumValue,
-                                                   Gravity);
+            double g = NormalizeHabitalityDistance(race.GravityTolerance, Gravity);
 
-            double t = NormalizeHabitalityDistance(race.TemperatureTolerance.TemperatureInternalMinimumValue,
-                                                   race.TemperatureTolerance.TemperatureInternalMaximumValue,
-                                                   Temperature);
+            double t = NormalizeHabitalityDistance(race.TemperatureTolerance, Temperature);
 
             double x = 0;
             double y = 0;
@@ -197,8 +191,10 @@ namespace Nova.Common
         }
 
         // Clicks_from_center/Total_clicks_from_center_to_edge
-        private double NormalizeHabitalityDistance(int minv, int maxv, int starValue)
+        private double NormalizeHabitalityDistance(EnvironmentTolerance tol, int starValue)
         {
+            int minv = tol.MinimumInternalValue;
+            int maxv = tol.MaximumInternalValue;
             int span = maxv - minv;
             double centre = minv + (span / 2);
             double distance = Math.Abs(centre - starValue);

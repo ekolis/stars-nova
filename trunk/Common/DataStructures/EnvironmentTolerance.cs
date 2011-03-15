@@ -61,7 +61,7 @@ namespace Nova.Common
     /// Class to hold environmental tolerance details
     /// </summary>
     [Serializable]
-    public sealed class EnvironmentTolerance
+    public class EnvironmentTolerance
     {
         private double minimumRealValue = 0;
         private double maximumRealValue = 0;
@@ -99,18 +99,6 @@ namespace Nova.Common
             set { maximumRealValue = value; }
         }
 
-        public int MinimumInternalValue
-        {
-            get { return minimumInternalValue; }
-            set { minimumInternalValue = value; }
-        }
-
-        public int MaximumInternalValue
-        {
-            get { return maximumInternalValue; }
-            set { maximumInternalValue = value; }
-        }
-
         public string Name
         {
             get { return name; }
@@ -132,151 +120,61 @@ namespace Nova.Common
             return (int)(((MaximumRealValue - MinimumRealValue) / 2) + MinimumRealValue);
         }
 
-        public int RadiationInternalMaximumValue
+
+        public int MaximumInternalValue
         {
-            get { return GetRadiationInternalValue(MaximumRealValue); }
+            get { return MakeInternalValue(MaximumRealValue); }
             set
             {
-                MaximumRealValue = GetRadiationRealValue(value);
-                MaximumInternalValue = value;
+                MaximumRealValue = MakeRealValue(value);
+                maximumInternalValue = value;
             }
         }
 
-        public int RadiationInternalMinimumValue
+        public int MinimumInternalValue
         {
-            get { return GetRadiationInternalValue(MinimumRealValue); }
+            get { return MakeInternalValue(MinimumRealValue); }
             set
             {
-                MinimumRealValue = GetRadiationRealValue(value);
-                MinimumInternalValue = value;
-            }
-        }
-
-        public int GravityInternalMaximumValue
-        {
-            get { return GetGravityInternalValue(MaximumRealValue); }
-            set
-            {
-                MaximumRealValue = GetGravityRealValue(value);
-                MaximumInternalValue = value;
-            }
-        }
-
-        public int GravityInternalMinimumValue
-        {
-            get { return GetGravityInternalValue(MinimumRealValue); }
-            set
-            {
-                MinimumRealValue = GetGravityRealValue(value);
-                MinimumInternalValue = value;
-            }
-        }
-
-        public int TemperatureInternalMaximumValue
-        {
-            get { return GetTemperatureInternalValue(MaximumRealValue); }
-            set
-            {
-                MaximumRealValue = GetTemperatureRealValue(value);
-                MaximumInternalValue = value;
-            }
-        }
-
-        public int TemperatureInternalMinimumValue
-        {
-            get { return GetTemperatureInternalValue(MinimumRealValue); }
-            set
-            {
-                MinimumRealValue = GetTemperatureRealValue(value);
-                MinimumInternalValue = value;
+                MinimumRealValue = MakeRealValue(value);
+                minimumInternalValue = value;
             }
         }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Return the optimum radiation level as a percentage * 100 for this race.
+        /// Return the optimum level as a percentage * 100 for this race Environment.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public int OptimumRadiationLevel
+        public int OptimumLevel
         {
-            get { return GetRadiationInternalValue(Median()); }
-        }
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Return the optimum temperature level as a percentage * 100 for this race. 
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public int OptimumTemperatureLevel
-        {
-            get { return GetTemperatureInternalValue(Median()); }
-        }
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Return the optimum gravity level as a percentage * 100 for this race.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public int OptimumGravityLevel
-        {
-            get { return GetGravityInternalValue(Median()); }
-        }
-
-
-        // Calculate the minimum and maximum values of the tolerance ranges
-        // expressed as a percentage of the total range. 
-        // Radiation is in the range 0 to 100.
-        public int GetRadiationInternalValue(double value)
-        {
-            return (int)value;
-        }
-
-        public static double GetRadiationRealValue(int value)
-        {
-            return (double)value;
+            get { return MakeInternalValue(Median()); }
         }
 
         // Calculate the minimum and maximum values of the tolerance ranges
-        // expressed as a percentage of the total range. 
-        // Temperature is in the range -200 to 200.
-        public static int GetTemperatureInternalValue(double value)
+        // expressed as a percentage of the total range * 100. 
+        virtual public int MakeInternalValue(double value)
         {
-            return (int)((200 + value) / 4);
+            return 0;
         }
 
-        public static double GetTemperatureRealValue(int value)
+        virtual public double MakeRealValue(int value)
         {
-            return (double)(value * 4 - 200);
-        }
-
-        // Calculate the minimum and maximum values of the tolerance ranges
-        // expressed as a percentage of the total range. 
-        // Gravity is in the range 0 to 10.
-        public static int GetGravityInternalValue(double value)
-        {
-            return (int)(value * 10);
-        }
-
-        public static double GetGravityRealValue(int value)
-        {
-            return (double)(value / 10.0);
+            return 0.0;
         }
 
         #region Load Save Xml
 
-
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Load from XML: Initialising constructor from an XML node.
+        /// Load from XML.
         /// </summary>
         /// <param name="node">node is a "EnvironmentTolerance" <see cref="XmlNode"/> in 
-        /// a Nova compenent definition file (xml document).
+        /// a Nova component definition file (xml document).
         /// </param>
         /// ----------------------------------------------------------------------------
-        public EnvironmentTolerance(XmlNode node)
+        public void FromXml(XmlNode node)
         {
-            Boolean internalMinFound = false;
-            Boolean internalMaxFound = false;
             XmlNode subnode = node.FirstChild;
             while (subnode != null)
             {
@@ -292,11 +190,9 @@ namespace Nova.Common
                             break;
                         case "MinInternal":
                             MinimumInternalValue = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                            internalMinFound = true;
                             break;
                         case "MaxInternal":
                             MaximumInternalValue = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                            internalMaxFound = true;
                             break;
                         case "Name":
                             Name = ((XmlText)subnode.FirstChild).Value;
@@ -309,26 +205,6 @@ namespace Nova.Common
                 }
 
                 subnode = subnode.NextSibling;
-            }
-
-            if (internalMinFound && internalMaxFound)
-            {
-                // This Tolerance was saved already with internal values 
-                if ("RadiationTolerance".Equals(Name))
-                {
-                    MinimumRealValue = GetRadiationRealValue(MinimumInternalValue);
-                    MaximumRealValue = GetRadiationRealValue(MaximumInternalValue);
-                }
-                else if ("TemperatureTolerance".Equals(Name))
-                {
-                    MinimumRealValue = GetTemperatureRealValue(MinimumInternalValue);
-                    MaximumRealValue = GetTemperatureInternalValue(MaximumInternalValue);
-                }
-                else // ("GravityTolerance".Equals(Name))
-                {
-                    MinimumRealValue = GetGravityRealValue(MinimumInternalValue);
-                    MaximumRealValue = GetGravityRealValue(MaximumInternalValue);
-                }
             }
         }
 

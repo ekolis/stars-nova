@@ -43,9 +43,9 @@ namespace Nova.Common
     [Serializable]
     public sealed class Race
     {
-        public EnvironmentTolerance GravityTolerance = new EnvironmentTolerance();
-        public EnvironmentTolerance RadiationTolerance = new EnvironmentTolerance();
-        public EnvironmentTolerance TemperatureTolerance = new EnvironmentTolerance();
+        public EnvironmentTolerance GravityTolerance = new GravityTolerance();
+        public EnvironmentTolerance RadiationTolerance = new RadiationTolerance();
+        public EnvironmentTolerance TemperatureTolerance = new TemperatureTolerance();
 
         public TechLevel ResearchCosts = new TechLevel(0);
 
@@ -248,14 +248,14 @@ namespace Nova.Common
 
         private void ActualizeInternalToleranceValues()
         {
-            RadiationTolerance.MinimumInternalValue = RadiationTolerance.RadiationInternalMinimumValue;
-            RadiationTolerance.MaximumInternalValue = RadiationTolerance.RadiationInternalMaximumValue;
+            RadiationTolerance.MinimumInternalValue = RadiationTolerance.MinimumInternalValue;
+            RadiationTolerance.MaximumInternalValue = RadiationTolerance.MaximumInternalValue;
             RadiationTolerance.Name = "RadiationTolerance";
-            TemperatureTolerance.MinimumInternalValue = TemperatureTolerance.TemperatureInternalMinimumValue;
-            TemperatureTolerance.MaximumInternalValue = TemperatureTolerance.TemperatureInternalMaximumValue;
+            TemperatureTolerance.MinimumInternalValue = TemperatureTolerance.MinimumInternalValue;
+            TemperatureTolerance.MaximumInternalValue = TemperatureTolerance.MaximumInternalValue;
             TemperatureTolerance.Name = "TemperatureTolerance";
-            GravityTolerance.MinimumInternalValue = GravityTolerance.GravityInternalMinimumValue;
-            GravityTolerance.MaximumInternalValue = GravityTolerance.GravityInternalMaximumValue;
+            GravityTolerance.MinimumInternalValue = GravityTolerance.MinimumInternalValue;
+            GravityTolerance.MaximumInternalValue = GravityTolerance.MaximumInternalValue;
             GravityTolerance.Name = "GravityTolerance";
         }
 
@@ -280,13 +280,13 @@ namespace Nova.Common
                             xmlnode = xmlnode.FirstChild;
                             continue;
                         case "gravitytolerance":
-                            this.GravityTolerance = new EnvironmentTolerance(xmlnode.FirstChild);
+                            this.GravityTolerance.FromXml(xmlnode.FirstChild);
                             break;
                         case "radiationtolerance":
-                            this.RadiationTolerance = new EnvironmentTolerance(xmlnode.FirstChild);
+                            this.RadiationTolerance.FromXml(xmlnode.FirstChild);
                             break;
                         case "temperaturetolerance":
-                            this.TemperatureTolerance = new EnvironmentTolerance(xmlnode.FirstChild);
+                            this.TemperatureTolerance.FromXml(xmlnode.FirstChild);
                             break;
                         case "tech":
                             this.ResearchCosts = new TechLevel(xmlnode);

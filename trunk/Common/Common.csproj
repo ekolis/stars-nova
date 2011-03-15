@@ -82,12 +82,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Converters\EnabledValueConverter.cs" />
-    <Compile Include="Converters\InstanceDescriptorConverter.cs" />
-    <Compile Include="Converters\ResourcesConverter.cs" />
-    <Compile Include="Converters\TechLevelConverter.cs" />
+    <Compile Include="DataStructures\Converters\EnabledValueConverter.cs" />
+    <Compile Include="DataStructures\Converters\InstanceDescriptorConverter.cs" />
+    <Compile Include="DataStructures\Converters\ResourcesConverter.cs" />
+    <Compile Include="DataStructures\Converters\TechLevelConverter.cs" />
     <Compile Include="DataStructures\Gravity.cs" />
+    <Compile Include="DataStructures\GravityTolerance.cs" />
     <Compile Include="DataStructures\NovaPoint.cs" />
+    <Compile Include="DataStructures\RadiationTolerance.cs" />
+    <Compile Include="DataStructures\TemperatureTolerance.cs" />
     <Compile Include="DataStructures\XmlSerializableDictionary.cs" />
     <Compile Include="Files\Config.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
