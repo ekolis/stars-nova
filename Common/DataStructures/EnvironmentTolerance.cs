@@ -64,11 +64,13 @@ namespace Nova.Common
     [TypeConverter(typeof(EnvironmentToleranceConverter))]
     public sealed class EnvironmentTolerance
     {
-        public double minimumRealValue = 0;
-        public double maximumRealValue = 0;
+        private double minimumRealValue = 0;
+        private double maximumRealValue = 0;
 
         private int minimumInternalValue = 15;
         private int maximumInternalValue = 85;
+
+        private string name = "";
 
 
         #region Construction
@@ -95,8 +97,10 @@ namespace Nova.Common
 
         #endregion
 
-        // ToDo: 1. Verwendung ersetzen, 2. InternalValue (auch) speichern, bzw. speichern von Anzeige-Wert und Verarbeitungs-Wert trennen, 3. auch bei RealValue InternalValue nutzen
-        // 4. Anzeige-Wert überall über Gravity etc. berechnen lassen
+        // ToDo: 
+        // 3. use InternalValue instead of RealValue
+        // 4. calculate ShowValue with Gravity Class etc.
+        // 5. Change XmlNode Constructor to setter Methode
 
         public double MinimumRealValue
         {
@@ -122,6 +126,12 @@ namespace Nova.Common
             set { maximumInternalValue = value; }
         }
 
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the Median value of an integer range.
@@ -130,6 +140,7 @@ namespace Nova.Common
         /// <remarks>
         /// FIXME (priority 3) - Mathematically this finds the mean, which in some
         /// circumstances is different from the Median. 
+        /// FIXME - This is not an integer range!
         /// </remarks>
         /// ----------------------------------------------------------------------------
         public int Median()
@@ -137,7 +148,93 @@ namespace Nova.Common
             return (int)(((MaximumRealValue - MinimumRealValue) / 2) + MinimumRealValue);
         }
 
+        public int GetRadiationInternalMaximumValue()
+        {
+            return GetRadiationInternalValue(MaximumRealValue);
+        }
+
+        public int GetRadiationInternalMinimumValue()
+        {
+            return GetRadiationInternalValue(MinimumRealValue);
+        }
+
+        public int GetGravityInternalMaximumValue()
+        {
+            return GetGravityInternalValue(MaximumRealValue);
+        }
+
+        public int GetGravityInternalMinimumValue()
+        {
+            return GetGravityInternalValue(MinimumRealValue);
+        }
+
+        public int GetTemperatureInternalMaximumValue()
+        {
+            return GetTemperatureInternalValue(MaximumRealValue);
+        }
+
+        public int GetTemperatureInternalMinimumValue()
+        {
+            return GetTemperatureInternalValue(MinimumRealValue);
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Return the optimum radiation level as a percentage * 100 for this race.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public int OptimumRadiationLevel
+        {
+            get { return GetRadiationInternalValue(Median()); }
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Return the optimum temperature level as a percentage * 100 for this race. 
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public int OptimumTemperatureLevel
+        {
+            get { return GetTemperatureInternalValue(Median()); }
+        }
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Return the optimum gravity level as a percentage * 100 for this race.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public int OptimumGravityLevel
+        {
+            get { return GetGravityInternalValue(Median()); }
+        }
+
+
+        // Calculate the minimum and maximum values of the tolerance ranges
+        // expressed as a percentage of the total range. 
+        // Radiation is in the range 0 to 100.
+        private static int GetRadiationInternalValue(double value)
+        {
+            return (int)value;
+        }
+
+        // Calculate the minimum and maximum values of the tolerance ranges
+        // expressed as a percentage of the total range. 
+        // Temperature is in the range -200 to 200.
+        private static int GetTemperatureInternalValue(double value)
+        {
+            return (int)((200 + value) / 4);
+        }
+
+        // Calculate the minimum and maximum values of the tolerance ranges
+        // expressed as a percentage of the total range. 
+        // Gravity is in the range 0 to 10.
+        private static int GetGravityInternalValue(double value)
+        {
+            return (int)(value * 10);
+        }
+
         #region Load Save Xml
+
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -149,8 +246,64 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public EnvironmentTolerance(XmlNode node)
         {
-            MinimumRealValue = Global.ParseDoubleSubnode(node, "Min");
-            MaximumRealValue = Global.ParseDoubleSubnode(node, "Max");
+            Boolean internalMinFound = false;
+            Boolean internalMaxFound = false;
+            XmlNode subnode = node.FirstChild;
+            while (subnode != null)
+            {
+                try
+                {
+                    switch (subnode.Name.ToLower())
+                    {
+                        case "min":
+                            MinimumRealValue = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "max":
+                            MaximumRealValue = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "MinInternal":
+                            MinimumInternalValue = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            internalMinFound = true;
+                            break;
+                        case "MaxInternal":
+                            MaximumInternalValue = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            internalMaxFound = true;
+                            break;
+                        case "Name":
+                            Name = ((XmlText)subnode.FirstChild).Value;
+                            break;
+                    }
+                }
+                catch
+                {
+                    // ignore incomplete or unset values
+                }
+
+                subnode = subnode.NextSibling;
+            }
+
+            if (internalMinFound && internalMaxFound)
+            {
+                // This Tolerance was saved already with internal values 
+                if ("RadiationTolerance".Equals(Name))
+                {
+                    MinimumRealValue = (double)MinimumInternalValue;
+                    MaximumRealValue = (double)MaximumInternalValue;
+                }
+                else if ("TemperatureTolerance".Equals(Name))
+                {
+                    MinimumRealValue = (double)MinimumInternalValue * 4 - 200;
+                    MaximumRealValue = (double)MaximumInternalValue * 4 - 200;
+                }
+                else // ("GravityTolerance".Equals(Name))
+                {
+                    MinimumRealValue = (double)MinimumInternalValue / 10;
+                    MaximumRealValue = (double)MaximumInternalValue / 10;
+                }
+            }
+
+            //MinimumRealValue = Global.ParseDoubleSubnode(node, "Min");
+            //MaximumRealValue = Global.ParseDoubleSubnode(node, "Max");
         }
 
         /// ----------------------------------------------------------------------------
@@ -163,6 +316,10 @@ namespace Nova.Common
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement("EnvironmentTolerance");
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Name", Name);
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "MinInternal", MinimumInternalValue);
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "MaxInternal", MaximumInternalValue);
+            // (old) double values for human readability only
             Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Min", MinimumRealValue);
             Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Max", MaximumRealValue);
             return xmlelEnvironmentTolerance;

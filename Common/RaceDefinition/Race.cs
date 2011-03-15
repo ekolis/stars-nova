@@ -138,41 +138,6 @@ namespace Nova.Common
 
         #region Properties
 
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Return the optimum radiation level as a percentage for this race. This is
-        /// simply the median value as radiation levels run from 0 to 100;
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public int OptimumRadiationLevel
-        {
-            get { return RadiationTolerance.Median(); }
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Return the optimum temperature level as a percentage for this
-        /// race. Temperature values range from -200 to + 200
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public int OptimumTemperatureLevel
-        {
-            get { return (200 + TemperatureTolerance.Median()) / 4; }
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Return the optimum gravity level as a percentage for this race. Gravity
-        /// values range from 0 to 10;
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public int OptimumGravityLevel
-        {
-            get { return GravityTolerance.Median() * 10; }
-        }
-
         /// <summary>
         /// The maximum planetary population for this race.
         /// </summary>
@@ -222,6 +187,8 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
+            ActualizeInternalToleranceValues();
+
             XmlElement xmlelRace = xmldoc.CreateElement("Race");
 
             // GravityTolerance
@@ -277,6 +244,19 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelRace, "GrowthRate", GrowthRate.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             return xmlelRace;
+        }
+
+        private void ActualizeInternalToleranceValues()
+        {
+            RadiationTolerance.MinimumInternalValue = RadiationTolerance.GetRadiationInternalMinimumValue();
+            RadiationTolerance.MaximumInternalValue = RadiationTolerance.GetRadiationInternalMaximumValue();
+            RadiationTolerance.Name = "RadiationTolerance";
+            TemperatureTolerance.MinimumInternalValue = TemperatureTolerance.GetTemperatureInternalMinimumValue();
+            TemperatureTolerance.MaximumInternalValue = TemperatureTolerance.GetTemperatureInternalMaximumValue();
+            TemperatureTolerance.Name = "TemperatureTolerance";
+            GravityTolerance.MinimumInternalValue = GravityTolerance.GetGravityInternalMinimumValue();
+            GravityTolerance.MaximumInternalValue = GravityTolerance.GetGravityInternalMaximumValue();
+            GravityTolerance.Name = "GravityTolerance";
         }
 
         /// ----------------------------------------------------------------------------
