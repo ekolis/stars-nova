@@ -61,7 +61,6 @@ namespace Nova.Common
     /// Class to hold environmental tolerance details
     /// </summary>
     [Serializable]
-    [TypeConverter(typeof(EnvironmentToleranceConverter))]
     public sealed class EnvironmentTolerance
     {
         private double minimumRealValue = 0;
@@ -82,25 +81,11 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public EnvironmentTolerance() { }
 
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="minv"></param>
-        /// <param name="maxv"></param>
-        /// ----------------------------------------------------------------------------
-        public EnvironmentTolerance(double minv, double maxv)
-        {
-            MinimumRealValue = minv;
-            MaximumRealValue = maxv;
-        }
-
         #endregion
 
         // ToDo: 
         // 3. use InternalValue instead of RealValue
         // 4. calculate ShowValue with Gravity Class etc.
-        // 5. Change XmlNode Constructor to setter Methode
 
         public double MinimumRealValue
         {

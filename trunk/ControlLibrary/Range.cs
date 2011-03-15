@@ -521,27 +521,6 @@ namespace Nova.ControlLibrary
                 this.boxRightPosition = EnvironmentValueToBarPosition(value);
             }
         }
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Return or set the range minimum and maxium values and the upper and lower bounds
-        /// of the current selection (in real environment units).
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public EnvironmentTolerance EnvironmentValues
-        {
-            get
-            {
-                return new EnvironmentTolerance(MinimumValue, MaximumValue);
-            }
-            set
-            {
-                MinimumValue = value.MinimumRealValue;
-                MaximumValue = value.MaximumRealValue;
-                ActivateRangeChange();
-            }
-        }
-
-
 
 
         /// ----------------------------------------------------------------------------
