@@ -1564,10 +1564,15 @@ namespace Nova.WinForms.RaceDesigner
                     }
 
                     this.parametersChanged = true;
-                    this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    showAvailablePoints();
                     break;
                 }
             }
+        }
+
+        private void showAvailablePoints()
+        {
+            this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
         }
 
 
@@ -1604,7 +1609,7 @@ namespace Nova.WinForms.RaceDesigner
                         this.advantagePoints += trait.Cost;
                     }
 
-                    this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    showAvailablePoints();
                     this.parametersChanged = true;
                     break;
                 }
@@ -1655,7 +1660,7 @@ namespace Nova.WinForms.RaceDesigner
                     }
 
                     parameter.Cost[0] = newValue;
-                    this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    showAvailablePoints();
                     this.parametersChanged = true;
                     break;
                 }
@@ -1674,7 +1679,7 @@ namespace Nova.WinForms.RaceDesigner
         private void ResearchCost_SelectionChanged(object sender, int value)
         {
             this.advantagePoints += value;
-            this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            showAvailablePoints();
             this.parametersChanged = true;
         }
         /// <summary>
@@ -1693,7 +1698,7 @@ namespace Nova.WinForms.RaceDesigner
             {
                 this.advantagePoints += cost;
             }
-            this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            showAvailablePoints();
             this.parametersChanged = true;
         }
         /// ----------------------------------------------------------------------------
@@ -1717,7 +1722,7 @@ namespace Nova.WinForms.RaceDesigner
             this.advantagePoints -= Utilities.BarPositionCost(oldLeftPos, oldRightPos);
             this.advantagePoints += Utilities.BarPositionCost(newLeftPos, newRightPos);
 
-            this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            showAvailablePoints();
             this.parametersChanged = true;
         }
 
