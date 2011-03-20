@@ -24,15 +24,15 @@ namespace Nova.Common
 
         // Calculate the minimum and maximum values of the tolerance ranges
         // expressed as a percentage of the total range. 
-        // Gravity is in the range 0 to 10.
-        override public int MakeInternalValue(double value)
+        // Gravity was in the range 0 to 10, UI values will differ, see Nova.Common.Gravity!
+        override protected int MakeInternalValue(double value)
         {
             return (int)(value * 10);
         }
 
-        override public double MakeRealValue(int value)
+        override protected string Format(int value)
         {
-            return (double)(value / 10.0);
+            return Gravity.FormatWithUnit(value);
         }
     }
 }

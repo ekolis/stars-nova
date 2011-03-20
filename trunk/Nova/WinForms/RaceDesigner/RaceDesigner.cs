@@ -1825,12 +1825,12 @@ namespace Nova.WinForms.RaceDesigner
             // Environmental Tolerance
             // ----------------------------------------------------------------------------
 
-            raceParameters.GravityTolerance.MinimumInternalValue = this.gravityTolerance.MinimumValue;
-            raceParameters.GravityTolerance.MaximumInternalValue = this.gravityTolerance.MaximumValue;
-            raceParameters.RadiationTolerance.MinimumInternalValue = this.radiationTolerance.MinimumValue;
-            raceParameters.RadiationTolerance.MaximumInternalValue = this.radiationTolerance.MaximumValue;
-            raceParameters.TemperatureTolerance.MinimumInternalValue = this.temperatureTolerance.MinimumValue;
-            raceParameters.TemperatureTolerance.MaximumInternalValue = this.temperatureTolerance.MaximumValue;
+            raceParameters.GravityTolerance.MinimumValue = this.gravityTolerance.MinimumValue;
+            raceParameters.GravityTolerance.MaximumValue = this.gravityTolerance.MaximumValue;
+            raceParameters.RadiationTolerance.MinimumValue = this.radiationTolerance.MinimumValue;
+            raceParameters.RadiationTolerance.MaximumValue = this.radiationTolerance.MaximumValue;
+            raceParameters.TemperatureTolerance.MinimumValue = this.temperatureTolerance.MinimumValue;
+            raceParameters.TemperatureTolerance.MaximumValue = this.temperatureTolerance.MaximumValue;
             raceParameters.GrowthRate = (double)this.maxGrowth.Value;
 
             // ----------------------------------------------------------------------------
@@ -2104,16 +2104,16 @@ namespace Nova.WinForms.RaceDesigner
         /// ----------------------------------------------------------------------------
         public void ReloadEnvironmentalTolerance(Race raceParameters)
         {
-            this.gravityTolerance.MinimumValue = raceParameters.GravityTolerance.MinimumInternalValue;
-            this.gravityTolerance.MaximumValue = raceParameters.GravityTolerance.MaximumInternalValue;
+            this.gravityTolerance.MinimumValue = raceParameters.GravityTolerance.MinimumValue;
+            this.gravityTolerance.MaximumValue = raceParameters.GravityTolerance.MaximumValue;
             this.gravityTolerance.ActivateRangeChange();
 
-            this.radiationTolerance.MinimumValue = raceParameters.RadiationTolerance.MinimumInternalValue;
-            this.radiationTolerance.MaximumValue = raceParameters.RadiationTolerance.MaximumInternalValue;
+            this.radiationTolerance.MinimumValue = raceParameters.RadiationTolerance.MinimumValue;
+            this.radiationTolerance.MaximumValue = raceParameters.RadiationTolerance.MaximumValue;
             this.radiationTolerance.ActivateRangeChange();
 
-            this.temperatureTolerance.MinimumValue = raceParameters.TemperatureTolerance.MinimumInternalValue;
-            this.temperatureTolerance.MaximumValue = raceParameters.TemperatureTolerance.MaximumInternalValue;
+            this.temperatureTolerance.MinimumValue = raceParameters.TemperatureTolerance.MinimumValue;
+            this.temperatureTolerance.MaximumValue = raceParameters.TemperatureTolerance.MaximumValue;
             this.temperatureTolerance.ActivateRangeChange();
 
             this.maxGrowth.Value = (decimal)raceParameters.GrowthRate;

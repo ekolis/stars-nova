@@ -90,6 +90,7 @@
     <Compile Include="DataStructures\GravityTolerance.cs" />
     <Compile Include="DataStructures\NovaPoint.cs" />
     <Compile Include="DataStructures\RadiationTolerance.cs" />
+    <Compile Include="DataStructures\Temperature.cs" />
     <Compile Include="DataStructures\TemperatureTolerance.cs" />
     <Compile Include="DataStructures\XmlSerializableDictionary.cs" />
     <Compile Include="Files\Config.cs" />

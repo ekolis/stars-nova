@@ -272,13 +272,14 @@ namespace Nova.ControlLibrary
             int fillRight = (int)((this.boxRightPosition * this.bar.Size.Width) / GetBoxRange());
             int fillWidth = fillRight - fillLeft;
 
+            // Might Do: Delegate:
             string realRange;
             if (this.units == Gravity.GetUnit())
             {
                 realRange = String.Format(
                     "{0}{2} to {1}{2}",
-                    Gravity.BarPositionToEnvironmentValue(this.boxLeftPosition).ToString("F2"),
-                    Gravity.BarPositionToEnvironmentValue(this.boxRightPosition).ToString("F2"),
+                    Gravity.Format(this.boxLeftPosition),
+                    Gravity.Format(this.boxRightPosition),
                     Gravity.GetUnit());
             }
             else if (this.units == "mR")
@@ -293,9 +294,9 @@ namespace Nova.ControlLibrary
             {
                 realRange = String.Format(
                     "{0}{2} to {1}{2}",
-                    (this.boxLeftPosition * 4 - 200).ToString("F0"),
-                    (this.boxRightPosition * 4 - 200).ToString("F0"),
-                    this.units);
+                    Temperature.Format(this.boxLeftPosition),
+                    Temperature.Format(this.boxRightPosition),
+                    Temperature.GetUnit());
             }
 
             this.boxSpan.Text = realRange;
