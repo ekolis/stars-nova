@@ -457,18 +457,6 @@ namespace Nova.ControlLibrary
             return ((((double)(pos - this.boxMinimum)) * GetEnvironmentRange()) / (double)GetBoxRange()) + this.environmentMinimum;
         }
 
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Conversion from an environment value (EnvironmentMinimum - EnvironmentMaximum) to a bar position (1-100).
-        /// </summary>
-        /// <param name="env">An environment value.</param>
-        /// <returns>A bar position (1-100).</returns>
-        /// ----------------------------------------------------------------------------
-        private int EnvironmentValueToBarPosition(double env)
-        {
-            return (int)((((env - this.environmentMinimum) * (double)GetBoxRange()) / GetEnvironmentRange()) + this.boxMinimum);
-        }
-
         private int GetBoxRange()
         {
             return this.boxMaximum - this.boxMinimum;
@@ -489,23 +477,14 @@ namespace Nova.ControlLibrary
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Lower value of range bar."), Category("Nova")]
-        public double MinimumValue
-        {
-            get
-            {
-                return BarPositionToEnvironmentValue(this.boxLeftPosition);
-            }
-            set 
-            { 
-                this.boxOldLeftPosition = this.boxLeftPosition;
-                this.boxLeftPosition = EnvironmentValueToBarPosition(value);
-            }
-        }
-
-        [Browsable(false)]
-        public int MinimumBoxValue
+        public int MinimumValue
         {
             get { return this.boxLeftPosition; }
+            set
+            {
+                this.boxOldLeftPosition = this.boxLeftPosition;
+                this.boxLeftPosition = value;
+            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -514,23 +493,14 @@ namespace Nova.ControlLibrary
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Description("Upper value of range bar."), Category("Nova")]
-        public double MaximumValue
+        public int MaximumValue
         {
-            get
-            {
-                return BarPositionToEnvironmentValue(this.boxRightPosition);
-            }
+            get { return this.boxRightPosition; }
             set
             {
                 this.boxOldRightPosition = this.boxRightPosition;
-                this.boxRightPosition = EnvironmentValueToBarPosition(value);
+                this.boxRightPosition = value;
             }
-        }
-
-        [Browsable(false)]
-        public int MaximumBoxValue
-        {
-            get { return this.boxRightPosition; }
         }
 
         /// ----------------------------------------------------------------------------
