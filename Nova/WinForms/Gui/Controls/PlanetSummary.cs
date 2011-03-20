@@ -502,7 +502,7 @@ namespace Nova.WinForms.Gui
 
                 this.radiationLevel.Text = report.Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
                 this.gravityLevel.Text = Gravity.FormatWithUnit(report.Gravity); 
-                this.temperatureLevel.Text = t.ToString(System.Globalization.CultureInfo.InvariantCulture) + "C";
+                this.temperatureLevel.Text = t.ToString(System.Globalization.CultureInfo.InvariantCulture) + "°C";
 
                 this.radiationGauge.TopValue = race.RadiationTolerance.MaximumRealValue;
                 this.radiationGauge.BottomValue = race.RadiationTolerance.MinimumRealValue;
