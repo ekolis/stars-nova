@@ -350,43 +350,43 @@ namespace Nova.WinForms.Gui
             // 
             this.gravityGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.gravityGauge.BarColour = System.Drawing.Color.Aquamarine;
-            this.gravityGauge.BottomValue = 2.5;
+            this.gravityGauge.BottomValue = 15;
             this.gravityGauge.Location = new System.Drawing.Point(-2, 2);
             this.gravityGauge.Marker = 50;
             this.gravityGauge.MarkerColour = System.Drawing.Color.Green;
-            this.gravityGauge.Maximum = 8;
+            this.gravityGauge.Maximum = 100;
             this.gravityGauge.Minimum = 0;
             this.gravityGauge.Name = "gravityGauge";
             this.gravityGauge.ShowText = false;
             this.gravityGauge.Size = new System.Drawing.Size(230, 10);
             this.gravityGauge.TabIndex = 31;
-            this.gravityGauge.TopValue = 6;
+            this.gravityGauge.TopValue = 85;
             this.gravityGauge.Units = null;
-            this.gravityGauge.Value = 6;
+            this.gravityGauge.Value = 85;
             // 
             // TemperatureGauge
             // 
             this.temperatureGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.temperatureGauge.BarColour = System.Drawing.Color.LightSteelBlue;
-            this.temperatureGauge.BottomValue = -100;
+            this.temperatureGauge.BottomValue = 15;
             this.temperatureGauge.Location = new System.Drawing.Point(-2, 19);
             this.temperatureGauge.Marker = 50;
             this.temperatureGauge.MarkerColour = System.Drawing.Color.Blue;
-            this.temperatureGauge.Maximum = 200;
-            this.temperatureGauge.Minimum = -200;
+            this.temperatureGauge.Maximum = 100;
+            this.temperatureGauge.Minimum = 0;
             this.temperatureGauge.Name = "temperatureGauge";
             this.temperatureGauge.ShowText = false;
             this.temperatureGauge.Size = new System.Drawing.Size(230, 10);
             this.temperatureGauge.TabIndex = 32;
-            this.temperatureGauge.TopValue = 100;
+            this.temperatureGauge.TopValue = 85;
             this.temperatureGauge.Units = null;
-            this.temperatureGauge.Value = 100;
+            this.temperatureGauge.Value = 85;
             // 
             // RadiationGauge
             // 
             this.radiationGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
             this.radiationGauge.BarColour = System.Drawing.Color.Plum;
-            this.radiationGauge.BottomValue = 25;
+            this.radiationGauge.BottomValue = 15;
             this.radiationGauge.Location = new System.Drawing.Point(-2, 36);
             this.radiationGauge.Marker = 50;
             this.radiationGauge.MarkerColour = System.Drawing.Color.Red;
@@ -396,9 +396,9 @@ namespace Nova.WinForms.Gui
             this.radiationGauge.ShowText = false;
             this.radiationGauge.Size = new System.Drawing.Size(230, 10);
             this.radiationGauge.TabIndex = 33;
-            this.radiationGauge.TopValue = 75;
+            this.radiationGauge.TopValue = 85;
             this.radiationGauge.Units = null;
-            this.radiationGauge.Value = 75;
+            this.radiationGauge.Value = 85;
             // 
             // label10
             // 
@@ -498,20 +498,18 @@ namespace Nova.WinForms.Gui
                 this.gravityGauge.Marker = report.Gravity;
                 this.temperatureGauge.Marker = report.Temperature;
 
-                double t = -200 + ((400 * report.Temperature) / 100.0);
-
                 this.radiationLevel.Text = report.Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
                 this.gravityLevel.Text = Gravity.FormatWithUnit(report.Gravity); 
-                this.temperatureLevel.Text = t.ToString(System.Globalization.CultureInfo.InvariantCulture) + "°C";
+                this.temperatureLevel.Text = Temperature.FormatWithUnit(report.Temperature);
 
-                this.radiationGauge.TopValue = race.RadiationTolerance.MaximumRealValue;
-                this.radiationGauge.BottomValue = race.RadiationTolerance.MinimumRealValue;
+                this.radiationGauge.TopValue = race.RadiationTolerance.MaximumValue;
+                this.radiationGauge.BottomValue = race.RadiationTolerance.MinimumValue;
 
-                this.gravityGauge.TopValue = race.GravityTolerance.MaximumRealValue;
-                this.gravityGauge.BottomValue = race.GravityTolerance.MinimumRealValue;
+                this.gravityGauge.TopValue = race.GravityTolerance.MaximumValue;
+                this.gravityGauge.BottomValue = race.GravityTolerance.MinimumValue;
 
-                this.temperatureGauge.TopValue = race.TemperatureTolerance.MaximumRealValue;
-                this.temperatureGauge.BottomValue = race.TemperatureTolerance.MinimumRealValue;
+                this.temperatureGauge.TopValue = race.TemperatureTolerance.MaximumValue;
+                this.temperatureGauge.BottomValue = race.TemperatureTolerance.MinimumValue;
             }
         }
 

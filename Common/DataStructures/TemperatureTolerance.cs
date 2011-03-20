@@ -25,16 +25,14 @@ namespace Nova.Common
         // Calculate the minimum and maximum values of the tolerance ranges
         // expressed as a percentage of the total range. 
         // Temperature is in the range -200 to 200.
-        override public int MakeInternalValue(double value)
+        override protected int MakeInternalValue(double value)
         {
             return (int)((200 + value) / 4);
         }
 
-        override public double MakeRealValue(int value)
+        override protected string Format(int value)
         {
-            return (double)(value * 4 - 200);
+            return Temperature.FormatWithUnit(value);
         }
-
-
     }
 }

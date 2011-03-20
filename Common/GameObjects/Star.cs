@@ -193,8 +193,8 @@ namespace Nova.Common
         // Clicks_from_center/Total_clicks_from_center_to_edge
         private double NormalizeHabitalityDistance(EnvironmentTolerance tol, int starValue)
         {
-            int minv = tol.MinimumInternalValue;
-            int maxv = tol.MaximumInternalValue;
+            int minv = tol.MinimumValue;
+            int maxv = tol.MaximumValue;
             int span = maxv - minv;
             double centre = minv + (span / 2);
             double distance = Math.Abs(centre - starValue);

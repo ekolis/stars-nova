@@ -83,22 +83,6 @@ namespace Nova.Common
 
         #endregion
 
-        // ToDo: 
-        // 3. use InternalValue instead of RealValue
-        // 4. calculate ShowValue with Gravity Class etc.
-
-        public double MinimumRealValue
-        {
-            get { return minimumRealValue; }
-            set { minimumRealValue = value; }
-        }
-
-        public double MaximumRealValue
-        {
-            get { return maximumRealValue; }
-            set { maximumRealValue = value; }
-        }
-
         public string Name
         {
             get { return name; }
@@ -112,33 +96,24 @@ namespace Nova.Common
         /// <remarks>
         /// FIXME (priority 3) - Mathematically this finds the mean, which in some
         /// circumstances is different from the Median. 
-        /// FIXME - This is not an integer range!
         /// </remarks>
         /// ----------------------------------------------------------------------------
         public int Median()
         {
-            return (int)(((MaximumRealValue - MinimumRealValue) / 2) + MinimumRealValue);
+            return (int)(((MaximumValue - MinimumValue) / 2) + MinimumValue);
         }
 
 
-        public int MaximumInternalValue
+        public int MaximumValue
         {
-            get { return MakeInternalValue(MaximumRealValue); }
-            set
-            {
-                MaximumRealValue = MakeRealValue(value);
-                maximumInternalValue = value;
-            }
+            get { return maximumInternalValue; }
+            set { maximumInternalValue = value; }
         }
 
-        public int MinimumInternalValue
+        public int MinimumValue
         {
-            get { return MakeInternalValue(MinimumRealValue); }
-            set
-            {
-                MinimumRealValue = MakeRealValue(value);
-                minimumInternalValue = value;
-            }
+            get { return minimumInternalValue; }
+            set { minimumInternalValue = value; }
         }
 
         /// ----------------------------------------------------------------------------
@@ -148,22 +123,30 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public int OptimumLevel
         {
-            get { return MakeInternalValue(Median()); }
+            get { return Median(); }
         }
 
         // Calculate the minimum and maximum values of the tolerance ranges
         // expressed as a percentage of the total range * 100. 
-        virtual public int MakeInternalValue(double value)
+        virtual protected int MakeInternalValue(double value)
         {
             return 0;
         }
 
-        virtual public double MakeRealValue(int value)
+        virtual protected string Format(int value)
         {
-            return 0.0;
+            return "N/A";
         }
 
         #region Load Save Xml
+
+        private const string NameIdentifier = "Name";
+        private const string MinInternalIdentifier = "MinInternal";
+        private const string MaxInternalIdentifier = "MaxInternal";
+        private const string MinToleranceIdentifier = "MinTolerance";
+        private const string MaxToleranceIdentifier = "MaxTolerance";
+        private const string MinIdentifier = "Min";
+        private const string MaxIdentifier = "Max";
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -180,21 +163,21 @@ namespace Nova.Common
             {
                 try
                 {
-                    switch (subnode.Name.ToLower())
+                    switch (subnode.Name)
                     {
-                        case "min":
-                            MinimumRealValue = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                        case MinIdentifier:
+                            MinimumValue = MakeInternalValue(double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture));
                             break;
-                        case "max":
-                            MaximumRealValue = double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                        case MaxIdentifier:
+                            MaximumValue = MakeInternalValue(double.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture));
                             break;
-                        case "MinInternal":
-                            MinimumInternalValue = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                        case MinInternalIdentifier:
+                            MinimumValue = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
-                        case "MaxInternal":
-                            MaximumInternalValue = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                        case MaxInternalIdentifier:
+                            MaximumValue = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
-                        case "Name":
+                        case NameIdentifier:
                             Name = ((XmlText)subnode.FirstChild).Value;
                             break;
                     }
@@ -218,12 +201,12 @@ namespace Nova.Common
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement("EnvironmentTolerance");
-            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Name", Name);
-            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "MinInternal", MinimumInternalValue);
-            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "MaxInternal", MaximumInternalValue);
-            // (old) double values for human readability only
-            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Min", MinimumRealValue);
-            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, "Max", MaximumRealValue);
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, NameIdentifier, Name);
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, MinInternalIdentifier, MinimumValue);
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, MaxInternalIdentifier, MaximumValue);
+            // "correct" values for human readability only
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, MinToleranceIdentifier, Format(MinimumValue));
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, MaxToleranceIdentifier, Format(MaximumValue));
             return xmlelEnvironmentTolerance;
         }
 

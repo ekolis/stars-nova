@@ -25,15 +25,14 @@ namespace Nova.Common
         // Calculate the minimum and maximum values of the tolerance ranges
         // expressed as a percentage of the total range. 
         // Radiation is in the range 0 to 100.
-        override public int MakeInternalValue(double value)
+        override protected int MakeInternalValue(double value)
         {
             return (int)value;
         }
 
-        override public double MakeRealValue(int value)
+        override protected string Format(int value)
         {
-            return (double)value;
+            return value.ToString("F0") + "mR";
         }
-
     }
 }
