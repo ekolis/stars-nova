@@ -80,8 +80,6 @@ namespace Nova.ControlLibrary
         private TimerOptions timerAction;
 
         // values used in converting the bar position to environment values
-        private double environmentMinimum = 0.0; // Temp -200; Rad 0.0; Grav 0.0;
-        private double environmentMaximum = 100.0; // Temp 200; Rad 100; Grav 10;
         private string units = "Units";
 
         // Event and delegate definition for when the range is changed.
@@ -283,12 +281,20 @@ namespace Nova.ControlLibrary
                     Gravity.BarPositionToEnvironmentValue(this.boxRightPosition).ToString("F2"),
                     Gravity.GetUnit());
             }
-            else
+            else if (this.units == "mR")
             {
                 realRange = String.Format(
                     "{0}{2} to {1}{2}",
-                    BarPositionToEnvironmentValue(this.boxLeftPosition).ToString("F0"),
-                    BarPositionToEnvironmentValue(this.boxRightPosition).ToString("F0"),
+                    this.boxLeftPosition.ToString("F0"),
+                    this.boxRightPosition.ToString("F0"),
+                    this.units);
+            }
+            else // Temperature
+            {
+                realRange = String.Format(
+                    "{0}{2} to {1}{2}",
+                    (this.boxLeftPosition * 4 - 200).ToString("F0"),
+                    (this.boxRightPosition * 4 - 200).ToString("F0"),
                     this.units);
             }
 
@@ -445,26 +451,9 @@ namespace Nova.ControlLibrary
 
         #region Utility Methods
 
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Conversion from bar position (0-100 scale) to environment value (EnvironmentMinimum - EnvironmentMaximum).
-        /// </summary>
-        /// <param name="pos">A bar position value from 0-100.</param>
-        /// <returns>An environment value.</returns>
-        /// ----------------------------------------------------------------------------
-        private double BarPositionToEnvironmentValue(int pos)
-        {
-            return ((((double)(pos - this.boxMinimum)) * GetEnvironmentRange()) / (double)GetBoxRange()) + this.environmentMinimum;
-        }
-
         private int GetBoxRange()
         {
             return this.boxMaximum - this.boxMinimum;
-        }
-
-        private double GetEnvironmentRange()
-        {
-            return this.environmentMaximum - this.environmentMinimum;
         }
 
         #endregion Utility Methods
@@ -537,45 +526,6 @@ namespace Nova.ControlLibrary
         {
             get { return this.title.Text; }
             set { this.title.Text = value; }
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Get or Set range control maximum value.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        [Description("Maximum value of range bar."), Category("Nova")]
-        public double RangeMaximum
-        {
-            get
-            {
-                return this.environmentMaximum;
-            }
-            set
-            {
-                this.environmentMaximum = value;
-                this.bar.Invalidate();
-            }
-        }
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Get or Set range control minimum value.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        [Description("Minimum value of range bar."), Category("Nova")]
-        public double RangeMinimum
-        {
-            get
-            {
-                return this.environmentMinimum;
-            }
-            set
-            {
-                this.environmentMinimum = value;
-                this.bar.Invalidate();
-            }
         }
 
         public void ActivateRangeChange()

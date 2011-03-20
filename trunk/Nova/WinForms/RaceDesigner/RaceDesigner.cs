@@ -193,21 +193,14 @@ namespace Nova.WinForms.RaceDesigner
             this.iconIndex.Text = Path.GetFileNameWithoutExtension(this.currentRaceIcon.Source);
 
             // Can't trust the windows designer generate code to set the environment range before setting the environment value, so set it here to be sure.
-            // TODO (priority 6) - put all these literal values somewhere sensible (EnvironmentTolerance object?)
-            this.temperatureTolerance.RangeMinimum = 0;
-            this.temperatureTolerance.RangeMaximum = 100;
             this.temperatureTolerance.MinimumValue = 15;
             this.temperatureTolerance.MaximumValue = 85;
             this.temperatureTolerance.ActivateRangeChange();
 
-            this.gravityTolerance.RangeMinimum = 0;
-            this.gravityTolerance.RangeMaximum = 100;
             this.gravityTolerance.MinimumValue = 15;
             this.gravityTolerance.MaximumValue = 85;
             this.gravityTolerance.ActivateRangeChange();
 
-            this.radiationTolerance.RangeMinimum = 0;
-            this.radiationTolerance.RangeMaximum = 100;
             this.radiationTolerance.MinimumValue = 15;
             this.radiationTolerance.MaximumValue = 85;
             this.radiationTolerance.ActivateRangeChange();
@@ -931,8 +924,6 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // RadiationTolerance
             // 
-            this.radiationTolerance.RangeMaximum = 100;
-            this.radiationTolerance.RangeMinimum = 0;
             this.radiationTolerance.MinimumValue = 15;
             this.radiationTolerance.MaximumValue = 85;
             this.radiationTolerance.Location = new System.Drawing.Point(14, 220);
@@ -946,23 +937,19 @@ namespace Nova.WinForms.RaceDesigner
             // 
             // TemperatureTolerance
             // 
-            this.temperatureTolerance.RangeMaximum = 100;
-            this.temperatureTolerance.RangeMinimum = 0;
             this.temperatureTolerance.MinimumValue = 15;
             this.temperatureTolerance.MaximumValue = 85;
             this.temperatureTolerance.Location = new System.Drawing.Point(14, 118);
             this.temperatureTolerance.Name = "temperatureTolerance";
             this.temperatureTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.temperatureTolerance.RangeTitle = "Temperature";
-            this.temperatureTolerance.RangeUnits = "C";
+            this.temperatureTolerance.RangeUnits = "°C";
             this.temperatureTolerance.Size = new System.Drawing.Size(324, 95);
             this.temperatureTolerance.TabIndex = 1;
             this.temperatureTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
             // 
             // GravityTolerance
             // 
-            this.gravityTolerance.RangeMaximum = 100;
-            this.gravityTolerance.RangeMinimum = 0;
             this.gravityTolerance.MinimumValue = 15;
             this.gravityTolerance.MaximumValue = 85;
             this.gravityTolerance.Location = new System.Drawing.Point(14, 19);
