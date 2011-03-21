@@ -23,29 +23,6 @@
 // ===========================================================================
 // The environmental range a race can tollerate.
 //
-// TODO (priority 3) - What are the full environment ranges? Min&Max for each variable. Need a reference to where this is documented.
-
-/* From http://www.starsfaq.com/advfaq/guts2.htm#4.11
- * 4.11) Guts of Planet Values
-
-(I haven't included the explanation of how the formula was derived; if you're interested, go to deja news and look up "re: Race wizard - Hab studies" by Bill Butler, 1998/04/10
-
-The full equation is:
-
-Hab%=SQRT[(1-g)^2+(1-t)^2+(1-r)^2]*(1-x)*(1-y)*(1-z)/SQRT[3]
-
-Where g,t,and r (standing for gravity, temperature, and radiation)are given by
-Clicks_from_center/Total_clicks_from_center_to_edge
-
-and where x,y, and z  are
-x=g-1/2 for g>1/2       x=0 for g<1/2
-y=t-1/2 for t>1/2         y=0 for t<1/2
-z=r-1/2 for r>1/2         z=0 for r<1/2
-
-The farther habs are from center, the less accurate the result of this equation will be.  However, the errors are small, so the predicted answer will always be within a percentage or two of the actual value.
-
-Thanks to Bill Butler for the mathematical wizardry. 
- * */
 // ===========================================================================
 #endregion
 
@@ -63,14 +40,9 @@ namespace Nova.Common
     [Serializable]
     public class EnvironmentTolerance
     {
-        private double minimumRealValue = 0;
-        private double maximumRealValue = 0;
-
         private int minimumInternalValue = 15;
         private int maximumInternalValue = 85;
-
-        private string name = "";
-
+        private bool immune = false;
 
         #region Construction
 
@@ -82,12 +54,6 @@ namespace Nova.Common
         public EnvironmentTolerance() { }
 
         #endregion
-
-        public string Name
-        {
-            get { return name; }
-            set { name = value; }
-        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -116,6 +82,12 @@ namespace Nova.Common
             set { minimumInternalValue = value; }
         }
 
+        public bool Immune
+        {
+            get { return immune; }
+            set { immune = value; }
+        }
+
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the optimum level as a percentage * 100 for this race Environment.
@@ -140,13 +112,13 @@ namespace Nova.Common
 
         #region Load Save Xml
 
-        private const string NameIdentifier = "Name";
         private const string MinInternalIdentifier = "MinInternal";
         private const string MaxInternalIdentifier = "MaxInternal";
         private const string MinToleranceIdentifier = "MinTolerance";
         private const string MaxToleranceIdentifier = "MaxTolerance";
         private const string MinIdentifier = "Min";
         private const string MaxIdentifier = "Max";
+        private const string ImmuneIdentifier = "Immune";
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -177,8 +149,8 @@ namespace Nova.Common
                         case MaxInternalIdentifier:
                             MaximumValue = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
-                        case NameIdentifier:
-                            Name = ((XmlText)subnode.FirstChild).Value;
+                        case ImmuneIdentifier:
+                            Immune = bool.Parse(((XmlText)subnode.FirstChild).Value);
                             break;
                     }
                 }
@@ -201,12 +173,12 @@ namespace Nova.Common
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement("EnvironmentTolerance");
-            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, NameIdentifier, Name);
             Global.SaveData(xmldoc, xmlelEnvironmentTolerance, MinInternalIdentifier, MinimumValue);
             Global.SaveData(xmldoc, xmlelEnvironmentTolerance, MaxInternalIdentifier, MaximumValue);
             // "correct" values for human readability only
             Global.SaveData(xmldoc, xmlelEnvironmentTolerance, MinToleranceIdentifier, Format(MinimumValue));
             Global.SaveData(xmldoc, xmlelEnvironmentTolerance, MaxToleranceIdentifier, Format(MaximumValue));
+            Global.SaveData(xmldoc, xmlelEnvironmentTolerance, ImmuneIdentifier, Immune.ToString());
             return xmlelEnvironmentTolerance;
         }
 

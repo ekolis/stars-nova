@@ -171,10 +171,18 @@ namespace Nova.Common
         public double HabitalValue(Race race)
         {
             double r = NormalizeHabitalityDistance(race.RadiationTolerance, Radiation);
-
             double g = NormalizeHabitalityDistance(race.GravityTolerance, Gravity);
-
             double t = NormalizeHabitalityDistance(race.TemperatureTolerance, Temperature);
+
+            if (r > 1 || g > 1 || t > 1) // currently not habitable
+            {
+                int result = 0;
+                int maxMalus = GetMaxMalus(race);
+                if (r > 1) result -= GetMalusForEnvironment(race.RadiationTolerance, Radiation, maxMalus);
+                if (g > 1) result -= GetMalusForEnvironment(race.GravityTolerance, Gravity, maxMalus);
+                if (t > 1) result -= GetMalusForEnvironment(race.TemperatureTolerance, Temperature, maxMalus);
+                return result / 100.0;
+            }
 
             double x = 0;
             double y = 0;
@@ -190,15 +198,47 @@ namespace Nova.Common
             return h;
         }
 
+        private static int GetMaxMalus(Race race)
+        {
+            int maxMalus = 15;
+            if (race.HasTrait("TT"))
+            {
+                maxMalus = 30;
+            }
+            return maxMalus;
+        }
+
+        private int GetMalusForEnvironment(EnvironmentTolerance tolerance, int starValue, int maxMalus)
+        {
+            if (starValue > tolerance.MaximumValue)
+            {
+                return Math.Min(maxMalus, starValue - tolerance.MaximumValue);
+            }
+            else if (starValue < tolerance.MinimumValue)
+            {
+                return Math.Min(maxMalus, tolerance.MinimumValue - starValue);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
         // Clicks_from_center/Total_clicks_from_center_to_edge
         private double NormalizeHabitalityDistance(EnvironmentTolerance tol, int starValue)
         {
+            if (tol.Immune)
+            {
+                return 0.0;
+            }
+
             int minv = tol.MinimumValue;
             int maxv = tol.MaximumValue;
-            int span = maxv - minv;
-            double centre = minv + (span / 2);
-            double distance = Math.Abs(centre - starValue);
-            return distance / span;
+            int span = Math.Abs(maxv - minv);
+            double totalClicksFromCenterToEdge = span / 2;
+            double centre = minv + totalClicksFromCenterToEdge;
+            double clicksFromCenter = Math.Abs(centre - starValue);
+            return clicksFromCenter / totalClicksFromCenterToEdge;
         }
 
         #endregion

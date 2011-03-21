@@ -187,8 +187,6 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
-            ActualizeInternalToleranceValues();
-
             XmlElement xmlelRace = xmldoc.CreateElement("Race");
 
             // GravityTolerance
@@ -244,13 +242,6 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelRace, "GrowthRate", GrowthRate.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             return xmlelRace;
-        }
-
-        private void ActualizeInternalToleranceValues()
-        {
-            RadiationTolerance.Name = "RadiationTolerance";
-            TemperatureTolerance.Name = "TemperatureTolerance";
-            GravityTolerance.Name = "GravityTolerance";
         }
 
         /// ----------------------------------------------------------------------------

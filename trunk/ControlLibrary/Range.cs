@@ -41,6 +41,7 @@ using Nova.Common;
 
 namespace Nova.ControlLibrary
 {
+    // ToDo: Immunity
     public class Range : System.Windows.Forms.UserControl
     {
         private enum TimerOptions
@@ -105,6 +106,7 @@ namespace Nova.ControlLibrary
         private System.Windows.Forms.GroupBox title;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label boxSpan;
+        private CheckBox ImmunityCheckBox;
         private System.ComponentModel.IContainer components;
         #endregion
 
@@ -155,6 +157,7 @@ namespace Nova.ControlLibrary
             this.boxSpan = new System.Windows.Forms.Label();
             this.title = new System.Windows.Forms.GroupBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.ImmunityCheckBox = new System.Windows.Forms.CheckBox();
             this.title.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -172,6 +175,7 @@ namespace Nova.ControlLibrary
             // 
             // Bar
             // 
+            this.bar.BackColor = System.Drawing.Color.Black;
             this.bar.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.bar.Location = new System.Drawing.Point(48, 24);
             this.bar.Name = "bar";
@@ -223,6 +227,7 @@ namespace Nova.ControlLibrary
             // 
             // Title
             // 
+            this.title.Controls.Add(this.ImmunityCheckBox);
             this.title.Controls.Add(this.rightScroll);
             this.title.Controls.Add(this.boxSpan);
             this.title.Controls.Add(this.expand);
@@ -230,7 +235,7 @@ namespace Nova.ControlLibrary
             this.title.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.title.Location = new System.Drawing.Point(8, 1);
             this.title.Name = "title";
-            this.title.Size = new System.Drawing.Size(308, 86);
+            this.title.Size = new System.Drawing.Size(308, 94);
             this.title.TabIndex = 7;
             this.title.TabStop = false;
             this.title.Text = "Not Defined";
@@ -238,6 +243,17 @@ namespace Nova.ControlLibrary
             // timer1
             // 
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
+            // 
+            // ImmunityCheckBox
+            // 
+            this.ImmunityCheckBox.AutoSize = true;
+            this.ImmunityCheckBox.Location = new System.Drawing.Point(118, 71);
+            this.ImmunityCheckBox.Name = "ImmunityCheckBox";
+            this.ImmunityCheckBox.Size = new System.Drawing.Size(63, 17);
+            this.ImmunityCheckBox.TabIndex = 7;
+            this.ImmunityCheckBox.Text = "Immune";
+            this.ImmunityCheckBox.UseVisualStyleBackColor = true;
+            this.ImmunityCheckBox.CheckedChanged += new System.EventHandler(this.ImmunityCheckBox_CheckedChanged);
             // 
             // Range
             // 
@@ -247,6 +263,7 @@ namespace Nova.ControlLibrary
             this.Name = "Range";
             this.Size = new System.Drawing.Size(324, 95);
             this.title.ResumeLayout(false);
+            this.title.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -264,10 +281,16 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void Bar_Paint(object sender, PaintEventArgs e)
         {
+            if (ImmunityCheckBox.Checked)
+            {
+                e.Graphics.Clear(Color.Black);
+                this.boxSpan.Text = "N/A";
+                return;
+            }
+
             int fillHeight = this.bar.Size.Height;
             int fillY = 0;
 
-            // Need to convert the values from actual environment values to drawing co-ordinates.
             int fillLeft = (int)((this.boxLeftPosition * this.bar.Size.Width) / GetBoxRange());
             int fillRight = (int)((this.boxRightPosition * this.bar.Size.Width) / GetBoxRange());
             int fillWidth = fillRight - fillLeft;
@@ -302,7 +325,6 @@ namespace Nova.ControlLibrary
             this.boxSpan.Text = realRange;
 
             e.Graphics.FillRectangle(this.boxBrush, fillLeft, fillY, fillWidth, fillHeight);
-
         }
 
 
@@ -457,6 +479,13 @@ namespace Nova.ControlLibrary
             return this.boxMaximum - this.boxMinimum;
         }
 
+        public void ActivateRangeChange()
+        {
+            if (RangeChanged != null)
+                RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
+            this.bar.Invalidate();
+        }
+
         #endregion Utility Methods
 
         #region Properties
@@ -529,13 +558,6 @@ namespace Nova.ControlLibrary
             set { this.title.Text = value; }
         }
 
-        public void ActivateRangeChange()
-        {
-                if (RangeChanged != null)
-                    RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
-                this.bar.Invalidate();
-        }
-
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set range control bar colour.
@@ -557,7 +579,23 @@ namespace Nova.ControlLibrary
             }
         }
 
+        [Browsable(false)] 
+        public bool Immune
+        {
+            get { return ImmunityCheckBox.Checked; }
+            set { ImmunityCheckBox.Checked = value; }
+        }
+
         #endregion Properties
+
+        private void ImmunityCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            expand.Enabled = !ImmunityCheckBox.Checked;
+            contract.Enabled = !ImmunityCheckBox.Checked;
+            rightScroll.Enabled = !ImmunityCheckBox.Checked;
+            leftScroll.Enabled = !ImmunityCheckBox.Checked;
+            this.bar.Invalidate();
+        }
     }
 }
 

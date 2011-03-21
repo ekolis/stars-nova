@@ -122,13 +122,13 @@ namespace Nova.WinForms.Gui
             this.temperatureLevel = new System.Windows.Forms.Label();
             this.radiationLevel = new System.Windows.Forms.Label();
             this.panel1 = new System.Windows.Forms.Panel();
-            this.ironiumGauge = new ControlLibrary.Gauge();
-            this.boraniumGauge = new ControlLibrary.Gauge();
-            this.germaniumGauge = new ControlLibrary.Gauge();
+            this.ironiumGauge = new Nova.ControlLibrary.Gauge();
+            this.boraniumGauge = new Nova.ControlLibrary.Gauge();
+            this.germaniumGauge = new Nova.ControlLibrary.Gauge();
             this.panel2 = new System.Windows.Forms.Panel();
-            this.gravityGauge = new ControlLibrary.Gauge();
-            this.temperatureGauge = new ControlLibrary.Gauge();
-            this.radiationGauge = new ControlLibrary.Gauge();
+            this.gravityGauge = new Nova.ControlLibrary.Gauge();
+            this.temperatureGauge = new Nova.ControlLibrary.Gauge();
+            this.radiationGauge = new Nova.ControlLibrary.Gauge();
             this.label10 = new System.Windows.Forms.Label();
             this.panel1.SuspendLayout();
             this.panel2.SuspendLayout();
@@ -270,7 +270,7 @@ namespace Nova.WinForms.Gui
             // 
             // panel1
             // 
-            this.panel1.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.panel1.BackColor = System.Drawing.Color.Black;
             this.panel1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel1.Controls.Add(this.ironiumGauge);
             this.panel1.Controls.Add(this.boraniumGauge);
@@ -282,7 +282,7 @@ namespace Nova.WinForms.Gui
             // 
             // IroniumGauge
             // 
-            this.ironiumGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.ironiumGauge.BackColor = System.Drawing.Color.Black;
             this.ironiumGauge.BarColour = System.Drawing.Color.Blue;
             this.ironiumGauge.BottomValue = 0;
             this.ironiumGauge.Location = new System.Drawing.Point(0, 2);
@@ -300,7 +300,7 @@ namespace Nova.WinForms.Gui
             // 
             // BoraniumGauge
             // 
-            this.boraniumGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.boraniumGauge.BackColor = System.Drawing.Color.Black;
             this.boraniumGauge.BarColour = System.Drawing.Color.GreenYellow;
             this.boraniumGauge.BottomValue = 0;
             this.boraniumGauge.Location = new System.Drawing.Point(0, 19);
@@ -318,7 +318,7 @@ namespace Nova.WinForms.Gui
             // 
             // GermaniumGauge
             // 
-            this.germaniumGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.germaniumGauge.BackColor = System.Drawing.Color.Black;
             this.germaniumGauge.BarColour = System.Drawing.Color.Yellow;
             this.germaniumGauge.BottomValue = 0;
             this.germaniumGauge.Location = new System.Drawing.Point(0, 36);
@@ -336,7 +336,7 @@ namespace Nova.WinForms.Gui
             // 
             // panel2
             // 
-            this.panel2.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.panel2.BackColor = System.Drawing.Color.Black;
             this.panel2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.panel2.Controls.Add(this.gravityGauge);
             this.panel2.Controls.Add(this.temperatureGauge);
@@ -348,7 +348,7 @@ namespace Nova.WinForms.Gui
             // 
             // GravityGauge
             // 
-            this.gravityGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.gravityGauge.BackColor = System.Drawing.Color.Black;
             this.gravityGauge.BarColour = System.Drawing.Color.Aquamarine;
             this.gravityGauge.BottomValue = 15;
             this.gravityGauge.Location = new System.Drawing.Point(-2, 2);
@@ -366,7 +366,7 @@ namespace Nova.WinForms.Gui
             // 
             // TemperatureGauge
             // 
-            this.temperatureGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.temperatureGauge.BackColor = System.Drawing.Color.Black;
             this.temperatureGauge.BarColour = System.Drawing.Color.LightSteelBlue;
             this.temperatureGauge.BottomValue = 15;
             this.temperatureGauge.Location = new System.Drawing.Point(-2, 19);
@@ -384,7 +384,7 @@ namespace Nova.WinForms.Gui
             // 
             // RadiationGauge
             // 
-            this.radiationGauge.BackColor = System.Drawing.SystemColors.ActiveBorder;
+            this.radiationGauge.BackColor = System.Drawing.Color.Black;
             this.radiationGauge.BarColour = System.Drawing.Color.Plum;
             this.radiationGauge.BottomValue = 15;
             this.radiationGauge.Location = new System.Drawing.Point(-2, 36);
@@ -502,14 +502,38 @@ namespace Nova.WinForms.Gui
                 this.gravityLevel.Text = Gravity.FormatWithUnit(report.Gravity); 
                 this.temperatureLevel.Text = Temperature.FormatWithUnit(report.Temperature);
 
-                this.radiationGauge.TopValue = race.RadiationTolerance.MaximumValue;
-                this.radiationGauge.BottomValue = race.RadiationTolerance.MinimumValue;
+                if (race.RadiationTolerance.Immune)
+                {
+                    this.radiationGauge.TopValue = 0.0;
+                    this.radiationGauge.BottomValue = 0.0;
+                }
+                else
+                {
+                    this.radiationGauge.TopValue = race.RadiationTolerance.MaximumValue;
+                    this.radiationGauge.BottomValue = race.RadiationTolerance.MinimumValue;
+                }
 
-                this.gravityGauge.TopValue = race.GravityTolerance.MaximumValue;
-                this.gravityGauge.BottomValue = race.GravityTolerance.MinimumValue;
+                if (race.GravityTolerance.Immune)
+                {
+                    this.gravityGauge.TopValue = 0.0;
+                    this.gravityGauge.BottomValue = 0.0;
+                }
+                else
+                {
+                    this.gravityGauge.TopValue = race.GravityTolerance.MaximumValue;
+                    this.gravityGauge.BottomValue = race.GravityTolerance.MinimumValue;
+                }
 
-                this.temperatureGauge.TopValue = race.TemperatureTolerance.MaximumValue;
-                this.temperatureGauge.BottomValue = race.TemperatureTolerance.MinimumValue;
+                if (race.TemperatureTolerance.Immune)
+                {
+                    this.temperatureGauge.TopValue = 0.0;
+                    this.temperatureGauge.BottomValue = 0.0;
+                }
+                else
+                {
+                    this.temperatureGauge.TopValue = race.TemperatureTolerance.MaximumValue;
+                    this.temperatureGauge.BottomValue = race.TemperatureTolerance.MinimumValue;
+                }
             }
         }
 

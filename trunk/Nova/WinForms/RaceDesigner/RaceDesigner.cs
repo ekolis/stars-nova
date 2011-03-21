@@ -1827,10 +1827,13 @@ namespace Nova.WinForms.RaceDesigner
 
             raceParameters.GravityTolerance.MinimumValue = this.gravityTolerance.MinimumValue;
             raceParameters.GravityTolerance.MaximumValue = this.gravityTolerance.MaximumValue;
+            raceParameters.GravityTolerance.Immune = this.gravityTolerance.Immune;
             raceParameters.RadiationTolerance.MinimumValue = this.radiationTolerance.MinimumValue;
             raceParameters.RadiationTolerance.MaximumValue = this.radiationTolerance.MaximumValue;
+            raceParameters.RadiationTolerance.Immune = this.radiationTolerance.Immune;
             raceParameters.TemperatureTolerance.MinimumValue = this.temperatureTolerance.MinimumValue;
             raceParameters.TemperatureTolerance.MaximumValue = this.temperatureTolerance.MaximumValue;
+            raceParameters.TemperatureTolerance.Immune = this.temperatureTolerance.Immune;
             raceParameters.GrowthRate = (double)this.maxGrowth.Value;
 
             // ----------------------------------------------------------------------------
@@ -2106,14 +2109,17 @@ namespace Nova.WinForms.RaceDesigner
         {
             this.gravityTolerance.MinimumValue = raceParameters.GravityTolerance.MinimumValue;
             this.gravityTolerance.MaximumValue = raceParameters.GravityTolerance.MaximumValue;
+            this.gravityTolerance.Immune = raceParameters.GravityTolerance.Immune;
             this.gravityTolerance.ActivateRangeChange();
 
             this.radiationTolerance.MinimumValue = raceParameters.RadiationTolerance.MinimumValue;
             this.radiationTolerance.MaximumValue = raceParameters.RadiationTolerance.MaximumValue;
+            this.radiationTolerance.Immune = raceParameters.RadiationTolerance.Immune;
             this.radiationTolerance.ActivateRangeChange();
 
             this.temperatureTolerance.MinimumValue = raceParameters.TemperatureTolerance.MinimumValue;
             this.temperatureTolerance.MaximumValue = raceParameters.TemperatureTolerance.MaximumValue;
+            this.temperatureTolerance.Immune = raceParameters.TemperatureTolerance.Immune;
             this.temperatureTolerance.ActivateRangeChange();
 
             this.maxGrowth.Value = (decimal)raceParameters.GrowthRate;
