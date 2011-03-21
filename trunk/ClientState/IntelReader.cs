@@ -440,12 +440,32 @@ namespace Nova.Client
                   component.RequiredTech <= newResearchLevel)
               {
 
-                  ClientState.Data.AvailableComponents.Add(component);
-                  Message newComponentMessage = new Message(
-                      ClientState.Data.RaceName,
-                      "You now have available the " + component.Name + " " + component.Type + " component",
-                      "NewComponent",
-                      null);
+                  ClientState.Data.AvailableComponents.Add(component); 
+                  Message newComponentMessage = null;
+                  if (component.Properties.ContainsKey("Scaner") && component.Type == "Planetary Installations")
+                  {
+                      newComponentMessage = new Message(
+                          ClientState.Data.RaceName,
+                          null,
+                          "All existing planetary scanners has been replaced by " + component.Name + " " + component.Type,
+                          null);
+                      foreach (Star star in stateData.PlayerStars.Values)
+                      {
+                          if (star.ScannerType != string.Empty)
+                          {
+                              star.ScannerType = component.Name;
+                              //star.ScanRange = component.Properties["Scaner"].
+                          }
+                      }
+                  }
+                  else
+                  {
+                       newComponentMessage = new Message(
+                          ClientState.Data.RaceName,
+                          null,
+                          "You now have available the " + component.Name + " " + component.Type + " component",
+                          null);
+                  }
                   ClientState.Data.Messages.Add(newComponentMessage);
               }
           }
