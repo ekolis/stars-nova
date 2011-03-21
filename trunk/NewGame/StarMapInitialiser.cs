@@ -34,6 +34,7 @@ using System.Threading;
 using Nova.Common;
 using Nova.Common.Components;
 using Nova.Server;
+using System.Collections;
 
 namespace Nova.NewGame
 {
@@ -129,6 +130,26 @@ namespace Nova.NewGame
                 defense.Name = "Defenses";
                 defense.Type = "Defenses";
                 defense.Owner = player;
+                AllComponents.Restore();
+                Hashtable components = AllComponents.Data.Components;
+                Hull csHull, scoutHull, starbaseHull;
+                Engine engine;
+                foreach (string name in components.Keys)
+                {
+                    if (name == "Colony Ship")
+                        csHull = (components["Colony Ship"] as Component).Properties["Hull"] as Hull;
+                    else if (name == "Scout")
+                        scoutHull = (components["Scout"] as Component).Properties["Hull"] as Hull;
+                    else if (name == "Space Dock")
+                        starbaseHull = (components["Space Dock"] as Component).Properties["Hull"] as Hull;
+                    else if (name == "Quick Jump 5")
+                        engine = (components["Quick Jump 5"] as Component).Properties["Engine"] as Engine;
+                }
+
+                ShipDesign cs = new ShipDesign();
+                cs.Name = "Santa Maria";
+                cs.Owner = player;
+                
 
                 ServerState.Data.AllDesigns[player + "/Mine"] = mine;
                 ServerState.Data.AllDesigns[player + "/Factory"] = factory;
@@ -164,11 +185,23 @@ namespace Nova.NewGame
                 if (PointUtilities.InBox(star.Position, box))
                 {
                     AllocateHomeStarResources(star, race);
+                    AllocateHomeStarOrbitalInstallations(star, race);
                     return;
                 }
             }
 
             Report.FatalError("Could not allocate home star");
+        }
+
+        /// <summary>
+        /// Allocate an initial set of resources to a player's "home" star system. for
+        /// each player giving it some colonists and initial resources.         
+        /// </summary>
+        /// <param name="star"></param>
+        /// <param name="race"></param>
+        private static void AllocateHomeStarOrbitalInstallations(Star star, Race race)
+        {
+            
         }
 
 
