@@ -23,7 +23,7 @@
 // ===========================================================================
 // An abstract base class for the various properties (weapon, shield, Armor, etc.) which
 // a component item may have. 
-// Each component has a base property (set int the field Type), but may have 
+// Each component has a base property (se int the field Type), but may have 
 // additional properties.
 // For example Tritanium is a component with Type = "Armor" and one component
 // property: Armor. Crobysharmor has Type = "Shield" with two component 

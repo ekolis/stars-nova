@@ -66,6 +66,12 @@ namespace Nova.Common.Components
         public MineLayer HeavyMines = new MineLayer();
         public MineLayer SpeedBumbMines = new MineLayer();
 
+        /// <summary>
+        /// The image assigned to this ship design, which may be different from the default hull module component image. 
+        /// The ship image shall be selectable when the ship is designed.
+        /// </summary>
+        public ShipIcon Icon = null;
+
         #endregion
 
         #region Construction
@@ -582,6 +588,7 @@ namespace Nova.Common.Components
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelShipDesign = xmldoc.CreateElement("ShipDesign");
+            Global.SaveData(xmldoc, xmlelShipDesign, "Icon", Icon.Source);
             xmlelShipDesign.AppendChild(ShipHull.ToXml(xmldoc));
             xmlelShipDesign.AppendChild(base.ToXml(xmldoc));
             return xmlelShipDesign;
@@ -607,6 +614,10 @@ namespace Nova.Common.Components
                     {
                         case "component":
                             ShipHull = new Component(subnode);
+                            break;
+                        case "icon":
+                            string iconSource = subnode.FirstChild.Value;
+                            Icon = AllShipIcons.Data.GetIconBySource(iconSource);
                             break;
                     }
                 }

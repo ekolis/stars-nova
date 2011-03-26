@@ -431,14 +431,14 @@ namespace Nova.Common
         /// Choose an image from one of the ships in the fleet
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public Image Image
+        public ShipIcon Icon
         {
             get
             {
                 try
                 {
                     Ship ship = FleetShips[0] as Ship;
-                    return ship.Image;
+                    return ship.Icon;
                 }
                 catch
                 {

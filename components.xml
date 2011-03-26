@@ -272,7 +272,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <SS>2</SS>
     </Race_Restrictions>
-    <Image>Ship/Stealth_Bomber.png</Image>
+    <Image>Ship/Stealth_Bomber0000.png</Image>
     <Property>
       <FuelCapacity>750</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -334,7 +334,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Construction>15</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/B-52_Bomber.png</Image>
+    <Image>Ship/B-52_Bomber0000.png</Image>
     <Property>
       <FuelCapacity>750</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -678,7 +678,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <ISB>2</ISB>
     </Race_Restrictions>
-    <Image>Base/Ultra_Station.png</Image>
+    <Image>Base/Ultra_Station0000.png</Image>
     <Property>
       <FuelCapacity>0</FuelCapacity>
       <DockCapacity>10000</DockCapacity>
@@ -814,7 +814,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <HE>2</HE>
     </Race_Restrictions>
-    <Image>Ship/Meta_Morph.png</Image>
+    <Image>Ship/Meta_Morph0000.png</Image>
     <Property>
       <FuelCapacity>700</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -894,7 +894,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Construction>13</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Battleship.png</Image>
+    <Image>Ship/Battleship0000.png</Image>
     <Property>
       <FuelCapacity>2800</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -1108,7 +1108,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Construction>0</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Base/Space_Station.png</Image>
+    <Image>Base/Space_Station0000.png</Image>
     <Property>
       <FuelCapacity>0</FuelCapacity>
       <DockCapacity>10000</DockCapacity>
@@ -1739,7 +1739,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <ARM>2</ARM>
     </Race_Restrictions>
-    <Image>Ship/Ultra-Miner.png</Image>
+    <Image>Ship/Ultra_Miner0000.png</Image>
     <Property>
       <FuelCapacity>1300</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -1996,7 +1996,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Construction>4</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Privateer.png</Image>
+    <Image>Ship/Privateer0000.png</Image>
     <Property>
       <FuelCapacity>650</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -2228,7 +2228,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <IS>2</IS>
     </Race_Restrictions>
-    <Image>Ship/Fuel_Transport.png</Image>
+    <Image>Ship/Fuel_Transport0000.png</Image>
     <Property>
       <Capacity>0</Capacity>
       <Generation>200</Generation>
@@ -2337,7 +2337,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <WM>2</WM>
     </Race_Restrictions>
-    <Image>Ship/Battle_Cruiser.png</Image>
+    <Image>Ship/Battle_Cruiser0000.png</Image>
     <Property>
       <FuelCapacity>1400</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -2446,7 +2446,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <OBRM>0</OBRM>
     </Race_Restrictions>
-    <Image>Ship/Maxi-Miner.png</Image>
+    <Image>Ship/Maxi_Miner0000.png</Image>
     <Property>
       <FuelCapacity>850</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -2653,7 +2653,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <IS>2</IS>
     </Race_Restrictions>
-    <Image>Ship/Super_Freighter.png</Image>
+    <Image>Ship/Super_Freighter0000.png</Image>
     <Property>
       <FuelCapacity>10000</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -3452,7 +3452,7 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Construction>1</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Mini_Bomber.png</Image>
+    <Image>Ship/Mini_Bomber0000.png</Image>
     <Property>
       <FuelCapacity>120</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -3986,7 +3986,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <SD>2</SD>
     </Race_Restrictions>
-    <Image>Ship/Mini_Mine_Layer.png</Image>
+    <Image>Ship/Mini_Mine_Layer0000.png</Image>
     <Property>
       <FuelCapacity>400</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -4110,7 +4110,7 @@ This scanner is capable of determining planetary statistics up to 100 ly away.</
       <Construction>2</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Mini-Miner.png</Image>
+    <Image>Ship/Mini_Miner0000.png</Image>
     <Property>
       <FuelCapacity>21</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -4313,7 +4313,7 @@ This scanner has an intrinsic 20% cloaking ability.</Description>
     <Race_Restrictions>
       <SD>2</SD>
     </Race_Restrictions>
-    <Image>Ship/Super_Mine_Layer.png</Image>
+    <Image>Ship/Super_Mine_Layer0000.png</Image>
     <Property>
       <FuelCapacity>2200</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -4385,7 +4385,7 @@ This scanner has an intrinsic 20% cloaking ability.</Description>
       <Construction>8</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Large_Freighter.png</Image>
+    <Image>Ship/Large_Freighter0000.png</Image>
     <Property>
       <FuelCapacity>2600</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -4591,7 +4591,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Construction>7</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Super-Fuel_Transport.png</Image>
+    <Image>Ship/Super_Fuel_Transport0000.png</Image>
     <Property>
       <Capacity>0</Capacity>
       <Generation>200</Generation>
@@ -4654,7 +4654,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Construction>6</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Frigate.png</Image>
+    <Image>Ship/Frigate0000.png</Image>
     <Property>
       <FuelCapacity>125</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -4819,7 +4819,7 @@ This scanner alows you to steal minerals from other races planets.</Description>
     <Race_Restrictions>
       <WM>2</WM>
     </Race_Restrictions>
-    <Image>Ship/Dreadnought.png</Image>
+    <Image>Ship/Dreadnought0000.png</Image>
     <Property>
       <FuelCapacity>4500</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -5034,7 +5034,7 @@ This scanner alows you to steal minerals from other races planets.</Description>
       <Construction>11</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Galleon.png</Image>
+    <Image>Ship/Galleon0000.png</Image>
     <Property>
       <FuelCapacity>2500</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -5365,7 +5365,7 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
       <Construction>3</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Medium_Freighter.png</Image>
+    <Image>Ship/Medium_Freighter0000.png</Image>
     <Property>
       <FuelCapacity>450</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -5421,7 +5421,7 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
       <Construction>9</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Cruiser.png</Image>
+    <Image>Ship/Cruiser0000.png</Image>
     <Property>
       <FuelCapacity>600</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -5875,7 +5875,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <AR>2</AR>
     </Race_Restrictions>
-    <Image>Base/Death_Star.png</Image>
+    <Image>Base/Death_Star0000.png</Image>
     <Property>
       <FuelCapacity>0</FuelCapacity>
       <DockCapacity>10000</DockCapacity>
@@ -6236,7 +6236,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <ARM>2</ARM>
     </Race_Restrictions>
-    <Image>Ship/Midget_Miner.png</Image>
+    <Image>Ship/Midget_Miner0000.png</Image>
     <Property>
       <FuelCapacity>210</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -6372,7 +6372,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <SS>2</SS>
     </Race_Restrictions>
-    <Image>Ship/Rogue.png</Image>
+    <Image>Ship/Rogue0000.png</Image>
     <Property>
       <FuelCapacity>2250</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -6464,7 +6464,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Construction>0</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Colony_Ship.png</Image>
+    <Image>Ship/Colony_Ship0000.png</Image>
     <Property>
       <FuelCapacity>200</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -6545,7 +6545,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Construction>3</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Destroyer.png</Image>
+    <Image>Ship/Destroyer0000.png</Image>
     <Property>
       <FuelCapacity>280</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -6678,7 +6678,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Construction>26</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Nubian.png</Image>
+    <Image>Ship/Nubian0000.png</Image>
     <Property>
       <FuelCapacity>5000</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -6816,7 +6816,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Construction>0</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Scout.png</Image>
+    <Image>Ship/Scout0000.png</Image>
     <Property>
       <FuelCapacity>50</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -6892,7 +6892,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Construction>0</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Base/Orbital_Fort.png</Image>
+    <Image>Base/Orbital_Fort0000.png</Image>
     <Property>
       <FuelCapacity>0</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -7011,7 +7011,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <ARM>2</ARM>
     </Race_Restrictions>
-    <Image>Ship/Miner.png</Image>
+    <Image>Ship/Miner0000.png</Image>
     <Property>
       <FuelCapacity>500</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -7079,7 +7079,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Construction>6</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/B-17_Bomber.png</Image>
+    <Image>Ship/B-17_Bomber0000.png</Image>
     <Property>
       <FuelCapacity>400</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -7194,7 +7194,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Race_Restrictions>
       <ISB>2</ISB>
     </Race_Restrictions>
-    <Image>Base/Space_Dock.png</Image>
+    <Image>Base/Space_Dock0000.png</Image>
     <Property>
       <FuelCapacity>0</FuelCapacity>
       <DockCapacity>200</DockCapacity>
@@ -7396,7 +7396,7 @@ This scanner alows you to steal minerals from other races ships.</Description>
     <Race_Restrictions>
       <HE>2</HE>
     </Race_Restrictions>
-    <Image>Ship/Mini-Colony_Ship.png</Image>
+    <Image>Ship/Mini_Colony_Ship0000.png</Image>
     <Property>
       <FuelCapacity>150</FuelCapacity>
       <DockCapacity>0</DockCapacity>
@@ -7839,7 +7839,7 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Construction>0</Construction>
     </Tech>
     <Race_Restrictions />
-    <Image>Ship/Small_Freighter.png</Image>
+    <Image>Ship/Small_Freighter0000.png</Image>
     <Property>
       <FuelCapacity>130</FuelCapacity>
       <DockCapacity>0</DockCapacity>

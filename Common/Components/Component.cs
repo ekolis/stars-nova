@@ -126,20 +126,6 @@ namespace Nova.Common.Components
                 {
                     switch (subnode.Name.ToLower())
                     {
-                            /* These belong to the base class Item
-                        case "name":
-                            this.Name = ((XmlText)subnode.FirstChild).Value;
-                            break;
-                        case "type":
-                            this.Type = ((XmlText)subnode.FirstChild).Value;
-                            break;
-                        case "mass":
-                            this.Mass = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
-                        case "resource":
-                            this.Cost = new Resources(subnode);
-                            break;
-                            */
                         case "tech":
                             this.RequiredTech = new TechLevel(subnode);
                             break;
