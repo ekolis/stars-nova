@@ -53,6 +53,7 @@ namespace Nova.WinForms.Gui
 
         private Component selectedHull;
         private int designMass;
+        private ShipIcon ShipIcon = null;
 
         #region Designer Generated Code
 
@@ -101,6 +102,8 @@ namespace Nova.WinForms.Gui
         private Label label3;
         private GroupBox groupBox7;
         private Graph graph1;
+        private Button prevImageButton;
+        private Button nextImageButton;
         private ControlLibrary.HullGrid HullGrid;
 
         /// <summary>
@@ -110,32 +113,34 @@ namespace Nova.WinForms.Gui
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShipDesignDialog));
-            System.Windows.Forms.TreeNode treeNode13 = new System.Windows.Forms.TreeNode("Armor");
-            System.Windows.Forms.TreeNode treeNode14 = new System.Windows.Forms.TreeNode("Beam Weapons");
-            System.Windows.Forms.TreeNode treeNode15 = new System.Windows.Forms.TreeNode("Bombs");
-            System.Windows.Forms.TreeNode treeNode16 = new System.Windows.Forms.TreeNode("CargoPod");
-            System.Windows.Forms.TreeNode treeNode17 = new System.Windows.Forms.TreeNode("Engines");
-            System.Windows.Forms.TreeNode treeNode18 = new System.Windows.Forms.TreeNode("Mechanical");
-            System.Windows.Forms.TreeNode treeNode19 = new System.Windows.Forms.TreeNode("Mine Layer");
-            System.Windows.Forms.TreeNode treeNode20 = new System.Windows.Forms.TreeNode("Missiles");
-            System.Windows.Forms.TreeNode treeNode21 = new System.Windows.Forms.TreeNode("Orbital");
-            System.Windows.Forms.TreeNode treeNode22 = new System.Windows.Forms.TreeNode("Scanners");
-            System.Windows.Forms.TreeNode treeNode23 = new System.Windows.Forms.TreeNode("Shields");
-            System.Windows.Forms.TreeNode treeNode24 = new System.Windows.Forms.TreeNode("Available Technology", new System.Windows.Forms.TreeNode[] {
-            treeNode13,
-            treeNode14,
-            treeNode15,
-            treeNode16,
-            treeNode17,
-            treeNode18,
-            treeNode19,
-            treeNode20,
-            treeNode21,
-            treeNode22,
-            treeNode23});
+            System.Windows.Forms.TreeNode treeNode1 = new System.Windows.Forms.TreeNode("Armor");
+            System.Windows.Forms.TreeNode treeNode2 = new System.Windows.Forms.TreeNode("Beam Weapons");
+            System.Windows.Forms.TreeNode treeNode3 = new System.Windows.Forms.TreeNode("Bombs");
+            System.Windows.Forms.TreeNode treeNode4 = new System.Windows.Forms.TreeNode("CargoPod");
+            System.Windows.Forms.TreeNode treeNode5 = new System.Windows.Forms.TreeNode("Engines");
+            System.Windows.Forms.TreeNode treeNode6 = new System.Windows.Forms.TreeNode("Mechanical");
+            System.Windows.Forms.TreeNode treeNode7 = new System.Windows.Forms.TreeNode("Mine Layer");
+            System.Windows.Forms.TreeNode treeNode8 = new System.Windows.Forms.TreeNode("Missiles");
+            System.Windows.Forms.TreeNode treeNode9 = new System.Windows.Forms.TreeNode("Orbital");
+            System.Windows.Forms.TreeNode treeNode10 = new System.Windows.Forms.TreeNode("Scanners");
+            System.Windows.Forms.TreeNode treeNode11 = new System.Windows.Forms.TreeNode("Shields");
+            System.Windows.Forms.TreeNode treeNode12 = new System.Windows.Forms.TreeNode("Available Technology", new System.Windows.Forms.TreeNode[] {
+            treeNode1,
+            treeNode2,
+            treeNode3,
+            treeNode4,
+            treeNode5,
+            treeNode6,
+            treeNode7,
+            treeNode8,
+            treeNode9,
+            treeNode10,
+            treeNode11});
             this.Cancel = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.nextImageButton = new System.Windows.Forms.Button();
+            this.prevImageButton = new System.Windows.Forms.Button();
             this.HullImage = new System.Windows.Forms.PictureBox();
             this.HullGrid = new Nova.ControlLibrary.HullGrid();
             this.label10 = new System.Windows.Forms.Label();
@@ -165,6 +170,8 @@ namespace Nova.WinForms.Gui
             this.label1 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.graph1 = new Nova.ControlLibrary.Graph();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.Description = new System.Windows.Forms.TextBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -174,22 +181,20 @@ namespace Nova.WinForms.Gui
             this.ComponentCost = new Nova.ControlLibrary.ResourceDisplay();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.TreeView = new System.Windows.Forms.TreeView();
             this.ListView = new System.Windows.Forms.ListView();
-            this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.graph1 = new Nova.ControlLibrary.Graph();
+            this.TreeView = new System.Windows.Forms.TreeView();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HullImage)).BeginInit();
             this.groupBox4.SuspendLayout();
             this.groupBox3.SuspendLayout();
             this.groupBox1.SuspendLayout();
+            this.groupBox7.SuspendLayout();
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.panel1.SuspendLayout();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
-            this.groupBox7.SuspendLayout();
             this.SuspendLayout();
             // 
             // Cancel
@@ -197,7 +202,7 @@ namespace Nova.WinForms.Gui
             this.Cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.Cancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.Cancel.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.Cancel.Location = new System.Drawing.Point(698, 587);
+            this.Cancel.Location = new System.Drawing.Point(698, 624);
             this.Cancel.Name = "Cancel";
             this.Cancel.Size = new System.Drawing.Size(75, 23);
             this.Cancel.TabIndex = 0;
@@ -207,7 +212,7 @@ namespace Nova.WinForms.Gui
             // 
             this.SaveButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.SaveButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
-            this.SaveButton.Location = new System.Drawing.Point(618, 587);
+            this.SaveButton.Location = new System.Drawing.Point(618, 624);
             this.SaveButton.Name = "SaveButton";
             this.SaveButton.Size = new System.Drawing.Size(75, 23);
             this.SaveButton.TabIndex = 1;
@@ -217,6 +222,8 @@ namespace Nova.WinForms.Gui
             // groupBox2
             // 
             this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
+            this.groupBox2.Controls.Add(this.nextImageButton);
+            this.groupBox2.Controls.Add(this.prevImageButton);
             this.groupBox2.Controls.Add(this.HullImage);
             this.groupBox2.Controls.Add(this.HullGrid);
             this.groupBox2.Controls.Add(this.label10);
@@ -228,10 +235,30 @@ namespace Nova.WinForms.Gui
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox2.Location = new System.Drawing.Point(393, 16);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(373, 563);
+            this.groupBox2.Size = new System.Drawing.Size(373, 591);
             this.groupBox2.TabIndex = 3;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "New Design";
+            // 
+            // nextImageButton
+            // 
+            this.nextImageButton.Location = new System.Drawing.Point(323, 92);
+            this.nextImageButton.Name = "nextImageButton";
+            this.nextImageButton.Size = new System.Drawing.Size(29, 20);
+            this.nextImageButton.TabIndex = 21;
+            this.nextImageButton.Text = ">";
+            this.nextImageButton.UseVisualStyleBackColor = true;
+            this.nextImageButton.Click += new System.EventHandler(this.nextImageButton_Click);
+            // 
+            // prevImageButton
+            // 
+            this.prevImageButton.Location = new System.Drawing.Point(288, 92);
+            this.prevImageButton.Name = "prevImageButton";
+            this.prevImageButton.Size = new System.Drawing.Size(29, 20);
+            this.prevImageButton.TabIndex = 20;
+            this.prevImageButton.Text = "<";
+            this.prevImageButton.UseVisualStyleBackColor = true;
+            this.prevImageButton.Click += new System.EventHandler(this.prevImageButton_Click);
             // 
             // HullImage
             // 
@@ -247,7 +274,7 @@ namespace Nova.WinForms.Gui
             this.HullGrid.ActiveModules = ((System.Collections.ArrayList)(resources.GetObject("HullGrid.ActiveModules")));
             this.HullGrid.HideEmptyModules = true;
             this.HullGrid.HullName = null;
-            this.HullGrid.Location = new System.Drawing.Point(23, 88);
+            this.HullGrid.Location = new System.Drawing.Point(19, 126);
             this.HullGrid.Name = "HullGrid";
             this.HullGrid.Size = new System.Drawing.Size(338, 338);
             this.HullGrid.TabIndex = 18;
@@ -292,7 +319,7 @@ namespace Nova.WinForms.Gui
             this.groupBox4.Controls.Add(this.label4);
             this.groupBox4.Controls.Add(this.CapacityType);
             this.groupBox4.Controls.Add(this.label2);
-            this.groupBox4.Location = new System.Drawing.Point(196, 435);
+            this.groupBox4.Location = new System.Drawing.Point(196, 470);
             this.groupBox4.Name = "groupBox4";
             this.groupBox4.Size = new System.Drawing.Size(165, 115);
             this.groupBox4.TabIndex = 15;
@@ -464,7 +491,7 @@ namespace Nova.WinForms.Gui
             // groupBox3
             // 
             this.groupBox3.Controls.Add(this.DesignResources);
-            this.groupBox3.Location = new System.Drawing.Point(14, 435);
+            this.groupBox3.Location = new System.Drawing.Point(10, 470);
             this.groupBox3.Name = "groupBox3";
             this.groupBox3.Size = new System.Drawing.Size(166, 115);
             this.groupBox3.TabIndex = 14;
@@ -509,10 +536,35 @@ namespace Nova.WinForms.Gui
             this.groupBox1.Controls.Add(this.panel1);
             this.groupBox1.Location = new System.Drawing.Point(12, 16);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(375, 563);
+            this.groupBox1.Size = new System.Drawing.Size(375, 591);
             this.groupBox1.TabIndex = 4;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Available Technology";
+            // 
+            // groupBox7
+            // 
+            this.groupBox7.Controls.Add(this.graph1);
+            this.groupBox7.Location = new System.Drawing.Point(14, 470);
+            this.groupBox7.Name = "groupBox7";
+            this.groupBox7.Size = new System.Drawing.Size(153, 115);
+            this.groupBox7.TabIndex = 3;
+            this.groupBox7.TabStop = false;
+            this.groupBox7.Text = "Component Description";
+            // 
+            // graph1
+            // 
+            this.graph1.AxisColor = System.Drawing.Color.Black;
+            this.graph1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.graph1.HoriozontalSpace = 0.03;
+            this.graph1.Image = null;
+            this.graph1.LineColor = System.Drawing.Color.Red;
+            this.graph1.Location = new System.Drawing.Point(3, 16);
+            this.graph1.Name = "graph1";
+            this.graph1.Size = new System.Drawing.Size(147, 96);
+            this.graph1.TabIndex = 0;
+            this.graph1.Title = null;
+            this.graph1.TitleSize = 13;
+            this.graph1.VerticalSpace = 0.02;
             // 
             // groupBox6
             // 
@@ -544,7 +596,7 @@ namespace Nova.WinForms.Gui
             this.groupBox5.Controls.Add(this.label7);
             this.groupBox5.Controls.Add(this.label6);
             this.groupBox5.Controls.Add(this.ComponentCost);
-            this.groupBox5.Location = new System.Drawing.Point(173, 435);
+            this.groupBox5.Location = new System.Drawing.Point(170, 470);
             this.groupBox5.Name = "groupBox5";
             this.groupBox5.Size = new System.Drawing.Size(166, 115);
             this.groupBox5.TabIndex = 1;
@@ -591,12 +643,11 @@ namespace Nova.WinForms.Gui
             this.panel1.Controls.Add(this.splitContainer1);
             this.panel1.Location = new System.Drawing.Point(14, 151);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(344, 271);
+            this.panel1.Size = new System.Drawing.Size(344, 313);
             this.panel1.TabIndex = 0;
             // 
             // splitContainer1
             // 
-            this.splitContainer1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.splitContainer1.Location = new System.Drawing.Point(0, 0);
             this.splitContainer1.Name = "splitContainer1";
             // 
@@ -607,58 +658,9 @@ namespace Nova.WinForms.Gui
             // splitContainer1.Panel2
             // 
             this.splitContainer1.Panel2.Controls.Add(this.ListView);
-            this.splitContainer1.Size = new System.Drawing.Size(344, 271);
-            this.splitContainer1.SplitterDistance = 148;
+            this.splitContainer1.Size = new System.Drawing.Size(344, 313);
+            this.splitContainer1.SplitterDistance = 154;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // TreeView
-            // 
-            this.TreeView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.TreeView.HideSelection = false;
-            this.TreeView.Location = new System.Drawing.Point(0, 0);
-            this.TreeView.Name = "TreeView";
-            treeNode13.Name = "Armor";
-            treeNode13.Tag = "Armor";
-            treeNode13.Text = "Armor";
-            treeNode14.Name = "Weapons";
-            treeNode14.Tag = "Beam";
-            treeNode14.Text = "Beam Weapons";
-            treeNode15.Name = "Bombs";
-            treeNode15.Tag = "Bomb";
-            treeNode15.Text = "Bombs";
-            treeNode16.Name = "CargoPod";
-            treeNode16.Tag = "CargoPod";
-            treeNode16.Text = "CargoPod";
-            treeNode17.Name = "Engines";
-            treeNode17.Tag = "Engine";
-            treeNode17.Text = "Engines";
-            treeNode18.Name = "Mechanical";
-            treeNode18.Tag = "Mechanical";
-            treeNode18.Text = "Mechanical";
-            treeNode19.Name = "MineLayer";
-            treeNode19.Tag = "MineLayer";
-            treeNode19.Text = "Mine Layer";
-            treeNode20.Name = "Missiles";
-            treeNode20.Tag = "Missile";
-            treeNode20.Text = "Missiles";
-            treeNode21.Name = "Orbital";
-            treeNode21.Tag = "Orbital";
-            treeNode21.Text = "Orbital";
-            treeNode22.Name = "Scanners";
-            treeNode22.Tag = "Scanner";
-            treeNode22.Text = "Scanners";
-            treeNode23.Name = "Shields";
-            treeNode23.Tag = "Shield";
-            treeNode23.Text = "Shields";
-            treeNode24.Name = "";
-            treeNode24.Tag = "Armor";
-            treeNode24.Text = "Available Technology";
-            this.TreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
-            treeNode24});
-            this.TreeView.Size = new System.Drawing.Size(148, 271);
-            this.TreeView.TabIndex = 0;
-            this.TreeView.Tag = "";
-            this.TreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeNodeSelected);
             // 
             // ListView
             // 
@@ -666,43 +668,66 @@ namespace Nova.WinForms.Gui
             this.ListView.Location = new System.Drawing.Point(0, 0);
             this.ListView.MultiSelect = false;
             this.ListView.Name = "ListView";
-            this.ListView.Size = new System.Drawing.Size(192, 271);
+            this.ListView.Size = new System.Drawing.Size(186, 313);
             this.ListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
             this.ListView.TabIndex = 0;
             this.ListView.UseCompatibleStateImageBehavior = false;
             this.ListView.SelectedIndexChanged += new System.EventHandler(this.ListSelectionChanged);
             this.ListView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListView_MouseDown);
             // 
-            // groupBox7
+            // TreeView
             // 
-            this.groupBox7.Controls.Add(this.graph1);
-            this.groupBox7.Location = new System.Drawing.Point(14, 435);
-            this.groupBox7.Name = "groupBox7";
-            this.groupBox7.Size = new System.Drawing.Size(153, 115);
-            this.groupBox7.TabIndex = 3;
-            this.groupBox7.TabStop = false;
-            this.groupBox7.Text = "Component Description";
-            // 
-            // graph1
-            // 
-            this.graph1.AxisColor = System.Drawing.Color.Black;
-//            this.graph1.Data = null;
-            this.graph1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graph1.HoriozontalSpace = 0.03;
-            this.graph1.Image = null;
-            this.graph1.LineColor = System.Drawing.Color.Red;
-            this.graph1.Location = new System.Drawing.Point(3, 16);
-            this.graph1.Name = "graph1";
-            this.graph1.Size = new System.Drawing.Size(147, 96);
-            this.graph1.TabIndex = 0;
-            this.graph1.Title = null;
-            this.graph1.TitleSize = 13;
-            this.graph1.VerticalSpace = 0.02;
+            this.TreeView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.TreeView.HideSelection = false;
+            this.TreeView.Location = new System.Drawing.Point(0, 0);
+            this.TreeView.Name = "TreeView";
+            treeNode1.Name = "Armor";
+            treeNode1.Tag = "Armor";
+            treeNode1.Text = "Armor";
+            treeNode2.Name = "Weapons";
+            treeNode2.Tag = "Beam";
+            treeNode2.Text = "Beam Weapons";
+            treeNode3.Name = "Bombs";
+            treeNode3.Tag = "Bomb";
+            treeNode3.Text = "Bombs";
+            treeNode4.Name = "CargoPod";
+            treeNode4.Tag = "CargoPod";
+            treeNode4.Text = "CargoPod";
+            treeNode5.Name = "Engines";
+            treeNode5.Tag = "Engine";
+            treeNode5.Text = "Engines";
+            treeNode6.Name = "Mechanical";
+            treeNode6.Tag = "Mechanical";
+            treeNode6.Text = "Mechanical";
+            treeNode7.Name = "MineLayer";
+            treeNode7.Tag = "MineLayer";
+            treeNode7.Text = "Mine Layer";
+            treeNode8.Name = "Missiles";
+            treeNode8.Tag = "Missile";
+            treeNode8.Text = "Missiles";
+            treeNode9.Name = "Orbital";
+            treeNode9.Tag = "Orbital";
+            treeNode9.Text = "Orbital";
+            treeNode10.Name = "Scanners";
+            treeNode10.Tag = "Scanner";
+            treeNode10.Text = "Scanners";
+            treeNode11.Name = "Shields";
+            treeNode11.Tag = "Shield";
+            treeNode11.Text = "Shields";
+            treeNode12.Name = "";
+            treeNode12.Tag = "Armor";
+            treeNode12.Text = "Available Technology";
+            this.TreeView.Nodes.AddRange(new System.Windows.Forms.TreeNode[] {
+            treeNode12});
+            this.TreeView.Size = new System.Drawing.Size(154, 313);
+            this.TreeView.TabIndex = 0;
+            this.TreeView.Tag = "";
+            this.TreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeNodeSelected);
             // 
             // ShipDesignDialog
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(780, 617);
+            this.ClientSize = new System.Drawing.Size(780, 654);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.SaveButton);
@@ -719,6 +744,7 @@ namespace Nova.WinForms.Gui
             this.groupBox4.PerformLayout();
             this.groupBox3.ResumeLayout(false);
             this.groupBox1.ResumeLayout(false);
+            this.groupBox7.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox5.ResumeLayout(false);
@@ -727,7 +753,6 @@ namespace Nova.WinForms.Gui
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.ResumeLayout(false);
-            this.groupBox7.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -859,6 +884,7 @@ namespace Nova.WinForms.Gui
             newDesign.ShipHull = this.selectedHull;
             newDesign.Cost = DesignResources.Value;
             newDesign.Mass = Convert.ToInt32(ShipMass.Text);
+            newDesign.Icon = ShipIcon;
             newDesign.Update();
 
             if (hullProperties.IsStarbase)
@@ -1082,6 +1108,28 @@ namespace Nova.WinForms.Gui
             UpdateHullFields();
         }
 
+        /// <summary>
+        /// Select the previous available icon for this ship design.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void prevImageButton_Click(object sender, EventArgs e)
+        {
+            ShipIcon--;
+            HullImage.Image = ShipIcon.Image;
+        }
+
+        /// <summary>
+        /// Select the next available icon for this ship design.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void nextImageButton_Click(object sender, EventArgs e)
+        {
+            ShipIcon++;
+            HullImage.Image = ShipIcon.Image;
+        }
+
 
         #endregion
 
@@ -1104,7 +1152,26 @@ namespace Nova.WinForms.Gui
         {
             Hull hullProperties = this.selectedHull.Properties["Hull"] as Hull;
             HullGrid.ActiveModules = hullProperties.Modules;
-            HullImage.Image = this.selectedHull.ComponentImage;
+            // get the base hull of this icon
+
+            /*
+            string[] baseHullParts = selectedHull.ImageFile.Split(System.IO.Path.DirectorySeparatorChar);
+
+            string baseHull = baseHullParts[baseHullParts.Length - 1].Substring(0, baseHullParts[baseHullParts.Length - 1].IndexOf('.') - Global.ShipIconNumberingLength);
+
+            if (AllShipIcons.Data.Hulls.ContainsKey(baseHull))
+            {
+                ShipIcon = (ShipIcon)AllShipIcons.Data.Hulls[baseHull][0];
+            }
+            else
+            {
+                ShipIcon = (ShipIcon)AllShipIcons.Data.IconList[0];
+            }
+            HullImage.Image = ShipIcon.Image;
+            */
+            ShipIcon = AllShipIcons.Data.GetIconBySource(selectedHull.ImageFile);
+            HullImage.Image = ShipIcon.Image;
+
             Description.Text = this.selectedHull.Description;
 
             if (hullProperties.IsStarbase)
@@ -1147,5 +1214,6 @@ namespace Nova.WinForms.Gui
         }
 
         #endregion
+
     }
 }

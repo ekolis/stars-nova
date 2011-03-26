@@ -351,11 +351,11 @@ namespace Nova.Common
         /// <summary>
         /// The icon for this ship.
         /// </summary>
-        public System.Drawing.Image Image
+        public ShipIcon Icon    
         {
             get
             {
-                return this.design.ShipHull.ComponentImage;
+                return this.design.Icon;
             }
         }
 

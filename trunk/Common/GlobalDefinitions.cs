@@ -113,6 +113,9 @@ namespace Nova.Common
        public const int ColonistsPerOperableMiningUnit = 1000;
        public const int MinesPerMineProductionUnit = 10;
 
+       // Format
+       public const int ShipIconNumberingLength = 4;
+
        #endregion
 
        #region Methods

@@ -106,7 +106,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet stack in this.myStacks.Values)
             {
-                graphics.DrawImage(stack.Image, (Point)stack.Position);
+                graphics.DrawImage(stack.Icon.Image, (Point)stack.Position);
             }
         }
 
