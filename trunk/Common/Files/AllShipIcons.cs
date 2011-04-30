@@ -168,7 +168,7 @@ namespace Nova.Common
         /// Find an icon in the list of all ship icons from the file name.
         /// </summary>
         /// <param name="iconSource">The path and file name of the icon.</param>
-        /// <returns>A <see cref=ShipIcon/> that matches the iconSource or a default icon.</returns>
+        /// <returns>A <see cref="ShipIcon"/> that matches the iconSource or a default icon.</returns>
         public ShipIcon GetIconBySource(string iconSource)
         {
             // fi.Name format is <baseHull><iconNumber>.png where the length of <Number> in characters is defined by Global.ShipIconNumberingLength.
