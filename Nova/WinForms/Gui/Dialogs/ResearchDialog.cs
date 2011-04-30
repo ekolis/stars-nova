@@ -170,9 +170,18 @@ namespace Nova.WinForms.Gui
             resourcesRequired = target
                - (int)this.stateData.ResearchResources[researchArea];
 
-            this.completionResources.Text = ((int)resourcesRequired).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            if (level >= 26)
+            {
+                this.completionResources.Text = "Maxed";
+            }
+            else
+            {
+                this.completionResources.Text = ((int)resourcesRequired).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            }
 
-            if (percentage != 0)
+            if (percentage != 0 &&
+                allocatedEnergy > 0 &&
+                level < 26)
             {
                 yearsToComplete = resourcesRequired / allocatedEnergy;
                 this.completionTime.Text = yearsToComplete.ToString("f1");

@@ -75,7 +75,7 @@
       <Name>Nova</Name>
     </ProjectReference>
     <ProjectReference Include="..\ServerState\Server.csproj">
-      <Project>{057D68CC-97A3-4296-A66B-1D3A5C00134E}</Project>
+      <Project>{0C92C1D5-9084-4E4A-82F1-889B74019A33}</Project>
       <Name>Server</Name>
     </ProjectReference>
   </ItemGroup>
