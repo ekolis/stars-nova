@@ -1194,10 +1194,10 @@ namespace Nova.WinForms.Gui
             double percentComplete = 0.0;
             int minesInQueue = 0;
             int factoriesInQueue = 0;
-            double potentialFactories, factoriesInUse;
-            double currentFactories = this.queueStar.Factories;
-            double potentialMines, minesInUse;
-            double currentMines = this.queueStar.Mines;
+            int potentialFactories, factoriesInUse;
+            int currentFactories = this.queueStar.Factories;
+            int potentialMines, minesInUse;
+            int currentMines = this.queueStar.Mines;
             int minYearsCurrent, maxYearsCurrent, minYearsSelected, maxYearsSelected, minYearsTotal, maxYearsTotal;
             int yearsSoFar, yearsToCompleteOne;
             minYearsSelected = maxYearsSelected = minYearsTotal = maxYearsTotal = 0;
@@ -1387,10 +1387,14 @@ namespace Nova.WinForms.Gui
                                 // apply this percentage to the currentStackCost to determine how much to remove from
                                 // potentialResources and currentStackCost
                                 Resources amountUsed = new Resources();
-                                amountUsed.Ironium = fractionComplete * currentStackCost.Ironium;
-                                amountUsed.Boranium = fractionComplete * currentStackCost.Boranium;
-                                amountUsed.Germanium = fractionComplete * currentStackCost.Germanium;
-                                amountUsed.Energy = fractionComplete * currentStackCost.Energy;
+                                
+                                // Use the Resource operator * instead! -Aeglos
+                                // amountUsed.Ironium = fractionComplete * currentStackCost.Ironium;
+                                // amountUsed.Boranium = fractionComplete * currentStackCost.Boranium;
+                                // amountUsed.Germanium = fractionComplete * currentStackCost.Germanium;
+                                // amountUsed.Energy = fractionComplete * currentStackCost.Energy;
+                                amountUsed = fractionComplete * currentStackCost;
+                                
                                 potentialResources = potentialResources - amountUsed;
                                 currentStackCost = currentStackCost - amountUsed;
 
@@ -1512,10 +1516,10 @@ namespace Nova.WinForms.Gui
 
 
             // set the costs display fields
-            totalCostIronium.Text = ((int)wholeQueueCost.Ironium).ToString(System.Globalization.CultureInfo.InvariantCulture);
-            totalCostBoranium.Text = ((int)wholeQueueCost.Boranium).ToString(System.Globalization.CultureInfo.InvariantCulture);
-            totalCostGermanium.Text = ((int)wholeQueueCost.Germanium).ToString(System.Globalization.CultureInfo.InvariantCulture);
-            totalCostEnergy.Text = ((int)wholeQueueCost.Energy).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            totalCostIronium.Text = wholeQueueCost.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            totalCostBoranium.Text = wholeQueueCost.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            totalCostGermanium.Text = wholeQueueCost.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            totalCostEnergy.Text = wholeQueueCost.Energy.ToString(System.Globalization.CultureInfo.InvariantCulture);
             if (yearsSoFar < 0)
             {
                 if (minYearsTotal == -2)
@@ -1552,10 +1556,10 @@ namespace Nova.WinForms.Gui
                     }
                 }
             }
-            selectedCostIronium.Text = ((int)selectedItemCost.Ironium).ToString(System.Globalization.CultureInfo.InvariantCulture);
-            selectedCostBoranium.Text = ((int)selectedItemCost.Boranium).ToString(System.Globalization.CultureInfo.InvariantCulture);
-            selectedCostGermanium.Text = ((int)selectedItemCost.Germanium).ToString(System.Globalization.CultureInfo.InvariantCulture);
-            selectedCostEnergy.Text = ((int)selectedItemCost.Energy).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            selectedCostIronium.Text = selectedItemCost.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            selectedCostBoranium.Text = selectedItemCost.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            selectedCostGermanium.Text = selectedItemCost.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            selectedCostEnergy.Text = selectedItemCost.Energy.ToString(System.Globalization.CultureInfo.InvariantCulture);
             selectedPercentComplete.Text = percentComplete.ToString("N1");
             if (minYearsSelected < 0)
             {

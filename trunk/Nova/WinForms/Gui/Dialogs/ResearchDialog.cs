@@ -153,13 +153,13 @@ namespace Nova.WinForms.Gui
         private void ParameterChanged(object sender, EventArgs e)
         {
             int percentage = (int)this.resourceBudget.Value;
-            int allocatedEnergy = ((int)this.availableEnergy * percentage) / 100;
+            int allocatedEnergy = (this.availableEnergy * percentage) / 100;
 
             this.stateData.ResearchBudget = percentage;
             this.stateData.ResearchAllocation = allocatedEnergy;
 
-            double resourcesRequired = 0;
-            double yearsToComplete = 0;
+            int resourcesRequired = 0;
+            int yearsToComplete = 0;
 
             TechLevel researchLevels = this.stateData.ResearchLevel;
             TechLevel.ResearchField researchArea = this.stateData.ResearchTopic;
@@ -176,7 +176,7 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                this.completionResources.Text = ((int)resourcesRequired).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                this.completionResources.Text = resourcesRequired.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
 
             if (percentage != 0 &&

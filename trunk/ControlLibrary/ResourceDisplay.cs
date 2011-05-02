@@ -242,13 +242,11 @@ namespace Nova.ControlLibrary
                     if (value == null) return;
 
                     Resources resources = value;
-
-                    // Resources casted instead of converted via Convert class to avoid rounding errors on display.
                     
-                    this.ironium.Text = ((int)resources.Ironium).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    this.boranium.Text = ((int)resources.Boranium).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    this.germanium.Text = ((int)resources.Germanium).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    this.energy.Text = ((int)resources.Energy).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.ironium.Text = resources.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.boranium.Text = resources.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.germanium.Text = resources.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.energy.Text = resources.Energy.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
                 catch
                 {

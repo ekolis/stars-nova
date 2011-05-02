@@ -330,8 +330,8 @@ namespace Nova.Common
             // actual number of existing factories may be less than the number
             // that are capable of being manned.
 
-            double potentialFactories = Colonists / race.OperableFactories;
-            double factoriesInUse = Math.Min(Factories, potentialFactories);
+            int potentialFactories = Colonists / race.OperableFactories;
+            int factoriesInUse = Math.Min(Factories, potentialFactories);
 
             ResourcesOnHand.Energy += factoriesInUse * race.FactoryProduction / Global.FactoriesPerFactoryProductionUnit;
 
@@ -357,7 +357,7 @@ namespace Nova.Common
         /// Concentration is in % and is normalised so that 1.0 = 100%
         /// </remarks>
         /// ----------------------------------------------------------------------------
-        private double Mine(ref double concentration)
+        private int Mine(ref int concentration)
         {
             // As with factories, mines must be manned to be able to produce.
             // Again this is set in the Race Deigner with a default of 1k
@@ -370,11 +370,13 @@ namespace Nova.Common
             // operated by 10K colonists.
 
 
-            double potentialMines = (Colonists / Global.ColonistsPerOperableMiningUnit) * ThisRace.OperableMines;
-            double minesInUse = Math.Min(Mines, potentialMines);
+            int potentialMines = (Colonists / Global.ColonistsPerOperableMiningUnit) * ThisRace.OperableMines;
+            int minesInUse = Math.Min(Mines, potentialMines);
 
-            double mined = ((minesInUse / Global.MinesPerMineProductionUnit) * ThisRace.MineProductionRate)
-                         * (concentration / 100);
+            // This operation needs to be done with implicit float converstion and then casted to int, otherwise
+            // the normalized concentration is always zero and no mining occurs. -Aeglos
+            int mined = (int)(((minesInUse / Global.MinesPerMineProductionUnit) * ThisRace.MineProductionRate)
+                              * (concentration / 100.0));
 
             // Reduce the mineral concentration. This is just an approximation of
             // the Stars! algorithm for now. Concentration will drop by 1 point
@@ -383,7 +385,7 @@ namespace Nova.Common
             // this year.
             // TODO (priority 3) - implement the Stars! algorithm for concentration reduction.
 
-            concentration -= mined / (12500.0 / concentration);
+            concentration -= mined / (12500 / concentration);
 
             if (concentration < 1)
             {

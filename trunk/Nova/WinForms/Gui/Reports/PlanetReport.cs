@@ -105,9 +105,9 @@ namespace Nova.WinForms.Gui
 
                     text.AppendFormat(
                         "{0} {1} {2}",
-                        (int)resources.Ironium,
-                        (int)resources.Boranium,
-                        (int)resources.Germanium);
+                        resources.Ironium,
+                        resources.Boranium,
+                        resources.Germanium);
 
                     string energy = ((int)resources.Energy).ToString(System.Globalization.CultureInfo.InvariantCulture);
 
@@ -118,9 +118,9 @@ namespace Nova.WinForms.Gui
 
                     text.AppendFormat(
                         "{0} {1} {2}",
-                        (int)resources.Ironium,
-                        (int)resources.Boranium,
-                        (int)resources.Germanium);
+                        resources.Ironium,
+                        resources.Boranium,
+                        resources.Germanium);
                     row[i++] = text.ToString();
                     row[i++] = energy;
 

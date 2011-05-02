@@ -540,10 +540,7 @@ namespace Nova.Client
                     if (hull == null || !hull.IsStarbase) continue;
 
                     Resources cost = component.Cost;
-                    cost.Boranium *= 0.8;
-                    cost.Ironium *= 0.8;
-                    cost.Germanium *= 0.8;
-                    cost.Energy *= 0.8;
+                    cost *= 0.8;
                 }
             }
 

@@ -56,7 +56,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public static void Items(Star star)
         {
-            double energy = star.ResourcesOnHand.Energy;
+            int energy = star.ResourcesOnHand.Energy;
 
             deletions.Clear();
 
@@ -228,11 +228,9 @@ namespace Nova.WinForms.Console
 
 
             Resources usedResources = new Resources();
-            usedResources.Ironium = Convert.ToInt32(percentCompleted * neededResources.Ironium);
-            usedResources.Boranium = Convert.ToInt32(percentCompleted * neededResources.Boranium);
-            usedResources.Germanium = Convert.ToInt32(percentCompleted * neededResources.Germanium);
-            usedResources.Energy = Convert.ToInt32(percentCompleted * neededResources.Energy);
-
+            
+            usedResources = neededResources * percentCompleted;
+ 
             star.ResourcesOnHand = star.ResourcesOnHand - usedResources;
 
             neededResources = neededResources - usedResources;

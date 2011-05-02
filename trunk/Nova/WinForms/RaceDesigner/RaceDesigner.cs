@@ -1813,13 +1813,13 @@ namespace Nova.WinForms.RaceDesigner
             // Production Costs and Rates
             // ----------------------------------------------------------------------------
 
-            raceParameters.ColonistsPerResource = (double)this.colonistProduction.Value;
-            raceParameters.OperableFactories    = (double)this.operableFactories.Value;
-            raceParameters.MineProductionRate   = (double)this.mineralProduction.Value;
-            raceParameters.OperableMines        = (double)this.operableMines.Value;
+            raceParameters.ColonistsPerResource = (int)this.colonistProduction.Value;
+            raceParameters.OperableFactories    = (int)this.operableFactories.Value;
+            raceParameters.MineProductionRate   = (int)this.mineralProduction.Value;
+            raceParameters.OperableMines        = (int)this.operableMines.Value;
             raceParameters.FactoryBuildCost     = (int)this.factoryBuildCost.Value;
             raceParameters.MineBuildCost        = (int)this.resourcesPerMine.Value;
-            raceParameters.FactoryProduction    = (double)this.resourceProduction.Value;
+            raceParameters.FactoryProduction    = (int)this.resourceProduction.Value;
 
             // ----------------------------------------------------------------------------
             // Environmental Tolerance
