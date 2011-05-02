@@ -66,6 +66,7 @@ namespace Nova.Common
         public int MineProductionRate;   // defined in the Race Designer as the amount of minerals (kT) mined by every 10 mines
         public int OperableMines;
 
+        // Growth goes from 3 to 20 and is not normalized here.
         public double GrowthRate;
 
         #region Construction

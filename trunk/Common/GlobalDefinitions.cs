@@ -89,10 +89,12 @@ namespace Nova.Common
        // Colonists
        public const int ColonistsPerKiloton = 100;
        public const double LowStartingPopulationFactor = 0.7;
+       public const double BaseCrowdingFactor = 16/9; // Taken from the Stars technical faq.
        public const int StartingColonists = 25000;
        public const int StartingColonistsAcceleratedBBS = 100000;
        public const int NominalMaximumPlanetaryPopulation = 1000000; // use Race.MaxPopulation to get the maximum for a particular race.
        public const double PopulationFactorHyperExpansion = 0.5;
+       public const double GrowthFactorHyperExpansion = 2;
        public const double PopulationFactorJackOfAllTrades = 1.2;
        public const double PopulationFactorOnlyBasicRemoteMining = 1.1;
 
@@ -109,8 +111,9 @@ namespace Nova.Common
        public const double TemperatureMaximum = 200;
 
        // Production constants
+       public const int ColonistsPerOperableFactoryUnit = 10000;
        public const int FactoriesPerFactoryProductionUnit = 10;
-       public const int ColonistsPerOperableMiningUnit = 1000;
+       public const int ColonistsPerOperableMiningUnit = 10000;
        public const int MinesPerMineProductionUnit = 10;
 
        // Format

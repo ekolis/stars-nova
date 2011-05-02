@@ -849,8 +849,7 @@ namespace Nova.WinForms.Gui
             }
 
             QueueList.Populate(this.productionQueue, star.ManufacturingQueue);
-            int resources = star.Colonists / 1000;
-            string manned = " of " + resources.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            int resources = star.ResourcesOnHand.Energy;
 
             Nova.Common.Defenses.ComputeDefenseCoverage(star);
 
@@ -858,8 +857,10 @@ namespace Nova.WinForms.Gui
             this.defenses.Text = star.Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.defenseCoverage.Text = Nova.Common.Defenses.SummaryCoverage.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-            this.factories.Text = star.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture) + manned;
-            this.mines.Text = star.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture) + manned;
+            this.factories.Text = star.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture) 
+                    + " of " + star.GetOperableFactories().ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.mines.Text = star.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                    + " of " + star.GetOperableMines().ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.population.Text = star.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.resourceDisplay.Value = star.ResourcesOnHand;
 
