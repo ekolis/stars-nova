@@ -163,12 +163,12 @@ namespace Nova.ControlLibrary
 
             if (radioButton.Checked)
             {
-                if (radioButton.Name == "ExtraCost")
+                if (radioButton.Name == "extraCost")
                 {
                     value = 49;
                     this.researchFactor = 150;
                 }
-                else if (radioButton.Name == "LessCost")
+                else if (radioButton.Name == "lessCost")
                 {
                     value = -43;
                     this.researchFactor = 50;
@@ -180,11 +180,11 @@ namespace Nova.ControlLibrary
             }
             else
             {
-                if (radioButton.Name == "ExtraCost")
+                if (radioButton.Name == "extraCost")
                 {
                     value = -49;
                 }
-                else if (radioButton.Name == "LessCost")
+                else if (radioButton.Name == "lessCost")
                 {
                     value = 43;
                 }

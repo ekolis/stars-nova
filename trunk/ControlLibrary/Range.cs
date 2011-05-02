@@ -79,6 +79,7 @@ namespace Nova.ControlLibrary
         private int boxOldRightPosition = 85;
         private int boxMoveIncrement = 1;
         private TimerOptions timerAction;
+        private int immunityCost = 841;
 
         // values used in converting the bar position to environment values
         private string units = "Units";
@@ -93,6 +94,10 @@ namespace Nova.ControlLibrary
             int oldRightValue);
 
         public event RangeChangedHandler RangeChanged;
+        
+        public delegate void CheckChangedHandler(object sender, int value);
+        
+        public event CheckChangedHandler CheckChanged;
         
         #endregion
 
@@ -469,6 +474,19 @@ namespace Nova.ControlLibrary
             this.timerAction = TimerOptions.Expand;
             timer1.Start();
         }
+        
+        private void ImmunityCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            immunityCost *= -1;
+            expand.Enabled = !ImmunityCheckBox.Checked;
+            contract.Enabled = !ImmunityCheckBox.Checked;
+            rightScroll.Enabled = !ImmunityCheckBox.Checked;
+            leftScroll.Enabled = !ImmunityCheckBox.Checked;
+            
+            this.bar.Invalidate();
+            
+            CheckChanged(this, immunityCost);
+        }
 
         #endregion Event Methods
 
@@ -587,15 +605,6 @@ namespace Nova.ControlLibrary
         }
 
         #endregion Properties
-
-        private void ImmunityCheckBox_CheckedChanged(object sender, EventArgs e)
-        {
-            expand.Enabled = !ImmunityCheckBox.Checked;
-            contract.Enabled = !ImmunityCheckBox.Checked;
-            rightScroll.Enabled = !ImmunityCheckBox.Checked;
-            leftScroll.Enabled = !ImmunityCheckBox.Checked;
-            this.bar.Invalidate();
-        }
     }
 }
 
