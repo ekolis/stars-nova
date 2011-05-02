@@ -1194,9 +1194,7 @@ namespace Nova.WinForms.Gui
             double percentComplete = 0.0;
             int minesInQueue = 0;
             int factoriesInQueue = 0;
-            int potentialFactories, factoriesInUse;
             int currentFactories = this.queueStar.Factories;
-            int potentialMines, minesInUse;
             int currentMines = this.queueStar.Mines;
             int minYearsCurrent, maxYearsCurrent, minYearsSelected, maxYearsSelected, minYearsTotal, maxYearsTotal;
             int yearsSoFar, yearsToCompleteOne;
@@ -1246,19 +1244,19 @@ namespace Nova.WinForms.Gui
                 bool allBuilt = false;
                 int quantityYetToBuild;
 
-                for (int queueIndex = 1; queueIndex < this.queueList.Items.Count; queueIndex++)
+                for (int queueIndex = 1; queueIndex < queueList.Items.Count; queueIndex++)
                 {
-                    string designName = this.queueList.Items[queueIndex].Text;
-                    Design currentDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + designName] as Design;
+                    string designName = queueList.Items[queueIndex].Text;
+                    Design currentDesign = turnData.AllDesigns[stateData.RaceName + "/" + designName] as Design;
 
-                    quantityYetToBuild = Convert.ToInt32(this.queueList.Items[queueIndex].SubItems[1].Text);
-                    currentStackCost = GetProductionCosts(this.queueList.Items[queueIndex]);
+                    quantityYetToBuild = Convert.ToInt32(queueList.Items[queueIndex].SubItems[1].Text);
+                    currentStackCost = GetProductionCosts(queueList.Items[queueIndex]);
                     wholeQueueCost += currentStackCost;
 
                     if (yearsSoFar < 0)
                     {   // if yearsSoFar is less than zero than the item cannot currently be built because
                         // an item further up the queue cannot be built
-                        this.queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Red;
+                        queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Red;
                         minYearsCurrent = maxYearsTotal = -1;
                         if (minYearsTotal == 0)
                         {
@@ -1286,28 +1284,38 @@ namespace Nova.WinForms.Gui
                             // then update to include the effect of any mines or factories in the queue
                             // if wanting to include the effects of population growth can replace this.queueStar.Colonists with
                             // a variable that estimates population growth
-                            potentialResources.Energy = this.queueStar.Colonists / starOwnerRace.ColonistsPerResource;
-                            potentialFactories = this.queueStar.Colonists / starOwnerRace.OperableFactories;
-                            factoriesInUse = Math.Min((currentFactories + factoriesInQueue), potentialFactories);
-
-                            potentialResources.Energy += (factoriesInUse * starOwnerRace.FactoryProduction / Global.FactoriesPerFactoryProductionUnit)
-                                    - this.queueStar.ResearchAllocation;
+                            // UPDATED May 11: to use native star method of resource rate prediction. -Aeglos
+                            potentialResources.Energy = this.queueStar.GetFutureResourceRate(factoriesInQueue);
+                            
+                            // potentialFactories = this.queueStar.Colonists / starOwnerRace.OperableFactories;
+                            // UPDATED May 11: to use native star method of operable amounts. 
+                            // No needed anymore due to GetFutureResourceRate() -Aeglos.
+                            
+                            // potentialFactories = this.queueStar.GetOperableFactories();                            
+                            // factoriesInUse = Math.Min((currentFactories + factoriesInQueue), potentialFactories);
+                            // potentialResources.Energy += (factoriesInUse * starOwnerRace.FactoryProduction / Global.FactoriesPerFactoryProductionUnit)
+                            //        - this.queueStar.ResearchAllocation;
+                            
+                            // Only ResearchAllocation is still needed - Aeglos.
+                            potentialResources.Energy -= this.queueStar.ResearchAllocation;
 
                             // need to know how much of each mineral is currently available on the star (this.queueStar.ResourcesOnHand)
                             // need race information to determine how many minerals are produced by each mine each year
                             // need to make sure that no more than the maximum number of mines operable by colonists are being operated
                             // if wanting to include the effects of population growth can replace this.queueStar.Colonists with
                             // a variable that estimates population growth
-                            potentialMines = (this.queueStar.Colonists / Global.ColonistsPerOperableMiningUnit) * starOwnerRace.OperableMines;
-                            minesInUse = Math.Min(currentMines + minesInQueue, potentialMines);
+                            
+                            // UPDATED May 11: to use native star method of operable amounts. -Aeglos
+                            // potentialMines = (this.queueStar.Colonists / Global.ColonistsPerOperableMiningUnit) * starOwnerRace.OperableMines;                            
+                            
+                            // UPDATED May 11 Again: No longer required due to mining prediction method below.
+                            // potentialMines = this.queueStar.GetOperableMines();
 
                             // add one year of mining results to the remaining potentialResources
-                            potentialResources.Ironium += ((minesInUse / Global.MinesPerMineProductionUnit) * starOwnerRace.MineProductionRate)
-                                         * (this.queueStar.MineralConcentration.Ironium / 100);
-                            potentialResources.Boranium += ((minesInUse / Global.MinesPerMineProductionUnit) * starOwnerRace.MineProductionRate)
-                                         * (this.queueStar.MineralConcentration.Boranium / 100);
-                            potentialResources.Germanium += ((minesInUse / Global.MinesPerMineProductionUnit) * starOwnerRace.MineProductionRate)
-                                         * (this.queueStar.MineralConcentration.Germanium / 100);
+                            // UPDATED May 11: to use native star methods of mining rate prediction.
+                            potentialResources.Ironium += this.queueStar.GetFutureMiningRate(this.queueStar.MineralConcentration.Ironium, minesInQueue);
+                            potentialResources.Boranium += this.queueStar.GetFutureMiningRate(this.queueStar.MineralConcentration.Boranium, minesInQueue);
+                            potentialResources.Germanium += this.queueStar.GetFutureMiningRate(this.queueStar.MineralConcentration.Germanium, minesInQueue);
 
                             // check how much can be done with resources available
 

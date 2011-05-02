@@ -29,7 +29,7 @@
 
 using System;
 using System.Xml;
-
+    
 namespace Nova.Common
 {
 
@@ -94,13 +94,39 @@ namespace Nova.Common
         /// <returns>the number of factories that can be operated</returns>
         /// ----------------------------------------------------------------------------
         public int GetOperableFactories()
+        {           
+             if (ThisRace == null)
+             {
+                // I have removed this exception so as to enable the use of this Method
+                // through the program as it is highly useful. The exception was raised
+                // for all unhabited stars during ProcessTurn. Returning zero operable
+                // Factories or Mines feels as a more graceful solution too. -Aeglos
+                
+                // throw new InvalidOperationException("no owning race found for the star");
+                return 0;
+             }
+
+            return (int)((double)Colonists / Global.ColonistsPerOperableFactoryUnit * ThisRace.OperableFactories);
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Determine the number of factories that can be operated next turn
+        /// considering growth.
+        /// </summary>
+        /// <returns>the number of factories that can be operated next turn.</returns>
+        /// ----------------------------------------------------------------------------
+        public int GetFutureOperableFactories()
         {
             if (ThisRace == null)
             {
-                throw new InvalidOperationException("no owning race found for the star");
+                return 0;
             }
-
-            return Convert.ToInt32(Colonists * ThisRace.OperableFactories);
+            
+            int expectedGrowth = CalculateGrowth(ThisRace);
+            
+            return (int)(((double)Colonists + expectedGrowth) / Global.ColonistsPerOperableFactoryUnit
+                         * ThisRace.OperableFactories);
         }
 
         /// ----------------------------------------------------------------------------
@@ -110,14 +136,154 @@ namespace Nova.Common
         /// <returns>the number of mines that can be operated</returns>
         /// ----------------------------------------------------------------------------
         public int GetOperableMines()
+        {            
+             if (ThisRace == null)
+             {
+                // See GetOperableFactoruies() above.
+                // throw new InvalidOperationException("no owning race found for the star");
+                return 0;
+             }
+
+            return (int)((double)Colonists / Global.ColonistsPerOperableMiningUnit * ThisRace.OperableMines);
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Determine the number of mines that can be operated next turn
+        /// considering growth.
+        /// </summary>
+        /// <returns>the number of mines that can be operated next turn.</returns>
+        /// ----------------------------------------------------------------------------
+        public int GetFutureOperableMines()
         {
             if (ThisRace == null)
             {
-                throw new InvalidOperationException("no owning race found for the star");
+                return 0;
             }
-
-            return Convert.ToInt32(Colonists * ThisRace.OperableMines);
+            
+            int expectedGrowth = CalculateGrowth(ThisRace);
+            
+            return (int)(((double)Colonists + expectedGrowth) / Global.ColonistsPerOperableMiningUnit
+                         * ThisRace.OperableMines);
         }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Calculate the number of factories currently operated.
+        /// </summary>
+        /// <returns>the number of factories currently in operation.</returns>
+        /// ----------------------------------------------------------------------------
+        public int GetFactoriesInUse()
+        {
+            int potentialFactories = GetOperableFactories();
+            return Math.Min(Factories, potentialFactories);
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Calculate the number of mines currently operated.
+        /// </summary>
+        /// <returns>the number of mines currently in operated</returns>
+        /// ----------------------------------------------------------------------------
+        public int GetMinesInUse()
+        {
+            int potentialMines = GetOperableMines();
+            return Math.Min(Mines, potentialMines);
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Calculate the amount of resources currently generated.
+        /// </summary>
+        /// <returns>the resources generated</returns>
+        /// ----------------------------------------------------------------------------        
+        public int GetResourceRate()
+        {
+            if (ThisRace == null || Colonists <= 0)
+            {
+                return 0;
+            }
+            
+            int factoriesInUse = GetFactoriesInUse();
+            
+            int rate = (int)((double)Colonists / ThisRace.ColonistsPerResource);
+            rate += (int)(((double)factoriesInUse / Global.FactoriesPerFactoryProductionUnit) * ThisRace.FactoryProduction);
+            
+            return rate;
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Calculate the amount of resources generated next turn accounting growth and
+        /// factory production.
+        /// </summary>
+        /// <returns>the resources generated next turn</returns>
+        /// ----------------------------------------------------------------------------
+        public int GetFutureResourceRate(int extraFactories)
+        {
+            if (ThisRace == null || Colonists <= 0)
+            {
+                return 0;
+            }
+            
+            int potentialFactories = GetFutureOperableFactories();
+            int expectedGrowth = CalculateGrowth(ThisRace);
+            int factoriesInUse = Math.Min(Factories + extraFactories, potentialFactories);
+            
+            int rate = (int)(((double)Colonists + expectedGrowth) / ThisRace.ColonistsPerResource);
+            rate += (int)(((double)factoriesInUse / Global.FactoriesPerFactoryProductionUnit) * ThisRace.FactoryProduction);
+            
+            return rate;
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Calculate the amount of kT of minerals that can currently be mined.
+        /// </summary>
+        /// <returns>the mining rate in kT</returns>
+        /// ----------------------------------------------------------------------------
+        public int GetMiningRate(int concentration)
+        {
+            if (ThisRace == null)
+            {
+                return 0;
+            }
+             
+            int minesInUse = GetMinesInUse();
+            
+            // This operation needs to be done with implicit float converstion (the 100.0 value)
+            // and then casted to int, otherwise the normalized concentration is always zero
+            // and no mining occurs. -Aeglos
+            int rate = (int)(((minesInUse / Global.MinesPerMineProductionUnit) * ThisRace.MineProductionRate)
+                              * (concentration / 100.0));
+            return rate;
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Calculate the amount of kT of minerals that can be mined considering additional
+        /// mines, for example in production ones.
+        /// </summary>
+        /// <returns>the potential mining rate in kT</returns>
+        /// ----------------------------------------------------------------------------
+        public int GetFutureMiningRate(int concentration, int extraMines)
+        {  
+            if (ThisRace == null)
+            {
+                return 0;
+            }
+            
+            int potentialMines = GetFutureOperableMines();
+            int minesInUse = Math.Min(Mines + extraMines, potentialMines);
+            
+            // This operation needs to be done with implicit float converstion (the 100.0 value)
+            // and then casted to int, otherwise the normalized concentration is always zero
+            // and no mining occurs. -Aeglos
+            int rate = (int)(((minesInUse / Global.MinesPerMineProductionUnit) * ThisRace.MineProductionRate)
+                              * (concentration / 100.0));
+            return rate;
+        }
+        
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate the utilised capacity (as a percentage).
@@ -128,12 +294,14 @@ namespace Nova.Common
         public int Capacity(Race race)
         {
             double maxPopulation = race.MaxPopulation;
+            
             if (race.HasTrait("HyperExpansion"))
             {
-                maxPopulation /= 2;
+                maxPopulation *= Global.PopulationFactorHyperExpansion;
             }
 
             double capacity = (Colonists / maxPopulation) * 100;
+            
             return (int)Math.Ceiling(capacity);
         }
 
@@ -268,7 +436,53 @@ namespace Nova.Common
             UpdateResources(race);
         }
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Calculates the growth for the star.
+        /// </summary>
+        /// <param name="race"></param>
+        /// <returns>The amount of colonists the star will gain on update.</returns>
+        /// <remarks>
+        /// See Upadate()
+        /// </remarks>
+        /// ----------------------------------------------------------------------------
+        public int CalculateGrowth(Race race)
+        {
+            double habitalValue = HabitalValue(race);
+            double growthRate = race.GrowthRate;
 
+            if (race.HasTrait("HyperExpansion"))
+            {
+                growthRate *= Global.GrowthFactorHyperExpansion;
+            }
+
+            double populationGrowth = Colonists;
+            populationGrowth *= growthRate / 100.0;
+            populationGrowth *= habitalValue;
+            
+            double capacity = Capacity(race) / 100.0;
+
+            if (capacity > 0.25)
+            {
+                double crowdingFactor = Global.BaseCrowdingFactor;
+                crowdingFactor *= (1.0 - capacity) * (1.0 - capacity);
+                populationGrowth *= crowdingFactor;
+            }
+            
+            // As per vanilla Stars! the minimal colonist growth unit
+            // is set as 100 colonists. A planet does not track colonists
+            // by the tens. While visually this does not matter much,
+            // the compounding effect of growth can make those extra tens of
+            // colonists matter in the long run and mismatch the behaviour
+            // of Stars and Nova.
+            int finalGrowth = (int)populationGrowth;
+            finalGrowth /= 100;
+            finalGrowth *= 100;
+            
+            return finalGrowth;
+        }
+        
+        
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Update the population of a star system.
@@ -280,30 +494,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         private void UpdatePopulation(Race race)
         {
-            double habitalValue = HabitalValue(race);
-            double growthRate = race.GrowthRate / 100;
-
-            if (race.HasTrait("HyperExpansion"))
-            {
-                growthRate *= 2;
-            }
-
-            double populationGrowth = Colonists * growthRate * habitalValue;
-            double capacity = Colonists / race.MaxPopulation;
-
-            if (race.HasTrait("HyperExpansion"))
-            {
-                capacity /= 2;
-            }
-
-            if (capacity > 0.25)
-            {
-                double crowdingFactor = 1.75;
-                crowdingFactor *= (1.0 - capacity) * (1.0 - capacity);
-                populationGrowth *= crowdingFactor;
-            }
-
-            Colonists += (int)populationGrowth;
+            Colonists += CalculateGrowth(race);
         }
 
 
@@ -322,20 +513,25 @@ namespace Nova.Common
             // This has a default of 1000 colonists per resource but can be
             // channged on a per race basis in the Race Designer.
 
-            ResourcesOnHand.Energy = Colonists / race.ColonistsPerResource;
+            // ResourcesOnHand.Energy = Colonists / race.ColonistsPerResource;
 
             // In addition, resources are generated by factories that are capable
             // of being manned. Again this is set in the Race Deigner with a
             // default of 1k colonists needed to man each factory. Note that the
             // actual number of existing factories may be less than the number
             // that are capable of being manned.
+            // 
+            // UPDATE: The Stars! default is 10k per 10 factories. This calculation
+            // has been refactored away. -Aeglos
 
-            int potentialFactories = Colonists / race.OperableFactories;
-            int factoriesInUse = Math.Min(Factories, potentialFactories);
+            // int potentialFactories = GetOperableFactories();
+            // int factoriesInUse = Math.Min(Factories, potentialFactories);
 
-            ResourcesOnHand.Energy += factoriesInUse * race.FactoryProduction / Global.FactoriesPerFactoryProductionUnit;
+            // ResourcesOnHand.Energy += factoriesInUse / Global.FactoriesPerFactoryProductionUnit * race.FactoryProduction;
+            // UPDATE May 11: Refactored moar - Aeglos.            
 
-            ThisRace = race;
+            ThisRace = race; // TODO: Is this nessesary? -Aeglos
+            ResourcesOnHand.Energy = GetResourceRate();
             ResourcesOnHand.Ironium += Mine(ref MineralConcentration.Ironium);
             ResourcesOnHand.Boranium += Mine(ref MineralConcentration.Boranium);
             ResourcesOnHand.Germanium += Mine(ref MineralConcentration.Germanium);
@@ -370,13 +566,10 @@ namespace Nova.Common
             // operated by 10K colonists.
 
 
-            int potentialMines = (Colonists / Global.ColonistsPerOperableMiningUnit) * ThisRace.OperableMines;
+            int potentialMines = GetOperableMines();
             int minesInUse = Math.Min(Mines, potentialMines);
 
-            // This operation needs to be done with implicit float converstion and then casted to int, otherwise
-            // the normalized concentration is always zero and no mining occurs. -Aeglos
-            int mined = (int)(((minesInUse / Global.MinesPerMineProductionUnit) * ThisRace.MineProductionRate)
-                              * (concentration / 100.0));
+            int mined = GetMiningRate(concentration);
 
             // Reduce the mineral concentration. This is just an approximation of
             // the Stars! algorithm for now. Concentration will drop by 1 point

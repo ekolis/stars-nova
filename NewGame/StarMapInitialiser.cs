@@ -216,31 +216,36 @@ namespace Nova.NewGame
         private static void AllocateHomeStarResources(Star star, Race race)
         {
             Random random = new Random();
+            
+            // Set the owner of the home star in order to obtain proper
+            // starting resources.
+            star.Owner = race.Name;
+            star.ThisRace = race;
+            
+            // Set the habital values for this star to the optimum for each race.
+            // This should result in a planet value of 100% for this race's home
+            // world.            
+            star.Radiation = race.RadiationTolerance.OptimumLevel;
+            star.Temperature = race.TemperatureTolerance.OptimumLevel;
+            star.Gravity = race.GravityTolerance.OptimumLevel;
+            star.Colonists = race.GetStartingPopulation();
 
             star.ResourcesOnHand.Boranium = random.Next(300, 500);
             star.ResourcesOnHand.Ironium = random.Next(300, 500);
             star.ResourcesOnHand.Germanium = random.Next(300, 500);
-            star.ResourcesOnHand.Energy = 25;
+            star.Mines = 10;
+            star.Factories = 10; 
+            star.ResourcesOnHand.Energy = star.GetResourceRate();
 
             star.MineralConcentration.Boranium = random.Next(50, 100);
             star.MineralConcentration.Ironium = random.Next(50, 100);
             star.MineralConcentration.Germanium = random.Next(50, 100);
 
-            star.Owner = race.Name;
+            
             star.ScannerType = "Scoper 150"; // TODO (priority 4) get from component list
             star.DefenseType = "SDI"; // TODO (priority 4) get from component list
             star.ScanRange = 50; // TODO (priority 4) get from component list
-            star.Mines = 10;
-            star.Factories = 10;
-
-            // Set the habital values for this star to the optimum for each race.
-            // This should result in a planet value of 100% for this race's home
-            // world.
-
-            star.Radiation = race.RadiationTolerance.OptimumLevel;
-            star.Temperature = race.TemperatureTolerance.OptimumLevel;
-            star.Gravity = race.GravityTolerance.OptimumLevel;
-            star.Colonists = race.GetStartingPopulation();
+                       
         }
 
         #endregion
