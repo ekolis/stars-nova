@@ -934,6 +934,7 @@ namespace Nova.WinForms.RaceDesigner
             this.radiationTolerance.Size = new System.Drawing.Size(324, 95);
             this.radiationTolerance.TabIndex = 2;
             this.radiationTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
+            this.radiationTolerance.CheckChanged += new Nova.ControlLibrary.Range.CheckChangedHandler(this.Tolerance_CheckChanged);
             // 
             // TemperatureTolerance
             // 
@@ -947,19 +948,21 @@ namespace Nova.WinForms.RaceDesigner
             this.temperatureTolerance.Size = new System.Drawing.Size(324, 95);
             this.temperatureTolerance.TabIndex = 1;
             this.temperatureTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
+            this.temperatureTolerance.CheckChanged += new Nova.ControlLibrary.Range.CheckChangedHandler(this.Tolerance_CheckChanged);
             // 
             // GravityTolerance
-            // 
+            //
             this.gravityTolerance.MinimumValue = 15;
             this.gravityTolerance.MaximumValue = 85;
             this.gravityTolerance.Location = new System.Drawing.Point(14, 19);
             this.gravityTolerance.Name = "gravityTolerance";
             this.gravityTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.gravityTolerance.RangeTitle = "Gravity";
-            this.gravityTolerance.RangeUnits = Gravity.GetUnit();
+            this.gravityTolerance.RangeUnits = "g"; //Gravity.GetUnit();
             this.gravityTolerance.Size = new System.Drawing.Size(324, 95);
             this.gravityTolerance.TabIndex = 0;
             this.gravityTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
+            this.gravityTolerance.CheckChanged += new Nova.ControlLibrary.Range.CheckChangedHandler(this.Tolerance_CheckChanged);
             // 
             // ProductionTab
             // 
@@ -1669,6 +1672,7 @@ namespace Nova.WinForms.RaceDesigner
             showAvailablePoints();
             this.parametersChanged = true;
         }
+        
         /// <summary>
         /// Called when the Extratech combobox is checked
         /// </summary>
@@ -1688,6 +1692,7 @@ namespace Nova.WinForms.RaceDesigner
             showAvailablePoints();
             this.parametersChanged = true;
         }
+        
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Called when a tolerance range has changed. The new width of the range and
@@ -1713,7 +1718,20 @@ namespace Nova.WinForms.RaceDesigner
             this.parametersChanged = true;
         }
 
-
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Called when an immunity checkbox has changed.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="value"></param>
+        /// ----------------------------------------------------------------------------
+        private void Tolerance_CheckChanged(object sender, int value)
+        {
+            this.advantagePoints += value;
+            showAvailablePoints();
+            this.parametersChanged = true;
+        }
+        
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// This function is called when the Exit button is pressed. Provide a warning
