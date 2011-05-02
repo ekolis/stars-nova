@@ -408,34 +408,7 @@ namespace Nova.Common
             double clicksFromCenter = Math.Abs(centre - starValue);
             return clicksFromCenter / totalClicksFromCenterToEdge;
         }
-
-        #endregion
-
-        // These methods change the star system. They should only be called server side.
-        #region Action Methods
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Update a star to take into account the passing of a year.
-        /// </summary>
-        /// <param name="race"></param>
-        /// <remarks>
-        /// FIXME (priority 4) why pass the race in? The race occupying this star system is this.ThisRace.
-        /// 
-        /// Update a star to take into account the passing of a year.
-        /// FIXME (priority 5) - this should not be here as it means the GUI has access to methods 
-        /// that increase pop and resources - which is probably the source of the bug
-        /// that causes this to happen when a star is clicked in the GUI.
-        /// ... Turns out that bug was calling this function when it should not have been,
-        /// still the above comment applies. Suggest refactor into ProcessTurn. - Dan 16 Jan 10
-        /// </remarks>
-        /// ----------------------------------------------------------------------------
-        public void Update(Race race)
-        {
-            UpdatePopulation(race);
-            UpdateResources(race);
-        }
-
+        
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculates the growth for the star.
@@ -481,7 +454,33 @@ namespace Nova.Common
             
             return finalGrowth;
         }
-        
+
+        #endregion
+
+        // These methods change the star system. They should only be called server side.
+        #region Action Methods
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Update a star to take into account the passing of a year.
+        /// </summary>
+        /// <param name="race"></param>
+        /// <remarks>
+        /// FIXME (priority 4) why pass the race in? The race occupying this star system is this.ThisRace.
+        /// 
+        /// Update a star to take into account the passing of a year.
+        /// FIXME (priority 5) - this should not be here as it means the GUI has access to methods 
+        /// that increase pop and resources - which is probably the source of the bug
+        /// that causes this to happen when a star is clicked in the GUI.
+        /// ... Turns out that bug was calling this function when it should not have been,
+        /// still the above comment applies. Suggest refactor into ProcessTurn. - Dan 16 Jan 10
+        /// </remarks>
+        /// ----------------------------------------------------------------------------
+        public void Update(Race race)
+        {
+            UpdatePopulation(race);
+            UpdateResources(race);
+        }        
         
         /// ----------------------------------------------------------------------------
         /// <summary>
