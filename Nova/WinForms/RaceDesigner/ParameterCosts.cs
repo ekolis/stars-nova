@@ -120,14 +120,14 @@ namespace Nova.WinForms.RaceDesigner
 
         public static readonly ParameterEntry[] Parameters = new[] 
             {
-                new ParameterEntry("MaxGrowth", MaxGrowth),
-                new ParameterEntry("ColonistProduction", ColonistProduction),
-                new ParameterEntry("ResourceProduction", ResourceProduction),
-                new ParameterEntry("FactoryBuildCost", FactoryBuildCost),
-                new ParameterEntry("OperableFactories", OperableFactories),
-                new ParameterEntry("MineralProduction", MineralProduction),
-                new ParameterEntry("ResourcesPerMine", ResourcesPerMine),
-                new ParameterEntry("OperableMines", OperableMines)
+                new ParameterEntry("maxGrowth", MaxGrowth),
+                new ParameterEntry("colonistProduction", ColonistProduction),
+                new ParameterEntry("resourceProduction", ResourceProduction),
+                new ParameterEntry("factoryBuildCost", FactoryBuildCost),
+                new ParameterEntry("operableFactories", OperableFactories),
+                new ParameterEntry("mineralProduction", MineralProduction),
+                new ParameterEntry("resourcesPerMine", ResourcesPerMine),
+                new ParameterEntry("operableMines", OperableMines)
             };
     }
 }

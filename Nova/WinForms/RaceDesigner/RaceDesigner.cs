@@ -1635,7 +1635,7 @@ namespace Nova.WinForms.RaceDesigner
                     int newValue = (int)upDown.Value;
                     int oldValue = parameter.Cost[0];
 
-                    if (upDown.Name == "ColonistProduction")
+                    if (upDown.Name == "colonistProduction")
                     {
                         this.advantagePoints += parameter.Cost[oldValue / 100];
                         this.advantagePoints -= parameter.Cost[newValue / 100];
