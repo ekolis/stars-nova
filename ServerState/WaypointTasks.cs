@@ -192,12 +192,14 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public static void Scrap(Ship ship, Star star, double amount, double resources)
         {
-            double factor = amount / 100;
-
-            star.ResourcesOnHand.Ironium = ship.Cost.Ironium * factor;
-            star.ResourcesOnHand.Boranium = ship.Cost.Boranium * factor;
-            star.ResourcesOnHand.Germanium = ship.Cost.Germanium * factor;
-            star.ResourcesOnHand.Energy = ship.Cost.Energy * factor;
+            double factor = amount / 100;            
+            
+            // Use the Resource operator * instead! -Aeglos
+            // star.ResourcesOnHand.Ironium = ship.Cost.Ironium * factor;
+            // star.ResourcesOnHand.Boranium = ship.Cost.Boranium * factor;
+            // star.ResourcesOnHand.Germanium = ship.Cost.Germanium * factor;
+            // star.ResourcesOnHand.Energy = ship.Cost.Energy * factor;
+            star.ResourcesOnHand = ship.Cost * factor;
         }
 
 

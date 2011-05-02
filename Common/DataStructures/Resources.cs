@@ -43,10 +43,10 @@ namespace Nova.Common
     [TypeConverter(typeof(ResourcesConverter))]
     public class Resources
     {
-        public double Boranium = 0;
-        public double Ironium = 0;
-        public double Germanium = 0;
-        public double Energy = 0;
+        public int Boranium = 0;
+        public int Ironium = 0;
+        public int Germanium = 0;
+        public int Energy = 0;
 
         #region Construction
 
@@ -177,6 +177,23 @@ namespace Nova.Common
         {
             return rhs * lhs;
         }
+        
+        public static Resources operator *(Resources lhs, double rhs)
+        {
+            Resources result = new Resources();
+            
+            result.Ironium = (int)(lhs.Ironium * rhs);
+            result.Boranium = (int)(lhs.Boranium * rhs);
+            result.Germanium = (int)(lhs.Germanium * rhs);
+            result.Energy = (int)(lhs.Energy * rhs);
+            
+            return result;
+        }
+        
+        public static Resources operator *(double lhs, Resources rhs)
+        {
+            return rhs * lhs;
+        }
 
         #endregion
 
@@ -189,7 +206,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public int Mass
         {
-            get { return (int)(Ironium + Boranium + Germanium); }
+            get { return (Ironium + Boranium + Germanium); }
         }
 
         #endregion
@@ -213,16 +230,16 @@ namespace Nova.Common
                     switch (subnode.Name.ToLower())
                     {
                         case "ironium":
-                            Ironium = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Ironium = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "boranium":
-                            Boranium = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Boranium = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "germanium":
-                            Germanium = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Germanium = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "energy":
-                            Energy = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Energy = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                     }
                 }
