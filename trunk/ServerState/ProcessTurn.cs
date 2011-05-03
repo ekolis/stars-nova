@@ -174,8 +174,11 @@ namespace Nova.WinForms.Console
             string owner = star.Owner;
             if (owner == null) return; // nothing to do for an empty star system.
             Race race = stateData.AllRaces[star.Owner] as Race;
+            
+            star.UpdateMinerals();
+            
             int initialPopulation = star.Colonists;
-            star.Update(race);
+            star.UpdatePopulation(race);
             int finalPopulation = star.Colonists;
 
             if (finalPopulation < initialPopulation)
@@ -190,6 +193,7 @@ namespace Nova.WinForms.Console
             }
 
             Manufacture.Items(star);
+            star.UpdateResources();
         }
 
 

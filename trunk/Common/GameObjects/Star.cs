@@ -40,9 +40,9 @@ namespace Nova.Common
     public class Star : Item
     {
         public bool OrbitingFleets;
-        public ProductionQueue ManufacturingQueue = new ProductionQueue();
-        public Resources MineralConcentration = new Resources();
-        public Resources ResourcesOnHand = new Resources();
+        public ProductionQueue ManufacturingQueue;
+        public Resources MineralConcentration;
+        public Resources ResourcesOnHand;
         public Fleet Starbase;
         /// <summary>
         /// The number of colonists as reported on a planet. Divide by GlobalDefinitions.ColonistsPerKiloton to convert to cargo units.
@@ -80,6 +80,9 @@ namespace Nova.Common
         public Star()
         {
             this.Starbase = null;
+            this.ManufacturingQueue = new ProductionQueue();
+            this.MineralConcentration = new Resources();
+            this.ResourcesOnHand = new Resources();
         }
 
         #endregion
@@ -458,29 +461,7 @@ namespace Nova.Common
         #endregion
 
         // These methods change the star system. They should only be called server side.
-        #region Action Methods
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Update a star to take into account the passing of a year.
-        /// </summary>
-        /// <param name="race"></param>
-        /// <remarks>
-        /// FIXME (priority 4) why pass the race in? The race occupying this star system is this.ThisRace.
-        /// 
-        /// Update a star to take into account the passing of a year.
-        /// FIXME (priority 5) - this should not be here as it means the GUI has access to methods 
-        /// that increase pop and resources - which is probably the source of the bug
-        /// that causes this to happen when a star is clicked in the GUI.
-        /// ... Turns out that bug was calling this function when it should not have been,
-        /// still the above comment applies. Suggest refactor into ProcessTurn. - Dan 16 Jan 10
-        /// </remarks>
-        /// ----------------------------------------------------------------------------
-        public void Update(Race race)
-        {
-            UpdatePopulation(race);
-            UpdateResources(race);
-        }        
+        #region Action Methods     
         
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -491,7 +472,7 @@ namespace Nova.Common
         /// See Upadate()
         /// </remarks>
         /// ----------------------------------------------------------------------------
-        private void UpdatePopulation(Race race)
+        public void UpdatePopulation(Race race)
         {
             Colonists += CalculateGrowth(race);
         }
@@ -501,12 +482,11 @@ namespace Nova.Common
         /// <summary>
         /// Update the resources available to a star system.
         /// </summary>
-        /// <param name="race"></param>
         /// <remarks>
-        /// See Upadate()
+        /// See UpadateMinerals()
         /// </remarks>
         /// ----------------------------------------------------------------------------
-        private void UpdateResources(Race race)
+        public void UpdateResources()
         {
             // A certain number of colonists will generate a resource each year.
             // This has a default of 1000 colonists per resource but can be
@@ -521,22 +501,26 @@ namespace Nova.Common
             // that are capable of being manned.
             // 
             // UPDATE: The Stars! default is 10k per 10 factories. This calculation
-            // has been refactored away. -Aeglos
+            // has been refactored away. -Aeglos        
 
-            // int potentialFactories = GetOperableFactories();
-            // int factoriesInUse = Math.Min(Factories, potentialFactories);
-
-            // ResourcesOnHand.Energy += factoriesInUse / Global.FactoriesPerFactoryProductionUnit * race.FactoryProduction;
-            // UPDATE May 11: Refactored moar - Aeglos.            
-
-            ThisRace = race; // TODO: Is this nessesary? -Aeglos
-            ResourcesOnHand.Energy = GetResourceRate();
-            ResourcesOnHand.Ironium += Mine(ref MineralConcentration.Ironium);
-            ResourcesOnHand.Boranium += Mine(ref MineralConcentration.Boranium);
-            ResourcesOnHand.Germanium += Mine(ref MineralConcentration.Germanium);
-            ResourcesOnHand.Energy -= ResearchAllocation;
+            this.ResourcesOnHand.Energy = GetResourceRate();
+            this.ResourcesOnHand.Energy -= ResearchAllocation;
         }
 
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Update the minerals available on a star system.
+        /// </summary>
+        /// <remarks>
+        /// See UpadateResources()
+        /// </remarks>
+        /// ----------------------------------------------------------------------------
+        public void UpdateMinerals()
+        {            
+            this.ResourcesOnHand.Ironium += Mine(ref this.MineralConcentration.Ironium);
+            this.ResourcesOnHand.Boranium += Mine(ref this.MineralConcentration.Boranium);
+            this.ResourcesOnHand.Germanium += Mine(ref this.MineralConcentration.Germanium);
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>

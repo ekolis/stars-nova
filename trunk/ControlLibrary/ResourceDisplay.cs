@@ -34,6 +34,9 @@ namespace Nova.ControlLibrary
 {
     public class ResourceDisplay : System.Windows.Forms.UserControl
     {
+        // Used to keep track of the resources not on hand.
+        private int researchAllocation;
+        
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -54,6 +57,8 @@ namespace Nova.ControlLibrary
         /// </summary>
         public ResourceDisplay()
         {
+            this.researchAllocation = 0;
+            
             InitializeComponent();
         }
 
@@ -85,7 +90,7 @@ namespace Nova.ControlLibrary
         /// </summary>
         /// ----------------------------------------------------------------------------
         private void InitializeComponent()
-        {
+        {            
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
@@ -228,6 +233,13 @@ namespace Nova.ControlLibrary
 
         #region Properties
 
+        public int ResearchAllocation
+        {
+            set
+            {
+                this.researchAllocation = value;
+            }
+        }
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the resources in the resource display.
@@ -246,7 +258,8 @@ namespace Nova.ControlLibrary
                     this.ironium.Text = resources.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     this.boranium.Text = resources.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     this.germanium.Text = resources.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    this.energy.Text = resources.Energy.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.energy.Text = resources.Energy.ToString(System.Globalization.CultureInfo.InvariantCulture) + " of " 
+                        + (resources.Energy + this.researchAllocation).ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
                 catch
                 {
