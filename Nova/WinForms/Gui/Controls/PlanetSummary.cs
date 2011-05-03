@@ -116,7 +116,7 @@ namespace Nova.WinForms.Gui
         	this.reportAge = new System.Windows.Forms.Label();
         	this.planetValue = new System.Windows.Forms.Label();
         	this.population = new System.Windows.Forms.Label();
-        	this.tooltip = new System.Windows.Forms.ToolTip();
+        	this.tooltip = new System.Windows.Forms.ToolTip(this.components);
         	this.label1 = new System.Windows.Forms.Label();
         	this.label2 = new System.Windows.Forms.Label();
         	this.label6 = new System.Windows.Forms.Label();
@@ -167,12 +167,15 @@ namespace Nova.WinForms.Gui
         	this.population.TabIndex = 26;
         	this.population.Text = "Uninhabited";
         	this.population.TextAlign = System.Drawing.ContentAlignment.TopRight;
-        	this.population.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Population_Click);
+        	this.population.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Population_Hold);
         	this.population.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Population_Release);
         	// 
         	// tooltip
         	// 
         	this.tooltip.AutomaticDelay = 0;
+            this.tooltip.AutoPopDelay = 30000;
+            this.tooltip.InitialDelay = 0;
+            this.tooltip.ReshowDelay = 0;
         	this.tooltip.ShowAlways = true;
         	this.tooltip.Active = true;
         	// 
@@ -560,8 +563,8 @@ namespace Nova.WinForms.Gui
 
         #region Event Methods
         
-        private void Population_Click(object sender, MouseEventArgs e)
-        {            
+        private void Population_Hold(object sender, MouseEventArgs e)
+        {               
             string tt = "";
             
             if (this.star != null
