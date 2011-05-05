@@ -43,6 +43,9 @@ namespace Nova.UnitTests
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Relative path test.
+        /// 
+        /// TODO Clean up unit test. Asserting on many things in a single test is not recommended.
+        /// This indicates that the test probably should be broken into multiple tests.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Test]

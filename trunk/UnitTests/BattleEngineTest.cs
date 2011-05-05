@@ -53,6 +53,9 @@ namespace Nova.UnitTests
     //
     // There are some uninitialised variables to receive the results of various
     // steps and provide the input to the next step.
+    //
+    // TODO Eliminate the requirement that the tests are run in a specific sequence.
+    // Unit tests should be able to run individually and not depend on other tests.
     // ============================================================================
 
     [TestFixture]

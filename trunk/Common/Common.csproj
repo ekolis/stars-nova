@@ -211,7 +211,6 @@
     <Compile Include="SpaceAllocator.cs" />
     <Compile Include="..\VersionInfo.cs" />
     <Compile Include="StrongList.cs" />
-    <Compile Include="TestControls.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProgressDialog.resx">

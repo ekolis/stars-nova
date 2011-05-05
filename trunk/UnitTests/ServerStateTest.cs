@@ -42,7 +42,14 @@ namespace Nova.UnitTests
     {
         /// <summary>
         /// Test the (de)serialising of the ServerState.
+        /// 
+        /// TODO Move test into separate integration test project.
+        /// The test attempts to read and write to disk. Accessing external resources greatly
+        /// reduces performance of the test suite and disrupts the unit test flow making
+        /// this an integration test and not a unit test. Using magic numbers (2101/2 is a magic number)
+        /// is not recommended.
         /// </summary>
+        [Ignore("Not a unit test, but an integration test. Should be moved to different project.")]
         [Test]
         public void SerialisationTest()
         {

@@ -32,8 +32,13 @@ namespace Nova.UnitTests
     [TestFixture]
     public class BattleReportTests
     {
+        // TODO Move test into separate integration test project.
+        // The test attempts to write to disk. Accessing external resources greatly
+        // reduces performance of the test suite and disrupts the unit test flow making
+        // this an integration test and not a unit test. Doing exception handling and
+        // using logic (if-statements) is also not recommended.
+        [Ignore("Not a unit test, but an integration test. Should be moved to different project.")]
         [Test]
-
         public void SerialisationTestEmptyBattleReport()
         {
             StringWriter stringStream = new StringWriter();
