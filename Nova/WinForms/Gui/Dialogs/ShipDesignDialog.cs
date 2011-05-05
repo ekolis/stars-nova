@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -53,7 +53,7 @@ namespace Nova.WinForms.Gui
 
         private Component selectedHull;
         private int designMass;
-        private ShipIcon ShipIcon = null;
+        private ShipIcon shipIcon;
 
         #region Designer Generated Code
 
@@ -102,8 +102,8 @@ namespace Nova.WinForms.Gui
         private Label label3;
         private GroupBox groupBox7;
         private Graph graph1;
-        private Button prevImageButton;
-        private Button nextImageButton;
+        private Button PrevImageButton;
+        private Button NextImageButton;
         private ControlLibrary.HullGrid HullGrid;
 
         /// <summary>
@@ -139,8 +139,8 @@ namespace Nova.WinForms.Gui
             this.Cancel = new System.Windows.Forms.Button();
             this.SaveButton = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.nextImageButton = new System.Windows.Forms.Button();
-            this.prevImageButton = new System.Windows.Forms.Button();
+            this.NextImageButton = new System.Windows.Forms.Button();
+            this.PrevImageButton = new System.Windows.Forms.Button();
             this.HullImage = new System.Windows.Forms.PictureBox();
             this.HullGrid = new Nova.ControlLibrary.HullGrid();
             this.label10 = new System.Windows.Forms.Label();
@@ -222,8 +222,8 @@ namespace Nova.WinForms.Gui
             // groupBox2
             // 
             this.groupBox2.Anchor = System.Windows.Forms.AnchorStyles.Top;
-            this.groupBox2.Controls.Add(this.nextImageButton);
-            this.groupBox2.Controls.Add(this.prevImageButton);
+            this.groupBox2.Controls.Add(this.NextImageButton);
+            this.groupBox2.Controls.Add(this.PrevImageButton);
             this.groupBox2.Controls.Add(this.HullImage);
             this.groupBox2.Controls.Add(this.HullGrid);
             this.groupBox2.Controls.Add(this.label10);
@@ -240,25 +240,25 @@ namespace Nova.WinForms.Gui
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "New Design";
             // 
-            // nextImageButton
+            // NextImageButton
             // 
-            this.nextImageButton.Location = new System.Drawing.Point(323, 92);
-            this.nextImageButton.Name = "nextImageButton";
-            this.nextImageButton.Size = new System.Drawing.Size(29, 20);
-            this.nextImageButton.TabIndex = 21;
-            this.nextImageButton.Text = ">";
-            this.nextImageButton.UseVisualStyleBackColor = true;
-            this.nextImageButton.Click += new System.EventHandler(this.nextImageButton_Click);
+            this.NextImageButton.Location = new System.Drawing.Point(323, 92);
+            this.NextImageButton.Name = "NextImageButton";
+            this.NextImageButton.Size = new System.Drawing.Size(29, 20);
+            this.NextImageButton.TabIndex = 21;
+            this.NextImageButton.Text = ">";
+            this.NextImageButton.UseVisualStyleBackColor = true;
+            this.NextImageButton.Click += new System.EventHandler(this.NextImageButton_Click);
             // 
-            // prevImageButton
+            // PrevImageButton
             // 
-            this.prevImageButton.Location = new System.Drawing.Point(288, 92);
-            this.prevImageButton.Name = "prevImageButton";
-            this.prevImageButton.Size = new System.Drawing.Size(29, 20);
-            this.prevImageButton.TabIndex = 20;
-            this.prevImageButton.Text = "<";
-            this.prevImageButton.UseVisualStyleBackColor = true;
-            this.prevImageButton.Click += new System.EventHandler(this.prevImageButton_Click);
+            this.PrevImageButton.Location = new System.Drawing.Point(288, 92);
+            this.PrevImageButton.Name = "PrevImageButton";
+            this.PrevImageButton.Size = new System.Drawing.Size(29, 20);
+            this.PrevImageButton.TabIndex = 20;
+            this.PrevImageButton.Text = "<";
+            this.PrevImageButton.UseVisualStyleBackColor = true;
+            this.PrevImageButton.Click += new System.EventHandler(this.PrevImageButton_Click);
             // 
             // HullImage
             // 
@@ -884,7 +884,7 @@ namespace Nova.WinForms.Gui
             newDesign.ShipHull = this.selectedHull;
             newDesign.Cost = DesignResources.Value;
             newDesign.Mass = Convert.ToInt32(ShipMass.Text);
-            newDesign.Icon = ShipIcon;
+            newDesign.Icon = shipIcon;
             newDesign.Update();
 
             if (hullProperties.IsStarbase)
@@ -1113,10 +1113,10 @@ namespace Nova.WinForms.Gui
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        private void prevImageButton_Click(object sender, EventArgs e)
+        private void PrevImageButton_Click(object sender, EventArgs e)
         {
-            ShipIcon--;
-            HullImage.Image = ShipIcon.Image;
+            shipIcon--;
+            HullImage.Image = shipIcon.Image;
         }
 
         /// <summary>
@@ -1124,10 +1124,10 @@ namespace Nova.WinForms.Gui
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        private void nextImageButton_Click(object sender, EventArgs e)
+        private void NextImageButton_Click(object sender, EventArgs e)
         {
-            ShipIcon++;
-            HullImage.Image = ShipIcon.Image;
+            shipIcon++;
+            HullImage.Image = shipIcon.Image;
         }
 
 
@@ -1169,8 +1169,8 @@ namespace Nova.WinForms.Gui
             }
             HullImage.Image = ShipIcon.Image;
             */
-            ShipIcon = AllShipIcons.Data.GetIconBySource(selectedHull.ImageFile);
-            HullImage.Image = ShipIcon.Image;
+            shipIcon = AllShipIcons.Data.GetIconBySource(selectedHull.ImageFile);
+            HullImage.Image = shipIcon.Image;
 
             Description.Text = this.selectedHull.Description;
 

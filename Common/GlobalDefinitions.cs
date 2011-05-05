@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -89,7 +89,7 @@ namespace Nova.Common
        // Colonists
        public const int ColonistsPerKiloton = 100;
        public const double LowStartingPopulationFactor = 0.7;
-       public const double BaseCrowdingFactor = 16/9; // Taken from the Stars technical faq.
+       public const double BaseCrowdingFactor = 16 / 9; // Taken from the Stars technical faq.
        public const int StartingColonists = 25000;
        public const int StartingColonistsAcceleratedBBS = 100000;
        public const int NominalMaximumPlanetaryPopulation = 1000000; // use Race.MaxPopulation to get the maximum for a particular race.

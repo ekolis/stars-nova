@@ -82,6 +82,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataStructures\BattleStep.cs" />
+    <Compile Include="DataStructures\BattleStepDestroy.cs" />
+    <Compile Include="DataStructures\BattleStepMovement.cs" />
+    <Compile Include="DataStructures\BattleStepTarget.cs" />
+    <Compile Include="DataStructures\BattleStepWeapons.cs" />
     <Compile Include="DataStructures\Converters\EnabledValueConverter.cs" />
     <Compile Include="DataStructures\Converters\InstanceDescriptorConverter.cs" />
     <Compile Include="DataStructures\Converters\ResourcesConverter.cs" />
@@ -89,7 +94,7 @@
     <Compile Include="DataStructures\Gravity.cs" />
     <Compile Include="DataStructures\GravityTolerance.cs" />
     <Compile Include="DataStructures\NovaPoint.cs" />
-    <Compile Include="DataStructures\ShipIcon.cs"/>
+    <Compile Include="DataStructures\ShipIcon.cs" />
     <Compile Include="DataStructures\RadiationTolerance.cs" />
     <Compile Include="DataStructures\Temperature.cs" />
     <Compile Include="DataStructures\TemperatureTolerance.cs" />

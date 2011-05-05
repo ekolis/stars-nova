@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2011 stars-nova
+// Copyright (C) 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -18,6 +18,7 @@
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
 // ===========================================================================
 #endregion
+
 
 #region Module Description
 // ===========================================================================
@@ -39,7 +40,7 @@ namespace Nova.Common
     [Serializable]
     public class ShipIcon : ICloneable
     {
-        private int Index = 0;
+        private readonly int index;
         public string Source = string.Empty;
         private Bitmap image;
         public Bitmap Image
@@ -91,7 +92,7 @@ namespace Nova.Common
             int extensionSeperatorIndex = Source.IndexOf('.'); // position of the '.' in the file name
 
             // get the hull number of this icon
-            Index = int.Parse(Source.Substring(extensionSeperatorIndex - Global.ShipIconNumberingLength, Global.ShipIconNumberingLength));
+            index = int.Parse(Source.Substring(extensionSeperatorIndex - Global.ShipIconNumberingLength, Global.ShipIconNumberingLength));
 
         }
 
@@ -120,8 +121,8 @@ namespace Nova.Common
             // then find the number of available icons, locate the next one and look up that icon.
             string baseHull = icon.Source.Substring(0, icon.Source.IndexOf('.') - Global.ShipIconNumberingLength);
             int iconCount = AllShipIcons.Data.Hulls[baseHull].Count;
-            int nextIconIndex = icon.Index + 1;
-            if (nextIconIndex > (iconCount-1)) nextIconIndex = 0;
+            int nextIconIndex = icon.index + 1;
+            if (nextIconIndex > (iconCount - 1)) nextIconIndex = 0;
             return (ShipIcon)AllShipIcons.Data.Hulls[baseHull][nextIconIndex];
         }
 
@@ -142,7 +143,7 @@ namespace Nova.Common
             }
             string baseHull = icon.Source.Substring(0, icon.Source.IndexOf('.') - Global.ShipIconNumberingLength);
             int iconCount = AllShipIcons.Data.Hulls[baseHull].Count;
-            int prevIconIndex = icon.Index - 1;
+            int prevIconIndex = icon.index - 1;
             if (prevIconIndex < 0) prevIconIndex = iconCount - 1;
             return (ShipIcon)AllShipIcons.Data.Hulls[baseHull][prevIconIndex];
         }

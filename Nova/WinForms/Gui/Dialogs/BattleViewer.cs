@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -32,6 +32,7 @@ using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 using Nova.Common;
+using Nova.Common.DataStructures;
 
 namespace Nova.WinForms.Gui
 {
@@ -52,7 +53,7 @@ namespace Nova.WinForms.Gui
         /// Initializes a new instance of the BattleViewer class.
         /// </summary>
         /// <param name="thisBattle">The <see cref="BattleReport"/> to be displayed.</param>
-        public BattleViewer(Nova.Common.BattleReport thisBattle)
+        public BattleViewer(BattleReport thisBattle)
         {
             InitializeComponent();
             this.theBattle = thisBattle;

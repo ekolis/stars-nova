@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -37,6 +37,7 @@ using System.Xml.Serialization;
 
 using Nova.Common;
 using Nova.Common.Components;
+using Nova.Common.DataStructures;
 
 #endregion
 
@@ -454,7 +455,6 @@ namespace Nova.Client
                           if (star.ScannerType != string.Empty)
                           {
                               star.ScannerType = component.Name;
-                              //star.ScanRange = component.Properties["Scaner"].
                           }
                       }
                   }
