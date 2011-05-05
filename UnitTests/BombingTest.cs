@@ -70,6 +70,8 @@ namespace Nova.UnitTests
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Bombing Test
+        /// 
+        /// TODO Clean up unit test. Using logic (for-loops and Math.Max()) and magic numbers in tests is not recommended.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Test]

@@ -24,7 +24,8 @@ using NUnit.Framework;
 
 namespace Nova.UnitTests
 {
-    [TestFixture] 
+    // TODO Clean up unit test. Using magic numbers is not recommended.
+    [TestFixture]
     public class StarTest
     {
         private Star star = new Star();

@@ -36,6 +36,8 @@ namespace Nova.UnitTests
     /// ----------------------------------------------------------------------------
     /// <summary>
     /// Unit test for Defense coverage calculations
+    /// 
+    /// TODO Clean up unit test. Using magic numbers is not recommended.
     /// </summary>
     /// ----------------------------------------------------------------------------
     [TestFixture]
