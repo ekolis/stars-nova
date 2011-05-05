@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -33,7 +33,6 @@ using System.Windows.Forms;
 using Nova.Client;
 using Nova.Common;
 using Nova.ControlLibrary;
-using Nova.Common.DataStructures;
 
 namespace Nova.WinForms.Gui
 {
@@ -593,11 +592,6 @@ namespace Nova.WinForms.Gui
         }
         
         #endregion
-        
-        //private void tooltip_Popup(object sender, PopupEventArgs e)
-        //{
-            
-        //}
     }
 }
 

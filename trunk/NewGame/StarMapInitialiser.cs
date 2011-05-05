@@ -1,6 +1,6 @@
 #region Copyright Notice
 // ============================================================================
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -27,14 +27,13 @@
 #endregion
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
-using System.Threading;
 
 using Nova.Common;
 using Nova.Common.Components;
 using Nova.Server;
-using System.Collections;
 
 namespace Nova.NewGame
 {
@@ -132,12 +131,12 @@ namespace Nova.NewGame
                 defense.Owner = player;
                 AllComponents.Restore();
                 Hashtable components = AllComponents.Data.Components;
-                Hull csHull, scoutHull, starbaseHull;
+                Hull colonyShipHull, scoutHull, starbaseHull;
                 Engine engine;
                 foreach (string name in components.Keys)
                 {
                     if (name == "Colony Ship")
-                        csHull = (components["Colony Ship"] as Component).Properties["Hull"] as Hull;
+                        colonyShipHull = (components["Colony Ship"] as Component).Properties["Hull"] as Hull;
                     else if (name == "Scout")
                         scoutHull = (components["Scout"] as Component).Properties["Hull"] as Hull;
                     else if (name == "Space Dock")

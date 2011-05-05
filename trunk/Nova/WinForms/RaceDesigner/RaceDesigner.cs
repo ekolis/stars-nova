@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -1554,13 +1554,13 @@ namespace Nova.WinForms.RaceDesigner
                     }
 
                     this.parametersChanged = true;
-                    showAvailablePoints();
+                    ShowAvailablePoints();
                     break;
                 }
             }
         }
 
-        private void showAvailablePoints()
+        private void ShowAvailablePoints()
         {
             this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
         }
@@ -1599,7 +1599,7 @@ namespace Nova.WinForms.RaceDesigner
                         this.advantagePoints += trait.Cost;
                     }
 
-                    showAvailablePoints();
+                    ShowAvailablePoints();
                     this.parametersChanged = true;
                     break;
                 }
@@ -1650,7 +1650,7 @@ namespace Nova.WinForms.RaceDesigner
                     }
 
                     parameter.Cost[0] = newValue;
-                    showAvailablePoints();
+                    ShowAvailablePoints();
                     this.parametersChanged = true;
                     break;
                 }
@@ -1669,7 +1669,7 @@ namespace Nova.WinForms.RaceDesigner
         private void ResearchCost_SelectionChanged(object sender, int value)
         {
             this.advantagePoints += value;
-            showAvailablePoints();
+            ShowAvailablePoints();
             this.parametersChanged = true;
         }
         
@@ -1689,7 +1689,7 @@ namespace Nova.WinForms.RaceDesigner
             {
                 this.advantagePoints += cost;
             }
-            showAvailablePoints();
+            ShowAvailablePoints();
             this.parametersChanged = true;
         }
         
@@ -1714,7 +1714,7 @@ namespace Nova.WinForms.RaceDesigner
             this.advantagePoints -= Utilities.BarPositionCost(oldLeftPos, oldRightPos);
             this.advantagePoints += Utilities.BarPositionCost(newLeftPos, newRightPos);
 
-            showAvailablePoints();
+            ShowAvailablePoints();
             this.parametersChanged = true;
         }
 
@@ -1728,7 +1728,7 @@ namespace Nova.WinForms.RaceDesigner
         private void Tolerance_CheckChanged(object sender, int value)
         {
             this.advantagePoints += value;
-            showAvailablePoints();
+            ShowAvailablePoints();
             this.parametersChanged = true;
         }
         

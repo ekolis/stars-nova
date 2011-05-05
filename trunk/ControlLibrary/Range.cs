@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -111,7 +111,7 @@ namespace Nova.ControlLibrary
         private System.Windows.Forms.GroupBox title;
         private System.Windows.Forms.Timer timer1;
         private System.Windows.Forms.Label boxSpan;
-        private CheckBox ImmunityCheckBox;
+        private CheckBox immunityCheckBox;
         private System.ComponentModel.IContainer components;
         #endregion
 
@@ -162,7 +162,7 @@ namespace Nova.ControlLibrary
             this.boxSpan = new System.Windows.Forms.Label();
             this.title = new System.Windows.Forms.GroupBox();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
-            this.ImmunityCheckBox = new System.Windows.Forms.CheckBox();
+            this.immunityCheckBox = new System.Windows.Forms.CheckBox();
             this.title.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -232,7 +232,7 @@ namespace Nova.ControlLibrary
             // 
             // Title
             // 
-            this.title.Controls.Add(this.ImmunityCheckBox);
+            this.title.Controls.Add(this.immunityCheckBox);
             this.title.Controls.Add(this.rightScroll);
             this.title.Controls.Add(this.boxSpan);
             this.title.Controls.Add(this.expand);
@@ -249,16 +249,16 @@ namespace Nova.ControlLibrary
             // 
             this.timer1.Tick += new System.EventHandler(this.Timer1_Tick);
             // 
-            // ImmunityCheckBox
+            // immunityCheckBox
             // 
-            this.ImmunityCheckBox.AutoSize = true;
-            this.ImmunityCheckBox.Location = new System.Drawing.Point(118, 71);
-            this.ImmunityCheckBox.Name = "ImmunityCheckBox";
-            this.ImmunityCheckBox.Size = new System.Drawing.Size(63, 17);
-            this.ImmunityCheckBox.TabIndex = 7;
-            this.ImmunityCheckBox.Text = "Immune";
-            this.ImmunityCheckBox.UseVisualStyleBackColor = true;
-            this.ImmunityCheckBox.CheckedChanged += new System.EventHandler(this.ImmunityCheckBox_CheckedChanged);
+            this.immunityCheckBox.AutoSize = true;
+            this.immunityCheckBox.Location = new System.Drawing.Point(118, 71);
+            this.immunityCheckBox.Name = "immunityCheckBox";
+            this.immunityCheckBox.Size = new System.Drawing.Size(63, 17);
+            this.immunityCheckBox.TabIndex = 7;
+            this.immunityCheckBox.Text = "Immune";
+            this.immunityCheckBox.UseVisualStyleBackColor = true;
+            this.immunityCheckBox.CheckedChanged += new System.EventHandler(this.ImmunityCheckBox_CheckedChanged);
             // 
             // Range
             // 
@@ -286,7 +286,7 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void Bar_Paint(object sender, PaintEventArgs e)
         {
-            if (ImmunityCheckBox.Checked)
+            if (immunityCheckBox.Checked)
             {
                 e.Graphics.Clear(Color.Black);
                 this.boxSpan.Text = "N/A";
@@ -318,8 +318,9 @@ namespace Nova.ControlLibrary
                     this.boxRightPosition.ToString("F0"),
                     this.units);
             }
-            else // Temperature
+            else
             {
+                // Temperature
                 realRange = String.Format(
                     "{0}{2} to {1}{2}",
                     Temperature.Format(this.boxLeftPosition),
@@ -478,10 +479,10 @@ namespace Nova.ControlLibrary
         private void ImmunityCheckBox_CheckedChanged(object sender, EventArgs e)
         {
             immunityCost *= -1;
-            expand.Enabled = !ImmunityCheckBox.Checked;
-            contract.Enabled = !ImmunityCheckBox.Checked;
-            rightScroll.Enabled = !ImmunityCheckBox.Checked;
-            leftScroll.Enabled = !ImmunityCheckBox.Checked;
+            expand.Enabled = !immunityCheckBox.Checked;
+            contract.Enabled = !immunityCheckBox.Checked;
+            rightScroll.Enabled = !immunityCheckBox.Checked;
+            leftScroll.Enabled = !immunityCheckBox.Checked;
             
             this.bar.Invalidate();
             
@@ -516,7 +517,10 @@ namespace Nova.ControlLibrary
         [Description("Lower value of range bar."), Category("Nova")]
         public int MinimumValue
         {
-            get { return this.boxLeftPosition; }
+            get
+            {
+                return this.boxLeftPosition;
+            }
             set
             {
                 this.boxOldLeftPosition = this.boxLeftPosition;
@@ -532,7 +536,10 @@ namespace Nova.ControlLibrary
         [Description("Upper value of range bar."), Category("Nova")]
         public int MaximumValue
         {
-            get { return this.boxRightPosition; }
+            get
+            {
+                return this.boxRightPosition;
+            }
             set
             {
                 this.boxOldRightPosition = this.boxRightPosition;
@@ -600,8 +607,8 @@ namespace Nova.ControlLibrary
         [Browsable(false)] 
         public bool Immune
         {
-            get { return ImmunityCheckBox.Checked; }
-            set { ImmunityCheckBox.Checked = value; }
+            get { return immunityCheckBox.Checked; }
+            set { immunityCheckBox.Checked = value; }
         }
 
         #endregion Properties

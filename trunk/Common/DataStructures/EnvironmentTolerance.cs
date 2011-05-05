@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -27,9 +27,7 @@
 #endregion
 
 using System;
-using System.ComponentModel;
 using System.Xml;
-using Nova.Common.Converters;
 
 namespace Nova.Common
 {
@@ -40,6 +38,14 @@ namespace Nova.Common
     [Serializable]
     public class EnvironmentTolerance
     {
+        private const string MinInternalIdentifier = "MinInternal";
+        private const string MaxInternalIdentifier = "MaxInternal";
+        private const string MinToleranceIdentifier = "MinTolerance";
+        private const string MaxToleranceIdentifier = "MaxTolerance";
+        private const string MinIdentifier = "Min";
+        private const string MaxIdentifier = "Max";
+        private const string ImmuneIdentifier = "Immune";
+
         private int minimumInternalValue = 15;
         private int maximumInternalValue = 85;
         private bool immune = false;
@@ -111,14 +117,6 @@ namespace Nova.Common
         }
 
         #region Load Save Xml
-
-        private const string MinInternalIdentifier = "MinInternal";
-        private const string MaxInternalIdentifier = "MaxInternal";
-        private const string MinToleranceIdentifier = "MinTolerance";
-        private const string MaxToleranceIdentifier = "MaxTolerance";
-        private const string MinIdentifier = "Min";
-        private const string MaxIdentifier = "Max";
-        private const string ImmuneIdentifier = "Immune";
 
         /// ----------------------------------------------------------------------------
         /// <summary>

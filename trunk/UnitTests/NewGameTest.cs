@@ -27,11 +27,6 @@
 // ===========================================================================
 #endregion
 
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Windows.Forms;
-
 using Nova.Common;
 using Nova.NewGame;
 using Nova.Server;
@@ -47,12 +42,18 @@ namespace Nova.UnitTests
     [TestFixture]
     public class NewGameTest
     {
-        
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Test rectangular map generation.
+        /// 
+        /// TODO Move test into separate integration test project.
+        /// The test asks for the components.xml file clearly wanting to read this from disk. Accessing external
+        /// resources greatly reduces performance of the test suite and disrupts the unit test flow making this an
+        /// integration test and not a unit test. The test also depends on some configuration (file paths) which
+        /// is also an indication that this is an integration test.
         /// </summary>
         /// ----------------------------------------------------------------------------
+        [Ignore("Not a unit test, but an integration test. Should be moved to different project.")]
         [Test]
         public void Map800x400Test()
         {

@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2010 stars-nova
+// Copyright (C) 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -32,6 +32,7 @@ using System.Linq;
 using System.Text;
 
 using Nova.Common;
+using Nova.Common.DataStructures;
 using Nova.UnitTests;
 
 namespace TestHarness

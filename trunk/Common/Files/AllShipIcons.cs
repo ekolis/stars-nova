@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2011 stars-nova
+// Copyright (C) 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -45,7 +45,7 @@ namespace Nova.Common
         private static readonly object Padlock = new object();
         private static AllShipIcons instance;
         public ArrayList IconList = new ArrayList();
-        public Dictionary<string, Dictionary<int, ShipIcon>> Hulls = new Dictionary<string,Dictionary<int,ShipIcon>>();
+        public Dictionary<string, Dictionary<int, ShipIcon>> Hulls = new Dictionary<string, Dictionary<int, ShipIcon>>();
 
         #region Singleton
 

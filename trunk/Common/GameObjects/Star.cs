@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -345,8 +345,9 @@ namespace Nova.Common
             double g = NormalizeHabitalityDistance(race.GravityTolerance, Gravity);
             double t = NormalizeHabitalityDistance(race.TemperatureTolerance, Temperature);
 
-            if (r > 1 || g > 1 || t > 1) // currently not habitable
+            if (r > 1 || g > 1 || t > 1)
             {
+                // currently not habitable
                 int result = 0;
                 int maxMalus = GetMaxMalus(race);
                 if (r > 1) result -= GetMalusForEnvironment(race.RadiationTolerance, Radiation, maxMalus);

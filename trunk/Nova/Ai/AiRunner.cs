@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2009, 2010 The Stars-Nova Project
+// Copyright (C) 2009, 2010. 2011 The Stars-Nova Project
 //
 // This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -43,7 +43,7 @@ namespace Nova.Ai
 {
     public class Program
     {
-        private static AbstractAI AI = new DefaultAi();
+        private static readonly AbstractAI AI = new DefaultAi();
         public static void Main(string[] args)
         {
             string raceName;
