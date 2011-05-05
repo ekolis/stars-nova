@@ -179,7 +179,7 @@
     <Compile Include="RaceDefinition\RaceIcon.cs" />
     <Compile Include="RaceDefinition\RaceRestriction.cs" />
     <Compile Include="Files\Orders.cs" />
-    <Compile Include="PointUtils.cs">
+    <Compile Include="PointUtilities.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DataStructures\ProductionQueue.cs">

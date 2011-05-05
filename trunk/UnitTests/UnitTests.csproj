@@ -55,7 +55,9 @@
     <Compile Include="BattleEngineTest.cs" />
     <Compile Include="BattleReportTests.cs" />
     <Compile Include="BombingTest.cs" />
+    <Compile Include="IntelTests.cs" />
     <Compile Include="NewGameTest.cs" />
+    <Compile Include="PointUtilitiesTests.cs" />
     <Compile Include="ServerStateTest.cs" />
     <Compile Include="DefencesTest.cs" />
     <Compile Include="GlobalTests.cs" />

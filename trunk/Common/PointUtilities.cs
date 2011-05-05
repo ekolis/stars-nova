@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,6 +20,10 @@
 // ===========================================================================
 #endregion
 
+using System;
+using System.Drawing;
+using Nova.Common.DataStructures;
+
 #region Module Description
 // ===========================================================================
 // See PointUtilities class summary.
@@ -28,13 +32,6 @@
 
 namespace Nova.Common
 {
-    using System;
-    using System.Drawing;
-    using System.Reflection;
-
-    using Nova.Common.DataStructures;
-
-    using NUnit.Framework;
 
     /// <summary>
     /// Some general utilities for handling points.
@@ -42,11 +39,8 @@ namespace Nova.Common
     /// <remarks>
     /// TODO (priority 4) - should these be merged with NovaPoint? - Dan 28 Nova 10
     /// </remarks>
-    public class PointUtilities
+    public static class PointUtilities
     {
-
-
-
         private static readonly Random Random = new Random();
 
 
@@ -265,22 +259,6 @@ namespace Nova.Common
 
             return result;
         }
-
-        [Test]
-        public void TestIsNearDoesNotChangeParams()
-        {
-            NovaPoint a = new NovaPoint(1, 2);
-            NovaPoint b = new NovaPoint(3, 4);
-
-            bool testNear = IsNear(a, b);
-
-            Assert.IsTrue(a.X == 1);
-            Assert.IsTrue(a.Y == 2);
-            Assert.IsTrue(b.X == 3);
-            Assert.IsTrue(b.Y == 4);
-        }
-
-
     }
 }
 
