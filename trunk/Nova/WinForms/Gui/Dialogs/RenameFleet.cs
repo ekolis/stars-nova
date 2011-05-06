@@ -41,7 +41,8 @@ namespace Nova.WinForms.Gui
     /// </summary>
     public partial class RenameFleet : Form
     {
-
+        public event FleetSelectionChanged FleetSelectionChangedEvent;
+        
         /// <summary>
         /// Initializes a new instance of the RenameFleet class.
         /// </summary>
@@ -94,8 +95,11 @@ namespace Nova.WinForms.Gui
 
             // Ensure the main display gets updated to reflect the new name
 
-            MainWindow.Nova.SelectionSummary.Value = fleet as Item;
-            MainWindow.Nova.SelectionDetail.Value = fleet as Item;
+            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(fleet, fleet);
+            FleetSelectionChangedEvent(this, selectionArgs);
+            
+            //this.SelectionSummary.Value = fleet as Item;
+            //this.SelectionDetail.Value = fleet as Item;
 
             Close();
         }

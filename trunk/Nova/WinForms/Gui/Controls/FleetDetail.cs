@@ -38,6 +38,20 @@ using Nova.ControlLibrary;
 
 namespace Nova.WinForms.Gui
 {
+    public delegate void FleetSelectionChanged(object sender, FleetSelectionArgs e);
+    
+    
+    public class FleetSelectionArgs : System.EventArgs
+    {
+        public Fleet detail;
+        public Fleet summary;
+        
+        public FleetSelectionArgs(Fleet detail, Fleet summary)
+        {
+            this.detail = detail;
+            this.summary = summary;
+        }
+    }    
 
     /// <summary>
     /// Ship detail display panel.
@@ -46,6 +60,9 @@ namespace Nova.WinForms.Gui
     {
         private Fleet selectedFleet;
         private int currentFleet;
+        
+        public event FleetSelectionChanged FleetSelectionChangedEvent;
+        public event CursorChanged CursorChangedEvent;
 
         #region VS-Generated variables
         public ComboBox WaypointTasks;
@@ -740,11 +757,19 @@ namespace Nova.WinForms.Gui
             {
                 currentFleet = 0;
             }
+            
+            Fleet current = myFleets[currentFleet];
+            
+            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(current, this.selectedFleet);
+            CursorArgs cursorArgs = new CursorArgs((Point)this.selectedFleet.Position);
+            
+            FleetSelectionChangedEvent(this, selectionArgs);
+            CursorChangedEvent(this, cursorArgs);
 
-            MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
-            MainWindow.Nova.SelectionSummary.Value = this.selectedFleet;
+            //MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
+            //MainWindow.Nova.SelectionSummary.Value = this.selectedFleet;
 
-            MainWindow.Nova.MapControl.SetCursor((Point)this.selectedFleet.Position);
+            //MainWindow.Nova.MapControl.SetCursor((Point)this.selectedFleet.Position);
         }
 
 
@@ -778,10 +803,18 @@ namespace Nova.WinForms.Gui
                 currentFleet = myFleets.Count - 1;
             }
 
-            MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
-            MainWindow.Nova.SelectionSummary.Value = this.selectedFleet;
+            Fleet current = myFleets[currentFleet];
+            
+            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(current, this.selectedFleet);
+            CursorArgs cursorArgs = new CursorArgs((Point)this.selectedFleet.Position);
+            
+            FleetSelectionChangedEvent(this, selectionArgs);
+            CursorChangedEvent(this, cursorArgs);
+            
+            //MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
+            //MainWindow.Nova.SelectionSummary.Value = this.selectedFleet;
 
-            MainWindow.Nova.MapControl.SetCursor((Point)this.selectedFleet.Position);
+            //MainWindow.Nova.MapControl.SetCursor((Point)this.selectedFleet.Position);
         }
 
         #endregion

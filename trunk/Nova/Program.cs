@@ -54,7 +54,7 @@ namespace Nova
                     WinForms.RaceDesigner.RaceDesignerForm.Main();
                     break;
                 case CommandArguments.Option.GuiSwitch:
-                    WinForms.Gui.NovaGUI.Main(coreArgs);
+                    WinForms.Gui.MainWindow.Main(coreArgs);
                     break;
                 case CommandArguments.Option.NewGameSwitch:
                     WinForms.NewGameWizard.Main();

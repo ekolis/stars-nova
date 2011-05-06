@@ -269,13 +269,22 @@ namespace Nova.ControlLibrary
 
             get
             {
+
                 Resources resources = new Resources();
 
                 resources.Ironium = Convert.ToInt32(this.ironium.Text);
                 resources.Boranium = Convert.ToInt32(this.boranium.Text);
                 resources.Germanium = Convert.ToInt32(this.germanium.Text);
-                resources.Energy = Convert.ToInt32(this.energy.Text);
+                
+                // We remove the total resources from the Display, and return only the available ones.
+                // We split the string, for example "35 of 43" by spaces and return only the first
+                // token; 35 in this case.
+                // TODO: Perhaps split the Energy field into two separate fields; on hand resources and
+                // total resources, to save us this silly string manipulation. -Aeglos
+                string [] energy = this.energy.Text.Split(' ');
 
+                resources.Energy = Convert.ToInt32(energy[0]);
+                
                 return resources;
             }
         }

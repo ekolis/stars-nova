@@ -231,9 +231,9 @@ namespace Nova.WinForms.Console
             
             usedResources = neededResources * percentCompleted;
  
-            star.ResourcesOnHand = star.ResourcesOnHand - usedResources;
+            star.ResourcesOnHand -= usedResources;
 
-            neededResources = neededResources - usedResources;
+            neededResources -= usedResources;
             item.BuildState = neededResources;
         }
 

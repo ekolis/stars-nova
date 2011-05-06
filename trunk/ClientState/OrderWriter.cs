@@ -101,10 +101,14 @@ namespace Nova.Client
          {
              if (star.Owner == raceName)
              {
-                 star.ResearchAllocation = (int)((star.ResourcesOnHand.Energy
-                                            * stateData.ResearchBudget) / 100);
-
-                 stateData.ResearchAllocation += star.ResearchAllocation;
+                 // Do not use ResourcesOnHand.Energy here, use
+                 // GetResourceRate instead, as ResourcesOnHand
+                 // already account for allocation each turn.
+                 star.ResearchAllocation = (star.GetResourceRate()* stateData.ResearchBudget) / 100;
+                
+                 // TODO (priority 3) - Make leftover resources from production go
+                 // towards research automatically.
+                 stateData.ResearchAllocation += (int)star.ResearchAllocation;
                  outputTurn.RaceStars.Add(star);
              }
          }

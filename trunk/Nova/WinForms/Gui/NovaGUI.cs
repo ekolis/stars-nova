@@ -170,6 +170,9 @@ namespace Nova.WinForms.Gui
             this.MapControl.Name = "MapControl";
             this.MapControl.Size = new System.Drawing.Size(605, 680);
             this.MapControl.TabIndex = 0;
+            this.MapControl.RequestSelectionEvent += new RequestSelection(this.SelectionDetail.ReportItem);
+            this.MapControl.SelectionChangedEvent += new SelectionChanged(this.SelectionDetail.SelectionChanged);
+            this.MapControl.SelectionChangedEvent += new SelectionChanged(this.SelectionSummary.SelectionChanged);
             // 
             // MainMenu
             // 
@@ -333,6 +336,10 @@ namespace Nova.WinForms.Gui
             this.SelectionDetail.Size = new System.Drawing.Size(360, 400);
             this.SelectionDetail.TabIndex = 21;
             this.SelectionDetail.Value = null;
+            this.SelectionDetail.fleetDetail.FleetSelectionChangedEvent += new FleetSelectionChanged(this.FleetChangeSelection);
+            this.SelectionDetail.fleetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
+            this.SelectionDetail.planetDetail.StarSelectionChangedEvent += new StarSelectionChanged(this.StarChangeSelection);
+            this.SelectionDetail.planetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
             // 
             // SelectionSummary
             // 
@@ -405,17 +412,17 @@ namespace Nova.WinForms.Gui
         /// </summary>
         /// <param name="args">Command line arguments.</param>
         /// ----------------------------------------------------------------------------
-        [STAThread]
+       /* [STAThread]
         public static void Main(string[] args)
         {
 
             Application.EnableVisualStyles();
             ClientState.Initialize(args);
-            MainWindow.Nova.Text = "Nova - " + ClientState.Data.PlayerRace.PluralName;
-            MainWindow.InitialiseControls();
-            Application.Run(MainWindow.Nova);
+            this.Text = "Nova - " + ClientState.Data.PlayerRace.PluralName;
+            this.InitialiseControls();
+            Application.Run();
 
-        }
+        }*/
 
         #endregion
 
@@ -665,10 +672,82 @@ namespace Nova.WinForms.Gui
             commandArguments.Add(CommandArguments.Option.Turn, ClientState.Data.TurnYear + 1);
 
             ClientState.Initialize(commandArguments.ToArray());
-            MainWindow.NextTurn();
+            this.NextTurn();
+        }
+        
+        public void FleetChangeSelection(object sender, FleetSelectionArgs e)
+        {
+            
+            this.SelectionDetail.Value = e.detail;
+            this.SelectionSummary.Value = e.summary;
+        }
+        
+        public void StarChangeSelection(object sender, StarSelectionArgs e)
+        {
+            this.SelectionDetail.Value = e.star;
+            this.SelectionSummary.Value = e.star;
         }
 
         #endregion
+        
+         /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Load controls with any data we may have for them.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public void InitialiseControls()
+        {
+            this.Messages.Year = ClientState.Data.TurnYear;
+            this.Messages.MessageList = ClientState.Data.Messages;
+
+            this.CurrentTurn = ClientState.Data.TurnYear;
+            this.CurrentRace = ClientState.Data.RaceName;
+
+            this.MapControl.Initialise();
+
+            // Select a star owned by the player (if any) as the default display.
+
+            foreach (Star star in ClientState.Data.InputTurn.AllStars.Values)
+            {
+                if (star.Owner == ClientState.Data.RaceName)
+                {
+                    this.MapControl.SetCursor((System.Drawing.Point)star.Position);
+                    this.SelectionDetail.Value = star;
+                    this.SelectionSummary.Value = star;
+                    break;
+                }
+            }
+        }
+
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Refresh the display for a new turn.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public void NextTurn()
+        {
+            this.Messages.Year = ClientState.Data.TurnYear;
+            this.Messages.MessageList = ClientState.Data.Messages;
+
+            this.Invalidate(true);
+
+            this.MapControl.Initialise();
+            this.MapControl.Invalidate();
+
+            // Select a star owned by the player (if any) as the default display.
+
+            foreach (Star star in ClientState.Data.InputTurn.AllStars.Values)
+            {
+                if (star.Owner == ClientState.Data.RaceName)
+                {
+                    this.MapControl.SetCursor((System.Drawing.Point)star.Position);
+                    this.SelectionDetail.Value = star;
+                    this.SelectionSummary.Value = star;
+                    break;
+                }
+            }
+        }
 
     }
 }

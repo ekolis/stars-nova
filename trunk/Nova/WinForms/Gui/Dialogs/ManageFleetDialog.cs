@@ -69,6 +69,7 @@ namespace Nova.WinForms.Gui
         private void RenameButton_Click(object sender, EventArgs e)
         {
             RenameFleet renameDialog = new RenameFleet();
+// TODO: Implement the fleet selection event.
             renameDialog.ExistingName.Text = this.fleetName.Text;
 
             renameDialog.ShowDialog();

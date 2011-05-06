@@ -140,6 +140,11 @@ namespace Nova.WinForms.Gui
                 DisplayPlanet(item);
             }
         }
+        
+        public void SelectionChanged(object sender, SelectionArgs e)
+        {
+            this.Value = e.item;
+        }
 
         #endregion
 
