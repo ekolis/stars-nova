@@ -27,6 +27,7 @@
 #endregion
 
 using System;
+using System.Drawing;
 using System.Windows.Forms;
 
 using Nova.Client;
@@ -35,13 +36,27 @@ using Nova.ControlLibrary;
 
 namespace Nova.WinForms.Gui
 {
-
+    public delegate void StarSelectionChanged(object sender, StarSelectionArgs e);
+    
+    public class StarSelectionArgs : System.EventArgs
+    {
+        public Star star;
+        
+        public StarSelectionArgs(Star star)
+        {
+            this.star = star;
+        }
+    }
+    
     /// <summary>
     /// Planet detail display pane.
     /// </summary>
     public class PlanetDetail : System.Windows.Forms.UserControl
     {
         private Star star;
+        
+        public event StarSelectionChanged StarSelectionChangedEvent;
+        public event CursorChanged CursorChangedEvent;
 
         #region Designer generated variables
         private Label mines;
@@ -773,9 +788,16 @@ namespace Nova.WinForms.Gui
 
             star = myStars.GetNext(star);
 
-            MainWindow.Nova.SelectionDetail.Value = star;
-            MainWindow.Nova.SelectionSummary.Value = star;
-            MainWindow.Nova.MapControl.SetCursor(star.Position);
+            StarSelectionArgs selectionArgs = new StarSelectionArgs(star);
+            CursorArgs cursorArgs = new CursorArgs((Point)star.Position);
+            
+            StarSelectionChangedEvent(this, selectionArgs);
+            CursorChangedEvent(this, cursorArgs);
+            
+            //MainWindow.Nova.SelectionDetail.Value = star;
+            //MainWindow.Nova.SelectionSummary.Value = star;          
+            
+            //MainWindow.Nova.MapControl.SetCursor(star.Position);
         }
 
 
@@ -801,10 +823,16 @@ namespace Nova.WinForms.Gui
             this.nextPlanet.Enabled = true;
 
             star = myStars.GetPrevious(star);
+            
+            StarSelectionArgs selectionArgs = new StarSelectionArgs(star);
+            CursorArgs cursorArgs = new CursorArgs((Point)star.Position);
+            
+            StarSelectionChangedEvent(this, selectionArgs);
+            CursorChangedEvent(this, cursorArgs);
 
-            MainWindow.Nova.SelectionDetail.Value = star;
-            MainWindow.Nova.SelectionSummary.Value = star;
-            MainWindow.Nova.MapControl.SetCursor(star.Position);
+            //MainWindow.Nova.SelectionDetail.Value = star;
+            //MainWindow.Nova.SelectionSummary.Value = star;
+            //MainWindow.Nova.MapControl.SetCursor(star.Position);
         }
 
         #endregion

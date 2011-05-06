@@ -46,7 +46,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public static void MapRefresh()
         {
-            MainWindow.Nova.MapControl.MapRefresh();
+            //Nova.WinForms.Gui.NovaGUI.MapControl.MapRefresh();
         }
 
     }

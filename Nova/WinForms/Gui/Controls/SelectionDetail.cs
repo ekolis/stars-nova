@@ -44,8 +44,8 @@ namespace Nova.WinForms.Gui
 
         private Item selectedItem = null;
         private UserControl selectedControl = null;
-        private PlanetDetail planetDetail = new PlanetDetail();
-        private FleetDetail fleetDetail = new FleetDetail();
+        public PlanetDetail planetDetail = new PlanetDetail();
+        public FleetDetail fleetDetail = new FleetDetail();
 
         #region Construction
 
@@ -146,7 +146,17 @@ namespace Nova.WinForms.Gui
                 DisplayPlanet(item);
             }
         }
+        
+        public Item ReportItem()
+        {
+            return selectedItem;
+        }
 
+        public void SelectionChanged(object sender, SelectionArgs e)
+        {
+            this.Value = e.item;
+        }
+        
         #endregion
 
         #region Properties

@@ -41,9 +41,36 @@ namespace Nova.WinForms.Gui
     using Nova.Common;
     using Nova.Common.DataStructures;
     #endregion
-
+    
+    public delegate Item RequestSelection();
+    public delegate void CursorChanged(object sender, CursorArgs e);
+    public delegate void SelectionChanged(object sender, SelectionArgs e);
+    
+    public class CursorArgs : System.EventArgs
+    {
+        public Point point;
+        
+        public CursorArgs(Point point)
+        {
+            this.point = point;
+        }
+    }
+    
+    public class SelectionArgs : System.EventArgs
+    {
+        public Item item;
+        
+        public SelectionArgs(Item item)
+        {
+            this.item = item;
+        }
+    }
+    
     public partial class StarMap : UserControl
     {
+        public event RequestSelection RequestSelectionEvent;
+        public event SelectionChanged SelectionChangedEvent;
+        
         private readonly Point[] triangle = 
         { 
             new Point(0, 0), 
@@ -59,6 +86,7 @@ namespace Nova.WinForms.Gui
         private readonly Hashtable visibleMinefields = new Hashtable();
         private readonly Font nameFont;
         private readonly BufferedGraphicsContext bufferedContext;
+        private BufferedGraphics grafx;
         private Intel turnData;
         private ClientState stateData;
         private NovaPoint cursorPosition = new Point(0, 0);
@@ -68,7 +96,6 @@ namespace Nova.WinForms.Gui
         private NovaPoint center = new Point(0, 0);   // Focal point of the displayed map.
         private NovaPoint extent = new Point(0, 0);   // Extent of the currently displayed map, from Origin.
         private double zoomFactor = 0.8;              // Is used to adjust the Extent of the map.
-        private Graphics graphics;
         private bool isInitialised;
         private bool displayStarNames = true;
         private int horizontalScroll = 50; // 0 to 100, used to position the Center, initially centered
@@ -84,7 +111,9 @@ namespace Nova.WinForms.Gui
         /// </summary>
         public StarMap()
         {
-            bufferedContext = new BufferedGraphicsContext();
+            this.Resize += new EventHandler(this.OnResize);
+            
+            this.bufferedContext = BufferedGraphicsManager.Current;                       
 
             InitializeComponent();
             GameSettings.Restore();
@@ -106,8 +135,13 @@ namespace Nova.WinForms.Gui
 
             SetStyle(ControlStyles.UserPaint, true);
             SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-            UpdateStyles();  
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            UpdateStyles();
 
+            this.bufferedContext.MaximumBuffer = new Size(this.MapPanel.Size.Width+1, this.MapPanel.Size.Height+1);            
+            this.grafx = bufferedContext.Allocate(this.MapPanel.CreateGraphics(),
+                                               new Rectangle(0, 0, this.MapPanel.Size.Width, this.MapPanel.Size.Height)
+                                              );
         }
 
 
@@ -121,8 +155,6 @@ namespace Nova.WinForms.Gui
             this.stateData = ClientState.Data;
             this.turnData = this.stateData.InputTurn;
             this.isInitialised = true;
-            /*string sv = this.ZoomIn.Visible.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            string se = this.ZoomIn.Enabled.ToString(System.Globalization.CultureInfo.InvariantCulture);*/
 
             this.horizontalScrollBar.Enabled = true;
             this.verticalScrollBar.Enabled = true;
@@ -148,52 +180,17 @@ namespace Nova.WinForms.Gui
 
         #region Drawing Methods
 
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Utility function to instigate a display refresh
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public void MapRefresh()
+        private void DrawEverything(Graphics g)
         {
-            this.MapPanel.Invalidate();
-        }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Paint the star map window.
-        /// </summary>
-        /// <remarks>
-        /// We just do simple painting so the order that things are drawn is important
-        /// (otherwise items may get overwritten and become invisible):
-        ///
-        /// (1) All long-range scanners (planets and ships) owned by the player.
-        /// (2) All short-range scanners (ships only) owned by the player.
-        /// (3) Minefields visible to the player (with transparency)
-        /// (4) All fleets visible to the player.
-        /// (5) Stars (including a starbase and orbiting fleets indication).
-        /// (6) The selection cursor.
-        /// </remarks>
-        /// <param name="sender"></param>
-        /// <param name="eventData"></param>
-        /// ----------------------------------------------------------------------------
-        private void OnPaint(object sender, PaintEventArgs eventData)
-        {
-            base.OnPaint(eventData); // added
-
+            
             if (this.isInitialised == false)
             {
                 return;
-            }
-
-            System.Drawing.Rectangle rect2 = new Rectangle(0, 0, this.MapPanel.Width, this.MapPanel.Height);
-            System.Drawing.BufferedGraphics bg = bufferedContext.Allocate(eventData.Graphics, rect2);
-
-            graphics = bg.Graphics;
+            }                      
 
             NovaPoint backgroundOrigin = LogicalToDevice(new NovaPoint(0, 0));
             NovaPoint backgroundExtent = LogicalToDeviceRelative(new NovaPoint(this.logical.X, this.logical.Y));
-            graphics.DrawImage(Nova.Properties.Resources.Plasma, backgroundOrigin.X, backgroundOrigin.Y, backgroundExtent.X, backgroundExtent.Y);
+            grafx.Graphics.DrawImage(Nova.Properties.Resources.Plasma, backgroundOrigin.X, backgroundOrigin.Y, backgroundExtent.X, backgroundExtent.Y);
 
             this.MapPanel.BackgroundImage = Nova.Properties.Resources.Plasma;
             this.MapPanel.BackgroundImageLayout = ImageLayout.Stretch;
@@ -286,7 +283,7 @@ namespace Nova.WinForms.Gui
                 {
                     position = LogicalToDevice(fleet.Position);
                     int size = 10;
-                    graphics.DrawEllipse(
+                    grafx.Graphics.DrawEllipse(
                         Pens.White,
                         position.X - (size / 2),
                         position.Y - (size / 2),
@@ -300,7 +297,7 @@ namespace Nova.WinForms.Gui
             position = LogicalToDevice(this.cursorPosition);
             position.X -= (this.cursorBitmap.Width / 2) + 1;
             position.Y += 2;
-            graphics.DrawImage(this.cursorBitmap, (Point)position);
+            grafx.Graphics.DrawImage(this.cursorBitmap, (Point)position);
 
             // (7) Zoom/Scroll/Cursor info for debugging.
 #if (DEBUG)
@@ -309,18 +306,41 @@ namespace Nova.WinForms.Gui
             Color coordColour = Color.FromArgb(255, 255, 255, 0);
             SolidBrush coordBrush = new SolidBrush(coordColour);
             string s2 = "Cursor Location (logical): " + this.cursorPosition.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + this.cursorPosition.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            graphics.DrawString(s2, font, coordBrush, 0, 20);
+            grafx.Graphics.DrawString(s2, font, coordBrush, 0, 20);
             string s = "Cursor Location (device): " + position.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            graphics.DrawString(s, font, coordBrush, 0, 0);
+            grafx.Graphics.DrawString(s, font, coordBrush, 0, 0);
             string zoomDebugMsg = "Zoom Facor: " + this.zoomFactor.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            graphics.DrawString(zoomDebugMsg, font, coordBrush, 0, 40);
+            grafx.Graphics.DrawString(zoomDebugMsg, font, coordBrush, 0, 40);
             string horizontalScrollDebugMsg = "Hscroll: " + this.horizontalScroll.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            graphics.DrawString(horizontalScrollDebugMsg, font, coordBrush, 0, 60);
+            grafx.Graphics.DrawString(horizontalScrollDebugMsg, font, coordBrush, 0, 60);
             string verticalScrollDebugMsg = "Vscroll: " + this.verticalScroll.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            graphics.DrawString(verticalScrollDebugMsg, font, coordBrush, 0, 80);
+            grafx.Graphics.DrawString(verticalScrollDebugMsg, font, coordBrush, 0, 80);
 #endif
-
-            bg.Render();
+            
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Paint the star map window.
+        /// </summary>
+        /// <remarks>
+        /// We just do simple painting so the order that things are drawn is important
+        /// (otherwise items may get overwritten and become invisible):
+        ///
+        /// (1) All long-range scanners (planets and ships) owned by the player.
+        /// (2) All short-range scanners (ships only) owned by the player.
+        /// (3) Minefields visible to the player (with transparency)
+        /// (4) All fleets visible to the player.
+        /// (5) Stars (including a starbase and orbiting fleets indication).
+        /// (6) The selection cursor.
+        /// </remarks>
+        /// <param name="sender"></param>
+        /// <param name="eventData"></param>
+        /// ----------------------------------------------------------------------------
+        private void OnPaint(object sender, PaintEventArgs e)
+        {      
+            grafx.Render(e.Graphics);
+            base.OnPaint(e);
         }
 
 
@@ -334,7 +354,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void FillCircle(Brush brush, Point position, int radius)
         {
-            graphics.FillEllipse(
+            grafx.Graphics.FillEllipse(
                 brush,
                 position.X - radius,
                 position.Y - radius,
@@ -376,19 +396,19 @@ namespace Nova.WinForms.Gui
             {
                 NovaPoint position = LogicalToDevice(fleet.Position);
 
-                graphics.TranslateTransform(position.X, position.Y);
-                graphics.RotateTransform((float)fleet.Bearing);
+                grafx.Graphics.TranslateTransform(position.X, position.Y);
+                grafx.Graphics.RotateTransform((float)fleet.Bearing);
 
                 if (fleet.Owner == this.stateData.RaceName)
                 {
-                    graphics.FillPolygon(Brushes.Blue, triangle);
+                    grafx.Graphics.FillPolygon(Brushes.Blue, triangle);
                 }
                 else
                 {
-                    graphics.FillPolygon(Brushes.Red, triangle);
+                    grafx.Graphics.FillPolygon(Brushes.Red, triangle);
                 }
 
-                graphics.ResetTransform();
+                grafx.Graphics.ResetTransform();
             }
 
             if (fleet.Owner == this.stateData.RaceName)
@@ -399,7 +419,7 @@ namespace Nova.WinForms.Gui
                 foreach (Waypoint waypoint in fleet.Waypoints)
                 {
                     NovaPoint position = waypoint.Position;
-                    graphics.DrawLine(Pens.Blue, (Point)from, (Point)LogicalToDevice(position));
+                    grafx.Graphics.DrawLine(Pens.Blue, (Point)from, (Point)LogicalToDevice(position));
                     from = LogicalToDevice(position);
                 }
             }
@@ -458,7 +478,7 @@ namespace Nova.WinForms.Gui
             {
                 StringFormat format = new StringFormat();
                 format.Alignment = StringAlignment.Center;
-                graphics.DrawString(star.Name, this.nameFont, Brushes.White, (Point)position, format);
+                grafx.Graphics.DrawString(star.Name, this.nameFont, Brushes.White, (Point)position, format);
             }
         }
 
@@ -483,7 +503,7 @@ namespace Nova.WinForms.Gui
 
             if (report.Starbase != null)
             {
-                graphics.DrawEllipse(
+                grafx.Graphics.DrawEllipse(
                     Pens.White,
                     position.X - (size / 2),
                     position.Y - (size / 2),
@@ -494,7 +514,7 @@ namespace Nova.WinForms.Gui
             if (report.Age == 0 && report.OrbitingFleets)
             {
                 size = 10;
-                graphics.DrawEllipse(
+                grafx.Graphics.DrawEllipse(
                     Pens.White,
                     position.X - (size / 2),
                     position.Y - (size / 2),
@@ -778,7 +798,7 @@ namespace Nova.WinForms.Gui
             MapHorizontalScroll(this.horizontalScroll);
             MapVerticalScroll(this.verticalScroll);
 
-            this.MapPanel.Invalidate();
+            this.DrawEverything(this.grafx.Graphics);
 
 
         }
@@ -826,7 +846,7 @@ namespace Nova.WinForms.Gui
             this.center.X = this.logical.X * this.horizontalScroll / 100;
             this.origin.X = this.center.X - (this.extent.X / 2);
             
-            this.MapPanel.Invalidate();
+            this.DrawEverything(this.grafx.Graphics);
         }
 
 
@@ -842,11 +862,31 @@ namespace Nova.WinForms.Gui
             this.center.Y = this.logical.Y * this.verticalScroll / 100;
             this.origin.Y = this.center.Y - (this.extent.Y / 2);
 
-            this.MapPanel.Invalidate();
+            this.DrawEverything(this.grafx.Graphics);
         }
 
         #endregion
 
+        #region Resize
+        
+        private void OnResize(object sender, EventArgs e)
+        {
+           // Re-create the graphics buffer for a new window size.
+           this.bufferedContext.MaximumBuffer = new Size(this.MapPanel.Size.Width+1, this.MapPanel.Size.Height+1);
+           if( this.grafx != null )
+           {
+	           this.grafx.Dispose();
+               this.grafx = null;               
+           }
+           this.grafx = bufferedContext.Allocate(this.MapPanel.CreateGraphics(), 
+                                              new Rectangle( 0, 0, this.MapPanel.Size.Width, this.MapPanel.Size.Height )
+                                             );
+           
+           this.DrawEverything(this.grafx.Graphics);
+        }	
+        
+        #endregion
+        
         #region Interface IComparable
 
         /// ----------------------------------------------------------------------------
@@ -912,7 +952,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void LeftShiftMouse(MouseEventArgs e, bool snapToObject)
         {
-            Item item = MainWindow.Nova.SelectionDetail.Value;
+            Item item = RequestSelectionEvent();
 
             if (item == null || !(item is Fleet))
             {
@@ -923,8 +963,8 @@ namespace Nova.WinForms.Gui
             // a handle directly to it so that we can access its parameters
             // directly without having to use the detail summary panel as an agent
 
-            FleetDetail fleetDetail = MainWindow.Nova.SelectionDetail.Control
-                                      as FleetDetail;
+            //FleetDetail fleetDetail = MainWindow.Nova.SelectionDetail.Control
+            //                          as FleetDetail;
 
             NovaPoint click = new NovaPoint(e.X, e.Y);
             Fleet fleet = item as Fleet;
@@ -977,7 +1017,7 @@ namespace Nova.WinForms.Gui
             g.Dispose();
 
             fleet.Waypoints.Add(waypoint);
-            fleetDetail.AddWaypoint(waypoint);
+            //fleetDetail.AddWaypoint(waypoint);
         }
 
 
@@ -1024,8 +1064,12 @@ namespace Nova.WinForms.Gui
             Item item = (Item)selected.Target;
             this.cursorPosition = item.Position;
 
-            MainWindow.Nova.SelectionSummary.Value = item;
-            MainWindow.Nova.SelectionDetail.Value = item;
+            SelectionArgs selectionArgs = new SelectionArgs(item);
+            
+            SelectionChangedEvent(this, selectionArgs);
+            
+            //MainWindow.Nova.SelectionSummary.Value = item;
+            //MainWindow.Nova.SelectionDetail.Value = item;
         }
 
         #endregion
@@ -1127,9 +1171,19 @@ namespace Nova.WinForms.Gui
                 this.displayStarNames = false;
             }
 
-            this.MapPanel.Invalidate();
+            this.DrawEverything(this.grafx.Graphics);
         }
 
         #endregion
+        
+        #region Communication Events
+        
+        public void ChangeCursor(object sender, CursorArgs e)
+        {
+            SetCursor(e.point);
+        }
+        
+        #endregion
+        
     }
 }

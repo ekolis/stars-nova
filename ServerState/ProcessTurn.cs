@@ -68,20 +68,24 @@ namespace Nova.WinForms.Console
 
             // Handle star based actions - growth and production
             // TODO (priority 4) - split these up as per Stars! turn order
+            // UPDATE May 11: Some of this is updated -Aeglos
             foreach (Star star in stateData.AllStars.Values)
             {
                 ProcessStar(star);
             }
+            
+            DoResearch();
+            
             CleanupFleets();
 
             BattleEngine.Run();
-            CleanupFleets();
-
             
+            CleanupFleets();            
 
             VictoryCheck.Victor();
 
             stateData.TurnYear++;
+            
             IntelWriter.WriteIntel();
 
             // remove old messages, do this last so that the 1st turn intro message is not removed before it is delivered.
@@ -410,6 +414,13 @@ namespace Nova.WinForms.Console
 
             return false;
         }
+        
+        private static void DoResearch()
+        {
+        
+        }
 
     }
+    
+    
 }

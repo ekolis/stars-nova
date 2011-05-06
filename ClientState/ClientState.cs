@@ -483,7 +483,7 @@ namespace Nova.Client
 #if (DEBUG)
             // Just for testing
             // TODO (priority 4) get this from a settings file, or other central location for convenience.
-            ClientState.Data.ResearchLevel = new TechLevel(26);
+            ClientState.Data.ResearchLevel = new TechLevel(1);
 #endif
 
             if (ClientState.Data.AvailableComponents == null)
