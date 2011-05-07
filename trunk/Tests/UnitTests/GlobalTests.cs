@@ -26,12 +26,10 @@
 #endregion
 
 using System.IO;
-
 using Nova.Common;
-
 using NUnit.Framework;
 
-namespace Nova.UnitTests
+namespace Nova.Tests.UnitTests
 {
 
     /// <summary>

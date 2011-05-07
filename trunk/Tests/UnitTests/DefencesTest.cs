@@ -27,10 +27,9 @@
 #endregion
 
 using Nova.Common;
-
 using NUnit.Framework;
 
-namespace Nova.UnitTests
+namespace Nova.Tests.UnitTests
 {
 
     /// ----------------------------------------------------------------------------

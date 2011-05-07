@@ -22,7 +22,7 @@
 using Nova.Common;
 using NUnit.Framework;
 
-namespace Nova.UnitTests
+namespace Nova.Tests.UnitTests
 {
     // TODO Clean up unit test. Using magic numbers is not recommended.
     [TestFixture]
