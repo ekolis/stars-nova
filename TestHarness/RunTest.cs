@@ -33,7 +33,7 @@ using System.Text;
 
 using Nova.Common;
 using Nova.Common.DataStructures;
-using Nova.UnitTests;
+using Nova.Tests;
 
 namespace TestHarness
 {

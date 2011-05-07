@@ -26,7 +26,7 @@
 // ===========================================================================
 #endregion
 
-namespace Nova.Common
+namespace Nova.Tests.IntegrationTests
 {
     public static class TestControls
     {

@@ -23,7 +23,7 @@ using Nova.Common;
 using Nova.Common.DataStructures;
 using NUnit.Framework;
 
-namespace Nova.UnitTests
+namespace Nova.Tests.UnitTests
 {
     [TestFixture]
     public class PointUtilitiesTests

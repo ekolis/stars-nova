@@ -27,14 +27,11 @@
 #endregion
 
 using System;
-using System.Collections;
-
 using Nova.Common;
 using Nova.Common.Components;
-
 using NUnit.Framework;
 
-namespace Nova.UnitTests
+namespace Nova.Tests.UnitTests
 {
 
 
