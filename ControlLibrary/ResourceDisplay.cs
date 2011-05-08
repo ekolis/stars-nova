@@ -33,10 +33,7 @@ using Nova.Common;
 namespace Nova.ControlLibrary
 {
     public class ResourceDisplay : System.Windows.Forms.UserControl
-    {
-        // Used to keep track of the resources not on hand.
-        private int researchAllocation;
-        
+    {        
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
@@ -44,10 +41,10 @@ namespace Nova.ControlLibrary
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label7;
-        private System.Windows.Forms.Label ironium;
-        private System.Windows.Forms.Label germanium;
-        private System.Windows.Forms.Label boranium;
-        private System.Windows.Forms.Label energy;
+        protected System.Windows.Forms.Label ironium;
+        protected System.Windows.Forms.Label germanium;
+        protected System.Windows.Forms.Label boranium;
+        protected System.Windows.Forms.Label energy;
         private System.ComponentModel.Container components = null;
 
         #region Construction and Disposal
@@ -56,9 +53,7 @@ namespace Nova.ControlLibrary
         /// Initializes a new instance of the ResourceDisplay class.
         /// </summary>
         public ResourceDisplay()
-        {
-            this.researchAllocation = 0;
-            
+        {            
             InitializeComponent();
         }
 
@@ -233,19 +228,12 @@ namespace Nova.ControlLibrary
 
         #region Properties
 
-        public int ResearchAllocation
-        {
-            set
-            {
-                this.researchAllocation = value;
-            }
-        }
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the resources in the resource display.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public Resources Value
+        public virtual Resources Value
         {
             set
             {
@@ -258,8 +246,7 @@ namespace Nova.ControlLibrary
                     this.ironium.Text = resources.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     this.boranium.Text = resources.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     this.germanium.Text = resources.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    this.energy.Text = resources.Energy.ToString(System.Globalization.CultureInfo.InvariantCulture) + " of " 
-                        + (resources.Energy + this.researchAllocation).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    this.energy.Text = resources.Energy.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
                 catch
                 {
@@ -275,16 +262,7 @@ namespace Nova.ControlLibrary
                 resources.Ironium = Convert.ToInt32(this.ironium.Text);
                 resources.Boranium = Convert.ToInt32(this.boranium.Text);
                 resources.Germanium = Convert.ToInt32(this.germanium.Text);
-                
-                // We remove the total resources from the Display, and return only the available ones.
-                // We split the string, for example "35 of 43" by spaces and return only the first
-                // token; 35 in this case.
-                // TODO: Perhaps split the Energy field into two separate fields; on hand resources and
-                // total resources, to save us this silly string manipulation. -Aeglos
-                string [] energy = this.energy.Text.Split(' ');
-
-                resources.Energy = Convert.ToInt32(energy[0]);
-                
+                resources.Energy = Convert.ToInt32(this.energy.Text);
                 return resources;
             }
         }
