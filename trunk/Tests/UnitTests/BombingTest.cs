@@ -1,9 +1,9 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2007, 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
-// This file is part of Stars-Nova.
+// This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
 //
 // This program is free software; you can redistribute it and/or modify
@@ -68,40 +68,35 @@ namespace Nova.Tests.UnitTests
         /// <summary>
         /// Bombing Test
         /// 
-        /// TODO Clean up unit test. Using logic (for-loops and Math.Max()) and magic numbers in tests is not recommended.
+        /// TODO Clean up unit test. Using logic (Math.Max()) and magic numbers in tests is not recommended.
         /// </summary>
         /// ----------------------------------------------------------------------------
         [Test]
         public void BombingEffect()
         {
-            const double Initial = 10000;
+            const int InitialColonistCount = 10000;
+            const int InitialDefenseCount = 100;
+
             Star star = new Star();
             star.DefenseType = "Neutron";
-            star.Defenses = 100;
-            star.Colonists = (int)Initial;
+            star.Defenses = InitialDefenseCount;
+            star.Colonists = InitialColonistCount;
 
             Defenses.ComputeDefenseCoverage(star);
 
-            // In line with the example in the FAQ bomb with 10 Cherry bombs and 5
-            // M70s
+            // In line with the example in the FAQ bomb with 10 Cherry bombs and 5 M70s
 
             Bomb totalBombs = new Bomb();
 
+            const int CherryBombCount = 10;
+            totalBombs.PopKill += 2.5 * CherryBombCount;
+            totalBombs.Installations += 10 * CherryBombCount;
+            totalBombs.MinimumKill += 300 * CherryBombCount;
 
-            for (int i = 0; i < 10; i++)
-            {
-                totalBombs.PopKill += 2.5;
-                totalBombs.Installations += 10;
-                totalBombs.MinimumKill += 300;
-            }
-
-
-            for (int i = 0; i < 5; i++)
-            {
-                totalBombs.PopKill += 1.2;
-                totalBombs.Installations += 6;
-                totalBombs.MinimumKill += 300;
-            }
+            const int M70BombCount = 5;
+            totalBombs.PopKill += 1.2 * M70BombCount;
+            totalBombs.Installations += 6 * M70BombCount;
+            totalBombs.MinimumKill += 300 * M70BombCount;
 
             // Just verify the algorithm, not the whole routine
 
@@ -110,8 +105,7 @@ namespace Nova.Tests.UnitTests
             double populationKill = killFactor * defenceFactor;
             double killed = (double)star.Colonists * populationKill;
 
-            double minKilled = totalBombs.MinimumKill
-                                  * (1 - Defenses.PopulationCoverage);
+            double minKilled = totalBombs.MinimumKill * (1 - Defenses.PopulationCoverage);
 
             int dead = (int)Math.Max(killed, minKilled);
 
