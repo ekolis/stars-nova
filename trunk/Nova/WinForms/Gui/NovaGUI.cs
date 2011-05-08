@@ -675,6 +675,12 @@ namespace Nova.WinForms.Gui
             this.NextTurn();
         }
         
+        /// <summary>
+        /// Reacts to Fleet selection information. 
+        /// </summary>
+        /// <param name="sender">
+        /// A <see cref="System.Object"/>The source of the event.</param>
+        /// <param name="e">A <see cref="FleetSelectionArgs"/> that contains the event data.</param>
         public void FleetChangeSelection(object sender, FleetSelectionArgs e)
         {
             
@@ -682,6 +688,12 @@ namespace Nova.WinForms.Gui
             this.SelectionSummary.Value = e.summary;
         }
         
+        /// <summary>
+        /// Reacts to Star selection information. 
+        /// </summary>
+        /// <param name="sender">
+        /// A <see cref="System.Object"/>The source of the event.</param>
+        /// <param name="e">A <see cref="FleetSelectionArgs"/> that contains the event data.</param>
         public void StarChangeSelection(object sender, StarSelectionArgs e)
         {
             this.SelectionDetail.Value = e.star;
@@ -690,7 +702,7 @@ namespace Nova.WinForms.Gui
 
         #endregion
         
-         /// ----------------------------------------------------------------------------
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load controls with any data we may have for them.
         /// </summary>

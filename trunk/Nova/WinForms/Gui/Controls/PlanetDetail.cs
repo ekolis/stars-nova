@@ -36,8 +36,17 @@ using Nova.ControlLibrary;
 
 namespace Nova.WinForms.Gui
 {
+    /// <summary>
+    /// This is the hook to listen for a new selected Star.
+    /// Objects who subscribe to this should respond to the Star
+    /// selection change by using the StarSelectionArgs supplied which hold
+    /// the newly selected Star data.
+    /// </summary>
     public delegate void StarSelectionChanged(object sender, StarSelectionArgs e);
     
+    /// <summary>
+    /// Holds data related to the current Star selection. 
+    /// </summary>
     public class StarSelectionArgs : System.EventArgs
     {
         public Star star;
@@ -55,7 +64,17 @@ namespace Nova.WinForms.Gui
     {
         private Star star;
         
+        /// <summary>
+        /// This event should be fired when the selected Star
+        /// changes.
+        /// </summary>
         public event StarSelectionChanged StarSelectionChangedEvent;
+        
+        /// <summary>
+        /// This event should be fired in addition to
+        /// StarSelectionChangedEvent to reflect the new selection's
+        /// cursor position.
+        /// </summary>
         public event CursorChanged CursorChangedEvent;
 
         #region Designer generated variables
@@ -791,13 +810,9 @@ namespace Nova.WinForms.Gui
             StarSelectionArgs selectionArgs = new StarSelectionArgs(star);
             CursorArgs cursorArgs = new CursorArgs((Point)star.Position);
             
+            // Inform of the selection change to all listening objects.
             StarSelectionChangedEvent(this, selectionArgs);
             CursorChangedEvent(this, cursorArgs);
-            
-            //MainWindow.Nova.SelectionDetail.Value = star;
-            //MainWindow.Nova.SelectionSummary.Value = star;          
-            
-            //MainWindow.Nova.MapControl.SetCursor(star.Position);
         }
 
 
@@ -827,12 +842,9 @@ namespace Nova.WinForms.Gui
             StarSelectionArgs selectionArgs = new StarSelectionArgs(star);
             CursorArgs cursorArgs = new CursorArgs((Point)star.Position);
             
+            // Inform of the selection change to all listening objects.
             StarSelectionChangedEvent(this, selectionArgs);
             CursorChangedEvent(this, cursorArgs);
-
-            //MainWindow.Nova.SelectionDetail.Value = star;
-            //MainWindow.Nova.SelectionSummary.Value = star;
-            //MainWindow.Nova.MapControl.SetCursor(star.Position);
         }
 
         #endregion
@@ -877,7 +889,6 @@ namespace Nova.WinForms.Gui
             }
 
             QueueList.Populate(this.productionQueue, star.ManufacturingQueue);
-            int resources = star.ResourcesOnHand.Energy;
 
             Nova.Common.Defenses.ComputeDefenseCoverage(star);
 

@@ -38,9 +38,17 @@ using Nova.ControlLibrary;
 
 namespace Nova.WinForms.Gui
 {
+    /// <summary>
+    /// This is the hook to listen for a new selected Fleet.
+    /// Objects who subscribe to this should respond to the Fleet
+    /// selection change by using the FleetSelectionArgs supplied which hold
+    /// the newly selected Fleet data.
+    /// </summary>
     public delegate void FleetSelectionChanged(object sender, FleetSelectionArgs e);
     
-    
+    /// <summary>
+    /// Holds data related to the current Fleet selection. 
+    /// </summary>
     public class FleetSelectionArgs : System.EventArgs
     {
         public Fleet detail;
@@ -61,7 +69,17 @@ namespace Nova.WinForms.Gui
         private Fleet selectedFleet;
         private int currentFleet;
         
+        /// <summary>
+        /// This event should be fired when the selected Fleet
+        /// changes.
+        /// </summary>
         public event FleetSelectionChanged FleetSelectionChangedEvent;
+        
+        /// <summary>
+        /// This event should be fired in addition to
+        /// FleetSelectionChangedEvent to reflect the new selection's
+        /// cursor position.
+        /// </summary>
         public event CursorChanged CursorChangedEvent;
 
         #region VS-Generated variables
@@ -763,13 +781,9 @@ namespace Nova.WinForms.Gui
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(current, this.selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)this.selectedFleet.Position);
             
+            // Inform of the selection change to all listening objects.
             FleetSelectionChangedEvent(this, selectionArgs);
             CursorChangedEvent(this, cursorArgs);
-
-            //MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
-            //MainWindow.Nova.SelectionSummary.Value = this.selectedFleet;
-
-            //MainWindow.Nova.MapControl.SetCursor((Point)this.selectedFleet.Position);
         }
 
 
@@ -808,13 +822,9 @@ namespace Nova.WinForms.Gui
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(current, this.selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)this.selectedFleet.Position);
             
+            // Inform of the selection change to all listening objects.
             FleetSelectionChangedEvent(this, selectionArgs);
             CursorChangedEvent(this, cursorArgs);
-            
-            //MainWindow.Nova.SelectionDetail.Value = myFleets[currentFleet];
-            //MainWindow.Nova.SelectionSummary.Value = this.selectedFleet;
-
-            //MainWindow.Nova.MapControl.SetCursor((Point)this.selectedFleet.Position);
         }
 
         #endregion
