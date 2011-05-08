@@ -1,8 +1,8 @@
 #region Copyright Notice
 // ============================================================================
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
-// This file is part of Stars-Nova.
+// This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
 //
 // This program is free software; you can redistribute it and/or modify
@@ -31,39 +31,47 @@ using NUnit.Framework;
 
 namespace Nova.Tests.UnitTests
 {
-
     /// <summary>
     /// Unit test for global definition code.
     /// </summary>
     [TestFixture]
     public class GlobalTests
     {
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Relative path test.
-        /// 
-        /// TODO Clean up unit test. Asserting on many things in a single test is not recommended.
-        /// This indicates that the test probably should be broken into multiple tests.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
         [Test]
-        public void RelativePathTest()
+        public void EvaluateRelativePath_SameDirectory_ReturnsFileName()
         {
-            AssertEqualRelativePath("fred.txt", @"C:\", @"c:\fred.txt");
-            AssertEqualRelativePath("fred robson.txt", @"C:\", @"c:\fred robson.txt");
-            AssertEqualRelativePath("fred%20robson.txt", @"c:\", @"c:\fred%20robson.txt");
-            AssertEqualRelativePath("fred.txt", @"c:\fred\Tom\Bill", @"c:\fred\Tom\Bill\fred.txt");
-            AssertEqualRelativePath("fred.txt", @"c:\fred\Tom\Bill\", @"c:\fred\Tom\Bill\fred.txt");
-            AssertEqualRelativePath(@"..\fred.txt", @"c:\fred\Tom\Bill", @"c:\fred\Tom\fred.txt");
-            AssertEqualRelativePath(@"..\..\fred.txt", @"c:\fred\Tom\Bill", @"c:\fred\fred.txt");
-            AssertEqualRelativePath(@"..\..\..\fred.txt", @"c:\fred\Tom\Bill", @"c:\fred.txt");
-            AssertEqualRelativePath(@"Tom\Bill\fred.txt", @"c:\fred", @"c:\fred\Tom\Bill\fred.txt");
-            AssertEqualRelativePath(@"Bill\fred.txt", @"c:\fred\Tom", @"c:\fred\Tom\Bill\fred.txt");
-            AssertEqualRelativePath(@"..\..\..\Harry\Tom\Bill\fred.txt", @"c:\fred\Tom\Bill", @"c:\Harry\Tom\Bill\fred.txt");
-            AssertEqualRelativePath(@"c:\Harry\Tom\Bill\fred.txt", @"d:\fred\Tom\Bill\", @"c:\Harry\Tom\Bill\fred.txt");
-            AssertEqualRelativePath(@"d:\Harry\Tom\Bill\fred.txt", @"c:\fred\Tom\Bill", @"d:\Harry\Tom\Bill\fred.txt");
+            AssertEqualRelativePath("test.txt", @"c:\files", @"c:\files\test.txt");
         }
 
+        [Test]
+        public void EvaluateRelativePath_SameDirectoryWithTrailingBackslash_ReturnsFileName()
+        {
+            AssertEqualRelativePath("test.txt", @"c:\files\", @"c:\files\test.txt");
+        }
+
+        [Test]
+        public void EvaluateRelativePath_BaseDirIsSubDirectoryOfTargetPath_ReturnsFileNameOneDirectoryUp()
+        {
+            AssertEqualRelativePath(@"..\test.txt", @"c:\files", @"c:\test.txt");
+        }
+
+        [Test]
+        public void EvaluateRelativePath_TargetPathIsSubDirectoryOfBaseDir_ReturnsFileNameOneDirectoryDown()
+        {
+            AssertEqualRelativePath(@"files\test.txt", @"c:\", @"c:\files\test.txt");
+        }
+
+        [Test]
+        public void EvaluateRelativePath_TargetPathAndBaseDirAreInDifferentDirectories_ReturnsFileNameOneDirectoryUpThenDown()
+        {
+            AssertEqualRelativePath(@"..\otherfiles\test.txt", @"c:\files", @"c:\otherfiles\test.txt");
+        }
+
+        [Test]
+        public void EvaluateRelativePath_DifferentDiskDrives_ReturnsTargetPath()
+        {
+            AssertEqualRelativePath(@"d:\files\fred.txt", @"c:\files", @"d:\files\fred.txt");
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>

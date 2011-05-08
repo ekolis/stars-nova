@@ -1,9 +1,9 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
-// This file is part of Stars-Nova.
+// This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
 //
 // This program is free software; you can redistribute it and/or modify
@@ -35,8 +35,6 @@ namespace Nova.Tests.UnitTests
     /// ----------------------------------------------------------------------------
     /// <summary>
     /// Unit test for Defense coverage calculations
-    /// 
-    /// TODO Clean up unit test. Using magic numbers is not recommended.
     /// </summary>
     /// ----------------------------------------------------------------------------
     [TestFixture]
@@ -48,9 +46,11 @@ namespace Nova.Tests.UnitTests
         [Test]
         public void DefenseCoverageTest()
         {
+            const int InitialDefenseCount = 100;
+
             Star star = new Star();
             star.DefenseType = "Neutron";
-            star.Defenses = 100;
+            star.Defenses = InitialDefenseCount;
 
             Defenses.ComputeDefenseCoverage(star);
 
