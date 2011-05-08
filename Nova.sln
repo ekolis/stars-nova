@@ -18,8 +18,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nova", "Nova\Nova.csproj", 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NewGame", "NewGame\NewGame.csproj", "{C706B9E5-0A51-4580-A8B7-5798F47CE040}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHarness", "TestHarness\TestHarness.csproj", "{BA215175-BA5A-4D8C-A908-BBF4A38E2B1B}"
-EndProject
 Global
 	GlobalSection(SubversionScc) = preSolution
 		Svn-Managed = True
@@ -58,10 +56,6 @@ Global
 		{C706B9E5-0A51-4580-A8B7-5798F47CE040}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C706B9E5-0A51-4580-A8B7-5798F47CE040}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C706B9E5-0A51-4580-A8B7-5798F47CE040}.Release|Any CPU.Build.0 = Release|Any CPU
-		{BA215175-BA5A-4D8C-A908-BBF4A38E2B1B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{BA215175-BA5A-4D8C-A908-BBF4A38E2B1B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{BA215175-BA5A-4D8C-A908-BBF4A38E2B1B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{BA215175-BA5A-4D8C-A908-BBF4A38E2B1B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
