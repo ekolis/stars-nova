@@ -91,7 +91,7 @@ namespace Nova.WinForms.Gui
         private Label factories;
         private Label label4;
         private Label defenseCoverage;
-        private ResourceDisplay resourceDisplay;
+        private ResourcesOnHandDisplay resourceDisplay;
         private GroupBox groupBox2;
         private GroupBox groupBox3;
         private Label scannerRange;
@@ -178,7 +178,7 @@ namespace Nova.WinForms.Gui
             this.factories = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
             this.defenseCoverage = new System.Windows.Forms.Label();
-            this.resourceDisplay = new Nova.ControlLibrary.ResourceDisplay();
+            this.resourceDisplay = new Nova.ControlLibrary.ResourcesOnHandDisplay();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
