@@ -145,7 +145,7 @@ namespace Nova.Common.DataStructures
         /// <param name="xmldoc">The parent XmlDocument</param>
         /// <returns>An XmlElement representing the BattleReport</returns>
         /// ----------------------------------------------------------------------------
-        public new XmlElement ToXml(XmlDocument xmldoc)
+        public XmlElement ToXml(XmlDocument xmldoc)
         {
             
             XmlElement xmlelBattleReport = xmldoc.CreateElement("BattleReport");
