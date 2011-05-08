@@ -2,6 +2,16 @@ namespace Nova.WinForms.Gui
 {
     public class StarMapPanel : System.Windows.Forms.Panel
     {
+        public StarMapPanel()
+        {
+            // This goes here instead of StarMap. All drawing code affets the
+            // MapPanel and not the StarMap. Double buffering eliminates the
+            // flickering issues.
+            SetStyle(System.Windows.Forms.ControlStyles.UserPaint, true);
+            SetStyle(System.Windows.Forms.ControlStyles.AllPaintingInWmPaint, true);
+            SetStyle(System.Windows.Forms.ControlStyles.OptimizedDoubleBuffer, true);
+            UpdateStyles();	
+        }	
         /*public override bool PreProcessMessage(ref System.Windows.Forms.Message msg)
       {
          const int WM_ERASEBKGND = 0x3c;
