@@ -27,6 +27,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_01CF897F410C4DE898C5140953BE92BB"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_15D74C07BB714B8C96785A85E6682937"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -117,6 +123,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_A3A4FB7397B3BB4B89262CCDFEE74A06"
+        "OwnerKey" = "8:_F9FDAEF1A1EF93430A1A52C483D0B9AA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_A7458342CD8E4955B2C73C10F9492A05"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -190,6 +202,12 @@
         "Entry"
         {
         "MsmKey" = "8:_F8869E6C297AD17CFCD68A9EB660535D"
+        "OwnerKey" = "8:_F9FDAEF1A1EF93430A1A52C483D0B9AA"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F8869E6C297AD17CFCD68A9EB660535D"
         "OwnerKey" = "8:_A3A4FB7397B3BB4B89262CCDFEE74A06"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -203,6 +221,30 @@
         {
         "MsmKey" = "8:_F8869E6C297AD17CFCD68A9EB660535D"
         "OwnerKey" = "8:_AD039140FFA34D41B04E42107A0E91D0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_F9FDAEF1A1EF93430A1A52C483D0B9AA"
+        "OwnerKey" = "8:_AD039140FFA34D41B04E42107A0E91D0"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F8869E6C297AD17CFCD68A9EB660535D"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_01CF897F410C4DE898C5140953BE92BB"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_F9FDAEF1A1EF93430A1A52C483D0B9AA"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -227,12 +269,6 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_9394113AA2C215742EC7A51F7A54B5D2"
-        "MsmSig" = "8:_UNDEFINED"
-        }
-        "Entry"
-        {
-        "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_F8869E6C297AD17CFCD68A9EB660535D"
         "MsmSig" = "8:_UNDEFINED"
         }
     }
@@ -584,14 +620,9 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.3824.35017, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ControlLibrary, Version=0.4.4145.33799, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_77AF68B3E2315981EC932637827E0C49"
-                    {
-                    "Name" = "8:Nova.ControlLibrary.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Nova.ControlLibrary.dll"
             "TargetName" = "8:"
@@ -635,14 +666,9 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.3824.35017, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ClientState, Version=0.4.4145.33799, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_9394113AA2C215742EC7A51F7A54B5D2"
-                    {
-                    "Name" = "8:Nova.ClientState.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Nova.ClientState.dll"
             "TargetName" = "8:"
@@ -686,14 +712,9 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.3824.35017, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.ServerState, Version=0.4.4145.33799, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_A3A4FB7397B3BB4B89262CCDFEE74A06"
-                    {
-                    "Name" = "8:Nova.ServerState.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Nova.ServerState.dll"
             "TargetName" = "8:"
@@ -917,16 +938,37 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.3824.35017, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Nova.Common, Version=0.4.4145.33799, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
-                    "_F8869E6C297AD17CFCD68A9EB660535D"
-                    {
-                    "Name" = "8:Nova.Common.dll"
-                    "Attributes" = "3:512"
-                    }
                 }
             "SourcePath" = "8:Nova.Common.dll"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_AC801D23DA1C46C5B95B810890051C30"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_F9FDAEF1A1EF93430A1A52C483D0B9AA"
+            {
+            "AssemblyRegister" = "3:1"
+            "AssemblyIsInGAC" = "11:FALSE"
+            "AssemblyAsmDisplayName" = "8:NewGame, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL"
+                "ScatterAssemblies"
+                {
+                }
+            "SourcePath" = "8:NewGame.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_AC801D23DA1C46C5B95B810890051C30"
@@ -1078,7 +1120,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Stars! Nova"
         "ProductCode" = "8:{B4D7DB67-4F2A-4AA8-9AAA-4372D8DD02FE}"
-        "PackageCode" = "8:{66BB3ABA-68D7-4CCC-AA7B-F4FA17F900E7}"
+        "PackageCode" = "8:{927A9A76-4414-4114-944F-E43682C69221}"
         "UpgradeCode" = "8:{0669EC41-507F-4D34-8077-38BF7A216402}"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
@@ -1892,9 +1934,9 @@
         }
         "ProjectOutput"
         {
-            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_24AA89A6397946A99EF5F69C08BA1BB0"
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_01CF897F410C4DE898C5140953BE92BB"
             {
-            "SourcePath" = "8:"
+            "SourcePath" = "8:..\\..\\Graphics\\obj\\Release\\Graphics.dll"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_642CC1D59DE74E90A28660BBB1E6B057"
@@ -1913,7 +1955,7 @@
             "IsolateTo" = "8:"
             "ProjectOutputGroupRegister" = "3:1"
             "OutputConfiguration" = "8:"
-            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
@@ -1943,6 +1985,34 @@
             "OutputConfiguration" = "8:"
             "OutputGroupCanonicalName" = "8:Built"
             "OutputProjectGuid" = "8:{184F17D9-28F2-4784-B5F0-8E9538A31BF7}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_FD11E9022FBD4E7FAF8AB253CC560758"
+            {
+            "SourcePath" = "8:"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_642CC1D59DE74E90A28660BBB1E6B057"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:ContentFiles"
+            "OutputProjectGuid" = "8:{DEC3CBEF-A443-406D-BE40-4FC30FEEB766}"
             "ShowKeyOutput" = "11:TRUE"
                 "ExcludeFilters"
                 {
