@@ -43,6 +43,7 @@ namespace Nova.WinForms.Gui
     #endregion
     
 	#region Delegates
+    
     /// <summary>
     /// This is the hook to listen for a request for selection detail.
     /// Objects who subscribe to this should return an Item corresponding
@@ -136,6 +137,8 @@ namespace Nova.WinForms.Gui
         private double zoomFactor = 0.8;              // Is used to adjust the Extent of the map.
         private bool isInitialised;
         private bool displayStarNames = true;
+        private bool displayBackground = true;
+        private bool displayBorders = false;
         private int horizontalScroll = 50; // 0 to 100, used to position the Center, initially centered
         private int verticalScroll = 50;   // 0 to 100, used to position the Center, initially centered
         private int selection;
@@ -242,9 +245,7 @@ namespace Nova.WinForms.Gui
             // Erase previous drawings.
 			grafx.Graphics.Clear(System.Drawing.Color.Transparent);        
             
-            // (0) Draw the image backdrop
-            Image backdrop = Nova.Properties.Resources.Plasma;
-
+            // (0) Draw the image backdrop and universe borders          
             NovaPoint backgroundOrigin = LogicalToDevice(new NovaPoint(0, 0));
             NovaPoint backgroundExtent = LogicalToDeviceRelative(new NovaPoint(this.logical.X, this.logical.Y));
             
@@ -252,11 +253,19 @@ namespace Nova.WinForms.Gui
             renderSize.Height = backgroundExtent.Y;
             renderSize.Width = backgroundExtent.X;
             
-            // This is the specified area onto we wish to draw the image.       
+            // This is the specified area which represents the playing universe      
             Rectangle targetArea = new Rectangle((Point)backgroundOrigin, renderSize); 
             
-            grafx.Graphics.DrawImage(backdrop, targetArea);
-            //grafx.Graphics.DrawRectangle(new Pen(Brushes.DeepSkyBlue), targetArea);
+            if (this.displayBackground == true)
+            {
+                Image backdrop = Nova.Properties.Resources.Plasma;
+                grafx.Graphics.DrawImage(backdrop, targetArea);
+            }
+            
+            if (this.displayBorders == true)
+            {
+                grafx.Graphics.DrawRectangle(new Pen(Brushes.DimGray), targetArea);
+            }
 			
             Color lrScanColour = Color.FromArgb(128, 128, 0, 0);
             SolidBrush lrScanBrush = new SolidBrush(lrScanColour);
@@ -1231,6 +1240,54 @@ namespace Nova.WinForms.Gui
 
             this.DrawEverything();
 			this.MapPanel.Refresh();
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Toggle the display of the background image.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// ----------------------------------------------------------------------------
+        private void ToggleBackground_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox toggleBackground = sender as CheckBox;
+
+            if (toggleBackground.Checked)
+            {
+                this.displayBackground = true;
+            }
+            else
+            {
+                this.displayBackground = false;
+            }
+
+            this.DrawEverything();
+            this.MapPanel.Refresh();
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Toggle the display of universe borders.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// ----------------------------------------------------------------------------
+        private void ToggleBorders_CheckedChanged(object sender, EventArgs e)
+        {
+            CheckBox toggleBorders = sender as CheckBox;
+
+            if (toggleBorders.Checked)
+            {
+                this.displayBorders = true;
+            }
+            else
+            {
+                this.displayBorders = false;
+            }
+
+            this.DrawEverything();
+            this.MapPanel.Refresh();
         }
 
         #endregion
