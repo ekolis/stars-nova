@@ -255,7 +255,7 @@ namespace Nova.WinForms.Gui
             // This is the specified area onto we wish to draw the image.       
             Rectangle targetArea = new Rectangle((Point)backgroundOrigin, renderSize); 
             
-            grafx.Graphics.DrawImage(this.backdrop, targetArea);
+            grafx.Graphics.DrawImage(backdrop, targetArea);
             //grafx.Graphics.DrawRectangle(new Pen(Brushes.DeepSkyBlue), targetArea);
 			
             Color lrScanColour = Color.FromArgb(128, 128, 0, 0);
