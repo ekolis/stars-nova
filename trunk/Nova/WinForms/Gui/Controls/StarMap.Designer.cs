@@ -37,6 +37,8 @@ namespace Nova.WinForms.Gui
           this.zoomIn = new System.Windows.Forms.Button();
           this.zoomOut = new System.Windows.Forms.Button();
           this.toggleNames = new System.Windows.Forms.CheckBox();
+          this.toggleBackground = new System.Windows.Forms.CheckBox();
+          this.toggleBorders = new System.Windows.Forms.CheckBox();
           this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
           this.SuspendLayout();
           // 
@@ -115,18 +117,50 @@ namespace Nova.WinForms.Gui
           this.toggleNames.Location = new System.Drawing.Point(88, 4);
           this.toggleNames.Name = "toggleNames";
           this.toggleNames.Size = new System.Drawing.Size(32, 24);
-          this.toggleNames.TabIndex = 8;
+          this.toggleNames.TabIndex = 9;
           this.toggleNames.Text = "A";
           this.toggleNames.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
           this.toolTip1.SetToolTip(this.toggleNames, "Toggle star names");
           this.toggleNames.UseVisualStyleBackColor = true;
           this.toggleNames.CheckedChanged += new System.EventHandler(this.ToggleNames_CheckedChanged);
           // 
+          // ToggleBackground
+          // 
+          this.toggleBackground.Appearance = System.Windows.Forms.Appearance.Button;
+          this.toggleBackground.Checked = true;
+          this.toggleBackground.CheckState = System.Windows.Forms.CheckState.Checked;
+          this.toggleBackground.Location = new System.Drawing.Point(120, 4);
+          this.toggleBackground.Name = "toggleBackground";
+          this.toggleBackground.Size = new System.Drawing.Size(32, 24);
+          this.toggleBackground.TabIndex = 10;
+          this.toggleBackground.Text = "Bk";
+          this.toggleBackground.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+          this.toolTip1.SetToolTip(this.toggleBackground, "Toggle background");
+          this.toggleBackground.UseVisualStyleBackColor = true;
+          this.toggleBackground.CheckedChanged += new System.EventHandler(this.ToggleBackground_CheckedChanged);
+          // 
+          // ToggleBorders
+          // 
+          this.toggleBorders.Appearance = System.Windows.Forms.Appearance.Button;
+          this.toggleBorders.Checked = false;
+          this.toggleBorders.CheckState = System.Windows.Forms.CheckState.Unchecked;
+          this.toggleBorders.Location = new System.Drawing.Point(152, 4);
+          this.toggleBorders.Name = "toggleBorders";
+          this.toggleBorders.Size = new System.Drawing.Size(32, 24);
+          this.toggleBorders.TabIndex = 8;
+          this.toggleBorders.Text = "Bd";
+          this.toggleBorders.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+          this.toolTip1.SetToolTip(this.toggleBorders, "Toggle universe borders");
+          this.toggleBorders.UseVisualStyleBackColor = true;
+          this.toggleBorders.CheckedChanged += new System.EventHandler(this.ToggleBorders_CheckedChanged);
+          // 
           // StarMap
           // 
           this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
           this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
           this.Controls.Add(this.toggleNames);
+          this.Controls.Add(this.toggleBackground);
+          this.Controls.Add(this.toggleBorders);
           this.Controls.Add(this.verticalScrollBar);
           this.Controls.Add(this.horizontalScrollBar);
           this.Controls.Add(this.zoomIn);
@@ -147,6 +181,8 @@ namespace Nova.WinForms.Gui
       private System.Windows.Forms.Button zoomOut;
       private System.Windows.Forms.CheckBox toggleNames;
       private System.Windows.Forms.ToolTip toolTip1;
+      private System.Windows.Forms.CheckBox toggleBackground;
+      private System.Windows.Forms.CheckBox toggleBorders;
 
    }
 }
