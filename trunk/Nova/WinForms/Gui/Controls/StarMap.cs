@@ -260,6 +260,9 @@ namespace Nova.WinForms.Gui
             {
                 Image backdrop = Nova.Properties.Resources.Plasma;
                 grafx.Graphics.DrawImage(backdrop, targetArea);
+                // Free the image after using it. This prevents a nasty
+                // memory leak under Mono on Linux.
+                backdrop.Dispose();
             }
             
             if (this.displayBorders == true)
