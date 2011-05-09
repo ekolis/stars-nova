@@ -129,7 +129,7 @@ namespace Nova.WinForms.Gui
         private ClientState stateData;
         private NovaPoint cursorPosition = new Point(0, 0);
         private NovaPoint lastClick = new Point(0, 0);
-        private NovaPoint logical = new Point(0, 0);  // Size of the logical co-ordinate system (size of the game universe).
+        private NovaPoint logical = new Point(0, 0);  // Size of the logical coordinate system (size of the game universe).
         private NovaPoint origin = new Point(0, 0);   // Top left starting point of the displayed map within the logical map.
         private NovaPoint center = new Point(0, 0);   // Focal point of the displayed map.
         private NovaPoint extent = new Point(0, 0);   // Extent of the currently displayed map, from Origin.
@@ -159,8 +159,8 @@ namespace Nova.WinForms.Gui
             GameSettings.Restore();
 
             // Initial map size
-            this.logical.X = this.MapPanel.Width;//GameSettings.Data.MapWidth;
-            this.logical.Y = this.MapPanel.Height;//GameSettings.Data.MapHeight;
+            this.logical.X = GameSettings.Data.MapWidth;
+            this.logical.Y = GameSettings.Data.MapHeight;
 
             this.extent.X = (int)(this.logical.X * this.zoomFactor);
             this.extent.Y = (int)(this.logical.Y * this.zoomFactor);
@@ -168,14 +168,13 @@ namespace Nova.WinForms.Gui
             this.cursorBitmap = Nova.Properties.Resources.Cursor;
             this.cursorBitmap.MakeTransparent(Color.Black);
 
-            this.nameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);
+            this.nameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);            
    
             // This allocates the initial drawing buffered area.
             this.bufferedContext.MaximumBuffer = new Size(this.MapPanel.Size.Width+1, this.MapPanel.Size.Height+1);
-			this.grafx = bufferedContext.Allocate(this.MapPanel.CreateGraphics(),
+            this.grafx = this.bufferedContext.Allocate(this.MapPanel.CreateGraphics(),
                                                new Rectangle(0, 0, this.MapPanel.Size.Width, this.MapPanel.Size.Height)
                                               );
-            
 
         }
 
@@ -241,11 +240,23 @@ namespace Nova.WinForms.Gui
             }
 			
             // Erase previous drawings.
-			grafx.Graphics.Clear(System.Drawing.Color.Transparent);
+			grafx.Graphics.Clear(System.Drawing.Color.Transparent);        
+            
+            // (0) Draw the image backdrop
+            Image backdrop = Nova.Properties.Resources.Plasma;
 
             NovaPoint backgroundOrigin = LogicalToDevice(new NovaPoint(0, 0));
             NovaPoint backgroundExtent = LogicalToDeviceRelative(new NovaPoint(this.logical.X, this.logical.Y));
-            grafx.Graphics.DrawImage(Nova.Properties.Resources.Plasma, backgroundOrigin.X, backgroundOrigin.Y, backgroundExtent.X, backgroundExtent.Y);
+            
+            Size renderSize = new Size();
+            renderSize.Height = backgroundExtent.Y;
+            renderSize.Width = backgroundExtent.X;
+            
+            // This is the specified area onto we wish to draw the image.       
+            Rectangle targetArea = new Rectangle((Point)backgroundOrigin, renderSize); 
+            
+            grafx.Graphics.DrawImage(this.backdrop, targetArea);
+            //grafx.Graphics.DrawRectangle(new Pen(Brushes.DeepSkyBlue), targetArea);
 			
             Color lrScanColour = Color.FromArgb(128, 128, 0, 0);
             SolidBrush lrScanBrush = new SolidBrush(lrScanColour);
