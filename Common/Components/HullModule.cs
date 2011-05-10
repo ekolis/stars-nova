@@ -40,9 +40,26 @@ namespace Nova.Common.Components
     [Serializable]
     public class HullModule : ICloneable
     {
+        private int _ComponentCount;
         public Component AllocatedComponent;
         public int CellNumber = -1;
-        public int ComponentCount;
+        public int ComponentCount
+        {
+            get
+            {
+                if (_ComponentCount == 0 && AllocatedComponent == null)
+                    return 0;
+                else if (_ComponentCount == 0 && AllocatedComponent != null)
+                    return 1;
+                else
+                    return _ComponentCount;
+            }
+            set
+            {
+                _ComponentCount = value;
+            }
+
+        }
         public int ComponentMaximum = 1;
         public string ComponentType;
 

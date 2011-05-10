@@ -141,6 +141,7 @@ namespace Nova.Common.Components
                     SumProperty(module.AllocatedComponent.Properties[key], key, module.ComponentCount);
                 }
             }
+            this.Mass = Summary.Mass;
         }
 
 
