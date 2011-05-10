@@ -129,32 +129,56 @@ namespace Nova.NewGame
                 defense.Name = "Defenses";
                 defense.Type = "Defenses";
                 defense.Owner = player;
+                //Read components data and create some basic stuff
                 AllComponents.Restore();
                 Hashtable components = AllComponents.Data.Components;
-                Hull colonyShipHull, scoutHull, starbaseHull;
-                Engine engine;
+                Component colonyShipHull = null, scoutHull = null, starbaseHull = null;
+                Component  engine = null;
+                Component  colonizer = null;
                 foreach (string name in components.Keys)
                 {
                     if (name == "Colony Ship")
-                        colonyShipHull = (components["Colony Ship"] as Component).Properties["Hull"] as Hull;
+                        colonyShipHull = components["Colony Ship"] as Component; //(components["Colony Ship"] as Component).Properties["Hull"] as Hull;
                     else if (name == "Scout")
-                        scoutHull = (components["Scout"] as Component).Properties["Hull"] as Hull;
+                        scoutHull = components["Scout"] as Component;//(components["Scout"] as Component).Properties["Hull"] as Hull;
                     else if (name == "Space Dock")
-                        starbaseHull = (components["Space Dock"] as Component).Properties["Hull"] as Hull;
+                        starbaseHull = components["Space Dock"] as Component;// (components["Space Dock"] as Component).Properties["Hull"] as Hull;
                     else if (name == "Quick Jump 5")
-                        engine = (components["Quick Jump 5"] as Component).Properties["Engine"] as Engine;
+                        engine = components["Quick Jump 5"] as Component; //(components["Quick Jump 5"] as Component).Properties["Engine"] as Engine;
+                    else if (race.HasTrait("AR") == true && name == "Orbital Construction Module")
+                        colonizer = components["Orbital Construction Module"] as Component;// (components["Orbital Construction Module"] as Component).Properties["Colonizer"] as Colonizer;
+                    else if (race.HasTrait("AR") == false && name == "Colonization Module")
+                        colonizer = components["Colonization Module"] as Component;//(components["Colonization Module"] as Component).Properties["Colonizer"] as Colonizer; ;
+
                 }
 
                 ShipDesign cs = new ShipDesign();
+                cs.ShipHull = colonyShipHull;
+                foreach (HullModule module in (cs.ShipHull .Properties["Hull"] as Hull).Modules)
+                {
+                    if (module.ComponentType == "Engine")
+                    {
+                        module.AllocatedComponent = engine;
+                        module.ComponentCount = 1;
+                    }
+                    else if (module.ComponentType == "Mechanical")
+                    {
+                        module.AllocatedComponent = colonizer;
+                        module.ComponentCount = 1;
+                    }
+                }
+                cs.Icon = new ShipIcon(colonyShipHull.ImageFile, (Bitmap)colonyShipHull.ComponentImage);
+                
+                cs.Type = "Ship";
                 cs.Name = "Santa Maria";
                 cs.Owner = player;
                 
-
+                ServerState.Data.AllDesigns[player + "/Santa Maria"] = cs;
                 ServerState.Data.AllDesigns[player + "/Mine"] = mine;
                 ServerState.Data.AllDesigns[player + "/Factory"] = factory;
                 ServerState.Data.AllDesigns[player + "/Defenses"] = defense;
 
-                InitialiseHomeStar(race, spaceAllocator);
+                InitialiseHomeStar(race, spaceAllocator, player);
             }
 
             Nova.Common.Message welcome = new Nova.Common.Message();
@@ -174,7 +198,7 @@ namespace Nova.NewGame
         /// <param name="race"><see cref="Race"/> to be positioned.</param>
         /// <param name="spaceAllocator">The <see cref="SpaceAllocator"/> being used to allocate positions.</param>
         /// ----------------------------------------------------------------------------
-        private static void InitialiseHomeStar(Race race, SpaceAllocator spaceAllocator)
+        private static void InitialiseHomeStar(Race race, SpaceAllocator spaceAllocator, string player)
         {
             ServerState stateData = ServerState.Data;
 
@@ -184,7 +208,7 @@ namespace Nova.NewGame
                 if (PointUtilities.InBox(star.Position, box))
                 {
                     AllocateHomeStarResources(star, race);
-                    AllocateHomeStarOrbitalInstallations(star, race);
+                    AllocateHomeStarOrbitalInstallations(star, race, player);
                     return;
                 }
             }
@@ -198,9 +222,12 @@ namespace Nova.NewGame
         /// </summary>
         /// <param name="star"></param>
         /// <param name="race"></param>
-        private static void AllocateHomeStarOrbitalInstallations(Star star, Race race)
+        private static void AllocateHomeStarOrbitalInstallations(Star star, Race race, string player)
         {
-            
+            ShipDesign csDesign = ServerState.Data.AllDesigns[player + "/Santa Maria"] as ShipDesign;
+            Ship cs = new Ship(csDesign);
+            Fleet fleet1 = new Fleet(cs, star);
+            ServerState.Data.AllFleets[player + fleet1.FleetID.ToString()] = fleet1;
         }
 
 

@@ -89,7 +89,7 @@ namespace Nova.Common
             Image = image;
 
             // fi.Name format is <baseHull><iconNumber>.png where the length of <Number> in characters is defined by Global.ShipIconNumberingLength.
-            int extensionSeperatorIndex = Source.IndexOf('.'); // position of the '.' in the file name
+            int extensionSeperatorIndex = Source.LastIndexOf('.'); // position of the '.' in the file name
 
             // get the hull number of this icon
             index = int.Parse(Source.Substring(extensionSeperatorIndex - Global.ShipIconNumberingLength, Global.ShipIconNumberingLength));
