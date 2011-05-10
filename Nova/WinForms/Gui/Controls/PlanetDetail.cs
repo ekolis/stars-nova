@@ -902,7 +902,8 @@ namespace Nova.WinForms.Gui
                     + " of " + star.GetOperableMines().ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.population.Text = star.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
             
-            this.resourceDisplay.ResearchAllocation = star.ResearchAllocation;
+            this.resourceDisplay.ResourceRate = star.GetResourceRate();
+            this.resourceDisplay.ResearchPercentage = ClientState.Data.ResearchBudget;
             this.resourceDisplay.Value = star.ResourcesOnHand;
 
             this.scannerRange.Text = star.ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture);

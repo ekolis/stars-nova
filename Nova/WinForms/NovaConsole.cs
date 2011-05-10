@@ -835,7 +835,7 @@ namespace Nova.WinForms.Console
                 RaceData raceData = stateData.AllRaceData[settings.RaceName] as RaceData;
 
                 ListViewItem.ListViewSubItem yearItem = new ListViewItem.ListViewSubItem();
-                if (raceData == null)
+                if (raceData == null || raceData.TurnYear == 0)
                     yearItem.Text = "No Orders";
                 else
                     yearItem.Text = raceData.TurnYear.ToString();

@@ -29,15 +29,11 @@
 using System;
 using System.Collections;
 
-using Nova.Common;
-
-namespace Nova.Client
+namespace Nova.Common
 {
  
    public class Research
    {
-       private static readonly ClientState StateData = ClientState.Data;
-
        /// ----------------------------------------------------------------------------
        /// <summary>
        /// Return the total energy cost for researching a level (taking into account
@@ -47,11 +43,11 @@ namespace Nova.Client
        /// <param name="level">The level to be researched.</param>
        /// <returns>The energy cost to reach that level.</returns>
        /// ----------------------------------------------------------------------------
-       public static int Cost(int level)
+       public static int Cost(TechLevel.ResearchField field, Race race, TechLevel totalLevels, int level)
        {
            int techAjustment = 0;
 
-           foreach (int levelAttained in StateData.ResearchLevel)
+           foreach (int levelAttained in totalLevels)
            {
                techAjustment += levelAttained * 10;
            }
@@ -63,7 +59,7 @@ namespace Nova.Client
            // ??? (priority 3) is this the Stars! costs, or some approximation? Need a reference.
 
            int baseCost = (Fibonacci(level + 5) * 10) + techAjustment;
-           int costFactor = (int)StateData.PlayerRace.ResearchCosts[StateData.ResearchTopic];
+           int costFactor = race.ResearchCosts[field];
 
            return (baseCost * costFactor) / 100;
        }

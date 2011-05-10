@@ -50,7 +50,6 @@ namespace Nova.Common
         public enum ResearchField { Biotechnology, Electronics, Energy, Propulsion, Weapons, Construction }
 
         //----------------------------------------------------------------------------
-
         // These members are private to hide the 
         // implementaion of the hashtable and force access through the enums, 
         // in order to prevent errors due to using string literals (e.g. "Biotech" vs "Biotechnology")
@@ -324,6 +323,21 @@ namespace Nova.Common
 
             return false;
         }
+        
+        //----------------------------------------------------------------------------
+        /// <summary>
+        /// Setting all levels to zero.
+        /// </summary>
+        //----------------------------------------------------------------------------
+        public void Zero()
+        {
+            this.techValues["Biotechnology"] = 0;
+            this.techValues["Electronics"] = 0;
+            this.techValues["Energy"] = 0;
+            this.techValues["Propulsion"] = 0;
+            this.techValues["Weapons"] = 0;
+            this.techValues["Construction"] = 0;
+        }
 
         #endregion
 
@@ -372,7 +386,21 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
-            XmlElement xmlelResource = xmldoc.CreateElement("Tech");
+           return this.ToXml(xmldoc, "Tech");
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Save: Serialise this property to an <see cref="XmlElement"/> with a specified
+        /// node name.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <param name="string">The node name of this XML element </param>
+        /// <returns>An <see cref="XmlElement"/> representation of the Tech Level.</returns>
+        /// ----------------------------------------------------------------------------
+        public XmlElement ToXml(XmlDocument xmldoc, string nodeName)
+        {
+            XmlElement xmlelResource = xmldoc.CreateElement(nodeName);
 
             foreach (string key in TechLevel.ResearchKeys)
             {

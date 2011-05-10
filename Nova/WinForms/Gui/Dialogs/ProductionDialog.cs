@@ -1194,8 +1194,6 @@ namespace Nova.WinForms.Gui
             double percentComplete = 0.0;
             int minesInQueue = 0;
             int factoriesInQueue = 0;
-            int currentFactories = this.queueStar.Factories;
-            int currentMines = this.queueStar.Mines;
             int minYearsCurrent, maxYearsCurrent, minYearsSelected, maxYearsSelected, minYearsTotal, maxYearsTotal;
             int yearsSoFar, yearsToCompleteOne;
             minYearsSelected = maxYearsSelected = minYearsTotal = maxYearsTotal = 0;
@@ -1282,35 +1280,19 @@ namespace Nova.WinForms.Gui
                             // determine the potentialResources based on the population, factories, and mines that actually exist
                             // determine the number of years to build this based on current mines / factories
                             // then update to include the effect of any mines or factories in the queue
-                            // if wanting to include the effects of population growth can replace this.queueStar.Colonists with
-                            // a variable that estimates population growth
                             // UPDATED May 11: to use native star method of resource rate prediction. -Aeglos
                             potentialResources.Energy = this.queueStar.GetFutureResourceRate(factoriesInQueue);
                             
-                            // potentialFactories = this.queueStar.Colonists / starOwnerRace.OperableFactories;
-                            // UPDATED May 11: to use native star method of operable amounts. 
-                            // No needed anymore due to GetFutureResourceRate() -Aeglos.
-                            
-                            // potentialFactories = this.queueStar.GetOperableFactories();                            
-                            // factoriesInUse = Math.Min((currentFactories + factoriesInQueue), potentialFactories);
-                            // potentialResources.Energy += (factoriesInUse * starOwnerRace.FactoryProduction / Global.FactoriesPerFactoryProductionUnit)
-                            //        - this.queueStar.ResearchAllocation;
-                            
-                            // Only ResearchAllocation is still needed - Aeglos.
-                            potentialResources.Energy -= this.queueStar.ResearchAllocation;
+                            // Account for resources destinated for research.
+                            // Use the set client percentage, not the planet allocation. This is because the
+                            // allocated resources only change during turn generation, but the budget may change
+                            // many times while playing a turn. This makes the star's values out of sync, so,
+                            // predict them for now.
+                            potentialResources.Energy -= (potentialResources.Energy * ClientState.Data.ResearchBudget / 100);
 
                             // need to know how much of each mineral is currently available on the star (this.queueStar.ResourcesOnHand)
                             // need race information to determine how many minerals are produced by each mine each year
                             // need to make sure that no more than the maximum number of mines operable by colonists are being operated
-                            // if wanting to include the effects of population growth can replace this.queueStar.Colonists with
-                            // a variable that estimates population growth
-                            
-                            // UPDATED May 11: to use native star method of operable amounts. -Aeglos
-                            // potentialMines = (this.queueStar.Colonists / Global.ColonistsPerOperableMiningUnit) * starOwnerRace.OperableMines;                            
-                            
-                            // UPDATED May 11 Again: No longer required due to mining prediction method below.
-                            // potentialMines = this.queueStar.GetOperableMines();
-
                             // add one year of mining results to the remaining potentialResources
                             // UPDATED May 11: to use native star methods of mining rate prediction.
                             potentialResources.Ironium += this.queueStar.GetFutureMiningRate(this.queueStar.MineralConcentration.Ironium, minesInQueue);

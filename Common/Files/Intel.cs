@@ -81,6 +81,8 @@ namespace Nova.Common
        public Hashtable AllDesigns = new Hashtable();
        public Hashtable AllStars = new Hashtable();
        public Hashtable AllMinefields = new Hashtable();
+       public TechLevel NewResearchLevels = new TechLevel();
+       public TechLevel ResearchResources = new TechLevel();
 
        /// <summary>
        /// Default constructor.
@@ -104,7 +106,9 @@ namespace Nova.Common
            AllMinefields.Clear();
            Battles.Clear();
            Messages.Clear();
-
+           NewResearchLevels.Zero();
+           ResearchResources.Zero();
+            
            TurnYear = 2100;
        }
 
@@ -132,6 +136,8 @@ namespace Nova.Common
            AllDesigns = new Hashtable();
            AllStars = new Hashtable();
            AllMinefields = new Hashtable();
+           NewResearchLevels = new TechLevel();
+           ResearchResources = new TechLevel();
 
            XmlNode xmlnode = xmldoc.DocumentElement;
            while (xmlnode != null)
@@ -242,6 +248,15 @@ namespace Nova.Common
                            Minefield minefield = new Minefield(xmlnode);
                            AllMinefields.Add(minefield.Key, minefield);
                            break;
+                        
+                       case "newtechlevels":
+                           TechLevel newTechLevel = new TechLevel(xmlnode);
+                           NewResearchLevels = newTechLevel;
+                           break;
+                       case "researchresources":
+                           TechLevel researchResources = new TechLevel(xmlnode);
+                           ResearchResources = researchResources;
+                           break;
 
                        default: break;
                    }
@@ -344,6 +359,15 @@ namespace Nova.Common
            {
                xmlelIntel.AppendChild(mine.ToXml(xmldoc));
            }
+            
+           // AllNewResearchLevels
+           // Only write out relevant information for this race.
+           // There might not be any new levels...
+           if (NewResearchLevels != null)
+           {          
+               xmlelIntel.AppendChild(NewResearchLevels.ToXml(xmldoc, "NewTechLevels"));
+           }
+           xmlelIntel.AppendChild(ResearchResources.ToXml(xmldoc, "ResearchResources"));
 
            // return the outer element
            return xmlelIntel;

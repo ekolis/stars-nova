@@ -73,9 +73,7 @@ namespace Nova.WinForms.Console
             {
                 ProcessStar(star);
             }
-            
-            DoResearch();
-            
+                        
             CleanupFleets();
 
             BattleEngine.Run();
@@ -174,12 +172,19 @@ namespace Nova.WinForms.Console
         /// <param name="star">The <see cref="Star"/> to process.</param>
         /// ----------------------------------------------------------------------------
         private static void ProcessStar(Star star)
-        {
+        {            
             string owner = star.Owner;
             if (owner == null) return; // nothing to do for an empty star system.
             Race race = stateData.AllRaces[star.Owner] as Race;
             
             star.UpdateMinerals();
+            
+            // According to the allocated budget submited, update star resources.
+            int percentage = (stateData.AllRaceData[race.Name] as RaceData).ResearchPercentage;
+            star.UpdateResearch(percentage);
+            star.UpdateResources();
+            
+            ContributeAllocatedResearch(race, star);
             
             int initialPopulation = star.Colonists;
             star.UpdatePopulation(race);
@@ -197,6 +202,10 @@ namespace Nova.WinForms.Console
             }
 
             Manufacture.Items(star);
+            
+            ContributeLeftoverResearch(race, star);
+            
+            star.UpdateResearch(percentage);
             star.UpdateResources();
         }
 
@@ -415,9 +424,93 @@ namespace Nova.WinForms.Console
             return false;
         }
         
-        private static void DoResearch()
-        {
+        private static void ContributeAllocatedResearch(Race race, Star star)
+        {   
+            // Paranoia
+            string owner = star.Owner;
+            if (owner == null || owner != race.Name) return;
+            
+            RaceData playerData = ServerState.Data.AllRaceData[race.Name] as RaceData;
+
+            TechLevel targetAreas = playerData.ResearchTopics;
+            TechLevel.ResearchField targetArea = TechLevel.ResearchField.Energy; // default to Energy.
+            
+            // Find the first research priority
+            // TODO: Implement a proper hierarchy of research ("next research field") system.
+            foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
+            {
+                if (targetAreas[area] == 1)
+                {
+                    targetArea = area;
+                    break;        
+                }
+            }
+            
+            // Consume resources for research for added paranoia.
+            playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResearchAllocation;
+            star.ResearchAllocation = 0;
+            
+            ServerState.Data.AllNewResearchLevels[race.Name] = new TechLevel(0, 0, 0, 0, 0, 0);
+            TechLevel newLevels = ServerState.Data.AllNewResearchLevels[race.Name] as TechLevel;
+            
+            while (true)
+            {
+                int cost = Research.Cost(targetArea, race, playerData.ResearchLevel, playerData.ResearchLevel[targetArea]+1);
+                
+                if (playerData.ResearchResources[targetArea] >= cost)
+                {
+                    playerData.ResearchLevel[targetArea] = playerData.ResearchLevel[targetArea] + 1;
+                    newLevels[targetArea] = newLevels[targetArea] + 1;
+                }
+                else
+                {
+                  break;
+                }
+            }
+        }
         
+        private static void ContributeLeftoverResearch(Race race, Star star)
+        {
+            // Paranoia
+            string owner = star.Owner;
+            if (owner == null || owner != race.Name) return;
+            
+            RaceData playerData = ServerState.Data.AllRaceData[race.Name] as RaceData;
+            
+            TechLevel targetAreas = playerData.ResearchTopics;
+            TechLevel.ResearchField targetArea = TechLevel.ResearchField.Energy; // default to Energy.
+            
+            // Find the first research priority
+            // TODO: Implement a proper hierarchy of research ("next research field") system.
+            foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
+            {
+                if (targetAreas[area] == 1)
+                {
+                    targetArea = area;
+                    break;        
+                }
+            }
+            
+            // Consume resources for research for added paranoia.
+            playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResourcesOnHand.Energy;
+            star.ResourcesOnHand.Energy = 0;
+            
+            TechLevel newLevels = ServerState.Data.AllNewResearchLevels[race.Name] as TechLevel;
+            
+            while (true)
+            {
+                int cost = Research.Cost(targetArea, race, playerData.ResearchLevel, playerData.ResearchLevel[targetArea]+1);
+                
+                if (playerData.ResearchResources[targetArea] >= cost)
+                {
+                    playerData.ResearchLevel[targetArea] = playerData.ResearchLevel[targetArea] + 1;
+                    newLevels[targetArea] = newLevels[targetArea] + 1;
+                }
+                else
+                {
+                  break;
+                }
+            }
         }
 
     }

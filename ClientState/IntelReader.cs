@@ -30,6 +30,7 @@
 
 #region Using Statements
 
+using System;
 using System.Collections;
 using System.IO;
 using System.Xml;
@@ -114,7 +115,7 @@ namespace Nova.Client
          stateData = ClientState.Data;
 
           // copy the raw data from the intel to StateData
-         turnData  = stateData.InputTurn;
+         turnData = stateData.InputTurn;
          stateData.TurnYear = turnData.TurnYear;
          stateData.PlayerRace = turnData.MyRace;
 
@@ -380,35 +381,28 @@ namespace Nova.Client
 
       /// ----------------------------------------------------------------------------
       /// <summary>
-      /// Do the research for this year. Research is performed locally once per turn.
+      /// Recieve research updates.
       /// </summary>
-      /// <remarks>
-      /// FIXME (priority 5) Console should determine the results of research and tell
-      /// the Nova GUI, not the other way around.      
-      /// </remarks>
       /// ----------------------------------------------------------------------------
       private static void ProcessResearch()
       {
-          TechLevel.ResearchField area = stateData.ResearchTopic;
-          int areaResource = (int)stateData.ResearchResources[area];
-          int areaLevel = (int)stateData.ResearchLevel[area];
-          areaResource += (int)stateData.ResearchAllocation;
-
-          stateData.ResearchAllocation = 0;
-          stateData.ResearchResources[area] = areaResource;
-
-          while (true)
-          {
-              if (areaResource >= Research.Cost(areaLevel + 1))
-              {
-                  areaLevel++;
-                  ReportLevelUpdate(area, areaLevel);
-              }
-              else
-              {
-                  break;
-              }
-          }
+            stateData.ResearchResources = turnData.ResearchResources;
+            foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
+            {
+                TechLevel techLevels = turnData.NewResearchLevels;
+                
+                if (techLevels == null)
+                {
+                    return;
+                }
+                
+                while (techLevels[area] > 0)
+                {
+                    stateData.ResearchLevel[area] = stateData.ResearchLevel[area] + 1;
+                    ReportLevelUpdate(area, stateData.ResearchLevel[area]);
+                    techLevels[area] = techLevels[area] - 1;
+                }
+            }
       }
 
 
@@ -424,7 +418,7 @@ namespace Nova.Client
       {
           Message techAdvanceMessage = new Message(
               ClientState.Data.RaceName,
-              "Your race has advanced to Tech Level " + level + " in the " + stateData.ResearchTopic + " field",
+              "Your race has advanced to Tech Level " + level + " in the " + area.ToString() + " field",
               "TechAdvance",
               null);
           stateData.Messages.Add(techAdvanceMessage);

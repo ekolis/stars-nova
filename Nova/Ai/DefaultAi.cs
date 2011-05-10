@@ -114,7 +114,8 @@ namespace Nova.Ai
                         minLevel = Math.Min(minLevel, ClientState.Data.ResearchLevel[t]);
                         rs = t;
                     }
-                    ClientState.Data.ResearchTopic = rs;
+                    ClientState.Data.ResearchTopics.Zero();
+                    ClientState.Data.ResearchTopics[rs] = 1;                        
                 }
             }
            

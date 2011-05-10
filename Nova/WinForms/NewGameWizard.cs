@@ -159,12 +159,38 @@ namespace Nova.WinForms
                 }
                 // Copy the player & race data to the ServerState
                 ServerState.Data.AllPlayers = newGameWizard.Players;
+                
                 foreach (PlayerSettings settings in ServerState.Data.AllPlayers)
                 {
                     // TODO (priority 7) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
                     // Stars! solution is to rename the race using a list of standard names. 
                     if (!ServerState.Data.AllRaces.Contains(settings.RaceName))
+                    {
                         ServerState.Data.AllRaces.Add(settings.RaceName, newGameWizard.KnownRaces[settings.RaceName]);
+                        
+                        // Initialize clean data for them
+                        ServerState.Data.AllRaceData[settings.RaceName] = new RaceData();
+                        RaceData raceData = ServerState.Data.AllRaceData[settings.RaceName] as RaceData;
+
+                        string raceFolder = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
+                        string raceFileName = Path.Combine(raceFolder, settings.RaceName + Global.RaceExtension);
+                        if (File.Exists(raceFileName))
+                        {
+                            Race race = new Race(raceFileName);
+            
+                            // Add initial state to the intel files.
+                            ProcessPrimaryTraits(race);
+                            ProcessSecondaryTraits(race);
+                        }
+                        else
+                        {
+                            Report.FatalError("Unable to locate race definition \"" + raceFileName + "\"");
+                        }                    
+                        
+                        
+                        
+                    }
+                    
                 }
 
                 
@@ -615,6 +641,229 @@ namespace Nova.WinForms
         {
 
         }
+                        
+        #region Game Initialization
+                        
+        // ----------------------------------------------------------------------------
+        /// <summary>
+        /// Process the Primary Traits for this race.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        private static void ProcessPrimaryTraits(Race race)
+        {
+            // TODO (priority 4) Special Components
+            // Races are granted access to components currently based on tech level and primary/secondary traits (not tested).
+            // Need to grant special access in a few circumstances
+            // 1. JOAT Hulls with pen scans. (either make a different hull with a built in pen scan, of the same name and layout; or modify scanning and scan display functions)
+            // 2. Mystery Trader Items - probably need to implement the idea of 'hidden' technology to cover this.
+
+            // TODO (priority 4) Starting Tech
+            // Need to specify starting tech levels. These must be checked by the server/console. Started below - Dan 26 Jan 10
+
+            // TODO (priority 4) Implement Starting Items
+   
+            RaceData raceData = ServerState.Data.AllRaceData[race.Name] as RaceData;
+            raceData.ResearchLevel = new TechLevel(0);
+
+            switch (race.Traits.Primary.Code)
+            {
+                case "HE":
+                    // Start with one armed scout + 3 mini-colony ships
+                    break;
+
+                case "SS":
+                    raceData.ResearchLevel[TechLevel.ResearchField.Electronics] = 5;
+                    // Start with one scout + one colony ship.
+                    break;
+
+                case "WM":
+                    raceData.ResearchLevel[TechLevel.ResearchField.Propulsion] = 1;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 1;
+                    // Start with one armed scout + one colony ship.
+                    break;
+
+                case "CA":
+                    raceData.ResearchLevel[TechLevel.ResearchField.Weapons] = 1;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Propulsion] = 1;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 1;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Biotechnology] = 6;
+                    // Start with an orbital terraforming ship
+                    break;
+
+                case "IS":
+                    // Start with one scout and one colony ship
+                    break;
+
+                case "SD":
+                    raceData.ResearchLevel[TechLevel.ResearchField.Propulsion] = 2;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Biotechnology] = 2;
+                    // Start with one scout, one colony ship, Two mine layers (one standard, one speed trap)
+                    break;
+
+                case "PP":
+                    raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 4;
+                    // Two shielded scouts, one colony ship, two starting planets in a non-tiny universe
+                    break;
+
+                case "IT":
+                    raceData.ResearchLevel[TechLevel.ResearchField.Propulsion] = 5;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Construction] = 5;
+                    // one scout, one colony ship, one destroyer, one privateer, 2 planets with 100/250 stargates (in non-tiny universe)
+                    break;
+
+                case "AR":
+                    raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 1;
+
+                    // starts with one scout, one orbital construction colony ship
+                    break;
+
+                case "JOAT":
+                    raceData.ResearchLevel[TechLevel.ResearchField.Propulsion] = 3;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Construction] = 3;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Biotechnology] = 3;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Electronics] = 3;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 3;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Weapons] = 3;
+                    // two scouts, one colony ship, one medium freighter, one mini miner, one destroyer
+                    break;
+
+                default:
+                    Report.Error("NewGameWizard.cs - ProcessPrimaryTraits() - Unknown Primary Trait \"" + race.Traits.Primary.Code + "\"");
+                    break;
+            } // switch on PRT
+
+#if (DEBUG)
+            // Just for testing
+            // TODO (priority 4) get this from a settings file, or other central location for convenience.
+            raceData.ResearchLevel = new TechLevel(0);
+#endif
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Read the Secondary Traits for this race.
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        private static void ProcessSecondaryTraits(Race race)
+        {
+            // TODO (priority 4) finish the rest of the LRTs.
+            // Not all of these properties are fully implemented here, as they may require changes elsewhere in the game engine.
+            // Where a trait is listed as 'TODO ??? (priority 4)' this means it first needs to be checked if it has been implemented elsewhere.
+            
+            RaceData raceData = ServerState.Data.AllRaceData[race.Name] as RaceData;
+            
+            if (race.Traits.Contains("IFE"))
+            {
+                // Ships burn 15% less fuel : TODO ??? (priority 4)
+
+                // Fuel Mizer and Galaxy Scoop engines available : Implemented in component definitions.
+
+                // propulsion tech starts one level higher
+                raceData.ResearchLevel[TechLevel.ResearchField.Propulsion]++;
+            }
+            if (race.Traits.Contains("TT"))
+            {
+                // Begin the game able to adjust each environment attribute up to 3%
+                // Higher levels of terraforming are available : implemented in component definitions.
+                // Total Terraforming requires 30% fewer resources : implemented in component definitions.
+            }
+            if (race.Traits.Contains("ARM"))
+            {
+                // Grants access to three additional mining hulls and two new robots : implemented in component definitions.
+                // Start the game with two midget miners : TODO ??? (priority 4)
+            }
+            if (race.Traits.Contains("ISB"))
+            {
+                // Two additional starbase designs (space dock & ultra station) : implemented in component definitions.
+                // Starbases have built in 20% cloacking : TODO ??? (priority 4)
+
+                // Improved Starbases gives a 20% discount to starbase hulls.
+                //foreach (Component component in ClientState.Data.AvailableComponents.Values)
+//                {
+//                    // TODO (priority 3) - work out why it sometimes is null.
+//                    if (component == null || component.Type != "Hull") continue;
+//                    Hull hull = component.Properties["Hull"] as Hull;
+//                    if (hull == null || !hull.IsStarbase) continue;
+//
+//                    Resources cost = component.Cost;
+//                    cost *= 0.8;
+//                }
+            }
+
+            if (race.Traits.Contains("GR"))
+            {
+                // 50% resources go to selected research field. 15% to each other field. 115% total. TODO ??? (priority 4)
+            }
+            if (race.Traits.Contains("UR"))
+            {
+                // Affects minerals and resources returned due to scrapping. TODO ??? (priority 4).
+            }
+            if (race.Traits.Contains("MA"))
+            {
+                // One instance of mineral alchemy costs 25 resources instead of 100. TODO ??? (priority 4)
+            }
+            if (race.Traits.Contains("NRSE"))
+            {
+                // affects which engines are available : implemented in component definitions.
+            }
+            if (race.Traits.Contains("OBRM"))
+            {
+                // affects which mining robots will be available : implemented in component definitions.
+            }
+            if (race.Traits.Contains("CE"))
+            {
+                // Engines cost 50% less TODO (priority 4)
+                // Engines have a 10% chance of not engaging above warp 6 : TODO ??? (priority 4)
+            }
+            if (race.Traits.Contains("NAS"))
+            {
+                // No access to standard penetrating scanners : implemented in component definitions.
+                // Ranges of conventional scanners are doubled : TODO ??? (priority 4)
+            }
+            if (race.Traits.Contains("LSP"))
+            {
+                // Starting population is 17500 instead of 25000 : TODO ??? (priority 4)
+            }
+            if (race.Traits.Contains("BET"))
+            {
+                // TODO ??? (priority 4)
+                // New technologies initially cost twice as much to build. 
+                // Once all tech requirements are exceeded cost is normal. 
+                // Miniaturization occurs at 5% per level up to 80% (instead of 4% per level up to 75%)
+            }
+            if (race.Traits.Contains("RS"))
+            {
+                // TODO ??? (priority 4)
+                // All shields are 40% stronger than the listed rating.
+                // Shields regenrate at 10% of max strength each round of combat.
+                // All armors are 50% of their rated strength.
+            }
+            if (race.Traits.Contains("ExtraTech"))
+            {
+                // All extra technologies start on level 3 or 4 with JOAT
+                if (race.Traits.Primary.Code == "JOAT")
+                {
+                    raceData.ResearchLevel[TechLevel.ResearchField.Propulsion] += 1;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Construction] += 1;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Biotechnology] += 1;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Electronics] += 1;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Energy] += 1;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Weapons] += 1;
+                }
+                else
+                {
+                    raceData.ResearchLevel[TechLevel.ResearchField.Propulsion] += 3;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Construction] += 3;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Biotechnology] += 3;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Electronics] += 3;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Energy] += 3;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Weapons] += 3;
+                }
+            }
+
+        }
+                        
+        #endregion
 
     }
 

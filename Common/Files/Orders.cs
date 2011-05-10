@@ -64,9 +64,9 @@ namespace Nova.Common
         /// </summary>
         public StrongList<string> DeletedDesigns = new StrongList<string>(); 
 
-        public RaceData PlayerData = new RaceData();        // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.)
-        public int TechLevel;                               // FIXME (priority 5): should send our research orders; server should control actual player tech level ??? what does this int mean? it is not a TechLevel type.
-
+        public RaceData PlayerData = new RaceData();        // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.) and research %
+        public int TechLevel;                               // This is the sum of all the player's tech levels, used for victory checks.
+        
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// default constructor
@@ -263,6 +263,7 @@ namespace Nova.Common
             xmlelOrders.AppendChild(xmlelDeletedDesigns);
 
             xmlelOrders.AppendChild(PlayerData.ToXml(xmldoc));
+            
             Global.SaveData(xmldoc, xmlelOrders, "TechLevel", TechLevel.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             xmldoc.Save(compressionStream);

@@ -510,6 +510,7 @@ namespace Nova.WinForms.Gui
         private void MenuResearch(object sender, EventArgs e)
         {
             ResearchDialog newResearchDialog = new ResearchDialog();
+            newResearchDialog.ResearchAllocationChangedEvent += new ResearchAllocationChanged(this.UpdateResearchBudgets);
             newResearchDialog.ShowDialog();
             newResearchDialog.Dispose();
         }
@@ -759,6 +760,24 @@ namespace Nova.WinForms.Gui
                     break;
                 }
             }
+        }
+        /// <summary>
+        /// Makes the Planet detail reflect new research budgets. 
+        /// </summary>
+        /// <returns>
+        /// A <see cref="System.Boolean"/> indicating if the planet detail
+        /// was updated or not.
+        /// </returns>
+        private bool UpdateResearchBudgets()
+        {
+            if(this.SelectionDetail.Control == this.SelectionDetail.planetDetail)
+            {
+                //Ugly hack so panel updates right away.
+                this.SelectionDetail.Value = this.SelectionDetail.Value;
+                return true;
+            }
+            
+            return false;
         }
 
     }
