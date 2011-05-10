@@ -142,7 +142,7 @@ namespace Nova.Common
         {            
              if (ThisRace == null)
              {
-                // See GetOperableFactoruies() above.
+                // See GetOperableFactories() above.
                 // throw new InvalidOperationException("no owning race found for the star");
                 return 0;
              }
@@ -477,7 +477,18 @@ namespace Nova.Common
         {
             Colonists += CalculateGrowth(race);
         }
-
+  
+        /// <summary>
+        /// Updates the research allocation for the star.
+        /// </summary>
+        /// <param name="budget">The new budget (0-100)</param>
+        public void UpdateResearch(int budget)
+        {
+            if (budget >= 0 && budget <= 100)
+            {
+                this.ResearchAllocation = (this.GetResourceRate() * budget) / 100;
+            }
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -500,10 +511,11 @@ namespace Nova.Common
             // that are capable of being manned.
             // 
             // UPDATE: The Stars! default is 10k per 10 factories. This calculation
-            // has been refactored away. -Aeglos        
+            // has been refactored away. -Aeglos
+            // UPDATE2: This 
 
-            this.ResourcesOnHand.Energy = GetResourceRate();
-            this.ResourcesOnHand.Energy -= ResearchAllocation;
+            this.ResourcesOnHand.Energy = this.GetResourceRate();
+            this.ResourcesOnHand.Energy -= this.ResearchAllocation;
         }
 
         /// ----------------------------------------------------------------------------
@@ -516,9 +528,9 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public void UpdateMinerals()
         {            
-            this.ResourcesOnHand.Ironium += Mine(ref this.MineralConcentration.Ironium);
-            this.ResourcesOnHand.Boranium += Mine(ref this.MineralConcentration.Boranium);
-            this.ResourcesOnHand.Germanium += Mine(ref this.MineralConcentration.Germanium);
+            this.ResourcesOnHand.Ironium += this.Mine(ref this.MineralConcentration.Ironium);
+            this.ResourcesOnHand.Boranium += this.Mine(ref this.MineralConcentration.Boranium);
+            this.ResourcesOnHand.Germanium += this.Mine(ref this.MineralConcentration.Germanium);
         }
 
         /// ----------------------------------------------------------------------------
@@ -533,6 +545,9 @@ namespace Nova.Common
         ///
         /// Mining efficiency is a race parameter (MineProductionRate per 10 mines)
         /// Concentration is in % and is normalised so that 1.0 = 100%
+        /// 
+        /// Note also that this method does not actually modify the Star's minerals. It
+        /// merely returns the amount mined and decreases concentration.
         /// </remarks>
         /// ----------------------------------------------------------------------------
         private int Mine(ref int concentration)
@@ -549,7 +564,6 @@ namespace Nova.Common
 
 
             int potentialMines = GetOperableMines();
-            int minesInUse = Math.Min(Mines, potentialMines);
 
             int mined = GetMiningRate(concentration);
 

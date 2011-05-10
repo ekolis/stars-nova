@@ -79,7 +79,9 @@ namespace Nova.Server
                 turnData.AllMinefields = stateData.AllMinefields;
                 turnData.AllFleets = stateData.AllFleets;
                 turnData.AllDesigns = stateData.AllDesigns;
-
+                turnData.NewResearchLevels = stateData.AllNewResearchLevels[player.RaceName] as TechLevel;
+                turnData.ResearchResources = (stateData.AllRaceData[player.RaceName] as RaceData).ResearchResources;
+                
                 // Copy any messages
                 foreach (Message message in stateData.AllMessages)
                 {

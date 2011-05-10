@@ -37,6 +37,10 @@ namespace Nova.Common
     public class RaceData
     {
         public int TurnYear;
+        public int ResearchPercentage;
+        public TechLevel ResearchLevel = new TechLevel(); // current level of technology
+        public TechLevel ResearchResources = new TechLevel(); // current cumulative resources on research
+        public TechLevel ResearchTopics = new TechLevel(); // order or research
         public Hashtable PlayerRelations = new Hashtable();
         public Hashtable BattlePlans = new Hashtable();
 
@@ -82,6 +86,18 @@ namespace Nova.Common
                         case "turnyear":
                             TurnYear = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
+                        case "research":
+                            ResearchPercentage = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "researchlevel":
+                            ResearchLevel = new TechLevel(subnode);
+                            break;
+                        case "researchresources":
+                            ResearchResources = new TechLevel(subnode);
+                            break;
+                        case "researchtopics":
+                            ResearchTopics = new TechLevel(subnode);
+                            break;
                         case "relation":
                             {
                                 string key = ((XmlText)subnode.SelectSingleNode("Race").FirstChild).Value;
@@ -114,6 +130,12 @@ namespace Nova.Common
         {
             XmlElement xmlelRaceData = xmldoc.CreateElement("RaceData");
             Global.SaveData(xmldoc, xmlelRaceData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelRaceData, "Research", ResearchPercentage.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            
+            xmlelRaceData.AppendChild(ResearchLevel.ToXml(xmldoc, "ResearchLevel"));
+            xmlelRaceData.AppendChild(ResearchResources.ToXml(xmldoc, "ResearchResources"));
+            xmlelRaceData.AppendChild(ResearchTopics.ToXml(xmldoc, "ResearchTopics"));
+            
             foreach (string key in PlayerRelations.Keys)
             {
                 XmlElement xmlelRelation = xmldoc.CreateElement("Relation");

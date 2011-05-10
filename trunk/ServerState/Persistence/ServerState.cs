@@ -50,16 +50,17 @@ namespace Nova.Server
     {
         #region Data
 
-        public ArrayList AllBattles    = new ArrayList();
-        public ArrayList AllPlayers    = new ArrayList(); // collection of PlayerSettings (player number, race, ai (program name or "Default AI" or "Human")
-        public Hashtable AllTechLevels = new Hashtable();
-        public Hashtable AllDesigns    = new Hashtable();
-        public Hashtable AllFleets     = new Hashtable();
-        public Hashtable AllRaceData   = new Hashtable(); // Data about the race's relations and battle plans, see RaceData
-        public Hashtable AllRaces      = new Hashtable(); // Data about the race (traits etc)
-        public Hashtable AllStars      = new Hashtable();
-        public Hashtable AllMinefields = new Hashtable();
-        public ArrayList AllMessages   = new ArrayList(); // ArrayList containing all messages generated this turn.
+        public ArrayList AllBattles             = new ArrayList();
+        public ArrayList AllPlayers             = new ArrayList(); // collection of PlayerSettings (player number, race, ai (program name or "Default AI" or "Human")
+        public Hashtable AllTechLevels          = new Hashtable();
+        public Hashtable AllNewResearchLevels   = new Hashtable();
+        public Hashtable AllDesigns             = new Hashtable();
+        public Hashtable AllFleets              = new Hashtable();
+        public Hashtable AllRaceData            = new Hashtable(); // Data about the race's relations and battle plans, see RaceData
+        public Hashtable AllRaces               = new Hashtable(); // Data about the race (traits etc)
+        public Hashtable AllStars               = new Hashtable();
+        public Hashtable AllMinefields          = new Hashtable();
+        public ArrayList AllMessages            = new ArrayList(); // ArrayList containing all messages generated this turn.
 
         public bool GameInProgress     = false;
         public int FleetID             = 1;
@@ -184,6 +185,7 @@ namespace Nova.Server
             Data.AllDesigns = new Hashtable();
             Data.AllFleets = new Hashtable();
             Data.AllTechLevels = new Hashtable();
+            Data.AllNewResearchLevels = new Hashtable();
             Data.TurnYear = 2100;
             Data.FleetID = 1;
             Data.StatePathName = null;

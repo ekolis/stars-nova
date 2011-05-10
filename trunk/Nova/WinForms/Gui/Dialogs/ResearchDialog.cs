@@ -38,16 +38,36 @@ using Nova.Common.Components;
 
 namespace Nova.WinForms.Gui
 {
+    #region Delegates
+    
+    /// <summary>
+    /// This is the hook to listen for changes in research budget.
+    /// Objects who subscribe to this should respond to this by
+    /// udpating their related values. We don't specify arguments
+    /// because relevant data can be read on ClientState.
+    /// </summary>
+    public delegate bool ResearchAllocationChanged();
+    
+    #endregion
+    
     /// <summary>
     /// Research Dialog
     /// </summary>
     public partial class ResearchDialog : Form
     {
+        /// <summary>
+        /// This event should be fired when the global research budget is changed.
+        /// Note that it's more apropiate to fire this when all changes are done,
+        /// for example, on closing the Research Dialog instead of each point change.
+        /// </summary>
+        public event ResearchAllocationChanged ResearchAllocationChangedEvent;
+        
         private readonly Hashtable buttons = new Hashtable();
         private readonly TechLevel currentLevel;
         private readonly int availableEnergy;
         private readonly ClientState stateData;
         private readonly bool dialogInitialised;
+        private TechLevel.ResearchField targetArea;
 
         #region Construction
 
@@ -82,8 +102,19 @@ namespace Nova.WinForms.Gui
             // Ensure that the correct RadioButton is checked to reflect the
             // current research selection and the budget up-down control is
             // initialised with the correct value.
+            
+            // Find the first research priority
+            // TODO: Implement a proper hierarchy of research ("next research field") system.
+            foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
+            {
+                if (this.stateData.ResearchTopics[area] == 1)
+                {
+                    this.targetArea = area;
+                    break;        
+                }
+            }
 
-            RadioButton button = this.buttons[Enum.GetName(typeof(TechLevel.ResearchField), this.stateData.ResearchTopic)] as RadioButton;
+            RadioButton button = this.buttons[Enum.GetName(typeof(TechLevel.ResearchField), this.targetArea)] as RadioButton;
 
             button.Checked = true;
 
@@ -117,13 +148,35 @@ namespace Nova.WinForms.Gui
             {
                 try
                 {
-                    ClientState.Data.ResearchTopic = (TechLevel.ResearchField)Enum.Parse(typeof(TechLevel.ResearchField), button.Text, true);
+                    ClientState.Data.ResearchTopics[this.targetArea] = 0;
+                    this.targetArea = (TechLevel.ResearchField)Enum.Parse(typeof(TechLevel.ResearchField), button.Text, true);
+                    ClientState.Data.ResearchTopics[this.targetArea] = 1;
                 }
                 catch (System.ArgumentException)
                 {
                     Report.Error("ResearchDialog.cs : CheckChanged() - unrecognised field of research.");
                 }
 
+            }
+            
+            // Populate the expected research benefits list
+
+            Hashtable allComponents = AllComponents.Data.Components;
+            TechLevel oldResearchLevel = this.stateData.ResearchLevel;
+            TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
+
+            newResearchLevel[this.targetArea] = oldResearchLevel[this.targetArea] + 1;
+            this.researchBenefits.Items.Clear();
+
+            foreach (Nova.Common.Components.Component component in allComponents.Values)
+            {
+                if (component.RequiredTech > oldResearchLevel &&
+                    component.RequiredTech <= newResearchLevel)
+                {
+
+                    string available = component.Name + " " + component.Type;
+                    this.researchBenefits.Items.Add(available);
+                }
             }
 
             ParameterChanged(null, null);
@@ -139,6 +192,14 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OKClicked(object sender, EventArgs e)
         {
+            // This is done for synchronization. We wait for the event handlers
+            // to return something (and thus complete) before closing the Form and invalidating
+            // all event handlers and delegates thus crashing everything into the fiery void of despair.
+            if (ResearchAllocationChangedEvent())
+            {
+                
+            }
+            
             Close();
         }
 
@@ -161,14 +222,16 @@ namespace Nova.WinForms.Gui
             int resourcesRequired = 0;
             int yearsToComplete = 0;
 
-            TechLevel researchLevels = this.stateData.ResearchLevel;
-            TechLevel.ResearchField researchArea = this.stateData.ResearchTopic;
+            TechLevel researchLevels = this.stateData.ResearchLevel;            
 
-            int level = (int)researchLevels[researchArea];
-            int target = Research.Cost(level + 1);
+            int level = (int)researchLevels[this.targetArea];
+            int target = Research.Cost(this.targetArea,
+                                       this.stateData.PlayerRace,
+                                       researchLevels,
+                                       researchLevels[this.targetArea]+1);
 
             resourcesRequired = target
-               - (int)this.stateData.ResearchResources[researchArea];
+               - (int)this.stateData.ResearchResources[this.targetArea];
 
             if (level >= 26)
             {
@@ -191,28 +254,7 @@ namespace Nova.WinForms.Gui
                 this.completionTime.Text = "Never";
             }
 
-            this.numericResources.Text = allocatedEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);
-
-            // Populate the expected research benefits list
-
-            Hashtable allComponents = AllComponents.Data.Components;
-            TechLevel oldResearchLevel = this.stateData.ResearchLevel;
-            TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
-
-            newResearchLevel[researchArea] = level + 1;
-            this.researchBenefits.Items.Clear();
-
-            foreach (Nova.Common.Components.Component component in allComponents.Values)
-            {
-                if (component.RequiredTech > oldResearchLevel &&
-                    component.RequiredTech <= newResearchLevel)
-                {
-
-                    string available = component.Name + " " + component.Type;
-                    this.researchBenefits.Items.Add(available);
-                }
-            }
-
+            this.numericResources.Text = allocatedEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);            
         }
 
         #endregion
@@ -235,7 +277,7 @@ namespace Nova.WinForms.Gui
             {
                 if (star.Owner == raceName)
                 {
-                    totalEnergy += star.ResourcesOnHand.Energy;
+                    totalEnergy += star.GetResourceRate();
                 }
             }
             return (int)totalEnergy;

@@ -48,16 +48,16 @@ namespace Nova.WinForms.Console
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Manufacture the items in a production queue (resources permitting).  Note
-        /// that, although we deplete the minerals, the resources per year count is
-        /// preserved.
+        /// Manufacture the items in a production queue (resources permitting).
         /// </summary>
         /// <param name="star">The star doing production.</param>
+        /// <remarks>
+        /// Dont't preserve resource count as resource depletion is needed to
+        /// contribute with leftover resources for research.
+        /// </remarks>
         /// ----------------------------------------------------------------------------
         public static void Items(Star star)
         {
-            int energy = star.ResourcesOnHand.Energy;
-
             deletions.Clear();
 
             foreach (ProductionQueue.Item item in star.ManufacturingQueue.Queue)
@@ -74,8 +74,6 @@ namespace Nova.WinForms.Console
             {
                 star.ManufacturingQueue.Queue.Remove(item);
             }
-
-            star.ResourcesOnHand.Energy = energy;
         }
 
 

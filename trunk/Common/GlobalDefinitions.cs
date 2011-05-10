@@ -115,6 +115,9 @@ namespace Nova.Common
        public const int FactoriesPerFactoryProductionUnit = 10;
        public const int ColonistsPerOperableMiningUnit = 10000;
        public const int MinesPerMineProductionUnit = 10;
+        
+       // Research constants
+       public const int DefaultResearchPercentage = 10;
 
        // Format
        public const int ShipIconNumberingLength = 4;

@@ -76,8 +76,12 @@ namespace Nova.Client
          RaceData playerData = new RaceData();
          
          playerData.TurnYear = stateData.TurnYear;
+         playerData.ResearchPercentage = stateData.ResearchBudget;
          playerData.PlayerRelations = stateData.PlayerRelations;
          playerData.BattlePlans = stateData.BattlePlans;
+         playerData.ResearchResources = stateData.ResearchResources;
+         playerData.ResearchTopics = stateData.ResearchTopics;
+         playerData.ResearchLevel = stateData.ResearchLevel;
          outputTurn.PlayerData = playerData;
          outputTurn.TechLevel = CountTechLevels();
 
@@ -95,7 +99,8 @@ namespace Nova.Client
          // local count so that we can "do" the research on the arrival of the
          // next turn.
 
-         stateData.ResearchAllocation = 0;
+         // Don't keep a local count.
+         // stateData.ResearchAllocation = 0;
 
          foreach (Star star in inputTurn.AllStars.Values)
          {
@@ -104,11 +109,12 @@ namespace Nova.Client
                  // Do not use ResourcesOnHand.Energy here, use
                  // GetResourceRate instead, as ResourcesOnHand
                  // already account for allocation each turn.
-                 star.ResearchAllocation = (star.GetResourceRate()* stateData.ResearchBudget) / 100;
+                    
+                 // Let the server handle this.
+                 // star.ResearchAllocation = (star.GetResourceRate() * stateData.ResearchBudget) / 100;
                 
-                 // TODO (priority 3) - Make leftover resources from production go
-                 // towards research automatically.
-                 stateData.ResearchAllocation += (int)star.ResearchAllocation;
+                 // Don't keep a local count.
+                 // stateData.ResearchAllocation += (int)star.ResearchAllocation;
                  outputTurn.RaceStars.Add(star);
              }
          }
