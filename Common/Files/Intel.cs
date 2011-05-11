@@ -226,17 +226,20 @@ namespace Nova.Common
 
                        case "fleet":
                            Fleet newFleet = new Fleet(xmlnode);
-                           AllFleets.Add(newFleet.Key, newFleet);
+                           AllFleets[newFleet.Key] = newFleet;
+                           //AllFleets.Add(newFleet.Key, newFleet);
                            break;
 
                        case "design":
                            Design newDesign = new Design(xmlnode);
-                           AllDesigns.Add(newDesign.Key, newDesign);
+                           AllDesigns[newDesign.Key] = newDesign;
+                           //AllDesigns.Add(newDesign.Key, newDesign);
                            break;
 
                        case "shipdesign":
                            ShipDesign newShipDesign = new ShipDesign(xmlnode);
-                           AllDesigns.Add(newShipDesign.Key, newShipDesign);
+                           AllDesigns[newShipDesign.Key] = newShipDesign;
+                           //AllDesigns.Add(newShipDesign.Key, newShipDesign);
                            break;
 
                        case "star":
