@@ -49,6 +49,7 @@ namespace Nova.Common
         /// </summary>
         public int Colonists;
         private int defenses;
+        public bool OnlyLeftover = false;
 
         public int Factories;
         public int Mines;
@@ -484,9 +485,16 @@ namespace Nova.Common
         /// <param name="budget">The new budget (0-100)</param>
         public void UpdateResearch(int budget)
         {
-            if (budget >= 0 && budget <= 100)
+            if (OnlyLeftover == false)
             {
-                this.ResearchAllocation = (this.GetResourceRate() * budget) / 100;
+                if (budget >= 0 && budget <= 100)
+                {
+                    this.ResearchAllocation = (this.GetResourceRate() * budget) / 100;
+                }
+            }
+            else
+            {
+                this.ResearchAllocation = 0;
             }
         }
 
