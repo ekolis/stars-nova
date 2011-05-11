@@ -129,55 +129,10 @@ namespace Nova.NewGame
                 defense.Name = "Defenses";
                 defense.Type = "Defenses";
                 defense.Owner = player;
-                //Read components data and create some basic stuff
-                AllComponents.Restore();
-                Hashtable components = AllComponents.Data.Components;
-                Component colonyShipHull = null, scoutHull = null, starbaseHull = null;
-                Component  engine = null;
-                Component  colonizer = null;
-                foreach (string name in components.Keys)
-                {
-                    if (name == "Colony Ship")
-                        colonyShipHull = components["Colony Ship"] as Component; //(components["Colony Ship"] as Component).Properties["Hull"] as Hull;
-                    else if (name == "Scout")
-                        scoutHull = components["Scout"] as Component;//(components["Scout"] as Component).Properties["Hull"] as Hull;
-                    else if (name == "Space Dock")
-                        starbaseHull = components["Space Dock"] as Component;// (components["Space Dock"] as Component).Properties["Hull"] as Hull;
-                    else if (name == "Quick Jump 5")
-                        engine = components["Quick Jump 5"] as Component; //(components["Quick Jump 5"] as Component).Properties["Engine"] as Engine;
-                    else if (race.HasTrait("AR") == true && name == "Orbital Construction Module")
-                        colonizer = components["Orbital Construction Module"] as Component;// (components["Orbital Construction Module"] as Component).Properties["Colonizer"] as Colonizer;
-                    else if (race.HasTrait("AR") == false && name == "Colonization Module")
-                        colonizer = components["Colonization Module"] as Component;//(components["Colonization Module"] as Component).Properties["Colonizer"] as Colonizer; ;
-
-                }
-
-                ShipDesign cs = new ShipDesign();
-                cs.ShipHull = colonyShipHull;
-                foreach (HullModule module in (cs.ShipHull .Properties["Hull"] as Hull).Modules)
-                {
-                    if (module.ComponentType == "Engine")
-                    {
-                        module.AllocatedComponent = engine;
-                        module.ComponentCount = 1;
-                    }
-                    else if (module.ComponentType == "Mechanical")
-                    {
-                        module.AllocatedComponent = colonizer;
-                        module.ComponentCount = 1;
-                    }
-                }
-                cs.Icon = new ShipIcon(colonyShipHull.ImageFile, (Bitmap)colonyShipHull.ComponentImage);
-                
-                cs.Type = "Ship";
-                cs.Name = "Santa Maria";
-                cs.Owner = player;
-                
-                ServerState.Data.AllDesigns[player + "/Santa Maria"] = cs;
                 ServerState.Data.AllDesigns[player + "/Mine"] = mine;
                 ServerState.Data.AllDesigns[player + "/Factory"] = factory;
                 ServerState.Data.AllDesigns[player + "/Defenses"] = defense;
-
+                PrepareDesigns(race, player);
                 InitialiseHomeStar(race, spaceAllocator, player);
             }
 
@@ -188,7 +143,106 @@ namespace Nova.NewGame
             ServerState.Data.AllMessages.Add(welcome);
         }
 
+        private static void PrepareDesigns(Race race, string player)
+        {
+            //Read components data and create some basic stuff
+            AllComponents.Restore();
+            Hashtable components = AllComponents.Data.Components;
+            Component colonyShipHull = null, scoutHull = null, starbaseHull = null;
+            Component engine = null, csEngine = null;
+            Component colonizer = null;
 
+            engine = components["Quick Jump 5"] as Component;
+            if (race.Traits.Primary.Code != "HE")
+            {
+                colonyShipHull = components["Colony Ship"] as Component; //(components["Colony Ship"] as Component).Properties["Hull"] as Hull;
+            }
+            else
+            {
+                csEngine = components["Settler's Delight"] as Component;
+                colonyShipHull = components["Mini-Colony Ship"] as Component;
+            }
+            scoutHull = components["Scout"] as Component;//(components["Scout"] as Component).Properties["Hull"] as Hull;
+
+            starbaseHull = components["Space Dock"] as Component;// (components["Space Dock"] as Component).Properties["Hull"] as Hull;
+
+            if (race.HasTrait("AR") == true)
+                colonizer = components["Orbital Construction Module"] as Component;// (components["Orbital Construction Module"] as Component).Properties["Colonizer"] as Colonizer;
+            else
+                colonizer = components["Colonization Module"] as Component;//(components["Colonization Module"] as Component).Properties["Colonizer"] as Colonizer; ;
+
+
+            if (csEngine == null)
+                csEngine = engine;
+
+            ShipDesign cs = new ShipDesign();
+            cs.ShipHull = colonyShipHull;
+            foreach (HullModule module in (cs.ShipHull.Properties["Hull"] as Hull).Modules)
+            {
+                if (module.ComponentType == "Engine")
+                {
+                    module.AllocatedComponent = engine;
+                    module.ComponentCount = 1;
+                }
+                else if (module.ComponentType == "Mechanical")
+                {
+                    module.AllocatedComponent = colonizer;
+                    module.ComponentCount = 1;
+                }
+            }
+            cs.Icon = new ShipIcon(colonyShipHull.ImageFile, (Bitmap)colonyShipHull.ComponentImage);
+
+            cs.Type = "Ship";
+            cs.Name = "Santa Maria";
+            cs.Owner = player;
+
+            ServerState.Data.AllDesigns[player + "/cs"] = cs;
+
+            //switch (race.Traits.Primary.Code)
+            //{
+            //    case "HE":
+            //        // Start with one armed scout + 3 mini-colony ships
+            //    case "SS":
+            //        // Start with one scout + one colony ship.
+            //    case "WM":
+            //        // Start with one armed scout + one colony ship.
+            //        break;
+
+            //    case "CA":
+            //        // Start with an orbital terraforming ship
+            //        break;
+
+            //    case "IS":
+            //        // Start with one scout and one colony ship
+            //        break;
+
+            //    case "SD":
+            //        // Start with one scout, one colony ship, Two mine layers (one standard, one speed trap)
+            //        break;
+
+            //    case "PP":
+            //        raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 4;
+            //        // Two shielded scouts, one colony ship, two starting planets in a non-tiny universe
+            //        break;
+
+            //    case "IT":
+            //        raceData.ResearchLevel[TechLevel.ResearchField.Propulsion] = 5;
+            //        raceData.ResearchLevel[TechLevel.ResearchField.Construction] = 5;
+            //        // one scout, one colony ship, one destroyer, one privateer, 2 planets with 100/250 stargates (in non-tiny universe)
+            //        break;
+
+            //    case "AR":
+            //        raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 1;
+
+            //        // starts with one scout, one orbital construction colony ship
+            //        break;
+
+            //    case "JOAT":
+            //        // two scouts, one colony ship, one medium freighter, one mini miner, one destroyer
+            //        break;
+
+
+        }
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Allocate a "home" star system for each player giving it some colonists and
@@ -224,10 +278,25 @@ namespace Nova.NewGame
         /// <param name="race"></param>
         private static void AllocateHomeStarOrbitalInstallations(Star star, Race race, string player)
         {
-            ShipDesign csDesign = ServerState.Data.AllDesigns[player + "/Santa Maria"] as ShipDesign;
-            Ship cs = new Ship(csDesign);
-            Fleet fleet1 = new Fleet(cs, star);
-            ServerState.Data.AllFleets[player + fleet1.FleetID.ToString()] = fleet1;
+            ShipDesign csDesign = ServerState.Data.AllDesigns[player + "/cs"] as ShipDesign;
+            if (race.Traits.Primary.Code != "HE")
+            {
+                Ship cs = new Ship(csDesign);
+                Fleet fleet1 = new Fleet(cs, star);
+                fleet1.Name = "CSFleet1";
+                ServerState.Data.AllFleets[player +"/"+ fleet1.FleetID.ToString()] = fleet1;
+            }
+            else
+            {
+                for (int i = 1; i <= 3; i++)
+                {
+                    Ship cs = new Ship(csDesign);
+                    Fleet fleet = new Fleet(cs, star);
+                    fleet.FleetID = i;
+                    fleet.Name = "CSFleet" +i.ToString();
+                    ServerState.Data.AllFleets[player + "/" + fleet.FleetID.ToString()] = fleet;
+                }
+            }
         }
 
 
@@ -242,12 +311,12 @@ namespace Nova.NewGame
         private static void AllocateHomeStarResources(Star star, Race race)
         {
             Random random = new Random();
-            
+
             // Set the owner of the home star in order to obtain proper
             // starting resources.
             star.Owner = race.Name;
             star.ThisRace = race;
-            
+
             // Set the habital values for this star to the optimum for each race.
             // This should result in a planet value of 100% for this race's home
             // world.            
@@ -260,18 +329,18 @@ namespace Nova.NewGame
             star.ResourcesOnHand.Ironium = random.Next(300, 500);
             star.ResourcesOnHand.Germanium = random.Next(300, 500);
             star.Mines = 10;
-            star.Factories = 10; 
+            star.Factories = 10;
             star.ResourcesOnHand.Energy = star.GetResourceRate();
 
             star.MineralConcentration.Boranium = random.Next(50, 100);
             star.MineralConcentration.Ironium = random.Next(50, 100);
             star.MineralConcentration.Germanium = random.Next(50, 100);
 
-            
+
             star.ScannerType = "Scoper 150"; // TODO (priority 4) get from component list
             star.DefenseType = "SDI"; // TODO (priority 4) get from component list
             star.ScanRange = 50; // TODO (priority 4) get from component list
-                       
+
         }
 
         #endregion

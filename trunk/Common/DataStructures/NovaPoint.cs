@@ -170,7 +170,10 @@ namespace Nova.Common.DataStructures
         {
             return (X * 10000) + Y;
         }
-
+        public override string ToString()
+        {
+            return String.Format("({0}, {1})", X, Y);
+        }
         #endregion
 
         #region Methods
