@@ -779,6 +779,8 @@ namespace Nova.WinForms.Gui
 
             productionDialog.ShowDialog();
             productionDialog.Dispose();
+            
+            this.UpdateFields();
 
             QueueList.Populate(this.productionQueue, star.ManufacturingQueue);
         }
@@ -903,7 +905,17 @@ namespace Nova.WinForms.Gui
             this.population.Text = star.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
             
             this.resourceDisplay.ResourceRate = star.GetResourceRate();
-            this.resourceDisplay.ResearchPercentage = ClientState.Data.ResearchBudget;
+            
+            if (star.OnlyLeftover == false)
+            {
+                this.resourceDisplay.ResearchPercentage = ClientState.Data.ResearchBudget;
+            }
+            else
+            {
+                // We treat Stars contributing only leftover resources as having
+                // a 0% budget allocation.
+                this.resourceDisplay.ResearchPercentage = 0;
+            }
             this.resourceDisplay.Value = star.ResourcesOnHand;
 
             this.scannerRange.Text = star.ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture);

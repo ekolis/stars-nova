@@ -180,6 +180,9 @@ namespace Nova.WinForms.Console
             star.UpdateMinerals();
             
             // According to the allocated budget submited, update star resources.
+            // Note that this sets the allocation for research to zero for all stars
+            // which have "contribute only leftover resources to research". This
+            // makes those stars be handled after manufacturing.
             int percentage = (stateData.AllRaceData[race.Name] as RaceData).ResearchPercentage;
             star.UpdateResearch(percentage);
             star.UpdateResources();
@@ -424,11 +427,23 @@ namespace Nova.WinForms.Console
             return false;
         }
         
+        /// <summary>
+        /// Contributes allocated research from the star.
+        /// </summary>
+        /// <param name="race">Star's owner race</param>
+        /// <param name="star">Star to process</param>
+        /// <remarks>
+        /// Note that stars which contribute only leftovers are not accounted for.
+        /// </remarks>
         private static void ContributeAllocatedResearch(Race race, Star star)
         {   
             // Paranoia
             string owner = star.Owner;
             if (owner == null || owner != race.Name) return;
+            
+            // If the star has no allocation (poor economy or contributing only leftovers) we
+            // skip it to avoid this loops.
+            if (star.ResearchAllocation == 0) return;
             
             RaceData playerData = ServerState.Data.AllRaceData[race.Name] as RaceData;
 

@@ -151,7 +151,7 @@ namespace Nova.WinForms.Console
         {
             ArrayList allFleetPositions = new ArrayList();
             Hashtable fleetDone = new Hashtable();
-
+            
             foreach (Fleet fleetA in StateData.AllFleets.Values)
             {
 

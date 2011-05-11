@@ -166,13 +166,12 @@ namespace Nova.WinForms.Gui
         	this.population.TabIndex = 26;
         	this.population.Text = "Uninhabited";
         	this.population.TextAlign = System.Drawing.ContentAlignment.TopRight;
-        	this.population.MouseDown += new System.Windows.Forms.MouseEventHandler(this.Population_Hold);
-        	this.population.MouseUp += new System.Windows.Forms.MouseEventHandler(this.Population_Release);
+        	this.population.MouseEnter += new EventHandler(this.PopulationToolTipShow);
+        	this.population.MouseLeave += new EventHandler(this.PopulationToolTipHide);
         	// 
         	// tooltip
         	// 
-        	this.tooltip.AutomaticDelay = 0;
-            this.tooltip.AutoPopDelay = 30000;
+            this.tooltip.AutoPopDelay = 5000;
             this.tooltip.InitialDelay = 0;
             this.tooltip.ReshowDelay = 0;
         	this.tooltip.ShowAlways = true;
@@ -560,9 +559,9 @@ namespace Nova.WinForms.Gui
 
         #endregion
 
-        #region Event Methods
+        #region Tooltip handlers.
         
-        private void Population_Hold(object sender, MouseEventArgs e)
+        private void PopulationToolTipShow(object sender, EventArgs e)
         {               
             string tt = "";
             
@@ -582,13 +581,12 @@ namespace Nova.WinForms.Gui
                 + " next year.";             
             }
 
-            tooltip.Show(tt, population);
-            
+            this.tooltip.Show(tt, this.population);
         }
         
-        private void Population_Release(object sender, MouseEventArgs e)
+        private void PopulationToolTipHide(object sender, EventArgs e)
         {
-            tooltip.Hide(population);
+            this.tooltip.Hide(this.population);
         }
         
         #endregion
