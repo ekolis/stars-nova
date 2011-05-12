@@ -386,21 +386,24 @@ namespace Nova.Client
       /// ----------------------------------------------------------------------------
       private static void ProcessResearch()
       {
+            // Update the new Tech Levels
+            stateData.ResearchLevels = turnData.ResearchLevels;
+            // Update the accumulated resources
             stateData.ResearchResources = turnData.ResearchResources;
+            
             foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
-            {
-                TechLevel techLevels = turnData.NewResearchLevels;
-                
-                if (techLevels == null)
+            {                
+                if (turnData.ResearchLevelsGained == null)
                 {
                     return;
                 }
                 
-                while (techLevels[area] > 0)
+                while (turnData.ResearchLevelsGained[area] > 0)
                 {
-                    stateData.ResearchLevel[area] = stateData.ResearchLevel[area] + 1;
-                    ReportLevelUpdate(area, stateData.ResearchLevel[area]);
-                    techLevels[area] = techLevels[area] - 1;
+                    // Report new levels.
+                    turnData.ResearchLevelsGained[area] = turnData.ResearchLevelsGained[area] - 1;
+                    ReportLevelUpdate(area, stateData.ResearchLevels[area]);
+                    
                 }
             }
       }
@@ -424,7 +427,7 @@ namespace Nova.Client
           stateData.Messages.Add(techAdvanceMessage);
 
           Hashtable allComponents = AllComponents.Data.Components;
-          TechLevel oldResearchLevel = stateData.ResearchLevel;
+          TechLevel oldResearchLevel = stateData.ResearchLevels;
           TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 
           newResearchLevel[area] = level;
@@ -464,7 +467,7 @@ namespace Nova.Client
               }
           }
 
-          stateData.ResearchLevel = newResearchLevel;
+          stateData.ResearchLevels = newResearchLevel;
       }
 
 

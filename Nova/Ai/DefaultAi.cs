@@ -109,9 +109,9 @@ namespace Nova.Ai
                 {
                     int minLevel = int.MaxValue;
                     Nova.Common.TechLevel.ResearchField rs = TechLevel.ResearchField.Electronics;
-                    foreach (Nova.Common.TechLevel.ResearchField t in ClientState.Data.ResearchLevel)
+                    foreach (Nova.Common.TechLevel.ResearchField t in ClientState.Data.ResearchLevels)
                     {
-                        minLevel = Math.Min(minLevel, ClientState.Data.ResearchLevel[t]);
+                        minLevel = Math.Min(minLevel, ClientState.Data.ResearchLevels[t]);
                         rs = t;
                     }
                     ClientState.Data.ResearchTopics.Zero();

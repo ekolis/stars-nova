@@ -77,11 +77,11 @@ namespace Nova.Client
          
          playerData.TurnYear = stateData.TurnYear;
          playerData.ResearchPercentage = stateData.ResearchBudget;
+         playerData.ResearchTopics = stateData.ResearchTopics;
+         playerData.ResearchResources = stateData.ResearchResources;
+         playerData.ResearchLevels = stateData.ResearchLevels;
          playerData.PlayerRelations = stateData.PlayerRelations;
          playerData.BattlePlans = stateData.BattlePlans;
-         playerData.ResearchResources = stateData.ResearchResources;
-         playerData.ResearchTopics = stateData.ResearchTopics;
-         playerData.ResearchLevel = stateData.ResearchLevel;
          outputTurn.PlayerData = playerData;
          outputTurn.TechLevel = CountTechLevels();
 
@@ -155,7 +155,7 @@ namespace Nova.Client
           stateData = ClientState.Data;
           int total = 0;
 
-          foreach (int techLevel in stateData.ResearchLevel)
+          foreach (int techLevel in stateData.ResearchLevels)
           {
               total += techLevel;
           }

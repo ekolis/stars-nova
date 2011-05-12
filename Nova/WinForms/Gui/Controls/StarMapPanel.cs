@@ -10,8 +10,8 @@ namespace Nova.WinForms.Gui
             SetStyle(System.Windows.Forms.ControlStyles.UserPaint, true);
             SetStyle(System.Windows.Forms.ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(System.Windows.Forms.ControlStyles.OptimizedDoubleBuffer, true);
-            UpdateStyles();	
-        }	
+            UpdateStyles();    
+        }    
         /*public override bool PreProcessMessage(ref System.Windows.Forms.Message msg)
       {
          const int WM_ERASEBKGND = 0x3c;

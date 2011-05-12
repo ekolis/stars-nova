@@ -57,6 +57,12 @@ namespace Nova.WinForms.Console
             BackupTurn();
 
             OrderReader.ReadOrders();
+            
+            // Do per user operations.
+            foreach (Race race in stateData.AllRaces.Values)
+            {
+                SanitizeResearch(race);
+            }
 
             // Do all fleet movement and actions 
             // TODO (priority 4) - split this up into waypoint zero and waypoint 1 actions
@@ -65,6 +71,7 @@ namespace Nova.WinForms.Console
                 ProcessFleet(fleet);
             }
             CleanupFleets();
+            
 
             // Handle star based actions - growth and production
             // TODO (priority 4) - split these up as per Stars! turn order
@@ -427,6 +434,15 @@ namespace Nova.WinForms.Console
             return false;
         }
         
+        private static bool SanitizeResearch(Race race)
+        {
+            // Reset the list of new levels gained.
+            (ServerState.Data.AllRaceData[race.Name] as RaceData).ResearchLevelsGained.Zero();
+            
+            return true;
+            
+        }
+        
         /// <summary>
         /// Contributes allocated research from the star.
         /// </summary>
@@ -440,13 +456,7 @@ namespace Nova.WinForms.Console
             // Paranoia
             string owner = star.Owner;
             if (owner == null || owner != race.Name) return;
-            
-            ServerState.Data.AllNewResearchLevels[race.Name] = new TechLevel(0, 0, 0, 0, 0, 0);
-            
-            // If the star has no allocation (poor economy or contributing only leftovers) we
-            // skip it to avoid this loops.
-            if (star.ResearchAllocation == 0) return;
-            
+
             RaceData playerData = ServerState.Data.AllRaceData[race.Name] as RaceData;
 
             TechLevel targetAreas = playerData.ResearchTopics;
@@ -467,15 +477,15 @@ namespace Nova.WinForms.Console
             playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResearchAllocation;
             star.ResearchAllocation = 0;            
             
-            TechLevel newLevels = ServerState.Data.AllNewResearchLevels[race.Name] as TechLevel;
+            TechLevel newLevels = (ServerState.Data.AllRaceData[race.Name] as RaceData).ResearchLevelsGained;
             
             while (true)
             {
-                int cost = Research.Cost(targetArea, race, playerData.ResearchLevel, playerData.ResearchLevel[targetArea]+1);
+                int cost = Research.Cost(targetArea, race, playerData.ResearchLevels, playerData.ResearchLevels[targetArea] + 1);
                 
                 if (playerData.ResearchResources[targetArea] >= cost)
                 {
-                    playerData.ResearchLevel[targetArea] = playerData.ResearchLevel[targetArea] + 1;
+                    playerData.ResearchLevels[targetArea] = playerData.ResearchLevels[targetArea] + 1;
                     newLevels[targetArea] = newLevels[targetArea] + 1;
                 }
                 else
@@ -511,15 +521,15 @@ namespace Nova.WinForms.Console
             playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResourcesOnHand.Energy;
             star.ResourcesOnHand.Energy = 0;
             
-            TechLevel newLevels = ServerState.Data.AllNewResearchLevels[race.Name] as TechLevel;
+            TechLevel newLevels = (ServerState.Data.AllRaceData[race.Name] as RaceData).ResearchLevelsGained;
             
             while (true)
             {
-                int cost = Research.Cost(targetArea, race, playerData.ResearchLevel, playerData.ResearchLevel[targetArea]+1);
+                int cost = Research.Cost(targetArea, race, playerData.ResearchLevels, playerData.ResearchLevels[targetArea] + 1);
                 
                 if (playerData.ResearchResources[targetArea] >= cost)
                 {
-                    playerData.ResearchLevel[targetArea] = playerData.ResearchLevel[targetArea] + 1;
+                    playerData.ResearchLevels[targetArea] = playerData.ResearchLevels[targetArea] + 1;
                     newLevels[targetArea] = newLevels[targetArea] + 1;
                 }
                 else

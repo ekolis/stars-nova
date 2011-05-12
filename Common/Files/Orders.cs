@@ -121,9 +121,6 @@ namespace Nova.Common
                         case "orders":
                             xmlnode = xmlnode.FirstChild;
                             continue;
-                        case "techlevel":
-                            TechLevel = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
 
                         // When loading designs we need to know what type of design it is.
                         // To do this we first look ahead at the Type field of the design,
@@ -263,8 +260,6 @@ namespace Nova.Common
             xmlelOrders.AppendChild(xmlelDeletedDesigns);
 
             xmlelOrders.AppendChild(PlayerData.ToXml(xmldoc));
-            
-            Global.SaveData(xmldoc, xmlelOrders, "TechLevel", TechLevel.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             xmldoc.Save(compressionStream);
             compressionStream.Close();

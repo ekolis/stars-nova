@@ -81,7 +81,8 @@ namespace Nova.Common
        public Hashtable AllDesigns = new Hashtable();
        public Hashtable AllStars = new Hashtable();
        public Hashtable AllMinefields = new Hashtable();
-       public TechLevel NewResearchLevels = new TechLevel();
+       public TechLevel ResearchLevelsGained = new TechLevel();
+       public TechLevel ResearchLevels = new TechLevel();
        public TechLevel ResearchResources = new TechLevel();
 
        /// <summary>
@@ -106,7 +107,8 @@ namespace Nova.Common
            AllMinefields.Clear();
            Battles.Clear();
            Messages.Clear();
-           NewResearchLevels.Zero();
+           ResearchLevelsGained.Zero();
+           ResearchLevels.Zero();
            ResearchResources.Zero();
             
            TurnYear = 2100;
@@ -136,7 +138,8 @@ namespace Nova.Common
            AllDesigns = new Hashtable();
            AllStars = new Hashtable();
            AllMinefields = new Hashtable();
-           NewResearchLevels = new TechLevel();
+           ResearchLevelsGained = new TechLevel();
+           ResearchLevels = new TechLevel();
            ResearchResources = new TechLevel();
 
            XmlNode xmlnode = xmldoc.DocumentElement;
@@ -252,13 +255,19 @@ namespace Nova.Common
                            AllMinefields.Add(minefield.Key, minefield);
                            break;
                         
-                       case "newtechlevels":
+                       case "researchlevelsgained":
                            TechLevel newTechLevel = new TechLevel(xmlnode);
-                           NewResearchLevels = newTechLevel;
+                           ResearchLevelsGained = newTechLevel;
                            break;
+                           
                        case "researchresources":
                            TechLevel researchResources = new TechLevel(xmlnode);
                            ResearchResources = researchResources;
+                           break;
+                           
+                       case "researchlevels":
+                           TechLevel researchLevels = new TechLevel(xmlnode);
+                           ResearchLevels = researchLevels;
                            break;
 
                        default: break;
@@ -366,10 +375,11 @@ namespace Nova.Common
            // AllNewResearchLevels
            // Only write out relevant information for this race.
            // There might not be any new levels...
-           if (NewResearchLevels != null)
+           if (ResearchLevelsGained != null)
            {          
-               xmlelIntel.AppendChild(NewResearchLevels.ToXml(xmldoc, "NewTechLevels"));
+               xmlelIntel.AppendChild(ResearchLevelsGained.ToXml(xmldoc, "ResearchLevelsGained"));
            }
+           xmlelIntel.AppendChild(ResearchLevels.ToXml(xmldoc, "ResearchLevels"));
            xmlelIntel.AppendChild(ResearchResources.ToXml(xmldoc, "ResearchResources"));
 
            // return the outer element

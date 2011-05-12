@@ -79,7 +79,7 @@ namespace Nova.WinForms.Gui
             InitializeComponent();
 
             this.stateData = ClientState.Data;
-            this.currentLevel = this.stateData.ResearchLevel;
+            this.currentLevel = this.stateData.ResearchLevels;
 
             // Provide a convienient way of getting a button from it's name.
 
@@ -162,7 +162,7 @@ namespace Nova.WinForms.Gui
             // Populate the expected research benefits list
 
             Hashtable allComponents = AllComponents.Data.Components;
-            TechLevel oldResearchLevel = this.stateData.ResearchLevel;
+            TechLevel oldResearchLevel = this.stateData.ResearchLevels;
             TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 
             newResearchLevel[this.targetArea] = oldResearchLevel[this.targetArea] + 1;
@@ -217,12 +217,11 @@ namespace Nova.WinForms.Gui
             int allocatedEnergy = (this.availableEnergy * percentage) / 100;
 
             this.stateData.ResearchBudget = percentage;
-            this.stateData.ResearchAllocation = allocatedEnergy;
 
             int resourcesRequired = 0;
             int yearsToComplete = 0;
 
-            TechLevel researchLevels = this.stateData.ResearchLevel;            
+            TechLevel researchLevels = this.stateData.ResearchLevels;            
 
             int level = (int)researchLevels[this.targetArea];
             int target = Research.Cost(this.targetArea,

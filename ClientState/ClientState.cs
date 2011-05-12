@@ -46,8 +46,6 @@ namespace Nova.Client
     [Serializable]
     public sealed class ClientState
     {
-
-
         // ============================================================================
         // Data used by the GUI that will be persistent across multiple program
         // invocations.
@@ -68,19 +66,16 @@ namespace Nova.Client
         /// <summary>
         /// Gets information about technology levels for current client
         /// </summary>
-        public TechLevel ResearchLevel = new TechLevel(); // current level of technology
+        public TechLevel ResearchLevels = new TechLevel(); // current level of technology
         public TechLevel ResearchResources = new TechLevel();
-        public bool FirstTurn = true;
-        public double ResearchAllocation = 0;
-        public int ResearchBudget = 10;
-        public int TurnYear = 0;
-        public string GameFolder = null;
-        public string RaceName = null;
-        /// <summary>
-        /// Gets or sets current (and/or future) research topic
-        /// </summary>
         public TechLevel ResearchTopics = new TechLevel(0, 0, 1, 0, 0, 0);
-
+        public int ResearchBudget = 10;
+        
+        public bool FirstTurn = true;
+        public int TurnYear = 0;
+        
+        public string GameFolder = null;
+        public string RaceName = null;   
 
         // ============================================================================
         // Data private to this module.
@@ -389,13 +384,13 @@ namespace Nova.Client
         {
             if (ClientState.Data.AvailableComponents == null)
             {
-                ClientState.Data.AvailableComponents = new RaceComponents(ClientState.Data.PlayerRace, ClientState.Data.ResearchLevel);
+                ClientState.Data.AvailableComponents = new RaceComponents(ClientState.Data.PlayerRace, ClientState.Data.ResearchLevels);
             }
             else
             {
                 try
                 {
-                    ClientState.Data.AvailableComponents.DetermineRaceComponents(ClientState.Data.PlayerRace, ClientState.Data.ResearchLevel);
+                    ClientState.Data.AvailableComponents.DetermineRaceComponents(ClientState.Data.PlayerRace, ClientState.Data.ResearchLevels);
                 }
                 catch
                 {

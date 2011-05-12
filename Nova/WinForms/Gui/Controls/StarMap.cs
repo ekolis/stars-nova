@@ -42,7 +42,7 @@ namespace Nova.WinForms.Gui
     using Nova.Common.DataStructures;
     #endregion
     
-	#region Delegates
+    #region Delegates
     
     /// <summary>
     /// This is the hook to listen for a request for selection detail.
@@ -71,11 +71,11 @@ namespace Nova.WinForms.Gui
     /// This is the hook to listen for changes on WayPoints.
     /// </summary>
     public delegate void WaypointChanged(object sender);
-	#endregion
+    #endregion
     
-	/// <summary>
-	/// Holds data related to the current cursor position
-	/// </summary>
+    /// <summary>
+    /// Holds data related to the current cursor position
+    /// </summary>
     public class CursorArgs : System.EventArgs
     {
         public Point point;
@@ -86,9 +86,9 @@ namespace Nova.WinForms.Gui
         }
     }
     
-	/// <summary>
-	/// Holds data related to the current selection. 
-	/// </summary>
+    /// <summary>
+    /// Holds data related to the current selection. 
+    /// </summary>
     public class SelectionArgs : System.EventArgs
     {
         public Item item;
@@ -99,16 +99,16 @@ namespace Nova.WinForms.Gui
         }
     }
     
-	/// <summary>
-	/// StarMap is the control which holds the actual playing map. 
-	/// </summary>
+    /// <summary>
+    /// StarMap is the control which holds the actual playing map. 
+    /// </summary>
     public partial class StarMap : UserControl
     {
-		/// <summary>
-		/// This event should be fired when the StarMap requests the current
-		/// selection information. Mostly used to assert where it is
+        /// <summary>
+        /// This event should be fired when the StarMap requests the current
+        /// selection information. Mostly used to assert where it is
         /// a fleet or a star.
-		/// </summary>
+        /// </summary>
         public event RequestSelection RequestSelectionEvent;
         
         /// <summary>
@@ -170,7 +170,7 @@ namespace Nova.WinForms.Gui
             this.bufferedContext = BufferedGraphicsManager.Current;                       
 
             InitializeComponent();
-			
+            
             GameSettings.Restore();
 
             // Initial map size
@@ -253,9 +253,9 @@ namespace Nova.WinForms.Gui
             {
                 return;
             }
-			
+            
             // Erase previous drawings.
-			grafx.Graphics.Clear(System.Drawing.Color.Transparent);        
+            grafx.Graphics.Clear(System.Drawing.Color.Transparent);        
             
             // (0) Draw the image backdrop and universe borders          
             NovaPoint backgroundOrigin = LogicalToDevice(new NovaPoint(0, 0));
@@ -281,7 +281,7 @@ namespace Nova.WinForms.Gui
             {
                 grafx.Graphics.DrawRectangle(new Pen(Brushes.DimGray), targetArea);
             }
-			
+            
             Color lrScanColour = Color.FromArgb(128, 128, 0, 0);
             SolidBrush lrScanBrush = new SolidBrush(lrScanColour);
 
@@ -414,7 +414,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OnPaint(object sender, PaintEventArgs e)
         {      
-		    base.OnPaint(e);
+            base.OnPaint(e);
             
             // Here we render from the previously drawn buffer.
             grafx.Render(e.Graphics);
@@ -876,7 +876,7 @@ namespace Nova.WinForms.Gui
             MapVerticalScroll(this.verticalScroll);
 
             this.DrawEverything();
-			this.MapPanel.Refresh();
+            this.MapPanel.Refresh();
 
 
         }
@@ -925,7 +925,7 @@ namespace Nova.WinForms.Gui
             this.origin.X = this.center.X - (this.extent.X / 2);
             
             this.DrawEverything();
-			this.MapPanel.Refresh();
+            this.MapPanel.Refresh();
         }
 
 
@@ -942,7 +942,7 @@ namespace Nova.WinForms.Gui
             this.origin.Y = this.center.Y - (this.extent.Y / 2);
 
             this.DrawEverything();
-			this.MapPanel.Refresh();
+            this.MapPanel.Refresh();
         }
 
         #endregion
@@ -955,7 +955,7 @@ namespace Nova.WinForms.Gui
             this.bufferedContext.MaximumBuffer = new Size(this.MapPanel.Size.Width+1, this.MapPanel.Size.Height+1);
             if( this.grafx != null )
             {
-	            this.grafx.Dispose();
+                this.grafx.Dispose();
                 this.grafx = null;               
             }
             this.grafx = bufferedContext.Allocate(this.MapPanel.CreateGraphics(), 
@@ -963,8 +963,8 @@ namespace Nova.WinForms.Gui
                                              );
            
             this.DrawEverything();
-		    this.MapPanel.Refresh();
-        }	
+            this.MapPanel.Refresh();
+        }    
         
         #endregion
         
@@ -1192,7 +1192,7 @@ namespace Nova.WinForms.Gui
             
             SetZoom();
             */
-			this.DrawEverything();
+            this.DrawEverything();
             this.MapPanel.Refresh();
         }
 
@@ -1261,7 +1261,7 @@ namespace Nova.WinForms.Gui
             }
 
             this.DrawEverything();
-			this.MapPanel.Refresh();
+            this.MapPanel.Refresh();
         }
         
         /// ----------------------------------------------------------------------------

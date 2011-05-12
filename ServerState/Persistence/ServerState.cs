@@ -52,8 +52,7 @@ namespace Nova.Server
 
         public ArrayList AllBattles             = new ArrayList();
         public ArrayList AllPlayers             = new ArrayList(); // collection of PlayerSettings (player number, race, ai (program name or "Default AI" or "Human")
-        public Hashtable AllTechLevels          = new Hashtable();
-        public Hashtable AllNewResearchLevels   = new Hashtable();
+        public Hashtable AllTechLevels          = new Hashtable(); // Sum of a player's techlevels, for scoring purposes.
         public Hashtable AllDesigns             = new Hashtable();
         public Hashtable AllFleets              = new Hashtable();
         public Hashtable AllRaceData            = new Hashtable(); // Data about the race's relations and battle plans, see RaceData
@@ -185,7 +184,6 @@ namespace Nova.Server
             Data.AllDesigns = new Hashtable();
             Data.AllFleets = new Hashtable();
             Data.AllTechLevels = new Hashtable();
-            Data.AllNewResearchLevels = new Hashtable();
             Data.TurnYear = 2100;
             Data.FleetID = 1;
             Data.StatePathName = null;

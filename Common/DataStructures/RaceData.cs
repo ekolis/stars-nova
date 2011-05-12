@@ -38,9 +38,10 @@ namespace Nova.Common
     {
         public int TurnYear;
         public int ResearchPercentage;
-        public TechLevel ResearchLevel = new TechLevel(); // current level of technology
+        public TechLevel ResearchLevels = new TechLevel(); // current level of technology
         public TechLevel ResearchResources = new TechLevel(); // current cumulative resources on research
         public TechLevel ResearchTopics = new TechLevel(); // order or research
+        public TechLevel ResearchLevelsGained = new TechLevel(); // research level increases, reset per turn.
         public Hashtable PlayerRelations = new Hashtable();
         public Hashtable BattlePlans = new Hashtable();
 
@@ -89,8 +90,11 @@ namespace Nova.Common
                         case "research":
                             ResearchPercentage = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
-                        case "researchlevel":
-                            ResearchLevel = new TechLevel(subnode);
+                        case "researchlevelsgained":
+                            ResearchLevelsGained = new TechLevel(subnode);
+                            break;
+                        case "researchlevels":
+                            ResearchLevels = new TechLevel(subnode);
                             break;
                         case "researchresources":
                             ResearchResources = new TechLevel(subnode);
@@ -132,7 +136,8 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelRaceData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelRaceData, "Research", ResearchPercentage.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
-            xmlelRaceData.AppendChild(ResearchLevel.ToXml(xmldoc, "ResearchLevel"));
+            xmlelRaceData.AppendChild(ResearchLevelsGained.ToXml(xmldoc, "ResearchLevelsGained"));
+            xmlelRaceData.AppendChild(ResearchLevels.ToXml(xmldoc, "ResearchLevels"));
             xmlelRaceData.AppendChild(ResearchResources.ToXml(xmldoc, "ResearchResources"));
             xmlelRaceData.AppendChild(ResearchTopics.ToXml(xmldoc, "ResearchTopics"));
             
