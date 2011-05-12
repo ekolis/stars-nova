@@ -395,7 +395,7 @@ namespace Nova.Common
         /// node name.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <param name="string">The node name of this XML element </param>
+        /// <param name="nodeName">The node name of this XML element </param>
         /// <returns>An <see cref="XmlElement"/> representation of the Tech Level.</returns>
         /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc, string nodeName)
