@@ -66,6 +66,11 @@ namespace Nova.WinForms.Gui
     /// selection data.
     /// </summary>
     public delegate void SelectionChanged(object sender, SelectionArgs e);
+    
+    /// <summary>
+    /// This is the hook to listen for changes on WayPoints.
+    /// </summary>
+    public delegate void WaypointChanged(object sender);
 	#endregion
     
 	/// <summary>
@@ -105,12 +110,19 @@ namespace Nova.WinForms.Gui
         /// a fleet or a star.
 		/// </summary>
         public event RequestSelection RequestSelectionEvent;
+        
         /// <summary>
         /// This event should be fired when the users changes the
         /// selection in the map with the mouse. Use it to report
         /// selection changes to other components of the GUI.
         /// </summary>
         public event SelectionChanged SelectionChangedEvent;
+        
+        /// <summary>
+        /// This event should be fired when the user Adds or
+        /// Deletes a waypoint via shift click.
+        /// </summary>
+        public event WaypointChanged WaypointChangedEvent;
         
         private readonly Point[] triangle = 
         { 
@@ -1080,12 +1092,17 @@ namespace Nova.WinForms.Gui
 
             NovaPoint from = LogicalToDevice(lastPosition);
             NovaPoint to = LogicalToDevice(waypoint.Position);
-            Graphics g = this.MapPanel.CreateGraphics();
 
-            g.DrawLine(Pens.Yellow, (Point)from, (Point)to);
-            g.Dispose();
+            this.grafx.Graphics.DrawLine(Pens.Yellow, (Point)from, (Point)to);
 
             fleet.Waypoints.Add(waypoint);
+            this.MapPanel.Refresh();
+            
+            // Notify listeners.
+            SelectionArgs selectionArgs = new SelectionArgs(item);
+            
+            SelectionChangedEvent(this, selectionArgs);            
+            WaypointChangedEvent(this);
             //fleetDetail.AddWaypoint(waypoint);
         }
 
@@ -1104,8 +1121,7 @@ namespace Nova.WinForms.Gui
             click.Y = e.Y;
             position = DeviceToLogical(click);
 
-            SetCursor(position);
-            this.MapPanel.Invalidate();
+           
 
             ArrayList nearObjects = FindNearObjects(position);
             if (nearObjects.Count == 0) return;
@@ -1132,6 +1148,9 @@ namespace Nova.WinForms.Gui
             SortableItem selected = nearObjects[this.selection] as SortableItem;
             Item item = (Item)selected.Target;
             this.cursorPosition = item.Position;
+            
+            SetCursor(position);
+             this.MapPanel.Refresh();
    
             // Build an object to hold data.
             SelectionArgs selectionArgs = new SelectionArgs(item);
