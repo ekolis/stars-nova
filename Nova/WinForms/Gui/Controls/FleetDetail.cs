@@ -728,6 +728,17 @@ namespace Nova.WinForms.Gui
 
             waypoint.Task = WaypointTasks.Text;
         }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// A waypoint has been added or deleted.
+        /// </summary>
+        /// <param name="sender">The source of the event.</param>
+        /// ----------------------------------------------------------------------------
+        public void WaypointListChanged(object sender)
+        {
+            this.Refresh();
+        }
 
 
         /// ----------------------------------------------------------------------------

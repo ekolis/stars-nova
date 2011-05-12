@@ -173,6 +173,7 @@ namespace Nova.WinForms.Gui
             this.MapControl.RequestSelectionEvent += new RequestSelection(this.SelectionDetail.ReportItem);
             this.MapControl.SelectionChangedEvent += new SelectionChanged(this.SelectionDetail.SelectionChanged);
             this.MapControl.SelectionChangedEvent += new SelectionChanged(this.SelectionSummary.SelectionChanged);
+            this.MapControl.WaypointChangedEvent += new WaypointChanged(this.SelectionDetail.fleetDetail.WaypointListChanged);
             // 
             // MainMenu
             // 
