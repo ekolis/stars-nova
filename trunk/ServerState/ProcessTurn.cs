@@ -441,6 +441,8 @@ namespace Nova.WinForms.Console
             string owner = star.Owner;
             if (owner == null || owner != race.Name) return;
             
+            ServerState.Data.AllNewResearchLevels[race.Name] = new TechLevel(0, 0, 0, 0, 0, 0);
+            
             // If the star has no allocation (poor economy or contributing only leftovers) we
             // skip it to avoid this loops.
             if (star.ResearchAllocation == 0) return;
@@ -463,9 +465,8 @@ namespace Nova.WinForms.Console
             
             // Consume resources for research for added paranoia.
             playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResearchAllocation;
-            star.ResearchAllocation = 0;
+            star.ResearchAllocation = 0;            
             
-            ServerState.Data.AllNewResearchLevels[race.Name] = new TechLevel(0, 0, 0, 0, 0, 0);
             TechLevel newLevels = ServerState.Data.AllNewResearchLevels[race.Name] as TechLevel;
             
             while (true)
