@@ -47,6 +47,13 @@ namespace Nova.WinForms.Gui
     public delegate void FleetSelectionChanged(object sender, FleetSelectionArgs e);
     
     /// <summary>
+    /// This is the hook to listen for when to update the starmap.
+    /// This should be used to repain the map in certain cases, for example,
+    /// when deleting a waypoint.
+    /// </summary>
+    public delegate void RefreshStarMap();
+    
+    /// <summary>
     /// Holds data related to the current Fleet selection. 
     /// </summary>
     public class FleetSelectionArgs : System.EventArgs
@@ -81,6 +88,12 @@ namespace Nova.WinForms.Gui
         /// cursor position.
         /// </summary>
         public event CursorChanged CursorChangedEvent;
+        
+        /// <summary>
+        /// This event should be fired when a waypoint is deleted,
+        /// so the StarMap updates right away.
+        /// </summary>
+        public event RefreshStarMap RefreshStarMapEvent;
 
         #region VS-Generated variables
         public ComboBox WaypointTasks;
@@ -682,7 +695,7 @@ namespace Nova.WinForms.Gui
             this.wayPoints.Items.RemoveAt(index);
             this.wayPoints.SelectedIndex = this.wayPoints.Items.Count - 1;
 
-            Utilities.MapRefresh();
+            RefreshStarMapEvent();
         }
 
         /// <summary>
@@ -701,7 +714,7 @@ namespace Nova.WinForms.Gui
                     this.wayPoints.Items.RemoveAt(index);
                     this.wayPoints.SelectedIndex = this.wayPoints.Items.Count - 1;
 
-                    Utilities.MapRefresh();
+                    RefreshStarMapEvent();
                 }
                 e.Handled = true;
             }
