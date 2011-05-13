@@ -228,7 +228,6 @@
     <Compile Include="WinForms\Gui\Reports\ScoreReport.Designer.cs">
       <DependentUpon>ScoreReport.cs</DependentUpon>
     </Compile>
-    <Compile Include="WinForms\Gui\utilities.cs" />
     <Compile Include="WinForms\Gui\WaypointListBox.cs">
       <SubType>Component</SubType>
     </Compile>

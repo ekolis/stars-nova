@@ -339,6 +339,7 @@ namespace Nova.WinForms.Gui
             this.SelectionDetail.Value = null;
             this.SelectionDetail.fleetDetail.FleetSelectionChangedEvent += new FleetSelectionChanged(this.FleetChangeSelection);
             this.SelectionDetail.fleetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
+            this.SelectionDetail.fleetDetail.RefreshStarMapEvent += new RefreshStarMap(this.MapControl.RefreshStarMap);
             this.SelectionDetail.planetDetail.StarSelectionChangedEvent += new StarSelectionChanged(this.StarChangeSelection);
             this.SelectionDetail.planetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
             // 
@@ -574,6 +575,7 @@ namespace Nova.WinForms.Gui
         private void DesignManagerMenuItem_Click(object sender, EventArgs e)
         {
             DesignManager designManager = new DesignManager();
+            designManager.RefreshStarMapEvent += new RefreshStarMap(this.MapControl.RefreshStarMap);
             designManager.ShowDialog();
             designManager.Dispose();
         }

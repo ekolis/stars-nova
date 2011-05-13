@@ -495,13 +495,14 @@ namespace Nova.WinForms.Gui
 
                 foreach (Waypoint waypoint in fleet.Waypoints)
                 {
-                    NovaPoint position = waypoint.Position;
+                    NovaPoint position = waypoint.Position;                 
+        
                     grafx.Graphics.DrawLine(Pens.Blue, (Point)from, (Point)LogicalToDevice(position));
+                    pen.Dispose();
                     from = LogicalToDevice(position);
                 }
             }
         }
-
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -875,8 +876,7 @@ namespace Nova.WinForms.Gui
             MapHorizontalScroll(this.horizontalScroll);
             MapVerticalScroll(this.verticalScroll);
 
-            this.DrawEverything();
-            this.MapPanel.Refresh();
+            this.RefreshStarMap();
 
 
         }
@@ -924,8 +924,7 @@ namespace Nova.WinForms.Gui
             this.center.X = this.logical.X * this.horizontalScroll / 100;
             this.origin.X = this.center.X - (this.extent.X / 2);
             
-            this.DrawEverything();
-            this.MapPanel.Refresh();
+            this.RefreshStarMap();
         }
 
 
@@ -941,8 +940,7 @@ namespace Nova.WinForms.Gui
             this.center.Y = this.logical.Y * this.verticalScroll / 100;
             this.origin.Y = this.center.Y - (this.extent.Y / 2);
 
-            this.DrawEverything();
-            this.MapPanel.Refresh();
+            this.RefreshStarMap();
         }
 
         #endregion
@@ -962,8 +960,7 @@ namespace Nova.WinForms.Gui
                                               new Rectangle( 0, 0, this.MapPanel.Size.Width, this.MapPanel.Size.Height )
                                              );
            
-            this.DrawEverything();
-            this.MapPanel.Refresh();
+            this.RefreshStarMap();
         }    
         
         #endregion
@@ -1103,7 +1100,6 @@ namespace Nova.WinForms.Gui
             
             SelectionChangedEvent(this, selectionArgs);            
             WaypointChangedEvent(this);
-            //fleetDetail.AddWaypoint(waypoint);
         }
 
 
@@ -1121,7 +1117,8 @@ namespace Nova.WinForms.Gui
             click.Y = e.Y;
             position = DeviceToLogical(click);
 
-           
+            SetCursor(position);
+            this.MapPanel.Refresh();
 
             ArrayList nearObjects = FindNearObjects(position);
             if (nearObjects.Count == 0) return;
@@ -1147,10 +1144,7 @@ namespace Nova.WinForms.Gui
             this.lastClick = click;
             SortableItem selected = nearObjects[this.selection] as SortableItem;
             Item item = (Item)selected.Target;
-            this.cursorPosition = item.Position;
-            
-            SetCursor(position);
-             this.MapPanel.Refresh();
+            this.cursorPosition = item.Position;          
    
             // Build an object to hold data.
             SelectionArgs selectionArgs = new SelectionArgs(item);
@@ -1192,8 +1186,7 @@ namespace Nova.WinForms.Gui
             
             SetZoom();
             */
-            this.DrawEverything();
-            this.MapPanel.Refresh();
+            this.RefreshStarMap();
         }
 
 
@@ -1260,8 +1253,7 @@ namespace Nova.WinForms.Gui
                 this.displayStarNames = false;
             }
 
-            this.DrawEverything();
-            this.MapPanel.Refresh();
+            this.RefreshStarMap();
         }
         
         /// ----------------------------------------------------------------------------
@@ -1284,8 +1276,7 @@ namespace Nova.WinForms.Gui
                 this.displayBackground = false;
             }
 
-            this.DrawEverything();
-            this.MapPanel.Refresh();
+            this.RefreshStarMap();
         }
         
         /// ----------------------------------------------------------------------------
@@ -1308,8 +1299,7 @@ namespace Nova.WinForms.Gui
                 this.displayBorders = false;
             }
 
-            this.DrawEverything();
-            this.MapPanel.Refresh();
+            this.RefreshStarMap();
         }
 
         #endregion
@@ -1324,6 +1314,13 @@ namespace Nova.WinForms.Gui
         public void ChangeCursor(object sender, CursorArgs e)
         {
             SetCursor(e.point);
+        }
+        
+        public void RefreshStarMap()
+        {
+            this.DrawEverything();
+            // Invalidate or Refresh?
+            this.MapPanel.Refresh();
         }
         
         #endregion

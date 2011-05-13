@@ -44,6 +44,12 @@ namespace Nova.WinForms.Gui
         private readonly ClientState stateData;
         private readonly Intel turnData;
 
+        /// <summary>
+        /// This event should be fired when a waypoint is deleted,
+        /// so the StarMap updates right away.
+        /// </summary>
+        public event RefreshStarMap RefreshStarMapEvent;
+        
         #region Construction
 
         /// <summary>
@@ -216,7 +222,7 @@ Are you sure you want to do this?";
             // Ensure the star map is updated in case we've completely removed any
             // fleets that are being displayed.
 
-            Utilities.MapRefresh();
+            RefreshStarMapEvent();
 
         }
 
