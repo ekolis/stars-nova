@@ -37,18 +37,24 @@ namespace Nova.WinForms.Console
     /// <summary>
     /// Check for victor.
     /// </summary>
-    public static class VictoryCheck
+    public class VictoryCheck
     {
-
-        private static readonly ServerState StateData = ServerState.Data;
-        private static bool messageSent;
+        private readonly ServerState StateData;
+        private readonly Scores Scores;
+        private bool messageSent;
+        
+        public VictoryCheck(ServerState serverState, Scores scores)
+        {
+            this.StateData = serverState;
+            this.Scores = scores;
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check for victor.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public static void Victor()
+        public void Victor()
         {
 
             // check for last man standing - doesn't matter the year
@@ -69,7 +75,7 @@ namespace Nova.WinForms.Console
                 message.Audience = "*";
                 message.Text = "The " + race.PluralName +
                                    " have won the game";
-                ServerState.Data.AllMessages.Add(message);
+                StateData.AllMessages.Add(message);
                 return;
             }
             else
@@ -104,7 +110,7 @@ namespace Nova.WinForms.Console
                         message.Audience = "*";
                         message.Text = "The " + race.PluralName +
                                            " have won the game";
-                        ServerState.Data.AllMessages.Add(message);
+                        StateData.AllMessages.Add(message);
                         return;
                     }
                 }
@@ -119,7 +125,7 @@ namespace Nova.WinForms.Console
         /// <param name="raceName">Name of the race to check.</param>
         /// <returns>1 if the required number of planets is occupied, otherwise 0.</returns>
         /// ----------------------------------------------------------------------------
-        private static int OccupiedPlanets(string raceName)
+        private int OccupiedPlanets(string raceName)
         {
             // See if this option has been turned on
 
@@ -158,7 +164,7 @@ namespace Nova.WinForms.Console
         /// <param name="raceName">Name of the race to check.</param>
         /// <returns>1 if race has attained the required tech, otherwise 0.</returns>
         /// ----------------------------------------------------------------------------
-        private static int AttainedTechLevel(string raceName)
+        private int AttainedTechLevel(string raceName)
         {
             // See if this tech level option has been turned on
 
@@ -200,7 +206,7 @@ namespace Nova.WinForms.Console
         /// <param name="raceName">Name of race to check.</param>
         /// <returns>1 if the required score has been met, otherwise 0</returns>
         /// ----------------------------------------------------------------------------
-        private static int ScoreExceeded(string raceName)
+        private int ScoreExceeded(string raceName)
         {
             if (GameSettings.Data.TotalScore.IsChecked == false)
             {
@@ -235,7 +241,7 @@ namespace Nova.WinForms.Console
         /// 1 if the required production capacity has been met, otherwise 0
         /// </returns>
         /// ----------------------------------------------------------------------------
-        private static int ProductionCapacity(string raceName)
+        private int ProductionCapacity(string raceName)
         {
             if (GameSettings.Data.ProductionCapacity.IsChecked == false)
             {
@@ -268,7 +274,7 @@ namespace Nova.WinForms.Console
         /// <param name="raceName">Name of the race to check.</param>
         /// <returns>1 if the required number of capital ships has been met, otherwise 0</returns>
         /// ----------------------------------------------------------------------------
-        private static int CapitalShips(string raceName)
+        private int CapitalShips(string raceName)
         {
             if (GameSettings.Data.CapitalShips.IsChecked == false)
             {
@@ -303,7 +309,7 @@ namespace Nova.WinForms.Console
         /// <param name="years">Number of game years/turns that have passed.</param>
         /// <returns>1 if this race has the highest score, otherwise 0</returns>
         /// ----------------------------------------------------------------------------
-        private static int HighestScore(string raceName, int years)
+        private int HighestScore(string raceName, int years)
         {
             if (GameSettings.Data.HighestScore.IsChecked == false)
             {
@@ -347,7 +353,7 @@ namespace Nova.WinForms.Console
         /// <param name="raceName">Name of the race to check.</param>
         /// <returns>1 if the second place score is exceeded by the required amount, 0 otherwise.</returns>
         /// ----------------------------------------------------------------------------
-        private static int ExceedsSecondPlace(string raceName)
+        private int ExceedsSecondPlace(string raceName)
         {
             if (GameSettings.Data.CapitalShips.IsChecked == false)
             {

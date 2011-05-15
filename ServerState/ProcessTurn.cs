@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 The Stars-Nova Project
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -31,6 +31,7 @@ using System.Collections;
 using System.IO;
 
 using Nova.Common;
+using Nova.Common.DataStructures;
 using Nova.Server;
 
 namespace Nova.WinForms.Console
@@ -39,9 +40,47 @@ namespace Nova.WinForms.Console
     /// <summary>
     /// Class to process a new turn.
     /// </summary>
-    public static class ProcessTurn
+    public class ProcessTurn
     {
-        private static ServerState stateData;
+        private ServerState StateData;
+        private ServerState TurnData;
+        
+        private OrderReader OrderReader;
+        private IntelWriter IntelWriter;
+        private BattleEngine BattleEngine;
+        private Bombing Bombing;
+        private CheckForMinefields CheckForMinefields;
+        private Invade Invade;
+        private LayMines LayMines;
+        private Manufacture Manufacture;
+        private Scores Scores;
+        private VictoryCheck VictoryCheck;
+        private WaypointTasks WaypointTasks;
+        
+        /// <summary>
+        /// Construct a turn processor. 
+        /// </summary>
+        public ProcessTurn(ServerState serverState)
+        {
+            this.StateData = serverState;
+            
+            // Now that there is a state, comopose the turn processor.
+            // TODO ???: Use dependency injection for this? It would
+            // generate a HUGE constructor call... a factory to
+            // abstract it perhaps? -Aeglos
+            this.OrderReader = new OrderReader(this.StateData);            
+            this.BattleEngine = new BattleEngine(this.StateData, new BattleReport());
+            this.Bombing = new Bombing(this.StateData);
+            this.CheckForMinefields = new CheckForMinefields(this.StateData);
+            this.Invade = new Invade(this.StateData);
+            this.LayMines = new LayMines(this.StateData);
+            this.WaypointTasks = new WaypointTasks(this.StateData, this.Invade, this.LayMines);
+            this.Manufacture = new Manufacture(this.StateData, this.WaypointTasks);
+            this.Scores = new Scores(this.StateData);
+            this.IntelWriter = new IntelWriter(this.StateData, this.Scores);
+            this.VictoryCheck = new VictoryCheck(this.StateData, this.Scores);
+            
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -50,23 +89,28 @@ namespace Nova.WinForms.Console
         /// passage of one year of time and, finally, write out the new turn file.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public static void Generate()
+        public void Generate()
         {
-            stateData = ServerState.Data;
-
             BackupTurn();
 
-            OrderReader.ReadOrders();
+            TurnData = OrderReader.ReadOrders();
+            
+            // For now, just copy the new turn right away.
+            // TODO: Integrity check the new turn before
+            // updating the state (cheats, errors).
+            StateData = TurnData;
             
             // Do per user operations.
-            foreach (Race race in stateData.AllRaces.Values)
+            foreach (Race race in StateData.AllRaces.Values)
             {
+                // Does not do much for now, only sets up some basic
+                // (but required) variables.
                 SanitizeResearch(race);
             }
 
             // Do all fleet movement and actions 
             // TODO (priority 4) - split this up into waypoint zero and waypoint 1 actions
-            foreach (Fleet fleet in stateData.AllFleets.Values)
+            foreach (Fleet fleet in StateData.AllFleets.Values)
             {
                 ProcessFleet(fleet);
             }
@@ -76,7 +120,7 @@ namespace Nova.WinForms.Console
             // Handle star based actions - growth and production
             // TODO (priority 4) - split these up as per Stars! turn order
             // UPDATE May 11: Some of this is updated -Aeglos
-            foreach (Star star in stateData.AllStars.Values)
+            foreach (Star star in StateData.AllStars.Values)
             {
                 ProcessStar(star);
             }
@@ -89,12 +133,12 @@ namespace Nova.WinForms.Console
 
             VictoryCheck.Victor();
 
-            stateData.TurnYear++;
+            StateData.TurnYear++;
             
             IntelWriter.WriteIntel();
 
             // remove old messages, do this last so that the 1st turn intro message is not removed before it is delivered.
-            stateData.AllMessages = new ArrayList();
+            StateData.AllMessages = new ArrayList();
 
         }
 
@@ -102,30 +146,30 @@ namespace Nova.WinForms.Console
         /// Remove fleets that no longer have ships.
         /// This needs to be done after each time the fleet list is processed, as fleets can not be destroyed until the itterator complets.
         /// </summary>
-        private static void CleanupFleets()
+        private void CleanupFleets()
         {
             // create a list of all fleets that have been destroyed
             ArrayList destroyedFleets = new ArrayList();
-            foreach (Fleet fleet in ServerState.Data.AllFleets.Values)
+            foreach (Fleet fleet in StateData.AllFleets.Values)
             {
                 if (fleet.FleetShips.Count == 0)
                     destroyedFleets.Add(fleet.Key);
             }
             foreach (string key in destroyedFleets)
             {
-                ServerState.Data.AllFleets.Remove(key);
+                StateData.AllFleets.Remove(key);
             }
 
             // And remove stations too.
             ArrayList destroyedStations = new ArrayList();
-            foreach (Star star in ServerState.Data.AllStars.Values)
+            foreach (Star star in StateData.AllStars.Values)
             {
                 if (star.Starbase != null && star.Starbase.FleetShips.Count == 0)
                     destroyedStations.Add(star.Name);
             }
             foreach (string key in destroyedStations)
             {
-                ((Star)ServerState.Data.AllStars[key]).Starbase = null;
+                (StateData.AllStars[key] as Star).Starbase = null;
 
             }
             
@@ -136,11 +180,11 @@ namespace Nova.WinForms.Console
         /// Copy all turn files to a sub-directory prior to generating the new turn.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        private static void BackupTurn()
+        private void BackupTurn()
         {
             // TODO (priority 3) - Add a setting to control the number of backups.
-            int currentTurn = ServerState.Data.TurnYear;
-            string gameFolder = ServerState.Data.GameFolder;
+            int currentTurn = StateData.TurnYear;
+            string gameFolder = StateData.GameFolder;
 
 
             try
@@ -178,11 +222,11 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="star">The <see cref="Star"/> to process.</param>
         /// ----------------------------------------------------------------------------
-        private static void ProcessStar(Star star)
+        private void ProcessStar(Star star)
         {            
             string owner = star.Owner;
             if (owner == null) return; // nothing to do for an empty star system.
-            Race race = stateData.AllRaces[star.Owner] as Race;
+            Race race = StateData.AllRaces[star.Owner] as Race;
             
             star.UpdateMinerals();
             
@@ -190,7 +234,7 @@ namespace Nova.WinForms.Console
             // Note that this sets the allocation for research to zero for all stars
             // which have "contribute only leftover resources to research". This
             // makes those stars be handled after manufacturing.
-            int percentage = (stateData.AllRaceData[race.Name] as RaceData).ResearchPercentage;
+            int percentage = (StateData.AllRaceData[race.Name] as RaceData).ResearchPercentage;
             star.UpdateResearch(percentage);
             star.UpdateResources();
             
@@ -208,7 +252,7 @@ namespace Nova.WinForms.Console
                 message.Text = died.ToString(System.Globalization.CultureInfo.InvariantCulture)
                    + " of your colonists have been killed"
                    + " by the environment on " + star.Name;
-                ServerState.Data.AllMessages.Add(message);
+                StateData.AllMessages.Add(message);
             }
 
             Manufacture.Items(star);
@@ -228,13 +272,13 @@ namespace Nova.WinForms.Console
         /// <returns>false</returns>
         /// ??? (priority 4) - why does this always return false?
         /// ----------------------------------------------------------------------------
-        private static bool ProcessFleet(Fleet fleet)
+        private bool ProcessFleet(Fleet fleet)
         {
             bool destroyed = UpdateFleet(fleet);
             if (destroyed == true) return true;
 
             // See if the fleet is orbiting a star
-            foreach (Star star in stateData.AllStars.Values)
+            foreach (Star star in StateData.AllStars.Values)
             {
                 if (star.Position.X == fleet.Position.X && star.Position.Y == fleet.Position.Y)
                 {
@@ -252,7 +296,7 @@ namespace Nova.WinForms.Console
                 Message message = new Message();
                 message.Audience = fleet.Owner;
                 message.Text = fleet.Name + " has ran out of fuel.";
-                ServerState.Data.AllMessages.Add(message);
+                StateData.AllMessages.Add(message);
             }
 
             // See if we need to bomb this place.
@@ -286,7 +330,7 @@ namespace Nova.WinForms.Console
         /// TODO (priority 3) - reference where these rules are from.
         /// </remarks>
         /// ----------------------------------------------------------------------------
-        private static void RegenerateFleet(Fleet fleet)
+        private void RegenerateFleet(Fleet fleet)
         {
             if (fleet == null) return;
 
@@ -370,9 +414,9 @@ namespace Nova.WinForms.Console
         /// <returns>false</returns>
         /// ??? (priority 4) - why does this always return false
         /// ----------------------------------------------------------------------------
-        private static bool UpdateFleet(Fleet fleet)
+        private bool UpdateFleet(Fleet fleet)
         {
-            Race race = ServerState.Data.AllRaces[fleet.Owner] as Race;
+            Race race = StateData.AllRaces[fleet.Owner] as Race;
 
             Waypoint currentPosition = new Waypoint();
             double availableTime = 1.0;
@@ -399,7 +443,7 @@ namespace Nova.WinForms.Console
                 }
                 else
                 {
-                    Star star = stateData.AllStars[thisWaypoint.Destination] as Star;
+                    Star star = StateData.AllStars[thisWaypoint.Destination] as Star;
 
                     if (star != null)
                     {
@@ -434,10 +478,10 @@ namespace Nova.WinForms.Console
             return false;
         }
         
-        private static bool SanitizeResearch(Race race)
+        private bool SanitizeResearch(Race race)
         {
             // Reset the list of new levels gained.
-            (ServerState.Data.AllRaceData[race.Name] as RaceData).ResearchLevelsGained.Zero();
+            (StateData.AllRaceData[race.Name] as RaceData).ResearchLevelsGained.Zero();
             
             return true;
             
@@ -451,13 +495,13 @@ namespace Nova.WinForms.Console
         /// <remarks>
         /// Note that stars which contribute only leftovers are not accounted for.
         /// </remarks>
-        private static void ContributeAllocatedResearch(Race race, Star star)
+        private void ContributeAllocatedResearch(Race race, Star star)
         {   
             // Paranoia
             string owner = star.Owner;
             if (owner == null || owner != race.Name) return;
 
-            RaceData playerData = ServerState.Data.AllRaceData[race.Name] as RaceData;
+            RaceData playerData = StateData.AllRaceData[race.Name] as RaceData;
 
             TechLevel targetAreas = playerData.ResearchTopics;
             TechLevel.ResearchField targetArea = TechLevel.ResearchField.Energy; // default to Energy.
@@ -477,7 +521,7 @@ namespace Nova.WinForms.Console
             playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResearchAllocation;
             star.ResearchAllocation = 0;            
             
-            TechLevel newLevels = (ServerState.Data.AllRaceData[race.Name] as RaceData).ResearchLevelsGained;
+            TechLevel newLevels = (StateData.AllRaceData[race.Name] as RaceData).ResearchLevelsGained;
             
             while (true)
             {
@@ -495,13 +539,13 @@ namespace Nova.WinForms.Console
             }
         }
         
-        private static void ContributeLeftoverResearch(Race race, Star star)
+        private void ContributeLeftoverResearch(Race race, Star star)
         {
             // Paranoia
             string owner = star.Owner;
             if (owner == null || owner != race.Name) return;
             
-            RaceData playerData = ServerState.Data.AllRaceData[race.Name] as RaceData;
+            RaceData playerData = StateData.AllRaceData[race.Name] as RaceData;
             
             TechLevel targetAreas = playerData.ResearchTopics;
             TechLevel.ResearchField targetArea = TechLevel.ResearchField.Energy; // default to Energy.
@@ -521,7 +565,7 @@ namespace Nova.WinForms.Console
             playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResourcesOnHand.Energy;
             star.ResourcesOnHand.Energy = 0;
             
-            TechLevel newLevels = (ServerState.Data.AllRaceData[race.Name] as RaceData).ResearchLevelsGained;
+            TechLevel newLevels = (StateData.AllRaceData[race.Name] as RaceData).ResearchLevelsGained;
             
             while (true)
             {

@@ -49,10 +49,17 @@ using Nova.Common.DataStructures;
 
 namespace Nova.Server
 {
-    public static class IntelWriter
+    public class IntelWriter
     {
-        private static ServerState stateData;
-        private static Intel turnData;
+        private readonly ServerState StateData;
+        private readonly Scores Scores;
+        private Intel TurnData;
+        
+        public IntelWriter(ServerState serverState, Scores scores)
+        {
+            this.StateData = serverState;
+            this.Scores = scores;
+        }
 
         #region Methods
         /// -------------------------------------------------------------------
@@ -66,64 +73,63 @@ namespace Nova.Server
         /// duplicated (but separate) star objects.
         /// </remarks>
         /// -------------------------------------------------------------------
-        public static void WriteIntel()
+        public void WriteIntel()
         {
-            stateData = ServerState.Data;
-            foreach (PlayerSettings player in stateData.AllPlayers)
+            foreach (PlayerSettings player in StateData.AllPlayers)
             {
-                turnData = new Intel();
-                turnData.TurnYear = stateData.TurnYear;
-                turnData.MyRace = stateData.AllRaces[player.RaceName] as Race;
-                turnData.TurnYear = stateData.TurnYear;
-                turnData.AllStars = stateData.AllStars;
-                turnData.AllMinefields = stateData.AllMinefields;
-                turnData.AllFleets = stateData.AllFleets;
-                turnData.AllDesigns = stateData.AllDesigns;
-                turnData.ResearchLevelsGained = (stateData.AllRaceData[player.RaceName] as RaceData).ResearchLevelsGained;
-                turnData.ResearchResources = (stateData.AllRaceData[player.RaceName] as RaceData).ResearchResources;
-                turnData.ResearchLevels = (stateData.AllRaceData[player.RaceName] as RaceData).ResearchLevels;
+                TurnData = new Intel();
+                TurnData.TurnYear = StateData.TurnYear;
+                TurnData.MyRace = StateData.AllRaces[player.RaceName] as Race;
+                TurnData.TurnYear = StateData.TurnYear;
+                TurnData.AllStars = StateData.AllStars;
+                TurnData.AllMinefields = StateData.AllMinefields;
+                TurnData.AllFleets = StateData.AllFleets;
+                TurnData.AllDesigns = StateData.AllDesigns;
+                TurnData.ResearchLevelsGained = (StateData.AllRaceData[player.RaceName] as RaceData).ResearchLevelsGained;
+                TurnData.ResearchResources = (StateData.AllRaceData[player.RaceName] as RaceData).ResearchResources;
+                TurnData.ResearchLevels = (StateData.AllRaceData[player.RaceName] as RaceData).ResearchLevels;
                 
                 // Copy any messages
-                foreach (Message message in stateData.AllMessages)
+                foreach (Message message in StateData.AllMessages)
                 {
                     if (message.Audience == "*" || message.Audience == player.RaceName)
                     {
-                        turnData.Messages.Add(message);
+                        TurnData.Messages.Add(message);
                     }
                 }
 
                 // Copy the list of player races
-                foreach (Race race in stateData.AllRaces.Values)
+                foreach (Race race in StateData.AllRaces.Values)
                 {
-                    turnData.AllRaceNames.Add(race.Name);
-                    turnData.RaceIcons[race.Name] = race.Icon;
+                    TurnData.AllRaceNames.Add(race.Name);
+                    TurnData.RaceIcons[race.Name] = race.Icon;
                 }
 
                 // Copy any battle reports
-                foreach (BattleReport report in stateData.AllBattles)
+                foreach (BattleReport report in StateData.AllBattles)
                 {
-                    turnData.Battles.Add(report);
+                    TurnData.Battles.Add(report);
                 }
 
                 // Don't try and generate a scores report on the very start of a new
                 // game.
 
-                if (stateData.TurnYear > 2100)
+                if (StateData.TurnYear > 2100)
                 {
-                    turnData.AllScores = Scores.GetScores();
+                    TurnData.AllScores = Scores.GetScores();
                 }
                 else
                 {
-                    turnData.AllScores = new ArrayList();
+                    TurnData.AllScores = new ArrayList();
                 }
 
-                ServerState.Data.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
-                if (ServerState.Data.GameFolder == null)
+                StateData.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
+                if (StateData.GameFolder == null)
                 {
                     Report.Error("Intel Writer: WriteIntel() - Unable to create file \"Nova.intel\".");
                     return;
                 }
-                string turnFileName = Path.Combine(ServerState.Data.GameFolder, player.RaceName + Global.IntelExtension);
+                string turnFileName = Path.Combine(StateData.GameFolder, player.RaceName + Global.IntelExtension);
 
                 // Write out the intel file, as xml, but also handle the case of it being locked (in use).
                 bool locked = false;
@@ -141,7 +147,7 @@ namespace Nova.Server
                             Global.InitializeXmlDocument(xmldoc);
 
                             // add the Intel to the document
-                            xmldoc.ChildNodes.Item(1).AppendChild(turnData.ToXml(xmldoc));
+                            xmldoc.ChildNodes.Item(1).AppendChild(TurnData.ToXml(xmldoc));
 
                             xmldoc.Save(turnFile);
                         }

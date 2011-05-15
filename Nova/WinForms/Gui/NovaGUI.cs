@@ -388,46 +388,6 @@ namespace Nova.WinForms.Gui
         }
         #endregion
 
-        #region Main
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// <para>
-        /// Start the Nova GUI.
-        /// </para><para>
-        /// The main entry point for the application. Initialise the Nova GUI state data
-        /// (this will be a partial initialisation on the very first run of the GUI in a
-        /// new game). Initialise the components of the main GUI window and and then
-        /// start the Windows message processing.
-        /// </para><para>
-        /// Players should not normally start the Nova GUI directly. 
-        /// </para><para>
-        /// The NovaLauncher will launch the Nova GUI either to continue
-        /// a current game (based on config file settings) or once the player has
-        /// selected a race.state to open.
-        /// </para><para>
-        /// The Nova Console wil launch the Nova GUI when the player 
-        /// selects a race from the PlayerList for the current game.
-        /// In any of the above circumstances the appropriate parameters
-        /// need to be passed to Nova GUI to identify the race.state to be played.
-        /// </para>
-        /// </summary>
-        /// <param name="args">Command line arguments.</param>
-        /// ----------------------------------------------------------------------------
-       /* [STAThread]
-        public static void Main(string[] args)
-        {
-
-            Application.EnableVisualStyles();
-            ClientState.Initialize(args);
-            this.Text = "Nova - " + ClientState.Data.PlayerRace.PluralName;
-            this.InitialiseControls();
-            Application.Run();
-
-        }*/
-
-        #endregion
-
         #region Event Methods
 
         /// ----------------------------------------------------------------------------

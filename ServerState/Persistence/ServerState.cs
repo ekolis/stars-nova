@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -50,74 +50,31 @@ namespace Nova.Server
     {
         #region Data
 
-        public ArrayList AllBattles             = new ArrayList();
-        public ArrayList AllPlayers             = new ArrayList(); // collection of PlayerSettings (player number, race, ai (program name or "Default AI" or "Human")
-        public Hashtable AllTechLevels          = new Hashtable(); // Sum of a player's techlevels, for scoring purposes.
-        public Hashtable AllDesigns             = new Hashtable();
-        public Hashtable AllFleets              = new Hashtable();
-        public Hashtable AllRaceData            = new Hashtable(); // Data about the race's relations and battle plans, see RaceData
-        public Hashtable AllRaces               = new Hashtable(); // Data about the race (traits etc)
-        public Hashtable AllStars               = new Hashtable();
-        public Hashtable AllMinefields          = new Hashtable();
-        public ArrayList AllMessages            = new ArrayList(); // ArrayList containing all messages generated this turn.
+        public ArrayList AllBattles     = new ArrayList();
+        public ArrayList AllPlayers     = new ArrayList(); // collection of PlayerSettings (player number, race, ai (program name or "Default AI" or "Human")
+        public Hashtable AllTechLevels  = new Hashtable(); // Sum of a player's techlevels, for scoring purposes.
+        public Hashtable AllDesigns     = new Hashtable();
+        public Hashtable AllFleets      = new Hashtable();
+        public Hashtable AllRaceData    = new Hashtable(); // Data about the race's relations and battle plans, see RaceData
+        public Hashtable AllRaces       = new Hashtable(); // Data about the race (traits etc)
+        public Hashtable AllStars       = new Hashtable();
+        public Hashtable AllMinefields  = new Hashtable();
+        public ArrayList AllMessages    = new ArrayList(); // ArrayList containing all messages generated this turn.
 
-        public bool GameInProgress     = false;
-        public int FleetID             = 1;
-        public int TurnYear            = 2100;
-        public string GameFolder       = null; // The path&folder where client files are held.
-        public string StatePathName    = null; // path&file name to the saved state data
+        public bool GameInProgress      = false;
+        public int FleetID              = 1;
+        public int TurnYear             = 2100;
+        public string GameFolder        = null; // The path&folder where client files are held.
+        public string StatePathName     = null; // path&file name to the saved state data
         
         #endregion
 
-        #region Singleton
-
-        // ============================================================================
-        // Data private to this module.
-        // ============================================================================
-
-        private static ServerState instance = null;
-        private static object padlock = new object();
-
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Private constructor to prevent anyone else creating instances of this class.
+        /// Creates a new fresh server state.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        private ServerState() { }
-
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Provide a mechanism of accessing the single instance of this class that we
-        /// will create locally. Creation of the data is thread-safe.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public static ServerState Data
-        {
-            get
-            {
-                if (instance == null)
-                {
-                    lock (padlock)
-                    {
-                        if (instance == null)
-                        {
-                            instance = new ServerState();
-                        }
-                    }
-                }
-                return instance;
-            }
-
-            // ----------------------------------------------------------------------------
-
-            set
-            {
-                instance = value;
-            }
-        }
-
-        #endregion
+        public ServerState() { }
 
         #region Methods
 
@@ -126,16 +83,20 @@ namespace Nova.Server
         /// Restore the persistent data. 
         /// </summary>
         /// -------------------------------------------------------------------
-        public static void Restore()
+        public ServerState Restore()
         {
-            string fileName = Data.StatePathName;
+            string fileName = this.StatePathName;            
+            ServerState serverState = new ServerState();
+            
             if (File.Exists(fileName))
             {
                 using (FileStream stream = new FileStream(fileName, FileMode.Open))
-                {
-                    ServerState.Data = (ServerState)Serializer.Deserialize(stream);
+                {                    
+                    serverState = (ServerState)Serializer.Deserialize(stream);
                 }
             }
+            
+            return serverState;
         }
 
 
@@ -144,9 +105,9 @@ namespace Nova.Server
         /// Save the console persistent data.
         /// </summary>
         /// -------------------------------------------------------------------
-        public static void Save()
+        public void Save()
         {
-            if (Data.StatePathName == null)
+            if (this.StatePathName == null)
             {
                 // TODO (priority 5) add the nicities. Update the game files location.
                 SaveFileDialog fd = new SaveFileDialog();
@@ -155,7 +116,7 @@ namespace Nova.Server
                 DialogResult result = fd.ShowDialog();
                 if (result == DialogResult.OK)
                 {
-                    Data.StatePathName = fd.FileName;
+                    this.StatePathName = fd.FileName;
                 }
                 else
                 {
@@ -163,9 +124,9 @@ namespace Nova.Server
                 }
             }
 
-            using (FileStream stream = new FileStream(Data.StatePathName, FileMode.Create))
+            using (FileStream stream = new FileStream(this.StatePathName, FileMode.Create))
             {
-                Serializer.Serialize(stream, ServerState.Data);
+                Serializer.Serialize(stream, this);
             }
         }
 
@@ -175,19 +136,19 @@ namespace Nova.Server
         /// Reset all values to the defaults
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public static void Clear()
+        public void Clear()
         {
-            Data.GameFolder = null;
-            Data.AllRaces = new Hashtable();
-            Data.AllRaceData = new Hashtable();
-            Data.AllStars = new Hashtable();
-            Data.AllDesigns = new Hashtable();
-            Data.AllFleets = new Hashtable();
-            Data.AllTechLevels = new Hashtable();
-            Data.TurnYear = 2100;
-            Data.FleetID = 1;
-            Data.StatePathName = null;
-            Data.GameInProgress = false;
+            this.GameFolder = null;
+            this.AllRaces.Clear();
+            this.AllRaceData.Clear();
+            this.AllStars.Clear();;
+            this.AllDesigns.Clear();
+            this.AllFleets.Clear();
+            this.AllTechLevels.Clear();
+            this.TurnYear = 2100;
+            this.FleetID = 1;
+            this.StatePathName = null;
+            this.GameInProgress = false;
         }
 
         #endregion

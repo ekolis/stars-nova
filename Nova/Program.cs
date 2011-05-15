@@ -45,7 +45,7 @@ namespace Nova
             switch (firstArgument)
             {
                 case CommandArguments.Option.ConsoleSwitch:
-                    WinForms.Console.NovaConsoleMain.Main();
+                    Application.Run(new WinForms.Console.NovaConsoleMain());
                     break;
                 case CommandArguments.Option.ComponentEditorSwitch:
                     WinForms.ComponentEditor.Program.Main();
@@ -57,7 +57,8 @@ namespace Nova
                     WinForms.Gui.MainWindow.Main(coreArgs);
                     break;
                 case CommandArguments.Option.NewGameSwitch:
-                    WinForms.NewGameWizard.Main();
+                    WinForms.NewGameWizard wiz = new WinForms.NewGameWizard();
+                    wiz.Main();
                     break;
                 case CommandArguments.Option.AiSwitch:
                     Ai.Program.Main(coreArgs);
