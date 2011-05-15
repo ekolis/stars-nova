@@ -54,7 +54,7 @@ namespace Nova.Tests.IntegrationTests
             const int NUM_ATTEMPTS = 1; // set to 100 to ensure fail
 
             // Generate the map
-            ServerState stateData = ServerState.Data;
+            ServerState stateData = new ServerState();
             try
             {
                 // some inital data
@@ -79,9 +79,11 @@ namespace Nova.Tests.IntegrationTests
                     GameSettings.Data.StarDensity = 60;
                     GameSettings.Data.StarSeparation = 10;
                     GameSettings.Data.StarUniformity = 60;
-
-                    StarMapInitialiser.GenerateStars();
-                    StarMapInitialiser.InitialisePlayerData();
+     
+                    StarMapInitialiser starMapInitializer = new StarMapInitialiser(stateData);
+                    
+                    starMapInitializer.GenerateStars();
+                    starMapInitializer.InitialisePlayerData();
                 }
             }
             catch

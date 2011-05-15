@@ -39,12 +39,18 @@ namespace Nova.WinForms.Console
     /// <summary>
     /// Class to manufacture new items.
     /// </summary>
-    public static class Manufacture
+    public class Manufacture
     {
 
-        private static ArrayList deletions = new ArrayList();
-        private static ServerState stateData = ServerState.Data;
-
+        private ArrayList Deletions = new ArrayList();
+        private ServerState StateData;
+        private WaypointTasks WaypointTasks;
+  
+        public Manufacture(ServerState serverState, WaypointTasks waypointTasks)
+        {
+            this.StateData = serverState;
+            this.WaypointTasks = waypointTasks;
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -56,9 +62,9 @@ namespace Nova.WinForms.Console
         /// contribute with leftover resources for research.
         /// </remarks>
         /// ----------------------------------------------------------------------------
-        public static void Items(Star star)
+        public void Items(Star star)
         {
-            deletions.Clear();
+            Deletions.Clear();
 
             foreach (ProductionQueue.Item item in star.ManufacturingQueue.Queue)
             {
@@ -70,7 +76,7 @@ namespace Nova.WinForms.Console
                 }
             }
 
-            foreach (ProductionQueue.Item item in deletions)
+            foreach (ProductionQueue.Item item in Deletions)
             {
                 star.ManufacturingQueue.Queue.Remove(item);
             }
@@ -86,7 +92,7 @@ namespace Nova.WinForms.Console
         /// <param name="star">The star doing production.</param>
         /// <returns>true if all resources have been exhausted.</returns>
         /// ----------------------------------------------------------------------------
-        private static bool BuildQueueItem(ProductionQueue.Item item, Star star)
+        private bool BuildQueueItem(ProductionQueue.Item item, Star star)
         {
             bool resourcesExhausted = false;
 
@@ -114,10 +120,10 @@ namespace Nova.WinForms.Console
         /// <param name="star">The star system doing production</param>
         /// <returns>true if the star is unable to finish productio of this item.</returns>
         /// ----------------------------------------------------------------------------
-        private static bool BuildDesign(ProductionQueue.Item item, Star star)
+        private bool BuildDesign(ProductionQueue.Item item, Star star)
         {
             string designName = star.Owner + "/" + item.Name;
-            Design design = stateData.AllDesigns[designName] as Design;
+            Design design = StateData.AllDesigns[designName] as Design;
             Nova.Common.Resources needed = item.BuildState;
 
             // If we've ran out of resources then give up. Note that there may be
@@ -158,7 +164,7 @@ namespace Nova.WinForms.Console
                     // first remove the old starbase
                     if (star.Starbase != null)
                     {
-                        stateData.AllFleets.Remove(star.Starbase.Key);
+                        StateData.AllFleets.Remove(star.Starbase.Key);
                         star.Starbase = null;
                     }
 
@@ -174,7 +180,7 @@ namespace Nova.WinForms.Console
 
             if (item.Quantity == 0)
             {
-                deletions.Add(item);
+                Deletions.Add(item);
             }
             else
             {
@@ -194,7 +200,7 @@ namespace Nova.WinForms.Console
         /// <param name="neededResources">The Resources cost to complete production of the item (either BuildState or design.Cost).</param>
         /// <param name="star">The Star System doing the production.</param>
         /// ----------------------------------------------------------------------------
-        private static void PartialBuild(
+        private void PartialBuild(
             ProductionQueue.Item item,
             Resources neededResources,
             Star star)
@@ -244,10 +250,9 @@ namespace Nova.WinForms.Console
         /// <param name="design">A ShipDesign to be constructed.</param>
         /// <param name="star">The star system producing the ship.</param>
         /// ----------------------------------------------------------------------------
-        private static void CreateShip(ShipDesign design, Star star)
+        private void CreateShip(ShipDesign design, Star star)
         {
-            ServerState stateData = ServerState.Data;
-            Race race = stateData.AllRaces[star.Owner] as Race;
+            Race race = StateData.AllRaces[star.Owner] as Race;
 
             Ship ship = new Ship(design);
             ship.Name = design.Name;
@@ -256,15 +261,15 @@ namespace Nova.WinForms.Console
             Message message = new Message();
             message.Audience = star.Owner;
             message.Text = star.Name + " has produced a new " + design.Name;
-            stateData.AllMessages.Add(message);
+            StateData.AllMessages.Add(message);
 
             Fleet fleet = new Fleet(ship, star);
-            fleet.Name = ship.Name + " #" + stateData.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            fleet.FleetID = stateData.FleetID;
+            fleet.Name = ship.Name + " #" + StateData.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            fleet.FleetID = StateData.FleetID;
 
             // Add the fleet to the state data so it can be tracked.
-            stateData.AllFleets[fleet.Key] = fleet;
-            stateData.FleetID++;
+            StateData.AllFleets[fleet.Key] = fleet;
+            StateData.FleetID++;
 
             if (design.Type == "Starbase")
             {

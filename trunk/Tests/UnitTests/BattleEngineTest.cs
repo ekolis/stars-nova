@@ -30,6 +30,7 @@ using System.Collections;
 using System.Drawing;
 using Nova.Common;
 using Nova.Common.Components;
+using Nova.Common.DataStructures;
 using Nova.Server;
 using Nova.WinForms.Console;
 using NUnit.Framework;
@@ -59,6 +60,9 @@ namespace Nova.Tests.UnitTests
     [TestFixture]
     public class BattleEngineTest
     {
+        private ServerState StateData = new ServerState();
+        private BattleEngine BattleEngine;
+        
         private Fleet fleet1 = new Fleet("fleet1", "Tom", new Point(100, 200));
         private Fleet fleet2 = new Fleet("fleet2", "Dick", new Point(100, 200));
         private Fleet fleet3 = new Fleet("fleet3", "Harry", new Point(300, 400));
@@ -90,6 +94,7 @@ namespace Nova.Tests.UnitTests
         /// ----------------------------------------------------------------------------
         public BattleEngineTest()
         {
+            BattleEngine = new BattleEngine(StateData, new BattleReport());
             Resources cost = new Resources(10, 20, 30, 40);
 
             Component shipHull = new Component();
@@ -129,10 +134,10 @@ namespace Nova.Tests.UnitTests
             fleet3.FleetShips.Add(ship3);
             fleet4.FleetShips.Add(ship4);
 
-            ServerState.Data.AllFleets["fleet1"] = fleet1;
-            ServerState.Data.AllFleets["fleet2"] = fleet2;
-            ServerState.Data.AllFleets["fleet3"] = fleet3;
-            ServerState.Data.AllFleets["fleet4"] = fleet4;
+            StateData.AllFleets["fleet1"] = fleet1;
+            StateData.AllFleets["fleet2"] = fleet2;
+            StateData.AllFleets["fleet3"] = fleet3;
+            StateData.AllFleets["fleet4"] = fleet4;
         }
 
 
@@ -192,10 +197,10 @@ namespace Nova.Tests.UnitTests
 
             raceData.PlayerRelations["Dick"] = "Enemy";
             raceData.BattlePlans["Default"] = new BattlePlan();
-            ServerState.Data.AllRaceData["Tom"] = raceData;
+            StateData.AllRaceData["Tom"] = raceData;
 
             raceData.PlayerRelations["Tom"] = "Enemy";
-            ServerState.Data.AllRaceData["Dick"] = raceData;
+            StateData.AllRaceData["Dick"] = raceData;
 
             int numberOfTargets = BattleEngine.SelectTargets(zoneStacks);
 

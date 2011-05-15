@@ -41,8 +41,14 @@ namespace Nova.NewGame
     /// This object contains static methods to initialise the star map. 
     /// Note that SarsMapGenerator handles positioning of the stars.
     /// </summary>
-    public static class StarMapInitialiser
+    public class StarMapInitialiser
     {
+        private ServerState StateData;
+        
+        public StarMapInitialiser(ServerState serverState)
+        {
+            this.StateData = serverState;
+        }
 
         #region Initialisation
 
@@ -58,7 +64,7 @@ namespace Nova.NewGame
         /// That is the only method outside this object that should call this method.
         /// </remarks>
         /// ----------------------------------------------------------------------------
-        public static void GenerateStars()
+        public void GenerateStars()
         {
             NameGenerator nameGenerator = new NameGenerator();
 
@@ -85,7 +91,7 @@ namespace Nova.NewGame
                 star.Gravity = random.Next(1, 99);
                 star.Temperature = random.Next(1, 99);
 
-                ServerState.Data.AllStars[star.Name] = star;
+                StateData.AllStars[star.Name] = star;
             }
         }
 
@@ -96,15 +102,15 @@ namespace Nova.NewGame
         /// planet, allocating initial resources, etc.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public static void InitialisePlayerData()
+        public void InitialisePlayerData()
         {
-            SpaceAllocator spaceAllocator = new SpaceAllocator(ServerState.Data.AllRaces.Count);
+            SpaceAllocator spaceAllocator = new SpaceAllocator(StateData.AllRaces.Count);
 
             // FIXME (priority 8) does not handle rectangular maps correctly
             spaceAllocator.AllocateSpace(Math.Min(GameSettings.Data.MapWidth, GameSettings.Data.MapHeight)); // attempt to not crash with a rectangular star map (slight improvement). Need to handle rectangular map properly.
             // spaceAllocator.AllocateSpace(GameSettings.Data.MapWidth); - old version
 
-            foreach (Race race in ServerState.Data.AllRaces.Values)
+            foreach (Race race in StateData.AllRaces.Values)
             {
                 string player = race.Name;
 
@@ -129,9 +135,9 @@ namespace Nova.NewGame
                 defense.Name = "Defenses";
                 defense.Type = "Defenses";
                 defense.Owner = player;
-                ServerState.Data.AllDesigns[player + "/Mine"] = mine;
-                ServerState.Data.AllDesigns[player + "/Factory"] = factory;
-                ServerState.Data.AllDesigns[player + "/Defenses"] = defense;
+                StateData.AllDesigns[player + "/Mine"] = mine;
+                StateData.AllDesigns[player + "/Factory"] = factory;
+                StateData.AllDesigns[player + "/Defenses"] = defense;
                 PrepareDesigns(race, player);
                 InitialiseHomeStar(race, spaceAllocator, player);
             }
@@ -140,10 +146,10 @@ namespace Nova.NewGame
             welcome.Text = "Your race is ready to explore the universe.";
             welcome.Audience = "*";
 
-            ServerState.Data.AllMessages.Add(welcome);
+            StateData.AllMessages.Add(welcome);
         }
 
-        private static void PrepareDesigns(Race race, string player)
+        private void PrepareDesigns(Race race, string player)
         {
             //Read components data and create some basic stuff
             AllComponents.Restore();
@@ -196,7 +202,7 @@ namespace Nova.NewGame
             cs.Name = "Santa Maria";
             cs.Owner = player;
 
-            ServerState.Data.AllDesigns[player + "/cs"] = cs;
+            StateData.AllDesigns[player + "/cs"] = cs;
 
             //switch (race.Traits.Primary.Code)
             //{
@@ -252,12 +258,10 @@ namespace Nova.NewGame
         /// <param name="race"><see cref="Race"/> to be positioned.</param>
         /// <param name="spaceAllocator">The <see cref="SpaceAllocator"/> being used to allocate positions.</param>
         /// ----------------------------------------------------------------------------
-        private static void InitialiseHomeStar(Race race, SpaceAllocator spaceAllocator, string player)
+        private void InitialiseHomeStar(Race race, SpaceAllocator spaceAllocator, string player)
         {
-            ServerState stateData = ServerState.Data;
-
             Rectangle box = spaceAllocator.GetBox();
-            foreach (Star star in stateData.AllStars.Values)
+            foreach (Star star in StateData.AllStars.Values)
             {
                 if (PointUtilities.InBox(star.Position, box))
                 {
@@ -276,15 +280,15 @@ namespace Nova.NewGame
         /// </summary>
         /// <param name="star"></param>
         /// <param name="race"></param>
-        private static void AllocateHomeStarOrbitalInstallations(Star star, Race race, string player)
+        private void AllocateHomeStarOrbitalInstallations(Star star, Race race, string player)
         {
-            ShipDesign csDesign = ServerState.Data.AllDesigns[player + "/cs"] as ShipDesign;
+            ShipDesign csDesign = StateData.AllDesigns[player + "/cs"] as ShipDesign;
             if (race.Traits.Primary.Code != "HE")
             {
                 Ship cs = new Ship(csDesign);
                 Fleet fleet1 = new Fleet(cs, star);
                 fleet1.Name = "CSFleet1";
-                ServerState.Data.AllFleets[player +"/"+ fleet1.FleetID.ToString()] = fleet1;
+                StateData.AllFleets[player +"/"+ fleet1.FleetID.ToString()] = fleet1;
             }
             else
             {
@@ -294,7 +298,7 @@ namespace Nova.NewGame
                     Fleet fleet = new Fleet(cs, star);
                     fleet.FleetID = i;
                     fleet.Name = "CSFleet" +i.ToString();
-                    ServerState.Data.AllFleets[player + "/" + fleet.FleetID.ToString()] = fleet;
+                    StateData.AllFleets[player + "/" + fleet.FleetID.ToString()] = fleet;
                 }
             }
         }
@@ -308,7 +312,7 @@ namespace Nova.NewGame
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private static void AllocateHomeStarResources(Star star, Race race)
+        private void AllocateHomeStarResources(Star star, Race race)
         {
             Random random = new Random();
 

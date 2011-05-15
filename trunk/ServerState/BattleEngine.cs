@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 The Stars-Nova Project
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -42,17 +42,33 @@ namespace Nova.WinForms.Console
     /// <summary>
     /// Class to process conflicts.
     /// </summary>
-    public static class BattleEngine
+    public class BattleEngine
     {
-        private static readonly ServerState StateData = ServerState.Data;
-        private static readonly Random Random = new Random();
-        private static double maxBattleTime = 16;
-        private static BattleReport battle = new BattleReport();
-        private static int stackId;
+        private ServerState StateData;
+        private readonly Random Random = new Random();
+        private double MaxBattleTime = 16;
+        private BattleReport Battle;
+        private int StackId;
 
         /// Residual fractional movement points left over between phases/turns of combat.
-        private static IDictionary<Fleet, double> residualMovement = new Dictionary<Fleet, double>();
-
+        private IDictionary<Fleet, double> ResidualMovement = new Dictionary<Fleet, double>();
+  
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Creates a new battle engine.
+        /// </summary>
+        /// <param name="serverState">
+        /// A <see cref="ServerState"/> which holds the state of the game.
+        /// </param>
+        /// <param name="battleReport">
+        /// A <see cref="BattleReport"/> onto which to write the battle results.
+        /// </param>
+        /// ----------------------------------------------------------------------------
+        public BattleEngine(ServerState serverState, BattleReport battleReport)
+        {
+            this.StateData = serverState;
+            this.Battle = battleReport;
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -60,7 +76,7 @@ namespace Nova.WinForms.Console
         /// documented in the Stars! FAQ (a copy is included in the documentation).
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public static void Run()
+        public void Run()
         {
             // Determine the positions of any potential battles. For a battle to
             // take place 2 or more fleets must be at the same location.
@@ -104,17 +120,16 @@ namespace Nova.WinForms.Console
                     return;
                 }
 
-                battle = new BattleReport();
-                stackId = 0;
+                StackId = 0;
                 Fleet sample = combatZone[0] as Fleet;
 
                 if (sample.InOrbit != null)
                 {
-                    battle.Location = sample.InOrbit.Name;
+                    Battle.Location = sample.InOrbit.Name;
                 }
                 else
                 {
-                    battle.Location = "coordinates " + sample.Position.ToString();
+                    Battle.Location = "coordinates " + sample.Position.ToString();
                 }
 
                 PositionStacks(zoneStacks);
@@ -128,13 +143,13 @@ namespace Nova.WinForms.Console
 
                 foreach (Fleet stack in zoneStacks)
                 {
-                    battle.Stacks[stack.Name] = new Fleet(stack);
+                    Battle.Stacks[stack.Name] = new Fleet(stack);
                 }
 
                 DoBattle(zoneStacks);
                 ReportLosses();
 
-                ServerState.Data.AllBattles.Add(battle);
+                StateData.AllBattles.Add(Battle);
             }
         }
 
@@ -147,7 +162,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <returns>A list of all lists of co-located fleets as an ArrayList of ArrayLists of Fleets.</returns>
         /// ----------------------------------------------------------------------------
-        public static ArrayList DetermineCoLocatedFleets()
+        public ArrayList DetermineCoLocatedFleets()
         {
             ArrayList allFleetPositions = new ArrayList();
             Hashtable fleetDone = new Hashtable();
@@ -186,7 +201,7 @@ namespace Nova.WinForms.Console
         /// <param name="fleetPositions">A list of all lists of co-located fleets as an ArrayList of ArrayLists of Fleets.</param>
         /// <returns>The positions of all potential battles as an ArrayList (battlePositions) of ArrayLists (coLocatedFleets) of Fleets.</returns>
         /// ----------------------------------------------------------------------------
-        public static ArrayList EliminateSingleRaces(ArrayList fleetPositions)
+        public ArrayList EliminateSingleRaces(ArrayList fleetPositions)
         {
             ArrayList battlePositions = new ArrayList();
 
@@ -219,7 +234,7 @@ namespace Nova.WinForms.Console
         /// <param name="fleet">The <see cref="Fleet"/> to be converted to token stacks.</param>
         /// <returns>A list of stacks as an ArrayList of <see cref="Fleet"/>s.</returns>
         /// ----------------------------------------------------------------------------
-        public static ArrayList BuildFleetStacks(Fleet fleet)
+        public ArrayList BuildFleetStacks(Fleet fleet)
         {
             Hashtable fleetStacks = new Hashtable();
 
@@ -232,10 +247,10 @@ namespace Nova.WinForms.Console
 
                 if (stack == null)
                 {
-                    string name = "Stack #" + stackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    string name = "Stack #" + StackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     stack = new Fleet(name, fleet.Owner, fleet.Position);
-                    stack.FleetID = stackId;
-                    stackId++;
+                    stack.FleetID = StackId;
+                    StackId++;
 
                     stack.BattlePlan = fleet.BattlePlan;
                     stack.BattleSpeed = ship.BattleSpeed;
@@ -274,7 +289,7 @@ namespace Nova.WinForms.Console
         /// <param name="coLocatedFleets">A list of fleets at the given location (as an ArrayList of Fleet).</param>
         /// <returns>A list of token stacks representing the given fleets (as an ArrayList of Fleet).</returns>
         /// ----------------------------------------------------------------------------
-        public static ArrayList GenerateStacks(ArrayList coLocatedFleets)
+        public ArrayList GenerateStacks(ArrayList coLocatedFleets)
         {
             ArrayList zoneStacks = new ArrayList();
 
@@ -298,7 +313,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="zoneStacks">All stacks in this battle (as an ArrayList of Fleet).</param>
         /// ----------------------------------------------------------------------------
-        public static void PositionStacks(ArrayList zoneStacks)
+        public void PositionStacks(ArrayList zoneStacks)
         {
             Hashtable races = new Hashtable();
             Hashtable racePositions = new Hashtable();
@@ -316,7 +331,7 @@ namespace Nova.WinForms.Console
             int spaceSize = spaceAllocator.GridAxisCount * Global.MaxWeaponRange;
 
             spaceAllocator.AllocateSpace(spaceSize);
-            battle.SpaceSize = spaceSize;
+            Battle.SpaceSize = spaceSize;
 
             // Now allocate a position for each race in the centre of one of the
             // allocated spacial chunks.
@@ -330,7 +345,7 @@ namespace Nova.WinForms.Console
                 position.Y = newPosition.Y + (newPosition.Height / 2);
 
                 racePositions[raceName] = position;
-                battle.Losses[raceName] = 0;
+                Battle.Losses[raceName] = 0;
             }
 
             // Place all stacks belonging to the same race at the same position.
@@ -349,7 +364,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="zoneStacks">All stacks in this battle (as an ArrayList of Fleet).</param>
         /// ----------------------------------------------------------------------------
-        public static void DoBattle(ArrayList zoneStacks)
+        public void DoBattle(ArrayList zoneStacks)
         {
             double time = 0;
 
@@ -362,18 +377,18 @@ namespace Nova.WinForms.Console
 
 
                 foreach (Fleet stack in zoneStacks)
-                    residualMovement.Add(stack, 0);
+                    ResidualMovement.Add(stack, 0);
 
                 MoveStacks(zoneStacks);
                 FireWeapons(zoneStacks);
 
                 time++;
-                if (time > maxBattleTime)
+                if (time > MaxBattleTime)
                 {
                     break;
                 }
 
-                residualMovement.Clear();
+                ResidualMovement.Clear();
             }
         }
 
@@ -385,7 +400,7 @@ namespace Nova.WinForms.Console
         /// <param name="zoneStacks">All stacks in this battle (as an ArrayList of Fleet).</param>
         /// <returns>The number of targeted stacks.</returns>
         /// ----------------------------------------------------------------------------
-        public static int SelectTargets(ArrayList zoneStacks)
+        public int SelectTargets(ArrayList zoneStacks)
         {
             foreach (Fleet wolf in zoneStacks)
             {
@@ -434,7 +449,7 @@ namespace Nova.WinForms.Console
         /// <returns>A measure of attractiveness.</returns>
         /// FIXME (priority 3) - Implement the Stars! attractiveness modle (and possibly others as options). Provide a reference to the source of the algorithm.
         /// ----------------------------------------------------------------------------
-        public static double GetAttractiveness(Fleet target)
+        public double GetAttractiveness(Fleet target)
         {
             double cost = target.Mass + target.TotalCost.Energy;
             double dp = target.Defenses;
@@ -453,7 +468,7 @@ namespace Nova.WinForms.Console
         /// <param name="lamb">Potential target.</param>
         /// <returns>True if lamb is a valid target for wolf.</returns>
         /// ----------------------------------------------------------------------------
-        public static bool AreEnemies(Fleet wolf, Fleet lamb)
+        public bool AreEnemies(Fleet wolf, Fleet lamb)
         {
             if (wolf.Owner == lamb.Owner)
             {
@@ -492,7 +507,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="zoneStacks">All stacks in the battle.</param>
         /// ----------------------------------------------------------------------------
-        public static void MoveStacks(ArrayList zoneStacks)
+        public void MoveStacks(ArrayList zoneStacks)
         {
             // each turn has 3 phases
             // TODO (priority 3) - verify that a ship should be able to move 1 square per phase if it has 3 move points, or is it limited to 1 per turn?
@@ -507,13 +522,13 @@ namespace Nova.WinForms.Console
                         NovaPoint to = stack.Target.Position;
 
                         // stack accumulates its full movement over the course of the 3 phases
-                        residualMovement[stack] += stack.BattleSpeed / (double)phases;
+                        ResidualMovement[stack] += stack.BattleSpeed / (double)phases;
 
                         // stack can move only after accumulating at least 1 move point, and after doing so expends that 1 move point
-                        if (residualMovement[stack] >= 1.0)
+                        if (ResidualMovement[stack] >= 1.0)
                         {
                             stack.Position = PointUtilities.BattleMoveTo(from, to);
-                            residualMovement[stack] -= 1.0;
+                            ResidualMovement[stack] -= 1.0;
                         }
 
                         // Update the battle report with these movements.
@@ -521,7 +536,7 @@ namespace Nova.WinForms.Console
                         BattleStepMovement report = new BattleStepMovement();
                         report.StackName = stack.Name;
                         report.Position = stack.Position;
-                        battle.Steps.Add(report);
+                        Battle.Steps.Add(report);
                     }
                     // TODO (priority 5) - shouldn't stacks without targets flee the battle if their strategy says to do so? they're sitting ducks now!
                 }
@@ -535,7 +550,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="zoneStacks">All stacks in the battle.</param>
         /// ----------------------------------------------------------------------------
-        private static void FireWeapons(ArrayList zoneStacks)
+        private void FireWeapons(ArrayList zoneStacks)
         {
             // First, identify all of the weapons and their characteristics for
             // every ship present at the battle and who they are pointed at.
@@ -573,7 +588,7 @@ namespace Nova.WinForms.Console
         /// FIXME (priority 6) - It seems this allows one ship to fire each of its weapons 
         /// before any other ship. Each weapon in the battle should fire in priority order.
         /// ----------------------------------------------------------------------------
-        private static void Attack(Ship ship, List<WeaponDetails> allWeapons)
+        private void Attack(Ship ship, List<WeaponDetails> allWeapons)
         {
 
             // Sort the weapon list according to weapon system initiative and then
@@ -599,7 +614,7 @@ namespace Nova.WinForms.Console
         /// <param name="ship">A ship in the battle.</param>
         /// <param name="weapon">One of ship's weapons.</param>
         /// ----------------------------------------------------------------------------
-        private static void Fire(Ship ship, WeaponDetails weapon)
+        private void Fire(Ship ship, WeaponDetails weapon)
         {
             // First, check that the target stack we originally identified has not
             // been destroyed (actually, the stack still exists at this point but
@@ -648,11 +663,11 @@ namespace Nova.WinForms.Console
         /// <param name="details">The weapon being fired.</param>
         /// <param name="target">The target ship.</param>
         /// ----------------------------------------------------------------------------
-        private static void DischargeWeapon(Ship ship, WeaponDetails details, Ship target)
+        private void DischargeWeapon(Ship ship, WeaponDetails details, Ship target)
         {
             BattleStepTarget report = new BattleStepTarget();
             report.TargetShip = target.Key;
-            battle.Steps.Add(report);
+            Battle.Steps.Add(report);
 
             // Identify the attack parameters that have to take into account
             // factors other than the base values (e.g. jammers, capacitors, etc.)
@@ -688,7 +703,7 @@ namespace Nova.WinForms.Console
             destroy.ShipName = target.Name;
             destroy.StackName = details.TargetStack.Name;
 
-            battle.Steps.Add(destroy);
+            Battle.Steps.Add(destroy);
 
             foreach (Fleet fleet in StateData.AllFleets.Values)
             {
@@ -700,7 +715,7 @@ namespace Nova.WinForms.Console
             }
 
             string targetRace = details.TargetStack.Owner;
-            battle.Losses[targetRace] = (int)battle.Losses[targetRace] + 1;
+            Battle.Losses[targetRace] = (int)Battle.Losses[targetRace] + 1;
         }
 
 
@@ -711,7 +726,7 @@ namespace Nova.WinForms.Console
         /// <param name="target">Weapon target.</param>
         /// <param name="hitPower">Damage done by the weapon.</param>
         /// ----------------------------------------------------------------------------
-        private static void FireBeam(Ship target, double hitPower)
+        private void FireBeam(Ship target, double hitPower)
         {
             // First we have to take down the shields of the target ship. If
             // there is any power left over from firing this weapon system at the
@@ -740,7 +755,7 @@ namespace Nova.WinForms.Console
         /// FIXME (priority 3) - Missile accuracy is not calculated this way in Stars! The effect of computers and jammers must be considered at the same time.
         /// </remarks>
         /// ----------------------------------------------------------------------------
-        private static void FireMissile(Ship target, double hitPower, double accuracy)
+        private void FireMissile(Ship target, double hitPower, double accuracy)
         {
             // First, determine if this missile is going to hit or miss (based on
             // it's accuracy. 
@@ -770,7 +785,7 @@ namespace Nova.WinForms.Console
         /// <param name="hitPower">Damage output of the weapon.</param>
         /// <returns>Residual damage after shields or zero.</returns>
         /// ----------------------------------------------------------------------------
-        private static double AttackShields(Ship target, double hitPower)
+        private double AttackShields(Ship target, double hitPower)
         {
             if (target.Shields <= 0)
             {
@@ -788,7 +803,7 @@ namespace Nova.WinForms.Console
             fire.HitPower = hitPower;
             fire.Targeting = "Shields";
             fire.WeaponTarget.TargetShip = target.Key;
-            battle.Steps.Add(fire);
+            Battle.Steps.Add(fire);
 
             return hitPower;
         }
@@ -801,7 +816,7 @@ namespace Nova.WinForms.Console
         /// <param name="target">Target being fired on.</param>
         /// <param name="hitPower">Weapon damage.</param>
         /// ----------------------------------------------------------------------------
-        private static void AttackArmor(Ship target, double hitPower)
+        private void AttackArmor(Ship target, double hitPower)
         {
             target.Armor -= hitPower;
 
@@ -809,7 +824,7 @@ namespace Nova.WinForms.Console
             armor.HitPower = hitPower;
             armor.Targeting = "Armor";
             armor.WeaponTarget.TargetShip = target.Key;
-            battle.Steps.Add(armor);
+            Battle.Steps.Add(armor);
         }
 
 
@@ -827,7 +842,7 @@ namespace Nova.WinForms.Console
         /// <param name="target">Ship being fired on.</param>
         /// <returns>Damage weapon is able to do.</returns>
         /// ----------------------------------------------------------------------------
-        private static double CalculateWeaponPower(Ship ship, Weapon weapon, Ship target)
+        private double CalculateWeaponPower(Ship ship, Weapon weapon, Ship target)
         {
             // TODO (priority 5) Stub - just return the base power of weapon. Also need to comment the return value of this function with what defences have been considered by this (when done).
             return weapon.Power;
@@ -870,7 +885,7 @@ namespace Nova.WinForms.Console
         /// <param name="target">Ship being fired on.</param>
         /// <returns>Chance that weapon will hit.</returns>
         /// ----------------------------------------------------------------------------
-        private static double CalculateWeaponAccuracy(Ship ship, Weapon weapon, Ship target)
+        private double CalculateWeaponAccuracy(Ship ship, Weapon weapon, Ship target)
         {
             double weaponAccuracy = weapon.Accuracy;
 
@@ -888,27 +903,27 @@ namespace Nova.WinForms.Console
         /// Report ship losses to each player.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        private static void ReportLosses()
+        private void ReportLosses()
         {
-            foreach (string race in battle.Losses.Keys)
+            foreach (string race in Battle.Losses.Keys)
             {
                 Message message = new Message(
                     race,
-                    "There was a battle at " + battle.Location + "\r\n",
+                    "There was a battle at " + Battle.Location + "\r\n",
                     "BattleReport",
-                    battle);
+                    Battle);
 
-                if ((int)battle.Losses[race] == 0)
+                if ((int)Battle.Losses[race] == 0)
                 {
                     message.Text += "None of your ships were destroyed";
                 }
                 else
                 {
-                    message.Text += ((int)battle.Losses[race]).ToString(System.Globalization.CultureInfo.InvariantCulture) +
+                    message.Text += ((int)Battle.Losses[race]).ToString(System.Globalization.CultureInfo.InvariantCulture) +
                        " of your ships were destroyed";
                 }
 
-                ServerState.Data.AllMessages.Add(message);
+                StateData.AllMessages.Add(message);
             }
         }
 

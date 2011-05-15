@@ -35,6 +35,7 @@ using System.Windows.Forms;
 using Nova.Common;
 using Nova.NewGame;
 using Nova.Server;
+using Nova.WinForms.Console;
 
 namespace Nova.WinForms
 {
@@ -44,7 +45,8 @@ namespace Nova.WinForms
     public partial class NewGameWizard : Form
     {
         public Hashtable KnownRaces = new Hashtable();
-        private int numberOfPlayers;
+        private int NumberOfPlayers;
+        private ServerState StateData;
 
 
         #region Initialisation
@@ -55,6 +57,9 @@ namespace Nova.WinForms
         public NewGameWizard()
         {
             InitializeComponent();
+            
+            // New clean server state
+            this.StateData = new ServerState();
 
             // Setup the list of known races.
             KnownRaces = FileSearcher.GetAvailableRaces();
@@ -66,14 +71,14 @@ namespace Nova.WinForms
                 raceSelectionBox.Items.Add(raceName);
 
                 // add known race to list of players
-                this.numberOfPlayers++;
-                ListViewItem player = new ListViewItem("  " + this.numberOfPlayers.ToString());
+                this.NumberOfPlayers++;
+                ListViewItem player = new ListViewItem("  " + this.NumberOfPlayers.ToString());
                 player.SubItems.Add(raceName);
                 player.SubItems.Add("Human");
                 playerList.Items.Add(player);
 
             }
-            if (this.numberOfPlayers > 0)
+            if (this.NumberOfPlayers > 0)
             {
                 raceSelectionBox.SelectedIndex = 0;
             }
@@ -93,7 +98,7 @@ namespace Nova.WinForms
         /// </summary>
         /// ----------------------------------------------------------------------------
         [STAThread]
-        public static void Main()
+        public void Main()
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
@@ -142,7 +147,7 @@ namespace Nova.WinForms
                 {
                     conf[Global.ServerFolderKey] = gameFolderBrowser.SelectedPath;
 
-                    ServerState.Data.GameFolder = gameFolderBrowser.SelectedPath;
+                    StateData.GameFolder = gameFolderBrowser.SelectedPath;
                     // Don't set ClientFolderKey in case we want to simulate a LAN game 
                     // on one PC for testing. 
                     // Should be set when the ClientState is initialised. If that is by 
@@ -151,26 +156,25 @@ namespace Nova.WinForms
                     // be updated.
 
                     // Construct appropriate state and settings file names
-                    ServerState.Data.StatePathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
+                    StateData.StatePathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
                                                      GameSettings.Data.GameName + Global.ServerStateExtension;
                     GameSettings.Data.SettingsPathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
                                                          GameSettings.Data.GameName + Global.SettingsExtension;
-                    conf[Global.ServerStateKey] = ServerState.Data.StatePathName;
+                    conf[Global.ServerStateKey] = StateData.StatePathName;
                 }
                 // Copy the player & race data to the ServerState
-                ServerState.Data.AllPlayers = newGameWizard.Players;
+                StateData.AllPlayers = newGameWizard.Players;
                 
-                foreach (PlayerSettings settings in ServerState.Data.AllPlayers)
+                foreach (PlayerSettings settings in StateData.AllPlayers)
                 {
                     // TODO (priority 7) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
                     // Stars! solution is to rename the race using a list of standard names. 
-                    if (!ServerState.Data.AllRaces.Contains(settings.RaceName))
+                    if (!StateData.AllRaces.Contains(settings.RaceName))
                     {
-                        ServerState.Data.AllRaces.Add(settings.RaceName, newGameWizard.KnownRaces[settings.RaceName]);
+                        StateData.AllRaces.Add(settings.RaceName, newGameWizard.KnownRaces[settings.RaceName]);
                         
                         // Initialize clean data for them
-                        ServerState.Data.AllRaceData[settings.RaceName] = new RaceData();
-                        RaceData raceData = ServerState.Data.AllRaceData[settings.RaceName] as RaceData;
+                        StateData.AllRaceData[settings.RaceName] = new RaceData();
 
                         string raceFolder = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
                         string raceFileName = Path.Combine(raceFolder, settings.RaceName + Global.RaceExtension);
@@ -194,15 +198,17 @@ namespace Nova.WinForms
                 }
 
                 
+                StarMapInitialiser starMapInitialiser = new StarMapInitialiser(StateData);
+                starMapInitialiser.GenerateStars();
 
-                StarMapInitialiser.GenerateStars();
-
-                StarMapInitialiser.InitialisePlayerData();
+                starMapInitialiser.InitialisePlayerData();
 
                 try
                 {
-                    IntelWriter.WriteIntel();
-                    ServerState.Save();
+                    Scores scores = new Scores(StateData);
+                    IntelWriter intelWriter = new IntelWriter(StateData, scores);
+                    intelWriter.WriteIntel();
+                    StateData.Save();
                     GameSettings.Save();
                 }
                 catch
@@ -214,8 +220,11 @@ namespace Nova.WinForms
                 // start the server
                 try
                 {
-                    Process.Start(Assembly.GetExecutingAssembly().Location, CommandArguments.Option.ConsoleSwitch);
-                    Application.Exit();
+                    NovaConsoleMain novaConsole = new NovaConsoleMain();
+                    Application.EnableVisualStyles();
+                    Application.Run(novaConsole);
+                    // Process.Start(Assembly.GetExecutingAssembly().Location, CommandArguments.Option.ConsoleSwitch);
+
                     return;
                 }
                 catch
@@ -242,15 +251,15 @@ namespace Nova.WinForms
         private void OkButton_Click(object sender, EventArgs e)
         {
             GameSettings.Data.GameName = gameName.Text;
-            GameSettings.Data.PlanetsOwned = this.planetsOwned.Value;
-            GameSettings.Data.TechLevels = this.techLevels.Value;
-            GameSettings.Data.NumberOfFields = this.numberOfFields.Value;
-            GameSettings.Data.TotalScore = this.totalScore.Value;
-            GameSettings.Data.ProductionCapacity = this.productionCapacity.Value;
-            GameSettings.Data.CapitalShips = this.capitalShips.Value;
-            GameSettings.Data.HighestScore = this.highestScore.Value;
-            GameSettings.Data.TargetsToMeet = Int32.Parse(this.targetsToMeet.Text, System.Globalization.CultureInfo.InvariantCulture);
-            GameSettings.Data.MinimumGameTime = Int32.Parse(this.minimumGameTime.Text, System.Globalization.CultureInfo.InvariantCulture);
+            GameSettings.Data.PlanetsOwned = planetsOwned.Value;
+            GameSettings.Data.TechLevels = techLevels.Value;
+            GameSettings.Data.NumberOfFields = numberOfFields.Value;
+            GameSettings.Data.TotalScore = totalScore.Value;
+            GameSettings.Data.ProductionCapacity = productionCapacity.Value;
+            GameSettings.Data.CapitalShips = capitalShips.Value;
+            GameSettings.Data.HighestScore = highestScore.Value;
+            GameSettings.Data.TargetsToMeet = Int32.Parse(targetsToMeet.Text, System.Globalization.CultureInfo.InvariantCulture);
+            GameSettings.Data.MinimumGameTime = Int32.Parse(minimumGameTime.Text, System.Globalization.CultureInfo.InvariantCulture);
 
             GameSettings.Data.MapHeight = (int)mapHeight.Value;
             GameSettings.Data.MapWidth = (int)mapWidth.Value;
@@ -296,7 +305,7 @@ namespace Nova.WinForms
 
             playerList.SelectedIndices.Clear();
             playerList.SelectedIndices.Add(playerList.Items.Count - 1);
-            this.numberOfPlayers = playerList.Items.Count;
+            NumberOfPlayers = playerList.Items.Count;
 
         }
 
@@ -353,11 +362,11 @@ namespace Nova.WinForms
             }
 
             // update the number of players
-            this.numberOfPlayers = playerList.Items.Count;
+            NumberOfPlayers = playerList.Items.Count;
 
             RenumberPlayers();
 
-            if (selectedIndex != -1 && this.numberOfPlayers > 0)
+            if (selectedIndex != -1 && NumberOfPlayers > 0)
             {
                 playerList.SelectedIndices.Clear();
                 if (selectedIndex >= playerList.Items.Count)
@@ -417,7 +426,7 @@ namespace Nova.WinForms
             {
                 selectedIndex = index;
                 // there will be only one, this is the best way I can figure to find it.
-                if (index == this.numberOfPlayers - 1)
+                if (index == NumberOfPlayers - 1)
                 {
                     playerDownButton.Enabled = false;
                     return;
@@ -570,21 +579,21 @@ namespace Nova.WinForms
         /// ----------------------------------------------------------------------------
         private void UpdatePlayerListButtons()
         {
-            this.numberOfPlayers = playerList.Items.Count;
+            NumberOfPlayers = playerList.Items.Count;
             // Up button
-            if (this.numberOfPlayers == 0 || playerList.SelectedIndices.Contains(0))
+            if (NumberOfPlayers == 0 || playerList.SelectedIndices.Contains(0))
                 playerUpButton.Enabled = false;
             else
                 playerUpButton.Enabled = true;
 
             // Down button
-            if (this.numberOfPlayers == 0 || playerList.SelectedIndices.Contains(this.numberOfPlayers - 1))
+            if (NumberOfPlayers == 0 || playerList.SelectedIndices.Contains(NumberOfPlayers - 1))
                 playerDownButton.Enabled = false;
             else
                 playerDownButton.Enabled = true;
 
             // delete button
-            if (this.numberOfPlayers == 0)
+            if (NumberOfPlayers == 0)
                 playerDeleteButton.Enabled = false;
             else
                 playerDeleteButton.Enabled = true;
@@ -649,7 +658,7 @@ namespace Nova.WinForms
         /// Process the Primary Traits for this race.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        private static void ProcessPrimaryTraits(Race race)
+        private void ProcessPrimaryTraits(Race race)
         {
             // TODO (priority 4) Special Components
             // Races are granted access to components currently based on tech level and primary/secondary traits (not tested).
@@ -662,7 +671,7 @@ namespace Nova.WinForms
 
             // TODO (priority 4) Implement Starting Items
    
-            RaceData raceData = ServerState.Data.AllRaceData[race.Name] as RaceData;
+            RaceData raceData = StateData.AllRaceData[race.Name] as RaceData;
             raceData.ResearchLevels = new TechLevel(0);
 
             switch (race.Traits.Primary.Code)
@@ -744,13 +753,13 @@ namespace Nova.WinForms
         /// Read the Secondary Traits for this race.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        private static void ProcessSecondaryTraits(Race race)
+        private void ProcessSecondaryTraits(Race race)
         {
             // TODO (priority 4) finish the rest of the LRTs.
             // Not all of these properties are fully implemented here, as they may require changes elsewhere in the game engine.
             // Where a trait is listed as 'TODO ??? (priority 4)' this means it first needs to be checked if it has been implemented elsewhere.
             
-            RaceData raceData = ServerState.Data.AllRaceData[race.Name] as RaceData;
+            RaceData raceData = StateData.AllRaceData[race.Name] as RaceData;
             
             if (race.Traits.Contains("IFE"))
             {

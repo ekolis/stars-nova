@@ -38,8 +38,14 @@ namespace Nova.WinForms.Console
     /// <summary>
     /// Deal with bombing
     /// </summary>
-    public static class Bombing
+    public class Bombing
     {
+        private ServerState StateData;
+        
+        public Bombing(ServerState serverState)
+        {
+            this.StateData = serverState;
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -48,7 +54,7 @@ namespace Nova.WinForms.Console
         /// <param name="fleet">Potential bombing fleet.</param>
         /// <param name="star">Potential bombing target.</param>
         /// ----------------------------------------------------------------------------
-        public static void Bomb(Fleet fleet, Star star)
+        public void Bomb(Fleet fleet, Star star)
         {
             // The fleet is in orbit around a planet. If it has no colonists or
             // has a starbase then to do nothing here (we'll leave anything else
@@ -61,7 +67,7 @@ namespace Nova.WinForms.Console
 
             // See if this is an enemy planet. If not, leave it alone.
 
-            if (!((RaceData)ServerState.Data.AllRaceData[fleet.Owner]).IsEnememy(star.Owner))
+            if (!((StateData.AllRaceData[fleet.Owner] as RaceData).IsEnememy(star.Owner)))
             {
                 return;
             }
@@ -150,12 +156,12 @@ namespace Nova.WinForms.Console
             Message lamb = new Message();
             lamb.Text = messageText;
             lamb.Audience = star.Owner;
-            ServerState.Data.AllMessages.Add(lamb);
+            StateData.AllMessages.Add(lamb);
 
             Message wolf = new Message();
             wolf.Text = messageText;
             wolf.Audience = fleet.Owner;
-            ServerState.Data.AllMessages.Add(wolf);
+            StateData.AllMessages.Add(wolf);
 
         }
 

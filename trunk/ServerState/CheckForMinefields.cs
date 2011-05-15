@@ -42,9 +42,15 @@ namespace Nova.WinForms.Console
     /// <summary>
     /// Handle fleets hitting minefields.
     /// </summary>
-    public static class CheckForMinefields
+    public class CheckForMinefields
     {
-        private static readonly Random Random = new Random();
+        private ServerState StateData;
+        private readonly Random Random = new Random();
+        
+        public CheckForMinefields(ServerState serverState)
+        {
+            this.StateData = serverState;
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -53,10 +59,10 @@ namespace Nova.WinForms.Console
         /// <param name="fleet">A moving fleet.</param>
         /// <returns>false</returns>
         /// ----------------------------------------------------------------------------
-        public static bool Check(Fleet fleet)
+        public bool Check(Fleet fleet)
         {
             foreach (Minefield minefield in
-                     ServerState.Data.AllMinefields.Values)
+                     StateData.AllMinefields.Values)
             {
 
                 if (IsInField(fleet, minefield))
@@ -75,7 +81,7 @@ namespace Nova.WinForms.Console
                 minefield.NumberOfMines -= minefield.NumberOfMines / 100;
                 if (minefield.NumberOfMines <= 10)
                 {
-                    ServerState.Data.AllMinefields.Remove(minefield);
+                    StateData.AllMinefields.Remove(minefield);
                 }
             }
 
@@ -94,7 +100,7 @@ namespace Nova.WinForms.Console
         /// <param name="minefield"></param>
         /// <returns></returns>
         /// ----------------------------------------------------------------------------
-        private static bool IsInField(Fleet fleet, Minefield minefield)
+        private bool IsInField(Fleet fleet, Minefield minefield)
         {
 
             // If we are travelling at a "safe" speed we can just pretend we are
@@ -130,7 +136,7 @@ namespace Nova.WinForms.Console
         /// <param name="minefield">The minefield being traversed.</param>
         /// <returns>true if the minefield is hit.</returns>
         /// ----------------------------------------------------------------------------
-        private static bool CheckForHit(Fleet fleet, Minefield minefield)
+        private bool CheckForHit(Fleet fleet, Minefield minefield)
         {
             // Calculate how long we are going to be in the Minefield. This is the
             // lesser of the distance to the next waypoint and the radius of the
@@ -172,7 +178,7 @@ namespace Nova.WinForms.Console
         /// <param name="fleet">The fleet that hit the minefield.</param>
         /// <param name="minefield">The minefield being impacted.</param>
         /// ----------------------------------------------------------------------------
-        private static void InflictDamage(Fleet fleet, Minefield minefield)
+        private void InflictDamage(Fleet fleet, Minefield minefield)
         {
             int shipDamage = 100 / 2;
             int shipsLost = 0;
@@ -216,10 +222,10 @@ namespace Nova.WinForms.Console
             {
                 message.Text += "All of your ships were destroyed.\n";
                 message.Text += "You lost this fleet.";
-                ServerState.Data.AllFleets.Remove(fleet.Key);
+                StateData.AllFleets.Remove(fleet.Key);
             }
 
-            ServerState.Data.AllMessages.Add(message);
+            StateData.AllMessages.Add(message);
         }
     }
 }

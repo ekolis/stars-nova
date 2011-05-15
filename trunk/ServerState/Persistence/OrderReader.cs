@@ -38,10 +38,16 @@ using Nova.Common.Components;
 
 namespace Nova.Server
 {
-    public static class OrderReader
+    public class OrderReader
     {
-        private static readonly ServerState StateData = ServerState.Data;
-
+        private readonly ServerState StateData;
+        private ServerState TurnData;
+  
+        public OrderReader(ServerState stateData)
+        {
+            this.StateData = stateData;    
+        }
+        
         #region Methods
 
         /// ----------------------------------------------------------------------------
@@ -49,17 +55,26 @@ namespace Nova.Server
         ///  Read in all the race orders
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public static void ReadOrders()
+        public ServerState ReadOrders()
         {
+            // We need a copy of the server state to operate on
+            // since we want to return a tentative new state
+            // which the server will then double check for errors
+            // or cheats. Instead of cloning we can use the already
+            // existing serialization techniques; serialize the state
+            // and then deserialize into a new objetct.
+            this.StateData.Save();
+            this.TurnData = this.StateData.Restore();
             
-            StateData.AllTechLevels.Clear();
+            this.TurnData.AllTechLevels.Clear();
 
-            foreach (Race race in StateData.AllRaces.Values)
+            foreach (Race race in this.TurnData.AllRaces.Values)
             {
                 // TODO (priority 4) only load those that are not yet turned in.
-                ReadPlayerTurn(race);
+                this.ReadPlayerTurn(race);
             }
-        
+            
+            return this.StateData;
         }
 
 
@@ -70,12 +85,12 @@ namespace Nova.Server
         /// </summary>
         /// <param name="race">The race who's orders are to be loaded.</param>
         /// ----------------------------------------------------------------------------
-        private static void ReadPlayerTurn(Race race)
+        private void ReadPlayerTurn(Race race)
         {
             Orders playerOrders;
             try
             {
-                string fileName = Path.Combine(StateData.GameFolder, race.Name + Global.OrdersExtension);
+                string fileName = Path.Combine(this.StateData.GameFolder, race.Name + Global.OrdersExtension);
 
                 if (!File.Exists(fileName))
                 {
@@ -91,7 +106,7 @@ namespace Nova.Server
 
                     // check these orders are for the right turn
                     int ordersTurn = int.Parse(xmldoc.SelectSingleNode("ROOT/Orders/Turn").InnerText);
-                    if (ordersTurn != StateData.TurnYear)
+                    if (ordersTurn != this.StateData.TurnYear)
                         return;
 
                     playerOrders = new Orders(xmldoc.DocumentElement);
@@ -105,7 +120,7 @@ namespace Nova.Server
             try
             {
                 // Regardless of how it was loaded:
-                LinkOrderReferences(playerOrders);
+                this.LinkOrderReferences(playerOrders);
 
                 // Load the information from the orders
 
@@ -113,32 +128,32 @@ namespace Nova.Server
                 // TODO (priority 5) - fine tune so the client can't modify things like a star's position, i.e. treat the data as orders only.
                 foreach (Design design in playerOrders.RaceDesigns.Values)
                 {
-                    StateData.AllDesigns[design.Key] = design;
+                    this.StateData.AllDesigns[design.Key] = design;
                 }
 
                 foreach (string fleetKey in playerOrders.DeletedFleets)
                 {
-                    StateData.AllFleets.Remove(fleetKey);
+                    this.StateData.AllFleets.Remove(fleetKey);
                 }
 
                 foreach (string designKey in playerOrders.DeletedDesigns)
                 {
-                    StateData.AllDesigns.Remove(designKey);
+                    this.StateData.AllDesigns.Remove(designKey);
                 }
 
                 foreach (Fleet fleet in playerOrders.RaceFleets.Values)
                 {
-                    StateData.AllFleets[fleet.Key] = fleet;
+                    this.StateData.AllFleets[fleet.Key] = fleet;
                 }
 
                 // load the orders for each star. 
                 foreach (Star star in playerOrders.RaceStars)
                 {
-                    StateData.AllStars[star.Name] = star;
+                    this.StateData.AllStars[star.Name] = star;
                 }
 
-                StateData.AllRaceData[race.Name] = playerOrders.PlayerData;
-                StateData.AllTechLevels[race.Name] = playerOrders.TechLevel;
+                this.StateData.AllRaceData[race.Name] = playerOrders.PlayerData;
+                this.StateData.AllTechLevels[race.Name] = playerOrders.TechLevel;
             }
             catch (Exception e)
             {
@@ -158,13 +173,13 @@ namespace Nova.Server
         /// </summary>
         /// <param name="playerOrders">The <see cref="Orders"/> object to undergo post load linking.</param>
         /// ----------------------------------------------------------------------------
-        private static void LinkOrderReferences(Orders playerOrders)
+        private void LinkOrderReferences(Orders playerOrders)
         {
             // Fleet reference to Star
             foreach (Fleet fleet in playerOrders.RaceFleets.Values)
             {
                 if (fleet.InOrbit != null)
-                    fleet.InOrbit = StateData.AllStars[fleet.InOrbit.Name] as Star;
+                    fleet.InOrbit = this.StateData.AllStars[fleet.InOrbit.Name] as Star;
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
@@ -176,7 +191,7 @@ namespace Nova.Server
             foreach (Star star in playerOrders.RaceStars)
             {
                 if (star.ThisRace != null)
-                    star.ThisRace = StateData.AllRaces[star.ThisRace.Name] as Race;
+                    star.ThisRace = this.StateData.AllRaces[star.ThisRace.Name] as Race;
                 if (star.Starbase != null)
                     star.Starbase = playerOrders.RaceFleets[star.Starbase.FleetID] as Fleet;
             }

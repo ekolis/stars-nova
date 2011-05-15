@@ -498,7 +498,6 @@ namespace Nova.WinForms.Gui
                     NovaPoint position = waypoint.Position;                 
         
                     grafx.Graphics.DrawLine(Pens.Blue, (Point)from, (Point)LogicalToDevice(position));
-                    pen.Dispose();
                     from = LogicalToDevice(position);
                 }
             }
