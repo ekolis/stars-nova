@@ -65,11 +65,11 @@ namespace Nova.Tests.UnitTests
     public class BombingTest
     {
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Bombing Test
+        /// <Summary>
+        /// bombing Test
         /// 
         /// TODO Clean up unit test. Using logic (Math.Max()) and magic numbers in tests is not recommended.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         [Test]
         public void BombingEffect()

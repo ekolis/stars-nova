@@ -40,26 +40,26 @@ namespace Nova.WinForms.Gui
 {
     #region Delegates
     
-    /// <summary>
+    /// <Summary>
     /// This is the hook to listen for changes in research budget.
     /// Objects who subscribe to this should respond to this by
     /// udpating their related values. We don't specify arguments
     /// because relevant data can be read on ClientState.
-    /// </summary>
+    /// </Summary>
     public delegate bool ResearchAllocationChanged();
     
     #endregion
     
-    /// <summary>
+    /// <Summary>
     /// Research Dialog
-    /// </summary>
+    /// </Summary>
     public partial class ResearchDialog : Form
     {
-        /// <summary>
+        /// <Summary>
         /// This event should be fired when the global research budget is changed.
         /// Note that it's more apropiate to fire this when all changes are done,
-        /// for example, on closing the Research Dialog instead of each point change.
-        /// </summary>
+        /// for example, on closing the Research Dialog instead of each Point change.
+        /// </Summary>
         public event ResearchAllocationChanged ResearchAllocationChangedEvent;
         
         private readonly Hashtable buttons = new Hashtable();
@@ -71,9 +71,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the ResearchDialog class.
-        /// </summary>
+        /// </Summary>
         public ResearchDialog()
         {
             InitializeComponent();
@@ -131,10 +131,10 @@ namespace Nova.WinForms.Gui
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// A new area has been selected for research. Make a note of where the research
         /// resources are now going to be spent.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -184,9 +184,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// The OK button has been pressed. Just exit the dialog.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -205,9 +205,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// The resource budget has been changed. Update all relevant fields.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -224,13 +224,23 @@ namespace Nova.WinForms.Gui
             TechLevel researchLevels = this.stateData.ResearchLevels;            
 
             int level = (int)researchLevels[this.targetArea];
-            int target = Research.Cost(this.targetArea,
-                                       this.stateData.PlayerRace,
-                                       researchLevels,
-                                       researchLevels[this.targetArea]+1);
+            int target = Research.Cost(
+                this.targetArea,
+                this.stateData.PlayerRace,
+                researchLevels,
+                researchLevels[this.targetArea] + 1);
 
             resourcesRequired = target
                - (int)this.stateData.ResearchResources[this.targetArea];
+
+            if (level >= 26)
+            {
+                this.completionResources.Text = "Maxed";
+            }
+            else
+            {
+                this.completionResources.Text = ((int)resourcesRequired).ToString(System.Globalization.CultureInfo.InvariantCulture);
+            }
 
             if (level >= 26)
             {
@@ -261,9 +271,9 @@ namespace Nova.WinForms.Gui
         #region Utility Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Return the total number of energy resources available to the current race
-        /// </summary>
+        /// </Summary>
         /// <returns>Total energy being invested in research.</returns>
         /// ----------------------------------------------------------------------------
         private int CountEnergy()

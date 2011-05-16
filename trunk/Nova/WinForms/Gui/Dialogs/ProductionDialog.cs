@@ -35,9 +35,9 @@ using Nova.Common.Components;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
+    /// <Summary>
     /// Production queue dialog.
-    /// </summary>
+    /// </Summary>
     public class ProductionDialog : System.Windows.Forms.Form
     {        
         // ----------------------------------------------------------------------------
@@ -97,10 +97,10 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Disposal
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the ProductionDialog class.
-        /// </summary>
-        /// <param name="star">The star to do a production dialog for.</param>
+        /// </Summary>
+        /// <param name="Star">The Star to do a production dialog for.</param>
         public ProductionDialog(Star star)
         {
             this.queueStar = star;
@@ -113,10 +113,10 @@ namespace Nova.WinForms.Gui
         #endregion
 
         #region Windows Form Designer generated code
-        /// <summary>
+        /// <Summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
-        /// </summary>
+        /// </Summary>
         private void InitializeComponent()
         {
             this.groupBox1 = new System.Windows.Forms.GroupBox();
@@ -668,18 +668,18 @@ namespace Nova.WinForms.Gui
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Populate the available designs items list box with the things we can build.
         /// Generally, we can build designs created by the player. However, we only
-        /// include ships in the list if the star has a starbase with enough dock
+        /// include ships in the list if the Star has a starbase with enough dock
         /// capacity to build the design. 
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, System.EventArgs e)
         {
-            // Check the star's budget state.
+            // Check the Star's budget state.
             this.onlyLeftovers.Checked = this.queueStar.OnlyLeftover;
             
             this.designList.BeginUpdate();
@@ -702,7 +702,7 @@ namespace Nova.WinForms.Gui
                     // prevent the current starbase design from being re-used
                     if (starbase != null && starbase.Composition.ContainsKey(design.Name)) continue;
 
-                    // Check if this design can be built at this star - ships are limited by dock capacity of the starbase.
+                    // Check if this design can be built at this Star - ships are limited by dock capacity of the starbase.
                     if (design.Type == "Ship")
                     {
                         if (dockCapacity > design.Mass)
@@ -741,7 +741,7 @@ namespace Nova.WinForms.Gui
                         {
                             // remove the starbase from the Design List
                             designList.Items.RemoveAt(designsLoopCounter);
-                            designsLoopCounter--; // after having removed one item from the list decrement by 1 to allow the rest of the list to be examined
+                            designsLoopCounter--; // after having removed one Item from the list decrement by 1 to allow the rest of the list to be examined
                         }
                     }
                 }
@@ -767,9 +767,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Process a design being selected for possible construction.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -797,15 +797,15 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Production queue item selected changed.
-        /// </summary>
+        /// <Summary>
+        /// Production queue Item selected changed.
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void QueueSelected(object sender, EventArgs e)
         {
-            // check if selected item is the "--- Top of Queue ---" which cannot be moved down or removed
+            // check if selected Item is the "--- Top of Queue ---" which cannot be moved down or removed
             if (this.queueList.SelectedItems.Count > 0)
             {
                 if (this.queueList.SelectedIndices[0] == 0)
@@ -819,7 +819,7 @@ namespace Nova.WinForms.Gui
                 else
                 {
                     this.removeFromQueue.Enabled = true;
-                    // check if >1 to ignore top two items ("--- Top of Queue ---" placeholder which cannot be moved and item below it)
+                    // check if >1 to ignore top two items ("--- Top of Queue ---" placeholder which cannot be moved and Item below it)
                     if (this.queueList.SelectedIndices[0] > 1)
                     {
                         this.queueUp.Enabled = true;
@@ -848,13 +848,13 @@ namespace Nova.WinForms.Gui
                 this.removeFromQueue.Enabled = false;
             }
             
-            // it does not matter if an item is selected the Production Costs can still be updated.
+            // it does not matter if an Item is selected the Production Costs can still be updated.
             UpdateProductionCost();
         }
         
-        /// <summary>
+        /// <Summary>
         /// Add to queue when double click on Design List
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void DesignList_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -862,9 +862,9 @@ namespace Nova.WinForms.Gui
             AddToQueue_Click(sender, new EventArgs());
         }
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Add to queue button pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -908,9 +908,9 @@ namespace Nova.WinForms.Gui
             }
         }
 
-        /// <summary>
+        /// <Summary>
         /// Removes from queue on double click
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void QueueList_MouseDoubleClick(object sender, MouseEventArgs e)
@@ -918,9 +918,9 @@ namespace Nova.WinForms.Gui
             RemoveFromQueue_Click(sender, new EventArgs());
         }
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Remove from queue button pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -943,7 +943,7 @@ namespace Nova.WinForms.Gui
 
                 // Ctrl -Remove 100 items
                 // Shift -Remove 10 items
-                //       -Remove 1 item
+                //       -Remove 1 Item
                 switch (Button.ModifierKeys)
                 {
                     case Keys.Control:
@@ -980,9 +980,9 @@ namespace Nova.WinForms.Gui
         }
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Move selected item up in queue
-        /// </summary>
+        /// <Summary>
+        /// Move selected Item up in queue
+        /// </Summary>
         /// <param name="sender">The source of the event</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1007,9 +1007,9 @@ namespace Nova.WinForms.Gui
         }
         
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Move selected item down in queue 
-        /// </summary>
+        /// <Summary>
+        /// Move selected Item down in queue 
+        /// </Summary>
         /// <param name="sender">The source of the event</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1033,14 +1033,14 @@ namespace Nova.WinForms.Gui
             UpdateProductionCost();
         }
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Add a selected item into the production queue. If no item is selected in
-        /// the queue, add the new one on the end. If an item is selected and it is the
+        /// <Summary>
+        /// Add a selected Item into the production queue. If no Item is selected in
+        /// the queue, add the new one on the end. If an Item is selected and it is the
         /// same type as the one being added then just increment the quantity, if it is not
-        /// the same type check if the next item in the queue is the same type, if it is then
-        /// increment the quantity of that item, if it does not match, insert the design after
-        /// the selected item in the production queue.
-        /// </summary>
+        /// the same type check if the next Item in the queue is the same type, if it is then
+        /// increment the quantity of that Item, if it does not match, insert the design after
+        /// the selected Item in the production queue.
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1073,7 +1073,7 @@ namespace Nova.WinForms.Gui
             {
                 int selectedProduction = this.queueList.SelectedIndices[0];
 
-                // if the item selected in the queue is the same as the design being added increase the quantity
+                // if the Item selected in the queue is the same as the design being added increase the quantity
                 if (design.Name == this.queueList.Items[selectedProduction].Text)
                 {
                     itemAdded = this.queueList.Items[selectedProduction];
@@ -1083,16 +1083,16 @@ namespace Nova.WinForms.Gui
                 }
                 else
                 {
-                    // as the item selected in the queue is different from the design being added check the item
-                    // below the selected item (first confirm it exists) to see if it matches, if so increase its
-                    // quantity and have it become the selected item, if not add the item after the item selected in the queue
+                    // as the Item selected in the queue is different from the design being added check the Item
+                    // below the selected Item (first confirm it exists) to see if it matches, if so increase its
+                    // quantity and have it become the selected Item, if not add the Item after the Item selected in the queue
                     int numInQueue = this.queueList.Items.Count;
                     int nextIndex = selectedProduction + 1;
                     if (numInQueue > nextIndex)    
                     {
                         if (design.Name == this.queueList.Items[nextIndex].Text)
                         {    
-                            // the design is the same as the item after the selected item in the queue so update the item after
+                            // the design is the same as the Item after the selected Item in the queue so update the Item after
                             itemAdded = this.queueList.Items[nextIndex];
                             int total = quantity;
                             total += Convert.ToInt32(this.queueList.Items[nextIndex].SubItems[1].Text);
@@ -1101,7 +1101,7 @@ namespace Nova.WinForms.Gui
                         }
                         else
                         {
-                            // add the design after the item selected in the queue
+                            // add the design after the Item selected in the queue
                             itemAdded = this.queueList.Items.Insert(nextIndex, itemToAdd);
                             this.queueList.Items[nextIndex].Selected = true;
                         }
@@ -1139,9 +1139,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// OK button pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1182,7 +1182,7 @@ namespace Nova.WinForms.Gui
         #region Utility Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary> Add a starbase to the production queue. </summary>
+        /// <Summary> Add a starbase to the production queue. </Summary>
         /// <remarks>
         /// Starbases are special in that there
         /// can ony ever be one in the production queue, no matter how many he tries to
@@ -1205,17 +1205,17 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Update production queue cost
-        /// For each stack of items the first item might be partially built as defined by
+        /// For each stack of items the first Item might be partially built as defined by
         /// the BuildState and therefore require less Resources than the rest of the items
         /// in the stack which require the design.cost
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         private void UpdateProductionCost()
         {
             Resources wholeQueueCost = new Resources(0, 0, 0, 0);      // resources required to build everything in the Production Queue
-            Resources selectedItemCost = new Resources(0, 0, 0, 0);    // resources required to build the selected item stack in the Production Queue
+            Resources selectedItemCost = new Resources(0, 0, 0, 0);    // resources required to build the selected Item stack in the Production Queue
             double percentComplete = 0.0;
             int minesInQueue = 0;
             int factoriesInQueue = 0;
@@ -1277,8 +1277,8 @@ namespace Nova.WinForms.Gui
                     wholeQueueCost += currentStackCost;
 
                     if (yearsSoFar < 0)
-                    {   // if yearsSoFar is less than zero than the item cannot currently be built because
-                        // an item further up the queue cannot be built
+                    {   // if yearsSoFar is less than zero than the Item cannot currently be built because
+                        // an Item further up the queue cannot be built
                         queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Red;
                         minYearsCurrent = maxYearsTotal = -1;
                         if (minYearsTotal == 0)
@@ -1298,32 +1298,32 @@ namespace Nova.WinForms.Gui
                         minYearsCurrent = maxYearsCurrent = yearsToCompleteOne = 0;
                         while (yearsSoFar >= 0 && !allBuilt)
                         {
-                            // need to determine / update the resources available at this point (resources on
+                            // need to determine / update the resources available at this Point (resources on
                             // planet plus those already handled in the queue - including those from
                             // each year of this loop)
 
                             // determine the potentialResources based on the population, factories, and mines that actually exist
                             // determine the number of years to build this based on current mines / factories
                             // then update to include the effect of any mines or factories in the queue
-                            // UPDATED May 11: to use native star method of resource rate prediction. -Aeglos
+                            // UPDATED May 11: to use native Star method of resource rate prediction. -Aeglos
                             potentialResources.Energy += this.queueStar.GetFutureResourceRate(factoriesInQueue);
                             
                             // Account for resources destinated for research.
                             // Use the set client percentage, not the planet allocation. This is because the
                             // allocated resources only change during turn generation, but the budget may change
-                            // many times while playing a turn. This makes the star's values out of sync, so,
+                            // many times while playing a turn. This makes the Star's values out of sync, so,
                             // predict them for now.
                             // Only do this if the Star is respecting research budget.
                             if (this.queueStar.OnlyLeftover == false)
                             {
-                                potentialResources.Energy -= (potentialResources.Energy * ClientState.Data.ResearchBudget / 100);
+                                potentialResources.Energy -= potentialResources.Energy * ClientState.Data.ResearchBudget / 100;
                             }
 
-                            // need to know how much of each mineral is currently available on the star (this.queueStar.ResourcesOnHand)
+                            // need to know how much of each mineral is currently available on the Star (this.queueStar.ResourcesOnHand)
                             // need race information to determine how many minerals are produced by each mine each year
                             // need to make sure that no more than the maximum number of mines operable by colonists are being operated
                             // add one year of mining results to the remaining potentialResources
-                            // UPDATED May 11: to use native star methods of mining rate prediction.
+                            // UPDATED May 11: to use native Star methods of mining rate prediction.
                             potentialResources.Ironium += this.queueStar.GetFutureMiningRate(this.queueStar.MineralConcentration.Ironium, minesInQueue);
                             potentialResources.Boranium += this.queueStar.GetFutureMiningRate(this.queueStar.MineralConcentration.Boranium, minesInQueue);
                             potentialResources.Germanium += this.queueStar.GetFutureMiningRate(this.queueStar.MineralConcentration.Germanium, minesInQueue);
@@ -1372,7 +1372,7 @@ namespace Nova.WinForms.Gui
                                 // not everything in the stack can be built this year
                                 maxYearsSelected = -1;
 
-                                // the current build state is the cost of the first item found by (total cost - (cost of all but one))
+                                // the current build state is the cost of the first Item found by (total cost - (cost of all but one))
                                 Resources currentBuildState = new Resources();
                                 currentBuildState = currentStackCost - ((quantityYetToBuild - 1) * currentDesign.Cost);
 
@@ -1417,10 +1417,10 @@ namespace Nova.WinForms.Gui
                                 potentialResources = potentialResources - amountUsed;
                                 currentStackCost = currentStackCost - amountUsed;
 
-                                // check if at least one item in the stack can be built "this" year
+                                // check if at least one Item in the stack can be built "this" year
                                 if (amountUsed >= currentBuildState)
                                 {
-                                    // at least one item can be built this year
+                                    // at least one Item can be built this year
                                     yearsToCompleteOne = 0;
                                     if (minYearsCurrent == 0)
                                     {
@@ -1446,14 +1446,14 @@ namespace Nova.WinForms.Gui
                                 }
                                 else
                                 {
-                                    // not able to complete even one item this year
+                                    // not able to complete even one Item this year
                                     yearsToCompleteOne++;
                                 }
 
 
                                 if (yearsToCompleteOne > 20)
                                 {
-                                    // an item is considered to be unbuildable if it will take more than
+                                    // an Item is considered to be unbuildable if it will take more than
                                     // 20 years to build it
                                     yearsSoFar = -1;
                                     if (minYearsCurrent == 0)
@@ -1619,14 +1619,14 @@ namespace Nova.WinForms.Gui
         }
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Determine the amount of Resources required to produce a stack of items from the ListView
-        /// For each stack of items the first item might be partially built as defined by
+        /// For each stack of items the first Item might be partially built as defined by
         /// the BuildState and therefore require less Resources than the rest of the items
         /// in the stack which require the design.cost
-        /// </summary>
-        /// <returns>The resources required to produce the item(s) of interest.</returns>
-        /// <param name="itemOfInterest">The item(s) from the Production ListView to be evaluated</param>
+        /// </Summary>
+        /// <returns>The resources required to produce the Item(s) of interest.</returns>
+        /// <param name="itemOfInterest">The Item(s) from the Production ListView to be evaluated</param>
         /// ----------------------------------------------------------------------------
         private Resources GetProductionCosts(ListViewItem stackOfInterest)
         {
@@ -1649,7 +1649,7 @@ namespace Nova.WinForms.Gui
             {
                 string designName = stackOfInterest.Text;
                 Design currentDesign = this.turnData.AllDesigns[this.stateData.RaceName + "/" + designName] as Design;
-                    // as the first item in the stack costs BuildState to complete the design cost
+                    // as the first Item in the stack costs BuildState to complete the design cost
                     // is multiplied by the quantity - 1
                 costsToProduce += currentDesign.Cost * (stackQuantity - 1);
             }

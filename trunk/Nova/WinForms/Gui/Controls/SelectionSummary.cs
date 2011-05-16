@@ -22,7 +22,7 @@
 
 #region Module Description
 // ===========================================================================
-// Control to hold the summary of a selected item.
+// Control to hold the Summary of a selected Item.
 // ===========================================================================
 #endregion
 
@@ -34,9 +34,9 @@ using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
-    /// Control to display a summary of the selected map item.
-    /// </summary>
+    /// <Summary>
+    /// Control to display a Summary of the selected map Item.
+    /// </Summary>
     public partial class SelectionSummary : UserControl
     {
 
@@ -46,9 +46,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the SelectionSummary class.
-        /// </summary>
+        /// </Summary>
         public SelectionSummary()
         {
             InitializeComponent();
@@ -59,10 +59,10 @@ namespace Nova.WinForms.Gui
         #region Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Display a planet summary
-        /// </summary>
-        /// <param name="item"></param>
+        /// <Summary>
+        /// Display a planet Summary
+        /// </Summary>
+        /// <param name="Item"></param>
         /// ----------------------------------------------------------------------------
         private void DisplayPlanet(Item item)
         {
@@ -79,7 +79,7 @@ namespace Nova.WinForms.Gui
             planetSummary.Value = item as Star;
 
             // If we are displaying a fleet clear it out and add the planet
-            // summary display.
+            // Summary display.
 
             if (summaryItem is Fleet || summaryItem == null)
             {
@@ -92,10 +92,10 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Display a fleet summary
-        /// </summary>
-        /// <param name="item">The <see cref="Item"/> to display (a <see cref="Fleet"/> or <see cref="Star"/>).</param>
+        /// <Summary>
+        /// Display a fleet Summary
+        /// </Summary>
+        /// <param name="Item">The <see cref="Item"/> to display (a <see cref="Fleet"/> or <see cref="Star"/>).</param>
         /// ----------------------------------------------------------------------------
         private void DisplayFleet(Item item)
         {
@@ -114,13 +114,13 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Set the content of the summary control. Depending on the type of the item
-        /// selected this may either be a planet (in which case the planet summary
-        /// control is displayed) or a fleet (which will cause the fleet summary control
+        /// <Summary>
+        /// Set the content of the Summary control. Depending on the type of the Item
+        /// selected this may either be a planet (in which case the planet Summary
+        /// control is displayed) or a fleet (which will cause the fleet Summary control
         /// to be displayed).
-        /// </summary>
-        /// <param name="item">The <see cref="Item"/> to display (a <see cref="Fleet"/> or <see cref="Star"/>).</param>
+        /// </Summary>
+        /// <param name="Item">The <see cref="Item"/> to display (a <see cref="Fleet"/> or <see cref="Star"/>).</param>
         /// ----------------------------------------------------------------------------
         private void SetItem(Item item)
         {
@@ -143,7 +143,7 @@ namespace Nova.WinForms.Gui
         
         public void SelectionChanged(object sender, SelectionArgs e)
         {
-            this.Value = e.item;
+            this.Value = e.Item;
         }
 
         #endregion
@@ -151,9 +151,9 @@ namespace Nova.WinForms.Gui
         #region Properties
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Property to access the displayed item
-        /// </summary>
+        /// <Summary>
+        /// Property to access the displayed Item
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public Item Value
         {

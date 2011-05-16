@@ -52,7 +52,7 @@ namespace Nova.ControlLibrary
                     this.boranium.Text = resources.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     this.germanium.Text = resources.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     this.energy.Text = currentEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture) + " of " 
-                        + (this.resourceRate).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        + this.resourceRate.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 }
                 catch
                 {

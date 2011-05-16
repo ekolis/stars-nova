@@ -36,25 +36,25 @@ using Nova.Common.Components;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
+    /// <Summary>
     /// Dialog to display and optionally delete designs.
-    /// </summary>
+    /// </Summary>
     public partial class DesignManager : Form
     {
         private readonly ClientState stateData;
         private readonly Intel turnData;
 
-        /// <summary>
+        /// <Summary>
         /// This event should be fired when a waypoint is deleted,
         /// so the StarMap updates right away.
-        /// </summary>
+        /// </Summary>
         public event RefreshStarMap RefreshStarMapEvent;
         
         #region Construction
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the DesignManager class.
-        /// </summary>
+        /// </Summary>
         public DesignManager()
         {
             InitializeComponent();
@@ -68,9 +68,9 @@ namespace Nova.WinForms.Gui
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Done button pressed. Just exit the dialog.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// ----------------------------------------------------------------------------
@@ -81,10 +81,10 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Populate the available designs items list box with the existing ship designs
         /// (we don't include anything that does not have a hull in the list).
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -104,9 +104,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// A new design has been selected, display it.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -125,9 +125,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Deal with a hull module being selected
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -148,11 +148,11 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// The delete button has been pressed. Confirm he really means it and, if he
         /// does, delete all ships based on that design, if that leaves the fleet
         /// containing the ship empty delete that too. Then delete the actual design.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -219,7 +219,7 @@ Are you sure you want to do this?";
             this.turnData.AllDesigns.Remove(design.Key);
             DesignOwner_SelectedIndexChanged(null, null);
 
-            // Ensure the star map is updated in case we've completely removed any
+            // Ensure the Star map is updated in case we've completely removed any
             // fleets that are being displayed.
 
             RefreshStarMapEvent();
@@ -228,11 +228,11 @@ Are you sure you want to do this?";
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// A new race has been selected. Update the design list to reflect this and
         /// reset the design display. Only allow the delete button to be used if the
         /// race selected is the current one being played.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -265,11 +265,11 @@ Are you sure you want to do this?";
         #region Utility Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Populate the design list with a list of designs for a specified race if we
         /// know what that design is (we only discover other race's designs after a
         /// battle. We also only deal with ship or starbase designs.
-        /// </summary>
+        /// </Summary>
         /// <param name="raceName"></param>
         /// ----------------------------------------------------------------------------
         private void ListDesigns(string raceName)
@@ -298,9 +298,9 @@ Are you sure you want to do this?";
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Add a design into the list of designs
-        /// </summary>
+        /// </Summary>
         /// <param name="design">The design to add to the design list.</param>
         /// ----------------------------------------------------------------------------
         private void AddToDesignList(Design design)
@@ -325,9 +325,9 @@ Are you sure you want to do this?";
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Count the number of ships based on a specific design
-        /// </summary>
+        /// </Summary>
         /// <param name="design">The design to count instances of.</param>
         /// <returns>The number of ships of the given design that have been built.</returns>
         /// ----------------------------------------------------------------------------
@@ -351,9 +351,9 @@ Are you sure you want to do this?";
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Display Design
-        /// </summary>
+        /// </Summary>
         /// <param name="design">The <see cref="ShipDesign"/> to display.</param>
         /// ----------------------------------------------------------------------------
         private void DisplayDesign(ShipDesign design)

@@ -37,9 +37,9 @@ using Nova.Common.DataStructures;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
+    /// <Summary>
     /// A control to display user messages.
-    /// </summary>
+    /// </Summary>
     public class Messages : System.Windows.Forms.UserControl
     {
         private ArrayList messages;
@@ -57,18 +57,18 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Disposal
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the Messages class.
-        /// </summary>
+        /// </Summary>
         public Messages()
         {
             InitializeComponent();
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Clean up any resources being used.
-        /// </summary>
+        /// </Summary>
         /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
@@ -85,10 +85,10 @@ namespace Nova.WinForms.Gui
         #endregion
 
         #region Component Designer generated code
-        /// <summary> 
+        /// <Summary> 
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
-        /// </summary>
+        /// </Summary>
         private void InitializeComponent()
         {
             this.messageForm = new System.Windows.Forms.GroupBox();
@@ -169,9 +169,9 @@ namespace Nova.WinForms.Gui
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Process the Next button being pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -196,9 +196,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Process the previous button being pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -219,9 +219,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Go to event button pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -242,9 +242,9 @@ namespace Nova.WinForms.Gui
         #region Utility Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Display a message in the message control.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public void SetMessage()
         {
@@ -279,9 +279,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// General dialog handling
-        /// </summary>
+        /// </Summary>
         /// <param name="dialog">A dialog Form.</param>
         /// ----------------------------------------------------------------------------
         private void DoDialog(Form dialog)
@@ -295,9 +295,9 @@ namespace Nova.WinForms.Gui
         #region Properties
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Get and set the turn year in the message control
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public int Year
         {
@@ -307,9 +307,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Set the messages to be displayed.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public ArrayList MessageList
         {

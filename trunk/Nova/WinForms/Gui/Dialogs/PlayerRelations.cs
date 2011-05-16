@@ -22,7 +22,7 @@
 
 #region Module Description
 // ===========================================================================
-// This module holds the program entry point and handles all things related to
+// This module holds the program entry Point and handles all things related to
 // the main GUI window.
 // ===========================================================================
 #endregion
@@ -35,10 +35,10 @@ using Nova.Client;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
-    /// This module holds the program entry point and handles all things related to
+    /// <Summary>
+    /// This module holds the program entry Point and handles all things related to
     /// the main GUI window.
-    /// </summary>
+    /// </Summary>
     /// <remarks>
     /// FIXME (priority 5) - the use of literal strings for "Friend" "Enemy" and "Neutral" is a potential source of errors. An enumaration should be used. Needs to be applied to other code throughout the solution.
     /// </remarks>
@@ -48,9 +48,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the PlayerRelations class.
-        /// </summary>
+        /// </Summary>
         public PlayerRelations()
         {
             InitializeComponent();
@@ -74,9 +74,9 @@ namespace Nova.WinForms.Gui
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Exit dialog button pressed
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -87,9 +87,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Selected race has changed, update the relation details
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -113,9 +113,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Player relationship changed
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------

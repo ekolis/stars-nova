@@ -33,16 +33,16 @@ namespace Nova.Tests.UnitTests
 {
 
     /// ----------------------------------------------------------------------------
-    /// <summary>
+    /// <Summary>
     /// Unit test for Defense coverage calculations
-    /// </summary>
+    /// </Summary>
     /// ----------------------------------------------------------------------------
     [TestFixture]
     public class DefensesTest
     {
-        /// <summary>
+        /// <Summary>
         /// Defense coverage test.
-        /// </summary>
+        /// </Summary>
         [Test]
         public void DefenseCoverageTest()
         {

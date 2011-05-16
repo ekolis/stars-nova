@@ -38,61 +38,61 @@ using Nova.ControlLibrary;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
+    /// <Summary>
     /// This is the hook to listen for a new selected Fleet.
     /// Objects who subscribe to this should respond to the Fleet
     /// selection change by using the FleetSelectionArgs supplied which hold
     /// the newly selected Fleet data.
-    /// </summary>
+    /// </Summary>
     public delegate void FleetSelectionChanged(object sender, FleetSelectionArgs e);
     
-    /// <summary>
+    /// <Summary>
     /// This is the hook to listen for when to update the starmap.
     /// This should be used to repain the map in certain cases, for example,
     /// when deleting a waypoint.
-    /// </summary>
+    /// </Summary>
     public delegate void RefreshStarMap();
     
-    /// <summary>
+    /// <Summary>
     /// Holds data related to the current Fleet selection. 
-    /// </summary>
+    /// </Summary>
     public class FleetSelectionArgs : System.EventArgs
     {
-        public Fleet detail;
-        public Fleet summary;
+        public Fleet Detail;
+        public Fleet Summary;
         
         public FleetSelectionArgs(Fleet detail, Fleet summary)
         {
-            this.detail = detail;
-            this.summary = summary;
+            this.Detail = detail;
+            this.Summary = summary;
         }
     }    
 
-    /// <summary>
-    /// Ship detail display panel.
-    /// </summary>
+    /// <Summary>
+    /// Ship Detail display panel.
+    /// </Summary>
     public class FleetDetail : System.Windows.Forms.UserControl
     {
         private Fleet selectedFleet;
         private int currentFleet;
         
-        /// <summary>
+        /// <Summary>
         /// This event should be fired when the selected Fleet
         /// changes.
-        /// </summary>
+        /// </Summary>
         public event FleetSelectionChanged FleetSelectionChangedEvent;
         
-        /// <summary>
+        /// <Summary>
         /// This event should be fired in addition to
         /// FleetSelectionChangedEvent to reflect the new selection's
         /// cursor position.
-        /// </summary>
+        /// </Summary>
         public event CursorChanged CursorChangedEvent;
         
-        /// <summary>
+        /// <Summary>
         /// This event should be fired when a waypoint is deleted,
         /// so the StarMap updates right away.
-        /// </summary>
+        /// </Summary>
         public event RefreshStarMap RefreshStarMapEvent;
 
         #region VS-Generated variables
@@ -135,18 +135,18 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Disposal
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the FleetDetail class.
-        /// </summary>
+        /// </Summary>
         public FleetDetail()
         {
             InitializeComponent();
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Clean up any resources being used.
-        /// </summary>
+        /// </Summary>
         /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
@@ -211,7 +211,7 @@ namespace Nova.WinForms.Gui
             this.groupBox5.SuspendLayout();
             this.SuspendLayout();
             // 
-            // WaypointTasks
+            // waypointTasks
             // 
             this.WaypointTasks.BackColor = System.Drawing.SystemColors.ControlLight;
             this.WaypointTasks.ItemHeight = 13;
@@ -601,9 +601,9 @@ namespace Nova.WinForms.Gui
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Called when the warp factor slider is moved.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -623,10 +623,10 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// On a waypoint being selected update the speed and tasks controls to
         /// reflect the values of the selected waypoint.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -643,9 +643,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Cargo button pressed. Pop up the cargo transfer dialog.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -670,9 +670,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Catch the backspace key to delete a fleet waypoint.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -698,9 +698,9 @@ namespace Nova.WinForms.Gui
             RefreshStarMapEvent();
         }
 
-        /// <summary>
+        /// <Summary>
         /// Process the delete key to delete a fleet waypoint.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnKeyDown(object sender, KeyEventArgs e)
@@ -722,10 +722,10 @@ namespace Nova.WinForms.Gui
         }
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// If a waypoint task changes, and a waypoint is selected, change the task at
         /// that waypoint.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -743,9 +743,9 @@ namespace Nova.WinForms.Gui
         }
         
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// A waypoint has been added or deleted.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// ----------------------------------------------------------------------------
         public void WaypointListChanged(object sender)
@@ -755,9 +755,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// The manage fleet button has been pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -771,9 +771,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Process the Next button being pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -812,9 +812,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Process the previous button being pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -856,10 +856,10 @@ namespace Nova.WinForms.Gui
         #region Utility Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// If there is another waypoint before the selected one, display the fuel,
         /// time, etc. required for this leg.
-        /// </summary>
+        /// </Summary>
         /// <param name="index">Index of the waypoint to display.</param>
         /// ----------------------------------------------------------------------------
         public void DisplayLegDetails(int index)
@@ -925,9 +925,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Add a new waypoint into the waypoint list control.
-        /// </summary>
+        /// </Summary>
         /// <param name="waypoint">A new waypoint to add.</param>
         /// ----------------------------------------------------------------------------
         public void AddWaypoint(Waypoint waypoint)
@@ -939,9 +939,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Set up all the display controls to reflect the selected fleet
-        /// </summary>
+        /// </Summary>
         /// <param name="fleet">The selected fleet.</param>
         /// ----------------------------------------------------------------------------
         private void SetFleetDetails(Fleet fleet)
@@ -1017,9 +1017,9 @@ namespace Nova.WinForms.Gui
         #region Properties
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Property to set or get the fleet currently being displayed.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public Fleet Value
         {
@@ -1028,9 +1028,9 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Get warp factor value.
-        /// </summary>
+        /// </Summary>
         public int Speed
         {
             get { return this.warpFactor.Value; }
@@ -1038,9 +1038,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Get waypoint task.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public string Task
         {

@@ -38,16 +38,16 @@ namespace Nova.WinForms.Console
     /// </summary>
     public class Invade
     {
-        private ServerState StateData;
+        private ServerState stateData;
         
         public Invade(ServerState serverState)
         {
-            this.StateData = serverState;
+            this.stateData = serverState;
         }
         
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Invade a star system.
+        /// invade a star system.
         /// </summary>
         /// <param name="fleet">The invading fleet.</param>
         /// ----------------------------------------------------------------------------
@@ -61,7 +61,7 @@ namespace Nova.WinForms.Console
                 message.Audience = fleet.Owner;
                 message.Text = "Fleet " + fleet.Name + " has waypoint orders to "
                    + "invade but the waypoint is not a planet";
-                StateData.AllMessages.Add(message);
+                stateData.AllMessages.Add(message);
                 return;
             }
 
@@ -76,7 +76,7 @@ namespace Nova.WinForms.Console
                 message.Audience = fleet.Owner;
                 message.Text = "Fleet " + fleet.Name + " has waypoint orders to "
                    + "invade " + star.Name + " but there are no troops on board";
-                StateData.AllMessages.Add(message);
+                stateData.AllMessages.Add(message);
                 return;
             }
 
@@ -91,10 +91,10 @@ namespace Nova.WinForms.Console
                 message.Text = "Fleet " + fleet.Name + " has waypoint orders to " +
                                "invade " + star.Name +
                                " but it is already ours. Troops have joined the local populace.";
-                StateData.AllMessages.Add(message);
+                stateData.AllMessages.Add(message);
                 return;
             }
-            string relation = (string)(StateData.AllRaceData[fleet.Owner] as RaceData).PlayerRelations[star.Owner];
+            string relation = (string)(stateData.AllRaceData[fleet.Owner] as RaceData).PlayerRelations[star.Owner];
             switch (relation)
             {
                 case "Friend":
@@ -105,7 +105,7 @@ namespace Nova.WinForms.Console
                         message.Text = "Fleet " + fleet.Name + " has waypoint orders to " +
                                        "invade " + star.Name +
                                        " but the " + star.Owner + " are not our enemies. Order has been cancelled.";
-                        StateData.AllMessages.Add(message);
+                        stateData.AllMessages.Add(message);
                         return;
                     }
                 case "Enemy":
@@ -129,7 +129,7 @@ namespace Nova.WinForms.Console
                 message.Text = "Fleet " + fleet.Name + " has waypoint orders to " +
                                "invade " + star.Name +
                                " but the starbase at " + star.Name + " would kill all invading troops. Order has been cancelled.";
-                StateData.AllMessages.Add(message);
+                stateData.AllMessages.Add(message);
                 return;
             }
 
@@ -148,11 +148,11 @@ namespace Nova.WinForms.Console
 
             // Apply defender and attacker bonuses
             double attackerBonus = 1.1;
-            if ((StateData.AllRaces[fleet.Owner] as Race).HasTrait("WM"))
+            if ((stateData.AllRaces[fleet.Owner] as Race).HasTrait("WM"))
                 attackerBonus *= 1.5;
 
             double defenderBonus = 1.0;
-            if ((StateData.AllRaces[fleet.Owner] as Race).HasTrait("IS"))
+            if ((stateData.AllRaces[fleet.Owner] as Race).HasTrait("IS"))
                 defenderBonus *= 2.0;
 
             int defenderStrength = (int)(star.Colonists * defenderBonus);
@@ -175,10 +175,10 @@ namespace Nova.WinForms.Console
                             " colonists were killed in the attack.";
 
                 wolfMessage.Text = messageText;
-                StateData.AllMessages.Add(wolfMessage);
+                stateData.AllMessages.Add(wolfMessage);
 
                 lambMessage.Text = messageText;
-                StateData.AllMessages.Add(lambMessage);
+                stateData.AllMessages.Add(lambMessage);
             }
             else if (survivorStrength < 0)
             {
@@ -189,17 +189,17 @@ namespace Nova.WinForms.Console
                 int attackersKilled = troops - remainingAttackers;
                 star.Colonists = remainingAttackers;
                 // star.Owner = fleet.Owner; // FIXME (priority 4) - This doesn't work. Is star a copy?
-                (StateData.AllStars[star.Name] as Star).Owner = fleet.Owner;
+                (stateData.AllStars[star.Name] as Star).Owner = fleet.Owner;
 
                 messageText += "The defenders were slain but "
                             + attackersKilled +
                             " troops were killed in the attack.";
 
                 wolfMessage.Text = messageText;
-                StateData.AllMessages.Add(wolfMessage);
+                stateData.AllMessages.Add(wolfMessage);
 
                 lambMessage.Text = messageText;
-                StateData.AllMessages.Add(lambMessage);
+                stateData.AllMessages.Add(lambMessage);
             }
             else
             {
@@ -207,10 +207,10 @@ namespace Nova.WinForms.Console
                 messageText += "Both sides fought to the last and none were left to claim the planet!";
 
                 wolfMessage.Text = messageText;
-                StateData.AllMessages.Add(wolfMessage);
+                stateData.AllMessages.Add(wolfMessage);
 
                 lambMessage.Text = messageText;
-                StateData.AllMessages.Add(lambMessage);
+                stateData.AllMessages.Add(lambMessage);
 
                 // clear out the colony
                 star.ManufacturingQueue.Queue.Clear();

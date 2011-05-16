@@ -44,12 +44,12 @@ namespace Nova.WinForms.Console
     /// </summary>
     public class CheckForMinefields
     {
-        private ServerState StateData;
-        private readonly Random Random = new Random();
+        private readonly Random random = new Random();
+        private ServerState stateData;
         
         public CheckForMinefields(ServerState serverState)
         {
-            this.StateData = serverState;
+            this.stateData = serverState;
         }
 
         /// ----------------------------------------------------------------------------
@@ -62,7 +62,7 @@ namespace Nova.WinForms.Console
         public bool Check(Fleet fleet)
         {
             foreach (Minefield minefield in
-                     StateData.AllMinefields.Values)
+                     stateData.AllMinefields.Values)
             {
 
                 if (IsInField(fleet, minefield))
@@ -81,7 +81,7 @@ namespace Nova.WinForms.Console
                 minefield.NumberOfMines -= minefield.NumberOfMines / 100;
                 if (minefield.NumberOfMines <= 10)
                 {
-                    StateData.AllMinefields.Remove(minefield);
+                    stateData.AllMinefields.Remove(minefield);
                 }
             }
 
@@ -154,7 +154,7 @@ namespace Nova.WinForms.Console
 
             double speeding = fleet.Speed - minefield.SafeSpeed;
             double probability = (0.03 * travelDistance * speeding) * 100;
-            double dice = Random.Next(0, 100);
+            double dice = random.Next(0, 100);
 
             if (dice < probability)
             {
@@ -222,10 +222,10 @@ namespace Nova.WinForms.Console
             {
                 message.Text += "All of your ships were destroyed.\n";
                 message.Text += "You lost this fleet.";
-                StateData.AllFleets.Remove(fleet.Key);
+                stateData.AllFleets.Remove(fleet.Key);
             }
 
-            StateData.AllMessages.Add(message);
+            stateData.AllMessages.Add(message);
         }
     }
 }

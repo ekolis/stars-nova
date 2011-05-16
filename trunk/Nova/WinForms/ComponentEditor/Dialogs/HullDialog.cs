@@ -36,18 +36,18 @@ namespace Nova.WinForms.ComponentEditor
 {
     public partial class HullDialog : Form
     {
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the HullDialog class.
-        /// </summary>
+        /// </Summary>
         public HullDialog()
         {
             InitializeComponent();
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Exit button selected, close the dialog.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void Close_Click(object sender, EventArgs e)

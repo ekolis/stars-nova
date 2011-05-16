@@ -22,7 +22,7 @@
 
 #region Module Description
 // ===========================================================================
-// Manufacture the items in a star's queue
+// manufacture the items in a star's queue
 // ===========================================================================
 #endregion
 
@@ -42,19 +42,19 @@ namespace Nova.WinForms.Console
     public class Manufacture
     {
 
-        private ArrayList Deletions = new ArrayList();
-        private ServerState StateData;
-        private WaypointTasks WaypointTasks;
+        private ArrayList deletions = new ArrayList();
+        private ServerState stateData;
+        private WaypointTasks waypointTasks;
   
         public Manufacture(ServerState serverState, WaypointTasks waypointTasks)
         {
-            this.StateData = serverState;
-            this.WaypointTasks = waypointTasks;
+            this.stateData = serverState;
+            this.waypointTasks = waypointTasks;
         }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Manufacture the items in a production queue (resources permitting).
+        /// manufacture the items in a production queue (resources permitting).
         /// </summary>
         /// <param name="star">The star doing production.</param>
         /// <remarks>
@@ -64,7 +64,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public void Items(Star star)
         {
-            Deletions.Clear();
+            deletions.Clear();
 
             foreach (ProductionQueue.Item item in star.ManufacturingQueue.Queue)
             {
@@ -76,7 +76,7 @@ namespace Nova.WinForms.Console
                 }
             }
 
-            foreach (ProductionQueue.Item item in Deletions)
+            foreach (ProductionQueue.Item item in deletions)
             {
                 star.ManufacturingQueue.Queue.Remove(item);
             }
@@ -123,7 +123,7 @@ namespace Nova.WinForms.Console
         private bool BuildDesign(ProductionQueue.Item item, Star star)
         {
             string designName = star.Owner + "/" + item.Name;
-            Design design = StateData.AllDesigns[designName] as Design;
+            Design design = stateData.AllDesigns[designName] as Design;
             Nova.Common.Resources needed = item.BuildState;
 
             // If we've ran out of resources then give up. Note that there may be
@@ -164,7 +164,7 @@ namespace Nova.WinForms.Console
                     // first remove the old starbase
                     if (star.Starbase != null)
                     {
-                        StateData.AllFleets.Remove(star.Starbase.Key);
+                        stateData.AllFleets.Remove(star.Starbase.Key);
                         star.Starbase = null;
                     }
 
@@ -180,7 +180,7 @@ namespace Nova.WinForms.Console
 
             if (item.Quantity == 0)
             {
-                Deletions.Add(item);
+                deletions.Add(item);
             }
             else
             {
@@ -252,7 +252,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private void CreateShip(ShipDesign design, Star star)
         {
-            Race race = StateData.AllRaces[star.Owner] as Race;
+            Race race = stateData.AllRaces[star.Owner] as Race;
 
             Ship ship = new Ship(design);
             ship.Name = design.Name;
@@ -261,21 +261,21 @@ namespace Nova.WinForms.Console
             Message message = new Message();
             message.Audience = star.Owner;
             message.Text = star.Name + " has produced a new " + design.Name;
-            StateData.AllMessages.Add(message);
+            stateData.AllMessages.Add(message);
 
             Fleet fleet = new Fleet(ship, star);
-            fleet.Name = ship.Name + " #" + StateData.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            fleet.FleetID = StateData.FleetID;
+            fleet.Name = ship.Name + " #" + stateData.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            fleet.FleetID = stateData.FleetID;
 
             // Add the fleet to the state data so it can be tracked.
-            StateData.AllFleets[fleet.Key] = fleet;
-            StateData.FleetID++;
+            stateData.AllFleets[fleet.Key] = fleet;
+            stateData.FleetID++;
 
             if (design.Type == "Starbase")
             {
                 if (star.Starbase != null)
                 {
-                    WaypointTasks.Scrap(star.Starbase, star, false);
+                    waypointTasks.Scrap(star.Starbase, star, false);
                 }
                 star.Starbase = fleet;
                 fleet.Type = "Starbase";

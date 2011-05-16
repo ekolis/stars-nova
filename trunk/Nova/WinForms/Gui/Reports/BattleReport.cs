@@ -22,7 +22,7 @@
 
 #region Module Description
 // ===========================================================================
-// Battle summary report.
+// battle Summary report.
 // ===========================================================================
 #endregion
 
@@ -37,17 +37,17 @@ using Nova.Common.DataStructures;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
-    /// Battle report dialog class
-    /// </summary>
+    /// <Summary>
+    /// battle report dialog class
+    /// </Summary>
     public partial class BattleReportDialog : Form
     {
 
         #region Construction
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the BattleReportDialog class.
-        /// </summary>
+        /// </Summary>
         public BattleReportDialog()
         {
             InitializeComponent();
@@ -58,9 +58,9 @@ namespace Nova.WinForms.Gui
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Populate the display. 
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -127,9 +127,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// On double click open the battle viewer
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------

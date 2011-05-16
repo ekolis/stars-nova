@@ -31,9 +31,9 @@ using NUnit.Framework;
 
 namespace Nova.Tests.UnitTests
 {
-    /// <summary>
+    /// <Summary>
     /// Unit test for global definition code.
-    /// </summary>
+    /// </Summary>
     [TestFixture]
     public class GlobalTests
     {
@@ -74,9 +74,9 @@ namespace Nova.Tests.UnitTests
         }
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Assert that the expected relative path is generated from a base directory and a target file.
-        /// </summary>
+        /// </Summary>
         /// <param name="expected">Expected relative path.</param>
         /// <param name="baseDir">Starting directory.</param>
         /// <param name="targetPath">Target.</param>

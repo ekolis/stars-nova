@@ -23,7 +23,7 @@
 #region Module Description
 // ===========================================================================
 // This module provides a control to display the production queue for the 
-// currently selected star system.
+// currently selected Star system.
 // ===========================================================================
 #endregion
 
@@ -33,16 +33,16 @@ using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
+    /// <Summary>
     /// Populate a list control with the details of a production queue.
-    /// </summary>
+    /// </Summary>
     public static class QueueList
     {
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Populate a list control with the details of a production queue.
-        /// </summary>
+        /// </Summary>
         /// <param name="listView">The <see cref="ListView"/> to display the queue in.</param>
         /// <param name="toMake">The <see cref="ProductionQueue"/> to display.</param>
         /// ----------------------------------------------------------------------------

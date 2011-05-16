@@ -40,9 +40,9 @@ using Nova.ControlLibrary;
 namespace Nova.WinForms.Gui
 {
 
-    /// <summary>
+    /// <Summary>
     /// Ship Design Dialog
-    /// </summary>
+    /// </Summary>
     public class ShipDesignDialog : System.Windows.Forms.Form
     {
         private readonly ClientState stateData;
@@ -106,10 +106,10 @@ namespace Nova.WinForms.Gui
         private Button NextImageButton;
         private ControlLibrary.HullGrid HullGrid;
 
-        /// <summary>
+        /// <Summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
-        /// </summary>
+        /// </Summary>
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ShipDesignDialog));
@@ -762,9 +762,9 @@ namespace Nova.WinForms.Gui
         #region Initialisation and Disposal
 
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the ShipDesignDialog class.
-        /// </summary>
+        /// </Summary>
         public ShipDesignDialog()
         {
             InitializeComponent();
@@ -844,9 +844,9 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Clean up any resources being used.
-        /// </summary>
+        /// </Summary>
         /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
@@ -867,9 +867,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Save the the design when the OK button is pressed
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -921,9 +921,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// A new tree node has been selected. Update the list control
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -957,9 +957,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// A new item has been selected. Update the cost box and description.
-        /// </summary>
+        /// <Summary>
+        /// A new Item has been selected. Update the cost box and description.
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -987,9 +987,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Instigate Drag and Drop of the selected ListView item
-        /// </summary>
+        /// <Summary>
+        /// Instigate Drag and Drop of the selected ListView Item
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1019,19 +1019,19 @@ namespace Nova.WinForms.Gui
             }
 
             // The component has been dropped into the design. Update the relevant
-            // design summary fields.
+            // design Summary fields.
             UpdateDesignParameters();
         }
 
         private void HullGrid_ModuleUpdated(object sender, EventArgs e)
         {
-            // A module has been updated. Update the relevant design summary fields.
+            // A module has been updated. Update the relevant design Summary fields.
             UpdateDesignParameters();
         }
 
-        /// <summary>
+        /// <Summary>
         /// Update cost and primary characteristics.
-        /// </summary>
+        /// </Summary>
         private void UpdateDesignParameters()
         {
             Hull hull = this.selectedHull.Properties["Hull"] as Hull;
@@ -1088,10 +1088,10 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Hull selection changed. Ensure we take a copy of the hull design so that we
         /// don't end up messing with the master copy.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1108,9 +1108,9 @@ namespace Nova.WinForms.Gui
             UpdateHullFields();
         }
 
-        /// <summary>
+        /// <Summary>
         /// Select the previous available icon for this ship design.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void PrevImageButton_Click(object sender, EventArgs e)
@@ -1119,9 +1119,9 @@ namespace Nova.WinForms.Gui
             HullImage.Image = shipIcon.Image;
         }
 
-        /// <summary>
+        /// <Summary>
         /// Select the next available icon for this ship design.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void NextImageButton_Click(object sender, EventArgs e)
@@ -1137,13 +1137,13 @@ namespace Nova.WinForms.Gui
         #region Utility Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Draw the seleced hull design by filling in the hull grid and the populating
         /// the costs and characteristics fields on the form.
-        /// </summary>
+        /// </Summary>
         /// <remarks>
         /// ??? (priority 5) We don't seem to have a ShipDesign at this stage, just a Hull component
-        /// with attached modules? This makes determining summary information difficult
+        /// with attached modules? This makes determining Summary information difficult
         /// as that is what the ShipDesign is for. Need to decide if using a ShipDesign
         /// from the start would be better.
         /// </remarks>
@@ -1192,10 +1192,10 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Build a table of components available. Note that some components are only
         /// availble if certain racial traits are selected.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         private void PopulateComponentList()
         {

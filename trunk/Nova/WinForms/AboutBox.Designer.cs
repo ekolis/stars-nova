@@ -24,14 +24,14 @@ namespace Nova.WinForms
 {
    public partial class AboutBox
    {
-      /// <summary>
+      /// <Summary>
       /// Required designer variable.
-      /// </summary>
+      /// </Summary>
       private System.ComponentModel.IContainer components = null;
 
-      /// <summary>
+      /// <Summary>
       /// Clean up any resources being used.
-      /// </summary>
+      /// </Summary>
       /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
       protected override void Dispose(bool disposing)
       {
@@ -44,10 +44,10 @@ namespace Nova.WinForms
 
       #region Windows Form Designer generated code
 
-      /// <summary>
+      /// <Summary>
       /// Required method for Designer support - do not modify
       /// the contents of this method with the code editor.
-      /// </summary>
+      /// </Summary>
       private void InitializeComponent()
       {
           System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(AboutBox));

@@ -36,9 +36,9 @@ namespace Nova.WinForms.ComponentEditor
     public partial class TechRequirements : UserControl
     {
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the TechRequirements class.
-        /// </summary>
+        /// </Summary>
         public TechRequirements()
         {
             InitializeComponent();
@@ -46,9 +46,9 @@ namespace Nova.WinForms.ComponentEditor
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Property for getting/setting the Tech levels in the control.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public TechLevel Value
         {

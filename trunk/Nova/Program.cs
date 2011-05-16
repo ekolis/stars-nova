@@ -29,9 +29,9 @@ namespace Nova
 {
     public static class Program
     {
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        /// <Summary>
+        /// The main entry Point for the application.
+        /// </Summary>
         [STAThread]
         public static void Main(string[] args)
         {

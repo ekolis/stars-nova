@@ -22,7 +22,7 @@
 
 #region Module Description
 // ===========================================================================
-// Planet summary report.
+// Planet Summary report.
 // ===========================================================================
 #endregion
 
@@ -38,17 +38,17 @@ using Nova.Common;
 namespace Nova.WinForms.Gui
 {
 
-    /// <summary>
-    /// Planet summary report dialog class
-    /// </summary>
+    /// <Summary>
+    /// Planet Summary report dialog class
+    /// </Summary>
     public partial class PlanetReport : Form
     {
 
         #region Construction
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the PlanetReport class.
-        /// </summary>
+        /// </Summary>
         public PlanetReport()
         {
             InitializeComponent();
@@ -59,10 +59,10 @@ namespace Nova.WinForms.Gui
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Populate the display. We use unbound population because some of the fields
         /// need a little logic to decode (we don't just have a bunch of strings).
-        /// </summary>
+        /// </Summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// ----------------------------------------------------------------------------

@@ -29,9 +29,9 @@
 
 namespace Nova.WinForms.RaceDesigner
 {
-    /// <summary>
-    /// Static definition of all the advantage point costs for each parameter
-    /// </summary>
+    /// <Summary>
+    /// Static definition of all the advantage Point costs for each parameter
+    /// </Summary>
     public static class ParameterCosts
     {
         // Mines that can be operated per 10k colonists.

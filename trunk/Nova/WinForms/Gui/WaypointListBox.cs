@@ -31,17 +31,17 @@ using System.Windows.Forms;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
+    /// <Summary>
     /// This module provides a WaypointListBox which is a List box that passes on
     /// the delete key.
-    /// </summary>
+    /// </Summary>
     public class WaypointListBox : ListBox
     {
-        /// <summary>
+        /// <Summary>
         /// Determine if a key press is resolved by this object or passed on to other conrtols. 
         /// This overrides the default behavior of a ListBox to pass on the delete key so it can
         /// be used to delete a waypoint.
-        /// </summary>
+        /// </Summary>
         /// <param name="keyData"></param>
         /// <returns></returns>
         protected override bool IsInputKey(Keys keyData)

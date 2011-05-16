@@ -22,7 +22,7 @@
 
 #region Module Description
 // ===========================================================================
-// Battle Viewer Dialog
+// battle Viewer Dialog
 // ===========================================================================
 #endregion
 
@@ -37,9 +37,9 @@ using Nova.Common.DataStructures;
 namespace Nova.WinForms.Gui
 {
 
-    /// <summary>
+    /// <Summary>
     /// Dialog for viewing battle progress and outcome.
-    /// </summary>
+    /// </Summary>
     public partial class BattleViewer : Form
     {
         private readonly BattleReport theBattle;
@@ -49,9 +49,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Initialisation
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the BattleViewer class.
-        /// </summary>
+        /// </Summary>
         /// <param name="thisBattle">The <see cref="BattleReport"/> to be displayed.</param>
         public BattleViewer(BattleReport thisBattle)
         {
@@ -69,9 +69,9 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Initialisation performed on a load of the whole dialog.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnLoad(object sender, EventArgs e)
@@ -87,10 +87,10 @@ namespace Nova.WinForms.Gui
 
         #region Event Methods
 
-        /// <summary>
+        /// <Summary>
         /// Draw the battle panel by placing the images for the stacks in the
         /// appropriate position.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnPaint(object sender, PaintEventArgs e)
@@ -112,9 +112,9 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Step through each battle event.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void NextStep_Click(object sender, EventArgs e)
@@ -154,9 +154,9 @@ namespace Nova.WinForms.Gui
 
         #region Utility Methods
 
-        /// <summary>
+        /// <Summary>
         /// Update the movement of a stack.
-        /// </summary>
+        /// </Summary>
         /// <param name="movement">movement to display</param>
         private void UpdateMovement(BattleStepMovement movement)
         {
@@ -174,9 +174,9 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Update the current target details.
-        /// </summary>
+        /// </Summary>
         /// <param name="target">Target ship to display.</param>
         private void UpdateTarget(BattleStepTarget targetKey)
         {
@@ -204,9 +204,9 @@ namespace Nova.WinForms.Gui
             }
         }
 
-        /// <summary>
+        /// <Summary>
         /// Set the details for the target to "" on the UI.
-        /// </summary>
+        /// </Summary>
         private void ClearTargetDetails()
         {
             this.targetName.Text = "";
@@ -216,9 +216,9 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Deal with weapons being fired.
-        /// </summary>
+        /// </Summary>
         /// <param name="weapons">weapon to display</param>
         private void UpdateWeapons(BattleStepWeapons weapons)
         {
@@ -239,10 +239,10 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Deal with a ship being destroyed. Remove it from the containing stack and,
         /// if the stack fleet count drops to zero, destroy the whole stack.
-        /// </summary>
+        /// </Summary>
         /// <param name="destroy"></param>
         private void UpdateDestroy(BattleStepDestroy destroy)
         {
@@ -264,9 +264,9 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Just display the currrent step number in the battle replay control panel.
-        /// </summary>
+        /// </Summary>
         private void SetStepNumber()
         {
             StringBuilder title = new StringBuilder();

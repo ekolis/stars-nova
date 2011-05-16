@@ -22,7 +22,7 @@
 
 #region Module Description
 // ===========================================================================
-// This module maintains the star map.
+// This module maintains the Star map.
 // ===========================================================================
 #endregion
 
@@ -44,84 +44,84 @@ namespace Nova.WinForms.Gui
     
     #region Delegates
     
-    /// <summary>
-    /// This is the hook to listen for a request for selection detail.
+    /// <Summary>
+    /// This is the hook to listen for a request for selection Detail.
     /// Objects who subscribe to this should return an Item corresponding
     /// to the currently selected Item (Fleet, Star, etc).
-    /// </summary>
+    /// </Summary>
     public delegate Item RequestSelection();
     
-    /// <summary>
+    /// <Summary>
     /// This is the hook to listen for changes in the cursor on the map.
     /// Objects who subscribe to this should respond to the cursor
     /// position change by using the CursorArgs supplied which holds
     /// the updated cursor position.
-    /// </summary>
+    /// </Summary>
     public delegate void CursorChanged(object sender, CursorArgs e);
     
-    /// <summary>
+    /// <Summary>
     /// This is the hook to listen for changes on the selected object.
     /// Objects who subscribe to this should respond to the new selection
     /// by using the SelectionArgs supplied which holds the updated
     /// selection data.
-    /// </summary>
+    /// </Summary>
     public delegate void SelectionChanged(object sender, SelectionArgs e);
     
-    /// <summary>
+    /// <Summary>
     /// This is the hook to listen for changes on WayPoints.
-    /// </summary>
+    /// </Summary>
     public delegate void WaypointChanged(object sender);
     #endregion
     
-    /// <summary>
+    /// <Summary>
     /// Holds data related to the current cursor position
-    /// </summary>
+    /// </Summary>
     public class CursorArgs : System.EventArgs
     {
-        public Point point;
+        public Point Point;
         
         public CursorArgs(Point point)
         {
-            this.point = point;
+            this.Point = point;
         }
     }
     
-    /// <summary>
+    /// <Summary>
     /// Holds data related to the current selection. 
-    /// </summary>
+    /// </Summary>
     public class SelectionArgs : System.EventArgs
     {
-        public Item item;
+        public Item Item;
         
         public SelectionArgs(Item item)
         {
-            this.item = item;
+            this.Item = item;
         }
     }
     
-    /// <summary>
+    /// <Summary>
     /// StarMap is the control which holds the actual playing map. 
-    /// </summary>
+    /// </Summary>
     public partial class StarMap : UserControl
     {
-        /// <summary>
+        /// <Summary>
         /// This event should be fired when the StarMap requests the current
         /// selection information. Mostly used to assert where it is
-        /// a fleet or a star.
-        /// </summary>
+        /// a fleet or a Star.
+        /// </Summary>
         public event RequestSelection RequestSelectionEvent;
         
-        /// <summary>
+        /// <Summary>
         /// This event should be fired when the users changes the
         /// selection in the map with the mouse. Use it to report
         /// selection changes to other components of the GUI.
-        /// </summary>
+        /// </Summary>
         public event SelectionChanged SelectionChangedEvent;
         
-        /// <summary>
+        /// <Summary>
         /// This event should be fired when the user Adds or
         /// Deletes a waypoint via shift click.
-        /// </summary>
+        /// </Summary>
         public event WaypointChanged WaypointChangedEvent;
         
         private readonly Point[] triangle = 
@@ -143,8 +143,8 @@ namespace Nova.WinForms.Gui
         private NovaPoint cursorPosition = new Point(0, 0);
         private NovaPoint lastClick = new Point(0, 0);
         private NovaPoint logical = new Point(0, 0);  // Size of the logical coordinate system (size of the game universe).
-        private NovaPoint origin = new Point(0, 0);   // Top left starting point of the displayed map within the logical map.
-        private NovaPoint center = new Point(0, 0);   // Focal point of the displayed map.
+        private NovaPoint origin = new Point(0, 0);   // Top left starting Point of the displayed map within the logical map.
+        private NovaPoint center = new Point(0, 0);   // Focal Point of the displayed map.
         private NovaPoint extent = new Point(0, 0);   // Extent of the currently displayed map, from Origin.
         private double zoomFactor = 0.8;              // Is used to adjust the Extent of the map.
         private bool isInitialised;
@@ -159,9 +159,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Initialization
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the StarMap class.
-        /// </summary>
+        /// </Summary>
         public StarMap()
         {
             // We need to handle the resize properly.
@@ -186,18 +186,17 @@ namespace Nova.WinForms.Gui
             this.nameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);            
    
             // This allocates the initial drawing buffered area.
-            this.bufferedContext.MaximumBuffer = new Size(this.MapPanel.Size.Width+1, this.MapPanel.Size.Height+1);
-            this.grafx = this.bufferedContext.Allocate(this.MapPanel.CreateGraphics(),
-                                               new Rectangle(0, 0, this.MapPanel.Size.Width, this.MapPanel.Size.Height)
-                                              );
-
+            this.bufferedContext.MaximumBuffer = new Size(this.MapPanel.Size.Width + 1, this.MapPanel.Size.Height + 1);
+            this.grafx = this.bufferedContext.Allocate(
+                this.MapPanel.CreateGraphics(), 
+                new Rectangle(0, 0, this.MapPanel.Size.Width, this.MapPanel.Size.Height));
         }
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Post-construction initialisation.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public void Initialise()
         {
@@ -228,9 +227,9 @@ namespace Nova.WinForms.Gui
 
         #region Drawing Methods
   
-        /// <summary>
+        /// <Summary>
         /// Draws every object on the playing map to the graphics buffer.
-        /// </summary>
+        /// </Summary>
         /// <remarks>
         /// This does not actually render the map. Only draws to
         /// the buffer which is drawn later
@@ -406,9 +405,9 @@ namespace Nova.WinForms.Gui
         }
         
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Paint the star map window from the graphics buffer info.
-        /// </summary>
+        /// <Summary>
+        /// Paint the Star map window from the graphics buffer info.
+        /// </Summary>
         /// <param name="sender"></param>
         /// <param name="eventData"></param>
         /// ----------------------------------------------------------------------------
@@ -422,9 +421,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Draw a filled circle using device coordinates.
-        /// </summary>
+        /// </Summary>
         /// <param name="brush"></param>
         /// <param name="position"></param>
         /// <param name="radius"></param>
@@ -441,9 +440,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Draw a filled circle using logical coordinates.
-        /// </summary>
+        /// </Summary>
         /// <param name="brush"></param>
         /// <param name="where"></param>
         /// <param name="radius"></param>
@@ -461,10 +460,10 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Draw a fleet. We only draw fleets that are not in orbit. Indications of
-        /// orbiting fleets are handled in the drawing of the star.
-        /// </summary>
+        /// orbiting fleets are handled in the drawing of the Star.
+        /// </Summary>
         /// <param name="fleet">The fleet to draw.</param>
         /// ----------------------------------------------------------------------------
         private void DrawFleet(Fleet fleet)
@@ -504,17 +503,17 @@ namespace Nova.WinForms.Gui
         }
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Draw a star. The star is just a small circle which is a bit bigger if we've
+        /// <Summary>
+        /// Draw a Star. The Star is just a small circle which is a bit bigger if we've
         /// explored it. 
-        /// </summary>
+        /// </Summary>
         /// <remarks>
-        /// The colour of the star symbol is based on its star report (reports for stars
+        /// The colour of the Star symbol is based on its Star report (reports for stars
         /// owned by the current player are always up-to-date). Unoccupied stars are
         /// white. Stars colonised by the player are green. Stars owned by other races
         /// are red.
         /// </remarks>
-        /// <param name="star">The star sytem to draw.</param>
+        /// <param name="Star">The Star sytem to draw.</param>
         /// ----------------------------------------------------------------------------
         private void DrawStar(Star star)
         {
@@ -549,7 +548,7 @@ namespace Nova.WinForms.Gui
 
             FillCircle(starBrush, (Point)position, size);
 
-            // If the star name display is turned on then add the name
+            // If the Star name display is turned on then add the name
 
             if (this.displayStarNames)
             {
@@ -561,11 +560,11 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Add an indication of a starbase (circle) or orbiting fleets (smaller
         /// circle) or both.
-        /// </summary>
-        /// <param name="star">The star being drawn.</param>
+        /// </Summary>
+        /// <param name="Star">The Star being drawn.</param>
         /// ----------------------------------------------------------------------------
         private void DrawOrbitingFleets(Star star)
         {
@@ -605,9 +604,9 @@ namespace Nova.WinForms.Gui
         #region Determine Visible
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Build a list of all fleets that are visible to the player.
-        /// </summary>
+        /// </Summary>
         /// <remarks>
         /// This consists of:
         /// (1) Fleets owned by the player
@@ -673,9 +672,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Build a list of all Minefields that are visible to the player.
-        /// </summary>
+        /// </Summary>
         /// <remarks>
         /// This consists
         /// of:
@@ -765,11 +764,11 @@ namespace Nova.WinForms.Gui
         #region Coordinate conversions
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Convert logical coordinates to device coordintes.
-        /// </summary>
-        /// <param name="p">The point to convert.</param>
-        /// <returns>A converted point.</returns>
+        /// </Summary>
+        /// <param name="p">The Point to convert.</param>
+        /// <returns>A converted Point.</returns>
         /// ----------------------------------------------------------------------------
         private NovaPoint LogicalToDevice(NovaPoint p)
         {
@@ -785,11 +784,11 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Convert logical coordinates to device coordinates by scaling only (all offsets are ignored).
-        /// </summary>
-        /// <param name="p">The point to convert.</param>
-        /// <returns>The converted point.</returns>
+        /// </Summary>
+        /// <param name="p">The Point to convert.</param>
+        /// <returns>The converted Point.</returns>
         /// ----------------------------------------------------------------------------
         private NovaPoint LogicalToDeviceRelative(NovaPoint p)
         {
@@ -805,11 +804,11 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Convert device coordinates to logical coordinates.
-        /// </summary>
-        /// <param name="p">The point to convert.</param>
-        /// <returns>The converted point.</returns>
+        /// </Summary>
+        /// <param name="p">The Point to convert.</param>
+        /// <returns>The converted Point.</returns>
         /// ----------------------------------------------------------------------------
         private NovaPoint DeviceToLogical(NovaPoint p)
         {
@@ -828,9 +827,9 @@ namespace Nova.WinForms.Gui
         #region Zoom
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Process a request to zoom in the star map.
-        /// </summary>
+        /// <Summary>
+        /// Process a request to zoom in the Star map.
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -843,9 +842,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Process a request to zoom out the star map.
-        /// </summary>
+        /// <Summary>
+        /// Process a request to zoom out the Star map.
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -863,9 +862,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Zoom in or out of the star map.
-        /// </summary>
+        /// <Summary>
+        /// Zoom in or out of the Star map.
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         private void SetZoom()
         {
@@ -885,9 +884,9 @@ namespace Nova.WinForms.Gui
         #region Scroll
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Horizontally scroll the star map.
-        /// </summary>
+        /// <Summary>
+        /// Horizontally scroll the Star map.
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -898,9 +897,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Vertically scroll the star map.
-        /// </summary>
+        /// <Summary>
+        /// Vertically scroll the Star map.
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -911,9 +910,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Scroll the star map horizontally.
-        /// </summary>
+        /// <Summary>
+        /// Scroll the Star map horizontally.
+        /// </Summary>
         /// <param name="value">new Hscroll position</param>
         /// ----------------------------------------------------------------------------
         private void MapHorizontalScroll(int value)
@@ -928,9 +927,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Scroll the star map vertically.
-        /// </summary>
+        /// <Summary>
+        /// Scroll the Star map vertically.
+        /// </Summary>
         /// <param name="value">New Vscroll position.</param>
         /// ----------------------------------------------------------------------------
         private void MapVerticalScroll(int value)
@@ -949,15 +948,15 @@ namespace Nova.WinForms.Gui
         private void OnResize(object sender, EventArgs e)
         {
             // Re-create the graphics buffer for a new window size.
-            this.bufferedContext.MaximumBuffer = new Size(this.MapPanel.Size.Width+1, this.MapPanel.Size.Height+1);
-            if( this.grafx != null )
+            this.bufferedContext.MaximumBuffer = new Size(this.MapPanel.Size.Width + 1, this.MapPanel.Size.Height + 1);
+            if (this.grafx != null)
             {
                 this.grafx.Dispose();
                 this.grafx = null;               
             }
-            this.grafx = bufferedContext.Allocate(this.MapPanel.CreateGraphics(), 
-                                              new Rectangle( 0, 0, this.MapPanel.Size.Width, this.MapPanel.Size.Height )
-                                             );
+            this.grafx = bufferedContext.Allocate(
+                this.MapPanel.CreateGraphics(), 
+                new Rectangle(0, 0, this.MapPanel.Size.Width, this.MapPanel.Size.Height));
            
             this.RefreshStarMap();
         }    
@@ -967,9 +966,9 @@ namespace Nova.WinForms.Gui
         #region Interface IComparable
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// A sortable (by distance) version of the Item class.
-        /// </summary>
+        /// </Summary>
         /// <remarks>
         /// FIXME (priority 5) - this class shouldn't be hidden inside this module. Is there any reason not to implement this via inheritance or make Item itself sortable?
         /// </remarks>
@@ -991,9 +990,9 @@ namespace Nova.WinForms.Gui
         #region Mouse Events
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Process a mouse down event.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// ----------------------------------------------------------------------------
@@ -1021,9 +1020,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Left Shift Mouse: Set Waypoints.
-        /// </summary>
+        /// </Summary>
         /// <param name="e"></param>
         /// <param name="snapToObject"></param>
         /// ----------------------------------------------------------------------------
@@ -1036,12 +1035,12 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            // We've confirmed that the fleet detail control is displayed. Now get
+            // We've confirmed that the fleet Detail control is displayed. Now get
             // a handle directly to it so that we can access its parameters
-            // directly without having to use the detail summary panel as an agent
+            // directly without having to use the Detail Summary panel as an agent
 
-            //FleetDetail fleetDetail = MainWindow.Nova.SelectionDetail.Control
-            //                          as FleetDetail;
+            // FleetDetail FleetDetail = MainWindow.Nova.SelectionDetail.Control
+            //                           as FleetDetail;
 
             NovaPoint click = new NovaPoint(e.X, e.Y);
             Fleet fleet = item as Fleet;
@@ -1055,7 +1054,7 @@ namespace Nova.WinForms.Gui
 
             // If there are no items near the selected position then set the
             // waypoint to just be a position in space. Otherwise, make the target
-            // of the waypoint the selected item.
+            // of the waypoint the selected Item.
             //
             // To Do: Handle multiple items at the target location
 
@@ -1103,9 +1102,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Left mouse button: select objects.
-        /// </summary>
+        /// </Summary>
         /// <param name="e"></param>
         /// ----------------------------------------------------------------------------
         private void LeftMouse(MouseEventArgs e)
@@ -1158,9 +1157,9 @@ namespace Nova.WinForms.Gui
         #region Misc Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Set the position of the star map selection cursor.
-        /// </summary>
+        /// <Summary>
+        /// Set the position of the Star map selection cursor.
+        /// </Summary>
         /// <param name="position">Whete the cursor is to be put.</param>
         /// ----------------------------------------------------------------------------
         public void SetCursor(NovaPoint position)
@@ -1190,11 +1189,11 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Provides a list of objects within a certain distance from a position,
         /// ordered by distance.
-        /// </summary>
-        /// <param name="position">Starting point for the search.</param>
+        /// </Summary>
+        /// <param name="position">Starting Point for the search.</param>
         /// <returns>ArrayList of Fleet and Star objects.</returns>
         /// ----------------------------------------------------------------------------
         private ArrayList FindNearObjects(NovaPoint position)
@@ -1233,9 +1232,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Toggle the display of the star names.
-        /// </summary>
+        /// <Summary>
+        /// Toggle the display of the Star names.
+        /// </Summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// ----------------------------------------------------------------------------
@@ -1256,9 +1255,9 @@ namespace Nova.WinForms.Gui
         }
         
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Toggle the display of the background image.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// ----------------------------------------------------------------------------
@@ -1279,9 +1278,9 @@ namespace Nova.WinForms.Gui
         }
         
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Toggle the display of universe borders.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         /// ----------------------------------------------------------------------------
@@ -1305,14 +1304,14 @@ namespace Nova.WinForms.Gui
         
         #region Communication Events
         
-        /// <summary>
+        /// <Summary>
         /// This handles external events in which another GUI element
         /// changes the selection. StarMap can react accordingly and
         /// update it's cursor withour exposing internal variables.
-        /// </summary>
+        /// </Summary>
         public void ChangeCursor(object sender, CursorArgs e)
         {
-            SetCursor(e.point);
+            SetCursor(e.Point);
         }
         
         public void RefreshStarMap()

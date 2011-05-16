@@ -35,9 +35,9 @@ using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
+    /// <Summary>
     /// Manage the details of a fleet (composition, etc.).
-    /// </summary>
+    /// </Summary>
     public partial class ManageFleetDialog : Form
     {
         private readonly Hashtable allFleets;
@@ -45,9 +45,9 @@ namespace Nova.WinForms.Gui
 
         #region Construction
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the ManageFleetDialog class.
-        /// </summary>
+        /// </Summary>
         public ManageFleetDialog()
         {
             InitializeComponent();
@@ -59,10 +59,10 @@ namespace Nova.WinForms.Gui
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Rename a fleet. The rename is only allowed if the fleet access key is
         /// unique.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -82,9 +82,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Merge the ships from a co-located fleet into the selected fleet
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -111,9 +111,9 @@ namespace Nova.WinForms.Gui
         #region Utility Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Update the dialog fields
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         private void UpdateDialogDetails()
         {
@@ -147,9 +147,9 @@ namespace Nova.WinForms.Gui
         #region Properties
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Select the fleet to be managed.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public Fleet ManagedFleet
         {

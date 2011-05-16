@@ -31,43 +31,43 @@ using NUnit.Framework;
 namespace Nova.Tests.IntegrationTests
 {
     /// ----------------------------------------------------------------------------
-    /// <summary>
+    /// <Summary>
     /// Unit tests for ServerState. 
-    /// </summary>
+    /// </Summary>
     /// ----------------------------------------------------------------------------
     [TestFixture]
     public class ServerStateTest
     {
-        /// <summary>
+        /// <Summary>
         /// Test the (de)serialising of the ServerState.
         /// 
         /// TODO Magic numbers (2101, 2102 is a magic number) in tests is not recommended.
-        /// </summary>
+        /// </Summary>
         [Test]
         public void SerialisationTest()
         {
-            ServerState StateData = new ServerState();
+            ServerState stateData = new ServerState();
             // Setup the initial state
-            StateData.TurnYear = 2101;
-            StateData.GameInProgress = true;
-            StateData.GameFolder = "dummy_value";
-            StateData.StatePathName = "unit_test.sstate";
+            stateData.TurnYear = 2101;
+            stateData.GameInProgress = true;
+            stateData.GameFolder = "dummy_value";
+            stateData.StatePathName = "unit_test.sstate";
 
             // serialise
-            StateData.Save();
+            stateData.Save();
 
             // change the value to ensure it is restored.
-            StateData.TurnYear = 2102;
-            StateData.GameInProgress = false;
-            StateData.GameFolder = "foo_bar";
+            stateData.TurnYear = 2102;
+            stateData.GameInProgress = false;
+            stateData.GameFolder = "foo_bar";
 
             // deserialise
-            StateData = StateData.Restore();
+            stateData = stateData.Restore();
 
             // test
-            Assert.AreEqual(StateData.TurnYear, 2101);
-            Assert.AreEqual(StateData.GameInProgress, true);
-            Assert.AreEqual(StateData.GameFolder, "dummy_value");
+            Assert.AreEqual(stateData.TurnYear, 2101);
+            Assert.AreEqual(stateData.GameInProgress, true);
+            Assert.AreEqual(stateData.GameFolder, "dummy_value");
         }
     }
 }

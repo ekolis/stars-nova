@@ -37,11 +37,11 @@ namespace Nova.Server
     /// </summary>
     public class Scores
     {
-        private ServerState StateData;
+        private ServerState stateData;
   
         public Scores(ServerState serverState)
         {
-            this.StateData = serverState;
+            this.stateData = serverState;
         }
         
         /// ----------------------------------------------------------------------------
@@ -53,7 +53,7 @@ namespace Nova.Server
         {
             ArrayList scores = new ArrayList();
 
-            foreach (PlayerSettings player in StateData.AllPlayers)
+            foreach (PlayerSettings player in stateData.AllPlayers)
             {
                 scores.Add(GetScoreRecord(player.RaceName));
             }
@@ -83,7 +83,7 @@ namespace Nova.Server
             int starBases = 0;
             int resources = 0;
 
-            foreach (Star star in StateData.AllStars.Values)
+            foreach (Star star in stateData.AllStars.Values)
             {
 
                 if (star.Owner == raceName)
@@ -114,7 +114,7 @@ namespace Nova.Server
             int capitalShips = 0;
 
 
-            foreach (Fleet fleet in StateData.AllFleets.Values)
+            foreach (Fleet fleet in stateData.AllFleets.Values)
             {
 
                 if (fleet.Owner == raceName)
@@ -157,9 +157,9 @@ namespace Nova.Server
             // ----------------------------------------------------------------------------
 
             score.Race = raceName;
-            if (StateData.AllTechLevels.Contains(raceName))
+            if (stateData.AllTechLevels.Contains(raceName))
             {
-                score.TechLevel = (int)StateData.AllTechLevels[raceName];
+                score.TechLevel = (int)stateData.AllTechLevels[raceName];
 
                 if (score.TechLevel < 4) totalScore += 1;
                 if (score.TechLevel > 9) totalScore += 4;

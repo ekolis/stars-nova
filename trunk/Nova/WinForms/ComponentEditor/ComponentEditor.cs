@@ -99,19 +99,19 @@ namespace Nova.WinForms.ComponentEditor
        // ============================================================================
        #region Setup
 
-       /// <summary>
+       /// <Summary>
        /// Initializes a new instance of the ComponentEditorWindow class.
-       /// </summary>
+       /// </Summary>
        public ComponentEditorWindow()
        {
            InitializeComponent();
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// When the program starts, restore the component data. If the path to the
        /// component data file has not been set then set it now.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void OnLoad(object sender, EventArgs e)
@@ -157,9 +157,9 @@ namespace Nova.WinForms.ComponentEditor
 
        #region File Menu
 
-       /// <summary>
+       /// <Summary>
        /// Menu->File->Open
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
@@ -192,7 +192,7 @@ namespace Nova.WinForms.ComponentEditor
                    this.componentType.Text = "Armor";
                    UpdateListBox("Armor");
                    if (this.componentList.Items.Count > 0)
-                       this.componentList.SelectedIndex = 0; // pick the first item in the list
+                       this.componentList.SelectedIndex = 0; // pick the first Item in the list
                    fileDirty = false;
                    componentDirty = false;
                    EditModeOff();
@@ -216,10 +216,10 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// <para>Menu->File->New</para>
        /// Create a new, empty component definition file.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_NewFile_Click(object sender, EventArgs e)
@@ -247,9 +247,9 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// Menu->File->Save
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_SaveFile_Click(object sender, EventArgs e)
@@ -262,9 +262,9 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// Menu->File->Save As
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_SaveFileAs_Click(object sender, EventArgs e)
@@ -311,10 +311,10 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// <para>Menu-File-Exit</para>
        /// Exit button press. Close the program only if data is saved.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void ExitButton_Click(object sender, EventArgs e)
@@ -362,9 +362,9 @@ namespace Nova.WinForms.ComponentEditor
 
        #region Component Menu
 
-       /// <summary>
+       /// <Summary>
        /// Menu->Component->Save
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void SaveComponent_Click(object sender, EventArgs e)
@@ -373,10 +373,10 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// <para>Menu->Component->Delete</para>
        /// Deletes the currently selected component.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_DeleteComponent_Click(object sender, EventArgs e)
@@ -387,11 +387,11 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary><para>
+       /// <Summary><para>
        /// Menu->Component->New
        /// </para><para>
        /// Create a new component.
-       /// </para> </summary>
+       /// </para> </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_NewComponent_Click(object sender, EventArgs e)
@@ -414,11 +414,11 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// <para>Menu->Component->Edit</para>
        /// This is one way of entering 'edit' mode from 'browsing' mode. In edit
        /// mode changing the component type changes the current component's type.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_EditComponent_Click(object sender, EventArgs e)
@@ -427,11 +427,11 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary><para>
+       /// <Summary><para>
        /// Menu->Component->Copy
        /// </para><para>
        /// Take a copy of a component to use for a template for a new component.
-       /// </para></summary>
+       /// </para></Summary>
        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
        {
            EditModeOn();
@@ -442,11 +442,11 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// <para>Menu->Component->Discard Changes</para>
        /// Discardes any changes to the currently selected compoenent by refreshing 
        /// the UI from the in memory components.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_DiscardComponentChanges_Click(object sender, EventArgs e)
@@ -456,11 +456,11 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// <para>Menu->Component->Race Restrictions</para>
        /// Open the race restrictions dialog to edit what LRT or PRT restrictions
        /// apply to this component.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_RaceRestrictions_Click(object sender, EventArgs e)
@@ -480,14 +480,14 @@ namespace Nova.WinForms.ComponentEditor
 
        #region Property Menu
 
-       /// <summary>
+       /// <Summary>
        /// <para>
        /// Menu->Property->Add
        /// </para><para>
        /// Add the tab for the appropriate property, reset the values on the tab 
        /// and give it focus.
        /// </para>
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_AddProperty(object sender, EventArgs e)
@@ -763,11 +763,11 @@ namespace Nova.WinForms.ComponentEditor
        } // add property
 
 
-       /// <summary>
+       /// <Summary>
        /// <para>Menu->Property->Delete Selected Property</para>
        /// Remove the selected property tab from the tab control, hidding it and
        /// letting us know not to add that property to the component.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void DeleteSelectedPropertyToolStripMenuItem_Click(object sender, EventArgs e)
@@ -780,9 +780,9 @@ namespace Nova.WinForms.ComponentEditor
 
        #region About
 
-       /// <summary>
+       /// <Summary>
        /// Display the About box dialog
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void AboutMenuClick(object sender, EventArgs e)
@@ -803,11 +803,11 @@ namespace Nova.WinForms.ComponentEditor
        // ============================================================================
        #region Event Methods
 
-       /// <summary>
+       /// <Summary>
        /// When a selection in the list box changes repopulate the dialog with the
        /// values for that electrical component. The processing of this event is
        /// delegated from the Common Properties control.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void ComponentList_SelectedIndexChanged(object sender, EventArgs e)
@@ -1180,10 +1180,10 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// Clicking in the component type box brings up a 'drop down' menu to 
        /// select from.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void ComponentType_Changed(object sender, EventArgs e)
@@ -1194,7 +1194,7 @@ namespace Nova.WinForms.ComponentEditor
                UpdateListBox(this.componentType.Text);
                if (this.componentList.Items.Count > 0)
                {
-                   this.componentList.SelectedIndex = 0; // pick the first item in the list
+                   this.componentList.SelectedIndex = 0; // pick the first Item in the list
                }
                else
                {
@@ -1213,16 +1213,16 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// Draw tabs horizontally to the right of the tab control.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void PropertyTabs_DrawItem(object sender, DrawItemEventArgs e)
        {
            Graphics g = e.Graphics;
 
-           // Get the item from the collection.
+           // Get the Item from the collection.
            TabPage tabPage = this.propertyTabs.TabPages[e.Index];
 
            // Make the tab background 'Control' grey. 
@@ -1247,9 +1247,9 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// When the 'Edit Hull' button is clicked, pop up the <see cref='HullDialog'/>.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void ButtonEditHull_Click(object sender, EventArgs e)
@@ -1272,10 +1272,10 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// When the program is terminated, save the component data. This function is
        /// invoked no matter which method is used to terminate the program.
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void OnFormClosing(object sender, FormClosingEventArgs e)
@@ -1325,9 +1325,9 @@ namespace Nova.WinForms.ComponentEditor
        #region Utility
 
 
-       /// <summary>
+       /// <Summary>
        /// Save the currently selected component.
-       /// </summary>
+       /// </Summary>
        private void SaveComponent()
        {
            string componentName = this.componentName.Text;
@@ -1587,9 +1587,9 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// Update the title with key information.
-       /// </summary>
+       /// </Summary>
        private void UpdateTitleBar()
        {
            using (Config conf = new Config())
@@ -1616,9 +1616,9 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// Update the list box of components base on the selected <see cref="Type"/>
-       /// </summary>
+       /// </Summary>
        /// <param name="componentTypeSelected">Type of component.</param>
        public void UpdateListBox(string componentTypeSelected)
        {
@@ -1634,9 +1634,9 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// Makes a given component the selected component in the Component Editor
-       /// </summary>
+       /// </Summary>
        /// <param name="sender">The source of the event.</param>
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        public void SelectComponent(string type, string name)
@@ -1656,9 +1656,9 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-       /// <summary>
+       /// <Summary>
        /// Delete the currently selected component.
-       /// </summary>
+       /// </Summary>
        public void DeleteComponent()
        {
            string componentName = this.componentName.Text;
@@ -1683,12 +1683,12 @@ namespace Nova.WinForms.ComponentEditor
        }
 
 
-      /// <summary><para>
+      /// <Summary><para>
       /// Enter component editing mode.
       /// </para><para>
       /// In this mode changing the component type modifies the currently selected 
       /// component.
-      /// </para></summary>
+      /// </para></Summary>
       private void EditModeOn()
       {
           editMode = true;
@@ -1699,12 +1699,12 @@ namespace Nova.WinForms.ComponentEditor
       }
 
 
-      /// <summary><para>
+      /// <Summary><para>
       /// Enter component browsing mode. 
       /// </para><para>
       /// In this mode changing the component type updates the component list with 
       /// components of the new type.
-      /// </para></summary>
+      /// </para></Summary>
       private void EditModeOff()
       {
           editMode = false;
@@ -1716,9 +1716,9 @@ namespace Nova.WinForms.ComponentEditor
       }
 
 
-      /// <summary>
+      /// <Summary>
       /// General dialog handling
-      /// </summary>
+      /// </Summary>
       /// <param name="dialog">A dialog <see cref="Form"/></param>
       private void DoDialog(Form dialog)
       {
@@ -1727,9 +1727,9 @@ namespace Nova.WinForms.ComponentEditor
       }
 
 
-      /// <summary>
+      /// <Summary>
       /// Clear all the entry fields on the component editor and associated forms.
-      /// </summary>
+      /// </Summary>
       private void ClearForm()
       {
           this.propertyTabs.TabPages.Clear();
@@ -1745,10 +1745,10 @@ namespace Nova.WinForms.ComponentEditor
       }
 
 
-      /// <summary>
-      /// Update the list of Hulls so that only the hulls this item may be fitted to can be selected. 
-      /// (Hull affinity limits which hulls an item may be fitted too.)
-      /// </summary>
+      /// <Summary>
+      /// Update the list of Hulls so that only the hulls this Item may be fitted to can be selected. 
+      /// (Hull affinity limits which hulls an Item may be fitted too.)
+      /// </Summary>
       private void ComponentHullAffinity_PopulateList()
       {
           this.componentHullAffinity.Items.Clear();
@@ -1773,9 +1773,9 @@ namespace Nova.WinForms.ComponentEditor
       // ============================================================================
       #region Properties
 
-      /// <summary>
+      /// <Summary>
       /// Get and set the properties common to all components.
-      /// </summary>
+      /// </Summary>
       public Nova.Common.Components.Component CommonProperties
       {
           get

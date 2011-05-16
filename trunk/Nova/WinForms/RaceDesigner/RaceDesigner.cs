@@ -44,9 +44,9 @@ using Nova.Common;
 namespace Nova.WinForms.RaceDesigner
 {
 
-    /// <summary>
+    /// <Summary>
     /// Race designer main (and only) application form
-    /// </summary>
+    /// </Summary>
     [Serializable]
     public class RaceDesignerForm : System.Windows.Forms.Form
     {
@@ -158,11 +158,11 @@ namespace Nova.WinForms.RaceDesigner
         #region Construction Initialisation Disposal
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Construction and dynamic initialisation which consists of ensuring
         /// that there is a default primary racial trait selected and that what to
         /// spend unused advantage points on has a default.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public RaceDesignerForm()
         {
@@ -178,12 +178,12 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Called when the form is loaded. 
         /// Load the race icon data. Load the first race icon into
         /// its image box, record the index of the current image (0) and make a note
         /// of the number of images so that we can just cycle through them.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, EventArgs e)
         {
@@ -211,10 +211,10 @@ namespace Nova.WinForms.RaceDesigner
         #region Windows Form Designer generated code
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         private void InitializeComponent()
         {
@@ -1504,9 +1504,9 @@ namespace Nova.WinForms.RaceDesigner
         #region Main
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        /// <Summary>
+        /// The main entry Point for the application.
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         [STAThread]
         public static void Main()
@@ -1520,16 +1520,16 @@ namespace Nova.WinForms.RaceDesigner
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// This funtion is invoked whenever a primary racial traits radio button
         /// is selected. 
         ///
         /// If a button has moved to the unchecked state we "pay back" the advantage
-        /// point cost of the deselected race. If the button has moved to the selected
-        /// state then we adjust the advantage point balance by the appropriate cost.
+        /// Point cost of the deselected race. If the button has moved to the selected
+        /// state then we adjust the advantage Point balance by the appropriate cost.
         ///
         /// All primary racial traits are defined in the file PrimaryTraits.cs.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1567,15 +1567,15 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// This funtion is invoked whenever a secondary racial traits radio button is
         /// selected. Based on the value in the Name property, the description and
-        /// advantage point value will be adjusted to suit the selected race (in a
+        /// advantage Point value will be adjusted to suit the selected race (in a
         /// similar manner is as done for the primary racial trait above). 
         /// <para>
         /// All secondary racial traits are defined in the file SecondaryTraits.cs.
         /// </para>
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1608,11 +1608,11 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// <para>
         /// Called when an up/down counter has changed. Put back the previous advantage
-        /// point value taken and now use the newly selected value. 
-        /// </para></summary>
+        /// Point value taken and now use the newly selected value. 
+        /// </para></Summary>
         /// <remarks>
         /// <para>
         /// Explicitly check for ColonistProduction as array indeces need dividing by
@@ -1622,7 +1622,7 @@ namespace Nova.WinForms.RaceDesigner
         /// used to hold the previous valueof the up-down counter (so that we can "pay
         /// back" advantage points on a parameter change)
         /// </para><para>
-        /// The actual advantage point costs are defined in the file ParameterCosts.cs.
+        /// The actual advantage Point costs are defined in the file ParameterCosts.cs.
         /// </para></remarks>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
@@ -1658,11 +1658,11 @@ namespace Nova.WinForms.RaceDesigner
         }
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Called when a research cost has changed. Note that the ResearchCost control
         /// retuns the appropriate advantage points adjustment for both the button going
         /// off and for the new selection.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="value">Change in advantage points.</param>
         /// ----------------------------------------------------------------------------
@@ -1673,9 +1673,9 @@ namespace Nova.WinForms.RaceDesigner
             this.parametersChanged = true;
         }
         
-        /// <summary>
+        /// <Summary>
         /// Called when the Extratech combobox is checked
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void ExtraTech_CheckedChanged(object sender, EventArgs e)
@@ -1694,11 +1694,11 @@ namespace Nova.WinForms.RaceDesigner
         }
         
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Called when a tolerance range has changed. The new width of the range and
         /// its position (based on the middle of the bar) both impact the advantage
-        /// point value.
-        /// </summary>
+        /// Point value.
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="newLeftPos"></param>
         /// <param name="newRightPos"></param>
@@ -1719,9 +1719,9 @@ namespace Nova.WinForms.RaceDesigner
         }
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Called when an immunity checkbox has changed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="value"></param>
         /// ----------------------------------------------------------------------------
@@ -1733,11 +1733,11 @@ namespace Nova.WinForms.RaceDesigner
         }
         
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// This function is called when the Exit button is pressed. Provide a warning
         /// that this will discard the race definition and see if he really wants
         /// to do this.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1760,11 +1760,11 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// This function is called when the Generate button is pressed. Providing that
         /// the advantage points total is not negative we then populate the race details
         /// structure and use it to generate the race definition file.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1932,9 +1932,9 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Display the about box
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1947,9 +1947,9 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Called when the next image is to be selected
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1963,9 +1963,9 @@ namespace Nova.WinForms.RaceDesigner
         
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Called when the previous image is to be selected
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -1978,11 +1978,11 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Load an existing race file for examination or modification (however, once
-        /// submitted there is no point in changing the race definition. It's too late
+        /// submitted there is no Point in changing the race definition. It's too late
         /// and it's "gone into the system").
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -2028,10 +2028,10 @@ namespace Nova.WinForms.RaceDesigner
         #region Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Brute force and ignorance reload of a file. There must be a bettter way of
         /// doing this.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public void ReloadRace(Race raceParameters)
         {
@@ -2077,9 +2077,9 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Reload seconday traits
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public void ReloadSecondaryTraits(Race raceParameters)
         {
@@ -2102,9 +2102,9 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Reload build cost parameters
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public void ReloadBuildCosts(Race raceParameters)
         {
@@ -2119,9 +2119,9 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Reload Environmental Tolerance
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public void ReloadEnvironmentalTolerance(Race raceParameters)
         {
@@ -2145,9 +2145,9 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Reload Research Costs
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public void ReloadResearchCosts(Race raceParameters)
         {

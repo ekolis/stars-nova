@@ -43,11 +43,11 @@ namespace Nova.NewGame
     /// </summary>
     public class StarMapInitialiser
     {
-        private ServerState StateData;
+        private ServerState stateData;
         
         public StarMapInitialiser(ServerState serverState)
         {
-            this.StateData = serverState;
+            this.stateData = serverState;
         }
 
         #region Initialisation
@@ -71,7 +71,7 @@ namespace Nova.NewGame
             StarsMapGenerator map = new StarsMapGenerator(GameSettings.Data.MapWidth, GameSettings.Data.MapHeight, GameSettings.Data.StarSeparation, GameSettings.Data.StarDensity, GameSettings.Data.StarUniformity);
             List<int[]> allStarPositions = map.Generate();
 
-            Random random = new Random(); // NB: do this outside the loop so that Random is seeded only once.
+            Random random = new Random(); // NB: do this outside the loop so that random is seeded only once.
             foreach (int[] starPosition in allStarPositions)
             {
                 Star star = new Star();
@@ -91,7 +91,7 @@ namespace Nova.NewGame
                 star.Gravity = random.Next(1, 99);
                 star.Temperature = random.Next(1, 99);
 
-                StateData.AllStars[star.Name] = star;
+                stateData.AllStars[star.Name] = star;
             }
         }
 
@@ -104,13 +104,13 @@ namespace Nova.NewGame
         /// ----------------------------------------------------------------------------
         public void InitialisePlayerData()
         {
-            SpaceAllocator spaceAllocator = new SpaceAllocator(StateData.AllRaces.Count);
+            SpaceAllocator spaceAllocator = new SpaceAllocator(stateData.AllRaces.Count);
 
             // FIXME (priority 8) does not handle rectangular maps correctly
             spaceAllocator.AllocateSpace(Math.Min(GameSettings.Data.MapWidth, GameSettings.Data.MapHeight)); // attempt to not crash with a rectangular star map (slight improvement). Need to handle rectangular map properly.
             // spaceAllocator.AllocateSpace(GameSettings.Data.MapWidth); - old version
 
-            foreach (Race race in StateData.AllRaces.Values)
+            foreach (Race race in stateData.AllRaces.Values)
             {
                 string player = race.Name;
 
@@ -135,9 +135,9 @@ namespace Nova.NewGame
                 defense.Name = "Defenses";
                 defense.Type = "Defenses";
                 defense.Owner = player;
-                StateData.AllDesigns[player + "/Mine"] = mine;
-                StateData.AllDesigns[player + "/Factory"] = factory;
-                StateData.AllDesigns[player + "/Defenses"] = defense;
+                stateData.AllDesigns[player + "/Mine"] = mine;
+                stateData.AllDesigns[player + "/Factory"] = factory;
+                stateData.AllDesigns[player + "/Defenses"] = defense;
                 PrepareDesigns(race, player);
                 InitialiseHomeStar(race, spaceAllocator, player);
             }
@@ -146,40 +146,40 @@ namespace Nova.NewGame
             welcome.Text = "Your race is ready to explore the universe.";
             welcome.Audience = "*";
 
-            StateData.AllMessages.Add(welcome);
+            stateData.AllMessages.Add(welcome);
         }
 
         private void PrepareDesigns(Race race, string player)
         {
-            //Read components data and create some basic stuff
+            // Read components data and create some basic stuff
             AllComponents.Restore();
             Hashtable components = AllComponents.Data.Components;
             Component colonyShipHull = null, scoutHull = null, starbaseHull = null;
-            Component engine = null, csEngine = null;
+            Component engine = null, colonyShipEngine = null;
             Component colonizer = null;
 
             engine = components["Quick Jump 5"] as Component;
             if (race.Traits.Primary.Code != "HE")
             {
-                colonyShipHull = components["Colony Ship"] as Component; //(components["Colony Ship"] as Component).Properties["Hull"] as Hull;
+                colonyShipHull = components["Colony Ship"] as Component; // (components["Colony Ship"] as Component).Properties["Hull"] as Hull;
             }
             else
             {
-                csEngine = components["Settler's Delight"] as Component;
+                colonyShipEngine = components["Settler's Delight"] as Component;
                 colonyShipHull = components["Mini-Colony Ship"] as Component;
             }
-            scoutHull = components["Scout"] as Component;//(components["Scout"] as Component).Properties["Hull"] as Hull;
+            scoutHull = components["Scout"] as Component; // (components["Scout"] as Component).Properties["Hull"] as Hull;
 
-            starbaseHull = components["Space Dock"] as Component;// (components["Space Dock"] as Component).Properties["Hull"] as Hull;
+            starbaseHull = components["Space Dock"] as Component; // (components["Space Dock"] as Component).Properties["Hull"] as Hull;
 
             if (race.HasTrait("AR") == true)
-                colonizer = components["Orbital Construction Module"] as Component;// (components["Orbital Construction Module"] as Component).Properties["Colonizer"] as Colonizer;
+                colonizer = components["Orbital Construction Module"] as Component; // (components["Orbital Construction Module"] as Component).Properties["Colonizer"] as Colonizer;
             else
-                colonizer = components["Colonization Module"] as Component;//(components["Colonization Module"] as Component).Properties["Colonizer"] as Colonizer; ;
+                colonizer = components["Colonization Module"] as Component; // (components["Colonization Module"] as Component).Properties["Colonizer"] as Colonizer; ;
 
 
-            if (csEngine == null)
-                csEngine = engine;
+            if (colonyShipEngine == null)
+                colonyShipEngine = engine;
 
             ShipDesign cs = new ShipDesign();
             cs.ShipHull = colonyShipHull;
@@ -202,51 +202,51 @@ namespace Nova.NewGame
             cs.Name = "Santa Maria";
             cs.Owner = player;
 
-            StateData.AllDesigns[player + "/cs"] = cs;
+            stateData.AllDesigns[player + "/cs"] = cs;
+            /*
+            switch (race.Traits.Primary.Code)
+            {
+                case "HE":
+                    // Start with one armed scout + 3 mini-colony ships
+                case "SS":
+                    // Start with one scout + one colony ship.
+                case "WM":
+                    // Start with one armed scout + one colony ship.
+                    break;
 
-            //switch (race.Traits.Primary.Code)
-            //{
-            //    case "HE":
-            //        // Start with one armed scout + 3 mini-colony ships
-            //    case "SS":
-            //        // Start with one scout + one colony ship.
-            //    case "WM":
-            //        // Start with one armed scout + one colony ship.
-            //        break;
+                case "CA":
+                    // Start with an orbital terraforming ship
+                    break;
 
-            //    case "CA":
-            //        // Start with an orbital terraforming ship
-            //        break;
+                case "IS":
+                    // Start with one scout and one colony ship
+                    break;
 
-            //    case "IS":
-            //        // Start with one scout and one colony ship
-            //        break;
+                case "SD":
+                    // Start with one scout, one colony ship, Two mine layers (one standard, one speed trap)
+                    break;
 
-            //    case "SD":
-            //        // Start with one scout, one colony ship, Two mine layers (one standard, one speed trap)
-            //        break;
+                case "PP":
+                    raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 4;
+                    // Two shielded scouts, one colony ship, two starting planets in a non-tiny universe
+                    break;
 
-            //    case "PP":
-            //        raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 4;
-            //        // Two shielded scouts, one colony ship, two starting planets in a non-tiny universe
-            //        break;
+                case "IT":
+                    raceData.ResearchLevel[TechLevel.ResearchField.Propulsion] = 5;
+                    raceData.ResearchLevel[TechLevel.ResearchField.Construction] = 5;
+                    // one scout, one colony ship, one destroyer, one privateer, 2 planets with 100/250 stargates (in non-tiny universe)
+                    break;
 
-            //    case "IT":
-            //        raceData.ResearchLevel[TechLevel.ResearchField.Propulsion] = 5;
-            //        raceData.ResearchLevel[TechLevel.ResearchField.Construction] = 5;
-            //        // one scout, one colony ship, one destroyer, one privateer, 2 planets with 100/250 stargates (in non-tiny universe)
-            //        break;
+                case "AR":
+                    raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 1;
 
-            //    case "AR":
-            //        raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 1;
+                    // starts with one scout, one orbital construction colony ship
+                    break;
 
-            //        // starts with one scout, one orbital construction colony ship
-            //        break;
-
-            //    case "JOAT":
-            //        // two scouts, one colony ship, one medium freighter, one mini miner, one destroyer
-            //        break;
-
+                case "JOAT":
+                    // two scouts, one colony ship, one medium freighter, one mini miner, one destroyer
+                    break;
+            */
 
         }
         /// ----------------------------------------------------------------------------
@@ -261,7 +261,7 @@ namespace Nova.NewGame
         private void InitialiseHomeStar(Race race, SpaceAllocator spaceAllocator, string player)
         {
             Rectangle box = spaceAllocator.GetBox();
-            foreach (Star star in StateData.AllStars.Values)
+            foreach (Star star in stateData.AllStars.Values)
             {
                 if (PointUtilities.InBox(star.Position, box))
                 {
@@ -282,23 +282,23 @@ namespace Nova.NewGame
         /// <param name="race"></param>
         private void AllocateHomeStarOrbitalInstallations(Star star, Race race, string player)
         {
-            ShipDesign csDesign = StateData.AllDesigns[player + "/cs"] as ShipDesign;
+            ShipDesign colonyShipDesign = stateData.AllDesigns[player + "/cs"] as ShipDesign;
             if (race.Traits.Primary.Code != "HE")
             {
-                Ship cs = new Ship(csDesign);
+                Ship cs = new Ship(colonyShipDesign);
                 Fleet fleet1 = new Fleet(cs, star);
                 fleet1.Name = "CSFleet1";
-                StateData.AllFleets[player +"/"+ fleet1.FleetID.ToString()] = fleet1;
+                stateData.AllFleets[player + "/" + fleet1.FleetID.ToString()] = fleet1;
             }
             else
             {
                 for (int i = 1; i <= 3; i++)
                 {
-                    Ship cs = new Ship(csDesign);
+                    Ship cs = new Ship(colonyShipDesign);
                     Fleet fleet = new Fleet(cs, star);
                     fleet.FleetID = i;
-                    fleet.Name = "CSFleet" +i.ToString();
-                    StateData.AllFleets[player + "/" + fleet.FleetID.ToString()] = fleet;
+                    fleet.Name = "CSFleet" + i.ToString();
+                    stateData.AllFleets[player + "/" + fleet.FleetID.ToString()] = fleet;
                 }
             }
         }
