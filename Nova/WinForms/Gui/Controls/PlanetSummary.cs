@@ -37,12 +37,12 @@ using Nova.ControlLibrary;
 namespace Nova.WinForms.Gui
 {
 
-    /// <summary>
-    /// The star system summary panel.
-    /// </summary>
+    /// <Summary>
+    /// The Star system Summary panel.
+    /// </Summary>
     public class PlanetSummary : System.Windows.Forms.UserControl
     {
-        // reference to the star's report.
+        // reference to the Star's report.
         private StarReport report;
         // reference to the Star. This is only used for owned stars.
         private Star star;
@@ -78,17 +78,17 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Disposal
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the PlanetSummary class.
-        /// </summary>
+        /// </Summary>
         public PlanetSummary()
         {
             InitializeComponent();
         }
 
-        /// <summary>
+        /// <Summary>
         /// Clean up any resources being used.
-        /// </summary>
+        /// </Summary>
         /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
@@ -105,10 +105,10 @@ namespace Nova.WinForms.Gui
         #endregion
 
         #region Component Designer generated code
-        /// <summary> 
+        /// <Summary> 
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
-        /// </summary>
+        /// </Summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -457,9 +457,9 @@ namespace Nova.WinForms.Gui
 
         #region Properties
 
-        /// <summary>
-        /// Select the star whose details are to be displayed
-        /// </summary>
+        /// <Summary>
+        /// Select the Star whose details are to be displayed
+        /// </Summary>
         public Star Value
         {
             set

@@ -22,7 +22,7 @@
 
 #region Module Description
 // ===========================================================================
-// Fleet summary report.
+// Fleet Summary report.
 // ===========================================================================
 #endregion
 
@@ -37,16 +37,16 @@ using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
-    /// Fleet summary report dialog class
-    /// </summary>
+    /// <Summary>
+    /// Fleet Summary report dialog class
+    /// </Summary>
     public partial class FleetReport : Form
     {
         #region Construction
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the FleetReport class.
-        /// </summary>
+        /// </Summary>
         public FleetReport()
         {
             InitializeComponent();
@@ -57,10 +57,10 @@ namespace Nova.WinForms.Gui
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Populate the display. We use unbound population because some of the fields
         /// need a little logic to decode (we don't just have a bunch of strings).
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------

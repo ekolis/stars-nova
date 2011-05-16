@@ -34,9 +34,9 @@ namespace Nova.WinForms.ComponentEditor
     {
         #region Construction
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the BasicProperties class.
-        /// </summary>
+        /// </Summary>
         public BasicProperties()
         {
             InitializeComponent();
@@ -48,9 +48,9 @@ namespace Nova.WinForms.ComponentEditor
         #region Properties
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Get the resource build cost from the control
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public Nova.Common.Resources Cost
         {
@@ -79,9 +79,9 @@ namespace Nova.WinForms.ComponentEditor
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Get and set the mass of the component
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public int Mass
         {

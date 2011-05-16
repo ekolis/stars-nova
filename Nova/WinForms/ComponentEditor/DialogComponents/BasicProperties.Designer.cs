@@ -13,14 +13,14 @@ namespace Nova.WinForms.ComponentEditor
 {
    public partial class BasicProperties
    {
-      /// <summary> 
+      /// <Summary> 
       /// Required designer variable.
-      /// </summary>
+      /// </Summary>
       private System.ComponentModel.IContainer components = null;
 
-      /// <summary> 
+      /// <Summary> 
       /// Clean up any resources being used.
-      /// </summary>
+      /// </Summary>
       /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
       protected override void Dispose(bool disposing)
       {
@@ -33,10 +33,10 @@ namespace Nova.WinForms.ComponentEditor
 
       #region Component Designer generated code
 
-      /// <summary> 
+      /// <Summary> 
       /// Required method for Designer support - do not modify 
       /// the contents of this method with the code editor.
-      /// </summary>
+      /// </Summary>
       private void InitializeComponent()
       {
           this.groupBox1 = new System.Windows.Forms.GroupBox();

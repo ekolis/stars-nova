@@ -141,7 +141,7 @@ namespace Nova.Server
             this.GameFolder = null;
             this.AllRaces.Clear();
             this.AllRaceData.Clear();
-            this.AllStars.Clear();;
+            this.AllStars.Clear();
             this.AllDesigns.Clear();
             this.AllFleets.Clear();
             this.AllTechLevels.Clear();

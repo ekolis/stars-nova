@@ -22,7 +22,7 @@
 
 #region Module Description
 // ===========================================================================
-// Planet detail display pane.
+// Planet Detail display pane.
 // ===========================================================================
 #endregion
 
@@ -36,45 +36,45 @@ using Nova.ControlLibrary;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
+    /// <Summary>
     /// This is the hook to listen for a new selected Star.
     /// Objects who subscribe to this should respond to the Star
     /// selection change by using the StarSelectionArgs supplied which hold
     /// the newly selected Star data.
-    /// </summary>
+    /// </Summary>
     public delegate void StarSelectionChanged(object sender, StarSelectionArgs e);
     
-    /// <summary>
+    /// <Summary>
     /// Holds data related to the current Star selection. 
-    /// </summary>
+    /// </Summary>
     public class StarSelectionArgs : System.EventArgs
     {
-        public Star star;
+        public Star Star;
         
         public StarSelectionArgs(Star star)
         {
-            this.star = star;
+            this.Star = star;
         }
     }
     
-    /// <summary>
-    /// Planet detail display pane.
-    /// </summary>
+    /// <Summary>
+    /// Planet Detail display pane.
+    /// </Summary>
     public class PlanetDetail : System.Windows.Forms.UserControl
     {
         private Star star;
         
-        /// <summary>
+        /// <Summary>
         /// This event should be fired when the selected Star
         /// changes.
-        /// </summary>
+        /// </Summary>
         public event StarSelectionChanged StarSelectionChangedEvent;
         
-        /// <summary>
+        /// <Summary>
         /// This event should be fired in addition to
         /// StarSelectionChangedEvent to reflect the new selection's
         /// cursor position.
-        /// </summary>
+        /// </Summary>
         public event CursorChanged CursorChangedEvent;
 
         #region Designer generated variables
@@ -132,17 +132,17 @@ namespace Nova.WinForms.Gui
 
         #region Construction and Disposal
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the PlanetDetail class.
-        /// </summary>
+        /// </Summary>
         public PlanetDetail()
         {
             InitializeComponent();
         }
 
-        /// <summary>
+        /// <Summary>
         /// Clean up any resources being used.
-        /// </summary>
+        /// </Summary>
         /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
@@ -159,10 +159,10 @@ namespace Nova.WinForms.Gui
         #endregion
 
         #region Component Designer generated code
-        /// <summary> 
+        /// <Summary> 
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
-        /// </summary>
+        /// </Summary>
         private void InitializeComponent()
         {
             this.mines = new System.Windows.Forms.Label();
@@ -767,9 +767,9 @@ namespace Nova.WinForms.Gui
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// The change queue button has been pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -787,9 +787,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Next planet button pressed
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -819,9 +819,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Previous planet button pressed
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -854,10 +854,10 @@ namespace Nova.WinForms.Gui
         #region Utility Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Set the star which is to be displayed
-        /// </summary>
-        /// <param name="selectedStar">The star to be displayed</param>
+        /// <Summary>
+        /// Set the Star which is to be displayed
+        /// </Summary>
+        /// <param name="selectedStar">The Star to be displayed</param>
         /// ----------------------------------------------------------------------------
         private void SetStarDetails(Star selectedStar)
         {
@@ -879,9 +879,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Update all the fields in the planet detail display.
-        /// </summary>
+        /// <Summary>
+        /// Update all the fields in the planet Detail display.
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         private void UpdateFields()
         {
@@ -946,9 +946,9 @@ namespace Nova.WinForms.Gui
         #region Properties
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Access to the star whose details are displayed in the panel.
-        /// </summary>
+        /// <Summary>
+        /// Access to the Star whose details are displayed in the panel.
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public Star Value
         {

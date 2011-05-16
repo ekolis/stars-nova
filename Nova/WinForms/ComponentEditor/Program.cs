@@ -22,7 +22,7 @@
 
 #region Module Description
 // ===========================================================================
-// Component editor main entry point.
+// Component editor main entry Point.
 // ===========================================================================
 #endregion
 

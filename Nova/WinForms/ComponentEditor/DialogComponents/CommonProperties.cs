@@ -44,9 +44,9 @@ namespace Nova.WinForms.ComponentEditor
 
         #region Construction
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the CommonProperties class.
-        /// </summary>
+        /// </Summary>
         public CommonProperties()
         {
             InitializeComponent();
@@ -58,10 +58,10 @@ namespace Nova.WinForms.ComponentEditor
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// List box selection changed. Delegate the processing of this event to the
         /// appropriate dialog.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -84,9 +84,9 @@ namespace Nova.WinForms.ComponentEditor
         #region Suporting Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Populate the list box wih all components of a specified type.
-        /// </summary>
+        /// </Summary>
         /// <param name="objectType">The component <see cref="Type"/>.</param>
         /// ----------------------------------------------------------------------------
         public void UpdateListBox(Type objectType)
@@ -104,10 +104,10 @@ namespace Nova.WinForms.ComponentEditor
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Populate the list box wih all components of a specified type name (used when
         /// the actual type isn't known.
-        /// </summary>
+        /// </Summary>
         /// <param name="objectName">The type name.</param>
         /// ----------------------------------------------------------------------------
         public void UpdateListBox(string objectName)
@@ -125,9 +125,9 @@ namespace Nova.WinForms.ComponentEditor
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Delete the currently selected component.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public void DeleteComponent()
         {
@@ -150,9 +150,9 @@ namespace Nova.WinForms.ComponentEditor
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Get and set the properties common to all components.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public Nova.Common.Components.Component Value
         {

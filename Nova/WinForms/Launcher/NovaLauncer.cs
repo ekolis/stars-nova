@@ -38,9 +38,9 @@ using Nova.Common;
 
 namespace Nova.WinForms.Launcher
 {
-    /// <summary>
+    /// <Summary>
     /// The Stars! Nova - Launcher <see cref="Form"/>
-    /// </summary>
+    /// </Summary>
     public partial class NovaLauncher : Form
     {
         private readonly string serverStateFile;
@@ -48,9 +48,9 @@ namespace Nova.WinForms.Launcher
 
         #region Initialisation
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the NovaLauncher class.
-        /// </summary>
+        /// </Summary>
         public NovaLauncher()
         {
             InitializeComponent();
@@ -80,9 +80,9 @@ namespace Nova.WinForms.Launcher
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// When the 'exit' button is pressed, terminate the Nova Launcher
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -93,9 +93,9 @@ namespace Nova.WinForms.Launcher
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// When the 'Race Designer' button is pressed, launch the Race Designer application.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -114,9 +114,9 @@ namespace Nova.WinForms.Launcher
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// When the 'New Game' button is pressed, launch the New Game Wizard.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -135,9 +135,9 @@ namespace Nova.WinForms.Launcher
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// When the 'Open Game' button is pressed, open a file browser to locate the game and open it.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -219,9 +219,9 @@ namespace Nova.WinForms.Launcher
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// When the 'Continue Game' button is pressed, continue the last opened game.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -262,9 +262,9 @@ namespace Nova.WinForms.Launcher
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// When the 'Nova Website' link is clicked, go to the nova website with the default browser, if allowed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -285,9 +285,9 @@ namespace Nova.WinForms.Launcher
         #region Utility Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Support funtion to open the Nova Website
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         private void VisitLink()
         {

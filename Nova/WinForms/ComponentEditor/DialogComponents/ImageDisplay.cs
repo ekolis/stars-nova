@@ -44,9 +44,9 @@ namespace Nova.WinForms.ComponentEditor
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Select an Image for loading into the picture control
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -67,9 +67,9 @@ namespace Nova.WinForms.ComponentEditor
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Get and set the value in the Image Box
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public Image Image
         {

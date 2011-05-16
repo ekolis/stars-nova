@@ -97,9 +97,9 @@ namespace Nova.Ai
             
         }
 
-        /// <summary>
+        /// <Summary>
         /// Always go to the min tech
-        /// </summary>
+        /// </Summary>
         private void HandleResearch()
         {
             // check if messages contains info about tech advence

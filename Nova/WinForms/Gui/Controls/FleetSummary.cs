@@ -22,7 +22,7 @@
 
 #region Module Description
 // ===========================================================================
-// Fleet summary display panel.
+// Fleet Summary display panel.
 // ===========================================================================
 #endregion
 
@@ -35,15 +35,15 @@ using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
-    /// The fleet summary panel.
-    /// </summary>
+    /// <Summary>
+    /// The fleet Summary panel.
+    /// </Summary>
     public partial class FleetSummary : UserControl
     {
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the FleetSummary class.
-        /// </summary>
+        /// </Summary>
         public FleetSummary()
         {
             InitializeComponent();
@@ -51,9 +51,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Display the fleet summary
-        /// </summary>
+        /// <Summary>
+        /// Display the fleet Summary
+        /// </Summary>
         /// <param name="fleet">The <see cref="Fleet"/> to display.</param>
         /// ----------------------------------------------------------------------------
         private void DisplaySummary(Fleet fleet)
@@ -70,9 +70,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Select the fleet whose details are to be displayed
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public Fleet Value
         {

@@ -36,14 +36,14 @@ using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
-    /// Score summary report dialog class
-    /// </summary>
+    /// <Summary>
+    /// Score Summary report dialog class
+    /// </Summary>
     public partial class ScoreReport : Form
     {
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the ScoreReport class.
-        /// </summary>
+        /// </Summary>
         public ScoreReport()
         {
             InitializeComponent();
@@ -51,9 +51,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Populate the display. 
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------

@@ -44,14 +44,15 @@ namespace Nova.WinForms.Console
     /// </summary>
     public class BattleEngine
     {
-        private ServerState StateData;
-        private readonly Random Random = new Random();
-        private double MaxBattleTime = 16;
-        private BattleReport Battle;
-        private int StackId;
+        private readonly Random random = new Random();
+
+        private ServerState stateData;
+        private double maxBattleTime = 16;
+        private BattleReport battle;
+        private int stackId;
 
         /// Residual fractional movement points left over between phases/turns of combat.
-        private IDictionary<Fleet, double> ResidualMovement = new Dictionary<Fleet, double>();
+        private IDictionary<Fleet, double> residualMovement = new Dictionary<Fleet, double>();
   
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -66,8 +67,8 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public BattleEngine(ServerState serverState, BattleReport battleReport)
         {
-            this.StateData = serverState;
-            this.Battle = battleReport;
+            this.stateData = serverState;
+            this.battle = battleReport;
         }
 
         /// ----------------------------------------------------------------------------
@@ -120,16 +121,16 @@ namespace Nova.WinForms.Console
                     return;
                 }
 
-                StackId = 0;
+                stackId = 0;
                 Fleet sample = combatZone[0] as Fleet;
 
                 if (sample.InOrbit != null)
                 {
-                    Battle.Location = sample.InOrbit.Name;
+                    battle.Location = sample.InOrbit.Name;
                 }
                 else
                 {
-                    Battle.Location = "coordinates " + sample.Position.ToString();
+                    battle.Location = "coordinates " + sample.Position.ToString();
                 }
 
                 PositionStacks(zoneStacks);
@@ -143,13 +144,13 @@ namespace Nova.WinForms.Console
 
                 foreach (Fleet stack in zoneStacks)
                 {
-                    Battle.Stacks[stack.Name] = new Fleet(stack);
+                    battle.Stacks[stack.Name] = new Fleet(stack);
                 }
 
                 DoBattle(zoneStacks);
                 ReportLosses();
 
-                StateData.AllBattles.Add(Battle);
+                stateData.AllBattles.Add(battle);
             }
         }
 
@@ -167,14 +168,14 @@ namespace Nova.WinForms.Console
             ArrayList allFleetPositions = new ArrayList();
             Hashtable fleetDone = new Hashtable();
             
-            foreach (Fleet fleetA in StateData.AllFleets.Values)
+            foreach (Fleet fleetA in stateData.AllFleets.Values)
             {
 
                 if (fleetDone.Contains(fleetA.Name) == false)
                 {
                     ArrayList coLocatedFleets = new ArrayList();
 
-                    foreach (Fleet fleetB in StateData.AllFleets.Values)
+                    foreach (Fleet fleetB in stateData.AllFleets.Values)
                     {
                         if (fleetB.Position == fleetA.Position)
                         {
@@ -247,10 +248,10 @@ namespace Nova.WinForms.Console
 
                 if (stack == null)
                 {
-                    string name = "Stack #" + StackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    string name = "Stack #" + stackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     stack = new Fleet(name, fleet.Owner, fleet.Position);
-                    stack.FleetID = StackId;
-                    StackId++;
+                    stack.FleetID = stackId;
+                    stackId++;
 
                     stack.BattlePlan = fleet.BattlePlan;
                     stack.BattleSpeed = ship.BattleSpeed;
@@ -331,7 +332,7 @@ namespace Nova.WinForms.Console
             int spaceSize = spaceAllocator.GridAxisCount * Global.MaxWeaponRange;
 
             spaceAllocator.AllocateSpace(spaceSize);
-            Battle.SpaceSize = spaceSize;
+            battle.SpaceSize = spaceSize;
 
             // Now allocate a position for each race in the centre of one of the
             // allocated spacial chunks.
@@ -345,7 +346,7 @@ namespace Nova.WinForms.Console
                 position.Y = newPosition.Y + (newPosition.Height / 2);
 
                 racePositions[raceName] = position;
-                Battle.Losses[raceName] = 0;
+                battle.Losses[raceName] = 0;
             }
 
             // Place all stacks belonging to the same race at the same position.
@@ -377,18 +378,18 @@ namespace Nova.WinForms.Console
 
 
                 foreach (Fleet stack in zoneStacks)
-                    ResidualMovement.Add(stack, 0);
+                    residualMovement.Add(stack, 0);
 
                 MoveStacks(zoneStacks);
                 FireWeapons(zoneStacks);
 
                 time++;
-                if (time > MaxBattleTime)
+                if (time > maxBattleTime)
                 {
                     break;
                 }
 
-                ResidualMovement.Clear();
+                residualMovement.Clear();
             }
         }
 
@@ -475,7 +476,7 @@ namespace Nova.WinForms.Console
                 return false;
             }
 
-            RaceData wolfData = StateData.AllRaceData[wolf.Owner] as RaceData;
+            RaceData wolfData = stateData.AllRaceData[wolf.Owner] as RaceData;
             string lambRelation = wolfData.PlayerRelations[lamb.Owner] as string;
 
             BattlePlan battlePlan = wolfData.BattlePlans[wolf.BattlePlan]
@@ -522,13 +523,13 @@ namespace Nova.WinForms.Console
                         NovaPoint to = stack.Target.Position;
 
                         // stack accumulates its full movement over the course of the 3 phases
-                        ResidualMovement[stack] += stack.BattleSpeed / (double)phases;
+                        residualMovement[stack] += stack.BattleSpeed / (double)phases;
 
                         // stack can move only after accumulating at least 1 move point, and after doing so expends that 1 move point
-                        if (ResidualMovement[stack] >= 1.0)
+                        if (residualMovement[stack] >= 1.0)
                         {
                             stack.Position = PointUtilities.BattleMoveTo(from, to);
-                            ResidualMovement[stack] -= 1.0;
+                            residualMovement[stack] -= 1.0;
                         }
 
                         // Update the battle report with these movements.
@@ -536,7 +537,7 @@ namespace Nova.WinForms.Console
                         BattleStepMovement report = new BattleStepMovement();
                         report.StackName = stack.Name;
                         report.Position = stack.Position;
-                        Battle.Steps.Add(report);
+                        battle.Steps.Add(report);
                     }
                     // TODO (priority 5) - shouldn't stacks without targets flee the battle if their strategy says to do so? they're sitting ducks now!
                 }
@@ -667,7 +668,7 @@ namespace Nova.WinForms.Console
         {
             BattleStepTarget report = new BattleStepTarget();
             report.TargetShip = target.Key;
-            Battle.Steps.Add(report);
+            battle.Steps.Add(report);
 
             // Identify the attack parameters that have to take into account
             // factors other than the base values (e.g. jammers, capacitors, etc.)
@@ -703,9 +704,9 @@ namespace Nova.WinForms.Console
             destroy.ShipName = target.Name;
             destroy.StackName = details.TargetStack.Name;
 
-            Battle.Steps.Add(destroy);
+            battle.Steps.Add(destroy);
 
-            foreach (Fleet fleet in StateData.AllFleets.Values)
+            foreach (Fleet fleet in stateData.AllFleets.Values)
             {
                 if (fleet.FleetShips.Contains(target))
                 {
@@ -715,7 +716,7 @@ namespace Nova.WinForms.Console
             }
 
             string targetRace = details.TargetStack.Owner;
-            Battle.Losses[targetRace] = (int)Battle.Losses[targetRace] + 1;
+            battle.Losses[targetRace] = (int)battle.Losses[targetRace] + 1;
         }
 
 
@@ -761,7 +762,7 @@ namespace Nova.WinForms.Console
             // it's accuracy. 
             // FIXME (priority 4) - This algorithm for determining hit or miss is crude. We need a better one.
 
-            int probability = Random.Next(0, 100);
+            int probability = random.Next(0, 100);
 
             if (accuracy >= probability)
             {      // A hit
@@ -803,7 +804,7 @@ namespace Nova.WinForms.Console
             fire.HitPower = hitPower;
             fire.Targeting = "Shields";
             fire.WeaponTarget.TargetShip = target.Key;
-            Battle.Steps.Add(fire);
+            battle.Steps.Add(fire);
 
             return hitPower;
         }
@@ -824,7 +825,7 @@ namespace Nova.WinForms.Console
             armor.HitPower = hitPower;
             armor.Targeting = "Armor";
             armor.WeaponTarget.TargetShip = target.Key;
-            Battle.Steps.Add(armor);
+            battle.Steps.Add(armor);
         }
 
 
@@ -905,25 +906,25 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private void ReportLosses()
         {
-            foreach (string race in Battle.Losses.Keys)
+            foreach (string race in battle.Losses.Keys)
             {
                 Message message = new Message(
                     race,
-                    "There was a battle at " + Battle.Location + "\r\n",
+                    "There was a battle at " + battle.Location + "\r\n",
                     "BattleReport",
-                    Battle);
+                    battle);
 
-                if ((int)Battle.Losses[race] == 0)
+                if ((int)battle.Losses[race] == 0)
                 {
                     message.Text += "None of your ships were destroyed";
                 }
                 else
                 {
-                    message.Text += ((int)Battle.Losses[race]).ToString(System.Globalization.CultureInfo.InvariantCulture) +
+                    message.Text += ((int)battle.Losses[race]).ToString(System.Globalization.CultureInfo.InvariantCulture) +
                        " of your ships were destroyed";
                 }
 
-                StateData.AllMessages.Add(message);
+                stateData.AllMessages.Add(message);
             }
         }
 

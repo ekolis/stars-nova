@@ -37,15 +37,15 @@ namespace Nova.WinForms.Console
     /// </summary>
     public class WaypointTasks
     {
-        private ServerState StateData;
-        private Invade Invade;
-        private LayMines LayMines;
+        private ServerState stateData;
+        private Invade invade;
+        private LayMines layMines;
         
         public WaypointTasks(ServerState serverState, Invade invade, LayMines layMines)
         {
-            this.StateData = serverState;
-            this.Invade = invade;
-            this.LayMines = layMines;
+            this.stateData = serverState;
+            this.invade = invade;
+            this.layMines = layMines;
         }
 
         /// ----------------------------------------------------------------------------
@@ -63,7 +63,7 @@ namespace Nova.WinForms.Console
             }
             else if (waypoint.Task == "Invade")
             {
-                Invade.Planet(fleet);
+                invade.Planet(fleet);
             }
             else if (waypoint.Task == "Scrap")
             {
@@ -75,7 +75,7 @@ namespace Nova.WinForms.Console
             }
             else if (waypoint.Task == "Lay Mines")
             {
-                LayMines.DoMines(fleet);
+                layMines.DoMines(fleet);
             }
         }
 
@@ -94,13 +94,13 @@ namespace Nova.WinForms.Console
             message.Text = fleet.Name
                          + " attempted to colonise " + waypoint.Destination;
 
-            if (!StateData.AllStars.Contains(waypoint.Destination))
+            if (!stateData.AllStars.Contains(waypoint.Destination))
             {
                 message.Text += " but " + waypoint.Destination + " is not a star.";
             }
             else
             {
-                Star target = StateData.AllStars[waypoint.Destination]
+                Star target = stateData.AllStars[waypoint.Destination]
                               as Star;
 
                 if (target.Colonists != 0)
@@ -119,7 +119,7 @@ namespace Nova.WinForms.Console
                 {
                     message.Text = "You have colonised " + waypoint.Destination;
                     waypoint.Task = "None";
-                    Star star = StateData.AllStars[waypoint.Destination]
+                    Star star = stateData.AllStars[waypoint.Destination]
                                     as Star;
 
                     star.ResourcesOnHand.Ironium = fleet.Cargo.Ironium;
@@ -132,7 +132,7 @@ namespace Nova.WinForms.Console
                 }
             }
 
-            StateData.AllMessages.Add(message);
+            stateData.AllMessages.Add(message);
         }
 
 
@@ -152,11 +152,11 @@ namespace Nova.WinForms.Console
             {
                 message.Text = fleet.Name
                    + " attempted to unload cargo while not in orbit.";
-                StateData.AllMessages.Add(message);
+                stateData.AllMessages.Add(message);
                 return;
             }
 
-            Star targetStar = StateData.AllStars[waypoint.Destination]
+            Star targetStar = stateData.AllStars[waypoint.Destination]
                         as Star;
 
 
@@ -164,7 +164,7 @@ namespace Nova.WinForms.Console
             message.Text = "Fleet " + fleet.Name + " has unloaded its cargo at "
                           + targetStar.Name;
 
-            StateData.AllMessages.Add(message);
+            stateData.AllMessages.Add(message);
 
             waypoint.Task = "None";
 
@@ -179,7 +179,7 @@ namespace Nova.WinForms.Console
             // check if this is normal transportation or an invasion
             if (fleet.Owner != targetStar.Owner && fleet.Cargo.ColonistsInKilotons != 0)
             {
-                Invade.Planet(fleet);
+                invade.Planet(fleet);
 
             }
             else
@@ -233,7 +233,7 @@ namespace Nova.WinForms.Console
         public void Scrap(Fleet fleet, Star star, bool colonise)
         {
             double amount = 0;
-            Race race = StateData.AllRaces[fleet.Owner] as Race;
+            Race race = stateData.AllRaces[fleet.Owner] as Race;
             double resources = 0;
 
             if (star != null)
@@ -289,7 +289,7 @@ namespace Nova.WinForms.Console
             Message message = new Message();
             message.Audience = fleet.Owner;
             message.Text = fleet.Name + " has been scrapped";
-            StateData.AllMessages.Add(message);
+            stateData.AllMessages.Add(message);
         }
     }
 }

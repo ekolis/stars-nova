@@ -40,11 +40,11 @@ namespace Nova.WinForms.Console
     /// </summary>
     public class Bombing
     {
-        private ServerState StateData;
+        private ServerState stateData;
         
         public Bombing(ServerState serverState)
         {
-            this.StateData = serverState;
+            this.stateData = serverState;
         }
 
         /// ----------------------------------------------------------------------------
@@ -67,7 +67,7 @@ namespace Nova.WinForms.Console
 
             // See if this is an enemy planet. If not, leave it alone.
 
-            if (!((StateData.AllRaceData[fleet.Owner] as RaceData).IsEnememy(star.Owner)))
+            if (!(stateData.AllRaceData[fleet.Owner] as RaceData).IsEnememy(star.Owner))
             {
                 return;
             }
@@ -156,12 +156,12 @@ namespace Nova.WinForms.Console
             Message lamb = new Message();
             lamb.Text = messageText;
             lamb.Audience = star.Owner;
-            StateData.AllMessages.Add(lamb);
+            stateData.AllMessages.Add(lamb);
 
             Message wolf = new Message();
             wolf.Text = messageText;
             wolf.Audience = fleet.Owner;
-            StateData.AllMessages.Add(wolf);
+            stateData.AllMessages.Add(wolf);
 
         }
 

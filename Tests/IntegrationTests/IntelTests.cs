@@ -30,11 +30,11 @@ namespace Nova.Tests.IntegrationTests
     [TestFixture]
     public class IntelTests
     {
-        /// <summary>
+        /// <Summary>
         /// This is a test of the Intel's serialisation, with empty Intel.
         /// 
         /// TODO Exception handling and logic (if-statements) in tests is not recommended.
-        /// </summary>
+        /// </Summary>
         [Test]
         public void SerialisationTestEmptyIntel()
         {
@@ -99,11 +99,11 @@ namespace Nova.Tests.IntegrationTests
             }
         }
 
-        /// <summary>
+        /// <Summary>
         /// This is a test of the Intel's serialisation with initialized data.
         /// 
         /// TODO Exception handling and logic (if-statements) in tests is not recommended.
-        /// </summary>
+        /// </Summary>
         [Test]
         public void SerialisationTestIntel()
         {

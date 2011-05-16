@@ -23,7 +23,7 @@
 // ===========================================================================
 // Test of game generation code.
 // This test was created to capture issue #3029446 caused by attempting to 
-// find a home star in a rectangular map.
+// find a home Star in a rectangular map.
 // ===========================================================================
 #endregion
 
@@ -35,18 +35,18 @@ using NUnit.Framework;
 namespace Nova.Tests.IntegrationTests
 {
 
-    /// <summary>
+    /// <Summary>
     /// Test for game generation
-    /// </summary>
+    /// </Summary>
     [TestFixture]
     public class NewGameTest
     {
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Test rectangular map generation.
         /// 
         /// TODO Exception handling logic (if-statements) in tests is not recommended.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         [Test]
         public void Map800x400Test()

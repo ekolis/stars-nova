@@ -36,16 +36,16 @@ using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
+    /// <Summary>
     /// Dialog to rename a fleet.
-    /// </summary>
+    /// </Summary>
     public partial class RenameFleet : Form
     {
         public event FleetSelectionChanged FleetSelectionChangedEvent;
         
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the RenameFleet class.
-        /// </summary>
+        /// </Summary>
         public RenameFleet()
         {
             InitializeComponent();
@@ -53,9 +53,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Cancel button pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -66,9 +66,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Rename button pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -98,8 +98,8 @@ namespace Nova.WinForms.Gui
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(fleet, fleet);
             FleetSelectionChangedEvent(this, selectionArgs);
             
-            //this.SelectionSummary.Value = fleet as Item;
-            //this.SelectionDetail.Value = fleet as Item;
+            // this.SelectionSummary.Value = fleet as Item;
+            // this.SelectionDetail.Value = fleet as Item;
 
             Close();
         }

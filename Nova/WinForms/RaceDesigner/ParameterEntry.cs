@@ -32,10 +32,10 @@ using System;
 namespace Nova.WinForms.RaceDesigner
 {
 
-    /// <summary>
+    /// <Summary>
     /// Class to support the format of each array entry (note that element 0
     /// of the Cost array is used to hold previous counter values).
-    /// </summary>
+    /// </Summary>
     public class ParameterEntry
     {
         public string ParameterName;

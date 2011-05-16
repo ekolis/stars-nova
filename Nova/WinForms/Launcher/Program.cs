@@ -21,7 +21,7 @@
 
 #region Module Description
 // ===========================================================================
-// This provides the entry point for the Stars! Nova Launcher.
+// This provides the entry Point for the Stars! Nova Launcher.
 // ===========================================================================
 #endregion
 
@@ -35,9 +35,9 @@ namespace Nova.WinForms.Launcher
     public static class Program
     {
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// The main entry point for the application.
-        /// </summary>
+        /// <Summary>
+        /// The main entry Point for the application.
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         [STAThread]
         public static void Main()

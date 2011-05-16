@@ -32,18 +32,18 @@ using System.Windows.Forms;
 
 namespace Nova.WinForms.RaceDesigner
 {
-    /// <summary>
+    /// <Summary>
     /// Race Designer utilities.
-    /// </summary>
+    /// </Summary>
     public class Utilities
     {
 
         #region Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Calculate the cost of a range bar width.
-        /// </summary>
+        /// </Summary>
         /// <remarks>
         /// The impact on the advantage
         /// points is:
@@ -76,9 +76,9 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Calculate the cost of a range bar position.
-        /// </summary>
+        /// </Summary>
         /// <remarks>
         /// The impact on the advantage
         /// points is:
@@ -113,10 +113,10 @@ namespace Nova.WinForms.RaceDesigner
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// This function just warns the user of the consequences of using the Cancel
         /// button.
-        /// </summary>
+        /// </Summary>
         /// <param name="parent"><see cref="IWin32Window"/></param>
         /// <returns>A <see cref="DialogResult"/>.</returns>
         /// ----------------------------------------------------------------------------

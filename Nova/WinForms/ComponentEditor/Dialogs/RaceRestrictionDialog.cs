@@ -47,9 +47,9 @@ namespace Nova.WinForms.ComponentEditor
         private readonly RadioButton[,] radioMap = new RadioButton[23, 3]; // an array representation (map) of the radio button controls for ease of programatic manipulation
 
 
-        /// <summary>
+        /// <Summary>
         /// Initialising constructor for the dialog
-        /// </summary>
+        /// </Summary>
         /// <param name="existingName">The component's name.</param>
         /// <param name="existingImage">The component's Image</param> 
         /// <param name="existingRestrictions">The component's current <see cref="RaceRestriction"'s/></param>
@@ -185,9 +185,9 @@ namespace Nova.WinForms.ComponentEditor
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Save button - copies the form data to a RaceRestriction.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void Save_Click(object sender, EventArgs e)
@@ -208,9 +208,9 @@ namespace Nova.WinForms.ComponentEditor
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Cancel button - just close the form and discard any changes.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void Cancel_Click(object sender, EventArgs e)

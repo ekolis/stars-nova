@@ -37,11 +37,11 @@ namespace Nova.WinForms.Console
     /// </summary>
     public class LayMines
     {
-        private ServerState StateData;
+        private ServerState stateData;
         
         public LayMines(ServerState serverState)
         {
-            this.StateData = serverState;
+            this.stateData = serverState;
         }
 
         /// ----------------------------------------------------------------------------
@@ -62,7 +62,7 @@ namespace Nova.WinForms.Console
             // certaintolerance in distance because it is unlikely that the
             // waypoint has been set exactly right.
 
-            foreach (Minefield minefield in StateData.AllMinefields.Values)
+            foreach (Minefield minefield in stateData.AllMinefields.Values)
             {
                 if (PointUtilities.IsNear(fleet.Position, minefield.Position))
                 {
@@ -82,7 +82,7 @@ namespace Nova.WinForms.Console
             newField.Owner = fleet.Owner;
             newField.NumberOfMines = fleet.NumberOfMines;
 
-            StateData.AllMinefields[newField] = newField;
+            stateData.AllMinefields[newField] = newField;
         }
 
 

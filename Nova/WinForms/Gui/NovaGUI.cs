@@ -28,7 +28,7 @@
 // turn is submitted, generates a .orders file for processing of the next game
 // year. A history is maintained by the ConsoleState object as a .state file.
 //
-// This module holds the program entry point and handles all things related to
+// This module holds the program entry Point and handles all things related to
 // the main GUI window.
 // ===========================================================================
 #endregion
@@ -42,9 +42,9 @@ using Nova.Common;
 namespace Nova.WinForms.Gui
 {
 
-    /// <summary>
+    /// <Summary>
     /// Main Windows form class.
-    /// </summary>
+    /// </Summary>
     public class NovaGUI : System.Windows.Forms.Form
     {
 
@@ -85,9 +85,9 @@ namespace Nova.WinForms.Gui
         #region Construction and Disposal
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Construct the main window.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public NovaGUI()
         {
@@ -95,9 +95,9 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// <summary>
+        /// <Summary>
         /// Clean up any resources being used.
-        /// </summary>
+        /// </Summary>
         /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
         protected override void Dispose(bool disposing)
         {
@@ -114,10 +114,10 @@ namespace Nova.WinForms.Gui
         #endregion
 
         #region Windows Form Designer generated code
-        /// <summary>
+        /// <Summary>
         /// Required method for Designer support - do not modify
         /// the contents of this method with the code editor.
-        /// </summary>
+        /// </Summary>
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
@@ -173,7 +173,7 @@ namespace Nova.WinForms.Gui
             this.MapControl.RequestSelectionEvent += new RequestSelection(this.SelectionDetail.ReportItem);
             this.MapControl.SelectionChangedEvent += new SelectionChanged(this.SelectionDetail.SelectionChanged);
             this.MapControl.SelectionChangedEvent += new SelectionChanged(this.SelectionSummary.SelectionChanged);
-            this.MapControl.WaypointChangedEvent += new WaypointChanged(this.SelectionDetail.fleetDetail.WaypointListChanged);
+            this.MapControl.WaypointChangedEvent += new WaypointChanged(this.SelectionDetail.FleetDetail.WaypointListChanged);
             // 
             // MainMenu
             // 
@@ -337,11 +337,11 @@ namespace Nova.WinForms.Gui
             this.SelectionDetail.Size = new System.Drawing.Size(360, 400);
             this.SelectionDetail.TabIndex = 21;
             this.SelectionDetail.Value = null;
-            this.SelectionDetail.fleetDetail.FleetSelectionChangedEvent += new FleetSelectionChanged(this.FleetChangeSelection);
-            this.SelectionDetail.fleetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
-            this.SelectionDetail.fleetDetail.RefreshStarMapEvent += new RefreshStarMap(this.MapControl.RefreshStarMap);
-            this.SelectionDetail.planetDetail.StarSelectionChangedEvent += new StarSelectionChanged(this.StarChangeSelection);
-            this.SelectionDetail.planetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
+            this.SelectionDetail.FleetDetail.FleetSelectionChangedEvent += new FleetSelectionChanged(this.FleetChangeSelection);
+            this.SelectionDetail.FleetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
+            this.SelectionDetail.FleetDetail.RefreshStarMapEvent += new RefreshStarMap(this.MapControl.RefreshStarMap);
+            this.SelectionDetail.PlanetDetail.StarSelectionChangedEvent += new StarSelectionChanged(this.StarChangeSelection);
+            this.SelectionDetail.PlanetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
             // 
             // SelectionSummary
             // 
@@ -391,9 +391,9 @@ namespace Nova.WinForms.Gui
         #region Event Methods
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Exit menu item selected.
-        /// </summary>
+        /// <Summary>
+        /// Exit menu Item selected.
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -405,9 +405,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Pop up the ship design dialog.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -420,9 +420,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Deal with keys being pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -448,9 +448,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Display the "About" dialog
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -463,9 +463,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Display the research dialog
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -479,10 +479,10 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Main Window is closing (i.e. the "X" button has been pressed on the frame of
         /// the form. Save the local state data.
-        /// </summary><remarks>
+        /// </Summary><remarks>
         /// NB: Don't generate the orders file unless Save&Submit is selected.
         /// TODO (priority 7) - ask the user if they want to submit the current turn before closing.
         /// </remarks>
@@ -497,9 +497,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Pop up the player relations dialog.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -511,9 +511,9 @@ namespace Nova.WinForms.Gui
         }
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Pop up the battle plans dialog.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -526,9 +526,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Pop up the Design Manager Dialog
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -542,9 +542,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Pop up the Planet Report Dialog
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -557,9 +557,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Pop up the Fleet Report Dialog
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -572,9 +572,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Pop up the Battle Report Dialog
-        /// </summary>
+        /// <Summary>
+        /// Pop up the battle Report Dialog
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -587,9 +587,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Pop up the score report dialog.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -602,9 +602,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Menu->Commands->Save & Submit
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
@@ -617,11 +617,11 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Load Next Turn
-        /// </summary>
+        /// </Summary>
         /// <remarks>
-        /// This menu item has been disabled as it does not currently detect if there is
+        /// This menu Item has been disabled as it does not currently detect if there is
         /// a valid next turn.
         /// TODO (priority 6) - detect when a new turn is available.
         /// </remarks>
@@ -639,37 +639,37 @@ namespace Nova.WinForms.Gui
             this.NextTurn();
         }
         
-        /// <summary>
+        /// <Summary>
         /// Reacts to Fleet selection information. 
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">
         /// A <see cref="System.Object"/>The source of the event.</param>
         /// <param name="e">A <see cref="FleetSelectionArgs"/> that contains the event data.</param>
         public void FleetChangeSelection(object sender, FleetSelectionArgs e)
         {
             
-            this.SelectionDetail.Value = e.detail;
-            this.SelectionSummary.Value = e.summary;
+            this.SelectionDetail.Value = e.Detail;
+            this.SelectionSummary.Value = e.Summary;
         }
         
-        /// <summary>
+        /// <Summary>
         /// Reacts to Star selection information. 
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">
         /// A <see cref="System.Object"/>The source of the event.</param>
         /// <param name="e">A <see cref="FleetSelectionArgs"/> that contains the event data.</param>
         public void StarChangeSelection(object sender, StarSelectionArgs e)
         {
-            this.SelectionDetail.Value = e.star;
-            this.SelectionSummary.Value = e.star;
+            this.SelectionDetail.Value = e.Star;
+            this.SelectionSummary.Value = e.Star;
         }
 
         #endregion
         
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Load controls with any data we may have for them.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public void InitialiseControls()
         {
@@ -681,7 +681,7 @@ namespace Nova.WinForms.Gui
 
             this.MapControl.Initialise();
 
-            // Select a star owned by the player (if any) as the default display.
+            // Select a Star owned by the player (if any) as the default display.
 
             foreach (Star star in ClientState.Data.InputTurn.AllStars.Values)
             {
@@ -697,9 +697,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Refresh the display for a new turn.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public void NextTurn()
         {
@@ -711,7 +711,7 @@ namespace Nova.WinForms.Gui
             this.MapControl.Initialise();
             this.MapControl.Invalidate();
 
-            // Select a star owned by the player (if any) as the default display.
+            // Select a Star owned by the player (if any) as the default display.
 
             foreach (Star star in ClientState.Data.InputTurn.AllStars.Values)
             {
@@ -724,18 +724,18 @@ namespace Nova.WinForms.Gui
                 }
             }
         }
-        /// <summary>
-        /// Makes the Planet detail reflect new research budgets. 
-        /// </summary>
+        /// <Summary>
+        /// Makes the Planet Detail reflect new research budgets. 
+        /// </Summary>
         /// <returns>
-        /// A <see cref="System.Boolean"/> indicating if the planet detail
+        /// A <see cref="System.Boolean"/> indicating if the planet Detail
         /// was updated or not.
         /// </returns>
         private bool UpdateResearchBudgets()
         {
-            if(this.SelectionDetail.Control == this.SelectionDetail.planetDetail)
+            if (this.SelectionDetail.Control == this.SelectionDetail.PlanetDetail)
             {
-                //Ugly hack so panel updates right away.
+                // Ugly hack so panel updates right away.
                 this.SelectionDetail.Value = this.SelectionDetail.Value;
                 return true;
             }

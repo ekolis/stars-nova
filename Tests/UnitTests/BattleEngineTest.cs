@@ -60,8 +60,8 @@ namespace Nova.Tests.UnitTests
     [TestFixture]
     public class BattleEngineTest
     {
-        private ServerState StateData = new ServerState();
-        private BattleEngine BattleEngine;
+        private ServerState stateData = new ServerState();
+        private BattleEngine battleEngine;
         
         private Fleet fleet1 = new Fleet("fleet1", "Tom", new Point(100, 200));
         private Fleet fleet2 = new Fleet("fleet2", "Dick", new Point(100, 200));
@@ -85,16 +85,16 @@ namespace Nova.Tests.UnitTests
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the BattleEngineTest class.
         /// Create 4 test fleets and add them
         /// into the "all fleets" list. Make one design more powerful than the other
         /// so that the weaker one gets destroyed in the battle.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         public BattleEngineTest()
         {
-            BattleEngine = new BattleEngine(StateData, new BattleReport());
+            battleEngine = new BattleEngine(stateData, new BattleReport());
             Resources cost = new Resources(10, 20, 30, 40);
 
             Component shipHull = new Component();
@@ -134,61 +134,61 @@ namespace Nova.Tests.UnitTests
             fleet3.FleetShips.Add(ship3);
             fleet4.FleetShips.Add(ship4);
 
-            StateData.AllFleets["fleet1"] = fleet1;
-            StateData.AllFleets["fleet2"] = fleet2;
-            StateData.AllFleets["fleet3"] = fleet3;
-            StateData.AllFleets["fleet4"] = fleet4;
+            stateData.AllFleets["fleet1"] = fleet1;
+            stateData.AllFleets["fleet2"] = fleet2;
+            stateData.AllFleets["fleet3"] = fleet3;
+            stateData.AllFleets["fleet4"] = fleet4;
         }
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Test for DetermineCoLocatedFleets. The test data has one set of two fleets
         // at the one location and the other set of two fleets at another location so
         // the result should be 2.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         [Test]
         public void Test1DetermineCoLocatedFleets()
         {
-            fleetPositions = BattleEngine.DetermineCoLocatedFleets();
+            fleetPositions = battleEngine.DetermineCoLocatedFleets();
             Assert.AreEqual(2, fleetPositions.Count);
         }
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Test for EliminateSingleRaces
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         [Test]
         public void Test2EliminateSingleRaces()
         {
-            battlePositions = BattleEngine.EliminateSingleRaces(fleetPositions);
+            battlePositions = battleEngine.EliminateSingleRaces(fleetPositions);
             Assert.AreEqual(1, battlePositions.Count);
         }
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Test for GenerateStacks
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         [Test]
         public void Test3GenerateStacks()
         {
             ArrayList combatZone = battlePositions[0] as ArrayList;
-            zoneStacks = BattleEngine.GenerateStacks(combatZone);
+            zoneStacks = battleEngine.GenerateStacks(combatZone);
             Assert.AreEqual(2, zoneStacks.Count);
         }
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Test for SelectTargets. In addition to submitting the stacks to the routine
         /// we must also set up enough of an environment so that the races (tom and
         /// dick) are enemies with an attack plan.
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         [Test]
         public void Test4SelectTargets()
@@ -197,12 +197,12 @@ namespace Nova.Tests.UnitTests
 
             raceData.PlayerRelations["Dick"] = "Enemy";
             raceData.BattlePlans["Default"] = new BattlePlan();
-            StateData.AllRaceData["Tom"] = raceData;
+            stateData.AllRaceData["Tom"] = raceData;
 
             raceData.PlayerRelations["Tom"] = "Enemy";
-            StateData.AllRaceData["Dick"] = raceData;
+            stateData.AllRaceData["Dick"] = raceData;
 
-            int numberOfTargets = BattleEngine.SelectTargets(zoneStacks);
+            int numberOfTargets = battleEngine.SelectTargets(zoneStacks);
 
             Fleet stackA = zoneStacks[0] as Fleet;
             Fleet stackB = zoneStacks[1] as Fleet;
@@ -214,14 +214,14 @@ namespace Nova.Tests.UnitTests
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Test for PositionStacks. 
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         [Test]
         public void Test5PositionStacks()
         {
-            BattleEngine.PositionStacks(zoneStacks);
+            battleEngine.PositionStacks(zoneStacks);
 
             int separation = Global.MaxWeaponRange - 1;
             double distance = 0;
@@ -235,9 +235,9 @@ namespace Nova.Tests.UnitTests
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Test for DoBattle
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         [Test]
         public void Test6DoBattle()
@@ -249,7 +249,7 @@ namespace Nova.Tests.UnitTests
 
             distanceS = PointUtilities.Distance(stackA.Position, stackB.Position);
 
-            BattleEngine.DoBattle(zoneStacks);
+            battleEngine.DoBattle(zoneStacks);
 
             distanceE = PointUtilities.Distance(stackA.Position, stackB.Position);
 

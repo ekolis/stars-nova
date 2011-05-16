@@ -35,15 +35,15 @@ using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
-    /// <summary>
+    /// <Summary>
     /// Dialog to manage battle plans.
-    /// </summary>
+    /// </Summary>
     public partial class BattlePlans : Form
     {
 
-        /// <summary>
+        /// <Summary>
         /// Initializes a new instance of the BattlePlans class.
-        /// </summary>
+        /// </Summary>
         public BattlePlans()
         {
             InitializeComponent();
@@ -59,9 +59,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Update the details of the selected plan
-        /// </summary>
+        /// </Summary>
         /// ----------------------------------------------------------------------------
         private void UpdatePlanDetails()
         {
@@ -78,9 +78,9 @@ namespace Nova.WinForms.Gui
 
 
         /// ----------------------------------------------------------------------------
-        /// <summary>
+        /// <Summary>
         /// Done button pressed.
-        /// </summary>
+        /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
