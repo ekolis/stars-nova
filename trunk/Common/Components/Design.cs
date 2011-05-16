@@ -53,7 +53,9 @@ namespace Nova.Common.Components
         /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public Design() : base() { }
+        public Design() : base()
+        { 
+        }
 
         #endregion
 

@@ -64,7 +64,9 @@ namespace Nova.Common
         /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public EnabledValue() { }
+        public EnabledValue() 
+        { 
+        }
 
         #endregion
 

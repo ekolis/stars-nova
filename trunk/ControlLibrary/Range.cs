@@ -501,7 +501,9 @@ namespace Nova.ControlLibrary
         public void ActivateRangeChange()
         {
             if (RangeChanged != null)
+            {
                 RangeChanged(this, this.boxLeftPosition, this.boxRightPosition, this.boxOldLeftPosition, this.boxOldRightPosition);
+            }
             this.bar.Invalidate();
         }
 

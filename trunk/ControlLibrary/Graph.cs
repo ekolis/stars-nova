@@ -213,7 +213,9 @@ namespace Nova.ControlLibrary
                 Graphics g = Graphics.FromImage(Image);
                 CalcBounds(Image.Width, Image.Height);
                 if (string.IsNullOrEmpty(Title) == false)
+                {
                     DrawTitle(ref g);
+                }
 
                 DrawAxis(ref g);
                 DrawData(ref g);

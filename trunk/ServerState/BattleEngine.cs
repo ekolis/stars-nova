@@ -378,7 +378,9 @@ namespace Nova.WinForms.Console
 
 
                 foreach (Fleet stack in zoneStacks)
+                {
                     residualMovement.Add(stack, 0);
+                }
 
                 MoveStacks(zoneStacks);
                 FireWeapons(zoneStacks);
@@ -796,7 +798,10 @@ namespace Nova.WinForms.Console
             double initialShields = target.Shields;
             target.Shields -= hitPower;
 
-            if (target.Shields < 0) target.Shields = 0;
+            if (target.Shields < 0)
+            {
+                target.Shields = 0;
+            }
 
             hitPower -= initialShields - target.Shields; // FIXME (priority 6) - This seems wrong, has it been tested? Why reduce the hitPower twice? - Dan 25/4/10
 

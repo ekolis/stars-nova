@@ -153,7 +153,9 @@ namespace Nova.WinForms.Console
             foreach (Fleet fleet in stateData.AllFleets.Values)
             {
                 if (fleet.FleetShips.Count == 0)
+                {
                     destroyedFleets.Add(fleet.Key);
+                }
             }
             foreach (string key in destroyedFleets)
             {
@@ -165,7 +167,9 @@ namespace Nova.WinForms.Console
             foreach (Star star in stateData.AllStars.Values)
             {
                 if (star.Starbase != null && star.Starbase.FleetShips.Count == 0)
+                {
                     destroyedStations.Add(star.Name);
+                }
             }
             foreach (string key in destroyedStations)
             {
@@ -225,7 +229,10 @@ namespace Nova.WinForms.Console
         private void ProcessStar(Star star)
         {            
             string owner = star.Owner;
-            if (owner == null) return; // nothing to do for an empty star system.
+            if (owner == null)
+            {
+                return; // nothing to do for an empty star system.
+            }
             Race race = stateData.AllRaces[star.Owner] as Race;
             
             star.UpdateMinerals();
@@ -275,7 +282,10 @@ namespace Nova.WinForms.Console
         private bool ProcessFleet(Fleet fleet)
         {
             bool destroyed = UpdateFleet(fleet);
-            if (destroyed == true) return true;
+            if (destroyed == true)
+            {
+                return true;
+            }
 
             // See if the fleet is orbiting a star
             foreach (Star star in stateData.AllStars.Values)
@@ -332,7 +342,10 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private void RegenerateFleet(Fleet fleet)
         {
-            if (fleet == null) return;
+            if (fleet == null)
+            {
+                return;
+            }
 
             Star star = fleet.InOrbit;
             // refuel
@@ -499,7 +512,10 @@ namespace Nova.WinForms.Console
         {   
             // Paranoia
             string owner = star.Owner;
-            if (owner == null || owner != race.Name) return;
+            if (owner == null || owner != race.Name)
+            {
+                return;
+            }
 
             RaceData playerData = stateData.AllRaceData[race.Name] as RaceData;
 
@@ -534,7 +550,7 @@ namespace Nova.WinForms.Console
                 }
                 else
                 {
-                  break;
+                    break;
                 }
             }
         }
@@ -543,7 +559,10 @@ namespace Nova.WinForms.Console
         {
             // Paranoia
             string owner = star.Owner;
-            if (owner == null || owner != race.Name) return;
+            if (owner == null || owner != race.Name)
+            {
+                return;
+            }
             
             RaceData playerData = stateData.AllRaceData[race.Name] as RaceData;
             

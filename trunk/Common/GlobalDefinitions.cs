@@ -135,7 +135,10 @@ namespace Nova.Common
        /// <returns>An XmlElement that is the root node of xmldoc.</returns>
        public static XmlElement InitializeXmlDocument(XmlDocument xmldoc)
        {
-           if (xmldoc == null) xmldoc = new XmlDocument();
+           if (xmldoc == null)
+           {
+               xmldoc = new XmlDocument();
+           }
 
            // Write down the XML declaration
            XmlDeclaration xmlDeclaration = xmldoc.CreateXmlDeclaration("1.0", "utf-8", null);

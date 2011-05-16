@@ -134,24 +134,35 @@ namespace Nova.Common
         {
             get
             {
-                if (!this.initialised) 
+                if (!this.initialised)
+                {
                     Restore();
+                }
 
-                if (String.IsNullOrEmpty(key)) 
+                if (String.IsNullOrEmpty(key))
+                {
                     return null;
+                }
 
                 object setting = this.settings[key];
-                if (setting == null) return null;
+                if (setting == null)
+                {
+                    return null;
+                }
                 return setting as string;
             }
 
             set
             {
                 if (!this.initialised)
+                {
                     Restore();
+                }
 
-                if (String.IsNullOrEmpty(key)) 
+                if (String.IsNullOrEmpty(key))
+                {
                     return;
+                }
                 this.settings[key] = value;
             }
         }
@@ -162,7 +173,10 @@ namespace Nova.Common
         /// <param name="setting">The key of the setting to remove.</param>
         public void Remove(string setting)
         {
-            if (! this.initialised) Restore();
+            if (!this.initialised)
+            {
+                Restore();
+            }
             this.settings.Remove(setting);
         }
 
@@ -203,7 +217,9 @@ namespace Nova.Common
 
             reader.Read();
             if (wasEmpty)
+            {
                 return;
+            }
 
             while (reader.NodeType != System.Xml.XmlNodeType.EndElement)
             {

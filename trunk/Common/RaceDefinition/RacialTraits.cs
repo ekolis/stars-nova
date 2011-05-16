@@ -74,7 +74,9 @@ namespace Nova.Common
         {
             yield return this.primaryTrait;
             foreach (TraitEntry trait in Dictionary.Values)
+            {
                 yield return (TraitEntry)trait;
+            }
         }
 
 
@@ -87,7 +89,10 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public new bool Contains(string trait)
         {
-            if (this.primaryTrait.Code == trait) return true;
+            if (this.primaryTrait.Code == trait)
+            {
+                return true;
+            }
             if (Dictionary == null)
             {
                 Report.Error("RacialTraits: Contains() - Dictionary is null.");

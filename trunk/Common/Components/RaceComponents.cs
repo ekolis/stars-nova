@@ -78,17 +78,27 @@ namespace Nova.Common.Components
         {
             race = newRace;
             tech = newTech.Clone();
-            if (race == null) throw new System.NullReferenceException();
-            if (tech == null) throw new System.NullReferenceException();
+            if (race == null)
+            {
+                throw new System.NullReferenceException();
+            }
+            if (tech == null)
+            {
+                throw new System.NullReferenceException();
+            }
 
             // go through the AllCompoents list
             foreach (Component component in AllComponents.Data.Components.Values)
             {
                 // first check the required tech level
                 if (tech < component.RequiredTech)
+                {
                     continue;
+                }
                 if (Dictionary.Contains(component.Name))
+                {
                     continue;
+                }
 
                 // check if the component is restricted by this race's Primary or Secondary traits.
                 bool restricted = false;
@@ -109,7 +119,9 @@ namespace Nova.Common.Components
                 }
 
                 if (!restricted)
+                {
                     Dictionary.Add(component.Name, component);
+                }
             }
         }
 

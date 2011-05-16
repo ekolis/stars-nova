@@ -42,7 +42,9 @@ namespace Nova.Common.Components
         /// <summary>
         /// Initializes a new instance of the Computer class.
         /// </summary>
-        public Computer() { }
+        public Computer() 
+        { 
+        }
 
 
         /// <summary>

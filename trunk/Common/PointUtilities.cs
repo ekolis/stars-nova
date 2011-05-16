@@ -251,11 +251,23 @@ namespace Nova.Common
         {
             NovaPoint result = new NovaPoint(from);
 
-            if (from.Y > to.Y) result.Y--;
-            else if (from.Y < to.Y) result.Y++;
+            if (from.Y > to.Y) 
+            {
+                result.Y--;
+            }
+            else if (from.Y < to.Y)
+            {
+                result.Y++;
+            }
 
-            if (from.X > to.X) result.X--;
-            else if (from.X < to.X) result.X++;
+            if (from.X > to.X)
+            {
+                result.X--;
+            }
+            else if (from.X < to.X)
+            {
+                result.X++;
+            }
 
             return result;
         }

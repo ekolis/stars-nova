@@ -66,7 +66,10 @@ namespace Nova.Common
         public double TargetDistance = 100;
         public string BattlePlan = "Default";
        
-        public enum TravelStatus { Arrived, InTransit }
+        public enum TravelStatus 
+        { 
+            Arrived, InTransit 
+        }
 
         #region Construction Initialisation
 
@@ -75,7 +78,10 @@ namespace Nova.Common
         /// placeholder constructor - Fleet should be replaced by a reference to the fleet with the same ID
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public Fleet(int id) { FleetID = id; }
+        public Fleet(int id) 
+        { 
+            FleetID = id; 
+        }
 
 
         /// ----------------------------------------------------------------------------
@@ -171,7 +177,10 @@ namespace Nova.Common
         {
             Waypoint target = Waypoints[0] as Waypoint;
 
-            if (Position == target.Position) return TravelStatus.Arrived;
+            if (Position == target.Position)
+            {
+                return TravelStatus.Arrived;
+            }
 
             InOrbit = null;
 
@@ -250,8 +259,14 @@ namespace Nova.Common
 
             // Work out how full of cargo the fleet is.
             double cargoFullness;
-            if (TotalCargoCapacity == 0) cargoFullness = 0;
-            else cargoFullness = ((double)Cargo.Mass) / ((double)TotalCargoCapacity);
+            if (TotalCargoCapacity == 0)
+            {
+                cargoFullness = 0;
+            }
+            else
+            {
+                cargoFullness = ((double)Cargo.Mass) / ((double)TotalCargoCapacity);
+            }
 
 
             foreach (Ship ship in FleetShips)
@@ -320,7 +335,10 @@ namespace Nova.Common
             {
                 foreach (Ship ship in FleetShips)
                 {
-                    if (ship.CanRefuel) return true;
+                    if (ship.CanRefuel)
+                    {
+                        return true;
+                    }
                 }
                 return false;
             }
@@ -335,7 +353,10 @@ namespace Nova.Common
             {
                 foreach (Ship ship in FleetShips)
                 {
-                    if (ship.CanScan) return true;
+                    if (ship.CanScan)
+                    {
+                        return true;
+                    }
                 }
                 return false;
             }
@@ -399,7 +420,9 @@ namespace Nova.Common
             {
                 int speed = 10;
                 foreach (Ship ship in this.FleetShips)
+                {
                     speed = Math.Min(speed, ship.FreeWarpSpeed);
+                }
 
                 return speed;
             }
@@ -479,7 +502,10 @@ namespace Nova.Common
             {
                 foreach (Ship ship in FleetShips)
                 {
-                    if (ship.IsStarbase) return true;
+                    if (ship.IsStarbase)
+                    {
+                        return true;
+                    }
                 }
                 return false;
             }
@@ -787,17 +813,35 @@ namespace Nova.Common
             xmlelFleet.AppendChild(base.ToXml(xmldoc));
 
             Global.SaveData(xmldoc, xmlelFleet, "FleetID", this.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Target != null) Global.SaveData(xmldoc, xmlelFleet, "TargetID", Target.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            else Global.SaveData(xmldoc, xmlelFleet, "TravelStatus", "InTransit");
-            if (InOrbit != null) Global.SaveData(xmldoc, xmlelFleet, "InOrbit", InOrbit.Name);
+            if (Target != null)
+            {
+                Global.SaveData(xmldoc, xmlelFleet, "TargetID", Target.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
+            else
+            {
+                Global.SaveData(xmldoc, xmlelFleet, "TravelStatus", "InTransit");
+            }
+            if (InOrbit != null)
+            {
+                Global.SaveData(xmldoc, xmlelFleet, "InOrbit", InOrbit.Name);
+            }
 
-            if (BattleSpeed != 0) Global.SaveData(xmldoc, xmlelFleet, "BattleSpeed", this.BattleSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            if (BattleSpeed != 0)
+            {
+                Global.SaveData(xmldoc, xmlelFleet, "BattleSpeed", this.BattleSpeed.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
             Global.SaveData(xmldoc, xmlelFleet, "Bearing", this.Bearing.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Cloaked != 0) Global.SaveData(xmldoc, xmlelFleet, "Cloaked", this.Cloaked.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            if (Cloaked != 0)
+            {
+                Global.SaveData(xmldoc, xmlelFleet, "Cloaked", this.Cloaked.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
             Global.SaveData(xmldoc, xmlelFleet, "FuelAvailable", this.FuelAvailable.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelFleet, "FuelCapacity", this.TotalFuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelFleet, "TargetDistance", this.TargetDistance.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Cargo.Mass > 0) Global.SaveData(xmldoc, xmlelFleet, "CargoCapacity", this.TotalCargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            if (Cargo.Mass > 0)
+            {
+                Global.SaveData(xmldoc, xmlelFleet, "CargoCapacity", this.TotalCargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
             Global.SaveData(xmldoc, xmlelFleet, "BattlePlan", this.BattlePlan);
 
             xmlelFleet.AppendChild(this.Cargo.ToXml(xmldoc));

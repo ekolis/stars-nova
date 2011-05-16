@@ -1811,22 +1811,71 @@ namespace Nova.WinForms.RaceDesigner
             // ----------------------------------------------------------------------------
             // Secondary Racial Traits
             // ----------------------------------------------------------------------------
-            if (this.improvedFuelEfficiency.Checked) raceParameters.Traits.Add("IFE");
-            if (this.noRamEngines.Checked) raceParameters.Traits.Add("NRS");
-            if (this.totalTerraforming.Checked) raceParameters.Traits.Add("TT");
-            if (this.cheapEngines.Checked) raceParameters.Traits.Add("CE");
-            if (this.advancedRemoteMining.Checked) raceParameters.Traits.Add("ARM");
-            if (this.basicRemoteMining.Checked) raceParameters.Traits.Add("OBRM");
-            if (this.improvedStarbases.Checked) raceParameters.Traits.Add("ISB");
-            if (this.noAdvancedScanners.Checked) raceParameters.Traits.Add("NAS");
-            if (this.generalisedResearch.Checked) raceParameters.Traits.Add("GR");
-            if (this.lowStartingPopulation.Checked) raceParameters.Traits.Add("LSP");
-            if (this.ultimateRecycling.Checked) raceParameters.Traits.Add("UR");
-            if (this.bleedingEdgeTechnology.Checked) raceParameters.Traits.Add("BET");
-            if (this.mineralAlchemy.Checked) raceParameters.Traits.Add("MA");
-            if (this.regeneratingShields.Checked) raceParameters.Traits.Add("RS");
-            if (this.cheapFactories.Checked) raceParameters.Traits.Add("CF");
-            if (this.extraTech.Checked) raceParameters.Traits.Add("ExtraTech");
+            if (this.improvedFuelEfficiency.Checked)
+            {
+                raceParameters.Traits.Add("IFE");
+            }
+            if (this.noRamEngines.Checked)
+            {
+                raceParameters.Traits.Add("NRS");
+            }
+            if (this.totalTerraforming.Checked)
+            {
+                raceParameters.Traits.Add("TT");
+            }
+            if (this.cheapEngines.Checked)
+            {
+                raceParameters.Traits.Add("CE");
+            }
+            if (this.advancedRemoteMining.Checked)
+            {
+                raceParameters.Traits.Add("ARM");
+            }
+            if (this.basicRemoteMining.Checked)
+            {
+                raceParameters.Traits.Add("OBRM");
+            }
+            if (this.improvedStarbases.Checked)
+            {
+                raceParameters.Traits.Add("ISB");
+            }
+            if (this.noAdvancedScanners.Checked)
+            {
+                raceParameters.Traits.Add("NAS");
+            }
+            if (this.generalisedResearch.Checked)
+            {
+                raceParameters.Traits.Add("GR");
+            }
+            if (this.lowStartingPopulation.Checked)
+            {
+                raceParameters.Traits.Add("LSP");
+            }
+            if (this.ultimateRecycling.Checked)
+            {
+                raceParameters.Traits.Add("UR");
+            }
+            if (this.bleedingEdgeTechnology.Checked)
+            {
+                raceParameters.Traits.Add("BET");
+            }
+            if (this.mineralAlchemy.Checked)
+            {
+                raceParameters.Traits.Add("MA");
+            }
+            if (this.regeneratingShields.Checked)
+            {
+                raceParameters.Traits.Add("RS");
+            }
+            if (this.cheapFactories.Checked)
+            {
+                raceParameters.Traits.Add("CF");
+            }
+            if (this.extraTech.Checked)
+            {
+                raceParameters.Traits.Add("ExtraTech");
+            }
+
             // ----------------------------------------------------------------------------
             // Production Costs and Rates
             // ----------------------------------------------------------------------------

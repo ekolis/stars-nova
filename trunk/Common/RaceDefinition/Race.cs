@@ -72,7 +72,9 @@ namespace Nova.Common
         #region Construction
 
         // required for searializable class
-        public Race() { }
+        public Race() 
+        { 
+        }
 
 
         /// ----------------------------------------------------------------------------
@@ -130,8 +132,15 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public bool HasTrait(string trait)
         {
-            if (trait == Traits.Primary) return true;
-            if (Traits == null) return false;
+            if (trait == Traits.Primary)
+            {
+                return true;
+            }
+
+            if (Traits == null)
+            {
+                return false;
+            }
             return this.Traits.Contains(trait);
         }
 
@@ -147,9 +156,18 @@ namespace Nova.Common
             get
             {
                 int maxPop = Global.NominalMaximumPlanetaryPopulation;
-                if (HasTrait("HE")) maxPop = (int)(maxPop * Global.PopulationFactorHyperExpansion);
-                if (HasTrait("JOAT")) maxPop = (int)(maxPop * Global.PopulationFactorJackOfAllTrades);
-                if (HasTrait("OBRM")) maxPop = (int)(maxPop * Global.PopulationFactorOnlyBasicRemoteMining);
+                if (HasTrait("HE"))
+                {
+                    maxPop = (int)(maxPop * Global.PopulationFactorHyperExpansion);
+                }
+                if (HasTrait("JOAT"))
+                { 
+                    maxPop = (int)(maxPop * Global.PopulationFactorJackOfAllTrades);
+                }
+                if (HasTrait("OBRM")) 
+                {
+                    maxPop = (int)(maxPop * Global.PopulationFactorOnlyBasicRemoteMining);
+                }
                 return maxPop;
             }
         }
@@ -168,9 +186,12 @@ namespace Nova.Common
             if (GameSettings.Data.AcceleratedStart)
             {
                 population = Global.StartingColonistsAcceleratedBBS;
-            }     
+            }
 
-            if (HasTrait("LSP")) population = (int)(population * Global.LowStartingPopulationFactor);
+            if (HasTrait("LSP"))
+            {
+                population = (int)(population * Global.LowStartingPopulationFactor);
+            }
 
             return population;
         }
@@ -210,7 +231,10 @@ namespace Nova.Common
             // Traits
             foreach (TraitEntry trait in Traits)
             {
-                if (AllTraits.Data.Primary.Contains(trait.Code)) continue; // Skip the PRT, just add LRTs here.
+                if (AllTraits.Data.Primary.Contains(trait.Code))
+                {
+                    continue; // Skip the PRT, just add LRTs here.
+                }
                 Global.SaveData(xmldoc, xmlelRace, "LRT", trait.Code);
             }
 
@@ -218,13 +242,25 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelRace, "MineBuildCost", MineBuildCost.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             // Plural Name
-            if (PluralName != null && PluralName != "") Global.SaveData(xmldoc, xmlelRace, "PluralName", PluralName);
+            if (PluralName != null && PluralName != "")
+            {
+                Global.SaveData(xmldoc, xmlelRace, "PluralName", PluralName);
+            }
             // Name
-            if (Name != null && Name != "") Global.SaveData(xmldoc, xmlelRace, "Name", Name);
+            if (Name != null && Name != "")
+            {
+                Global.SaveData(xmldoc, xmlelRace, "Name", Name);
+            }
             // Password 
-            if (Password != null && Password != "") Global.SaveData(xmldoc, xmlelRace, "Password", Password);
+            if (Password != null && Password != "")
+            {
+                Global.SaveData(xmldoc, xmlelRace, "Password", Password);
+            }
             // RaceIconName
-            if (Icon.Source != null && Icon.Source != "") Global.SaveData(xmldoc, xmlelRace, "RaceIconName", Icon.Source);
+            if (Icon.Source != null && Icon.Source != "")
+            {
+                Global.SaveData(xmldoc, xmlelRace, "RaceIconName", Icon.Source);
+            }
             // Factory Build Cost
             Global.SaveData(xmldoc, xmlelRace, "FactoryBuildCost", FactoryBuildCost.ToString(System.Globalization.CultureInfo.InvariantCulture));
             // ColonistsPerResource
@@ -296,17 +332,23 @@ namespace Nova.Common
                             break;
                         case "name":
                             if (xmlnode.FirstChild != null)
+                            {
                                 this.Name = xmlnode.FirstChild.Value;
+                            }
                             break;
                         case "password":
                             if (xmlnode.FirstChild != null)
+                            {
                                 this.Password = xmlnode.FirstChild.Value;
+                            }
                             break;
 
                         // TODO (priority 5) - load the RaceIcon
                         case "raceiconname":
                             if (xmlnode.FirstChild != null)
+                            {
                                 this.Icon.Source = xmlnode.FirstChild.Value;
+                            }
                             break;
 
                         case "factorybuildcost":

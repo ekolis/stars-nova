@@ -74,7 +74,9 @@ namespace Nova.Server
         /// Creates a new fresh server state.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public ServerState() { }
+        public ServerState()
+        { 
+        }
 
         #region Methods
 

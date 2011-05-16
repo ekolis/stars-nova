@@ -81,8 +81,14 @@ namespace Nova.Common
             int hash = 1;
             foreach (string key in AllTraits.TraitKeys)
             {
-                if (key == this.Code) return hash;
-                else ++hash;
+                if (key == this.Code)
+                { 
+                    return hash; 
+                }
+                else
+                {
+                    ++hash;
+                }
             }
             return hash;
         }
@@ -127,9 +133,13 @@ namespace Nova.Common
         public override bool Equals(object trait)
         {
             if (trait is TraitEntry)
+            {
                 return Code == ((TraitEntry)trait).Code;
+            }
             else
+            {
                 return false;
+            }
         }
 
         /// ----------------------------------------------------------------------------

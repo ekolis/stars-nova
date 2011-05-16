@@ -813,9 +813,18 @@ namespace Nova.WinForms.Gui
 
             foreach (Component component in this.stateData.AvailableComponents.Values)
             {
-                if (component.Type.Contains("Planetary")) continue;
-                if (component.Type.Contains("Defenses")) continue;
-                if (component.Type.Contains("Hull")) continue;
+                if (component.Type.Contains("Planetary"))
+                {
+                    continue;
+                }
+                if (component.Type.Contains("Defenses"))
+                {
+                    continue;
+                }
+                if (component.Type.Contains("Hull"))
+                {
+                    continue;
+                }
 
                 if (!techList.Contains(component.Type))
                 {
@@ -932,12 +941,18 @@ namespace Nova.WinForms.Gui
             Description.Text = null;
 
             TreeNode node = e.Node;
-            if (node.Parent == null) return;
+            if (node.Parent == null)
+            {
+                return;
+            }
 
             string nodeType = node.Text as string;
 
             ListView.Items.Clear();
-            if (nodeType == null) return;
+            if (nodeType == null)
+            {
+                return;
+            }
 
             ListView.LargeImageList = this.componentImages;
 
@@ -965,7 +980,10 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void ListSelectionChanged(object sender, EventArgs e)
         {
-            if (ListView.SelectedItems.Count <= 0) return;
+            if (ListView.SelectedItems.Count <= 0)
+            {
+                return;
+            }
 
             ListViewItem item = ListView.SelectedItems[0];
             Component selection = this.allComponents[item.Text] as Component;
@@ -974,10 +992,13 @@ namespace Nova.WinForms.Gui
             Description.Text = selection.Description;
 
             if (selection.Type == "Engine")
+            {
                 graph1.Data = (selection.Properties["Engine"] as Engine).FuelConsumption;
-                
+            }
             else
+            {
                 graph1.Data = null;
+            }
             // Call the Mouse down routine (it must have gone down to change the
             // selection) so that we can select and drag in one operation (rather
             // than select and then drag as two separate steps).
@@ -995,7 +1016,10 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void ListView_MouseDown(object sender, MouseEventArgs e)
         {
-            if (ListView.SelectedItems.Count <= 0) return;
+            if (ListView.SelectedItems.Count <= 0)
+            {
+                return;
+            }
 
             HullGrid.DragDropData dragData = new HullGrid.DragDropData();
 
@@ -1045,7 +1069,10 @@ namespace Nova.WinForms.Gui
             foreach (HullModule module in HullGrid.ActiveModules)
             {
                 Component component = module.AllocatedComponent;
-                if (component == null) continue;
+                if (component == null)
+                {
+                    continue;
+                }
 
                 cost += module.ComponentCount * component.Cost;
                 mass += module.ComponentCount * component.Mass;

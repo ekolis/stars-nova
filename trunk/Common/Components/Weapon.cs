@@ -112,10 +112,22 @@ namespace Nova.Common.Components
         /// <returns></returns>
         private bool IsSameWeaponType(Weapon other)
         {
-            if (Range != other.Range) return false;
-            if (Initiative != other.Initiative) return false;
-            if (Accuracy != other.Accuracy) return false;
-            if (Group != other.Group) return false;
+            if (Range != other.Range)
+            {
+                return false;
+            }
+            if (Initiative != other.Initiative)
+            {
+                return false;
+            }
+            if (Accuracy != other.Accuracy)
+            {
+                return false;
+            }
+            if (Group != other.Group)
+            {
+                return false;
+            }
             return true;
         }
 

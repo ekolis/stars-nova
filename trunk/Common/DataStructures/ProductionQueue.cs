@@ -55,7 +55,9 @@ namespace Nova.Common
             /// default constructor
             /// </summary>
             /// ----------------------------------------------------------------------------
-            public Item() { }
+            public Item() 
+            { 
+            }
 
             /// ----------------------------------------------------------------------------
             /// <summary>
@@ -144,7 +146,9 @@ namespace Nova.Common
         /// default constructor
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public ProductionQueue() { }
+        public ProductionQueue() 
+        { 
+        }
 
         #region Load Save Xml
 
@@ -164,7 +168,10 @@ namespace Nova.Common
                     if (subnode.Name.ToLower() == "productionorder")
                     {
                         ProductionQueue.Item order = new ProductionQueue.Item(subnode);
-                        if (order != null) Queue.Add(order); // TODO (priority 6) ensure they load in the correct order.
+                        if (order != null)
+                        {
+                            Queue.Add(order); // TODO (priority 6) ensure they load in the correct order.
+                        }
                     }
 
                 }

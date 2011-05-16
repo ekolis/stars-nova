@@ -94,7 +94,10 @@ namespace Nova.Client
         /// Use a private constructor so the default constructor is not created since all methods are static.
         /// </remarks>
         /// ----------------------------------------------------------------------------
-        private ClientState() { }
+        private ClientState() 
+        { 
+        }
+
         #endregion
 
 

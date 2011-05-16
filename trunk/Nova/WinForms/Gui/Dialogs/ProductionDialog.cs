@@ -700,7 +700,10 @@ namespace Nova.WinForms.Gui
                     // what the purpose of this next line (shadallark) ???
                     // Looks like it is ment to prevent the current starbase design being re-used - Dan.
                     // prevent the current starbase design from being re-used
-                    if (starbase != null && starbase.Composition.ContainsKey(design.Name)) continue;
+                    if (starbase != null && starbase.Composition.ContainsKey(design.Name))
+                    {
+                        continue;
+                    }
 
                     // Check if this design can be built at this Star - ships are limited by dock capacity of the starbase.
                     if (design.Type == "Ship")
@@ -870,7 +873,10 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void AddToQueue_Click(object sender, System.EventArgs e)
         {
-            if (this.designList.SelectedItems.Count <= 0) return;
+            if (this.designList.SelectedItems.Count <= 0)
+            {
+                return;
+            }
 
             string name = this.designList.SelectedItems[0].Text;
             Design design =
@@ -1196,8 +1202,13 @@ namespace Nova.WinForms.Gui
             // starbase there. If there is remove it.
             int i = 0;
             for (i = 0; i < designList.Items.Count; i++)
+            {
                 if (designList.Items[i].Text == design.Name)
+                {
                     break;
+                }
+            }
+
             designList.Items.RemoveAt(i);
 
             AddDesign(design, 1);
@@ -1468,7 +1479,10 @@ namespace Nova.WinForms.Gui
                                     maxYearsTotal = -1;
                                 }
                                 allBuilt = false;
-                                if (yearsSoFar >= 0) yearsSoFar++;
+                                if (yearsSoFar >= 0)
+                                {
+                                    yearsSoFar++;
+                                }
                             }
                         }
                         // end of the while loop to determine years to build items in the stack

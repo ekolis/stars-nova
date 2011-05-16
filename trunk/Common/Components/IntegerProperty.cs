@@ -47,7 +47,9 @@ namespace Nova.Common.Components
         /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public IntegerProperty() { }
+        public IntegerProperty() 
+        { 
+        }
 
 
         /// ----------------------------------------------------------------------------

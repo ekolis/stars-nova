@@ -106,7 +106,10 @@ namespace Nova.WinForms.Console
             // If we are travelling at a "safe" speed we can just pretend we are
             // not in a Minefield.
 
-            if (fleet.Speed <= minefield.SafeSpeed) return false;
+            if (fleet.Speed <= minefield.SafeSpeed)
+            {
+                return false;
+            }
 
             double distance = PointUtilities.Distance(fleet.Position, minefield.Position);
 

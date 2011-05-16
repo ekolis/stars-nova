@@ -48,7 +48,9 @@ namespace Nova.Common.Components
         /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public SimpleProperty() { }
+        public SimpleProperty() 
+        { 
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -56,7 +58,9 @@ namespace Nova.Common.Components
         /// </summary>
         /// <param name="existing">Existing property to copy.</param>
         /// ----------------------------------------------------------------------------
-        public SimpleProperty(SimpleProperty existing) { }
+        public SimpleProperty(SimpleProperty existing) 
+        { 
+        }
 
         #endregion
 
@@ -134,7 +138,9 @@ namespace Nova.Common.Components
         /// a Nova compenent definition file (xml document).
         /// </param>
         /// ----------------------------------------------------------------------------
-        public SimpleProperty(XmlNode node) { }
+        public SimpleProperty(XmlNode node) 
+        { 
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>

@@ -122,7 +122,10 @@ namespace Nova.Common
             string baseHull = icon.Source.Substring(0, icon.Source.IndexOf('.') - Global.ShipIconNumberingLength);
             int iconCount = AllShipIcons.Data.Hulls[baseHull].Count;
             int nextIconIndex = icon.index + 1;
-            if (nextIconIndex > (iconCount - 1)) nextIconIndex = 0;
+            if (nextIconIndex > (iconCount - 1))
+            {
+                nextIconIndex = 0;
+            }
             return (ShipIcon)AllShipIcons.Data.Hulls[baseHull][nextIconIndex];
         }
 
@@ -144,7 +147,10 @@ namespace Nova.Common
             string baseHull = icon.Source.Substring(0, icon.Source.IndexOf('.') - Global.ShipIconNumberingLength);
             int iconCount = AllShipIcons.Data.Hulls[baseHull].Count;
             int prevIconIndex = icon.index - 1;
-            if (prevIconIndex < 0) prevIconIndex = iconCount - 1;
+            if (prevIconIndex < 0)
+            {
+                prevIconIndex = iconCount - 1;
+            }
             return (ShipIcon)AllShipIcons.Data.Hulls[baseHull][prevIconIndex];
         }
 

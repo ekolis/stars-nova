@@ -519,7 +519,10 @@ namespace Nova.WinForms.Console
         {
             try
             {
-                if (stateData.GameInProgress) stateData.Save();
+                if (stateData.GameInProgress)
+                {
+                    stateData.Save();
+                }
             }
             catch
             {
@@ -606,7 +609,9 @@ namespace Nova.WinForms.Console
             stateData = orderReader.ReadOrders();
 
             if (SetPlayerList())
+            {
                 generateTurnMenuItem.Enabled = true;
+            }
         }
 
 
@@ -638,7 +643,10 @@ namespace Nova.WinForms.Console
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Warning);
 
-            if (result != DialogResult.Yes) return;
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
 
             GenerateTurn();
         }
@@ -653,7 +661,10 @@ namespace Nova.WinForms.Console
         private void PlayerList_DoubleClick(object sender, EventArgs e)
         {
             // On occasion this fires but SelectedItems is empty. Ignore and let the user re-click. See issue #2974019.
-            if (playerList.SelectedItems.Count == 0) return;
+            if (playerList.SelectedItems.Count == 0)
+            {
+                return;
+            }
 
             // Find what was clicked
             string raceName = playerList.SelectedItems[0].SubItems[1].Text;
@@ -714,7 +725,10 @@ namespace Nova.WinForms.Console
             }
             else
             {
-                if (runAiCheckBox.Checked) RunAI();
+                if (runAiCheckBox.Checked)
+                {
+                    RunAI();
+                }
             }
         }
         private void OpenGameToolStripMenuItem_Click(object sender, EventArgs e)
@@ -808,7 +822,10 @@ namespace Nova.WinForms.Console
             bool result = true;
             playerList.Items.Clear();
 
-            if (stateData.GameInProgress) turnYearLabel.Text = stateData.TurnYear.ToString();
+            if (stateData.GameInProgress)
+            {
+                turnYearLabel.Text = stateData.TurnYear.ToString();
+            }
 
             foreach (PlayerSettings settings in stateData.AllPlayers)
             {
@@ -827,9 +844,13 @@ namespace Nova.WinForms.Console
 
                 ListViewItem.ListViewSubItem yearItem = new ListViewItem.ListViewSubItem();
                 if (raceData == null || raceData.TurnYear == 0)
+                {
                     yearItem.Text = "No Orders";
+                }
                 else
+                {
                     yearItem.Text = raceData.TurnYear.ToString();
+                }
 
                 if (raceData == null || raceData.TurnYear != stateData.TurnYear)
                 {

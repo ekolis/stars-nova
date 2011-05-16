@@ -449,7 +449,10 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DrawCircle(Brush brush, NovaPoint where, int radius)
         {
-            if (radius == 0) return;
+            if (radius == 0)
+            {
+                return;
+            }
 
             NovaPoint position = LogicalToDevice(where);
             NovaPoint logical = new NovaPoint(radius, 0);
@@ -1119,7 +1122,10 @@ namespace Nova.WinForms.Gui
             this.MapPanel.Refresh();
 
             ArrayList nearObjects = FindNearObjects(position);
-            if (nearObjects.Count == 0) return;
+            if (nearObjects.Count == 0)
+            {
+                return;
+            }
 
             // If the mouse hasn't moved since the last selection cycle through
             // the list of near objects. If it has, start at the beginning of the

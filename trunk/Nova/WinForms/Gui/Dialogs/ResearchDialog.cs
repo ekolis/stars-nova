@@ -140,7 +140,10 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void CheckChanged(object sender, EventArgs e)
         {
-            if (this.dialogInitialised == false) return;
+            if (this.dialogInitialised == false)
+            {
+                return;
+            }
 
             RadioButton button = sender as RadioButton;
 

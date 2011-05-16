@@ -99,7 +99,10 @@ namespace Nova.Common.DataStructures
         {
             XmlElement xmlelBattleStep = xmldoc.CreateElement("BattleStep");
 
-            if (Type != null) Global.SaveData(xmldoc, xmlelBattleStep, "Type", Type);
+            if (Type != null)
+            {
+                Global.SaveData(xmldoc, xmlelBattleStep, "Type", Type);
+            }
 
             return xmlelBattleStep;
         }

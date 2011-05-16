@@ -59,7 +59,9 @@ namespace Nova.Common
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
-        protected XmlSerializableDictionary(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) { }
+        protected XmlSerializableDictionary(System.Runtime.Serialization.SerializationInfo info, System.Runtime.Serialization.StreamingContext context) 
+        { 
+        }
 
         /// <summary>
         /// Determine if a given key is already in the dictionary.
@@ -104,7 +106,9 @@ namespace Nova.Common
             }
             reader.ReadEndElement(); // </Dictionary>
             if (reader.NodeType == XmlNodeType.EndElement)
+            {
                 reader.ReadEndElement(); // </XmlSerializableDictionaryOfStringString>
+            }
         }
 
         /// <summary>

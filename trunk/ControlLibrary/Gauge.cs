@@ -135,7 +135,10 @@ namespace Nova.ControlLibrary
         {
             base.OnPaint(e); // added
 
-            if (maximumValue == 0) return;
+            if (maximumValue == 0)
+            {
+                return;
+            }
 
             double gaugeSpan = maximumValue - minimumValue;
             double gaugeScale = this.bar.Size.Width / gaugeSpan;

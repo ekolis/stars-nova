@@ -52,7 +52,9 @@ namespace Nova.Common
         /// default constructor
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public Message() { }
+        public Message() 
+        { 
+        }
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -95,15 +97,21 @@ namespace Nova.Common
                     {
                         case "text":
                             if (subnode.FirstChild != null)
+                            {
                                 Text = ((XmlText)subnode.FirstChild).Value;
+                            }
                             break;
                         case "audience":
                             if (subnode.FirstChild != null)
+                            {
                                 Audience = ((XmlText)subnode.FirstChild).Value;
+                            }
                             break;
                         case "type":
                             if (subnode.FirstChild != null)
-                            Type = subnode.FirstChild.Value;
+                            {
+                                Type = subnode.FirstChild.Value;
+                            }
                             break;
                         case "event":
                             Event = (object)subnode.FirstChild.Value;
@@ -135,9 +143,18 @@ namespace Nova.Common
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelMessage = xmldoc.CreateElement("Message");
-            if (Text != null) Global.SaveData(xmldoc, xmlelMessage, "Text", Text);
-            if (Audience != null) Global.SaveData(xmldoc, xmlelMessage, "Audience", Audience);
-            if (Type != null) Global.SaveData(xmldoc, xmlelMessage, "Type", Type);
+            if (Text != null)
+            {
+                Global.SaveData(xmldoc, xmlelMessage, "Text", Text);
+            }
+            if (Audience != null)
+            {
+                Global.SaveData(xmldoc, xmlelMessage, "Audience", Audience);
+            }
+            if (Type != null)
+            {
+                Global.SaveData(xmldoc, xmlelMessage, "Type", Type);
+            }
 
             
             if (Event != null)

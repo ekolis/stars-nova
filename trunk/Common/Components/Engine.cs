@@ -52,8 +52,12 @@ namespace Nova.Common.Components
             get
             {
                 for (int i = 9; i >= 0; i--)
+                {
                     if (FuelConsumption[i] == 0)
+                    {
                         return i;
+                    }
+                }
 
                 return 0;
             }
@@ -67,7 +71,9 @@ namespace Nova.Common.Components
         /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public Engine() { }
+        public Engine() 
+        { 
+        }
 
 
         /// ----------------------------------------------------------------------------

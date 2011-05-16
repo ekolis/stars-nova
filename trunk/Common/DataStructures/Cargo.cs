@@ -56,7 +56,9 @@ namespace Nova.Common
         /// Defualt constructor (needed if there is a copy constructor).
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public Cargo() { }
+        public Cargo() 
+        { 
+        }
 
 
         /// ----------------------------------------------------------------------------

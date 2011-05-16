@@ -112,7 +112,10 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DesignList_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (this.designList.SelectedItems.Count <= 0) return;
+            if (this.designList.SelectedItems.Count <= 0)
+            {
+                return;
+            }
 
             string name = this.designList.SelectedItems[0].Text;
             string race = this.designOwner.SelectedItem.ToString();
@@ -172,7 +175,10 @@ Are you sure you want to do this?";
                 MessageBoxDefaultButton.Button2, 
                 MessageBoxOptions.DefaultDesktopOnly);
 
-            if (result != DialogResult.Yes) return;
+            if (result != DialogResult.Yes)
+            {
+                return;
+            }
 
             Design design = this.designList.SelectedItems[0].Tag as Design;
 

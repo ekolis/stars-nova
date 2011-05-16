@@ -196,11 +196,17 @@ namespace Nova.WinForms.ComponentEditor
             foreach (string trait in AllTraits.TraitKeys)
             {
                 if (this.radioMap[n, 0].Checked)
+                {
                     Restrictions.SetRestriction(trait, RaceAvailability.not_available);
+                }
                 else if (this.radioMap[n, 1].Checked)
+                {
                     Restrictions.SetRestriction(trait, RaceAvailability.not_required);
+                }
                 else if (this.radioMap[n, 2].Checked)
+                {
                     Restrictions.SetRestriction(trait, RaceAvailability.required);
+                }
                 n++;
             }
 
