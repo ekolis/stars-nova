@@ -31,6 +31,7 @@
 #region Using Statements
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -57,12 +58,12 @@ namespace Nova.Common
         /// <summary>
         /// List of fleets (Fleet.Key) to delete
         /// </summary>
-        public StrongList<string> DeletedFleets = new StrongList<string>();
+        public List<string> DeletedFleets = new List<string>();
 
         /// <summary>
         /// List of designs (Design.Key) to delete
         /// </summary>
-        public StrongList<string> DeletedDesigns = new StrongList<string>(); 
+        public List<string> DeletedDesigns = new List<string>(); 
 
         public RaceData PlayerData = new RaceData();        // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.) and research %
         public int TechLevel;                               // This is the sum of all the player's tech levels, used for victory checks.
