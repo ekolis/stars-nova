@@ -97,9 +97,13 @@ namespace Nova.Common.Components
                 this.Properties.Add(key, (ComponentProperty)existing.Properties[key].Clone());
             }
             if (existing.Restrictions != null)
+            {
                 this.Restrictions = new RaceRestriction(existing.Restrictions);
+            }
             else
+            {
                 this.Restrictions = null;
+            }
         }
 
         #endregion
@@ -132,7 +136,9 @@ namespace Nova.Common.Components
                         case "description":
                             XmlText xmltxtDescription = (XmlText)subnode.FirstChild;
                             if (xmltxtDescription != null)
+                            {
                                 this.Description = xmltxtDescription.Value;
+                            }
                             break;
                         case "race_restrictions":
                             this.Restrictions = new RaceRestriction(subnode);
@@ -392,7 +398,10 @@ namespace Nova.Common.Components
             xmlelComponent.AppendChild(this.RequiredTech.ToXml(xmldoc));
 
             // Description
-            if (Description != null) Global.SaveData(xmldoc, xmlelComponent, "Description", Description);
+            if (Description != null)
+            {
+                Global.SaveData(xmldoc, xmlelComponent, "Description", Description);
+            }
 
             // Race Restrictions
             xmlelComponent.AppendChild(this.Restrictions.ToXml(xmldoc));

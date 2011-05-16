@@ -48,7 +48,9 @@ namespace Nova.Common.Components
         /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public MassDriver() { }
+        public MassDriver() 
+        { 
+        }
 
 
         /// ----------------------------------------------------------------------------
@@ -125,9 +127,13 @@ namespace Nova.Common.Components
         public static MassDriver operator +(MassDriver op1, MassDriver op2)
         {
             if (op1.Value == op2.Value)
+            {
                 return new MassDriver(op1.Value + 1);
+            }
             else
+            {
                 return new MassDriver(Math.Max(op1.Value, op2.Value));
+            }
         }
 
 
@@ -142,7 +148,10 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public static MassDriver operator *(MassDriver op1, int scalar)
         {
-            if (scalar >= 1) return new MassDriver(op1.Value + 1);
+            if (scalar >= 1)
+            {
+                return new MassDriver(op1.Value + 1);
+            }
             return new MassDriver(op1.Value);
         }
 

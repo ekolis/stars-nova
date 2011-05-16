@@ -44,7 +44,13 @@ namespace Nova.Common.DataStructures
         public string Location  = null;
         public int SpaceSize    = 0;
         public int Year = 0;
-        public string Key { get { return (Location == null) ? "" : Year.ToString() + Location; } }
+        public string Key 
+        { 
+            get 
+            { 
+                return (Location == null) ? "" : Year.ToString() + Location; 
+            } 
+        }
         public ArrayList Steps  = new ArrayList();
         public Hashtable Stacks = new Hashtable();
         public Dictionary<string, int> Losses = new Dictionary<string, int>(); // raceName, lossCount
@@ -149,8 +155,11 @@ namespace Nova.Common.DataStructures
         {
             
             XmlElement xmlelBattleReport = xmldoc.CreateElement("BattleReport");
-            
-            if (Location != null) Global.SaveData(xmldoc, xmlelBattleReport, "Location", Location);
+
+            if (Location != null)
+            {
+                Global.SaveData(xmldoc, xmlelBattleReport, "Location", Location);
+            }
             Global.SaveData(xmldoc, xmlelBattleReport, "SpaceSize", SpaceSize.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             Global.SaveData(xmldoc, xmlelBattleReport, "Year", Year.ToString(System.Globalization.CultureInfo.InvariantCulture));

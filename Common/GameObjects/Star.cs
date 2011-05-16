@@ -351,9 +351,18 @@ namespace Nova.Common
                 // currently not habitable
                 int result = 0;
                 int maxMalus = GetMaxMalus(race);
-                if (r > 1) result -= GetMalusForEnvironment(race.RadiationTolerance, Radiation, maxMalus);
-                if (g > 1) result -= GetMalusForEnvironment(race.GravityTolerance, Gravity, maxMalus);
-                if (t > 1) result -= GetMalusForEnvironment(race.TemperatureTolerance, Temperature, maxMalus);
+                if (r > 1)
+                {
+                    result -= GetMalusForEnvironment(race.RadiationTolerance, Radiation, maxMalus);
+                }
+                if (g > 1)
+                {
+                    result -= GetMalusForEnvironment(race.GravityTolerance, Gravity, maxMalus);
+                }
+                if (t > 1)
+                {
+                    result -= GetMalusForEnvironment(race.TemperatureTolerance, Temperature, maxMalus);
+                }
                 return result / 100.0;
             }
 
@@ -361,9 +370,18 @@ namespace Nova.Common
             double y = 0;
             double z = 0;
 
-            if (g > 0.5) x = g - 0.5;
-            if (t > 0.5) y = t - 0.5;
-            if (r > 0.5) z = r - 0.5;
+            if (g > 0.5)
+            {
+                x = g - 0.5;
+            }
+            if (t > 0.5)
+            {
+                y = t - 0.5;
+            }
+            if (r > 0.5)
+            {
+                z = r - 0.5;
+            }
 
             double h = Math.Sqrt(
                             ((1 - g) * (1 - g)) + ((1 - t) * (1 - t)) + ((1 - r) * (1 - r))) * (1 - x) * (1 - y) * (1 - z)
@@ -771,15 +789,39 @@ namespace Nova.Common
             xmlelStar.AppendChild(xmlelResourcesOnHand);
 
             // Starbase and ThisRace are stored as references only (just the name is saved).
-            if (Starbase != null) Global.SaveData(xmldoc, xmlelStar, "Starbase", Starbase.FleetID.ToString());
-            if (ThisRace != null) Global.SaveData(xmldoc, xmlelStar, "ThisRace", ThisRace.Name);
+            if (Starbase != null)
+            {
+                Global.SaveData(xmldoc, xmlelStar, "Starbase", Starbase.FleetID.ToString());
+            }
+            if (ThisRace != null)
+            {
+                Global.SaveData(xmldoc, xmlelStar, "ThisRace", ThisRace.Name);
+            }
 
-            if (Colonists != 0) Global.SaveData(xmldoc, xmlelStar, "Colonists", Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Defenses != 0) Global.SaveData(xmldoc, xmlelStar, "Defenses", Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Factories != 0) Global.SaveData(xmldoc, xmlelStar, "Factories", Factories.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Mines != 0) Global.SaveData(xmldoc, xmlelStar, "Mines", Mines.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (ResearchAllocation != 0) Global.SaveData(xmldoc, xmlelStar, "ResearchAllocation", ResearchAllocation.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (ScanRange != 0) Global.SaveData(xmldoc, xmlelStar, "ScanRange", ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            if (Colonists != 0)
+            {
+                Global.SaveData(xmldoc, xmlelStar, "Colonists", Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
+            if (Defenses != 0)
+            {
+                Global.SaveData(xmldoc, xmlelStar, "Defenses", Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
+            if (Factories != 0)
+            {
+                Global.SaveData(xmldoc, xmlelStar, "Factories", Factories.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
+            if (Mines != 0)
+            { 
+                Global.SaveData(xmldoc, xmlelStar, "Mines", Mines.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
+            if (ResearchAllocation != 0)
+            { 
+                Global.SaveData(xmldoc, xmlelStar, "ResearchAllocation", ResearchAllocation.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
+            if (ScanRange != 0)
+            {
+                Global.SaveData(xmldoc, xmlelStar, "ScanRange", ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
             Global.SaveData(xmldoc, xmlelStar, "DefenseType", DefenseType);
             Global.SaveData(xmldoc, xmlelStar, "ScannerType", ScannerType);
             Global.SaveData(xmldoc, xmlelStar, "Gravity", Gravity.ToString(System.Globalization.CultureInfo.InvariantCulture));

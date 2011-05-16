@@ -161,10 +161,22 @@ namespace Nova.Server
             {
                 score.TechLevel = (int)stateData.AllTechLevels[raceName];
 
-                if (score.TechLevel < 4) totalScore += 1;
-                if (score.TechLevel > 9) totalScore += 4;
-                if (score.TechLevel > 3 && score.TechLevel < 7) totalScore += 2;
-                if (score.TechLevel > 6 && score.TechLevel < 10) totalScore += 3;
+                if (score.TechLevel < 4)
+                {
+                    totalScore += 1;
+                }
+                if (score.TechLevel > 9)
+                {
+                    totalScore += 4;
+                }
+                if (score.TechLevel > 3 && score.TechLevel < 7)
+                {
+                    totalScore += 2;
+                }
+                if (score.TechLevel > 6 && score.TechLevel < 10)
+                {
+                    totalScore += 3;
+                }
             }
 
             score.Score = (int)totalScore;

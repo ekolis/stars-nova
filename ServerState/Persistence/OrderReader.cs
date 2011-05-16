@@ -107,7 +107,9 @@ namespace Nova.Server
                     // check these orders are for the right turn
                     int ordersTurn = int.Parse(xmldoc.SelectSingleNode("ROOT/Orders/Turn").InnerText);
                     if (ordersTurn != this.stateData.TurnYear)
+                    {
                         return;
+                    }
 
                     playerOrders = new Orders(xmldoc.DocumentElement);
                 }
@@ -179,7 +181,9 @@ namespace Nova.Server
             foreach (Fleet fleet in playerOrders.RaceFleets.Values)
             {
                 if (fleet.InOrbit != null)
+                {
                     fleet.InOrbit = this.stateData.AllStars[fleet.InOrbit.Name] as Star;
+                }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
@@ -191,9 +195,13 @@ namespace Nova.Server
             foreach (Star star in playerOrders.RaceStars)
             {
                 if (star.ThisRace != null)
+                {
                     star.ThisRace = this.stateData.AllRaces[star.ThisRace.Name] as Race;
+                }
                 if (star.Starbase != null)
+                {
                     star.Starbase = playerOrders.RaceFleets[star.Starbase.FleetID] as Fleet;
+                }
             }
 
             // HullModule reference to a component
@@ -204,8 +212,10 @@ namespace Nova.Server
                     ShipDesign ship = design as ShipDesign;
                     foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)
                     {
-                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null) 
+                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
+                        {
                             module.AllocatedComponent = AllComponents.Data.Components[module.AllocatedComponent.Name] as Component;
+                        }
                     }
                 }
             }

@@ -253,8 +253,14 @@ namespace Nova.ControlLibrary
             Panel panel = sender as Panel;
             HullModule cell = panel.Tag as HullModule;
             Component component = cell.AllocatedComponent;
-            if (component == null) return;
-            if (cell.ComponentCount == 0) return;
+            if (component == null)
+            {
+                return;
+            }
+            if (cell.ComponentCount == 0)
+            {
+                return;
+            }
 
             DragDropData dragData = new DragDropData();
             dragData.HullName = HullName;
@@ -270,7 +276,10 @@ namespace Nova.ControlLibrary
 
             DragDropEffects result = DoDragDrop(dragData, DragDropEffects.Move);
 
-            if (dragData.SourceHullModule == dragData.TargetHullModule && dragData.SourceHullModule != null) return;
+            if (dragData.SourceHullModule == dragData.TargetHullModule && dragData.SourceHullModule != null)
+            {
+                return;
+            }
             if (result == DragDropEffects.Move || result == DragDropEffects.None)
             {
                 cell.ComponentCount -= dragData.ComponentCount;
@@ -285,7 +294,10 @@ namespace Nova.ControlLibrary
 
         protected virtual void DoModuleUpdated(object sender, EventArgs eventArgs)
         {
-            if (ModuleUpdated == null) return;
+            if (ModuleUpdated == null)
+            {
+                return;
+            }
             ModuleUpdated(sender, eventArgs);
         }
 
@@ -334,7 +346,10 @@ namespace Nova.ControlLibrary
             if (data.SelectedComponent.Properties.ContainsKey("Hull Affinity"))
             {
                 HullAffinity affinity = data.SelectedComponent.Properties["Hull Affinity"] as HullAffinity;
-                if (affinity.Value != data.HullName) return;
+                if (affinity.Value != data.HullName)
+                {
+                    return;
+                }
             }
 
             // Don't allow a CargoPod to be dropped into a general purpose slot as
@@ -354,7 +369,10 @@ namespace Nova.ControlLibrary
             {
                 foreach (Panel currentCell in panelMap)
                 {
-                    if (((HullModule)currentCell.Tag).AllocatedComponent.Properties.ContainsKey("Weapon")) return;
+                    if (((HullModule)currentCell.Tag).AllocatedComponent.Properties.ContainsKey("Weapon"))
+                    {
+                        return;
+                    }
                 }
             }
 
@@ -378,7 +396,10 @@ namespace Nova.ControlLibrary
             HullModule cell = panel.Tag as HullModule;
             data.TargetHullModule = cell;
 
-            if (data.SourceHullModule == data.TargetHullModule && data.SourceHullModule != null) return;
+            if (data.SourceHullModule == data.TargetHullModule && data.SourceHullModule != null)
+            {
+                return;
+            }
 
             if (cell.AllocatedComponent != data.SelectedComponent)
             {

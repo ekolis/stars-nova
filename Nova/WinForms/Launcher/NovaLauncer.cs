@@ -72,7 +72,9 @@ namespace Nova.WinForms.Launcher
             this.serverStateFile = FileSearcher.GetFile(Global.ServerStateKey, false, "", "", "", false);
             this.clientStateFile = FileSearcher.GetFile(Global.ClientStateKey, false, "", "", "", false);
             if (this.serverStateFile == null && this.clientStateFile == null)
+            {
                 continueGameButton.Enabled = false;
+            }
         }
 
         #endregion

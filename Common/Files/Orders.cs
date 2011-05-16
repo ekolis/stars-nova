@@ -72,7 +72,9 @@ namespace Nova.Common
         /// default constructor
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public Orders() { }
+        public Orders() 
+        { 
+        }
 
 
         #region Save Binary
@@ -231,9 +233,13 @@ namespace Nova.Common
             foreach (Design design in RaceDesigns.Values)
             {
                 if (design.Type == "Ship" || design.Type == "Starbase")
+                {
                     xmlelOrders.AppendChild(((ShipDesign)design).ToXml(xmldoc));
+                }
                 else
+                {
                     xmlelOrders.AppendChild(design.ToXml(xmldoc));
+                }
             }
             // store the stars, so we can pass production orders
             foreach (Star star in RaceStars)

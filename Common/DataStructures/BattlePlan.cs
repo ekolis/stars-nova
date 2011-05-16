@@ -47,7 +47,9 @@ namespace Nova.Common
         /// default constructor
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public BattlePlan() { }
+        public BattlePlan() 
+        { 
+        }
 
         #endregion
 

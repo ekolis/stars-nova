@@ -47,7 +47,10 @@ namespace Nova.Common
         /// <summary>
         /// Enumeration of the different fields of technical research.
         /// </summary>
-        public enum ResearchField { Biotechnology, Electronics, Energy, Propulsion, Weapons, Construction }
+        public enum ResearchField 
+        { 
+            Biotechnology, Electronics, Energy, Propulsion, Weapons, Construction 
+        }
 
         //----------------------------------------------------------------------------
         // These members are private to hide the 
@@ -182,7 +185,9 @@ namespace Nova.Common
                         break;
                 }
                 if (techLevel == -1)
+                {
                     throw new System.ArgumentException("TechLevel.cs: indexing operator - Unknown field of research", index.ToString());
+                }
                 return techLevel;
             }
             set
@@ -319,7 +324,10 @@ namespace Nova.Common
                 }
             }
 
-            if (lhsT == rhsT) return true;
+            if (lhsT == rhsT)
+            {
+                return true;
+            }
 
             return false;
         }

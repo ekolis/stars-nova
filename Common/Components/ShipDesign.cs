@@ -99,14 +99,19 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public void Update()
         {
-            if (ShipHull == null) return; // not much of a ship yet
+            if (ShipHull == null)
+            {
+                return; // not much of a ship yet
+            }
             Hull hullProperties = null;
             if (ShipHull.Properties.ContainsKey("Hull"))
             {
                 hullProperties = ShipHull.Properties["Hull"] as Hull;
             }
             else
+            {
                 return; // still not much of a ship.
+            }
 
             // Start by copying the basic properties of the hull
             Summary = new Component(ShipHull);
@@ -124,14 +129,20 @@ namespace Nova.Common.Components
             // Check any non Hull properties of the ShipHull
             foreach (string key in ShipHull.Properties.Keys)
             {
-                if (key == "Hull") continue;
+                if (key == "Hull")
+                {
+                    continue;
+                }
                 SumProperty(ShipHull.Properties[key], key, 1);
             }
 
             // Then add all of the components fitted to the hull modules.
             foreach (HullModule module in hullProperties.Modules)
             {
-                if (module.AllocatedComponent == null) continue;
+                if (module.AllocatedComponent == null)
+                {
+                    continue;
+                }
                 // Sumarise the mass & cost
                 Summary.Mass += module.AllocatedComponent.Mass;
                 Summary.Cost += module.AllocatedComponent.Cost;
@@ -363,8 +374,14 @@ namespace Nova.Common.Components
         {
             get
             {
-                if (Summary.Properties.ContainsKey("Scanner")) return true;
-                else return false;
+                if (Summary.Properties.ContainsKey("Scanner"))
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 
@@ -437,7 +454,10 @@ namespace Nova.Common.Components
         {
             get
             {
-                if (IsStarbase) return 0.0;
+                if (IsStarbase)
+                {
+                    return 0.0;
+                }
 
                 // From the manual: Movement = (Ideal_Speed_of_Engine - 4) / 4 - (weight / 70 /4 / Number_of_Engines) + (Number_ofManeuvering_Jets / 4) + (Num_Overthrusters / 2)
                 double speed = 0;
@@ -453,8 +473,13 @@ namespace Nova.Common.Components
                 }
                 // ship speed is always between 0.5 and 2.5 in increments of 0.25
                 if (speed < 0.5)
+                {
                     speed = 0.5; // Set a minimum ship speed.
-                if (speed > 2.5) speed = 2.5;
+                }
+                if (speed > 2.5)
+                {
+                    speed = 2.5;
+                }
                 speed = ((double)((int)((speed * 4.0) + 0.5))) / 4.0;
                 return speed;
 

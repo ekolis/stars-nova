@@ -152,8 +152,14 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public double FuelConsumption(int warp, Race race, int cargoMass)
         {
-            if (warp == 0) return 0;
-            if (this.design.Engine == null) return 0; // may be a star base
+            if (warp == 0)
+            {
+                return 0;
+            }
+            if (this.design.Engine == null)
+            {
+                return 0; // may be a star base
+            }
 
             double fuelFactor = this.design.Engine.FuelConsumption[warp - 1];
             double efficiency = fuelFactor / 100.0;
@@ -426,8 +432,14 @@ namespace Nova.Common
         {
             get
             {
-                if (design.CanScan) return true;
-                else return false;
+                if (design.CanScan)
+                {
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
             }
         }
 

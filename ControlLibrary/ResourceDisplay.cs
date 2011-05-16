@@ -239,7 +239,10 @@ namespace Nova.ControlLibrary
             {
                 try
                 {
-                    if (value == null) return;
+                    if (value == null)
+                    {
+                        return;
+                    }
 
                     Resources resources = value;
                     

@@ -53,7 +53,9 @@ namespace Nova.Common.Components
         /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public ProbabilityProperty() { }
+        public ProbabilityProperty() 
+        { 
+        }
 
 
         /// ----------------------------------------------------------------------------

@@ -57,7 +57,9 @@ namespace Nova.Common
         /// Default constructor, required for serialization.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public EnvironmentTolerance() { }
+        public EnvironmentTolerance() 
+        { 
+        }
 
         #endregion
 

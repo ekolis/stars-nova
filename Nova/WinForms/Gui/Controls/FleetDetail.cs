@@ -1023,8 +1023,17 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public Fleet Value
         {
-            set { if (value != null) SetFleetDetails(value); }
-            get { return this.selectedFleet; }
+            set
+            {
+                if (value != null)
+                {
+                    SetFleetDetails(value);
+                }
+            }
+            get 
+            { 
+                return this.selectedFleet; 
+            }
         }
 
 

@@ -48,7 +48,9 @@ namespace Nova.Common.Components
         /// <summary>
         /// Initializes a new instance of the ComponentProperty class.
         /// </summary>
-        public ComponentProperty() { }
+        public ComponentProperty()
+        {
+        }
 
 
         /// <summary>

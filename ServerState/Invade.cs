@@ -149,11 +149,15 @@ namespace Nova.WinForms.Console
             // Apply defender and attacker bonuses
             double attackerBonus = 1.1;
             if ((stateData.AllRaces[fleet.Owner] as Race).HasTrait("WM"))
+            {
                 attackerBonus *= 1.5;
+            }
 
             double defenderBonus = 1.0;
             if ((stateData.AllRaces[fleet.Owner] as Race).HasTrait("IS"))
+            {
                 defenderBonus *= 2.0;
+            }
 
             int defenderStrength = (int)(star.Colonists * defenderBonus);
             int attackerStrength = (int)(troopsOnGround * attackerBonus);

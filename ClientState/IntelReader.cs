@@ -163,7 +163,9 @@ namespace Nova.Client
                   foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)
                   {
                       if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
+                      {
                           module.AllocatedComponent = AllComponents.Data.Components[module.AllocatedComponent.Name] as Component;
+                      }
                   }
               }
           }
@@ -172,7 +174,9 @@ namespace Nova.Client
           foreach (Fleet fleet in turnData.AllFleets.Values)
           {
               if (fleet.InOrbit != null)
+              {
                   fleet.InOrbit = turnData.AllStars[fleet.InOrbit.Name] as Star;
+              }
               // Ship reference to Design
               foreach (Ship ship in fleet.FleetShips)
               {
@@ -188,13 +192,19 @@ namespace Nova.Client
               if (star.ThisRace != null)
               {
                   if (star.Owner == stateData.PlayerRace.Name)
+                  {
                       star.ThisRace = stateData.PlayerRace;
+                  }
                   else
+                  {
                       star.ThisRace = null;
+                  }
               }
 
-                  if (star.Starbase != null)
-                      star.Starbase = turnData.AllFleets[star.Starbase.FleetID] as Fleet;
+              if (star.Starbase != null)
+              {
+                  star.Starbase = turnData.AllFleets[star.Starbase.FleetID] as Fleet;
+              }
               
           }
 

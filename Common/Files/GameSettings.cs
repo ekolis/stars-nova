@@ -89,7 +89,9 @@ namespace Nova.Common
         // Private constructor to prevent anyone else creating instances of this class.
         // ============================================================================
 
-        private GameSettings() { }
+        private GameSettings() 
+        { 
+        }
 
 
         // ============================================================================

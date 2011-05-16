@@ -69,7 +69,10 @@ namespace Nova.Common
                 GridAxisCount++;
                 numberOfItems = GridAxisCount * GridAxisCount;
             }
-            if (GridAxisCount <= 0) GridAxisCount = 1;
+            if (GridAxisCount <= 0)
+            {
+                GridAxisCount = 1;
+            }
         }
 
 
@@ -86,7 +89,10 @@ namespace Nova.Common
             // position of the top left corner of each box and, as we know the
             // length of the side we can determine the rectangle details.
 
-            if (GridAxisCount <= 0) GridAxisCount = 1;
+            if (GridAxisCount <= 0)
+            {
+                GridAxisCount = 1;
+            }
             int boxSide = spaceSize / GridAxisCount;
             Size boxSize = new Size(boxSide, boxSide);
             Point currentPosition = new Point();

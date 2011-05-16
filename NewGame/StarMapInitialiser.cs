@@ -173,13 +173,19 @@ namespace Nova.NewGame
             starbaseHull = components["Space Dock"] as Component; // (components["Space Dock"] as Component).Properties["Hull"] as Hull;
 
             if (race.HasTrait("AR") == true)
+            {
                 colonizer = components["Orbital Construction Module"] as Component; // (components["Orbital Construction Module"] as Component).Properties["Colonizer"] as Colonizer;
+            }
             else
+            {
                 colonizer = components["Colonization Module"] as Component; // (components["Colonization Module"] as Component).Properties["Colonizer"] as Colonizer; ;
+            }
 
 
             if (colonyShipEngine == null)
+            {
                 colonyShipEngine = engine;
+            }
 
             ShipDesign cs = new ShipDesign();
             cs.ShipHull = colonyShipHull;

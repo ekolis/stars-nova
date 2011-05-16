@@ -48,11 +48,17 @@ namespace Nova.Common.Components
             get
             {
                 if (componentCount == 0 && AllocatedComponent == null)
+                {
                     return 0;
+                }
                 else if (componentCount == 0 && AllocatedComponent != null)
+                {
                     return 1;
+                }
                 else
+                {
                     return componentCount;
+                }
             }
             set
             {
@@ -70,7 +76,9 @@ namespace Nova.Common.Components
         /// Default constructor.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public HullModule() { }
+        public HullModule() 
+        { 
+        }
 
 
         /// ----------------------------------------------------------------------------

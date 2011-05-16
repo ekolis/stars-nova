@@ -192,7 +192,9 @@ namespace Nova.WinForms.ComponentEditor
                    this.componentType.Text = "Armor";
                    UpdateListBox("Armor");
                    if (this.componentList.Items.Count > 0)
+                   {
                        this.componentList.SelectedIndex = 0; // pick the first Item in the list
+                   }
                    fileDirty = false;
                    componentDirty = false;
                    EditModeOff();
@@ -254,7 +256,10 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_SaveFile_Click(object sender, EventArgs e)
        {
-           if (componentDirty) SaveComponent();
+           if (componentDirty)
+           {
+               SaveComponent();
+           }
            AllComponents.Save();
            fileDirty = false;
            EditModeOff();
@@ -269,7 +274,10 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
        private void MenuItem_SaveFileAs_Click(object sender, EventArgs e)
        {
-           if (componentDirty) SaveComponent();
+           if (componentDirty)
+           {
+               SaveComponent();
+           }
            SaveFileDialog fd = new SaveFileDialog();
            fd.Title = "Save component definition file";
            fd.Filter = "dat files (*.dat)|*.dat|xml files (*.xml)|*.xml|compressed xml (*.xml.gz)|*.xml.gz|All files (*.*)|*.*";
@@ -322,9 +330,14 @@ namespace Nova.WinForms.ComponentEditor
            if (componentDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-               if (reply == DialogResult.Cancel) return;
+               if (reply == DialogResult.Cancel)
+               {
+                   return;
+               }
                else if (reply == DialogResult.Yes)
+               {
                    SaveComponent();
+               }
            }
            else
            {
@@ -333,7 +346,10 @@ namespace Nova.WinForms.ComponentEditor
            if (fileDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component definition file?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-               if (reply == DialogResult.Cancel) return;
+               if (reply == DialogResult.Cancel)
+               {
+                   return;
+               }
                else if (reply == DialogResult.Yes)
                {
                    if (AllComponents.Save())
@@ -399,9 +415,14 @@ namespace Nova.WinForms.ComponentEditor
            if (componentDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-               if (reply == DialogResult.Cancel) return;
+               if (reply == DialogResult.Cancel)
+               {
+                   return;
+               }
                else if (reply == DialogResult.Yes)
+               {
                    SaveComponent();
+               }
            }
 
 
@@ -902,9 +923,13 @@ namespace Nova.WinForms.ComponentEditor
                    Colonizer colonizationProperty = selectedComponent.Properties["Colonizer"] as Colonizer;
 
                    if (colonizationProperty.Orbital)
+                   {
                        this.orbitalColonizationModule.Checked = true;
+                   }
                    else
+                   {
                        this.colonizationModule.Checked = true;
+                   }
 
                    this.propertyTabs.TabPages.Add(tabColonization);
                    this.propertyTabs.SelectedTab = tabColonization;
@@ -1283,9 +1308,14 @@ namespace Nova.WinForms.ComponentEditor
            if (componentDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-               if (reply == DialogResult.Cancel) return;
+               if (reply == DialogResult.Cancel)
+               {
+                   return;
+               }
                else if (reply == DialogResult.Yes)
+               {
                    SaveComponent();
+               }
            }
 #if (DEBUG)
            else
@@ -1296,7 +1326,10 @@ namespace Nova.WinForms.ComponentEditor
            if (fileDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component definition file?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
-               if (reply == DialogResult.Cancel) return;
+               if (reply == DialogResult.Cancel)
+               {
+                   return;
+               }
                else if (reply == DialogResult.Yes)
                {
                    if (!AllComponents.Save())
@@ -1565,12 +1598,30 @@ namespace Nova.WinForms.ComponentEditor
                weaponProperty.Range = (int)this.weaponRange.Value;
                weaponProperty.Initiative = (int)this.weaponInitiative.Value;
                weaponProperty.Accuracy = (int)this.weaponAccuracy.Value;
-               if (isStandardBeam.Checked) weaponProperty.Group = WeaponType.standardBeam;
-               else if (isSapper.Checked) weaponProperty.Group = WeaponType.shieldSapper;
-               else if (isGattling.Checked) weaponProperty.Group = WeaponType.gatlingGun;
-               else if (isTorpedo.Checked) weaponProperty.Group = WeaponType.torpedo;
-               else if (isMissile.Checked) weaponProperty.Group = WeaponType.missile;
-               else weaponProperty.Group = WeaponType.standardBeam;
+               if (isStandardBeam.Checked)
+               {
+                   weaponProperty.Group = WeaponType.standardBeam;
+               }
+               else if (isSapper.Checked)
+               {
+                   weaponProperty.Group = WeaponType.shieldSapper;
+               }
+               else if (isGattling.Checked)
+               {
+                   weaponProperty.Group = WeaponType.gatlingGun;
+               }
+               else if (isTorpedo.Checked)
+               {
+                   weaponProperty.Group = WeaponType.torpedo;
+               }
+               else if (isMissile.Checked)
+               {
+                   weaponProperty.Group = WeaponType.missile;
+               }
+               else
+               {
+                   weaponProperty.Group = WeaponType.standardBeam;
+               }
 
                newComponent.Properties.Add("Weapon", weaponProperty);
            }

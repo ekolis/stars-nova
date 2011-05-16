@@ -98,7 +98,9 @@ namespace Nova.Common
         /// <summary>
         /// Initializes a new instance of the CommandArguments class.
         /// </summary>
-        public CommandArguments() { }
+        public CommandArguments() 
+        { 
+        }
 
         /// <summary>
         /// Initializes a new instance of the CommandArguments class.
@@ -205,7 +207,10 @@ namespace Nova.Common
             for (int i = 0; i < argumentCount; i++)
             {
                 sb.Append(argumentList[i]);
-                if (i + 1 < argumentCount) sb.Append(' ');
+                if (i + 1 < argumentCount)
+                {
+                    sb.Append(' ');
+                }
             }
             return sb.ToString();
         }
@@ -277,7 +282,10 @@ namespace Nova.Common
             while (arguments.Count > 0)
             {
                 string option = arguments.Dequeue();
-                if (!option.StartsWith("-")) continue;
+                if (!option.StartsWith("-"))
+                {
+                    continue;
+                }
 
                 string value;
                 if (arguments.Count > 0)

@@ -48,7 +48,9 @@ namespace Nova.Common
         /// <summary>
         /// default constructor
         /// </summary>
-        public RaceData() { }
+        public RaceData() 
+        { 
+        }
 
         /// <summary>
         /// Determine if this race wishes to treat lamb as an enemy.

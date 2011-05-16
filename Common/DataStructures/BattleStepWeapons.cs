@@ -109,7 +109,10 @@ namespace Nova.Common.DataStructures
             Global.SaveData(xmldoc, xmlelBattleStepWeapons, "HitPower", HitPower.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             // targeting
-            if (Targeting != null) Global.SaveData(xmldoc, xmlelBattleStepWeapons, "Targeting", Targeting);
+            if (Targeting != null)
+            {
+                Global.SaveData(xmldoc, xmlelBattleStepWeapons, "Targeting", Targeting);
+            }
 
             // weapontarget
             xmlelBattleStepWeapons.AppendChild(WeaponTarget.ToXml(xmldoc));

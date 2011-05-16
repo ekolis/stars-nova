@@ -80,7 +80,9 @@ namespace Nova.Common
         /// Default Construction
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public Item() { }
+        public Item() 
+        { 
+        }
 
 
         /// ----------------------------------------------------------------------------
@@ -91,7 +93,10 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public Item(Item existing)
         {
-            if (existing == null) return;
+            if (existing == null)
+            {
+                return;
+            }
 
             this.Mass = existing.Mass;
             this.Name = existing.Name;
@@ -203,11 +208,26 @@ namespace Nova.Common
         {
             XmlElement xmlelItem = xmldoc.CreateElement("Item");
 
-            if (Name != null) Global.SaveData(xmldoc, xmlelItem, "Name", Name);
-            if (Owner != null) Global.SaveData(xmldoc, xmlelItem, "Owner", Owner);
-            if (Type != null) Global.SaveData(xmldoc, xmlelItem, "Type", Type);
-            if (Mass != 0) Global.SaveData(xmldoc, xmlelItem, "Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            if (Cost != null) xmlelItem.AppendChild(Cost.ToXml(xmldoc));
+            if (Name != null)
+            {
+                Global.SaveData(xmldoc, xmlelItem, "Name", Name);
+            }
+            if (Owner != null)
+            {
+                Global.SaveData(xmldoc, xmlelItem, "Owner", Owner);
+            }
+            if (Type != null)
+            {
+                Global.SaveData(xmldoc, xmlelItem, "Type", Type);
+            }
+            if (Mass != 0)
+            {
+                Global.SaveData(xmldoc, xmlelItem, "Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
+            if (Cost != null)
+            {
+                xmlelItem.AppendChild(Cost.ToXml(xmldoc));
+            }
 
             if (Position.X != 0 || Position.Y != 0)
             {

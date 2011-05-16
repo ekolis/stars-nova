@@ -168,7 +168,10 @@ namespace Nova.Common
             {
                 bool updateConf = false;
 
-                if (disableComponentGraphics) return null;
+                if (disableComponentGraphics)
+                {
+                    return null;
+                }
 
 
                 // Try the config file
@@ -234,7 +237,10 @@ namespace Nova.Common
                 {
                     // Try the config file
                     absoluteReference = conf[configKey];
-                    if (pathOnly) absoluteReference = Path.Combine(absoluteReference, fileName);
+                    if (pathOnly)
+                    {
+                        absoluteReference = Path.Combine(absoluteReference, fileName);
+                    }
                 }
 
                 // did we find it?
@@ -260,7 +266,10 @@ namespace Nova.Common
                 if (!File.Exists(absoluteReference))
                 {
                     // Ask the user for help
-                    if (askUser) absoluteReference = AskUserForFile(fileName);
+                    if (askUser)
+                    {
+                        absoluteReference = AskUserForFile(fileName);
+                    }
                 }
 
                 // Finish up
@@ -399,7 +408,10 @@ namespace Nova.Common
 
             DialogResult result = fileDialog.ShowDialog();
 
-            if (result == DialogResult.Cancel) return null;
+            if (result == DialogResult.Cancel)
+            {
+                return null;
+            }
             
             return fileDialog.FileName;
         }

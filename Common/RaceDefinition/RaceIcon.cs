@@ -106,7 +106,10 @@ namespace Nova.Common
                 return icon;
             }
             int next = AllRaceIcons.Data.IconList.IndexOf(icon) + 1;
-            if (next > AllRaceIcons.Data.IconList.Count - 1) next = 0;
+            if (next > AllRaceIcons.Data.IconList.Count - 1)
+            {
+                next = 0;
+            }
             return (RaceIcon)AllRaceIcons.Data.IconList[next];
         }
 
@@ -126,7 +129,10 @@ namespace Nova.Common
                 return icon;
             }
             int prev = AllRaceIcons.Data.IconList.IndexOf(icon) - 1;
-            if (prev < 0) prev = AllRaceIcons.Data.IconList.Count - 1;
+            if (prev < 0)
+            {
+                prev = AllRaceIcons.Data.IconList.Count - 1;
+            }
             return (RaceIcon)AllRaceIcons.Data.IconList[prev];
         }
 

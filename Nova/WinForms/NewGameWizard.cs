@@ -371,9 +371,13 @@ namespace Nova.WinForms
             {
                 playerList.SelectedIndices.Clear();
                 if (selectedIndex >= playerList.Items.Count)
+                {
                     playerList.SelectedIndices.Add(playerList.Items.Count - 1);
+                }
                 else
+                {
                     playerList.SelectedIndices.Add(selectedIndex);
+                }
             }
             UpdatePlayerListButtons();
         }
@@ -407,7 +411,10 @@ namespace Nova.WinForms
                 }
 
             }
-            if (selectedIndex != -1) playerList.SelectedIndices.Add(selectedIndex - 1);
+            if (selectedIndex != -1)
+            {
+                playerList.SelectedIndices.Add(selectedIndex - 1);
+            }
             RenumberPlayers();
 
         }
@@ -441,7 +448,10 @@ namespace Nova.WinForms
 
             }
 
-            if (selectedIndex != -1) playerList.SelectedIndices.Add(selectedIndex + 1);
+            if (selectedIndex != -1)
+            {
+                playerList.SelectedIndices.Add(selectedIndex + 1);
+            }
             RenumberPlayers();
         }
 
@@ -533,7 +543,11 @@ namespace Nova.WinForms
         /// ----------------------------------------------------------------------------
         private void RaceSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (playerList.SelectedIndices.Count < 1) return;
+            if (playerList.SelectedIndices.Count < 1)
+            {
+                return;
+            }
+
             playerList.Items[playerList.SelectedIndices[0]].SubItems[1].Text = raceSelectionBox.SelectedItem.ToString();
         }
 
@@ -547,7 +561,11 @@ namespace Nova.WinForms
         /// ----------------------------------------------------------------------------
         private void AiSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
         {
-            if (playerList.SelectedIndices.Count < 1) return;
+            if (playerList.SelectedIndices.Count < 1)
+            {
+                return;
+            }
+
             playerList.Items[playerList.SelectedIndices[0]].SubItems[2].Text = aiSelectionBox.SelectedItem.ToString();
         }
 
@@ -583,21 +601,33 @@ namespace Nova.WinForms
             numberOfPlayers = playerList.Items.Count;
             // Up button
             if (numberOfPlayers == 0 || playerList.SelectedIndices.Contains(0))
+            {
                 playerUpButton.Enabled = false;
+            }
             else
+            {
                 playerUpButton.Enabled = true;
+            }
 
             // Down button
             if (numberOfPlayers == 0 || playerList.SelectedIndices.Contains(numberOfPlayers - 1))
+            {
                 playerDownButton.Enabled = false;
+            }
             else
+            {
                 playerDownButton.Enabled = true;
+            }
 
             // delete button
             if (numberOfPlayers == 0)
+            {
                 playerDeleteButton.Enabled = false;
+            }
             else
+            {
                 playerDeleteButton.Enabled = true;
+            }
 
         }
 

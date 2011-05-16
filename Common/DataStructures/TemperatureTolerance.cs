@@ -36,7 +36,9 @@ namespace Nova.Common
         /// Default constructor, required for serialization?.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public TemperatureTolerance() { }
+        public TemperatureTolerance() 
+        { 
+        }
 
         #endregion
 

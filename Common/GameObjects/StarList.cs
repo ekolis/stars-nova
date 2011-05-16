@@ -85,7 +85,9 @@ namespace Nova.Common
         public void Remove(string starName)
         {
             if (Dictionary.Contains(starName))
+            {
                 Dictionary.Remove(starName);
+            }
 
         }
 
@@ -98,8 +100,14 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public bool Contains(Star star)
         {
-            if (star == null) return false;
-            if (star.Name == null) return false;
+            if (star == null)
+            {
+                return false;
+            }
+            if (star.Name == null)
+            {
+                return false;
+            }
             
             return Dictionary.Contains(star.Name);
         }
@@ -127,12 +135,18 @@ namespace Nova.Common
         {
             get
             {
-                if (!Dictionary.Contains(index)) return null;
+                if (!Dictionary.Contains(index))
+                {
+                    return null;
+                }
                 return Dictionary[index] as Star;
             }
             set
             {
-                if (!Dictionary.Contains(index)) return;
+                if (!Dictionary.Contains(index))
+                {
+                    return;
+                }
                 Dictionary[index] = value;
             }
         }
@@ -147,14 +161,23 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public Star GetNext(Star star)
         {
-            if (star == null) throw new ArgumentNullException("star");
-            if (Dictionary.Count <= 1) return star;
+            if (star == null)
+            {
+                throw new ArgumentNullException("star");
+            }
+            if (Dictionary.Count <= 1)
+            {
+                return star;
+            }
 
             ArrayList keyList = new ArrayList();
             keyList.AddRange(Dictionary.Keys);
             keyList.Sort();
             int nextIndex = keyList.IndexOf(star.Name) + 1;
-            if (nextIndex >= keyList.Count) nextIndex = 0;
+            if (nextIndex >= keyList.Count)
+            {
+                nextIndex = 0;
+            }
             return Dictionary[keyList[nextIndex]] as Star;
         }
 
@@ -168,14 +191,23 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public Star GetPrevious(Star star)
         {
-            if (star == null) throw new ArgumentNullException("star");
-            if (Dictionary.Count <= 1) return star;
+            if (star == null)
+            {
+                throw new ArgumentNullException("star");
+            }
+            if (Dictionary.Count <= 1)
+            {
+                return star;
+            }
 
             ArrayList keyList = new ArrayList();
             keyList.AddRange(Dictionary.Keys);
             keyList.Sort();
             int nextIndex = keyList.IndexOf(star.Name) - 1;
-            if (nextIndex < 0) nextIndex = keyList.Count - 1;
+            if (nextIndex < 0)
+            {
+                nextIndex = keyList.Count - 1;
+            }
             return Dictionary[keyList[nextIndex]] as Star;
 
         }

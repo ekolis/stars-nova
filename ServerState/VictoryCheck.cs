@@ -61,7 +61,10 @@ namespace Nova.WinForms.Console
             ArrayList remainingPlayers = new ArrayList();
             foreach (Star star in StateData.AllStars.Values)
             {
-                if (star.Owner == null || star.Owner == "") continue;
+                if (star.Owner == null || star.Owner == "")
+                {
+                    continue;
+                }
                 if (!remainingPlayers.Contains(star.Owner))
                 {
                     remainingPlayers.Add(star.Owner);
@@ -191,10 +194,16 @@ namespace Nova.WinForms.Console
             foreach (int level in raceTechLevels)
             {
                 if (level >= targetLevel)
+                {
                     highestFields++;
+                }
             }
 
-            if (highestFields >= numberOfFields) return 1;
+            if (highestFields >= numberOfFields)
+            {
+                return 1;
+            }
+            // else
             return 0;
         }
 
@@ -215,6 +224,7 @@ namespace Nova.WinForms.Console
 
             ArrayList allScores = Scores.GetScores();
 
+        
             foreach (ScoreRecord scoreDetail in allScores)
             {
                 if (scoreDetail.Race == raceName)
@@ -381,7 +391,10 @@ namespace Nova.WinForms.Console
 
             secondPlaceScore *= GameSettings.Data.SecondPlaceScore.NumericValue;
 
-            if (ourScore > secondPlaceScore) return 1;
+            if (ourScore > secondPlaceScore)
+            {
+                return 1;
+            }
             return 0;
         }
 
