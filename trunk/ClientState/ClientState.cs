@@ -51,8 +51,8 @@ namespace Nova.Client
         // invocations.
         // ============================================================================
 
-        public StrongList<string> DeletedDesigns = new StrongList<string>();
-        public StrongList<string> DeletedFleets = new StrongList<string>();
+        public List<string> DeletedDesigns = new List<string>();
+        public List<string> DeletedFleets = new List<string>();
         public ArrayList Messages = new ArrayList();
         public Intel InputTurn = null;
         public Hashtable BattlePlans = new Hashtable();
