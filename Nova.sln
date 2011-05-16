@@ -10,7 +10,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Common", "Common\Common.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Server", "ServerState\Server.csproj", "{0C92C1D5-9084-4E4A-82F1-889B74019A33}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientState", "ClientState\ClientState.csproj", "{F497309F-FC52-4431-962B-F6B813010080}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Client", "ClientState\Client.csproj", "{F497309F-FC52-4431-962B-F6B813010080}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{86291ACF-4BAD-4926-B647-8BCDBB5E8EF7}"
 EndProject
