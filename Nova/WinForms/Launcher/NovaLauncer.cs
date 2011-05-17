@@ -195,7 +195,7 @@ namespace Nova.WinForms.Launcher
                 }
             }
 
-            if (serverStateFileName != "")
+            if (serverStateFileName.Length > 0)
             {
                 args.Clear();
                 args.Add(CommandArguments.Option.ConsoleSwitch);

@@ -61,7 +61,7 @@ namespace Nova.WinForms.Console
             List<string> remainingPlayers = new List<string>();
             foreach (Star star in StateData.AllStars.Values)
             {
-                if (star.Owner == null || star.Owner == "")
+                if (string.IsNullOrEmpty(star.Owner))
                 {
                     continue;
                 }

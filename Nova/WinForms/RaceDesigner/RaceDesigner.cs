@@ -1781,14 +1781,14 @@ namespace Nova.WinForms.RaceDesigner
             // Primary Racial Traits
             // ----------------------------------------------------------------------------
 
-            if (this.raceName.Text == "" || this.pluralRaceName.Text == "")
+            if (this.raceName.Text.Length == 0 || this.pluralRaceName.Text.Length == 0)
             {
                 Report.Error("The race name canonot be blank when generating" +
                              "a new race file - nor can the plural name");
                 return;
             }
 
-            if (this.password.Text == "")
+            if (this.password.Text.Length == 0)
             {
                 Report.Error("The password field cannot be blank when " +
                              "generating a new race file. You will need it to " +

@@ -651,7 +651,7 @@ namespace Nova.Common
         {
             get
             {
-                if (Name != null && Name != "")
+                if (!string.IsNullOrEmpty(Name))
                 {
                     return Name;
                 }

@@ -133,7 +133,7 @@ namespace Nova.WinForms.ComponentEditor
         {
             string componentName = ComponentName.Text;
 
-            if (componentName == null || componentName == "")
+            if (string.IsNullOrEmpty(componentName))
             {
                 Report.Error("You must select a component to delete");
                 return;
