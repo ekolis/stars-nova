@@ -57,6 +57,8 @@ namespace Nova
                     WinForms.Gui.MainWindow.Main(coreArgs);
                     break;
                 case CommandArguments.Option.NewGameSwitch:
+                    Application.EnableVisualStyles();
+                    Application.SetCompatibleTextRenderingDefault(false);
                     WinForms.NewGameWizard wiz = new WinForms.NewGameWizard();
                     wiz.Main();
                     break;
