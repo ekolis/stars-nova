@@ -101,8 +101,6 @@ namespace Nova.WinForms
         [STAThread]
         public void Main()
         {
-            Application.EnableVisualStyles();
-            Application.SetCompatibleTextRenderingDefault(false);
 
             // Establish the victory conditions:
             NewGameWizard newGameWizard = new NewGameWizard();
