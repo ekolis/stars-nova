@@ -160,7 +160,7 @@ namespace Nova.Common.Components
                                     else
                                     {
                                         // guess it is relative, so convert
-                                        if (AllComponents.Graphics == "" || AllComponents.Graphics == "?")
+                                        if (AllComponents.Graphics.Length == 0 || AllComponents.Graphics == "?")
                                         {
                                             // All atempts to locate the graphics have failed, so skip them.
                                         }

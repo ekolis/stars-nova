@@ -242,22 +242,22 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelRace, "MineBuildCost", MineBuildCost.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             // Plural Name
-            if (PluralName != null && PluralName != "")
+            if (!string.IsNullOrEmpty(PluralName))
             {
                 Global.SaveData(xmldoc, xmlelRace, "PluralName", PluralName);
             }
             // Name
-            if (Name != null && Name != "")
+            if (!string.IsNullOrEmpty(Name))
             {
                 Global.SaveData(xmldoc, xmlelRace, "Name", Name);
             }
             // Password 
-            if (Password != null && Password != "")
+            if (!string.IsNullOrEmpty(Password))
             {
                 Global.SaveData(xmldoc, xmlelRace, "Password", Password);
             }
             // RaceIconName
-            if (Icon.Source != null && Icon.Source != "")
+            if (!string.IsNullOrEmpty(Icon.Source))
             {
                 Global.SaveData(xmldoc, xmlelRace, "RaceIconName", Icon.Source);
             }

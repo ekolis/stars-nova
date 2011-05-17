@@ -1365,12 +1365,12 @@ namespace Nova.WinForms.ComponentEditor
        {
            string componentName = this.componentName.Text;
 
-           if (componentName == null || componentName == "")
+           if (string.IsNullOrEmpty(componentName))
            {
                Report.Error("You must specify a component name");
                return;
            }
-           if (this.componentType.Text == null || this.componentType.Text == "")
+           if (string.IsNullOrEmpty(this.componentType.Text))
            {
                Report.Error("You must specify a component type");
                return;
@@ -1714,7 +1714,7 @@ namespace Nova.WinForms.ComponentEditor
        {
            string componentName = this.componentName.Text;
 
-           if (componentName == null || componentName == "")
+           if (string.IsNullOrEmpty(componentName))
            {
                Report.Error("You must select a component to delete");
                return;

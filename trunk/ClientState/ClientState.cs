@@ -229,7 +229,7 @@ namespace Nova.Client
 
                 // - look for races and ask the user to pick one. 
                 ClientState.Data.RaceName = SelectRace(ClientState.Data.GameFolder);
-                if (ClientState.Data.RaceName != null && ClientState.Data.RaceName != "")
+                if (!string.IsNullOrEmpty(Data.RaceName))
                 {
                     
                     isLoaded = true;
