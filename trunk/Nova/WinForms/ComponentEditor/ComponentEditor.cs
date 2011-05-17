@@ -67,6 +67,7 @@
 #region Using Statements
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -90,7 +91,7 @@ namespace Nova.WinForms.ComponentEditor
        private static RaceRestriction restrictions;
 
        // Keep a copy of the hull map, for ships.
-       private static ArrayList hullMap = new ArrayList();
+       private static List<HullModule> hullMap = new List<HullModule>();
 
        // ============================================================================
        //
@@ -243,7 +244,7 @@ namespace Nova.WinForms.ComponentEditor
            this.techRequirements.Value = new TechLevel(0);
            this.componentList.Items.Clear();
            this.propertyTabs.TabPages.Clear();
-           hullMap = new ArrayList();
+           hullMap = new List<HullModule>();
 
            UpdateTitleBar();
        }
@@ -649,7 +650,7 @@ namespace Nova.WinForms.ComponentEditor
                this.propertyTabs.TabPages.Add(tabHull);
                this.propertyTabs.SelectedTab = tabHull;
 
-               hullMap = new ArrayList();
+               hullMap = new List<HullModule>();
                this.hullArmor.Value = 0;
                this.hullInitiative.Value = 0;
                this.hullFuelCapacity.Value = 0;
@@ -1018,7 +1019,6 @@ namespace Nova.WinForms.ComponentEditor
                    this.hullCargoCapacity.Value = (decimal)hullProperties.BaseCargo;
                    this.hullInitiative.Value = (decimal)hullProperties.BattleInitiative;
 
-                   // HullMap.HullGrid.ActiveModules = new ArrayList();
                    try
                    {
                        hullMap.Clear();
@@ -1031,7 +1031,7 @@ namespace Nova.WinForms.ComponentEditor
                    {
                        // problem with the hull map; reset it.
                        Report.Error("Hull map error - resetting map.");
-                       hullMap = new ArrayList();
+                       hullMap = new List<HullModule>();
                    }
 
 
@@ -1495,7 +1495,7 @@ namespace Nova.WinForms.ComponentEditor
                hullProperties.BaseCargo = (int)this.hullCargoCapacity.Value;
                hullProperties.BattleInitiative = (int)this.hullInitiative.Value;
 
-               hullProperties.Modules = new ArrayList();
+               hullProperties.Modules = new List<HullModule>();
                foreach (HullModule module in hullMap)
                {
                    HullModule newModule = new HullModule(module);
@@ -1792,7 +1792,7 @@ namespace Nova.WinForms.ComponentEditor
           this.restrictionSummary.Text = "";
           this.techRequirements.Value = new TechLevel(0);
           restrictions = new RaceRestriction();
-          hullMap = new ArrayList();
+          hullMap = new List<HullModule>();
       }
 
 

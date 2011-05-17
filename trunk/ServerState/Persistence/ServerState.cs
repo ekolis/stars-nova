@@ -31,10 +31,14 @@
 #region Using Statements
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
 
 using Nova.Common;
+using Nova.Common.DataStructures;
+using Message = Nova.Common.Message;
+
 #endregion
 
 
@@ -50,8 +54,8 @@ namespace Nova.Server
     {
         #region Data
 
-        public ArrayList AllBattles     = new ArrayList();
-        public ArrayList AllPlayers     = new ArrayList(); // collection of PlayerSettings (player number, race, ai (program name or "Default AI" or "Human")
+        public List<BattleReport> AllBattles = new List<BattleReport>();
+        public List<PlayerSettings> AllPlayers = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
         public Hashtable AllTechLevels  = new Hashtable(); // Sum of a player's techlevels, for scoring purposes.
         public Hashtable AllDesigns     = new Hashtable();
         public Hashtable AllFleets      = new Hashtable();
@@ -59,7 +63,7 @@ namespace Nova.Server
         public Hashtable AllRaces       = new Hashtable(); // Data about the race (traits etc)
         public Hashtable AllStars       = new Hashtable();
         public Hashtable AllMinefields  = new Hashtable();
-        public ArrayList AllMessages    = new ArrayList(); // ArrayList containing all messages generated this turn.
+        public List<Message> AllMessages = new List<Message>(); // All messages generated this turn.
 
         public bool GameInProgress      = false;
         public int FleetID              = 1;

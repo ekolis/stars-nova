@@ -35,6 +35,7 @@ using Nova.Client;
 using Nova.Common;
 using Nova.Common.Components;
 using Nova.ControlLibrary;
+using System.Collections.Generic;
 
 
 namespace Nova.WinForms.Gui
@@ -271,7 +272,7 @@ namespace Nova.WinForms.Gui
             // 
             // HullGrid
             // 
-            this.HullGrid.ActiveModules = ((System.Collections.ArrayList)(resources.GetObject("HullGrid.ActiveModules")));
+            this.HullGrid.ActiveModules = ((System.Collections.Generic.List<Nova.Common.Components.HullModule>)(resources.GetObject("HullGrid.ActiveModules")));
             this.HullGrid.HideEmptyModules = true;
             this.HullGrid.HullName = null;
             this.HullGrid.Location = new System.Drawing.Point(19, 126);
@@ -809,7 +810,7 @@ namespace Nova.WinForms.Gui
             }
 
             // Populate the tree view control from the AvailableComponents
-            ArrayList techList = new ArrayList();
+            List<string> techList = new List<string>();
 
             foreach (Component component in this.stateData.AvailableComponents.Values)
             {

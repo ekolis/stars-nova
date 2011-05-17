@@ -27,6 +27,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
@@ -652,14 +653,14 @@ namespace Nova.WinForms
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
-        /// Provide access to the list of players as an <see cref="ArrayList"/> of <see cref="PlayerSettings"/>.
+        /// Provide access to the list of players.
         /// </Summary>
         /// ----------------------------------------------------------------------------
-        public ArrayList Players
+        public List<PlayerSettings> Players
         {
             get
             {
-                ArrayList players = new ArrayList();
+                List<PlayerSettings> players = new List<PlayerSettings>();
                 foreach (ListViewItem player in playerList.Items)
                 {
                     PlayerSettings settings = new PlayerSettings();

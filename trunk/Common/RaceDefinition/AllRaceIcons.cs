@@ -27,6 +27,7 @@
 #endregion
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 
@@ -41,7 +42,7 @@ namespace Nova.Common
     {
         private static readonly object Padlock = new object();
         private static AllRaceIcons instance;
-        public ArrayList IconList = new ArrayList();
+        public List<RaceIcon> IconList = new List<RaceIcon>();
 
         #region Singleton
 

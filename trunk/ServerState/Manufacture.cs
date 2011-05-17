@@ -28,7 +28,7 @@
 
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using Nova.Common;
 using Nova.Common.Components;
 using Nova.Server;
@@ -42,7 +42,7 @@ namespace Nova.WinForms.Console
     public class Manufacture
     {
 
-        private ArrayList deletions = new ArrayList();
+        private List<ProductionQueue.Item> deletions = new List<ProductionQueue.Item>();
         private ServerState stateData;
         private WaypointTasks waypointTasks;
   

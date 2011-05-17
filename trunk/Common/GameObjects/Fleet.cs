@@ -26,6 +26,8 @@
 // ===========================================================================
 #endregion
 
+using System.Collections.Generic;
+
 namespace Nova.Common
 {
 
@@ -48,8 +50,8 @@ namespace Nova.Common
     public class Fleet : Item
     {
         public int FleetID = 0;
-        public ArrayList FleetShips = new ArrayList();
-        public ArrayList Waypoints = new ArrayList();
+        public List<Ship> FleetShips = new List<Ship>();
+        public List<Waypoint> Waypoints = new List<Waypoint>();
 
         /// <summary>
         /// The cargo carried by the entire fleet. 
@@ -175,7 +177,7 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public TravelStatus Move(ref double availableTime, Race race)
         {
-            Waypoint target = Waypoints[0] as Waypoint;
+            Waypoint target = Waypoints[0];
 
             if (Position == target.Position)
             {
@@ -460,7 +462,7 @@ namespace Nova.Common
             {
                 try
                 {
-                    Ship ship = FleetShips[0] as Ship;
+                    Ship ship = FleetShips[0];
                     return ship.Icon;
                 }
                 catch
@@ -619,13 +621,13 @@ namespace Nova.Common
         {
             get
             {
-                Waypoint target = Waypoints[0] as Waypoint;
+                Waypoint target = Waypoints[0];
                 return target.WarpFactor;
             }
 
             set
             {
-                Waypoint target = Waypoints[0] as Waypoint;
+                Waypoint target = Waypoints[0];
                 target.WarpFactor = 0;
             }
 
@@ -658,7 +660,7 @@ namespace Nova.Common
         {
             get
             {
-                return FleetShips.Cast<Ship>().Sum(ship => ship.CargoCapacity);
+                return FleetShips.Sum(ship => ship.CargoCapacity);
             }
         }
 
@@ -689,7 +691,7 @@ namespace Nova.Common
         {
             get
             {
-                return FleetShips.Cast<Ship>().Sum(ship => ship.DockCapacity);
+                return FleetShips.Sum(ship => ship.DockCapacity);
             }
         }
 
@@ -700,7 +702,7 @@ namespace Nova.Common
         {
             get
             {
-                return FleetShips.Cast<Ship>().Sum(ship => ship.FuelCapacity);
+                return FleetShips.Sum(ship => ship.FuelCapacity);
             }
         }
 

@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
 
@@ -555,10 +556,10 @@ namespace Nova.ControlLibrary
 
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Get or Set the active modules as an ArrayList of HullModule.
+        /// Get or Set the active modules.
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public ArrayList ActiveModules
+        public List<HullModule> ActiveModules
         {
 
             // ----------------------------------------------------------------------------
@@ -568,7 +569,7 @@ namespace Nova.ControlLibrary
 
             get
             {
-                ArrayList activeModules = new ArrayList();
+                List<HullModule> activeModules = new List<HullModule>();
 
                 for (int i = 0; i < panelMap.Length; i++)
                 {
@@ -589,7 +590,7 @@ namespace Nova.ControlLibrary
             // ----------------------------------------------------------------------------
             set
             {
-                ArrayList hullModules = value;
+                List<HullModule> hullModules = value;
 
                 foreach (Panel panel in panelMap)
                 {

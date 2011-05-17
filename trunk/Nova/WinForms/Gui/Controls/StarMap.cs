@@ -26,7 +26,7 @@
 // ===========================================================================
 #endregion
 
-
+using System.Collections.Generic;
 
 namespace Nova.WinForms.Gui
 {
@@ -492,7 +492,7 @@ namespace Nova.WinForms.Gui
 
             if (fleet.Owner == this.stateData.RaceName)
             {
-                Waypoint first = fleet.Waypoints[0] as Waypoint;
+                Waypoint first = fleet.Waypoints[0];
                 NovaPoint from = LogicalToDevice(first.Position);
 
                 foreach (Waypoint waypoint in fleet.Waypoints)
@@ -619,7 +619,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DetermineVisibleFleets()
         {
-            ArrayList playersFleets = new ArrayList();
+            List<Fleet> playersFleets = new List<Fleet>();
 
             // -------------------------------------------------------------------
             // (1) First the easy one. Fleets owned by the player.
@@ -689,7 +689,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DetermineVisibleMinefields()
         {
-            ArrayList playersFleets = new ArrayList();
+            List<Fleet> playersFleets = new List<Fleet>();
 
             foreach (Fleet fleet in this.turnData.AllFleets.Values)
             {
@@ -1048,7 +1048,7 @@ namespace Nova.WinForms.Gui
             NovaPoint click = new NovaPoint(e.X, e.Y);
             Fleet fleet = item as Fleet;
             NovaPoint position = DeviceToLogical(click);
-            ArrayList nearObjects = FindNearObjects(position);
+            List<SortableItem> nearObjects = FindNearObjects(position);
             Waypoint waypoint = new Waypoint();
 
             waypoint.Position = position;
@@ -1068,8 +1068,8 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                SortableItem selected = nearObjects[0] as SortableItem;
-                Item target = selected.Target as Item;
+                SortableItem selected = nearObjects[0];
+                Item target = selected.Target;
                 waypoint.Position = target.Position;
                 waypoint.Destination = target.Name;
             }
@@ -1077,7 +1077,7 @@ namespace Nova.WinForms.Gui
             // If the new waypoint is the same as the last one then do nothing.
 
             int lastIndex = fleet.Waypoints.Count - 1;
-            Waypoint lastWaypoint = fleet.Waypoints[lastIndex] as Waypoint;
+            Waypoint lastWaypoint = fleet.Waypoints[lastIndex];
             NovaPoint lastPosition = lastWaypoint.Position;
 
             if (waypoint.Destination == lastWaypoint.Destination)
@@ -1121,7 +1121,7 @@ namespace Nova.WinForms.Gui
             SetCursor(position);
             this.MapPanel.Refresh();
 
-            ArrayList nearObjects = FindNearObjects(position);
+            List<SortableItem> nearObjects = FindNearObjects(position);
             if (nearObjects.Count == 0)
             {
                 return;
@@ -1146,8 +1146,8 @@ namespace Nova.WinForms.Gui
             }
 
             this.lastClick = click;
-            SortableItem selected = nearObjects[this.selection] as SortableItem;
-            Item item = (Item)selected.Target;
+            SortableItem selected = nearObjects[this.selection];
+            Item item = selected.Target;
             this.cursorPosition = item.Position;          
    
             // Build an object to hold data.
@@ -1200,11 +1200,11 @@ namespace Nova.WinForms.Gui
         /// ordered by distance.
         /// </Summary>
         /// <param name="position">Starting Point for the search.</param>
-        /// <returns>ArrayList of Fleet and Star objects.</returns>
+        /// <returns>A list of Fleet and Star objects.</returns>
         /// ----------------------------------------------------------------------------
-        private ArrayList FindNearObjects(NovaPoint position)
+        private List<SortableItem> FindNearObjects(NovaPoint position)
         {
-            ArrayList nearObjects = new ArrayList();
+            List<SortableItem> nearObjects = new List<SortableItem>();
 
             foreach (Fleet fleet in this.turnData.AllFleets.Values)
             {

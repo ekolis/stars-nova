@@ -30,6 +30,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 
 namespace Nova.Common
@@ -44,7 +45,7 @@ namespace Nova.Common
     {
         public int GridAxisCount;
 
-        private readonly ArrayList availableBoxes = new ArrayList();
+        private readonly List<Rectangle> availableBoxes = new List<Rectangle>();
         private readonly Random random = new Random();
 
 
@@ -121,7 +122,7 @@ namespace Nova.Common
         public Rectangle GetBox()
         {
             int boxNumber = this.random.Next(0, this.availableBoxes.Count - 1);
-            Rectangle box = (Rectangle)this.availableBoxes[boxNumber];
+            Rectangle box = availableBoxes[boxNumber];
 
             this.availableBoxes.RemoveAt(boxNumber);
             return box;

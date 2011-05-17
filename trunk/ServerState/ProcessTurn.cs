@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 using Nova.Common;
@@ -138,7 +139,7 @@ namespace Nova.WinForms.Console
             intelWriter.WriteIntel();
 
             // remove old messages, do this last so that the 1st turn intro message is not removed before it is delivered.
-            stateData.AllMessages = new ArrayList();
+            stateData.AllMessages = new List<Message>();
 
         }
 
@@ -149,7 +150,7 @@ namespace Nova.WinForms.Console
         private void CleanupFleets()
         {
             // create a list of all fleets that have been destroyed
-            ArrayList destroyedFleets = new ArrayList();
+            List<string> destroyedFleets = new List<string>();
             foreach (Fleet fleet in stateData.AllFleets.Values)
             {
                 if (fleet.FleetShips.Count == 0)
@@ -163,7 +164,7 @@ namespace Nova.WinForms.Console
             }
 
             // And remove stations too.
-            ArrayList destroyedStations = new ArrayList();
+            List<string> destroyedStations = new List<string>();
             foreach (Star star in stateData.AllStars.Values)
             {
                 if (star.Starbase != null && star.Starbase.FleetShips.Count == 0)
@@ -436,7 +437,7 @@ namespace Nova.WinForms.Console
 
             while (fleet.Waypoints.Count > 0)
             {
-                Waypoint thisWaypoint = fleet.Waypoints[0] as Waypoint;
+                Waypoint thisWaypoint = fleet.Waypoints[0];
 
                 Fleet.TravelStatus result = fleet.Move(ref availableTime, race);
                 bool destroyed = checkForMinefields.Check(fleet);
@@ -472,7 +473,7 @@ namespace Nova.WinForms.Console
                     }
                 }
 
-                currentPosition = fleet.Waypoints[0] as Waypoint;
+                currentPosition = fleet.Waypoints[0];
                 fleet.Waypoints.RemoveAt(0);
 
             }
@@ -481,7 +482,7 @@ namespace Nova.WinForms.Console
 
             if (fleet.Waypoints.Count > 1)
             {
-                Waypoint nextWaypoint = fleet.Waypoints[1] as Waypoint;
+                Waypoint nextWaypoint = fleet.Waypoints[1];
 
                 double dx = fleet.Position.X - nextWaypoint.Position.X;
                 double dy = fleet.Position.Y - nextWaypoint.Position.Y;

@@ -99,7 +99,7 @@ namespace Nova.WinForms.Gui
 
                     if (fleet.Waypoints.Count > 1)
                     {
-                        Waypoint waypoint = fleet.Waypoints[1] as Waypoint;
+                        Waypoint waypoint = fleet.Waypoints[1];
 
                         destination = waypoint.Destination;
                         if (waypoint.Task != "None")

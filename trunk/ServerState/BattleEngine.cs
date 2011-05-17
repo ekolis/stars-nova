@@ -82,7 +82,7 @@ namespace Nova.WinForms.Console
             // Determine the positions of any potential battles. For a battle to
             // take place 2 or more fleets must be at the same location.
 
-            ArrayList fleetPositions = DetermineCoLocatedFleets();
+            List<List<Fleet>> fleetPositions = DetermineCoLocatedFleets();
 
             // If there are no co-located fleets then there are no fleets at all
             // so there is nothing more to do so we can give up here.
@@ -95,7 +95,7 @@ namespace Nova.WinForms.Console
             // Eliminate potential battle locations where there is only one race
             // present.
 
-            ArrayList battlePositions = EliminateSingleRaces(fleetPositions);
+            List<List<Fleet>> battlePositions = EliminateSingleRaces(fleetPositions);
 
             // Again this could result in an empty array. If so, give up here.
 
@@ -109,9 +109,9 @@ namespace Nova.WinForms.Console
             // build the fleet stacks and invoke the battle at each location
             // between any enemies.
 
-            foreach (ArrayList combatZone in battlePositions)
+            foreach (List<Fleet> combatZone in battlePositions)
             {
-                ArrayList zoneStacks = GenerateStacks(combatZone);
+                List<Fleet> zoneStacks = GenerateStacks(combatZone);
 
                 // If no targets get selected (for whatever reason) then there is
                 // no battle so we can give up here.
@@ -161,11 +161,11 @@ namespace Nova.WinForms.Console
         /// is more than one (this scan could be more efficient but this is easier to
         /// read). 
         /// </summary>
-        /// <returns>A list of all lists of co-located fleets as an ArrayList of ArrayLists of Fleets.</returns>
+        /// <returns>A list of all lists of co-located fleets.</returns>
         /// ----------------------------------------------------------------------------
-        public ArrayList DetermineCoLocatedFleets()
+        public List<List<Fleet>> DetermineCoLocatedFleets()
         {
-            ArrayList allFleetPositions = new ArrayList();
+            List<List<Fleet>> allFleetPositions = new List<List<Fleet>>();
             Hashtable fleetDone = new Hashtable();
             
             foreach (Fleet fleetA in stateData.AllFleets.Values)
@@ -173,7 +173,7 @@ namespace Nova.WinForms.Console
 
                 if (fleetDone.Contains(fleetA.Name) == false)
                 {
-                    ArrayList coLocatedFleets = new ArrayList();
+                    List<Fleet> coLocatedFleets = new List<Fleet>();
 
                     foreach (Fleet fleetB in stateData.AllFleets.Values)
                     {
@@ -199,14 +199,14 @@ namespace Nova.WinForms.Console
         /// Eliminate single race groupings. Note that we know there must be at least
         /// two fleets when we determined co-located fleets earlier.
         /// </summary>
-        /// <param name="fleetPositions">A list of all lists of co-located fleets as an ArrayList of ArrayLists of Fleets.</param>
-        /// <returns>The positions of all potential battles as an ArrayList (battlePositions) of ArrayLists (coLocatedFleets) of Fleets.</returns>
+        /// <param name="fleetPositions">A list of all lists of co-located fleets.</param>
+        /// <returns>The positions of all potential battles.</returns>
         /// ----------------------------------------------------------------------------
-        public ArrayList EliminateSingleRaces(ArrayList fleetPositions)
+        public List<List<Fleet>> EliminateSingleRaces(List<List<Fleet>> fleetPositions)
         {
-            ArrayList battlePositions = new ArrayList();
+            List<List<Fleet>> battlePositions = new List<List<Fleet>>();
 
-            foreach (ArrayList coLocatedFleets in fleetPositions)
+            foreach (List<Fleet> coLocatedFleets in fleetPositions)
             {
                 Hashtable races = new Hashtable();
 
@@ -233,9 +233,9 @@ namespace Nova.WinForms.Console
         /// tokens of the same design present at the battle).
         /// </summary>
         /// <param name="fleet">The <see cref="Fleet"/> to be converted to token stacks.</param>
-        /// <returns>A list of stacks as an ArrayList of <see cref="Fleet"/>s.</returns>
+        /// <returns>A list of fleet stacks.</returns>
         /// ----------------------------------------------------------------------------
-        public ArrayList BuildFleetStacks(Fleet fleet)
+        public List<Fleet> BuildFleetStacks(Fleet fleet)
         {
             Hashtable fleetStacks = new Hashtable();
 
@@ -267,11 +267,7 @@ namespace Nova.WinForms.Console
                 stack.FleetShips.Add(ship);
             }
 
-            // Convert the hashtable into an ArrayList 
-            // TODO (priority 4) - historical and could be removed
-
-            ArrayList stackList = new ArrayList();
-
+            List<Fleet> stackList = new List<Fleet>();
             foreach (Fleet thisFleet in fleetStacks.Values)
             {
                 stackList.Add(thisFleet);
@@ -287,16 +283,16 @@ namespace Nova.WinForms.Console
         /// design and battle plan. We will return a complete list of all stacks at
         /// this battle location.
         /// </summary>
-        /// <param name="coLocatedFleets">A list of fleets at the given location (as an ArrayList of Fleet).</param>
-        /// <returns>A list of token stacks representing the given fleets (as an ArrayList of Fleet).</returns>
+        /// <param name="coLocatedFleets">A list of fleets at the given location.</param>
+        /// <returns>A list of token stacks representing the given fleets.</returns>
         /// ----------------------------------------------------------------------------
-        public ArrayList GenerateStacks(ArrayList coLocatedFleets)
+        public List<Fleet> GenerateStacks(List<Fleet> coLocatedFleets)
         {
-            ArrayList zoneStacks = new ArrayList();
+            List<Fleet> zoneStacks = new List<Fleet>();
 
             foreach (Fleet fleet in coLocatedFleets)
             {
-                ArrayList fleetStacks = BuildFleetStacks(fleet);
+                List<Fleet> fleetStacks = BuildFleetStacks(fleet);
 
                 foreach (Fleet stack in fleetStacks)
                 {
@@ -312,9 +308,9 @@ namespace Nova.WinForms.Console
         /// <summary>
         /// Set the initial position of all of the stacks
         /// </summary>
-        /// <param name="zoneStacks">All stacks in this battle (as an ArrayList of Fleet).</param>
+        /// <param name="zoneStacks">All stacks in this battle.</param>
         /// ----------------------------------------------------------------------------
-        public void PositionStacks(ArrayList zoneStacks)
+        public void PositionStacks(List<Fleet> zoneStacks)
         {
             Hashtable races = new Hashtable();
             Hashtable racePositions = new Hashtable();
@@ -363,9 +359,9 @@ namespace Nova.WinForms.Console
         /// Deal with a battle. This function will execute until all target fleets are
         /// destroyed or a pre-set maximum time has elapsed.   
         /// </summary>
-        /// <param name="zoneStacks">All stacks in this battle (as an ArrayList of Fleet).</param>
+        /// <param name="zoneStacks">All stacks in this battle.</param>
         /// ----------------------------------------------------------------------------
-        public void DoBattle(ArrayList zoneStacks)
+        public void DoBattle(List<Fleet> zoneStacks)
         {
             double time = 0;
 
@@ -400,10 +396,10 @@ namespace Nova.WinForms.Console
         /// <summary>
         /// Select targets (if any). Targets are set on a stack-by-stack basis.
         /// </summary>
-        /// <param name="zoneStacks">All stacks in this battle (as an ArrayList of Fleet).</param>
+        /// <param name="zoneStacks">All stacks in this battle.</param>
         /// <returns>The number of targeted stacks.</returns>
         /// ----------------------------------------------------------------------------
-        public int SelectTargets(ArrayList zoneStacks)
+        public int SelectTargets(List<Fleet> zoneStacks)
         {
             foreach (Fleet wolf in zoneStacks)
             {
@@ -510,7 +506,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="zoneStacks">All stacks in the battle.</param>
         /// ----------------------------------------------------------------------------
-        public void MoveStacks(ArrayList zoneStacks)
+        public void MoveStacks(List<Fleet> zoneStacks)
         {
             // each turn has 3 phases
             // TODO (priority 3) - verify that a ship should be able to move 1 square per phase if it has 3 move points, or is it limited to 1 per turn?
@@ -553,7 +549,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         /// <param name="zoneStacks">All stacks in the battle.</param>
         /// ----------------------------------------------------------------------------
-        private void FireWeapons(ArrayList zoneStacks)
+        private void FireWeapons(List<Fleet> zoneStacks)
         {
             // First, identify all of the weapons and their characteristics for
             // every ship present at the battle and who they are pointed at.
@@ -653,7 +649,7 @@ namespace Nova.WinForms.Console
             // target of this weapon system the first (perhaps only) ship in the
             // stack.
 
-            Ship target = targetStack.FleetShips[0] as Ship;
+            Ship target = targetStack.FleetShips[0];
             DischargeWeapon(ship, weapon, target);
         }
 

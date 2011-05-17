@@ -30,6 +30,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace Nova.Common.Components
@@ -46,7 +47,7 @@ namespace Nova.Common.Components
         // have these properties it improves
         // the interface to include them here. Values supplied in additional property
         // tabs in the component edditor will be in addition to those in the base hull.
-        public ArrayList Modules = null;
+        public List<HullModule> Modules = null;
         public int FuelCapacity = 0;
         public int DockCapacity = 0;
         public int BaseCargo = 0; // Basic Cargo capacity of the empty hull (no pods)
@@ -82,11 +83,11 @@ namespace Nova.Common.Components
             ArmorStrength    = existing.ArmorStrength;
             BattleInitiative = existing.BattleInitiative;
 
-            Modules = new ArrayList();
+            Modules = new List<HullModule>();
 
             foreach (HullModule module in existing.Modules)
             {
-                Modules.Add(module.Clone());
+                Modules.Add((HullModule)module.Clone());
             }
         }
 
@@ -195,7 +196,7 @@ namespace Nova.Common.Components
         /// ----------------------------------------------------------------------------
         public Hull(XmlNode node)
         {
-            Modules = new ArrayList();
+            Modules = new List<HullModule>();
             XmlNode subnode = node.FirstChild;
             while (subnode != null)
             {

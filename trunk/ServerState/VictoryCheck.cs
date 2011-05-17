@@ -28,7 +28,7 @@
 
 using System;
 using System.Collections;
-
+using System.Collections.Generic;
 using Nova.Common;
 using Nova.Server;
 
@@ -58,7 +58,7 @@ namespace Nova.WinForms.Console
         {
 
             // check for last man standing - doesn't matter the year
-            ArrayList remainingPlayers = new ArrayList();
+            List<string> remainingPlayers = new List<string>();
             foreach (Star star in StateData.AllStars.Values)
             {
                 if (star.Owner == null || star.Owner == "")
@@ -222,7 +222,7 @@ namespace Nova.WinForms.Console
                 return 0;
             }
 
-            ArrayList allScores = Scores.GetScores();
+            List<ScoreRecord> allScores = Scores.GetScores();
 
         
             foreach (ScoreRecord scoreDetail in allScores)
@@ -291,7 +291,7 @@ namespace Nova.WinForms.Console
                 return 0;
             }
 
-            ArrayList allScores = Scores.GetScores();
+            List<ScoreRecord> allScores = Scores.GetScores();
 
             foreach (ScoreRecord scoreDetail in allScores)
             {
@@ -331,7 +331,7 @@ namespace Nova.WinForms.Console
                 return 0;
             }
 
-            ArrayList allScores = Scores.GetScores();
+            List<ScoreRecord> allScores = Scores.GetScores();
             int raceScore = 0;
 
             foreach (ScoreRecord scoreDetail in allScores)
@@ -370,7 +370,7 @@ namespace Nova.WinForms.Console
                 return 0;
             }
 
-            ArrayList allScores = Scores.GetScores();
+            List<ScoreRecord> allScores = Scores.GetScores();
 
             // Get our score and the second place score.
 

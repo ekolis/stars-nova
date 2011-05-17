@@ -33,6 +33,7 @@
 #region Using Statements
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
 using System.Runtime.Serialization.Formatters.Binary;
@@ -120,7 +121,7 @@ namespace Nova.Server
                 }
                 else
                 {
-                    turnData.AllScores = new ArrayList();
+                    turnData.AllScores = new List<ScoreRecord>();
                 }
 
                 StateData.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);

@@ -28,7 +28,9 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Text;
 using System.Windows.Forms;
 using Nova.Common;
@@ -248,12 +250,15 @@ namespace Nova.WinForms.Gui
         {
             this.damage.Text = "Ship destroyed";
 
-            Fleet stack = this.myStacks[destroy.StackName] as Fleet;
+            Fleet stack = myStacks[destroy.StackName] as Fleet;
+
+            // TODO (priority 3) Needs testing. Unknown if the constructed ship name will correctly match ships in the FleetShips list.
             string shipName = stack.Owner + "/" + destroy.ShipName;
 
-            if (stack.FleetShips.Contains(shipName))
+            IEnumerable<Ship> ships = stack.FleetShips.Where(x => x.Name == shipName);
+            if (ships.Any())
             {
-                stack.FleetShips.Remove(shipName);
+                stack.FleetShips.Remove(ships.First());
             }
 
             if (stack.FleetShips.Count == 0)
