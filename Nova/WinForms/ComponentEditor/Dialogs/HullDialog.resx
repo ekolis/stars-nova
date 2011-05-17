@@ -119,8 +119,13 @@
   </resheader>
   <data name="HullGrid.ActiveModules" mimetype="application/x-microsoft.net.object.binary.base64">
     <value>
-        AAEAAAD/////AQAAAAAAAAAEAQAAABxTeXN0ZW0uQ29sbGVjdGlvbnMuQXJyYXlMaXN0AwAAAAZfaXRl
-        bXMFX3NpemUIX3ZlcnNpb24FAAAICAkCAAAAAAAAAAAAAAAQAgAAAAAAAAAL
+        AAEAAAD/////AQAAAAAAAAAMAgAAAElOb3ZhLkNvbW1vbiwgVmVyc2lvbj0wLjQuNDE1NC4zNzg4Niwg
+        Q3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBAEAAACRAVN5c3RlbS5Db2xsZWN0aW9u
+        cy5HZW5lcmljLkxpc3RgMVtbTm92YS5Db21tb24uQ29tcG9uZW50cy5IdWxsTW9kdWxlLCBOb3ZhLkNv
+        bW1vbiwgVmVyc2lvbj0wLjQuNDE1NC4zNzg4NiwgQ3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tl
+        bj1udWxsXV0DAAAABl9pdGVtcwVfc2l6ZQhfdmVyc2lvbgQAACNOb3ZhLkNvbW1vbi5Db21wb25lbnRz
+        Lkh1bGxNb2R1bGVbXQIAAAAICAkDAAAAAAAAAAAAAAAHAwAAAAABAAAAAAAAAAQhTm92YS5Db21tb24u
+        Q29tcG9uZW50cy5IdWxsTW9kdWxlAgAAAAs=
 </value>
   </data>
 </root>

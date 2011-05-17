@@ -146,7 +146,7 @@ namespace Nova.WinForms.Console
             // field.
 
             NovaPoint currentPosition = fleet.Position;
-            Waypoint targetWaypoint = fleet.Waypoints[0] as Waypoint;
+            Waypoint targetWaypoint = fleet.Waypoints[0];
             NovaPoint targetPosition = targetWaypoint.Position;
 
             double travelDistance = PointUtilities.Distance(currentPosition, targetPosition);
@@ -187,7 +187,7 @@ namespace Nova.WinForms.Console
             int shipsLost = 0;
             fleet.Speed = 0;
 
-            ArrayList shipsToRemove = new ArrayList();
+            List<Ship> shipsToRemove = new List<Ship>();
 
             foreach (Ship ship in fleet.FleetShips)
             {

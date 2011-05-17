@@ -32,6 +32,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace Nova.Common
@@ -170,8 +171,8 @@ namespace Nova.Common
                 return star;
             }
 
-            ArrayList keyList = new ArrayList();
-            keyList.AddRange(Dictionary.Keys);
+            List<string> keyList = new List<string>();
+            keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
             keyList.Sort();
             int nextIndex = keyList.IndexOf(star.Name) + 1;
             if (nextIndex >= keyList.Count)
@@ -200,8 +201,8 @@ namespace Nova.Common
                 return star;
             }
 
-            ArrayList keyList = new ArrayList();
-            keyList.AddRange(Dictionary.Keys);
+            List<string> keyList = new List<string>();
+            keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
             keyList.Sort();
             int nextIndex = keyList.IndexOf(star.Name) - 1;
             if (nextIndex < 0)

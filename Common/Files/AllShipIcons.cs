@@ -44,7 +44,7 @@ namespace Nova.Common
     {
         private static readonly object Padlock = new object();
         private static AllShipIcons instance;
-        public ArrayList IconList = new ArrayList();
+        public List<ShipIcon> IconList = new List<ShipIcon>();
         public Dictionary<string, Dictionary<int, ShipIcon>> Hulls = new Dictionary<string, Dictionary<int, ShipIcon>>();
 
         #region Singleton
@@ -183,11 +183,11 @@ namespace Nova.Common
 
             if (AllShipIcons.Data.Hulls.ContainsKey(baseHull))
             {
-                icon = (ShipIcon)AllShipIcons.Data.Hulls[baseHull][iconIndex];
+                icon = Data.Hulls[baseHull][iconIndex];
             }
             else
             {
-                icon = (ShipIcon)AllShipIcons.Data.IconList[0];
+                icon = Data.IconList[0];
             }
             return icon;
 

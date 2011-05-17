@@ -1,3 +1,6 @@
+using System.Collections.Generic;
+using Nova.Common.Components;
+
 namespace Nova.WinForms.Gui
 {
    public partial class DesignManager
@@ -210,7 +213,7 @@ namespace Nova.WinForms.Gui
           // 
           // HullGrid
           // 
-          this.hullGrid.ActiveModules = ((System.Collections.ArrayList)(resources.GetObject("HullGrid.ActiveModules")));
+          this.hullGrid.ActiveModules = ((System.Collections.Generic.List<Nova.Common.Components.HullModule>)(resources.GetObject("hullGrid.ActiveModules")));
           this.hullGrid.HideEmptyModules = true;
           this.hullGrid.Location = new System.Drawing.Point(23, 88);
           this.hullGrid.Name = "hullGrid";

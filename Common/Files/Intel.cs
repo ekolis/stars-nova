@@ -32,6 +32,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.IO;
 using System.Reflection;
@@ -65,10 +66,10 @@ namespace Nova.Common
 
        public int TurnYear = 2100;
        public Race MyRace = new Race();
-       public ArrayList Messages = new ArrayList();
-       public ArrayList Battles = new ArrayList();
-       public ArrayList AllRaceNames = new ArrayList();
-       public ArrayList AllScores = new ArrayList();
+       public List<Message> Messages = new List<Message>();
+       public List<BattleReport> Battles = new List<BattleReport>();
+       public List<string> AllRaceNames = new List<string>();
+       public List<ScoreRecord> AllScores = new List<ScoreRecord>();
 
        /// <summary>
        /// Provide access for the client/GUI to a list of race icons for races the player has encountered, indexed by race name.
@@ -129,10 +130,10 @@ namespace Nova.Common
            // re-initialise
            TurnYear = 2100;
            MyRace = new Race();
-           Messages = new ArrayList();
-           Battles = new ArrayList();
-           AllRaceNames = new ArrayList();
-           AllScores = new ArrayList();
+           Messages = new List<Message>();
+           Battles = new List<BattleReport>();
+           AllRaceNames = new List<string>();
+           AllScores = new List<ScoreRecord>();
            RaceIcons = new Hashtable();
            AllFleets = new Hashtable();
            AllDesigns = new Hashtable();

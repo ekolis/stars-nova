@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 using Nova.Client;
@@ -59,7 +60,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, EventArgs e)
         {
-            ArrayList allScores = ClientState.Data.InputTurn.AllScores;
+            List<ScoreRecord> allScores = ClientState.Data.InputTurn.AllScores;
             this.scoreGridView.AutoSize = true;
 
             foreach (ScoreRecord score in allScores)

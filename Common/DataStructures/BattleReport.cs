@@ -51,7 +51,7 @@ namespace Nova.Common.DataStructures
                 return (Location == null) ? "" : Year.ToString() + Location; 
             } 
         }
-        public ArrayList Steps  = new ArrayList();
+        public List<BattleStep> Steps = new List<BattleStep>();
         public Hashtable Stacks = new Hashtable();
         public Dictionary<string, int> Losses = new Dictionary<string, int>(); // raceName, lossCount
         
@@ -164,7 +164,6 @@ namespace Nova.Common.DataStructures
 
             Global.SaveData(xmldoc, xmlelBattleReport, "Year", Year.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
-            // public ArrayList Steps  = new ArrayList();
             foreach (BattleStep step in Steps)
             {
                 switch (step.Type)

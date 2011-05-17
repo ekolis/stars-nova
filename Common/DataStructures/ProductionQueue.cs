@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace Nova.Common
@@ -139,7 +140,7 @@ namespace Nova.Common
         // The production queue itself.
         // ============================================================================
 
-        public ArrayList Queue = new ArrayList();
+        public List<Item> Queue = new List<Item>();
 
         /// ----------------------------------------------------------------------------
         /// <summary>

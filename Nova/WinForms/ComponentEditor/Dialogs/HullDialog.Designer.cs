@@ -9,6 +9,9 @@
 // Software Foundation.
 // ============================================================================
 
+using System.Collections.Generic;
+using Nova.Common.Components;
+
 namespace Nova.WinForms.ComponentEditor
 {
    public partial class HullDialog
@@ -58,7 +61,7 @@ namespace Nova.WinForms.ComponentEditor
           // 
           // HullGrid
           // 
-          this.HullGrid.ActiveModules = ((System.Collections.ArrayList)(resources.GetObject("HullGrid.ActiveModules")));
+          this.HullGrid.ActiveModules = ((System.Collections.Generic.List<Nova.Common.Components.HullModule>)(resources.GetObject("HullGrid.ActiveModules")));
           this.HullGrid.HideEmptyModules = false;
           this.HullGrid.Location = new System.Drawing.Point(6, 17);
           this.HullGrid.Name = "HullGrid";

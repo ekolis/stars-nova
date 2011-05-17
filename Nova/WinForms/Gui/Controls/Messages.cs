@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Text;
 using System.Windows.Forms;
 
@@ -42,7 +43,7 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public class Messages : System.Windows.Forms.UserControl
     {
-        private ArrayList messages;
+        private List<Common.Message> messages;
         private int currentMessage;
         private int turnYear;
 
@@ -227,8 +228,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void GotoButton_Click(object sender, EventArgs e)
         {
-            Nova.Common.Message thisMessage = messages[currentMessage]
-                                            as Nova.Common.Message;
+            Nova.Common.Message thisMessage = messages[currentMessage];
 
             if (thisMessage.Event is BattleReport)
             {
@@ -267,7 +267,7 @@ namespace Nova.WinForms.Gui
             if (messages.Count > 0)
             {
                 Nova.Common.Message thisMessage = new Nova.Common.Message();
-                thisMessage = messages[currentMessage] as Nova.Common.Message;
+                thisMessage = messages[currentMessage];
                 messageBox.Text = thisMessage.Text;
 
                 if (thisMessage.Event != null)
@@ -311,7 +311,7 @@ namespace Nova.WinForms.Gui
         /// Set the messages to be displayed.
         /// </Summary>
         /// ----------------------------------------------------------------------------
-        public ArrayList MessageList
+        public List<Common.Message> MessageList
         {
             set
             {

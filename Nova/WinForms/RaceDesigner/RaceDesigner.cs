@@ -188,7 +188,7 @@ namespace Nova.WinForms.RaceDesigner
         private void OnLoad(object sender, EventArgs e)
         {
             AllRaceIcons.Restore();
-            this.currentRaceIcon = (RaceIcon)AllRaceIcons.Data.IconList[0];
+            this.currentRaceIcon = AllRaceIcons.Data.IconList[0];
             this.pictureBox.Image = this.currentRaceIcon.Image;
             this.iconIndex.Text = Path.GetFileNameWithoutExtension(this.currentRaceIcon.Source);
 

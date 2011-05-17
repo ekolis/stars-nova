@@ -27,7 +27,7 @@
 #endregion
 
 using System.Collections;
-
+using System.Collections.Generic;
 using Nova.Common;
 
 namespace Nova.Server
@@ -49,9 +49,9 @@ namespace Nova.Server
         /// Return a list of all scores 
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public ArrayList GetScores()
+        public List<ScoreRecord> GetScores()
         {
-            ArrayList scores = new ArrayList();
+            List<ScoreRecord> scores = new List<ScoreRecord>();
 
             foreach (PlayerSettings player in stateData.AllPlayers)
             {
@@ -189,9 +189,8 @@ namespace Nova.Server
         /// <summary>
         /// Set the rank for all races.
         /// </summary>
-        /// <param name="scores">An <see cref="ArrayList"/> of <see cref="ScoreRecord"/>s.</param>
         /// ----------------------------------------------------------------------------
-        private void SetRanks(ArrayList scores)
+        private void SetRanks(List<ScoreRecord> scores)
         {
             scores.Sort();
 

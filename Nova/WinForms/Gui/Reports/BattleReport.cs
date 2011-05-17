@@ -147,7 +147,7 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                BattleReport report = ClientState.Data.InputTurn.Battles[battleRow] as BattleReport;
+                BattleReport report = ClientState.Data.InputTurn.Battles[battleRow];
                 BattleViewer battleViewer = new BattleViewer(report);
                 battleViewer.ShowDialog();
                 battleViewer.Dispose();

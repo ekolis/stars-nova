@@ -38,6 +38,7 @@ using System.Windows.Forms;
 
 using Nova.Common;
 using Nova.Common.Components;
+using Message = Nova.Common.Message;
 
 #endregion
 
@@ -53,7 +54,7 @@ namespace Nova.Client
 
         public List<string> DeletedDesigns = new List<string>();
         public List<string> DeletedFleets = new List<string>();
-        public ArrayList Messages = new ArrayList();
+        public List<Message> Messages = new List<Message>();
         public Intel InputTurn = null;
         public Hashtable BattlePlans = new Hashtable();
         public Hashtable KnownEnemyDesigns = new Hashtable();

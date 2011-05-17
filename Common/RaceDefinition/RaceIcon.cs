@@ -110,7 +110,7 @@ namespace Nova.Common
             {
                 next = 0;
             }
-            return (RaceIcon)AllRaceIcons.Data.IconList[next];
+            return AllRaceIcons.Data.IconList[next];
         }
 
 
@@ -133,7 +133,7 @@ namespace Nova.Common
             {
                 prev = AllRaceIcons.Data.IconList.Count - 1;
             }
-            return (RaceIcon)AllRaceIcons.Data.IconList[prev];
+            return AllRaceIcons.Data.IconList[prev];
         }
 
         #endregion

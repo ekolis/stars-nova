@@ -30,6 +30,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Nova.NewGame
 {
@@ -37,7 +38,7 @@ namespace Nova.NewGame
     public class NameGenerator
     {
         private readonly Random randomGenerator = new Random();
-        private readonly ArrayList namePool = new ArrayList();
+        private readonly List<string> namePool = new List<string>();
 
         #region Construction
 
@@ -67,7 +68,7 @@ namespace Nova.NewGame
             get
             {
                 int index = this.randomGenerator.Next(0, this.namePool.Count - 1);
-                string name = (string)this.namePool[index];
+                string name = namePool[index];
 
                 this.namePool.RemoveAt(index);
 

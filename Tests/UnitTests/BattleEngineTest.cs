@@ -27,6 +27,7 @@
 #endregion
 
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using Nova.Common;
 using Nova.Common.Components;
@@ -79,9 +80,9 @@ namespace Nova.Tests.UnitTests
         // Outputs and subsequent inputs to the various routines. These have the
         // same name as the equivalent variables in the actual code.
 
-        private ArrayList fleetPositions;
-        private ArrayList battlePositions;
-        private ArrayList zoneStacks;
+        private List<List<Fleet>> fleetPositions;
+        private List<List<Fleet>> battlePositions;
+        private List<Fleet> zoneStacks;
 
 
         /// ----------------------------------------------------------------------------
@@ -100,7 +101,7 @@ namespace Nova.Tests.UnitTests
             Component shipHull = new Component();
             Hull hull = new Hull();
             hull.FuelCapacity = 100;
-            hull.Modules = new ArrayList();
+            hull.Modules = new List<HullModule>();
             shipHull.Properties.Add("Hull", hull);
             shipHull.Properties.Add("Battle Movement", new DoubleProperty(1.0));
 
@@ -177,7 +178,7 @@ namespace Nova.Tests.UnitTests
         [Test]
         public void Test3GenerateStacks()
         {
-            ArrayList combatZone = battlePositions[0] as ArrayList;
+            List<Fleet> combatZone = battlePositions[0];
             zoneStacks = battleEngine.GenerateStacks(combatZone);
             Assert.AreEqual(2, zoneStacks.Count);
         }

@@ -12,20 +12,10 @@
   </Class>
   <Class Name="Nova.Common.Fleet" Collapsed="true">
     <Position X="4.25" Y="1.75" Width="1.5" />
-    <NestedTypes>
-      <Enum Name="Nova.Common.Fleet.TravelStatus" Collapsed="true">
-        <TypeIdentifier>
-          <NewMemberFileName>GameObjects\Fleet.cs</NewMemberFileName>
-        </TypeIdentifier>
-      </Enum>
-    </NestedTypes>
     <TypeIdentifier>
-      <HashCode>AEIAAAIAKIIACISBACAAAiADAIAAMBEFAQCCAACAGBA=</HashCode>
+      <HashCode>AEIAAAIAKIIASCSBACAAAiADAIAEMAEFAYCCABGACJA=</HashCode>
       <FileName>GameObjects\Fleet.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="FleetShips" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Nova.Common.Item" Collapsed="true">
     <Position X="7.5" Y="0.75" Width="1.5" />
@@ -42,7 +32,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AAQAAQAAIAYAIACAAAgAAgAAQAAiIJGEGSCCAAAAMJA=</HashCode>
+      <HashCode>AAQAAQAAIAYAIACAAAgAAgAAQAAmIJGEGSCCAAEAMJA=</HashCode>
       <FileName>GameObjects\Ship.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -52,7 +42,7 @@
   <Class Name="Nova.Common.Star" Collapsed="true">
     <Position X="9.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>IEYAAABqAAAIAAAAcAACAAACYAEAAIAEIEAAIAgEEIA=</HashCode>
+      <HashCode>IMISYABqAABIAAQCcABCEAACYEEBAIAEIEAAIBgEMIA=</HashCode>
       <FileName>GameObjects\Star.cs</FileName>
     </TypeIdentifier>
   </Class>
@@ -67,18 +57,10 @@
         <Point X="5.75" Y="5.312" />
       </Path>
     </InheritanceLine>
-    <AssociationLine Name="Modules" Type="System.Collections.ArrayList">
-      <MemberNameLabel ManuallyPlaced="true" ManuallySized="true">
-        <Position X="-3.328" Y="2.185" Height="0.182" Width="1.18" />
-      </MemberNameLabel>
-    </AssociationLine>
     <TypeIdentifier>
       <HashCode>AAIBAAAAIAAAAICAYAIAAAgQAAgAIBAEAAAAAAAAABA=</HashCode>
       <FileName>Components\Hull.cs</FileName>
     </TypeIdentifier>
-    <ShowAsAssociation>
-      <Field Name="Modules" />
-    </ShowAsAssociation>
   </Class>
   <Class Name="Nova.Common.Components.Component" Collapsed="true">
     <Position X="4.25" Y="7" Width="1.5" />
@@ -95,7 +77,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AEAAAAAAACAQAAAAAAAAAAAAAgAAAAAEAAAAAAAABBA=</HashCode>
+      <HashCode>AEAAAAAAACAQAAQAAAAAAAAAAgAAAAAEAAAAAAAABBA=</HashCode>
       <FileName>Components\HullModule.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -118,7 +100,7 @@
       </MemberNameLabel>
     </AssociationLine>
     <TypeIdentifier>
-      <HashCode>AASABAAAMgEBAACAAAAAAQgAgAAAIBAFFBgCEAAgEBA=</HashCode>
+      <HashCode>AASABAAAMgEBAACAAAAAAQgAgAAEIBAFFBgCEAEgEBA=</HashCode>
       <FileName>Components\ShipDesign.cs</FileName>
     </TypeIdentifier>
     <ShowAsAssociation>
@@ -269,14 +251,9 @@
   <Class Name="Nova.Common.Minefield" Collapsed="true">
     <Position X="11.25" Y="2.5" Width="1.5" />
     <TypeIdentifier>
-      <HashCode>AAAJAAAACAAAAAQAAAAAACAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <HashCode>AAAJAAAACAAAAAQAAAAAACAAAAAAAAAEAAAAAAAAAAA=</HashCode>
       <FileName>GameObjects\MineField.cs</FileName>
     </TypeIdentifier>
-  </Class>
-  <Class Name="System.Collections.ArrayList" Collapsed="true">
-    <Position X="2.25" Y="3" Width="1.5" />
-    <TypeIdentifier />
-    <Lollipop Orientation="Left" Position="0.14" />
   </Class>
   <Enum Name="Nova.Common.Components.WeaponType" Collapsed="true">
     <Position X="14.75" Y="10.5" Width="1.5" />

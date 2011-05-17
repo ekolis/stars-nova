@@ -614,7 +614,7 @@ namespace Nova.WinForms.Gui
             if (this.wayPoints.SelectedItems.Count > 0)
             {
                 int index = this.wayPoints.SelectedIndices[0];
-                Waypoint waypoint = this.selectedFleet.Waypoints[index] as Waypoint;
+                Waypoint waypoint = this.selectedFleet.Waypoints[index];
                 waypoint.WarpFactor = this.warpFactor.Value;
 
                 DisplayLegDetails(index);
@@ -737,7 +737,7 @@ namespace Nova.WinForms.Gui
             }
 
             int index = this.wayPoints.SelectedIndices[0];
-            Waypoint waypoint = this.selectedFleet.Waypoints[index] as Waypoint;
+            Waypoint waypoint = this.selectedFleet.Waypoints[index];
 
             waypoint.Task = WaypointTasks.Text;
         }
@@ -864,7 +864,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void DisplayLegDetails(int index)
         {
-            Waypoint thisWaypoint = this.selectedFleet.Waypoints[index] as Waypoint;
+            Waypoint thisWaypoint = selectedFleet.Waypoints[index];
             Race race = ClientState.Data.PlayerRace;
 
             WaypointTasks.Text = thisWaypoint.Task;
@@ -874,14 +874,14 @@ namespace Nova.WinForms.Gui
                 thisWaypoint.WarpFactor = 0;
             }
 
-            this.selectedFleet.Waypoints[index] = thisWaypoint as Waypoint;
+            selectedFleet.Waypoints[index] = thisWaypoint;
             this.warpFactor.Value = thisWaypoint.WarpFactor;
             warpText.Text = "Warp " + thisWaypoint.WarpFactor;
 
             if (index > 0 && thisWaypoint.WarpFactor > 0)
             {
-                Waypoint from = this.selectedFleet.Waypoints[index - 1] as Waypoint;
-                Waypoint to = this.selectedFleet.Waypoints[index] as Waypoint;
+                Waypoint from = selectedFleet.Waypoints[index - 1];
+                Waypoint to = selectedFleet.Waypoints[index];
                 double distance = PointUtilities.Distance(from.Position, to.Position);
 
                 double time = distance / (to.WarpFactor * to.WarpFactor);

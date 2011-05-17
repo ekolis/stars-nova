@@ -53,7 +53,7 @@ namespace Nova.Common
     {
         public Hashtable RaceFleets = new Hashtable();      // For fleet orders
         public Hashtable RaceDesigns = new Hashtable();     // For any new designs
-        public ArrayList RaceStars = new ArrayList();       // For production queues
+        public List<Star> RaceStars = new List<Star>();       // For production queues
         
         /// <summary>
         /// List of fleets (Fleet.Key) to delete
