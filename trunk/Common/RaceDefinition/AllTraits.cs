@@ -116,7 +116,7 @@ namespace Nova.Common
         {
             // 10 PRTs
             "Hyper Expansion", 
-            "Supper Stealth", 
+            "Super Stealth", 
             "War Monger", 
             "Claim Adjuster", 
             "Inner Strength", 
@@ -133,7 +133,7 @@ namespace Nova.Common
             "Generalised Research", 
             "Ultimate Recycling", 
             "Mineral Alchemy", 
-            "No Ram Scoop Eengines", 
+            "No Ram Scoop Engines", 
         /*    "Cheap Engines",*/
             "Only Basic Remote Mining", 
             "No Advanced Scanners", 
