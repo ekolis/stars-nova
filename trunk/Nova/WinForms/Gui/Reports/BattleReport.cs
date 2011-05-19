@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 using Nova.Client;
@@ -73,7 +74,7 @@ namespace Nova.WinForms.Gui
             foreach (BattleReport report in ClientState.Data.InputTurn.Battles)
             {
 
-                Hashtable countSides = new Hashtable();
+                Dictionary<string, bool> countSides = new Dictionary<string, bool>();
                 foreach (Fleet fleet in report.Stacks.Values)
                 {
                     countSides[fleet.Owner] = true;
