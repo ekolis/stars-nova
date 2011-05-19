@@ -45,7 +45,7 @@ namespace Nova.WinForms.Gui
     public partial class BattleViewer : Form
     {
         private readonly BattleReport theBattle;
-        private readonly Hashtable myStacks = new Hashtable();
+        private readonly Dictionary<string, Fleet> myStacks = new Dictionary<string, Fleet>();
         private int eventCount;
 
 
@@ -162,7 +162,7 @@ namespace Nova.WinForms.Gui
         /// <param name="movement">movement to display</param>
         private void UpdateMovement(BattleStepMovement movement)
         {
-            Fleet stack = this.myStacks[movement.StackName] as Fleet;
+            Fleet stack = this.myStacks[movement.StackName];
             this.movedTo.Text = movement.Position.ToString();
             this.stackOwner.Text = stack.Owner;
             stack.Position = movement.Position;
@@ -251,7 +251,7 @@ namespace Nova.WinForms.Gui
         {
             this.damage.Text = "Ship destroyed";
 
-            Fleet stack = myStacks[destroy.StackName] as Fleet;
+            Fleet stack = myStacks[destroy.StackName];
 
             // TODO (priority 3) Needs testing. Unknown if the constructed ship name will correctly match ships in the FleetShips list.
             string shipName = stack.Owner + "/" + destroy.ShipName;
