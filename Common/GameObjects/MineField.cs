@@ -39,7 +39,7 @@ namespace Nova.Common
     {
         public int NumberOfMines;
         public int SafeSpeed = 4;
-        private static int keyId;
+        private static int keyId; // TODO (priority 5) Minefield key will be shared amonst all minefields. Lacks a non-static unique id.
 
 
         #region Construction
