@@ -520,7 +520,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DrawStar(Star star)
         {
-            StarReport report = this.stateData.StarReports[star.Name] as StarReport;
+            StarReport report;
+            stateData.StarReports.TryGetValue(star.Name, out report);
             NovaPoint position = LogicalToDevice(star.Position);
             int size = 1;
             Brush starBrush = Brushes.White;
@@ -571,7 +572,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DrawOrbitingFleets(Star star)
         {
-            StarReport report = this.stateData.StarReports[star.Name] as StarReport;
+            StarReport report;
+            stateData.StarReports.TryGetValue(star.Name, out report);
             NovaPoint position = LogicalToDevice(star.Position);
             int size = 16;
 

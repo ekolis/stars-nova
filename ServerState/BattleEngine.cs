@@ -475,10 +475,9 @@ namespace Nova.WinForms.Console
             }
 
             RaceData wolfData = stateData.AllRaceData[wolf.Owner] as RaceData;
-            string lambRelation = wolfData.PlayerRelations[lamb.Owner] as string;
+            string lambRelation = wolfData.PlayerRelations[lamb.Owner];
 
-            BattlePlan battlePlan = wolfData.BattlePlans[wolf.BattlePlan]
-                                      as BattlePlan;
+            BattlePlan battlePlan = wolfData.BattlePlans[wolf.BattlePlan];
 
             string attackTarget = battlePlan.Attack;
 

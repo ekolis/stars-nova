@@ -29,6 +29,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Xml;
 
 namespace Nova.Common
@@ -42,8 +43,8 @@ namespace Nova.Common
         public TechLevel ResearchResources = new TechLevel(); // current cumulative resources on research
         public TechLevel ResearchTopics = new TechLevel(); // order or research
         public TechLevel ResearchLevelsGained = new TechLevel(); // research level increases, reset per turn.
-        public Hashtable PlayerRelations = new Hashtable();
-        public Hashtable BattlePlans = new Hashtable();
+        public Dictionary<string, string> PlayerRelations = new Dictionary<string, string>();
+        public Dictionary<string, BattlePlan> BattlePlans = new Dictionary<string, BattlePlan>();
 
         /// <summary>
         /// default constructor
@@ -59,7 +60,7 @@ namespace Nova.Common
         /// <returns>true if lamb is one of this race's enemies, otherwise false.</returns>
         public bool IsEnememy(string lamb)
         {
-            if ((string)PlayerRelations[lamb] == "Enemy")
+            if (PlayerRelations[lamb] == "Enemy")
             {
                 return true;
             }
@@ -147,12 +148,12 @@ namespace Nova.Common
             {
                 XmlElement xmlelRelation = xmldoc.CreateElement("Relation");
                 Global.SaveData(xmldoc, xmlelRelation, "Race", key);
-                Global.SaveData(xmldoc, xmlelRelation, "Status", PlayerRelations[key] as string);
+                Global.SaveData(xmldoc, xmlelRelation, "Status", PlayerRelations[key]);
                 xmlelRaceData.AppendChild(xmlelRelation);
             }
             foreach (string key in BattlePlans.Keys)
             {
-                xmlelRaceData.AppendChild((BattlePlans[key] as BattlePlan).ToXml(xmldoc));
+                xmlelRaceData.AppendChild(BattlePlans[key].ToXml(xmldoc));
             }
 
             return xmlelRaceData;
