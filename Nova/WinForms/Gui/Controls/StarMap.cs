@@ -133,8 +133,8 @@ namespace Nova.WinForms.Gui
 
         #region Variables
         private readonly Bitmap cursorBitmap;
-        private readonly Hashtable visibleFleets = new Hashtable();
-        private readonly Hashtable visibleMinefields = new Hashtable();
+        private readonly Dictionary<string, Fleet> visibleFleets = new Dictionary<string, Fleet>();
+        private readonly Dictionary<string, Minefield> visibleMinefields = new Dictionary<string, Minefield>();
         private readonly Font nameFont;
         private readonly BufferedGraphicsContext bufferedContext;
         private BufferedGraphics grafx; // This is the buffered graphic object.
