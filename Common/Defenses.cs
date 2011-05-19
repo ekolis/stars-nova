@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 
 namespace Nova.Common
 {
@@ -36,7 +37,7 @@ namespace Nova.Common
     {
         #region Fields
 
-        public static Hashtable DefenseTypes = new Hashtable();
+        public static Dictionary<string, double> DefenseTypes = new Dictionary<string, double>();
         public static double PopulationCoverage;
         public static double BuildingCoverage;
         public static double InvasionCoverage;
@@ -80,7 +81,7 @@ namespace Nova.Common
                 return;
             }
 
-            double baseLevel   = (double)DefenseTypes[star.DefenseType];
+            double baseLevel   = DefenseTypes[star.DefenseType];
 
             PopulationCoverage = 1.0 - Math.Pow((1.0 - baseLevel), star.Defenses);
             BuildingCoverage   = PopulationCoverage * 0.5;
