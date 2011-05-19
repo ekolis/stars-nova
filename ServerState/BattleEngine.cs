@@ -166,28 +166,25 @@ namespace Nova.WinForms.Console
         public List<List<Fleet>> DetermineCoLocatedFleets()
         {
             List<List<Fleet>> allFleetPositions = new List<List<Fleet>>();
-            Hashtable fleetDone = new Hashtable();
+            Dictionary<string, bool> fleetDone = new Dictionary<string, bool>();
             
             foreach (Fleet fleetA in stateData.AllFleets.Values)
             {
+                if (fleetDone.ContainsKey(fleetA.Name)) continue;
 
-                if (fleetDone.Contains(fleetA.Name) == false)
+                List<Fleet> coLocatedFleets = new List<Fleet>();
+
+                foreach (Fleet fleetB in stateData.AllFleets.Values)
                 {
-                    List<Fleet> coLocatedFleets = new List<Fleet>();
+                    if (fleetB.Position != fleetA.Position) continue;
 
-                    foreach (Fleet fleetB in stateData.AllFleets.Values)
-                    {
-                        if (fleetB.Position == fleetA.Position)
-                        {
-                            coLocatedFleets.Add(fleetB);
-                            fleetDone[fleetB.Name] = true;
-                        }
-                    }
+                    coLocatedFleets.Add(fleetB);
+                    fleetDone[fleetB.Name] = true;
+                }
 
-                    if (coLocatedFleets.Count > 1)
-                    {
-                        allFleetPositions.Add(coLocatedFleets);
-                    }
+                if (coLocatedFleets.Count > 1)
+                {
+                    allFleetPositions.Add(coLocatedFleets);
                 }
             }
             return allFleetPositions;
@@ -208,7 +205,7 @@ namespace Nova.WinForms.Console
 
             foreach (List<Fleet> coLocatedFleets in fleetPositions)
             {
-                Hashtable races = new Hashtable();
+                Dictionary<string, bool> races = new Dictionary<string, bool>();
 
                 foreach (Fleet fleet in coLocatedFleets)
                 {
@@ -237,12 +234,13 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public List<Fleet> BuildFleetStacks(Fleet fleet)
         {
-            Hashtable fleetStacks = new Hashtable();
+            Dictionary<string, Fleet> fleetStacks = new Dictionary<string, Fleet>();
 
             foreach (Ship ship in fleet.FleetShips)
             {
                 ship.Cost = ship.DesignCost; // ??? why is the cost of the ship being reset here?
-                Fleet stack = fleetStacks[ship.DesignName] as Fleet;
+                Fleet stack;
+                fleetStacks.TryGetValue(ship.DesignName, out stack);
 
                 // If no stack exists for this design then create one now.
 
@@ -312,8 +310,8 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public void PositionStacks(List<Fleet> zoneStacks)
         {
-            Hashtable races = new Hashtable();
-            Hashtable racePositions = new Hashtable();
+            Dictionary<string, string> races = new Dictionary<string, string>();
+            Dictionary<string, Point> racePositions = new Dictionary<string, Point>();
 
             foreach (Fleet stack in zoneStacks)
             {
@@ -349,7 +347,7 @@ namespace Nova.WinForms.Console
 
             foreach (Fleet stack in zoneStacks)
             {
-                stack.Position = (Point)racePositions[stack.Owner];
+                stack.Position = racePositions[stack.Owner];
             }
         }
 
