@@ -370,11 +370,11 @@ namespace Nova.Common
         /// design).
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public Hashtable Composition
+        public Dictionary<string, int> Composition
         {
             get
             {
-                Hashtable fleetComposition = new Hashtable();
+                Dictionary<string, int> fleetComposition = new Dictionary<string, int>();
 
                 foreach (Ship ship in FleetShips)
                 {
@@ -383,7 +383,7 @@ namespace Nova.Common
 
                 foreach (Ship ship in FleetShips)
                 {
-                    int count = (int)fleetComposition[ship.Name];
+                    int count = fleetComposition[ship.Name];
 
                     count++;
                     fleetComposition[ship.Name] = count;

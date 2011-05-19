@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 using Nova.Client;
@@ -118,13 +119,13 @@ namespace Nova.WinForms.Gui
         private void UpdateDialogDetails()
         {
             this.fleetName.Text = this.selectedFleet.Name;
-            Hashtable designs = this.selectedFleet.Composition;
+            Dictionary<string, int> designs = this.selectedFleet.Composition;
 
             this.fleetComposition.Items.Clear();
             foreach (string key in designs.Keys)
             {
                 ListViewItem listItem = new ListViewItem(key);
-                listItem.SubItems.Add(((int)designs[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
+                listItem.SubItems.Add(designs[key].ToString(System.Globalization.CultureInfo.InvariantCulture));
                 this.fleetComposition.Items.Add(listItem);
             }
 
