@@ -51,8 +51,8 @@ namespace Nova.Common
     [Serializable]
     public sealed class Orders
     {
-        public Hashtable RaceFleets = new Hashtable();      // For fleet orders
-        public Hashtable RaceDesigns = new Hashtable();     // For any new designs
+        public Dictionary<int, Fleet> RaceFleets = new Dictionary<int, Fleet>(); // For fleet orders
+        public Dictionary<string, Design> RaceDesigns = new Dictionary<string, Design>();     // For any new designs
         public List<Star> RaceStars = new List<Star>();       // For production queues
         
         /// <summary>
