@@ -29,6 +29,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.Xml;
 
@@ -56,7 +57,7 @@ namespace Nova.Common
         // These members are private to hide the 
         // implementaion of the hashtable and force access through the enums, 
         // in order to prevent errors due to using string literals (e.g. "Biotech" vs "Biotechnology")
-        private readonly Hashtable techValues = new Hashtable();
+        private readonly Dictionary<string, int> techValues = new Dictionary<string, int>();
         // used for internal access to the Hashtable
         private static readonly string[] ResearchKeys = 
         {
@@ -125,7 +126,7 @@ namespace Nova.Common
         //----------------------------------------------------------------------------
         public TechLevel(TechLevel copy)
         {
-            this.techValues = copy.techValues.Clone() as Hashtable;
+            this.techValues = new Dictionary<string, int>(copy.techValues);
         }
 
         #endregion
@@ -166,22 +167,22 @@ namespace Nova.Common
                 switch (index)
                 {
                     case ResearchField.Biotechnology:
-                        techLevel = (int)this.techValues["Biotechnology"];
+                        techLevel = techValues["Biotechnology"];
                         break;
                     case ResearchField.Construction:
-                        techLevel = (int)this.techValues["Construction"];
+                        techLevel = techValues["Construction"];
                         break;
                     case ResearchField.Electronics:
-                        techLevel = (int)this.techValues["Electronics"];
+                        techLevel = techValues["Electronics"];
                         break;
                     case ResearchField.Energy:
-                        techLevel = (int)this.techValues["Energy"];
+                        techLevel = techValues["Energy"];
                         break;
                     case ResearchField.Propulsion:
-                        techLevel = (int)this.techValues["Propulsion"];
+                        techLevel = techValues["Propulsion"];
                         break;
                     case ResearchField.Weapons:
-                        techLevel = (int)this.techValues["Weapons"];
+                        techLevel = techValues["Weapons"];
                         break;
                 }
                 if (techLevel == -1)
@@ -255,12 +256,12 @@ namespace Nova.Common
         //----------------------------------------------------------------------------
         public static bool operator >=(TechLevel lhs, TechLevel rhs)
         {
-            Hashtable lhsT = lhs.techValues;
-            Hashtable rhsT = rhs.techValues;
+            Dictionary<string, int> lhsT = lhs.techValues;
+            Dictionary<string, int> rhsT = rhs.techValues;
 
             foreach (string key in TechLevel.ResearchKeys)
             {
-                if ((int)lhsT[key] < (int)rhsT[key])
+                if (lhsT[key] < rhsT[key])
                 {
                     return false;
                 }
@@ -291,12 +292,12 @@ namespace Nova.Common
         //----------------------------------------------------------------------------
         public static bool operator <(TechLevel lhs, TechLevel rhs)
         {
-            Hashtable lhsT = lhs.techValues;
-            Hashtable rhsT = rhs.techValues;
+            Dictionary<string, int> lhsT = lhs.techValues;
+            Dictionary<string, int> rhsT = rhs.techValues;
 
             foreach (string key in TechLevel.ResearchKeys)
             {
-                if ((int)lhsT[key] < (int)rhsT[key])
+                if (lhsT[key] < rhsT[key])
                 {
                     return true;
                 }
@@ -313,12 +314,12 @@ namespace Nova.Common
          //----------------------------------------------------------------------------
         public static bool operator <=(TechLevel lhs, TechLevel rhs)
         {
-            Hashtable lhsT = lhs.techValues;
-            Hashtable rhsT = rhs.techValues;
+            Dictionary<string, int> lhsT = lhs.techValues;
+            Dictionary<string, int> rhsT = rhs.techValues;
 
             foreach (string key in TechLevel.ResearchKeys)
             {
-                if ((int)lhsT[key] < (int)rhsT[key])
+                if (lhsT[key] < rhsT[key])
                 {
                     return true;
                 }
@@ -413,7 +414,7 @@ namespace Nova.Common
             foreach (string key in TechLevel.ResearchKeys)
             {
                 XmlElement xmlelTech = xmldoc.CreateElement(key);
-                XmlText xmltxtTech = xmldoc.CreateTextNode(((int)this.techValues[key]).ToString(System.Globalization.CultureInfo.InvariantCulture));
+                XmlText xmltxtTech = xmldoc.CreateTextNode(techValues[key].ToString(System.Globalization.CultureInfo.InvariantCulture));
                 xmlelTech.AppendChild(xmltxtTech);
                 xmlelResource.AppendChild(xmlelTech);
             }
