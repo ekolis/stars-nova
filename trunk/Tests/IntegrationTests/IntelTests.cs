@@ -169,8 +169,8 @@ namespace Nova.Tests.IntegrationTests
 
                 // test if it worked
                 Assert.IsTrue(loadedData.TurnYear == 3500);
-                Assert.IsTrue(loadedData.AllStars.Contains("Pluto") && ((Star)loadedData.AllStars["Pluto"]).Name == "Pluto");
-                Assert.IsTrue(loadedData.AllStars.Contains("Pluto") && ((Star)loadedData.AllStars["Pluto"]).Colonists == 25000);
+                Assert.IsTrue(loadedData.AllStars.ContainsKey("Pluto") && loadedData.AllStars["Pluto"].Name == "Pluto");
+                Assert.IsTrue(loadedData.AllStars.ContainsKey("Pluto") && loadedData.AllStars["Pluto"].Colonists == 25000);
 
             }
             catch (Exception e)

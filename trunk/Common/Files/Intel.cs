@@ -76,12 +76,12 @@ namespace Nova.Common
        /// Disambiguation: The AllRaceIcons singleton is a collection of all posible icons for use when creating races.
        /// The server/console should obtain race icon information from ServerState.Data.AllRaces. The client can not maintain such a collection as it has insuficient data on all races.
        /// </summary>
-       public Hashtable RaceIcons = new Hashtable();
+       public Dictionary<string, RaceIcon> RaceIcons = new Dictionary<string, RaceIcon>();
 
-       public Hashtable AllFleets = new Hashtable();
-       public Hashtable AllDesigns = new Hashtable();
-       public Hashtable AllStars = new Hashtable();
-       public Hashtable AllMinefields = new Hashtable();
+       public Dictionary<string, Fleet> AllFleets = new Dictionary<string, Fleet>();
+       public Dictionary<string, Design> AllDesigns = new Dictionary<string, Design>();
+       public Dictionary<string, Star> AllStars = new Dictionary<string, Star>();
+       public Dictionary<string, Minefield> AllMinefields = new Dictionary<string, Minefield>();
        public TechLevel ResearchLevelsGained = new TechLevel();
        public TechLevel ResearchLevels = new TechLevel();
        public TechLevel ResearchResources = new TechLevel();
@@ -134,11 +134,11 @@ namespace Nova.Common
            Battles = new List<BattleReport>();
            AllRaceNames = new List<string>();
            AllScores = new List<ScoreRecord>();
-           RaceIcons = new Hashtable();
-           AllFleets = new Hashtable();
-           AllDesigns = new Hashtable();
-           AllStars = new Hashtable();
-           AllMinefields = new Hashtable();
+           RaceIcons = new Dictionary<string, RaceIcon>();
+           AllFleets = new Dictionary<string, Fleet>();
+           AllDesigns = new Dictionary<string, Design>();
+           AllStars = new Dictionary<string, Star>();
+           AllMinefields = new Dictionary<string, Minefield>();
            ResearchLevelsGained = new TechLevel();
            ResearchLevels = new TechLevel();
            ResearchResources = new TechLevel();
@@ -334,11 +334,11 @@ namespace Nova.Common
            }
 
            // RaceIcons
-           foreach (DictionaryEntry raceIconRecord in RaceIcons)
+           foreach (KeyValuePair<string, RaceIcon> raceIconRecord in RaceIcons)
            {
                XmlElement xmlelRaceIconRecord = xmldoc.CreateElement("RaceIconRecord");
-               Global.SaveData(xmldoc, xmlelRaceIconRecord, "RaceName", raceIconRecord.Key.ToString());
-               xmlelRaceIconRecord.AppendChild(((RaceIcon)raceIconRecord.Value).ToXml(xmldoc));
+               Global.SaveData(xmldoc, xmlelRaceIconRecord, "RaceName", raceIconRecord.Key);
+               xmlelRaceIconRecord.AppendChild(raceIconRecord.Value.ToXml(xmldoc));
                xmlelIntel.AppendChild(xmlelRaceIconRecord);
            }
 
@@ -368,7 +368,7 @@ namespace Nova.Common
            }
 
            // AllMinefields
-           foreach (Minefield mine in AllMinefields)
+           foreach (Minefield mine in AllMinefields.Values)
            {
                xmlelIntel.AppendChild(mine.ToXml(xmldoc));
            }

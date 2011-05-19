@@ -41,7 +41,7 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class ManageFleetDialog : Form
     {
-        private readonly Hashtable allFleets;
+        private readonly Dictionary<string, Fleet> allFleets;
         private Fleet selectedFleet;
 
         #region Construction
@@ -94,7 +94,7 @@ namespace Nova.WinForms.Gui
             string fleetName = this.coLocatedFleets.SelectedItems[0].Text;
             string fleetKey = ClientState.Data.RaceName + "/" + fleetName;
 
-            Fleet fleetToMerge = this.allFleets[fleetKey] as Fleet;
+            Fleet fleetToMerge = this.allFleets[fleetKey];
             foreach (Ship ship in fleetToMerge.FleetShips)
             {
                 this.selectedFleet.FleetShips.Add(ship);

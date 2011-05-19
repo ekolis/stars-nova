@@ -48,7 +48,7 @@ namespace Nova.WinForms.Gui
     {
         private readonly ClientState stateData;
         private readonly Dictionary<string, Component> allComponents;
-        private readonly Hashtable allDesigns;
+        private readonly Dictionary<string, Design> allDesigns;
         private readonly Hashtable imageIndices = new Hashtable();
         private readonly ImageList componentImages = new ImageList();
 

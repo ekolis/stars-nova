@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -74,7 +75,7 @@ namespace Nova.WinForms.Gui
             this.planetGridView.Columns[8].Name = "Minerals";
             this.planetGridView.AutoSize = true;
 
-            Hashtable allStars = ClientState.Data.InputTurn.AllStars;
+            Dictionary<string, Star> allStars = ClientState.Data.InputTurn.AllStars;
 
             foreach (Star star in allStars.Values)
             {

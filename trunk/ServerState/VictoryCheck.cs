@@ -260,7 +260,7 @@ namespace Nova.WinForms.Console
 
             int capacity = 0;
 
-            foreach (Star star in StateData.AllStars)
+            foreach (Star star in StateData.AllStars.Values)
             {
                 if (star.Owner == raceName)
                 {

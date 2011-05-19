@@ -94,14 +94,13 @@ namespace Nova.WinForms.Console
             message.Text = fleet.Name
                          + " attempted to colonise " + waypoint.Destination;
 
-            if (!stateData.AllStars.Contains(waypoint.Destination))
+            if (!stateData.AllStars.ContainsKey(waypoint.Destination))
             {
                 message.Text += " but " + waypoint.Destination + " is not a star.";
             }
             else
             {
-                Star target = stateData.AllStars[waypoint.Destination]
-                              as Star;
+                Star target = stateData.AllStars[waypoint.Destination];
 
                 if (target.Colonists != 0)
                 {
@@ -119,8 +118,7 @@ namespace Nova.WinForms.Console
                 {
                     message.Text = "You have colonised " + waypoint.Destination;
                     waypoint.Task = "None";
-                    Star star = stateData.AllStars[waypoint.Destination]
-                                    as Star;
+                    Star star = stateData.AllStars[waypoint.Destination];
 
                     star.ResourcesOnHand.Ironium = fleet.Cargo.Ironium;
                     star.ResourcesOnHand.Boranium = fleet.Cargo.Boranium;
@@ -156,10 +154,7 @@ namespace Nova.WinForms.Console
                 return;
             }
 
-            Star targetStar = stateData.AllStars[waypoint.Destination]
-                        as Star;
-
-
+            Star targetStar = stateData.AllStars[waypoint.Destination];
 
             message.Text = "Fleet " + fleet.Name + " has unloaded its cargo at "
                           + targetStar.Name;

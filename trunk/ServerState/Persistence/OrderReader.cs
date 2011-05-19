@@ -182,7 +182,7 @@ namespace Nova.Server
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = this.stateData.AllStars[fleet.InOrbit.Name] as Star;
+                    fleet.InOrbit = this.stateData.AllStars[fleet.InOrbit.Name];
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)

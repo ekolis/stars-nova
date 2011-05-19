@@ -176,7 +176,7 @@ namespace Nova.Client
           {
               if (fleet.InOrbit != null)
               {
-                  fleet.InOrbit = turnData.AllStars[fleet.InOrbit.Name] as Star;
+                  fleet.InOrbit = turnData.AllStars[fleet.InOrbit.Name];
               }
               // Ship reference to Design
               foreach (Ship ship in fleet.FleetShips)
@@ -204,7 +204,7 @@ namespace Nova.Client
 
               if (star.Starbase != null)
               {
-                  star.Starbase = turnData.AllFleets[star.Starbase.FleetID] as Fleet;
+                  star.Starbase = turnData.AllFleets[star.Owner + "/" + star.Starbase.FleetID];
               }
               
           }
