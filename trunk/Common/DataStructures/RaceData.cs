@@ -58,7 +58,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="lamb">The name of the race who may be attacked.</param>
         /// <returns>true if lamb is one of this race's enemies, otherwise false.</returns>
-        public bool IsEnememy(string lamb)
+        public bool IsEnemy(string lamb)
         {
             if (PlayerRelations[lamb] == "Enemy")
             {
