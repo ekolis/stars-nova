@@ -123,7 +123,7 @@ namespace Nova.WinForms.Console
         private bool BuildDesign(ProductionQueue.Item item, Star star)
         {
             string designName = star.Owner + "/" + item.Name;
-            Design design = stateData.AllDesigns[designName] as Design;
+            Design design = stateData.AllDesigns[designName];
             Nova.Common.Resources needed = item.BuildState;
 
             // If we've ran out of resources then give up. Note that there may be

@@ -174,7 +174,7 @@ namespace Nova.WinForms.Console
             }
             foreach (string key in destroyedStations)
             {
-                (stateData.AllStars[key] as Star).Starbase = null;
+                stateData.AllStars[key].Starbase = null;
 
             }
             
@@ -457,7 +457,8 @@ namespace Nova.WinForms.Console
                 }
                 else
                 {
-                    Star star = stateData.AllStars[thisWaypoint.Destination] as Star;
+                    Star star;
+                    stateData.AllStars.TryGetValue(thisWaypoint.Destination, out star);
 
                     if (star != null)
                     {

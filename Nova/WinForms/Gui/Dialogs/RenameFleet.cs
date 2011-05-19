@@ -29,6 +29,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 using Nova.Client;
@@ -74,19 +75,19 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OKButton_Click(object sender, EventArgs e)
         {
-            Hashtable allFleets = ClientState.Data.InputTurn.AllFleets;
+            Dictionary<string, Fleet> allFleets = ClientState.Data.InputTurn.AllFleets;
 
             string newName = this.newName.Text;
             string newKey = ClientState.Data.RaceName + "/" + newName;
             string oldKey = ClientState.Data.RaceName + "/" + this.ExistingName.Text;
 
-            if (allFleets.Contains(newKey))
+            if (allFleets.ContainsKey(newKey))
             {
                 Report.Error("A fleet already has that name");
                 return;
             }
 
-            Fleet fleet = allFleets[oldKey] as Fleet;
+            Fleet fleet = allFleets[oldKey];
             allFleets.Remove(oldKey);
             ClientState.Data.DeletedFleets.Add(oldKey);
 

@@ -81,7 +81,7 @@ namespace Nova.WinForms.Console
                 minefield.NumberOfMines -= minefield.NumberOfMines / 100;
                 if (minefield.NumberOfMines <= 10)
                 {
-                    stateData.AllMinefields.Remove(minefield);
+                    stateData.AllMinefields.Remove(minefield.Key);
                 }
             }
 

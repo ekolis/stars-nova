@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
@@ -69,7 +70,7 @@ namespace Nova.WinForms.Gui
             const int NumColumns = 11;
             Race race = ClientState.Data.PlayerRace;
 
-            Hashtable allFleets = ClientState.Data.InputTurn.AllFleets;
+            Dictionary<string, Fleet> allFleets = ClientState.Data.InputTurn.AllFleets;
             this.fleetGridView.Columns[6].Name = "Cargo";
             this.fleetGridView.AutoSize = true;
 

@@ -36,6 +36,7 @@ using System.IO;
 using System.Windows.Forms;
 
 using Nova.Common;
+using Nova.Common.Components;
 using Nova.Common.DataStructures;
 using Message = Nova.Common.Message;
 
@@ -57,12 +58,12 @@ namespace Nova.Server
         public List<BattleReport> AllBattles = new List<BattleReport>();
         public List<PlayerSettings> AllPlayers = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
         public Hashtable AllTechLevels  = new Hashtable(); // Sum of a player's techlevels, for scoring purposes.
-        public Hashtable AllDesigns     = new Hashtable();
-        public Hashtable AllFleets      = new Hashtable();
+        public Dictionary<string, Design> AllDesigns = new Dictionary<string, Design>();
+        public Dictionary<string, Fleet> AllFleets = new Dictionary<string, Fleet>();
         public Hashtable AllRaceData    = new Hashtable(); // Data about the race's relations and battle plans, see RaceData
         public Hashtable AllRaces       = new Hashtable(); // Data about the race (traits etc)
-        public Hashtable AllStars       = new Hashtable();
-        public Hashtable AllMinefields  = new Hashtable();
+        public Dictionary<string, Star> AllStars = new Dictionary<string, Star>();
+        public Dictionary<string, Minefield> AllMinefields = new Dictionary<string, Minefield>();
         public List<Message> AllMessages = new List<Message>(); // All messages generated this turn.
 
         public bool GameInProgress      = false;

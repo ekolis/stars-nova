@@ -193,7 +193,7 @@ namespace Nova.WinForms.Console
                 int attackersKilled = troops - remainingAttackers;
                 star.Colonists = remainingAttackers;
                 // star.Owner = fleet.Owner; // FIXME (priority 4) - This doesn't work. Is star a copy?
-                (stateData.AllStars[star.Name] as Star).Owner = fleet.Owner;
+                stateData.AllStars[star.Name].Owner = fleet.Owner;
 
                 messageText += "The defenders were slain but "
                             + attackersKilled +

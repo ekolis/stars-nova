@@ -65,7 +65,7 @@ namespace Nova.WinForms.Gui
             this.fleetImage.Image = fleet.Icon.Image;
             this.fleetOwner.Text = ownerRaceName;
 
-            this.raceIcon.Image = ClientState.Data.InputTurn.RaceIcons[ownerRaceName] as Image;
+            this.raceIcon.Image = ClientState.Data.InputTurn.RaceIcons[ownerRaceName].Image;
         }
 
 

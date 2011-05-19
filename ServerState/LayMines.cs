@@ -82,7 +82,7 @@ namespace Nova.WinForms.Console
             newField.Owner = fleet.Owner;
             newField.NumberOfMines = fleet.NumberOfMines;
 
-            stateData.AllMinefields[newField] = newField;
+            stateData.AllMinefields[newField.Key] = newField;
         }
 
 
