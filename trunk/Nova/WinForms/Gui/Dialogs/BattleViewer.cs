@@ -188,7 +188,8 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                Fleet target = theBattle.Stacks[targetKey] as Fleet;
+                Fleet target;
+                theBattle.Stacks.TryGetValue(targetKey.TargetShip, out target);
 
                 if (target == null)
                 {

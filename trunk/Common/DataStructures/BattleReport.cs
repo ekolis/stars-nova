@@ -52,7 +52,7 @@ namespace Nova.Common.DataStructures
             } 
         }
         public List<BattleStep> Steps = new List<BattleStep>();
-        public Hashtable Stacks = new Hashtable();
+        public Dictionary<string, Fleet> Stacks = new Dictionary<string, Fleet>();
         public Dictionary<string, int> Losses = new Dictionary<string, int>(); // raceName, lossCount
         
         /// <summary>
