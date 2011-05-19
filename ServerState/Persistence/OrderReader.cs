@@ -214,7 +214,7 @@ namespace Nova.Server
                     {
                         if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                         {
-                            module.AllocatedComponent = AllComponents.Data.Components[module.AllocatedComponent.Name] as Component;
+                            AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
                         }
                     }
                 }

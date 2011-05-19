@@ -163,7 +163,7 @@ namespace Nova.Common.Components
         {
             if (AllComponents.Data.Contains(componentName))
             {
-                Component c = AllComponents.Data.Components[componentName] as Component;
+                Component c = AllComponents.Data.Components[componentName];
 
                 Dictionary.Add(c.Name, c);
             }

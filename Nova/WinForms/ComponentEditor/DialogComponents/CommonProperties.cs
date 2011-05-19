@@ -29,9 +29,12 @@
 #region Using Statements
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 using Nova.Common;
+using Nova.Common.Components;
+
 #endregion
 
 namespace Nova.WinForms.ComponentEditor
@@ -40,7 +43,7 @@ namespace Nova.WinForms.ComponentEditor
     public partial class CommonProperties : UserControl
     {
         public event EventHandler ListBoxChanged;
-        private readonly Hashtable allComponents;
+        private readonly Dictionary<string, Component> allComponents;
 
         #region Construction
 

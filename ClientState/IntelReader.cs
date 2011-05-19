@@ -32,6 +32,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Xml;
 using System.Xml.Serialization;
@@ -164,7 +165,7 @@ namespace Nova.Client
                   {
                       if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                       {
-                          module.AllocatedComponent = AllComponents.Data.Components[module.AllocatedComponent.Name] as Component;
+                          AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
                       }
                   }
               }
@@ -436,7 +437,7 @@ namespace Nova.Client
               null);
           stateData.Messages.Add(techAdvanceMessage);
 
-          Hashtable allComponents = AllComponents.Data.Components;
+          Dictionary<string, Component> allComponents = AllComponents.Data.Components;
           TechLevel oldResearchLevel = stateData.ResearchLevels;
           TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 

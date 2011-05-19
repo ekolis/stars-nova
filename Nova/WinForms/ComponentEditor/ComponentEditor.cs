@@ -841,7 +841,7 @@ namespace Nova.WinForms.ComponentEditor
 
            string selectedComponentName = this.componentList.SelectedItem as string;
 
-           Nova.Common.Components.Component selectedComponent = AllComponents.Data.Components[selectedComponentName] as Nova.Common.Components.Component;
+           Nova.Common.Components.Component selectedComponent = AllComponents.Data.Components[selectedComponentName];
 
            CommonProperties = selectedComponent;
            restrictions = selectedComponent.Restrictions;

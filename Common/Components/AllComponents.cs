@@ -29,6 +29,7 @@
 #region Using Statements
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.IO.Compression;
 using System.Runtime.Serialization;
@@ -55,7 +56,7 @@ namespace Nova.Common.Components
         // All component data
         // ============================================================================
 
-        public Hashtable Components = new Hashtable();
+        public Dictionary<string, Component> Components = new Dictionary<string, Component>();
 
 
         // ============================================================================
@@ -178,7 +179,7 @@ namespace Nova.Common.Components
                     instance = new AllComponents();
                 }
             }
-            AllComponents.instance.Components = new Hashtable();
+            AllComponents.instance.Components = new Dictionary<string, Component>();
             using (Config conf = new Config())
             {
                 conf.Remove(Global.ComponentFileName);
