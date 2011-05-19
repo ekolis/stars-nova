@@ -200,7 +200,7 @@ namespace Nova.Server
                 }
                 if (star.Starbase != null)
                 {
-                    star.Starbase = playerOrders.RaceFleets[star.Starbase.FleetID] as Fleet;
+                    star.Starbase = playerOrders.RaceFleets[star.Starbase.FleetID];
                 }
             }
 
