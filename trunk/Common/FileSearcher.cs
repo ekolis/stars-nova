@@ -34,6 +34,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Reflection;
 using System.Windows.Forms;
@@ -54,9 +55,9 @@ namespace Nova.Common
         /// loading each race definition.
         /// </summary>
         /// <returns>An Hashtable containing all the races</returns>
-        public static Hashtable GetAvailableRaces()
+        public static Dictionary<string, Race> GetAvailableRaces()
         {
-            Hashtable allRaces = new Hashtable();
+            Dictionary<string, Race> allRaces = new Dictionary<string, Race>();
 
             string raceFolder = GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
             DirectoryInfo directory = new DirectoryInfo(raceFolder);

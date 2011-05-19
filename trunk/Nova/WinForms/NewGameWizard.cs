@@ -48,7 +48,7 @@ namespace Nova.WinForms
         private int numberOfPlayers;
         private ServerState stateData;
 
-        public Hashtable KnownRaces = new Hashtable();
+        public Dictionary<string, Race> KnownRaces = new Dictionary<string, Race>();
 
 
         #region Initialisation
