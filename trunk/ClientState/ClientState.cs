@@ -56,10 +56,10 @@ namespace Nova.Client
         public List<string> DeletedFleets = new List<string>();
         public List<Message> Messages = new List<Message>();
         public Intel InputTurn = null;
-        public Hashtable BattlePlans = new Hashtable();
-        public Hashtable KnownEnemyDesigns = new Hashtable();
-        public Hashtable PlayerRelations = new Hashtable();
-        public Hashtable StarReports = new Hashtable();
+        public Dictionary<string, BattlePlan> BattlePlans = new Dictionary<string, BattlePlan>();
+        public Dictionary<string, Design> KnownEnemyDesigns = new Dictionary<string, Design>();
+        public Dictionary<string, string> PlayerRelations = new Dictionary<string, string>();
+        public Dictionary<string, StarReport> StarReports = new Dictionary<string, StarReport>();
         public RaceComponents AvailableComponents = null;
         public List<Fleet> PlayerFleets = new List<Fleet>();
         public StarList PlayerStars = new StarList(); 

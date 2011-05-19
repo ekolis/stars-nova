@@ -290,7 +290,7 @@ Are you sure you want to do this?";
                     if (design.Owner == raceName)
                     {
                         if (raceName == this.stateData.RaceName ||
-                            this.stateData.KnownEnemyDesigns.Contains(design.Key))
+                            this.stateData.KnownEnemyDesigns.ContainsKey(design.Key))
                         {
 
                             AddToDesignList(design);

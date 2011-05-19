@@ -464,8 +464,7 @@ namespace Nova.WinForms.Gui
         {
             set
             {
-                this.report = ClientState.Data.StarReports[value.Name]
-                                    as StarReport;
+                this.report = ClientState.Data.StarReports[value.Name];
                 
                 this.star = value;
                 

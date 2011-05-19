@@ -94,7 +94,7 @@ namespace Nova.WinForms.Console
                 stateData.AllMessages.Add(message);
                 return;
             }
-            string relation = (string)(stateData.AllRaceData[fleet.Owner] as RaceData).PlayerRelations[star.Owner];
+            string relation = (stateData.AllRaceData[fleet.Owner] as RaceData).PlayerRelations[star.Owner];
             switch (relation)
             {
                 case "Friend":

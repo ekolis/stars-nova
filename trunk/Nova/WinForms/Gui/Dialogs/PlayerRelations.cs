@@ -29,6 +29,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 using Nova.Client;
@@ -44,7 +45,7 @@ namespace Nova.WinForms.Gui
     /// </remarks>
     public partial class PlayerRelations : Form
     {
-        private readonly Hashtable relation = ClientState.Data.PlayerRelations;
+        private readonly Dictionary<string, string> relation = ClientState.Data.PlayerRelations;
 
         #region Construction
 
@@ -97,11 +98,11 @@ namespace Nova.WinForms.Gui
         {
             string selectedRace = this.raceList.SelectedItem as string;
 
-            if (this.relation[selectedRace] as string == "Enemy")
+            if (this.relation[selectedRace] == "Enemy")
             {
                 this.enemyButton.Checked = true;
             }
-            else if (this.relation[selectedRace] as string == "Neutral")
+            else if (this.relation[selectedRace] == "Neutral")
             {
                 this.neutralButton.Checked = true;
             }

@@ -28,6 +28,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 using Nova.Client;
@@ -65,9 +66,9 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void UpdatePlanDetails()
         {
-            Hashtable battlePlans = ClientState.Data.BattlePlans;
+            Dictionary<string, BattlePlan> battlePlans = ClientState.Data.BattlePlans;
             string selection = this.planList.SelectedItem as string;
-            BattlePlan plan = battlePlans[selection] as BattlePlan;
+            BattlePlan plan = battlePlans[selection];
 
             this.planName.Text = plan.Name;
             this.primaryTarget.Text = plan.PrimaryTarget;

@@ -66,7 +66,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplayPlanet(Item item)
         {
-            if (ClientState.Data.StarReports.Contains(item.Name) == false)
+            if (ClientState.Data.StarReports.ContainsKey(item.Name) == false)
             {
                 this.selectedItem.Text = item.Name + " is unexplored";
                 summaryItem = null;
