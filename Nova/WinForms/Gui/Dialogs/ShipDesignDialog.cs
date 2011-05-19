@@ -49,7 +49,7 @@ namespace Nova.WinForms.Gui
         private readonly ClientState stateData;
         private readonly Dictionary<string, Component> allComponents;
         private readonly Dictionary<string, Design> allDesigns;
-        private readonly Hashtable imageIndices = new Hashtable();
+        private readonly Dictionary<string, int> imageIndices = new Dictionary<string, int>();
         private readonly ImageList componentImages = new ImageList();
 
         private Component selectedHull;
@@ -963,7 +963,7 @@ namespace Nova.WinForms.Gui
                 {
                     ListViewItem item = new ListViewItem();
                     item.Text = component.Name;
-                    item.ImageIndex = (int)this.imageIndices[component.Name];
+                    item.ImageIndex = this.imageIndices[component.Name];
 
                     ListView.Items.Add(item);
                 }
