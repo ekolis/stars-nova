@@ -153,32 +153,32 @@ namespace Nova.NewGame
         {
             // Read components data and create some basic stuff
             AllComponents.Restore();
-            Hashtable components = AllComponents.Data.Components;
+            Dictionary<string, Component> components = AllComponents.Data.Components;
             Component colonyShipHull = null, scoutHull = null, starbaseHull = null;
             Component engine = null, colonyShipEngine = null;
             Component colonizer = null;
 
-            engine = components["Quick Jump 5"] as Component;
+            engine = components["Quick Jump 5"];
             if (race.Traits.Primary.Code != "HE")
             {
-                colonyShipHull = components["Colony Ship"] as Component; // (components["Colony Ship"] as Component).Properties["Hull"] as Hull;
+                colonyShipHull = components["Colony Ship"]; // (components["Colony Ship"] as Component).Properties["Hull"] as Hull;
             }
             else
             {
-                colonyShipEngine = components["Settler's Delight"] as Component;
-                colonyShipHull = components["Mini-Colony Ship"] as Component;
+                colonyShipEngine = components["Settler's Delight"];
+                colonyShipHull = components["Mini-Colony Ship"];
             }
-            scoutHull = components["Scout"] as Component; // (components["Scout"] as Component).Properties["Hull"] as Hull;
+            scoutHull = components["Scout"]; // (components["Scout"] as Component).Properties["Hull"] as Hull;
 
-            starbaseHull = components["Space Dock"] as Component; // (components["Space Dock"] as Component).Properties["Hull"] as Hull;
+            starbaseHull = components["Space Dock"]; // (components["Space Dock"] as Component).Properties["Hull"] as Hull;
 
             if (race.HasTrait("AR") == true)
             {
-                colonizer = components["Orbital Construction Module"] as Component; // (components["Orbital Construction Module"] as Component).Properties["Colonizer"] as Colonizer;
+                colonizer = components["Orbital Construction Module"]; // (components["Orbital Construction Module"] as Component).Properties["Colonizer"] as Colonizer;
             }
             else
             {
-                colonizer = components["Colonization Module"] as Component; // (components["Colonization Module"] as Component).Properties["Colonizer"] as Colonizer; ;
+                colonizer = components["Colonization Module"]; // (components["Colonization Module"] as Component).Properties["Colonizer"] as Colonizer; ;
             }
 
 

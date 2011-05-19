@@ -29,6 +29,7 @@
 
 using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.Windows.Forms;
 
 using Nova.Client;
@@ -164,7 +165,7 @@ namespace Nova.WinForms.Gui
             
             // Populate the expected research benefits list
 
-            Hashtable allComponents = AllComponents.Data.Components;
+            Dictionary<string, Component> allComponents = AllComponents.Data.Components;
             TechLevel oldResearchLevel = this.stateData.ResearchLevels;
             TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 

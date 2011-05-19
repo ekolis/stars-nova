@@ -47,7 +47,7 @@ namespace Nova.WinForms.Gui
     public class ShipDesignDialog : System.Windows.Forms.Form
     {
         private readonly ClientState stateData;
-        private readonly Hashtable allComponents;
+        private readonly Dictionary<string, Component> allComponents;
         private readonly Hashtable allDesigns;
         private readonly Hashtable imageIndices = new Hashtable();
         private readonly ImageList componentImages = new ImageList();
@@ -987,7 +987,7 @@ namespace Nova.WinForms.Gui
             }
 
             ListViewItem item = ListView.SelectedItems[0];
-            Component selection = this.allComponents[item.Text] as Component;
+            Component selection = this.allComponents[item.Text];
             ComponentCost.Value = selection.Cost;
             ComponentMass.Text = selection.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
             Description.Text = selection.Description;
@@ -1027,8 +1027,7 @@ namespace Nova.WinForms.Gui
             ListViewItem item = ListView.SelectedItems[0];
             dragData.HullName = this.selectedHull.Name;
             dragData.ComponentCount = 1;
-            dragData.SelectedComponent = this.allComponents[item.Text]
-                                         as Nova.Common.Components.Component;
+            dragData.SelectedComponent = this.allComponents[item.Text];
             dragData.Operation = DragDropEffects.Copy;
 
             if ((Control.ModifierKeys & Keys.Shift) != 0)
