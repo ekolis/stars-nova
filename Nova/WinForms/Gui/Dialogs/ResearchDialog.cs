@@ -62,8 +62,8 @@ namespace Nova.WinForms.Gui
         /// for example, on closing the Research Dialog instead of each Point change.
         /// </Summary>
         public event ResearchAllocationChanged ResearchAllocationChangedEvent;
-        
-        private readonly Hashtable buttons = new Hashtable();
+
+        private readonly Dictionary<string, RadioButton> buttons = new Dictionary<string, RadioButton>();
         private readonly TechLevel currentLevel;
         private readonly int availableEnergy;
         private readonly ClientState stateData;
@@ -115,7 +115,7 @@ namespace Nova.WinForms.Gui
                 }
             }
 
-            RadioButton button = this.buttons[Enum.GetName(typeof(TechLevel.ResearchField), this.targetArea)] as RadioButton;
+            RadioButton button = this.buttons[Enum.GetName(typeof(TechLevel.ResearchField), this.targetArea)];
 
             button.Checked = true;
 
