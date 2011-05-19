@@ -40,7 +40,7 @@ namespace Nova.Common
     {
         #region Data
 
-        private readonly Hashtable settings = new Hashtable(); // string key, string value
+        private readonly Dictionary<string, string> settings = new Dictionary<string, string>(); // string key, string value
         private bool initialised;
 
         #endregion
@@ -81,7 +81,7 @@ namespace Nova.Common
                     Config data = new Config();
                     data = (Config)s.Deserialize(confFile);
 
-                    foreach (DictionaryEntry setting in data.settings)
+                    foreach (KeyValuePair<string, string> setting in data.settings)
                     {
                         this.settings.Add(setting.Key, setting.Value);
                     }
@@ -144,12 +144,10 @@ namespace Nova.Common
                     return null;
                 }
 
-                object setting = this.settings[key];
-                if (setting == null)
-                {
-                    return null;
-                }
-                return setting as string;
+                string setting;
+                settings.TryGetValue(key, out setting);
+
+                return setting;
             }
 
             set
@@ -202,11 +200,11 @@ namespace Nova.Common
 
         void IXmlSerializable.WriteXml(System.Xml.XmlWriter writer)
         {
-            foreach (DictionaryEntry setting in this.settings)
+            foreach (KeyValuePair<string, string> setting in this.settings)
             {
                 writer.WriteStartElement("Setting");
-                writer.WriteElementString("Key", (string)setting.Key);
-                writer.WriteElementString("Value", (string)setting.Value);
+                writer.WriteElementString("Key", setting.Key);
+                writer.WriteElementString("Value", setting.Value);
                 writer.WriteEndElement();
             }
         }
