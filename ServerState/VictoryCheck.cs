@@ -188,8 +188,7 @@ namespace Nova.WinForms.Console
             }
 
             int highestFields = 0;
-            TechLevel raceTechLevels = StateData.AllTechLevels[raceName]
-                                       as TechLevel;
+            TechLevel raceTechLevels = StateData.AllRaceData[raceName].ResearchLevels;
 
             foreach (int level in raceTechLevels)
             {
