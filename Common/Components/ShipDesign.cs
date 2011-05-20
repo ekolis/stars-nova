@@ -153,6 +153,7 @@ namespace Nova.Common.Components
                 }
             }
             this.Mass = Summary.Mass;
+            this.Cost = Summary.Cost;
         }
 
 
