@@ -80,15 +80,15 @@ namespace Nova.Server
             {
                 turnData = new Intel();
                 turnData.TurnYear = StateData.TurnYear;
-                turnData.MyRace = StateData.AllRaces[player.RaceName] as Race;
+                turnData.MyRace = StateData.AllRaces[player.RaceName];
                 turnData.TurnYear = StateData.TurnYear;
                 turnData.AllStars = StateData.AllStars;
                 turnData.AllMinefields = StateData.AllMinefields;
                 turnData.AllFleets = StateData.AllFleets;
                 turnData.AllDesigns = StateData.AllDesigns;
-                turnData.ResearchLevelsGained = (StateData.AllRaceData[player.RaceName] as RaceData).ResearchLevelsGained;
-                turnData.ResearchResources = (StateData.AllRaceData[player.RaceName] as RaceData).ResearchResources;
-                turnData.ResearchLevels = (StateData.AllRaceData[player.RaceName] as RaceData).ResearchLevels;
+                turnData.ResearchLevelsGained = StateData.AllRaceData[player.RaceName].ResearchLevelsGained;
+                turnData.ResearchResources = StateData.AllRaceData[player.RaceName].ResearchResources;
+                turnData.ResearchLevels = StateData.AllRaceData[player.RaceName].ResearchLevels;
                 
                 // Copy any messages
                 foreach (Message message in StateData.AllMessages)

@@ -196,7 +196,7 @@ namespace Nova.Server
             {
                 if (star.ThisRace != null)
                 {
-                    star.ThisRace = this.stateData.AllRaces[star.ThisRace.Name] as Race;
+                    star.ThisRace = this.stateData.AllRaces[star.ThisRace.Name];
                 }
                 if (star.Starbase != null)
                 {

@@ -169,7 +169,7 @@ namespace Nova.WinForms
                 {
                     // TODO (priority 7) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
                     // Stars! solution is to rename the race using a list of standard names. 
-                    if (!stateData.AllRaces.Contains(settings.RaceName))
+                    if (!stateData.AllRaces.ContainsKey(settings.RaceName))
                     {
                         stateData.AllRaces.Add(settings.RaceName, newGameWizard.KnownRaces[settings.RaceName]);
                         
@@ -701,7 +701,7 @@ namespace Nova.WinForms
 
             // TODO (priority 4) Implement Starting Items
    
-            RaceData raceData = stateData.AllRaceData[race.Name] as RaceData;
+            RaceData raceData = stateData.AllRaceData[race.Name];
             raceData.ResearchLevels = new TechLevel(0);
 
             switch (race.Traits.Primary.Code)
@@ -789,7 +789,7 @@ namespace Nova.WinForms
             // Not all of these properties are fully implemented here, as they may require changes elsewhere in the game engine.
             // Where a trait is listed as 'TODO ??? (priority 4)' this means it first needs to be checked if it has been implemented elsewhere.
             
-            RaceData raceData = stateData.AllRaceData[race.Name] as RaceData;
+            RaceData raceData = stateData.AllRaceData[race.Name];
             
             if (race.Traits.Contains("IFE"))
             {
