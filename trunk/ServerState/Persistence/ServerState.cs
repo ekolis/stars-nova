@@ -57,7 +57,7 @@ namespace Nova.Server
 
         public List<BattleReport> AllBattles = new List<BattleReport>();
         public List<PlayerSettings> AllPlayers = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
-        public Hashtable AllTechLevels  = new Hashtable(); // Sum of a player's techlevels, for scoring purposes.
+        public Dictionary<string, int> AllTechLevels = new Dictionary<string, int>(); // Sum of a player's techlevels, for scoring purposes.
         public Dictionary<string, Design> AllDesigns = new Dictionary<string, Design>();
         public Dictionary<string, Fleet> AllFleets = new Dictionary<string, Fleet>();
         public Dictionary<string, RaceData> AllRaceData = new Dictionary<string, RaceData>(); // Data about the race's relations and battle plans
