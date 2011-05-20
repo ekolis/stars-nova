@@ -157,7 +157,7 @@ namespace Nova.NewGame
             Component colonyShipHull = null, scoutHull = null, starbaseHull = null;
             Component engine = null, colonyShipEngine = null;
             Component colonizer = null;
-
+            Component scaner = components["Bat Scanner"];
             engine = components["Quick Jump 5"];
             if (race.Traits.Primary.Code != "HE")
             {
@@ -193,7 +193,7 @@ namespace Nova.NewGame
             {
                 if (module.ComponentType == "Engine")
                 {
-                    module.AllocatedComponent = engine;
+                    module.AllocatedComponent = colonyShipEngine;
                     module.ComponentCount = 1;
                 }
                 else if (module.ComponentType == "Mechanical")
@@ -207,8 +207,32 @@ namespace Nova.NewGame
             cs.Type = "Ship";
             cs.Name = "Santa Maria";
             cs.Owner = player;
+            cs.Update();
 
+
+            ShipDesign scout = new ShipDesign();
+            scout.ShipHull = scoutHull;
+            foreach (HullModule module in (scout.ShipHull.Properties["Hull"] as Hull).Modules)
+            {
+                if (module.ComponentType == "Engine")
+                {
+                    module.AllocatedComponent = engine;
+                    module.ComponentCount = 1;
+                }
+                else if (module.ComponentType == "Scanner")
+                {
+                    module.AllocatedComponent = scaner;
+                    module.ComponentCount = 1;
+                }
+            }
+            scout.Icon = new ShipIcon(scoutHull.ImageFile, (Bitmap)scoutHull.ComponentImage);
+
+            scout.Type = "Ship";
+            scout.Name = "Scout";
+            scout.Owner = player;
+            scout.Update();
             stateData.AllDesigns[player + "/cs"] = cs;
+            stateData.AllDesigns[player + "/scout"] = scout;
             /*
             switch (race.Traits.Primary.Code)
             {
@@ -288,6 +312,7 @@ namespace Nova.NewGame
         /// <param name="race"></param>
         private void AllocateHomeStarOrbitalInstallations(Star star, Race race, string player)
         {
+            int fleetIdx = 1;
             ShipDesign colonyShipDesign = stateData.AllDesigns[player + "/cs"] as ShipDesign;
             if (race.Traits.Primary.Code != "HE")
             {
@@ -305,8 +330,16 @@ namespace Nova.NewGame
                     fleet.FleetID = i;
                     fleet.Name = "CSFleet" + i.ToString();
                     stateData.AllFleets[player + "/" + fleet.FleetID.ToString()] = fleet;
+                    fleetIdx = i;
                 }
             }
+            fleetIdx++;
+            ShipDesign scoutDesign = stateData.AllDesigns[player + "/scout"] as ShipDesign ;
+            Ship scout = new Ship(scoutDesign );
+            Fleet scoutFleet = new Fleet(scout, star);
+            scoutFleet.FleetID = fleetIdx ;
+            scoutFleet.Name = "CSFleet" + fleetIdx.ToString();
+            stateData.AllFleets[player + "/" + scoutFleet.FleetID.ToString()] = scoutFleet;
         }
 
 
