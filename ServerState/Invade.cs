@@ -94,7 +94,7 @@ namespace Nova.WinForms.Console
                 stateData.AllMessages.Add(message);
                 return;
             }
-            string relation = (stateData.AllRaceData[fleet.Owner] as RaceData).PlayerRelations[star.Owner];
+            string relation = stateData.AllRaceData[fleet.Owner].PlayerRelations[star.Owner];
             switch (relation)
             {
                 case "Friend":
@@ -148,13 +148,13 @@ namespace Nova.WinForms.Console
 
             // Apply defender and attacker bonuses
             double attackerBonus = 1.1;
-            if ((stateData.AllRaces[fleet.Owner] as Race).HasTrait("WM"))
+            if (stateData.AllRaces[fleet.Owner].HasTrait("WM"))
             {
                 attackerBonus *= 1.5;
             }
 
             double defenderBonus = 1.0;
-            if ((stateData.AllRaces[fleet.Owner] as Race).HasTrait("IS"))
+            if (stateData.AllRaces[fleet.Owner].HasTrait("IS"))
             {
                 defenderBonus *= 2.0;
             }

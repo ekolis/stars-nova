@@ -228,7 +228,7 @@ namespace Nova.WinForms.Console
         public void Scrap(Fleet fleet, Star star, bool colonise)
         {
             double amount = 0;
-            Race race = stateData.AllRaces[fleet.Owner] as Race;
+            Race race = stateData.AllRaces[fleet.Owner];
             double resources = 0;
 
             if (star != null)

@@ -73,7 +73,7 @@ namespace Nova.WinForms.Console
 
             if (remainingPlayers.Count == 1)
             {
-                Race race = StateData.AllRaces[remainingPlayers[0]] as Race;
+                Race race = StateData.AllRaces[remainingPlayers[0]];
                 Message message = new Message();
                 message.Audience = "*";
                 message.Text = "The " + race.PluralName +

@@ -60,8 +60,8 @@ namespace Nova.Server
         public Hashtable AllTechLevels  = new Hashtable(); // Sum of a player's techlevels, for scoring purposes.
         public Dictionary<string, Design> AllDesigns = new Dictionary<string, Design>();
         public Dictionary<string, Fleet> AllFleets = new Dictionary<string, Fleet>();
-        public Hashtable AllRaceData    = new Hashtable(); // Data about the race's relations and battle plans, see RaceData
-        public Hashtable AllRaces       = new Hashtable(); // Data about the race (traits etc)
+        public Dictionary<string, RaceData> AllRaceData = new Dictionary<string, RaceData>(); // Data about the race's relations and battle plans
+        public Dictionary<string, Race> AllRaces = new Dictionary<string, Race>(); // Data about the race (traits etc)
         public Dictionary<string, Star> AllStars = new Dictionary<string, Star>();
         public Dictionary<string, Minefield> AllMinefields = new Dictionary<string, Minefield>();
         public List<Message> AllMessages = new List<Message>(); // All messages generated this turn.

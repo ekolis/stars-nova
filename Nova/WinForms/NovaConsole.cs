@@ -840,7 +840,8 @@ namespace Nova.WinForms.Console
                 // Show what turn the race/player last submitted, 
                 // and color code to highlight which races we are waiting on (if we wait).
 
-                RaceData raceData = stateData.AllRaceData[settings.RaceName] as RaceData;
+                RaceData raceData;
+                stateData.AllRaceData.TryGetValue(settings.RaceName, out raceData);
 
                 ListViewItem.ListViewSubItem yearItem = new ListViewItem.ListViewSubItem();
                 if (raceData == null || raceData.TurnYear == 0)
@@ -942,7 +943,8 @@ namespace Nova.WinForms.Console
                         continue;
                     }
 
-                    RaceData raceData = stateData.AllRaceData[settings.RaceName] as RaceData;
+                    RaceData raceData;
+                    stateData.AllRaceData.TryGetValue(settings.RaceName, out raceData);
                     if (raceData == null || raceData.TurnYear != stateData.TurnYear)
                     {
                         // TODO: Add support for running custom AIs based on settings.AiProgram.
