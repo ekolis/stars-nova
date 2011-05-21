@@ -158,7 +158,14 @@ namespace Nova.NewGame
             Component engine = null, colonyShipEngine = null;
             Component colonizer = null;
             Component scaner = components["Bat Scanner"];
+            Component armor = components["Tritanium"];
+            Component shield = components["Mole-skin Shield"];
+            Component laser = components["Laser"];
+            Component torpedo = components["Alpha Torpedo"];
+
+            starbaseHull = components["Space Station"];
             engine = components["Quick Jump 5"];
+
             if (race.Traits.Primary.Code != "HE")
             {
                 colonyShipHull = components["Colony Ship"]; // (components["Colony Ship"] as Component).Properties["Hull"] as Hull;
@@ -231,6 +238,46 @@ namespace Nova.NewGame
             scout.Name = "Scout";
             scout.Owner = player;
             scout.Update();
+
+            ShipDesign starbase = new ShipDesign();
+            starbase.Name = "Starbase";
+            starbase.Owner = player;
+
+            starbase.ShipHull = starbaseHull;
+            starbase.Type = "Starbase";
+            starbase.Icon = new ShipIcon(starbaseHull.ImageFile, (Bitmap)starbaseHull.ComponentImage);
+            bool weaponSwitcher = false; //start with laser
+            bool armorSwitcher = false; //start with armor
+            foreach (HullModule module in (starbase.ShipHull.Properties["Hull"] as Hull).Modules)
+            {
+                if (module.ComponentType == "Weapon")
+                {
+                    if (weaponSwitcher == false)
+                        module.AllocatedComponent = laser;
+                    else
+                        module.AllocatedComponent = torpedo;
+                    weaponSwitcher = !weaponSwitcher;
+                    module.ComponentCount = 8;
+                }
+                if (module.ComponentType == "Shield")
+                {
+                    module.AllocatedComponent = shield;
+                    module.ComponentCount = 8;
+                }
+                if (module.ComponentType == "Shield or Armor")
+                {
+                    if (armorSwitcher == false)
+                        module.AllocatedComponent = armor;
+                    else
+                        module.AllocatedComponent = shield;
+                    module.ComponentCount = 8;
+                    armorSwitcher = !armorSwitcher;
+                }
+            }
+
+            starbase.Update();
+
+            stateData.AllDesigns[player + "/starbase"] = starbase;
             stateData.AllDesigns[player + "/cs"] = cs;
             stateData.AllDesigns[player + "/scout"] = scout;
             /*
@@ -340,6 +387,13 @@ namespace Nova.NewGame
             scoutFleet.FleetID = fleetIdx ;
             scoutFleet.Name = "CSFleet" + fleetIdx.ToString();
             stateData.AllFleets[player + "/" + scoutFleet.FleetID.ToString()] = scoutFleet;
+            fleetIdx++;
+
+            ShipDesign starbaseDesign = stateData.AllDesigns[player + "/starbase"] as ShipDesign;
+            Ship starbase = new Ship(starbaseDesign);
+            Fleet starbaseFleet = new Fleet(starbase, star);
+            starbaseFleet.FleetID = fleetIdx;
+            stateData.AllFleets[player + "/" + starbaseFleet.FleetID.ToString()] = starbaseFleet;
         }
 
 
