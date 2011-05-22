@@ -76,16 +76,16 @@ namespace Nova.Common
         /// <param name="existing">An existing <see cref="RaceRestriction"/> to copy.</param>
         public RaceRestriction(RaceRestriction existing)
         {
-            try
+            foreach (string trait in AllTraits.TraitKeys)
             {
-                foreach (string trait in AllTraits.TraitKeys)
+                RaceAvailability availability;
+                bool valueFound = existing.restrictions.TryGetValue(trait, out availability);
+
+                if (valueFound)
                 {
-                    this.restrictions[trait] = existing.restrictions[trait];
+                    this.restrictions[trait] = availability;
                 }
-            }
-            catch
-            {
-                foreach (string trait in AllTraits.TraitKeys)
+                else
                 {
                     this.restrictions[trait] = RaceAvailability.not_required;
                 }
