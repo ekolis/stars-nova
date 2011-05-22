@@ -184,36 +184,20 @@ namespace Nova.WinForms.ComponentEditor
                    conf[Global.ComponentFileName] = fd.FileName;
                }
                
-               try
-               {
-                   AllComponents.Restore();
-                   this.propertyTabs.TabPages.Clear();
+               AllComponents.Restore();
+               this.propertyTabs.TabPages.Clear();
 
-                   // start with something showing
-                   this.componentType.Text = "Armor";
-                   UpdateListBox("Armor");
-                   if (this.componentList.Items.Count > 0)
-                   {
-                       this.componentList.SelectedIndex = 0; // pick the first Item in the list
-                   }
-                   fileDirty = false;
-                   componentDirty = false;
-                   EditModeOff();
-                   UpdateTitleBar();
-               }
-               catch
+               // start with something showing
+               this.componentType.Text = "Armor";
+               UpdateListBox("Armor");
+               if (this.componentList.Items.Count > 0)
                {
-                   Report.Error("There was an error loading the component definition file. Current component definitions have been cleared.");
-                   // If there were any problems restoring the components we may have a partial list of components
-                   AllComponents.Data.Components.Clear();
-                   this.propertyTabs.TabPages.Clear();
-                   fileDirty = false;
-                   componentDirty = false;
-                   EditModeOff();
-                   UpdateTitleBar();
-                   this.componentList.Items.Clear();
+                   this.componentList.SelectedIndex = 0; // pick the first Item in the list
                }
-
+               fileDirty = false;
+               componentDirty = false;
+               EditModeOff();
+               UpdateTitleBar();
            }
 
        }

@@ -253,12 +253,13 @@ namespace Nova.ControlLibrary
         {
             Panel panel = sender as Panel;
             HullModule cell = panel.Tag as HullModule;
-            Component component = cell.AllocatedComponent;
-            if (component == null)
+            if (cell == null)
             {
                 return;
             }
-            if (cell.ComponentCount == 0)
+
+            Component component = cell.AllocatedComponent;
+            if (component == null || cell.ComponentCount == 0)
             {
                 return;
             }

@@ -118,9 +118,9 @@ namespace Nova.Common
         public RaceAvailability Availability(string trait)
         {
             RaceAvailability value;
-            bool keyExists = restrictions.TryGetValue(trait, out value);
+            bool keyFound = restrictions.TryGetValue(trait, out value);
             
-            if (keyExists)
+            if (keyFound)
             {
                 return value;
             }
@@ -137,51 +137,45 @@ namespace Nova.Common
         public new string ToString()
         {
             string inwords = string.Empty;
-           
-            try
+       
+            int keyIndex = 0;
+            foreach (string key in AllTraits.TraitKeys)
             {
-                int keyIndex = 0;
-                foreach (string key in AllTraits.TraitKeys)
-                {
-                   RaceAvailability availability = restrictions[key];
+               RaceAvailability availability;
+               bool keyFound = restrictions.TryGetValue(key, out availability);
 
-                   // not_required is the default, only save variations
-                   if (availability != RaceAvailability.not_required)
+               // not_required is the default, only save variations
+               if (keyFound && availability != RaceAvailability.not_required)
+               {
+                   inwords += "This component ";
+                   // <requires/is not available with>
+                   if (availability == RaceAvailability.not_available)
                    {
-                       inwords += "This component ";
-                       // <requires/is not available with>
-                       if (availability == RaceAvailability.not_available)
-                       {
-                           inwords += "is not available with";
-                       }
-                       else if (availability == RaceAvailability.required)
-                       {
-                           inwords += "requires";
-                       }
-
-                       inwords += " the ";
-                       // <primary/secondary
-                       if (keyIndex < AllTraits.NumberOfPrimaryRacialTraits)
-                       {
-                           inwords += "primary";
-                       }
-                       else
-                       {
-                           inwords += "secondary";
-                       }
-                       inwords += " racial trait '";
-                       // <trait>
-                       inwords += AllTraits.TraitString[keyIndex];
-                       inwords += "'." + Environment.NewLine;
+                       inwords += "is not available with";
+                   }
+                   else if (availability == RaceAvailability.required)
+                   {
+                       inwords += "requires";
                    }
 
-                   keyIndex++;
+                   inwords += " the ";
+                   // <primary/secondary
+                   if (keyIndex < AllTraits.NumberOfPrimaryRacialTraits)
+                   {
+                       inwords += "primary";
+                   }
+                   else
+                   {
+                       inwords += "secondary";
+                   }
+                   inwords += " racial trait '";
+                   // <trait>
+                   inwords += AllTraits.TraitString[keyIndex];
+                   inwords += "'." + Environment.NewLine;
+               }
 
-                }
-            }
-            catch (Exception e)
-            {
-                Report.Error("Failed to display race restrictions." + Environment.NewLine + "Details: RaceRestrictions.ToString(System.Globalization.CultureInfo.InvariantCulture) - Exception: " + e.Message);
+               keyIndex++;
+
             }
             
             return inwords;
@@ -238,10 +232,11 @@ namespace Nova.Common
             {
                 foreach (string key in AllTraits.TraitKeys)
                 {
-                    RaceAvailability availability = restrictions[key];
+                    RaceAvailability availability;
+                    bool keyFound = restrictions.TryGetValue(key, out availability);
 
                     // not_required is the default, only save variations
-                    if (availability != RaceAvailability.not_required)
+                    if (keyFound && availability != RaceAvailability.not_required)
                     {
                         XmlElement xmlelTrait = xmldoc.CreateElement(key);
                         XmlText xmltxtTrait = xmldoc.CreateTextNode(((int)availability).ToString(System.Globalization.CultureInfo.InvariantCulture));
