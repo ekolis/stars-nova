@@ -170,7 +170,7 @@ namespace Nova.WinForms.Console
             
             foreach (Fleet fleetA in stateData.AllFleets.Values)
             {
-                if (fleetDone.ContainsKey(fleetA.Name))
+                if (fleetDone.ContainsKey(fleetA.Key))
                 {
                     continue;
                 }
@@ -185,7 +185,7 @@ namespace Nova.WinForms.Console
                     }
 
                     coLocatedFleets.Add(fleetB);
-                    fleetDone[fleetB.Name] = true;
+                    fleetDone[fleetB.Key] = true;
                 }
 
                 if (coLocatedFleets.Count > 1)
