@@ -28,8 +28,10 @@
 #endregion
 
 using System;
+using System.ComponentModel;
 using System.Runtime.Serialization;
 using System.Xml;
+using Nova.Common.Converters;
 
 namespace Nova.Common.Components
 {
@@ -38,6 +40,7 @@ namespace Nova.Common.Components
     /// These are the slots which define what components may be fitted.
     /// </summary>
     [Serializable]
+    [TypeConverter(typeof(HullModuleConverter))]
     public class HullModule : ICloneable
     {
         private int componentCount;
@@ -95,6 +98,16 @@ namespace Nova.Common.Components
             ComponentMaximum = existing.ComponentMaximum;
             ComponentType = existing.ComponentType;
 
+        }
+
+        public HullModule(int cellNumber, int componentMaximum, int componentCount, string componentType, string componentName)
+        {
+            CellNumber = cellNumber;
+            ComponentMaximum = componentMaximum;
+            ComponentCount = componentCount;
+            ComponentType = componentType;
+            AllocatedComponent = new Component();
+            AllocatedComponent.Name = componentName;
         }
 
         #endregion Construction

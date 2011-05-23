@@ -272,7 +272,7 @@ namespace Nova.WinForms.Gui
             // 
             // HullGrid
             // 
-            this.HullGrid.ActiveModules = ((System.Collections.Generic.List<Nova.Common.Components.HullModule>)(resources.GetObject("HullGrid.ActiveModules")));
+            this.HullGrid.ActiveModules = new System.Collections.Generic.List<Nova.Common.Components.HullModule>();
             this.HullGrid.HideEmptyModules = true;
             this.HullGrid.HullName = null;
             this.HullGrid.Location = new System.Drawing.Point(19, 126);

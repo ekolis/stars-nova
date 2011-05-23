@@ -79,15 +79,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Converters\HullModuleConverter.cs" />
     <Compile Include="DataStructures\BattleStep.cs" />
     <Compile Include="DataStructures\BattleStepDestroy.cs" />
     <Compile Include="DataStructures\BattleStepMovement.cs" />
     <Compile Include="DataStructures\BattleStepTarget.cs" />
     <Compile Include="DataStructures\BattleStepWeapons.cs" />
-    <Compile Include="DataStructures\Converters\EnabledValueConverter.cs" />
-    <Compile Include="DataStructures\Converters\InstanceDescriptorConverter.cs" />
-    <Compile Include="DataStructures\Converters\ResourcesConverter.cs" />
-    <Compile Include="DataStructures\Converters\TechLevelConverter.cs" />
+    <Compile Include="Converters\EnabledValueConverter.cs" />
+    <Compile Include="Converters\InstanceDescriptorConverter.cs" />
+    <Compile Include="Converters\ResourcesConverter.cs" />
+    <Compile Include="Converters\TechLevelConverter.cs" />
     <Compile Include="DataStructures\Gravity.cs" />
     <Compile Include="DataStructures\GravityTolerance.cs" />
     <Compile Include="DataStructures\NovaPoint.cs" />
