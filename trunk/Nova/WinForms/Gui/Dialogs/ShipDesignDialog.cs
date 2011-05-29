@@ -26,20 +26,18 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Drawing;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-using Nova.Common.Components;
-using Nova.ControlLibrary;
-using System.Collections.Generic;
-
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using Nova.Client;
+    using Nova.Common;
+    using Nova.Common.Components;
+    using Nova.ControlLibrary;
 
     /// <Summary>
     /// Ship Design Dialog
