@@ -246,16 +246,20 @@ namespace Nova.NewGame
             starbase.ShipHull = starbaseHull;
             starbase.Type = "Starbase";
             starbase.Icon = new ShipIcon(starbaseHull.ImageFile, (Bitmap)starbaseHull.ComponentImage);
-            bool weaponSwitcher = false; //start with laser
-            bool armorSwitcher = false; //start with armor
+            bool weaponSwitcher = false; // start with laser
+            bool armorSwitcher = false; // start with armor
             foreach (HullModule module in (starbase.ShipHull.Properties["Hull"] as Hull).Modules)
             {
                 if (module.ComponentType == "Weapon")
                 {
                     if (weaponSwitcher == false)
+                    {
                         module.AllocatedComponent = laser;
+                    }
                     else
+                    {
                         module.AllocatedComponent = torpedo;
+                    }
                     weaponSwitcher = !weaponSwitcher;
                     module.ComponentCount = 8;
                 }
@@ -267,9 +271,13 @@ namespace Nova.NewGame
                 if (module.ComponentType == "Shield or Armor")
                 {
                     if (armorSwitcher == false)
+                    {
                         module.AllocatedComponent = armor;
+                    }
                     else
+                    {
                         module.AllocatedComponent = shield;
+                    }
                     module.ComponentCount = 8;
                     armorSwitcher = !armorSwitcher;
                 }
@@ -359,7 +367,7 @@ namespace Nova.NewGame
         /// <param name="race"></param>
         private void AllocateHomeStarOrbitalInstallations(Star star, Race race, string player)
         {
-            int fleetIdx = 1;
+            int fleetIndex = 1;
             ShipDesign colonyShipDesign = stateData.AllDesigns[player + "/cs"] as ShipDesign;
             if (race.Traits.Primary.Code != "HE")
             {
@@ -377,22 +385,22 @@ namespace Nova.NewGame
                     fleet.FleetID = i;
                     fleet.Name = "CSFleet" + i.ToString();
                     stateData.AllFleets[player + "/" + fleet.FleetID.ToString()] = fleet;
-                    fleetIdx = i;
+                    fleetIndex = i;
                 }
             }
-            fleetIdx++;
-            ShipDesign scoutDesign = stateData.AllDesigns[player + "/scout"] as ShipDesign ;
-            Ship scout = new Ship(scoutDesign );
+            fleetIndex++;
+            ShipDesign scoutDesign = stateData.AllDesigns[player + "/scout"] as ShipDesign;
+            Ship scout = new Ship(scoutDesign);
             Fleet scoutFleet = new Fleet(scout, star);
-            scoutFleet.FleetID = fleetIdx ;
-            scoutFleet.Name = "CSFleet" + fleetIdx.ToString();
+            scoutFleet.FleetID = fleetIndex;
+            scoutFleet.Name = "CSFleet" + fleetIndex.ToString();
             stateData.AllFleets[player + "/" + scoutFleet.FleetID.ToString()] = scoutFleet;
-            fleetIdx++;
+            fleetIndex++;
 
             ShipDesign starbaseDesign = stateData.AllDesigns[player + "/starbase"] as ShipDesign;
             Ship starbase = new Ship(starbaseDesign);
             Fleet starbaseFleet = new Fleet(starbase, star);
-            starbaseFleet.FleetID = fleetIdx;
+            starbaseFleet.FleetID = fleetIndex;
             stateData.AllFleets[player + "/" + starbaseFleet.FleetID.ToString()] = starbaseFleet;
         }
 

@@ -31,7 +31,7 @@ namespace Nova.Common.Converters
     {
         protected override InstanceDescriptor ConvertToInstanceDescriptor(HullModule value)
         {
-            //int cellNumber, int componentMaximum, int componentCount, string componentType, string componentName)
+            // int cellNumber, int componentMaximum, int componentCount, string componentType, string componentName)
             ConstructorInfo constructor = typeof(HullModule).GetConstructor(new Type[]
                 {
                     typeof(int),
