@@ -714,7 +714,8 @@ namespace Nova.Common
                             ResearchAllocation = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "onlyleftover":
-                            OnlyLeftover = bool.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            OnlyLeftover = bool.Parse(subnode.FirstChild.Value);
+                            break;
                         case "scanrange":
                             ScanRange = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
