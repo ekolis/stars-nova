@@ -166,7 +166,7 @@ namespace Nova.WinForms.Gui
             this.population.TabIndex = 26;
             this.population.Text = "Uninhabited";
             this.population.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.population.MouseEnter += new EventHandler(this.PopulationToolTipShow);
+            this.population.MouseClick += new MouseEventHandler(this.PopulationToolTipShow);
             this.population.MouseLeave += new EventHandler(this.PopulationToolTipHide);
             // 
             // tooltip
@@ -560,7 +560,7 @@ namespace Nova.WinForms.Gui
 
         #region Tooltip handlers.
         
-        private void PopulationToolTipShow(object sender, EventArgs e)
+        private void PopulationToolTipShow(object sender, MouseEventArgs e)
         {               
             string tt = "";
             
