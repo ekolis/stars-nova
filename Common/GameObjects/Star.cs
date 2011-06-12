@@ -713,6 +713,8 @@ namespace Nova.Common
                         case "researchallocation":
                             ResearchAllocation = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
+                        case "onlyleftover":
+                            OnlyLeftover = bool.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         case "scanrange":
                             ScanRange = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
@@ -793,6 +795,7 @@ namespace Nova.Common
             {
                 Global.SaveData(xmldoc, xmlelStar, "Starbase", Starbase.FleetID.ToString());
             }
+            
             if (ThisRace != null)
             {
                 Global.SaveData(xmldoc, xmlelStar, "ThisRace", ThisRace.Name);
@@ -802,26 +805,34 @@ namespace Nova.Common
             {
                 Global.SaveData(xmldoc, xmlelStar, "Colonists", Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture));
             }
+            
             if (Defenses != 0)
             {
                 Global.SaveData(xmldoc, xmlelStar, "Defenses", Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture));
             }
+            
             if (Factories != 0)
             {
                 Global.SaveData(xmldoc, xmlelStar, "Factories", Factories.ToString(System.Globalization.CultureInfo.InvariantCulture));
             }
+            
             if (Mines != 0)
             { 
                 Global.SaveData(xmldoc, xmlelStar, "Mines", Mines.ToString(System.Globalization.CultureInfo.InvariantCulture));
             }
+            
             if (ResearchAllocation != 0)
             { 
                 Global.SaveData(xmldoc, xmlelStar, "ResearchAllocation", ResearchAllocation.ToString(System.Globalization.CultureInfo.InvariantCulture));
             }
+            
+            Global.SaveData(xmldoc, xmlelStar, "OnlyLeftover", OnlyLeftover.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                        
             if (ScanRange != 0)
             {
                 Global.SaveData(xmldoc, xmlelStar, "ScanRange", ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture));
             }
+            
             Global.SaveData(xmldoc, xmlelStar, "DefenseType", DefenseType);
             Global.SaveData(xmldoc, xmlelStar, "ScannerType", ScannerType);
             Global.SaveData(xmldoc, xmlelStar, "Gravity", Gravity.ToString(System.Globalization.CultureInfo.InvariantCulture));

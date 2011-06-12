@@ -22,8 +22,8 @@
 
 #region Module Description
 // ===========================================================================
-// This file contains data that are persistent across multiple invokations of
-// Nova Console. (It also holds the odd item that doesn't need to be persistent
+// This file contains data that are persistent across multiple invocations of
+// Nova Server. (It also holds the odd item that doesn't need to be persistent
 // but it's just convenient to keep all "global" data in one place.
 // ===========================================================================
 #endregion
@@ -45,26 +45,27 @@ using Message = Nova.Common.Message;
 
 namespace Nova.Server
 {
-
+    /// ----------------------------------------------------------------------------
     /// <summary>
-    /// Object for Manipulation of data that is persistent across muliple invocations of the
-    /// Nova Console.
+    /// Object for Manipulation of data that is persistent across muliple
+    /// invocations of the Nova Server.
     /// </summary>
+    /// ----------------------------------------------------------------------------
     [Serializable]
     public sealed class ServerState
     {
         #region Data
 
-        public List<BattleReport> AllBattles = new List<BattleReport>();
-        public List<PlayerSettings> AllPlayers = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
-        public Dictionary<string, int> AllTechLevels = new Dictionary<string, int>(); // Sum of a player's techlevels, for scoring purposes.
-        public Dictionary<string, Design> AllDesigns = new Dictionary<string, Design>();
-        public Dictionary<string, Fleet> AllFleets = new Dictionary<string, Fleet>();
-        public Dictionary<string, RaceData> AllRaceData = new Dictionary<string, RaceData>(); // Data about the race's relations and battle plans
-        public Dictionary<string, Race> AllRaces = new Dictionary<string, Race>(); // Data about the race (traits etc)
-        public Dictionary<string, Star> AllStars = new Dictionary<string, Star>();
-        public Dictionary<string, Minefield> AllMinefields = new Dictionary<string, Minefield>();
-        public List<Message> AllMessages = new List<Message>(); // All messages generated this turn.
+        public List<BattleReport>               AllBattles      = new List<BattleReport>();
+        public List<PlayerSettings>             AllPlayers      = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
+        public Dictionary<string, int>          AllTechLevels   = new Dictionary<string, int>(); // Sum of a player's techlevels, for scoring purposes.
+        public Dictionary<string, Design>       AllDesigns      = new Dictionary<string, Design>();
+        public Dictionary<string, Fleet>        AllFleets       = new Dictionary<string, Fleet>();
+        public Dictionary<string, RaceData>     AllRaceData     = new Dictionary<string, RaceData>(); // Game specific data about the race; relations, battle plans, research, etc.
+        public Dictionary<string, Race>         AllRaces        = new Dictionary<string, Race>(); // Data about the race (traits etc)
+        public Dictionary<string, Star>         AllStars        = new Dictionary<string, Star>();
+        public Dictionary<string, Minefield>    AllMinefields   = new Dictionary<string, Minefield>();
+        public List<Message>                    AllMessages     = new List<Message>(); // All messages generated this turn.
 
         public bool GameInProgress      = false;
         public int FleetID              = 1;
@@ -85,11 +86,11 @@ namespace Nova.Server
 
         #region Methods
 
-        /// -------------------------------------------------------------------
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Restore the persistent data. 
         /// </summary>
-        /// -------------------------------------------------------------------
+        /// ----------------------------------------------------------------------------
         public ServerState Restore()
         {
             string fileName = this.StatePathName;            
@@ -107,11 +108,11 @@ namespace Nova.Server
         }
 
 
-        /// -------------------------------------------------------------------
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save the console persistent data.
         /// </summary>
-        /// -------------------------------------------------------------------
+        /// ----------------------------------------------------------------------------
         public void Save()
         {
             if (this.StatePathName == null)
@@ -144,18 +145,19 @@ namespace Nova.Server
         /// </summary>
         /// ----------------------------------------------------------------------------
         public void Clear()
-        {
-            this.GameFolder = null;
+        {            
             this.AllRaces.Clear();
             this.AllRaceData.Clear();
             this.AllStars.Clear();
             this.AllDesigns.Clear();
             this.AllFleets.Clear();
             this.AllTechLevels.Clear();
-            this.TurnYear = 2100;
-            this.FleetID = 1;
-            this.StatePathName = null;
+            
+            this.GameFolder     = null;
             this.GameInProgress = false;
+            this.FleetID        = 1;
+            this.TurnYear       = 2100;            
+            this.StatePathName  = null;  
         }
 
         #endregion
