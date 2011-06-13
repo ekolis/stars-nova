@@ -1208,9 +1208,9 @@ namespace Nova.WinForms.Gui
         {
             List<SortableItem> nearObjects = new List<SortableItem>();
 
-            foreach (Fleet fleet in this.turnData.AllFleets.Values)
+            foreach (Fleet fleet in this.visibleFleets.Values)
             {
-                if (fleet.Type != "Starbase")
+                if (!fleet.IsStarbase)
                 {
                     if (PointUtilities.IsNear(fleet.Position, position))
                     {
