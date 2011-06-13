@@ -20,16 +20,17 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
 
 namespace Nova.Common.DataStructures
 {
-    /// ----------------------------------------------------------------------------
+    #region Using Statements
+    using System;
+    using System.Xml;
+    #endregion
+    
     /// <summary>
     /// A class to record a new target.
     /// </summary>
-    /// ----------------------------------------------------------------------------
     [Serializable]
     public class BattleStepTarget : BattleStep
     {
@@ -40,15 +41,12 @@ namespace Nova.Common.DataStructures
             Type = "Target";
         }
 
-        #region Xml
+        #region Load Save Xml
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
         /// </summary>
         /// <param name="node">A <see cref="BattleStepTarget"/> XmlNode from a Nova save file (xml document). </param>
-        /// ----------------------------------------------------------------------------
         public BattleStepTarget(XmlNode node)
             : base(node)
         {
@@ -74,14 +72,11 @@ namespace Nova.Common.DataStructures
             }         
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate an XmlElement representation of the BattleStepTarget for saving to file.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument</param>
         /// <returns>An XmlElement representing the BattleStepTarget</returns>
-        /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattleStepTarget = xmldoc.CreateElement("BattleStepTarget");

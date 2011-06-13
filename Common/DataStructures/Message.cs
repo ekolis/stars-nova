@@ -26,12 +26,13 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-using Nova.Common.DataStructures;
-
 namespace Nova.Common
 {
+    #region Using Statements
+    using System;
+    using System.Xml;
+    using Nova.Common.DataStructures;
+    #endregion
 
     /// <summary>
     /// Player messages.
@@ -47,23 +48,19 @@ namespace Nova.Common
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// default constructor
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Message() 
         { 
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising constructor
         /// </summary>
         /// <param name="audience">A string representing the destination of the message. Either a race name or and asterix.</param>
         /// <param name="messageEvent">An object used with the Goto button to display more information to the player. See Messages.GotoButton_Click</param>
         /// <param name="text">The text to display in the message box.</param>
-        /// ----------------------------------------------------------------------------
         public Message(string audience, string text, string messageType, object messageEvent)
         {
             Audience = audience;
@@ -76,16 +73,13 @@ namespace Nova.Common
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising constructor to read in a Star from an XmlNode (from a saved file).
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> representing a Star..
         /// </param>
-        /// ----------------------------------------------------------------------------
         public Message(XmlNode node)
         {
-
             XmlNode subnode = node.FirstChild;
 
             // Read the node
@@ -132,14 +126,11 @@ namespace Nova.Common
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this Message to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Message</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelMessage = xmldoc.CreateElement("Message");
@@ -177,17 +168,12 @@ namespace Nova.Common
                     default:
                         Report.Error("Message.ToXml() - Unable to convert Message.Event of type " + Event.ToString());
                         break;
-
                 }
-
-
             }
 
             return xmlelMessage;
-
         }
 
         #endregion
-
     }
 }

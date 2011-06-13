@@ -26,17 +26,17 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-using Nova.Common;
-
 namespace Nova.Common.Components
 {
-    /// ----------------------------------------------------------------------------
+    #region Using Statements
+    using System;
+    using System.Xml;
+    using Nova.Common;
+    #endregion
+
     /// <summary>
     /// Enumeration of weapon types.
     /// </summary>
-    /// ----------------------------------------------------------------------------
     public enum WeaponType
     {
         standardBeam,
@@ -46,11 +46,9 @@ namespace Nova.Common.Components
         missile
     }
 
-    /// ----------------------------------------------------------------------------
     /// <summary>
     /// Weapon class
     /// </summary>
-    /// ----------------------------------------------------------------------------
     [Serializable]
     public class Weapon : ComponentProperty
     {
@@ -62,23 +60,18 @@ namespace Nova.Common.Components
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Weapon()
         {
             this.Group = WeaponType.standardBeam;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor
         /// </summary>
         /// <param name="existing">An existing <see cref="Weapon"/> compoenent.</param>
-        /// ----------------------------------------------------------------------------
         public Weapon(Weapon existing)
         {
             this.Power = existing.Power;
@@ -92,12 +85,10 @@ namespace Nova.Common.Components
 
         #region Interface ICloneable
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns>A clone of this <see cref="Weapon"/></returns>
-        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new Weapon(this);
@@ -156,7 +147,6 @@ namespace Nova.Common.Components
             Power *= scalar;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// only power adds, and this only makes sense if the weapons are the same
@@ -164,7 +154,6 @@ namespace Nova.Common.Components
         /// <param name="op1">LHS operator.</param>
         /// <param name="op2">RHS operator.</param>
         /// <returns>A single <see cref="Weapon"/> object that represents the stack.</returns>
-        /// ----------------------------------------------------------------------------
         public static Weapon operator +(Weapon op1, Weapon op2)
         {
             if (!op1.IsSameWeaponType(op2))
@@ -182,8 +171,6 @@ namespace Nova.Common.Components
             return sum;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// only power adds, and this only makes sense if the weapons are the same
@@ -191,7 +178,6 @@ namespace Nova.Common.Components
         /// <param name="op1">The <see cref="Weapon"/> to be scaled.</param>
         /// <param name="scalar">The number of components in the stack.</param>
         /// <returns>A single <see cref="Weapon"/> that represents the stack.</returns>
-        /// ----------------------------------------------------------------------------
         public static Weapon operator *(Weapon op1, int scalar)
         {
             Weapon sum = new Weapon(op1);
@@ -203,7 +189,6 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from Xml.
         /// </summary>
@@ -211,7 +196,6 @@ namespace Nova.Common.Components
         /// node is a "Property" node with Type=="Weapon" in a Nova 
         /// compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public Weapon(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -254,7 +238,6 @@ namespace Nova.Common.Components
                             }
                             break;
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -264,14 +247,11 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// /// <summary>
         /// Save as Xml
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>an XmlElement representation of the Property</returns>
-        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -302,7 +282,6 @@ namespace Nova.Common.Components
             xmlelGroup.AppendChild(xmltxtGroup);
             xmlelProperty.AppendChild(xmlelGroup);
 
-
             return xmlelProperty;
         }
 
@@ -322,7 +301,6 @@ namespace Nova.Common.Components
 
         public bool IsMissile
         {
-
             get { return Group == WeaponType.torpedo || Group == WeaponType.missile; }
         }
 

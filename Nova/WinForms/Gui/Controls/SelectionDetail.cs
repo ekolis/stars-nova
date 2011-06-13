@@ -27,21 +27,20 @@
 // ===========================================================================
 #endregion
 
-using System.Drawing;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-
 namespace Nova.WinForms.Gui
 {
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using Nova.Client;
+    using Nova.Common;
+
     /// <Summary>
     /// Control to act as a container to hold the appropriate Detail control of a
     /// selected Item.
     /// </Summary>
     public partial class SelectionDetail : UserControl
     {
-
         private Item selectedItem = null;
         private UserControl selectedControl = null;
 
@@ -185,6 +184,5 @@ namespace Nova.WinForms.Gui
         }
 
         #endregion
-
     }
 }

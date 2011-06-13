@@ -27,12 +27,14 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Xml;
-
 namespace Nova.Common.Components
 {
+    #region Using Statements
+    using System;
+    using System.Collections.Generic;
+    using System.Xml;
+    #endregion
+
     /// <summary>
     /// The blueprint for building a ship.
     /// </summary>
@@ -76,11 +78,9 @@ namespace Nova.Common.Components
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ShipDesign()
         {
         }
@@ -89,14 +89,12 @@ namespace Nova.Common.Components
 
         #region Methods
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// The ship design object has all information that could be found from a scan
         /// of the the ship hull modules. However scanning these for a particular piece
         /// of information is inefficient. This method reorganises the information
         /// to save other routines from having to do this.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public void Update()
         {
             if (ShipHull == null)
@@ -124,7 +122,6 @@ namespace Nova.Common.Components
             Summary.Properties.Add("Cargo", cargo);
             Fuel fuel = new Fuel(hullProperties.FuelCapacity, 0);
             Summary.Properties.Add("Fuel", fuel);
-            
 
             // Check any non Hull properties of the ShipHull
             foreach (string key in ShipHull.Properties.Keys)
@@ -156,8 +153,6 @@ namespace Nova.Common.Components
             this.Cost = Summary.Cost;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Add a property to the ShipDesign.Summary.
         /// </summary>
@@ -167,7 +162,6 @@ namespace Nova.Common.Components
         /// The type of the property: one of Component.propertyKeys, normally 
         /// the key used to obtain it from a Properties dictionary.
         /// </param>
-        /// ----------------------------------------------------------------------------
         private void SumProperty(ComponentProperty property, string type, int componentCount)
         {
             switch (type)
@@ -257,18 +251,15 @@ namespace Nova.Common.Components
                 case "Transport Ships Only":
                     break;
             }
-
         }
 
         #endregion
 
         #region Properties
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the total sheild value of this ShipDesign.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int Shield
         {
             get
@@ -284,11 +275,9 @@ namespace Nova.Common.Components
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the total Armor value of this ShipDesign.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int Armor
         {
             get
@@ -304,17 +293,13 @@ namespace Nova.Common.Components
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the total FuelCapacity of this ShipDesign
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int FuelCapacity
         {
             get
             {
-                
-                
                 if (Summary.Properties.ContainsKey("Fuel"))
                 {
                     return ((Fuel)Summary.Properties["Fuel"]).Capacity;
@@ -326,16 +311,13 @@ namespace Nova.Common.Components
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the total cargo capacity of this design.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int CargoCapacity
         {
             get
             {
-                
                 if (Summary.Properties.ContainsKey("Cargo"))
                 {
                     return ((IntegerProperty)Summary.Properties["Cargo"]).Value;
@@ -347,11 +329,9 @@ namespace Nova.Common.Components
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the dock capacity of this ShipDesign (0 if none).
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int DockCapacity
         {
             get
@@ -359,7 +339,6 @@ namespace Nova.Common.Components
                 if (ShipHull.Properties.ContainsKey("Hull"))
                 {
                     return ((Hull)ShipHull.Properties["Hull"]).DockCapacity;
-
                 }
                 else
                 {
@@ -386,11 +365,9 @@ namespace Nova.Common.Components
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the normal scanner capability of this ShipDesign (0 if none)
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int NormalScan
         {
             get
@@ -406,11 +383,9 @@ namespace Nova.Common.Components
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the penetrating scanner ability of this ShipDesign (0 if none)
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int PenetratingScan
         {
             get
@@ -426,11 +401,9 @@ namespace Nova.Common.Components
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the engine component fitted to this ShipDesign (null if none).
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Engine Engine
         {
             get
@@ -446,11 +419,9 @@ namespace Nova.Common.Components
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get this design's battle speed (0.0 if it can't move, i.e. star-base).
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public double BattleSpeed
         {
             get
@@ -483,15 +454,12 @@ namespace Nova.Common.Components
                 }
                 speed = ((double)((int)((speed * 4.0) + 0.5))) / 4.0;
                 return speed;
-
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the total beam defletion capability.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public double BeamDeflectors
         {
             get
@@ -507,16 +475,13 @@ namespace Nova.Common.Components
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get a count of the number of engines. Assumes there is only one engine stack.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int Number_of_Engines
         {
             get
             {
-
                 if (ShipHull.Properties.ContainsKey("Hull"))
                 {
                     Hull hull = ShipHull.Properties["Hull"] as Hull;
@@ -527,18 +492,14 @@ namespace Nova.Common.Components
                             return module.ComponentCount;
                         }
                     }
-
                 }
                 return 0;
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine if this is a starbase hull
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool IsStarbase
         {
             get
@@ -554,12 +515,9 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get if this is a starbase that can provide unlimited fuel.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool CanRefuel
         {
             get
@@ -575,12 +533,9 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the initiative of the ShipDesign, including computers but not weapon initiative.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int Initiative
         {
             get
@@ -602,7 +557,6 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate an XmlElement representation of the ShipDesign for saving to file.
         /// Note this uses the minimal approach of storing the ship hull object 
@@ -611,7 +565,6 @@ namespace Nova.Common.Components
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument</param>
         /// <returns>An XmlElement representing the ShipDesign</returns>
-        /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelShipDesign = xmldoc.CreateElement("ShipDesign");
@@ -621,13 +574,10 @@ namespace Nova.Common.Components
             return xmlelShipDesign;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
         /// </summary>
         /// <param name="node">A "ShipDesign" node Nova save file (xml document)</param>
-        /// ----------------------------------------------------------------------------
         public ShipDesign(XmlNode node)
             : base(node.SelectSingleNode("Design"))
         {
@@ -636,7 +586,6 @@ namespace Nova.Common.Components
             {
                 try
                 {
-
                     switch (subnode.Name.ToLower())
                     {
                         case "component":
@@ -654,11 +603,9 @@ namespace Nova.Common.Components
                 }
                 subnode = subnode.NextSibling;
             }
-            
         }
 
         #endregion
-
     }
 }
 

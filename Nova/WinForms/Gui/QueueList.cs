@@ -27,25 +27,23 @@
 // ===========================================================================
 #endregion
 
-using System.Windows.Forms;
-
-using Nova.Common;
 
 namespace Nova.WinForms.Gui
 {
+    using System.Windows.Forms;
+
+    using Nova.Common;
+
     /// <Summary>
     /// Populate a list control with the details of a production queue.
     /// </Summary>
     public static class QueueList
     {
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Populate a list control with the details of a production queue.
         /// </Summary>
         /// <param name="listView">The <see cref="ListView"/> to display the queue in.</param>
         /// <param name="toMake">The <see cref="ProductionQueue"/> to display.</param>
-        /// ----------------------------------------------------------------------------
         public static void Populate(ListView listView, ProductionQueue toMake)
         {
             listView.Items.Clear();

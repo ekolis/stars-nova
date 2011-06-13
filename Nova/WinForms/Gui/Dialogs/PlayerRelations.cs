@@ -27,15 +27,15 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-using Nova.Client;
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+
+    using Nova.Client;
+
     /// <Summary>
     /// This module holds the program entry Point and handles all things related to
     /// the main GUI window.
@@ -74,26 +74,21 @@ namespace Nova.WinForms.Gui
 
         #region Event Methods
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Exit dialog button pressed
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void DoneBUtton_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Selected race has changed, update the relation details
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void SelectedRaceChanged(object sender, EventArgs e)
         {
             string selectedRace = this.raceList.SelectedItem as string;
@@ -112,14 +107,11 @@ namespace Nova.WinForms.Gui
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Player relationship changed
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void RelationChanged(object sender, EventArgs e)
         {
             string selectedRace = this.raceList.SelectedItem as string;
@@ -128,6 +120,5 @@ namespace Nova.WinForms.Gui
         }
 
         #endregion
-
     }
 }

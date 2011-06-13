@@ -26,11 +26,12 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common
 {
+    #region Using Statements
+    using System;
+    using System.Xml;
+    #endregion
 
     /// <summary>
     /// Class to hold environmental tolerance details
@@ -52,18 +53,15 @@ namespace Nova.Common
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor, required for serialization.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public EnvironmentTolerance() 
         { 
         }
 
         #endregion
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the Median value of an integer range.
         /// </summary>
@@ -71,12 +69,10 @@ namespace Nova.Common
         /// FIXME (priority 3) - Mathematically this finds the mean, which in some
         /// circumstances is different from the Median. 
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public int Median()
         {
             return (int)(((MaximumValue - MinimumValue) / 2) + MinimumValue);
         }
-
 
         public int MaximumValue
         {
@@ -96,18 +92,20 @@ namespace Nova.Common
             set { immune = value; }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the optimum level as a percentage * 100 for this race Environment.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int OptimumLevel
         {
             get { return Median(); }
         }
 
-        // Calculate the minimum and maximum values of the tolerance ranges
-        // expressed as a percentage of the total range * 100. 
+        /// <summary>
+        /// Calculate the minimum and maximum values of the tolerance ranges
+        /// expressed as a percentage of the total range * 100.  
+        /// </summary>
+        /// <param name="value"></param>
+        /// <returns></returns>
         virtual protected int MakeInternalValue(double value)
         {
             return 0;
@@ -120,14 +118,12 @@ namespace Nova.Common
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML.
         /// </summary>
         /// <param name="node">node is a "EnvironmentTolerance" <see cref="XmlNode"/> in 
         /// a Nova component definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public void FromXml(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -163,13 +159,11 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this EnvironmentTolerance to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the EnvironmentTolerance</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement("EnvironmentTolerance");

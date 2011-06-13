@@ -26,18 +26,18 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-using Nova.ControlLibrary;
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using Nova.Client;
+    using Nova.Common;
+    using Nova.ControlLibrary;
+
     /// <Summary>
     /// This is the hook to listen for a new selected Fleet.
     /// Objects who subscribe to this should respond to the Fleet
@@ -1057,10 +1057,5 @@ namespace Nova.WinForms.Gui
         }
 
         #endregion
-
- 
-
     }
-
-
 }

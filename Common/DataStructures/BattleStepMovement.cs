@@ -20,20 +20,19 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.DataStructures
 {
-    /// ----------------------------------------------------------------------------
+    #region Using Statements
+    using System;
+    using System.Xml;
+    #endregion
+
     /// <summary>
     /// A class to record a new stack position.
     /// </summary>
-    /// ----------------------------------------------------------------------------
     [Serializable]
     public class BattleStepMovement : BattleStep
     {
-        
         public string StackName = null;
         public NovaPoint Position = new NovaPoint();
 
@@ -45,15 +44,12 @@ namespace Nova.Common.DataStructures
             Type = "Movement";
         }
 
-        #region Xml
+        #region Load Save Xml
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
         /// </summary>
         /// <param name="node">A <see cref="BattleStepTarget"/> XmlNode from a Nova save file (xml document). </param>
-        /// ----------------------------------------------------------------------------
         public BattleStepMovement(XmlNode node)
             : base(node)
         {
@@ -72,7 +68,6 @@ namespace Nova.Common.DataStructures
                         case "point":
                             Position = new NovaPoint(subnode);
                             break;
-
                     }
                 }
                 catch (Exception e)
@@ -83,14 +78,11 @@ namespace Nova.Common.DataStructures
             }         
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate an XmlElement representation of the xmlelBattleStepMovement for saving to file.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument</param>
         /// <returns>An XmlElement representing the xmlelBattleStepMovement</returns>
-        /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattleStepMovement = xmldoc.CreateElement("BattleStepMovement");

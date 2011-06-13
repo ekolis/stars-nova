@@ -27,15 +27,18 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Drawing;
-
-using Nova.Common;
-using Nova.Common.DataStructures;
-
 namespace Nova.Client
 {
+    #region Using Statements
+
+    using System;
+    using System.Collections;
+    using System.Drawing;
+
+    using Nova.Common;
+    using Nova.Common.DataStructures;
+
+    #endregion
 
     /// <summary>
     /// Report class.

@@ -27,18 +27,17 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-using Nova.Common.Components;
-
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+
+    using Nova.Client;
+    using Nova.Common;
+    using Nova.Common.Components;
+
     #region Delegates
     
     /// <Summary>
@@ -83,7 +82,6 @@ namespace Nova.WinForms.Gui
             this.currentLevel = this.stateData.ResearchLevels;
 
             // Provide a convienient way of getting a button from it's name.
-
             this.buttons.Add("Energy", this.energyButton);
             this.buttons.Add("Weapons", this.weaponsButton);
             this.buttons.Add("Propulsion", this.propulsionButton);
@@ -92,7 +90,6 @@ namespace Nova.WinForms.Gui
             this.buttons.Add("Biotechnology", this.biotechButton);
 
             // Set the currently attained research levels
-
             this.energyLevel.Text = this.currentLevel[TechLevel.ResearchField.Energy].ToString();
             this.weaponsLevel.Text = this.currentLevel[TechLevel.ResearchField.Weapons].ToString();
             this.propulsionLevel.Text = this.currentLevel[TechLevel.ResearchField.Propulsion].ToString();
@@ -131,14 +128,12 @@ namespace Nova.WinForms.Gui
 
         #region Event Methods
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// A new area has been selected for research. Make a note of where the research
         /// resources are now going to be spent.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void CheckChanged(object sender, EventArgs e)
         {
             if (this.dialogInitialised == false)
@@ -160,11 +155,9 @@ namespace Nova.WinForms.Gui
                 {
                     Report.Error("ResearchDialog.cs : CheckChanged() - unrecognised field of research.");
                 }
-
             }
             
             // Populate the expected research benefits list
-
             Dictionary<string, Component> allComponents = AllComponents.Data.Components;
             TechLevel oldResearchLevel = this.stateData.ResearchLevels;
             TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
@@ -177,7 +170,6 @@ namespace Nova.WinForms.Gui
                 if (component.RequiredTech > oldResearchLevel &&
                     component.RequiredTech <= newResearchLevel)
                 {
-
                     string available = component.Name + " " + component.Type;
                     this.researchBenefits.Items.Add(available);
                 }
@@ -187,13 +179,11 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// The OK button has been pressed. Just exit the dialog.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void OKClicked(object sender, EventArgs e)
         {
             // This is done for synchronization. We wait for the event handlers
@@ -201,20 +191,16 @@ namespace Nova.WinForms.Gui
             // all event handlers and delegates thus crashing everything into the fiery void of despair.
             if (ResearchAllocationChangedEvent())
             {
-                
             }
             
             Close();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// The resource budget has been changed. Update all relevant fields.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void ParameterChanged(object sender, EventArgs e)
         {
             int percentage = (int)this.resourceBudget.Value;
@@ -274,12 +260,10 @@ namespace Nova.WinForms.Gui
 
         #region Utility Methods
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Return the total number of energy resources available to the current race
         /// </Summary>
         /// <returns>Total energy being invested in research.</returns>
-        /// ----------------------------------------------------------------------------
         private int CountEnergy()
         {
             double totalEnergy = 0;
@@ -297,6 +281,5 @@ namespace Nova.WinForms.Gui
         }
 
         #endregion
-
     }
 }

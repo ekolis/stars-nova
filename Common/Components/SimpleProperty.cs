@@ -28,11 +28,11 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.Components
 {
+    using System;
+    using System.Xml;
+
     /// <summary>
     /// Simple Property Class
     /// </summary>
@@ -43,21 +43,17 @@ namespace Nova.Common.Components
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public SimpleProperty() 
         { 
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor
         /// </summary>
         /// <param name="existing">Existing property to copy.</param>
-        /// ----------------------------------------------------------------------------
         public SimpleProperty(SimpleProperty existing) 
         { 
         }
@@ -66,13 +62,10 @@ namespace Nova.Common.Components
 
         #region Interface ICloneable
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns>A clone of this object.</returns>
-        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new SimpleProperty();
@@ -100,27 +93,23 @@ namespace Nova.Common.Components
             return;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
         /// <param name="op1">LHS operator.</param>
         /// <param name="op2">RHS operator.</param>
         /// <returns>op1</returns>
-        /// ----------------------------------------------------------------------------
         public static SimpleProperty operator +(SimpleProperty op1, SimpleProperty op2)
         {
             return op1;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// </summary>
         /// <param name="op1">Property to scale.</param>
         /// <param name="scalar">Number of instances of this property.</param>
         /// <returns>A single property that represents all these instances.</returns>
-        /// ----------------------------------------------------------------------------
         public static SimpleProperty operator *(SimpleProperty op1, int scalar)
         {
             return op1;
@@ -130,25 +119,21 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public SimpleProperty(XmlNode node) 
         { 
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
-        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");

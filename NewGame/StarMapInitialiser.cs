@@ -26,17 +26,17 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-
-using Nova.Common;
-using Nova.Common.Components;
-using Nova.Server;
-
 namespace Nova.NewGame
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Drawing;
+
+    using Nova.Common;
+    using Nova.Common.Components;
+    using Nova.Server;
+
     /// <summary>
     /// This object contains static methods to initialise the star map. 
     /// Note that SarsMapGenerator handles positioning of the stars.
@@ -52,7 +52,6 @@ namespace Nova.NewGame
 
         #region Initialisation
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate all the stars. We have two helper classes to assist in doing this:
         /// a name generator to allocate star names and a space generator to ensure
@@ -63,7 +62,6 @@ namespace Nova.NewGame
         /// FIXME (priority 3) This method is public so that it can be called from the test fixture in NewGameTest.cs.
         /// That is the only method outside this object that should call this method.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public void GenerateStars()
         {
             NameGenerator nameGenerator = new NameGenerator();
@@ -95,13 +93,10 @@ namespace Nova.NewGame
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialise the general game data for each player. E,g, picking a home
         /// planet, allocating initial resources, etc.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public void InitialisePlayerData()
         {
             SpaceAllocator spaceAllocator = new SpaceAllocator(stateData.AllRaces.Count);
@@ -149,6 +144,11 @@ namespace Nova.NewGame
             stateData.AllMessages.Add(welcome);
         }
 
+        /// <summary>
+        /// Initialise some starting designs.
+        /// </summary>
+        /// <param name="race">The <see cref="Race"/> of the player being initialised.</param>
+        /// <param name="player">The player being initialised.</param>
         private void PrepareDesigns(Race race, string player)
         {
             // Read components data and create some basic stuff
@@ -215,7 +215,6 @@ namespace Nova.NewGame
             cs.Name = "Santa Maria";
             cs.Owner = player;
             cs.Update();
-
 
             ShipDesign scout = new ShipDesign();
             scout.ShipHull = scoutHull;
@@ -332,9 +331,8 @@ namespace Nova.NewGame
                     // two scouts, one colony ship, one medium freighter, one mini miner, one destroyer
                     break;
             */
-
         }
-        /// ----------------------------------------------------------------------------
+
         /// <summary>
         /// Allocate a "home" star system for each player giving it some colonists and
         /// initial resources. We use the space allocater helper class to ensure that
@@ -342,7 +340,6 @@ namespace Nova.NewGame
         /// </summary>
         /// <param name="race"><see cref="Race"/> to be positioned.</param>
         /// <param name="spaceAllocator">The <see cref="SpaceAllocator"/> being used to allocate positions.</param>
-        /// ----------------------------------------------------------------------------
         private void InitialiseHomeStar(Race race, SpaceAllocator spaceAllocator, string player)
         {
             Rectangle box = spaceAllocator.GetBox();
@@ -404,15 +401,12 @@ namespace Nova.NewGame
             stateData.AllFleets[player + "/" + starbaseFleet.FleetID.ToString()] = starbaseFleet;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Allocate an initial set of resources to a player's "home" star system. for
         /// each player giving it some colonists and initial resources. 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void AllocateHomeStarResources(Star star, Race race)
         {
             Random random = new Random();
@@ -445,7 +439,6 @@ namespace Nova.NewGame
             star.ScannerType = "Scoper 150"; // TODO (priority 4) get from component list
             star.DefenseType = "SDI"; // TODO (priority 4) get from component list
             star.ScanRange = 50; // TODO (priority 4) get from component list
-
         }
 
         #endregion

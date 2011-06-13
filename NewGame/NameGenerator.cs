@@ -28,12 +28,11 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
 namespace Nova.NewGame
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
 
     public class NameGenerator
     {
@@ -58,11 +57,9 @@ namespace Nova.NewGame
 
         #region Methods
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Randomly pull a star name out of our hat.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public string NextName
         {
             get
@@ -76,12 +73,9 @@ namespace Nova.NewGame
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the number of star names we can generate.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int Capacity
         {
             get
@@ -90,12 +84,9 @@ namespace Nova.NewGame
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// The list of star names we can return.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         private readonly string[] starNames = 
         {
          "A'po",

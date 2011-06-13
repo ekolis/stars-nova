@@ -28,13 +28,14 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
-
 namespace Nova.Common.Components
 {
+    #region Using Statements
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Xml;
+    #endregion
 
     /// <summary>
     /// The definition of a hull object.
@@ -57,25 +58,19 @@ namespace Nova.Common.Components
 
         #region Construction Initialisation
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Hull() 
         {
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor for the hull.
         /// </summary>
         /// <param name="existing">The <see cref="Hull"/> to be copied.</param>
-        /// ----------------------------------------------------------------------------
         public Hull(Hull existing)
         {
-
             FuelCapacity     = existing.FuelCapacity;
             DockCapacity     = existing.DockCapacity;
             BaseCargo        = existing.BaseCargo;
@@ -95,12 +90,10 @@ namespace Nova.Common.Components
 
         #region ICloneable
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new Hull(this);
@@ -128,7 +121,6 @@ namespace Nova.Common.Components
             return;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// Has no meaning in the context of a Hull.
@@ -136,14 +128,11 @@ namespace Nova.Common.Components
         /// <param name="op1">First operand.</param>
         /// <param name="op2">Second operand.</param>
         /// <returns>The first operand.</returns>
-        /// ----------------------------------------------------------------------------
         public static Hull operator +(Hull op1, Hull op2)
         {
             return op1;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// Has no meaning in the context of a Hull.
@@ -151,7 +140,6 @@ namespace Nova.Common.Components
         /// <param name="op1"></param>
         /// <param name="scalar"></param>
         /// <returns>The first operand.</returns>
-        /// ----------------------------------------------------------------------------
         public static Hull operator *(Hull op1, int scalar)
         {
             return op1;
@@ -161,22 +149,17 @@ namespace Nova.Common.Components
 
         #region Properties
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine if this is a starbase hull.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool IsStarbase
         {
             get { return FuelCapacity == 0; }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine if this is a starbase that can refuel.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool CanRefuel
         {
             get { return FuelCapacity == 0 && DockCapacity > 0; }
@@ -186,14 +169,12 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public Hull(XmlNode node)
         {
             Modules = new List<HullModule>();
@@ -231,7 +212,6 @@ namespace Nova.Common.Components
                         HullModule module = new HullModule(subnode);
                         Modules.Add(module);
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -241,14 +221,11 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
-        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -293,7 +270,6 @@ namespace Nova.Common.Components
         }
 
         #endregion
-
     }
 }
 

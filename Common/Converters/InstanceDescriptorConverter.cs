@@ -19,13 +19,15 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
-using System.Globalization;
-
 namespace Nova.Common.Converters
 {
+    #region Using Statements
+    using System;
+    using System.ComponentModel;
+    using System.ComponentModel.Design.Serialization;
+    using System.Globalization;
+    #endregion
+
     /// <summary>
     /// Generic <see cref="TypeConverter"/> for conversions to <see cref="InstanceDescriptor"/>.
     /// </summary>

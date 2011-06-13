@@ -26,11 +26,11 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.Components
 {
+    using System;
+    using System.Xml;
+
     /// <summary>
     /// Colonizer class
     /// </summary>
@@ -39,7 +39,6 @@ namespace Nova.Common.Components
     {
         public bool Orbital = false;
 
-
         #region Construction
 
         /// <summary>
@@ -47,9 +46,7 @@ namespace Nova.Common.Components
         /// </summary>
         public Colonizer()
         {
-
         }
-
 
         /// <summary>
         /// Initializes a new instance of the Colonizer class.
@@ -64,12 +61,10 @@ namespace Nova.Common.Components
 
         #region Interface ICloneable
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns>Clone of this object.</returns>
-        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new Colonizer(this);
@@ -97,27 +92,23 @@ namespace Nova.Common.Components
             return;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
         /// <param name="op1">LHS operand</param>
         /// <param name="op2">RHS operand</param>
         /// <returns>Sum of the properties.</returns>
-        /// ----------------------------------------------------------------------------
         public static Colonizer operator +(Colonizer op1, Colonizer op2)
         {
             return op1;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// </summary>
         /// <param name="op1">Property to scale.</param>
         /// <param name="scalar">Number of instances of this property.</param>
         /// <returns>A single property that represents all these instances.</returns>
-        /// ----------------------------------------------------------------------------
         public static Colonizer operator *(Colonizer op1, int scalar)
         {
             return op1;
@@ -154,13 +145,11 @@ namespace Nova.Common.Components
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
-        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -175,7 +164,6 @@ namespace Nova.Common.Components
         }
 
         #endregion
-
     }
 }
 

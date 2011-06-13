@@ -22,20 +22,18 @@
 
 #region Module Description
 // ===========================================================================
-// This class defines an integer property used for any int value property.
-// Possible uses are shield, armor, cargoPod, Mining Robot.
+// This class defines a property to represent a Mass Driver.
+// A mass driver has a maximum warp value (int), but mass drivers do not
+// add linearly. Two mass drivers of the same value can opperate at one higher
+// warp speed.
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
-// ============================================================================
-// Simple Property Class
-// ============================================================================
-
 namespace Nova.Common.Components
 {
+    using System;
+    using System.Xml;
+
     [Serializable]
     public class MassDriver : ComponentProperty
     {
@@ -43,34 +41,26 @@ namespace Nova.Common.Components
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public MassDriver() 
         { 
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor.
         /// </summary>
         /// <param name="existing"></param>
-        /// ----------------------------------------------------------------------------
         public MassDriver(MassDriver existing)
         {
             this.Value = existing.Value;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising constructor.
         /// </summary>
         /// <param name="existing">The initial mass driver value.</param>
-        /// ----------------------------------------------------------------------------
         public MassDriver(int existing)
         {
             this.Value = existing;
@@ -80,12 +70,10 @@ namespace Nova.Common.Components
 
         #region Interface ICloneable
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new MassDriver(this);
@@ -113,7 +101,6 @@ namespace Nova.Common.Components
             Value = (this * scalar).Value;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
@@ -123,7 +110,6 @@ namespace Nova.Common.Components
         /// A <see cref="MassDriver"/> representing the sum of two mass drivers. 
         /// This is the best of the two or one warp higher if the same.
         /// </returns>
-        /// ----------------------------------------------------------------------------
         public static MassDriver operator +(MassDriver op1, MassDriver op2)
         {
             if (op1.Value == op2.Value)
@@ -136,8 +122,6 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// Mass Driver doesn't scale.
@@ -145,7 +129,6 @@ namespace Nova.Common.Components
         /// <param name="op1">The <see cref="MassDriver"/> to scale.</param>
         /// <param name="scalar">The number of mass drivers in the stack.</param>
         /// <returns>A mass driver representing the stack. +1 warp speed if more than one.</returns>
-        /// ----------------------------------------------------------------------------
         public static MassDriver operator *(MassDriver op1, int scalar)
         {
             if (scalar >= 1)
@@ -159,14 +142,12 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public MassDriver(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -187,14 +168,11 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
-        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -209,7 +187,6 @@ namespace Nova.Common.Components
         }
 
         #endregion
-
     }
 }
 

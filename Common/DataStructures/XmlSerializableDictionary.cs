@@ -28,18 +28,17 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Xml;
-using System.Xml.Schema;
-using System.Xml.Serialization;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections;
+
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    using System.Xml;
+    using System.Xml.Schema;
+    using System.Xml.Serialization;
 
     /// <summary>
     /// A Dictionary which can be serialized to Xml.

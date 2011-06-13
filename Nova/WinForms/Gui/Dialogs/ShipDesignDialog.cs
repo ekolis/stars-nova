@@ -757,9 +757,7 @@ namespace Nova.WinForms.Gui
         }
         #endregion
 
-
         #region Initialisation and Disposal
-
 
         /// <Summary>
         /// Initializes a new instance of the ShipDesignDialog class.
@@ -848,9 +846,7 @@ namespace Nova.WinForms.Gui
                 node.Tag = node.Text;
             }
             TreeView.EndUpdate();
-
         }
-
 
         /// <Summary>
         /// Clean up any resources being used.
@@ -870,17 +866,13 @@ namespace Nova.WinForms.Gui
 
         #endregion
 
-
         #region Event Methods
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Save the the design when the OK button is pressed
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void OK_Click(object sender, System.EventArgs e)
         {
             ShipDesign newDesign = new ShipDesign();
@@ -927,14 +919,11 @@ namespace Nova.WinForms.Gui
             Close();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// A new tree node has been selected. Update the list control
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void TreeNodeSelected(object sender, TreeViewEventArgs e)
         {
             Description.Text = null;
@@ -966,17 +955,13 @@ namespace Nova.WinForms.Gui
                     ListView.Items.Add(item);
                 }
             }
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// A new Item has been selected. Update the cost box and description.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void ListSelectionChanged(object sender, EventArgs e)
         {
             if (ListView.SelectedItems.Count <= 0)
@@ -1005,14 +990,11 @@ namespace Nova.WinForms.Gui
             ListView_MouseDown(null, null);
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Instigate Drag and Drop of the selected ListView Item
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void ListView_MouseDown(object sender, MouseEventArgs e)
         {
             if (ListView.SelectedItems.Count <= 0)
@@ -1108,18 +1090,14 @@ namespace Nova.WinForms.Gui
             {
                 MaxCapacity.Text = fuel.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Hull selection changed. Ensure we take a copy of the hull design so that we
         /// don't end up messing with the master copy.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void HullList_SelectedValueChanged(object sender, EventArgs e)
         {
             string selectedHullName = HullList.SelectedItem as string;
@@ -1158,10 +1136,8 @@ namespace Nova.WinForms.Gui
 
         #endregion
 
-
         #region Utility Methods
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Draw the seleced hull design by filling in the hull grid and the populating
         /// the costs and characteristics fields on the form.
@@ -1172,7 +1148,6 @@ namespace Nova.WinForms.Gui
         /// as that is what the ShipDesign is for. Need to decide if using a ShipDesign
         /// from the start would be better.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         private void UpdateHullFields()
         {
             Hull hullProperties = this.selectedHull.Properties["Hull"] as Hull;
@@ -1215,13 +1190,10 @@ namespace Nova.WinForms.Gui
             UpdateDesignParameters();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Build a table of components available. Note that some components are only
         /// availble if certain racial traits are selected.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         private void PopulateComponentList()
         {
             int index = 0;
@@ -1239,6 +1211,5 @@ namespace Nova.WinForms.Gui
         }
 
         #endregion
-
     }
 }

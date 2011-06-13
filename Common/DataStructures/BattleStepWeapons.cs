@@ -20,16 +20,16 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.DataStructures
 {
-    /// ----------------------------------------------------------------------------
+    #region Using Statements
+    using System;
+    using System.Xml;
+    #endregion
+
     /// <summary>
     /// A class to record weapons being fired.
     /// </summary>
-    /// ----------------------------------------------------------------------------
     [Serializable]
     public class BattleStepWeapons : BattleStep
     {
@@ -46,16 +46,12 @@ namespace Nova.Common.DataStructures
             Type = "Weapons";
         }
 
+        #region Load Save Xml
 
-        #region Xml
-
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
         /// </summary>
         /// <param name="node">A <see cref="BattleStepWeapons"/> XmlNode from a Nova save file (xml document). </param>
-        /// ----------------------------------------------------------------------------
         public BattleStepWeapons(XmlNode node)
             : base(node)
         {
@@ -91,14 +87,11 @@ namespace Nova.Common.DataStructures
             }         
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate an XmlElement representation of the BattleStepWeapons for saving to file.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument</param>
         /// <returns>An XmlElement representing the ShipDesign</returns>
-        /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattleStepWeapons = xmldoc.CreateElement("BattleStepWeapons");
@@ -120,8 +113,6 @@ namespace Nova.Common.DataStructures
             return xmlelBattleStepWeapons;
         }
 
-
         #endregion
-
     }
 }

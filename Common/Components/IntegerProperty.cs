@@ -27,11 +27,11 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.Components
 {
+    using System;
+    using System.Xml;
+
     /// <summary>
     /// Integer Property Class.
     /// </summary>
@@ -42,34 +42,26 @@ namespace Nova.Common.Components
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public IntegerProperty() 
         { 
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor.
         /// </summary>
         /// <param name="existing">Existing <see cref="IntegerProperty"/> to copy.</param>
-        /// ----------------------------------------------------------------------------
         public IntegerProperty(IntegerProperty existing)
         {
             this.Value = existing.Value;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising constructor.
         /// </summary>
         /// <param name="existing">Initial value.</param>
-        /// ----------------------------------------------------------------------------
         public IntegerProperty(int existing)
         {
             this.Value = existing;
@@ -79,12 +71,10 @@ namespace Nova.Common.Components
 
         #region Interface ICloneable
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns>A clone of this object.</returns>
-        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new IntegerProperty(this);
@@ -112,28 +102,23 @@ namespace Nova.Common.Components
             Value *= scalar;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
         /// <param name="op1">LHS operand.</param>
         /// <param name="op2">RHS operand.</param>
         /// <returns>An <see cref="IntegerProperty"/> equal to the linear sum of op1 and op2.</returns>
-        /// ----------------------------------------------------------------------------
         public static IntegerProperty operator +(IntegerProperty op1, IntegerProperty op2)
         {
             return new IntegerProperty(op1.Value + op2.Value);
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// </summary>
         /// <param name="op1">The <see cref="IntegerProperty"/> in the stack.</param>
         /// <param name="scalar">The number of items in the stack.</param>
         /// <returns>An <see cref="IntegerProperty"/> representing the stack.</returns>
-        /// ----------------------------------------------------------------------------
         public static IntegerProperty operator *(IntegerProperty op1, int scalar)
         {
             return new IntegerProperty(op1.Value * scalar);
@@ -143,14 +128,12 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public IntegerProperty(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -171,14 +154,11 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
-        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -193,7 +173,6 @@ namespace Nova.Common.Components
         }
 
         #endregion
-
     }
 }
 

@@ -26,12 +26,14 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-using Nova.Common;
-
 namespace Nova.Common.Components
 {
+    #region Using Statements
+    using System;
+    using System.Xml;
+    using Nova.Common;
+    #endregion
+
     /// <summary>
     /// Terraform class
     /// </summary>
@@ -44,23 +46,17 @@ namespace Nova.Common.Components
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Terraform()
         {
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor.
         /// </summary>
         /// <param name="existing">The object to copy.</param>
-        /// ----------------------------------------------------------------------------
         public Terraform(Terraform existing)
         {
             this.MaxModifiedGravity = existing.MaxModifiedGravity;
@@ -72,12 +68,10 @@ namespace Nova.Common.Components
 
         #region Interface ICloneable
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns>A clone of this object.</returns>
-        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new Terraform(this);
@@ -108,14 +102,12 @@ namespace Nova.Common.Components
             return;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
         /// <param name="op1">LHS operator</param>
         /// <param name="op2">RHS operator</param>
         /// <returns>A single terraform property that represents the stack.</returns>
-        /// ----------------------------------------------------------------------------
         public static Terraform operator +(Terraform op1, Terraform op2)
         {
             Terraform sum = new Terraform(op1);
@@ -125,8 +117,6 @@ namespace Nova.Common.Components
             return sum;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// Terraformers don't scale, as the modifications represent maximums.
@@ -136,7 +126,6 @@ namespace Nova.Common.Components
         /// <param name="op1">Property to be scaled.</param>
         /// <param name="scalar">Number of components in the stack.</param>
         /// <returns>A single property that represents the stack.</returns>
-        /// ----------------------------------------------------------------------------
         public static Terraform operator *(Terraform op1, int scalar)
         {
             return op1.Clone() as Terraform;
@@ -146,7 +135,6 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from Xml
         /// </summary>
@@ -154,7 +142,6 @@ namespace Nova.Common.Components
         /// node is a "Property" node with Type=="Terraform" in a Nova 
         /// compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public Terraform(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -183,14 +170,11 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
-        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");

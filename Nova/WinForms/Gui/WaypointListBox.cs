@@ -27,10 +27,10 @@
 // ===========================================================================
 #endregion
 
-using System.Windows.Forms;
-
 namespace Nova.WinForms.Gui
 {
+    using System.Windows.Forms;
+
     /// <Summary>
     /// This module provides a WaypointListBox which is a List box that passes on
     /// the delete key.
@@ -55,6 +55,5 @@ namespace Nova.WinForms.Gui
                 return base.IsInputKey(keyData);
             }
         }
-
     }
 }

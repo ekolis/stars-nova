@@ -26,13 +26,14 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
-
 namespace Nova.Common
 {
+    #region Using Statements
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Xml;
+    #endregion
 
     [Serializable]
     public class ProductionQueue
@@ -51,21 +52,17 @@ namespace Nova.Common
             public bool Autobuild;
             private IProductionUnit unit;
 
-            /// ----------------------------------------------------------------------------
             /// <summary>
             /// default constructor
             /// </summary>
-            /// ----------------------------------------------------------------------------
             public Item() 
             { 
             }
 
-            /// ----------------------------------------------------------------------------
             /// <summary>
             /// Return the resources needed to 
             /// </summary>
             /// <returns></returns>
-            /// ----------------------------------------------------------------------------
             public Resources NeededResources()
             {
                 Resources unitResources = this.unit.NeededResources();
@@ -78,12 +75,10 @@ namespace Nova.Common
 
             #region Load Save Xml
 
-            /// ----------------------------------------------------------------------------
             /// <summary>
             /// Load: Read in a ProductionQueue.Item from and XmlNode representation.
             /// </summary>
             /// <param name="node">An XmlNode containing a representation of a ProductionQueue.Item</param>
-            /// ----------------------------------------------------------------------------
             public Item(XmlNode node)
             {
                 XmlNode subnode = node.FirstChild;
@@ -103,24 +98,20 @@ namespace Nova.Common
                                 BuildState = new Resources(subnode);
                                 break;
                         }
-
                     }
-                    catch
+                    catch (Exception e)
                     {
-                        // ignore incomplete or unset values
+                        Report.Error(e.Message);
                     }
                     subnode = subnode.NextSibling;
                 }
             }
 
-
-            /// ----------------------------------------------------------------------------
             /// <summary>
             /// Save: Generate an XmlElement representation of the ProductionQueue.Item for saving.
             /// </summary>
             /// <param name="xmldoc">The parent XmlDocument</param>
             /// <returns>An XmlElement representation of the ProductionQueue.Item</returns>
-            /// ----------------------------------------------------------------------------
             public XmlElement ToXml(XmlDocument xmldoc)
             {
                 XmlElement xmlelProductionOrder = xmldoc.CreateElement("ProductionOrder");
@@ -136,29 +127,24 @@ namespace Nova.Common
         }
 
 
-        // ============================================================================
-        // The production queue itself.
-        // ============================================================================
-
+        /// <summary>
+        /// The production queue itself.
+        /// </summary>
         public List<Item> Queue = new List<Item>();
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// default constructor
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ProductionQueue() 
         { 
         }
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Read in a ProductionQueue from an XmlElement representation
         /// </summary>
         /// <param name="node">A ProductionQueue XmlNode, normally read from a nova data file.</param>
-        /// ----------------------------------------------------------------------------
         public ProductionQueue(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -174,7 +160,6 @@ namespace Nova.Common
                             Queue.Add(order); // TODO (priority 6) ensure they load in the correct order.
                         }
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -184,13 +169,11 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Generate an XmlElement representation of the ProductionQueue to save to file.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument</param>
         /// <returns>An XmlElement representing the ProductionQueue</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProductionQueue = xmldoc.CreateElement("ProductionQueue");

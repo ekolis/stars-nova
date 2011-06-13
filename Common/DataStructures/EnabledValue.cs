@@ -26,13 +26,14 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.ComponentModel;
-
-using Nova.Common.Converters;
-
 namespace Nova.Common
 {
+    #region Using Statements
+    using System;
+    using System.ComponentModel;
+
+    using Nova.Common.Converters;
+    #endregion
 
     /// <summary>
     /// A type used by an EnabledCounter control.
@@ -46,30 +47,24 @@ namespace Nova.Common
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising constructor.
         /// </summary>
         /// <param name="check"></param>
         /// <param name="value"></param>
-        /// ----------------------------------------------------------------------------
         public EnabledValue(bool check, int value)
         {
             IsChecked = check;
             NumericValue = value;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public EnabledValue() 
         { 
         }
 
         #endregion
-
     }
-
 }

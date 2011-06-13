@@ -26,11 +26,13 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common
 {
+    #region Using Statements
+    using System;
+    using System.Xml;
+    #endregion
+
     [Serializable]
     public class BattlePlan
     {
@@ -42,11 +44,9 @@ namespace Nova.Common
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// default constructor
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public BattlePlan() 
         { 
         }
@@ -55,12 +55,10 @@ namespace Nova.Common
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising constructor from an XmlNode
         /// </summary>
         /// <param name="node">An XmlNode representing a BattlePlan</param>
-        /// ----------------------------------------------------------------------------
         public BattlePlan(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -95,13 +93,11 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Generate an XmlElement representation of a battle plan for saving.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument</param>
         /// <returns>An XmlElement representaion of the BattlePlan</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattlePlan = xmldoc.CreateElement("BattlePlan");
@@ -116,6 +112,5 @@ namespace Nova.Common
         }
 
         #endregion
-
     }
 }

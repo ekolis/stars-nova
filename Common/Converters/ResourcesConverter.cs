@@ -19,14 +19,17 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
-using System.Reflection;
 
 namespace Nova.Common.Converters
 {
+    #region Using Statements
+    using System;
+    using System.Collections;
+    using System.ComponentModel;
+    using System.ComponentModel.Design.Serialization;
+    using System.Reflection;
+    #endregion
+
     /// <summary>
     /// <see cref="TypeConverter"/> for <see cref="Resources"/>.
     /// </summary>

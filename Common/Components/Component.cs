@@ -26,15 +26,15 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-using System.Xml;
-
-
 namespace Nova.Common.Components
 {
+    #region Using Statements
+    using System;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.IO;
+    using System.Xml;
+    #endregion
 
     /// <summary>
     /// Component class defining features common to all component types (e.g.
@@ -64,21 +64,17 @@ namespace Nova.Common.Components
           "Mine Layer Efficiency", "Robot",
           "Orbital Adjuster", "Radiation", "Scanner", "Shield", "Tachyon Detector", "Terraforming",
           "Transport Ships Only", "Weapon"
-
         };
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Component()
         {
             Properties = new Dictionary<string, ComponentProperty>();
         }
-
 
         /// <summary>
         /// Copy constructor.
@@ -110,14 +106,12 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public Component(XmlNode node)
             : base(node)
         {
@@ -145,7 +139,6 @@ namespace Nova.Common.Components
                             break;
                         case "image":
                             {
-
                                 // Paths are always stored in external files using forward slashes.
                                 this.ImageFile = ((XmlText)subnode.FirstChild).Value.Replace('/', Path.DirectorySeparatorChar);
                                 // relative or absolute path? we normally store the relative path but will handle loading either incase the file has been manually modified.
@@ -173,7 +166,6 @@ namespace Nova.Common.Components
                                         {
                                             // now we have an absolute path, load the image
                                             this.ComponentImage = new Bitmap(this.ImageFile);
-
                                         }
                                         else
                                         {
@@ -356,7 +348,6 @@ namespace Nova.Common.Components
                                             newProperty = new IntegerProperty(subnode);
                                             break;
                                         }
-
                                 }
                                 if (newProperty != null)
                                 {
@@ -364,30 +355,21 @@ namespace Nova.Common.Components
                                 }
                                 break;
                             }
-
                     }
-
                 }
-
-
                 catch (Exception e)
                 {
                     Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
                 }
-
                 subnode = subnode.NextSibling;
             }
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
-        /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelComponent = xmldoc.CreateElement("Component");
@@ -431,7 +413,6 @@ namespace Nova.Common.Components
         }
 
         #endregion
-
     }
 }
 

@@ -1,4 +1,3 @@
-// This file needs -*- c++ -*- mode
 // ============================================================================
 // Nova. (c) 2008 Ken Reed
 // 
@@ -447,8 +446,5 @@ namespace Nova.WinForms.Gui
        private System.Windows.Forms.Label numericResources;
        private System.Windows.Forms.Label label8;
        private System.Windows.Forms.ListBox researchBenefits;
-
-
-
      }
 }

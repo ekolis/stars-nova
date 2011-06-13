@@ -204,12 +204,10 @@ namespace Nova.Common.DataStructures
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within a Nova xml document.</param>
-        /// ----------------------------------------------------------------------------
         public NovaPoint(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -240,14 +238,11 @@ namespace Nova.Common.DataStructures
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this NovaPoint to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the NovaPoint.</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelPoint = xmldoc.CreateElement("Point");
@@ -259,6 +254,5 @@ namespace Nova.Common.DataStructures
         }
 
         #endregion
-
     }
 }

@@ -27,11 +27,11 @@
 #endregion
 
 
-using System;
-using System.Xml;
     
 namespace Nova.Common
 {
+    using System;
+    using System.Xml;
 
     /// <summary>
     /// Star Class
@@ -44,6 +44,7 @@ namespace Nova.Common
         public Resources MineralConcentration;
         public Resources ResourcesOnHand;
         public Fleet Starbase;
+
         /// <summary>
         /// The number of colonists as reported on a planet. Divide by GlobalDefinitions.ColonistsPerKiloton to convert to cargo units.
         /// </summary>
@@ -73,11 +74,9 @@ namespace Nova.Common
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// default constructor
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Star()
         {
             this.Starbase = null;
@@ -91,12 +90,10 @@ namespace Nova.Common
         // Methods that access or calculate values without changing the Star system.
         #region Information Methods
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine the number of factories that can be operated.
         /// </summary>
         /// <returns>the number of factories that can be operated</returns>
-        /// ----------------------------------------------------------------------------
         public int GetOperableFactories()
         {           
              if (ThisRace == null)
@@ -113,13 +110,11 @@ namespace Nova.Common
             return (int)((double)Colonists / Global.ColonistsPerOperableFactoryUnit * ThisRace.OperableFactories);
         }
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine the number of factories that can be operated next turn
         /// considering growth.
         /// </summary>
         /// <returns>the number of factories that can be operated next turn.</returns>
-        /// ----------------------------------------------------------------------------
         public int GetFutureOperableFactories()
         {
             if (ThisRace == null)
@@ -133,12 +128,10 @@ namespace Nova.Common
                          * ThisRace.OperableFactories);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate the number of mines that can be operated.
         /// </summary>
         /// <returns>the number of mines that can be operated</returns>
-        /// ----------------------------------------------------------------------------
         public int GetOperableMines()
         {            
              if (ThisRace == null)
@@ -151,13 +144,11 @@ namespace Nova.Common
             return (int)((double)Colonists / Global.ColonistsPerOperableMiningUnit * ThisRace.OperableMines);
         }
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine the number of mines that can be operated next turn
         /// considering growth.
         /// </summary>
         /// <returns>the number of mines that can be operated next turn.</returns>
-        /// ----------------------------------------------------------------------------
         public int GetFutureOperableMines()
         {
             if (ThisRace == null)
@@ -171,36 +162,30 @@ namespace Nova.Common
                          * ThisRace.OperableMines);
         }
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate the number of factories currently operated.
         /// </summary>
         /// <returns>the number of factories currently in operation.</returns>
-        /// ----------------------------------------------------------------------------
         public int GetFactoriesInUse()
         {
             int potentialFactories = GetOperableFactories();
             return Math.Min(Factories, potentialFactories);
         }
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate the number of mines currently operated.
         /// </summary>
         /// <returns>the number of mines currently in operated</returns>
-        /// ----------------------------------------------------------------------------
         public int GetMinesInUse()
         {
             int potentialMines = GetOperableMines();
             return Math.Min(Mines, potentialMines);
         }
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate the amount of resources currently generated.
         /// </summary>
         /// <returns>the resources generated</returns>
-        /// ----------------------------------------------------------------------------        
         public int GetResourceRate()
         {
             if (ThisRace == null || Colonists <= 0)
@@ -216,13 +201,11 @@ namespace Nova.Common
             return rate;
         }
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate the amount of resources generated next turn accounting growth and
         /// factory production.
         /// </summary>
         /// <returns>the resources generated next turn</returns>
-        /// ----------------------------------------------------------------------------
         public int GetFutureResourceRate(int extraFactories)
         {
             if (ThisRace == null || Colonists <= 0)
@@ -240,12 +223,10 @@ namespace Nova.Common
             return rate;
         }
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate the amount of kT of minerals that can currently be mined.
         /// </summary>
         /// <returns>the mining rate in kT</returns>
-        /// ----------------------------------------------------------------------------
         public int GetMiningRate(int concentration)
         {
             if (ThisRace == null)
@@ -263,13 +244,11 @@ namespace Nova.Common
             return rate;
         }
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate the amount of kT of minerals that can be mined considering additional
         /// mines, for example in production ones.
         /// </summary>
         /// <returns>the potential mining rate in kT</returns>
-        /// ----------------------------------------------------------------------------
         public int GetFutureMiningRate(int concentration, int extraMines)
         {  
             if (ThisRace == null)
@@ -288,13 +267,11 @@ namespace Nova.Common
             return rate;
         }
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate the utilised capacity (as a percentage).
         /// </summary>
         /// <param name="race"></param>
         /// <returns>Capacity in the range 1 - 100 (%)</returns>
-        /// ----------------------------------------------------------------------------
         public int Capacity(Race race)
         {
             double maxPopulation = race.MaxPopulation;
@@ -310,7 +287,6 @@ namespace Nova.Common
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate this star's Habitability for a given race.
         /// </summary>
@@ -339,7 +315,6 @@ namespace Nova.Common
         /// z=r-1/2 for r>1/2
         /// z=0 for r less than 1/2 
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public double HabitalValue(Race race)
         {
             double r = NormalizeHabitalityDistance(race.RadiationTolerance, Radiation);
@@ -415,7 +390,12 @@ namespace Nova.Common
             }
         }
 
-        // Clicks_from_center/Total_clicks_from_center_to_edge
+        /// <summary>
+        /// Clicks_from_center/Total_clicks_from_center_to_edge 
+        /// </summary>
+        /// <param name="tol"></param>
+        /// <param name="starValue"></param>
+        /// <returns></returns>
         private double NormalizeHabitalityDistance(EnvironmentTolerance tol, int starValue)
         {
             if (tol.Immune)
@@ -483,7 +463,6 @@ namespace Nova.Common
         // These methods change the star system. They should only be called server side.
         #region Action Methods     
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Update the population of a star system.
         /// </summary>
@@ -491,7 +470,6 @@ namespace Nova.Common
         /// <remarks>
         /// See Upadate()
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public void UpdatePopulation(Race race)
         {
             Colonists += CalculateGrowth(race);
@@ -516,14 +494,12 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Update the resources available to a star system.
         /// </summary>
         /// <remarks>
         /// See UpadateMinerals()
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public void UpdateResources()
         {
             // A certain number of colonists will generate a resource each year.
@@ -544,14 +520,12 @@ namespace Nova.Common
             this.ResourcesOnHand.Energy -= this.ResearchAllocation;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Update the minerals available on a star system.
         /// </summary>
         /// <remarks>
         /// See UpadateResources()
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public void UpdateMinerals()
         {            
             this.ResourcesOnHand.Ironium += this.Mine(ref this.MineralConcentration.Ironium);
@@ -559,7 +533,6 @@ namespace Nova.Common
             this.ResourcesOnHand.Germanium += this.Mine(ref this.MineralConcentration.Germanium);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Mine minerals.
         /// </summary>
@@ -575,7 +548,6 @@ namespace Nova.Common
         /// Note also that this method does not actually modify the Star's minerals. It
         /// merely returns the amount mined and decreases concentration.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         private int Mine(ref int concentration)
         {
             // As with factories, mines must be manned to be able to produce.
@@ -630,7 +602,6 @@ namespace Nova.Common
                 else
                 {
                     defenses = value;
-
                 }
             }
             get
@@ -666,12 +637,10 @@ namespace Nova.Common
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising constructor to read in a Star from an XmlNode (from a saved file).
         /// </summary>
         /// <param name="node">An XmlNode representing a Star.</param>
-        /// ----------------------------------------------------------------------------
         public Star(XmlNode node)
             : base(node)
         {
@@ -765,14 +734,11 @@ namespace Nova.Common
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Create an XmlElement representation of the star for saving.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument</param>
         /// <returns>An XmlElement representation of the star.</returns>
-        /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelStar = xmldoc.CreateElement("Star");
@@ -840,11 +806,9 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelStar, "Radiation", Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelStar, "Temperature", Temperature.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
-
             return xmlelStar;
         }
 
         #endregion
-
     }
 }

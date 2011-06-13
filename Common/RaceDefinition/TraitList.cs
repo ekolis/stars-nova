@@ -47,7 +47,6 @@ namespace Nova.Common
     [Serializable]
     public class TraitList : DictionaryBase
     {
-
         #region Methods
 
         /// ----------------------------------------------------------------------------
@@ -61,15 +60,12 @@ namespace Nova.Common
             Dictionary.Add(new_trait.Code, new_trait);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Add a new trait to the race's collection of traits.
         /// </summary>
         /// <param name="newTrait">The code or short name of a trait such as IS for Improved Starbases. These are defined in AllTraits</param>
-        /// ----------------------------------------------------------------------------
         public void Add(string newTrait)
         {
-
             foreach (DictionaryEntry de in AllTraits.Data.Secondary)
             {
                 TraitEntry trait = de.Value as TraitEntry;
@@ -80,35 +76,29 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Remove a trait from the race's collection of traits.
         /// </summary>
         /// <param name="traitToRemove">The trait to remove.</param>
-        /// ----------------------------------------------------------------------------
         public void Remove(TraitEntry traitToRemove)
         {
             Dictionary.Remove(traitToRemove.Code);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Remove a trait from the race's collection of traits.
         /// </summary>
         /// <param name="traitToRemove">The code (short name) for the trait to remove, as defined in AllTraits.</param>
-        /// ----------------------------------------------------------------------------
         public void Remove(string traitToRemove)
         {
             Dictionary.Remove(traitToRemove);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check if the racial traits contains a particular trait.
         /// </summary>
         /// <param name="trait"></param>
         /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public bool Contains(string trait)
         {
             return Dictionary.Contains(trait);
@@ -118,13 +108,11 @@ namespace Nova.Common
 
         #region Properties
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Allow array type indexing to a TraitList.
         /// </summary>
         /// <param name="index">The code (short name) for the trait, as defined in AllTraits.</param>
-        /// <returns></returns>
-        /// ----------------------------------------------------------------------------
+        /// <returns>The TraitEntry for the given trait code.</returns>
         public TraitEntry this[string index]
         {
             get
@@ -134,6 +122,5 @@ namespace Nova.Common
         }
 
         #endregion
-
     }
 }

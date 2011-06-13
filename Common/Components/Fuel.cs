@@ -26,12 +26,13 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-using Nova.Common;
-
 namespace Nova.Common.Components
 {
+    #region using Statements
+    using System;
+    using System.Xml;
+    using Nova.Common;
+    #endregion
 
     /// <summary>
     /// Fuel Property.
@@ -42,40 +43,30 @@ namespace Nova.Common.Components
         public int Capacity = 0;
         public int Generation = 0;
 
-
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Fuel()
         {
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising constructor.
         /// </summary>
         /// <param name="capacity">Fuel capacity added by this property.</param>
         /// <param name="generation">Fuel generation per year added by this property.</param>
-        /// ----------------------------------------------------------------------------
         public Fuel(int capacity, int generation)
         {
             this.Capacity = capacity;
             this.Generation = generation;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="Fuel"/> property to copy.</param>
-        /// ----------------------------------------------------------------------------
         public Fuel(Fuel existing)
         {
             this.Capacity = existing.Capacity;
@@ -86,12 +77,10 @@ namespace Nova.Common.Components
 
         #region Interface ICloneable
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implementation of the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns>A copy of this <see cref="Fuel"/> property.</returns>
-        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new Fuel(this);
@@ -121,14 +110,12 @@ namespace Nova.Common.Components
             Generation *= scalar;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
         /// <param name="op1">LHS operator.</param>
         /// <param name="op2">RHS operator.</param>
         /// <returns>A new <see cref="Fuel"/> property with total capacity and fuel generation of both operands.</returns>
-        /// ----------------------------------------------------------------------------
         public static Fuel operator +(Fuel op1, Fuel op2)
         {
             Fuel sum = new Fuel();
@@ -137,15 +124,12 @@ namespace Nova.Common.Components
             return sum;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// </summary>
         /// <param name="op1">The property to be scaled.</param>
         /// <param name="scalar">The number of instances of the property.</param>
         /// <returns>The scaled property.</returns>
-        /// ----------------------------------------------------------------------------
         public static Fuel operator *(Fuel op1, int scalar)
         {
             Fuel sum = new Fuel(op1);
@@ -158,14 +142,12 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public Fuel(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -190,14 +172,11 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
-        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");

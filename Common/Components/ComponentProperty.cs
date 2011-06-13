@@ -34,11 +34,10 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.Components
 {
+    using System;
+    using System.Xml;
 
     [Serializable]
     public abstract class ComponentProperty : ICloneable
@@ -51,7 +50,6 @@ namespace Nova.Common.Components
         public ComponentProperty()
         {
         }
-
 
         /// <summary>
         /// Initializes a new instance of the ComponentProperty class.
@@ -66,12 +64,10 @@ namespace Nova.Common.Components
 
         #region Interface IClonable
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public virtual object Clone()
         {
             return null;
@@ -122,6 +118,5 @@ namespace Nova.Common.Components
         }
 
         #endregion
-
     }
 }

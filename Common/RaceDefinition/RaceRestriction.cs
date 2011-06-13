@@ -175,7 +175,6 @@ namespace Nova.Common
                }
 
                keyIndex++;
-
             }
             
             return inwords;
@@ -254,6 +253,5 @@ namespace Nova.Common
         }
 
         #endregion
-
     }
 }

@@ -39,14 +39,14 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Text;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.Text;
+
     public class CommandArguments : DictionaryBase
     {
         private readonly List<Argument> argumentList = new List<Argument>();
@@ -307,6 +307,5 @@ namespace Nova.Common
                 }
             }
         }
-
     }
 }

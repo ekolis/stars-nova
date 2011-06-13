@@ -67,7 +67,6 @@ namespace Nova.Common
             if (raceFiles.Length == 0)
             {
                 Report.Error("No race files found in game folder: \"" + raceFolder  + "\"");
-
             }
             else
             {
@@ -110,7 +109,6 @@ namespace Nova.Common
             {
                 // if all else fails, ask the user
                 settings = AskUserForFile("Your Game Name.settings");
-
             }
 
             return settings;
@@ -202,7 +200,6 @@ namespace Nova.Common
                     {
                         graphicsPath = graphicsFolderBrowser.SelectedPath;
                     }
-
                 }
 
                 if (Directory.Exists(graphicsPath) && updateConf)
@@ -282,7 +279,6 @@ namespace Nova.Common
                 {
                     if (!confOk && configKey != null)
                     {
-
                         conf[configKey] = absoluteReference;
                     }
                 }

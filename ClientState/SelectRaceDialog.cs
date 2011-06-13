@@ -27,21 +27,28 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
 namespace Nova.Client
 {
-   public partial class SelectRaceDialog : Form
-   {
-      public SelectRaceDialog()
-      {
-         InitializeComponent();
-      }
-   }
+    #region Using Statements
+
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.Text;
+    using System.Windows.Forms;
+
+    #endregion
+
+    public partial class SelectRaceDialog : Form
+    {
+        /// <summary>
+        /// ??? (priority 4)
+        /// </summary>
+        public SelectRaceDialog()
+        {
+            InitializeComponent();
+        }
+    }
 }

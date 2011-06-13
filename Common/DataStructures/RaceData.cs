@@ -27,13 +27,15 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
-
 namespace Nova.Common
 {
+    #region Using Statements
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Xml;
+    #endregion
+
     [Serializable]
     public class RaceData
     {
@@ -72,12 +74,10 @@ namespace Nova.Common
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: constructor to load RaceData from an XmlNode representation.
         /// </summary>
         /// <param name="node">An XmlNode containing a RaceData representation (from a save file)</param>
-        /// ----------------------------------------------------------------------------
         public RaceData(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -126,13 +126,11 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Generate an XmlElement representation of the RaceData
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument</param>
         /// <returns>An XmlElement reprsenting the RaceData (to be written to file)</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelRaceData = xmldoc.CreateElement("RaceData");
@@ -160,7 +158,6 @@ namespace Nova.Common
         }
 
         #endregion
-
     }
 }
 

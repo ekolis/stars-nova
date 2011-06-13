@@ -34,25 +34,24 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.Components
 {
+    #region Using Statements
+    using System;
+    using System.Xml;
+    #endregion
+
     /// <summary>
     /// A design.
     /// </summary>
     [Serializable]
     public class Design : Item
     {
-
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Design() : base()
         { 
         }
@@ -61,26 +60,22 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within a Nova xml file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public Design(XmlNode node)
             : base(node)
         {
             // nothing to do but load the base class Item.
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Generate an XmlElement representing the Design.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument.</param>
         /// <returns>An XmlElement representing the Design.</returns>
-        /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelDesign = xmldoc.CreateElement("Design");
@@ -91,6 +86,5 @@ namespace Nova.Common.Components
         }
 
         #endregion
-
     }
 }

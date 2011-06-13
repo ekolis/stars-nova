@@ -28,18 +28,15 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.IO;
-using System.Xml;
-
 namespace Nova.Common
 {
+    using System;
+    using System.IO;
+    using System.Xml;
 
-    /// ----------------------------------------------------------------------------
     /// /// <summary>
     /// All of the race parameters
     /// </summary>
-    /// ----------------------------------------------------------------------------
     [Serializable]
     public sealed class Race
     {
@@ -76,14 +73,11 @@ namespace Nova.Common
         { 
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// constructor for Race. 
         /// Reads all the race data in from an xml formated save file.
         /// </summary>
         /// <param name="fileName">A nova save file containing a race.</param>
-        /// ----------------------------------------------------------------------------
         public Race(string fileName)
         {
             XmlDocument xmldoc = new XmlDocument();
@@ -100,36 +94,30 @@ namespace Nova.Common
 
         #region Methods
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate the number of resources this race requires to construct a factory.
         /// </summary>
         /// <returns>The number of resources this race requires to construct a factory.</returns>
-        /// ----------------------------------------------------------------------------
         public Resources GetFactoryResources()
         {
             int factoryBuildCostGerm = HasTrait("CF") ? 3 : 4;
             return new Resources(0, 0, factoryBuildCostGerm, FactoryBuildCost);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate the number of resources this race requires to construct a mine.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Resources GetMineResources()
         {
             return new Resources(0, 0, 0, MineBuildCost);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine if this race has a given trait.
         /// </summary>
         /// <param name="trait">A string representing a primary or secondary trait. 
         /// See AllTraits.TraitKeys for examples.</param>
         /// <returns>true if this race has the given trait.</returns>
-        /// ----------------------------------------------------------------------------
         public bool HasTrait(string trait)
         {
             if (trait == Traits.Primary)
@@ -200,13 +188,11 @@ namespace Nova.Common
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this Race to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Race</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelRace = xmldoc.CreateElement("Race");
@@ -281,12 +267,10 @@ namespace Nova.Common
             return xmlelRace;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load a Race from an xml document 
         /// </summary>
         /// <param name="xmlnode">An XmlNode, see Race constructor for generation.</param>
-        /// ----------------------------------------------------------------------------
         public void LoadRaceFromXml(XmlNode xmlnode)
         {
             while (xmlnode != null)
@@ -375,7 +359,6 @@ namespace Nova.Common
 
                         default: break;
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -387,6 +370,5 @@ namespace Nova.Common
         }
 
         #endregion
-
     }
 }

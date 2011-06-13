@@ -25,21 +25,21 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Windows.Forms;
-
-using Nova.Common;
-using Nova.NewGame;
-using Nova.Server;
-using Nova.WinForms.Console;
-
 namespace Nova.WinForms
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Reflection;
+    using System.Windows.Forms;
+
+    using Nova.Common;
+    using Nova.NewGame;
+    using Nova.Server;
+    using Nova.WinForms.Console;
+
     /// <Summary>
     /// The Stars! Nova - New Game Wizard <see cref="Form"/>.
     /// </Summary>
@@ -49,7 +49,6 @@ namespace Nova.WinForms
         private ServerState stateData;
 
         public Dictionary<string, Race> KnownRaces = new Dictionary<string, Race>();
-
 
         #region Initialisation
 
@@ -68,7 +67,6 @@ namespace Nova.WinForms
 
             foreach (string raceName in KnownRaces.Keys)
             {
-
                 // add known race to selectable races in race selection drop down
                 raceSelectionBox.Items.Add(raceName);
 
@@ -78,7 +76,6 @@ namespace Nova.WinForms
                 player.SubItems.Add(raceName);
                 player.SubItems.Add("Human");
                 playerList.Items.Add(player);
-
             }
             if (this.numberOfPlayers > 0)
             {
@@ -94,15 +91,12 @@ namespace Nova.WinForms
 
         #region Main
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// The main entry Point for the application.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         [STAThread]
         public void Main()
         {
-
             // Establish the victory conditions:
             NewGameWizard newGameWizard = new NewGameWizard();
 
@@ -190,13 +184,8 @@ namespace Nova.WinForms
                         {
                             Report.FatalError("Unable to locate race definition \"" + raceFileName + "\"");
                         }                    
-                        
-                        
-                        
                     }
-                    
                 }
-
                 
                 StarMapInitialiser starMapInitialiser = new StarMapInitialiser(stateData);
                 starMapInitialiser.GenerateStars();
@@ -231,23 +220,19 @@ namespace Nova.WinForms
                 {
                     Report.FatalError("Unable to launch Console.");
                 }
-
             }
             while (true); // keep trying to make a new game
-
         } // Main
 
         #endregion
 
         #region Event Methods
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Occurs when the OK button is clicked.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void OkButton_Click(object sender, EventArgs e)
         {
             GameSettings.Data.GameName = gameName.Text;
@@ -271,28 +256,22 @@ namespace Nova.WinForms
             GameSettings.Data.AcceleratedStart = acceleratedStart.Checked;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Occurs when the Tutorial button is clicked.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="eventArgs">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void TutorialButton_Click(object sender, EventArgs eventArgs)
         {
             Report.Information("Sorry, there is no tutorial yet.");
             // TODO (priority 7): Load or create the tutorial client data.
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Add a new player to the player list
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void AddPlayerButton_Click(object sender, EventArgs e)
         {
             // Add player (with a dummy number)
@@ -306,17 +285,13 @@ namespace Nova.WinForms
             playerList.SelectedIndices.Clear();
             playerList.SelectedIndices.Add(playerList.Items.Count - 1);
             numberOfPlayers = playerList.Items.Count;
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'New Race' button is pressed, launch the Race Designer.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void NewRaceButton_Click(object sender, EventArgs e)
         {
             try
@@ -329,28 +304,22 @@ namespace Nova.WinForms
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Update the GUI when the currently selected player changes.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void PlayerList_SelectedIndexChanged(object sender, EventArgs e)
         {
             UpdatePlayerDetails();
             UpdatePlayerListButtons();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'Delete' button is pressed, delete the currently selected player from the game.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void PlayerDeleteButton_Click(object sender, EventArgs e)
         {
             int selectedIndex = -1;
@@ -358,7 +327,6 @@ namespace Nova.WinForms
             {
                 selectedIndex = index;
                 playerList.Items.RemoveAt(index);
-
             }
 
             // update the number of players
@@ -381,14 +349,11 @@ namespace Nova.WinForms
             UpdatePlayerListButtons();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'Up' button is pressed, move the currently selected player up one slot in the list.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void PlayerUpButton_Click(object sender, EventArgs e)
         {
             int selectedIndex = -1;
@@ -408,24 +373,19 @@ namespace Nova.WinForms
                     playerList.Items[index] = playerList.Items[index - 1].Clone() as ListViewItem;
                     playerList.Items[index - 1] = player;
                 }
-
             }
             if (selectedIndex != -1)
             {
                 playerList.SelectedIndices.Add(selectedIndex - 1);
             }
             RenumberPlayers();
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'Down' button is pressed, move the currently selected player down in the list.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void PlayerDownButton_Click(object sender, EventArgs e)
         {
             int selectedIndex = -1;
@@ -444,7 +404,6 @@ namespace Nova.WinForms
                     playerList.Items[index] = playerList.Items[index + 1].Clone() as ListViewItem;
                     playerList.Items[index + 1] = player;
                 }
-
             }
 
             if (selectedIndex != -1)
@@ -454,14 +413,11 @@ namespace Nova.WinForms
             RenumberPlayers();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'Browse' button beside the race name is pressed, open a file browser to search for additional races.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void RaceBrowseButton_Click(object sender, EventArgs e)
         {
             // browse for a race
@@ -482,17 +438,13 @@ namespace Nova.WinForms
             {
                 Report.Error("Error opening race file.");
             }
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'Browse' button is pressed beside the AI/Human drop-down, open a file dialog to search for additional AIs.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void AiBrowseButton_Click(object sender, EventArgs e)
         {
             // browse for an AI
@@ -519,27 +471,21 @@ namespace Nova.WinForms
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Update the number of stars to be generated when changed in the <see cref="NumericUpDown"/> control.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void NumericUpDown1_ValueChanged(object sender, EventArgs e)
         {
             GameSettings.Data.NumberOfStars = (int)numberOfStars.Value;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Change the race of the currently selected player to the race chosen from the drop down.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void RaceSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (playerList.SelectedIndices.Count < 1)
@@ -550,14 +496,11 @@ namespace Nova.WinForms
             playerList.Items[playerList.SelectedIndices[0]].SubItems[1].Text = raceSelectionBox.SelectedItem.ToString();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Change the ai/human status of the currently selected player to the ai/human chosen from the drop down.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void AiSelectionBox_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (playerList.SelectedIndices.Count < 1)
@@ -572,11 +515,9 @@ namespace Nova.WinForms
 
         #region Utility Methods
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Update the New/Modify Player details based on the selected player.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         private void UpdatePlayerDetails()
         {
             foreach (int selection in playerList.SelectedIndices)
@@ -589,12 +530,9 @@ namespace Nova.WinForms
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Enable/Disable the Up/Down/Delete player buttons depending on the selected player.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         private void UpdatePlayerListButtons()
         {
             numberOfPlayers = playerList.Items.Count;
@@ -627,15 +565,11 @@ namespace Nova.WinForms
             {
                 playerDeleteButton.Enabled = true;
             }
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Update the player numbers in the list to be in the order presented (e.g. after moving/deleting a player).
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         private void RenumberPlayers()
         {
             // update player numbering
@@ -651,11 +585,9 @@ namespace Nova.WinForms
 
         #region Properties
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Provide access to the list of players.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public List<PlayerSettings> Players
         {
             get
@@ -678,16 +610,13 @@ namespace Nova.WinForms
 
         private void MapDensity_ValueChanged(object sender, EventArgs e)
         {
-
         }
                         
         #region Game Initialization
                         
-        // ----------------------------------------------------------------------------
         /// <Summary>
         /// Process the Primary Traits for this race.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         private void ProcessPrimaryTraits(Race race)
         {
             // TODO (priority 4) Special Components
@@ -778,11 +707,9 @@ namespace Nova.WinForms
 #endif
         }
         
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Read the Secondary Traits for this race.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         private void ProcessSecondaryTraits(Race race)
         {
             // TODO (priority 4) finish the rest of the LRTs.
@@ -901,11 +828,8 @@ namespace Nova.WinForms
                     raceData.ResearchLevels[TechLevel.ResearchField.Weapons] += 3;
                 }
             }
-
         }
                         
         #endregion
-
     }
-
 }
