@@ -43,7 +43,6 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class BattleReportDialog : Form
     {
-
         #region Construction
 
         /// <Summary>
@@ -58,13 +57,11 @@ namespace Nova.WinForms.Gui
 
         #region Event Methods
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Populate the display. 
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, EventArgs e)
         {
             const int NumColumns = 6;
@@ -126,14 +123,11 @@ namespace Nova.WinForms.Gui
             this.battleGridView.AutoResizeColumns();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// On double click open the battle viewer
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void BattleGridView_CellContentDoubleClick(object sender, DataGridViewCellEventArgs e)
         {
             int battleRow = e.RowIndex;

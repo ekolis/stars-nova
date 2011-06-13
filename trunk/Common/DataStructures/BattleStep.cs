@@ -20,11 +20,13 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.DataStructures
 {
+    #region Using Statements
+    using System;
+    using System.Xml;
+    #endregion
+
     [Serializable]
     public class BattleStep
     {
@@ -39,12 +41,10 @@ namespace Nova.Common.DataStructures
 
         #region Save Load Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising constructor from an XmlNode representing the BattleStep (from a save file).
         /// </summary>
         /// <param name="node">An XmlNode representing the BattleStep</param>
-        /// ----------------------------------------------------------------------------
         public BattleStep(XmlNode node)
         {
             if (node == null)
@@ -84,17 +84,13 @@ namespace Nova.Common.DataStructures
 
                 subnode = subnode.NextSibling;
             }
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Return an XmlElement representation of the <see cref="BattleStep"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the BattleStep</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattleStep = xmldoc.CreateElement("BattleStep");
@@ -108,6 +104,5 @@ namespace Nova.Common.DataStructures
         }
 
         #endregion
-
     }
 }

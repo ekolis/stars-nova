@@ -31,11 +31,11 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-
 namespace Nova.Common.Components
 {
+    using System;
+    using System.Collections;
+
     /// <summary>
     /// RaceComponents: 
     /// Defines a colletion of Component objects using DictionaryBase to represent
@@ -49,14 +49,12 @@ namespace Nova.Common.Components
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Constructor. Generates the list of available components at construction for the 
         /// given race from AllComponents.
         /// </summary>
         /// <param name="newRace">The race these RaceComponents are available too.</param>
         /// <param name="newTech">The current tech level of the race.</param>
-        /// ----------------------------------------------------------------------------
         public RaceComponents(Race newRace, TechLevel newTech)
         {
             DetermineRaceComponents(newRace, newTech);
@@ -66,14 +64,12 @@ namespace Nova.Common.Components
 
         #region Methods
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Updates the collection for the given race and tech level.
         /// Note this does not remove any existing components from the collection.
         /// </summary>
         /// <param name="newRace"></param>
         /// <param name="newTech"></param>
-        /// ----------------------------------------------------------------------------
         public void DetermineRaceComponents(Race newRace, TechLevel newTech)
         {
             race = newRace;
@@ -129,12 +125,10 @@ namespace Nova.Common.Components
 
         #region Interfaces
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Add a componenent to the list of available components.
         /// </summary>
         /// <param name="newComponent">The Component to add.</param>
-        /// ----------------------------------------------------------------------------
         public void Add(Component newComponent)
         {
             if (!Dictionary.Contains(newComponent.Name))
@@ -152,13 +146,10 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Add a Component to the list of available components.
         /// </summary>
         /// <param name="componentName">The Name of the Component to add.</param>
-        /// ----------------------------------------------------------------------------
         public void Add(string componentName)
         {
             if (AllComponents.Data.Contains(componentName))
@@ -172,67 +163,55 @@ namespace Nova.Common.Components
                 string s = "Error: The " + componentName + " component does not exist!";
                 Report.Error(s);
             }
-
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Remove a Component from the race's RaceComponents list.
         /// </summary>
         /// <param name="componentToRemove">The Component to remove.</param>
-        /// ----------------------------------------------------------------------------
         public void Remove(TraitEntry componentToRemove)
         {
             Dictionary.Remove(componentToRemove.Name);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Remove a Component from the race's RaceComponents list.
         /// </summary>
         /// <param name="componentToRemove">The Name of the Component to remove.</param>
-        /// ----------------------------------------------------------------------------
         public void Remove(string componentToRemove)
         {
             Dictionary.Remove(componentToRemove);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check if the race's RaceComponents contains a particular Component.
         /// </summary>
         /// <param name="componentName">The Name of the Component to look for.</param>
         /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public bool Contains(string componentName)
         {
             return Dictionary.Contains(componentName);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Allow array type indexing to an RaceComponents list.
         /// </summary>
         /// <param name="index">The Name of the Component</param>
         /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public Component this[string index]
         {
             get
             {
                 return Dictionary[index] as Component;
             }
-            
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the Values in the collection.
         /// <para>
         /// Use: <c>foreach (Component c in this.Values)</c>
         /// </para>
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ICollection Values
         {
             get
@@ -242,6 +221,5 @@ namespace Nova.Common.Components
         }
 
         #endregion
-
     }
 }

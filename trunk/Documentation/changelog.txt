@@ -1,0 +1,55 @@
+Things have recently kicked into high gear at the Stars! Nova project with a couple of new and very active developers getting involved. Henning and Bernado have joined the team and re-inspired some of the existing developers to add further contributions. Although we still have a lot of work to do to get to version 0.5, we hope to get a minor release out as soon as some high priority bugs get squashed. 
+
+Here is a summary of the work that has been going on since my last update:
+
+A lot of general code clean up and improvements to the underlying code architecture.
+
+New Game
+* Starting star base and ships added.
+- Fixed a runtime exception which occurred when starting a new game.
+
+Race Designer
+* Immunities introduced, but at a constant 841 point cost.
+- Research costs modifier now properly increase or decrease advantage points.
+- Changing the colonist growth rate now changes the point cost.
+- Advantage points are no longer affected by a previously loaded race.
+
+Console
+* Added starting star base and ships.
+- Research is now processed server side to prevent client exploits.
+- Race trait processing moved server side.
+- Fixed a crash if no stars have allocated research resources.
+- Made some adjustments to the turn order to be closer to the Stars! turn order for production, pop-growth, mining, resource production.
+- Fixed an issue where scrapping a ship overwrote the star's resources instead of adding to them.
+- Updated message and planetary scanners after researching new one.
+- Fixed an issue which caused an upgraded space station to disappear after one turn.
+- Colonisers now stay scrapped rather than reappearing after one turn.
+- Fixed an issue that caused an error message when more than one race tried to open its turn on the same computer (eg AI and Human).
+- Fixed an issue that caused a planet taken by invasion not to change owner.
+
+GUI
+* Added the ability to use different ship icons for ship designs.
+* Fixed various issues that caused the StarMap to flicker and/or leak memory, most noticeable under Linux/Mono.
+* Added the option of toggling the StarMap background, and a toggling a visible rectangle box marking the Universe borders.
+* Stars! gravity values are now used.
+* Added a planet population tooltip (on mouse down) which gives additional details.
+- StarMap now properly shows waypoints after adding them. Way-point list also updates on the fly for new waypoints added.
+- Stars can now be made to contribute only leftover resources to research via the production dialog.
+- PlanetDetail updates dynamically for research budget changes.
+- Planets now contribute leftover resources to research.
+- Fixed StarMap background to be properly aligned and match game universe size.
+- Created a new ResourcesOnHandDisplay control which extends ResourceDisplay, for specifically showing planetary resources with extended information.
+- Corrected research allocation written to orders file.
+- Resources on hand now matches resources available in research pane.
+- Fixed an issue which cause the time to complete research to become garbage when no resources were assigned.
+- Ships can now be deleted without crashing the program.
+- Fixed an issue that would cause the GUI to lock up when adding large build orders when limited resources were available.
+- Added a dashed line at 100% fuel on engine fuel graph.
+- Fixed an issue that caused the Nova GUI to crash when the first game message was posted with a null Type.
+- Planet population is now updated when loading colonists.
+
+Component Editor
+- Corrected fuel usage for Trans-Galactic drive.
+
+Tools
+- Removed GameFileInflator project as the gzip decompression functionality is available in many free applications (7-zip, gzip, etc.).

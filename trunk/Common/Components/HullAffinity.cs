@@ -28,11 +28,13 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.Components
 {
+    #region Using Statements
+    using System;
+    using System.Xml;
+    #endregion
+
     [Serializable]
     public class HullAffinity : ComponentProperty
     {
@@ -42,34 +44,26 @@ namespace Nova.Common.Components
 
         #region Construction and Initialisation
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor. 
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public HullAffinity() 
         { 
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="HullAffinity"/> object.</param>
-        /// ----------------------------------------------------------------------------
         public HullAffinity(HullAffinity existing)
         {
             this.Value = existing.Value;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising constructor.
         /// </summary>
         /// <param name="existing">The name of the hull type this affinity is for.</param>
-        /// ----------------------------------------------------------------------------
         public HullAffinity(string existing)
         {
             this.Value = existing;
@@ -79,12 +73,10 @@ namespace Nova.Common.Components
 
         #region IColoneable
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns>A copy of this object.</returns>
-        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new HullAffinity(this);
@@ -112,7 +104,6 @@ namespace Nova.Common.Components
             return;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary><para>
         /// Operator overloading for +.
         /// </para><para>
@@ -123,14 +114,11 @@ namespace Nova.Common.Components
         /// <param name="op1">The LHS parameter.</param>
         /// <param name="op2">The RHS parameter.</param>
         /// <returns>The value of op1.</returns>
-        /// ----------------------------------------------------------------------------
         public static HullAffinity operator +(HullAffinity op1, HullAffinity op2)
         {
             return op1;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary><para>
         /// Operator overloading for *.
         /// </para><para>
@@ -140,7 +128,6 @@ namespace Nova.Common.Components
         /// </para></summary>
         /// <param name="scalar">Scaling factor.</param>
         /// <returns>The value of op1.</returns>
-        /// ----------------------------------------------------------------------------
         public static HullAffinity operator *(HullAffinity op1, int scalar)
         {
             return op1;
@@ -150,13 +137,11 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
         /// </summary>
         /// <param name="node">A "Property" <see cref="XmlNode"/> with Type equal 
         /// to "Hull Affinity" in a Nova compenent definition file (xml document).</param>
-        /// ----------------------------------------------------------------------------
         public HullAffinity(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -177,14 +162,11 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
-        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");

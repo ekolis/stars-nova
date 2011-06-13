@@ -19,23 +19,23 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Nova.Common
 {
+    #region Using Statements
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+    #endregion
+
     [Serializable]
     public class GravityTolerance : EnvironmentTolerance
     {
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor, required for serialization?.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public GravityTolerance() 
         { 
         }

@@ -26,15 +26,15 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-using Nova.Common.Components;
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Windows.Forms;
+
+    using Nova.Client;
+    using Nova.Common;
+    using Nova.Common.Components;
+
     /// <Summary>
     /// Production queue dialog.
     /// </Summary>
@@ -47,7 +47,6 @@ namespace Nova.WinForms.Gui
         private readonly Star queueStar;
         private readonly ClientState stateData;
         private readonly Intel turnData;
-
 
         #region Desginger generated varaiables
         private System.Windows.Forms.GroupBox groupBox1;
@@ -667,7 +666,6 @@ namespace Nova.WinForms.Gui
 
         #region Event Methods
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Populate the available designs items list box with the things we can build.
         /// Generally, we can build designs created by the player. However, we only
@@ -676,7 +674,6 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, System.EventArgs e)
         {
             // Check the Star's budget state.
@@ -720,11 +717,8 @@ namespace Nova.WinForms.Gui
                 }
             }
 
-
-
             this.designList.EndUpdate();
             this.addToQueue.Enabled = false;
-
 
             Gui.QueueList.Populate(this.queueList, this.queueStar.ManufacturingQueue);
             // check if a starbase design is in the Production Queue and if so remove it from the Design List
@@ -768,14 +762,11 @@ namespace Nova.WinForms.Gui
             UpdateProductionCost();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Process a design being selected for possible construction.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void AvailableSelected(object sender, System.EventArgs e)
         {
             if (this.designList.SelectedItems.Count <= 0)  
@@ -797,14 +788,11 @@ namespace Nova.WinForms.Gui
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Production queue Item selected changed.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void QueueSelected(object sender, EventArgs e)
         {
             // check if selected Item is the "--- Top of Queue ---" which cannot be moved down or removed
@@ -863,13 +851,12 @@ namespace Nova.WinForms.Gui
         {
             AddToQueue_Click(sender, new EventArgs());
         }
-        /// ----------------------------------------------------------------------------
+
         /// <Summary>
         /// Add to queue button pressed.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void AddToQueue_Click(object sender, System.EventArgs e)
         {
             if (this.designList.SelectedItems.Count <= 0)
@@ -921,13 +908,12 @@ namespace Nova.WinForms.Gui
         {
             RemoveFromQueue_Click(sender, new EventArgs());
         }
-        /// ----------------------------------------------------------------------------
+
         /// <Summary>
         /// Remove from queue button pressed.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void RemoveFromQueue_Click(object sender, EventArgs e)
         {
             int s = queueList.SelectedIndices[0];
@@ -983,13 +969,11 @@ namespace Nova.WinForms.Gui
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Move selected Item up in queue
         /// </Summary>
         /// <param name="sender">The source of the event</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void QueueUp_Click(object sender, EventArgs e)
         {
             if (this.queueList.SelectedItems.Count > 0)
@@ -1010,13 +994,11 @@ namespace Nova.WinForms.Gui
             UpdateProductionCost();
         }
         
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Move selected Item down in queue 
         /// </Summary>
         /// <param name="sender">The source of the event</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void QueueDown_Click(object sender, EventArgs e)
         {
             if (this.queueList.SelectedItems.Count > 0)
@@ -1036,7 +1018,7 @@ namespace Nova.WinForms.Gui
             }
             UpdateProductionCost();
         }
-        /// ----------------------------------------------------------------------------
+
         /// <Summary>
         /// Add a selected Item into the production queue. If no Item is selected in
         /// the queue, add the new one on the end. If an Item is selected and it is the
@@ -1047,7 +1029,6 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void AddDesign(Design design, int quantity)
         {
             ListViewItem itemToAdd = new ListViewItem();
@@ -1141,14 +1122,11 @@ namespace Nova.WinForms.Gui
             UpdateProductionCost();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// OK button pressed.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void OK_Click(object sender, System.EventArgs e)
         {            
             this.queueStar.ManufacturingQueue.Queue.Clear();
@@ -1185,7 +1163,6 @@ namespace Nova.WinForms.Gui
 
         #region Utility Methods
 
-        /// ----------------------------------------------------------------------------
         /// <Summary> Add a starbase to the production queue. </Summary>
         /// <remarks>
         /// Starbases are special in that there
@@ -1193,7 +1170,6 @@ namespace Nova.WinForms.Gui
         /// add.
         /// FIXME (priority 6) - Dan - What if I want to build a small base first, then add a larger base latter. I can queue two different base designs in Stars! 
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         private void AddStarbase(Design design)
         {
             // First run through the production queue to see if there is already a
@@ -1212,15 +1188,12 @@ namespace Nova.WinForms.Gui
             AddDesign(design, 1);
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Update production queue cost
         /// For each stack of items the first Item might be partially built as defined by
         /// the BuildState and therefore require less Resources than the rest of the items
         /// in the stack which require the design.cost
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         private void UpdateProductionCost()
         {
             Resources wholeQueueCost = new Resources(0, 0, 0, 0);      // resources required to build everything in the Production Queue
@@ -1630,7 +1603,6 @@ namespace Nova.WinForms.Gui
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Determine the amount of Resources required to produce a stack of items from the ListView
         /// For each stack of items the first Item might be partially built as defined by
@@ -1639,7 +1611,6 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <returns>The resources required to produce the Item(s) of interest.</returns>
         /// <param name="itemOfInterest">The Item(s) from the Production ListView to be evaluated</param>
-        /// ----------------------------------------------------------------------------
         private Resources GetProductionCosts(ListViewItem stackOfInterest)
         {
             Resources costsToProduce = new Resources();
@@ -1671,5 +1642,4 @@ namespace Nova.WinForms.Gui
 
         #endregion
     }
-
 }

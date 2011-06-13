@@ -26,19 +26,19 @@
 // ===========================================================================
 #endregion
 
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Nova.Common
 {
+    #region Using Statements
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    #endregion
+
     [Serializable]
     public class PlayerSettings
     {
         public string RaceName; // The path & file name of the race.
         public string AiProgram; // The path & file name of the AI application or "Human"
         public int PlayerNumber; // The order number of the player from 1 - Global.MaxPlayers        
-
     }
 }

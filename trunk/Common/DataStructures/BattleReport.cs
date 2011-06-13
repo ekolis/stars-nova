@@ -26,21 +26,21 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Xml;
-
 namespace Nova.Common.DataStructures
 {
+    #region Using Statements
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Xml;
+    #endregion
+
     [Serializable]
     public class BattleReport
     {
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Main battle report components.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public string Location  = null;
         public int SpaceSize    = 0;
         public int Year = 0;
@@ -64,13 +64,10 @@ namespace Nova.Common.DataStructures
 
         #region Xml
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
         /// </summary>
         /// <param name="node">A <see cref="BattleReport"/> XmlNode from a Nova save file (xml document)</param>
-        /// ----------------------------------------------------------------------------
         public BattleReport(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -130,8 +127,6 @@ namespace Nova.Common.DataStructures
                             Fleet newStack = new Fleet(subnode);
                             Stacks.Add(newStack.Key, newStack);
                             break;
-
-
                     }
                 }
                 catch (Exception e)
@@ -140,20 +135,15 @@ namespace Nova.Common.DataStructures
                 }
                 subnode = subnode.NextSibling;
             }
-            
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate an XmlElement representation of the ShipDesign for saving to file.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument</param>
         /// <returns>An XmlElement representing the BattleReport</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
-            
             XmlElement xmlelBattleReport = xmldoc.CreateElement("BattleReport");
 
             if (Location != null)
@@ -188,10 +178,7 @@ namespace Nova.Common.DataStructures
                     default:
                         xmlelBattleReport.AppendChild(step.ToXml(xmldoc));
                         break;
-
-
                 }
-
             }
 
             // public Hashtable Stacks = new Hashtable();
@@ -212,9 +199,7 @@ namespace Nova.Common.DataStructures
                 }
             }
             return xmlelBattleReport;
-
         }
-
 
         #endregion
     }

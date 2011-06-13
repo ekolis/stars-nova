@@ -69,15 +69,11 @@ namespace Nova.Common
             {
                 return (int)Math.Sqrt(NumberOfMines);
             }
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Override the Key method of Item
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public override string Key
         {
             get { return keyId.ToString(System.Globalization.CultureInfo.InvariantCulture); }
@@ -147,6 +143,5 @@ namespace Nova.Common
         }
 
         #endregion
-
     }
 }

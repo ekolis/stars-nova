@@ -32,20 +32,15 @@ using System.Windows.Forms;
 
 namespace Nova.Common
 {
-    /// ----------------------------------------------------------------------------
     /// <summary>
     /// Provides a variety of message pop ups.
     /// </summary>
-    /// ----------------------------------------------------------------------------
     public static class Report
     {
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Report an error
         /// </summary>
         /// <param name="text">Message to display.</param>
-        /// ----------------------------------------------------------------------------
         public static void Error(string text)
         {
             MessageBox.Show(
@@ -73,7 +68,6 @@ namespace Nova.Common
                 MessageBoxOptions.DefaultDesktopOnly);
         }
 
-
         /// <summary>
         /// Report a fatal error and terminate the application.
         /// </summary>
@@ -91,7 +85,6 @@ namespace Nova.Common
             System.Threading.Thread.CurrentThread.Abort();
         }
 
-
         /// <summary>
         /// Report Debug Messages if in debugging mode. Otherwise do nothing
         /// </summary>
@@ -107,6 +100,5 @@ namespace Nova.Common
                 MessageBoxDefaultButton.Button1,
                 MessageBoxOptions.DefaultDesktopOnly);
         }
-
     }
 }

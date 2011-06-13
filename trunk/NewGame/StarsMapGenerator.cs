@@ -28,11 +28,10 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections.Generic;
-
 namespace Nova.NewGame
 {
+    using System;
+    using System.Collections.Generic;
 
     #region StarMap
 
@@ -90,14 +89,11 @@ namespace Nova.NewGame
             this.density = new double[mapWidth, mapHeight];
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate stars and return them as List of int[2]; int[0] - x, int[1] - y
         /// Note that the number of generated stars will be a random value.
         /// </summary>
         /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public List<int[]> Generate()
         {
             this.baseDensity = ((2.0 * (this.starUniformity - 1)) + (0.11 * (100 - this.starUniformity))) / 99.0;
@@ -120,8 +116,6 @@ namespace Nova.NewGame
             return this.stars;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// This function defines the amount the density function value should be 
         /// reduced by at current point based on the distance between current point and
@@ -130,7 +124,6 @@ namespace Nova.NewGame
         /// <param name="distance">Distance between the current point and the star.</param>
         /// <returns>Returning 1 means the density function value will be reduced down to zero 
         /// at the current point. Returning 0 means value will not be changed.</returns>
-        /// ----------------------------------------------------------------------------
         private double Reduce(double distance)
         {   
             if (distance < this.starSeparation) 
@@ -145,12 +138,9 @@ namespace Nova.NewGame
             return 0.0;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Genetate a star map.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         private void DoGeneration()
         {
             // initialize density function
@@ -191,18 +181,14 @@ namespace Nova.NewGame
 
                 this.stars.Add(new int[] { x, y });
                 UpdateDensities(x, y);
-
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Update Density after the star has been placed at co-ordinate (x,y).
         /// </summary>
         /// <param name="x">x ordinate of newly place star.</param>
         /// <param name="y">y ordinate of newly place star.</param>
-        /// ----------------------------------------------------------------------------
         private void UpdateDensities(int x, int y)
         {
             for (int i = (x - (this.updateFrameSize / 2) > 0) ? (x - (this.updateFrameSize / 2)) : 0; i <= ((x + (this.updateFrameSize / 2) < this.mapWidth) ? (x + (this.updateFrameSize / 2)) : (this.mapWidth - 1)); ++i)
@@ -216,8 +202,5 @@ namespace Nova.NewGame
         }
 
     #endregion
-
-
     }
-
 }

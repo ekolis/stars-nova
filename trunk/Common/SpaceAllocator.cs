@@ -127,6 +127,5 @@ namespace Nova.Common
             this.availableBoxes.RemoveAt(boxNumber);
             return box;
         }
-
     }
 }

@@ -208,7 +208,6 @@ namespace Nova.Common
        #endregion Paths
 
        #endregion Methods
-
    }
 }
 

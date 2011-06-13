@@ -31,15 +31,14 @@
 // ===========================================================================
 #endregion
 
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Text;
-using System.Xml;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Text;
+    using System.Xml;
+
     /// <summary>
     ///  Class to store and compare a Race's traits.
     /// </summary>
@@ -50,11 +49,9 @@ namespace Nova.Common
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// default constructor
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public RacialTraits()
         {
         }
@@ -63,13 +60,11 @@ namespace Nova.Common
 
         #region Methods
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Loop through all of a races traits, starting with the primary trait.
         /// </summary>
         /// <returns>Each of the race's traits, begining with the PrimaryTrait, 
         /// followed by any lesser traits.</returns>
-        /// ----------------------------------------------------------------------------
         public new IEnumerator GetEnumerator()
         {
             yield return this.primaryTrait;
@@ -79,14 +74,11 @@ namespace Nova.Common
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check if the racial traits contains a particular trait.
         /// </summary>
         /// <param name="trait"></param>
         /// <returns>True if trait is the race's PrimaryTrait or a lesser trait.</returns>
-        /// ----------------------------------------------------------------------------
         public new bool Contains(string trait)
         {
             if (this.primaryTrait.Code == trait)
@@ -101,8 +93,6 @@ namespace Nova.Common
             return Dictionary.Contains(trait);
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Control access to the primary trait. It can be read as a public property. 
         /// It can be set using the SetPrimary() accessor function passing either a 
@@ -110,7 +100,6 @@ namespace Nova.Common
         /// </summary>
         /// Design note: did not use a set method as I needed to overload depending on 
         /// whether a TraitEntry or a String is used to set the Primary racial trait.
-        /// ----------------------------------------------------------------------------
         public TraitEntry Primary
         {
             get
@@ -119,29 +108,23 @@ namespace Nova.Common
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Control access to the primary trait. It can be read as a public property. 
         /// It can be set using the SetPrimary() accessor function passing either a 
         /// TraitEntry or a String containing one of the primary trait codes.
         /// </summary>
         /// <param name="primaryTrait">The new primary trait.</param>
-        /// ----------------------------------------------------------------------------
         public void SetPrimary(TraitEntry primaryTrait)
         {
             this.primaryTrait = primaryTrait;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Control access to the primary trait. It can be read as a public property. 
         /// It can be set using the SetPrimary() accessor function passing either a 
         /// TraitEntry or a String containing one of the primary trait codes.
         /// </summary>
         /// <param name="primaryTrait">The new primary trait.</param>
-        /// ----------------------------------------------------------------------------
         public void SetPrimary(string primaryTrait)
         {
             foreach (DictionaryEntry de in AllTraits.Data.Primary)
@@ -158,7 +141,5 @@ namespace Nova.Common
         }
 
         #endregion
-
     }
-
 }

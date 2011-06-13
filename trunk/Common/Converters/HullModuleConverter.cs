@@ -19,14 +19,16 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.ComponentModel.Design.Serialization;
-using System.Reflection;
-using Nova.Common.Components;
-
 namespace Nova.Common.Converters
 {
+    #region Using Statements
+    using System;
+    using System.Collections;
+    using System.ComponentModel.Design.Serialization;
+    using System.Reflection;
+    using Nova.Common.Components;
+    #endregion
+
     public class HullModuleConverter : InstanceDescriptorConverter<HullModule>
     {
         protected override InstanceDescriptor ConvertToInstanceDescriptor(HullModule value)

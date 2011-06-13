@@ -28,7 +28,6 @@
 // ===========================================================================
 #endregion
 
-
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -37,7 +36,6 @@ namespace Nova.Common
 {
     public sealed class AllTraits 
     {
-
         #region Singleton
 
         private static readonly object Padlock = new object();
@@ -148,5 +146,4 @@ namespace Nova.Common
         public TraitList Primary = new TraitList();
         public TraitList Secondary = new TraitList();
     }
-
 }

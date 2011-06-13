@@ -1,5 +1,6 @@
 // ============================================================================
 // Nova. (c) 2010 Pavel Kazlou
+// (c) 2011 stars-nova
 //
 // This class is used for "constructing" alchemy.
 //
@@ -8,12 +9,14 @@
 // Software Foundation.
 // ============================================================================
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Nova.Common
 {
+    #region Using Statements
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    #endregion
+
     public class AlchemyProductionUnit : IProductionUnit
     {
         public AlchemyProductionUnit(Star star)

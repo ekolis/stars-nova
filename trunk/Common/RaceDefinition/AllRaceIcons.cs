@@ -46,22 +46,17 @@ namespace Nova.Common
 
         #region Singleton
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Private constructor to prevent anyone else creating instances of this class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         private AllRaceIcons()
         {
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a mechanism of accessing the single instance of this class that we
         /// will create locally. Creation of the data is thread-safe.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public static AllRaceIcons Data
         {
             get
@@ -79,8 +74,6 @@ namespace Nova.Common
                 return instance;
             }
 
-            // ----------------------------------------------------------------------------
-
             set
             {
                 instance = value;
@@ -91,16 +84,12 @@ namespace Nova.Common
 
         #region Methods
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load the race images
         /// </summary>
         /// <returns>true if the race icons were successfuly loaded.</returns>
-        /// ----------------------------------------------------------------------------
         public static bool Restore()
         {
-
-
             if (Data.IconList.Count < 1)
             {
                 try
@@ -112,7 +101,6 @@ namespace Nova.Common
                         Bitmap i = new Bitmap(Path.Combine(fi.DirectoryName, fi.Name));
                         RaceIcon icon = new RaceIcon(fi.Name, i);
                         Data.IconList.Add(icon);
-
                     }
                 }
                 catch
@@ -120,7 +108,6 @@ namespace Nova.Common
                     Report.Error("RaceIcon: Restore() - Failed to load race icons.");
                     return false;
                 }
-
             }
             return true;
         }

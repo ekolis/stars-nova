@@ -29,14 +29,12 @@
 // ===========================================================================
 #endregion
 
-
-using System;
-using System.Collections.Generic;
-using System.Xml;
-using Nova.Common.Components;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Xml;
+    using Nova.Common.Components;
 
     /// <summary>
     /// Ship class. 
@@ -53,12 +51,10 @@ namespace Nova.Common
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Create a ship of a specified design.
         /// </summary>
         /// <param name="shipDesign"></param>
-        /// ----------------------------------------------------------------------------
         public Ship(ShipDesign shipDesign)
         {
             this.design = shipDesign;
@@ -75,15 +71,12 @@ namespace Nova.Common
             Type = shipDesign.Type;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor. This is only used by the battle engine so only the fields
         /// used by it in creating stacks need to be copied.  Be careful when using the
         /// copy. It is a different object to the original.
         /// </summary>
         /// <param name="copy"></param>
-        /// ----------------------------------------------------------------------------
         public Ship(Ship copy)
             : base(copy)
         {
@@ -91,7 +84,6 @@ namespace Nova.Common
             this.design.Update(); // ensure summary properties are calculated
             Shields = copy.Shields;
             Armor = copy.Armor;
-
         }
 
         #endregion
@@ -116,9 +108,7 @@ namespace Nova.Common
             Name = this.design.Name;
             Owner = this.design.Owner;
             Type = this.design.Type;
-
         }
-
 
         /// <summary>
         /// Update the summary statistics for the ship
@@ -132,7 +122,6 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculate fuel consumption.
         /// </summary>
@@ -149,7 +138,6 @@ namespace Nova.Common
         /// If the secondary racial trait "improved fuel efficiency" is set then
         /// fuel consumption is 15% less than advertised.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public double FuelConsumption(int warp, Race race, int cargoMass)
         {
             if (warp == 0)
@@ -212,15 +200,12 @@ namespace Nova.Common
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get total bomb capability. 
         /// </summary>
         /// <remarks>
         /// TODO (priority 6) Whatever code uses this seems to be ignoring smart bombs?
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public Bomb BombCapability
         {
             get
@@ -229,7 +214,6 @@ namespace Nova.Common
                 return this.design.ConventionalBombs;
             }
         }
-
 
         /// <summary>
         /// Determine if this <see cref="Ship"/> can refuel.
@@ -334,11 +318,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get if this ship has weapons.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool HasWeapons
         {
             get
@@ -352,8 +334,6 @@ namespace Nova.Common
             }
         }
 
-
-
         /// <summary>
         /// The icon for this ship.
         /// </summary>
@@ -365,11 +345,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get if the ship is a bomber
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool IsBomber
         {
             get
@@ -394,14 +372,12 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get total mine laying capacity for this ship
         /// </summary>
         /// <remarks>
         /// TODO (priority 6) Client code must handle heavy and speed trap mines too.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public int MineCount
         {
             get
@@ -411,11 +387,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the power rating of this ship - stub: TODO (priority 6)
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int PowerRating
         {
             get
@@ -478,18 +452,15 @@ namespace Nova.Common
             }
         }
 
-
         #endregion
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising Constructor from an xml node.
         /// Precondition: node is a "Ship" node Nova save file (xml document).
         /// </summary>
         /// <param name="node">The XmlNode of the parent.</param>
-        /// ----------------------------------------------------------------------------
         public Ship(XmlNode node)
             : base(node)
         {
@@ -521,7 +492,6 @@ namespace Nova.Common
                         case "cost":
                             Cost = new Resources(subnode);
                             break;
-
                     }
 
                     subnode = subnode.NextSibling;
@@ -535,13 +505,10 @@ namespace Nova.Common
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate an xml representation of the ship for saving
         /// </summary>
         /// <param name="xmldoc">The master XmlDocument</param>
-        /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelShip = xmldoc.CreateElement("Ship");
@@ -559,7 +526,5 @@ namespace Nova.Common
         }
 
         #endregion
-
-
     }
 }

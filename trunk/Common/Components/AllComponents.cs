@@ -26,21 +26,21 @@
 // ===========================================================================
 #endregion
 
-#region Using Statements
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.IO.Compression;
-using System.Runtime.Serialization;
-using System.Windows.Forms;
-using System.Xml;
-using Microsoft.Win32;
-using Nova.Common;
-#endregion
-
 namespace Nova.Common.Components
 {
+    #region Using Statements
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.IO.Compression;
+    using System.Runtime.Serialization;
+    using System.Windows.Forms;
+    using System.Xml;
+    using Microsoft.Win32;
+    using Nova.Common;
+    #endregion
+
     /// <summary>
     /// Provides singleton access (via AllComponents.Data) to a <see cref="Hashtable"/> containing all <see cref="Component"/>s indexed on the component's name.
     /// </summary>
@@ -58,7 +58,6 @@ namespace Nova.Common.Components
 
         public Dictionary<string, Component> Components = new Dictionary<string, Component>();
 
-
         // ============================================================================
         // Data private to this module.
         // ============================================================================
@@ -73,12 +72,10 @@ namespace Nova.Common.Components
         {
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a mechanism of accessing the single instance of this class that we
         /// will create locally. Creation of the data is thread-safe.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public static AllComponents Data
         {
             get
@@ -108,40 +105,32 @@ namespace Nova.Common.Components
 
         #region Methods
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check if AllComponents contains a particular Component.
         /// </summary>
         /// <param name="componentName">The Name of the Component to look for.</param>
         /// <returns>True if the component is included.</returns>
-        /// ----------------------------------------------------------------------------
         public bool Contains(string componentName)
         {
             return Data.Components.ContainsKey(componentName);
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check if AllComponents contains a particular Component.
         /// </summary>
         /// <param name="component">The Component to look for.</param>
         /// <returns>True if the component is included.</returns>
-        /// ----------------------------------------------------------------------------
         public bool Contains(Component component)
         {
             return Data.Components.ContainsValue(component);
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Restore the component definitions.
         /// </summary>
         /// <exception cref="System.Data.OperationAbortedException">
         /// The loading of the component definition was aborted.
         /// </exception>
-        /// ----------------------------------------------------------------------------
         public static void Restore()
         {
             // Ensure we have the component definition file before starting the worker thread, or die.
@@ -163,13 +152,10 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Start a new component definition set. This simply wipes all components from
         /// the in memory component definitions.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public static void MakeNew()
         {
             lock (Padlock)
@@ -191,7 +177,6 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load all the components form the component definition file, nominally components.xml.
         /// </summary>
@@ -199,14 +184,12 @@ namespace Nova.Common.Components
         /// <remarks>
         /// This is run in a worker thread and therefore has no direct access to the UI/user.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         private void LoadComponents(object status)
         {
             IProgressCallback callback = status as IProgressCallback;
 
             try
             {
-
                 // blank the component data
                 Data = new AllComponents();
 
@@ -221,7 +204,6 @@ namespace Nova.Common.Components
                     int nodesLoaded = 0;
                     while (xmlnode != null)
                     {
-
                         // Report.Information("node name = '" + xmlnode.Name + "'");
                         if (xmlnode.Name == "ROOT")
                         {
@@ -248,11 +230,9 @@ namespace Nova.Common.Components
                         {
                             return;
                         }
-
                     }
                     callback.Success = true;
                 }
-                
             }
             catch (System.Threading.ThreadAbortException)
             {
@@ -279,10 +259,7 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary> Save the component data. </summary>
-        /// ----------------------------------------------------------------------------
         public static bool Save()
         {
             try
@@ -308,28 +285,23 @@ namespace Nova.Common.Components
             }
             catch (System.IO.FileNotFoundException)
             {
-
                 Report.Error("Error: File path not specified.");
                 return false;
-
             }
             catch (Exception e)
             {
                 Report.Error("Error: Failed to save component definition file. " + e.Message);
                 return false;
             }
-
         } // Save
 
         #endregion
 
         #region File Paths
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the path where the graphics files are stored.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public static string Graphics
         {
             get
@@ -358,7 +330,6 @@ namespace Nova.Common.Components
             {
                 if (!Directory.Exists(saveFilePath))
                 {
-
                     saveFilePath = FileSearcher.GetComponentFile();
                     if (!String.IsNullOrEmpty(saveFilePath))
                     {

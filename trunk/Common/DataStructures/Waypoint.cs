@@ -57,13 +57,11 @@ namespace Nova.Common
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">node is a "Waypoint" node Nova save file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public Waypoint(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -99,14 +97,11 @@ namespace Nova.Common
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this Waypoint to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Waypoint</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelWaypoint = xmldoc.CreateElement("Waypoint");
@@ -128,6 +123,5 @@ namespace Nova.Common
         }
 
         #endregion
-
     }
 }

@@ -123,6 +123,5 @@ namespace Nova.WinForms.Gui
       private System.Windows.Forms.Button okButton;
       private System.Windows.Forms.Button cancelRename;
       public System.Windows.Forms.Label ExistingName;
-
    }
 }

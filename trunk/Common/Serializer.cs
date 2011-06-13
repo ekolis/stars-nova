@@ -34,15 +34,13 @@ namespace Nova.Common
     using System.Runtime.Serialization.Formatters.Binary;
     #endregion
 
-    //-------------------------------------------------------------------
     /// <summary>
     /// Serializes and deserializes an object, or an entire graph of connected objects, in binary format.
     /// </summary>
-    //-------------------------------------------------------------------
     public static class Serializer
     {
         #region Methods
-        //-------------------------------------------------------------------
+
         /// <summary>
         /// Deserializes the specified stream into an object graph.
         /// </summary>
@@ -55,13 +53,11 @@ namespace Nova.Common
         /// <exception cref="System.ArgumentNullException">
         /// The <i>serializationStream</i> is a null reference.
         /// </exception>
-        //-------------------------------------------------------------------
         public static object Deserialize(Stream serializationStream)
         {
             return Formatter.Deserialize(serializationStream);
         }
 
-        //-------------------------------------------------------------------
         /// <summary>
         /// Serializes an object, or graph of connected objects, to the given stream.
         /// </summary>
@@ -74,18 +70,21 @@ namespace Nova.Common
         /// <exception cref="System.ArgumentNullException">
         /// The <i>serializationStream</i> is a null reference.
         /// </exception>
-        //-------------------------------------------------------------------
         public static void Serialize(Stream serializationStream, object item)
         {
             Formatter.Serialize(serializationStream, item);
         }
+
         #endregion
 
         #region Fields
+
         private static IFormatter formatter;
+
         #endregion
 
         #region Properties
+
         private static IFormatter Formatter
         {
             get
@@ -97,6 +96,7 @@ namespace Nova.Common
                 return formatter;
             }
         }
+
         #endregion
     }
 }

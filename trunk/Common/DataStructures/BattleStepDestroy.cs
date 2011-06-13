@@ -20,16 +20,16 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.DataStructures
 {
-    /// ----------------------------------------------------------------------------
+    #region Using Statements
+    using System;
+    using System.Xml;
+    #endregion
+
     /// <summary>
     /// A class to destroy a ship in a given stack.
     /// </summary>
-    /// ----------------------------------------------------------------------------
     [Serializable]
     public class BattleStepDestroy : BattleStep
     {
@@ -45,16 +45,12 @@ namespace Nova.Common.DataStructures
             Type = "Destroy";
         }
 
+        #region Save Load Xml
 
-        #region Xml
-
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
         /// </summary>
         /// <param name="node">A <see cref="BattleStepDestroy"/> XmlNode from a Nova save file (xml document). </param>
-        /// ----------------------------------------------------------------------------
         public BattleStepDestroy(XmlNode node)
             : base(node)
         {
@@ -83,14 +79,11 @@ namespace Nova.Common.DataStructures
             }         
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate an XmlElement representation of the BattleStepDestroy for saving to file.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument</param>
         /// <returns>An XmlElement representing the BattleStepDestroy</returns>
-        /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattleStepDestroy = xmldoc.CreateElement("BattleStepDestroy");

@@ -32,11 +32,11 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.Components
 {
+    using System;
+    using System.Xml;
+
     /// <summary>
     /// Probability property.
     /// </summary>
@@ -48,34 +48,26 @@ namespace Nova.Common.Components
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ProbabilityProperty() 
         { 
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor.
         /// </summary>
         /// <param name="existing"></param>
-        /// ----------------------------------------------------------------------------
         public ProbabilityProperty(ProbabilityProperty existing)
         {
             this.Value = existing.Value;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising constructor.
         /// </summary>
         /// <param name="existing">Initial value.</param>
-        /// ----------------------------------------------------------------------------
         public ProbabilityProperty(double existing)
         {
             this.Value = existing;
@@ -85,12 +77,10 @@ namespace Nova.Common.Components
 
         #region Interface ICloneable
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns>Clone of this object.</returns>
-        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new ProbabilityProperty(this);
@@ -118,7 +108,6 @@ namespace Nova.Common.Components
             Value = (this * scalar).Value;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
@@ -126,21 +115,17 @@ namespace Nova.Common.Components
         /// <param name="op2">RHS operand.</param>
         /// <returns>A <see cref="ProbabilityProperty"/> with value (as a percentage) 
         /// equal to the independed probability of op1 or op2.</returns>
-        /// ----------------------------------------------------------------------------
         public static ProbabilityProperty operator +(ProbabilityProperty op1, ProbabilityProperty op2)
         {
             return new ProbabilityProperty(100 - (((100 - op1.Value) * (100 - op2.Value)) / 100));
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// </summary>
         /// <param name="op1">Property in the stack.</param>
         /// <param name="scalar">Number of items in the stack.</param>
         /// <returns>A single property with value equal to the total independent probability of the stack.</returns>
-        /// ----------------------------------------------------------------------------
         public static ProbabilityProperty operator *(ProbabilityProperty op1, int scalar)
         {
             double value = op1.Value;
@@ -155,14 +140,12 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public ProbabilityProperty(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -183,14 +166,11 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
-        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -205,7 +185,6 @@ namespace Nova.Common.Components
         }
 
         #endregion
-
     }
 }
 

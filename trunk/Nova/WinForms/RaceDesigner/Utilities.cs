@@ -27,20 +27,18 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Windows.Forms;
-
 namespace Nova.WinForms.RaceDesigner
 {
+    using System;
+    using System.Windows.Forms;
+
     /// <Summary>
     /// Race Designer utilities.
     /// </Summary>
     public class Utilities
     {
-
         #region Methods
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Calculate the cost of a range bar width.
         /// </Summary>
@@ -55,7 +53,6 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="leftValue">Left most value of the bar.</param>
         /// <param name="rightValue">Right most value of the bar.</param>
         /// <returns>Cost in advantage points.</returns>
-        /// ----------------------------------------------------------------------------
         public static int BarWidthCost(int leftValue, int rightValue)
         {
             int barWidth = rightValue - leftValue;
@@ -74,8 +71,6 @@ namespace Nova.WinForms.RaceDesigner
             return cost;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Calculate the cost of a range bar position.
         /// </Summary>
@@ -93,7 +88,6 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="leftValue">Left most value of the bar.</param>
         /// <param name="rightValue">Right most value of the bar.</param>
         /// <returns>Cost in advanatage points.</returns>
-        /// ----------------------------------------------------------------------------
         public static int BarPositionCost(int leftValue, int rightValue)
         {
             int barPosition = leftValue + ((rightValue - leftValue) / 2);
@@ -111,15 +105,12 @@ namespace Nova.WinForms.RaceDesigner
             return cost;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// This function just warns the user of the consequences of using the Cancel
         /// button.
         /// </Summary>
         /// <param name="parent"><see cref="IWin32Window"/></param>
         /// <returns>A <see cref="DialogResult"/>.</returns>
-        /// ----------------------------------------------------------------------------
         public static DialogResult CancelWarning(IWin32Window parent)
         {
             string message = "This will discard your race definition. "
@@ -141,7 +132,6 @@ namespace Nova.WinForms.RaceDesigner
         }
 
         #endregion
-
     }
 }
 

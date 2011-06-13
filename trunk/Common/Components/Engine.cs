@@ -26,11 +26,10 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.Components
 {
+    using System;
+    using System.Xml;
 
     /// <summary>
     /// Engine property.
@@ -58,30 +57,25 @@ namespace Nova.Common.Components
                         return i;
                     }
                 }
-
                 return 0;
             }
         }
+
         #endregion
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Engine() 
         { 
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor.
         /// </summary>
         /// <param name="existing">The existing <see cref="Engine"/> to copy.</param>
-        /// ----------------------------------------------------------------------------
         public Engine(Engine existing)
         {
             for (int i = 0; i < FuelConsumption.Length; i++)
@@ -95,12 +89,10 @@ namespace Nova.Common.Components
 
         #region Interface ICloneable
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns>A copy of this <see cref="Engine"/> property.</returns>
-        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new Engine(this);
@@ -128,28 +120,23 @@ namespace Nova.Common.Components
             return;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
         /// <param name="op1">LHS operand.</param>
         /// <param name="op2">RHS operand.</param>
         /// <returns>The value of op1 - engines don't add in Stars! or Nova.</returns>
-        /// ----------------------------------------------------------------------------
         public static Engine operator +(Engine op1, Engine op2)
         {
             return op1;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// </summary>
         /// <param name="op1">LHS operand.</param>
         /// <param name="scalar">Scaling factor.</param>
         /// <returns>The value of op1 - engines don't scale in Nova.</returns>
-        /// ----------------------------------------------------------------------------
         public static Engine operator *(Engine op1, int scalar)
         {
             return op1;
@@ -159,14 +146,12 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> within 
         /// a Nova compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public Engine(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -191,13 +176,11 @@ namespace Nova.Common.Components
 
                                 for (int warp = 0; warp < FuelConsumption.Length; warp++)
                                 {
-
                                     FuelConsumption[warp] = int.Parse(((XmlText)subnode.SelectSingleNode("Warp" + warp.ToString(System.Globalization.CultureInfo.InvariantCulture)).FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                                 }
                                 break;
                             }
                     }
-
                 }
                 catch (Exception e)
                 {
@@ -208,14 +191,11 @@ namespace Nova.Common.Components
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
-        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -250,6 +230,5 @@ namespace Nova.Common.Components
         }
 
         #endregion
-
     }
 }

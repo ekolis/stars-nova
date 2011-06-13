@@ -26,11 +26,11 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.Components
 {
+    using System;
+    using System.Xml;
+
     [Serializable]
     public class Computer : ComponentProperty
     {

@@ -26,16 +26,16 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+
+    using Nova.Client;
+    using Nova.Common;
+
     /// <Summary>
     /// Manage the details of a fleet (composition, etc.).
     /// </Summary>
@@ -59,36 +59,31 @@ namespace Nova.WinForms.Gui
 
         #region Event Methods
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Rename a fleet. The rename is only allowed if the fleet access key is
         /// unique.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void RenameButton_Click(object sender, EventArgs e)
         {
             RenameFleet renameDialog = new RenameFleet();
-// TODO: Implement the fleet selection event.
+
+            // TODO (priority 5): Implement the fleet selection event.
+
             renameDialog.ExistingName.Text = this.fleetName.Text;
 
             renameDialog.ShowDialog();
             renameDialog.Dispose();
 
             this.fleetName.Text = this.selectedFleet.Name;
-
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Merge the ships from a co-located fleet into the selected fleet
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void MergeButton_Click(object sender, EventArgs e)
         {
             string fleetName = this.coLocatedFleets.SelectedItems[0].Text;
@@ -111,11 +106,9 @@ namespace Nova.WinForms.Gui
 
         #region Utility Methods
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Update the dialog fields
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         private void UpdateDialogDetails()
         {
             this.fleetName.Text = this.selectedFleet.Name;
@@ -147,11 +140,9 @@ namespace Nova.WinForms.Gui
 
         #region Properties
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Select the fleet to be managed.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public Fleet ManagedFleet
         {
             set
@@ -166,6 +157,5 @@ namespace Nova.WinForms.Gui
         }
 
         #endregion
-
     }
 }

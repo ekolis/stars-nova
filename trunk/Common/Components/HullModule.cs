@@ -27,14 +27,14 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.ComponentModel;
-using System.Runtime.Serialization;
-using System.Xml;
-using Nova.Common.Converters;
-
 namespace Nova.Common.Components
 {
+    using System;
+    using System.ComponentModel;
+    using System.Runtime.Serialization;
+    using System.Xml;
+    using Nova.Common.Converters;
+
     /// <summary>
     /// The definition of the individual modules that make up a hull.
     /// These are the slots which define what components may be fitted.
@@ -67,29 +67,23 @@ namespace Nova.Common.Components
             {
                 componentCount = value;
             }
-
         }
         public int ComponentMaximum = 1;
         public string ComponentType;
 
         #region Construction
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public HullModule() 
         { 
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor.
         /// </summary>
         /// <param name="existing">The existing <see cref="HullModule"/> to copy.</param>
-        /// ----------------------------------------------------------------------------
         public HullModule(HullModule existing)
         {
             AllocatedComponent = existing.AllocatedComponent;
@@ -97,7 +91,6 @@ namespace Nova.Common.Components
             ComponentCount = existing.ComponentCount;
             ComponentMaximum = existing.ComponentMaximum;
             ComponentType = existing.ComponentType;
-
         }
 
         public HullModule(int cellNumber, int componentMaximum, int componentCount, string componentType, string componentName)
@@ -114,12 +107,10 @@ namespace Nova.Common.Components
 
         #region Methods
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so modules can be cloned.
         /// </summary>
         /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public object Clone()
         {
             return new HullModule(this);
@@ -129,14 +120,12 @@ namespace Nova.Common.Components
 
         #region Load Save Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
         /// </summary>
         /// <param name="node">An <see cref="XmlNode"/> named "Module" within a "Property" node with Type=="Hull" 
         /// in a Nova compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public HullModule(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -180,13 +169,11 @@ namespace Nova.Common.Components
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Serialise a <see cref="HullModule"/> to xml.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>an XmlElement representation of the HullModule</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelModule = xmldoc.CreateElement("Module");
@@ -205,7 +192,6 @@ namespace Nova.Common.Components
                 if (AllocatedComponent != null && AllocatedComponent.Name != null)
                 {
                     Global.SaveData(xmldoc, xmlelModule, "AllocatedComponent", AllocatedComponent.Name);
-
                 }
                 else
                 {

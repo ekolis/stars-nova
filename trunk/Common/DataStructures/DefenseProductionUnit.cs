@@ -1,6 +1,6 @@
 #region Copyright Notice
 // ============================================================================
-// Copyright (C) 2010 stars-nova
+// Copyright (C) 2010, 2011 stars-nova
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -25,57 +25,49 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Nova.Common
 {
-    /// ----------------------------------------------------------------------------
+    #region Using Statements
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    #endregion
+
     /// <summary>
     /// Class for constructing 1 defense unit.
     /// </summary>
-    /// ----------------------------------------------------------------------------
     public class DefenseProductionUnit : IProductionUnit
     {
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising constructor.
         /// </summary>
         /// <param name="star">The <see cref="Star"/> to create the defense on.</param>
-        /// ----------------------------------------------------------------------------
         public DefenseProductionUnit(Star star)
         {
         }
 
         #region ProductionUnit Members
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return true if this production item is to be skipped.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool IsSkipped()
         {
             throw new NotImplementedException();
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// ??? (priority 6)
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public void Construct()
         {
             throw new NotImplementedException();
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the <see cref="Resources"/> needed to build this defense.
         /// ??? (priority 6) - is this before or after some resources have already been spent?
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Resources NeededResources()
         {
             throw new NotImplementedException();

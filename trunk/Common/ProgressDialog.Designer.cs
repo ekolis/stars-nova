@@ -72,7 +72,6 @@
             this.Text = "ProgressDialog";
             this.ResumeLayout(false);
             this.PerformLayout();
-
         }
 
         #endregion
@@ -80,6 +79,5 @@
         public System.Windows.Forms.ProgressBar ProgressBar;
         private System.Windows.Forms.Label label;
         private System.Windows.Forms.Button cancelButton;
-
     }
 }

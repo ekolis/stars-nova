@@ -26,11 +26,10 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Xml;
-
 namespace Nova.Common.Components
 {
+    using System;
+    using System.Xml;
 
     /// <summary>
     /// Scanner class (a component property).
@@ -48,9 +47,7 @@ namespace Nova.Common.Components
         /// </summary>
         public Scanner()
         {
-            
         }
-
 
         /// <summary>
         /// Initializes a new instance of the Scanner class.
@@ -66,12 +63,10 @@ namespace Nova.Common.Components
 
         #region Interface ICloneable
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
         /// <returns>Clone of this object.</returns>
-        /// ----------------------------------------------------------------------------
         public override object Clone()
         {
             return new Scanner(this);
@@ -101,17 +96,14 @@ namespace Nova.Common.Components
             Scanner temp = this * scalar;
             PenetratingScan = temp.PenetratingScan;
             NormalScan = temp.NormalScan;
-
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
         /// <param name="op1">LHS operand.</param>
         /// <param name="op2">RHS operand.</param>
         /// <returns>A single Scanner property with the scanning ability of both op1 and op2 scanners.</returns>
-        /// ----------------------------------------------------------------------------
         public static Scanner operator +(Scanner op1, Scanner op2)
         {
             Scanner sum = new Scanner(op1);
@@ -121,15 +113,12 @@ namespace Nova.Common.Components
             return sum;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// </summary>
         /// <param name="op1">Scanner property to scale.</param>
         /// <param name="scalar">Number of items in the stack.</param>
         /// <returns>A single Scanner property with the scanning ability of the stack.</returns>
-        /// ----------------------------------------------------------------------------
         public static Scanner operator *(Scanner op1, int scalar)
         {
             Scanner sum = new Scanner(op1);
@@ -174,13 +163,11 @@ namespace Nova.Common.Components
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
-        /// ----------------------------------------------------------------------------
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -200,6 +187,5 @@ namespace Nova.Common.Components
         }
 
         #endregion
-
     }
 }

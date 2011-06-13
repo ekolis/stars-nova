@@ -28,22 +28,22 @@
 // ===========================================================================
 #endregion
 
-#region Using Statements
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Windows.Forms;
-
-using Nova.Common;
-using Nova.Common.Components;
-using Message = Nova.Common.Message;
-
-#endregion
-
 namespace Nova.Client
 {
+    #region Using Statements
+
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Windows.Forms;
+
+    using Nova.Common;
+    using Nova.Common.Components;
+    using Message = Nova.Common.Message;
+
+    #endregion
+
     [Serializable]
     public sealed class ClientState
     {
@@ -64,6 +64,7 @@ namespace Nova.Client
         public List<Fleet> PlayerFleets = new List<Fleet>();
         public StarList PlayerStars = new StarList(); 
         public Race PlayerRace = new Race();
+
         /// <summary>
         /// Gets information about technology levels for current client
         /// </summary>
@@ -87,27 +88,24 @@ namespace Nova.Client
 
 
         #region Constructors
-        /// ----------------------------------------------------------------------------
+        
         /// <summary>
         /// Private constructor for static only class preventing external object from instantiating this class directly.
         /// </summary>
         /// <remarks>
         /// Use a private constructor so the default constructor is not created since all methods are static.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         private ClientState() 
         { 
         }
 
         #endregion
 
-
         #region Properties
-        /// ----------------------------------------------------------------------------
+
         /// <summary>
         /// Gets the single instance of this class. Access to the data is thread-safe.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public static ClientState Data
         {
             get
@@ -129,16 +127,15 @@ namespace Nova.Client
                 instance = value;
             }
         }
+
         #endregion
 
         #region Methods
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialise the data needed for the GUI to run.
         /// </summary>
         /// <param name="argArray">The command line arguments.</param>
-        /// ----------------------------------------------------------------------------
         public static void Initialize(string[] argArray)
         {
             // ----------------------------------------------------------------------------
@@ -176,8 +173,6 @@ namespace Nova.Client
             //    There will be a StateFileName in the argArray.
             //    Directly load the state file. If it is missing - FatalError.
             //    (The race name and game folder will be loaded from the state file)
-
-
             statePathName = null;
             Data.RaceName = null;
             string intelFileName = null;
@@ -198,13 +193,9 @@ namespace Nova.Client
                 intelFileName = commandArguments[CommandArguments.Option.IntelFileName];
             }
 
-
-            // ----------------------------------------------------------------------------
             // Get the name of the folder where all the game files will be stored. 
             // Normally this would be placed in the config file by the NewGame wizard.
             // We also cache a copy in the ClientState.Data.GameFolder
-            // ----------------------------------------------------------------------------
-
             ClientState.Data.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
             if (ClientState.Data.GameFolder == null)
             {
@@ -213,12 +204,8 @@ namespace Nova.Client
                                   "Nova Console?");
             }
 
-
-            // ----------------------------------------------------------------------------
             // Sort out what we need to initialise the ClientState
-            // ----------------------------------------------------------------------------
             bool isLoaded = false;
-
 
             // 1. the Nova GUI was started directly (e.g. in the debugger). 
             //    There will be zero options/arguments in the argArray.
@@ -231,7 +218,6 @@ namespace Nova.Client
                 ClientState.Data.RaceName = SelectRace(ClientState.Data.GameFolder);
                 if (!string.IsNullOrEmpty(Data.RaceName))
                 {
-                    
                     isLoaded = true;
                 }
                 else
@@ -253,12 +239,9 @@ namespace Nova.Client
                     catch
                     {
                         Report.FatalError("ClientState.cs Initialize() - Unable to open a game. Try running the NovaLauncher.");
-
                     }
                 }
-
             }
-
 
             // 2. the Nova GUI was started from the launcher open a game option. 
             //    There will be a .intel file listed in the argArray.
@@ -275,7 +258,6 @@ namespace Nova.Client
                     Report.FatalError("ClientState.cs Initialize() - Could not locate .intel file \"" + intelFileName + "\".");
                 }
             }
-
 
             // 3. the Nova GUI was started from the launcher to continue a game. 
             //    There will be a StateFileName in the argArray.
@@ -297,7 +279,6 @@ namespace Nova.Client
                 {
                     Report.FatalError("ClientState.cs Initialize() - File not found. Could not continue game \"" + statePathName + "\".");
                 }
-
             }
 
 
@@ -305,8 +286,6 @@ namespace Nova.Client
             {
                 Report.FatalError("ClientState.cs Initialise() - Failed to find any .intel when initialising turn");
             }
-
-
 
             // Add the default battle plan if this is the first turn.
             if (ClientState.Data.FirstTurn)
@@ -353,7 +332,6 @@ namespace Nova.Client
             ClientState.Data.FirstTurn = false;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Read the race definition file into the persistent data store. If this is the
         /// very first turn of a new game then process it's content to set up initial
@@ -364,7 +342,6 @@ namespace Nova.Client
         /// generated. Current thinking is that this should be included in the .intel file
         /// every turn. -- Dan Vale 10 Jan 10.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         private static void ProcessRaceDefinition()
         {
             string raceFolder = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
@@ -379,11 +356,9 @@ namespace Nova.Client
             }
         }
   
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine which tech components the player has access too
         /// </summary>
-        /// ----------------------------------------------------------------------------        
         private static void UpdateAvailableComponents()
         {
             if (ClientState.Data.AvailableComponents == null)
@@ -403,7 +378,6 @@ namespace Nova.Client
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Restore the GUI persistent data if the state store file exists (it typically
         /// will not on the very first turn of a new game). 
@@ -413,13 +387,11 @@ namespace Nova.Client
         /// file Nova.intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public static void Restore()
         {
             Restore(ClientState.Data.GameFolder, ClientState.Data.RaceName);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Restore the GUI persistent data if the state store file exists (it typically
         /// will not on the very first turn of a new game). 
@@ -430,25 +402,17 @@ namespace Nova.Client
         /// file Nova.intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public static void Restore(string gameFolder)
         {
-
-            // ----------------------------------------------------------------------------
             // Scan the game directory for .race files. If only one is present then that is
             // the race we will use (single race test bed or remote server). If more than one is
             // present then display a dialog asking the player which race he wants to use
             // (multiplayer game with all players playing from a single game directory).
-            // ----------------------------------------------------------------------------
-
             string raceName = SelectRace(gameFolder);
             Restore(gameFolder, raceName);
-
-
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Restore the GUI persistent data if the state store file exists (it typically
         /// will not on the very first turn of a new game). 
@@ -460,10 +424,8 @@ namespace Nova.Client
         /// file Nova.intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public static void Restore(string gameFolder, string raceName)
         {
-
             statePathName = Path.Combine(gameFolder, raceName + Global.ClientStateExtension);
 
             if (File.Exists(statePathName))
@@ -472,10 +434,8 @@ namespace Nova.Client
                 {
                     using (Stream stateFile = new FileStream(statePathName, FileMode.Open))
                     {
-
                         // Read in binary state file
                         ClientState.Data = Serializer.Deserialize(stateFile) as ClientState;
-
                     }
                 }
                 catch (Exception e)
@@ -484,24 +444,17 @@ namespace Nova.Client
                 }
             }
 
-
             // Copy the race and game folder names into the state data store. This
             // is just a convenient way of making them globally available.
-
             Data.RaceName = raceName;
             Data.GameFolder = gameFolder;
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save the GUI global data and flag that we should now be able to restore it.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public static void Save()
         {
-
             using (Stream stateFile = new FileStream(statePathName, FileMode.Create))
             {
                 // Binary Serialization (old)
@@ -571,8 +524,6 @@ namespace Nova.Client
         */
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Pop up a dialog to select the race to play
         /// </summary>
@@ -581,7 +532,6 @@ namespace Nova.Client
         /// FIXME (priority 6) - This is unsafe as these may not be the races playing.
         /// </remarks>
         /// <returns>The name of the race to play.</returns>
-        /// ----------------------------------------------------------------------------
         private static string SelectRace(string gameFolder)
         {
             string raceName = null;
@@ -617,7 +567,6 @@ namespace Nova.Client
                 raceName = raceDialog.RaceList.SelectedItem as string;
 
                 raceDialog.Dispose();
-
             }
             else
             {
