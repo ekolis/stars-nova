@@ -264,6 +264,8 @@ namespace Nova.WinForms.Console
             stateData.AllMessages.Add(message);
 
             Fleet fleet = new Fleet(ship, star);
+            // TODO: This should use a ID counter per race, otherwise players may have an idea how many fleets have been created
+            // if the global fleet counter is used.
             fleet.Name = ship.Name + " #" + stateData.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture);
             fleet.FleetID = stateData.FleetID;
 
