@@ -364,14 +364,14 @@ namespace Nova.NewGame
         /// <param name="race"></param>
         private void AllocateHomeStarOrbitalInstallations(Star star, Race race, string player)
         {
-            int fleetIndex = 1;
             ShipDesign colonyShipDesign = stateData.AllDesigns[player + "/cs"] as ShipDesign;
             if (race.Traits.Primary.Code != "HE")
             {
                 Ship cs = new Ship(colonyShipDesign);
                 Fleet fleet1 = new Fleet(cs, star);
-                fleet1.Name = "CSFleet1";
-                stateData.AllFleets[player + "/" + fleet1.FleetID.ToString()] = fleet1;
+                fleet1.Name = colonyShipDesign.Name + " #1";
+                fleet1.FleetID = stateData.FleetID++;
+                stateData.AllFleets[player + "/" + fleet1.FleetID] = fleet1;
             }
             else
             {
@@ -379,27 +379,25 @@ namespace Nova.NewGame
                 {
                     Ship cs = new Ship(colonyShipDesign);
                     Fleet fleet = new Fleet(cs, star);
-                    fleet.FleetID = i;
-                    fleet.Name = "CSFleet" + i.ToString();
-                    stateData.AllFleets[player + "/" + fleet.FleetID.ToString()] = fleet;
-                    fleetIndex = i;
+                    fleet.FleetID = stateData.FleetID++;
+                    fleet.Name = String.Format("{0} #{1}", colonyShipDesign.Name, i);                    
+                    stateData.AllFleets[player + "/" + fleet.FleetID] = fleet;
                 }
             }
-            fleetIndex++;
+
             ShipDesign scoutDesign = stateData.AllDesigns[player + "/scout"] as ShipDesign;
             Ship scout = new Ship(scoutDesign);
             Fleet scoutFleet = new Fleet(scout, star);
-            scoutFleet.FleetID = fleetIndex;
-            scoutFleet.Name = "CSFleet" + fleetIndex.ToString();
-            stateData.AllFleets[player + "/" + scoutFleet.FleetID.ToString()] = scoutFleet;
-            fleetIndex++;
-
+            scoutFleet.FleetID = stateData.FleetID++;
+            scoutFleet.Name = "Scout #1";       
+            stateData.AllFleets[player + "/" + scoutFleet.FleetID] = scoutFleet;
+ 
             ShipDesign starbaseDesign = stateData.AllDesigns[player + "/starbase"] as ShipDesign;
             Ship starbase = new Ship(starbaseDesign);
             Fleet starbaseFleet = new Fleet(starbase, star);
-            starbaseFleet.FleetID = fleetIndex;
-            starbaseFleet.Name = "Starbase";
-            stateData.AllFleets[player + "/" + starbaseFleet.FleetID.ToString()] = starbaseFleet;
+            starbaseFleet.FleetID = stateData.FleetID++;
+            starbaseFleet.Name = star.Name + " Starbase";
+            stateData.AllFleets[player + "/" + starbaseFleet.FleetID] = starbaseFleet;
         }
 
         /// <summary>
