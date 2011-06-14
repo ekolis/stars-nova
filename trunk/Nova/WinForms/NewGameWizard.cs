@@ -49,6 +49,8 @@ namespace Nova.WinForms
         private ServerState stateData;
 
         public Dictionary<string, Race> KnownRaces = new Dictionary<string, Race>();
+        RaceNameGenerator raceNameGenerator = new RaceNameGenerator();
+
 
         #region Initialisation
 
@@ -63,7 +65,7 @@ namespace Nova.WinForms
             this.stateData = new ServerState();
 
             // Setup the list of known races.
-            KnownRaces = FileSearcher.GetAvailableRaces();
+            FileSearcher.GetAvailableRaces().ForEach( race => AddKnownRace(race) );
 
             foreach (string raceName in KnownRaces.Keys)
             {
@@ -87,22 +89,32 @@ namespace Nova.WinForms
             UpdatePlayerListButtons();
         }
 
+        private string AddKnownRace(Race race)
+        {
+            string name = race.Name;
+            // De-dupe race names here. Not the ideal solution but for now it'll have to do.
+            race.Name = raceNameGenerator.GenerateNextName( race.Name );
+
+            if (race.Name != name)
+            {
+                race.PluralName = race.Name + "s";                
+            }                            
+            KnownRaces[race.Name] = race;
+            return race.Name;
+        }
+
         #endregion
 
         #region Main
 
         /// <Summary>
-        /// The main entry Point for the application.
+        /// run the wizard
         /// </Summary>
-        [STAThread]
-        public void Main()
+        public void Run()
         {
-            // Establish the victory conditions:
-            NewGameWizard newGameWizard = new NewGameWizard();
-
             do
             {
-                DialogResult result = newGameWizard.ShowDialog();
+                DialogResult result = ShowDialog();
 
                 // Check for cancel being pressed.
                 if (result != DialogResult.OK)
@@ -157,34 +169,26 @@ namespace Nova.WinForms
                     conf[Global.ServerStateKey] = stateData.StatePathName;
                 }
                 // Copy the player & race data to the ServerState
-                stateData.AllPlayers = newGameWizard.Players;
-                
+                stateData.AllPlayers = Players;
+
                 foreach (PlayerSettings settings in stateData.AllPlayers)
                 {
-                    // TODO (priority 7) - need to decide how to handle two races of the same name. If they are the same, fine. If they are different, problem! Maybe the race name is a poor key???
-                    // Stars! solution is to rename the race using a list of standard names. 
-                    if (!stateData.AllRaces.ContainsKey(settings.RaceName))
+                    if (stateData.AllRaces.ContainsKey(settings.RaceName))
                     {
-                        stateData.AllRaces.Add(settings.RaceName, newGameWizard.KnownRaces[settings.RaceName]);
-                        
-                        // Initialize clean data for them
-                        stateData.AllRaceData[settings.RaceName] = new RaceData();
-
-                        string raceFolder = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
-                        string raceFileName = Path.Combine(raceFolder, settings.RaceName + Global.RaceExtension);
-                        if (File.Exists(raceFileName))
-                        {
-                            Race race = new Race(raceFileName);
-            
-                            // Add initial state to the intel files.
-                            ProcessPrimaryTraits(race);
-                            ProcessSecondaryTraits(race);
-                        }
-                        else
-                        {
-                            Report.FatalError("Unable to locate race definition \"" + raceFileName + "\"");
-                        }                    
+                        // Copy the race to a new key and change the setting to de-duplicate the race.
+                        // This may mean a 2nd copy of the race in the data, but it's not much data and a copy of it doesn't really matter
+                        settings.RaceName = AddKnownRace(KnownRaces[settings.RaceName].Clone());
                     }
+
+
+                    stateData.AllRaces.Add(settings.RaceName, KnownRaces[settings.RaceName]);
+
+                    // Initialize clean data for them
+                    stateData.AllRaceData[settings.RaceName] = new RaceData();
+
+                    // Add initial state to the intel files.
+                    ProcessPrimaryTraits(KnownRaces[settings.RaceName]);
+                    ProcessSecondaryTraits(KnownRaces[settings.RaceName]);
                 }
                 
                 StarMapInitialiser starMapInitialiser = new StarMapInitialiser(stateData);
@@ -429,7 +433,7 @@ namespace Nova.WinForms
                 if (result == DialogResult.OK)
                 {
                     Race race = new Race(fd.FileName);
-                    KnownRaces[race.Name] = race;
+                    AddKnownRace(race);
                     raceSelectionBox.Items.Add(race.Name);
                     raceSelectionBox.SelectedIndex = raceSelectionBox.Items.Count - 1;
                 }
@@ -831,5 +835,75 @@ namespace Nova.WinForms
         }
                         
         #endregion
+
+        private class RaceNameGenerator
+        {
+            private HashSet<string> usedNames = new HashSet<string>();
+            private List<string> namePool = new List<string>();
+            Random rand = new Random();
+
+            public RaceNameGenerator()
+            {
+                namePool.AddRange(raceNames);
+            }
+            
+            public string GenerateNextName( string name )
+            {
+                int counter = 0;
+                string origname = name;
+                while( usedNames.Contains(name) )
+                {
+                    if( namePool.Count > 1 )
+                    {
+                        name = namePool[rand.Next(namePool.Count)];
+                        namePool.Remove(name);
+                    }
+                    else
+                    {
+                        // none left. eek! - fall back to just adding a number
+                        name = origname + counter++;
+                    }
+                }                
+                usedNames.Add(name);
+                return name;
+            }
+
+            /// ----------------------------------------------------------------------------
+            /// <summary>
+            /// The list of race names we can return. Taken from Stars!.exe. May need changing?
+            /// </summary>
+            /// ----------------------------------------------------------------------------
+            private static readonly string[] raceNames = 
+            {
+                "Berserker",
+                "Bulushi",
+                "Golem",
+                "Nulon",
+                "Tritizoid",
+                "Valadiac",
+                "Ubert",
+                "Felite",
+                "Ferret",
+                "House",
+                "Cat",
+                "Crusher",
+                "Picardi",
+                "Rush'n",
+                "American",
+                "Hawk",
+                "Eagle",
+                "Mensoid",
+                "Loraxoid",
+                "Hicardi",
+                "Nairnian",
+                "Cleaver",
+                "Hooveron",
+                "Nee",
+                "Kurkonian"
+            };
+
+        }
+
     }
+
 }

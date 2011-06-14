@@ -398,6 +398,7 @@ namespace Nova.NewGame
             Ship starbase = new Ship(starbaseDesign);
             Fleet starbaseFleet = new Fleet(starbase, star);
             starbaseFleet.FleetID = fleetIndex;
+            starbaseFleet.Name = "Starbase";
             stateData.AllFleets[player + "/" + starbaseFleet.FleetID.ToString()] = starbaseFleet;
         }
 

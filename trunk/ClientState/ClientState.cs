@@ -291,7 +291,8 @@ namespace Nova.Client
             if (ClientState.Data.FirstTurn)
             {
                 ClientState.Data.BattlePlans.Add("Default", new BattlePlan());
-                ProcessRaceDefinition();
+                // morsen: Used to load the .race file here, but it's in the intel file
+                // now so we'll have it already
             }            
             
             // See which components are available.
@@ -300,7 +301,7 @@ namespace Nova.Client
             // ----------------------------------------------------------------------------
             // Check the password for access to this race's data
             // ----------------------------------------------------------------------------
-            /* TODO (priority 6) need to rework how passwords are used. They should be used to decrypt files. The current process is week security as the files are not encrypted and the password easily bypassed.
+            /* TODO (priority 6) need to rework how passwords are used. They should be used to decrypt files. The current process is weak security as the files are not encrypted and the password easily bypassed.
              * TODO (priority 7) ensure the AI can open its files without user input.
              * This section has been commented out until it can be reworked as it does no good and therefore isn't worth working out a bypass for the AI until it is reworked.
              * NB: this is how a hacker/cheat would bypass the current security - build a version of Nova GUI with this section commented out.
@@ -332,30 +333,8 @@ namespace Nova.Client
             ClientState.Data.FirstTurn = false;
         }
 
-        /// <summary>
-        /// Read the race definition file into the persistent data store. If this is the
-        /// very first turn of a new game then process it's content to set up initial
-        /// race parameters (e.g. initial technology levels, etc.).
-        /// </summary>
-        /// <remarks>
-        /// FIXME (priority 6) - this is unsafe as the .race file may have changed since the game was
-        /// generated. Current thinking is that this should be included in the .intel file
-        /// every turn. -- Dan Vale 10 Jan 10.
-        /// </remarks>
-        private static void ProcessRaceDefinition()
-        {
-            string raceFolder = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
-            string raceFileName = Path.Combine(raceFolder, Data.RaceName + Global.RaceExtension);
-            if (File.Exists(raceFileName))
-            {
-                Data.PlayerRace = new Race(raceFileName);
-            }
-            else
-            {
-                Report.FatalError("Unable to locate race definition \"" + raceFileName + "\"");
-            }
-        }
   
+        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine which tech components the player has access too
         /// </summary>
