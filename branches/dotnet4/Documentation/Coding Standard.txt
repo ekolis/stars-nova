@@ -1,0 +1,133 @@
+Things to include in additon to those enforced by StyleCop
+
+INDENTING
+----------
+
+Use Visual Studio defaults for indenting. This can be acheived by cutting an object or function and then pasting it back in (Ctrl-X, Ctrl-v). 
+
+HEADERS
+-------
+
+Header for files with original copyright to Ken:
+
+#region Copyright Notice
+// ============================================================================
+// Copyright (C) 2008 Ken Reed
+// Copyright (C) 2009, 2010 stars-nova
+//
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
+// This module describes ...
+// ===========================================================================
+#endregion
+
+or 
+
+Header for files produced as part of the Stars-Nova project:
+
+#region Copyright Notice
+// ============================================================================
+// Copyright (C) 2009, 2010 The Stars-Nova Project
+//
+// This file is part of Stars! Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
+
+#region Module Description
+// ===========================================================================
+// This module describes ...
+// ===========================================================================
+#endregion
+
+or
+
+Code sourced elsewhere must state clearly in the header the source and licence terms.
+
+
+Regions
+-------
+
+Files should be broken up by #region / #endregion statements. Suggested regions are:
+ - Construction Initialisation Disposal
+ - Event Methods
+ - Interfaces
+ - Operators
+ - Load Save Xml
+ - Utility Methods
+ - Properties
+
+Dividers
+--------
+General comment blocks, function headers:
+/// ----------------------------------------------------------------------------
+
+When a bolder divider is needed:
+// =============================================================================
+
+Event Functions
+---------------
+Event functions should include the following parameter descriptions:
+
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+
+
+When refering to types in function headers, use the 'see cref=""' form:
+
+        /// <param name="star">The <see cref="Star"/> being reported</param>
+
+
+Xml Serialisation Functions 
+---------------------------
+Use this format for function headers:
+
+FromXml() - implemented as an initialising constructor
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Load from XML: Initialising constructor from an XML node.
+        /// </summary>
+        /// <param name="node">An <see cref="XmlNode"/> within 
+        /// a Nova compenent definition file (xml document).
+        /// </param>
+        /// ----------------------------------------------------------------------------
+
+ToXml()
+
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Save: Serialise this property to an <see cref="XmlElement"/>.
+        /// </summary>
+        /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// ----------------------------------------------------------------------------

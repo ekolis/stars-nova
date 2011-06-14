@@ -1,0 +1,292 @@
+Summary of user visible changes in Stars! Nova version 0.4.1
+ (Revision 393, 21 Jun 10.)
+
+General:
+
+ - No backward compatibility with save games from earlier
+   versions. This means that old save games cannot be loaded
+   in this version.
+
+ - Created default races (as close to as currently possible).
+
+
+Launcher:
+
+ - Removed the ability to resize the launcher window.
+
+
+Race Wizard:
+
+ - Lesser racial trait "Cheap Engines" now costs points 
+   instead of granting them.
+
+ - Factory operation 14 and 15 /10k grants now has correct 
+   cost.
+
+ - Added option that techs costing 75% extra starts on
+   level 3/4.
+
+ - Changed order of tabs to: Race, Traits, Environment,
+   Production and Research.
+
+ - Moved "Factories cost 1 less G" to Production tab.
+
+ - Formated primary Racial traits.
+
+
+Game Play Fixes / GUI:
+
+ - Defenses limited to 100.
+
+ - Fuel calculation now include the mass of the ships, not
+   just cargo. (This fix only works for newly created ships
+   and is not a retroactive fix for games in progress.)
+
+ - Way points can now be removed with the delete key (once 
+   selected). The backspace key also (still) works.
+
+ - Fixed a logic error in VictoryCheck that counted unowned 
+   stars as a second player, preventing victory by 
+   extermination from being reported.
+
+ - Reworked the invasion angorithm so invasions now work.
+
+ - Unloading colonists at a star not owned by the fleet now
+   results in invasion (instead of adding the colonists to 
+   the other race's star).
+
+ - Bombing now takes place.
+
+ - Fuel pods and cargo modules now add to the base hull 
+   correctly.
+
+ - Corrected conversions of colonists to 
+   kilotons-of-colonists.
+
+ - Up&Down buttons add to the production queue.
+
+ - It is now possible to replace a component in the ship 
+   designer with another. (Component removal has not yet 
+   been implemented.)
+
+ - Fixed incorrect cost when adding 10x components.
+
+ - Mine field is now displayed at correct size. Mine layers
+   lay mines continuously.
+
+ - Fixed an issue that caused fuel not to be subtracted for
+   legs that took less than 1 whole year/turn.
+
+ - Partial fix to prevent crash when attempting cargo
+   transfer where there is nothing to transfer.
+
+
+Console:
+
+ - Forcing turn generation before any turns are submitted 
+   no longer crashes the console.
+
+
+Component Definitions Fixes:
+
+ - Fixed % chance to hit mines in components.xml.
+
+ - Updated race restrictions form speed trap 20 and orbital 
+   construction module in components.xml
+   
+ - Orbital construction module set to a minimum kill of 2000. 
+   Component editor now accepts minimum kill values up to 
+   10000.
+
+ - Fixes to components.xml by Coyote: race permision, mining 
+   propeties for robo-miners, fixed some images, fixed 
+   engines, all bombs now have the proper kill%, Orbital 
+   Construction Module now has a bomb property.
+
+
+Documentation:
+
+ - Updated the Getting Started Guide with command line 
+   arguments.
+
+ - Replace font-dependent single character copyright symbol 
+   with "(C)" for cross-platform compatibility.
+
+
+AI:
+
+ - Fixed an issue that caused the AI to crash when run from 
+   the command line with incorrect parameters.
+
+ - AI now builds factories/mines/defenses (introduced to aid
+   in testing of bombing.) Confirmed smart bombs do bomb.
+
+
+------------------------------------------------------------
+
+
+Summary of user visible changes in Stars! Nova version 0.4.0 
+Revision 299, 29 May 10.)
+
+General:
+
+ - Improved automatic locating of installed components to reduce 
+ the required user setup.
+
+ - Update all licensing notices.
+
+ - Improved support for mono/linux installations (including 
+ multiple cross platform issues).
+
+ - Fixed a variety of issues causing the game to crash 
+ unexpectedly.
+ 
+ - Added various command line options for launching the game in 
+ different ways:
+          Start Launcher
+            Nova --launch
+          Start New Game wizard
+            Nova --new
+          Start Race Designer
+            Nova --race
+          Start Component Editor
+            Nova --components
+          Start Console
+            Nova --console
+          Start GUI
+            Nova --gui -r <race> -t <turn> -i <intel file> -s <state file>
+          Run AI
+            Nova --ai -r <race> -t <turn> -i <intel file>
+          Display the help screen
+            Nova --help
+
+ - Changed registry root to from Ken Reed's name to Stars-Nova.
+
+ - Merged WinForms projects into one project (Nova) to generate
+ a single exe.
+
+ - Changed remaining .NET 2.0 projects to .NET 3.5.
+ 
+ - Various typographical fixes.
+ 
+ - Files created by Stars! Nova now have more meaningful 
+ extension. Some of the files have been converted from binary
+ serialisations to gzipped xml to improve accessibility by 3rd
+ party applications.
+
+ - Added keyboard accelerators and shortcuts.
+
+
+
+Installer:
+
+ - Added a new windows installer.
+
+
+
+Launcher:
+
+ - Created a NovaLauncher application to act as the 
+ entry/starting point for players
+
+
+
+New Game wizard:
+
+ - Games can be given a name.
+ 
+ - Can now select number of players, player races and AI/Human 
+ control.
+
+ - Added a new map generator with options to control map 
+ generation parameters from the new game wizard.
+ 
+ - Added a .settings file to capture game information determined 
+ from the New Game wizard.
+ 
+ - Added a Tutorial button to the New Game Wizard. (However 
+ there is no tutorial yet.)
+
+
+
+Race Designer:
+
+ - Set initial focus on password text box in Race Designer.
+
+ - Allowed the race files to be stored in a separate directory 
+ to the Game Files.
+ 
+ - Fixes to the Race Designer such that the advantage point 
+ total is correctly updated on loading a race, and all controls 
+ in the race wizard are updated.
+
+ - Fixed problem with Race Designer advantage points not 
+ updating when changing PRT and LRT.
+
+
+
+GUI:
+ - Enabled the transfer cargo dialog by default as it was 
+ sometimes disabled when it should not be.
+
+ - Improve map zoom, scroll and scaling the background image 
+ for non-default maps.
+
+ - Radius of a minefield is now calculated properly.
+
+ - Fleets update which planet they are orbiting when they move.
+
+ - The production dialogue no longer lists the current star 
+ base design as a production option.
+
+ - Corrected the planetary resource calculations.
+
+ - Planet Detail modified to display dock capacity.
+ 
+ - Added starting tech appropriate to PRT & LRTs.
+ 
+ - Modified resource calculation implementation for production 
+ units and order.
+ 
+ - Implemented multi-phase battle movement and fractional battle
+  movement
+ 
+ - Fixed ISB discount bug.
+
+ - Fixed the cheap factory bug so that the 1 kT benefit is only 
+ applied once.
+
+
+
+Console:
+
+ - Improved automation of turn generation.
+ 
+ - Updated layout.
+ 
+ - Double clicking a race now launches the GUI.
+ 
+ - Intel split up per race (still contains 'everything': needs 
+ to be filtered per race).
+
+
+
+AI:
+
+ - Added an AI stub (AI submits turns but takes no actions).
+
+
+
+Documentation:
+
+ - Added "Getting Started" guide to installation and a shortcut
+ to the start menu. Guide is also available on the project wiki
+ from: https://sourceforge.net/apps/mediawiki/stars-nova/index.php?title=Main_Page
+
+
+
+Component Editor:
+
+ - Added a progress dialog for when loading the component 
+ definition file.
+
