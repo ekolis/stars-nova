@@ -70,9 +70,3 @@ using System.Security.Permissions;
 [assembly: ComVisible(false)]
 
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
-
-// Set permission to execute but no other permissions.
-#if (!PocketPC && !Smartphone)
-[assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution = true)]
-#endif
-

@@ -27,10 +27,10 @@
 #endregion
 
 using System;
-using System.Web.Security;
 using System.Windows.Forms;
 
 using Nova.Common;
+using System.Security.Cryptography;
 
 namespace Nova.ControlLibrary
 {
@@ -70,11 +70,8 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void OKButton_Click(object sender, EventArgs e)
         {
-            string enteredPassword = this.password.Text;
+            string newPasswordHash = new PasswordUtility().CalculateHash(this.password.Text);
             string oldPasswordHash = this.raceData.Password;
-
-            string newPasswordHash = FormsAuthentication.
-               HashPasswordForStoringInConfigFile(enteredPassword, "MD5");
 
             if (newPasswordHash != oldPasswordHash)
             {
