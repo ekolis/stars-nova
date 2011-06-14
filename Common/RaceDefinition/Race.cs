@@ -186,6 +186,17 @@ namespace Nova.Common
 
         #endregion
 
+        // Quick and dirty way to clone a race but has the big advantage
+        // of picking up XML changes automagically
+        public Race Clone()
+        {
+            XmlDocument doc = new XmlDocument();
+            XmlElement ele = ToXml(doc);
+            Race ret = new Race();
+            ret.LoadRaceFromXml(ele);
+            return ret;
+        }
+
         #region Load Save Xml
 
         /// <summary>

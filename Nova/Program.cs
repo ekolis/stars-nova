@@ -60,7 +60,7 @@ namespace Nova
                     Application.EnableVisualStyles();
                     Application.SetCompatibleTextRenderingDefault(false);
                     WinForms.NewGameWizard wiz = new WinForms.NewGameWizard();
-                    wiz.Main();
+                    wiz.Run();
                     break;
                 case CommandArguments.Option.AiSwitch:
                     Ai.Program.Main(coreArgs);

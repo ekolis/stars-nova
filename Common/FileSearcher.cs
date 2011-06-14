@@ -54,10 +54,10 @@ namespace Nova.Common
         /// This is done by enumerating the race files present and
         /// loading each race definition.
         /// </summary>
-        /// <returns>An Hashtable containing all the races</returns>
-        public static Dictionary<string, Race> GetAvailableRaces()
+        /// <returns>An List containing all the races (may contain duplicates)</returns>
+        public static List<Race> GetAvailableRaces()
         {
-            Dictionary<string, Race> allRaces = new Dictionary<string, Race>();
+            List<Race> allRaces = new List<Race>();
 
             string raceFolder = GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
             DirectoryInfo directory = new DirectoryInfo(raceFolder);
@@ -72,8 +72,8 @@ namespace Nova.Common
             {
                 foreach (FileInfo file in raceFiles)
                 {
-                    Race race = new Race(file.FullName);
-                    allRaces[race.Name] = race;
+                    Race race = new Race(file.FullName);                    
+                    allRaces.Add( race );  
                 }
             }
             return allRaces;
