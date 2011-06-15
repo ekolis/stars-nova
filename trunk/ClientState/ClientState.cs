@@ -58,7 +58,7 @@ namespace Nova.Client
         public Intel InputTurn = null;
         public Dictionary<string, BattlePlan> BattlePlans = new Dictionary<string, BattlePlan>();
         public Dictionary<string, Design> KnownEnemyDesigns = new Dictionary<string, Design>();
-        public Dictionary<string, string> PlayerRelations = new Dictionary<string, string>();
+        public Dictionary<string, PlayerRelation> PlayerRelations = new Dictionary<string, PlayerRelation>();
         public Dictionary<string, StarReport> StarReports = new Dictionary<string, StarReport>();
         public RaceComponents AvailableComponents = null;
         public List<Fleet> PlayerFleets = new List<Fleet>();
@@ -326,7 +326,7 @@ namespace Nova.Client
             {
                 foreach (string raceName in ClientState.Data.InputTurn.AllRaceNames)
                 {
-                    ClientState.Data.PlayerRelations[raceName] = "Neutral";
+                    ClientState.Data.PlayerRelations[raceName] = PlayerRelation.Neutral;
                 }
             }
             
