@@ -73,7 +73,7 @@ namespace Nova.Common
                 foreach (FileInfo file in raceFiles)
                 {
                     Race race = new Race(file.FullName);                    
-                    allRaces.Add( race );  
+                    allRaces.Add(race);  
                 }
             }
             return allRaces;
