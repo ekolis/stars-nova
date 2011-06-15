@@ -94,11 +94,11 @@ namespace Nova.WinForms.Console
                 stateData.AllMessages.Add(message);
                 return;
             }
-            string relation = stateData.AllRaceData[fleet.Owner].PlayerRelations[star.Owner];
+            PlayerRelation relation = stateData.AllRaceData[fleet.Owner].PlayerRelations[star.Owner];
             switch (relation)
             {
-                case "Friend":
-                case "Neutral":
+                case PlayerRelation.Friend:
+                case PlayerRelation.Neutral:
                     {
                         Message message = new Message();
                         message.Audience = fleet.Owner;
@@ -108,7 +108,7 @@ namespace Nova.WinForms.Console
                         stateData.AllMessages.Add(message);
                         return;
                     }
-                case "Enemy":
+                case PlayerRelation.Enemy:
                     {
                         // continue with the invasion
                         break;

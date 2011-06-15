@@ -2,7 +2,7 @@
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
 // Copyright (C) 2009, 2010 stars-nova
-//
+#endregion
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
 //
@@ -18,7 +18,7 @@
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
 // ===========================================================================
-#endregion
+
 
 #region Module Description
 // ===========================================================================
@@ -36,6 +36,13 @@ namespace Nova.Common
     using System.Xml;
     #endregion
 
+    public enum PlayerRelation
+    {
+        Enemy,
+        Neutral,
+        Friend
+    }
+
     [Serializable]
     public class RaceData
     {
@@ -44,9 +51,10 @@ namespace Nova.Common
         public TechLevel ResearchLevels = new TechLevel(); // current level of technology
         public TechLevel ResearchResources = new TechLevel(); // current cumulative resources on research
         public TechLevel ResearchTopics = new TechLevel(); // order or research
-        public TechLevel ResearchLevelsGained = new TechLevel(); // research level increases, reset per turn.
-        public Dictionary<string, string> PlayerRelations = new Dictionary<string, string>();
+        public TechLevel ResearchLevelsGained = new TechLevel(); // research level increases, reset per turn.        
+        public Dictionary<string, PlayerRelation> PlayerRelations = new Dictionary<string, PlayerRelation>();
         public Dictionary<string, BattlePlan> BattlePlans = new Dictionary<string, BattlePlan>();
+        
 
         /// <summary>
         /// default constructor
@@ -62,14 +70,7 @@ namespace Nova.Common
         /// <returns>true if lamb is one of this race's enemies, otherwise false.</returns>
         public bool IsEnemy(string lamb)
         {
-            if (PlayerRelations[lamb] == "Enemy")
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
+            return PlayerRelations[lamb] == PlayerRelation.Enemy;
         }
 
         #region Load Save Xml
@@ -109,12 +110,15 @@ namespace Nova.Common
                             {
                                 string key = ((XmlText)subnode.SelectSingleNode("Race").FirstChild).Value;
                                 string value = ((XmlText)subnode.SelectSingleNode("Status").FirstChild).Value;
-                                PlayerRelations.Add(key, value);
+                                PlayerRelation rel = value.Equals("Enemy", StringComparison.InvariantCultureIgnoreCase) ? PlayerRelation.Enemy :
+                                                     value.Equals("Friend", StringComparison.InvariantCultureIgnoreCase) ? PlayerRelation.Friend :
+                                                     PlayerRelation.Neutral;
+                                PlayerRelations.Add(key, rel);
                                 break;
                             }
                         case "battleplan":
                             BattlePlan plan = new BattlePlan(subnode);
-                            BattlePlans.Add(plan.Name, plan);
+                            BattlePlans[plan.Name] = plan;
                             break;
                     }
                 }
@@ -122,6 +126,11 @@ namespace Nova.Common
                 {
                     // ignore incomplete or unset values
                 }
+
+                // If no orders have ever been turned in then ensure battle plans contain at least the default
+                if (BattlePlans.Count == 0)
+                    BattlePlans.Add("Default", new BattlePlan());
+
                 subnode = subnode.NextSibling;
             }
         }
@@ -146,7 +155,14 @@ namespace Nova.Common
             {
                 XmlElement xmlelRelation = xmldoc.CreateElement("Relation");
                 Global.SaveData(xmldoc, xmlelRelation, "Race", key);
-                Global.SaveData(xmldoc, xmlelRelation, "Status", PlayerRelations[key]);
+                string rel;
+                switch( PlayerRelations[key])
+                {
+                    case PlayerRelation.Enemy: rel = "Enemy"; break;
+                    case PlayerRelation.Friend: rel = "Friend"; break;
+                    default: rel = "Neutral"; break;
+                }
+                Global.SaveData(xmldoc, xmlelRelation, "Status", rel);
                 xmlelRaceData.AppendChild(xmlelRelation);
             }
             foreach (string key in BattlePlans.Keys)

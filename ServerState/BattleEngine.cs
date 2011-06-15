@@ -479,7 +479,7 @@ namespace Nova.WinForms.Console
             }
 
             RaceData wolfData = stateData.AllRaceData[wolf.Owner];
-            string lambRelation = wolfData.PlayerRelations[lamb.Owner];
+            PlayerRelation lambRelation = wolfData.PlayerRelations[lamb.Owner];
 
             BattlePlan battlePlan = wolfData.BattlePlans[wolf.BattlePlan];
 
@@ -493,7 +493,7 @@ namespace Nova.WinForms.Console
             {
                 return true;
             }
-            else if (attackTarget == "Enemies" && lambRelation == "Enemy")
+            else if (attackTarget == "Enemies" && lambRelation == PlayerRelation.Enemy)
             {
                 return true;
             }
