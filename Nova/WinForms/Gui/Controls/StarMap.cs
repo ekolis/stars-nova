@@ -1120,9 +1120,6 @@ namespace Nova.WinForms.Gui
             click.Y = e.Y;
             position = DeviceToLogical(click);
 
-            SetCursor(position);
-            this.MapPanel.Refresh();
-
             List<SortableItem> nearObjects = FindNearObjects(position);
             if (nearObjects.Count == 0)
             {
@@ -1149,8 +1146,9 @@ namespace Nova.WinForms.Gui
 
             this.lastClick = click;
             SortableItem selected = nearObjects[this.selection];
-            Item item = selected.Target;
-            this.cursorPosition = item.Position;          
+            Item item = selected.Target;        
+
+            SetCursor(item.Position);
    
             // Build an object to hold data.
             SelectionArgs selectionArgs = new SelectionArgs(item);
