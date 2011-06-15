@@ -674,27 +674,34 @@ namespace Nova.WinForms.Console
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void ConsoleTimer_Tick(object sender, EventArgs e)
         {
-            // debug - commented this out as console is searching for files each time the timer goes off
-            // ServerState.Data.AllRaces = FileSearcher.GetAvailableRaces();
+            // Don't want multiple ticks
+            consoleTimer.Enabled = false;
 
-            // TODO (priority 4) - reading all the .orders files is overkill. Only really want to read orders for races that aren't turned in yet, and only if they have changed.
-            OrderReader orderReader = new OrderReader(stateData);
-            stateData = orderReader.ReadOrders();
-
-            if (SetPlayerList())
+            try
             {
-                generateTurnMenuItem.Enabled = true;
-                if (autoGenerateCheckBox.Checked)
+                // TODO (priority 4) - reading all the .orders files is overkill. Only really want to read orders for races that aren't turned in yet, and only if they have changed.
+                OrderReader orderReader = new OrderReader(stateData);
+                stateData = orderReader.ReadOrders();
+
+                if (SetPlayerList())
                 {
-                    GenerateTurn();
+                    generateTurnMenuItem.Enabled = true;
+                    if (autoGenerateCheckBox.Checked)
+                    {
+                        GenerateTurn();
+                    }
+                }
+                else
+                {
+                    if (runAiCheckBox.Checked)
+                    {
+                        RunAI();
+                    }
                 }
             }
-            else
+            finally
             {
-                if (runAiCheckBox.Checked)
-                {
-                    RunAI();
-                }
+                consoleTimer.Enabled = true;
             }
         }
 

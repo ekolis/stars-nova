@@ -35,6 +35,7 @@ namespace Nova.WinForms.Gui
     using System.Windows.Forms;
 
     using Nova.Client;
+    using Nova.Common;
 
     /// <Summary>
     /// This module holds the program entry Point and handles all things related to
@@ -45,7 +46,7 @@ namespace Nova.WinForms.Gui
     /// </remarks>
     public partial class PlayerRelations : Form
     {
-        private readonly Dictionary<string, string> relation = ClientState.Data.PlayerRelations;
+        private readonly Dictionary<string, PlayerRelation> relation = ClientState.Data.PlayerRelations;
 
         #region Construction
 
@@ -93,11 +94,11 @@ namespace Nova.WinForms.Gui
         {
             string selectedRace = this.raceList.SelectedItem as string;
 
-            if (this.relation[selectedRace] == "Enemy")
+            if (this.relation[selectedRace] == PlayerRelation.Enemy)
             {
                 this.enemyButton.Checked = true;
             }
-            else if (this.relation[selectedRace] == "Neutral")
+            else if (this.relation[selectedRace] == PlayerRelation.Enemy)
             {
                 this.neutralButton.Checked = true;
             }
@@ -116,7 +117,9 @@ namespace Nova.WinForms.Gui
         {
             string selectedRace = this.raceList.SelectedItem as string;
             RadioButton button = sender as RadioButton;
-            this.relation[selectedRace] = button.Text;
+            relation[selectedRace] = enemyButton.Checked ? PlayerRelation.Enemy :
+                friendButton.Checked ? PlayerRelation.Friend :
+                PlayerRelation.Neutral;
         }
 
         #endregion

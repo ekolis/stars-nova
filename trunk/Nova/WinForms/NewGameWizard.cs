@@ -180,17 +180,28 @@ namespace Nova.WinForms
                         settings.RaceName = AddKnownRace(KnownRaces[settings.RaceName].Clone());
                     }
 
+                    // Initialize clean data for them. 
+                    RaceData raceData = new RaceData();
+                    stateData.AllRaceData[settings.RaceName] = raceData;
+                    raceData.BattlePlans.Add("Default", new BattlePlan());
 
                     stateData.AllRaces.Add(settings.RaceName, KnownRaces[settings.RaceName]);
-
-                    // Initialize clean data for them
-                    stateData.AllRaceData[settings.RaceName] = new RaceData();
 
                     // Add initial state to the intel files.
                     ProcessPrimaryTraits(KnownRaces[settings.RaceName]);
                     ProcessSecondaryTraits(KnownRaces[settings.RaceName]);
                 }
-                
+
+                foreach (PlayerSettings settings in stateData.AllPlayers)
+                {
+                    // Create initial relations as the race names may change
+                    foreach (PlayerSettings playerSettings in stateData.AllPlayers)
+                    {
+                        stateData.AllRaceData[settings.RaceName].PlayerRelations[playerSettings.RaceName] = PlayerRelation.Enemy;
+                    }
+                  
+                }
+
                 StarMapInitialiser starMapInitialiser = new StarMapInitialiser(stateData);
                 starMapInitialiser.GenerateStars();
 
@@ -838,7 +849,7 @@ namespace Nova.WinForms
 
         private class RaceNameGenerator
         {
-                        /// ----------------------------------------------------------------------------
+            /// ----------------------------------------------------------------------------
             /// <summary>
             /// The list of race names we can return. Taken from Stars!.exe. May need changing?
             /// </summary>

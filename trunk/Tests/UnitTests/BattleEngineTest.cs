@@ -196,11 +196,11 @@ namespace Nova.Tests.UnitTests
         {
             RaceData raceData = new RaceData();
 
-            raceData.PlayerRelations["Dick"] = "Enemy";
+            raceData.PlayerRelations["Dick"] = PlayerRelation.Enemy;
             raceData.BattlePlans["Default"] = new BattlePlan();
             stateData.AllRaceData["Tom"] = raceData;
 
-            raceData.PlayerRelations["Tom"] = "Enemy";
+            raceData.PlayerRelations["Tom"] = PlayerRelation.Enemy;
             stateData.AllRaceData["Dick"] = raceData;
 
             int numberOfTargets = battleEngine.SelectTargets(zoneStacks);
