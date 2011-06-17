@@ -42,63 +42,7 @@ namespace Nova.WinForms.Gui
     using Nova.Common.DataStructures;
     #endregion
     
-    #region Delegates
-    
-    /// <Summary>
-    /// This is the hook to listen for a request for selection Detail.
-    /// Objects who subscribe to this should return an Item corresponding
-    /// to the currently selected Item (Fleet, Star, etc).
-    /// </Summary>
-    public delegate Item RequestSelection();
-    
-    /// <Summary>
-    /// This is the hook to listen for changes in the cursor on the map.
-    /// Objects who subscribe to this should respond to the cursor
-    /// position change by using the CursorArgs supplied which holds
-    /// the updated cursor position.
-    /// </Summary>
-    public delegate void CursorChanged(object sender, CursorArgs e);
-    
-    /// <Summary>
-    /// This is the hook to listen for changes on the selected object.
-    /// Objects who subscribe to this should respond to the new selection
-    /// by using the SelectionArgs supplied which holds the updated
-    /// selection data.
-    /// </Summary>
-    public delegate void SelectionChanged(object sender, SelectionArgs e);
-    
-    /// <Summary>
-    /// This is the hook to listen for changes on WayPoints.
-    /// </Summary>
-    public delegate void WaypointChanged(object sender);
-    #endregion
-    
-    /// <Summary>
-    /// Holds data related to the current cursor position
-    /// </Summary>
-    public class CursorArgs : System.EventArgs
-    {
-        public Point Point;
-        
-        public CursorArgs(Point point)
-        {
-            this.Point = point;
-        }
-    }
-    
-    /// <Summary>
-    /// Holds data related to the current selection. 
-    /// </Summary>
-    public class SelectionArgs : System.EventArgs
-    {
-        public Item Item;
-        
-        public SelectionArgs(Item item)
-        {
-            this.Item = item;
-        }
-    }
-    
+
     /// <Summary>
     /// StarMap is the control which holds the actual playing map. 
     /// </Summary>
@@ -126,18 +70,30 @@ namespace Nova.WinForms.Gui
         
         private readonly Point[] triangle = 
         { 
-            new Point(0, 0), 
-            new Point(-5, -10),
-            new Point(5, -10) 
+            new Point(0, 5), 
+            new Point(-5, -5),
+            new Point(5, -5) 
         };
 
+        private readonly Point[] cursorShape = 
+        { 
+            new Point(0, 0), 
+            new Point(-5, -12),
+            new Point(0, -9),
+            new Point(5, -12) 
+        };
+
+        private class MyGfx
+        {
+            public Graphics Graphics;
+        }
         #region Variables
         private readonly Bitmap cursorBitmap;
         private readonly Dictionary<string, Fleet> visibleFleets = new Dictionary<string, Fleet>();
         private readonly Dictionary<string, Minefield> visibleMinefields = new Dictionary<string, Minefield>();
         private readonly Font nameFont;
-        private readonly BufferedGraphicsContext bufferedContext;
-        private BufferedGraphics grafx; // This is the buffered graphic object.
+        
+        private MyGfx grafx; // This is the buffered graphic object.
         private Intel turnData;
         private ClientState stateData;
         private NovaPoint cursorPosition = new Point(0, 0);
@@ -167,8 +123,6 @@ namespace Nova.WinForms.Gui
             // We need to handle the resize properly.
             this.Resize += new EventHandler(this.OnResize);
             
-            this.bufferedContext = BufferedGraphicsManager.Current;                       
-
             InitializeComponent();
             
             GameSettings.Restore();
@@ -183,13 +137,7 @@ namespace Nova.WinForms.Gui
             this.cursorBitmap = Nova.Properties.Resources.Cursor;
             this.cursorBitmap.MakeTransparent(Color.Black);
 
-            this.nameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);            
-   
-            // This allocates the initial drawing buffered area.
-            this.bufferedContext.MaximumBuffer = new Size(this.MapPanel.Size.Width + 1, this.MapPanel.Size.Height + 1);
-            this.grafx = this.bufferedContext.Allocate(
-                this.MapPanel.CreateGraphics(), 
-                new Rectangle(0, 0, this.MapPanel.Size.Width, this.MapPanel.Size.Height));
+            this.nameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);                        
         }
 
 
@@ -362,28 +310,15 @@ namespace Nova.WinForms.Gui
                 DrawOrbitingFleets(star);
             }
 
-            NovaPoint position;
-            foreach (Fleet fleet in this.stateData.PlayerFleets)
-            {
-                if (fleet.InOrbit != null)
-                {
-                    position = LogicalToDevice(fleet.Position);
-                    int size = 10;
-                    grafx.Graphics.DrawEllipse(
-                        Pens.White,
-                        position.X - (size / 2),
-                        position.Y - (size / 2),
-                        size,
-                        size);
-                }
-            }
-
             // (6) Cursor.
 
-            position = LogicalToDevice(this.cursorPosition);
-            position.X -= (this.cursorBitmap.Width / 2) + 1;
-            position.Y += 2;
-            grafx.Graphics.DrawImage(this.cursorBitmap, (Point)position);
+            NovaPoint position = LogicalToDevice(this.cursorPosition);          
+            position.Y += 5;
+            grafx.Graphics.TranslateTransform(position.X, position.Y);
+            grafx.Graphics.RotateTransform(180f);
+            grafx.Graphics.FillPolygon(Brushes.Yellow, cursorShape );
+            grafx.Graphics.ResetTransform();
+            //grafx.Graphics.DrawImage(this.cursorBitmap, (Point)position);
 
             // (7) Zoom/Scroll/Cursor info for debugging.
 #if (DEBUG)
@@ -414,9 +349,11 @@ namespace Nova.WinForms.Gui
         private void OnPaint(object sender, PaintEventArgs e)
         {      
             base.OnPaint(e);
-            
+            e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
+            grafx = new MyGfx() {Graphics = e.Graphics};
+            DrawEverything();
             // Here we render from the previously drawn buffer.
-            grafx.Render(e.Graphics);
+            //grafx.Render(e.Graphics);
         }
 
 
@@ -523,7 +460,7 @@ namespace Nova.WinForms.Gui
             StarReport report;
             stateData.StarReports.TryGetValue(star.Name, out report);
             NovaPoint position = LogicalToDevice(star.Position);
-            int size = 1;
+            int size = 2;
             Brush starBrush = Brushes.White;
             string owner = "?";
 
@@ -531,7 +468,7 @@ namespace Nova.WinForms.Gui
 
             if (report != null)
             {
-                size = 2;
+                size = 4;
                 owner = report.Owner;
             }
 
@@ -557,8 +494,8 @@ namespace Nova.WinForms.Gui
             if (this.displayStarNames)
             {
                 StringFormat format = new StringFormat();
-                format.Alignment = StringAlignment.Center;
-                grafx.Graphics.DrawString(star.Name, this.nameFont, Brushes.White, (Point)position, format);
+                format.Alignment = StringAlignment.Center;               
+                grafx.Graphics.DrawString(star.Name, this.nameFont, Brushes.White, position.X, position.Y + 5, format);
             }
         }
 
@@ -575,8 +512,7 @@ namespace Nova.WinForms.Gui
             StarReport report;
             stateData.StarReports.TryGetValue(star.Name, out report);
             NovaPoint position = LogicalToDevice(star.Position);
-            int size = 16;
-
+            
             if (report == null)
             {
                 return;
@@ -584,17 +520,17 @@ namespace Nova.WinForms.Gui
 
             if (report.Starbase != null)
             {
-                grafx.Graphics.DrawEllipse(
-                    Pens.White,
-                    position.X - (size / 2),
-                    position.Y - (size / 2),
-                    size,
-                    size);
+                grafx.Graphics.FillEllipse(
+                    Brushes.Yellow,
+                    position.X + 6,
+                    position.Y - 6,
+                    4,
+                    4);
             }
 
             if (report.Age == 0 && report.OrbitingFleets)
             {
-                size = 10;
+                int size = 12;
                 grafx.Graphics.DrawEllipse(
                     Pens.White,
                     position.X - (size / 2),
@@ -952,18 +888,18 @@ namespace Nova.WinForms.Gui
         
         private void OnResize(object sender, EventArgs e)
         {
-            // Re-create the graphics buffer for a new window size.
-            this.bufferedContext.MaximumBuffer = new Size(this.MapPanel.Size.Width + 1, this.MapPanel.Size.Height + 1);
-            if (this.grafx != null)
-            {
-                this.grafx.Dispose();
-                this.grafx = null;               
-            }
-            this.grafx = bufferedContext.Allocate(
-                this.MapPanel.CreateGraphics(), 
-                new Rectangle(0, 0, this.MapPanel.Size.Width, this.MapPanel.Size.Height));
+            //// Re-create the graphics buffer for a new window size.
+            //this.bufferedContext.MaximumBuffer = new Size(this.MapPanel.Size.Width + 1, this.MapPanel.Size.Height + 1);
+            //if (this.grafx != null)
+            //{
+            //    this.grafx.Dispose();
+            //    this.grafx = null;               
+            //}
+            //this.grafx = bufferedContext.Allocate(
+            //    this.MapPanel.CreateGraphics(), 
+            //    new Rectangle(0, 0, this.MapPanel.Size.Width, this.MapPanel.Size.Height));
            
-            this.RefreshStarMap();
+            //this.RefreshStarMap();
         }    
         
         #endregion
@@ -1322,12 +1258,13 @@ namespace Nova.WinForms.Gui
         
         public void RefreshStarMap()
         {
-            this.DrawEverything();
+            //this.DrawEverything();
             // Invalidate or Refresh?
-            this.MapPanel.Refresh();
+            //this.MapPanel.Refresh();
+            this.MapPanel.Invalidate();
         }
         
         #endregion
-        
+
     }
 }
