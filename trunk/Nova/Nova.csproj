@@ -131,6 +131,7 @@
       <DependentUpon>RaceRestrictionDialog.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\ComponentEditor\Program.cs" />
+    <Compile Include="WinForms\Gui\Controls\Events.cs" />
     <Compile Include="WinForms\NovaConsole.cs">
       <SubType>Form</SubType>
     </Compile>
