@@ -54,36 +54,31 @@ namespace Nova.WinForms.Gui
           this.MapPanel.Name = "MapPanel";
           this.MapPanel.Size = new System.Drawing.Size(535, 620);
           this.MapPanel.TabIndex = 6;
-          this.MapPanel.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
           this.MapPanel.MouseDown += new System.Windows.Forms.MouseEventHandler(this.StarMapMouse);
           // 
-          // VScrollBar
+          // verticalScrollBar
           // 
           this.verticalScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                       | System.Windows.Forms.AnchorStyles.Right)));
           this.verticalScrollBar.Enabled = false;
-          this.verticalScrollBar.LargeChange = 1;
           this.verticalScrollBar.Location = new System.Drawing.Point(537, 32);
           this.verticalScrollBar.Name = "verticalScrollBar";
           this.verticalScrollBar.Size = new System.Drawing.Size(16, 611);
           this.verticalScrollBar.TabIndex = 5;
-          this.verticalScrollBar.Value = 50;
           this.verticalScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.MapScrollV);
           // 
-          // HScrollBar
+          // horizontalScrollBar
           // 
           this.horizontalScrollBar.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
           this.horizontalScrollBar.Enabled = false;
-          this.horizontalScrollBar.LargeChange = 1;
           this.horizontalScrollBar.Location = new System.Drawing.Point(3, 652);
           this.horizontalScrollBar.Name = "horizontalScrollBar";
           this.horizontalScrollBar.Size = new System.Drawing.Size(533, 16);
           this.horizontalScrollBar.TabIndex = 3;
-          this.horizontalScrollBar.Value = 50;
           this.horizontalScrollBar.Scroll += new System.Windows.Forms.ScrollEventHandler(this.MapScrollH);
           // 
-          // ZoomIn
+          // zoomIn
           // 
           this.zoomIn.FlatStyle = System.Windows.Forms.FlatStyle.System;
           this.zoomIn.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -96,7 +91,7 @@ namespace Nova.WinForms.Gui
           this.toolTip1.SetToolTip(this.zoomIn, "Zoom In\r\n");
           this.zoomIn.Click += new System.EventHandler(this.ZoomInClick);
           // 
-          // ZoomOut
+          // zoomOut
           // 
           this.zoomOut.FlatStyle = System.Windows.Forms.FlatStyle.System;
           this.zoomOut.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -109,7 +104,7 @@ namespace Nova.WinForms.Gui
           this.toolTip1.SetToolTip(this.zoomOut, "Zoom Out");
           this.zoomOut.Click += new System.EventHandler(this.ZoomOutClick);
           // 
-          // ToggleNames
+          // toggleNames
           // 
           this.toggleNames.Appearance = System.Windows.Forms.Appearance.Button;
           this.toggleNames.Checked = true;
@@ -124,7 +119,7 @@ namespace Nova.WinForms.Gui
           this.toggleNames.UseVisualStyleBackColor = true;
           this.toggleNames.CheckedChanged += new System.EventHandler(this.ToggleNames_CheckedChanged);
           // 
-          // ToggleBackground
+          // toggleBackground
           // 
           this.toggleBackground.Appearance = System.Windows.Forms.Appearance.Button;
           this.toggleBackground.Checked = true;
@@ -139,11 +134,9 @@ namespace Nova.WinForms.Gui
           this.toggleBackground.UseVisualStyleBackColor = true;
           this.toggleBackground.CheckedChanged += new System.EventHandler(this.ToggleBackground_CheckedChanged);
           // 
-          // ToggleBorders
+          // toggleBorders
           // 
           this.toggleBorders.Appearance = System.Windows.Forms.Appearance.Button;
-          this.toggleBorders.Checked = false;
-          this.toggleBorders.CheckState = System.Windows.Forms.CheckState.Unchecked;
           this.toggleBorders.Location = new System.Drawing.Point(152, 4);
           this.toggleBorders.Name = "toggleBorders";
           this.toggleBorders.Size = new System.Drawing.Size(32, 24);
