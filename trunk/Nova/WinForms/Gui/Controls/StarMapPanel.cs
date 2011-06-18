@@ -33,28 +33,5 @@ namespace Nova.WinForms.Gui
             SetStyle(System.Windows.Forms.ControlStyles.OptimizedDoubleBuffer, true);
             UpdateStyles();    
         }    
-        /*public override bool PreProcessMessage(ref System.Windows.Forms.Message msg)
-      {
-         const int WM_ERASEBKGND = 0x3c;
-         //int i = 10;
-         if (msg.Msg == WM_ERASEBKGND)
-         {
-            base.PreProcessMessage(ref msg);
-            return true;
-         }
-         base.PreProcessMessage(ref msg);
-         return true;
-      }*/
-
-        protected override void WndProc(ref System.Windows.Forms.Message m)
-        {
-            const int WM_ERASEBKGND = 0x14;
-            if (m.Msg == WM_ERASEBKGND)
-            {
-                // do nothing...
-                return;
-            }
-            base.WndProc(ref m);
-        } 
     }
 }
