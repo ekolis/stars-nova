@@ -84,10 +84,7 @@ namespace Nova.WinForms.Gui
             new Point(5, -12) 
         };
 
-        private class MyGfx
-        {
-            public Graphics Graphics;
-        }
+
         #region Variables
         private readonly Bitmap cursorBitmap;
         private readonly Dictionary<string, Fleet> visibleFleets = new Dictionary<string, Fleet>();
@@ -112,6 +109,9 @@ namespace Nova.WinForms.Gui
         private bool displayBorders = false;
         
         private int selection;
+        private const double MIN_ZOOM = 0.2;
+        private const double MAX_ZOOM = 5;
+
         #endregion
 
 
@@ -124,9 +124,10 @@ namespace Nova.WinForms.Gui
         {            
             InitializeComponent();
 
-            Resize += delegate { SetZoom(); };
+            MouseWheel += StarMap_MouseWheel;
+            Resize += delegate { Zoom(); };
 
-            this.MapPanel.Paint += new PaintEventHandler(MapPanel_Paint);
+            this.MapPanel.Paint += MapPanel_Paint;
             
             GameSettings.Restore();
 
@@ -142,6 +143,7 @@ namespace Nova.WinForms.Gui
 
             this.nameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);                        
         }
+
 
         void MapPanel_Paint(object sender, PaintEventArgs e)
         {
@@ -173,7 +175,7 @@ namespace Nova.WinForms.Gui
             
             float size = Math.Min(this.Size.Height, this.Size.Width);
             this.zoomFactor = 1.0;
-            SetZoom();
+            Zoom();
         }
 
         #endregion
@@ -338,7 +340,7 @@ namespace Nova.WinForms.Gui
         [Conditional("DEBUG")]
         private void DrawDebugInfo(Graphics g)
         {
-
+            g.ResetClip();
             Font font = this.Font;
 
             Color coordColour = Color.FromArgb(255, 255, 255, 0);
@@ -715,7 +717,17 @@ namespace Nova.WinForms.Gui
 
             return result;
         }
-    
+
+
+        private NovaPoint LogicalToExtent(NovaPoint p)
+        {
+            NovaPoint result = new NovaPoint();
+
+            result.X = (int) (p.X*zoomFactor);
+            result.Y = (int) (p.Y*zoomFactor);
+
+            return result;
+        }
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -747,11 +759,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void ZoomInClick(object sender, System.EventArgs e)
         {
-            this.zoomFactor *= 1.4;
-            this.zoomFactor = Math.Min(4, this.zoomFactor);
-            this.zoomIn.Enabled = zoomFactor < 4;
-            this.zoomOut.Enabled = true;
-            SetZoom();
+            Zoom( 1.4 );
         }
 
 
@@ -764,40 +772,42 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void ZoomOutClick(object sender, System.EventArgs e)
         {
-            this.zoomFactor /= 1.4;
-            this.zoomFactor = Math.Max(0.5, this.zoomFactor);
-            this.zoomOut.Enabled = zoomFactor > 0.5;
-            this.zoomIn.Enabled = true;
-            SetZoom();
+            Zoom( 1 / 1.4 );
         }
 
+
+        /// <summary>
+        /// Handle zooming via the mousewheel
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        void StarMap_MouseWheel(object sender, MouseEventArgs e)
+        {
+            double zoomChange = 1 + (Math.Sign(e.Delta)) * 0.15;            
+            Zoom(zoomChange, DeviceToLogical(new NovaPoint(e.X, e.Y) ) );
+        }
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Zoom in or out of the Star map.
         /// </Summary>
         /// ----------------------------------------------------------------------------
-        private void SetZoom()
+        private void Zoom( double delta = 1.0, NovaPoint zoomCenter = null )
         {
+            NovaPoint centerDisplay = new NovaPoint(MapPanel.Width / 2 , MapPanel.Height / 2);
+            if (System.Object.ReferenceEquals(zoomCenter, null))
+                zoomCenter = DeviceToLogical(centerDisplay);
+            else
+                centerDisplay = LogicalToDevice(zoomCenter);
+
+            zoomFactor *= delta;
+            this.zoomFactor = Math.Max(MIN_ZOOM, this.zoomFactor);
+            this.zoomFactor = Math.Min(MAX_ZOOM, this.zoomFactor);
+            this.zoomOut.Enabled = zoomFactor > MIN_ZOOM;
+            this.zoomIn.Enabled = zoomFactor < MAX_ZOOM;
+
             this.extent.X = (int)(this.logical.X * this.zoomFactor);
             this.extent.Y = (int)(this.logical.Y * this.zoomFactor);
-
-
-            double oldMax = horizontalScrollBar.Maximum;
-            this.horizontalScrollBar.Maximum = Math.Max(0, (extent.X - MapPanel.Width));
-            if (oldMax == 0)
-                horizontalScrollBar.Value = 0;
-            else
-                horizontalScrollBar.Value = (int)(horizontalScrollBar.Value/oldMax*horizontalScrollBar.Maximum);
-            scrollOffset.X = horizontalScrollBar.Value;
-
-            oldMax = verticalScrollBar.Maximum;
-            this.verticalScrollBar.Maximum = Math.Max(0, extent.Y - MapPanel.Height);
-            if (oldMax == 0)
-                verticalScrollBar.Value = 0;
-            else
-                verticalScrollBar.Value = (int)(verticalScrollBar.Value/oldMax*verticalScrollBar.Maximum);
-            scrollOffset.Y = verticalScrollBar.Value;
 
             // In the case where the Map Panel is bigger than what we want to display (i.e. extent)
             // then we add an offset to center the displayed map inside the panel
@@ -805,9 +815,42 @@ namespace Nova.WinForms.Gui
             displayOffset.X = Math.Max((MapPanel.Width - extent.X) / 2, 0);
             displayOffset.Y = Math.Max((MapPanel.Height - extent.Y) / 2, 0);
 
+            this.verticalScrollBar.Maximum = Math.Max(0, extent.Y - MapPanel.Height);
+            this.horizontalScrollBar.Maximum = Math.Max(0, (extent.X - MapPanel.Width));
+
+            // Try and recenter the center point displayed point;
+
+            NovaPoint newCenterDisplay = LogicalToExtent(zoomCenter);
+
+            scrollOffset.X = Math.Min(horizontalScrollBar.Maximum, Math.Max(0, newCenterDisplay.X - centerDisplay.X));
+            scrollOffset.Y = Math.Min(verticalScrollBar.Maximum, Math.Max(0, newCenterDisplay.Y - centerDisplay.Y));
+
+            horizontalScrollBar.Value = scrollOffset.X;
+            verticalScrollBar.Value = scrollOffset.Y;
+
+            //double oldMax = horizontalScrollBar.Maximum;
+            
+            //if (oldMax == 0)
+            //    horizontalScrollBar.Value = 0;
+            //else
+            //    horizontalScrollBar.Value = (int)(horizontalScrollBar.Value/oldMax*horizontalScrollBar.Maximum);
+            //scrollOffset.X = horizontalScrollBar.Value;
+
+            //oldMax = verticalScrollBar.Maximum;
+            
+            //if (oldMax == 0)
+            //    verticalScrollBar.Value = 0;
+            //else
+            //    verticalScrollBar.Value = (int)(verticalScrollBar.Value/oldMax*verticalScrollBar.Maximum);
+            //scrollOffset.Y = verticalScrollBar.Value;);
+
+
+
             this.RefreshStarMap();
 
         }
+
+
         #endregion
 
         #region Scroll
@@ -1055,7 +1098,7 @@ namespace Nova.WinForms.Gui
             MapPanel.VerticalScroll.Value = Hscroll;
             MapPanel.HorizontalScroll.Value = Vscroll;
             
-            SetZoom();
+            Zoom();
             */
             this.RefreshStarMap();
         }
@@ -1196,6 +1239,8 @@ namespace Nova.WinForms.Gui
         }
         
         #endregion
+
+        
 
     }
 }
