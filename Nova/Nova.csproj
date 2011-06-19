@@ -132,6 +132,12 @@
     </Compile>
     <Compile Include="WinForms\ComponentEditor\Program.cs" />
     <Compile Include="WinForms\Gui\Controls\Events.cs" />
+    <Compile Include="WinForms\Gui\Controls\FleetDetail.Designer.cs">
+      <DependentUpon>FleetDetail.cs</DependentUpon>
+    </Compile>
+    <Compile Include="WinForms\Gui\Controls\PlanetDetail.Designer.cs">
+      <DependentUpon>PlanetDetail.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\Gui\NovaGui.Designer.cs">
       <DependentUpon>NovaGUI.cs</DependentUpon>
     </Compile>

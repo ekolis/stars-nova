@@ -100,23 +100,24 @@ namespace Nova.ControlLibrary
             this.bar = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
-            // Bar
+            // bar
             // 
             this.bar.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.bar.Location = new System.Drawing.Point(0, 0);
             this.bar.Name = "bar";
-            this.bar.Size = new System.Drawing.Size(152, 16);
+            this.bar.Size = new System.Drawing.Size(150, 14);
             this.bar.TabIndex = 0;
             this.bar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.bar.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             // 
             // Gauge
             // 
+            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.bar);
             this.Name = "Gauge";
-            this.Size = new System.Drawing.Size(152, 16);
+            this.Size = new System.Drawing.Size(150, 14);
             this.ResumeLayout(false);
 
         }

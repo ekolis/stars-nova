@@ -27,7 +27,7 @@
 #endregion
 
 using System;
-
+using System.ComponentModel;
 using Nova.Common;
 
 namespace Nova.ControlLibrary
@@ -233,6 +233,7 @@ namespace Nova.ControlLibrary
         /// Get or Set the resources in the resource display.
         /// </summary>
         /// ----------------------------------------------------------------------------
+        [Browsable(false)]
         public virtual Resources Value
         {
             set
