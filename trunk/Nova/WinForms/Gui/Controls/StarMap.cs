@@ -100,6 +100,8 @@ namespace Nova.WinForms.Gui
         private NovaPoint scrollOffset = new NovaPoint(0, 0); // Where the scroll bars are set to
         private double zoomFactor = 1.0;              // Is used to adjust the Extent of the map.
 
+        private readonly NovaPoint extraSpace = new NovaPoint(40, 40); // Extra padding round the map for star names etc.
+
 
         private bool isInitialised;
         private bool displayStarNames = true;
@@ -153,8 +155,8 @@ namespace Nova.WinForms.Gui
             logical.X = GameSettings.Data.MapWidth;
             logical.Y = GameSettings.Data.MapHeight;
 
-            extent.X = (int)(this.logical.X * this.zoomFactor);
-            extent.Y = (int)(this.logical.Y * this.zoomFactor);
+            extent.X = (int)(this.logical.X * this.zoomFactor) + extraSpace.X * 2;
+            extent.Y = (int)(this.logical.Y * this.zoomFactor) + extraSpace.X * 2;
 
             stateData = ClientState.Data;
             turnData = this.stateData.InputTurn;
@@ -707,10 +709,10 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private NovaPoint LogicalToDevice(NovaPoint p)
         {
-            NovaPoint result = new NovaPoint();
-            
-            result.X = (int)(p.X * zoomFactor) + displayOffset.X - scrollOffset.X;
-            result.Y = (int)(p.Y * zoomFactor) + displayOffset.Y - scrollOffset.Y;
+            NovaPoint result = LogicalToExtent(p);
+
+            result.X += displayOffset.X - scrollOffset.X;
+            result.Y += displayOffset.Y - scrollOffset.Y;
 
             return result;
         }
@@ -720,8 +722,8 @@ namespace Nova.WinForms.Gui
         {
             NovaPoint result = new NovaPoint();
 
-            result.X = (int) (p.X*zoomFactor);
-            result.Y = (int) (p.Y*zoomFactor);
+            result.X = (int)(p.X * zoomFactor) + extraSpace.X;
+            result.Y = (int)(p.Y * zoomFactor) + extraSpace.Y;
 
             return result;
         }
@@ -737,8 +739,8 @@ namespace Nova.WinForms.Gui
         {
             NovaPoint result = new NovaPoint();
 
-            result.X = (int) ((p.X - displayOffset.X + scrollOffset.X)/zoomFactor);
-            result.Y = (int) ((p.Y - displayOffset.Y + scrollOffset.Y)/zoomFactor);
+            result.X = (int)((p.X - displayOffset.X + scrollOffset.X - extraSpace.X) / zoomFactor);
+            result.Y = (int) ((p.Y - displayOffset.Y + scrollOffset.Y - extraSpace.Y )/zoomFactor);
 
             return result;
         }
@@ -807,8 +809,8 @@ namespace Nova.WinForms.Gui
             this.zoomOut.Enabled = zoomFactor > MIN_ZOOM;
             this.zoomIn.Enabled = zoomFactor < MAX_ZOOM;
 
-            this.extent.X = (int)(this.logical.X * this.zoomFactor);
-            this.extent.Y = (int)(this.logical.Y * this.zoomFactor);
+            this.extent.X = (int)(this.logical.X * this.zoomFactor) + extraSpace.X * 2;
+            this.extent.Y = (int)(this.logical.Y * this.zoomFactor) + extraSpace.X * 2;
 
             // In the case where the Map Panel is bigger than what we want to display (i.e. extent)
             // then we add an offset to center the displayed map inside the panel
