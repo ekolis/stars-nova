@@ -8,10 +8,8 @@ namespace Nova.WinForms.Gui
     {
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaGUI));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.MapControl = new StarMap();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -30,9 +28,10 @@ namespace Nova.WinForms.Gui
             this.scoresMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.SelectionDetail = new SelectionDetail();
-            this.SelectionSummary = new SelectionSummary();
-            this.Messages = new Messages();
+            this.selectionDetail = new Nova.WinForms.Gui.SelectionDetail();
+            this.selectionSummary = new Nova.WinForms.Gui.SelectionSummary();
+            this.messages = new Nova.WinForms.Gui.Messages();
+            this.mapControl = new Nova.WinForms.Gui.StarMap();
             this.groupBox2.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -42,28 +41,16 @@ namespace Nova.WinForms.Gui
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupBox2.Controls.Add(this.MapControl);
+            this.groupBox2.Controls.Add(this.mapControl);
             this.groupBox2.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.groupBox2.Location = new System.Drawing.Point(374, 24);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(611, 699);
+            this.groupBox2.Size = new System.Drawing.Size(611, 752);
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Star Map";
             // 
-            // MapControl
-            // 
-            this.MapControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.MapControl.Location = new System.Drawing.Point(3, 16);
-            this.MapControl.Name = "MapControl";
-            this.MapControl.Size = new System.Drawing.Size(605, 680);
-            this.MapControl.TabIndex = 0;
-            this.MapControl.RequestSelectionEvent += new RequestSelection(this.SelectionDetail.ReportItem);
-            this.MapControl.SelectionChangedEvent += new SelectionChanged(this.SelectionDetail.SelectionChanged);
-            this.MapControl.SelectionChangedEvent += new SelectionChanged(this.SelectionSummary.SelectionChanged);
-            this.MapControl.WaypointChangedEvent += new WaypointChanged(this.SelectionDetail.FleetDetail.WaypointListChanged);
-            // 
-            // MainMenu
+            // mainMenu
             // 
             this.mainMenu.BackColor = System.Drawing.SystemColors.Control;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -130,9 +117,9 @@ namespace Nova.WinForms.Gui
             this.researchToolStripMenuItem.Text = "&Research";
             this.researchToolStripMenuItem.Click += new System.EventHandler(this.MenuResearch);
             // 
-            // BattlePlansMenu
+            // battlePlansMenu
             // 
-            this.battlePlansMenu.Name = "BattlePlansMenu";
+            this.battlePlansMenu.Name = "battlePlansMenu";
             this.battlePlansMenu.ShortcutKeys = System.Windows.Forms.Keys.F6;
             this.battlePlansMenu.Size = new System.Drawing.Size(205, 22);
             this.battlePlansMenu.Text = "&Battle Plans";
@@ -174,30 +161,30 @@ namespace Nova.WinForms.Gui
             this.reportsToolStripMenuItem.Size = new System.Drawing.Size(59, 20);
             this.reportsToolStripMenuItem.Text = "&Reports";
             // 
-            // PlanetReportMenu
+            // planetReportMenu
             // 
-            this.planetReportMenu.Name = "PlanetReportMenu";
+            this.planetReportMenu.Name = "planetReportMenu";
             this.planetReportMenu.Size = new System.Drawing.Size(155, 22);
             this.planetReportMenu.Text = "Player\'s &Planets";
             this.planetReportMenu.Click += new System.EventHandler(this.PlanetReportMenu_Click);
             // 
-            // FleetReportMenu
+            // fleetReportMenu
             // 
-            this.fleetReportMenu.Name = "FleetReportMenu";
+            this.fleetReportMenu.Name = "fleetReportMenu";
             this.fleetReportMenu.Size = new System.Drawing.Size(155, 22);
             this.fleetReportMenu.Text = "Player\'s &Fleets";
             this.fleetReportMenu.Click += new System.EventHandler(this.FleetReportMenu_Click);
             // 
-            // BattlesReportMenu
+            // battlesReportMenu
             // 
-            this.battlesReportMenu.Name = "BattlesReportMenu";
+            this.battlesReportMenu.Name = "battlesReportMenu";
             this.battlesReportMenu.Size = new System.Drawing.Size(155, 22);
             this.battlesReportMenu.Text = "&Battles";
             this.battlesReportMenu.Click += new System.EventHandler(this.BattlesReportMenu_Click);
             // 
-            // ScoresMenuItem
+            // scoresMenuItem
             // 
-            this.scoresMenuItem.Name = "ScoresMenuItem";
+            this.scoresMenuItem.Name = "scoresMenuItem";
             this.scoresMenuItem.ShortcutKeys = System.Windows.Forms.Keys.F10;
             this.scoresMenuItem.Size = new System.Drawing.Size(155, 22);
             this.scoresMenuItem.Text = "&Scores";
@@ -218,44 +205,49 @@ namespace Nova.WinForms.Gui
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.MenuAbout);
             // 
-            // SelectionDetail
+            // selectionDetail
             // 
-            this.SelectionDetail.Location = new System.Drawing.Point(8, 24);
-            this.SelectionDetail.Name = "SelectionDetail";
-            this.SelectionDetail.Size = new System.Drawing.Size(360, 400);
-            this.SelectionDetail.TabIndex = 21;
-            this.SelectionDetail.Value = null;           
-            this.SelectionDetail.FleetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
-            this.SelectionDetail.FleetDetail.RefreshStarMapEvent += new RefreshStarMap(this.MapControl.RefreshStarMap);
-            
+            this.selectionDetail.Location = new System.Drawing.Point(8, 24);
+            this.selectionDetail.Name = "selectionDetail";
+            this.selectionDetail.Size = new System.Drawing.Size(360, 434);
+            this.selectionDetail.TabIndex = 21;
+            this.selectionDetail.Value = null;
             // 
-            // SelectionSummary
+            // selectionSummary
             // 
-            this.SelectionSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.SelectionSummary.Location = new System.Drawing.Point(8, 546);
-            this.SelectionSummary.Name = "SelectionSummary";
-            this.SelectionSummary.Size = new System.Drawing.Size(360, 177);
-            this.SelectionSummary.TabIndex = 19;
-            this.SelectionSummary.Value = null;
+            this.selectionSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.selectionSummary.Location = new System.Drawing.Point(8, 599);
+            this.selectionSummary.Name = "selectionSummary";
+            this.selectionSummary.Size = new System.Drawing.Size(360, 177);
+            this.selectionSummary.TabIndex = 19;
+            this.selectionSummary.Value = null;
             // 
             // messages
             // 
-            this.Messages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.messages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
                         | System.Windows.Forms.AnchorStyles.Left)));
-            this.Messages.Location = new System.Drawing.Point(8, 427);
-            this.Messages.Name = "Messages";
-            this.Messages.Size = new System.Drawing.Size(360, 113);
-            this.Messages.TabIndex = 18;
-            this.Messages.Year = 2100;
+            this.messages.Location = new System.Drawing.Point(8, 464);
+            this.messages.Name = "messages";
+            this.messages.Size = new System.Drawing.Size(360, 129);
+            this.messages.TabIndex = 18;
+            this.messages.Year = 2100;
+            // 
+            // mapControl
+            // 
+            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapControl.Location = new System.Drawing.Point(3, 16);
+            this.mapControl.Name = "mapControl";
+            this.mapControl.Size = new System.Drawing.Size(605, 733);
+            this.mapControl.TabIndex = 0;
             // 
             // NovaGUI
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
-            this.ClientSize = new System.Drawing.Size(993, 730);
+            this.ClientSize = new System.Drawing.Size(993, 783);
             this.Controls.Add(this.mainMenu);
-            this.Controls.Add(this.SelectionDetail);
-            this.Controls.Add(this.SelectionSummary);
-            this.Controls.Add(this.Messages);
+            this.Controls.Add(this.selectionDetail);
+            this.Controls.Add(this.selectionSummary);
+            this.Controls.Add(this.messages);
             this.Controls.Add(this.groupBox2);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.KeyPreview = true;
@@ -263,8 +255,8 @@ namespace Nova.WinForms.Gui
             this.MinimumSize = new System.Drawing.Size(928, 670);
             this.Name = "NovaGUI";
             this.Text = "Nova";
-            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NovaGUI_FormClosing);
+            this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             this.groupBox2.ResumeLayout(false);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
@@ -273,19 +265,6 @@ namespace Nova.WinForms.Gui
 
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
-        }
-
-        private System.ComponentModel.IContainer components;
         private GroupBox groupBox2;
 
         private MenuStrip mainMenu;
@@ -306,6 +285,9 @@ namespace Nova.WinForms.Gui
         private ToolStripMenuItem scoresMenuItem;
         private ToolStripMenuItem generateTurnToolStripMenuItem;
         private ToolStripMenuItem loadNextTurnToolStripMenuItem;
-
+        private Messages messages;
+        private SelectionSummary selectionSummary;
+        private SelectionDetail selectionDetail;
+        private StarMap mapControl;
     }
 }

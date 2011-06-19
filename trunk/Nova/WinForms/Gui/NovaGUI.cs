@@ -46,11 +46,6 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class NovaGUI : Form
     {
-        public Messages Messages;
-        public SelectionSummary SelectionSummary;
-        public SelectionDetail SelectionDetail;
-        public StarMap MapControl;
-
         public int CurrentTurn;      // control turnvar used for to decide to load new turn... (Thread)
         public string CurrentRace;   // control var used for to decide to load new turn... (Thread)
 
@@ -65,11 +60,36 @@ namespace Nova.WinForms.Gui
 
             // These used to be in the designer.cs file, but visual studio designer throws a whappy so they are here
             // for now so it works again
-            SelectionDetail.FleetDetail.FleetSelectionChangedEvent += new FleetSelectionChanged(this.FleetChangeSelection);
-            SelectionDetail.PlanetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
-            SelectionDetail.PlanetDetail.StarSelectionChangedEvent += new StarSelectionChanged(this.StarChangeSelection);
+            SelectionDetail.FleetDetail.FleetSelectionChangedEvent += FleetChangeSelection;
+            SelectionDetail.PlanetDetail.CursorChangedEvent += MapControl.ChangeCursor;
+            SelectionDetail.PlanetDetail.StarSelectionChangedEvent += StarChangeSelection;
+            SelectionDetail.FleetDetail.RefreshStarMapEvent += MapControl.RefreshStarMap;
+
+            MapControl.RequestSelectionEvent += SelectionDetail.ReportItem;
+            MapControl.SelectionChangedEvent += SelectionDetail.SelectionChanged;
+            MapControl.SelectionChangedEvent += SelectionSummary.SelectionChanged;
+            MapControl.WaypointChangedEvent +=  SelectionDetail.FleetDetail.WaypointListChanged;
         }
 
+        public SelectionDetail SelectionDetail
+        {
+            get { return selectionDetail; }
+        }
+
+        public StarMap MapControl
+        {
+            get { return mapControl; }
+        }
+
+        public SelectionSummary SelectionSummary
+        {
+            get { return selectionSummary; }
+        }
+
+        public Messages Messages
+        {
+            get { return messages; }
+        }
 
         #endregion
 

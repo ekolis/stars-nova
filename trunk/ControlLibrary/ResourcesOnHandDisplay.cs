@@ -1,5 +1,5 @@
 using System;
-
+using System.ComponentModel;
 using Nova.Common;
 
 namespace Nova.ControlLibrary
@@ -34,7 +34,8 @@ namespace Nova.ControlLibrary
                 this.percentage = value;
             }
         }
-        
+
+        [Browsable(false)]
         public override Resources Value
         {
             set
@@ -62,17 +63,6 @@ namespace Nova.ControlLibrary
                     Report.Error("Unable to convert resource values.");
                 }
             }
-            
-            get
-            {
-            // There is no get. You should always get a planet's resources on hand
-            // directly from the star, not the GUI.
-            
-                Report.Error("Access to invalid resource data");
-                
-                return null;                
-            }
-            
         }
     }
 }
