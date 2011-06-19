@@ -55,6 +55,7 @@ namespace Nova.NewGame
         private readonly int starSeparation;
         private readonly int starDensity;
         private readonly int starUniformity;
+        private readonly int numPlayers;
 
         // non-normalized probability density function
         // values are between 0 and 1
@@ -64,6 +65,7 @@ namespace Nova.NewGame
 
         // List of stars positions int[2]; int[0] - x, int[1] - y
         private readonly List<int[]> stars = new List<int[]>();
+        private readonly List<int[]> homeworlds = new List<int[]>();
 
         // the width and height of the frame where the density values will be updated after placing the star
         private int updateFrameSize;
@@ -71,13 +73,14 @@ namespace Nova.NewGame
         // values calculated from map parameters, which define the shape of reduce function
         private double baseDensity;
         private double maxRadius;
+        private int minSeparation;
 
         /// <summary>
         /// Initializes a new instance of the StarsMapGenerator class.
         /// </summary>
         /// <param name="mapWidth">Width of the map in ly.</param>
         /// <param name="mapHeight">Height of the map in ly.</param>
-        public StarsMapGenerator(int mapWidth, int mapHeight, int starSeparation, int starDensity, int starUniformity)
+        public StarsMapGenerator(int mapWidth, int mapHeight, int starSeparation, int starDensity, int starUniformity, int numPlayers)
         {
             this.mapWidth = mapWidth;
             this.mapHeight = mapHeight;
@@ -86,15 +89,50 @@ namespace Nova.NewGame
             this.starDensity = starDensity;
             this.starUniformity = starUniformity;
             
+            this.numPlayers = numPlayers;
+            
             this.density = new double[mapWidth, mapHeight];
         }
-
+        
         /// <summary>
-        /// Generate stars and return them as List of int[2]; int[0] - x, int[1] - y
+        /// Generate stars and homeworlds.
         /// Note that the number of generated stars will be a random value.
         /// </summary>
-        /// <returns></returns>
-        public List<int[]> Generate()
+        public void Generate()
+        {
+            // Initial uniform density
+            this.SetStandardDensity();
+            this.SetHomeworldReducer();
+            this.PlaceHomeworlds();
+            // Reset the density for Star generation
+            this.SetStandardDensity();
+            this.SetStandardReducer();
+            // Account for already placed homeworlds in the density function.
+            this.AccountHomeworlds();
+            this.PlaceStars();
+        }
+            
+        /// <summary>
+        /// Sets an uniform density of 1 across the universe
+        /// </summary>
+        private void SetStandardDensity()
+        {
+            // initialize density function
+            // the initial values can influence the shape of generated map
+            for (int i = 0; i < this.mapWidth; ++i)
+            {
+                for (int j = 0; j < this.mapHeight; ++j)
+                {
+                    this.density[i, j] = 1.0;
+                }
+            }
+        }
+        
+        /// <summary>
+        /// Sets the parameteres for the density reduce function, for
+        /// generating a standard StarMap.
+        /// </summary>
+        private void SetStandardReducer()
         {
             this.baseDensity = ((2.0 * (this.starUniformity - 1)) + (0.11 * (100 - this.starUniformity))) / 99.0;
             this.maxRadius = ((100.0 * (this.starUniformity - 1)) + (400 * (100 - this.starUniformity))) / 99.0;
@@ -111,48 +149,29 @@ namespace Nova.NewGame
             this.maxRadius *= densityApplied;
 
             this.updateFrameSize = (int)Math.Ceiling(this.maxRadius);
-
-            DoGeneration();
-            return this.stars;
-        }
-
-        /// <summary>
-        /// This function defines the amount the density function value should be 
-        /// reduced by at current point based on the distance between current point and
-        /// the star.
-        /// </summary>
-        /// <param name="distance">Distance between the current point and the star.</param>
-        /// <returns>Returning 1 means the density function value will be reduced down to zero 
-        /// at the current point. Returning 0 means value will not be changed.</returns>
-        private double Reduce(double distance)
-        {   
-            if (distance < this.starSeparation) 
-            {
-                return 1.0;
-            }
-            else if (distance < this.maxRadius)
-            {
-                return (this.maxRadius - distance) / (this.maxRadius - this.starSeparation) * this.baseDensity;
-            }
             
-            return 0.0;
+            this.minSeparation = this.starSeparation;
+        }
+  
+        /// <summary>
+        /// Sets the parameters for the density reduce function, for
+        /// generating homeworlds.
+        /// </summary>
+        private void SetHomeworldReducer()
+        {   
+            this.baseDensity = 1.0;
+            
+            this.minSeparation = (int)Math.Max(this.mapWidth, this.mapHeight) /
+                (2 * ((int)Math.Floor(Math.Sqrt(this.numPlayers)) + 1));
+            this.maxRadius = this.minSeparation * this.numPlayers / (2.0 - (this.starDensity / 100));
+            this.updateFrameSize = (int)this.maxRadius;
         }
 
         /// <summary>
         /// Genetate a star map.
         /// </summary>
-        private void DoGeneration()
+        private void PlaceStars()
         {
-            // initialize density function
-            // the initial values can influence the shape of generated map
-            for (int i = 0; i < this.mapWidth; ++i)
-            {
-                for (int j = 0; j < this.mapHeight; ++j)
-                {
-                    this.density[i, j] = 1.0;
-                }
-            }
-
             while (true)
             {
                 int x = 0;
@@ -165,7 +184,7 @@ namespace Nova.NewGame
                     x = this.random.Next(this.mapWidth);
                     y = this.random.Next(this.mapHeight);
                     double height = this.random.NextDouble();
-                    if (this.density[x, y] >= height)
+                    if (height <= this.density[x, y])
                     {   // the star can be placed at this position
                         break;
                     }
@@ -183,7 +202,35 @@ namespace Nova.NewGame
                 UpdateDensities(x, y);
             }
         }
+        
+        /// <summary>
+        /// Generate Homeworld locations. 
+        /// </summary>
+        private void PlaceHomeworlds()
+        {
+            int x = 0;
+            int y = 0;
+            double height = 0;
+            
+            for (int q = 0; q < this.numPlayers; ++q)
+            {
+                while (true)
+                {
+                    x = this.random.Next(this.mapWidth);
+                    y = this.random.Next(this.mapHeight);
+                    height = this.random.NextDouble();
+                    
+                    if (height <= this.density[x, y])
+                    {   // the star can be placed at this position
+                        break;
+                    }
+                }
 
+                this.homeworlds.Add(new int[] { x, y });
+                UpdateDensities(x, y);
+            }    
+        }
+        
         /// <summary>
         /// Update Density after the star has been placed at co-ordinate (x,y).
         /// </summary>
@@ -200,7 +247,73 @@ namespace Nova.NewGame
                 }
             }
         }
-
+  
+        /// <summary>
+        /// This function defines the amount the density function value should be 
+        /// reduced by at current point based on the distance between current point and
+        /// the star.
+        /// </summary>
+        /// <param name="distance">Distance between the current point and the star.</param>
+        /// <returns>Returning 1 means the density function value will be reduced down to zero 
+        /// at the current point. Returning 0 means value will not be changed.</returns>
+        private double Reduce(double distance)
+        {   
+            if (distance < this.minSeparation) 
+            {
+                return 1.0;
+            }
+            else if (distance < this.maxRadius)
+            {
+                return (this.maxRadius - distance) / (this.maxRadius - this.minSeparation) * this.baseDensity;
+            }
+            
+            return 0.0;
+        }
+        
+        /// <summary>
+        /// Reduces the density function around already placed homeworlds.
+        /// Do this before generating the rest of the StarMap.
+        /// </summary>
+        private void AccountHomeworlds()
+        {
+            foreach (int[] hwPos in this.homeworlds)
+            {
+                UpdateDensities(hwPos[0], hwPos[1]);
+            }
+        }
+        
+    #endregion
+        
+    #region Properties
+        
+        /// <summary>
+        /// Returns(only) the list of stars as a List of int[2]; int[0] is x, int[1] is y 
+        /// </summary>
+        public List<int[]> Stars
+        {
+            get
+            {
+                return this.stars;
+            }
+            
+            set{}
+                
+        }
+        
+        /// <summary>
+        /// Returns(only) the list of homeworlds as a List of int[2]; int[0] is x, int[1] is y 
+        /// </summary>
+        public List<int[]> Homeworlds
+        {
+            get
+            {
+                return this.homeworlds;
+            }
+            
+            set {}
+        }
+            
+        
     #endregion
     }
 }

@@ -44,10 +44,18 @@ namespace Nova.NewGame
     public class StarMapInitialiser
     {
         private ServerState stateData;
+        private StarsMapGenerator map;
+        private NameGenerator nameGenerator = new NameGenerator();
         
         public StarMapInitialiser(ServerState serverState)
         {
             this.stateData = serverState;
+            this.map = new StarsMapGenerator(GameSettings.Data.MapWidth,
+                                             GameSettings.Data.MapHeight,
+                                             GameSettings.Data.StarSeparation,
+                                             GameSettings.Data.StarDensity,
+                                             GameSettings.Data.StarUniformity,
+                                             serverState.AllPlayers.Count);
         }
 
         #region Initialisation
@@ -64,13 +72,10 @@ namespace Nova.NewGame
         /// </remarks>
         public void GenerateStars()
         {
-            NameGenerator nameGenerator = new NameGenerator();
-
-            StarsMapGenerator map = new StarsMapGenerator(GameSettings.Data.MapWidth, GameSettings.Data.MapHeight, GameSettings.Data.StarSeparation, GameSettings.Data.StarDensity, GameSettings.Data.StarUniformity);
-            List<int[]> allStarPositions = map.Generate();
+            map.Generate();
 
             Random random = new Random(); // NB: do this outside the loop so that random is seeded only once.
-            foreach (int[] starPosition in allStarPositions)
+            foreach (int[] starPosition in map.Stars)
             {
                 Star star = new Star();
 
@@ -99,12 +104,6 @@ namespace Nova.NewGame
         /// </summary>
         public void InitialisePlayerData()
         {
-            SpaceAllocator spaceAllocator = new SpaceAllocator(stateData.AllRaces.Count);
-
-            // FIXME (priority 8) does not handle rectangular maps correctly
-            spaceAllocator.AllocateSpace(Math.Min(GameSettings.Data.MapWidth, GameSettings.Data.MapHeight)); // attempt to not crash with a rectangular star map (slight improvement). Need to handle rectangular map properly.
-            // spaceAllocator.AllocateSpace(GameSettings.Data.MapWidth); - old version
-
             foreach (Race race in stateData.AllRaces.Values)
             {
                 string player = race.Name;
@@ -134,7 +133,7 @@ namespace Nova.NewGame
                 stateData.AllDesigns[player + "/Factory"] = factory;
                 stateData.AllDesigns[player + "/Defenses"] = defense;
                 PrepareDesigns(race, player);
-                InitialiseHomeStar(race, spaceAllocator, player);
+                InitialiseHomeStar(race, player);
             }
 
             Nova.Common.Message welcome = new Nova.Common.Message();
@@ -340,20 +339,33 @@ namespace Nova.NewGame
         /// </summary>
         /// <param name="race"><see cref="Race"/> to be positioned.</param>
         /// <param name="spaceAllocator">The <see cref="SpaceAllocator"/> being used to allocate positions.</param>
-        private void InitialiseHomeStar(Race race, SpaceAllocator spaceAllocator, string player)
+        private void InitialiseHomeStar(Race race, string player)
         {
-            Rectangle box = spaceAllocator.GetBox();
-            foreach (Star star in stateData.AllStars.Values)
+            if (map.Homeworlds.Count > 0)
             {
-                if (PointUtilities.InBox(star.Position, box))
+                foreach (int[] starPosition in map.Homeworlds)
                 {
+                    Star star = new Star();
+                    
+                    star.Position.X = starPosition[0];
+                    star.Position.Y = starPosition[1];
+                    
+                    map.Homeworlds.Remove(starPosition);
+    
+                    star.Name = nameGenerator.NextName;
+    
                     AllocateHomeStarResources(star, race);
                     AllocateHomeStarOrbitalInstallations(star, race, player);
+                    
+                    stateData.AllStars[star.Name] = star;
+                    
                     return;
                 }
             }
-
-            Report.FatalError("Could not allocate home star");
+            else
+            {
+                Report.FatalError("Could not allocate home star");
+            }
         }
 
         /// <summary>
