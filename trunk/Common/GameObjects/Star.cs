@@ -65,6 +65,9 @@ namespace Nova.Common
         public int Gravity = 0;
         public int Radiation = 0;
         public int Temperature = 0;
+        public int OriginalGravity = 0;
+        public int OriginalRadiation = 0;
+        public int OriginalTemperature = 0;
 
         /// <summary>
         /// A reference the the race information for the owner of this star.
@@ -703,6 +706,15 @@ namespace Nova.Common
                         case "temperature":
                             Temperature = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
+                        case "originalgravity":
+                            OriginalGravity = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "originalradiation":
+                            OriginalRadiation = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "originaltemperature":
+                            OriginalTemperature = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
 
                         // These are placeholder objects that will be linked to the real objects once 
                         // loading from the file is complete (as they may not exist yet, and cannot be 
@@ -805,6 +817,9 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelStar, "Gravity", Gravity.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelStar, "Radiation", Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelStar, "Temperature", Temperature.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelStar, "OriginalGravity", OriginalGravity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelStar, "OriginalRadiation", OriginalRadiation.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelStar, "OriginalTemperature", OriginalTemperature.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             return xmlelStar;
         }

@@ -330,12 +330,6 @@ namespace Nova.Common
                 xmlelIntel.AppendChild(xmlelRaceIconRecord);
             }
 
-            // AllFleets
-            foreach (Fleet fleet in AllFleets.Values)
-            {
-                xmlelIntel.AppendChild(fleet.ToXml(xmldoc));
-            }
-
             // AllDesigns 
             foreach (Design design in AllDesigns.Values)
             {
@@ -347,6 +341,12 @@ namespace Nova.Common
                 {
                     xmlelIntel.AppendChild(design.ToXml(xmldoc));
                 }
+            }
+            
+            // AllFleets
+            foreach (Fleet fleet in AllFleets.Values)
+            {
+                xmlelIntel.AppendChild(fleet.ToXml(xmldoc));
             }
 
             // AllStars

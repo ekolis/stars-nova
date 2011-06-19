@@ -251,7 +251,12 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         private void Grid_DragBegin(object sender, MouseEventArgs e)
         {
-            Panel panel = sender as Panel;
+            Panel panel = sender as Panel;           
+            if (panel == null)
+            {
+                return;
+            }
+            
             HullModule cell = panel.Tag as HullModule;
             if (cell == null)
             {
