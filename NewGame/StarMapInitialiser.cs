@@ -93,6 +93,10 @@ namespace Nova.NewGame
                 star.Radiation = random.Next(1, 99);
                 star.Gravity = random.Next(1, 99);
                 star.Temperature = random.Next(1, 99);
+                
+                star.OriginalRadiation = star.Radiation;
+                star.OriginalGravity = star.Gravity;
+                star.OriginalTemperature = star.Temperature;
 
                 stateData.AllStars[star.Name] = star;
             }
@@ -433,6 +437,11 @@ namespace Nova.NewGame
             star.Radiation = race.RadiationTolerance.OptimumLevel;
             star.Temperature = race.TemperatureTolerance.OptimumLevel;
             star.Gravity = race.GravityTolerance.OptimumLevel;
+            
+            star.OriginalRadiation = star.Radiation;
+            star.OriginalGravity = star.Gravity;
+            star.OriginalTemperature = star.Temperature;
+            
             star.Colonists = race.GetStartingPopulation();
 
             star.ResourcesOnHand.Boranium = random.Next(300, 500);

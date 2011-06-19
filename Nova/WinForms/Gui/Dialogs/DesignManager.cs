@@ -135,8 +135,14 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
         private void DesignModuleSelected(object sender, EventArgs e)
-        {
-            Panel gridModule = sender as Panel;
+        {            
+            Panel gridModule = sender as Panel;         
+            
+            if (gridModule.Tag == null)
+            {
+                return;
+            }
+            
             HullModule module = gridModule.Tag as HullModule;
 
             if (module.AllocatedComponent == null)
