@@ -62,6 +62,12 @@ namespace Nova.WinForms.Gui
         public NovaGUI()
         {
             InitializeComponent();
+
+            // These used to be in the designer.cs file, but visual studio designer throws a whappy so they are here
+            // for now so it works again
+            SelectionDetail.FleetDetail.FleetSelectionChangedEvent += new FleetSelectionChanged(this.FleetChangeSelection);
+            SelectionDetail.PlanetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
+            SelectionDetail.PlanetDetail.StarSelectionChangedEvent += new StarSelectionChanged(this.StarChangeSelection);
         }
 
 

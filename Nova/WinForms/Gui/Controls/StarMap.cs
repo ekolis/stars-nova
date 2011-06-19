@@ -128,15 +128,6 @@ namespace Nova.WinForms.Gui
             Resize += delegate { Zoom(); };
 
             MapPanel.Paint += MapPanel_Paint;
-            
-            GameSettings.Restore();
-
-            // Initial map size
-            logical.X = GameSettings.Data.MapWidth;
-            logical.Y = GameSettings.Data.MapHeight;
-
-            extent.X = (int)(this.logical.X * this.zoomFactor);
-            extent.Y = (int)(this.logical.Y * this.zoomFactor);
 
             nameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);                        
         }
@@ -156,6 +147,15 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void Initialise()
         {
+            GameSettings.Restore();
+
+            // Initial map size
+            logical.X = GameSettings.Data.MapWidth;
+            logical.Y = GameSettings.Data.MapHeight;
+
+            extent.X = (int)(this.logical.X * this.zoomFactor);
+            extent.Y = (int)(this.logical.Y * this.zoomFactor);
+
             stateData = ClientState.Data;
             turnData = this.stateData.InputTurn;
             isInitialised = true;

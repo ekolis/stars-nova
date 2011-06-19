@@ -39,36 +39,6 @@ namespace Nova.WinForms.Gui
     using Nova.ControlLibrary;
 
     /// <Summary>
-    /// This is the hook to listen for a new selected Fleet.
-    /// Objects who subscribe to this should respond to the Fleet
-    /// selection change by using the FleetSelectionArgs supplied which hold
-    /// the newly selected Fleet data.
-    /// </Summary>
-    public delegate void FleetSelectionChanged(object sender, FleetSelectionArgs e);
-    
-    /// <Summary>
-    /// This is the hook to listen for when to update the starmap.
-    /// This should be used to repain the map in certain cases, for example,
-    /// when deleting a waypoint.
-    /// </Summary>
-    public delegate void RefreshStarMap();
-    
-    /// <Summary>
-    /// Holds data related to the current Fleet selection. 
-    /// </Summary>
-    public class FleetSelectionArgs : System.EventArgs
-    {
-        public Fleet Detail;
-        public Fleet Summary;
-        
-        public FleetSelectionArgs(Fleet detail, Fleet summary)
-        {
-            this.Detail = detail;
-            this.Summary = summary;
-        }
-    }    
-
-    /// <Summary>
     /// Ship Detail display panel.
     /// </Summary>
     public class FleetDetail : System.Windows.Forms.UserControl
