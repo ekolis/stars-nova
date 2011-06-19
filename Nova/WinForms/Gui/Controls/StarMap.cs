@@ -33,14 +33,13 @@ namespace Nova.WinForms.Gui
 {
     #region Using
     using System;
-    using System.Collections;
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
-    using Nova.Client;
-    using Nova.Common;
-    using Nova.Common.DataStructures;
+    using Client;
+    using Common;
+    using Common.DataStructures;
     #endregion
     
 
@@ -86,7 +85,6 @@ namespace Nova.WinForms.Gui
 
 
         #region Variables
-        private readonly Bitmap cursorBitmap;
         private readonly Dictionary<string, Fleet> visibleFleets = new Dictionary<string, Fleet>();
         private readonly Dictionary<string, Minefield> visibleMinefields = new Dictionary<string, Minefield>();
         private readonly Font nameFont;
@@ -112,6 +110,8 @@ namespace Nova.WinForms.Gui
         private const double MIN_ZOOM = 0.2;
         private const double MAX_ZOOM = 5;
 
+        private NovaPoint mousePos = new NovaPoint(0,0);
+
         #endregion
 
 
@@ -127,21 +127,18 @@ namespace Nova.WinForms.Gui
             MouseWheel += StarMap_MouseWheel;
             Resize += delegate { Zoom(); };
 
-            this.MapPanel.Paint += MapPanel_Paint;
+            MapPanel.Paint += MapPanel_Paint;
             
             GameSettings.Restore();
 
             // Initial map size
-            this.logical.X = GameSettings.Data.MapWidth;
-            this.logical.Y = GameSettings.Data.MapHeight;
+            logical.X = GameSettings.Data.MapWidth;
+            logical.Y = GameSettings.Data.MapHeight;
 
-            this.extent.X = (int)(this.logical.X * this.zoomFactor);
-            this.extent.Y = (int)(this.logical.Y * this.zoomFactor);
+            extent.X = (int)(this.logical.X * this.zoomFactor);
+            extent.Y = (int)(this.logical.Y * this.zoomFactor);
 
-            this.cursorBitmap = Nova.Properties.Resources.Cursor;
-            this.cursorBitmap.MakeTransparent(Color.Black);
-
-            this.nameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);                        
+            nameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);                        
         }
 
 
@@ -159,22 +156,17 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void Initialise()
         {
-            this.stateData = ClientState.Data;
-            this.turnData = this.stateData.InputTurn;
-            this.isInitialised = true;
+            stateData = ClientState.Data;
+            turnData = this.stateData.InputTurn;
+            isInitialised = true;
 
-            this.horizontalScrollBar.Enabled = true;
-            this.verticalScrollBar.Enabled = true;
-
-            this.zoomIn.Enabled = true;
-            this.zoomIn.Visible = true;
-            this.zoomIn.Refresh();
+            horizontalScrollBar.Enabled = true;
+            verticalScrollBar.Enabled = true;
 
             DetermineVisibleFleets();
             DetermineVisibleMinefields();
             
-            float size = Math.Min(this.Size.Height, this.Size.Width);
-            this.zoomFactor = 1.0;
+            zoomFactor = 1.0;
             Zoom();
         }
 
@@ -345,14 +337,19 @@ namespace Nova.WinForms.Gui
 
             Color coordColour = Color.FromArgb(255, 255, 255, 0);
             SolidBrush coordBrush = new SolidBrush(coordColour);
-            string s2 = "Cursor Location (logical): " + this.cursorPosition.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + this.cursorPosition.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            g.DrawString(s2, font, coordBrush, 0, 20);                      
-            string zoomDebugMsg = "Zoom Factor: " + this.zoomFactor.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            g.DrawString(zoomDebugMsg, font, coordBrush, 0, 40);
-            string scrollDebugMsg = "ScrollOffset: " + scrollOffset;
-            g.DrawString(scrollDebugMsg, font, coordBrush, 0, 60);
-            string extentStr = "Extent: " + extent;
-            g.DrawString(extentStr, font, coordBrush, 0, 80);
+            string str = "Cursor Location (logical): " + this.cursorPosition.X.ToString(System.Globalization.CultureInfo.InvariantCulture) + "," + this.cursorPosition.Y.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            g.DrawString(str, font, coordBrush, 0, 20);                      
+            str = "Zoom Factor: " + this.zoomFactor.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            g.DrawString(str, font, coordBrush, 0, 40);
+            str = "ScrollOffset: " + scrollOffset;
+            g.DrawString(str, font, coordBrush, 0, 60);
+            str = "Extent: " + extent;
+            g.DrawString(str, font, coordBrush, 0, 80);
+
+            NovaPoint centerDisplay = new NovaPoint(MapPanel.Width / 2, MapPanel.Height / 2);
+            NovaPoint zoomCenter = DeviceToLogical(centerDisplay);
+            str = "Center Logical: " + zoomCenter;
+            g.DrawString(str, font, coordBrush, 0, 100);
         }
 
 
@@ -488,7 +485,7 @@ namespace Nova.WinForms.Gui
 
             // If the Star name display is turned on then add the name
 
-            if (this.displayStarNames)
+            if (this.displayStarNames && zoomFactor > 0.5)
             {
                 StringFormat format = new StringFormat();
                 format.Alignment = StringAlignment.Center;               
@@ -784,7 +781,10 @@ namespace Nova.WinForms.Gui
         void StarMap_MouseWheel(object sender, MouseEventArgs e)
         {
             double zoomChange = 1 + (Math.Sign(e.Delta)) * 0.15;            
-            Zoom(zoomChange, DeviceToLogical(new NovaPoint(e.X, e.Y) ) );
+            // This event fires on the StarMap control so we have to remove the mappanel offset to 
+            // get the real mouse location
+            NovaPoint preserveLocation = new NovaPoint(e.X - MapPanel.Left, e.Y - MapPanel.Top);
+            Zoom(zoomChange, preserveLocation );
         }
 
         /// ----------------------------------------------------------------------------
@@ -792,13 +792,14 @@ namespace Nova.WinForms.Gui
         /// Zoom in or out of the Star map.
         /// </Summary>
         /// ----------------------------------------------------------------------------
-        private void Zoom( double delta = 1.0, NovaPoint zoomCenter = null )
+        private void Zoom( double delta = 1.0, NovaPoint preserveDisplayLocation = null )
         {
-            NovaPoint centerDisplay = new NovaPoint(MapPanel.Width / 2 , MapPanel.Height / 2);
-            if (System.Object.ReferenceEquals(zoomCenter, null))
-                zoomCenter = DeviceToLogical(centerDisplay);
-            else
-                centerDisplay = LogicalToDevice(zoomCenter);
+
+            if (System.Object.ReferenceEquals(preserveDisplayLocation, null))
+            {
+                preserveDisplayLocation = new NovaPoint(MapPanel.Width / 2, MapPanel.Height / 2);
+            }
+            NovaPoint preserveLogicalLocation = DeviceToLogical(preserveDisplayLocation);
 
             zoomFactor *= delta;
             this.zoomFactor = Math.Max(MIN_ZOOM, this.zoomFactor);
@@ -818,38 +819,31 @@ namespace Nova.WinForms.Gui
             this.verticalScrollBar.Maximum = Math.Max(0, extent.Y - MapPanel.Height);
             this.horizontalScrollBar.Maximum = Math.Max(0, (extent.X - MapPanel.Width));
 
-            // Try and recenter the center point displayed point;
+            // Try and scroll map back to location
+            ScrollToDisplayLocation(preserveDisplayLocation, preserveLogicalLocation);
+            
 
-            NovaPoint newCenterDisplay = LogicalToExtent(zoomCenter);
+            this.RefreshStarMap();
+        }
 
-            scrollOffset.X = Math.Min(horizontalScrollBar.Maximum, Math.Max(0, newCenterDisplay.X - centerDisplay.X));
-            scrollOffset.Y = Math.Min(verticalScrollBar.Maximum, Math.Max(0, newCenterDisplay.Y - centerDisplay.Y));
+        internal void CenterMapOnPoint(NovaPoint pointToCentre)
+        {   
+            // We want to put the logical point given in the center of the map as much as possible
+            NovaPoint centerDisplay = new NovaPoint(MapPanel.Width / 2, MapPanel.Height / 2);
+            ScrollToDisplayLocation(centerDisplay, pointToCentre);
+        }
+
+        private void ScrollToDisplayLocation(NovaPoint oldDisplay, NovaPoint pointToCentre)
+        {
+            NovaPoint newCenterDisplay = LogicalToExtent(pointToCentre);
+            Debug.WriteLine(String.Format("Center Disp {0}  NewCenterDisp {1}", oldDisplay, newCenterDisplay));
+
+            scrollOffset.X = Math.Min(horizontalScrollBar.Maximum, Math.Max(0, newCenterDisplay.X - oldDisplay.X));
+            scrollOffset.Y = Math.Min(verticalScrollBar.Maximum, Math.Max(0, newCenterDisplay.Y - oldDisplay.Y));
 
             horizontalScrollBar.Value = scrollOffset.X;
             verticalScrollBar.Value = scrollOffset.Y;
-
-            //double oldMax = horizontalScrollBar.Maximum;
-            
-            //if (oldMax == 0)
-            //    horizontalScrollBar.Value = 0;
-            //else
-            //    horizontalScrollBar.Value = (int)(horizontalScrollBar.Value/oldMax*horizontalScrollBar.Maximum);
-            //scrollOffset.X = horizontalScrollBar.Value;
-
-            //oldMax = verticalScrollBar.Maximum;
-            
-            //if (oldMax == 0)
-            //    verticalScrollBar.Value = 0;
-            //else
-            //    verticalScrollBar.Value = (int)(verticalScrollBar.Value/oldMax*verticalScrollBar.Maximum);
-            //scrollOffset.Y = verticalScrollBar.Value;);
-
-
-
-            this.RefreshStarMap();
-
         }
-
 
         #endregion
 
@@ -1148,27 +1142,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void SetCursor(NovaPoint position)
         {
-            this.cursorPosition = position;
-
-            // Set the scroll position so that the selected position of the cursor
-            // in is the centre of the screen.
-            /* removed this as I found it annoying - Dan 08 may 10. Would be Ok if it only moved when the selected object was out of view.
-            // FIXME (priority 2) - The scroll bar position indicator doesn't move.
-
-            float fractionX = position.X;
-            float fractionY = position.Y;
-
-            fractionX /= Logical.X;
-            fractionY /= Logical.Y;
-
-            Hscroll = (int)(fractionX * 100.0);
-            Vscroll = (int)(fractionY * 100.0);
-            MapPanel.VerticalScroll.Value = Hscroll;
-            MapPanel.HorizontalScroll.Value = Vscroll;
-            
-            Zoom();
-            */
-            this.RefreshStarMap();
+            cursorPosition = position;
+            RefreshStarMap();
         }
 
 
@@ -1224,18 +1199,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void ToggleNames_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox toggleNames = sender as CheckBox;
-
-            if (toggleNames.Checked)
-            {
-                this.displayStarNames = true;
-            }
-            else
-            {
-                this.displayStarNames = false;
-            }
-
-            this.RefreshStarMap();
+            displayStarNames = toggleNames.Checked;
+            RefreshStarMap();
         }
         
         /// ----------------------------------------------------------------------------
@@ -1247,18 +1212,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void ToggleBackground_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox toggleBackground = sender as CheckBox;
-
-            if (toggleBackground.Checked)
-            {
-                this.displayBackground = true;
-            }
-            else
-            {
-                this.displayBackground = false;
-            }
-
-            this.RefreshStarMap();
+            displayBackground = toggleBackground.Checked;
+            RefreshStarMap();
         }
         
         /// ----------------------------------------------------------------------------
@@ -1270,18 +1225,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void ToggleBorders_CheckedChanged(object sender, EventArgs e)
         {
-            CheckBox toggleBorders = sender as CheckBox;
-
-            if (toggleBorders.Checked)
-            {
-                this.displayBorders = true;
-            }
-            else
-            {
-                this.displayBorders = false;
-            }
-
-            this.RefreshStarMap();
+            displayBorders = toggleBorders.Checked;
+            RefreshStarMap();
         }
 
         #endregion
@@ -1300,15 +1245,9 @@ namespace Nova.WinForms.Gui
         
         public void RefreshStarMap()
         {
-            //this.DrawEverything();
-            // Invalidate or Refresh?
-            //this.MapPanel.Refresh();
-            this.MapPanel.Invalidate();
+            MapPanel.Invalidate();
         }
         
         #endregion
-
-        
-
     }
 }
