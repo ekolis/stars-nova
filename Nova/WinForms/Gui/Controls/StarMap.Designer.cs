@@ -40,6 +40,9 @@ namespace Nova.WinForms.Gui
           this.toggleBackground = new System.Windows.Forms.CheckBox();
           this.toggleBorders = new System.Windows.Forms.CheckBox();
           this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
+          this.selectItemMenu = new System.Windows.Forms.ContextMenuStrip(this.components);
+          this.sampleItemToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+          this.selectItemMenu.SuspendLayout();
           this.SuspendLayout();
           // 
           // MapPanel
@@ -147,6 +150,19 @@ namespace Nova.WinForms.Gui
           this.toggleBorders.UseVisualStyleBackColor = true;
           this.toggleBorders.CheckedChanged += new System.EventHandler(this.ToggleBorders_CheckedChanged);
           // 
+          // contextMenuStrip1
+          // 
+          this.selectItemMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.sampleItemToolStripMenuItem});
+          this.selectItemMenu.Name = "selectItemMenu";
+          this.selectItemMenu.Size = new System.Drawing.Size(153, 48);
+          // 
+          // sampleItemToolStripMenuItem
+          // 
+          this.sampleItemToolStripMenuItem.Name = "sampleItemToolStripMenuItem";
+          this.sampleItemToolStripMenuItem.Size = new System.Drawing.Size(152, 22);
+          this.sampleItemToolStripMenuItem.Text = "SampleItem";
+          // 
           // StarMap
           // 
           this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -161,6 +177,7 @@ namespace Nova.WinForms.Gui
           this.Controls.Add(this.MapPanel);
           this.Name = "StarMap";
           this.Size = new System.Drawing.Size(555, 670);
+          this.selectItemMenu.ResumeLayout(false);
           this.ResumeLayout(false);
 
       }
@@ -176,6 +193,8 @@ namespace Nova.WinForms.Gui
       private System.Windows.Forms.ToolTip toolTip1;
       private System.Windows.Forms.CheckBox toggleBackground;
       private System.Windows.Forms.CheckBox toggleBorders;
+      private System.Windows.Forms.ContextMenuStrip selectItemMenu;
+      private System.Windows.Forms.ToolStripMenuItem sampleItemToolStripMenuItem;
 
    }
 }

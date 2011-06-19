@@ -215,7 +215,7 @@ namespace Nova.WinForms.Gui
             NovaPoint backgroundOrigin = LogicalToDevice(new NovaPoint(0, 0));
             backgroundOrigin.Offset(-20,-20);
             NovaPoint backgroundExtent = LogicalToDevice(logical);
-            backgroundExtent.Offset(40,40);
+            backgroundExtent.Offset(20,20);
             
 
             Size renderSize = new Size();
@@ -895,14 +895,18 @@ namespace Nova.WinForms.Gui
         /// FIXME (priority 5) - this class shouldn't be hidden inside this module. Is there any reason not to implement this via inheritance or make Item itself sortable?
         /// </remarks>
         /// ----------------------------------------------------------------------------
-        public class SortableItem : IComparable
+        public class SortableItem : IComparable<SortableItem>
         {
             public double Distance;
             public Item Target;
 
-            public int CompareTo(object rightHandSide)
+            public int CompareTo(SortableItem other)
             {
-                SortableItem rhs = (SortableItem)rightHandSide;
+                // Put stars first
+                if (Target.Type.Equals("Star") && !other.Target.Type.Equals("Star"))
+                    return -1;
+
+                SortableItem rhs = (SortableItem)other;
                 return this.Distance.CompareTo(rhs.Distance);
             }
         }
@@ -920,6 +924,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void StarMapMouse(object sender, MouseEventArgs e)
         {
+            Focus();
             if (e.Button == MouseButtons.Left)
             {
                 if ((Control.ModifierKeys & Keys.Shift) != 0)
@@ -938,8 +943,13 @@ namespace Nova.WinForms.Gui
                     LeftMouse(e);
                 }
             }
+            else if (e.Button == MouseButtons.Right)
+            {
+                RightMouse(e);
+            }
         }
 
+  
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -1025,9 +1035,7 @@ namespace Nova.WinForms.Gui
         private void LeftMouse(MouseEventArgs e)
         {
             NovaPoint position = new NovaPoint();
-            NovaPoint click = new NovaPoint();
-            click.X = e.X;
-            click.Y = e.Y;
+            NovaPoint click = new NovaPoint(e.X, e.Y);
             position = DeviceToLogical(click);
 
             List<SortableItem> nearObjects = FindNearObjects(position);
@@ -1063,6 +1071,66 @@ namespace Nova.WinForms.Gui
             // Build an object to hold data.
             SelectionArgs selectionArgs = new SelectionArgs(item);
             
+            // Raise the appropiate event. Controls interested (listening)
+            // to this event and data will react in turn.
+            SelectionChangedEvent(this, selectionArgs);
+        }
+
+        private void RightMouse(MouseEventArgs e)
+        {
+            NovaPoint position = new NovaPoint();
+            NovaPoint click = new NovaPoint(e.X, e.Y);
+            position = DeviceToLogical(click);
+
+            List<SortableItem> nearObjects = FindNearObjects(position);
+            if (nearObjects.Count == 0)
+            {
+                return;
+            }
+
+            selectItemMenu.Items.Clear();
+            bool needSep = false;
+            bool doneSep = false;
+            foreach (SortableItem sortableItem in nearObjects)
+            {
+                ToolStripItem menuItem = selectItemMenu.Items.Add(sortableItem.Target.Name);
+                menuItem.Click += ContextSelect;
+                menuItem.Tag = sortableItem.Target;
+                if (sortableItem.Target.Type.Equals("Star"))
+                {
+                    menuItem.Image = Properties.Resources.planeticon;
+                    needSep = true;
+                }
+                else if (sortableItem.Target.Type.Equals("Fleet"))
+                {
+                    menuItem.Image = Properties.Resources.fleet;
+                    if (needSep && !doneSep)
+                    {
+                        selectItemMenu.Items.Insert(selectItemMenu.Items.Count - 1, new ToolStripSeparator());
+                        doneSep = true;
+                    }
+                }
+
+            }
+            
+            selectItemMenu.Show(this, e.X, e.Y);
+        }
+
+        private void ContextSelect(object sender, EventArgs e)
+        {
+            ToolStripItem menuItem = sender as ToolStripItem;
+            if (menuItem == null)
+                return;
+
+            Item item = menuItem.Tag as Item;
+            if( item == null )
+                return;
+
+            SetCursor(item.Position);
+
+            // Build an object to hold data.
+            SelectionArgs selectionArgs = new SelectionArgs(item);
+
             // Raise the appropiate event. Controls interested (listening)
             // to this event and data will react in turn.
             SelectionChangedEvent(this, selectionArgs);
