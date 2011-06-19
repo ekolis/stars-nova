@@ -224,12 +224,10 @@ namespace Nova.WinForms.Gui
             this.SelectionDetail.Name = "SelectionDetail";
             this.SelectionDetail.Size = new System.Drawing.Size(360, 400);
             this.SelectionDetail.TabIndex = 21;
-            this.SelectionDetail.Value = null;
-            this.SelectionDetail.FleetDetail.FleetSelectionChangedEvent += new FleetSelectionChanged(this.FleetChangeSelection);
+            this.SelectionDetail.Value = null;           
             this.SelectionDetail.FleetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
             this.SelectionDetail.FleetDetail.RefreshStarMapEvent += new RefreshStarMap(this.MapControl.RefreshStarMap);
-            this.SelectionDetail.PlanetDetail.StarSelectionChangedEvent += new StarSelectionChanged(this.StarChangeSelection);
-            this.SelectionDetail.PlanetDetail.CursorChangedEvent += new CursorChanged(this.MapControl.ChangeCursor);
+            
             // 
             // SelectionSummary
             // 

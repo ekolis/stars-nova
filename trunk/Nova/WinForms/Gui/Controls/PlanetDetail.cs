@@ -37,27 +37,6 @@ using Nova.ControlLibrary;
 namespace Nova.WinForms.Gui
 {
     /// <Summary>
-    /// This is the hook to listen for a new selected Star.
-    /// Objects who subscribe to this should respond to the Star
-    /// selection change by using the StarSelectionArgs supplied which hold
-    /// the newly selected Star data.
-    /// </Summary>
-    public delegate void StarSelectionChanged(object sender, StarSelectionArgs e);
-    
-    /// <Summary>
-    /// Holds data related to the current Star selection. 
-    /// </Summary>
-    public class StarSelectionArgs : System.EventArgs
-    {
-        public Star Star;
-        
-        public StarSelectionArgs(Star star)
-        {
-            this.Star = star;
-        }
-    }
-    
-    /// <Summary>
     /// Planet Detail display pane.
     /// </Summary>
     public class PlanetDetail : System.Windows.Forms.UserControl
@@ -118,7 +97,6 @@ namespace Nova.WinForms.Gui
         private Label starbaseShields;
         private Label starbaseArmor;
         private Button targetButton;
-        private Label label25;
         private Label label11;
         private Label label26;
         private Label label27;
@@ -127,6 +105,7 @@ namespace Nova.WinForms.Gui
         private Button nextPlanet;
         private Button previousPlanet;
         private GroupBox groupBox6;
+        private Panel panel1;
         private System.ComponentModel.Container components = null;
         #endregion
 
@@ -169,8 +148,8 @@ namespace Nova.WinForms.Gui
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.productionQueue = new System.Windows.Forms.ListView();
-            this.description = new System.Windows.Forms.ColumnHeader();
-            this.quantity = new System.Windows.Forms.ColumnHeader();
+            this.description = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.quantity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.changeProductionQueue = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.population = new System.Windows.Forms.Label();
@@ -197,7 +176,6 @@ namespace Nova.WinForms.Gui
             this.label26 = new System.Windows.Forms.Label();
             this.label27 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
             this.targetButton = new System.Windows.Forms.Button();
             this.starbaseCapacity = new System.Windows.Forms.Label();
             this.massDriverDestination = new System.Windows.Forms.Label();
@@ -214,6 +192,7 @@ namespace Nova.WinForms.Gui
             this.nextPlanet = new System.Windows.Forms.Button();
             this.previousPlanet = new System.Windows.Forms.Button();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
+            this.panel1 = new System.Windows.Forms.Panel();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -359,7 +338,7 @@ namespace Nova.WinForms.Gui
             this.resourceDisplay.Name = "resourceDisplay";
             this.resourceDisplay.Size = new System.Drawing.Size(150, 68);
             this.resourceDisplay.TabIndex = 20;
-            this.resourceDisplay.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+            this.resourceDisplay.Value = null;
             // 
             // groupBox2
             // 
@@ -507,11 +486,11 @@ namespace Nova.WinForms.Gui
             // 
             // starbasePanel
             // 
+            this.starbasePanel.Controls.Add(this.panel1);
             this.starbasePanel.Controls.Add(this.label21);
             this.starbasePanel.Controls.Add(this.label26);
             this.starbasePanel.Controls.Add(this.label27);
             this.starbasePanel.Controls.Add(this.label12);
-            this.starbasePanel.Controls.Add(this.label25);
             this.starbasePanel.Controls.Add(this.targetButton);
             this.starbasePanel.Controls.Add(this.starbaseCapacity);
             this.starbasePanel.Controls.Add(this.massDriverDestination);
@@ -527,7 +506,7 @@ namespace Nova.WinForms.Gui
             this.starbasePanel.Controls.Add(this.label13);
             this.starbasePanel.Location = new System.Drawing.Point(172, 176);
             this.starbasePanel.Name = "starbasePanel";
-            this.starbasePanel.Size = new System.Drawing.Size(178, 196);
+            this.starbasePanel.Size = new System.Drawing.Size(178, 168);
             this.starbasePanel.TabIndex = 31;
             this.starbasePanel.TabStop = false;
             this.starbasePanel.Text = "Starbase";
@@ -576,20 +555,11 @@ namespace Nova.WinForms.Gui
             this.label12.Text = "dp";
             this.label12.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // label25
-            // 
-            this.label25.ForeColor = System.Drawing.SystemColors.InactiveBorder;
-            this.label25.Location = new System.Drawing.Point(3, 94);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(160, 23);
-            this.label25.TabIndex = 16;
-            this.label25.Text = "__________________________________";
-            // 
             // targetButton
             // 
             this.targetButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.targetButton.Enabled = false;
-            this.targetButton.Location = new System.Drawing.Point(7, 167);
+            this.targetButton.Location = new System.Drawing.Point(6, 137);
             this.targetButton.Name = "targetButton";
             this.targetButton.Size = new System.Drawing.Size(75, 23);
             this.targetButton.TabIndex = 15;
@@ -607,7 +577,7 @@ namespace Nova.WinForms.Gui
             // 
             // massDriverDestination
             // 
-            this.massDriverDestination.Location = new System.Drawing.Point(83, 144);
+            this.massDriverDestination.Location = new System.Drawing.Point(99, 112);
             this.massDriverDestination.Name = "massDriverDestination";
             this.massDriverDestination.Size = new System.Drawing.Size(72, 13);
             this.massDriverDestination.TabIndex = 11;
@@ -617,7 +587,7 @@ namespace Nova.WinForms.Gui
             // label18
             // 
             this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(7, 144);
+            this.label18.Location = new System.Drawing.Point(6, 114);
             this.label18.Name = "label18";
             this.label18.Size = new System.Drawing.Size(60, 13);
             this.label18.TabIndex = 5;
@@ -634,7 +604,7 @@ namespace Nova.WinForms.Gui
             // 
             // massDriverType
             // 
-            this.massDriverType.Location = new System.Drawing.Point(76, 126);
+            this.massDriverType.Location = new System.Drawing.Point(92, 96);
             this.massDriverType.Name = "massDriverType";
             this.massDriverType.Size = new System.Drawing.Size(79, 13);
             this.massDriverType.TabIndex = 10;
@@ -654,7 +624,7 @@ namespace Nova.WinForms.Gui
             // label17
             // 
             this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(7, 126);
+            this.label17.Location = new System.Drawing.Point(6, 96);
             this.label17.Name = "label17";
             this.label17.Size = new System.Drawing.Size(63, 13);
             this.label17.TabIndex = 4;
@@ -737,6 +707,14 @@ namespace Nova.WinForms.Gui
             this.groupBox6.TabIndex = 32;
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Planet Selection";
+            // 
+            // panel1
+            // 
+            this.panel1.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.panel1.Location = new System.Drawing.Point(7, 89);
+            this.panel1.Name = "panel1";
+            this.panel1.Size = new System.Drawing.Size(164, 1);
+            this.panel1.TabIndex = 38;
             // 
             // PlanetDetail
             // 
@@ -958,4 +936,7 @@ namespace Nova.WinForms.Gui
 
         #endregion
     }
+
+
+    
 }
