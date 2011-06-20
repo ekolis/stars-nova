@@ -109,7 +109,7 @@ namespace Nova.NewGame
             this.SetStandardReducer();
             // Account for already placed homeworlds in the density function.
             this.AccountHomeworlds();
-            //this.PlaceStars();
+            this.PlaceStars();
         }
             
         /// <summary>
