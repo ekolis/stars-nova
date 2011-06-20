@@ -347,24 +347,26 @@ namespace Nova.NewGame
         {
             if (map.Homeworlds.Count > 0)
             {
-                foreach (int[] starPosition in map.Homeworlds)
-                {
-                    Star star = new Star();
-                    
-                    star.Position.X = starPosition[0];
-                    star.Position.Y = starPosition[1];
-                    
-                    map.Homeworlds.Remove(starPosition);
-    
-                    star.Name = nameGenerator.NextName;
-    
-                    AllocateHomeStarResources(star, race);
-                    AllocateHomeStarOrbitalInstallations(star, race, player);
-                    
-                    stateData.AllStars[star.Name] = star;
-                    
-                    return;
-                }
+                
+                Random random = new Random();
+                
+                int[] starPosition = map.Homeworlds[random.Next(map.Homeworlds.Count)];   
+                
+                Star star = new Star();
+                
+                star.Position.X = starPosition[0];
+                star.Position.Y = starPosition[1];
+                
+                map.Homeworlds.Remove(starPosition);
+
+                star.Name = nameGenerator.NextName;
+
+                AllocateHomeStarResources(star, race);
+                AllocateHomeStarOrbitalInstallations(star, race, player);
+                
+                stateData.AllStars[star.Name] = star;                
+                
+                return;
             }
             else
             {
