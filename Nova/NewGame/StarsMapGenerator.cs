@@ -109,7 +109,7 @@ namespace Nova.NewGame
             this.SetStandardReducer();
             // Account for already placed homeworlds in the density function.
             this.AccountHomeworlds();
-            this.PlaceStars();
+            //this.PlaceStars();
         }
             
         /// <summary>
@@ -161,10 +161,13 @@ namespace Nova.NewGame
         {   
             this.baseDensity = 1.0;
             
-            this.minSeparation = (int)Math.Max(this.mapWidth, this.mapHeight) /
+            this.minSeparation = (int)Math.Min(this.mapWidth, this.mapHeight) /
                 (2 * ((int)Math.Floor(Math.Sqrt(this.numPlayers)) + 1));
-            this.maxRadius = this.minSeparation * this.numPlayers / (2.0 - (this.starDensity / 100));
-            this.updateFrameSize = (int)this.maxRadius;
+            
+            this.maxRadius = (Math.Abs(mapWidth - mapHeight) / (mapWidth + mapHeight)) *
+                (this.minSeparation * this.numPlayers / (2.0 - (this.starDensity / 100)));
+            
+            this.updateFrameSize = (int)Math.Max(Math.Ceiling(this.maxRadius), Math.Ceiling((double)this.minSeparation));
         }
 
         /// <summary>
