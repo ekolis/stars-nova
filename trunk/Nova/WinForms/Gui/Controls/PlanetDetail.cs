@@ -170,8 +170,13 @@ namespace Nova.WinForms.Gui
 
             UpdateFields();
 
+            if( selectedStar != null )
+                groupPlanetSelect.Text = "Planet " + selectedStar.Name;
+            else
+                groupPlanetSelect.Text = "No Planet Selected";
+
             if (ClientState.Data.PlayerStars.Count > 1)
-            {
+            {                
                 this.previousPlanet.Enabled = true;
                 this.nextPlanet.Enabled = true;
             }
@@ -262,6 +267,11 @@ namespace Nova.WinForms.Gui
         }
 
         #endregion
+
+        private void starbasePanel_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 
 

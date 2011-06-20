@@ -28,32 +28,34 @@ namespace Nova.WinForms.Gui
       /// </Summary>
       private void InitializeComponent()
       {
-         this.detailPanel = new System.Windows.Forms.GroupBox();
-         this.SuspendLayout();
-         // 
-         // DetailPanel
-         // 
-         this.detailPanel.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.detailPanel.Location = new System.Drawing.Point(0, 0);
-         this.detailPanel.Name = "detailPanel";
-         this.detailPanel.Size = new System.Drawing.Size(350, 330);
-         this.detailPanel.TabIndex = 0;
-         this.detailPanel.TabStop = false;
-         this.detailPanel.Text = "Selection Detail";
-         // 
-         // SelectionDetail
-         // 
-         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
-         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-         this.Controls.Add(this.detailPanel);
-         this.Name = "SelectionDetail";
-         this.Size = new System.Drawing.Size(350, 330);
-         this.ResumeLayout(false);
+          this.planetDetail1 = new Nova.WinForms.Gui.PlanetDetail();
+          this.SuspendLayout();
+          // 
+          // planetDetail1
+          // 
+          this.planetDetail1.Dock = System.Windows.Forms.DockStyle.Fill;
+          this.planetDetail1.Location = new System.Drawing.Point(0, 0);
+          this.planetDetail1.Margin = new System.Windows.Forms.Padding(0);
+          this.planetDetail1.Name = "planetDetail1";
+          this.planetDetail1.Size = new System.Drawing.Size(361, 399);
+          this.planetDetail1.TabIndex = 0;
+          this.planetDetail1.Value = null;
+          // 
+          // SelectionDetail
+          // 
+          this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
+          this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+          this.Controls.Add(this.planetDetail1);
+          this.Margin = new System.Windows.Forms.Padding(0);
+          this.Name = "SelectionDetail";
+          this.Size = new System.Drawing.Size(361, 399);
+          this.ResumeLayout(false);
 
       }
 
       #endregion
 
-      private System.Windows.Forms.GroupBox detailPanel;
+      private PlanetDetail planetDetail1;
+
    }
 }

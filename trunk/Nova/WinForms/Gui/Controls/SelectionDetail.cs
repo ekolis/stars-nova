@@ -69,15 +69,13 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplayPlanet(Item item)
         {
-            PlanetDetail.Location = new Point(5, 15);
             PlanetDetail.Value = item as Star;
-            this.detailPanel.Text = "System " + item.Name;
-
+            
             if (selectedItem is Fleet || selectedItem == null)
             {
                 selectedControl = PlanetDetail;
-                this.detailPanel.Controls.Clear();
-                this.detailPanel.Controls.Add(PlanetDetail);
+                Controls.Clear();
+                Controls.Add(PlanetDetail);
             }
 
             selectedItem = item;
@@ -92,13 +90,11 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplayFleet(Item item)
         {
-            FleetDetail.Location = new Point(5, 15);
             FleetDetail.Value = item as Fleet;
-            this.detailPanel.Text = "Fleet " + item.Name;
-
+            
             selectedControl = FleetDetail;
-            this.detailPanel.Controls.Clear();
-            this.detailPanel.Controls.Add(FleetDetail);
+            Controls.Clear();
+            Controls.Add(FleetDetail);
 
             selectedItem = item;
         }
@@ -117,10 +113,7 @@ namespace Nova.WinForms.Gui
         {
             if (item == null)
             {
-                selectedItem = null;
-                selectedControl = null;
-                this.detailPanel.Text = "Nothing Selected";
-                this.detailPanel.Controls.Clear();
+                Enabled = false;
                 return;
             }
 
@@ -129,11 +122,11 @@ namespace Nova.WinForms.Gui
 
             if (item.Owner == ClientState.Data.RaceName)
             {
-                this.detailPanel.Enabled = true;
+                Enabled = true;
             }
             else
             {
-                this.detailPanel.Enabled = false;
+                Enabled = false;
                 return;
             }
 
