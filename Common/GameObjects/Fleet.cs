@@ -515,6 +515,7 @@ namespace Nova.Common
 
         /// <summary>
         /// Return a unique identifier for the fleet/stack.
+        /// Why don't we just use the fleet ID??
         /// </summary>
         public override string Key
         {

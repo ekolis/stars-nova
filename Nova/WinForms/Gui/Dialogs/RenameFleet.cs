@@ -99,9 +99,6 @@ namespace Nova.WinForms.Gui
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(fleet, fleet);
             FleetSelectionChangedEvent(this, selectionArgs);
             
-            // this.SelectionSummary.Value = fleet as Item;
-            // this.SelectionDetail.Value = fleet as Item;
-
             Close();
         }
     }

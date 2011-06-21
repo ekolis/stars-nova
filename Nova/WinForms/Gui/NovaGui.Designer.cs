@@ -10,6 +10,7 @@ namespace Nova.WinForms.Gui
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaGUI));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.mapControl = new Nova.WinForms.Gui.StarMap();
             this.mainMenu = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -31,7 +32,6 @@ namespace Nova.WinForms.Gui
             this.messages = new Nova.WinForms.Gui.Messages();
             this.selectionDetail = new Nova.WinForms.Gui.SelectionDetail();
             this.selectionSummary = new Nova.WinForms.Gui.SelectionSummary();
-            this.mapControl = new Nova.WinForms.Gui.StarMap();
             this.groupBox2.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -49,6 +49,14 @@ namespace Nova.WinForms.Gui
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Star Map";
+            // 
+            // mapControl
+            // 
+            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.mapControl.Location = new System.Drawing.Point(3, 16);
+            this.mapControl.Name = "mapControl";
+            this.mapControl.Size = new System.Drawing.Size(605, 682);
+            this.mapControl.TabIndex = 0;
             // 
             // mainMenu
             // 
@@ -232,14 +240,6 @@ namespace Nova.WinForms.Gui
             this.selectionSummary.Size = new System.Drawing.Size(360, 191);
             this.selectionSummary.TabIndex = 19;
             this.selectionSummary.Value = null;
-            // 
-            // mapControl
-            // 
-            this.mapControl.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.mapControl.Location = new System.Drawing.Point(3, 16);
-            this.mapControl.Name = "mapControl";
-            this.mapControl.Size = new System.Drawing.Size(605, 682);
-            this.mapControl.TabIndex = 0;
             // 
             // NovaGUI
             // 

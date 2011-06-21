@@ -185,10 +185,7 @@ namespace Nova.WinForms.Gui
 
             UpdateFields();
 
-            if( star != null )
-                groupPlanetSelect.Text = "Planet " + star.Name;
-            else
-                groupPlanetSelect.Text = "No Planet Selected";
+            groupPlanetSelect.Text = "Planet " + star.Name;
 
             if (ClientState.Data.PlayerStars.Count > 1)
             {                
@@ -217,12 +214,11 @@ namespace Nova.WinForms.Gui
 
             QueueList.Populate(productionQueue, star.ManufacturingQueue);
 
-            Nova.Common.Defenses.ComputeDefenseCoverage(star);
+            Defenses.ComputeDefenseCoverage(star);
 
             defenseType.Text = star.DefenseType;
             defenses.Text = star.Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            defenseCoverage.Text =
-                Nova.Common.Defenses.SummaryCoverage.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            defenseCoverage.Text = Defenses.SummaryCoverage.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
             factories.Text = star.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture)
                              + " of " +
@@ -280,11 +276,14 @@ namespace Nova.WinForms.Gui
             }
             fleetnames.Sort();
             comboFleetsInOrbit.Items.Clear();
-            if (fleetnames.Count > 0)
+            bool haveFleets = fleetnames.Count > 0;
+            if (haveFleets)
             {
                 comboFleetsInOrbit.Items.AddRange(fleetnames.ToArray());
                 comboFleetsInOrbit.SelectedIndex = 0;
             }
+            buttonGoto.Enabled = haveFleets;
+            buttonGoto.Enabled = haveFleets;
         }
 
         #endregion

@@ -61,10 +61,12 @@ namespace Nova.WinForms.Gui
             // These used to be in the designer.cs file, but visual studio designer throws a whappy so they are here
             // for now so it works again
             SelectionDetail.FleetDetail.FleetSelectionChangedEvent += FleetChangeSelection;
+            SelectionDetail.FleetDetail.RefreshStarMapEvent += MapControl.RefreshStarMap;
+            SelectionDetail.FleetDetail.StarSelectionChangedEvent += StarChangeSelection;
             SelectionDetail.PlanetDetail.CursorChangedEvent += MapControl.ChangeCursor;
             SelectionDetail.PlanetDetail.StarSelectionChangedEvent += StarChangeSelection;
             SelectionDetail.PlanetDetail.FleetSelectionChangedEvent += FleetChangeSelection;
-            SelectionDetail.FleetDetail.RefreshStarMapEvent += MapControl.RefreshStarMap;
+            
 
             MapControl.RequestSelectionEvent += SelectionDetail.ReportItem;
             MapControl.SelectionChangedEvent += SelectionDetail.SelectionChanged;
