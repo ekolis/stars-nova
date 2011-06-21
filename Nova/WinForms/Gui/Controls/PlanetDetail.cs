@@ -268,7 +268,7 @@ namespace Nova.WinForms.Gui
             fleetsInOrbit = new Dictionary<string, Fleet>();
             foreach (Fleet fleet in ClientState.Data.PlayerFleets)
             {
-                if (fleet.InOrbit.Name == star.Name && !fleet.IsStarbase)
+                if ( fleet.InOrbit != null &&  fleet.InOrbit.Name == star.Name && !fleet.IsStarbase)
                 {
                     fleetnames.Add(fleet.Name);
                     fleetsInOrbit[fleet.Name] = fleet;

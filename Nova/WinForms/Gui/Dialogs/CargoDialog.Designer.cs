@@ -1,32 +1,4 @@
-#region Copyright Notice
-// ============================================================================
-// Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
-//
-// This file is part of Stars-Nova.
-// See <http://sourceforge.net/projects/stars-nova/>.
-//
-// This program is free software; you can redistribute it and/or modify
-// it under the terms of the GNU General Public License version 2 as
-// published by the Free Software Foundation.
-//
-// This program is distributed in the hope that it will be useful,
-// but WITHOUT ANY WARRANTY; without even the implied warranty of
-// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-// GNU General Public License for more details.
-//
-// You should have received a copy of the GNU General Public License
-// along with this program.  If not, see <http://www.gnu.org/licenses/>
-// ===========================================================================
-#endregion
-
-#region Module Description
-// ===========================================================================
-// Dialog for transferring cargo between a planet and a ship.
-// ===========================================================================
-#endregion
-
-using System;
+﻿using System;
 
 using Nova.Common;
 
@@ -35,62 +7,8 @@ namespace Nova.ControlLibrary
     /// <summary>
     /// A dialog for transferring cargo between a planet and a ship.
     /// </summary>
-    public class CargoDialog : System.Windows.Forms.Form
+    public partial class CargoDialog : System.Windows.Forms.Form
     {
-        private Fleet fleet;
-
-        private System.Windows.Forms.Button cancelButton;
-        private System.Windows.Forms.Button okButton;
-        private Nova.ControlLibrary.CargoTransfer ironiumTransfer;
-        private Nova.ControlLibrary.CargoTransfer boroniumTransfer;
-        private Nova.ControlLibrary.CargoTransfer germaniumTransfer;
-        private Nova.ControlLibrary.CargoTransfer colonistsTransfer;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
-        private Nova.ControlLibrary.Gauge cargoBay;
-        private System.Windows.Forms.Label label3;
-        private System.ComponentModel.Container components = null;
-
-
-        #region Construction Dispose
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Initializes a new instance of the CargoDialog class.
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public CargoDialog()
-        {
-            InitializeComponent();
-        }
-
-
-        /// <summary>
-        /// Clean up any resources being used.
-        /// </summary>
-        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                if (components != null)
-                {
-                    components.Dispose();
-                }
-            }
-            base.Dispose(disposing);
-        }
-
-        #endregion
-
-
-        #region Windows Form Designer generated code
-
-        /// <summary>
-        /// Required method for Designer support - do not modify
-        /// the contents of this method with the code editor.
-        /// </summary>
-
         private void InitializeComponent()
         {
             this.cancelButton = new System.Windows.Forms.Button();
@@ -227,89 +145,34 @@ namespace Nova.ControlLibrary
             this.ShowInTaskbar = false;
             this.Text = "Cargo Transfer";
             this.ResumeLayout(false);
-
         }
-        #endregion
 
-
-        #region Event Methods
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Process cancel button.
+        /// Clean up any resources being used.
         /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
-        private void CancelButton_Click(object sender, System.EventArgs e)
+        /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
         {
-            Close();
+            if (disposing)
+            {
+                if (components != null)
+                {
+                    components.Dispose();
+                }
+            }
+            base.Dispose(disposing);
         }
 
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Process the OK button being pressed.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
-        private void OkButton_Click(object sender, System.EventArgs e)
-        {
-            fleet.Cargo.Ironium = this.ironiumTransfer.Value;
-            fleet.Cargo.Boranium = boroniumTransfer.Value;
-            fleet.Cargo.Germanium = this.germaniumTransfer.Value;
-            fleet.Cargo.ColonistsInKilotons = colonistsTransfer.Value;
-
-            Star star = fleet.InOrbit;
-            star.ResourcesOnHand.Ironium -= this.ironiumTransfer.Taken;
-            star.ResourcesOnHand.Boranium -= boroniumTransfer.Taken;
-            star.ResourcesOnHand.Germanium -= this.germaniumTransfer.Taken;
-            star.Colonists -= colonistsTransfer.Taken * Global.ColonistsPerKiloton;
-
-            Close();
-        }
-
-        #endregion
-
-        #region Utility Methods
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Initialise the various fields in the dialog.
-        /// </summary>
-        /// <param name="targetFleet">The <see cref="Fleet"/> transferring cargo.</param>
-        /// ----------------------------------------------------------------------------
-        public void SetTarget(Fleet targetFleet)
-        {
-            fleet = targetFleet;
-
-            this.ironiumTransfer.Maximum = fleet.TotalCargoCapacity;
-            boroniumTransfer.Maximum = fleet.TotalCargoCapacity;
-            this.germaniumTransfer.Maximum = fleet.TotalCargoCapacity;
-            colonistsTransfer.Maximum = fleet.TotalCargoCapacity;
-
-            this.ironiumTransfer.Value = (int)fleet.Cargo.Ironium;
-            boroniumTransfer.Value = (int)fleet.Cargo.Boranium;
-            this.germaniumTransfer.Value = (int)fleet.Cargo.Germanium;
-            colonistsTransfer.Value = (int)fleet.Cargo.ColonistsInKilotons;
-
-            Star star = fleet.InOrbit;
-            this.ironiumTransfer.Available = (int)star.ResourcesOnHand.Ironium;
-            boroniumTransfer.Available = (int)star.ResourcesOnHand.Boranium;
-            this.germaniumTransfer.Available = (int)star.ResourcesOnHand.Germanium;
-            colonistsTransfer.Available = (int)star.Colonists / Global.ColonistsPerKiloton;
-
-            this.ironiumTransfer.Limit = this.cargoBay;
-            boroniumTransfer.Limit = this.cargoBay;
-            this.germaniumTransfer.Limit = this.cargoBay;
-            colonistsTransfer.Limit = this.cargoBay;
-
-            this.cargoBay.Maximum = fleet.TotalCargoCapacity;
-            this.cargoBay.Value = fleet.Cargo.Mass;
-        }
-
-        #endregion
-
+        private System.Windows.Forms.Button cancelButton;
+        private System.Windows.Forms.Button okButton;
+        private Nova.ControlLibrary.CargoTransfer ironiumTransfer;
+        private Nova.ControlLibrary.CargoTransfer boroniumTransfer;
+        private Nova.ControlLibrary.CargoTransfer germaniumTransfer;
+        private Nova.ControlLibrary.CargoTransfer colonistsTransfer;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private Nova.ControlLibrary.Gauge cargoBay;
+        private System.Windows.Forms.Label label3;
+        private System.ComponentModel.Container components = null;
     }
 }
