@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project.
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -126,8 +126,25 @@ namespace Nova.WinForms.Launcher
         {
             try
             {
-                Process.Start(Assembly.GetExecutingAssembly().Location, CommandArguments.Option.NewGameSwitch);
-                Application.Exit();
+                NewGameWizard wizard = new NewGameWizard();
+                DialogResult result;
+                
+                this.Hide();
+                
+                do
+                {
+                    result = wizard.ShowDialog();
+                }
+                while (result != DialogResult.OK && result != DialogResult.Cancel);
+                
+                if (result == DialogResult.OK)
+                {
+                    this.Close();
+                }
+                else
+                {
+                    this.Show();
+                }                    
             }
             catch
             {

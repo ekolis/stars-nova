@@ -474,14 +474,14 @@ namespace Nova.WinForms.Console
             /// First we try to open a current game based on the config file settings:
             stateData.StatePathName = FileSearcher.GetFile(Global.ServerStateKey, false, "", "", "", false);
             stateData.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
-            folderPath.Text = stateData.GameFolder;
-            stateData = stateData.Restore();
+            folderPath.Text = stateData.GameFolder;            
 
             AllComponents.Restore();
 
             if (File.Exists(stateData.StatePathName))
-            {
+            { 
                 // We have a known game in progress. Load it:
+                stateData = stateData.Restore();
                 stateData.GameInProgress = true;
                 turnYearLabel.Text = stateData.TurnYear.ToString();
                 // load the game settings also
@@ -647,7 +647,13 @@ namespace Nova.WinForms.Console
                 args.Add(CommandArguments.Option.RaceName, raceName);
                 args.Add(CommandArguments.Option.Turn, stateData.TurnYear + 1);
                 args.Add(CommandArguments.Option.IntelFileName, Path.Combine(stateData.GameFolder, raceName + Global.IntelExtension));
-                Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());
+                
+                Nova.WinForms.Gui.NovaGUI gui = new Nova.WinForms.Gui.NovaGUI();
+            
+                Nova.Client.ClientState.Initialize(args.ToArray());
+                gui.Text = "Nova - " + Nova.Client.ClientState.Data.PlayerRace.PluralName;
+                gui.InitialiseControls();
+                gui.Show();
             }
             catch
             {
@@ -732,14 +738,14 @@ namespace Nova.WinForms.Console
 
             // TODO (priority 4) - This code is a repeat of what we do when the console is normally opened. Consider consolodating these sections.
             stateData.GameFolder = System.IO.Path.GetDirectoryName(stateData.StatePathName);
-            folderPath.Text = stateData.GameFolder;
-            stateData = stateData.Restore();
+            folderPath.Text = stateData.GameFolder;            
 
             AllComponents.Restore();
 
             if (File.Exists(stateData.StatePathName))
             {
                 // We have a known game in progress. Load it:
+                stateData = stateData.Restore();
                 stateData.GameInProgress = true;
                 turnYearLabel.Text = stateData.TurnYear.ToString();
                 // load the game settings also

@@ -25,6 +25,8 @@
 // ===========================================================================
 #endregion
 
+using System.Xml;
+
 using Nova.Server;
 using NUnit.Framework;
 
@@ -52,6 +54,8 @@ namespace Nova.Tests.IntegrationTests
             stateData.GameInProgress = true;
             stateData.GameFolder = "dummy_value";
             stateData.StatePathName = "unit_test.sstate";
+            stateData.AllTechLevels["foo"] = 10;
+            stateData.AllTechLevels["bar"] = 5;
 
             // serialise
             stateData.Save();
@@ -60,14 +64,18 @@ namespace Nova.Tests.IntegrationTests
             stateData.TurnYear = 2102;
             stateData.GameInProgress = false;
             stateData.GameFolder = "foo_bar";
+            stateData.AllTechLevels["foo"] = 2;
+            stateData.AllTechLevels["bar"] = 7;
 
             // deserialise
             stateData = stateData.Restore();
 
             // test
-            Assert.AreEqual(stateData.TurnYear, 2101);
-            Assert.AreEqual(stateData.GameInProgress, true);
-            Assert.AreEqual(stateData.GameFolder, "dummy_value");
+            Assert.AreEqual(2101, stateData.TurnYear);            
+            Assert.AreEqual("dummy_value", stateData.GameFolder);
+            Assert.AreEqual(10, stateData.AllTechLevels["foo"]);
+            Assert.AreEqual(5, stateData.AllTechLevels["bar"]);
+            Assert.AreEqual(true, stateData.GameInProgress);
         }
     }
 }
