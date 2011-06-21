@@ -1,6 +1,6 @@
 #region Copyright Notice
 // ============================================================================
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project.
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -16,12 +16,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
-// ===========================================================================
-#endregion
-
-#region Module Description
-// ===========================================================================
-// This dialog will determine the objectives of the game.
 // ===========================================================================
 #endregion
 
@@ -42,6 +36,7 @@ namespace Nova.WinForms
 
     /// <Summary>
     /// The Stars! Nova - New Game Wizard <see cref="Form"/>.
+    /// This dialog will determine the objectives and settings of the game.
     /// </Summary>
     public partial class NewGameWizard : Form
     {
@@ -50,9 +45,6 @@ namespace Nova.WinForms
 
         public Dictionary<string, Race> KnownRaces = new Dictionary<string, Race>();
         private RaceNameGenerator raceNameGenerator = new RaceNameGenerator();
-
-
-        #region Initialisation
 
         /// <Summary>
         /// Initializes a new instance of the NewGameWizard class.
@@ -103,36 +95,11 @@ namespace Nova.WinForms
             return race.Name;
         }
 
-        #endregion
-
-        #region Main
-
         /// <Summary>
         /// run the wizard
         /// </Summary>
-        public void Run()
+        private bool CreateGame()
         {
-            do
-            {
-                DialogResult result = ShowDialog();
-
-                // Check for cancel being pressed.
-                if (result != DialogResult.OK)
-                {
-                    // return to the game launcher
-                    try
-                    {
-                        Process.Start(Assembly.GetExecutingAssembly().Location, CommandArguments.Option.LauncherSwitch);
-                    }
-                    catch
-                    {
-                        // there was a problem returning to the launcher and the user doesn't want the new game dialog open. Just quit.
-                        Report.FatalError("Could not return to the Launcher.");
-                    }
-                    Application.Exit();
-                    return; // need this as well to prevent execution of the rest of the loop, which will restart the NewGame dialog.
-                }
-
                 // New game dialog was OK, create a game
                 // Get a location to save the game:
                 FolderBrowserDialog gameFolderBrowser = new FolderBrowserDialog();
@@ -144,8 +111,7 @@ namespace Nova.WinForms
                 // Check for cancel being pressed (in the new game save file dialog).
                 if (gameFolderBrowserResult != DialogResult.OK)
                 {
-                    // return to the new game wizard
-                    continue;
+                    return false;
                 }
 
                 // store the updated Game Folder information
@@ -218,28 +184,24 @@ namespace Nova.WinForms
                 catch
                 {
                     Report.Error("Creation of new game failed.");
-                    continue;
+                    return false;
                 }
 
                 // start the server
                 try
                 {
                     NovaConsoleMain novaConsole = new NovaConsoleMain();
-                    Application.EnableVisualStyles();
-                    Application.Run(novaConsole);
-                    // Process.Start(Assembly.GetExecutingAssembly().Location, CommandArguments.Option.ConsoleSwitch);
+                    
+                    novaConsole.ShowDialog();
 
-                    return;
+                    return true;
                 }
                 catch
                 {
                     Report.FatalError("Unable to launch Console.");
+                    return false;
                 }
-            }
-            while (true); // keep trying to make a new game
-        } // Main
-
-        #endregion
+        }
 
         #region Event Methods
 
@@ -269,6 +231,18 @@ namespace Nova.WinForms
             GameSettings.Data.StarUniformity = (int)starUniformity.Value;
 
             GameSettings.Data.AcceleratedStart = acceleratedStart.Checked;
+            
+            this.Hide();
+            
+            if (CreateGame() == true)
+            {
+                this.Close();   
+            }
+            else
+            {
+                // Game creation aborted, signal that the Wizard should run again.
+                DialogResult = DialogResult.Retry;
+            }                
         }
 
         /// <Summary>

@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2010 The Stars-Nova Project
+// Copyright (C) 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -35,13 +35,12 @@ namespace Nova
         [STAThread]
         public static void Main(string[] args)
         {
-            RunApplication(args);
-        }
-
-        private static void RunApplication(string[] args)
-        {
             string firstArgument = args.FirstOrDefault();
             string[] coreArgs = args.Skip(1).ToArray();
+            
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+            
             switch (firstArgument)
             {
                 case CommandArguments.Option.ConsoleSwitch:
@@ -54,20 +53,21 @@ namespace Nova
                     WinForms.RaceDesigner.RaceDesignerForm.Main();
                     break;
                 case CommandArguments.Option.GuiSwitch:
-                    WinForms.Gui.MainWindow.Main(coreArgs);
+                    Nova.WinForms.Gui.NovaGUI gui = new Nova.WinForms.Gui.NovaGUI();            
+                    Nova.Client.ClientState.Initialize(args); // TODO: This really shouldnt be here. -Aeglos 21 Jun 11
+                    gui.Text = "Nova - " + Nova.Client.ClientState.Data.PlayerRace.PluralName;
+                    gui.InitialiseControls();
+                    Application.Run(gui);
                     break;
                 case CommandArguments.Option.NewGameSwitch:
-                    Application.EnableVisualStyles();
-                    Application.SetCompatibleTextRenderingDefault(false);
-                    WinForms.NewGameWizard wiz = new WinForms.NewGameWizard();
-                    wiz.Run();
+                    Application.Run(new WinForms.NewGameWizard());
                     break;
                 case CommandArguments.Option.AiSwitch:
                     Ai.Program.Main(coreArgs);
                     break;
                 case CommandArguments.Option.LauncherSwitch:
                 case null:
-                    WinForms.Launcher.Program.Main();
+                    Application.Run(new Nova.WinForms.Launcher.NovaLauncher());
                     break;
                 case CommandArguments.Option.HelpSwitch:
                     ShowHelpDialog(null, false);
