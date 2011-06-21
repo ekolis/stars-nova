@@ -46,11 +46,15 @@ namespace Nova.WinForms.Gui
         private Fleet selectedFleet;
         private int currentFleet;
         
+        new Dictionary<string, Fleet> fleetsAtLocation = new Dictionary<string, Fleet>();
+
         /// <Summary>
         /// This event should be fired when the selected Fleet
         /// changes.
         /// </Summary>
         public event FleetSelectionChanged FleetSelectionChangedEvent;
+
+        public event StarSelectionChanged StarSelectionChangedEvent;
         
         /// <Summary>
         /// This event should be fired in addition to
@@ -65,8 +69,6 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         public event RefreshStarMap RefreshStarMapEvent;
 
-        #region Construction and Disposal
-
         /// <Summary>
         /// Initializes a new instance of the FleetDetail class.
         /// </Summary>
@@ -74,14 +76,6 @@ namespace Nova.WinForms.Gui
         {
             InitializeComponent();
         }
-
-
-
-
-        #endregion
-
-      
-        #region Event Methods
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -92,19 +86,18 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void SpeedChanged(object sender, System.EventArgs e)
         {
-            warpText.Text = "Warp " + this.warpFactor.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            warpText.Text = "Warp " + warpFactor.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-            if (this.wayPoints.SelectedItems.Count > 0)
+            if (wayPoints.SelectedItems.Count > 0)
             {
-                int index = this.wayPoints.SelectedIndices[0];
-                Waypoint waypoint = this.selectedFleet.Waypoints[index];
-                waypoint.WarpFactor = this.warpFactor.Value;
+                int index = wayPoints.SelectedIndices[0];
+                Waypoint waypoint = selectedFleet.Waypoints[index];
+                waypoint.WarpFactor = warpFactor.Value;
 
                 DisplayLegDetails(index);
             }
         }
-
-
+        
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// On a waypoint being selected update the speed and tasks controls to
@@ -115,16 +108,15 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void WaypointSelection(object sender, System.EventArgs e)
         {
-            if (this.wayPoints.SelectedItems.Count <= 0)
+            if (wayPoints.SelectedItems.Count <= 0)
             {
                 return;
             }
 
-            int index = this.wayPoints.SelectedIndices[0];
+            int index = wayPoints.SelectedIndices[0];
             DisplayLegDetails(index);
         }
-
-
+        
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Cargo button pressed. Pop up the cargo transfer dialog.
@@ -138,11 +130,11 @@ namespace Nova.WinForms.Gui
             {
                 CargoDialog cargoDialog = new CargoDialog();
 
-                cargoDialog.SetTarget(this.selectedFleet);
+                cargoDialog.SetTarget(selectedFleet);
                 cargoDialog.ShowDialog();
                 cargoDialog.Dispose();
-                ClientState.Data.StarReports[this.selectedFleet.InOrbit.Name] = new StarReport(this.selectedFleet.InOrbit);
-                this.cargo.Value = this.selectedFleet.Cargo.Mass;
+                ClientState.Data.StarReports[selectedFleet.InOrbit.Name] = new StarReport(selectedFleet.InOrbit);
+                cargo.Value = selectedFleet.Cargo.Mass;
             }
             catch
             {
@@ -150,8 +142,7 @@ namespace Nova.WinForms.Gui
             }
                 
         }
-
-
+        
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Catch the backspace key to delete a fleet waypoint.
@@ -161,12 +152,12 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
-            if (this.wayPoints.SelectedItems.Count <= 0)
+            if (wayPoints.SelectedItems.Count <= 0)
             {
                 return;
             }
 
-            int index = this.wayPoints.SelectedIndices[0];
+            int index = wayPoints.SelectedIndices[0];
 
             // backspace
             if (index == 0 || !(e.KeyChar == (char)8)) 
@@ -174,11 +165,12 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            this.selectedFleet.Waypoints.RemoveAt(index);
-            this.wayPoints.Items.RemoveAt(index);
-            this.wayPoints.SelectedIndex = this.wayPoints.Items.Count - 1;
+            selectedFleet.Waypoints.RemoveAt(index);
+            wayPoints.Items.RemoveAt(index);
+            wayPoints.SelectedIndex = wayPoints.Items.Count - 1;
 
-            RefreshStarMapEvent();
+            if( RefreshStarMapEvent != null )
+                        RefreshStarMapEvent();
         }
 
         /// <Summary>
@@ -190,14 +182,15 @@ namespace Nova.WinForms.Gui
         {
             if (e.KeyCode == Keys.Delete)
             {
-                int index = this.wayPoints.SelectedIndices[0];
+                int index = wayPoints.SelectedIndices[0];
                 if (index > 0)
                 {
-                    this.selectedFleet.Waypoints.RemoveAt(index);
-                    this.wayPoints.Items.RemoveAt(index);
-                    this.wayPoints.SelectedIndex = this.wayPoints.Items.Count - 1;
+                    selectedFleet.Waypoints.RemoveAt(index);
+                    wayPoints.Items.RemoveAt(index);
+                    wayPoints.SelectedIndex = wayPoints.Items.Count - 1;
 
-                    RefreshStarMapEvent();
+                    if( RefreshStarMapEvent != null )
+                        RefreshStarMapEvent();
                 }
                 e.Handled = true;
             }
@@ -214,13 +207,13 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void WaypointTaskChanged(object sender, EventArgs e)
         {
-            if (this.wayPoints.SelectedItems.Count <= 0)
+            if (wayPoints.SelectedItems.Count <= 0)
             {
                 return;
             }
 
-            int index = this.wayPoints.SelectedIndices[0];
-            Waypoint waypoint = this.selectedFleet.Waypoints[index];
+            int index = wayPoints.SelectedIndices[0];
+            Waypoint waypoint = selectedFleet.Waypoints[index];
 
             waypoint.Task = WaypointTasks.Text;
         }
@@ -233,9 +226,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void WaypointListChanged(object sender)
         {
-            this.Refresh();
+            Refresh();
         }
-
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -247,11 +239,10 @@ namespace Nova.WinForms.Gui
         private void MangeFleet_Click(object sender, EventArgs e)
         {
             ManageFleetDialog manageDialog = new ManageFleetDialog();
-            manageDialog.ManagedFleet = this.selectedFleet;
+            manageDialog.ManagedFleet = selectedFleet;
             manageDialog.ShowDialog();
             manageDialog.Dispose();
         }
-
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -266,13 +257,13 @@ namespace Nova.WinForms.Gui
 
             if (myFleets.Count == 1)
             {
-                this.previousFleet.Enabled = false;
-                this.nextFleet.Enabled = false;
+                previousFleet.Enabled = false;
+                nextFleet.Enabled = false;
                 return;
             }
 
-            this.previousFleet.Enabled = true;
-            this.nextFleet.Enabled = true;
+            previousFleet.Enabled = true;
+            nextFleet.Enabled = true;
 
             if (currentFleet < myFleets.Count - 1)
             {
@@ -285,11 +276,13 @@ namespace Nova.WinForms.Gui
             
             Fleet current = myFleets[currentFleet];
             
-            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(current, this.selectedFleet);
-            CursorArgs cursorArgs = new CursorArgs((Point)this.selectedFleet.Position);
+            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(current, selectedFleet);
+            CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
             
             // Inform of the selection change to all listening objects.
-            FleetSelectionChangedEvent(this, selectionArgs);
+            if( FleetSelectionChangedEvent  != null )
+                FleetSelectionChangedEvent(this, selectionArgs);
+            if( CursorChangedEvent != null )
             CursorChangedEvent(this, cursorArgs);
         }
 
@@ -307,13 +300,13 @@ namespace Nova.WinForms.Gui
 
             if (myFleets.Count == 1)
             {
-                this.previousFleet.Enabled = false;
-                this.nextFleet.Enabled = false;
+                previousFleet.Enabled = false;
+                nextFleet.Enabled = false;
                 return;
             }
 
-            this.previousFleet.Enabled = true;
-            this.nextFleet.Enabled = true;
+            previousFleet.Enabled = true;
+            nextFleet.Enabled = true;
 
             if (currentFleet > 0)
             {
@@ -325,18 +318,16 @@ namespace Nova.WinForms.Gui
             }
 
             Fleet current = myFleets[currentFleet];
-            
-            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(current, this.selectedFleet);
-            CursorArgs cursorArgs = new CursorArgs((Point)this.selectedFleet.Position);
-            
+
+            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(current, selectedFleet);
+            CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
+
             // Inform of the selection change to all listening objects.
-            FleetSelectionChangedEvent(this, selectionArgs);
-            CursorChangedEvent(this, cursorArgs);
+            if (FleetSelectionChangedEvent != null)
+                FleetSelectionChangedEvent(this, selectionArgs);
+            if (CursorChangedEvent != null)
+                CursorChangedEvent(this, cursorArgs);
         }
-
-        #endregion
-
-        #region Utility Methods
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -352,13 +343,13 @@ namespace Nova.WinForms.Gui
 
             WaypointTasks.Text = thisWaypoint.Task;
 
-            if (this.selectedFleet.Waypoints.Count == 1)
+            if (selectedFleet.Waypoints.Count == 1)
             {
                 thisWaypoint.WarpFactor = 0;
             }
 
             selectedFleet.Waypoints[index] = thisWaypoint;
-            this.warpFactor.Value = thisWaypoint.WarpFactor;
+            warpFactor.Value = thisWaypoint.WarpFactor;
             warpText.Text = "Warp " + thisWaypoint.WarpFactor;
 
             if (index > 0 && thisWaypoint.WarpFactor > 0)
@@ -368,7 +359,7 @@ namespace Nova.WinForms.Gui
                 double distance = PointUtilities.Distance(from.Position, to.Position);
 
                 double time = distance / (to.WarpFactor * to.WarpFactor);
-                double fuelUsed = this.selectedFleet.FuelConsumption(to.WarpFactor, race)
+                double fuelUsed = selectedFleet.FuelConsumption(to.WarpFactor, race)
                                 * time;
 
                 legDistance.Text = String.Format("{0}", distance.ToString("f1"));
@@ -388,16 +379,16 @@ namespace Nova.WinForms.Gui
             // Sum up the total fuel required for all waypoints in the current
             // route (as long as there is more than one waypoint).
 
-            foreach (Waypoint waypoint in this.selectedFleet.Waypoints)
+            foreach (Waypoint waypoint in selectedFleet.Waypoints)
             {
                 if (previous != null && waypoint.WarpFactor > 0)
                 {
                     double distance = PointUtilities.Distance(waypoint.Position, previous.Position);
-                    int warpFactor = waypoint.WarpFactor;
-                    double speed = warpFactor * warpFactor;
+                    int warp = waypoint.WarpFactor;
+                    double speed = warp * warp;
                     double travelTime = distance / speed;
 
-                    fuelRequired += this.selectedFleet.FuelConsumption(warpFactor, race)
+                    fuelRequired += selectedFleet.FuelConsumption(warp, race)
                                   * travelTime;
                 }
                 previous = waypoint;
@@ -415,9 +406,9 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         public void AddWaypoint(Waypoint waypoint)
         {
-            this.wayPoints.Items.Add(waypoint.Destination);
-            this.wayPoints.SelectedIndex = this.wayPoints.Items.Count - 1;
-            DisplayLegDetails(this.wayPoints.SelectedIndex);
+            wayPoints.Items.Add(waypoint.Destination);
+            wayPoints.SelectedIndex = wayPoints.Items.Count - 1;
+            DisplayLegDetails(wayPoints.SelectedIndex);
         }
 
 
@@ -429,7 +420,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void SetFleetDetails(Fleet fleet)
         {
-            this.selectedFleet = fleet;
+            selectedFleet = fleet;
 
             List<Fleet> myFleets = ClientState.Data.PlayerFleets;
             int i;
@@ -445,59 +436,72 @@ namespace Nova.WinForms.Gui
 
             if (myFleets.Count > 1)
             {
-                this.previousFleet.Enabled = true;
-                this.nextFleet.Enabled = true;
+                previousFleet.Enabled = true;
+                nextFleet.Enabled = true;
             }
             else
             {
-                this.previousFleet.Enabled = false;
-                this.previousFleet.Enabled = false;
+                previousFleet.Enabled = false;
+                previousFleet.Enabled = false;
             }
 
+            groupFleetSelection.Text = "Fleet " + fleet.Name;
+
             Dictionary<string, int> designs = fleet.Composition;
-            this.fleetComposition.Items.Clear();
+            fleetComposition.Items.Clear();
 
             foreach (string key in designs.Keys)
             {
                 ListViewItem listItem = new ListViewItem(key);
                 listItem.SubItems.Add(designs[key].ToString(System.Globalization.CultureInfo.InvariantCulture));
-                this.fleetComposition.Items.Add(listItem);
+                fleetComposition.Items.Add(listItem);
             }
 
-            this.fuel.Maximum = (int)fleet.TotalFuelCapacity;
-            this.fuel.Value = (int)fleet.FuelAvailable;
-            this.cargo.Maximum = (int)fleet.TotalCargoCapacity;
-            this.cargo.Value = (int)fleet.Cargo.Mass;
+            fuel.Maximum = (int)fleet.TotalFuelCapacity;
+            fuel.Value = (int)fleet.FuelAvailable;
+            cargo.Maximum = (int)fleet.TotalCargoCapacity;
+            cargo.Value = (int)fleet.Cargo.Mass;
 
-            this.wayPoints.Items.Clear();
+            wayPoints.Items.Clear();
             foreach (Waypoint waypoint in fleet.Waypoints)
             {
-                this.wayPoints.Items.Add(waypoint.Destination);
+                wayPoints.Items.Add(waypoint.Destination);
             }
 
-            this.wayPoints.SelectedIndex = this.wayPoints.Items.Count - 1;
-            DisplayLegDetails(this.wayPoints.Items.Count - 1);
+            wayPoints.SelectedIndex = wayPoints.Items.Count - 1;
+            DisplayLegDetails(wayPoints.Items.Count - 1);
 
             // If we are in orbit around a planet and we have a cargo carrying
             // capacity, enable the Cargo Dialog Button.
+            bool inOrbit = fleet.InOrbit != null;
+            groupOrbitPlanet.Text = inOrbit ? "Orbiting " + fleet.InOrbit.Name : "In deep space";
+            buttonCargo.Enabled = inOrbit && fleet.TotalCargoCapacity > 0;            
+            buttonGotoPlanet.Enabled = inOrbit;           
 
-            if (fleet.InOrbit != null)
+            List<String> fleetnames = new List<string>();
+            fleetsAtLocation = new Dictionary<string, Fleet>();
+            foreach (Fleet other in ClientState.Data.PlayerFleets)
             {
-                if (fleet.TotalCargoCapacity > 0)
+                if (fleet.Position == other.Position && !other.IsStarbase && fleet.FleetID != other.FleetID)
                 {
-                    this.cargoButton.Enabled = true;
-                }
-                else
-                {
-                    // CargoButton.Enabled = false; // FIXME (priority 4) - disabled due to it sometimes being disabled when it shouldn't be Dan 22 May 10 
+                    fleetnames.Add(other.Name);
+                    fleetsAtLocation[other.Name] = other;
                 }
             }
+            fleetnames.Sort();
+            comboOtherFleets.Items.Clear();
+            bool haveFleets = fleetnames.Count > 0;
+            if ( haveFleets )
+            {
+                comboOtherFleets.Items.AddRange(fleetnames.ToArray());
+                comboOtherFleets.SelectedIndex = 0;
+            }
+            buttonMerge.Enabled = haveFleets;
+            buttonCargoXfer.Enabled = haveFleets && fleet.TotalCargoCapacity > 0;
+            buttonGotoFleet.Enabled = haveFleets;
+            
+            Invalidate();
         }
-
-
-        #endregion
-
-        #region Properties
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -515,19 +519,17 @@ namespace Nova.WinForms.Gui
             }
             get 
             { 
-                return this.selectedFleet; 
+                return selectedFleet; 
             }
         }
-
-
+        
         /// <Summary>
         /// Get warp factor value.
         /// </Summary>
         public int Speed
         {
-            get { return this.warpFactor.Value; }
+            get { return warpFactor.Value; }
         }
-
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -539,6 +541,70 @@ namespace Nova.WinForms.Gui
             get { return WaypointTasks.Text; }
         }
 
-        #endregion
+        private Fleet GetSelectedFleetAtLocation()
+        {
+            if (comboOtherFleets.SelectedItem == null)
+                return null;
+
+            Fleet fleet;
+            if (!fleetsAtLocation.TryGetValue(comboOtherFleets.SelectedItem.ToString(), out fleet))
+                return null;
+
+            return fleet;
+        }
+
+        private void comboOtherFleets_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            Fleet fleet = GetSelectedFleetAtLocation();
+            if (fleet == null)
+            {
+                gaugeFuel.Value = 0;
+                gaugeFuel.Maximum = 0;
+                gaugeCargo.Value = 0;
+                gaugeCargo.Maximum = 0;
+            }
+            else
+            {
+                gaugeFuel.Maximum = fleet.TotalFuelCapacity;
+                gaugeFuel.Value = fleet.FuelAvailable;
+                gaugeCargo.Maximum = fleet.TotalCargoCapacity;
+                gaugeCargo.Value = fleet.Cargo.Mass;
+            }
+            Invalidate();
+        }
+
+        private void buttonGotoPlanet_Click(object sender, EventArgs e)
+        {
+            if (selectedFleet != null && selectedFleet.InOrbit != null)
+            {
+                if (StarSelectionChangedEvent != null)
+                    StarSelectionChangedEvent(this, new StarSelectionArgs(selectedFleet.InOrbit));
+                if( CursorChangedEvent != null )
+                    CursorChangedEvent(this, new CursorArgs((Point)selectedFleet.InOrbit.Position));
+            }
+        }
+
+        private void buttonGotoFleet_Click(object sender, EventArgs e)
+        {
+            Fleet newFleet = GetSelectedFleetAtLocation();
+            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(newFleet, newFleet);
+            CursorArgs cursorArgs = new CursorArgs((Point)newFleet.Position);
+
+            // Inform of the selection change to all listening objects.
+            if (FleetSelectionChangedEvent != null)
+                FleetSelectionChangedEvent(this, selectionArgs);
+            if (CursorChangedEvent != null)
+                CursorChangedEvent(this, cursorArgs);
+        }
+
+        private void buttonMerge_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(this, "This will allow fleet merging");
+        }
+
+        private void buttonCargoXfer_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(this, "This will allow fleet cargo transfer");
+        }
     }
 }
