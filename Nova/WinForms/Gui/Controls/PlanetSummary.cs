@@ -166,8 +166,8 @@ namespace Nova.WinForms.Gui
             this.population.TabIndex = 26;
             this.population.Text = "Uninhabited";
             this.population.TextAlign = System.Drawing.ContentAlignment.TopRight;
-            this.population.MouseClick += new MouseEventHandler(this.PopulationToolTipShow);
-            this.population.MouseLeave += new EventHandler(this.PopulationToolTipHide);
+            this.population.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PopulationToolTipShow);
+            this.population.MouseLeave += new System.EventHandler(this.PopulationToolTipHide);
             // 
             // tooltip
             // 
@@ -175,7 +175,6 @@ namespace Nova.WinForms.Gui
             this.tooltip.InitialDelay = 0;
             this.tooltip.ReshowDelay = 0;
             this.tooltip.ShowAlways = true;
-            this.tooltip.Active = true;
             // 
             // label1
             // 
@@ -452,6 +451,7 @@ namespace Nova.WinForms.Gui
             this.panel2.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
         #endregion
 
