@@ -107,17 +107,16 @@ namespace Nova.ControlLibrary
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.bar.Location = new System.Drawing.Point(0, 0);
             this.bar.Name = "bar";
-            this.bar.Size = new System.Drawing.Size(150, 14);
+            this.bar.Size = new System.Drawing.Size(152, 16);
             this.bar.TabIndex = 0;
             this.bar.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             this.bar.Paint += new System.Windows.Forms.PaintEventHandler(this.OnPaint);
             // 
             // Gauge
             // 
-            this.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.Controls.Add(this.bar);
             this.Name = "Gauge";
-            this.Size = new System.Drawing.Size(150, 14);
+            this.Size = new System.Drawing.Size(152, 16);
             this.ResumeLayout(false);
 
         }
