@@ -234,7 +234,7 @@ namespace Nova.WinForms.Console
             // Note that this sets the allocation for research to zero for all stars
             // which have "contribute only leftover resources to research". This
             // makes those stars be handled after manufacturing.
-            int percentage = stateData.AllRaceData[race.Name].ResearchPercentage;
+            int percentage = stateData.AllRaceData[race.Name].ResearchBudget;
             star.UpdateResearch(percentage);
             star.UpdateResources();
             

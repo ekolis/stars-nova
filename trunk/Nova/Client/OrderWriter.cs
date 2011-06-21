@@ -76,7 +76,7 @@ namespace Nova.Client
            RaceData playerData = new RaceData();
 
            playerData.TurnYear = stateData.TurnYear;
-           playerData.ResearchPercentage = stateData.ResearchBudget;
+           playerData.ResearchBudget = stateData.ResearchBudget;
            playerData.ResearchTopics = stateData.ResearchTopics;
            playerData.ResearchResources = stateData.ResearchResources;
            playerData.ResearchLevels = stateData.ResearchLevels;
