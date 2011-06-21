@@ -231,7 +231,6 @@
     <Compile Include="WinForms\Gui\Dialogs\ShipDesignDialog.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WinForms\Gui\MainWindow.cs" />
     <Compile Include="WinForms\Gui\NovaGUI.cs">
       <SubType>Form</SubType>
     </Compile>
