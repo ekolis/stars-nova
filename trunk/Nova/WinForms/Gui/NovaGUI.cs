@@ -63,6 +63,7 @@ namespace Nova.WinForms.Gui
             SelectionDetail.FleetDetail.FleetSelectionChangedEvent += FleetChangeSelection;
             SelectionDetail.PlanetDetail.CursorChangedEvent += MapControl.ChangeCursor;
             SelectionDetail.PlanetDetail.StarSelectionChangedEvent += StarChangeSelection;
+            SelectionDetail.PlanetDetail.FleetSelectionChangedEvent += FleetChangeSelection;
             SelectionDetail.FleetDetail.RefreshStarMapEvent += MapControl.RefreshStarMap;
 
             MapControl.RequestSelectionEvent += SelectionDetail.ReportItem;

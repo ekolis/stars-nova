@@ -124,7 +124,7 @@ namespace Nova.Client
             // Process the new intel
             DetermineOrbitingFleets();
             DeterminePlayerStars();
-            DeterminePlayerFleets();
+            // Player fleets are determined in ProcessFleets below
 
             ProcessMessages();
             ProcessFleets();
@@ -317,6 +317,7 @@ namespace Nova.Client
         /// </summary>
         private static void ProcessFleets()
         {
+            stateData.PlayerFleets.Clear();
             // update the state data with the current fleets
             foreach (Fleet fleet in stateData.InputTurn.AllFleets.Values)
             {
@@ -445,27 +446,6 @@ namespace Nova.Client
             }
 
             stateData.ResearchLevels = newResearchLevel;
-        }
-
-        /// <summary>
-        /// Determine the fleets owned by the player (this is a convenience function so
-        /// that buttons such as "Next" and "Previous" on the ship detail panel are easy
-        /// to code.
-        /// </summary>
-        private static void DeterminePlayerFleets()
-        {
-            stateData.PlayerFleets.Clear();
-
-            foreach (Fleet fleet in turnData.AllFleets.Values)
-            {
-                if (fleet.Owner == stateData.RaceName)
-                {
-                    if (fleet.Type != "Starbase")
-                    {
-                        stateData.PlayerFleets.Add(fleet);
-                    }
-                }
-            }
         }
 
         /// <summary>
