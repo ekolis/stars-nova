@@ -794,7 +794,15 @@ namespace Nova.WinForms.Gui
         /// Zoom in or out of the Star map.
         /// </Summary>
         /// ----------------------------------------------------------------------------
-        private void Zoom( double delta = 1.0, NovaPoint preserveDisplayLocation = null )
+        private void Zoom()
+        {
+            Zoom(1.0, null);
+        }
+        private void Zoom( double delta )
+        {
+            Zoom(delta, null);
+        }
+        private void Zoom( double delta, NovaPoint preserveDisplayLocation )
         {
 
             if (System.Object.ReferenceEquals(preserveDisplayLocation, null))
