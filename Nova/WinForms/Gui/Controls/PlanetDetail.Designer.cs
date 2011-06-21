@@ -26,7 +26,6 @@ namespace Nova.WinForms.Gui
             this.label4 = new System.Windows.Forms.Label();
             this.defenseCoverage = new System.Windows.Forms.Label();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.resourceDisplay = new Nova.ControlLibrary.ResourcesOnHandDisplay();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.label11 = new System.Windows.Forms.Label();
             this.scannerRange = new System.Windows.Forms.Label();
@@ -67,8 +66,10 @@ namespace Nova.WinForms.Gui
             this.buttonGoto = new System.Windows.Forms.Button();
             this.buttonCargo = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
-            this.cargo = new Nova.ControlLibrary.Gauge();
+            this.gaugeCargo = new Nova.ControlLibrary.Gauge();
+            this.resourceDisplay = new Nova.ControlLibrary.ResourcesOnHandDisplay();
             this.fuel = new Nova.ControlLibrary.Gauge();
+            this.gaugeFuel = new Nova.ControlLibrary.Gauge();
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
@@ -218,15 +219,6 @@ namespace Nova.WinForms.Gui
             this.groupBox2.TabIndex = 27;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Resources on Hand";
-            // 
-            // resourceDisplay
-            // 
-            this.resourceDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
-                        | System.Windows.Forms.AnchorStyles.Right)));
-            this.resourceDisplay.Location = new System.Drawing.Point(6, 18);
-            this.resourceDisplay.Name = "resourceDisplay";
-            this.resourceDisplay.Size = new System.Drawing.Size(150, 68);
-            this.resourceDisplay.TabIndex = 20;
             // 
             // groupBox3
             // 
@@ -389,7 +381,6 @@ namespace Nova.WinForms.Gui
             this.starbasePanel.TabIndex = 31;
             this.starbasePanel.TabStop = false;
             this.starbasePanel.Text = "Starbase";
-            this.starbasePanel.Enter += new System.EventHandler(this.starbasePanel_Enter);
             // 
             // label21
             // 
@@ -438,7 +429,6 @@ namespace Nova.WinForms.Gui
             // targetButton
             // 
             this.targetButton.Anchor = System.Windows.Forms.AnchorStyles.Left;
-            this.targetButton.Enabled = false;
             this.targetButton.Location = new System.Drawing.Point(6, 125);
             this.targetButton.Name = "targetButton";
             this.targetButton.Size = new System.Drawing.Size(75, 23);
@@ -557,7 +547,6 @@ namespace Nova.WinForms.Gui
             // 
             // nextPlanet
             // 
-            this.nextPlanet.Enabled = false;
             this.nextPlanet.Location = new System.Drawing.Point(9, 19);
             this.nextPlanet.Name = "nextPlanet";
             this.nextPlanet.Size = new System.Drawing.Size(59, 23);
@@ -568,7 +557,6 @@ namespace Nova.WinForms.Gui
             // 
             // previousPlanet
             // 
-            this.previousPlanet.Enabled = false;
             this.previousPlanet.Location = new System.Drawing.Point(93, 19);
             this.previousPlanet.Name = "previousPlanet";
             this.previousPlanet.Size = new System.Drawing.Size(59, 23);
@@ -599,16 +587,16 @@ namespace Nova.WinForms.Gui
             // 
             // comboFleetsInOrbit
             // 
-            this.comboFleetsInOrbit.Enabled = false;
+            this.comboFleetsInOrbit.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboFleetsInOrbit.FormattingEnabled = true;
             this.comboFleetsInOrbit.Location = new System.Drawing.Point(9, 19);
             this.comboFleetsInOrbit.Name = "comboFleetsInOrbit";
             this.comboFleetsInOrbit.Size = new System.Drawing.Size(162, 21);
             this.comboFleetsInOrbit.TabIndex = 0;
+            this.comboFleetsInOrbit.SelectedIndexChanged += new System.EventHandler(this.comboFleetsInOrbit_SelectedIndexChanged);
             // 
             // label10
             // 
-            this.label10.Enabled = false;
             this.label10.Location = new System.Drawing.Point(21, 46);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(32, 16);
@@ -617,7 +605,6 @@ namespace Nova.WinForms.Gui
             // 
             // label9
             // 
-            this.label9.Enabled = false;
             this.label9.Location = new System.Drawing.Point(13, 62);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(40, 16);
@@ -626,34 +613,33 @@ namespace Nova.WinForms.Gui
             // 
             // buttonGoto
             // 
-            this.buttonGoto.Enabled = false;
             this.buttonGoto.Location = new System.Drawing.Point(10, 81);
             this.buttonGoto.Name = "buttonGoto";
             this.buttonGoto.Size = new System.Drawing.Size(59, 23);
             this.buttonGoto.TabIndex = 92;
             this.buttonGoto.Text = "Goto";
             this.buttonGoto.UseVisualStyleBackColor = true;
+            this.buttonGoto.Click += new System.EventHandler(this.buttonGoto_Click);
             // 
             // buttonCargo
             // 
-            this.buttonCargo.Enabled = false;
             this.buttonCargo.Location = new System.Drawing.Point(112, 81);
             this.buttonCargo.Name = "buttonCargo";
             this.buttonCargo.Size = new System.Drawing.Size(59, 23);
             this.buttonCargo.TabIndex = 93;
             this.buttonCargo.Text = "Cargo";
             this.buttonCargo.UseVisualStyleBackColor = true;
+            this.buttonCargo.Click += new System.EventHandler(this.buttonCargo_Click);
             // 
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.buttonCargo);
             this.groupBox7.Controls.Add(this.buttonGoto);
-            this.groupBox7.Controls.Add(this.cargo);
-            this.groupBox7.Controls.Add(this.fuel);
+            this.groupBox7.Controls.Add(this.gaugeCargo);
+            this.groupBox7.Controls.Add(this.gaugeFuel);
             this.groupBox7.Controls.Add(this.label9);
             this.groupBox7.Controls.Add(this.label10);
             this.groupBox7.Controls.Add(this.comboFleetsInOrbit);
-            this.groupBox7.Enabled = false;
             this.groupBox7.Location = new System.Drawing.Point(177, 0);
             this.groupBox7.Margin = new System.Windows.Forms.Padding(0);
             this.groupBox7.Name = "groupBox7";
@@ -662,24 +648,33 @@ namespace Nova.WinForms.Gui
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Fleets in Orbit";
             // 
-            // cargo
+            // gaugeCargo
             // 
-            this.cargo.BarColour = System.Drawing.Color.Tan;
-            this.cargo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cargo.BottomValue = 0D;
-            this.cargo.Enabled = false;
-            this.cargo.Location = new System.Drawing.Point(63, 64);
-            this.cargo.Marker = 0;
-            this.cargo.MarkerColour = System.Drawing.Color.Green;
-            this.cargo.Maximum = 0D;
-            this.cargo.Minimum = 0D;
-            this.cargo.Name = "cargo";
-            this.cargo.ShowText = true;
-            this.cargo.Size = new System.Drawing.Size(100, 10);
-            this.cargo.TabIndex = 90;
-            this.cargo.TopValue = 0D;
-            this.cargo.Units = "kT";
-            this.cargo.Value = 0D;
+            this.gaugeCargo.BarColour = System.Drawing.Color.Tan;
+            this.gaugeCargo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.gaugeCargo.BottomValue = 0D;
+            this.gaugeCargo.Location = new System.Drawing.Point(63, 62);
+            this.gaugeCargo.Marker = 0;
+            this.gaugeCargo.MarkerColour = System.Drawing.Color.Green;
+            this.gaugeCargo.Maximum = 0D;
+            this.gaugeCargo.Minimum = 0D;
+            this.gaugeCargo.Name = "gaugeCargo";
+            this.gaugeCargo.ShowText = true;
+            this.gaugeCargo.Size = new System.Drawing.Size(108, 15);
+            this.gaugeCargo.TabIndex = 90;
+            this.gaugeCargo.TopValue = 0D;
+            this.gaugeCargo.Units = "kT";
+            this.gaugeCargo.Value = 0D;
+            // 
+            // resourceDisplay
+            // 
+            this.resourceDisplay.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
+            this.resourceDisplay.Location = new System.Drawing.Point(6, 18);
+            this.resourceDisplay.Name = "resourceDisplay";
+            this.resourceDisplay.Size = new System.Drawing.Size(150, 68);
+            this.resourceDisplay.TabIndex = 20;
+            this.resourceDisplay.Value = new Nova.Common.Resources(0, 0, 0, 0);
             // 
             // fuel
             // 
@@ -699,6 +694,24 @@ namespace Nova.WinForms.Gui
             this.fuel.TopValue = 0D;
             this.fuel.Units = "mg";
             this.fuel.Value = 0D;
+            // 
+            // gaugeFuel
+            // 
+            this.gaugeFuel.BarColour = System.Drawing.Color.LightGreen;
+            this.gaugeFuel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.gaugeFuel.BottomValue = 0D;
+            this.gaugeFuel.Location = new System.Drawing.Point(63, 43);
+            this.gaugeFuel.Marker = 0;
+            this.gaugeFuel.MarkerColour = System.Drawing.Color.Green;
+            this.gaugeFuel.Maximum = 0D;
+            this.gaugeFuel.Minimum = 0D;
+            this.gaugeFuel.Name = "gaugeFuel";
+            this.gaugeFuel.ShowText = true;
+            this.gaugeFuel.Size = new System.Drawing.Size(108, 15);
+            this.gaugeFuel.TabIndex = 89;
+            this.gaugeFuel.TopValue = 0D;
+            this.gaugeFuel.Units = "mg";
+            this.gaugeFuel.Value = 0D;
             // 
             // PlanetDetail
             // 
@@ -793,11 +806,12 @@ namespace Nova.WinForms.Gui
         private ComboBox comboFleetsInOrbit;
         private Label label10;
         private Label label9;
-        private Gauge fuel;
-        private Gauge cargo;
+        private Gauge gaugeCargo;
         private Button buttonGoto;
         private Button buttonCargo;
         private GroupBox groupBox7;
+        private Gauge fuel;
+        private Gauge gaugeFuel;
 
     }
 }
