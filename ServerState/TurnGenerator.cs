@@ -20,28 +20,20 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module is invoked when NewTurn is selected in the Nova Console.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-
-using Nova.Common;
-using Nova.Common.DataStructures;
-using Nova.Server;
-
 namespace Nova.WinForms.Console
 {
+    using System;    
+    using System.Collections.Generic;
+    using System.IO;
+    
+    using Nova.Common;
+    using Nova.Common.DataStructures;
+    using Nova.Server;
 
     /// <summary>
     /// Class to process a new turn.
     /// </summary>
-    public class ProcessTurn
+    public class TurnGenerator
     {
         private ServerState stateData;
         private ServerState turnData;
@@ -61,7 +53,7 @@ namespace Nova.WinForms.Console
         /// <summary>
         /// Construct a turn processor. 
         /// </summary>
-        public ProcessTurn(ServerState serverState)
+        public TurnGenerator(ServerState serverState)
         {
             this.stateData = serverState;
             
@@ -603,8 +595,5 @@ namespace Nova.WinForms.Console
                 }
             }
         }
-
     }
-    
-    
 }

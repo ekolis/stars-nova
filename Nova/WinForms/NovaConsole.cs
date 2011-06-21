@@ -883,7 +883,7 @@ namespace Nova.WinForms.Console
                 Report.Error("There is no game open. Open a current game or create a new game.");
                 return;
             }
-            ProcessTurn processTurn = new ProcessTurn(stateData);
+            TurnGenerator processTurn = new TurnGenerator(stateData);
             processTurn.Generate();
 
             newGameMenuItem.Enabled = false;
