@@ -564,9 +564,6 @@ namespace Nova.Common
             // is a race parameter which determines how many mines may be
             // operated by 10K colonists.
 
-
-            int potentialMines = GetOperableMines();
-
             int mined = GetMiningRate(concentration);
 
             // Reduce the mineral concentration. This is just an approximation of
