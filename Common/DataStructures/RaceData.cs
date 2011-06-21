@@ -47,7 +47,7 @@ namespace Nova.Common
     public class RaceData
     {
         public int TurnYear;
-        public int ResearchPercentage;
+        public int ResearchBudget;
         public TechLevel ResearchLevels = new TechLevel(); // current level of technology
         public TechLevel ResearchResources = new TechLevel(); // current cumulative resources on research
         public TechLevel ResearchTopics = new TechLevel(); // order or research
@@ -91,8 +91,8 @@ namespace Nova.Common
                         case "turnyear":
                             TurnYear = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
-                        case "research":
-                            ResearchPercentage = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                        case "researchbudget":
+                            ResearchBudget = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "researchlevelsgained":
                             ResearchLevelsGained = new TechLevel(subnode);
@@ -144,7 +144,7 @@ namespace Nova.Common
         {
             XmlElement xmlelRaceData = xmldoc.CreateElement("RaceData");
             Global.SaveData(xmldoc, xmlelRaceData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            Global.SaveData(xmldoc, xmlelRaceData, "Research", ResearchPercentage.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelRaceData, "ResearchBudget", ResearchBudget.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
             xmlelRaceData.AppendChild(ResearchLevelsGained.ToXml(xmldoc, "ResearchLevelsGained"));
             xmlelRaceData.AppendChild(ResearchLevels.ToXml(xmldoc, "ResearchLevels"));
