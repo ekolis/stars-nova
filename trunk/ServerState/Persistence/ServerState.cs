@@ -143,11 +143,11 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                if (tNode.Name == "Design")
+                                if (tNode.Name.ToLower() == "design")
                                 {
                                     AllDesigns.Add(tNode.Attributes["Id"].Value, new Design(tNode));
                                 }
-                                else if (tNode.Name == "ShipDesign")
+                                else if (tNode.Name.ToLower() == "shipdesign")
                                 {
                                     AllDesigns.Add(tNode.Attributes["Id"].Value, new ShipDesign(tNode));
                                 }
@@ -241,17 +241,20 @@ namespace Nova.Server
                 
                 ServerState serverState = new ServerState(xmldoc);
                 
+                LinkServerStateReferences();
+                
                 return serverState;
             }
-/*
-                ServerState serverState = new ServerState();
-                using (FileStream stream = new FileStream(StatePathName, FileMode.Open))
-                {                    
-                    serverState = (ServerState)Serializer.Deserialize(stream);
-                
-                    return serverState;
-                }
-            */
+   
+            // Old binary serialization.
+            // ServerState serverState = new ServerState();
+            // using (FileStream stream = new FileStream(StatePathName, FileMode.Open))
+            // {                    
+            //     serverState = (ServerState)Serializer.Deserialize(stream);
+            // 
+            //     return serverState;
+            // }
+            
             
         }
 
@@ -279,15 +282,16 @@ namespace Nova.Server
                     throw new System.IO.IOException("File dialog cancelled");
                 }
             }
-            /*
-            using (FileStream stream = new FileStream(StatePathName, FileMode.Create))
-            {
-                Serializer.Serialize(stream, this);
-                
-            }
-            */
 
             ToXml();
+            
+            // Old binay serialization.
+            // using (FileStream stream = new FileStream(StatePathName, FileMode.Create))
+            // {
+            //     Serializer.Serialize(stream, this);
+            //    
+            //}
+            
         }
         
         /// <summary>
@@ -417,7 +421,71 @@ namespace Nova.Server
             
             xmldoc.Save(StatePathName);
         }
+  
+        /// <summary>
+        /// When state is loaded from file, objects may contain references to other objects.
+        /// As these may be loaded in any order (or be cross linked) it is necessary to tidy
+        /// up these references once the file is fully loaded and all objects exist.
+        /// In most cases a placeholder object has been created with the Name set from the file,
+        /// and we need to find the actual reference using this Name.
+        /// Objects can't do this themselves as they don't have access to the state data, 
+        /// so we do it here.
+        /// </summary>
+        private void LinkServerStateReferences()
+        {
+            // Fleet reference to Star
+            foreach (Fleet fleet in AllFleets.Values)
+            {
+                if (fleet.InOrbit != null)
+                {
+                    fleet.InOrbit = AllStars[fleet.InOrbit.Name];
+                }
+                // Ship reference to Design
+                foreach (Ship ship in fleet.FleetShips)
+                {
+                    ship.DesignUpdate(AllDesigns[ship.Owner + "/" + ship.DesignName] as ShipDesign);
+                }
+            }
+            
+            // HullModule reference to a component
+            foreach (Design design in AllDesigns.Values)
+            {
+                if (design.Type.ToLower() == "ship" || design.Type.ToLower() == "starbase")
+                {
+                    ShipDesign ship = design as ShipDesign;
+                    foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)
+                    {
+                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
+                        {
+                            AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
+                        }
+                    }
+                }
+            }
+            
+            // Star reference to Race
+            // Star reference to Fleet (starbase)
+            foreach (Star star in AllStars.Values)
+            {
+                if (star.ThisRace != null)
+                {
+                    // Reduntant, but works to check if race name is valid...
+                    if (star.Owner == AllRaces[star.ThisRace.Name].Name)
+                    {
+                        star.ThisRace = AllRaces[star.ThisRace.Name];
+                    }
+                    else
+                    {
+                        star.ThisRace = null;
+                    }
+                }
 
+                if (star.Starbase != null)
+                {
+                    star.Starbase = AllFleets[star.Owner + "/" + star.Starbase.FleetID];
+                }
+            }
+        }     
 
         /// ----------------------------------------------------------------------------
         /// <summary>
