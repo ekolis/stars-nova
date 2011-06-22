@@ -183,10 +183,7 @@ namespace Nova.Server
                             {
                                 Race race = new Race();
                                 race.LoadRaceFromXml(tNode);
-                                if (!AllRaces.ContainsKey(xmlnode.FirstChild.Attributes["Id"].Value))
-                                {
-                                    AllRaces.Add(xmlnode.FirstChild.Attributes["Id"].Value, race);
-                                }
+                                AllRaces.Add(tNode.Attributes["Id"].Value, race);
                                 tNode = tNode.NextSibling;
                             }
                             break;
