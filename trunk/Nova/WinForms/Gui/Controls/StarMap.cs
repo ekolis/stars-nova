@@ -987,7 +987,7 @@ namespace Nova.WinForms.Gui
 
             waypoint.Position = position;
             waypoint.WarpFactor = 6;
-            waypoint.Task = "None";
+            waypoint.Task =  WaypointTask.None ;
 
             // If there are no items near the selected position then set the
             // waypoint to just be a position in space. Otherwise, make the target

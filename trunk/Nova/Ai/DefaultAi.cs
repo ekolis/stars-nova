@@ -94,7 +94,80 @@ namespace Nova.Ai
 
         private void HandleMovements()
         {
+            //scout
+            List<Fleet> scoutFleets = new List<Fleet>();
+            foreach (Fleet fleet in stateData.PlayerFleets)
+            {
+                if (fleet.Name.Contains("Scout") == true && fleet.Waypoints.Count == 1)
+                {
+                    scoutFleets.Add(fleet);
+                }
+            }
+            List<Star> excludedStars = new List<Star>();
+            if (scoutFleets.Count > 0)
+            {
+                foreach (Fleet fleet in scoutFleets)
+                {
+                    Star s = CloesestStar(fleet, excludedStars);
+                    if (s != null)
+                    {
+                        excludedStars.Add(s);
+                        SendFleet(s, fleet, WaypointTask.None );
+                    }
+                }
+            }
+            //colonization
+            List<Fleet> colonyShipsFleets = new List<Fleet>();
+            foreach (Fleet fleet in stateData.PlayerFleets)
+            {
+                if (fleet.CanColonize == true && fleet.Waypoints.Count == 1)
+                    colonyShipsFleets.Add(fleet);
+            }
             
+            if (colonyShipsFleets.Count > 0)
+            {
+                //check if there is any good star to colonize
+                foreach (Star star in turnData.AllStars.Values)
+                {
+                    if (star.HabitalValue(stateData.PlayerRace) > 0 && star.Owner == null)
+                    {
+                        SendFleet(star, colonyShipsFleets[0], WaypointTask.Colonise);
+                        colonyShipsFleets.RemoveAt(0);
+                        if (colonyShipsFleets.Count == 0)
+                            break;
+                    }
+                }
+            }
+        }
+        /// <summary>
+        /// Return closest star to current fleet
+        /// </summary>
+        /// <param name="fleet"></param>
+        /// <returns></returns>
+        private Star CloesestStar(Fleet fleet, List<Star> excludedStars)
+        {
+            Star star = null;
+            Double distance = double.MaxValue;
+            foreach (Star s in turnData.AllStars.Values)
+            {
+                if (excludedStars.Contains(s) == true) 
+                    continue;
+
+                if (distance > Math.Sqrt(Math.Pow(fleet.Position.X - s.Position.X, 2) + Math.Pow(fleet.Position.Y - s.Position.Y, 2)))
+                {
+                    star = s;
+                    distance = Math.Sqrt(Math.Pow(fleet.Position.X - s.Position.X, 2) + Math.Pow(fleet.Position.Y - s.Position.Y, 2));
+                }
+            }
+            return star;
+        }
+        private void SendFleet(Star star, Fleet fleet, WaypointTask task)
+        {
+            Waypoint w = new Waypoint();
+            w.Position = star.Position;
+            w.Destination = star.Name;
+            w.Task = task;
+            fleet.Waypoints.Add(w);
         }
 
         /// <Summary>

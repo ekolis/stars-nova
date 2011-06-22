@@ -57,23 +57,23 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public void Perform(Fleet fleet, Waypoint waypoint)
         {
-            if (waypoint.Task == "Colonise")
+            if (waypoint.Task == WaypointTask.Colonise )
             {
                 Colonise(fleet, waypoint);
             }
-            else if (waypoint.Task == "Invade")
+            else if (waypoint.Task == WaypointTask.Invade )
             {
                 invade.Planet(fleet);
             }
-            else if (waypoint.Task == "Scrap")
+            else if (waypoint.Task ==  WaypointTask.Scrap)
             {
                 Scrap(fleet, fleet.InOrbit, false);
             }
-            else if (waypoint.Task == "Unload Cargo")
+            else if (waypoint.Task == WaypointTask.UnloadCargo )
             {
                 UnloadCargo(fleet, waypoint);
             }
-            else if (waypoint.Task == "Lay Mines")
+            else if (waypoint.Task == WaypointTask.LayMines )
             {
                 layMines.DoMines(fleet);
             }
@@ -117,7 +117,7 @@ namespace Nova.WinForms.Console
                 else
                 {
                     message.Text = "You have colonised " + waypoint.Destination;
-                    waypoint.Task = "None";
+                    waypoint.Task =  WaypointTask.None ;
                     Star star = stateData.AllStars[waypoint.Destination];
 
                     star.ResourcesOnHand.Ironium = fleet.Cargo.Ironium;
@@ -161,7 +161,7 @@ namespace Nova.WinForms.Console
 
             stateData.AllMessages.Add(message);
 
-            waypoint.Task = "None";
+            waypoint.Task =  WaypointTask.None ;
 
             targetStar.ResourcesOnHand.Ironium += fleet.Cargo.Ironium;
             targetStar.ResourcesOnHand.Boranium += fleet.Cargo.Boranium;
