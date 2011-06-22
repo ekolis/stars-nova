@@ -234,7 +234,7 @@ namespace Nova.Server
 //            }
 
                 ServerState serverState = new ServerState();
-                using (FileStream stream = new FileStream(fileName, FileMode.Open))
+                using (FileStream stream = new FileStream(StatePathName, FileMode.Open))
                 {                    
                     serverState = (ServerState)Serializer.Deserialize(stream);
                 
