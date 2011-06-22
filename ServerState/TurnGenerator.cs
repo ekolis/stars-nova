@@ -442,7 +442,7 @@ namespace Nova.WinForms.Console
                 if (result == Fleet.TravelStatus.InTransit)
                 {
                     currentPosition.Position = fleet.Position;
-                    currentPosition.Task = "None";
+                    currentPosition.Task =  WaypointTask.None;
                     currentPosition.Destination = "Space at " + fleet.Position;
                     currentPosition.WarpFactor = thisWaypoint.WarpFactor;
                     break;
@@ -460,9 +460,9 @@ namespace Nova.WinForms.Console
 
                     waypointTasks.Perform(fleet, thisWaypoint);
 
-                    if (thisWaypoint.Task != "Lay Mines")
+                    if (thisWaypoint.Task != WaypointTask.LayMines )
                     {
-                        thisWaypoint.Task = "None";
+                        thisWaypoint.Task =  WaypointTask.None ;
                     }
                 }
 

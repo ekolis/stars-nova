@@ -35,6 +35,16 @@ namespace Nova.Common
 
     using Nova.Common.DataStructures;
 
+    public enum WaypointTask
+    {
+        None,
+        Colonise,
+        Invade,
+        Scrap,
+        LayMines,
+        UnloadCargo,
+        LoadCargo,
+    }
     /// <summary>
     /// Waypoints have a position (i.e. where to go), a destination description
     /// (e.g. a star name), a speed to go there and a task to do on arrival (e.g. 
@@ -46,7 +56,7 @@ namespace Nova.Common
         public NovaPoint Position;
         public string Destination;
         public int WarpFactor = 6;
-        public string Task = "None";
+        public WaypointTask Task = WaypointTask.None;
 
         /// <summary>
         /// Default constructor
@@ -76,7 +86,7 @@ namespace Nova.Common
                             break;
 
                         case "task":
-                            Task = ((XmlText)subnode.FirstChild).Value;
+                            SetTask( ((XmlText)subnode.FirstChild).Value);
                             break;
 
                         case "warpfactor":
@@ -107,7 +117,7 @@ namespace Nova.Common
             XmlElement xmlelWaypoint = xmldoc.CreateElement("Waypoint");
 
             Global.SaveData(xmldoc, xmlelWaypoint, "Destination", this.Destination);
-            Global.SaveData(xmldoc, xmlelWaypoint, "Task", this.Task);
+            Global.SaveData(xmldoc, xmlelWaypoint, "Task", this.GetTask());
             Global.SaveData(xmldoc, xmlelWaypoint, "WarpFactor", this.WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
             // point
             if (Position.X != 0 || Position.Y != 0)
@@ -123,5 +133,44 @@ namespace Nova.Common
         }
 
         #endregion
+
+        public string GetTask()
+        {
+            if (Task == WaypointTask.UnloadCargo)
+            {
+                return "Unload Cargo";
+            }
+            else if (Task == WaypointTask.LayMines)
+            {
+                return "Lay Mines";
+            }
+            else
+            {
+                return Enum.GetName(typeof(WaypointTask), Task);
+            }
+        }
+        public void SetTask(string task)
+        {
+            if (task == "Colonise")
+            {
+                Task = WaypointTask.Colonise;
+            }
+            else if (task == "Invade")
+            {
+                Task = WaypointTask.Invade;
+            }
+            else if (task == "Scrap")
+            {
+                Task = WaypointTask.Scrap;
+            }
+            else if (task == "Unload Cargo")
+            {
+                Task = WaypointTask.UnloadCargo;
+            }
+            else if (task == "Lay Mines")
+            {
+                Task = WaypointTask.LayMines;
+            }
+        }
     }
 }

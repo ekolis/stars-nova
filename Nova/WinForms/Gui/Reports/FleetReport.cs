@@ -95,9 +95,9 @@ namespace Nova.WinForms.Gui
                         Waypoint waypoint = fleet.Waypoints[1];
 
                         destination = waypoint.Destination;
-                        if (waypoint.Task != "None")
+                        if (waypoint.Task != WaypointTask.None )
                         {
-                            task = waypoint.Task;
+                            task = waypoint.GetTask();
                         }
 
                         double distance = PointUtilities.Distance(

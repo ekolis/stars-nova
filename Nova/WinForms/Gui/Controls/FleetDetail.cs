@@ -226,7 +226,7 @@ namespace Nova.WinForms.Gui
             int index = wayPoints.SelectedIndices[0];
             Waypoint waypoint = selectedFleet.Waypoints[index];
 
-            waypoint.Task = WaypointTasks.Text;
+            waypoint.SetTask(WaypointTasks.Text);
         }
         
         /// ----------------------------------------------------------------------------
@@ -347,7 +347,7 @@ namespace Nova.WinForms.Gui
         {
             Waypoint thisWaypoint = selectedFleet.Waypoints[index];
 
-            WaypointTasks.Text = thisWaypoint.Task;
+            WaypointTasks.Text = thisWaypoint.GetTask();
 
             if (selectedFleet.Waypoints.Count == 1)
             {
