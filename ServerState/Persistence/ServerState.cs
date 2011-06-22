@@ -143,7 +143,18 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                AllDesigns.Add(tNode.Attributes["Id"].Value, new Design(tNode));
+                                if (tNode.Name == "Design")
+                                {
+                                    AllDesigns.Add(tNode.Attributes["Id"].Value, new Design(tNode));
+                                }
+                                else if (tNode.Name == "ShipDesign")
+                                {
+                                    AllDesigns.Add(tNode.Attributes["Id"].Value, new ShipDesign(tNode));
+                                }
+                                else
+                                {
+                                    throw new System.NotImplementedException("Unrecognised design type.");
+                                }
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -172,7 +183,10 @@ namespace Nova.Server
                             {
                                 Race race = new Race();
                                 race.LoadRaceFromXml(tNode);
-                                AllRaces.Add(xmlnode.Attributes["Id"].Value, race);
+                                if (!AllRaces.ContainsKey(xmlnode.FirstChild.Attributes["Id"].Value))
+                                {
+                                    AllRaces.Add(xmlnode.FirstChild.Attributes["Id"].Value, race);
+                                }
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -222,17 +236,17 @@ namespace Nova.Server
         /// ----------------------------------------------------------------------------
         public ServerState Restore()
         {
-//            using (FileStream stateFile = new FileStream(StatePathName, FileMode.Open))
-//            {
-//                XmlDocument xmldoc = new XmlDocument();
-//
-//                xmldoc.Load(stateFile);
-//                
-//                ServerState serverState = new ServerState(xmldoc);
-//                
-//                return serverState;
-//            }
+            using (FileStream stateFile = new FileStream(StatePathName, FileMode.Open))
+            {
+                XmlDocument xmldoc = new XmlDocument();
 
+                xmldoc.Load(stateFile);
+                
+                ServerState serverState = new ServerState(xmldoc);
+                
+                return serverState;
+            }
+/*
                 ServerState serverState = new ServerState();
                 using (FileStream stream = new FileStream(StatePathName, FileMode.Open))
                 {                    
@@ -240,7 +254,7 @@ namespace Nova.Server
                 
                     return serverState;
                 }
-
+            */
             
         }
 
@@ -268,14 +282,15 @@ namespace Nova.Server
                     throw new System.IO.IOException("File dialog cancelled");
                 }
             }
-
+            /*
             using (FileStream stream = new FileStream(StatePathName, FileMode.Create))
             {
                 Serializer.Serialize(stream, this);
                 
             }
-            
-//            ToXml();
+            */
+
+            ToXml();
         }
         
         /// <summary>
