@@ -194,9 +194,9 @@ namespace Nova.WinForms
                     novaConsole.Show();
                     return true;
                 }
-                catch
+                catch(Exception ex)
                 {
-                    Report.FatalError("Unable to launch Console.");
+                    Report.FatalError("Unable to launch Console. Details:" + Environment.NewLine + ex.ToString());
                     return false;
                 }
         }

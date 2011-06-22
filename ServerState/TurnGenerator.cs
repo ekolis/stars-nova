@@ -274,6 +274,11 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private bool ProcessFleet(Fleet fleet)
         {
+            if (fleet == null)
+            {
+                return true;
+            }
+            
             bool destroyed = UpdateFleet(fleet);
             if (destroyed == true)
             {

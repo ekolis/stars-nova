@@ -287,9 +287,9 @@ namespace Nova.NewGame
 
             starbase.Update();
 
-            stateData.AllDesigns[player + "/starbase"] = starbase;
-            stateData.AllDesigns[player + "/cs"] = cs;
-            stateData.AllDesigns[player + "/scout"] = scout;
+            stateData.AllDesigns[player + "/" + starbase.Name] = starbase;
+            stateData.AllDesigns[player + "/" + cs.Name] = cs;
+            stateData.AllDesigns[player + "/" + scout.Name] = scout;
             /*
             switch (race.Traits.Primary.Code)
             {
@@ -382,7 +382,7 @@ namespace Nova.NewGame
         /// <param name="race"></param>
         private void AllocateHomeStarOrbitalInstallations(Star star, Race race, string player)
         {
-            ShipDesign colonyShipDesign = stateData.AllDesigns[player + "/cs"] as ShipDesign;
+            ShipDesign colonyShipDesign = stateData.AllDesigns[player + "/Santa Maria"] as ShipDesign;
             if (race.Traits.Primary.Code != "HE")
             {
                 Ship cs = new Ship(colonyShipDesign);
@@ -403,14 +403,14 @@ namespace Nova.NewGame
                 }
             }
 
-            ShipDesign scoutDesign = stateData.AllDesigns[player + "/scout"] as ShipDesign;
+            ShipDesign scoutDesign = stateData.AllDesigns[player + "/Scout"] as ShipDesign;
             Ship scout = new Ship(scoutDesign);
             Fleet scoutFleet = new Fleet(scout, star);
             scoutFleet.FleetID = stateData.FleetID++;
             scoutFleet.Name = "Scout #1";       
             stateData.AllFleets[player + "/" + scoutFleet.FleetID] = scoutFleet;
  
-            ShipDesign starbaseDesign = stateData.AllDesigns[player + "/starbase"] as ShipDesign;
+            ShipDesign starbaseDesign = stateData.AllDesigns[player + "/Starbase"] as ShipDesign;
             Ship starbase = new Ship(starbaseDesign);
             Fleet starbaseFleet = new Fleet(starbase, star);
             starbaseFleet.FleetID = stateData.FleetID++;
