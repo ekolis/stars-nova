@@ -36,7 +36,7 @@ namespace Nova.Ai
 
         private void HandleProduction()
         {
-            foreach (Star star in ClientState.Data.PlayerStars.Values)
+            foreach (Star star in stateData.PlayerStars.Values)
             {
                 star.ManufacturingQueue.Queue.Clear();
                 ProductionQueue.Item item = new ProductionQueue.Item();
@@ -49,7 +49,7 @@ namespace Nova.Ai
                     item.Quantity = (int)((star.ResourcesOnHand.Germanium - 50) / 5);
                     item.Quantity = Math.Max(0, item.Quantity);
 
-                    design = turnData.AllDesigns[ClientState.Data.RaceName + "/" + item.Name];
+                    design = turnData.AllDesigns[stateData.RaceName + "/" + item.Name];
 
                     item.BuildState = design.Cost;
 
@@ -61,7 +61,7 @@ namespace Nova.Ai
                 item = new ProductionQueue.Item();
                 item.Name = "Mine";
                 item.Quantity = 100;
-                design = turnData.AllDesigns[ClientState.Data.RaceName + "/" + item.Name];
+                design = turnData.AllDesigns[stateData.RaceName + "/" + item.Name];
                 item.BuildState = design.Cost;
                 star.ManufacturingQueue.Queue.Add(item);
 
@@ -70,7 +70,7 @@ namespace Nova.Ai
                 item = new ProductionQueue.Item();
                 item.Name = "Defenses";
                 item.Quantity = defenceToBuild;
-                design = turnData.AllDesigns[ClientState.Data.RaceName + "/" + item.Name];
+                design = turnData.AllDesigns[stateData.RaceName + "/" + item.Name];
                 item.BuildState = design.Cost;
                 star.ManufacturingQueue.Queue.Add(item);
             }
@@ -79,7 +79,7 @@ namespace Nova.Ai
         {
             try
             {
-                turnData = ClientState.Data.InputTurn;
+                turnData = stateData.InputTurn;
 
                 HandleProduction();
                 HandleResearch();
@@ -103,19 +103,19 @@ namespace Nova.Ai
         private void HandleResearch()
         {
             // check if messages contains info about tech advence
-            foreach (Message msg in ClientState.Data.Messages)
+            foreach (Message msg in stateData.Messages)
             {
                 if (msg.Text.Contains("Your race has advanced to Tech Level") == true)
                 {
                     int minLevel = int.MaxValue;
                     Nova.Common.TechLevel.ResearchField rs = TechLevel.ResearchField.Electronics;
-                    foreach (Nova.Common.TechLevel.ResearchField t in ClientState.Data.ResearchLevels)
+                    foreach (Nova.Common.TechLevel.ResearchField t in stateData.ResearchLevels)
                     {
-                        minLevel = Math.Min(minLevel, ClientState.Data.ResearchLevels[t]);
+                        minLevel = Math.Min(minLevel, stateData.ResearchLevels[t]);
                         rs = t;
                     }
-                    ClientState.Data.ResearchTopics.Zero();
-                    ClientState.Data.ResearchTopics[rs] = 1;                        
+                    stateData.ResearchTopics.Zero();
+                    stateData.ResearchTopics[rs] = 1;                        
                 }
             }
            

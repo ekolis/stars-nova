@@ -74,11 +74,11 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the ResearchDialog class.
         /// </Summary>
-        public ResearchDialog()
+        public ResearchDialog(ClientState stateData)
         {
             InitializeComponent();
 
-            this.stateData = ClientState.Data;
+            this.stateData = stateData;
             this.currentLevel = this.stateData.ResearchLevels;
 
             // Provide a convienient way of getting a button from it's name.
@@ -147,9 +147,9 @@ namespace Nova.WinForms.Gui
             {
                 try
                 {
-                    ClientState.Data.ResearchTopics[this.targetArea] = 0;
+                    stateData.ResearchTopics[this.targetArea] = 0;
                     this.targetArea = (TechLevel.ResearchField)Enum.Parse(typeof(TechLevel.ResearchField), button.Text, true);
-                    ClientState.Data.ResearchTopics[this.targetArea] = 1;
+                    stateData.ResearchTopics[this.targetArea] = 1;
                 }
                 catch (System.ArgumentException)
                 {

@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,33 +20,30 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module proveds the Score Report
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+    
+    using Nova.Client;
+    using Nova.Common;
+        
     /// <Summary>
     /// Score Summary report dialog class
     /// </Summary>
     public partial class ScoreReport : Form
     {
+        private List<ScoreRecord> allScores;
+        
         /// <Summary>
         /// Initializes a new instance of the ScoreReport class.
         /// </Summary>
-        public ScoreReport()
+        public ScoreReport(List<ScoreRecord> allScores)
         {
+            this.allScores = allScores;
+            
             InitializeComponent();
         }
 
@@ -60,7 +57,6 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OnLoad(object sender, EventArgs e)
         {
-            List<ScoreRecord> allScores = ClientState.Data.InputTurn.AllScores;
             this.scoreGridView.AutoSize = true;
 
             foreach (ScoreRecord score in allScores)

@@ -55,10 +55,10 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the DesignManager class.
         /// </Summary>
-        public DesignManager()
+        public DesignManager(ClientState stateData)
         {
             InitializeComponent();
-            this.stateData = ClientState.Data;
+            this.stateData = stateData;
             this.turnData = this.stateData.InputTurn;
             this.hullGrid.ModuleSelected += DesignModuleSelected;
         }

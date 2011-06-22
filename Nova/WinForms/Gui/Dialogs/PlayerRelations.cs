@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,13 +20,6 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module holds the program entry Point and handles all things related to
-// the main GUI window.
-// ===========================================================================
-#endregion
-
 namespace Nova.WinForms.Gui
 {
     using System;
@@ -38,30 +31,35 @@ namespace Nova.WinForms.Gui
     using Nova.Common;
 
     /// <Summary>
-    /// This module holds the program entry Point and handles all things related to
-    /// the main GUI window.
+    /// Describes the possible player relation stances.
     /// </Summary>
     /// <remarks>
     /// FIXME (priority 5) - the use of literal strings for "Friend" "Enemy" and "Neutral" is a potential source of errors. An enumaration should be used. Needs to be applied to other code throughout the solution.
     /// </remarks>
     public partial class PlayerRelations : Form
     {
-        private readonly Dictionary<string, PlayerRelation> relation = ClientState.Data.PlayerRelations;
+        private readonly Dictionary<string, PlayerRelation> relations;
+        private List<string> allRaceNames;
+        private string raceName;
 
         #region Construction
 
         /// <Summary>
         /// Initializes a new instance of the PlayerRelations class.
         /// </Summary>
-        public PlayerRelations()
+        public PlayerRelations(Dictionary<string, PlayerRelation> relations, List<string> allRaceNames, string raceName)
         {
+            this.relations = relations;
+            this.allRaceNames = allRaceNames;
+            this.raceName = raceName;
+            
             InitializeComponent();
 
-            foreach (string raceName in ClientState.Data.InputTurn.AllRaceNames)
+            foreach (string otherRaceName in allRaceNames)
             {
-                if (raceName != ClientState.Data.RaceName)
+                if (otherRaceName != raceName)
                 {
-                    this.raceList.Items.Add(raceName);
+                    this.raceList.Items.Add(otherRaceName);
                 }
             }
 
@@ -94,11 +92,11 @@ namespace Nova.WinForms.Gui
         {
             string selectedRace = this.raceList.SelectedItem as string;
 
-            if (this.relation[selectedRace] == PlayerRelation.Enemy)
+            if (this.relations[selectedRace] == PlayerRelation.Enemy)
             {
                 this.enemyButton.Checked = true;
             }
-            else if (this.relation[selectedRace] == PlayerRelation.Enemy)
+            else if (this.relations[selectedRace] == PlayerRelation.Enemy)
             {
                 this.neutralButton.Checked = true;
             }
@@ -117,7 +115,7 @@ namespace Nova.WinForms.Gui
         {
             string selectedRace = this.raceList.SelectedItem as string;
             RadioButton button = sender as RadioButton;
-            relation[selectedRace] = enemyButton.Checked ? PlayerRelation.Enemy :
+            relations[selectedRace] = enemyButton.Checked ? PlayerRelation.Enemy :
                 friendButton.Checked ? PlayerRelation.Friend :
                 PlayerRelation.Neutral;
         }

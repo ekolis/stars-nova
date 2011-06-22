@@ -32,14 +32,22 @@ namespace Nova.Ai
     {
         protected string raceName;
         protected int turnNumber = -1;
+        protected ClientState stateData;
 
         public void Initialize(CommandArguments commandArguments)
         {
             raceName = commandArguments[CommandArguments.Option.RaceName];
             turnNumber = int.Parse(commandArguments[CommandArguments.Option.Turn], System.Globalization.CultureInfo.InvariantCulture);
-            ClientState.Initialize(commandArguments.ToArray()); 
+            stateData = new ClientState();
+            stateData.Initialize(commandArguments.ToArray()); 
         }
 
         public abstract void DoMove();
+        
+        public ClientState StateData
+        {
+            // This is used in the AI runner.
+            get { return stateData; }
+        }
     }
 }

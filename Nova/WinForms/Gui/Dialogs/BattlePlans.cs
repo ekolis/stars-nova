@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,36 +20,32 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Dialog to manage battle plans.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+    
+    using Nova.Client;
+    using Nova.Common;
+    
     /// <Summary>
     /// Dialog to manage battle plans.
     /// </Summary>
     public partial class BattlePlans : Form
     {
-
+        private Dictionary<string, BattlePlan> battlePlans;
         /// <Summary>
         /// Initializes a new instance of the BattlePlans class.
         /// </Summary>
-        public BattlePlans()
+        public BattlePlans(Dictionary<string, BattlePlan> battlePlans)
         {
+            this.battlePlans = battlePlans;
+            
             InitializeComponent();
 
-            foreach (BattlePlan plan in ClientState.Data.BattlePlans.Values)
+            foreach (BattlePlan plan in battlePlans.Values)
             {
                 this.planList.Items.Add(plan.Name);
             }
@@ -66,7 +62,6 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void UpdatePlanDetails()
         {
-            Dictionary<string, BattlePlan> battlePlans = ClientState.Data.BattlePlans;
             string selection = this.planList.SelectedItem as string;
             BattlePlan plan = battlePlans[selection];
 

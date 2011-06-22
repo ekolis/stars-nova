@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,18 +20,8 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module brings together references to all the data which the GUI needs
-// and provides the means to persist that data between sessions. This is also
-// used by the AI, hence it is applicable to any Nova client.
-// ===========================================================================
-#endregion
-
 namespace Nova.Client
 {
-    #region Using Statements
-
     using System;
     using System.Collections;
     using System.Collections.Generic;
@@ -41,107 +31,62 @@ namespace Nova.Client
     using Nova.Common;
     using Nova.Common.Components;
     using Message = Nova.Common.Message;
-
-    #endregion
-
+ 
+    
+    /// <summary>
+    /// Brings together references to all the data which the GUI needs
+    /// and provides the means to persist that data between sessions. This is also
+    /// used by the AI, hence it is applicable to any Nova client. 
+    /// </summary>
     [Serializable]
     public sealed class ClientState
     {
-        // ============================================================================
-        // Data used by the GUI that will be persistent across multiple program
-        // invocations.
-        // ============================================================================
-
-        public List<string> DeletedDesigns = new List<string>();
-        public List<string> DeletedFleets = new List<string>();
-        public List<Message> Messages = new List<Message>();
-        public Intel InputTurn = null;
-        public Dictionary<string, BattlePlan> BattlePlans = new Dictionary<string, BattlePlan>();
-        public Dictionary<string, Design> KnownEnemyDesigns = new Dictionary<string, Design>();
-        public Dictionary<string, PlayerRelation> PlayerRelations = new Dictionary<string, PlayerRelation>();
-        public Dictionary<string, StarReport> StarReports = new Dictionary<string, StarReport>();
-        public RaceComponents AvailableComponents = null;
-        public List<Fleet> PlayerFleets = new List<Fleet>();
-        public StarList PlayerStars = new StarList(); 
-        public Race PlayerRace = new Race();
+        public List<string>     DeletedDesigns  = new List<string>();
+        public List<string>     DeletedFleets   = new List<string>();
+        public List<Message>    Messages        = new List<Message>();
+       
+        public Dictionary<string, Design>       KnownEnemyDesigns   = new Dictionary<string, Design>();        
+        public Dictionary<string, StarReport>   StarReports         = new Dictionary<string, StarReport>();
+        
+        public Intel            InputTurn           = null;
+        public RaceComponents   AvailableComponents = null;
+        public List<Fleet>      PlayerFleets        = new List<Fleet>();
+        public StarList         PlayerStars         = new StarList(); 
+        public Race             PlayerRace          = new Race();
+  
+        // FIXME:(priority 3) This set of variables are all contained inside RaceData.
+        // Consider replacing them all with a single RaceData object. -Aeglos 21 Jun 11
+        public int  TurnYear    = 0;
+        public TechLevel    ResearchLevels     = new TechLevel(); // current level of technology
+        public TechLevel    ResearchResources  = new TechLevel(); // current total resources spent on each tech
+        public TechLevel    ResearchTopics     = new TechLevel(0, 0, 1, 0, 0, 0); // what to research next
+        public int          ResearchBudget = 10;
+        public Dictionary<string, BattlePlan>       BattlePlans         = new Dictionary<string, BattlePlan>();
+        public Dictionary<string, PlayerRelation>   PlayerRelations     = new Dictionary<string, PlayerRelation>();
+        // End RaceData
+        
+        public bool FirstTurn   = true;  
+        
+        public string GameFolder    = null;
+        public string RaceName      = null; //FIXME:(priority 3) why have this here if it is already on PlayerRace.Name? -Aeglos 21 Jun 11
+        
+        public string statePathName; // path&filename
 
         /// <summary>
-        /// Gets information about technology levels for current client
+        /// Default Constructor.
         /// </summary>
-        public TechLevel ResearchLevels = new TechLevel(); // current level of technology
-        public TechLevel ResearchResources = new TechLevel();
-        public TechLevel ResearchTopics = new TechLevel(0, 0, 1, 0, 0, 0);
-        public int ResearchBudget = 10;
-        
-        public bool FirstTurn = true;
-        public int TurnYear = 0;
-        
-        public string GameFolder = null;
-        public string RaceName = null;   
-
-        // ============================================================================
-        // Data private to this module.
-        // ============================================================================
-
-        private static ClientState instance;
-        private static string statePathName; // path&filename
-
-
-        #region Constructors
-        
-        /// <summary>
-        /// Private constructor for static only class preventing external object from instantiating this class directly.
-        /// </summary>
-        /// <remarks>
-        /// Use a private constructor so the default constructor is not created since all methods are static.
-        /// </remarks>
-        private ClientState() 
+        public ClientState() 
         { 
         }
-
-        #endregion
-
-        #region Properties
-
-        /// <summary>
-        /// Gets the single instance of this class. Access to the data is thread-safe.
-        /// </summary>
-        public static ClientState Data
-        {
-            get
-            {
-                object padlock = new object();
-
-                lock (padlock)
-                {
-                    if (instance == null)
-                    {
-                        instance = new ClientState();
-                    }
-                }
-                return instance;
-            }
-
-            set
-            {
-                instance = value;
-            }
-        }
-
-        #endregion
-
-        #region Methods
 
         /// <summary>
         /// Initialise the data needed for the GUI to run.
         /// </summary>
         /// <param name="argArray">The command line arguments.</param>
-        public static void Initialize(string[] argArray)
+        public void Initialize(string[] argArray)
         {
-            // ----------------------------------------------------------------------------
             // Restore the component definitions. Must be done first so that components used
             // in designs can be linked to when loading the .intel file.
-            // ----------------------------------------------------------------------------
             try
             {
                 AllComponents.Restore();
@@ -174,7 +119,7 @@ namespace Nova.Client
             //    Directly load the state file. If it is missing - FatalError.
             //    (The race name and game folder will be loaded from the state file)
             statePathName = null;
-            Data.RaceName = null;
+            RaceName = null;
             string intelFileName = null;
 
             // process the arguments
@@ -182,7 +127,7 @@ namespace Nova.Client
 
             if (commandArguments.Contains(CommandArguments.Option.RaceName))
             {
-                Data.RaceName = commandArguments[CommandArguments.Option.RaceName];
+                RaceName = commandArguments[CommandArguments.Option.RaceName];
             }
             if (commandArguments.Contains(CommandArguments.Option.StateFileName))
             {
@@ -196,8 +141,9 @@ namespace Nova.Client
             // Get the name of the folder where all the game files will be stored. 
             // Normally this would be placed in the config file by the NewGame wizard.
             // We also cache a copy in the ClientState.Data.GameFolder
-            ClientState.Data.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
-            if (ClientState.Data.GameFolder == null)
+            GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
+
+            if (GameFolder == null)
             {
                 Report.FatalError("ClientState.cs Initialize() - An expected config file entry is missing\n" +
                                   "Have you ran the Race Designer and \n" +
@@ -215,8 +161,8 @@ namespace Nova.Client
                 // - get GameFolder from the conf file - already done.
 
                 // - look for races and ask the user to pick one. 
-                ClientState.Data.RaceName = SelectRace(ClientState.Data.GameFolder);
-                if (!string.IsNullOrEmpty(Data.RaceName))
+                RaceName = SelectRace(GameFolder);
+                if (!string.IsNullOrEmpty(RaceName))
                 {
                     isLoaded = true;
                 }
@@ -249,8 +195,9 @@ namespace Nova.Client
             {
                 if (File.Exists(intelFileName))
                 {
-                    // Evenything we need should be found in there. 
-                    IntelReader.ReadIntel(intelFileName);
+                    // Evenything we need should be found in there.
+                    IntelReader intelReader = new IntelReader(this);
+                    intelReader.ReadIntel(intelFileName);
                     isLoaded = true;
                 }
                 else
@@ -271,8 +218,9 @@ namespace Nova.Client
                 // If it is missing - FatalError.
                 if (File.Exists(statePathName))
                 {
-                    ClientState.Restore();
-                    IntelReader.ReadIntel(intelFileName);
+                    Restore();
+                    IntelReader intelReader = new IntelReader(this);
+                    intelReader.ReadIntel(intelFileName);
                     isLoaded = true;
                 }
                 else
@@ -288,67 +236,42 @@ namespace Nova.Client
             }
 
             // Add the default battle plan if this is the first turn.
-            if (ClientState.Data.FirstTurn)
+            if (FirstTurn)
             {
-                ClientState.Data.BattlePlans.Add("Default", new BattlePlan());
+                BattlePlans.Add("Default", new BattlePlan());
                 // morsen: Used to load the .race file here, but it's in the intel file
                 // now so we'll have it already
             }            
             
             // See which components are available.
             UpdateAvailableComponents();
-            
-            // ----------------------------------------------------------------------------
-            // Check the password for access to this race's data
-            // ----------------------------------------------------------------------------
-            /* TODO (priority 6) need to rework how passwords are used. They should be used to decrypt files. The current process is weak security as the files are not encrypted and the password easily bypassed.
-             * TODO (priority 7) ensure the AI can open its files without user input.
-             * This section has been commented out until it can be reworked as it does no good and therefore isn't worth working out a bypass for the AI until it is reworked.
-             * NB: this is how a hacker/cheat would bypass the current security - build a version of Nova GUI with this section commented out.
-            // On first run a password is required to 'decrypt' the race's files. The password should be remembered by the running application between turns, until the application terminates.
-            ControlLibrary.CheckPassword password =
-               new ControlLibrary.CheckPassword(ClientState.Data.PlayerRace);
-
-            if (bPasswordNeeded)
-            {
-                password.ShowDialog();
-                password.Dispose();
-
-                if (password.DialogResult == DialogResult.Cancel)
-                {
-                    System.Threading.Thread.CurrentThread.Abort();
-                }
-            }
-            */
-            
+                        
             // Add some initial state
-            if (ClientState.Data.FirstTurn)
+            if (FirstTurn)
             {
-                foreach (string raceName in ClientState.Data.InputTurn.AllRaceNames)
+                foreach (string raceName in InputTurn.AllRaceNames)
                 {
-                    ClientState.Data.PlayerRelations[raceName] = PlayerRelation.Neutral;
+                    PlayerRelations[raceName] = PlayerRelation.Neutral;
                 }
             }
             
-            ClientState.Data.FirstTurn = false;
+            FirstTurn = false;
         }
 
-  
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine which tech components the player has access too
         /// </summary>
-        private static void UpdateAvailableComponents()
+        private void UpdateAvailableComponents()
         {
-            if (ClientState.Data.AvailableComponents == null)
+            if (AvailableComponents == null)
             {
-                ClientState.Data.AvailableComponents = new RaceComponents(ClientState.Data.PlayerRace, ClientState.Data.ResearchLevels);
+                AvailableComponents = new RaceComponents(PlayerRace, ResearchLevels);
             }
             else
             {
                 try
                 {
-                    ClientState.Data.AvailableComponents.DetermineRaceComponents(ClientState.Data.PlayerRace, ClientState.Data.ResearchLevels);
+                    AvailableComponents.DetermineRaceComponents(PlayerRace, ResearchLevels);
                 }
                 catch
                 {
@@ -366,9 +289,37 @@ namespace Nova.Client
         /// file Nova.intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
-        public static void Restore()
+        public ClientState Restore()
         {
-            Restore(ClientState.Data.GameFolder, ClientState.Data.RaceName);
+            ClientState newState = Restore(GameFolder, RaceName);
+            
+            DeletedDesigns  = newState.DeletedDesigns;
+            DeletedFleets   = newState.DeletedFleets;
+            Messages        = newState.Messages;
+           
+            KnownEnemyDesigns   = newState.KnownEnemyDesigns;     
+            StarReports         = newState.StarReports;
+            
+            InputTurn           = newState.InputTurn;
+            AvailableComponents = newState.AvailableComponents;
+            PlayerFleets        = newState.PlayerFleets;
+            PlayerStars         = newState.PlayerStars;
+            PlayerRace          = newState.PlayerRace;
+
+            TurnYear            = newState.TurnYear;
+            ResearchLevels      = newState.ResearchLevels;
+            ResearchResources   = newState.ResearchResources;
+            ResearchTopics      = newState.ResearchTopics;
+            ResearchBudget      = newState.ResearchBudget;
+            BattlePlans         = newState.BattlePlans;
+            PlayerRelations     = newState.PlayerRelations;
+            
+            FirstTurn     = newState.FirstTurn;             
+            GameFolder    = newState.GameFolder;
+            RaceName      = newState.RaceName; 
+            statePathName = newState.statePathName;
+            
+            return this;
         }
 
         /// <summary>
@@ -381,14 +332,14 @@ namespace Nova.Client
         /// file Nova.intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
-        public static void Restore(string gameFolder)
+        public ClientState Restore(string gameFolder)
         {
             // Scan the game directory for .race files. If only one is present then that is
             // the race we will use (single race test bed or remote server). If more than one is
             // present then display a dialog asking the player which race he wants to use
             // (multiplayer game with all players playing from a single game directory).
             string raceName = SelectRace(gameFolder);
-            Restore(gameFolder, raceName);
+            return Restore(gameFolder, raceName);
         }
 
 
@@ -403,18 +354,19 @@ namespace Nova.Client
         /// file Nova.intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
-        public static void Restore(string gameFolder, string raceName)
-        {
+        public ClientState Restore(string gameFolder, string raceName)
+        {            
             statePathName = Path.Combine(gameFolder, raceName + Global.ClientStateExtension);
+            ClientState clientState = new ClientState();
 
             if (File.Exists(statePathName))
             {
                 try
                 {
-                    using (Stream stateFile = new FileStream(statePathName, FileMode.Open))
+                    using (FileStream stream = new FileStream(statePathName, FileMode.Open))
                     {
                         // Read in binary state file
-                        ClientState.Data = Serializer.Deserialize(stateFile) as ClientState;
+                        clientState = Serializer.Deserialize(stream) as ClientState;
                     }
                 }
                 catch (Exception e)
@@ -425,19 +377,22 @@ namespace Nova.Client
 
             // Copy the race and game folder names into the state data store. This
             // is just a convenient way of making them globally available.
-            Data.RaceName = raceName;
-            Data.GameFolder = gameFolder;
+            clientState.RaceName = raceName;
+            clientState.GameFolder = gameFolder;
+            clientState.statePathName = statePathName;
+            
+            return clientState;
         }
 
         /// <summary>
         /// Save the GUI global data and flag that we should now be able to restore it.
         /// </summary>
-        public static void Save()
+        public void Save()
         {
-            using (Stream stateFile = new FileStream(statePathName, FileMode.Create))
+            using (FileStream stream = new FileStream(statePathName, FileMode.Create))
             {
                 // Binary Serialization (old)
-                Serializer.Serialize(stateFile, ClientState.Data);
+                Serializer.Serialize(stream, this);
             }
 
             // Xml Serialization - incomplete - Dan 16 Jan 09 - deferred while alternate means are investigated
@@ -497,7 +452,7 @@ namespace Nova.Client
   #if (DEBUG)
            xmldoc.Save(stateFile);                                           //  not compressed
   #else
-             xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
+           //  xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
   #endif
 
         */
@@ -511,7 +466,7 @@ namespace Nova.Client
         /// FIXME (priority 6) - This is unsafe as these may not be the races playing.
         /// </remarks>
         /// <returns>The name of the race to play.</returns>
-        private static string SelectRace(string gameFolder)
+        private string SelectRace(string gameFolder)
         {
             string raceName = null;
 
@@ -555,8 +510,6 @@ namespace Nova.Client
 
             return raceName;
         }
-
-        #endregion
     }
 }
 

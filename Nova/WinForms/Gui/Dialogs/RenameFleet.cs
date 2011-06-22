@@ -42,13 +42,23 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class RenameFleet : Form
     {
+        private Dictionary<string, Fleet> allFleets; // FIXME:(priority 3) Do we need allFleets here? Can't we use the player's fleets instead? -Aeglos 21 Jun 11 
+        private List<string> deletedFleets;
+        private string raceName;
+        
         public event FleetSelectionChanged FleetSelectionChangedEvent;
         
         /// <Summary>
         /// Initializes a new instance of the RenameFleet class.
         /// </Summary>
-        public RenameFleet()
+        public RenameFleet(Dictionary<string, Fleet> allFleets, List<string> deletedFleets, string raceName)
         {
+            // FIXME(priority 3) see declaration.
+            this.allFleets = allFleets;
+            
+            this.raceName = raceName;
+            this.deletedFleets = deletedFleets;
+            
             InitializeComponent();
         }
 
@@ -75,11 +85,9 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void OKButton_Click(object sender, EventArgs e)
         {
-            Dictionary<string, Fleet> allFleets = ClientState.Data.InputTurn.AllFleets;
-
             string newName = this.newName.Text;
-            string newKey = ClientState.Data.RaceName + "/" + newName;
-            string oldKey = ClientState.Data.RaceName + "/" + this.ExistingName.Text;
+            string newKey = raceName + "/" + newName;
+            string oldKey = raceName + "/" + this.ExistingName.Text;
 
             if (allFleets.ContainsKey(newKey))
             {
@@ -89,7 +97,7 @@ namespace Nova.WinForms.Gui
 
             Fleet fleet = allFleets[oldKey];
             allFleets.Remove(oldKey);
-            ClientState.Data.DeletedFleets.Add(oldKey);
+            deletedFleets.Add(oldKey);
 
             fleet.Name = newName;
             allFleets[newKey] = fleet;

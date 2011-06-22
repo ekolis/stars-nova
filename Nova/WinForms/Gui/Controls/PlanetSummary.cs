@@ -20,34 +20,29 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module provides the Planet Summary control.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Drawing;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-using Nova.ControlLibrary;
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Drawing;
+    using System.Windows.Forms;
+    using System.Collections.Generic;
+    
+    using Nova.Client;
+    using Nova.Common;
+    using Nova.ControlLibrary;
 
     /// <Summary>
     /// The Star system Summary panel.
     /// </Summary>
     public class PlanetSummary : System.Windows.Forms.UserControl
     {
-        // reference to the Star's report.
-        private StarReport report;
+        // List of the Star reports.
+        private Dictionary<string, StarReport> starReports;
+        private Race playerRace;        
+       
         // reference to the Star. This is only used for owned stars.
-        private Star star;
+        private Star currentStar;
         
-        #region Designer Generated Variables
         private System.ComponentModel.IContainer components;
         private Label reportAge;
         private Label planetValue;
@@ -74,15 +69,15 @@ namespace Nova.WinForms.Gui
         private Panel panel2;
         private Label label10;
         private Panel panel1;
-        #endregion
-
-        #region Construction and Disposal
 
         /// <Summary>
         /// Initializes a new instance of the PlanetSummary class.
         /// </Summary>
-        public PlanetSummary()
+        public PlanetSummary(Dictionary<string, StarReport> starReports, Race playerRace)
         {
+            this.starReports = starReports;
+            this.playerRace = playerRace;
+            
             InitializeComponent();
         }
 
@@ -102,9 +97,6 @@ namespace Nova.WinForms.Gui
             base.Dispose(disposing);
         }
 
-        #endregion
-
-        #region Component Designer generated code
         /// <Summary> 
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
@@ -453,10 +445,7 @@ namespace Nova.WinForms.Gui
             this.PerformLayout();
 
         }
-        #endregion
-
-        #region Properties
-
+        
         /// <Summary>
         /// Select the Star whose details are to be displayed
         /// </Summary>
@@ -464,13 +453,9 @@ namespace Nova.WinForms.Gui
         {
             set
             {
-                this.report = ClientState.Data.StarReports[value.Name];
+                this.currentStar = value;
                 
-                this.star = value;
-                
-                Race race = ClientState.Data.PlayerRace;
-                
-                int habValue = (int)Math.Ceiling(value.HabitalValue(race) * 100);
+                int habValue = (int)Math.Ceiling(value.HabitalValue(playerRace) * 100);
                 
                 this.planetValue.Text = habValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
 
@@ -483,112 +468,106 @@ namespace Nova.WinForms.Gui
                     this.planetValue.ForeColor = Color.Black;
                 }                
 
-                if (this.report.Population == 0)
+                if (starReports[value.Name].Population == 0)
                 {
                     this.population.Text = "Uninhabited";
                 }
                 else
                 {
-                    this.population.Text = "Population: " + this.report.Population;
+                    this.population.Text = "Population: " + starReports[value.Name].Population;
                 }
 
-                if (this.report.Age == 0)
+                if (starReports[value.Name].Age == 0)
                 {
                     this.reportAge.Text = "Report is current";
                 }
-                else if (this.report.Age == 1)
+                else if (starReports[value.Name].Age == 1)
                 {
                     this.reportAge.Text = "Report is 1 year old";
                 }
                 else
                 {
-                    this.reportAge.Text = "Report is " + this.report.Age + " years old";
+                    this.reportAge.Text = "Report is " + starReports[value.Name].Age + " years old";
                 }
 
-                this.ironiumGauge.Value = this.report.StarResources.Ironium;
-                this.boraniumGauge.Value = this.report.StarResources.Boranium;
-                this.germaniumGauge.Value = this.report.StarResources.Germanium;
+                this.ironiumGauge.Value = starReports[value.Name].StarResources.Ironium;
+                this.boraniumGauge.Value = starReports[value.Name].StarResources.Boranium;
+                this.germaniumGauge.Value = starReports[value.Name].StarResources.Germanium;
 
-                this.ironiumGauge.Marker = (int)this.report.Concentration.Ironium;
-                this.boraniumGauge.Marker = (int)this.report.Concentration.Boranium;
-                this.germaniumGauge.Marker = (int)this.report.Concentration.Germanium;
+                this.ironiumGauge.Marker = (int)starReports[value.Name].Concentration.Ironium;
+                this.boraniumGauge.Marker = (int)starReports[value.Name].Concentration.Boranium;
+                this.germaniumGauge.Marker = (int)starReports[value.Name].Concentration.Germanium;
 
-                this.radiationGauge.Marker = this.report.Radiation;
-                this.gravityGauge.Marker = this.report.Gravity;
-                this.temperatureGauge.Marker = this.report.Temperature;
+                this.radiationGauge.Marker = starReports[value.Name].Radiation;
+                this.gravityGauge.Marker = starReports[value.Name].Gravity;
+                this.temperatureGauge.Marker = starReports[value.Name].Temperature;
 
-                this.radiationLevel.Text = this.report.Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
-                this.gravityLevel.Text = Gravity.FormatWithUnit(this.report.Gravity); 
-                this.temperatureLevel.Text = Temperature.FormatWithUnit(this.report.Temperature);
+                this.radiationLevel.Text = starReports[value.Name].Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
+                this.gravityLevel.Text = Gravity.FormatWithUnit(starReports[value.Name].Gravity); 
+                this.temperatureLevel.Text = Temperature.FormatWithUnit(starReports[value.Name].Temperature);
 
-                if (race.RadiationTolerance.Immune)
+                if (playerRace.RadiationTolerance.Immune)
                 {
                     this.radiationGauge.TopValue = 0.0;
                     this.radiationGauge.BottomValue = 0.0;
                 }
                 else
                 {
-                    this.radiationGauge.TopValue = race.RadiationTolerance.MaximumValue;
-                    this.radiationGauge.BottomValue = race.RadiationTolerance.MinimumValue;
+                    this.radiationGauge.TopValue = playerRace.RadiationTolerance.MaximumValue;
+                    this.radiationGauge.BottomValue = playerRace.RadiationTolerance.MinimumValue;
                 }
 
-                if (race.GravityTolerance.Immune)
+                if (playerRace.GravityTolerance.Immune)
                 {
                     this.gravityGauge.TopValue = 0.0;
                     this.gravityGauge.BottomValue = 0.0;
                 }
                 else
                 {
-                    this.gravityGauge.TopValue = race.GravityTolerance.MaximumValue;
-                    this.gravityGauge.BottomValue = race.GravityTolerance.MinimumValue;
+                    this.gravityGauge.TopValue = playerRace.GravityTolerance.MaximumValue;
+                    this.gravityGauge.BottomValue = playerRace.GravityTolerance.MinimumValue;
                 }
 
-                if (race.TemperatureTolerance.Immune)
+                if (playerRace.TemperatureTolerance.Immune)
                 {
                     this.temperatureGauge.TopValue = 0.0;
                     this.temperatureGauge.BottomValue = 0.0;
                 }
                 else
                 {
-                    this.temperatureGauge.TopValue = race.TemperatureTolerance.MaximumValue;
-                    this.temperatureGauge.BottomValue = race.TemperatureTolerance.MinimumValue;
+                    this.temperatureGauge.TopValue = playerRace.TemperatureTolerance.MaximumValue;
+                    this.temperatureGauge.BottomValue = playerRace.TemperatureTolerance.MinimumValue;
                 }
             }
         }
-
-        #endregion
-
-        #region Tooltip handlers.
         
         private void PopulationToolTipShow(object sender, MouseEventArgs e)
         {               
             string tt = "";
             
-            if (this.star != null
-                && this.star.Owner == ClientState.Data.PlayerRace.Name
-                && this.report.Age == 0)
+            if (this.currentStar != null
+                && this.currentStar.Owner == playerRace.Name
+                && starReports[currentStar.Name].Age == 0)
             {
                         
-            tt += "Your population on " + this.report.StarName + " is " + this.report.Population + "." + Environment.NewLine           
-                + this.report.StarName + " will support a population of up to "
-                + ClientState.Data.PlayerRace.MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture)
+            tt += "Your population on " + starReports[currentStar.Name].StarName + " is " + starReports[currentStar.Name].Population + "." + Environment.NewLine           
+                + starReports[currentStar.Name].StarName + " will support a population of up to "
+                + playerRace.MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " of your colonists." + Environment.NewLine
-                + "Your population on " + this.report.StarName + " will grow by "
-                + this.star.CalculateGrowth(ClientState.Data.PlayerRace).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + "Your population on " + starReports[currentStar.Name].StarName + " will grow by "
+                + currentStar.CalculateGrowth(playerRace).ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " to "
-                + (this.report.Population + this.star.CalculateGrowth(ClientState.Data.PlayerRace)).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + (starReports[currentStar.Name].Population + currentStar.CalculateGrowth(playerRace)).ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " next year.";             
             }
 
-            this.tooltip.Show(tt, this.population);
+            tooltip.Show(tt, population);
         }
         
         private void PopulationToolTipHide(object sender, EventArgs e)
         {
-            this.tooltip.Hide(this.population);
+            tooltip.Hide(population);
         }
-        
-        #endregion
     }
 }
 

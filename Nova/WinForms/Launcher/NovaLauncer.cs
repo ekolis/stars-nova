@@ -19,25 +19,15 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// The splash screen and launcher application for starting Nova. Nova should
-// normally be started by running the NovaLauncher application.
-// ===========================================================================
-#endregion
-
-#region Using Statements
-using System;
-using System.Diagnostics;
-using System.IO;
-using System.Reflection;
-using System.Windows.Forms;
-
-using Nova.Common;
-#endregion
-
 namespace Nova.WinForms.Launcher
 {
+    using System;
+    using System.Diagnostics;
+    using System.IO;
+    using System.Reflection;
+    using System.Windows.Forms;
+    
+    using Nova.Common;
     /// <Summary>
     /// The Stars! Nova - Launcher <see cref="Form"/>
     /// </Summary>
@@ -46,10 +36,9 @@ namespace Nova.WinForms.Launcher
         private readonly string serverStateFile;
         private readonly string clientStateFile;
 
-        #region Initialisation
-
         /// <Summary>
-        /// Initializes a new instance of the NovaLauncher class.
+        /// The splash screen and launcher application for starting Nova. Nova should
+        /// normally be started by running the NovaLauncher.
         /// </Summary>
         public NovaLauncher()
         {
@@ -76,11 +65,14 @@ namespace Nova.WinForms.Launcher
                 continueGameButton.Enabled = false;
             }
         }
-
-        #endregion
-
-        #region Event Methods
-
+  
+        private void RunNewGameWizard()
+        {
+            NewGameWizard wizard = new NewGameWizard();
+            wizard.FormClosing += NewGameWizardClosing;
+            wizard.Show();
+        }
+        
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'exit' button is pressed, terminate the Nova Launcher
@@ -124,32 +116,9 @@ namespace Nova.WinForms.Launcher
         /// ----------------------------------------------------------------------------
         private void NewGameButton_Click(object sender, EventArgs e)
         {
-            try
-            {
-                NewGameWizard wizard = new NewGameWizard();
-                DialogResult result;
-                
-                this.Hide();
-                
-                do
-                {
-                    result = wizard.ShowDialog();
-                }
-                while (result != DialogResult.OK && result != DialogResult.Cancel);
-                
-                if (result == DialogResult.OK)
-                {
-                    this.Close();
-                }
-                else
-                {
-                    this.Show();
-                }                    
-            }
-            catch
-            {
-                Report.Error("Failed to launch New Game Wizard.");
-            }
+            RunNewGameWizard();
+            
+            Hide();
         }
 
 
@@ -298,10 +267,22 @@ namespace Nova.WinForms.Launcher
                 MessageBox.Show("Unable to open link that was clicked.");
             }
         }
-
-        #endregion
-
-        #region Utility Methods
+  
+        private void NewGameWizardClosing(object sender, FormClosingEventArgs e)
+        {
+            switch((sender as Form).DialogResult)
+            {
+            case DialogResult.OK:
+                Close();
+                break;
+            case DialogResult.Cancel:
+                Show();
+                break;
+            case DialogResult.Retry:
+                RunNewGameWizard();
+                break;
+            }    
+        }
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -317,9 +298,5 @@ namespace Nova.WinForms.Launcher
             // with a URL:
             System.Diagnostics.Process.Start(Global.NovaWebSite);
         }
-
-        #endregion
-
     }
-
 }

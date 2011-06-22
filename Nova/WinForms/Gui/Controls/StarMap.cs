@@ -147,8 +147,10 @@ namespace Nova.WinForms.Gui
         /// Post-construction initialisation.
         /// </Summary>
         /// ----------------------------------------------------------------------------
-        public void Initialise()
+        public void Initialise(ClientState stateData)
         {
+            this.stateData = stateData;
+            
             GameSettings.Restore();
 
             // Initial map size
@@ -158,7 +160,6 @@ namespace Nova.WinForms.Gui
             extent.X = (int)(this.logical.X * this.zoomFactor) + extraSpace.X * 2;
             extent.Y = (int)(this.logical.Y * this.zoomFactor) + extraSpace.X * 2;
 
-            stateData = ClientState.Data;
             turnData = this.stateData.InputTurn;
             isInitialised = true;
 
@@ -246,7 +247,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Star star in this.turnData.AllStars.Values)
             {
-                if (star.Owner == ClientState.Data.RaceName)
+                if (star.Owner == stateData.RaceName)
                 {
                     DrawCircle(g, lrScanBrush, (Point)star.Position, star.ScanRange);
                 }
@@ -279,7 +280,7 @@ namespace Nova.WinForms.Gui
                 Color cb;
                 Color cf;
 
-                if (minefield.Owner == ClientState.Data.RaceName)
+                if (minefield.Owner == stateData.RaceName)
                 {
                     cb = Color.FromArgb(0, 0, 0, 0);
                     cf = Color.FromArgb(128, 0, 128, 0);

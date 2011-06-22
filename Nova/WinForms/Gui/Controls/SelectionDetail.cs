@@ -31,6 +31,7 @@ namespace Nova.WinForms.Gui
 {
     using System.Drawing;
     using System.Windows.Forms;
+    using System.Collections.Generic;
 
     using Nova.Client;
     using Nova.Common;
@@ -43,17 +44,50 @@ namespace Nova.WinForms.Gui
     {
         private Item selectedItem = null;
         private UserControl selectedControl = null;
-
-        public PlanetDetail PlanetDetail = new PlanetDetail();
-        public FleetDetail FleetDetail = new FleetDetail();
+  
+        private Dictionary<string, StarReport> starReports;
+        private List<Fleet> playerFleets;
+        private StarList playerStars;
+        private Race playerRace;
+        private int researchBudget;
+        
+        private Dictionary<string, Fleet> allFleets; // FIXME:(???) Do we need allFleets here? Can't we use the player's fleets instead? -Aeglos 21 Jun 11 
+        private List<string> deletedFleets;
+        
+        public PlanetDetail PlanetDetail; 
+        public FleetDetail FleetDetail;
+        
+        // FIXME:(priority 3) this should not be here. It is only needed to pass it
+        // down to the PlanetDetail (Who passes it to ProductionDialog). In any case,
+        // ProductionDialog shouldn't need the whole state either. Must refactor this.
+        private ClientState stateData;
 
         #region Construction
 
         /// <Summary>
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
-        public SelectionDetail()
+        public SelectionDetail(Dictionary<string, StarReport> starReports,
+                               StarList playerStars,
+                               Dictionary<string, Fleet> allFleets,
+                               List<Fleet> playerFleets,
+                               List<string> deletedFleets,
+                               Race playerRace,
+                               int researchBudget,
+                               ClientState stateData)
         {
+            this.starReports = starReports;
+            this.playerStars = playerStars;
+            this.playerFleets = playerFleets;
+            this.playerRace = playerRace;
+            this.researchBudget = researchBudget;
+            
+            // FIXME: (priority 3) see declaration.
+            this.stateData = stateData;
+            
+            PlanetDetail = new PlanetDetail(playerStars, starReports, playerFleets, researchBudget, stateData);
+            FleetDetail = new FleetDetail(starReports, allFleets, playerFleets, deletedFleets, playerRace);
+            
             InitializeComponent();
         }
 
@@ -120,7 +154,7 @@ namespace Nova.WinForms.Gui
             // To avoid confusion when another race's fleet or planet is selected
             // grey out (disable) the Detail panel.
 
-            if (item.Owner == ClientState.Data.RaceName)
+            if (item.Owner == playerRace.Name)
             {
                 Enabled = true;
             }

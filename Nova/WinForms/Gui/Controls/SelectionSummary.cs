@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,37 +20,41 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Control to hold the Summary of a selected Item.
-// ===========================================================================
-#endregion
-
-using System.Drawing;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-
 namespace Nova.WinForms.Gui
 {
+    using System.Drawing;
+    using System.Windows.Forms;
+    using System.Collections.Generic;
+    
+    using Nova.Client;
+    using Nova.Common;
+
     /// <Summary>
     /// Control to display a Summary of the selected map Item.
     /// </Summary>
     public partial class SelectionSummary : UserControl
     {
-
+        private Dictionary<string, StarReport> starReports;
+        private Race playerRace;
+        private Dictionary<string, RaceIcon> raceIcons;
+        
         private Item summaryItem = null;
-        private PlanetSummary planetSummary = new PlanetSummary();
-        private FleetSummary fleetSummary = new FleetSummary();
-
+        private PlanetSummary planetSummary;
+        private FleetSummary fleetSummary;
         #region Construction
 
         /// <Summary>
         /// Initializes a new instance of the SelectionSummary class.
         /// </Summary>
-        public SelectionSummary()
+        public SelectionSummary(Dictionary<string, StarReport> starReports, Race playerRace, Dictionary<string, RaceIcon> raceIcons)
         {
+            this.starReports = starReports;
+            this.playerRace = playerRace;
+            this.raceIcons = raceIcons;
+            
+            planetSummary = new PlanetSummary(starReports, playerRace);
+            fleetSummary = new FleetSummary(raceIcons);
+            
             InitializeComponent();
         }
 
@@ -66,7 +70,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplayPlanet(Item item)
         {
-            if (ClientState.Data.StarReports.ContainsKey(item.Name) == false)
+            if (starReports.ContainsKey(item.Name) == false)
             {
                 this.selectedItem.Text = item.Name + " is unexplored";
                 summaryItem = null;

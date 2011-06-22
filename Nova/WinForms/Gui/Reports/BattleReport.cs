@@ -20,42 +20,35 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// battle Summary report.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-using Nova.Common.DataStructures;
-
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
+    
+    using Nova.Client;
+    using Nova.Common;
+    using Nova.Common.DataStructures;
+        
     /// <Summary>
-    /// battle report dialog class
+    /// Battle report dialog class
     /// </Summary>
     public partial class BattleReportDialog : Form
     {
-        #region Construction
-
+        private List<BattleReport> battles;
+        private string raceName;
+        
         /// <Summary>
         /// Initializes a new instance of the BattleReportDialog class.
         /// </Summary>
-        public BattleReportDialog()
+        public BattleReportDialog(List<BattleReport> battles, string raceName)
         {
+            this.battles = battles;
+            this.raceName = raceName;
+            
             InitializeComponent();
         }
-
-        #endregion
-
-        #region Event Methods
 
         /// <Summary>
         /// Populate the display. 
@@ -68,7 +61,7 @@ namespace Nova.WinForms.Gui
 
             this.battleGridView.AutoSize = true;
 
-            foreach (BattleReport report in ClientState.Data.InputTurn.Battles)
+            foreach (BattleReport report in battles)
             {
 
                 Dictionary<string, bool> countSides = new Dictionary<string, bool>();
@@ -82,7 +75,7 @@ namespace Nova.WinForms.Gui
 
                 foreach (Fleet fleet in report.Stacks.Values)
                 {
-                    if (fleet.Owner == ClientState.Data.RaceName)
+                    if (fleet.Owner == raceName)
                     {
                         ourShips += fleet.FleetShips.Count;
                     }
@@ -97,7 +90,7 @@ namespace Nova.WinForms.Gui
 
                 foreach (string race in report.Losses.Keys)
                 {
-                    if (race == ClientState.Data.RaceName)
+                    if (race == raceName)
                     {
                         ourLosses += (int)report.Losses[race];
                     }
@@ -132,23 +125,21 @@ namespace Nova.WinForms.Gui
         {
             int battleRow = e.RowIndex;
 
-            if (ClientState.Data.InputTurn.Battles.Count == 0)
+            if (battles.Count == 0)
             {
                 Report.Information("There are no battles to view.");
             }
-            else if (ClientState.Data.InputTurn.Battles.Count <= battleRow)
+            else if (battles.Count <= battleRow)
             {
                 Report.Information("Battle " + battleRow + " does not exist.");
             }
             else
             {
-                BattleReport report = ClientState.Data.InputTurn.Battles[battleRow];
+                BattleReport report = battles[battleRow];
                 BattleViewer battleViewer = new BattleViewer(report);
                 battleViewer.ShowDialog();
                 battleViewer.Dispose();
             }
         }
-
-        #endregion
     }
 }

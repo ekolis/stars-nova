@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,42 +20,36 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Fleet Summary report.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Text;
+    using System.Windows.Forms;
+    
+    using Nova.Client;
+    using Nova.Common;
+        
     /// <Summary>
     /// Fleet Summary report dialog class
     /// </Summary>
     public partial class FleetReport : Form
     {
-        #region Construction
-
+        private Dictionary<string, Fleet> allFleets;
+        private Race race;
+        
         /// <Summary>
         /// Initializes a new instance of the FleetReport class.
         /// </Summary>
-        public FleetReport()
+        public FleetReport(Dictionary<string, Fleet> allFleets, Race race)
         {
+            this.allFleets = allFleets;
+            this.race = race;
+            
             InitializeComponent();
         }
-
-        #endregion
-
-        #region Event Methods
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -68,9 +62,7 @@ namespace Nova.WinForms.Gui
         private void OnLoad(object sender, EventArgs e)
         {
             const int NumColumns = 11;
-            Race race = ClientState.Data.PlayerRace;
 
-            Dictionary<string, Fleet> allFleets = ClientState.Data.InputTurn.AllFleets;
             this.fleetGridView.Columns[6].Name = "Cargo";
             this.fleetGridView.AutoSize = true;
 
@@ -149,6 +141,5 @@ namespace Nova.WinForms.Gui
             this.fleetGridView.AutoResizeColumns();
         }
 
-        #endregion
     }
 }
