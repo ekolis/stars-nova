@@ -48,17 +48,23 @@ namespace Nova.WinForms.Gui
     {
         public int CurrentTurn;      // control turnvar used for to decide to load new turn... (Thread)
         public string CurrentRace;   // control var used for to decide to load new turn... (Thread)
+        protected ClientState stateData;
 
         #region Construction and Disposal
 
         /// <Summary>
         /// Construct the main window.
         /// </Summary>
-        public NovaGUI()
-        {
+        public NovaGUI(string[] argArray)
+        { 
+            stateData = new ClientState();
+            stateData.Initialize(argArray);
+            
             InitializeComponent();
-
-            // These used to be in the designer.cs file, but visual studio designer throws a whappy so they are here
+            
+            InitialiseControls();
+            
+             // These used to be in the designer.cs file, but visual studio designer throws a whappy so they are here
             // for now so it works again
             SelectionDetail.FleetDetail.FleetSelectionChangedEvent += FleetChangeSelection;
             SelectionDetail.FleetDetail.RefreshStarMapEvent += MapControl.RefreshStarMap;
@@ -105,7 +111,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void MenuExit_Click(object sender, System.EventArgs e)
         {
-            ClientState.Save();
+            stateData.Save();
             Close();
         }
 
@@ -116,7 +122,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void MenuShipDesign(object sender, System.EventArgs e)
         {
-            ShipDesignDialog shipDesignDialog = new ShipDesignDialog();
+            ShipDesignDialog shipDesignDialog = new ShipDesignDialog(stateData);
             shipDesignDialog.ShowDialog();
             shipDesignDialog.Dispose();
         }
@@ -162,7 +168,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void MenuResearch(object sender, EventArgs e)
         {
-            ResearchDialog newResearchDialog = new ResearchDialog();
+            ResearchDialog newResearchDialog = new ResearchDialog(stateData);
             newResearchDialog.ResearchAllocationChangedEvent += new ResearchAllocationChanged(this.UpdateResearchBudgets);
             newResearchDialog.ShowDialog();
             newResearchDialog.Dispose();
@@ -179,7 +185,14 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void NovaGUI_FormClosing(object sender, FormClosingEventArgs e)
         {
-            ClientState.Save();
+            try
+            {
+                stateData.Save();
+            }
+            catch(Exception ex)
+            {
+                Report.Error("Unable to save the client state." + Environment.NewLine + ex.Message);                
+            }                
             // OrderWriter.WriteOrders(); // don't do this here, do it only on save & submit.
         }
 
@@ -190,7 +203,9 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void PlayerRelationsMenuItem_Click(object sender, EventArgs e)
         {
-            PlayerRelations relationshipDialog = new PlayerRelations();
+            PlayerRelations relationshipDialog = new PlayerRelations(stateData.PlayerRelations,
+                                                                     stateData.InputTurn.AllRaceNames,
+                                                                     stateData.RaceName);
             relationshipDialog.ShowDialog();
             relationshipDialog.Dispose();
         }
@@ -202,7 +217,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void BattlePlansMenuItem(object sender, EventArgs e)
         {
-            BattlePlans battlePlans = new BattlePlans();
+            BattlePlans battlePlans = new BattlePlans(stateData.BattlePlans);
             battlePlans.ShowDialog();
             battlePlans.Dispose();
         }
@@ -214,7 +229,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void DesignManagerMenuItem_Click(object sender, EventArgs e)
         {
-            DesignManager designManager = new DesignManager();
+            DesignManager designManager = new DesignManager(stateData);
             designManager.RefreshStarMapEvent += new RefreshStarMap(this.MapControl.RefreshStarMap);
             designManager.ShowDialog();
             designManager.Dispose();
@@ -227,7 +242,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void PlanetReportMenu_Click(object sender, EventArgs e)
         {
-            PlanetReport planetReport = new PlanetReport();
+            PlanetReport planetReport = new PlanetReport(stateData.InputTurn.AllStars, stateData.PlayerRace);
             planetReport.ShowDialog();
             planetReport.Dispose();
         }
@@ -239,7 +254,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void FleetReportMenu_Click(object sender, EventArgs e)
         {
-            FleetReport fleetReport = new FleetReport();
+            FleetReport fleetReport = new FleetReport(stateData.InputTurn.AllFleets, stateData.PlayerRace);
             fleetReport.ShowDialog();
             fleetReport.Dispose();
         }
@@ -251,7 +266,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void BattlesReportMenu_Click(object sender, EventArgs e)
         {
-            BattleReportDialog battleReport = new BattleReportDialog();
+            BattleReportDialog battleReport = new BattleReportDialog(stateData.InputTurn.Battles, stateData.RaceName);
             battleReport.ShowDialog();
             battleReport.Dispose();
         }
@@ -263,7 +278,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void ScoresMenuItem_Click(object sender, EventArgs e)
         {
-            ScoreReport scoreReport = new ScoreReport();
+            ScoreReport scoreReport = new ScoreReport(stateData.InputTurn.AllScores);
             scoreReport.ShowDialog();
             scoreReport.Dispose();
         }
@@ -275,9 +290,10 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void SaveAndSubmitTurnToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ClientState.Save();
-            OrderWriter.WriteOrders();
-            Application.Exit();
+            stateData.Save();
+            OrderWriter orderWriter = new OrderWriter(stateData);
+            orderWriter.WriteOrders();
+            this.Close();
         }
 
         /// <Summary>
@@ -294,10 +310,10 @@ namespace Nova.WinForms.Gui
         {
             // prepare the arguments that will tell how to re-initialise.
             CommandArguments commandArguments = new CommandArguments();
-            commandArguments.Add(CommandArguments.Option.RaceName, ClientState.Data.RaceName);
-            commandArguments.Add(CommandArguments.Option.Turn, ClientState.Data.TurnYear + 1);
+            commandArguments.Add(CommandArguments.Option.RaceName, stateData.RaceName);
+            commandArguments.Add(CommandArguments.Option.Turn, stateData.TurnYear + 1);
 
-            ClientState.Initialize(commandArguments.ToArray());
+            stateData.Initialize(commandArguments.ToArray());
             this.NextTurn();
         }
         
@@ -332,19 +348,19 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         public void InitialiseControls()
         {
-            this.Messages.Year = ClientState.Data.TurnYear;
-            this.Messages.MessageList = ClientState.Data.Messages;
+            this.Messages.Year = stateData.TurnYear;
+            this.Messages.MessageList = stateData.Messages;
 
-            this.CurrentTurn = ClientState.Data.TurnYear;
-            this.CurrentRace = ClientState.Data.RaceName;
+            this.CurrentTurn = stateData.TurnYear;
+            this.CurrentRace = stateData.RaceName;
 
-            this.MapControl.Initialise();
+            this.MapControl.Initialise(stateData);
 
             // Select a Star owned by the player (if any) as the default display.
 
-            foreach (Star star in ClientState.Data.InputTurn.AllStars.Values)
+            foreach (Star star in stateData.InputTurn.AllStars.Values)
             {
-                if (star.Owner == ClientState.Data.RaceName)
+                if (star.Owner == stateData.RaceName)
                 {
                     MapControl.SetCursor(star.Position);
                     MapControl.CenterMapOnPoint(star.Position);
@@ -360,19 +376,19 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         public void NextTurn()
         {
-            this.Messages.Year = ClientState.Data.TurnYear;
-            this.Messages.MessageList = ClientState.Data.Messages;
+            this.Messages.Year = stateData.TurnYear;
+            this.Messages.MessageList = stateData.Messages;
 
             this.Invalidate(true);
 
-            this.MapControl.Initialise();
+            this.MapControl.Initialise(stateData);
             this.MapControl.Invalidate();
 
             // Select a Star owned by the player (if any) as the default display.
 
-            foreach (Star star in ClientState.Data.InputTurn.AllStars.Values)
+            foreach (Star star in stateData.InputTurn.AllStars.Values)
             {
-                if (star.Owner == ClientState.Data.RaceName)
+                if (star.Owner == stateData.RaceName)
                 {
                     this.MapControl.SetCursor((System.Drawing.Point)star.Position);
                     this.SelectionDetail.Value = star;

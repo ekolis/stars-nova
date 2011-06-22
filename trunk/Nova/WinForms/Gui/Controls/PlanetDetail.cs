@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,29 +20,32 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Planet Detail display pane.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-using Nova.ControlLibrary;
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Drawing;
+    using System.Windows.Forms;
+    using System.Collections.Generic;
+    
+    using Nova.Client;
+    using Nova.Common;
+    using Nova.ControlLibrary;
+    
     /// <Summary>
     /// Planet Detail display pane.
     /// </Summary>
     public partial class PlanetDetail : System.Windows.Forms.UserControl
     {
-        private Star star;
+        private Star currentStar;
+        private StarList playerStars;
+        private Dictionary<string, StarReport> starReports;
+        private List<Fleet> playerFleets;
+        private int researchBudget;
+        
+        // FIXME:(priority 3) this should not be here. It is only needed to pass it
+        // down to the ProductionDialog. In any case, ProductionDialog shouldn't need
+        // the whole state either. Must refactor this.
+        private ClientState stateData;
         
         /// <Summary>
         /// This event should be fired when the selected Star
@@ -60,22 +63,20 @@ namespace Nova.WinForms.Gui
         public event CursorChanged CursorChangedEvent;
 
         private Dictionary<String, Fleet> fleetsInOrbit = new Dictionary<string, Fleet>();
-        
-        #region Construction and Disposal
 
         /// <Summary>
         /// Initializes a new instance of the PlanetDetail class.
         /// </Summary>
-        public PlanetDetail()
+        public PlanetDetail(StarList playerStars, Dictionary<string, StarReport> starReports, List<Fleet> playerFleets, int researchBudget, ClientState stateData)
         {
+            this.playerStars = playerStars;
+            this.starReports = starReports;
+            this.playerFleets = playerFleets;
+            this.researchBudget = researchBudget;
+            this.stateData = stateData;
+            
             InitializeComponent();
-       }
-
-
-        #endregion
-
-
-        #region Event Methods
+        }
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -86,14 +87,15 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void ChangeProductionQueue_Click(object sender, EventArgs e)
         {
-            ProductionDialog productionDialog = new ProductionDialog(star);
+            ProductionDialog productionDialog = new ProductionDialog(currentStar, stateData);
 
             productionDialog.ShowDialog();
             productionDialog.Dispose();
             
             UpdateFields();
 
-            QueueList.Populate(productionQueue, star.ManufacturingQueue);
+            QueueList.Populate(productionQueue, currentStar.ManufacturingQueue);
+
         }
 
 
@@ -106,9 +108,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void NextPlanet_Click(object sender, EventArgs e)
         {
-            StarList myStars = ClientState.Data.PlayerStars;
-
-            if (myStars.Count == 1)
+            if (playerStars.Count == 1)
             {
                 previousPlanet.Enabled = false;
                 nextPlanet.Enabled = false;
@@ -118,7 +118,7 @@ namespace Nova.WinForms.Gui
             previousPlanet.Enabled = true;
             nextPlanet.Enabled = true;
 
-            star = myStars.GetNext(star);
+            currentStar = playerStars.GetNext(currentStar);
 
             // Inform of the selection change to all listening objects.
             FireStarSelectionChangedEvent();
@@ -135,9 +135,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void PreviousPlanet_Click(object sender, EventArgs e)
         {
-            StarList myStars = ClientState.Data.PlayerStars;
-
-            if (myStars.Count == 1)
+            if (playerStars.Count == 1)
             {
                 previousPlanet.Enabled = false;
                 nextPlanet.Enabled = false;
@@ -147,8 +145,8 @@ namespace Nova.WinForms.Gui
             previousPlanet.Enabled = true;
             nextPlanet.Enabled = true;
 
-            star = myStars.GetPrevious(star);
-            
+            currentStar = playerStars.GetPrevious(currentStar);
+
             // Inform of the selection change to all listening objects.
             FireStarSelectionChangedEvent();
             FireCursorChangedEvent();
@@ -157,18 +155,14 @@ namespace Nova.WinForms.Gui
         private void FireCursorChangedEvent()
         {
             if( CursorChangedEvent != null )
-                CursorChangedEvent( this, new CursorArgs((Point)star.Position));
+                CursorChangedEvent( this, new CursorArgs((Point)currentStar.Position));
         }
 
         private void FireStarSelectionChangedEvent()
         {
             if (StarSelectionChangedEvent != null)
-                StarSelectionChangedEvent(this, new StarSelectionArgs(star));
+                StarSelectionChangedEvent(this, new StarSelectionArgs(currentStar));
         }
-
-        #endregion
-
-        #region Utility Methods
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -181,13 +175,13 @@ namespace Nova.WinForms.Gui
             if (selectedStar == null)
                 return;
 
-            star = selectedStar;
+            currentStar = selectedStar;
 
             UpdateFields();
 
-            groupPlanetSelect.Text = "Planet " + star.Name;
+            groupPlanetSelect.Text = "Planet " + currentStar.Name;
 
-            if (ClientState.Data.PlayerStars.Count > 1)
+            if (playerStars.Count > 1)
             {                
                 previousPlanet.Enabled = true;
                 nextPlanet.Enabled = true;
@@ -207,51 +201,53 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void UpdateFields()
         {
-            if (star == null)
+            if (currentStar == null)
             {
                 return;
             }
 
-            QueueList.Populate(productionQueue, star.ManufacturingQueue);
+            QueueList.Populate(productionQueue, currentStar.ManufacturingQueue);
 
-            Defenses.ComputeDefenseCoverage(star);
+            Defenses.ComputeDefenseCoverage(currentStar);
 
-            defenseType.Text = star.DefenseType;
-            defenses.Text = star.Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            defenseType.Text = currentStar.DefenseType;
+            defenses.Text = currentStar.Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture);
             defenseCoverage.Text = Defenses.SummaryCoverage.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-            factories.Text = star.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture)
+            factories.Text = currentStar.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture)
                              + " of " +
-                             star.GetOperableFactories().ToString(System.Globalization.CultureInfo.InvariantCulture);
-            mines.Text = star.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture)
-                         + " of " + star.GetOperableMines().ToString(System.Globalization.CultureInfo.InvariantCulture);
-            population.Text = star.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                             currentStar.GetOperableFactories().ToString(System.Globalization.CultureInfo.InvariantCulture);
+            mines.Text = currentStar.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                         + " of " + currentStar.GetOperableMines().ToString(System.Globalization.CultureInfo.InvariantCulture);
+            population.Text = currentStar.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-            resourceDisplay.ResourceRate = star.GetResourceRate();
+            resourceDisplay.ResourceRate = currentStar.GetResourceRate();
 
-            if (star.OnlyLeftover == false)
+            if (currentStar.OnlyLeftover == false)
             {
-                resourceDisplay.ResearchPercentage = ClientState.Data.ResearchBudget;
+                resourceDisplay.ResearchBudget = researchBudget;
             }
             else
             {
                 // We treat Stars contributing only leftover resources as having
                 // a 0% budget allocation.
-                resourceDisplay.ResearchPercentage = 0;
+
+                resourceDisplay.ResearchBudget = 0;
             }
-            resourceDisplay.Value = star.ResourcesOnHand;
 
-            scannerRange.Text = star.ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            scannerType.Text = star.ScannerType;
+            resourceDisplay.Value = currentStar.ResourcesOnHand;
 
-            if (star.Starbase == null)
+            scannerRange.Text = currentStar.ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            scannerType.Text = currentStar.ScannerType;
+
+            if (currentStar.Starbase == null)
             {
                 starbasePanel.Text = "No Starbase";
                 starbasePanel.Enabled = false;
                 return;
             }
 
-            Fleet starbase = star.Starbase;
+            Fleet starbase = currentStar.Starbase;
             starbaseArmor.Text = starbase.TotalArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
             starbaseCapacity.Text =
                 starbase.TotalDockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -266,9 +262,9 @@ namespace Nova.WinForms.Gui
 
             List<String> fleetnames = new List<string>();
             fleetsInOrbit = new Dictionary<string, Fleet>();
-            foreach (Fleet fleet in ClientState.Data.PlayerFleets)
+            foreach (Fleet fleet in playerFleets)
             {
-                if ( fleet.InOrbit != null &&  fleet.InOrbit.Name == star.Name && !fleet.IsStarbase)
+                if ( fleet.InOrbit != null &&  fleet.InOrbit.Name == currentStar.Name && !fleet.IsStarbase)
                 {
                     fleetnames.Add(fleet.Name);
                     fleetsInOrbit[fleet.Name] = fleet;
@@ -286,10 +282,6 @@ namespace Nova.WinForms.Gui
             buttonGoto.Enabled = haveFleets;
         }
 
-        #endregion
-
-        #region Properties
-
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Access to the Star whose details are displayed in the panel.
@@ -298,11 +290,8 @@ namespace Nova.WinForms.Gui
         public Star Value
         {
             set { SetStarDetails(value); }
-            get { return star; }
+            get { return currentStar; }
         }
-
-        #endregion
-
         private Fleet GetSelectedFleetInOrbit()
         {
             if (comboFleetsInOrbit.SelectedItem == null)
@@ -363,7 +352,7 @@ namespace Nova.WinForms.Gui
                         cargoDialog.SetTarget(fleet);
                         cargoDialog.ShowDialog();                        
                     }
-                    ClientState.Data.StarReports[fleet.InOrbit.Name] = new StarReport(fleet.InOrbit);  // Not sure why - coppied from FleetDetails!
+                    starReports[fleet.InOrbit.Name] = new StarReport(fleet.InOrbit);  // Not sure why - coppied from FleetDetails!
                     comboFleetsInOrbit_SelectedIndexChanged(null, null);
                 }
                 catch
@@ -373,7 +362,4 @@ namespace Nova.WinForms.Gui
             }
         }
     }
-
-
-    
 }

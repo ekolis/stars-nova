@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -17,12 +17,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
-// ===========================================================================
-#endregion
-
-#region Module Description
-// ===========================================================================
-// Manage an individual fleet
 // ===========================================================================
 #endregion
 
@@ -42,21 +36,23 @@ namespace Nova.WinForms.Gui
     public partial class ManageFleetDialog : Form
     {
         private readonly Dictionary<string, Fleet> allFleets;
+        private List<string> deletedFleets;
+        private string raceName;
         private Fleet selectedFleet;
-
-        #region Construction
 
         /// <Summary>
         /// Initializes a new instance of the ManageFleetDialog class.
         /// </Summary>
-        public ManageFleetDialog()
+        public ManageFleetDialog(Dictionary<string, Fleet> allFleets, List<string> deletedFleets, string raceName)
         {
-            InitializeComponent();
-            this.allFleets = ClientState.Data.InputTurn.AllFleets;
+            // FIXME:(???) Do we need allFleets here? Can't we use the player's fleets instead? -Aeglos 21 Jun 11 
+            this.allFleets = allFleets; 
+            this.deletedFleets = deletedFleets;
+            this.raceName = raceName;
+            
+            InitializeComponent();            
         }
-
-        #endregion
-
+        
         #region Event Methods
 
         /// <Summary>
@@ -67,7 +63,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void RenameButton_Click(object sender, EventArgs e)
         {
-            RenameFleet renameDialog = new RenameFleet();
+            RenameFleet renameDialog = new RenameFleet(allFleets, deletedFleets, raceName);
 
             // TODO (priority 5): Implement the fleet selection event.
 
@@ -87,7 +83,7 @@ namespace Nova.WinForms.Gui
         private void MergeButton_Click(object sender, EventArgs e)
         {
             string fleetName = this.coLocatedFleets.SelectedItems[0].Text;
-            string fleetKey = ClientState.Data.RaceName + "/" + fleetName;
+            string fleetKey = raceName + "/" + fleetName;
 
             Fleet fleetToMerge = this.allFleets[fleetKey];
             foreach (Ship ship in fleetToMerge.FleetShips)
@@ -96,7 +92,7 @@ namespace Nova.WinForms.Gui
             }
 
             this.allFleets.Remove(fleetKey);
-            ClientState.Data.DeletedFleets.Add(fleetKey);
+            deletedFleets.Add(fleetKey);
             UpdateDialogDetails();
 
             this.mergeButton.Enabled = false;

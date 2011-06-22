@@ -27,7 +27,7 @@ namespace Nova.ControlLibrary
             }
         }
         
-        public int ResearchPercentage
+        public int ResearchBudget
         {
             set
             {

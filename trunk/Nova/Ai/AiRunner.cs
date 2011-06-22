@@ -91,7 +91,8 @@ namespace Nova.Ai
             // save turn)
             try
             {
-                OrderWriter.WriteOrders();
+                OrderWriter orderWriter = new OrderWriter(AI.StateData);
+                orderWriter.WriteOrders();
             }
             catch
             {

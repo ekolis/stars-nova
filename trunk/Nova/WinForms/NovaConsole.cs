@@ -556,8 +556,7 @@ namespace Nova.WinForms.Console
         {
             try
             {
-                Process.Start(Assembly.GetExecutingAssembly().Location, CommandArguments.Option.NewGameSwitch);
-                Application.Exit();
+                RunNewGameWizard();
             }
             catch
             {
@@ -643,16 +642,11 @@ namespace Nova.WinForms.Console
             {
                 // Launch the nova GUI
                 CommandArguments args = new CommandArguments();
-                args.Add(CommandArguments.Option.GuiSwitch);
                 args.Add(CommandArguments.Option.RaceName, raceName);
                 args.Add(CommandArguments.Option.Turn, stateData.TurnYear + 1);
                 args.Add(CommandArguments.Option.IntelFileName, Path.Combine(stateData.GameFolder, raceName + Global.IntelExtension));
                 
-                Nova.WinForms.Gui.NovaGUI gui = new Nova.WinForms.Gui.NovaGUI();
-            
-                Nova.Client.ClientState.Initialize(args.ToArray());
-                gui.Text = "Nova - " + Nova.Client.ClientState.Data.PlayerRace.PluralName;
-                gui.InitialiseControls();
+                Nova.WinForms.Gui.NovaGUI gui = new Nova.WinForms.Gui.NovaGUI(args.ToArray());
                 gui.Show();
             }
             catch
@@ -943,6 +937,26 @@ namespace Nova.WinForms.Console
                     }
                 }
             }
+        }
+        
+        private void NewGameWizardClosing(object sender, FormClosingEventArgs e)
+        {
+            switch((sender as Form).DialogResult)
+            {
+            case DialogResult.OK:
+                Close();
+                break;
+            case DialogResult.Retry:
+                RunNewGameWizard();
+                break;
+            }    
+        }
+        
+        private void RunNewGameWizard()
+        {
+            NewGameWizard wizard = new NewGameWizard();
+            wizard.FormClosing += NewGameWizardClosing;
+            wizard.Show();
         }
 
         #endregion

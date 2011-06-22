@@ -100,10 +100,10 @@ namespace Nova.WinForms.Gui
         /// Initializes a new instance of the ProductionDialog class.
         /// </Summary>
         /// <param name="Star">The Star to do a production dialog for.</param>
-        public ProductionDialog(Star star)
+        public ProductionDialog(Star star, ClientState stateData)
         {
             this.queueStar = star;
-            this.stateData = ClientState.Data;
+            this.stateData = stateData;
             this.turnData = this.stateData.InputTurn;
 
             InitializeComponent();
@@ -692,7 +692,7 @@ namespace Nova.WinForms.Gui
             foreach (Design design in this.turnData.AllDesigns.Values)
             {
                 // check if this design belongs to this race
-                if (design.Owner == ClientState.Data.RaceName || design.Owner == "*")
+                if (design.Owner == stateData.RaceName || design.Owner == "*")
                 {
                     // what the purpose of this next line (shadallark) ???
                     // Looks like it is ment to prevent the current starbase design being re-used - Dan.
@@ -1298,7 +1298,7 @@ namespace Nova.WinForms.Gui
                             // Only do this if the Star is respecting research budget.
                             if (this.queueStar.OnlyLeftover == false)
                             {
-                                potentialResources.Energy -= potentialResources.Energy * ClientState.Data.ResearchBudget / 100;
+                                potentialResources.Energy -= potentialResources.Energy * stateData.ResearchBudget / 100;
                             }
 
                             // need to know how much of each mineral is currently available on the Star (this.queueStar.ResourcesOnHand)

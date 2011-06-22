@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,32 +20,29 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Fleet Summary display panel.
-// ===========================================================================
-#endregion
-
-
-using System.Drawing;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-
 namespace Nova.WinForms.Gui
 {
+    using System.Drawing;
+    using System.Windows.Forms;
+    using System.Collections.Generic;
+    
+    using Nova.Client;
+    using Nova.Common;
+        
     /// <Summary>
     /// The fleet Summary panel.
     /// </Summary>
     public partial class FleetSummary : UserControl
     {
+        private Dictionary<string, RaceIcon>  raceIcons;
 
         /// <Summary>
         /// Initializes a new instance of the FleetSummary class.
         /// </Summary>
-        public FleetSummary()
+        public FleetSummary(Dictionary<string, RaceIcon>  raceIcons)
         {
+            this.raceIcons = raceIcons;
+            
             InitializeComponent();
         }
 
@@ -65,7 +62,7 @@ namespace Nova.WinForms.Gui
             this.fleetImage.Image = fleet.Icon.Image;
             this.fleetOwner.Text = ownerRaceName;
 
-            this.raceIcon.Image = ClientState.Data.InputTurn.RaceIcons[ownerRaceName].Image;
+            this.raceIcon.Image = raceIcons[ownerRaceName].Image;
         }
 
 

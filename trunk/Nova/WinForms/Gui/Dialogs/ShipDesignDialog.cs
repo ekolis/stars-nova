@@ -762,13 +762,13 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the ShipDesignDialog class.
         /// </Summary>
-        public ShipDesignDialog()
+        public ShipDesignDialog(ClientState stateData)
         {
             InitializeComponent();
 
             // Some abbreviations (just to save a bit of typing)
 
-            this.stateData = ClientState.Data;
+            this.stateData = stateData;
             this.allComponents = Nova.Common.Components.AllComponents.Data.Components;
             this.allDesigns = this.stateData.InputTurn.AllDesigns;
 

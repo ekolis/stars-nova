@@ -53,10 +53,7 @@ namespace Nova
                     WinForms.RaceDesigner.RaceDesignerForm.Main();
                     break;
                 case CommandArguments.Option.GuiSwitch:
-                    Nova.WinForms.Gui.NovaGUI gui = new Nova.WinForms.Gui.NovaGUI();            
-                    Nova.Client.ClientState.Initialize(args); // TODO: This really shouldnt be here. -Aeglos 21 Jun 11
-                    gui.Text = "Nova - " + Nova.Client.ClientState.Data.PlayerRace.PluralName;
-                    gui.InitialiseControls();
+                    Nova.WinForms.Gui.NovaGUI gui = new Nova.WinForms.Gui.NovaGUI(args);            
                     Application.Run(gui);
                     break;
                 case CommandArguments.Option.NewGameSwitch:

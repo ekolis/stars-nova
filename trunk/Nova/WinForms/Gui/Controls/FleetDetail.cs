@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project.
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -17,12 +17,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
-// ===========================================================================
-#endregion
-
-#region Module Description
-// ===========================================================================
-// This module provides the Fleet Detail control.
 // ===========================================================================
 #endregion
 
@@ -45,8 +39,13 @@ namespace Nova.WinForms.Gui
     {
         private Fleet selectedFleet;
         private int currentFleet;
-        
-        new Dictionary<string, Fleet> fleetsAtLocation = new Dictionary<string, Fleet>();
+        private Dictionary<string, StarReport> starReports;
+        private Dictionary<string, Fleet> allFleets; // FIXME:(???) Do we need allFleets here? Can't we use the player's fleets instead? -Aeglos 21 Jun 11 
+        private List<Fleet> playerFleets;
+        private List<string> deletedFleets;
+        private Race playerRace;
+            
+        private Dictionary<string, Fleet> fleetsAtLocation = new Dictionary<string, Fleet>();
 
         /// <Summary>
         /// This event should be fired when the selected Fleet
@@ -72,8 +71,18 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the FleetDetail class.
         /// </Summary>
-        public FleetDetail()
+        public FleetDetail(Dictionary<string, StarReport> starReports,
+                           Dictionary<string, Fleet> allFleets,
+                           List<Fleet> playerFleets,
+                           List<string> deletedFleets,
+                           Race playerRace)
         {
+            this.starReports = starReports;
+            this.allFleets = allFleets;
+            this.playerFleets = playerFleets;
+            this.deletedFleets = deletedFleets;
+            this.playerRace = playerRace;
+            
             InitializeComponent();
         }
 
@@ -133,8 +142,10 @@ namespace Nova.WinForms.Gui
                 cargoDialog.SetTarget(selectedFleet);
                 cargoDialog.ShowDialog();
                 cargoDialog.Dispose();
-                ClientState.Data.StarReports[selectedFleet.InOrbit.Name] = new StarReport(selectedFleet.InOrbit);
+                
+                starReports[selectedFleet.InOrbit.Name] = new StarReport(selectedFleet.InOrbit);
                 cargo.Value = selectedFleet.Cargo.Mass;
+
             }
             catch
             {
@@ -238,7 +249,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void MangeFleet_Click(object sender, EventArgs e)
         {
-            ManageFleetDialog manageDialog = new ManageFleetDialog();
+            ManageFleetDialog manageDialog = new ManageFleetDialog(allFleets, deletedFleets, playerRace.Name);
             manageDialog.ManagedFleet = selectedFleet;
             manageDialog.ShowDialog();
             manageDialog.Dispose();
@@ -253,9 +264,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void NextFleet_Click(object sender, System.EventArgs e)
         {
-            List<Fleet> myFleets = ClientState.Data.PlayerFleets;
-
-            if (myFleets.Count == 1)
+            if (playerFleets.Count == 1)
             {
                 previousFleet.Enabled = false;
                 nextFleet.Enabled = false;
@@ -265,7 +274,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            if (currentFleet < myFleets.Count - 1)
+            if (currentFleet < playerFleets.Count - 1)
             {
                 currentFleet++;
             }
@@ -274,7 +283,7 @@ namespace Nova.WinForms.Gui
                 currentFleet = 0;
             }
             
-            Fleet current = myFleets[currentFleet];
+            Fleet current = playerFleets[currentFleet];
             
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(current, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -296,9 +305,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void PreviousFleet_Click(object sender, EventArgs e)
         {
-            List<Fleet> myFleets = ClientState.Data.PlayerFleets;
-
-            if (myFleets.Count == 1)
+            if (playerFleets.Count == 1)
             {
                 previousFleet.Enabled = false;
                 nextFleet.Enabled = false;
@@ -314,10 +321,10 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                currentFleet = myFleets.Count - 1;
+                currentFleet = playerFleets.Count - 1;
             }
 
-            Fleet current = myFleets[currentFleet];
+            Fleet current = playerFleets[currentFleet];
 
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(current, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -339,7 +346,6 @@ namespace Nova.WinForms.Gui
         public void DisplayLegDetails(int index)
         {
             Waypoint thisWaypoint = selectedFleet.Waypoints[index];
-            Race race = ClientState.Data.PlayerRace;
 
             WaypointTasks.Text = thisWaypoint.Task;
 
@@ -359,7 +365,9 @@ namespace Nova.WinForms.Gui
                 double distance = PointUtilities.Distance(from.Position, to.Position);
 
                 double time = distance / (to.WarpFactor * to.WarpFactor);
-                double fuelUsed = selectedFleet.FuelConsumption(to.WarpFactor, race)
+
+                double fuelUsed = selectedFleet.FuelConsumption(to.WarpFactor, playerRace)
+
                                 * time;
 
                 legDistance.Text = String.Format("{0}", distance.ToString("f1"));
@@ -388,8 +396,7 @@ namespace Nova.WinForms.Gui
                     double speed = warp * warp;
                     double travelTime = distance / speed;
 
-                    fuelRequired += selectedFleet.FuelConsumption(warp, race)
-                                  * travelTime;
+                    fuelRequired += selectedFleet.FuelConsumption(warp, playerRace) * travelTime;
                 }
                 previous = waypoint;
             }
@@ -422,19 +429,16 @@ namespace Nova.WinForms.Gui
         {
             selectedFleet = fleet;
 
-            List<Fleet> myFleets = ClientState.Data.PlayerFleets;
-            int i;
-
-            for (i = 0; i < myFleets.Count; i++)
+            for (int i = 0; i < playerFleets.Count; ++i)
             {
-                if (fleet.Name == myFleets[i].Name)
+                if (fleet.Name == playerFleets[i].Name)
                 {
                     currentFleet = i;
                     break;
                 }
             }
 
-            if (myFleets.Count > 1)
+            if (playerFleets.Count > 1)
             {
                 previousFleet.Enabled = true;
                 nextFleet.Enabled = true;
@@ -480,7 +484,7 @@ namespace Nova.WinForms.Gui
 
             List<String> fleetnames = new List<string>();
             fleetsAtLocation = new Dictionary<string, Fleet>();
-            foreach (Fleet other in ClientState.Data.PlayerFleets)
+            foreach (Fleet other in playerFleets)
             {
                 if (fleet.Position == other.Position && !other.IsStarbase && fleet.FleetID != other.FleetID)
                 {

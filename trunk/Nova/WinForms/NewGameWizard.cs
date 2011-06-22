@@ -186,14 +186,12 @@ namespace Nova.WinForms
                     Report.Error("Creation of new game failed.");
                     return false;
                 }
-
+            
                 // start the server
                 try
                 {
-                    NovaConsoleMain novaConsole = new NovaConsoleMain();
-                    
-                    novaConsole.ShowDialog();
-
+                    NovaConsoleMain novaConsole = new NovaConsoleMain();                    
+                    novaConsole.Show();
                     return true;
                 }
                 catch
@@ -232,17 +230,23 @@ namespace Nova.WinForms
 
             GameSettings.Data.AcceleratedStart = acceleratedStart.Checked;
             
-            this.Hide();
-            
             if (CreateGame() == true)
-            {
-                this.Close();   
+            {                
+                DialogResult = DialogResult.OK;    
             }
             else
             {
                 // Game creation aborted, signal that the Wizard should run again.
                 DialogResult = DialogResult.Retry;
-            }                
+            }
+            
+            //this.Close();
+        }
+        
+        private void CancelButton_Click(object sender, EventArgs eventArgs)
+        {
+            DialogResult = DialogResult.Cancel;
+            this.Close();
         }
 
         /// <Summary>

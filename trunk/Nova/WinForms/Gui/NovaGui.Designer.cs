@@ -9,29 +9,42 @@ namespace Nova.WinForms.Gui
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaGUI));
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.mapControl = new Nova.WinForms.Gui.StarMap();
-            this.mainMenu = new System.Windows.Forms.MenuStrip();
-            this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.exitToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.designManagerMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.shipDesignerToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.researchToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.battlePlansMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.playerRelationslMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.generateTurnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.loadNextTurnToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.reportsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.planetReportMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.fleetReportMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.battlesReportMenu = new System.Windows.Forms.ToolStripMenuItem();
-            this.scoresMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.messages = new Nova.WinForms.Gui.Messages();
-            this.selectionDetail = new Nova.WinForms.Gui.SelectionDetail();
-            this.selectionSummary = new Nova.WinForms.Gui.SelectionSummary();
+            
+            this.groupBox2  = new System.Windows.Forms.GroupBox();
+            this.mainMenu   = new System.Windows.Forms.MenuStrip();
+            
+            this.fileToolStripMenuItem          = new System.Windows.Forms.ToolStripMenuItem();
+            this.exitToolStripMenuItem          = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolsToolStripMenuItem         = new System.Windows.Forms.ToolStripMenuItem();
+            this.designManagerMenuItem          = new System.Windows.Forms.ToolStripMenuItem();
+            this.shipDesignerToolStripMenuItem  = new System.Windows.Forms.ToolStripMenuItem();
+            this.researchToolStripMenuItem      = new System.Windows.Forms.ToolStripMenuItem();
+            this.battlePlansMenu                = new System.Windows.Forms.ToolStripMenuItem();
+            this.playerRelationslMenuItem       = new System.Windows.Forms.ToolStripMenuItem();
+            this.generateTurnToolStripMenuItem  = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadNextTurnToolStripMenuItem  = new System.Windows.Forms.ToolStripMenuItem();
+            this.reportsToolStripMenuItem       = new System.Windows.Forms.ToolStripMenuItem();
+            this.planetReportMenu               = new System.Windows.Forms.ToolStripMenuItem();
+            this.fleetReportMenu                = new System.Windows.Forms.ToolStripMenuItem();
+            this.battlesReportMenu              = new System.Windows.Forms.ToolStripMenuItem();
+            this.scoresMenuItem                 = new System.Windows.Forms.ToolStripMenuItem();
+            this.helpToolStripMenuItem          = new System.Windows.Forms.ToolStripMenuItem();
+            this.aboutToolStripMenuItem         = new System.Windows.Forms.ToolStripMenuItem();
+            
+            this.messages           = new Nova.WinForms.Gui.Messages();
+            this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(stateData.StarReports,
+                                                                            stateData.PlayerStars,
+                                                                            stateData.InputTurn.AllFleets,
+                                                                            stateData.PlayerFleets,
+                                                                            stateData.DeletedFleets,
+                                                                            stateData.PlayerRace,
+                                                                            stateData.ResearchBudget,
+                                                                            stateData);
+            this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(stateData.StarReports,
+                                                                             stateData.PlayerRace,
+                                                                             stateData.InputTurn.RaceIcons);
+            this.mapControl         = new Nova.WinForms.Gui.StarMap();
+
             this.groupBox2.SuspendLayout();
             this.mainMenu.SuspendLayout();
             this.SuspendLayout();
@@ -255,7 +268,7 @@ namespace Nova.WinForms.Gui
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(928, 770);
             this.Name = "NovaGUI";
-            this.Text = "Nova";
+            this.Text = "Nova - " + stateData.PlayerRace.PluralName;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NovaGUI_FormClosing);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             this.groupBox2.ResumeLayout(false);
