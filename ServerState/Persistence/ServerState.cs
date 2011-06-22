@@ -76,121 +76,143 @@ namespace Nova.Server
         /// </summary>
         /// <param name="xmldoc">produced using XmlDocument.Load(filename)</param>
         public ServerState(XmlDocument xmldoc)
-        {
-            // Removed until bugs are cleared out.
+        {            
+            XmlNode xmlnode = xmldoc.DocumentElement;
+            XmlNode tNode;
             
-//            Clear();
-//            XmlNode xmlnode = xmldoc.DocumentElement;
-//            
-//            while (xmlnode != null)
-//            {
-//                try
-//                {
-//                    switch (xmlnode.Name.ToLower())
-//                    {
-//                        case "root":
-//                            xmlnode = xmlnode.FirstChild;
-//                            continue;
-//                        case "serverstate":
-//                            xmlnode = xmlnode.FirstChild;
-//                            continue;
-//                        case "gameinprogress":
-//                            GameInProgress = bool.Parse(xmlnode.FirstChild.Value);
-//                            break;
-//                        case "fleetid":
-//                            FleetID = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-//                            break;
-//                        case "turnyear":
-//                            TurnYear = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-//                            break;
-//                        case "gamefolder":
-//                            GameFolder = xmlnode.FirstChild.Value;
-//                            break;
-//                        case "statepathname":
-//                            StatePathName = xmlnode.FirstChild.Value;
-//                            break;
-//                        case "allbattles":
-//                            xmlnode = (xmlnode.FirstChild != null) ? xmlnode.FirstChild : xmlnode ;
-//                            break;
-//                        case "battlereport":
-//                            AllBattles.Add(new BattleReport(xmlnode));
-//                            break;
-//                        case "allplayers":
-//                            xmlnode = (xmlnode.FirstChild != null) ? xmlnode.FirstChild : xmlnode ;
-//                            break;
-//                        case "playersettings":
-//                            AllPlayers.Add(new PlayerSettings(xmlnode));
-//                            break;
-//                        case "alltechlevels":
-//                            xmlnode = (xmlnode.FirstChild != null) ? xmlnode.FirstChild : xmlnode ;
-//                            break;
-//                        case "techlevels":
-//                            AllTechLevels.Add(xmlnode.Attributes["Id"].ToString(), int.Parse(xmlnode.FirstChild.Value));
-//                            break;
-//                        case "alldesigns":
-//                            xmlnode = (xmlnode.FirstChild != null) ? xmlnode.FirstChild : xmlnode ;
-//                            break;
-//                        case "design":
-//                            AllDesigns.Add(xmlnode.Attributes["Id"].ToString(), new Design(xmlnode));
-//                            break;
-//                        case "allfleets":
-//                            xmlnode = (xmlnode.FirstChild != null) ? xmlnode.FirstChild : xmlnode ;
-//                            break;
-//                       case "fleet":
-//                            AllFleets.Add(xmlnode.Attributes["Id"].ToString(), new Fleet(xmlnode));
-//                            break;
-//                        case "allracedata":
-//                            xmlnode = (xmlnode.FirstChild != null) ? xmlnode.FirstChild : xmlnode ;
-//                            break;
-//                        case "racedata":
-//                            AllRaceData.Add(xmlnode.Attributes["Id"].ToString(), new RaceData(xmlnode));
-//                            break;
-//                        case "allraces":
-//                            xmlnode = (xmlnode.FirstChild != null) ? xmlnode.FirstChild : xmlnode ;
-//                            break;
-//                        case "race":
-//                            Race race = new Race();
-//                            race.LoadRaceFromXml(xmlnode);
-//                            AllRaces.Add(xmlnode.Attributes["Id"].ToString(), race);
-//                            break; 
-//                        case "allstars":
-//                            xmlnode = (xmlnode.FirstChild != null) ? xmlnode.FirstChild : xmlnode ;
-//                            break;
-//                        case "star":
-//                            AllStars.Add(xmlnode.Attributes["Id"].ToString(), new Star(xmlnode));
-//                            break;
-//                        case "allminefields":
-//                            xmlnode = (xmlnode.FirstChild != null) ? xmlnode.FirstChild : xmlnode ;
-//                            break;
-//                        case "minefield":
-//                            AllMinefields.Add(xmlnode.Attributes["Id"].ToString(), new Minefield(xmlnode));
-//                            break;
-//                        case "allmessages":
-//                            xmlnode = (xmlnode.FirstChild != null) ? xmlnode.FirstChild : xmlnode ;
-//                            break;
-//                         case "message":
-//                            AllMessages.Add(new Message(xmlnode));
-//                            break; 
-//                    }
-//                    
-//                    // There are no more siblings at the current depth, so we move up (if we can).
-//                    if (xmlnode.NextSibling == null)
-//                    {
-//                        string parentNode = xmlnode.ParentNode.Name.ToLower();
-//                        if (parentNode != "root" && parentNode != "serverstate")
-//                        {
-//                            xmlnode = xmlnode.ParentNode;
-//                        }
-//                    }
-//                    
-//                    xmlnode = xmlnode.NextSibling;
-//
-//                }
-//                catch (Exception e)
-//                {
-//                    Report.FatalError(e.Message + "\n Details: \n" + e);
-//                }    
-//            }
+            while (xmlnode != null)
+            {
+                try
+                {
+                    switch (xmlnode.Name.ToLower())
+                    {
+                        case "root":
+                            xmlnode = xmlnode.FirstChild;
+                            continue;
+                        case "serverstate":
+                            xmlnode = xmlnode.FirstChild;
+                            continue;
+                        
+                        case "gameinprogress":
+                            GameInProgress = bool.Parse(xmlnode.FirstChild.Value);
+                            break;                        
+                        case "fleetid":
+                            FleetID = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;                        
+                        case "turnyear":
+                            TurnYear = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;                        
+                        case "gamefolder":
+                            GameFolder = xmlnode.FirstChild.Value;
+                            break;                        
+                        case "statepathname":
+                            StatePathName = xmlnode.FirstChild.Value;
+                            break;
+                        
+                        // The collections are retrieved via loops: we trust
+                        // they are in the correct format.
+                        
+                        case "allbattles":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                AllBattles.Add(new BattleReport(tNode));
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                        
+                        case "allplayers":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                AllPlayers.Add(new PlayerSettings(tNode));
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                        
+                        case "alltechlevels":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                AllTechLevels.Add(tNode.Attributes["Id"].Value, int.Parse(tNode.FirstChild.Value));
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                        
+                        case "alldesigns":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                AllDesigns.Add(tNode.Attributes["Id"].Value, new Design(tNode));
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                        
+                        case "allfleets":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                AllFleets.Add(tNode.Attributes["Id"].Value, new Fleet(tNode));
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                        
+                        case "allracedata":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                AllRaceData.Add(tNode.Attributes["Id"].Value, new RaceData(tNode));
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                        
+                        case "allraces":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                Race race = new Race();
+                                race.LoadRaceFromXml(tNode);
+                                AllRaces.Add(xmlnode.Attributes["Id"].Value, race);
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                        
+                        case "allstars":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                AllStars.Add(tNode.Attributes["Id"].Value, new Star(tNode));
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                        
+                        case "allminefields":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                AllMinefields.Add(tNode.Attributes["Id"].Value, new Minefield(tNode));
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                        
+                        case "allmessages":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                AllMessages.Add(new Message(tNode));
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                    }
+                    
+                    xmlnode = xmlnode.NextSibling;
+
+                }
+                catch (Exception e)
+                {
+                    Report.FatalError(e.Message + "\n Details: \n" + e);
+                }    
+            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -200,22 +222,26 @@ namespace Nova.Server
         /// ----------------------------------------------------------------------------
         public ServerState Restore()
         {
-            string fileName = this.StatePathName;            
-            ServerState serverState = new ServerState();
-            
-            if (File.Exists(fileName))
-            {
+//            using (FileStream stateFile = new FileStream(StatePathName, FileMode.Open))
+//            {
+//                XmlDocument xmldoc = new XmlDocument();
+//
+//                xmldoc.Load(stateFile);
+//                
+//                ServerState serverState = new ServerState(xmldoc);
+//                
+//                return serverState;
+//            }
+
+                ServerState serverState = new ServerState();
                 using (FileStream stream = new FileStream(fileName, FileMode.Open))
                 {                    
                     serverState = (ServerState)Serializer.Deserialize(stream);
+                
+                    return serverState;
                 }
-            }
+
             
-//            XmlDocument xmldoc = new XmlDocument();
-//            xmldoc.Load(fileName);
-//            serverState = new ServerState(xmldoc);
-//            
-            return serverState;
         }
 
 
@@ -248,6 +274,8 @@ namespace Nova.Server
                 Serializer.Serialize(stream, this);
                 
             }
+            
+//            ToXml();
         }
         
         /// <summary>
@@ -303,9 +331,9 @@ namespace Nova.Server
             XmlElement xmlelAllTechLevels = xmldoc.CreateElement("AllTechLevels");
             foreach (KeyValuePair<string, int> techLevels in AllTechLevels)
             {
-                child = xmldoc.CreateElement("TechLevels");
-                child.InnerText = techLevels.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                child = xmldoc.CreateElement("TechLevels");                
                 child.SetAttribute("Id", techLevels.Key);
+                child.InnerText = techLevels.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 xmlelAllTechLevels.AppendChild(child);
             }
             xmlelServerState.AppendChild(xmlelAllTechLevels);  
@@ -386,18 +414,22 @@ namespace Nova.Server
         /// ----------------------------------------------------------------------------
         public void Clear()
         {            
-            this.AllRaces.Clear();
-            this.AllRaceData.Clear();
-            this.AllStars.Clear();
-            this.AllDesigns.Clear();
-            this.AllFleets.Clear();
-            this.AllTechLevels.Clear();
+            AllBattles.Clear();
+            AllPlayers.Clear();  
+            AllTechLevels.Clear();
+            AllDesigns.Clear();
+            AllFleets.Clear();
+            AllRaceData.Clear();
+            AllRaces.Clear();
+            AllStars.Clear();
+            AllMinefields.Clear();
+            AllMessages.Clear();
             
-            this.GameFolder     = null;
-            this.GameInProgress = false;
-            this.FleetID        = 1;
-            this.TurnYear       = 2100;            
-            this.StatePathName  = null;  
+            GameFolder     = null;
+            GameInProgress = false;
+            FleetID        = 1;
+            TurnYear       = 2100;            
+            StatePathName  = null;  
         }
 
     }

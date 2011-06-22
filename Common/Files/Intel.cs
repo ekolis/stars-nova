@@ -118,23 +118,6 @@ namespace Nova.Common
         /// <param name="xmldoc">produced using XmlDocument.Load(filename)</param>
         public Intel(XmlDocument xmldoc)
         {
-
-            // re-initialise
-            TurnYear = 2100;
-            MyRace = new Race();
-            Messages = new List<Message>();
-            Battles = new List<BattleReport>();
-            AllRaceNames = new List<string>();
-            AllScores = new List<ScoreRecord>();
-            RaceIcons = new Dictionary<string, RaceIcon>();
-            AllFleets = new Dictionary<string, Fleet>();
-            AllDesigns = new Dictionary<string, Design>();
-            AllStars = new Dictionary<string, Star>();
-            AllMinefields = new Dictionary<string, Minefield>();
-            ResearchLevelsGained = new TechLevel();
-            ResearchLevels = new TechLevel();
-            ResearchResources = new TechLevel();
-
             XmlNode xmlnode = xmldoc.DocumentElement;
             while (xmlnode != null)
             {
