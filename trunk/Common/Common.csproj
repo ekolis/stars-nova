@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -188,7 +188,6 @@
     <Compile Include="DataStructures\AlchemyProductionUnit.cs" />
     <Compile Include="DataStructures\PlayerSettings.cs" />
     <Compile Include="DataStructures\ProductionUnit.cs" />
-    <Compile Include="DataStructures\RaceData.cs" />
     <Compile Include="RaceDefinition\RaceIcon.cs" />
     <Compile Include="RaceDefinition\RaceRestriction.cs" />
     <Compile Include="Files\Orders.cs" />
@@ -224,6 +223,7 @@
     <Compile Include="SpaceAllocator.cs" />
     <Compile Include="..\VersionInfo.cs" />
     <Compile Include="Research.cs" />
+    <Compile Include="DataStructures\EmpireData.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProgressDialog.resx">

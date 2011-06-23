@@ -94,7 +94,7 @@ namespace Nova.WinForms.Console
                 stateData.AllMessages.Add(message);
                 return;
             }
-            PlayerRelation relation = stateData.AllRaceData[fleet.Owner].PlayerRelations[star.Owner];
+            PlayerRelation relation = stateData.AllEmpires[fleet.Owner].PlayerRelations[star.Owner];
             switch (relation)
             {
                 case PlayerRelation.Friend:

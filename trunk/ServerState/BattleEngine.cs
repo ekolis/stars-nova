@@ -478,7 +478,7 @@ namespace Nova.WinForms.Console
                 return false;
             }
 
-            RaceData wolfData = stateData.AllRaceData[wolf.Owner];
+            EmpireData wolfData = stateData.AllEmpires[wolf.Owner];
             PlayerRelation lambRelation = wolfData.PlayerRelations[lamb.Owner];
 
             BattlePlan battlePlan = wolfData.BattlePlans[wolf.BattlePlan];

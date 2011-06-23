@@ -820,20 +820,20 @@ namespace Nova.WinForms.Console
                 // Show what turn the race/player last submitted, 
                 // and color code to highlight which races we are waiting on (if we wait).
 
-                RaceData raceData;
-                stateData.AllRaceData.TryGetValue(settings.RaceName, out raceData);
+                EmpireData empireData;
+                stateData.AllEmpires.TryGetValue(settings.RaceName, out empireData);
 
                 ListViewItem.ListViewSubItem yearItem = new ListViewItem.ListViewSubItem();
-                if (raceData == null || raceData.TurnYear == 0)
+                if (empireData == null || empireData.TurnYear == 0)
                 {
                     yearItem.Text = "No Orders";
                 }
                 else
                 {
-                    yearItem.Text = raceData.TurnYear.ToString();
+                    yearItem.Text = empireData.TurnYear.ToString();
                 }
 
-                if (raceData == null || raceData.TurnYear != stateData.TurnYear)
+                if (empireData == null || empireData.TurnYear != stateData.TurnYear)
                 {
                     // FIXME (priority 3) - Display the turn year color coded - red for waiting, green for turned in.
                     yearItem.ForeColor = System.Drawing.Color.Red;
@@ -913,9 +913,9 @@ namespace Nova.WinForms.Console
                         continue;
                     }
 
-                    RaceData raceData;
-                    stateData.AllRaceData.TryGetValue(settings.RaceName, out raceData);
-                    if (raceData == null || raceData.TurnYear != stateData.TurnYear)
+                    EmpireData empireData;
+                    stateData.AllEmpires.TryGetValue(settings.RaceName, out empireData);
+                    if (empireData == null || empireData.TurnYear != stateData.TurnYear)
                     {
                         // TODO: Add support for running custom AIs based on settings.AiProgram.
                         CommandArguments args = new CommandArguments();

@@ -314,18 +314,18 @@ namespace Nova.NewGame
                     break;
 
                 case "PP":
-                    raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 4;
+                    empireData.ResearchLevel[TechLevel.ResearchField.Energy] = 4;
                     // Two shielded scouts, one colony ship, two starting planets in a non-tiny universe
                     break;
 
                 case "IT":
-                    raceData.ResearchLevel[TechLevel.ResearchField.Propulsion] = 5;
-                    raceData.ResearchLevel[TechLevel.ResearchField.Construction] = 5;
+                    empireData.ResearchLevel[TechLevel.ResearchField.Propulsion] = 5;
+                    empireData.ResearchLevel[TechLevel.ResearchField.Construction] = 5;
                     // one scout, one colony ship, one destroyer, one privateer, 2 planets with 100/250 stargates (in non-tiny universe)
                     break;
 
                 case "AR":
-                    raceData.ResearchLevel[TechLevel.ResearchField.Energy] = 1;
+                    empireData.ResearchLevel[TechLevel.ResearchField.Energy] = 1;
 
                     // starts with one scout, one orbital construction colony ship
                     break;

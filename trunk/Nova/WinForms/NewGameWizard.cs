@@ -147,9 +147,9 @@ namespace Nova.WinForms
                     }
 
                     // Initialize clean data for them. 
-                    RaceData raceData = new RaceData();
-                    stateData.AllRaceData[settings.RaceName] = raceData;
-                    raceData.BattlePlans.Add("Default", new BattlePlan());
+                    EmpireData empireData = new EmpireData();
+                    stateData.AllEmpires[settings.RaceName] = empireData;
+                    empireData.BattlePlans.Add("Default", new BattlePlan());
 
                     stateData.AllRaces.Add(settings.RaceName, KnownRaces[settings.RaceName]);
 
@@ -163,7 +163,7 @@ namespace Nova.WinForms
                     // Create initial relations as the race names may change
                     foreach (PlayerSettings playerSettings in stateData.AllPlayers)
                     {
-                        stateData.AllRaceData[settings.RaceName].PlayerRelations[playerSettings.RaceName] = PlayerRelation.Enemy;
+                        stateData.AllEmpires[settings.RaceName].PlayerRelations[playerSettings.RaceName] = PlayerRelation.Enemy;
                     }
                   
                 }
@@ -623,8 +623,8 @@ namespace Nova.WinForms
 
             // TODO (priority 4) Implement Starting Items
    
-            RaceData raceData = stateData.AllRaceData[race.Name];
-            raceData.ResearchLevels = new TechLevel(0);
+            EmpireData empireData = stateData.AllEmpires[race.Name];
+            empireData.ResearchLevels = new TechLevel(0);
 
             switch (race.Traits.Primary.Code)
             {
@@ -633,21 +633,21 @@ namespace Nova.WinForms
                     break;
 
                 case "SS":
-                    raceData.ResearchLevels[TechLevel.ResearchField.Electronics] = 5;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Electronics] = 5;
                     // Start with one scout + one colony ship.
                     break;
 
                 case "WM":
-                    raceData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 1;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 1;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
                     // Start with one armed scout + one colony ship.
                     break;
 
                 case "CA":
-                    raceData.ResearchLevels[TechLevel.ResearchField.Weapons] = 1;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 1;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 6;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Weapons] = 1;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 1;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 6;
                     // Start with an orbital terraforming ship
                     break;
 
@@ -656,35 +656,35 @@ namespace Nova.WinForms
                     break;
 
                 case "SD":
-                    raceData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 2;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 2;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 2;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 2;
                     // Start with one scout, one colony ship, Two mine layers (one standard, one speed trap)
                     break;
 
                 case "PP":
-                    raceData.ResearchLevels[TechLevel.ResearchField.Energy] = 4;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] = 4;
                     // Two shielded scouts, one colony ship, two starting planets in a non-tiny universe
                     break;
 
                 case "IT":
-                    raceData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 5;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Construction] = 5;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 5;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Construction] = 5;
                     // one scout, one colony ship, one destroyer, one privateer, 2 planets with 100/250 stargates (in non-tiny universe)
                     break;
 
                 case "AR":
-                    raceData.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
 
                     // starts with one scout, one orbital construction colony ship
                     break;
 
                 case "JOAT":
-                    raceData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 3;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Construction] = 3;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 3;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Electronics] = 3;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Energy] = 3;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Weapons] = 3;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 3;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Construction] = 3;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 3;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Electronics] = 3;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] = 3;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Weapons] = 3;
                     // two scouts, one colony ship, one medium freighter, one mini miner, one destroyer
                     break;
 
@@ -696,7 +696,7 @@ namespace Nova.WinForms
 #if (DEBUG)
             // Just for testing
             // TODO (priority 4) get this from a settings file, or other central location for convenience.
-            raceData.ResearchLevels = new TechLevel(0);
+            empireData.ResearchLevels = new TechLevel(0);
 #endif
         }
         
@@ -709,7 +709,7 @@ namespace Nova.WinForms
             // Not all of these properties are fully implemented here, as they may require changes elsewhere in the game engine.
             // Where a trait is listed as 'TODO ??? (priority 4)' this means it first needs to be checked if it has been implemented elsewhere.
             
-            RaceData raceData = stateData.AllRaceData[race.Name];
+            EmpireData empireData = stateData.AllEmpires[race.Name];
             
             if (race.Traits.Contains("IFE"))
             {
@@ -718,7 +718,7 @@ namespace Nova.WinForms
                 // Fuel Mizer and Galaxy Scoop engines available : Implemented in component definitions.
 
                 // propulsion tech starts one level higher
-                raceData.ResearchLevels[TechLevel.ResearchField.Propulsion]++;
+                empireData.ResearchLevels[TechLevel.ResearchField.Propulsion]++;
             }
             if (race.Traits.Contains("TT"))
             {
@@ -804,21 +804,21 @@ namespace Nova.WinForms
                 // All extra technologies start on level 3 or 4 with JOAT
                 if (race.Traits.Primary.Code == "JOAT")
                 {
-                    raceData.ResearchLevels[TechLevel.ResearchField.Propulsion] += 1;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Construction] += 1;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Biotechnology] += 1;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Electronics] += 1;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Energy] += 1;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Weapons] += 1;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] += 1;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Construction] += 1;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Biotechnology] += 1;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Electronics] += 1;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] += 1;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Weapons] += 1;
                 }
                 else
                 {
-                    raceData.ResearchLevels[TechLevel.ResearchField.Propulsion] += 3;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Construction] += 3;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Biotechnology] += 3;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Electronics] += 3;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Energy] += 3;
-                    raceData.ResearchLevels[TechLevel.ResearchField.Weapons] += 3;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] += 3;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Construction] += 3;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Biotechnology] += 3;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Electronics] += 3;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] += 3;
+                    empireData.ResearchLevels[TechLevel.ResearchField.Weapons] += 3;
                 }
             }
         }

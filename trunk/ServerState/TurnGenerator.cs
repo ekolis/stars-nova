@@ -234,7 +234,7 @@ namespace Nova.WinForms.Console
             // Note that this sets the allocation for research to zero for all stars
             // which have "contribute only leftover resources to research". This
             // makes those stars be handled after manufacturing.
-            int percentage = stateData.AllRaceData[race.Name].ResearchBudget;
+            int percentage = stateData.AllEmpires[race.Name].ResearchBudget;
             star.UpdateResearch(percentage);
             star.UpdateResources();
             
@@ -493,7 +493,7 @@ namespace Nova.WinForms.Console
         private bool SanitizeResearch(Race race)
         {
             // Reset the list of new levels gained.
-            stateData.AllRaceData[race.Name].ResearchLevelsGained.Zero();
+            stateData.AllEmpires[race.Name].ResearchLevelsGained.Zero();
             
             return true;
             
@@ -516,7 +516,7 @@ namespace Nova.WinForms.Console
                 return;
             }
 
-            RaceData playerData = stateData.AllRaceData[race.Name];
+            EmpireData playerData = stateData.AllEmpires[race.Name];
 
             TechLevel targetAreas = playerData.ResearchTopics;
             TechLevel.ResearchField targetArea = TechLevel.ResearchField.Energy; // default to Energy.
@@ -536,7 +536,7 @@ namespace Nova.WinForms.Console
             playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResearchAllocation;
             star.ResearchAllocation = 0;            
             
-            TechLevel newLevels = stateData.AllRaceData[race.Name].ResearchLevelsGained;
+            TechLevel newLevels = stateData.AllEmpires[race.Name].ResearchLevelsGained;
             
             while (true)
             {
@@ -563,7 +563,7 @@ namespace Nova.WinForms.Console
                 return;
             }
             
-            RaceData playerData = stateData.AllRaceData[race.Name];
+            EmpireData playerData = stateData.AllEmpires[race.Name];
             
             TechLevel targetAreas = playerData.ResearchTopics;
             TechLevel.ResearchField targetArea = TechLevel.ResearchField.Energy; // default to Energy.
@@ -583,7 +583,7 @@ namespace Nova.WinForms.Console
             playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResourcesOnHand.Energy;
             star.ResourcesOnHand.Energy = 0;
             
-            TechLevel newLevels = stateData.AllRaceData[race.Name].ResearchLevelsGained;
+            TechLevel newLevels = stateData.AllEmpires[race.Name].ResearchLevelsGained;
             
             while (true)
             {
