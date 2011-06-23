@@ -144,7 +144,7 @@ namespace Nova.WinForms.Gui
                 cargoDialog.Dispose();
                 
                 starReports[selectedFleet.InOrbit.Name] = new StarReport(selectedFleet.InOrbit);
-                cargo.Value = selectedFleet.Cargo.Mass;
+                meterCargo.CargoLevels = selectedFleet.Cargo;
 
             }
             catch
@@ -461,10 +461,10 @@ namespace Nova.WinForms.Gui
                 fleetComposition.Items.Add(listItem);
             }
 
-            fuel.Maximum = (int)fleet.TotalFuelCapacity;
-            fuel.Value = (int)fleet.FuelAvailable;
-            cargo.Maximum = (int)fleet.TotalCargoCapacity;
-            cargo.Value = (int)fleet.Cargo.Mass;
+            meterFuel.Maximum = fleet.TotalFuelCapacity;
+            meterFuel.Value = (int)fleet.FuelAvailable;
+            meterCargo.Maximum = fleet.TotalCargoCapacity;
+            meterCargo.CargoLevels = fleet.Cargo;
 
             wayPoints.Items.Clear();
             foreach (Waypoint waypoint in fleet.Waypoints)
@@ -562,17 +562,18 @@ namespace Nova.WinForms.Gui
             Fleet fleet = GetSelectedFleetAtLocation();
             if (fleet == null)
             {
-                gaugeFuel.Value = 0;
-                gaugeFuel.Maximum = 0;
-                gaugeCargo.Value = 0;
-                gaugeCargo.Maximum = 0;
+                meterFuelOther.Value = 0;
+                meterFuelOther.Maximum = 0;
+                meterCargoOther.CargoLevels = new Cargo();
+                meterCargoOther.Maximum = 0;
             }
             else
             {
-                gaugeFuel.Maximum = fleet.TotalFuelCapacity;
-                gaugeFuel.Value = fleet.FuelAvailable;
-                gaugeCargo.Maximum = fleet.TotalCargoCapacity;
-                gaugeCargo.Value = fleet.Cargo.Mass;
+                
+                meterFuelOther.Maximum = fleet.TotalFuelCapacity;
+                meterFuelOther.Value = (int)fleet.FuelAvailable;
+                meterCargoOther.Maximum = fleet.TotalCargoCapacity;
+                meterCargoOther.CargoLevels = fleet.Cargo;
             }
             Invalidate();
         }

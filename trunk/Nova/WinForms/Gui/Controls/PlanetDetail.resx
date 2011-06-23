@@ -117,4 +117,28 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="meterCargo.CargoLevels" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAElOb3ZhLkNvbW1vbiwgVmVyc2lvbj0wLjQuNDE5MS4zNjc4NCwg
+        Q3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBQEAAAARTm92YS5Db21tb24uQ2FyZ28E
+        AAAAB0lyb25pdW0IQm9yYW5pdW0JR2VybWFuaXVtE0NvbG9uaXN0c0luS2lsb3RvbnMAAAAACAgICAIA
+        AAAAAAAAAAAAAAAAAAAAAAAACw==
+</value>
+  </data>
+  <data name="meterFuel.CargoLevels" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAElOb3ZhLkNvbW1vbiwgVmVyc2lvbj0wLjQuNDE5MS4zNjc4NCwg
+        Q3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBQEAAAARTm92YS5Db21tb24uQ2FyZ28E
+        AAAAB0lyb25pdW0IQm9yYW5pdW0JR2VybWFuaXVtE0NvbG9uaXN0c0luS2lsb3RvbnMAAAAACAgICAIA
+        AAAAAAAAAAAAAAAAAAAAAAAACw==
+</value>
+  </data>
+  <data name="cargoMeter1.CargoLevels" mimetype="application/x-microsoft.net.object.binary.base64">
+    <value>
+        AAEAAAD/////AQAAAAAAAAAMAgAAAElOb3ZhLkNvbW1vbiwgVmVyc2lvbj0wLjQuNDE5MS4zNjc4NCwg
+        Q3VsdHVyZT1uZXV0cmFsLCBQdWJsaWNLZXlUb2tlbj1udWxsBQEAAAARTm92YS5Db21tb24uQ2FyZ28E
+        AAAAB0lyb25pdW0IQm9yYW5pdW0JR2VybWFuaXVtE0NvbG9uaXN0c0luS2lsb3RvbnMAAAAACAgICAIA
+        AAAAAAAAAAAAAAAAAAAAAAAACw==
+</value>
+  </data>
 </root>
