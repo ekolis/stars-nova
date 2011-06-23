@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2009, 2010 The Stars-Nova Project
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -70,9 +70,3 @@ using System.Security.Permissions;
 [assembly: ComVisible(false)]
 
 [assembly: NeutralResourcesLanguageAttribute("en-US")]
-
-// Set permission to execute but no other permissions.
-#if (!PocketPC && !Smartphone)
-[assembly: SecurityPermission(SecurityAction.RequestMinimum, Execution = true)]
-#endif
-

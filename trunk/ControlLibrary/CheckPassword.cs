@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -27,7 +27,6 @@
 #endregion
 
 using System;
-using System.Web.Security;
 using System.Windows.Forms;
 
 using Nova.Common;
@@ -72,9 +71,7 @@ namespace Nova.ControlLibrary
         {
             string enteredPassword = this.password.Text;
             string oldPasswordHash = this.empireData.Password;
-
-            string newPasswordHash = FormsAuthentication.
-               HashPasswordForStoringInConfigFile(enteredPassword, "MD5");
+            string newPasswordHash = new PasswordUtility().CalculateHash(this.password.Text);
 
             if (newPasswordHash != oldPasswordHash)
             {

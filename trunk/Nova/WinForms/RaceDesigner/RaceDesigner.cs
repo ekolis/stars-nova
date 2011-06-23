@@ -35,7 +35,6 @@ namespace Nova.WinForms.RaceDesigner
     using System.Collections;
     using System.ComponentModel;
     using System.IO;
-    using System.Web.Security;
     using System.Windows.Forms;
     using System.Xml;
 
@@ -1773,8 +1772,7 @@ namespace Nova.WinForms.RaceDesigner
             raceParameters.Name       = this.raceName.Text;
             raceParameters.PluralName = this.pluralRaceName.Text;
 
-            string passwordHash = FormsAuthentication.
-               HashPasswordForStoringInConfigFile(this.password.Text, "MD5");
+            string passwordHash = new PasswordUtility().CalculateHash(this.password.Text);
 
             raceParameters.Password = passwordHash;
             raceParameters.Icon     = this.currentRaceIcon;
