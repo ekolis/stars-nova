@@ -188,7 +188,7 @@ namespace Nova.WinForms.Console
             }
 
             int highestFields = 0;
-            TechLevel raceTechLevels = StateData.AllRaceData[raceName].ResearchLevels;
+            TechLevel raceTechLevels = StateData.AllEmpires[raceName].ResearchLevels;
 
             foreach (int level in raceTechLevels)
             {

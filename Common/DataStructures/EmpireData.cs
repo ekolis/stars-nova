@@ -1,8 +1,8 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
-#endregion
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+//
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
 //
@@ -17,24 +17,15 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
-// ===========================================================================
-
-
-#region Module Description
-// ===========================================================================
-// Race specific data that may change from year-to-year that must be passed to
-// the Nova console.
-// ===========================================================================
+// ============================================================================
 #endregion
 
 namespace Nova.Common
 {
-    #region Using Statements
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Xml;
-    #endregion
 
     public enum PlayerRelation
     {
@@ -42,9 +33,13 @@ namespace Nova.Common
         Neutral,
         Friend
     }
-
+ 
+    /// <summary>
+    /// Race specific data that may change from year-to-year that must be passed to
+    /// the Nova console. 
+    /// </summary>
     [Serializable]
-    public class RaceData
+    public class EmpireData
     {
         public int TurnYear;
         public int ResearchBudget;
@@ -59,7 +54,7 @@ namespace Nova.Common
         /// <summary>
         /// default constructor
         /// </summary>
-        public RaceData() 
+        public EmpireData() 
         { 
         }
 
@@ -73,13 +68,11 @@ namespace Nova.Common
             return PlayerRelations[lamb] == PlayerRelation.Enemy;
         }
 
-        #region Load Save Xml
-
         /// <summary>
-        /// Load: constructor to load RaceData from an XmlNode representation.
+        /// Load: constructor to load EmpireData from an XmlNode representation.
         /// </summary>
-        /// <param name="node">An XmlNode containing a RaceData representation (from a save file)</param>
-        public RaceData(XmlNode node)
+        /// <param name="node">An XmlNode containing a EmpireData representation (from a save file)</param>
+        public EmpireData(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
             while (subnode != null)
@@ -136,20 +129,20 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Save: Generate an XmlElement representation of the RaceData
+        /// Save: Generate an XmlElement representation of the EmpireData
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement reprsenting the RaceData (to be written to file)</returns>
+        /// <returns>An XmlElement reprsenting the EmpireData (to be written to file)</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
-            XmlElement xmlelRaceData = xmldoc.CreateElement("RaceData");
-            Global.SaveData(xmldoc, xmlelRaceData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            Global.SaveData(xmldoc, xmlelRaceData, "ResearchBudget", ResearchBudget.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            XmlElement xmlelEmpireData = xmldoc.CreateElement("EmpireData");
+            Global.SaveData(xmldoc, xmlelEmpireData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelEmpireData, "ResearchBudget", ResearchBudget.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
-            xmlelRaceData.AppendChild(ResearchLevelsGained.ToXml(xmldoc, "ResearchLevelsGained"));
-            xmlelRaceData.AppendChild(ResearchLevels.ToXml(xmldoc, "ResearchLevels"));
-            xmlelRaceData.AppendChild(ResearchResources.ToXml(xmldoc, "ResearchResources"));
-            xmlelRaceData.AppendChild(ResearchTopics.ToXml(xmldoc, "ResearchTopics"));
+            xmlelEmpireData.AppendChild(ResearchLevelsGained.ToXml(xmldoc, "ResearchLevelsGained"));
+            xmlelEmpireData.AppendChild(ResearchLevels.ToXml(xmldoc, "ResearchLevels"));
+            xmlelEmpireData.AppendChild(ResearchResources.ToXml(xmldoc, "ResearchResources"));
+            xmlelEmpireData.AppendChild(ResearchTopics.ToXml(xmldoc, "ResearchTopics"));
             
             foreach (string key in PlayerRelations.Keys)
             {
@@ -163,17 +156,15 @@ namespace Nova.Common
                     default: rel = "Neutral"; break;
                 }
                 Global.SaveData(xmldoc, xmlelRelation, "Status", rel);
-                xmlelRaceData.AppendChild(xmlelRelation);
+                xmlelEmpireData.AppendChild(xmlelRelation);
             }
             foreach (string key in BattlePlans.Keys)
             {
-                xmlelRaceData.AppendChild(BattlePlans[key].ToXml(xmldoc));
+                xmlelEmpireData.AppendChild(BattlePlans[key].ToXml(xmldoc));
             }
 
-            return xmlelRaceData;
+            return xmlelEmpireData;
         }
-
-        #endregion
     }
 }
 

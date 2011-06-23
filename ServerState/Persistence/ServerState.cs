@@ -49,7 +49,7 @@ namespace Nova.Server
         public Dictionary<string, int>          AllTechLevels   = new Dictionary<string, int>(); // Sum of a player's techlevels, for scoring purposes.
         public Dictionary<string, Design>       AllDesigns      = new Dictionary<string, Design>();
         public Dictionary<string, Fleet>        AllFleets       = new Dictionary<string, Fleet>();
-        public Dictionary<string, RaceData>     AllRaceData     = new Dictionary<string, RaceData>(); // Game specific data about the race; relations, battle plans, research, etc.
+        public Dictionary<string, EmpireData>   AllEmpires      = new Dictionary<string, EmpireData>(); // Game specific data about the race; relations, battle plans, research, etc.
         public Dictionary<string, Race>         AllRaces        = new Dictionary<string, Race>(); // Data about the race (traits etc)
         public Dictionary<string, Star>         AllStars        = new Dictionary<string, Star>();
         public Dictionary<string, Minefield>    AllMinefields   = new Dictionary<string, Minefield>();
@@ -168,11 +168,11 @@ namespace Nova.Server
                             }
                             break;
                         
-                        case "allracedata":
+                        case "allempires":
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                AllRaceData.Add(tNode.Attributes["Id"].Value, new RaceData(tNode));
+                                AllEmpires.Add(tNode.Attributes["Id"].Value, new EmpireData(tNode));
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -334,14 +334,14 @@ namespace Nova.Server
             xmlelServerState.AppendChild(xmlelAllRaces);
             
             // Store the Race Data
-            XmlElement xmlelAllRaceData = xmldoc.CreateElement("AllRaceData");
-            foreach (KeyValuePair<string, RaceData> raceData in AllRaceData)
+            XmlElement xmlelAllEmpires = xmldoc.CreateElement("AllEmpires");
+            foreach (KeyValuePair<string, EmpireData> empireData in AllEmpires)
             {
-                child = raceData.Value.ToXml(xmldoc);
-                child.SetAttribute("Id", raceData.Key);                
-                xmlelAllRaceData.AppendChild(child);
+                child = empireData.Value.ToXml(xmldoc);
+                child.SetAttribute("Id", empireData.Key);                
+                xmlelAllEmpires.AppendChild(child);
             }
-            xmlelServerState.AppendChild(xmlelAllRaceData);
+            xmlelServerState.AppendChild(xmlelAllEmpires);
             
             // Store the tech level sums.
             XmlElement xmlelAllTechLevels = xmldoc.CreateElement("AllTechLevels");
@@ -499,7 +499,7 @@ namespace Nova.Server
             AllTechLevels.Clear();
             AllDesigns.Clear();
             AllFleets.Clear();
-            AllRaceData.Clear();
+            AllEmpires.Clear();
             AllRaces.Clear();
             AllStars.Clear();
             AllMinefields.Clear();

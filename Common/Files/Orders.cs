@@ -65,7 +65,7 @@ namespace Nova.Common
         /// </summary>
         public List<string> DeletedDesigns = new List<string>(); 
 
-        public RaceData PlayerData = new RaceData();        // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.) and research %
+        public EmpireData PlayerData = new EmpireData();        // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.) and research %
         public int TechLevel;                               // This is the sum of all the player's tech levels, used for victory checks.
         
         /// ----------------------------------------------------------------------------
@@ -186,8 +186,8 @@ namespace Nova.Common
                             }
                             break;
 
-                        case "racedata":
-                            PlayerData = new RaceData(xmlnode);
+                        case "empiredata":
+                            PlayerData = new EmpireData(xmlnode);
                             break;
 
                         default: break;

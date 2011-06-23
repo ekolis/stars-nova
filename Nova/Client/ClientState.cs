@@ -54,8 +54,8 @@ namespace Nova.Client
         public StarList         PlayerStars         = new StarList(); 
         public Race             PlayerRace          = new Race();
   
-        // FIXME:(priority 3) This set of variables are all contained inside RaceData.
-        // Consider replacing them all with a single RaceData object. -Aeglos 21 Jun 11
+        // FIXME:(priority 3) This set of variables are all contained inside EmpireData.
+        // Consider replacing them all with a single EmpireData object. -Aeglos 21 Jun 11
         public int  TurnYear    = 0;
         public TechLevel    ResearchLevels     = new TechLevel(); // current level of technology
         public TechLevel    ResearchResources  = new TechLevel(); // current total resources spent on each tech
@@ -63,7 +63,7 @@ namespace Nova.Client
         public int          ResearchBudget = 10;
         public Dictionary<string, BattlePlan>       BattlePlans         = new Dictionary<string, BattlePlan>();
         public Dictionary<string, PlayerRelation>   PlayerRelations     = new Dictionary<string, PlayerRelation>();
-        // End RaceData
+        // End EmpireData
         
         public bool FirstTurn   = true;  
         

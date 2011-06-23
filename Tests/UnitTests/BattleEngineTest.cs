@@ -194,14 +194,14 @@ namespace Nova.Tests.UnitTests
         [Test]
         public void Test4SelectTargets()
         {
-            RaceData raceData = new RaceData();
+            EmpireData empireData = new EmpireData();
 
-            raceData.PlayerRelations["Dick"] = PlayerRelation.Enemy;
-            raceData.BattlePlans["Default"] = new BattlePlan();
-            stateData.AllRaceData["Tom"] = raceData;
+            empireData.PlayerRelations["Dick"] = PlayerRelation.Enemy;
+            empireData.BattlePlans["Default"] = new BattlePlan();
+            stateData.AllEmpires["Tom"] = empireData;
 
-            raceData.PlayerRelations["Tom"] = PlayerRelation.Enemy;
-            stateData.AllRaceData["Dick"] = raceData;
+            empireData.PlayerRelations["Tom"] = PlayerRelation.Enemy;
+            stateData.AllEmpires["Dick"] = empireData;
 
             int numberOfTargets = battleEngine.SelectTargets(zoneStacks);
 

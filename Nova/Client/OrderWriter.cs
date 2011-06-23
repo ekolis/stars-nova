@@ -68,7 +68,7 @@ namespace Nova.Client
         public void WriteOrders()
         {
             Orders outputTurn = new Orders();
-            RaceData playerData = new RaceData();
+            EmpireData playerData = new EmpireData();
             
             playerData.TurnYear = stateData.TurnYear;
             playerData.ResearchBudget = stateData.ResearchBudget;
