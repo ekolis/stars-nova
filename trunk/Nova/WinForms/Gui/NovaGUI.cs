@@ -205,7 +205,7 @@ namespace Nova.WinForms.Gui
         {
             PlayerRelations relationshipDialog = new PlayerRelations(stateData.PlayerRelations,
                                                                      stateData.InputTurn.AllRaceNames,
-                                                                     stateData.RaceName);
+                                                                     stateData.PlayerRace.Name);
             relationshipDialog.ShowDialog();
             relationshipDialog.Dispose();
         }
@@ -266,7 +266,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void BattlesReportMenu_Click(object sender, EventArgs e)
         {
-            BattleReportDialog battleReport = new BattleReportDialog(stateData.InputTurn.Battles, stateData.RaceName);
+            BattleReportDialog battleReport = new BattleReportDialog(stateData.InputTurn.Battles, stateData.PlayerRace.Name);
             battleReport.ShowDialog();
             battleReport.Dispose();
         }
@@ -310,7 +310,7 @@ namespace Nova.WinForms.Gui
         {
             // prepare the arguments that will tell how to re-initialise.
             CommandArguments commandArguments = new CommandArguments();
-            commandArguments.Add(CommandArguments.Option.RaceName, stateData.RaceName);
+            commandArguments.Add(CommandArguments.Option.RaceName, stateData.PlayerRace.Name);
             commandArguments.Add(CommandArguments.Option.Turn, stateData.TurnYear + 1);
 
             stateData.Initialize(commandArguments.ToArray());
@@ -352,7 +352,7 @@ namespace Nova.WinForms.Gui
             this.Messages.MessageList = stateData.Messages;
 
             this.CurrentTurn = stateData.TurnYear;
-            this.CurrentRace = stateData.RaceName;
+            this.CurrentRace = stateData.PlayerRace.Name;
 
             this.MapControl.Initialise(stateData);
 
@@ -360,7 +360,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Star star in stateData.InputTurn.AllStars.Values)
             {
-                if (star.Owner == stateData.RaceName)
+                if (star.Owner == stateData.PlayerRace.Name)
                 {
                     MapControl.SetCursor(star.Position);
                     MapControl.CenterMapOnPoint(star.Position);
@@ -388,7 +388,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Star star in stateData.InputTurn.AllStars.Values)
             {
-                if (star.Owner == stateData.RaceName)
+                if (star.Owner == stateData.PlayerRace.Name)
                 {
                     this.MapControl.SetCursor((System.Drawing.Point)star.Position);
                     this.SelectionDetail.Value = star;

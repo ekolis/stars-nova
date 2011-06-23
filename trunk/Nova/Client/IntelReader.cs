@@ -79,7 +79,7 @@ namespace Nova.Client
                 // check this is a new turn, not the one just played
                 if (newIntel.TurnYear != stateData.TurnYear)
                 {
-                    stateData.RaceName = newIntel.MyRace.Name;
+                    stateData.PlayerRace.Name = newIntel.MyRace.Name;
                     stateData.GameFolder = Path.GetDirectoryName(turnFileName);
                     stateData.Restore();
                     stateData.InputTurn = newIntel;
@@ -253,7 +253,7 @@ namespace Nova.Client
         {
             foreach (Message message in turnData.Messages)
             {
-                if ((message.Audience == stateData.RaceName) ||
+                if ((message.Audience == stateData.PlayerRace.Name) ||
                     (message.Audience == "*"))
                 {
                     stateData.Messages.Add(message);
@@ -391,7 +391,7 @@ namespace Nova.Client
         private void ReportLevelUpdate(TechLevel.ResearchField area, int level)
         {
             Message techAdvanceMessage = new Message(
-                stateData.RaceName,
+                stateData.PlayerRace.Name,
                 "Your race has advanced to Tech Level " + level + " in the " + area.ToString() + " field",
                 "TechAdvance",
                 null);
@@ -412,7 +412,7 @@ namespace Nova.Client
                     if (component.Properties.ContainsKey("Scaner") && component.Type == "Planetary Installations")
                     {
                         newComponentMessage = new Message(
-                            stateData.RaceName,
+                            stateData.PlayerRace.Name,
                             null,
                             "All existing planetary scanners has been replaced by " + component.Name + " " + component.Type,
                             null);
@@ -427,7 +427,7 @@ namespace Nova.Client
                     else
                     {
                         newComponentMessage = new Message(
-                           stateData.RaceName,
+                           stateData.PlayerRace.Name,
                            null,
                            "You now have available the " + component.Name + " " + component.Type + " component",
                            null);
@@ -450,7 +450,7 @@ namespace Nova.Client
 
             foreach (Star star in turnData.AllStars.Values)
             {
-                if (star.Owner == stateData.RaceName)
+                if (star.Owner == stateData.PlayerRace.Name)
                 {
                     stateData.PlayerStars.Add(star);
                     star.ThisRace = stateData.PlayerRace;

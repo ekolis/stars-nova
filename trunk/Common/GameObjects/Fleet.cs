@@ -32,8 +32,6 @@ namespace Nova.Common
 {
 
     using System;
-    using System.Collections;
-    using System.Drawing;
     using System.Linq;
     using System.Xml;
 
@@ -50,8 +48,8 @@ namespace Nova.Common
     public class Fleet : Item
     {
         public int FleetID = 0;
-        public List<Ship> FleetShips = new List<Ship>();
-        public List<Waypoint> Waypoints = new List<Waypoint>();
+        public List<Ship>       FleetShips  = new List<Ship>();
+        public List<Waypoint>   Waypoints   = new List<Waypoint>();
 
         /// <summary>
         /// The cargo carried by the entire fleet. 
@@ -139,8 +137,8 @@ namespace Nova.Common
 
             FleetShips.Add(ship);
 
-            FuelAvailable         = TotalFuelCapacity;
-            Type                  = "Fleet";
+            FuelAvailable = TotalFuelCapacity;
+            Type          = "Fleet";
 
             // Have one waypoint to reflect the fleet's current position and the
             // planet it is in orbit around.

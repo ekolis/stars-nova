@@ -20,34 +20,22 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module describes what we know about each star system we have visited 
-// or scanned.
-// ===========================================================================
-#endregion
-
 namespace Nova.Client
 {
-    #region Using Statements
-
     using System;
-    using System.Collections;
-    using System.Drawing;
 
     using Nova.Common;
     using Nova.Common.DataStructures;
 
-    #endregion
-
     /// <summary>
-    /// Report class.
+    /// This module describes what we know about each star system we have visited 
+    /// or scanned.
     /// </summary>
     [Serializable]
     public class StarReport
     {
-        public Nova.Common.Resources StarResources = null;
-        public Nova.Common.Resources Concentration = null;
+        public Resources StarResources = null;
+        public Resources Concentration = null;
         public int Population;
         public int Age;
         public string StarName;
@@ -65,8 +53,8 @@ namespace Nova.Client
         /// <param name="star">The <see cref="Star"/> being reported</param>
         public StarReport(Star star)
         {
-            StarResources  = new Nova.Common.Resources(star.ResourcesOnHand);
-            Concentration  = new Nova.Common.Resources(star.MineralConcentration);
+            StarResources  = new Resources(star.ResourcesOnHand);
+            Concentration  = new Resources(star.MineralConcentration);
             Population     = star.Colonists;
             StarName       = star.Name;
             Radiation      = star.Radiation;

@@ -42,11 +42,13 @@ namespace Nova.Common
     public class EmpireData
     {
         public int TurnYear;
+        
         public int ResearchBudget;
         public TechLevel ResearchLevels = new TechLevel(); // current level of technology
         public TechLevel ResearchResources = new TechLevel(); // current cumulative resources on research
         public TechLevel ResearchTopics = new TechLevel(); // order or research
-        public TechLevel ResearchLevelsGained = new TechLevel(); // research level increases, reset per turn.        
+        public TechLevel ResearchLevelsGained = new TechLevel(); // research level increases, reset per turn.
+        
         public Dictionary<string, PlayerRelation> PlayerRelations = new Dictionary<string, PlayerRelation>();
         public Dictionary<string, BattlePlan> BattlePlans = new Dictionary<string, BattlePlan>();
         
