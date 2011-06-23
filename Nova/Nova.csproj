@@ -362,10 +362,6 @@
       <DependentUpon>NovaConsole.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\Gui\Controls\FleetDetail.resx">
-      <DependentUpon>FleetDetail.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="WinForms\Gui\Controls\FleetSummary.resx">
       <DependentUpon>FleetSummary.cs</DependentUpon>
       <SubType>Designer</SubType>
