@@ -309,17 +309,17 @@ namespace Nova.WinForms.Gui
             Fleet fleet = GetSelectedFleetInOrbit();
             if (fleet == null)
             {
-                gaugeFuel.Value = 0;
-                gaugeFuel.Maximum = 0;
-                gaugeCargo.Value = 0;
-                gaugeCargo.Maximum = 0;
+                meterFuel.Value = 0;
+                meterFuel.Maximum = 0;
+                meterCargo.CargoLevels = new Cargo();
+                meterCargo.Maximum = 0;
             }
             else
             {
-                gaugeFuel.Maximum = fleet.TotalFuelCapacity;
-                gaugeFuel.Value = fleet.FuelAvailable;
-                gaugeCargo.Maximum = fleet.TotalCargoCapacity;
-                gaugeCargo.Value = fleet.Cargo.Mass;
+                meterFuel.Maximum = fleet.TotalFuelCapacity;
+                meterFuel.Value = (int)fleet.FuelAvailable;
+                meterCargo.Maximum = fleet.TotalCargoCapacity;
+                meterCargo.CargoLevels = fleet.Cargo;
             }
             Invalidate();
         }

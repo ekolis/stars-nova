@@ -18,10 +18,9 @@ namespace Nova.WinForms.Gui
     {
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FleetDetail));
             this.WaypointTasks = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.fuel = new Nova.ControlLibrary.Gauge();
             this.warpText = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
@@ -33,8 +32,6 @@ namespace Nova.WinForms.Gui
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.routeFuelUse = new System.Windows.Forms.Label();
-            this.label4 = new System.Windows.Forms.Label();
-            this.cargo = new Nova.ControlLibrary.Gauge();
             this.buttonCargo = new System.Windows.Forms.Button();
             this.label6 = new System.Windows.Forms.Label();
             this.legTime = new System.Windows.Forms.Label();
@@ -43,6 +40,10 @@ namespace Nova.WinForms.Gui
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.groupStatus = new System.Windows.Forms.GroupBox();
+            this.meterCargo = new Nova.WinForms.Gui.Controls.CargoMeter();
+            this.meterFuel = new Nova.WinForms.Gui.Controls.CargoMeter();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label12 = new System.Windows.Forms.Label();
             this.buttonGotoPlanet = new System.Windows.Forms.Button();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.wayPoints = new Nova.WinForms.Gui.WaypointListBox();
@@ -54,13 +55,13 @@ namespace Nova.WinForms.Gui
             this.previousFleet = new System.Windows.Forms.Button();
             this.nextFleet = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.meterCargoOther = new Nova.WinForms.Gui.Controls.CargoMeter();
+            this.meterFuelOther = new Nova.WinForms.Gui.Controls.CargoMeter();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.buttonMerge = new System.Windows.Forms.Button();
             this.buttonCargoXfer = new System.Windows.Forms.Button();
             this.buttonGotoFleet = new System.Windows.Forms.Button();
-            this.gaugeCargo = new Nova.ControlLibrary.Gauge();
-            this.gaugeFuel = new Nova.ControlLibrary.Gauge();
-            this.label10 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.comboOtherFleets = new System.Windows.Forms.ComboBox();
             this.groupOrbitPlanet = new System.Windows.Forms.GroupBox();
             ((System.ComponentModel.ISupportInitialize)(this.warpFactor)).BeginInit();
@@ -99,32 +100,6 @@ namespace Nova.WinForms.Gui
             this.label14.Size = new System.Drawing.Size(80, 16);
             this.label14.TabIndex = 70;
             this.label14.Text = "Waypoint Task";
-            // 
-            // label15
-            // 
-            this.label15.Location = new System.Drawing.Point(6, 18);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(32, 16);
-            this.label15.TabIndex = 71;
-            this.label15.Text = "Fuel";
-            // 
-            // fuel
-            // 
-            this.fuel.BarColour = System.Drawing.Color.LightGreen;
-            this.fuel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.fuel.BottomValue = 0D;
-            this.fuel.Location = new System.Drawing.Point(54, 18);
-            this.fuel.Marker = 0;
-            this.fuel.MarkerColour = System.Drawing.Color.Green;
-            this.fuel.Maximum = 0D;
-            this.fuel.Minimum = 0D;
-            this.fuel.Name = "fuel";
-            this.fuel.ShowText = true;
-            this.fuel.Size = new System.Drawing.Size(117, 16);
-            this.fuel.TabIndex = 72;
-            this.fuel.TopValue = 0D;
-            this.fuel.Units = "mg";
-            this.fuel.Value = 0D;
             // 
             // warpText
             // 
@@ -224,32 +199,6 @@ namespace Nova.WinForms.Gui
             this.routeFuelUse.Text = "0";
             this.routeFuelUse.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
-            // label4
-            // 
-            this.label4.Location = new System.Drawing.Point(6, 42);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(40, 16);
-            this.label4.TabIndex = 87;
-            this.label4.Text = "Cargo";
-            // 
-            // cargo
-            // 
-            this.cargo.BarColour = System.Drawing.Color.Tan;
-            this.cargo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.cargo.BottomValue = 0D;
-            this.cargo.Location = new System.Drawing.Point(54, 40);
-            this.cargo.Marker = 0;
-            this.cargo.MarkerColour = System.Drawing.Color.Green;
-            this.cargo.Maximum = 0D;
-            this.cargo.Minimum = 0D;
-            this.cargo.Name = "cargo";
-            this.cargo.ShowText = true;
-            this.cargo.Size = new System.Drawing.Size(118, 16);
-            this.cargo.TabIndex = 74;
-            this.cargo.TopValue = 0D;
-            this.cargo.Units = "kT";
-            this.cargo.Value = 0D;
-            // 
             // buttonCargo
             // 
             this.buttonCargo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -321,16 +270,52 @@ namespace Nova.WinForms.Gui
             // 
             // groupStatus
             // 
-            this.groupStatus.Controls.Add(this.cargo);
-            this.groupStatus.Controls.Add(this.fuel);
+            this.groupStatus.Controls.Add(this.meterCargo);
+            this.groupStatus.Controls.Add(this.meterFuel);
             this.groupStatus.Controls.Add(this.label4);
-            this.groupStatus.Controls.Add(this.label15);
+            this.groupStatus.Controls.Add(this.label12);
             this.groupStatus.Location = new System.Drawing.Point(177, 3);
             this.groupStatus.Name = "groupStatus";
-            this.groupStatus.Size = new System.Drawing.Size(178, 63);
+            this.groupStatus.Size = new System.Drawing.Size(178, 58);
             this.groupStatus.TabIndex = 95;
             this.groupStatus.TabStop = false;
             this.groupStatus.Text = "Status";
+            // 
+            // meterCargo
+            // 
+            this.meterCargo.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Multi;
+            this.meterCargo.CargoLevels = ((Nova.Common.Cargo)(resources.GetObject("meterCargo.CargoLevels")));
+            this.meterCargo.Location = new System.Drawing.Point(61, 32);
+            this.meterCargo.Name = "meterCargo";
+            this.meterCargo.Size = new System.Drawing.Size(108, 15);
+            this.meterCargo.TabIndex = 98;
+            this.meterCargo.Text = "cargoMeter2";
+            // 
+            // meterFuel
+            // 
+            this.meterFuel.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Fuel;
+            this.meterFuel.CargoLevels = ((Nova.Common.Cargo)(resources.GetObject("meterFuel.CargoLevels")));
+            this.meterFuel.Location = new System.Drawing.Point(61, 15);
+            this.meterFuel.Name = "meterFuel";
+            this.meterFuel.Size = new System.Drawing.Size(108, 15);
+            this.meterFuel.TabIndex = 95;
+            this.meterFuel.Text = "cargoMeter1";
+            // 
+            // label4
+            // 
+            this.label4.Location = new System.Drawing.Point(10, 32);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(40, 16);
+            this.label4.TabIndex = 97;
+            this.label4.Text = "Cargo";
+            // 
+            // label12
+            // 
+            this.label12.Location = new System.Drawing.Point(18, 16);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(32, 16);
+            this.label12.TabIndex = 96;
+            this.label12.Text = "Fuel";
             // 
             // buttonGotoPlanet
             // 
@@ -384,9 +369,9 @@ namespace Nova.WinForms.Gui
             // 
             this.groupBox4.Controls.Add(this.fleetComposition);
             this.groupBox4.Controls.Add(this.manageFleet);
-            this.groupBox4.Location = new System.Drawing.Point(176, 124);
+            this.groupBox4.Location = new System.Drawing.Point(176, 119);
             this.groupBox4.Name = "groupBox4";
-            this.groupBox4.Size = new System.Drawing.Size(179, 145);
+            this.groupBox4.Size = new System.Drawing.Size(179, 150);
             this.groupBox4.TabIndex = 97;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Fleet Composition";
@@ -451,13 +436,13 @@ namespace Nova.WinForms.Gui
             // 
             // groupBox7
             // 
+            this.groupBox7.Controls.Add(this.meterCargoOther);
+            this.groupBox7.Controls.Add(this.meterFuelOther);
+            this.groupBox7.Controls.Add(this.label10);
+            this.groupBox7.Controls.Add(this.label11);
             this.groupBox7.Controls.Add(this.buttonMerge);
             this.groupBox7.Controls.Add(this.buttonCargoXfer);
             this.groupBox7.Controls.Add(this.buttonGotoFleet);
-            this.groupBox7.Controls.Add(this.gaugeCargo);
-            this.groupBox7.Controls.Add(this.gaugeFuel);
-            this.groupBox7.Controls.Add(this.label10);
-            this.groupBox7.Controls.Add(this.label11);
             this.groupBox7.Controls.Add(this.comboOtherFleets);
             this.groupBox7.Location = new System.Drawing.Point(177, 273);
             this.groupBox7.Margin = new System.Windows.Forms.Padding(0);
@@ -466,6 +451,42 @@ namespace Nova.WinForms.Gui
             this.groupBox7.TabIndex = 99;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Other fleets at this Location";
+            // 
+            // meterCargoOther
+            // 
+            this.meterCargoOther.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Multi;
+            this.meterCargoOther.CargoLevels = ((Nova.Common.Cargo)(resources.GetObject("meterCargoOther.CargoLevels")));
+            this.meterCargoOther.Location = new System.Drawing.Point(61, 62);
+            this.meterCargoOther.Name = "meterCargoOther";
+            this.meterCargoOther.Size = new System.Drawing.Size(108, 15);
+            this.meterCargoOther.TabIndex = 102;
+            this.meterCargoOther.Text = "cargoMeter2";
+            // 
+            // meterFuelOther
+            // 
+            this.meterFuelOther.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Fuel;
+            this.meterFuelOther.CargoLevels = ((Nova.Common.Cargo)(resources.GetObject("meterFuelOther.CargoLevels")));
+            this.meterFuelOther.Location = new System.Drawing.Point(61, 45);
+            this.meterFuelOther.Name = "meterFuelOther";
+            this.meterFuelOther.Size = new System.Drawing.Size(108, 15);
+            this.meterFuelOther.TabIndex = 99;
+            this.meterFuelOther.Text = "cargoMeter1";
+            // 
+            // label10
+            // 
+            this.label10.Location = new System.Drawing.Point(10, 62);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(40, 16);
+            this.label10.TabIndex = 101;
+            this.label10.Text = "Cargo";
+            // 
+            // label11
+            // 
+            this.label11.Location = new System.Drawing.Point(18, 46);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(32, 16);
+            this.label11.TabIndex = 100;
+            this.label11.Text = "Fuel";
             // 
             // buttonMerge
             // 
@@ -497,58 +518,6 @@ namespace Nova.WinForms.Gui
             this.buttonGotoFleet.UseVisualStyleBackColor = true;
             this.buttonGotoFleet.Click += new System.EventHandler(this.buttonGotoFleet_Click);
             // 
-            // gaugeCargo
-            // 
-            this.gaugeCargo.BarColour = System.Drawing.Color.Tan;
-            this.gaugeCargo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.gaugeCargo.BottomValue = 0D;
-            this.gaugeCargo.Location = new System.Drawing.Point(63, 62);
-            this.gaugeCargo.Marker = 0;
-            this.gaugeCargo.MarkerColour = System.Drawing.Color.Green;
-            this.gaugeCargo.Maximum = 0D;
-            this.gaugeCargo.Minimum = 0D;
-            this.gaugeCargo.Name = "gaugeCargo";
-            this.gaugeCargo.ShowText = true;
-            this.gaugeCargo.Size = new System.Drawing.Size(108, 15);
-            this.gaugeCargo.TabIndex = 90;
-            this.gaugeCargo.TopValue = 0D;
-            this.gaugeCargo.Units = "kT";
-            this.gaugeCargo.Value = 0D;
-            // 
-            // gaugeFuel
-            // 
-            this.gaugeFuel.BarColour = System.Drawing.Color.LightGreen;
-            this.gaugeFuel.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.gaugeFuel.BottomValue = 0D;
-            this.gaugeFuel.Location = new System.Drawing.Point(63, 43);
-            this.gaugeFuel.Marker = 0;
-            this.gaugeFuel.MarkerColour = System.Drawing.Color.Green;
-            this.gaugeFuel.Maximum = 0D;
-            this.gaugeFuel.Minimum = 0D;
-            this.gaugeFuel.Name = "gaugeFuel";
-            this.gaugeFuel.ShowText = true;
-            this.gaugeFuel.Size = new System.Drawing.Size(108, 15);
-            this.gaugeFuel.TabIndex = 89;
-            this.gaugeFuel.TopValue = 0D;
-            this.gaugeFuel.Units = "mg";
-            this.gaugeFuel.Value = 0D;
-            // 
-            // label10
-            // 
-            this.label10.Location = new System.Drawing.Point(13, 62);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(40, 16);
-            this.label10.TabIndex = 91;
-            this.label10.Text = "Cargo";
-            // 
-            // label11
-            // 
-            this.label11.Location = new System.Drawing.Point(21, 46);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(32, 16);
-            this.label11.TabIndex = 88;
-            this.label11.Text = "Fuel";
-            // 
             // comboOtherFleets
             // 
             this.comboOtherFleets.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
@@ -563,7 +532,7 @@ namespace Nova.WinForms.Gui
             // 
             this.groupOrbitPlanet.Controls.Add(this.buttonCargo);
             this.groupOrbitPlanet.Controls.Add(this.buttonGotoPlanet);
-            this.groupOrbitPlanet.Location = new System.Drawing.Point(177, 72);
+            this.groupOrbitPlanet.Location = new System.Drawing.Point(177, 67);
             this.groupOrbitPlanet.Name = "groupOrbitPlanet";
             this.groupOrbitPlanet.Size = new System.Drawing.Size(178, 46);
             this.groupOrbitPlanet.TabIndex = 96;
@@ -613,8 +582,6 @@ namespace Nova.WinForms.Gui
 
         public ComboBox WaypointTasks;
         private Label label14;
-        private Label label15;
-        private Gauge fuel;
         private Label warpText;
         private Label label8;
         private Label label9;
@@ -626,8 +593,6 @@ namespace Nova.WinForms.Gui
         private Label label3;
         private Label label5;
         private Label routeFuelUse;
-        private Label label4;
-        private Gauge cargo;
         private Button buttonCargo;
         private Label label6;
         private Label legTime;
@@ -650,13 +615,17 @@ namespace Nova.WinForms.Gui
         private GroupBox groupBox7;
         private Button buttonCargoXfer;
         private Button buttonGotoFleet;
-        private Gauge gaugeCargo;
-        private Gauge gaugeFuel;
-        private Label label10;
-        private Label label11;
         private ComboBox comboOtherFleets;
         private Button buttonMerge;
         private GroupBox groupOrbitPlanet;
+        private Controls.CargoMeter meterCargo;
+        private Controls.CargoMeter meterFuel;
+        private Label label4;
+        private Label label12;
+        private Controls.CargoMeter meterCargoOther;
+        private Controls.CargoMeter meterFuelOther;
+        private Label label10;
+        private Label label11;
         
     }
 }
