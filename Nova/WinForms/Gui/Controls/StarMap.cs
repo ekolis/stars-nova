@@ -247,7 +247,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Star star in this.turnData.AllStars.Values)
             {
-                if (star.Owner == stateData.RaceName)
+                if (star.Owner == stateData.PlayerRace.Name)
                 {
                     DrawCircle(g, lrScanBrush, (Point)star.Position, star.ScanRange);
                 }
@@ -257,7 +257,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in this.visibleFleets.Values)
             {
-                if (fleet.Owner == this.stateData.RaceName)
+                if (fleet.Owner == stateData.PlayerRace.Name)
                 {
                     DrawCircle(g, lrScanBrush, (Point)fleet.Position, fleet.LongRangeScan);
                 }
@@ -267,7 +267,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in this.visibleFleets.Values)
             {
-                if (fleet.Owner == this.stateData.RaceName)
+                if (fleet.Owner == stateData.PlayerRace.Name)
                 {
                     DrawCircle(g, srScanBrush, (Point)fleet.Position, fleet.ShortRangeScan);
                 }
@@ -280,7 +280,7 @@ namespace Nova.WinForms.Gui
                 Color cb;
                 Color cf;
 
-                if (minefield.Owner == stateData.RaceName)
+                if (minefield.Owner == stateData.PlayerRace.Name)
                 {
                     cb = Color.FromArgb(0, 0, 0, 0);
                     cf = Color.FromArgb(128, 0, 128, 0);
@@ -412,7 +412,7 @@ namespace Nova.WinForms.Gui
                 g.TranslateTransform(position.X, position.Y);
                 g.RotateTransform((float)fleet.Bearing);
 
-                if (fleet.Owner == this.stateData.RaceName)
+                if (fleet.Owner == this.stateData.PlayerRace.Name)
                 {
                     g.FillPolygon(Brushes.Blue, triangle);
                 }
@@ -424,7 +424,7 @@ namespace Nova.WinForms.Gui
                 g.ResetTransform();
             }
 
-            if (fleet.Owner == this.stateData.RaceName)
+            if (fleet.Owner == this.stateData.PlayerRace.Name)
             {
                 Waypoint first = fleet.Waypoints[0];
                 NovaPoint from = LogicalToDevice(first.Position);
@@ -472,7 +472,7 @@ namespace Nova.WinForms.Gui
             // Our stars are greenish, other's are red, unknown or uncolonised
             // stars are white.
 
-            if (owner == this.stateData.RaceName)
+            if (owner == this.stateData.PlayerRace.Name)
             {
                 starBrush = Brushes.GreenYellow;
             }
@@ -562,7 +562,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in this.turnData.AllFleets.Values)
             {
-                if (fleet.Owner == this.stateData.RaceName)
+                if (fleet.Owner == this.stateData.PlayerRace.Name)
                 {
                     this.visibleFleets[fleet.Key] = fleet;
                     playersFleets.Add(fleet);
@@ -594,7 +594,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Star star in this.turnData.AllStars.Values)
             {
-                if (star.Owner == this.stateData.RaceName)
+                if (star.Owner == this.stateData.PlayerRace.Name)
                 {
                     foreach (Fleet scanned in this.turnData.AllFleets.Values)
                     {
@@ -628,7 +628,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in this.turnData.AllFleets.Values)
             {
-                if (fleet.Owner == this.stateData.RaceName)
+                if (fleet.Owner == this.stateData.PlayerRace.Name)
                 {
                     playersFleets.Add(fleet);
                 }
@@ -640,7 +640,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Minefield minefield in this.turnData.AllMinefields.Values)
             {
-                if (minefield.Owner == this.stateData.RaceName)
+                if (minefield.Owner == this.stateData.PlayerRace.Name)
                 {
                     this.visibleMinefields[minefield.Key] = minefield;
                 }
@@ -678,7 +678,7 @@ namespace Nova.WinForms.Gui
             {
                 foreach (Star star in this.turnData.AllStars.Values)
                 {
-                    if (star.Owner == this.stateData.RaceName)
+                    if (star.Owner == this.stateData.PlayerRace.Name)
                     {
 
                         bool isIn = PointUtilities.CirclesOverlap(

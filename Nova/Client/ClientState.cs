@@ -53,7 +53,8 @@ namespace Nova.Client
         public List<Fleet>      PlayerFleets        = new List<Fleet>();
         public StarList         PlayerStars         = new StarList(); 
         public Race             PlayerRace          = new Race();
-  
+        public EmpireData       EmpireData          = new EmpireData();
+        
         // FIXME:(priority 3) This set of variables are all contained inside EmpireData.
         // Consider replacing them all with a single EmpireData object. -Aeglos 21 Jun 11
         public int  TurnYear    = 0;
@@ -68,7 +69,6 @@ namespace Nova.Client
         public bool FirstTurn   = true;  
         
         public string GameFolder    = null;
-        public string RaceName      = null; //FIXME:(priority 3) why have this here if it is already on PlayerRace.Name? -Aeglos 21 Jun 11
         
         public string statePathName; // path&filename
 
@@ -119,7 +119,6 @@ namespace Nova.Client
             //    Directly load the state file. If it is missing - FatalError.
             //    (The race name and game folder will be loaded from the state file)
             statePathName = null;
-            RaceName = null;
             string intelFileName = null;
 
             // process the arguments
@@ -127,7 +126,7 @@ namespace Nova.Client
 
             if (commandArguments.Contains(CommandArguments.Option.RaceName))
             {
-                RaceName = commandArguments[CommandArguments.Option.RaceName];
+                PlayerRace.Name = commandArguments[CommandArguments.Option.RaceName];
             }
             if (commandArguments.Contains(CommandArguments.Option.StateFileName))
             {
@@ -161,8 +160,8 @@ namespace Nova.Client
                 // - get GameFolder from the conf file - already done.
 
                 // - look for races and ask the user to pick one. 
-                RaceName = SelectRace(GameFolder);
-                if (!string.IsNullOrEmpty(RaceName))
+                PlayerRace.Name = SelectRace(GameFolder);
+                if (!string.IsNullOrEmpty(PlayerRace.Name))
                 {
                     isLoaded = true;
                 }
@@ -291,7 +290,7 @@ namespace Nova.Client
         /// </remarks>
         public ClientState Restore()
         {
-            ClientState newState = Restore(GameFolder, RaceName);
+            ClientState newState = Restore(GameFolder, PlayerRace.Name);
             
             DeletedDesigns  = newState.DeletedDesigns;
             DeletedFleets   = newState.DeletedFleets;
@@ -315,8 +314,7 @@ namespace Nova.Client
             PlayerRelations     = newState.PlayerRelations;
             
             FirstTurn     = newState.FirstTurn;             
-            GameFolder    = newState.GameFolder;
-            RaceName      = newState.RaceName; 
+            GameFolder    = newState.GameFolder; 
             statePathName = newState.statePathName;
             
             return this;
@@ -375,9 +373,8 @@ namespace Nova.Client
                 }
             }
 
-            // Copy the race and game folder names into the state data store. This
-            // is just a convenient way of making them globally available.
-            clientState.RaceName = raceName;
+            // Copy the game folder names into the state data store. This
+            // is just a convenient way of making it globally available.
             clientState.GameFolder = gameFolder;
             clientState.statePathName = statePathName;
             

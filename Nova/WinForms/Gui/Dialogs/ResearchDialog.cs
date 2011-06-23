@@ -267,7 +267,7 @@ namespace Nova.WinForms.Gui
         private int CountEnergy()
         {
             double totalEnergy = 0;
-            string raceName = this.stateData.RaceName;
+            string raceName = stateData.PlayerRace.Name;
             Intel turnData = this.stateData.InputTurn;
 
             foreach (Star star in turnData.AllStars.Values)

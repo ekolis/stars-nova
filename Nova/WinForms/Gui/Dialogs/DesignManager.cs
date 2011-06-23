@@ -98,8 +98,8 @@ namespace Nova.WinForms.Gui
                 this.designOwner.Items.Add(raceName);
             }
 
-            this.designOwner.SelectedItem = this.stateData.RaceName;
-            ListDesigns(this.stateData.RaceName);
+            designOwner.SelectedItem = stateData.PlayerRace.Name;
+            ListDesigns(stateData.PlayerRace.Name);
         }
 
 
@@ -262,7 +262,7 @@ Are you sure you want to do this?";
 
             string race = this.designOwner.SelectedItem.ToString();
 
-            if (race == this.stateData.RaceName)
+            if (race == stateData.PlayerRace.Name)
             {
                 this.delete.Enabled = true;
             }
@@ -295,7 +295,7 @@ Are you sure you want to do this?";
                 {
                     if (design.Owner == raceName)
                     {
-                        if (raceName == this.stateData.RaceName ||
+                        if (raceName == stateData.PlayerRace.Name ||
                             this.stateData.KnownEnemyDesigns.ContainsKey(design.Key))
                         {
 
@@ -322,7 +322,7 @@ Are you sure you want to do this?";
             itemToAdd.Text = design.Name;
             itemToAdd.Tag = design;
 
-            if (design.Owner == this.stateData.RaceName)
+            if (design.Owner == stateData.PlayerRace.Name)
             {
                 int quantity = CountDesigns(design);
                 itemToAdd.SubItems.Add(quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
