@@ -50,7 +50,7 @@ namespace Nova.Common
                     // atempt to retrieve image
                     try
                     {
-                        image = new Bitmap(Source);
+                        //image = new Bitmap(Source); // Never works currently so commenting!
                     }
                     catch
                     {

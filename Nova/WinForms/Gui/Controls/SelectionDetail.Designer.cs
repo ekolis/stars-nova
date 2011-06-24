@@ -39,7 +39,7 @@ namespace Nova.WinForms.Gui
           this.planetDetail1.Name = "planetDetail1";
           this.planetDetail1.Size = new System.Drawing.Size(361, 399);
           this.planetDetail1.TabIndex = 0;
-          this.planetDetail1.Value = null;
+         
           // 
           // SelectionDetail
           // 
