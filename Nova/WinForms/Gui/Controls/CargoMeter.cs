@@ -78,6 +78,7 @@ namespace Nova.WinForms.Gui.Controls
         
         public CargoType Cargo { get; set; }
         
+        [Browsable(false)]
         public Cargo CargoLevels
         {
             get { return cargoLevels; }
