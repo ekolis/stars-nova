@@ -39,7 +39,7 @@ namespace Nova.WinForms.Gui
     {
         private Fleet selectedFleet;
         private int currentFleet;
-        private Dictionary<string, StarReport> starReports;
+        private Dictionary<string, StarIntel> starReports;
         private Dictionary<string, Fleet> allFleets; // FIXME:(???) Do we need allFleets here? Can't we use the player's fleets instead? -Aeglos 21 Jun 11 
         private List<Fleet> playerFleets;
         private List<string> deletedFleets;
@@ -71,7 +71,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the FleetDetail class.
         /// </Summary>
-        public FleetDetail(Dictionary<string, StarReport> starReports,
+        public FleetDetail(Dictionary<string, StarIntel> starReports,
                            Dictionary<string, Fleet> allFleets,
                            List<Fleet> playerFleets,
                            List<string> deletedFleets,
@@ -143,7 +143,6 @@ namespace Nova.WinForms.Gui
                 cargoDialog.ShowDialog();
                 cargoDialog.Dispose();
                 
-                starReports[selectedFleet.InOrbit.Name] = new StarReport(selectedFleet.InOrbit);
                 meterCargo.CargoLevels = selectedFleet.Cargo;
 
             }

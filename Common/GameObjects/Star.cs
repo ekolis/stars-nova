@@ -39,7 +39,7 @@ namespace Nova.Common
     [Serializable]
     public class Star : Item
     {
-        public bool OrbitingFleets;
+        public bool OrbitingFleets; //FIXME:(???) What is this used for? -Aeglos 24 Jun 11
         public ProductionQueue ManufacturingQueue;
         public Resources MineralConcentration;
         public Resources ResourcesOnHand;

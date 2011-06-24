@@ -38,7 +38,7 @@ namespace Nova.WinForms.Gui
     {
         private Star currentStar;
         private StarList playerStars;
-        private Dictionary<string, StarReport> starReports;
+        private Dictionary<string, StarIntel> starReports;
         private List<Fleet> playerFleets;
         private int researchBudget;
         
@@ -67,7 +67,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the PlanetDetail class.
         /// </Summary>
-        public PlanetDetail(StarList playerStars, Dictionary<string, StarReport> starReports, List<Fleet> playerFleets, int researchBudget, ClientState stateData)
+        public PlanetDetail(StarList playerStars, Dictionary<string, StarIntel> starReports, List<Fleet> playerFleets, int researchBudget, ClientState stateData)
         {
             this.playerStars = playerStars;
             this.starReports = starReports;
@@ -352,7 +352,7 @@ namespace Nova.WinForms.Gui
                         cargoDialog.SetTarget(fleet);
                         cargoDialog.ShowDialog();                        
                     }
-                    starReports[fleet.InOrbit.Name] = new StarReport(fleet.InOrbit);  // Not sure why - coppied from FleetDetails!
+
                     comboFleetsInOrbit_SelectedIndexChanged(null, null);
                 }
                 catch

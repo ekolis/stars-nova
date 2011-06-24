@@ -45,7 +45,7 @@ namespace Nova.WinForms.Gui
         private Item selectedItem = null;
         private UserControl selectedControl = null;
   
-        private Dictionary<string, StarReport> starReports;
+        private Dictionary<string, StarIntel> starReports;
         private List<Fleet> playerFleets;
         private StarList playerStars;
         private Race playerRace;
@@ -67,7 +67,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
-        public SelectionDetail(Dictionary<string, StarReport> starReports,
+        public SelectionDetail(Dictionary<string, StarIntel> starReports,
                                StarList playerStars,
                                Dictionary<string, Fleet> allFleets,
                                List<Fleet> playerFleets,

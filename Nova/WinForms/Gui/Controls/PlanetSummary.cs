@@ -37,7 +37,7 @@ namespace Nova.WinForms.Gui
     public class PlanetSummary : System.Windows.Forms.UserControl
     {
         // List of the Star reports.
-        private Dictionary<string, StarReport> starReports;
+        private Dictionary<string, StarIntel> starReports;
         private Race playerRace;        
        
         // reference to the Star. This is only used for owned stars.
@@ -73,7 +73,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the PlanetSummary class.
         /// </Summary>
-        public PlanetSummary(Dictionary<string, StarReport> starReports, Race playerRace)
+        public PlanetSummary(Dictionary<string, StarIntel> starReports, Race playerRace)
         {
             this.starReports = starReports;
             this.playerRace = playerRace;
@@ -468,13 +468,13 @@ namespace Nova.WinForms.Gui
                     this.planetValue.ForeColor = Color.Black;
                 }                
 
-                if (starReports[value.Name].Population == 0)
+                if (starReports[value.Name].Star.Colonists == 0)
                 {
                     this.population.Text = "Uninhabited";
                 }
                 else
                 {
-                    this.population.Text = "Population: " + starReports[value.Name].Population;
+                    this.population.Text = "Population: " + starReports[value.Name].Star.Colonists;
                 }
 
                 if (starReports[value.Name].Age == 0)
@@ -490,21 +490,21 @@ namespace Nova.WinForms.Gui
                     this.reportAge.Text = "Report is " + starReports[value.Name].Age + " years old";
                 }
 
-                this.ironiumGauge.Value = starReports[value.Name].StarResources.Ironium;
-                this.boraniumGauge.Value = starReports[value.Name].StarResources.Boranium;
-                this.germaniumGauge.Value = starReports[value.Name].StarResources.Germanium;
+                this.ironiumGauge.Value = starReports[value.Name].Star.ResourcesOnHand.Ironium;
+                this.boraniumGauge.Value = starReports[value.Name].Star.ResourcesOnHand.Boranium;
+                this.germaniumGauge.Value = starReports[value.Name].Star.ResourcesOnHand.Germanium;
 
-                this.ironiumGauge.Marker = (int)starReports[value.Name].Concentration.Ironium;
-                this.boraniumGauge.Marker = (int)starReports[value.Name].Concentration.Boranium;
-                this.germaniumGauge.Marker = (int)starReports[value.Name].Concentration.Germanium;
+                this.ironiumGauge.Marker = (int)starReports[value.Name].Star.MineralConcentration.Ironium;
+                this.boraniumGauge.Marker = (int)starReports[value.Name].Star.MineralConcentration.Boranium;
+                this.germaniumGauge.Marker = (int)starReports[value.Name].Star.MineralConcentration.Germanium;
 
-                this.radiationGauge.Marker = starReports[value.Name].Radiation;
-                this.gravityGauge.Marker = starReports[value.Name].Gravity;
-                this.temperatureGauge.Marker = starReports[value.Name].Temperature;
+                this.radiationGauge.Marker = starReports[value.Name].Star.Radiation;
+                this.gravityGauge.Marker = starReports[value.Name].Star.Gravity;
+                this.temperatureGauge.Marker = starReports[value.Name].Star.Temperature;
 
-                this.radiationLevel.Text = starReports[value.Name].Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
-                this.gravityLevel.Text = Gravity.FormatWithUnit(starReports[value.Name].Gravity); 
-                this.temperatureLevel.Text = Temperature.FormatWithUnit(starReports[value.Name].Temperature);
+                this.radiationLevel.Text = starReports[value.Name].Star.Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
+                this.gravityLevel.Text = Gravity.FormatWithUnit(starReports[value.Name].Star.Gravity); 
+                this.temperatureLevel.Text = Temperature.FormatWithUnit(starReports[value.Name].Star.Temperature);
 
                 if (playerRace.RadiationTolerance.Immune)
                 {
@@ -550,14 +550,14 @@ namespace Nova.WinForms.Gui
                 && starReports[currentStar.Name].Age == 0)
             {
                         
-            tt += "Your population on " + starReports[currentStar.Name].StarName + " is " + starReports[currentStar.Name].Population + "." + Environment.NewLine           
-                + starReports[currentStar.Name].StarName + " will support a population of up to "
+            tt += "Your population on " + currentStar.Name + " is " + currentStar.Colonists + "." + Environment.NewLine           
+                + currentStar.Name + " will support a population of up to "
                 + playerRace.MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " of your colonists." + Environment.NewLine
-                + "Your population on " + starReports[currentStar.Name].StarName + " will grow by "
+                + "Your population on " + currentStar.Name + " will grow by "
                 + currentStar.CalculateGrowth(playerRace).ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " to "
-                + (starReports[currentStar.Name].Population + currentStar.CalculateGrowth(playerRace)).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + (currentStar.Colonists + currentStar.CalculateGrowth(playerRace)).ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " next year.";             
             }
 

@@ -454,7 +454,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DrawStar(Graphics g, Star star)
         {
-            StarReport report;
+            StarIntel report;
             stateData.StarReports.TryGetValue(star.Name, out report);
             NovaPoint position = LogicalToDevice(star.Position);
             int size = 2;
@@ -466,7 +466,7 @@ namespace Nova.WinForms.Gui
             if (report != null)
             {
                 size = 4;
-                owner = report.Owner;
+                owner = report.Star.Owner;
             }
 
             // Our stars are greenish, other's are red, unknown or uncolonised
@@ -506,7 +506,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DrawOrbitingFleets(Graphics g, Star star)
         {
-            StarReport report;
+            StarIntel report;
             stateData.StarReports.TryGetValue(star.Name, out report);
             NovaPoint position = LogicalToDevice(star.Position);
             
@@ -515,7 +515,7 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            if (report.Starbase != null)
+            if (report.Star.Starbase != null)
             {
                 g.FillEllipse(
                     Brushes.Yellow,
@@ -525,7 +525,7 @@ namespace Nova.WinForms.Gui
                     4);
             }
 
-            if (report.Age == 0 && report.OrbitingFleets)
+            if (report.Age == 0 && report.Star.OrbitingFleets)
             {
                 int size = 12;
                 g.DrawEllipse(
