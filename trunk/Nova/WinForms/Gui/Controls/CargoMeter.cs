@@ -43,6 +43,7 @@ namespace Nova.WinForms.Gui.Controls
             get { return Cargo == CargoType.Multi; }
         }
 
+
         [DefaultValue(false)]
         public bool UserCanChangeValue { get; set; }
 
@@ -237,6 +238,11 @@ namespace Nova.WinForms.Gui.Controls
             pos = Math.Max(0, Math.Min(Size.Width - 2, pos));
             Value = (int)Math.Round(pos / (Size.Width - 2) * maxDouble);
             FireValueChanged();
+            Invalidate();
+        }
+
+        protected override void OnResize(EventArgs e)
+        {
             Invalidate();
         }
     }
