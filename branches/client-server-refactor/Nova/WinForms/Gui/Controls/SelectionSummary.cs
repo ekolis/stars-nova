@@ -34,7 +34,7 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class SelectionSummary : UserControl
     {
-        private Dictionary<string, StarReport> starReports;
+        private Dictionary<string, StarIntel> starReports;
         private Race playerRace;
         private Dictionary<string, RaceIcon> raceIcons;
         
@@ -46,7 +46,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the SelectionSummary class.
         /// </Summary>
-        public SelectionSummary(Dictionary<string, StarReport> starReports, Race playerRace, Dictionary<string, RaceIcon> raceIcons)
+        public SelectionSummary(Dictionary<string, StarIntel> starReports, Race playerRace, Dictionary<string, RaceIcon> raceIcons)
         {
             this.starReports = starReports;
             this.playerRace = playerRace;

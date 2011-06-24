@@ -46,7 +46,7 @@ namespace Nova.Client
         public List<Message>    Messages        = new List<Message>();
        
         public Dictionary<string, Design>       KnownEnemyDesigns   = new Dictionary<string, Design>();        
-        public Dictionary<string, StarReport>   StarReports         = new Dictionary<string, StarReport>();
+        public Dictionary<string, StarIntel>   StarReports         = new Dictionary<string, StarIntel>();
         
         public Intel            InputTurn           = null;
         public RaceComponents   AvailableComponents = null;

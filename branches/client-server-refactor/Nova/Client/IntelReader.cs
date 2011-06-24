@@ -119,7 +119,6 @@ namespace Nova.Client
 
             ProcessMessages();
             ProcessFleets();
-            ProcessReports();
             ProcessResearch();
         }
 
@@ -283,27 +282,6 @@ namespace Nova.Client
         }
 
         /// <summary>
-        /// Advance the age of all star reports by one year. Then, if a star is owned by
-        /// us and has colonists bring the report up to date (just by creating a new
-        /// report).
-        /// </summary>
-        private void ProcessReports()
-        {
-            foreach (StarReport report in stateData.StarReports.Values)
-            {
-                report.Age++;
-            }
-
-            foreach (Star star in stateData.PlayerStars.Values)
-            {
-                if (star.Colonists != 0)
-                {
-                    stateData.StarReports[star.Name] = new StarReport(star);
-                }
-            }
-        }
-
-        /// <summary>
         ///  Process Fleet Reports
         /// </summary>
         private void ProcessFleets()
@@ -332,24 +310,24 @@ namespace Nova.Client
                     // FIXME (priority 5) - discovery of planetary information should be done by the server. It should not be possible for a hacked client to get this information.
 
 
-                    if ((fleet.InOrbit != null) && (!fleet.IsStarbase) && fleet.CanScan)
-                    {
-                        // add to orbiting fleets list
-                        Star star = fleet.InOrbit;
-                        stateData.StarReports[star.Name] = new StarReport(star);
-                    }
-
-                    if (fleet.ShortRangeScan != 0)
-                    {
-                        foreach (Star star in turnData.AllStars.Values)
-                        {
-                            if (PointUtilities.Distance(star.Position, fleet.Position)
-                                <= fleet.ShortRangeScan)
-                            {
-                                stateData.StarReports[star.Name] = new StarReport(star);
-                            }
-                        }
-                    }
+//                    if ((fleet.InOrbit != null) && (!fleet.IsStarbase) && fleet.CanScan)
+//                    {
+//                        // add to orbiting fleets list
+//                        Star star = fleet.InOrbit;
+//                        stateData.StarReports[star.Name] = new StarIntel(star);
+//                    }
+//
+//                    if (fleet.ShortRangeScan != 0)
+//                    {
+//                        foreach (Star star in turnData.AllStars.Values)
+//                        {
+//                            if (PointUtilities.Distance(star.Position, fleet.Position)
+//                                <= fleet.ShortRangeScan)
+//                            {
+//                                stateData.StarReports[star.Name] = new StarIntel(star);
+//                            }
+//                        }
+//                    }
 
                     // END OF FIX ME --------------------------------------------------------------------------------
                 }

@@ -290,8 +290,7 @@ namespace Nova.Server
             // {
             //     Serializer.Serialize(stream, this);
             //    
-            //}
-            
+            //}   
         }
         
         /// <summary>
