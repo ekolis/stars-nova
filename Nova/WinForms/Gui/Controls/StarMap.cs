@@ -234,7 +234,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in this.visibleFleets.Values)
             {
-                if (fleet.Owner == stateData.PlayerRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     DrawCircle(g, lrScanBrush, (Point)fleet.Position, fleet.ScanRange);
                 }
@@ -244,7 +244,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in this.visibleFleets.Values)
             {
-                if (fleet.Owner == stateData.PlayerRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     DrawCircle(g, srScanBrush, (Point)fleet.Position, fleet.PenScanRange);
                 }
@@ -257,7 +257,7 @@ namespace Nova.WinForms.Gui
                 Color cb;
                 Color cf;
 
-                if (minefield.Owner == stateData.PlayerRace.Name)
+                if (minefield.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     cb = Color.FromArgb(0, 0, 0, 0);
                     cf = Color.FromArgb(128, 0, 128, 0);
@@ -389,7 +389,7 @@ namespace Nova.WinForms.Gui
                 g.TranslateTransform(position.X, position.Y);
                 g.RotateTransform((float)fleet.Bearing);
 
-                if (fleet.Owner == this.stateData.PlayerRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     g.FillPolygon(Brushes.Blue, triangle);
                 }
@@ -401,7 +401,7 @@ namespace Nova.WinForms.Gui
                 g.ResetTransform();
             }
 
-            if (fleet.Owner == this.stateData.PlayerRace.Name)
+            if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
             {
                 Waypoint first = fleet.Waypoints[0];
                 NovaPoint from = LogicalToDevice(first.Position);
@@ -535,7 +535,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in this.turnData.AllFleets.Values)
             {
-                if (fleet.Owner == this.stateData.PlayerRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     this.visibleFleets[fleet.Key] = fleet;
                     playersFleets.Add(fleet);
@@ -601,7 +601,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in this.turnData.AllFleets.Values)
             {
-                if (fleet.Owner == this.stateData.PlayerRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     playersFleets.Add(fleet);
                 }
@@ -613,7 +613,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Minefield minefield in this.turnData.AllMinefields.Values)
             {
-                if (minefield.Owner == this.stateData.PlayerRace.Name)
+                if (minefield.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     this.visibleMinefields[minefield.Key] = minefield;
                 }
@@ -651,7 +651,7 @@ namespace Nova.WinForms.Gui
             {
                 foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
                 {
-                    if (report.Star.Owner == this.stateData.PlayerRace.Name)
+                    if (report.Star.Owner == stateData.EmpireIntel.EmpireRace.Name)
                     {
 
                         bool isIn = PointUtilities.CirclesOverlap(

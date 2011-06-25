@@ -205,7 +205,7 @@ namespace Nova.WinForms.Gui
         {
             PlayerRelations relationshipDialog = new PlayerRelations(stateData.EmpireIntel.PlayerRelations,
                                                                      stateData.InputTurn.AllRaceNames,
-                                                                     stateData.PlayerRace.Name);
+                                                                     stateData.EmpireIntel.EmpireRace.Name);
             relationshipDialog.ShowDialog();
             relationshipDialog.Dispose();
         }
@@ -242,7 +242,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void PlanetReportMenu_Click(object sender, EventArgs e)
         {
-            PlanetReport planetReport = new PlanetReport(stateData.EmpireIntel.StarReports, stateData.PlayerRace);
+            PlanetReport planetReport = new PlanetReport(stateData.EmpireIntel.StarReports, stateData.EmpireIntel.EmpireRace);
             planetReport.ShowDialog();
             planetReport.Dispose();
         }
@@ -254,7 +254,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void FleetReportMenu_Click(object sender, EventArgs e)
         {
-            FleetReport fleetReport = new FleetReport(stateData.InputTurn.AllFleets, stateData.PlayerRace);
+            FleetReport fleetReport = new FleetReport(stateData.InputTurn.AllFleets, stateData.EmpireIntel.EmpireRace);
             fleetReport.ShowDialog();
             fleetReport.Dispose();
         }
@@ -266,7 +266,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void BattlesReportMenu_Click(object sender, EventArgs e)
         {
-            BattleReportDialog battleReport = new BattleReportDialog(stateData.InputTurn.Battles, stateData.PlayerRace.Name);
+            BattleReportDialog battleReport = new BattleReportDialog(stateData.InputTurn.Battles, stateData.EmpireIntel.EmpireRace.Name);
             battleReport.ShowDialog();
             battleReport.Dispose();
         }
@@ -310,7 +310,7 @@ namespace Nova.WinForms.Gui
         {
             // prepare the arguments that will tell how to re-initialise.
             CommandArguments commandArguments = new CommandArguments();
-            commandArguments.Add(CommandArguments.Option.RaceName, stateData.PlayerRace.Name);
+            commandArguments.Add(CommandArguments.Option.RaceName, stateData.EmpireIntel.EmpireRace.Name);
             commandArguments.Add(CommandArguments.Option.Turn, stateData.EmpireIntel.TurnYear + 1);
 
             stateData.Initialize(commandArguments.ToArray());
@@ -352,7 +352,7 @@ namespace Nova.WinForms.Gui
             this.Messages.MessageList = stateData.Messages;
 
             this.CurrentTurn = stateData.EmpireIntel.TurnYear;
-            this.CurrentRace = stateData.PlayerRace.Name;
+            this.CurrentRace = stateData.EmpireIntel.EmpireRace.Name;
 
             this.MapControl.Initialise(stateData);
 
@@ -390,7 +390,7 @@ namespace Nova.WinForms.Gui
             foreach (StarIntel starIntel in stateData.EmpireIntel.StarReports.Values)
             {
                 Star star = starIntel.Star;
-                if (star.Owner == stateData.PlayerRace.Name)
+                if (star.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     this.MapControl.SetCursor((System.Drawing.Point)star.Position);
                     this.SelectionDetail.Value = star;

@@ -246,7 +246,7 @@ namespace Nova.Client
         {
             foreach (Message message in turnData.Messages)
             {
-                if ((message.Audience == stateData.PlayerRace.Name) ||
+                if ((message.Audience == stateData.EmpireIntel.EmpireRace.Name) ||
                     (message.Audience == "*"))
                 {
                     stateData.Messages.Add(message);
@@ -263,7 +263,7 @@ namespace Nova.Client
             // update the state data with the current fleets
             foreach (Fleet fleet in stateData.InputTurn.AllFleets.Values)
             {
-                if (fleet.Owner == stateData.PlayerRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     stateData.PlayerFleets.Add(fleet);
 
@@ -317,7 +317,7 @@ namespace Nova.Client
         private void ReportLevelUpdate(TechLevel.ResearchField area, int level)
         {
             Message techAdvanceMessage = new Message(
-                stateData.PlayerRace.Name,
+                stateData.EmpireIntel.EmpireRace.Name,
                 "Your race has advanced to Tech Level " + level + " in the " + area.ToString() + " field",
                 "TechAdvance",
                 null);
@@ -354,7 +354,7 @@ namespace Nova.Client
                     else
                     {
                         newComponentMessage = new Message(
-                           stateData.PlayerRace.Name,
+                           stateData.EmpireIntel.EmpireRace.Name,
                            null,
                            "You now have available the " + component.Name + " " + component.Type + " component",
                            null);
