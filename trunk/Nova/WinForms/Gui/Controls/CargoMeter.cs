@@ -136,8 +136,12 @@ namespace Nova.WinForms.Gui.Controls
         private int FillBar(Rectangle area, Graphics g, int x, int val, Brush brush)
         {
             int fillWidth = CalcBarWidth(area, val);
-            if( fillWidth > 0 )
+            if (fillWidth > 0)
+            {
+                if (x + fillWidth > area.Width)
+                    fillWidth = area.Width - x;
                 g.FillRectangle(brush, x, area.Y, fillWidth, area.Height);
+            }
             return fillWidth;
         }
 

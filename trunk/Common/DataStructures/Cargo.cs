@@ -149,5 +149,13 @@ namespace Nova.Common
         }
 
         #endregion
+
+        public void Add(Cargo rightCargo)
+        {
+            Ironium += rightCargo.Ironium;
+            Boranium += rightCargo.Boranium;
+            Germanium += rightCargo.Germanium;
+            ColonistsInKilotons += rightCargo.ColonistsInKilotons;
+        }
     }
 }
