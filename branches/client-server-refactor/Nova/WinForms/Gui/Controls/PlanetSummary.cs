@@ -37,7 +37,7 @@ namespace Nova.WinForms.Gui
     public class PlanetSummary : System.Windows.Forms.UserControl
     {
         // List of the Star reports.
-        private Dictionary<string, StarIntel> starReports;
+        private StarIntelList starReports;
         private Race playerRace;        
        
         // reference to the Star. This is only used for owned stars.
@@ -73,7 +73,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the PlanetSummary class.
         /// </Summary>
-        public PlanetSummary(Dictionary<string, StarIntel> starReports, Race playerRace)
+        public PlanetSummary(StarIntelList starReports, Race playerRace)
         {
             this.starReports = starReports;
             this.playerRace = playerRace;

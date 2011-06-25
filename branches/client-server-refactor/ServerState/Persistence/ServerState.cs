@@ -484,6 +484,31 @@ namespace Nova.Server
                     star.Starbase = AllFleets[star.Owner + "/" + star.Starbase.FleetID];
                 }
             }
+            
+            // Also link inside empiredata.
+//            foreach (EmpireData empire in AllEmpires.Values)
+//            {
+//                foreach (StarIntel report in empire.StarReports)
+//                {
+//                    if (report.Star.ThisRace != null)
+//                    {
+//                        // Reduntant, but works to check if race name is valid...
+//                        if (report.Star.Owner == empire.EmpireRace.Name)
+//                        {
+//                            report.Star.ThisRace = empire.EmpireRace;
+//                        }
+//                        else
+//                        {
+//                            report.Star.ThisRace = null;
+//                        }
+//                    }
+//    
+//                    if (report.Star.Starbase != null)
+//                    {
+//                        report.Star.Starbase = AllFleets[report.Star.Owner + "/" + report.Star.Starbase.FleetID];
+//                    }
+//                }
+//            }
         }     
 
         /// ----------------------------------------------------------------------------

@@ -620,9 +620,9 @@ namespace Nova.WinForms.Console
             {
                 // If star has no report (First turn) add it. Else
                 // remove all visibility.
-                if (!empire.StarReports.ContainsKey(star.Name))
+                if (!empire.StarReports.Contains(star.Name))
                 {
-                    empire.StarReports.Add(star.Name, new StarIntel(star, IntelLevel.None));
+                    empire.StarReports.Add(new StarIntel(star, IntelLevel.None));
                 }
                 else
                 {
@@ -645,6 +645,7 @@ namespace Nova.WinForms.Console
                         if (fleet.InOrbit.Owner == empire.EmpireRace.Name)
                         {
                             intelLevel = IntelLevel.Owned;
+                            fleet.InOrbit.OrbitingFleets = true;
                         }
                         else
                         {

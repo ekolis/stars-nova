@@ -35,11 +35,11 @@ namespace Nova.WinForms.Gui
             this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(stateData.EmpireIntel.StarReports,                                                                                                                                                        stateData.InputTurn.AllFleets,
                                                                             stateData.PlayerFleets,
                                                                             stateData.DeletedFleets,
-                                                                            stateData.PlayerRace,
+                                                                            stateData.EmpireIntel.EmpireRace,
                                                                             stateData.EmpireIntel.ResearchBudget,
                                                                             stateData);
             this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(stateData.EmpireIntel.StarReports,
-                                                                             stateData.PlayerRace,
+                                                                             stateData.EmpireIntel.EmpireRace,
                                                                              stateData.InputTurn.RaceIcons);
             this.mapControl         = new Nova.WinForms.Gui.StarMap();
 

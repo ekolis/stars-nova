@@ -37,13 +37,13 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class PlanetReport : Form
     {
-        private Dictionary<string, StarIntel> allStarsIntel;
+        private StarIntelList allStarsIntel;
         private Race race;
         
         /// <Summary>
         /// Initializes a new instance of the PlanetReport class.
         /// </Summary>
-        public PlanetReport(Dictionary<string, StarIntel> allStars, Race race)
+        public PlanetReport(StarIntelList allStars, Race race)
         {
             this.allStarsIntel = allStars;
             this.race = race;

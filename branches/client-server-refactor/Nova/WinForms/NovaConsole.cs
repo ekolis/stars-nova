@@ -643,7 +643,7 @@ namespace Nova.WinForms.Console
                 // Launch the nova GUI
                 CommandArguments args = new CommandArguments();
                 args.Add(CommandArguments.Option.RaceName, raceName);
-                args.Add(CommandArguments.Option.Turn, stateData.TurnYear + 1);
+                args.Add(CommandArguments.Option.Turn, stateData.TurnYear);
                 args.Add(CommandArguments.Option.IntelFileName, Path.Combine(stateData.GameFolder, raceName + Global.IntelExtension));
                 
                 Nova.WinForms.Gui.NovaGUI gui = new Nova.WinForms.Gui.NovaGUI(args.ToArray());
