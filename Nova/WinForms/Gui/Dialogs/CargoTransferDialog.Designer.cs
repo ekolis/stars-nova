@@ -250,7 +250,6 @@
             // cargoMeterLeft
             // 
             this.cargoMeterLeft.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Multi;
-            this.cargoMeterLeft.CargoLevels = ((Nova.Common.Cargo)(resources.GetObject("cargoMeterLeft.CargoLevels")));
             this.cargoMeterLeft.Location = new System.Drawing.Point(12, 193);
             this.cargoMeterLeft.Name = "cargoMeterLeft";
             this.cargoMeterLeft.Size = new System.Drawing.Size(166, 14);
@@ -260,7 +259,6 @@
             // cargoMeterRight
             // 
             this.cargoMeterRight.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Multi;
-            this.cargoMeterRight.CargoLevels = ((Nova.Common.Cargo)(resources.GetObject("cargoMeterRight.CargoLevels")));
             this.cargoMeterRight.Location = new System.Drawing.Point(352, 193);
             this.cargoMeterRight.Name = "cargoMeterRight";
             this.cargoMeterRight.Size = new System.Drawing.Size(166, 14);
