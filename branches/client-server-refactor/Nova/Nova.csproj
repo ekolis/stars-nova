@@ -135,6 +135,12 @@
     <Compile Include="WinForms\Gui\Controls\CargoMeter.Designer.cs">
       <DependentUpon>CargoMeter.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinForms\Gui\Controls\CargoMeterCounter.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="WinForms\Gui\Controls\CargoMeterCounter.Designer.cs">
+      <DependentUpon>CargoMeterCounter.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\Gui\Controls\Events.cs" />
     <Compile Include="WinForms\Gui\Controls\FleetDetail.Designer.cs">
       <DependentUpon>FleetDetail.cs</DependentUpon>
