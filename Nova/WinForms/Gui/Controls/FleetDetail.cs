@@ -20,6 +20,8 @@
 // ===========================================================================
 #endregion
 
+using Nova.WinForms.Gui.Dialogs;
+
 namespace Nova.WinForms.Gui
 {
     using System;
@@ -567,8 +569,7 @@ namespace Nova.WinForms.Gui
                 meterCargoOther.Maximum = 0;
             }
             else
-            {
-                
+            {                
                 meterFuelOther.Maximum = fleet.TotalFuelCapacity;
                 meterFuelOther.Value = (int)fleet.FuelAvailable;
                 meterCargoOther.Maximum = fleet.TotalCargoCapacity;
@@ -608,7 +609,10 @@ namespace Nova.WinForms.Gui
 
         private void buttonCargoXfer_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(this, "This will allow fleet cargo transfer");
+            using (CargoTransferDialog dia = new CargoTransferDialog())
+            {
+                dia.ShowDialog();
+            }
         }
     }
 }
