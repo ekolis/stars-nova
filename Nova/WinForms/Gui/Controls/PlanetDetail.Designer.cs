@@ -654,7 +654,7 @@ namespace Nova.WinForms.Gui
             // meterCargo
             // 
             this.meterCargo.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Multi;
-            this.meterCargo.CargoLevels = ((Nova.Common.Cargo)(resources.GetObject("meterCargo.CargoLevels")));
+            //this.meterCargo.CargoLevels = ((Nova.Common.Cargo)(resources.GetObject("meterCargo.CargoLevels")));
             this.meterCargo.Location = new System.Drawing.Point(64, 62);
             this.meterCargo.Name = "meterCargo";
             this.meterCargo.Size = new System.Drawing.Size(108, 15);
@@ -664,7 +664,7 @@ namespace Nova.WinForms.Gui
             // meterFuel
             // 
             this.meterFuel.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Fuel;
-            this.meterFuel.CargoLevels = ((Nova.Common.Cargo)(resources.GetObject("meterFuel.CargoLevels")));
+            //this.meterFuel.CargoLevels = ((Nova.Common.Cargo)(resources.GetObject("meterFuel.CargoLevels")));
             this.meterFuel.Location = new System.Drawing.Point(64, 45);
             this.meterFuel.Name = "meterFuel";
             this.meterFuel.Size = new System.Drawing.Size(108, 15);
@@ -693,7 +693,7 @@ namespace Nova.WinForms.Gui
             // cargoMeter1
             // 
             this.cargoMeter1.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Fuel;
-            this.cargoMeter1.CargoLevels = ((Nova.Common.Cargo)(resources.GetObject("cargoMeter1.CargoLevels")));
+            //this.cargoMeter1.CargoLevels = ((Nova.Common.Cargo)(resources.GetObject("cargoMeter1.CargoLevels")));
             this.cargoMeter1.Location = new System.Drawing.Point(64, 45);
             this.cargoMeter1.Name = "cargoMeter1";
             this.cargoMeter1.Size = new System.Drawing.Size(108, 15);

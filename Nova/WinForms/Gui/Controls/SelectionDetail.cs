@@ -68,7 +68,6 @@ namespace Nova.WinForms.Gui
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
         public SelectionDetail(Dictionary<string, StarIntel> starReports,
-                               StarList playerStars,
                                Dictionary<string, Fleet> allFleets,
                                List<Fleet> playerFleets,
                                List<string> deletedFleets,

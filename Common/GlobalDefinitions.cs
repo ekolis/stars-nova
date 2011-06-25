@@ -50,35 +50,35 @@ namespace Nova.Common
 
        // These config file keys are used to loacte files and folders where Nova stores game data.
        #region Files and Folders
-       public const string ComponentFileKey = "ComponentFile";           // where components.xml is (possibly re-named), installation relative path is '.'. Should only change for modified game play.
-       public const string GraphicsFolderKey = "GraphicsFolder";         // where pictures are stored, installation relative path is './Graphics'. Should only be changed for modding the game interface.
-       public const string ClientFolderKey = "ClientFolder";             // where client side game files are, nominally './GameFiles'. Likely to be different for each active game.
-       public const string ServerFolderKey = "ServerFolder";             // where server side game files are, nominally './GameFiles'. May be a network path.
-       public const string RaceFolderKey = "RaceFolder";                 // where player race files are stored, nominally './GameFiles'. Players may save races elswhere to create a reusable library.
-       public const string ServerStateKey = "ServerStateFile";           // the server's saved data from the most recent game, if any. Nominally ./GameFiles/Constole.state. Players may save game files anywhere, e.g. My Document\Saved Games\Nova\A Bare Foot Jay-Walk\
-       public const string ClientStateKey = "ClientStateFile";           // the client's saved data from the most recent game, if any. Nominally ./GameFiles/RaceName.state. Players may save game files anywhere, e.g. My Document\Saved Games\Nova\A Bare Foot Jay-Walk\
-       public const string SettingsKey = "GameSettingsFile";             // where the game settings are stored (on the server, but a copy should be avaialble to the client).
+       public const string ComponentFileKey     = "ComponentFile"; // where components.xml is (possibly re-named), installation relative path is '.'. Should only change for modified game play.
+       public const string GraphicsFolderKey    = "GraphicsFolder"; // where pictures are stored, installation relative path is './Graphics'. Should only be changed for modding the game interface.
+       public const string ClientFolderKey      = "ClientFolder"; // where client side game files are, nominally './GameFiles'. Likely to be different for each active game.
+       public const string ServerFolderKey      = "ServerFolder"; // where server side game files are, nominally './GameFiles'. May be a network path.
+       public const string RaceFolderKey        = "RaceFolder";  // where player race files are stored, nominally './GameFiles'. Players may save races elswhere to create a reusable library.
+       public const string ServerStateKey       = "ServerStateFile"; // the server's saved data from the most recent game, if any. Nominally ./GameFiles/Constole.state. Players may save game files anywhere, e.g. My Document\Saved Games\Nova\A Bare Foot Jay-Walk\
+       public const string ClientStateKey       = "ClientStateFile"; // the client's saved data from the most recent game, if any. Nominally ./GameFiles/RaceName.state. Players may save game files anywhere, e.g. My Document\Saved Games\Nova\A Bare Foot Jay-Walk\
+       public const string SettingsKey          = "GameSettingsFile"; // where the game settings are stored (on the server, but a copy should be avaialble to the client).
        #endregion Files and Folders
 
        #region File Extensions
        public const string ClientStateExtension = ".cstate";
        public const string ServerStateExtension = ".sstate";
-       public const string OrdersExtension = ".orders";
-       public const string RaceExtension = ".race";
-       public const string IntelExtension = ".intel";
-       public const string SettingsExtension = ".settings";
+       public const string OrdersExtension      = ".orders";
+       public const string RaceExtension        = ".race";
+       public const string IntelExtension       = ".intel";
+       public const string SettingsExtension    = ".settings";
        #endregion
 
        // default folder and file names, used with FileSearcher.GetFolder(). 
        #region Default Folders
        // Follows the above naming conventions
-       public const string NovaFolderName = ".";
-       public const string ComponentFolderName = ".";
-       public const string ComponentFileName = "components.xml";
-       public const string ConfigFileName = "nova.conf";
-       public const string GraphicsFolderName = "Graphics";
-       public const string ClientFolderName = "GameFiles";
-       public const string ServerFolderName = "GameFiles";
+       public const string NovaFolderName           = ".";
+       public const string ComponentFolderName      = ".";
+       public const string ComponentFileName        = "components.xml";
+       public const string ConfigFileName           = "nova.conf";
+       public const string GraphicsFolderName       = "Graphics";
+       public const string ClientFolderName         = "GameFiles";
+       public const string ServerFolderName         = "GameFiles";
        public static readonly string RaceFolderName = "DefaultRaces";
        #endregion Default Folders
 
@@ -87,40 +87,43 @@ namespace Nova.Common
        #region Numeric Constants
 
        // Colonists
-       public const int ColonistsPerKiloton = 100;
-       public const double LowStartingPopulationFactor = 0.7;
-       public const double BaseCrowdingFactor = 16 / 9; // Taken from the Stars technical faq.
-       public const int StartingColonists = 25000;
-       public const int StartingColonistsAcceleratedBBS = 100000;
-       public const int NominalMaximumPlanetaryPopulation = 1000000; // use Race.MaxPopulation to get the maximum for a particular race.
-       public const double PopulationFactorHyperExpansion = 0.5;
-       public const double GrowthFactorHyperExpansion = 2;
-       public const double PopulationFactorJackOfAllTrades = 1.2;
-       public const double PopulationFactorOnlyBasicRemoteMining = 1.1;
+       public const int     ColonistsPerKiloton                     = 100;
+       public const double  LowStartingPopulationFactor             = 0.7;
+       public const double  BaseCrowdingFactor                      = 16 / 9; // Taken from the Stars technical faq.
+       public const int     StartingColonists                       = 25000;
+       public const int     StartingColonistsAcceleratedBBS         = 100000;
+       public const int     NominalMaximumPlanetaryPopulation       = 1000000; // use Race.MaxPopulation to get the maximum for a particular race.
+       public const double  PopulationFactorHyperExpansion          = 0.5;
+       public const double  GrowthFactorHyperExpansion              = 2;
+       public const double  PopulationFactorJackOfAllTrades         = 1.2;
+       public const double  PopulationFactorOnlyBasicRemoteMining   = 1.1;
 
        // Combat
-       public const int MaxWeaponRange = 10;
-       public const int MaxDefenses = 100;
+       public const int MaxWeaponRange  = 10;
+       public const int MaxDefenses     = 100;
        
        // Environment
-       public const double GravityMinimum = 0; // FIXME (priority 3) - Stars! gravity range is 0.2 - 6.0 with 1.0 in the middle! Will need to revise all current race builds once changed.
-       public const double GravityMaximum = 8;
-       public const double RadiationMinimum = 0;
-       public const double RadiationMaximum = 100;
-       public const double TemperatureMinimum = -200;
-       public const double TemperatureMaximum = 200;
+       public const double GravityMinimum       = 0; // FIXME (priority 3) - Stars! gravity range is 0.2 - 6.0 with 1.0 in the middle! Will need to revise all current race builds once changed.
+       public const double GravityMaximum       = 8;
+       public const double RadiationMinimum     = 0;
+       public const double RadiationMaximum     = 100;
+       public const double TemperatureMinimum   = -200;
+       public const double TemperatureMaximum   = 200;
 
        // Production constants
-       public const int ColonistsPerOperableFactoryUnit = 10000;
-       public const int FactoriesPerFactoryProductionUnit = 10;
-       public const int ColonistsPerOperableMiningUnit = 10000;
-       public const int MinesPerMineProductionUnit = 10;
+       public const int ColonistsPerOperableFactoryUnit     = 10000;
+       public const int FactoriesPerFactoryProductionUnit   = 10;
+       public const int ColonistsPerOperableMiningUnit      = 10000;
+       public const int MinesPerMineProductionUnit          = 10;
         
        // Research constants
        public const int DefaultResearchPercentage = 10;
 
        // Format
        public const int ShipIconNumberingLength = 4;
+        
+       // Turn data
+       public const int StartingYear = 2100;
 
        #endregion
 

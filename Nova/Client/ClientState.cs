@@ -27,11 +27,11 @@ namespace Nova.Client
     using System.Collections.Generic;
     using System.IO;
     using System.Windows.Forms;
+    using System.Xml;
 
     using Nova.Common;
     using Nova.Common.Components;
     using Message = Nova.Common.Message;
- 
     
     /// <summary>
     /// Brings together references to all the data which the GUI needs
@@ -41,42 +41,141 @@ namespace Nova.Client
     [Serializable]
     public sealed class ClientState
     {
+        public EmpireData       EmpireIntel     = new EmpireData();
+        
         public List<string>     DeletedDesigns  = new List<string>();
         public List<string>     DeletedFleets   = new List<string>();
         public List<Message>    Messages        = new List<Message>();
        
-        public Dictionary<string, Design>       KnownEnemyDesigns   = new Dictionary<string, Design>();        
-        public Dictionary<string, StarIntel>   StarReports         = new Dictionary<string, StarIntel>();
+        public Dictionary<string, Design> EnemyDesigns = new Dictionary<string, Design>();        
         
         public Intel            InputTurn           = null;
         public RaceComponents   AvailableComponents = null;
         public List<Fleet>      PlayerFleets        = new List<Fleet>();
-        public StarList         PlayerStars         = new StarList(); 
-        public Race             PlayerRace          = new Race();
-        public EmpireData       EmpireData          = new EmpireData();
-        
-        // FIXME:(priority 3) This set of variables are all contained inside EmpireData.
-        // Consider replacing them all with a single EmpireData object. -Aeglos 21 Jun 11
-        public int  TurnYear    = 0;
-        public TechLevel    ResearchLevels     = new TechLevel(); // current level of technology
-        public TechLevel    ResearchResources  = new TechLevel(); // current total resources spent on each tech
-        public TechLevel    ResearchTopics     = new TechLevel(0, 0, 1, 0, 0, 0); // what to research next
-        public int          ResearchBudget = 10;
-        public Dictionary<string, BattlePlan>       BattlePlans         = new Dictionary<string, BattlePlan>();
-        public Dictionary<string, PlayerRelation>   PlayerRelations     = new Dictionary<string, PlayerRelation>();
-        // End EmpireData
+        public Race             PlayerRace          = new Race();        
         
         public bool FirstTurn   = true;  
         
         public string GameFolder    = null;
         
-        public string statePathName; // path&filename
+        public string StatePathName; // path&filename
 
         /// <summary>
         /// Default Constructor.
         /// </summary>
         public ClientState() 
         { 
+        }
+        
+        /// <summary>
+        /// Load <see cref="Intel">ClientState</see> from an xml document
+        /// </summary>
+        /// <param name="xmldoc">produced using XmlDocument.Load(filename)</param>
+        public ClientState(XmlDocument xmldoc)
+        {            
+            XmlNode xmlnode = xmldoc.DocumentElement;
+            XmlNode tNode;
+            
+            while (xmlnode != null)
+            {
+                try
+                {
+                    switch (xmlnode.Name.ToLower())
+                    {
+                        case "root":
+                            xmlnode = xmlnode.FirstChild;
+                            continue;
+                        case "clientstate":
+                            xmlnode = xmlnode.FirstChild;
+                            continue;
+                        
+                        case "empiredata":
+                            EmpireIntel = new EmpireData(xmlnode);
+                            break;                        
+                        case "deletedfleets":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                DeletedFleets.Add(tNode.FirstChild.Value);
+                                tNode = tNode.NextSibling;
+                            }
+                            break;                        
+                        case "deleteddesigns":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                DeletedDesigns.Add(tNode.FirstChild.Value);
+                                tNode = tNode.NextSibling;
+                            }
+                            break;                        
+                        case "message":
+                            Messages.Add(new Message(xmlnode));
+                            break;                        
+                        case "enemydesigns":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                if (tNode.Name.ToLower() == "design")
+                                {
+                                    Design design = new Design(tNode);
+                                    EnemyDesigns.Add(design.Key, design);
+                                }
+                                else if (tNode.Name.ToLower() == "shipdesign")
+                                {
+                                    ShipDesign design = new ShipDesign(tNode);
+                                    EnemyDesigns.Add(design.Key, design);
+                                }
+                                else
+                                {
+                                    throw new System.NotImplementedException("Unrecognised design type.");
+                                }
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                        case "intel":
+                            //THIS HAS TO GO!
+                            InputTurn = new Intel();
+                            InputTurn.LoadFromXmlNode(xmlnode);
+                            break;                        
+                        case "availablecomponents":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            { 
+                                AvailableComponents.Add(new Component(xmlnode));
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                         case "playerfleets":
+                            tNode = xmlnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                PlayerFleets.Add(new Fleet(tNode));
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                        case "race":
+                            Race race = new Race();
+                            race.LoadRaceFromXml(xmlnode);
+                            break;
+                        case "firstturn":
+                            FirstTurn = bool.Parse(xmlnode.FirstChild.Value);
+                            break;
+                        case "gamefolder":
+                            GameFolder = xmlnode.FirstChild.Value;
+                            break;
+                        case "statepathname":
+                            StatePathName = xmlnode.FirstChild.Value;
+                            break;
+                    }
+                    
+                    xmlnode = xmlnode.NextSibling;
+
+                }
+                catch (Exception e)
+                {
+                    Report.FatalError(e.Message + "\n Details: \n" + e);
+                }    
+            }
         }
 
         /// <summary>
@@ -118,7 +217,7 @@ namespace Nova.Client
             //    There will be a StateFileName in the argArray.
             //    Directly load the state file. If it is missing - FatalError.
             //    (The race name and game folder will be loaded from the state file)
-            statePathName = null;
+            StatePathName = null;
             string intelFileName = null;
 
             // process the arguments
@@ -126,11 +225,11 @@ namespace Nova.Client
 
             if (commandArguments.Contains(CommandArguments.Option.RaceName))
             {
-                PlayerRace.Name = commandArguments[CommandArguments.Option.RaceName];
+                EmpireIntel.EmpireRace.Name = commandArguments[CommandArguments.Option.RaceName];
             }
             if (commandArguments.Contains(CommandArguments.Option.StateFileName))
             {
-                statePathName = commandArguments[CommandArguments.Option.StateFileName];
+                StatePathName = commandArguments[CommandArguments.Option.StateFileName];
             }
             if (commandArguments.Contains(CommandArguments.Option.IntelFileName))
             {
@@ -160,8 +259,8 @@ namespace Nova.Client
                 // - get GameFolder from the conf file - already done.
 
                 // - look for races and ask the user to pick one. 
-                PlayerRace.Name = SelectRace(GameFolder);
-                if (!string.IsNullOrEmpty(PlayerRace.Name))
+                EmpireIntel.EmpireRace.Name = SelectRace(GameFolder);
+                if (!string.IsNullOrEmpty(EmpireIntel.EmpireRace.Name))
                 {
                     isLoaded = true;
                 }
@@ -215,7 +314,7 @@ namespace Nova.Client
                 // for this race. What race? The state file can tell us.
                 // (i.e. The race name and game folder will be loaded from the state file)
                 // If it is missing - FatalError.
-                if (File.Exists(statePathName))
+                if (File.Exists(StatePathName))
                 {
                     Restore();
                     IntelReader intelReader = new IntelReader(this);
@@ -224,7 +323,7 @@ namespace Nova.Client
                 }
                 else
                 {
-                    Report.FatalError("ClientState.cs Initialize() - File not found. Could not continue game \"" + statePathName + "\".");
+                    Report.FatalError("ClientState.cs Initialize() - File not found. Could not continue game \"" + StatePathName + "\".");
                 }
             }
 
@@ -232,14 +331,6 @@ namespace Nova.Client
             if (!isLoaded)
             {
                 Report.FatalError("ClientState.cs Initialise() - Failed to find any .intel when initialising turn");
-            }
-
-            // Add the default battle plan if this is the first turn.
-            if (FirstTurn)
-            {
-                BattlePlans.Add("Default", new BattlePlan());
-                // morsen: Used to load the .race file here, but it's in the intel file
-                // now so we'll have it already
             }            
             
             // See which components are available.
@@ -250,7 +341,7 @@ namespace Nova.Client
             {
                 foreach (string raceName in InputTurn.AllRaceNames)
                 {
-                    PlayerRelations[raceName] = PlayerRelation.Neutral;
+                    EmpireIntel.PlayerRelations[raceName] = PlayerRelation.Neutral;
                 }
             }
             
@@ -264,13 +355,13 @@ namespace Nova.Client
         {
             if (AvailableComponents == null)
             {
-                AvailableComponents = new RaceComponents(PlayerRace, ResearchLevels);
+                AvailableComponents = new RaceComponents(EmpireIntel.EmpireRace, EmpireIntel.ResearchLevels);
             }
             else
             {
                 try
                 {
-                    AvailableComponents.DetermineRaceComponents(PlayerRace, ResearchLevels);
+                    AvailableComponents.DetermineRaceComponents(EmpireIntel.EmpireRace, EmpireIntel.ResearchLevels);
                 }
                 catch
                 {
@@ -290,32 +381,23 @@ namespace Nova.Client
         /// </remarks>
         public ClientState Restore()
         {
-            ClientState newState = Restore(GameFolder, PlayerRace.Name);
+            ClientState newState = Restore(GameFolder, EmpireIntel.EmpireRace.Name);
             
             DeletedDesigns  = newState.DeletedDesigns;
             DeletedFleets   = newState.DeletedFleets;
             Messages        = newState.Messages;
            
-            KnownEnemyDesigns   = newState.KnownEnemyDesigns;     
-            StarReports         = newState.StarReports;
+            EnemyDesigns   = newState.EnemyDesigns;     
             
             InputTurn           = newState.InputTurn;
             AvailableComponents = newState.AvailableComponents;
             PlayerFleets        = newState.PlayerFleets;
-            PlayerStars         = newState.PlayerStars;
-            PlayerRace          = newState.PlayerRace;
-
-            TurnYear            = newState.TurnYear;
-            ResearchLevels      = newState.ResearchLevels;
-            ResearchResources   = newState.ResearchResources;
-            ResearchTopics      = newState.ResearchTopics;
-            ResearchBudget      = newState.ResearchBudget;
-            BattlePlans         = newState.BattlePlans;
-            PlayerRelations     = newState.PlayerRelations;
+            
+            EmpireIntel = newState.EmpireIntel;
             
             FirstTurn     = newState.FirstTurn;             
             GameFolder    = newState.GameFolder; 
-            statePathName = newState.statePathName;
+            StatePathName = newState.StatePathName;
             
             return this;
         }
@@ -338,9 +420,8 @@ namespace Nova.Client
             // (multiplayer game with all players playing from a single game directory).
             string raceName = SelectRace(gameFolder);
             return Restore(gameFolder, raceName);
-        }
-
-
+        }   
+                           
         /// <summary>
         /// Restore the GUI persistent data if the state store file exists (it typically
         /// will not on the very first turn of a new game). 
@@ -354,17 +435,27 @@ namespace Nova.Client
         /// </remarks>
         public ClientState Restore(string gameFolder, string raceName)
         {            
-            statePathName = Path.Combine(gameFolder, raceName + Global.ClientStateExtension);
+            StatePathName = Path.Combine(gameFolder, raceName + Global.ClientStateExtension);
             ClientState clientState = new ClientState();
-
-            if (File.Exists(statePathName))
+            
+            if (File.Exists(StatePathName))
             {
                 try
                 {
-                    using (FileStream stream = new FileStream(statePathName, FileMode.Open))
+                    using (FileStream stream = new FileStream(StatePathName, FileMode.Open))
                     {
-                        // Read in binary state file
-                        clientState = Serializer.Deserialize(stream) as ClientState;
+                        XmlDocument xmldoc = new XmlDocument();
+
+                        xmldoc.Load(stream);
+                        
+                        clientState = new ClientState(xmldoc);
+                        
+                        LinkClientStateReferences();
+                        
+                        // Copy the game folder names into the state data store. This
+                        // is just a convenient way of making it globally available.
+                        clientState.GameFolder      = gameFolder;
+                        clientState.StatePathName   = StatePathName;
                     }
                 }
                 catch (Exception e)
@@ -372,11 +463,6 @@ namespace Nova.Client
                     Report.Error("Unable to read state file, race history will not be available." + Environment.NewLine + "Details: " + e.Message);
                 }
             }
-
-            // Copy the game folder names into the state data store. This
-            // is just a convenient way of making it globally available.
-            clientState.GameFolder = gameFolder;
-            clientState.statePathName = statePathName;
             
             return clientState;
         }
@@ -386,73 +472,89 @@ namespace Nova.Client
         /// </summary>
         public void Save()
         {
-            using (FileStream stream = new FileStream(statePathName, FileMode.Create))
+            using (FileStream stream = new FileStream(StatePathName, FileMode.Create))
             {
-                // Binary Serialization (old)
-                Serializer.Serialize(stream, this);
+                ToXml(stream);    
             }
-
-            // Xml Serialization - incomplete - Dan 16 Jan 09 - deferred while alternate means are investigated
-            /*
-           GZipStream compressionStream = new GZipStream(stateFile, CompressionMode.Compress);
-
-           // Setup the XML document
-           XmlDocument xmldoc = new XmlDocument();
-           XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
-
-           // add the GuiState to the document
-           XmlElement xmlelGuiState = xmldoc.CreateElement("GuiState");
-           xmlRoot.AppendChild(xmlelGuiState);
-
-            // Deleted Fleets
-           XmlElement xmlelDeletedFleets = xmldoc.CreateElement("DeletedFleets");
-           foreach (Fleet fleet in Data.DeletedFleets)
-           {
-               xmlelDeletedFleets.AppendChild(fleet.ToXml(xmldoc));
-           }
-           xmlelGuiState.AppendChild(xmlelDeletedFleets);
-
-            // Deleted Designs
-           XmlElement xmlelDeletedDesigns = xmldoc.CreateElement("DeletedDesigns");
-           foreach (Design design in Data.DeletedDesigns)
-           {
-               if (design.Type == "Ship" || design.Type == "Starbase")
-                   xmlelDeletedDesigns.AppendChild(((ShipDesign)design).ToXml(xmldoc));
-               else
-                   xmlelDeletedDesigns.AppendChild(design.ToXml(xmldoc));
-           }
-           xmlelGuiState.AppendChild(xmlelDeletedDesigns);
-
-            // Messages
-           foreach (Nova.Common.Message message in Data.Messages)
-           {
-               xmlelGuiState.AppendChild(message.ToXml(xmldoc));
-           }
-
-            // Battle Plans
-           foreach (DictionaryEntry de in Data.BattlePlans)
-           {
-               BattlePlan plan = de.Value;
-               xmlelGuiState.AppendChild(plan.ToXml());
-           }
-
-            // Player Relations
-           foreach (DictionaryEntry de in Data.PlayerRelations)
-           {
-               XmlElement Relation = xmldoc.CreateElement("Relation");
-
-           }
-
-           // You can comment/uncomment the following lines to turn compression on/off if you are doing a lot of 
-           // manual inspection of the save file. Generally though it can be opened by any archiving tool that
-           // reads gzip format.
-  #if (DEBUG)
-           xmldoc.Save(stateFile);                                           //  not compressed
-  #else
-           //  xmldoc.Save(compressionStream); compressionStream.Close();    //   compressed 
-  #endif
-
-        */
+        }
+        
+        private void ToXml(FileStream stream)
+        {
+            // Setup the XML document
+                XmlDocument xmldoc = new XmlDocument();
+                XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
+                
+                XmlElement xmlelClientState = xmldoc.CreateElement("ClientState");
+                xmlRoot.AppendChild(xmlelClientState);
+                
+                // Empire Data
+                xmlelClientState.AppendChild(EmpireIntel.ToXml(xmldoc));
+                
+                // Deleted Fleets
+                XmlElement xmlelDeletedFleets = xmldoc.CreateElement("DeletedFleets");
+                foreach (string fleetKey in DeletedFleets)
+                {
+                    // only need to store enough data to find the deleted fleet.
+                    Global.SaveData(xmldoc, xmlelDeletedFleets, "FleetKey", fleetKey);
+                }
+                xmlelClientState.AppendChild(xmlelDeletedFleets);
+                
+                // Deleted Designs
+                XmlElement xmlelDeletedDesigns = xmldoc.CreateElement("DeletedDesigns");
+                foreach (string designKey in DeletedDesigns)
+                {
+                    Global.SaveData(xmldoc, xmlelDeletedDesigns, "DesignKey", designKey);
+                }
+                xmlelClientState.AppendChild(xmlelDeletedDesigns);
+                
+                // Messages
+                foreach (Nova.Common.Message message in Messages)
+                {
+                   xmlelClientState.AppendChild(message.ToXml(xmldoc));
+                }
+    
+                // Enemy Designs
+                XmlElement xmlelEnemyDesigns = xmldoc.CreateElement("EnemyDesigns");
+                foreach (Design design in EnemyDesigns.Values)
+                {
+                    if (design.Type == "Starbase" || design.Type == "Ship")
+                    {
+                        xmlelEnemyDesigns.AppendChild(((ShipDesign)design).ToXml(xmldoc));
+                    }
+                    else
+                    {
+                        xmlelEnemyDesigns.AppendChild(design.ToXml(xmldoc));
+                    }
+                }
+                xmlelClientState.AppendChild(xmlelEnemyDesigns);
+                
+                // THIS HAS TO GO!
+                xmlelClientState.AppendChild(InputTurn.ToXml(xmldoc));
+                
+                // Available Components
+                XmlElement xmlelAvaiableComponents = xmldoc.CreateElement("AvailableComponents");
+                foreach (Component component in AvailableComponents.Values)
+                {
+                    xmlelAvaiableComponents.AppendChild(component.ToXml(xmldoc));
+                }
+                xmlelClientState.AppendChild(xmlelAvaiableComponents);
+                
+                // Player fleets
+                XmlElement xmlelPlayerFleets = xmldoc.CreateElement("PlayerFleets");
+                foreach (Fleet fleet in PlayerFleets)
+                {
+                    xmlelPlayerFleets.AppendChild(fleet.ToXml(xmldoc));    
+                }
+                xmlelClientState.AppendChild(xmlelPlayerFleets);
+                
+                // Race
+                xmlelClientState.AppendChild(PlayerRace.ToXml(xmldoc));
+                
+                Global.SaveData(xmldoc, xmlelClientState, "FirstTurn", FirstTurn.ToString());
+                Global.SaveData(xmldoc, xmlelClientState, "GameFolder", GameFolder);
+                Global.SaveData(xmldoc, xmlelClientState, "StatePathName", StatePathName);
+                
+                xmldoc.Save(stream);     
         }
 
         /// <summary>
@@ -507,6 +609,70 @@ namespace Nova.Client
 
             return raceName;
         }
+        
+        /// <summary>
+        /// When state is loaded from file, objects may contain references to other objects.
+        /// As these may be loaded in any order (or be cross linked) it is necessary to tidy
+        /// up these references once the file is fully loaded and all objects exist.
+        /// In most cases a placeholder object has been created with the Name set from the file,
+        /// and we need to find the actual reference using this Name.
+        /// Objects can't do this themselves as they don't have access to the state data, 
+        /// so we do it here.
+        /// </summary>
+        private void LinkClientStateReferences()
+        {
+            // Fleet reference to Star
+            foreach (Fleet fleet in PlayerFleets)
+            {
+                if (fleet.InOrbit != null)
+                {
+                    fleet.InOrbit = EmpireIntel.StarReports[fleet.InOrbit.Name].Star;
+                }
+                // Ship reference to Design
+                foreach (Ship ship in fleet.FleetShips)
+                {
+                    ship.DesignUpdate(InputTurn.AllDesigns[ship.Owner + "/" + ship.DesignName] as ShipDesign);
+                }
+            }
+            
+            // HullModule reference to a component
+            foreach (Design design in InputTurn.AllDesigns.Values)
+            {
+                if (design.Type.ToLower() == "ship" || design.Type.ToLower() == "starbase")
+                {
+                    ShipDesign ship = design as ShipDesign;
+                    foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)
+                    {
+                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
+                        {
+                            AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
+                        }
+                    }
+                }
+            }
+
+            foreach (StarIntel report in EmpireIntel.StarReports.Values)
+            {
+                if (report.Star.ThisRace != null)
+                {
+                    // Reduntant, but works to check if race name is valid...
+                    if (report.Star.Owner == PlayerRace.Name)
+                    {
+                        report.Star.ThisRace = PlayerRace;
+                    }
+                    else
+                    {
+                        report.Star.ThisRace = null;
+                    }
+                }
+
+                if (report.Star.Starbase != null)
+                {
+                    report.Star.Starbase = InputTurn.AllFleets[report.Star.Owner + "/" + report.Star.Starbase.FleetID];
+                }
+            }
+        }     
+
     }
 }
 

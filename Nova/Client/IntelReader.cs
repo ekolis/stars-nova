@@ -76,10 +76,9 @@ namespace Nova.Client
                 xmldoc.Load(turnFile);
                 Intel newIntel = new Intel(xmldoc);
 
-                // check this is a new turn, not the one just played
-                if (newIntel.TurnYear != stateData.TurnYear)
+                // check this is a new turn, not an old one or the same one.
+                if (newIntel.EmpireIntel.TurnYear >= stateData.EmpireIntel.TurnYear)
                 {
-                    stateData.PlayerRace.Name = newIntel.MyRace.Name;
                     stateData.GameFolder = Path.GetDirectoryName(turnFileName);
                     stateData.Restore();
                     stateData.InputTurn = newIntel;
@@ -101,8 +100,8 @@ namespace Nova.Client
         {
             // copy the raw data from the intel to StateData
             turnData = stateData.InputTurn;
-            stateData.TurnYear = turnData.TurnYear;
-            stateData.PlayerRace = turnData.MyRace;
+
+            stateData.EmpireIntel = turnData.EmpireIntel;
 
             // Clear old turn data from StateData
             stateData.DeletedFleets.Clear();
@@ -111,11 +110,6 @@ namespace Nova.Client
 
             // fix object references after loading
             LinkIntelReferences();
-
-            // Process the new intel
-            DetermineOrbitingFleets();
-            DeterminePlayerStars();
-            // Player fleets are determined in ProcessFleets below
 
             ProcessMessages();
             ProcessFleets();
@@ -156,7 +150,7 @@ namespace Nova.Client
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = turnData.AllStars[fleet.InOrbit.Name];
+                    fleet.InOrbit = turnData.EmpireIntel.StarReports[fleet.InOrbit.Name].Star;
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
@@ -167,23 +161,23 @@ namespace Nova.Client
             }
             // Star reference to Race
             // Star reference to Fleet (starbase)
-            foreach (Star star in turnData.AllStars.Values)
+            foreach (StarIntel report in turnData.EmpireIntel.StarReports.Values)
             {
-                if (star.ThisRace != null)
+                if (report.Star.ThisRace != null)
                 {
-                    if (star.Owner == stateData.PlayerRace.Name)
+                    if (report.Star.Owner == stateData.EmpireIntel.EmpireRace.Name)
                     {
-                        star.ThisRace = stateData.PlayerRace;
+                        report.Star.ThisRace = stateData.EmpireIntel.EmpireRace;
                     }
                     else
                     {
-                        star.ThisRace = null;
+                        report.Star.ThisRace = null;
                     }
                 }
 
-                if (star.Starbase != null)
+                if (report.Star.Starbase != null)
                 {
-                    star.Starbase = turnData.AllFleets[star.Owner + "/" + star.Starbase.FleetID];
+                    report.Star.Starbase = turnData.AllFleets[report.Star.Owner + "/" + report.Star.Starbase.FleetID];
                 }
             }
 
@@ -195,10 +189,10 @@ namespace Nova.Client
                 {
                     foreach (Ship ship in fleet.FleetShips)
                     {
-                        if (stateData.KnownEnemyDesigns.ContainsKey(ship.DesignName))
+                        if (stateData.EnemyDesigns.ContainsKey(ship.DesignName))
                         {
                             // FIXME (priority 4) - this way of forming the key is a kludge
-                            ship.DesignUpdate((ShipDesign)stateData.KnownEnemyDesigns[ship.Owner + "/" + ship.DesignName]);
+                            ship.DesignUpdate((ShipDesign)stateData.EnemyDesigns[ship.Owner + "/" + ship.DesignName]);
                         }
                         else
                         {
@@ -261,27 +255,6 @@ namespace Nova.Client
         }
 
         /// <summary>
-        /// So that we can put an indication of fleets orbiting a star run through all
-        // the fleets and, if they are in orbit around a star, set the OrbitingFleets
-        // flag in the star.
-        /// </summary>
-        private void DetermineOrbitingFleets()
-        {
-            foreach (Star star in turnData.AllStars.Values)
-            {
-                star.OrbitingFleets = false;
-            }
-
-            foreach (Fleet fleet in turnData.AllFleets.Values)
-            {
-                if (fleet.InOrbit != null && fleet.Type != "Starbase")
-                {
-                    fleet.InOrbit.OrbitingFleets = true;
-                }
-            }
-        }
-
-        /// <summary>
         ///  Process Fleet Reports
         /// </summary>
         private void ProcessFleets()
@@ -301,35 +274,10 @@ namespace Nova.Client
                         {
                             Report.FatalError("Starbase doesn't know what planet it is orbiting!");
                         }
-                        Star star = stateData.PlayerStars[fleet.InOrbit.Name] as Star;
+                        Star star = stateData.EmpireIntel.StarReports[fleet.InOrbit.Name].Star;
                         star.Starbase = fleet;
                         fleet.InOrbit = star;
                     }
-
-                    // --------------------------------------------------------------------------------
-                    // FIXME (priority 5) - discovery of planetary information should be done by the server. It should not be possible for a hacked client to get this information.
-
-
-//                    if ((fleet.InOrbit != null) && (!fleet.IsStarbase) && fleet.CanScan)
-//                    {
-//                        // add to orbiting fleets list
-//                        Star star = fleet.InOrbit;
-//                        stateData.StarReports[star.Name] = new StarIntel(star);
-//                    }
-//
-//                    if (fleet.ShortRangeScan != 0)
-//                    {
-//                        foreach (Star star in turnData.AllStars.Values)
-//                        {
-//                            if (PointUtilities.Distance(star.Position, fleet.Position)
-//                                <= fleet.ShortRangeScan)
-//                            {
-//                                stateData.StarReports[star.Name] = new StarIntel(star);
-//                            }
-//                        }
-//                    }
-
-                    // END OF FIX ME --------------------------------------------------------------------------------
                 }
             }
         }
@@ -340,22 +288,22 @@ namespace Nova.Client
         private void ProcessResearch()
         {
             // Update the new Tech Levels
-            stateData.ResearchLevels = turnData.ResearchLevels;
+            stateData.EmpireIntel.ResearchLevels = turnData.EmpireIntel.ResearchLevels;
             // Update the accumulated resources
-            stateData.ResearchResources = turnData.ResearchResources;
+            stateData.EmpireIntel.ResearchResources = turnData.EmpireIntel.ResearchResources;
 
             foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
             {
-                if (turnData.ResearchLevelsGained == null)
+                if (turnData.EmpireIntel.ResearchLevelsGained == null)
                 {
                     return;
                 }
 
-                while (turnData.ResearchLevelsGained[area] > 0)
+                while (turnData.EmpireIntel.ResearchLevelsGained[area] > 0)
                 {
                     // Report new levels.
-                    turnData.ResearchLevelsGained[area] = turnData.ResearchLevelsGained[area] - 1;
-                    ReportLevelUpdate(area, stateData.ResearchLevels[area]);
+                    turnData.EmpireIntel.ResearchLevelsGained[area] = turnData.EmpireIntel.ResearchLevelsGained[area] - 1;
+                    ReportLevelUpdate(area, stateData.EmpireIntel.ResearchLevels[area]);
                 }
             }
         }
@@ -376,7 +324,7 @@ namespace Nova.Client
             stateData.Messages.Add(techAdvanceMessage);
 
             Dictionary<string, Component> allComponents = AllComponents.Data.Components;
-            TechLevel oldResearchLevel = stateData.ResearchLevels;
+            TechLevel oldResearchLevel = stateData.EmpireIntel.ResearchLevels;
             TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 
             newResearchLevel[area] = level;
@@ -390,15 +338,16 @@ namespace Nova.Client
                     if (component.Properties.ContainsKey("Scaner") && component.Type == "Planetary Installations")
                     {
                         newComponentMessage = new Message(
-                            stateData.PlayerRace.Name,
+                            stateData.EmpireIntel.EmpireRace.Name,
                             null,
                             "All existing planetary scanners has been replaced by " + component.Name + " " + component.Type,
                             null);
-                        foreach (Star star in stateData.PlayerStars.Values)
+                        foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
                         {
-                            if (star.ScannerType != string.Empty)
+                            if (report.Star.Owner == stateData.EmpireIntel.EmpireRace.Name &&
+                                report.Star.ScannerType != string.Empty)
                             {
-                                star.ScannerType = component.Name;
+                                report.Star.ScannerType = component.Name;
                             }
                         }
                     }
@@ -414,26 +363,8 @@ namespace Nova.Client
                 }
             }
 
-            stateData.ResearchLevels = newResearchLevel;
+            stateData.EmpireIntel.ResearchLevels = newResearchLevel;
         }
 
-        /// <summary>
-        /// Determine the star systems owned by the player (this is a convenience
-        // function so that buttons such as "Next" and "Previous" on the star detail
-        // panel are easy to code,
-        /// </summary>
-        private void DeterminePlayerStars()
-        {
-            stateData.PlayerStars.Clear();
-
-            foreach (Star star in turnData.AllStars.Values)
-            {
-                if (star.Owner == stateData.PlayerRace.Name)
-                {
-                    stateData.PlayerStars.Add(star);
-                    star.ThisRace = stateData.PlayerRace;
-                }
-            }
-        }
     }
 }

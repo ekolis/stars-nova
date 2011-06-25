@@ -65,7 +65,7 @@ namespace Nova.Common
         /// </summary>
         public List<string> DeletedDesigns = new List<string>(); 
 
-        public EmpireData PlayerData = new EmpireData();        // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.) and research %
+        public EmpireData EmpireStatus = new EmpireData();        // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.) and research %
         public int TechLevel;                               // This is the sum of all the player's tech levels, used for victory checks.
         
         /// ----------------------------------------------------------------------------
@@ -187,7 +187,7 @@ namespace Nova.Common
                             break;
 
                         case "empiredata":
-                            PlayerData = new EmpireData(xmlnode);
+                            EmpireStatus = new EmpireData(xmlnode);
                             break;
 
                         default: break;
@@ -223,7 +223,7 @@ namespace Nova.Common
             xmlRoot.AppendChild(xmlelOrders);
 
             // Place the turn year first, so it can be determined quickly
-            Global.SaveData(xmldoc, xmlelOrders, "Turn", PlayerData.TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelOrders, "Turn", EmpireStatus.TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             // Store the fleets, to pass on fleet orders
             foreach (Fleet fleet in RaceFleets.Values)
@@ -266,7 +266,7 @@ namespace Nova.Common
             }
             xmlelOrders.AppendChild(xmlelDeletedDesigns);
 
-            xmlelOrders.AppendChild(PlayerData.ToXml(xmldoc));
+            xmlelOrders.AppendChild(EmpireStatus.ToXml(xmldoc));
 
             xmldoc.Save(compressionStream);
             compressionStream.Close();

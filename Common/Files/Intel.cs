@@ -61,8 +61,8 @@ namespace Nova.Common
     [Serializable]
     public sealed class Intel
     {
-        public int TurnYear = 2100;
-        public Race MyRace = new Race();
+        public EmpireData EmpireIntel = new EmpireData();
+        
         public List<Message> Messages = new List<Message>();
         public List<BattleReport> Battles = new List<BattleReport>();
         public List<string> AllRaceNames = new List<string>();
@@ -77,11 +77,7 @@ namespace Nova.Common
 
         public Dictionary<string, Fleet> AllFleets = new Dictionary<string, Fleet>();
         public Dictionary<string, Design> AllDesigns = new Dictionary<string, Design>();
-        public Dictionary<string, Star> AllStars = new Dictionary<string, Star>();
         public Dictionary<string, Minefield> AllMinefields = new Dictionary<string, Minefield>();
-        public TechLevel ResearchLevelsGained = new TechLevel();
-        public TechLevel ResearchLevels = new TechLevel();
-        public TechLevel ResearchResources = new TechLevel();
 
         /// <summary>
         /// Default constructor.
@@ -95,19 +91,13 @@ namespace Nova.Common
         /// </summary>
         public void Clear()
         {
-            MyRace = null;
             AllDesigns.Clear();
             AllFleets.Clear();
             AllRaceNames.Clear();
-            AllStars.Clear();
             AllMinefields.Clear();
             Battles.Clear();
             Messages.Clear();
-            ResearchLevelsGained.Zero();
-            ResearchLevels.Zero();
-            ResearchResources.Zero();
-
-            TurnYear = 2100;
+            EmpireIntel.Clear();
         }
 
         #region To From Xml
@@ -119,6 +109,14 @@ namespace Nova.Common
         public Intel(XmlDocument xmldoc)
         {
             XmlNode xmlnode = xmldoc.DocumentElement;
+            LoadFromXmlNode(xmlnode);
+        }
+        
+        /// <summary>
+        /// Load <see cref="Intel">Intel</see> from an xml node 
+        /// </summary>
+        public void LoadFromXmlNode(XmlNode xmlnode)
+        {
             while (xmlnode != null)
             {
                 try
@@ -132,13 +130,8 @@ namespace Nova.Common
                             xmlnode = xmlnode.FirstChild;
                             continue;
 
-                        case "turnyear":
-                            TurnYear = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
-
-                        case "race":
-                            MyRace = new Race();
-                            MyRace.LoadRaceFromXml(xmlnode);
+                        case "empiredata":
+                            EmpireIntel = new EmpireData(xmlnode);
                             break;
 
                         case "message":
@@ -151,15 +144,10 @@ namespace Nova.Common
                             Battles.Add(battle);
                             break;
 
-                        case "racename":
-                            AllRaceNames.Add(xmlnode.FirstChild.Value);
-                            break;
-
                         case "scorerecord":
                             ScoreRecord newScore = new ScoreRecord(xmlnode);
                             AllScores.Add(newScore);
                             break;
-
 
                         case "raceiconrecord":
                             // The race icon record is a dictionary entry (i.e. key/value pair) which links the race name to a given RaceIcon.
@@ -221,29 +209,9 @@ namespace Nova.Common
                             // AllDesigns.Add(newShipDesign.Key, newShipDesign);
                             break;
 
-                        case "star":
-                            Star newStar = new Star(xmlnode);
-                            AllStars.Add(newStar.Key, newStar);
-                            break;
-
                         case "minefield":
                             Minefield minefield = new Minefield(xmlnode);
                             AllMinefields.Add(minefield.Key, minefield);
-                            break;
-
-                        case "researchlevelsgained":
-                            TechLevel newTechLevel = new TechLevel(xmlnode);
-                            ResearchLevelsGained = newTechLevel;
-                            break;
-
-                        case "researchresources":
-                            TechLevel researchResources = new TechLevel(xmlnode);
-                            ResearchResources = researchResources;
-                            break;
-
-                        case "researchlevels":
-                            TechLevel researchLevels = new TechLevel(xmlnode);
-                            ResearchLevels = researchLevels;
                             break;
 
                         default: break;
@@ -255,7 +223,7 @@ namespace Nova.Common
                 }
 
                 xmlnode = xmlnode.NextSibling;
-            }
+            }    
         }
 
         /// <summary>
@@ -267,12 +235,8 @@ namespace Nova.Common
         {
             // create the outer element
             XmlElement xmlelIntel = xmldoc.CreateElement("Intel");
-
-            // TurnYear
-            Global.SaveData(xmldoc, xmlelIntel, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
-
-            // MyRace 
-            xmlelIntel.AppendChild(MyRace.ToXml(xmldoc));
+            
+            xmlelIntel.AppendChild(EmpireIntel.ToXml(xmldoc));
 
             // Messages 
             if (Messages.Count > 0)
@@ -332,27 +296,11 @@ namespace Nova.Common
                 xmlelIntel.AppendChild(fleet.ToXml(xmldoc));
             }
 
-            // AllStars
-            foreach (Star star in AllStars.Values)
-            {
-                xmlelIntel.AppendChild(star.ToXml(xmldoc));
-            }
-
             // AllMinefields
             foreach (Minefield mine in AllMinefields.Values)
             {
                 xmlelIntel.AppendChild(mine.ToXml(xmldoc));
             }
-
-            // AllNewResearchLevels
-            // Only write out relevant information for this race.
-            // There might not be any new levels...
-            if (ResearchLevelsGained != null)
-            {
-                xmlelIntel.AppendChild(ResearchLevelsGained.ToXml(xmldoc, "ResearchLevelsGained"));
-            }
-            xmlelIntel.AppendChild(ResearchLevels.ToXml(xmldoc, "ResearchLevels"));
-            xmlelIntel.AppendChild(ResearchResources.ToXml(xmldoc, "ResearchResources"));
 
             // return the outer element
             return xmlelIntel;

@@ -1298,7 +1298,7 @@ namespace Nova.WinForms.Gui
                             // Only do this if the Star is respecting research budget.
                             if (this.queueStar.OnlyLeftover == false)
                             {
-                                potentialResources.Energy -= potentialResources.Energy * stateData.ResearchBudget / 100;
+                                potentialResources.Energy -= potentialResources.Energy * stateData.EmpireIntel.ResearchBudget / 100;
                             }
 
                             // need to know how much of each mineral is currently available on the Star (this.queueStar.ResourcesOnHand)

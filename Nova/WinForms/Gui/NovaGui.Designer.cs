@@ -32,15 +32,13 @@ namespace Nova.WinForms.Gui
             this.aboutToolStripMenuItem         = new System.Windows.Forms.ToolStripMenuItem();
             
             this.messages           = new Nova.WinForms.Gui.Messages();
-            this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(stateData.StarReports,
-                                                                            stateData.PlayerStars,
-                                                                            stateData.InputTurn.AllFleets,
+            this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(stateData.EmpireIntel.StarReports,                                                                                                                                                        stateData.InputTurn.AllFleets,
                                                                             stateData.PlayerFleets,
                                                                             stateData.DeletedFleets,
                                                                             stateData.PlayerRace,
-                                                                            stateData.ResearchBudget,
+                                                                            stateData.EmpireIntel.ResearchBudget,
                                                                             stateData);
-            this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(stateData.StarReports,
+            this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(stateData.EmpireIntel.StarReports,
                                                                              stateData.PlayerRace,
                                                                              stateData.InputTurn.RaceIcons);
             this.mapControl         = new Nova.WinForms.Gui.StarMap();
@@ -234,7 +232,7 @@ namespace Nova.WinForms.Gui
             this.messages.Name = "messages";
             this.messages.Size = new System.Drawing.Size(360, 116);
             this.messages.TabIndex = 18;
-            this.messages.Year = 2100;
+            this.messages.Year = Global.StartingYear;
             // 
             // selectionDetail
             // 

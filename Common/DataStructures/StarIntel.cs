@@ -38,7 +38,7 @@ namespace Nova.Common
     {
 
         public int          Age;      
-        public Star         Star;
+        public Star         Star; // Consider a diferent name!
         public IntelLevel   IntelAmount;
         
         public const int UNSEEN = -1;
@@ -63,11 +63,17 @@ namespace Nova.Common
             
             // Information that is always available and doesn't
             // depend on scanning level.
+            Star.Name     = star.Name; 
+            Star.Type     = star.Type;
+            Star.Position = star.Position; // Can this change? Random Events?
+             
             if (IntelAmount >= IntelLevel.None)
             {            
-                Star.Name     = star.Name; 
-                Star.Type     = star.Type;
-                Star.Position = star.Position; // Can this change? Random Events?
+                // We keep the information we have, but age it.
+                if (Age != UNSEEN)
+                {
+                    Age++;
+                }
             }
             
             // If we are at least scanning with non-penetrating
@@ -86,7 +92,7 @@ namespace Nova.Common
             // If we are at least currently in orbit of the star
             // with no scanners.
             if (IntelAmount >= IntelLevel.InOrbit)
-            { 
+            {
                 Star.Owner                = star.Owner;                
                 Star.MineralConcentration = star.MineralConcentration;
                 Star.Gravity              = star.Gravity;
@@ -97,13 +103,13 @@ namespace Nova.Common
             // If we are have Pen-Scanners, or we are
             // in orbit with scanners.
             if (IntelAmount >= IntelLevel.InDeepScan)
-            {
+            {                
                 Star.Colonists = star.Colonists;    
             }
             
             // If the star is ours.
             if (IntelAmount >= IntelLevel.Owned)
-            {
+            {                
                 Star.OriginalGravity      = star.OriginalGravity;
                 Star.OriginalRadiation    = star.OriginalRadiation;
                 Star.OriginalTemperature  = star.OriginalTemperature;
@@ -136,7 +142,7 @@ namespace Nova.Common
                         case "intelamount":
                             IntelAmount = (IntelLevel)Enum.Parse(typeof(IntelLevel), node.FirstChild.Value, true);
                             break;
-                        case "starreport":
+                        case "star":
                             Star = new Star(node);
                             break;
                     }
