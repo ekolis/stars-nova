@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
-            this.meterCargo = new Nova.WinForms.Gui.Controls.CargoMeter();
             this.numeric = new System.Windows.Forms.NumericUpDown();
+            this.meterCargo = new Nova.WinForms.Gui.Controls.CargoMeter();
             this.tableLayoutPanel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numeric)).BeginInit();
             this.SuspendLayout();
@@ -39,16 +39,36 @@
             // 
             this.tableLayoutPanel1.ColumnCount = 2;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 58F));
-            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle());
+            this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Controls.Add(this.meterCargo, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.numeric, 0, 0);
             this.tableLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel1.Location = new System.Drawing.Point(0, 0);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             this.tableLayoutPanel1.RowCount = 1;
-            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel1.Size = new System.Drawing.Size(223, 20);
             this.tableLayoutPanel1.TabIndex = 0;
+            // 
+            // numeric
+            // 
+            this.numeric.Anchor = System.Windows.Forms.AnchorStyles.Right;
+            this.numeric.AutoSize = true;
+            this.numeric.Location = new System.Drawing.Point(5, 0);
+            this.numeric.Margin = new System.Windows.Forms.Padding(0);
+            this.numeric.Maximum = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
+            this.numeric.Name = "numeric";
+            this.numeric.Size = new System.Drawing.Size(53, 20);
+            this.numeric.TabIndex = 1;
+            this.numeric.Value = new decimal(new int[] {
+            99999,
+            0,
+            0,
+            0});
             // 
             // meterCargo
             // 
@@ -61,16 +81,6 @@
             this.meterCargo.TabIndex = 0;
             this.meterCargo.Text = "cargoMeter1";
             this.meterCargo.UserCanChangeValue = true;
-            // 
-            // numeric
-            // 
-            this.numeric.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.numeric.AutoSize = true;
-            this.numeric.Location = new System.Drawing.Point(7, 0);
-            this.numeric.Margin = new System.Windows.Forms.Padding(0, 0, 3, 0);
-            this.numeric.Name = "numeric";
-            this.numeric.Size = new System.Drawing.Size(41, 20);
-            this.numeric.TabIndex = 1;
             // 
             // CargoMeterCounter
             // 
