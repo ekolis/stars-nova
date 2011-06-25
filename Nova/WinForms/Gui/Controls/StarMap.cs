@@ -73,8 +73,6 @@ namespace Nova.WinForms.Gui
             new Point(5, -12) 
         };
 
-
-        #region Variables
         private readonly Dictionary<string, Fleet> visibleFleets = new Dictionary<string, Fleet>();
         private readonly Dictionary<string, Minefield> visibleMinefields = new Dictionary<string, Minefield>();
         private readonly Font nameFont;
@@ -101,13 +99,6 @@ namespace Nova.WinForms.Gui
         private int selection;
         private const double MIN_ZOOM = 0.2;
         private const double MAX_ZOOM = 5;
-
-        private NovaPoint mousePos = new NovaPoint(0,0);
-
-        #endregion
-
-
-        #region Construction and Initialization
 
         /// <Summary>
         /// Initializes a new instance of the StarMap class.
@@ -162,10 +153,6 @@ namespace Nova.WinForms.Gui
             zoomFactor = 1.0;
             Zoom();
         }
-
-        #endregion
-
-        #region Drawing Methods
 
         /// <param name="graphics"></param>
         ///<Summary>
@@ -448,11 +435,11 @@ namespace Nova.WinForms.Gui
             NovaPoint position = LogicalToDevice(star.Position);
             int size = 2;
             Brush starBrush = Brushes.White;
-            string owner = "?";
+            string owner = "???";
 
             // Bigger symbol for explored stars.
 
-            if (report != null)
+            if (report.Age > StarIntel.UNSEEN)
             {
                 size = 4;
                 owner = report.Star.Owner;
@@ -461,13 +448,13 @@ namespace Nova.WinForms.Gui
             // Our stars are greenish, other's are red, unknown or uncolonised
             // stars are white.
 
-            if (owner == this.stateData.EmpireIntel.EmpireRace.Name)
+            if (owner == stateData.EmpireIntel.EmpireRace.Name)
             {
                 starBrush = Brushes.GreenYellow;
             }
             else
             {
-                if (owner != null && owner != "?")
+                if (owner != null && owner != "???")
                 {
                     starBrush = Brushes.Red;
                 }
@@ -513,7 +500,7 @@ namespace Nova.WinForms.Gui
                     4);
             }
 
-            if (report.Age == 0 && report.Star.OrbitingFleets)
+            if (report.Star.OrbitingFleets)
             {
                 int size = 12;
                 g.DrawEllipse(
@@ -524,10 +511,6 @@ namespace Nova.WinForms.Gui
                     size);
             }
         }
-
-        #endregion
-
-        #region Determine Visible
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -687,10 +670,6 @@ namespace Nova.WinForms.Gui
             }
         }
 
-        #endregion
-
-        #region Coordinate conversions
-
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Convert logical coordinates to device coordintes.
@@ -735,10 +714,6 @@ namespace Nova.WinForms.Gui
 
             return result;
         }
-
-        #endregion
-
-        #region Zoom
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -846,10 +821,6 @@ namespace Nova.WinForms.Gui
             verticalScrollBar.Value = scrollOffset.Y;
         }
 
-        #endregion
-
-        #region Scroll
-
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Horizontally scroll the Star map.
@@ -877,11 +848,6 @@ namespace Nova.WinForms.Gui
             RefreshStarMap();
         }
 
-
-        #endregion
-        
-        #region Interface IComparable
-
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// A sortable (by distance) version of the Item class.
@@ -905,10 +871,6 @@ namespace Nova.WinForms.Gui
                 return this.Distance.CompareTo(rhs.Distance);
             }
         }
-
-        #endregion
-
-        #region Mouse Events
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -1002,7 +964,6 @@ namespace Nova.WinForms.Gui
 
             int lastIndex = fleet.Waypoints.Count - 1;
             Waypoint lastWaypoint = fleet.Waypoints[lastIndex];
-            NovaPoint lastPosition = lastWaypoint.Position;
 
             if (waypoint.Destination == lastWaypoint.Destination)
             {
@@ -1131,10 +1092,6 @@ namespace Nova.WinForms.Gui
             SelectionChangedEvent(this, selectionArgs);
         }
 
-        #endregion
-
-        #region Misc Methods
-
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Set the position of the Star map selection cursor.
@@ -1229,10 +1186,6 @@ namespace Nova.WinForms.Gui
             displayBorders = toggleBorders.Checked;
             RefreshStarMap();
         }
-
-        #endregion
-        
-        #region Communication Events
         
         /// <Summary>
         /// This handles external events in which another GUI element
@@ -1248,7 +1201,5 @@ namespace Nova.WinForms.Gui
         {
             MapPanel.Invalidate();
         }
-        
-        #endregion
     }
 }

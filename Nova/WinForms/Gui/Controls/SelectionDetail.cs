@@ -45,9 +45,9 @@ namespace Nova.WinForms.Gui
         private Item selectedItem = null;
         private UserControl selectedControl = null;
   
-        private Dictionary<string, StarIntel> starReports;
+        private StarIntelList starReports;
         private List<Fleet> playerFleets;
-        private StarList playerStars;
+        private StarIntelList playerStars;
         private Race playerRace;
         private int researchBudget;
         
@@ -67,7 +67,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
-        public SelectionDetail(Dictionary<string, StarIntel> starReports,
+        public SelectionDetail(StarIntelList starReports,
                                Dictionary<string, Fleet> allFleets,
                                List<Fleet> playerFleets,
                                List<string> deletedFleets,
@@ -76,7 +76,6 @@ namespace Nova.WinForms.Gui
                                ClientState stateData)
         {
             this.starReports = starReports;
-            this.playerStars = playerStars;
             this.playerFleets = playerFleets;
             this.playerRace = playerRace;
             this.researchBudget = researchBudget;
@@ -84,7 +83,7 @@ namespace Nova.WinForms.Gui
             // FIXME: (priority 3) see declaration.
             this.stateData = stateData;
             
-            PlanetDetail = new PlanetDetail(playerStars, starReports, playerFleets, researchBudget, stateData);
+            PlanetDetail = new PlanetDetail(starReports, playerFleets, researchBudget, playerRace, stateData);
             FleetDetail = new FleetDetail(starReports, allFleets, playerFleets, deletedFleets, playerRace);
             
             InitializeComponent();

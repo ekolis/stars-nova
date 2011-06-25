@@ -416,6 +416,7 @@ namespace Nova.NewGame
             starbaseFleet.FleetID = stateData.FleetID++;
             starbaseFleet.Name = star.Name + " Starbase";
             stateData.AllFleets[player + "/" + starbaseFleet.FleetID] = starbaseFleet;
+            star.Starbase = starbaseFleet;
         }
 
         /// <summary>

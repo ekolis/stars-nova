@@ -56,6 +56,21 @@ namespace Nova.Common
             Update(star, intelAmount);            
         }
         
+        /// <summary>
+        /// Makes conversion from StarIntel to Star possible. Eases
+        /// foreach loops and data access.
+        /// </summary>
+        /// <param name="s">
+        /// A <see cref="StarIntel"/> containing the desired Star.
+        /// </param>
+        /// <returns>
+        /// A <see cref="Star"/> contained in this Intel.
+        /// </returns>
+        public static explicit operator Star(StarIntel s)
+        {
+            return s.Star;
+        }   
+        
         public void Update(Star star, IntelLevel intelAmount)
         {
             // This controls what we update for this report.

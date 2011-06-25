@@ -240,7 +240,7 @@ namespace Nova.Client
             // Normally this would be placed in the config file by the NewGame wizard.
             // We also cache a copy in the ClientState.Data.GameFolder
             GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
-
+            
             if (GameFolder == null)
             {
                 Report.FatalError("ClientState.cs Initialize() - An expected config file entry is missing\n" +
@@ -451,11 +451,6 @@ namespace Nova.Client
                         clientState = new ClientState(xmldoc);
                         
                         LinkClientStateReferences();
-                        
-                        // Copy the game folder names into the state data store. This
-                        // is just a convenient way of making it globally available.
-                        clientState.GameFolder      = gameFolder;
-                        clientState.StatePathName   = StatePathName;
                     }
                 }
                 catch (Exception e)
@@ -463,6 +458,12 @@ namespace Nova.Client
                     Report.Error("Unable to read state file, race history will not be available." + Environment.NewLine + "Details: " + e.Message);
                 }
             }
+            
+            // Copy the game folder names into the state data store.
+            // Do this here or else there is no default state path
+            // if no statefile was loaded.
+            clientState.GameFolder      = gameFolder;
+            clientState.StatePathName   = StatePathName;
             
             return clientState;
         }
