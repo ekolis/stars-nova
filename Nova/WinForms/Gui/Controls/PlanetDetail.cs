@@ -181,7 +181,7 @@ namespace Nova.WinForms.Gui
 
             groupPlanetSelect.Text = "Planet " + selectedStar.Name;
 
-            if (starReports.Count > 1)
+            if (starReports.Owned(empireRace.Name) > 1)
             {                
                 previousPlanet.Enabled = true;
                 nextPlanet.Enabled = true;
@@ -189,7 +189,7 @@ namespace Nova.WinForms.Gui
             else
             {
                 previousPlanet.Enabled = false;
-                previousPlanet.Enabled = false;
+                nextPlanet.Enabled = false;
             }
         }
 
