@@ -457,27 +457,47 @@ namespace Nova.WinForms.Gui
                 
                 int habValue = (int)Math.Ceiling(value.HabitalValue(playerRace) * 100);
                 
-                this.planetValue.Text = habValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
-
-                if (habValue < 0)
+                if (starReports[value.Name].Age == -1)
                 {
-                    this.planetValue.ForeColor = Color.Red;
+                    this.planetValue.Text = "???";
+                    this.planetValue.ForeColor = Color.Empty;
                 }
                 else
                 {
-                    this.planetValue.ForeColor = Color.Black;
-                }                
+                    this.planetValue.Text = habValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
+                    if (habValue < 0)
+                    {
+                        this.planetValue.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        this.planetValue.ForeColor = Color.Green;
+                    } 
+                }
 
-                if (starReports[value.Name].Star.Colonists == 0)
+                               
+    
+                if (starReports[value.Name].Age == -1)
                 {
-                    this.population.Text = "Uninhabited";
+                    this.population.Text = "???";
                 }
                 else
                 {
-                    this.population.Text = "Population: " + starReports[value.Name].Star.Colonists;
+                    if (starReports[value.Name].Star.Colonists == 0)
+                    {
+                        this.population.Text = "Uninhabited";
+                    }
+                    else
+                    {
+                        this.population.Text = "Population: " + starReports[value.Name].Star.Colonists;
+                    }
                 }
-
-                if (starReports[value.Name].Age == 0)
+    
+                if (starReports[value.Name].Age == -1)
+                {
+                    this.reportAge.Text = "No Report";
+                }
+                else if (starReports[value.Name].Age == 0)
                 {
                     this.reportAge.Text = "Report is current";
                 }
