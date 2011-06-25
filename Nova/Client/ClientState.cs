@@ -152,10 +152,6 @@ namespace Nova.Client
                                 tNode = tNode.NextSibling;
                             }
                             break;
-                        case "race":
-                            Race race = new Race();
-                            race.LoadRaceFromXml(xmlnode);
-                            break;
                         case "firstturn":
                             FirstTurn = bool.Parse(xmlnode.FirstChild.Value);
                             break;
@@ -546,9 +542,6 @@ namespace Nova.Client
                     xmlelPlayerFleets.AppendChild(fleet.ToXml(xmldoc));    
                 }
                 xmlelClientState.AppendChild(xmlelPlayerFleets);
-                
-                // Race
-                xmlelClientState.AppendChild(EmpireIntel.EmpireRace.ToXml(xmldoc));
                 
                 Global.SaveData(xmldoc, xmlelClientState, "FirstTurn", FirstTurn.ToString());
                 Global.SaveData(xmldoc, xmlelClientState, "GameFolder", GameFolder);
