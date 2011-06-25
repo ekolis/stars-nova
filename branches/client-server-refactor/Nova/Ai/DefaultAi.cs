@@ -136,7 +136,7 @@ namespace Nova.Ai
                 foreach (StarIntel starIntel in turnData.EmpireIntel.StarReports.Values)
                 {
                     Star star = starIntel.Star;
-                    if (star.HabitalValue(stateData.PlayerRace) > 0 && star.Owner == null)
+                    if (star.HabitalValue(stateData.EmpireIntel.EmpireRace) > 0 && star.Owner == null)
                     {
                         SendFleet(star, colonyShipsFleets[0], WaypointTask.Colonise);
                         colonyShipsFleets.RemoveAt(0);

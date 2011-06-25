@@ -51,8 +51,7 @@ namespace Nova.Client
         
         public Intel            InputTurn           = null;
         public RaceComponents   AvailableComponents = null;
-        public List<Fleet>      PlayerFleets        = new List<Fleet>();
-        public Race             PlayerRace          = new Race();        
+        public List<Fleet>      PlayerFleets        = new List<Fleet>();        
         
         public bool FirstTurn   = true;  
         
@@ -549,7 +548,7 @@ namespace Nova.Client
                 xmlelClientState.AppendChild(xmlelPlayerFleets);
                 
                 // Race
-                xmlelClientState.AppendChild(PlayerRace.ToXml(xmldoc));
+                xmlelClientState.AppendChild(EmpireIntel.EmpireRace.ToXml(xmldoc));
                 
                 Global.SaveData(xmldoc, xmlelClientState, "FirstTurn", FirstTurn.ToString());
                 Global.SaveData(xmldoc, xmlelClientState, "GameFolder", GameFolder);
@@ -657,9 +656,9 @@ namespace Nova.Client
                 if (report.Star.ThisRace != null)
                 {
                     // Reduntant, but works to check if race name is valid...
-                    if (report.Star.Owner == PlayerRace.Name)
+                    if (report.Star.Owner == EmpireIntel.EmpireRace.Name)
                     {
-                        report.Star.ThisRace = PlayerRace;
+                        report.Star.ThisRace = EmpireIntel.EmpireRace;
                     }
                     else
                     {
