@@ -26,6 +26,12 @@
 // ===========================================================================
 #endregion
 
+using System.Collections;
+using System.ComponentModel;
+using System.ComponentModel.Design.Serialization;
+using System.Globalization;
+using System.Reflection;
+
 namespace Nova.Common
 {
     #region Using Statements
@@ -37,6 +43,7 @@ namespace Nova.Common
     /// Cargo class
     /// </summary>
     [Serializable]
+    [TypeConverter(typeof(CargoTypeConverter))]
     public class Cargo
     {
         public int Ironium = 0;
@@ -156,6 +163,18 @@ namespace Nova.Common
             Boranium += rightCargo.Boranium;
             Germanium += rightCargo.Germanium;
             ColonistsInKilotons += rightCargo.ColonistsInKilotons;
+        }
+    }
+
+    public class CargoTypeConverter : TypeConverter
+    {
+        public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
+        {
+            Cargo cargo = value as Cargo;
+            if( cargo == null )
+                return "0,0,0,0";
+            return String.Format("{0},{1},{2},{3}", cargo.Ironium, cargo.Boranium, cargo.Germanium,
+                                 cargo.ColonistsInKilotons);
         }
     }
 }

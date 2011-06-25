@@ -15,7 +15,7 @@ namespace Nova.WinForms.Gui.Controls
     {
         private int level = 0;
         private int maximum = 100;
-        private Cargo cargoLevels = new Cargo();
+        private Cargo cargoLevels;
 
         public enum CargoType
         {
@@ -33,6 +33,8 @@ namespace Nova.WinForms.Gui.Controls
 
         public CargoMeter()
         {
+            if( !DesignMode )
+                cargoLevels = new Cargo();
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             UpdateStyles();    
@@ -79,7 +81,6 @@ namespace Nova.WinForms.Gui.Controls
         
         public CargoType Cargo { get; set; }
         
-        [Browsable(false)]
         public Cargo CargoLevels
         {
             get { return cargoLevels; }
