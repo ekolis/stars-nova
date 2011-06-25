@@ -128,6 +128,11 @@ namespace Nova.WinForms.Console
 
             stateData.TurnYear++;
             
+            foreach (EmpireData empire in stateData.AllEmpires.Values)
+            {
+                AssembleEmpireData(empire);
+            }
+            
             intelWriter.WriteIntel();
 
             // remove old messages, do this last so that the 1st turn intro message is not removed before it is delivered.
@@ -597,6 +602,74 @@ namespace Nova.WinForms.Console
                 else
                 {
                   break;
+                }
+            }
+        }
+        
+        public void AssembleEmpireData()
+        {
+            foreach (EmpireData empire in stateData.AllEmpires.Values)
+            {
+                AssembleEmpireData(empire);
+            }
+        }
+        
+        private void AssembleEmpireData(EmpireData empire)
+        {
+            foreach (Star star in stateData.AllStars.Values)
+            {
+                // If star has no report (First turn) add it. Else
+                // remove all visibility.
+                if (!empire.StarReports.ContainsKey(star.Name))
+                {
+                    empire.StarReports.Add(star.Name, new StarIntel(star, IntelLevel.None));
+                }
+                else
+                {
+                    empire.StarReports[star.Name].IntelAmount = IntelLevel.None;
+                }
+            }
+            
+            IntelLevel intelLevel;
+            
+            
+            // Update the StarReports here.
+            foreach (Fleet fleet in stateData.AllFleets.Values)
+            {
+                if (fleet.Owner == empire.EmpireRace.Name)
+                {
+                    if((fleet.InOrbit != null) && (!fleet.IsStarbase))
+                    {
+                        // FIXME:(priority 6) If two empires use the same race&name, this gives both
+                        // the same intel access to each other's stars.
+                        if (fleet.InOrbit.Owner == empire.EmpireRace.Name)
+                        {
+                            intelLevel = IntelLevel.Owned;
+                        }
+                        else
+                        {
+                            intelLevel = (fleet.CanScan) ? IntelLevel.InDeepScan : IntelLevel.InOrbit;       
+                        }
+                        
+                        empire.StarReports[fleet.InOrbit.Name].Update(fleet.InOrbit, intelLevel);
+                    }
+
+                    if (fleet.PenScanRange > 0)
+                    {
+                        // FIXME:(priority 3) this has to be optimized some way.
+                        // Looping all stars for each fleet with pen scan
+                        // can become very expensive lategame. Perhaps a way to retrieve
+                        // stars by position from AllStars, and constrain this lookup
+                        // to a frame around the ship equal to it's penscanrange.
+                        foreach (Star star in stateData.AllStars.Values)
+                        {
+                            if (PointUtilities.Distance(star.Position, fleet.Position)
+                            <= fleet.PenScanRange)
+                            {
+                                empire.StarReports[star.Name].Update(star, IntelLevel.InDeepScan);
+                            }    
+                        }
+                    }
                 }
             }
         }

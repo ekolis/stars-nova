@@ -154,7 +154,7 @@ namespace Nova.Server
                     this.stateData.AllStars[star.Name] = star;
                 }
 
-                this.stateData.AllEmpires[race.Name] = playerOrders.PlayerData;
+                this.stateData.AllEmpires[race.Name] = playerOrders.EmpireStatus;
                 this.stateData.AllTechLevels[race.Name] = playerOrders.TechLevel;
             }
             catch (Exception e)

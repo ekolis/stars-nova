@@ -149,9 +149,9 @@ namespace Nova.WinForms
                     // Initialize clean data for them. 
                     EmpireData empireData = new EmpireData();
                     stateData.AllEmpires[settings.RaceName] = empireData;
-                    empireData.BattlePlans.Add("Default", new BattlePlan());
 
                     stateData.AllRaces.Add(settings.RaceName, KnownRaces[settings.RaceName]);
+                    empireData.EmpireRace = stateData.AllRaces[settings.RaceName];
 
                     // Add initial state to the intel files.
                     ProcessPrimaryTraits(KnownRaces[settings.RaceName]);
@@ -175,6 +175,8 @@ namespace Nova.WinForms
 
                 try
                 {
+                    TurnGenerator firstTurn = new TurnGenerator(stateData);
+                    firstTurn.AssembleEmpireData();
                     Scores scores = new Scores(stateData);
                     IntelWriter intelWriter = new IntelWriter(stateData, scores);
                     intelWriter.WriteIntel();

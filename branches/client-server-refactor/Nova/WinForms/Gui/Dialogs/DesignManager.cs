@@ -296,7 +296,7 @@ Are you sure you want to do this?";
                     if (design.Owner == raceName)
                     {
                         if (raceName == stateData.PlayerRace.Name ||
-                            this.stateData.KnownEnemyDesigns.ContainsKey(design.Key))
+                            this.stateData.EnemyDesigns.ContainsKey(design.Key))
                         {
 
                             AddToDesignList(design);

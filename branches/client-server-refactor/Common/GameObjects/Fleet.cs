@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010. 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -70,8 +70,6 @@ namespace Nova.Common
         { 
             Arrived, InTransit 
         }
-
-        #region Construction Initialisation
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -156,12 +154,6 @@ namespace Nova.Common
             InOrbit      = star;                
             Owner        = star.Owner;
         }
-
-
-        #endregion
-
-
-        #region Methods
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -276,12 +268,6 @@ namespace Nova.Common
 
             return fuelConsumption;
         }
-
-        #endregion 
-
-
-
-        #region Properties
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -523,30 +509,6 @@ namespace Nova.Common
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Return the long range scan capability of the fleet.
-        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public int LongRangeScan
-        {
-            get
-            {
-                int scanRange = 0;
-
-                foreach (Ship ship in FleetShips)
-                {
-                    if (ship.ScanRangeNormal > scanRange)
-                    {
-                        scanRange = ship.ScanRangeNormal;
-                    }
-                }
-                return scanRange;
-            }
-        }
-
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the mass of a fleet.
@@ -587,19 +549,42 @@ namespace Nova.Common
                 return mineCount;
             }
         }
-
+        
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Return the short range scan capability of the fleet.
+        /// Return the penetrating range scan capability of the fleet.
         /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
         /// </summary>
         /// ----------------------------------------------------------------------------
-        public int ShortRangeScan
+        public int PenScanRange
+        {
+            get
+            {
+                int penRange = 0;
+                
+                foreach (Ship ship in FleetShips)
+                {
+                    if (ship.ScanRangePenetrating > penRange)
+                    {
+                        penRange = ship.ScanRangePenetrating;
+                    }
+                }
+                return penRange;
+            }
+        }
+        
+        /// ----------------------------------------------------------------------------
+        /// <summary>
+        /// Return the non penetrating range scan capability of the fleet.
+        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
+        /// </summary>
+        /// ----------------------------------------------------------------------------
+        public int ScanRange
         {
             get
             {
                 int scanRange = 0;
-
+                
                 foreach (Ship ship in FleetShips)
                 {
                     if (ship.ScanRangeNormal > scanRange)
@@ -724,10 +709,6 @@ namespace Nova.Common
                 return shield;
             }
         }
-
-        #endregion
-
-        #region Load Save Xml
 
         /// ----------------------------------------------------------------------------
         /// <summary>
@@ -859,10 +840,5 @@ namespace Nova.Common
 
             return xmlelFleet;
         }
-
-
-        #endregion
-
-
     }
 }
