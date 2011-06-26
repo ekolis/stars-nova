@@ -81,6 +81,8 @@ namespace Nova.WinForms.Gui.Controls
         
         public CargoType Cargo { get; set; }
         
+        [Browsable(false)]
+        [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Cargo CargoLevels
         {
             get { return cargoLevels; }
