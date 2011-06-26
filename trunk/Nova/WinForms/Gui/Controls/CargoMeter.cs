@@ -178,13 +178,13 @@ namespace Nova.WinForms.Gui.Controls
                 case CargoType.Fuel:
                     return Color.Red;
                 case CargoType.Ironium:
-                    return Color.Blue;
+                    return Color.LightBlue;
                 case CargoType.Boranium:
-                    return Color.DarkGreen;
+                    return Color.LightGreen;
                 case CargoType.Germanium:
-                    return Color.Yellow;
+                    return Color.Gold;
                 case CargoType.Colonists:
-                    return Color.White;
+                    return Color.MediumPurple;
                 default:
                     throw new ArgumentOutOfRangeException();
             }
@@ -197,13 +197,13 @@ namespace Nova.WinForms.Gui.Controls
                 case CargoType.Fuel:
                     return Brushes.Red;
                 case CargoType.Ironium:
-                    return Brushes.Blue;
+                    return Brushes.LightBlue;
                 case CargoType.Boranium:
-                    return Brushes.DarkGreen;
+                    return Brushes.LightGreen;
                 case CargoType.Germanium:
-                    return Brushes.Yellow;
+                    return Brushes.Gold;
                 case CargoType.Colonists:
-                    return Brushes.White;
+                    return Brushes.MediumPurple;
                 default:
                     throw new ArgumentOutOfRangeException();
             }

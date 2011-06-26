@@ -350,7 +350,8 @@ namespace Nova.WinForms.Gui
                     using (CargoDialog cargoDialog = new CargoDialog())
                     {
                         cargoDialog.SetTarget(fleet);
-                        cargoDialog.ShowDialog();                        
+                        cargoDialog.ShowDialog(); 
+                        UpdateFields();
                     }
                     starReports[fleet.InOrbit.Name] = new StarReport(fleet.InOrbit);  // Not sure why - coppied from FleetDetails!
                     comboFleetsInOrbit_SelectedIndexChanged(null, null);
