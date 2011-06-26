@@ -77,19 +77,11 @@ namespace Nova.Ai
         }
         public override void DoMove()
         {
-            try
-            {
-                turnData = stateData.InputTurn;
+            turnData = stateData.InputTurn;
 
-                HandleProduction();
-                HandleResearch();
-                HandleMovements();
-
-            }
-            catch (Exception)
-            {
-                Report.FatalError("AI failed to take proper actions.");
-            }
+            HandleProduction();
+            HandleResearch();
+            HandleMovements();
         }
 
         private void HandleMovements()
@@ -181,14 +173,17 @@ namespace Nova.Ai
                 if (msg.Text.Contains("Your race has advanced to Tech Level") == true)
                 {
                     int minLevel = int.MaxValue;
-                    Nova.Common.TechLevel.ResearchField rs = TechLevel.ResearchField.Electronics;
-                    foreach (Nova.Common.TechLevel.ResearchField t in stateData.ResearchLevels)
+                    Nova.Common.TechLevel.ResearchField targetResearchField = TechLevel.ResearchField.Weapons; // default to researching weapons
+                    for (TechLevel.ResearchField field = TechLevel.FirstField; field < TechLevel.LastField; field++)
                     {
-                        minLevel = Math.Min(minLevel, stateData.ResearchLevels[t]);
-                        rs = t;
+                        if (stateData.ResearchLevels[field] < minLevel)
+                        {
+                            minLevel = stateData.ResearchLevels[field];
+                            targetResearchField = field;
+                        }
                     }
                     stateData.ResearchTopics.Zero();
-                    stateData.ResearchTopics[rs] = 1;                        
+                    stateData.ResearchTopics[targetResearchField] = 1;                        
                 }
             }
            
