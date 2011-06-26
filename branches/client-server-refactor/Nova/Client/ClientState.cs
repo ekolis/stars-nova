@@ -137,10 +137,11 @@ namespace Nova.Client
                             InputTurn.LoadFromXmlNode(xmlnode);
                             break;                        
                         case "availablecomponents":
+                            AvailableComponents = new RaceComponents();
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             { 
-                                AvailableComponents.Add(new Component(xmlnode));
+                                AvailableComponents.Add(new Component(tNode));
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -394,6 +395,8 @@ namespace Nova.Client
             GameFolder    = newState.GameFolder; 
             StatePathName = newState.StatePathName;
             
+            LinkClientStateReferences();
+            
             return this;
         }
 
@@ -443,9 +446,7 @@ namespace Nova.Client
 
                         xmldoc.Load(stream);
                         
-                        clientState = new ClientState(xmldoc);
-                        
-                        LinkClientStateReferences();
+                        clientState = new ClientState(xmldoc);                        
                     }
                 }
                 catch (Exception e)
@@ -453,13 +454,18 @@ namespace Nova.Client
                     Report.Error("Unable to read state file, race history will not be available." + Environment.NewLine + "Details: " + e.Message);
                 }
             }
+            else
+            {
+                // This is temporary, prevents a crash. InputTurn will eventually be removed.
+                clientState.InputTurn = new Intel();
+            }
             
             // Copy the game folder names into the state data store.
             // Do this here or else there is no default state path
             // if no statefile was loaded.
             clientState.GameFolder      = gameFolder;
             clientState.StatePathName   = StatePathName;
-            
+
             return clientState;
         }
 
@@ -627,6 +633,7 @@ namespace Nova.Client
                     ship.DesignUpdate(InputTurn.AllDesigns[ship.Owner + "/" + ship.DesignName] as ShipDesign);
                 }
             }
+            
             
             // HullModule reference to a component
             foreach (Design design in InputTurn.AllDesigns.Values)
