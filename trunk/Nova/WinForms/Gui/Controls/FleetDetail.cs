@@ -498,7 +498,8 @@ namespace Nova.WinForms.Gui
                 comboOtherFleets.SelectedIndex = 0;
             }
             buttonMerge.Enabled = haveFleets;
-            buttonCargoXfer.Enabled = haveFleets && fleet.TotalCargoCapacity > 0;
+//            buttonCargoXfer.Enabled = haveFleets && fleet.TotalCargoCapacity > 0; // dose not need cargo as we may want to xfer fuel - Dan 26 Jun 11
+            buttonCargoXfer.Enabled = haveFleets;
             buttonGotoFleet.Enabled = haveFleets;
             
             UpdateCargoMeters();
