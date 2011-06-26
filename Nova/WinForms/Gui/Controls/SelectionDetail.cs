@@ -51,9 +51,6 @@ namespace Nova.WinForms.Gui
         private Race playerRace;
         private int researchBudget;
         
-        private Dictionary<string, Fleet> allFleets; // FIXME:(???) Do we need allFleets here? Can't we use the player's fleets instead? -Aeglos 21 Jun 11 
-        private List<string> deletedFleets;
-        
         public PlanetDetail PlanetDetail; 
         public FleetDetail FleetDetail;
         
