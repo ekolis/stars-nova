@@ -94,6 +94,17 @@ namespace Nova.WinForms.Console
                 stateData.AllMessages.Add(message);
                 return;
             }
+            if (star.Owner == null)
+            {
+                // This star has not been colonised. Can't invade.
+                Message message = new Message();
+                message.Audience = fleet.Owner;
+                message.Text = "Fleet " + fleet.Name + " has waypoint orders to " +
+                               "invade " + star.Name +
+                               " but it is not colonised. You must send a ship with a colony module and orders to colonise to take this system.";
+                stateData.AllMessages.Add(message);
+                return;
+            }
             PlayerRelation relation = stateData.AllEmpires[fleet.Owner].PlayerRelations[star.Owner];
             switch (relation)
             {
