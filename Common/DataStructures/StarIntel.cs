@@ -60,12 +60,8 @@ namespace Nova.Common
         /// Makes conversion from StarIntel to Star possible. Eases
         /// foreach loops and data access.
         /// </summary>
-        /// <param name="s">
-        /// A <see cref="StarIntel"/> containing the desired Star.
-        /// </param>
-        /// <returns>
-        /// A <see cref="Star"/> contained in this Intel.
-        /// </returns>
+        /// <param name="s">A <see cref="StarIntel"/> containing the desired Star.</param>
+        /// <returns>The <see cref="Star"/> contained in this Intel.</returns>
         public static explicit operator Star(StarIntel s)
         {
             return s.Star;

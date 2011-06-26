@@ -29,6 +29,7 @@ namespace Nova.WinForms.Console
     using Nova.Common;
     using Nova.Common.DataStructures;
     using Nova.Server;
+    using Nova.Server.TurnSteps;
 
     /// <summary>
     /// Class to process a new turn.
@@ -37,6 +38,8 @@ namespace Nova.WinForms.Console
     {
         private ServerState stateData;
         private ServerState turnData;
+        
+        private SortedList<int, ITurnStep> turnSteps;
         
         private OrderReader orderReader;
         private IntelWriter intelWriter;
@@ -57,6 +60,8 @@ namespace Nova.WinForms.Console
         {
             this.stateData = serverState;
             
+            this.turnSteps = new SortedList<int, ITurnStep>();
+            
             // Now that there is a state, comopose the turn processor.
             // TODO ???: Use dependency injection for this? It would
             // generate a HUGE constructor call... a factory to
@@ -73,6 +78,7 @@ namespace Nova.WinForms.Console
             this.intelWriter = new IntelWriter(this.stateData, this.scores);
             this.victoryCheck = new VictoryCheck(this.stateData, this.scores);
             
+            this.turnSteps.Add(69, new ScanStep());
         }
 
         /// ----------------------------------------------------------------------------
@@ -131,6 +137,11 @@ namespace Nova.WinForms.Console
             foreach (EmpireData empire in stateData.AllEmpires.Values)
             {
                 AssembleEmpireData(empire);
+            }
+            
+            foreach (ITurnStep turnStep in turnSteps.Values)
+            {
+                turnStep.Process(stateData);    
             }
             
             intelWriter.WriteIntel();
