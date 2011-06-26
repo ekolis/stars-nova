@@ -174,7 +174,7 @@ namespace Nova.Ai
                 {
                     int minLevel = int.MaxValue;
                     Nova.Common.TechLevel.ResearchField targetResearchField = TechLevel.ResearchField.Weapons; // default to researching weapons
-                    for (TechLevel.ResearchField field = TechLevel.FirstField; field < TechLevel.LastField; field++)
+                    for (TechLevel.ResearchField field = TechLevel.FirstField; field <= TechLevel.LastField; field++)
                     {
                         if (stateData.ResearchLevels[field] < minLevel)
                         {
