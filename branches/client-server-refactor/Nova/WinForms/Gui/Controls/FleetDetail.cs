@@ -462,11 +462,6 @@ namespace Nova.WinForms.Gui
                 fleetComposition.Items.Add(listItem);
             }
 
-            meterFuel.Maximum = fleet.TotalFuelCapacity;
-            meterFuel.Value = (int)fleet.FuelAvailable;
-            meterCargo.Maximum = fleet.TotalCargoCapacity;
-            meterCargo.CargoLevels = fleet.Cargo;
-
             wayPoints.Items.Clear();
             foreach (Waypoint waypoint in fleet.Waypoints)
             {
@@ -505,7 +500,17 @@ namespace Nova.WinForms.Gui
             buttonCargoXfer.Enabled = haveFleets && fleet.TotalCargoCapacity > 0;
             buttonGotoFleet.Enabled = haveFleets;
             
+            UpdateCargoMeters();
             Invalidate();
+        }
+
+        private void UpdateCargoMeters()
+        {
+            meterFuel.Maximum = selectedFleet.TotalFuelCapacity;
+            meterFuel.Value = (int)selectedFleet.FuelAvailable;
+            meterCargo.Maximum = selectedFleet.TotalCargoCapacity;
+            meterCargo.CargoLevels = selectedFleet.Cargo;
+            comboOtherFleets_SelectedIndexChanged(null, null);          
         }
 
         /// ----------------------------------------------------------------------------
@@ -611,7 +616,21 @@ namespace Nova.WinForms.Gui
         {
             using (CargoTransferDialog dia = new CargoTransferDialog())
             {
-                dia.ShowDialog();
+                Fleet other = GetSelectedFleetAtLocation();
+                if( other != null && other.FleetID != selectedFleet.FleetID )
+                {
+                    dia.SetFleets(selectedFleet, other );
+                    if (dia.ShowDialog() == DialogResult.OK)
+                    {
+                        selectedFleet.Cargo = dia.LeftCargo;
+                        selectedFleet.FuelAvailable = dia.LeftFuel;
+                        other.Cargo = dia.RightCargo;
+                        other.FuelAvailable = dia.RightFuel;
+
+                        UpdateCargoMeters();
+                        Invalidate();
+                    }
+                }
             }
         }
     }

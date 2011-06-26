@@ -11,6 +11,13 @@ namespace Nova.WinForms.Gui.Controls
 {
     public partial class CargoMeterCounter : UserControl
     {
+        private bool reversed = false;
+        private bool ignoreNumericChange = false;
+
+        public delegate void ValueChangedHandler(int newValue);
+
+        public event ValueChangedHandler ValueChanged;
+
         public CargoMeterCounter()
         {
             InitializeComponent();
@@ -32,9 +39,13 @@ namespace Nova.WinForms.Gui.Controls
         {
             get { return meterCargo.Value; }
             set 
-            { 
+            {
+                if (value > Maximum)
+                    value = Maximum;
                 meterCargo.Value = value;
+                ignoreNumericChange = true;
                 numeric.Value = value;
+                ignoreNumericChange = false;
             }
         }
 
@@ -46,12 +57,60 @@ namespace Nova.WinForms.Gui.Controls
 
         void meterCargo_ValueChanged(int newValue)
         {
+            ignoreNumericChange = true;
             numeric.Value = newValue;
+            ignoreNumericChange = false;
+            FireValueChanged();
         }
 
         void numeric_ValueChanged(object sender, EventArgs e)
         {
-            meterCargo.Value = (int)numeric.Value;
+            if (!ignoreNumericChange)
+            {
+                meterCargo.Value = (int) numeric.Value;
+                FireValueChanged();
+            }
+        }
+
+        public bool Reversed
+        {
+            get { return reversed; }
+            set
+            {
+                if (reversed != value)
+                {
+                    reversed = value;
+                    if (reversed)
+                    {
+                        tableLayoutPanel1.ColumnStyles[1].SizeType = SizeType.Absolute;
+                        tableLayoutPanel1.ColumnStyles[1].Width = 58f;
+                        tableLayoutPanel1.ColumnStyles[0].SizeType = SizeType.Percent;
+                        tableLayoutPanel1.ColumnStyles[1].Width = 50f;
+                        tableLayoutPanel1.Controls.Clear();
+                        tableLayoutPanel1.Controls.Add(meterCargo, 0, 0);
+                        tableLayoutPanel1.Controls.Add(numeric, 1, 0);
+                        numeric.Anchor = AnchorStyles.Left;
+                    }
+                    else
+                    {
+                        tableLayoutPanel1.ColumnStyles[1].SizeType = SizeType.Absolute;
+                        tableLayoutPanel1.ColumnStyles[1].Width = 58f;
+                        tableLayoutPanel1.ColumnStyles[0].SizeType = SizeType.Percent;
+                        tableLayoutPanel1.ColumnStyles[1].Width = 50f;
+                        tableLayoutPanel1.Controls.Clear();
+                        tableLayoutPanel1.Controls.Add(meterCargo, 1, 0);
+                        tableLayoutPanel1.Controls.Add(numeric, 0, 0);
+                        numeric.Anchor = AnchorStyles.Right;
+                    }
+                    Invalidate();
+                }
+            }
+        }
+
+        private void FireValueChanged()
+        {
+            if (ValueChanged != null)
+                ValueChanged(Value);
         }
     }
 }

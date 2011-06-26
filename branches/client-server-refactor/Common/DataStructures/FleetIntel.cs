@@ -49,7 +49,7 @@ namespace Nova.Common
         {
             Age         = UNSEEN;            
             IntelAmount = IntelLevel.None;
-            Fleet       = new Fleet();
+            Fleet       = new Fleet(-1);
            
             Update(fleet, intelAmount);
         }
