@@ -45,15 +45,27 @@ namespace Nova.WinForms.Console
     public class BattleEngine
     {
         private readonly Random random = new Random();
+        private readonly int movementPhasesPerRound = 3;
+        private readonly int maxBattleRounds = 16;
+        // The above table as a 2d lookup. Note round 8 moved to the first postion as we use battleRound % 8.
+        int[,] MovementTable = new int [,] {
+                                        {0, 1, 0, 1, 0, 1, 0, 1},
+                                        {1, 1, 1, 0, 1, 1, 1, 0},
+                                        {1, 1, 1, 1, 1, 1, 1, 1},
+                                        {1, 2, 1, 1, 1, 2, 1, 1},
+                                        {1, 2, 1, 2, 1, 2, 1, 2},
+                                        {2, 2, 2, 1, 2, 2, 2, 1},
+                                        {2, 2, 2, 2, 2, 2, 2, 2},
+                                        {2, 3, 2, 2, 2, 3, 2, 2},
+                                        {2, 3, 2, 3, 2, 3, 2, 3}
+                                    };
+
 
         private ServerState stateData;
-        private double maxBattleTime = 16;
         private BattleReport battle;
         private int stackId;
+        int battleRound = 0;
 
-        /// Residual fractional movement points left over between phases/turns of combat.
-        private IDictionary<Fleet, double> residualMovement = new Dictionary<Fleet, double>();
-  
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Creates a new battle engine.
@@ -331,7 +343,8 @@ namespace Nova.WinForms.Console
 
             int spaceSize = spaceAllocator.GridAxisCount * Global.MaxWeaponRange;
 
-            spaceAllocator.AllocateSpace(spaceSize);
+//            spaceAllocator.AllocateSpace(spaceSize);
+            spaceAllocator.AllocateSpace(10); // Set to the standard Stars! battle board size - Dan 26 Jun 11
             battle.SpaceSize = spaceSize;
 
             // Now allocate a position for each race in the centre of one of the
@@ -367,31 +380,17 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public void DoBattle(List<Fleet> zoneStacks)
         {
-            double time = 0;
-
-            while (true)
+            battleRound = 1;
+            for (battleRound = 1; battleRound <= maxBattleRounds; ++battleRound)
             {
                 if (SelectTargets(zoneStacks) == 0)
                 {
+                    // no more targets
                     break;
-                }
-
-
-                foreach (Fleet stack in zoneStacks)
-                {
-                    residualMovement.Add(stack, 0);
                 }
 
                 MoveStacks(zoneStacks);
                 FireWeapons(zoneStacks);
-
-                time++;
-                if (time > maxBattleTime)
-                {
-                    break;
-                }
-
-                residualMovement.Clear();
             }
         }
 
@@ -511,10 +510,26 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         public void MoveStacks(List<Fleet> zoneStacks)
         {
-            // each turn has 3 phases
+            // Movement in Squares per Round
+            //                  Round
+            // Movement  1  2  3  4  5  6  7  8
+            // 1/2       1  0  1  0  1  0  1  0
+            // 3/4       1  1  0  1  1  1  0  1
+            // 1         1  1  1  1  1  1  1  1
+            // 1 1/4     2  1  1  1  2  1  1  1
+            // 1 1/2     2  1  2  1  2  1  2  1
+            // 1 3/4     2  2  1  2  2  2  1  2
+            // 2         2  2  2  2  2  2  2  2
+            // 2 1/4     3  2  2  2  3  2  2  2
+            // 2 1/2     3  2  3  2  3  2  3  2
+            // repeats for rounds 9 - 16
+
+            // In Stars! each round breaks movement into 3 phases.
+            // Phase 1: All tokens that can move 3 squares this round get to move 1 square.
+            // Phase 2: All tokens that can move 2 or more squares this round get to move 1 square.
+            // Phase 3: All tokens that can move this round get to move 1 square.
             // TODO (priority 3) - verify that a ship should be able to move 1 square per phase if it has 3 move points, or is it limited to 1 per turn?
-            var phases = 3;
-            for (var phase = 0; phase < phases; phase++)
+            for (var phase = 1; phase <= movementPhasesPerRound; phase++)
             {
                 foreach (Fleet stack in zoneStacks)
                 {
@@ -523,14 +538,68 @@ namespace Nova.WinForms.Console
                         NovaPoint from = stack.Position;
                         NovaPoint to = stack.Target.Position;
 
-                        // stack accumulates its full movement over the course of the 3 phases
-                        residualMovement[stack] += stack.BattleSpeed / (double)phases;
+                        int movesThisRound = 1; // FIXME (priority 6) - kludge until I implement the above table 
+                        if (stack.BattleSpeed <= 0.5)
+                        {
+                            movesThisRound = MovementTable[0, battleRound % 8];
+                        }
+                        else if (stack.BattleSpeed <= 0.75)
+                        {
+                            movesThisRound = MovementTable[1, battleRound % 8];
+                        }
+                        else if (stack.BattleSpeed <= 1.0)
+                        {
+                            movesThisRound = MovementTable[2, battleRound % 8];
+                        }
+                        else if (stack.BattleSpeed <= 1.25)
+                        {
+                            movesThisRound = MovementTable[3, battleRound % 8];
+                        }
+                        else if (stack.BattleSpeed <= 1.5)
+                        {
+                            movesThisRound = MovementTable[4, battleRound % 8];
+                        }
+                        else if (stack.BattleSpeed <= 1.75)
+                        {
+                            movesThisRound = MovementTable[5, battleRound % 8];
+                        }
+                        else if (stack.BattleSpeed <= 2.0)
+                        {
+                            movesThisRound = MovementTable[6, battleRound % 8];
+                        }
+                        else if (stack.BattleSpeed <= 2.25)
+                        {
+                            movesThisRound = MovementTable[7, battleRound % 8];
+                        }
+                        else // if (stack.BattleSpeed > 2.25)
+                        {
+                            movesThisRound = MovementTable[8, battleRound % 8];
+                        }
+
+                        bool moveThisPhase = true;
+                        switch (phase)
+                        {
+                            case 1:
+                                {
+                                    moveThisPhase = movesThisRound == 3;
+                                    break;
+                                }
+                            case 2:
+                                {
+                                    moveThisPhase = movesThisRound >= 2;
+                                    break;
+                                }
+                            case 3:
+                                {
+                                    moveThisPhase = movesThisRound >= 1;
+                                    break;
+                                }
+                        }
 
                         // stack can move only after accumulating at least 1 move point, and after doing so expends that 1 move point
-                        if (residualMovement[stack] >= 1.0)
+                        if (moveThisPhase)
                         {
                             stack.Position = PointUtilities.BattleMoveTo(from, to);
-                            residualMovement[stack] -= 1.0;
                         }
 
                         // Update the battle report with these movements.
