@@ -15,7 +15,7 @@ namespace Nova.WinForms.Gui.Controls
     {
         private int level = 0;
         private int maximum = 100;
-        private Cargo cargoLevels = new Cargo();
+        private Cargo cargoLevels;
 
         public enum CargoType
         {
@@ -33,6 +33,8 @@ namespace Nova.WinForms.Gui.Controls
 
         public CargoMeter()
         {
+            if( !DesignMode )
+                cargoLevels = new Cargo();
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             UpdateStyles();    
@@ -135,8 +137,12 @@ namespace Nova.WinForms.Gui.Controls
         private int FillBar(Rectangle area, Graphics g, int x, int val, Brush brush)
         {
             int fillWidth = CalcBarWidth(area, val);
-            if( fillWidth > 0 )
+            if (fillWidth > 0)
+            {
+                if (x + fillWidth > area.Width)
+                    fillWidth = area.Width - x;
                 g.FillRectangle(brush, x, area.Y, fillWidth, area.Height);
+            }
             return fillWidth;
         }
 
