@@ -23,15 +23,16 @@ namespace Nova.Server.TurnSteps
 {
     using System;
     
-    /// <summary>
-    /// Defines the API for any TurnStep used by the TurnGenerator.
-    /// </summary>
-    public interface ITurnStep
+    public class ScanStep : ITurnStep
     {
-        /// <summary>
-        /// Executes this turnstep.
-        /// </summary>
-        void Process(ServerState stateData);
+        public ScanStep()
+        {
+        }
+        
+        public void Process(ServerState stateData)
+        {
+            
+        }
     }
 }
 

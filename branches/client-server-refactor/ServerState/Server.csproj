@@ -84,6 +84,7 @@
     <Compile Include="WeaponDetails.cs" />
     <Compile Include="TurnGenerator.cs" />
     <Compile Include="TurnSteps\TurnStep.cs" />
+    <Compile Include="TurnSteps\ScanStep.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
