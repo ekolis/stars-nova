@@ -120,6 +120,7 @@ namespace Nova.WinForms.Console
                         
             CleanupFleets();
 
+            stateData.AllBattles.Clear(); // remove battle from old turns
             battleEngine.Run();
             
             CleanupFleets();            
