@@ -44,12 +44,12 @@ namespace Nova.Common
         /// <summary>
         /// Initializes a new instance of the FleetIntel class.
         /// </summary>
-        /// <param name="star">The <see cref="Fleet"/> being reported</param>
+        /// <param name="fleet">The <see cref="Fleet"/> being reported</param>
         public FleetIntel(Fleet fleet, IntelLevel intelAmount)
         {
             Age         = UNSEEN;            
             IntelAmount = IntelLevel.None;
-            Fleet       = new Fleet(-1);
+            Fleet       = new Fleet(fleet.FleetID);
            
             Update(fleet, intelAmount);
         }
