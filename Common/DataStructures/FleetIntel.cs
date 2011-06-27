@@ -33,7 +33,7 @@ namespace Nova.Common
     /// or scanned.
     /// </summary>
     [Serializable]
-    public class FleetIntel
+    public class FleetIntel : Fleet
     {
         public int          Age;      
         public Fleet        Fleet; // Consider a diferent name!
@@ -45,24 +45,13 @@ namespace Nova.Common
         /// Initializes a new instance of the FleetIntel class.
         /// </summary>
         /// <param name="fleet">The <see cref="Fleet"/> being reported</param>
-        public FleetIntel(Fleet fleet, IntelLevel intelAmount)
+        public FleetIntel(Fleet fleet, IntelLevel intelAmount) :
+            base(fleet)
         {
             Age         = UNSEEN;            
             IntelAmount = IntelLevel.None;
-            Fleet       = new Fleet(fleet.FleetID);
            
             Update(fleet, intelAmount);
-        }
-        
-        /// <summary>
-        /// Makes conversion from FleetIntel to Fleet possible. Eases
-        /// foreach loops and data access.
-        /// </summary>
-        /// <param name="s">A <see cref="FleetIntel"/> containing the desired Fleet.</param>
-        /// <returns>The <see cref="Fleet"/> contained in this Intel.</returns>
-        public static explicit operator Fleet(FleetIntel f)
-        {
-            return f.Fleet;
         } 
         
         public void Update(Fleet fleet, IntelLevel intelAmount)
@@ -88,10 +77,10 @@ namespace Nova.Common
                 // We can at least see it, so set age to current.
                 Age = 0;
                 
-                Fleet.Position  = fleet.Position;
-                Fleet.Type      = fleet.Type;
-                Fleet.Bearing   = fleet.Bearing;
-                Fleet.Speed     = fleet.Speed;
+                Position  = fleet.Position;
+                Type      = fleet.Type;
+                Bearing   = fleet.Bearing;
+                Speed     = fleet.Speed;
 
             }
             
@@ -114,8 +103,10 @@ namespace Nova.Common
             }    
         }
         
-        public FleetIntel(XmlNode xmlnode)
+        public FleetIntel LoadFromXml(XmlNode xmlnode)
         {
+            FleetIntel intel;
+            
             XmlNode node = xmlnode.FirstChild;
             while (node != null)
             {
@@ -140,7 +131,11 @@ namespace Nova.Common
                 }
 
                 node = node.NextSibling;
-            }    
+            }
+            
+            intel = new FleetIntel(Fleet, IntelAmount);
+            
+            return intel;            
         }
         
         public XmlElement ToXml(XmlDocument xmldoc)
@@ -151,7 +146,7 @@ namespace Nova.Common
             
             Global.SaveData(xmldoc, xmlelFleetIntel, "IntelAmount", IntelAmount.ToString());
 
-            xmlelFleetIntel.AppendChild(Fleet.ToXml(xmldoc));
+            xmlelFleetIntel.AppendChild(base.ToXml(xmldoc));
 
             return xmlelFleetIntel;   
         }

@@ -120,7 +120,8 @@ namespace Nova.Common
                             tNode = subnode.FirstChild;
                             while (tNode != null)
                             {
-                                StarIntel report = new StarIntel(tNode);
+                                StarIntel report = new StarIntel();
+                                report = report.LoadFromXml(tNode);
                                 StarReports.Add(report);
                                 tNode = tNode.NextSibling;
                             }
