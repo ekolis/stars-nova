@@ -154,23 +154,23 @@ namespace Nova.Client
             }
             // Star reference to Race
             // Star reference to Fleet (starbase)
-            foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
+            foreach (StarIntel star in stateData.EmpireIntel.StarReports.Values)
             {
-                if (report.ThisRace != null)
+                if (star.ThisRace != null)
                 {
-                    if (report.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                    if (star.Owner == stateData.EmpireIntel.EmpireRace.Name)
                     {
-                        report.ThisRace = stateData.EmpireIntel.EmpireRace;
+                        star.ThisRace = stateData.EmpireIntel.EmpireRace;
                     }
                     else
                     {
-                        report.ThisRace = null;
+                        star.ThisRace = null;
                     }
                 }
 
-                if (report.Starbase != null)
+                if (star.Starbase != null)
                 {
-                    report.Starbase = stateData.EmpireIntel.FleetReports[report.Owner + "/" + report.Starbase.FleetID];
+                    star.Starbase = stateData.EmpireIntel.FleetReports[star.Name + " Starbase"];
                 }
             }
 
