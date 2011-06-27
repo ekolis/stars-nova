@@ -19,8 +19,8 @@ namespace Nova.ControlLibrary
             this.meterCargo = new Nova.WinForms.Gui.Controls.CargoMeter();
             this.cargoIron = new Nova.WinForms.Gui.Controls.CargoMeterCounter();
             this.labelIron = new System.Windows.Forms.Label();
-            this.labelBoron = new System.Windows.Forms.Label();
-            this.cargoBoron = new Nova.WinForms.Gui.Controls.CargoMeterCounter();
+            this.labelBoran = new System.Windows.Forms.Label();
+            this.cargoBoran = new Nova.WinForms.Gui.Controls.CargoMeterCounter();
             this.labelGerman = new System.Windows.Forms.Label();
             this.cargoGerman = new Nova.WinForms.Gui.Controls.CargoMeterCounter();
             this.labelColonists = new System.Windows.Forms.Label();
@@ -108,25 +108,25 @@ namespace Nova.ControlLibrary
             this.labelIron.Text = "999999KT";
             this.labelIron.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // labelBoron
+            // labelBoran
             // 
-            this.labelBoron.Location = new System.Drawing.Point(4, 102);
-            this.labelBoron.Name = "labelBoron";
-            this.labelBoron.Size = new System.Drawing.Size(100, 20);
-            this.labelBoron.TabIndex = 23;
-            this.labelBoron.Text = "999999KT";
-            this.labelBoron.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelBoran.Location = new System.Drawing.Point(4, 102);
+            this.labelBoran.Name = "labelBoran";
+            this.labelBoran.Size = new System.Drawing.Size(100, 20);
+            this.labelBoran.TabIndex = 23;
+            this.labelBoran.Text = "999999KT";
+            this.labelBoran.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
-            // cargoBoron
+            // cargoBoran
             // 
-            this.cargoBoron.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Boranium;
-            this.cargoBoron.Location = new System.Drawing.Point(110, 104);
-            this.cargoBoron.Maximum = 100;
-            this.cargoBoron.Name = "cargoBoron";
-            this.cargoBoron.Reversed = true;
-            this.cargoBoron.Size = new System.Drawing.Size(269, 20);
-            this.cargoBoron.TabIndex = 22;
-            this.cargoBoron.Value = 0;
+            this.cargoBoran.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Boranium;
+            this.cargoBoran.Location = new System.Drawing.Point(110, 104);
+            this.cargoBoran.Maximum = 100;
+            this.cargoBoran.Name = "cargoBoran";
+            this.cargoBoran.Reversed = true;
+            this.cargoBoran.Size = new System.Drawing.Size(269, 20);
+            this.cargoBoran.TabIndex = 22;
+            this.cargoBoran.Value = 0;
             // 
             // labelGerman
             // 
@@ -185,7 +185,7 @@ namespace Nova.ControlLibrary
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(51, 13);
             this.label9.TabIndex = 29;
-            this.label9.Text = "Boronium";
+            this.label9.Text = "Boranium";
             this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // label10
@@ -222,8 +222,8 @@ namespace Nova.ControlLibrary
             this.Controls.Add(this.cargoColonists);
             this.Controls.Add(this.labelGerman);
             this.Controls.Add(this.cargoGerman);
-            this.Controls.Add(this.labelBoron);
-            this.Controls.Add(this.cargoBoron);
+            this.Controls.Add(this.labelBoran);
+            this.Controls.Add(this.cargoBoran);
             this.Controls.Add(this.labelIron);
             this.Controls.Add(this.cargoIron);
             this.Controls.Add(this.meterCargo);
@@ -268,8 +268,8 @@ namespace Nova.ControlLibrary
         private WinForms.Gui.Controls.CargoMeter meterCargo;
         private WinForms.Gui.Controls.CargoMeterCounter cargoIron;
         private System.Windows.Forms.Label labelIron;
-        private System.Windows.Forms.Label labelBoron;
-        private WinForms.Gui.Controls.CargoMeterCounter cargoBoron;
+        private System.Windows.Forms.Label labelBoran;
+        private WinForms.Gui.Controls.CargoMeterCounter cargoBoran;
         private System.Windows.Forms.Label labelGerman;
         private WinForms.Gui.Controls.CargoMeterCounter cargoGerman;
         private System.Windows.Forms.Label labelColonists;
