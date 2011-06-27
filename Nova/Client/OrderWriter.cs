@@ -85,7 +85,7 @@ namespace Nova.Client
             // order at some point, instead of sending stars.
             foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
             {
-               if (report.Star.Owner == raceName)
+               if (report.Owner == raceName)
                {
                    // Do not use ResourcesOnHand.Energy here, use
                    // GetResourceRate instead, as ResourcesOnHand
@@ -96,7 +96,7 @@ namespace Nova.Client
             
                    // Don't keep a local count.
                    // stateData.ResearchAllocation += (int)star.ResearchAllocation;
-                   outputTurn.RaceStars.Add(report.Star);
+                   outputTurn.RaceStars.Add(report);
                }
             }
             

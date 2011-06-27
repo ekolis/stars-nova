@@ -32,8 +32,8 @@ namespace Nova.WinForms.Gui
             this.aboutToolStripMenuItem         = new System.Windows.Forms.ToolStripMenuItem();
             
             this.messages           = new Nova.WinForms.Gui.Messages();
-            this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(stateData.EmpireIntel.StarReports,                                                                                                                                                        stateData.InputTurn.AllFleets,
-                                                                            stateData.PlayerFleets,
+            this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(stateData.EmpireIntel.StarReports,
+                                                                            stateData.EmpireIntel.FleetReports,
                                                                             stateData.DeletedFleets,
                                                                             stateData.EmpireIntel.EmpireRace,
                                                                             stateData.EmpireIntel.ResearchBudget,

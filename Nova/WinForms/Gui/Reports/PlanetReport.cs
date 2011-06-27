@@ -68,29 +68,29 @@ namespace Nova.WinForms.Gui
 
             foreach (StarIntel report in allStarsIntel.Values)
             {
-                if (report.Star.Owner == race.Name)
+                if (report.Owner == race.Name)
                 {
                     string[] row = new string[NumColumns];
 
                     string starbase = "-";
-                    if (report.Star.Starbase != null)
+                    if (report.Starbase != null)
                     {
-                        starbase = report.Star.Starbase.Name;
+                        starbase = report.Starbase.Name;
                     }
 
                     int i = 0;
-                    row[i++] = report.Star.Name;
+                    row[i++] = report.Name;
                     row[i++] = starbase;
-                    row[i++] = report.Star.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = report.Star.Capacity(race).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = Math.Ceiling(report.Star.HabitalValue(race) * 100).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = report.Star.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = report.Star.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = report.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = report.Capacity(race).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = Math.Ceiling(report.HabitalValue(race) * 100).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = report.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = report.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-                    Defenses.ComputeDefenseCoverage(report.Star);
+                    Defenses.ComputeDefenseCoverage(report);
                     row[i++] = Defenses.SummaryCoverage.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-                    Nova.Common.Resources resources = report.Star.ResourcesOnHand;
+                    Nova.Common.Resources resources = report.ResourcesOnHand;
                     StringBuilder text = new StringBuilder();
 
                     text.AppendFormat(
@@ -103,7 +103,7 @@ namespace Nova.WinForms.Gui
 
                     row[i++] = text.ToString();
 
-                    resources = report.Star.MineralConcentration;
+                    resources = report.MineralConcentration;
                     text = new StringBuilder();
 
                     text.AppendFormat(

@@ -126,6 +126,16 @@ namespace Nova.Common
                                 tNode = tNode.NextSibling;
                             }
                             break;
+                        case "fleetreports":
+                            tNode = subnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                FleetIntel report = new FleetIntel();
+                                report = report.LoadFromXml(tNode);
+                                FleetReports.Add(report);
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
                         case "relation":
                             {
                                 string key = ((XmlText)subnode.SelectSingleNode("Race").FirstChild).Value;
@@ -182,6 +192,13 @@ namespace Nova.Common
                 xmlelStarReports.AppendChild(report.ToXml(xmldoc));    
             }
             xmlelEmpireData.AppendChild(xmlelStarReports);
+            
+            XmlElement xmlelFleetReports = xmldoc.CreateElement("FleetReports");            
+            foreach (FleetIntel report in FleetReports.Values)
+            {
+                xmlelFleetReports.AppendChild(report.ToXml(xmldoc));    
+            }
+            xmlelEmpireData.AppendChild(xmlelFleetReports);
             
             foreach (string key in PlayerRelations.Keys)
             {

@@ -73,7 +73,6 @@ namespace Nova.WinForms.Gui
             new Point(5, -12) 
         };
 
-        private readonly Dictionary<string, Fleet> visibleFleets = new Dictionary<string, Fleet>();
         private readonly Dictionary<string, Minefield> visibleMinefields = new Dictionary<string, Minefield>();
         private readonly Font nameFont;
         
@@ -147,7 +146,6 @@ namespace Nova.WinForms.Gui
             horizontalScrollBar.Enabled = true;
             verticalScrollBar.Enabled = true;
 
-            DetermineVisibleFleets();
             DetermineVisibleMinefields();
             
             zoomFactor = 1.0;
@@ -224,15 +222,15 @@ namespace Nova.WinForms.Gui
 
             foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
             {
-                if (report.Star.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                if (report.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
-                    DrawCircle(g, lrScanBrush, (Point)report.Star.Position, report.Star.ScanRange);
+                    DrawCircle(g, lrScanBrush, (Point)report.Position, report.ScanRange);
                 }
             }
 
             // (1b) Fleet non-pen scanners.
 
-            foreach (Fleet fleet in this.visibleFleets.Values)
+            foreach (Fleet fleet in stateData.EmpireIntel.FleetReports.Values)
             {
                 if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
@@ -242,7 +240,7 @@ namespace Nova.WinForms.Gui
 
             // (2) Fleet pen-scanners scanners.
 
-            foreach (Fleet fleet in this.visibleFleets.Values)
+            foreach (Fleet fleet in stateData.EmpireIntel.FleetReports.Values)
             {
                 if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
@@ -278,7 +276,7 @@ namespace Nova.WinForms.Gui
 
             // (4) Visible fleets.
 
-            foreach (Fleet fleet in this.visibleFleets.Values)
+            foreach (Fleet fleet in stateData.EmpireIntel.FleetReports.Values)
             {
                 if (fleet.Type != "Starbase")
                 {
@@ -291,8 +289,8 @@ namespace Nova.WinForms.Gui
 
             foreach (StarIntel starIntel in stateData.EmpireIntel.StarReports.Values)
             {
-                DrawStar(g, starIntel.Star);
-                DrawOrbitingFleets(g, starIntel.Star);
+                DrawStar(g, starIntel);
+                DrawOrbitingFleets(g, starIntel);
             }
 
             // (6) Cursor.
@@ -442,7 +440,7 @@ namespace Nova.WinForms.Gui
             if (report.Age > StarIntel.UNSEEN)
             {
                 size = 4;
-                owner = report.Star.Owner;
+                owner = report.Owner;
             }
 
             // Our stars are greenish, other's are red, unknown or uncolonised
@@ -490,7 +488,7 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            if (report.Star.Starbase != null)
+            if (report.Starbase != null)
             {
                 g.FillEllipse(
                     Brushes.Yellow,
@@ -500,7 +498,7 @@ namespace Nova.WinForms.Gui
                     4);
             }
 
-            if (report.Star.OrbitingFleets)
+            if (report.OrbitingFleets)
             {
                 int size = 12;
                 g.DrawEllipse(
@@ -511,76 +509,6 @@ namespace Nova.WinForms.Gui
                     size);
             }
         }
-
-        /// ----------------------------------------------------------------------------
-        /// <Summary>
-        /// Build a list of all fleets that are visible to the player.
-        /// </Summary>
-        /// <remarks>
-        /// This consists of:
-        /// (1) Fleets owned by the player
-        /// (2) Fleets within the range of scanners on ships owned by the player
-        /// (3) Fleets within the range of scanners on planets owned by the player
-        ///
-        /// </remarks>
-        /// ----------------------------------------------------------------------------
-        // FIXME(priority 3): Move this to the server.
-        private void DetermineVisibleFleets()
-        {
-            List<Fleet> playersFleets = new List<Fleet>();
-
-            // -------------------------------------------------------------------
-            // (1) First the easy one. Fleets owned by the player.
-            // -------------------------------------------------------------------
-
-            foreach (Fleet fleet in this.turnData.AllFleets.Values)
-            {
-                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
-                {
-                    this.visibleFleets[fleet.Key] = fleet;
-                    playersFleets.Add(fleet);
-                }
-            }
-
-            // -------------------------------------------------------------------
-            // (2) Not so easy. Fleets within the scanning range of the player's
-            // Fleets.
-            // -------------------------------------------------------------------
-
-            foreach (Fleet fleet in playersFleets)
-            {
-                foreach (Fleet scan in this.turnData.AllFleets.Values)
-                {
-                    double range = 0;
-                    range = PointUtilities.Distance(fleet.Position, scan.Position);
-                    if (range <= fleet.ScanRange)
-                    {
-                        this.visibleFleets[scan.Key] = scan;
-                    }
-                }
-            }
-
-            // -------------------------------------------------------------------
-            // (3) Now that we know how to deal with ship scanners planet scanners
-            // are just the same.
-            // -------------------------------------------------------------------
-
-            foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
-            {
-                if (report.Star.Owner == stateData.EmpireIntel.EmpireRace.Name)
-                {
-                    foreach (Fleet scanned in turnData.AllFleets.Values)
-                    {
-                        if (PointUtilities.Distance(report.Star.Position, scanned.Position)
-                            <= report.Star.ScanRange)
-                        {
-                            this.visibleFleets[scanned.Key] = scanned;
-                        }
-                    }
-                }
-            }
-        }
-
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -651,13 +579,13 @@ namespace Nova.WinForms.Gui
             {
                 foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
                 {
-                    if (report.Star.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                    if (report.Owner == stateData.EmpireIntel.EmpireRace.Name)
                     {
 
                         bool isIn = PointUtilities.CirclesOverlap(
-                            report.Star.Position,
+                            report.Position,
                             minefield.Position,
-                            report.Star.ScanRange,
+                            report.ScanRange,
                             minefield.Radius);
 
                         if (isIn == true)
@@ -1117,7 +1045,7 @@ namespace Nova.WinForms.Gui
         {
             List<SortableItem> nearObjects = new List<SortableItem>();
 
-            foreach (Fleet fleet in this.visibleFleets.Values)
+            foreach (Fleet fleet in stateData.EmpireIntel.FleetReports.Values)
             {
                 if (!fleet.IsStarbase)
                 {
@@ -1133,12 +1061,12 @@ namespace Nova.WinForms.Gui
 
             foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
             {
-                if (PointUtilities.IsNear(report.Star.Position, position))
+                if (PointUtilities.IsNear(report.Position, position))
                 {
 
                     SortableItem thisItem = new SortableItem();
-                    thisItem.Target = report.Star;
-                    thisItem.Distance = PointUtilities.Distance(position, report.Star.Position);
+                    thisItem.Target = report;
+                    thisItem.Distance = PointUtilities.Distance(position, report.Position);
                     nearObjects.Add(thisItem);
                 }
             }
