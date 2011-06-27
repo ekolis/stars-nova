@@ -36,9 +36,9 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class PlanetDetail : System.Windows.Forms.UserControl
     {
-        private Star selectedStar;
+        private StarIntel selectedStar;
         private StarIntelList starReports;
-        private List<Fleet> playerFleets;
+        private FleetIntelList fleetReports;
         private int researchBudget;
         private Race empireRace;
         
@@ -67,10 +67,10 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the PlanetDetail class.
         /// </Summary>
-        public PlanetDetail(StarIntelList starReports, List<Fleet> playerFleets, int researchBudget, Race empireRace, ClientState stateData)
+        public PlanetDetail(StarIntelList starReports, FleetIntelList fleetReports, int researchBudget, Race empireRace, ClientState stateData)
         {
             this.starReports = starReports;
-            this.playerFleets = playerFleets;
+            this.fleetReports = fleetReports;
             this.researchBudget = researchBudget;
             this.empireRace = empireRace;
             this.stateData = stateData;
@@ -118,7 +118,7 @@ namespace Nova.WinForms.Gui
             previousPlanet.Enabled = true;
             nextPlanet.Enabled = true;
 
-            selectedStar = starReports.GetNextOwned(starReports[selectedStar.Name]).Star;
+            selectedStar = starReports.GetNextOwned(starReports[selectedStar.Name]);
 
             // Inform of the selection change to all listening objects.
             FireStarSelectionChangedEvent();
@@ -145,7 +145,7 @@ namespace Nova.WinForms.Gui
             previousPlanet.Enabled = true;
             nextPlanet.Enabled = true;
 
-            selectedStar = starReports.GetPreviousOwned(starReports[selectedStar.Name]).Star;
+            selectedStar = starReports.GetPreviousOwned(starReports[selectedStar.Name]);
 
             // Inform of the selection change to all listening objects.
             FireStarSelectionChangedEvent();
@@ -170,7 +170,7 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="selectedStar">The Star to be displayed</param>
         /// ----------------------------------------------------------------------------
-        private void SetStarDetails(Star selectedStar)
+        private void SetStarDetails(StarIntel selectedStar)
         {
             if (selectedStar == null)
                 return;
@@ -262,7 +262,7 @@ namespace Nova.WinForms.Gui
 
             List<String> fleetnames = new List<string>();
             fleetsInOrbit = new Dictionary<string, Fleet>();
-            foreach (Fleet fleet in playerFleets)
+            foreach (FleetIntel fleet in fleetReports.Values)
             {
                 if ( fleet.InOrbit != null &&  fleet.InOrbit.Name == selectedStar.Name && !fleet.IsStarbase)
                 {
@@ -287,7 +287,7 @@ namespace Nova.WinForms.Gui
         /// Access to the Star Report whose details are displayed in the panel.
         /// </Summary>
         /// ----------------------------------------------------------------------------
-        public Star Value
+        public StarIntel Value
         {
             set { SetStarDetails(value); }
             get { return selectedStar; }

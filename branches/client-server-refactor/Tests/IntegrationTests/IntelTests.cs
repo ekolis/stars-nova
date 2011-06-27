@@ -170,9 +170,9 @@ namespace Nova.Tests.IntegrationTests
                 // test if it worked
                 Assert.IsTrue(loadedData.EmpireIntel.TurnYear == 3500);
                 Assert.IsTrue(loadedData.EmpireIntel.StarReports.Contains("Pluto") &&
-                              loadedData.EmpireIntel.StarReports["Pluto"].Star.Name == "Pluto");
+                              loadedData.EmpireIntel.StarReports["Pluto"].Name == "Pluto");
                 Assert.IsTrue(loadedData.EmpireIntel.StarReports.Contains("Pluto") &&
-                              loadedData.EmpireIntel.StarReports["Pluto"].Star.Colonists == 25000);
+                              loadedData.EmpireIntel.StarReports["Pluto"].Colonists == 25000);
 
             }
             catch (Exception e)

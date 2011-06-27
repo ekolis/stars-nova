@@ -112,7 +112,6 @@ namespace Nova.Client
             LinkIntelReferences();
 
             ProcessMessages();
-            ProcessFleets();
             ProcessResearch();
         }
 
@@ -146,11 +145,11 @@ namespace Nova.Client
             }
 
             // Fleet reference to Star
-            foreach (Fleet fleet in turnData.AllFleets.Values)
+            foreach (FleetIntel fleet in turnData.EmpireIntel.FleetReports.Values)
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = turnData.EmpireIntel.StarReports[fleet.InOrbit.Name].Star;
+                    fleet.InOrbit = turnData.EmpireIntel.StarReports[fleet.InOrbit.Name];
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
@@ -163,21 +162,21 @@ namespace Nova.Client
             // Star reference to Fleet (starbase)
             foreach (StarIntel report in turnData.EmpireIntel.StarReports.Values)
             {
-                if (report.Star.ThisRace != null)
+                if (report.ThisRace != null)
                 {
-                    if (report.Star.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                    if (report.Owner == stateData.EmpireIntel.EmpireRace.Name)
                     {
-                        report.Star.ThisRace = stateData.EmpireIntel.EmpireRace;
+                        report.ThisRace = stateData.EmpireIntel.EmpireRace;
                     }
                     else
                     {
-                        report.Star.ThisRace = null;
+                        report.ThisRace = null;
                     }
                 }
 
-                if (report.Star.Starbase != null)
+                if (report.Starbase != null)
                 {
-                    report.Star.Starbase = turnData.AllFleets[report.Star.Owner + "/" + report.Star.Starbase.FleetID];
+                    report.Starbase = turnData.EmpireIntel.FleetReports[report.Owner + "/" + report.Starbase.FleetID];
                 }
             }
 
@@ -255,34 +254,6 @@ namespace Nova.Client
         }
 
         /// <summary>
-        ///  Process Fleet Reports
-        /// </summary>
-        private void ProcessFleets()
-        {
-            stateData.PlayerFleets.Clear();
-            // update the state data with the current fleets
-            foreach (Fleet fleet in stateData.InputTurn.AllFleets.Values)
-            {
-                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
-                {
-                    stateData.PlayerFleets.Add(fleet);
-
-                    if (fleet.IsStarbase)
-                    {
-                        // update the reference from the star to its starbase and vice versa (the fleet should know the name of the star, but the reference is a dummy)
-                        if ((fleet.InOrbit == null) || (fleet.InOrbit.Name == null))
-                        {
-                            Report.FatalError("Starbase doesn't know what planet it is orbiting!");
-                        }
-                        Star star = stateData.EmpireIntel.StarReports[fleet.InOrbit.Name].Star;
-                        star.Starbase = fleet;
-                        fleet.InOrbit = star;
-                    }
-                }
-            }
-        }
-
-        /// <summary>
         /// Recieve research updates.
         /// </summary>
         private void ProcessResearch()
@@ -344,10 +315,10 @@ namespace Nova.Client
                             null);
                         foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
                         {
-                            if (report.Star.Owner == stateData.EmpireIntel.EmpireRace.Name &&
-                                report.Star.ScannerType != string.Empty)
+                            if (report.Owner == stateData.EmpireIntel.EmpireRace.Name &&
+                                report.ScannerType != string.Empty)
                             {
-                                report.Star.ScannerType = component.Name;
+                                report.ScannerType = component.Name;
                             }
                         }
                     }

@@ -38,7 +38,7 @@ namespace Nova.Ai
         {
             foreach (StarIntel starIntel in stateData.EmpireIntel.StarReports.Values)
             {
-                Star star = starIntel.Star;
+                Star star = starIntel;
                 
                 if (star.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
@@ -94,7 +94,7 @@ namespace Nova.Ai
         {
             //scout
             List<Fleet> scoutFleets = new List<Fleet>();
-            foreach (Fleet fleet in stateData.PlayerFleets)
+            foreach (Fleet fleet in stateData.EmpireIntel.FleetReports)
             {
                 if (fleet.Name.Contains("Scout") == true && fleet.Waypoints.Count == 1)
                 {
@@ -116,7 +116,7 @@ namespace Nova.Ai
             }
             //colonization
             List<Fleet> colonyShipsFleets = new List<Fleet>();
-            foreach (Fleet fleet in stateData.PlayerFleets)
+            foreach (Fleet fleet in stateData.EmpireIntel.FleetReports)
             {
                 if (fleet.CanColonize == true && fleet.Waypoints.Count == 1)
                     colonyShipsFleets.Add(fleet);
@@ -127,7 +127,7 @@ namespace Nova.Ai
                 //check if there is any good star to colonize
                 foreach (StarIntel starIntel in turnData.EmpireIntel.StarReports.Values)
                 {
-                    Star star = starIntel.Star;
+                    Star star = starIntel;
                     if (star.HabitalValue(stateData.EmpireIntel.EmpireRace) > 0 && star.Owner == null)
                     {
                         SendFleet(star, colonyShipsFleets[0], WaypointTask.Colonise);
@@ -149,7 +149,7 @@ namespace Nova.Ai
             Double distance = double.MaxValue;
             foreach (StarIntel starIntel in turnData.EmpireIntel.StarReports.Values)
             {
-                Star s = starIntel.Star;
+                Star s = starIntel;
                 if (excludedStars.Contains(s) == true) 
                     continue;
 

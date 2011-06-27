@@ -50,8 +50,7 @@ namespace Nova.Client
         public Dictionary<string, Design> EnemyDesigns = new Dictionary<string, Design>();        
         
         public Intel            InputTurn           = null;
-        public RaceComponents   AvailableComponents = null;
-        public List<Fleet>      PlayerFleets        = new List<Fleet>();        
+        public RaceComponents   AvailableComponents = null;    
         
         public bool FirstTurn   = true;  
         
@@ -142,14 +141,6 @@ namespace Nova.Client
                             while (tNode != null)
                             { 
                                 AvailableComponents.Add(new Component(tNode));
-                                tNode = tNode.NextSibling;
-                            }
-                            break;
-                         case "playerfleets":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
-                            {
-                                PlayerFleets.Add(new Fleet(tNode));
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -387,7 +378,6 @@ namespace Nova.Client
             
             InputTurn           = newState.InputTurn;
             AvailableComponents = newState.AvailableComponents;
-            PlayerFleets        = newState.PlayerFleets;
             
             EmpireIntel = newState.EmpireIntel;
             
@@ -541,14 +531,6 @@ namespace Nova.Client
                 }
                 xmlelClientState.AppendChild(xmlelAvaiableComponents);
                 
-                // Player fleets
-                XmlElement xmlelPlayerFleets = xmldoc.CreateElement("PlayerFleets");
-                foreach (Fleet fleet in PlayerFleets)
-                {
-                    xmlelPlayerFleets.AppendChild(fleet.ToXml(xmldoc));    
-                }
-                xmlelClientState.AppendChild(xmlelPlayerFleets);
-                
                 Global.SaveData(xmldoc, xmlelClientState, "FirstTurn", FirstTurn.ToString());
                 Global.SaveData(xmldoc, xmlelClientState, "GameFolder", GameFolder);
                 Global.SaveData(xmldoc, xmlelClientState, "StatePathName", StatePathName);
@@ -621,11 +603,11 @@ namespace Nova.Client
         private void LinkClientStateReferences()
         {
             // Fleet reference to Star
-            foreach (Fleet fleet in PlayerFleets)
+            foreach (FleetIntel fleet in EmpireIntel.FleetReports.Values)
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = EmpireIntel.StarReports[fleet.InOrbit.Name].Star;
+                    fleet.InOrbit = EmpireIntel.StarReports[fleet.InOrbit.Name];
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
@@ -653,22 +635,22 @@ namespace Nova.Client
 
             foreach (StarIntel report in EmpireIntel.StarReports.Values)
             {
-                if (report.Star.ThisRace != null)
+                if (report.ThisRace != null)
                 {
                     // Reduntant, but works to check if race name is valid...
-                    if (report.Star.Owner == EmpireIntel.EmpireRace.Name)
+                    if (report.Owner == EmpireIntel.EmpireRace.Name)
                     {
-                        report.Star.ThisRace = EmpireIntel.EmpireRace;
+                        report.ThisRace = EmpireIntel.EmpireRace;
                     }
                     else
                     {
-                        report.Star.ThisRace = null;
+                        report.ThisRace = null;
                     }
                 }
 
-                if (report.Star.Starbase != null)
+                if (report.Starbase != null)
                 {
-                    report.Star.Starbase = InputTurn.AllFleets[report.Star.Owner + "/" + report.Star.Starbase.FleetID];
+                    report.Starbase = EmpireIntel.FleetReports[report.Owner + "/" + report.Starbase.FleetID];
                 }
             }
         }     

@@ -28,7 +28,7 @@ namespace Nova.WinForms.Gui
       /// </Summary>
       private void InitializeComponent()
       {
-          this.planetDetail1 = new Nova.WinForms.Gui.PlanetDetail(starReports, playerFleets, researchBudget, playerRace, stateData);
+          this.planetDetail1 = new Nova.WinForms.Gui.PlanetDetail(starReports, fleetReports, researchBudget, playerRace, stateData);
           this.SuspendLayout();
           // 
           // planetDetail1

@@ -483,13 +483,13 @@ namespace Nova.WinForms.Gui
                 }
                 else
                 {
-                    if (starReports[value.Name].Star.Colonists == 0)
+                    if (starReports[value.Name].Colonists == 0)
                     {
                         this.population.Text = "Uninhabited";
                     }
                     else
                     {
-                        this.population.Text = "Population: " + starReports[value.Name].Star.Colonists;
+                        this.population.Text = "Population: " + starReports[value.Name].Colonists;
                     }
                 }
     
@@ -510,21 +510,21 @@ namespace Nova.WinForms.Gui
                     this.reportAge.Text = "Report is " + starReports[value.Name].Age + " years old";
                 }
 
-                this.ironiumGauge.Value = starReports[value.Name].Star.ResourcesOnHand.Ironium;
-                this.boraniumGauge.Value = starReports[value.Name].Star.ResourcesOnHand.Boranium;
-                this.germaniumGauge.Value = starReports[value.Name].Star.ResourcesOnHand.Germanium;
+                this.ironiumGauge.Value = starReports[value.Name].ResourcesOnHand.Ironium;
+                this.boraniumGauge.Value = starReports[value.Name].ResourcesOnHand.Boranium;
+                this.germaniumGauge.Value = starReports[value.Name].ResourcesOnHand.Germanium;
 
-                this.ironiumGauge.Marker = (int)starReports[value.Name].Star.MineralConcentration.Ironium;
-                this.boraniumGauge.Marker = (int)starReports[value.Name].Star.MineralConcentration.Boranium;
-                this.germaniumGauge.Marker = (int)starReports[value.Name].Star.MineralConcentration.Germanium;
+                this.ironiumGauge.Marker = (int)starReports[value.Name].MineralConcentration.Ironium;
+                this.boraniumGauge.Marker = (int)starReports[value.Name].MineralConcentration.Boranium;
+                this.germaniumGauge.Marker = (int)starReports[value.Name].MineralConcentration.Germanium;
 
-                this.radiationGauge.Marker = starReports[value.Name].Star.Radiation;
-                this.gravityGauge.Marker = starReports[value.Name].Star.Gravity;
-                this.temperatureGauge.Marker = starReports[value.Name].Star.Temperature;
+                this.radiationGauge.Marker = starReports[value.Name].Radiation;
+                this.gravityGauge.Marker = starReports[value.Name].Gravity;
+                this.temperatureGauge.Marker = starReports[value.Name].Temperature;
 
-                this.radiationLevel.Text = starReports[value.Name].Star.Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
-                this.gravityLevel.Text = Gravity.FormatWithUnit(starReports[value.Name].Star.Gravity); 
-                this.temperatureLevel.Text = Temperature.FormatWithUnit(starReports[value.Name].Star.Temperature);
+                this.radiationLevel.Text = starReports[value.Name].Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
+                this.gravityLevel.Text = Gravity.FormatWithUnit(starReports[value.Name].Gravity); 
+                this.temperatureLevel.Text = Temperature.FormatWithUnit(starReports[value.Name].Temperature);
 
                 if (playerRace.RadiationTolerance.Immune)
                 {

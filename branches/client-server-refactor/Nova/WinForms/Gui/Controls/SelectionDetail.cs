@@ -46,7 +46,7 @@ namespace Nova.WinForms.Gui
         private UserControl selectedControl = null;
   
         private StarIntelList starReports;
-        private List<Fleet> playerFleets;
+        private FleetIntelList fleetReports;
         private Race playerRace;
         private int researchBudget;
         
@@ -64,23 +64,22 @@ namespace Nova.WinForms.Gui
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
         public SelectionDetail(StarIntelList starReports,
-                               Dictionary<string, Fleet> allFleets,
-                               List<Fleet> playerFleets,
+                               FleetIntelList fleetReports,
                                List<string> deletedFleets,
                                Race playerRace,
                                int researchBudget,
                                ClientState stateData)
         {
             this.starReports = starReports;
-            this.playerFleets = playerFleets;
+            this.fleetReports = fleetReports;
             this.playerRace = playerRace;
             this.researchBudget = researchBudget;
             
             // FIXME: (priority 3) see declaration.
             this.stateData = stateData;
             
-            PlanetDetail = new PlanetDetail(starReports, playerFleets, researchBudget, playerRace, stateData);
-            FleetDetail = new FleetDetail(starReports, allFleets, playerFleets, deletedFleets, playerRace);
+            PlanetDetail = new PlanetDetail(starReports, fleetReports, researchBudget, playerRace, stateData);
+            FleetDetail = new FleetDetail(starReports, fleetReports, deletedFleets, playerRace);
             
             InitializeComponent();
         }
@@ -97,14 +96,11 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplayPlanet(Item item)
         {
-            PlanetDetail.Value = item as Star;
+            PlanetDetail.Value = item as StarIntel;
             
-            if (selectedItem is Fleet || selectedItem == null)
-            {
-                selectedControl = PlanetDetail;
-                Controls.Clear();
-                Controls.Add(PlanetDetail);
-            }
+            selectedControl = PlanetDetail;
+            Controls.Clear();
+            Controls.Add(PlanetDetail);
 
             selectedItem = item;
         }
@@ -118,8 +114,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplayFleet(Item item)
         {
-            FleetDetail.Value = item as Fleet;
-            
+            FleetDetail.Value = item as FleetIntel;
+
             selectedControl = FleetDetail;
             Controls.Clear();
             Controls.Add(FleetDetail);

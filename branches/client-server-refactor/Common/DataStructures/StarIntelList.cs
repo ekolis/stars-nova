@@ -48,7 +48,7 @@ namespace Nova.Common
         /// <param name="report">The Star to be added to the StarList</param>
         public void Add(StarIntel report)
         {
-            Dictionary.Add(report.Star.Name, report);
+            Dictionary.Add(report.Name, report);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Nova.Common
         /// <param name="report">The star to remove.</param>
         public void Remove(StarIntel report)
         {
-            Dictionary.Remove(report.Star.Name);
+            Dictionary.Remove(report.Name);
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace Nova.Common
             List<string> keyList = new List<string>();
             keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Star.Name) + 1;
+            int nextIndex = keyList.IndexOf(report.Name) + 1;
             if (nextIndex >= keyList.Count)
             {
                 nextIndex = 0;
@@ -175,7 +175,7 @@ namespace Nova.Common
             List<string> keyList = new List<string>();
             keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Star.Name);
+            int nextIndex = keyList.IndexOf(report.Name);
             
             do
             {
@@ -185,7 +185,7 @@ namespace Nova.Common
                     nextIndex = 0;
                 }
             }
-            while ((Dictionary[keyList[nextIndex]] as StarIntel).Star.Owner != report.Star.Owner);
+            while ((Dictionary[keyList[nextIndex]] as StarIntel).Owner != report.Owner);
             
             return Dictionary[keyList[nextIndex]] as StarIntel;
         }
@@ -210,7 +210,7 @@ namespace Nova.Common
             List<string> keyList = new List<string>();
             keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Star.Name) - 1;
+            int nextIndex = keyList.IndexOf(report.Name) - 1;
             if (nextIndex < 0)
             {
                 nextIndex = keyList.Count - 1;
@@ -239,7 +239,7 @@ namespace Nova.Common
             List<string> keyList = new List<string>();
             keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Star.Name);
+            int nextIndex = keyList.IndexOf(report.Name);
             
             do
             {
@@ -249,7 +249,7 @@ namespace Nova.Common
                     nextIndex = keyList.Count - 1;
                 }
             }
-            while ((Dictionary[keyList[nextIndex]] as StarIntel).Star.Owner != report.Star.Owner);
+            while ((Dictionary[keyList[nextIndex]] as StarIntel).Owner != report.Owner);
             
             return Dictionary[keyList[nextIndex]] as StarIntel;
         }
@@ -275,7 +275,7 @@ namespace Nova.Common
             int q = 0;
             foreach (StarIntel report in Dictionary.Values)
             {
-                if (report.Star.Owner == raceName) { q++; }
+                if (report.Owner == raceName) { q++; }
             }
             return q;
         }

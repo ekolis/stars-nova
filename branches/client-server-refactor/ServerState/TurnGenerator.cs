@@ -40,6 +40,7 @@ namespace Nova.WinForms.Console
         private ServerState turnData;
         
         private SortedList<int, ITurnStep> turnSteps;
+        private const int SCANSTEP = 99;
         
         private OrderReader orderReader;
         private IntelWriter intelWriter;
@@ -78,7 +79,7 @@ namespace Nova.WinForms.Console
             this.intelWriter = new IntelWriter(this.stateData, this.scores);
             this.victoryCheck = new VictoryCheck(this.stateData, this.scores);
             
-            this.turnSteps.Add(69, new ScanStep());
+            this.turnSteps.Add(SCANSTEP, new ScanStep());
         }
 
         /// ----------------------------------------------------------------------------
@@ -143,12 +144,7 @@ namespace Nova.WinForms.Console
             victoryCheck.Victor();
 
             stateData.TurnYear++;
-            
-            foreach (EmpireData empire in stateData.AllEmpires.Values)
-            {
-                AssembleEmpireData(empire);
-            }
-            
+                       
             foreach (ITurnStep turnStep in turnSteps.Values)
             {
                 turnStep.Process(stateData);    
@@ -627,77 +623,12 @@ namespace Nova.WinForms.Console
             }
         }
         
+        /// <summary>
+        /// This is a utility function. Sets intel for the first tun.
+        /// </summary>
         public void AssembleEmpireData()
         {
-            foreach (EmpireData empire in stateData.AllEmpires.Values)
-            {
-                AssembleEmpireData(empire);
-            }
-        }
-        
-        private void AssembleEmpireData(EmpireData empire)
-        {
-            foreach (Star star in stateData.AllStars.Values)
-            {
-                // If star has no report (First turn) add it. Else
-                // remove all visibility.
-                if (!empire.StarReports.Contains(star.Name))
-                {
-                    empire.StarReports.Add(new StarIntel(star, IntelLevel.None));
-                }
-                else
-                {
-                    empire.StarReports[star.Name].IntelAmount = IntelLevel.None;
-                }
-                
-                if (star.Owner == empire.EmpireRace.Name)
-                {
-                    empire.StarReports[star.Name].Update(star, IntelLevel.Owned);                    
-                }
-            }
-            
-            IntelLevel intelLevel;
-            
-            // Update the StarReports here.
-            foreach (Fleet fleet in stateData.AllFleets.Values)
-            {
-                if (fleet.Owner == empire.EmpireRace.Name)
-                {
-                    if((fleet.InOrbit != null) && (!fleet.IsStarbase))
-                    {
-                        // FIXME:(priority 6) If two empires use the same race&name, this gives both
-                        // the same intel access to each other's stars.
-                        if (fleet.InOrbit.Owner == empire.EmpireRace.Name)
-                        {
-                            intelLevel = IntelLevel.Owned;
-                            fleet.InOrbit.OrbitingFleets = true;
-                        }
-                        else
-                        {
-                            intelLevel = (fleet.CanScan) ? IntelLevel.InDeepScan : IntelLevel.InOrbit;       
-                        }
-                        
-                        empire.StarReports[fleet.InOrbit.Name].Update(fleet.InOrbit, intelLevel);
-                    }
-
-                    if (fleet.PenScanRange > 0)
-                    {
-                        // FIXME:(priority 3) this has to be optimized some way.
-                        // Looping all stars for each fleet with pen scan
-                        // can become very expensive lategame. Perhaps a way to retrieve
-                        // stars by position from AllStars, and constrain this lookup
-                        // to a frame around the ship equal to it's penscanrange.
-                        foreach (Star star in stateData.AllStars.Values)
-                        {
-                            if (PointUtilities.Distance(star.Position, fleet.Position)
-                            <= fleet.PenScanRange)
-                            {
-                                empire.StarReports[star.Name].Update(star, IntelLevel.InDeepScan);
-                            }    
-                        }
-                    }
-                }
-            }
+            turnSteps[SCANSTEP].Process(stateData);
         }
     }
 }

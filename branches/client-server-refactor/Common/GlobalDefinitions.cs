@@ -124,6 +124,7 @@ namespace Nova.Common
         
        // Turn data
        public const int StartingYear = 2100;
+       public const int DiscardFleetReportAge = 0;
 
        #endregion
 

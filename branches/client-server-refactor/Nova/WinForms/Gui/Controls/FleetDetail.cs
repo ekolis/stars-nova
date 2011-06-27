@@ -39,13 +39,11 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class FleetDetail : System.Windows.Forms.UserControl
     {
-        private Fleet selectedFleet;
-        private int currentFleet;
+        private FleetIntel selectedFleet;
         private StarIntelList starReports;
-        private Dictionary<string, Fleet> allFleets; // FIXME:(???) Do we need allFleets here? Can't we use the player's fleets instead? -Aeglos 21 Jun 11 
-        private List<Fleet> playerFleets;
+        private FleetIntelList fleetReports;
         private List<string> deletedFleets;
-        private Race playerRace;
+        private Race empireRace;
             
         private Dictionary<string, Fleet> fleetsAtLocation = new Dictionary<string, Fleet>();
 
@@ -74,16 +72,14 @@ namespace Nova.WinForms.Gui
         /// Initializes a new instance of the FleetDetail class.
         /// </Summary>
         public FleetDetail(StarIntelList starReports,
-                           Dictionary<string, Fleet> allFleets,
-                           List<Fleet> playerFleets,
+                           FleetIntelList fleetReports,
                            List<string> deletedFleets,
                            Race playerRace)
         {
             this.starReports = starReports;
-            this.allFleets = allFleets;
-            this.playerFleets = playerFleets;
+            this.fleetReports = fleetReports;
             this.deletedFleets = deletedFleets;
-            this.playerRace = playerRace;
+            this.empireRace = playerRace;
             
             InitializeComponent();
         }
@@ -252,7 +248,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void MangeFleet_Click(object sender, EventArgs e)
         {
-            ManageFleetDialog manageDialog = new ManageFleetDialog(allFleets, deletedFleets, playerRace.Name);
+            ManageFleetDialog manageDialog = new ManageFleetDialog(fleetReports, deletedFleets, empireRace.Name);
             manageDialog.ManagedFleet = selectedFleet;
             manageDialog.ShowDialog();
             manageDialog.Dispose();
@@ -267,7 +263,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void NextFleet_Click(object sender, System.EventArgs e)
         {
-            if (playerFleets.Count == 1)
+            if (fleetReports.Owned(empireRace.Name) == 1)
             {
                 previousFleet.Enabled = false;
                 nextFleet.Enabled = false;
@@ -277,18 +273,9 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            if (currentFleet < playerFleets.Count - 1)
-            {
-                currentFleet++;
-            }
-            else
-            {
-                currentFleet = 0;
-            }
+            selectedFleet = fleetReports.GetNextOwned(fleetReports[selectedFleet.Name]);
             
-            Fleet current = playerFleets[currentFleet];
-            
-            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(current, selectedFleet);
+            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
             
             // Inform of the selection change to all listening objects.
@@ -308,7 +295,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void PreviousFleet_Click(object sender, EventArgs e)
         {
-            if (playerFleets.Count == 1)
+            if (fleetReports.Owned(empireRace.Name) == 1)
             {
                 previousFleet.Enabled = false;
                 nextFleet.Enabled = false;
@@ -318,18 +305,9 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            if (currentFleet > 0)
-            {
-                currentFleet--;
-            }
-            else
-            {
-                currentFleet = playerFleets.Count - 1;
-            }
+            selectedFleet = fleetReports.GetPreviousOwned(fleetReports[selectedFleet.Name]);
 
-            Fleet current = playerFleets[currentFleet];
-
-            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(current, selectedFleet);
+            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
 
             // Inform of the selection change to all listening objects.
@@ -369,7 +347,7 @@ namespace Nova.WinForms.Gui
 
                 double time = distance / (to.WarpFactor * to.WarpFactor);
 
-                double fuelUsed = selectedFleet.FuelConsumption(to.WarpFactor, playerRace)
+                double fuelUsed = selectedFleet.FuelConsumption(to.WarpFactor, empireRace)
 
                                 * time;
 
@@ -399,7 +377,7 @@ namespace Nova.WinForms.Gui
                     double speed = warp * warp;
                     double travelTime = distance / speed;
 
-                    fuelRequired += selectedFleet.FuelConsumption(warp, playerRace) * travelTime;
+                    fuelRequired += selectedFleet.FuelConsumption(warp, empireRace) * travelTime;
                 }
                 previous = waypoint;
             }
@@ -428,20 +406,14 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="fleet">The selected fleet.</param>
         /// ----------------------------------------------------------------------------
-        private void SetFleetDetails(Fleet fleet)
+        private void SetFleetDetails(FleetIntel selectedFleet)
         {
-            selectedFleet = fleet;
+            if (selectedFleet == null)
+                return;
 
-            for (int i = 0; i < playerFleets.Count; ++i)
-            {
-                if (fleet.Name == playerFleets[i].Name)
-                {
-                    currentFleet = i;
-                    break;
-                }
-            }
-
-            if (playerFleets.Count > 1)
+            this.selectedFleet = selectedFleet;
+            
+            if (fleetReports.Count > 1)
             {
                 previousFleet.Enabled = true;
                 nextFleet.Enabled = true;
@@ -452,9 +424,9 @@ namespace Nova.WinForms.Gui
                 previousFleet.Enabled = false;
             }
 
-            groupFleetSelection.Text = "Fleet " + fleet.Name;
+            groupFleetSelection.Text = "Fleet " + selectedFleet.Name;
 
-            Dictionary<string, int> designs = fleet.Composition;
+            Dictionary<string, int> designs = selectedFleet.Composition;
             fleetComposition.Items.Clear();
 
             foreach (string key in designs.Keys)
@@ -465,7 +437,7 @@ namespace Nova.WinForms.Gui
             }
 
             wayPoints.Items.Clear();
-            foreach (Waypoint waypoint in fleet.Waypoints)
+            foreach (Waypoint waypoint in selectedFleet.Waypoints)
             {
                 wayPoints.Items.Add(waypoint.Destination);
             }
@@ -475,16 +447,16 @@ namespace Nova.WinForms.Gui
 
             // If we are in orbit around a planet and we have a cargo carrying
             // capacity, enable the Cargo Dialog Button.
-            bool inOrbit = fleet.InOrbit != null;
-            groupOrbitPlanet.Text = inOrbit ? "Orbiting " + fleet.InOrbit.Name : "In deep space";
-            buttonCargo.Enabled = inOrbit && fleet.TotalCargoCapacity > 0;            
+            bool inOrbit = selectedFleet.InOrbit != null;
+            groupOrbitPlanet.Text = inOrbit ? "Orbiting " + selectedFleet.InOrbit.Name : "In deep space";
+            buttonCargo.Enabled = inOrbit && selectedFleet.TotalCargoCapacity > 0;            
             buttonGotoPlanet.Enabled = inOrbit;           
 
             List<String> fleetnames = new List<string>();
             fleetsAtLocation = new Dictionary<string, Fleet>();
-            foreach (Fleet other in playerFleets)
+            foreach (FleetIntel other in fleetReports.Values)
             {
-                if (fleet.Position == other.Position && !other.IsStarbase && fleet.FleetID != other.FleetID)
+                if (selectedFleet.Position == other.Position && !other.IsStarbase && selectedFleet.FleetID != other.FleetID)
                 {
                     fleetnames.Add(other.Name);
                     fleetsAtLocation[other.Name] = other;
@@ -521,7 +493,7 @@ namespace Nova.WinForms.Gui
         /// Property to set or get the fleet currently being displayed.
         /// </Summary>
         /// ----------------------------------------------------------------------------
-        public Fleet Value
+        public FleetIntel Value
         {
             set
             {

@@ -360,7 +360,7 @@ namespace Nova.WinForms.Gui
 
             foreach (StarIntel starIntel in stateData.EmpireIntel.StarReports.Values)
             {
-                Star star = starIntel.Star;
+                Star star = starIntel;
                 if (star.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     MapControl.SetCursor(star.Position);
@@ -389,7 +389,7 @@ namespace Nova.WinForms.Gui
 
             foreach (StarIntel starIntel in stateData.EmpireIntel.StarReports.Values)
             {
-                Star star = starIntel.Star;
+                Star star = starIntel;
                 if (star.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     this.MapControl.SetCursor((System.Drawing.Point)star.Position);

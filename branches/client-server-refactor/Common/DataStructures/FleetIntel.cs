@@ -41,6 +41,16 @@ namespace Nova.Common
         public const int UNSEEN = -1;
 
         /// <summary>
+        /// Constructor to use with LoadFromXml. Calls Fleet(-1) which is a
+        /// bogus ID which should be replaced during xml load.
+        /// </summary>
+        public FleetIntel() :
+            base(-1)
+        {
+            
+        }
+        
+        /// <summary>
         /// Initializes a new instance of the FleetIntel class.
         /// </summary>
         /// <param name="fleet">The <see cref="Fleet"/> being reported</param>
@@ -53,6 +63,14 @@ namespace Nova.Common
             Update(fleet, intelAmount);
         } 
         
+        public void Unsee()
+        {
+            if (Age != UNSEEN)
+            {
+                Age++;
+            }    
+        }
+        
         public void Update(Fleet fleet, IntelLevel intelAmount)
         {
             // This controls what we update for this report.
@@ -60,14 +78,16 @@ namespace Nova.Common
             
             // Information that is always available and doesn't
             // depend on scanning level. Nothing for fleets.
+            
+            //TODO:(priority 5) This is needed to prevent a crash.
+            //Needs rework as waypoints shouldn't be exposed.
+            Waypoints = fleet.Waypoints;
+            Owner = fleet.Owner;
              
             if (IntelAmount >= IntelLevel.None)
             {            
                 // We keep the information we have, but age it.
-                if (Age != UNSEEN)
-                {
-                    Age++;
-                }
+                Unsee();
             }
             
             // If we are at least scanning with non-penetrating
@@ -80,7 +100,11 @@ namespace Nova.Common
                 Type      = fleet.Type;
                 Bearing   = fleet.Bearing;
                 Speed     = fleet.Speed;
-
+                // TODO:(priority 6). Prevents a crash. Needs rework to show
+                // be able to call FleetComposition without passing all ships.
+                FleetShips  = fleet.FleetShips;
+                FleetID     = fleet.FleetID;
+                Cargo       = fleet.Cargo;                                
             }
             
             // You can't orbit a fleet!
@@ -97,8 +121,8 @@ namespace Nova.Common
             
             // If the fleet is ours.
             if (IntelAmount >= IntelLevel.Owned)
-            {                
-
+            {
+                Waypoints = fleet.Waypoints;
             }    
         }
         

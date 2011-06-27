@@ -57,10 +57,17 @@ namespace Nova.Common
         {   
             Age         = UNSEEN;            
             IntelAmount = IntelLevel.None;
-            //Star  = new Star();
             
             Update(star, intelAmount);            
         } 
+        
+        public void Unsee()
+        {
+            if (Age != UNSEEN)
+            {
+                Age++;
+            }    
+        }
         
         public void Update(Star star, IntelLevel intelAmount)
         {
@@ -81,10 +88,7 @@ namespace Nova.Common
             if (IntelAmount >= IntelLevel.None)
             {            
                 // We keep the information we have, but age it.
-                if (Age != UNSEEN)
-                {
-                    Age++;
-                }
+                Unsee();
             }
             
             // If we are at least scanning with non-penetrating
@@ -136,13 +140,6 @@ namespace Nova.Common
                 ScannerType          = star.ScannerType;
                 ThisRace             = star.ThisRace;
             }
-        }
-        
-        // Temporary property to avoid refactoring.
-        // Will remove soon.
-        public Star Star
-        {
-            get{ return this;}
         }
         
         public StarIntel LoadFromXml(XmlNode xmlnode)
