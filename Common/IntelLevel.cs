@@ -31,10 +31,10 @@ namespace Nova.Common
     public enum IntelLevel
     {
         None = 0,        
-        InScan,
-        InOrbit,
-        InDeepScan,
-        Owned
+        InScan = 1,
+        InOrbit = 2,
+        InDeepScan = 3,
+        Owned = 4
     }
 }
 

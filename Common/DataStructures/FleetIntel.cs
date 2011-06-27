@@ -35,10 +35,8 @@ namespace Nova.Common
     [Serializable]
     public class FleetIntel : Fleet
     {
-        public int          Age;      
+        public int          Year;      
         public IntelLevel   IntelAmount;
-        
-        public const int UNSEEN = -1;
 
         /// <summary>
         /// Constructor to use with LoadFromXml. Calls Fleet(-1) which is a
@@ -54,25 +52,27 @@ namespace Nova.Common
         /// Initializes a new instance of the FleetIntel class.
         /// </summary>
         /// <param name="fleet">The <see cref="Fleet"/> being reported</param>
-        public FleetIntel(Fleet fleet, IntelLevel intelAmount) :
+        public FleetIntel(Fleet fleet, IntelLevel intelAmount, int year) :
             base(fleet)
         {
-            Age         = UNSEEN;            
+            Year        = 0;            
             IntelAmount = IntelLevel.None;
            
-            Update(fleet, intelAmount);
+            Update(fleet, intelAmount, year);
         } 
         
-        public void Unsee()
+        public void Update(Fleet fleet, IntelLevel intelAmount, int year)
         {
-            if (Age != UNSEEN)
+            if (fleet == null)
             {
-                Age++;
-            }    
-        }
-        
-        public void Update(Fleet fleet, IntelLevel intelAmount)
-        {
+                return;
+            }
+            
+            if (year < this.Year)
+            {
+                return;
+            }
+            
             // This controls what we update for this report.
             IntelAmount = intelAmount;
             
@@ -81,20 +81,19 @@ namespace Nova.Common
             
             //TODO:(priority 5) This is needed to prevent a crash.
             //Needs rework as waypoints shouldn't be exposed.
-            Waypoints = fleet.Waypoints;
-            Owner = fleet.Owner;
+            Waypoints   = fleet.Waypoints;
+            Owner       = fleet.Owner;
              
             if (IntelAmount >= IntelLevel.None)
             {            
-                // We keep the information we have, but age it.
-                Unsee();
+                // We keep the information we have.
             }
             
             // If we are at least scanning with non-penetrating
             if (IntelAmount >= IntelLevel.InScan)
             {
                 // We can at least see it, so set age to current.
-                Age = 0;
+                this.Year = year;
                 
                 Position  = fleet.Position;
                 Type      = fleet.Type;
@@ -138,8 +137,8 @@ namespace Nova.Common
                 {
                     switch (node.Name.ToLower())
                     {
-                        case "age":
-                            Age = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        case "year":
+                            Year = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "intelamount":
                             IntelAmount = (IntelLevel)Enum.Parse(typeof(IntelLevel), node.FirstChild.Value, true);
@@ -157,7 +156,7 @@ namespace Nova.Common
                 node = node.NextSibling;
             }
             
-            intel = new FleetIntel(fleet, IntelAmount);
+            intel = new FleetIntel(fleet, IntelAmount, Year);
             
             return intel;            
         }
@@ -166,7 +165,7 @@ namespace Nova.Common
         {
             XmlElement xmlelFleetIntel = xmldoc.CreateElement("FleetIntel");
             
-            Global.SaveData(xmldoc, xmlelFleetIntel, "Age", Age.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelFleetIntel, "Year", Year.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
             Global.SaveData(xmldoc, xmlelFleetIntel, "IntelAmount", IntelAmount.ToString());
 

@@ -74,8 +74,7 @@ namespace Nova.Common
         /// The server/console should obtain race icon information from ServerState.Data.AllRaces. The client can not maintain such a collection as it has insuficient data on all races.
         /// </summary>
         public Dictionary<string, RaceIcon> RaceIcons = new Dictionary<string, RaceIcon>();
-
-        public Dictionary<string, Fleet> AllFleets = new Dictionary<string, Fleet>();
+        
         public Dictionary<string, Design> AllDesigns = new Dictionary<string, Design>();
         public Dictionary<string, Minefield> AllMinefields = new Dictionary<string, Minefield>();
 
@@ -92,7 +91,6 @@ namespace Nova.Common
         public void Clear()
         {
             AllDesigns.Clear();
-            AllFleets.Clear();
             AllRaceNames.Clear();
             AllMinefields.Clear();
             Battles.Clear();
@@ -188,15 +186,6 @@ namespace Nova.Common
                             }
                             break;
 
-                        // FIXME (priority 8) - these were all serialised from hashtables, but the key was not saved. 
-                        // It may be ok to regenerate the key, but saving and loading the key may be better (unless we don't trust the .intel file???).
-
-                        case "fleet":
-                            Fleet newFleet = new Fleet(xmlnode);
-                            AllFleets[newFleet.Key] = newFleet;
-                            // AllFleets.Add(newFleet.Key, newFleet);
-                            break;
-
                         case "design":
                             Design newDesign = new Design(xmlnode);
                             AllDesigns[newDesign.Key] = newDesign;
@@ -288,12 +277,6 @@ namespace Nova.Common
                 {
                     xmlelIntel.AppendChild(design.ToXml(xmldoc));
                 }
-            }
-            
-            // AllFleets
-            foreach (Fleet fleet in AllFleets.Values)
-            {
-                xmlelIntel.AppendChild(fleet.ToXml(xmldoc));
             }
 
             // AllMinefields

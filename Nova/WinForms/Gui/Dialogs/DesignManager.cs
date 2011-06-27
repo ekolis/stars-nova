@@ -197,7 +197,7 @@ Are you sure you want to do this?";
 
             List<Fleet> fleetsToRemove = new List<Fleet>();
 
-            foreach (Fleet fleet in this.turnData.AllFleets.Values)
+            foreach (FleetIntel fleet in turnData.EmpireIntel.FleetReports.Values)
             {
 
                 List<Ship> shipsToRemove = new List<Ship>();
@@ -223,8 +223,8 @@ Are you sure you want to do this?";
 
             foreach (Fleet fleet in fleetsToRemove)
             {
-                this.turnData.AllFleets.Remove(fleet.Key);
-                this.stateData.DeletedFleets.Add(fleet.Key);
+                stateData.EmpireIntel.FleetReports.Remove(fleet.Key);
+                stateData.DeletedFleets.Add(fleet.Key);
             }
 
             stateData.DeletedDesigns.Add(design.Key);
@@ -347,7 +347,7 @@ Are you sure you want to do this?";
         {
             int quantity = 0;
 
-            foreach (Fleet fleet in this.turnData.AllFleets.Values)
+            foreach (FleetIntel fleet in turnData.EmpireIntel.FleetReports.Values)
             {
                 foreach (Ship ship in fleet.FleetShips)
                 {

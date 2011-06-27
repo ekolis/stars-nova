@@ -143,15 +143,15 @@ namespace Nova.Server
                     this.stateData.AllDesigns.Remove(designKey);
                 }
 
-                foreach (Fleet fleet in playerOrders.RaceFleets.Values)
+                foreach (FleetIntel fleet in playerOrders.EmpireStatus.FleetReports.Values)
                 {
-                    this.stateData.AllFleets[fleet.Key] = fleet;
+                    this.stateData.AllFleets[fleet.Key] = (Fleet)fleet;
                 }
 
                 // load the orders for each star. 
-                foreach (Star star in playerOrders.RaceStars)
+                foreach (StarIntel star in playerOrders.EmpireStatus.StarReports.Values)
                 {
-                    this.stateData.AllStars[star.Name] = star;
+                    this.stateData.AllStars[star.Name] = (Star)star;
                 }
 
                 this.stateData.AllEmpires[race.Name] = playerOrders.EmpireStatus;
@@ -178,7 +178,7 @@ namespace Nova.Server
         private void LinkOrderReferences(Orders playerOrders)
         {
             // Fleet reference to Star
-            foreach (Fleet fleet in playerOrders.RaceFleets.Values)
+            foreach (FleetIntel fleet in playerOrders.EmpireStatus.FleetReports.Values)
             {
                 if (fleet.InOrbit != null)
                 {
@@ -192,7 +192,7 @@ namespace Nova.Server
             }
             // Star reference to Race
             // Star reference to Fleet (starbase)
-            foreach (Star star in playerOrders.RaceStars)
+            foreach (StarIntel star in playerOrders.EmpireStatus.StarReports.Values)
             {
                 if (star.ThisRace != null)
                 {
@@ -200,7 +200,7 @@ namespace Nova.Server
                 }
                 if (star.Starbase != null)
                 {
-                    star.Starbase = playerOrders.RaceFleets[star.Starbase.FleetID];
+                    star.Starbase = playerOrders.EmpireStatus.FleetReports[star.Starbase.Name];
                 }
             }
 

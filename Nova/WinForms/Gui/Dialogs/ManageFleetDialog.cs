@@ -38,17 +38,19 @@ namespace Nova.WinForms.Gui
         private readonly FleetIntelList fleetReports;
         private List<string> deletedFleets;
         private string raceName;
+        private int turnYear;
         private Fleet selectedFleet;
 
         /// <Summary>
         /// Initializes a new instance of the ManageFleetDialog class.
         /// </Summary>
-        public ManageFleetDialog(FleetIntelList fleetReports, List<string> deletedFleets, string raceName)
+        public ManageFleetDialog(FleetIntelList fleetReports, List<string> deletedFleets, string raceName, int turnYear)
         {
             // FIXME:(???) Do we need allFleets here? Can't we use the player's fleets instead? -Aeglos 21 Jun 11 
             this.fleetReports = fleetReports; 
             this.deletedFleets = deletedFleets;
             this.raceName = raceName;
+            this.turnYear = turnYear;
             
             InitializeComponent();            
         }
@@ -63,7 +65,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void RenameButton_Click(object sender, EventArgs e)
         {
-            RenameFleet renameDialog = new RenameFleet(fleetReports, deletedFleets, raceName);
+            RenameFleet renameDialog = new RenameFleet(fleetReports, deletedFleets, raceName, turnYear);
 
             // TODO (priority 5): Implement the fleet selection event.
 
