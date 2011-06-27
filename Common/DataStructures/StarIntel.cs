@@ -38,7 +38,6 @@ namespace Nova.Common
     {
 
         public int          Age;      
-        //public Star         Star; // Consider a diferent name!
         public IntelLevel   IntelAmount;
         
         public const int UNSEEN = -1;
@@ -61,18 +60,7 @@ namespace Nova.Common
             //Star  = new Star();
             
             Update(star, intelAmount);            
-        }
-        
-        /// <summary>
-        /// Makes conversion from StarIntel to Star possible. Eases
-        /// foreach loops and data access.
-        /// </summary>
-        /// <param name="s">A <see cref="StarIntel"/> containing the desired Star.</param>
-        /// <returns>The <see cref="Star"/> contained in this Intel.</returns>
-        /*public static explicit operator Star(StarIntel s)
-        //{
-            return s.Star;
-        } */  
+        } 
         
         public void Update(Star star, IntelLevel intelAmount)
         {

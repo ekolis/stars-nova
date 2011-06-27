@@ -121,6 +121,15 @@ namespace Nova.WinForms.Console
             // UPDATE May 11: Some of this is updated -Aeglos
             foreach (Star star in stateData.AllStars.Values)
             {
+                // FIXME:(priority 6) temporary to process production.
+                foreach (EmpireData empire in stateData.AllEmpires.Values)
+                {
+                    if (star.Owner == empire.StarReports[star.Name].Owner)
+                    {
+                        star.ManufacturingQueue = empire.StarReports[star.Name].ManufacturingQueue;
+                    }
+                }
+                
                 ProcessStar(star);
             }
                         
@@ -640,10 +649,14 @@ namespace Nova.WinForms.Console
                 {
                     empire.StarReports[star.Name].IntelAmount = IntelLevel.None;
                 }
+                
+                if (star.Owner == empire.EmpireRace.Name)
+                {
+                    empire.StarReports[star.Name].Update(star, IntelLevel.Owned);                    
+                }
             }
             
             IntelLevel intelLevel;
-            
             
             // Update the StarReports here.
             foreach (Fleet fleet in stateData.AllFleets.Values)

@@ -51,8 +51,8 @@ namespace Nova.Common
         public TechLevel    ResearchTopics          = new TechLevel(); // order or researching
         public TechLevel    ResearchLevelsGained    = new TechLevel(); // research level increases, reset per turn.
         
-        public StarIntelList                        StarReports     = new StarIntelList();
-        public Dictionary<string, FleetIntel>       FleetReports    = new Dictionary<string, FleetIntel>();
+        public StarIntelList        StarReports     = new StarIntelList();
+        public FleetIntelList       FleetReports    = new FleetIntelList();
         
         public Dictionary<string, PlayerRelation>   PlayerRelations = new Dictionary<string, PlayerRelation>();
         public Dictionary<string, BattlePlan>       BattlePlans     = new Dictionary<string, BattlePlan>();
