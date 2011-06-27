@@ -35,7 +35,6 @@ namespace Nova.Client
 
     public class IntelReader
     {
-        private Intel turnData;
         private ClientState stateData;
         
         public IntelReader(ClientState stateData)
@@ -98,10 +97,7 @@ namespace Nova.Client
         /// </summary>
         public void ProcessIntel()
         {
-            // copy the raw data from the intel to StateData
-            turnData = stateData.InputTurn;
-
-            stateData.EmpireIntel = turnData.EmpireIntel;
+            stateData.EmpireIntel = stateData.InputTurn.EmpireIntel;
 
             // Clear old turn data from StateData
             stateData.DeletedFleets.Clear();
@@ -126,10 +122,8 @@ namespace Nova.Client
         /// </summary>
         private void LinkIntelReferences()
         {
-            Intel turnData = stateData.InputTurn;
-
             // HullModule reference to a component
-            foreach (Design design in turnData.AllDesigns.Values)
+            foreach (Design design in stateData.InputTurn.AllDesigns.Values)
             {
                 if (design.Type.ToLower() == "ship" || design.Type.ToLower() == "starbase")
                 {
@@ -145,22 +139,22 @@ namespace Nova.Client
             }
 
             // Fleet reference to Star
-            foreach (FleetIntel fleet in turnData.EmpireIntel.FleetReports.Values)
+            foreach (FleetIntel fleet in stateData.EmpireIntel.FleetReports.Values)
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = turnData.EmpireIntel.StarReports[fleet.InOrbit.Name];
+                    fleet.InOrbit = stateData.EmpireIntel.StarReports[fleet.InOrbit.Name];
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
                     // FIXME (priority 4) - this way of forming the key is a kludge
-                    ship.DesignUpdate(turnData.AllDesigns[ship.Owner + "/" + ship.DesignName] as ShipDesign);
+                    ship.DesignUpdate(stateData.InputTurn.AllDesigns[ship.Owner + "/" + ship.DesignName] as ShipDesign);
                 }
             }
             // Star reference to Race
             // Star reference to Fleet (starbase)
-            foreach (StarIntel report in turnData.EmpireIntel.StarReports.Values)
+            foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
             {
                 if (report.ThisRace != null)
                 {
@@ -176,7 +170,7 @@ namespace Nova.Client
 
                 if (report.Starbase != null)
                 {
-                    report.Starbase = turnData.EmpireIntel.FleetReports[report.Owner + "/" + report.Starbase.FleetID];
+                    report.Starbase = stateData.EmpireIntel.FleetReports[report.Owner + "/" + report.Starbase.FleetID];
                 }
             }
 
@@ -203,7 +197,7 @@ namespace Nova.Client
             }
 
             // Messages to Event objects
-            foreach (Message message in turnData.Messages)
+            foreach (Message message in stateData.InputTurn.Messages)
             {
                 switch (message.Type)
                 {
@@ -218,7 +212,7 @@ namespace Nova.Client
                     case "BattleReport":
                         // The message is loaded such that the Event is a string containing the BattleReport.Key.
                         // FIXME (priority 4) - linking battle messages to the right battle report is inefficient because the turnData.Battles does not have a meaningful key.
-                        foreach (BattleReport battle in turnData.Battles)
+                        foreach (BattleReport battle in stateData.InputTurn.Battles)
                         {
                             if (battle.Key == ((string)message.Event))
                             {
@@ -243,7 +237,7 @@ namespace Nova.Client
         /// </summary>
         private void ProcessMessages()
         {
-            foreach (Message message in turnData.Messages)
+            foreach (Message message in stateData.InputTurn.Messages)
             {
                 if ((message.Audience == stateData.EmpireIntel.EmpireRace.Name) ||
                     (message.Audience == "*"))
@@ -258,22 +252,17 @@ namespace Nova.Client
         /// </summary>
         private void ProcessResearch()
         {
-            // Update the new Tech Levels
-            stateData.EmpireIntel.ResearchLevels = turnData.EmpireIntel.ResearchLevels;
-            // Update the accumulated resources
-            stateData.EmpireIntel.ResearchResources = turnData.EmpireIntel.ResearchResources;
-
             foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
             {
-                if (turnData.EmpireIntel.ResearchLevelsGained == null)
+                if (stateData.EmpireIntel.ResearchLevelsGained == null)
                 {
                     return;
                 }
 
-                while (turnData.EmpireIntel.ResearchLevelsGained[area] > 0)
+                while (stateData.EmpireIntel.ResearchLevelsGained[area] > 0)
                 {
                     // Report new levels.
-                    turnData.EmpireIntel.ResearchLevelsGained[area] = turnData.EmpireIntel.ResearchLevelsGained[area] - 1;
+                    stateData.EmpireIntel.ResearchLevelsGained[area] = stateData.EmpireIntel.ResearchLevelsGained[area] - 1;
                     ReportLevelUpdate(area, stateData.EmpireIntel.ResearchLevels[area]);
                 }
             }

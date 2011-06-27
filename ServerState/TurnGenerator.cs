@@ -121,16 +121,7 @@ namespace Nova.WinForms.Console
             // TODO (priority 4) - split these up as per Stars! turn order
             // UPDATE May 11: Some of this is updated -Aeglos
             foreach (Star star in stateData.AllStars.Values)
-            {
-                // FIXME:(priority 6) temporary to process production.
-                foreach (EmpireData empire in stateData.AllEmpires.Values)
-                {
-                    if (star.Owner == empire.StarReports[star.Name].Owner)
-                    {
-                        star.ManufacturingQueue = empire.StarReports[star.Name].ManufacturingQueue;
-                    }
-                }
-                
+            {                
                 ProcessStar(star);
             }
                         

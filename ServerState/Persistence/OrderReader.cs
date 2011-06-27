@@ -145,13 +145,13 @@ namespace Nova.Server
 
                 foreach (FleetIntel fleet in playerOrders.EmpireStatus.FleetReports.Values)
                 {
-                    this.stateData.AllFleets[fleet.Key] = (Fleet)fleet;
+                    this.stateData.AllFleets[fleet.Key] = fleet;
                 }
 
                 // load the orders for each star. 
                 foreach (StarIntel star in playerOrders.EmpireStatus.StarReports.Values)
                 {
-                    this.stateData.AllStars[star.Name] = (Star)star;
+                    this.stateData.AllStars[star.Name] = star;
                 }
 
                 this.stateData.AllEmpires[race.Name] = playerOrders.EmpireStatus;
@@ -182,7 +182,7 @@ namespace Nova.Server
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = this.stateData.AllStars[fleet.InOrbit.Name];
+                    fleet.InOrbit = stateData.AllStars[fleet.InOrbit.Name];
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
@@ -196,11 +196,11 @@ namespace Nova.Server
             {
                 if (star.ThisRace != null)
                 {
-                    star.ThisRace = this.stateData.AllRaces[star.ThisRace.Name];
+                    star.ThisRace = stateData.AllRaces[star.ThisRace.Name];
                 }
                 if (star.Starbase != null)
                 {
-                    star.Starbase = playerOrders.EmpireStatus.FleetReports[star.Starbase.Name];
+                    star.Starbase = playerOrders.EmpireStatus.FleetReports[star.Starbase.Key];
                 }
             }
 
