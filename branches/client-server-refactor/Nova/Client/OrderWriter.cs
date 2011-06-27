@@ -72,34 +72,7 @@ namespace Nova.Client
             outputTurn.EmpireStatus = stateData.EmpireIntel;
             
             outputTurn.TechLevel = CountTechLevels();
-            
-            foreach (Fleet fleet in inputTurn.AllFleets.Values)
-            {
-               if (fleet.Owner == raceName)
-               {
-                   outputTurn.RaceFleets.Add(fleet.FleetID, fleet);
-               }
-            }
-            
-            // FIXME:(priority 3) Replace this with a Production Queue
-            // order at some point, instead of sending stars.
-            foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
-            {
-               if (report.Owner == raceName)
-               {
-                   // Do not use ResourcesOnHand.Energy here, use
-                   // GetResourceRate instead, as ResourcesOnHand
-                   // already account for allocation each turn.
-            
-                   // Let the server handle this.
-                   // star.ResearchAllocation = (star.GetResourceRate() * stateData.ResearchBudget) / 100;
-            
-                   // Don't keep a local count.
-                   // stateData.ResearchAllocation += (int)star.ResearchAllocation;
-                   outputTurn.RaceStars.Add(report);
-               }
-            }
-            
+                        
             foreach (Design design in inputTurn.AllDesigns.Values)
             {
                if (design.Owner == raceName)

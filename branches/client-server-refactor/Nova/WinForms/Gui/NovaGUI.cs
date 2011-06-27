@@ -254,7 +254,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void FleetReportMenu_Click(object sender, EventArgs e)
         {
-            FleetReport fleetReport = new FleetReport(stateData.InputTurn.AllFleets, stateData.EmpireIntel.EmpireRace);
+            FleetReport fleetReport = new FleetReport(stateData.EmpireIntel.FleetReports, stateData.EmpireIntel.EmpireRace);
             fleetReport.ShowDialog();
             fleetReport.Dispose();
         }

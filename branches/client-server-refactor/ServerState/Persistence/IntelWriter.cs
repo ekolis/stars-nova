@@ -80,7 +80,6 @@ namespace Nova.Server
             {
                 turnData = new Intel();
                 turnData.AllMinefields = StateData.AllMinefields;
-                turnData.AllFleets = StateData.AllFleets;
                 turnData.AllDesigns = StateData.AllDesigns;
                 turnData.EmpireIntel = StateData.AllEmpires[player.RaceName];
                 

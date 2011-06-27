@@ -37,10 +37,8 @@ namespace Nova.Common
     public class StarIntel : Star
     {
 
-        public int          Age;      
+        public int          Year;      
         public IntelLevel   IntelAmount;
-        
-        public const int UNSEEN = -1;
         
         public StarIntel() :
             base()
@@ -52,26 +50,23 @@ namespace Nova.Common
         /// Initializes a new instance of the StarReport class.
         /// </summary>
         /// <param name="star">The <see cref="Star"/> being reported</param>
-        public StarIntel(Star star, IntelLevel intelAmount) :
+        public StarIntel(Star star, IntelLevel intelAmount, int year) :
             base()
         {   
-            Age         = UNSEEN;            
-            IntelAmount = IntelLevel.None;
+            Year        = 0;            
+            IntelAmount = IntelLevel.None;           
             
-            Update(star, intelAmount);            
+            Update(star, intelAmount, year);            
         } 
-        
-        public void Unsee()
-        {
-            if (Age != UNSEEN)
-            {
-                Age++;
-            }    
-        }
-        
-        public void Update(Star star, IntelLevel intelAmount)
+
+        public void Update(Star star, IntelLevel intelAmount, int year)
         {
             if (star == null)
+            {
+                return;
+            }
+            
+            if (year < this.Year)
             {
                 return;
             }
@@ -87,15 +82,14 @@ namespace Nova.Common
              
             if (IntelAmount >= IntelLevel.None)
             {            
-                // We keep the information we have, but age it.
-                Unsee();
+                // We do nothing.
             }
             
             // If we are at least scanning with non-penetrating
             if (IntelAmount >= IntelLevel.InScan)
             {
                 // We can at least see it, so set age to current.
-                Age = 0;
+                this.Year = year;
                 
                 // Non-pen can only detect fleets.
                 // FIXME:(priority 3) Is this accurate? does it
@@ -154,8 +148,8 @@ namespace Nova.Common
                 {
                     switch (node.Name.ToLower())
                     {
-                        case "age":
-                            Age = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        case "year":
+                            Year = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "intelamount":
                             IntelAmount = (IntelLevel)Enum.Parse(typeof(IntelLevel), node.FirstChild.Value, true);
@@ -172,7 +166,7 @@ namespace Nova.Common
                 
                 node = node.NextSibling;
             }
-            intel = new StarIntel(star, IntelAmount);
+            intel = new StarIntel(star, IntelAmount, Year);
             return intel;            
         }
         
@@ -180,7 +174,7 @@ namespace Nova.Common
         {
             XmlElement xmlelStarIntel = xmldoc.CreateElement("StarIntel");
             
-            Global.SaveData(xmldoc, xmlelStarIntel, "Age", Age.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelStarIntel, "Year", Year.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
             Global.SaveData(xmldoc, xmlelStarIntel, "IntelAmount", IntelAmount.ToString());
 

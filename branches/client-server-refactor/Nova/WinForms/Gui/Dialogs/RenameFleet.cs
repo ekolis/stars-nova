@@ -45,18 +45,20 @@ namespace Nova.WinForms.Gui
         private FleetIntelList fleetReports; // FIXME:(priority 3) Do we need allFleets here? Can't we use the player's fleets instead? -Aeglos 21 Jun 11 
         private List<string> deletedFleets;
         private string raceName;
+        private int turnYear;
         
         public event FleetSelectionChanged FleetSelectionChangedEvent;
         
         /// <Summary>
         /// Initializes a new instance of the RenameFleet class.
         /// </Summary>
-        public RenameFleet(FleetIntelList fleetRerpots, List<string> deletedFleets, string raceName)
+        public RenameFleet(FleetIntelList fleetRerpots, List<string> deletedFleets, string raceName, int turnYear)
         {
             // FIXME(priority 3) see declaration.
             this.fleetReports = fleetRerpots;
             
             this.raceName = raceName;
+            this.turnYear = turnYear;
             this.deletedFleets = deletedFleets;
             
             InitializeComponent();
@@ -100,7 +102,7 @@ namespace Nova.WinForms.Gui
             deletedFleets.Add(oldKey);
 
             fleet.Name = newName;
-            fleetReports[newKey] = new FleetIntel(fleet, IntelLevel.Owned);
+            fleetReports[newKey] = new FleetIntel(fleet, IntelLevel.Owned, turnYear);
 
             // Ensure the main display gets updated to reflect the new name
 

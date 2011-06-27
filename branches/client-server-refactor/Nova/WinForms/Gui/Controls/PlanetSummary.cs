@@ -38,7 +38,8 @@ namespace Nova.WinForms.Gui
     {
         // List of the Star reports.
         private StarIntelList starReports;
-        private Race playerRace;        
+        private Race playerRace; 
+        private int turnYear;        
        
         // reference to the Star. This is only used for owned stars.
         private Star currentStar;
@@ -73,10 +74,11 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the PlanetSummary class.
         /// </Summary>
-        public PlanetSummary(StarIntelList starReports, Race playerRace)
+        public PlanetSummary(StarIntelList starReports, Race playerRace, int year)
         {
             this.starReports = starReports;
             this.playerRace = playerRace;
+            this.turnYear = year;
             
             InitializeComponent();
         }
@@ -457,7 +459,7 @@ namespace Nova.WinForms.Gui
                 
                 int habValue = (int)Math.Ceiling(value.HabitalValue(playerRace) * 100);
                 
-                if (starReports[value.Name].Age == -1)
+                if (starReports[value.Name].Year == 0)
                 {
                     this.planetValue.Text = "???";
                     this.planetValue.ForeColor = Color.Empty;
@@ -477,7 +479,7 @@ namespace Nova.WinForms.Gui
 
                                
     
-                if (starReports[value.Name].Age == -1)
+                if (starReports[value.Name].Year == 0)
                 {
                     this.population.Text = "???";
                 }
@@ -493,21 +495,21 @@ namespace Nova.WinForms.Gui
                     }
                 }
     
-                if (starReports[value.Name].Age == -1)
+                if (starReports[value.Name].Year == 0)
                 {
                     this.reportAge.Text = "No Report";
                 }
-                else if (starReports[value.Name].Age == 0)
+                else if (starReports[value.Name].Year == turnYear)
                 {
                     this.reportAge.Text = "Report is current";
                 }
-                else if (starReports[value.Name].Age == 1)
+                else if (starReports[value.Name].Year == turnYear - 1)
                 {
                     this.reportAge.Text = "Report is 1 year old";
                 }
                 else
                 {
-                    this.reportAge.Text = "Report is " + starReports[value.Name].Age + " years old";
+                    this.reportAge.Text = "Report is " + (turnYear - starReports[value.Name].Year) + " years old";
                 }
 
                 this.ironiumGauge.Value = starReports[value.Name].ResourcesOnHand.Ironium;
@@ -567,7 +569,7 @@ namespace Nova.WinForms.Gui
             
             if (this.currentStar != null
                 && this.currentStar.Owner == playerRace.Name
-                && starReports[currentStar.Name].Age == 0)
+                && starReports[currentStar.Name].Year == 0)
             {
                         
             tt += "Your population on " + currentStar.Name + " is " + currentStar.Colonists + "." + Environment.NewLine           

@@ -44,6 +44,7 @@ namespace Nova.WinForms.Gui
         private FleetIntelList fleetReports;
         private List<string> deletedFleets;
         private Race empireRace;
+        private int turnYear;
             
         private Dictionary<string, Fleet> fleetsAtLocation = new Dictionary<string, Fleet>();
 
@@ -74,12 +75,14 @@ namespace Nova.WinForms.Gui
         public FleetDetail(StarIntelList starReports,
                            FleetIntelList fleetReports,
                            List<string> deletedFleets,
-                           Race playerRace)
+                           Race playerRace,
+                           int turnYear)
         {
             this.starReports = starReports;
             this.fleetReports = fleetReports;
             this.deletedFleets = deletedFleets;
             this.empireRace = playerRace;
+            this.turnYear = turnYear;
             
             InitializeComponent();
         }
@@ -248,7 +251,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void MangeFleet_Click(object sender, EventArgs e)
         {
-            ManageFleetDialog manageDialog = new ManageFleetDialog(fleetReports, deletedFleets, empireRace.Name);
+            ManageFleetDialog manageDialog = new ManageFleetDialog(fleetReports, deletedFleets, empireRace.Name, turnYear);
             manageDialog.ManagedFleet = selectedFleet;
             manageDialog.ShowDialog();
             manageDialog.Dispose();

@@ -40,7 +40,8 @@ namespace Nova.WinForms.Gui
                                                                             stateData);
             this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(stateData.EmpireIntel.StarReports,
                                                                              stateData.EmpireIntel.EmpireRace,
-                                                                             stateData.InputTurn.RaceIcons);
+                                                                             stateData.InputTurn.RaceIcons,
+                                                                             stateData.EmpireIntel.TurnYear);
             this.mapControl         = new Nova.WinForms.Gui.StarMap();
 
             this.groupBox2.SuspendLayout();

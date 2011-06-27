@@ -437,7 +437,7 @@ namespace Nova.WinForms.Gui
 
             // Bigger symbol for explored stars.
 
-            if (report.Age > StarIntel.UNSEEN)
+            if (report.Year > 0)
             {
                 size = 4;
                 owner = report.Owner;
@@ -527,7 +527,7 @@ namespace Nova.WinForms.Gui
         {
             List<Fleet> playersFleets = new List<Fleet>();
 
-            foreach (Fleet fleet in this.turnData.AllFleets.Values)
+            foreach (Fleet fleet in turnData.EmpireIntel.FleetReports.Values)
             {
                 if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {

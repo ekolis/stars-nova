@@ -486,29 +486,42 @@ namespace Nova.Server
             }
             
             // Also link inside empiredata.
-//            foreach (EmpireData empire in AllEmpires.Values)
-//            {
-//                foreach (StarIntel report in empire.StarReports)
-//                {
-//                    if (report.Star.ThisRace != null)
-//                    {
-//                        // Reduntant, but works to check if race name is valid...
-//                        if (report.Star.Owner == empire.EmpireRace.Name)
-//                        {
-//                            report.Star.ThisRace = empire.EmpireRace;
-//                        }
-//                        else
-//                        {
-//                            report.Star.ThisRace = null;
-//                        }
-//                    }
-//    
-//                    if (report.Star.Starbase != null)
-//                    {
-//                        report.Star.Starbase = AllFleets[report.Star.Owner + "/" + report.Star.Starbase.FleetID];
-//                    }
-//                }
-//            }
+            foreach (EmpireData empire in AllEmpires.Values)
+            {
+                foreach (Fleet fleet in empire.FleetReports.Values)
+                {
+                    if (fleet.InOrbit != null)
+                    {
+                        fleet.InOrbit = AllStars[fleet.InOrbit.Name];
+                    }
+                    // Ship reference to Design
+                    foreach (Ship ship in fleet.FleetShips)
+                    {
+                        ship.DesignUpdate(AllDesigns[ship.Owner + "/" + ship.DesignName] as ShipDesign);
+                    }
+                }
+                 
+                foreach (StarIntel report in empire.StarReports.Values)
+                {
+                    if (report.ThisRace != null)
+                    {
+                        // Reduntant, but works to check if race name is valid...
+                        if (report.Owner == empire.EmpireRace.Name)
+                        {
+                            report.ThisRace = empire.EmpireRace;
+                        }
+                        else
+                        {
+                            report.ThisRace = null;
+                        }
+                    }
+    
+                    if (report.Starbase != null)
+                    {
+                        report.Starbase = AllFleets[report.Owner + "/" + report.Starbase.FleetID];
+                    }
+                }
+            }
         }     
 
         /// ----------------------------------------------------------------------------
