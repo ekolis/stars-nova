@@ -45,7 +45,7 @@ namespace Nova.Common
         /// <summary>
         /// Add a new star to the StarList
         /// </summary>
-        /// <param name="star">The Star to be added to the StarList</param>
+        /// <param name="report">The Star to be added to the StarList</param>
         public void Add(StarIntel report)
         {
             Dictionary.Add(report.Star.Name, report);
@@ -54,7 +54,7 @@ namespace Nova.Common
         /// <summary>
         /// Remove a Star from the StarList
         /// </summary>
-        /// <param name="star">The star to remove.</param>
+        /// <param name="report">The star to remove.</param>
         public void Remove(StarIntel report)
         {
             Dictionary.Remove(report.Star.Name);
@@ -193,7 +193,7 @@ namespace Nova.Common
         /// <summary>
         /// Get the previous star in the list.
         /// </summary>
-        /// <param name="star">The current star.</param>
+        /// <param name="report">The current star.</param>
         /// <returns>The previous star, or the current star if there is only one.</returns>
         /// <exception cref="NullReferenceException"> if star is null.</exception>
         public StarIntel GetPrevious(StarIntel report)

@@ -45,19 +45,19 @@ namespace Nova.Common
         /// <summary>
         /// Add a new fleet to the FleetList
         /// </summary>
-        /// <param name="fleet">The Fleet to be added to the FleetList</param>
+        /// <param name="report">The Fleet to be added to the FleetList</param>
         public void Add(FleetIntel report)
         {
-            Dictionary.Add(report.Fleet.Name, report);
+            Dictionary.Add(report.Name, report);
         }
 
         /// <summary>
         /// Remove a Fleet from the FleetList
         /// </summary>
-        /// <param name="fleet">The fleet to remove.</param>
+        /// <param name="report">The fleet to remove.</param>
         public void Remove(FleetIntel report)
         {
-            Dictionary.Remove(report.Fleet.Name);
+            Dictionary.Remove(report.Name);
         }
 
         /// <summary>
@@ -147,7 +147,7 @@ namespace Nova.Common
             List<string> keyList = new List<string>();
             keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Fleet.Name) + 1;
+            int nextIndex = keyList.IndexOf(report.Name) + 1;
             if (nextIndex >= keyList.Count)
             {
                 nextIndex = 0;
@@ -175,7 +175,7 @@ namespace Nova.Common
             List<string> keyList = new List<string>();
             keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Fleet.Name);
+            int nextIndex = keyList.IndexOf(report.Name);
             
             do
             {
@@ -185,7 +185,7 @@ namespace Nova.Common
                     nextIndex = 0;
                 }
             }
-            while ((Dictionary[keyList[nextIndex]] as FleetIntel).Fleet.Owner != report.Fleet.Owner);
+            while ((Dictionary[keyList[nextIndex]] as FleetIntel).Owner != report.Owner);
             
             return Dictionary[keyList[nextIndex]] as FleetIntel;
         }
@@ -193,7 +193,7 @@ namespace Nova.Common
         /// <summary>
         /// Get the previous fleet in the list.
         /// </summary>
-        /// <param name="fleet">The current fleet.</param>
+        /// <param name="report">The current fleet.</param>
         /// <returns>The previous fleet, or the current fleet if there is only one.</returns>
         /// <exception cref="NullReferenceException"> if fleet is null.</exception>
         public FleetIntel GetPrevious(FleetIntel report)
@@ -210,7 +210,7 @@ namespace Nova.Common
             List<string> keyList = new List<string>();
             keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Fleet.Name) - 1;
+            int nextIndex = keyList.IndexOf(report.Name) - 1;
             if (nextIndex < 0)
             {
                 nextIndex = keyList.Count - 1;
@@ -239,7 +239,7 @@ namespace Nova.Common
             List<string> keyList = new List<string>();
             keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Fleet.Name);
+            int nextIndex = keyList.IndexOf(report.Name);
             
             do
             {
@@ -249,7 +249,7 @@ namespace Nova.Common
                     nextIndex = keyList.Count - 1;
                 }
             }
-            while ((Dictionary[keyList[nextIndex]] as FleetIntel).Fleet.Owner != report.Fleet.Owner);
+            while ((Dictionary[keyList[nextIndex]] as FleetIntel).Owner != report.Owner);
             
             return Dictionary[keyList[nextIndex]] as FleetIntel;
         }
@@ -275,7 +275,7 @@ namespace Nova.Common
             int q = 0;
             foreach (FleetIntel report in Dictionary.Values)
             {
-                if (report.Fleet.Owner == raceName) { q++; }
+                if (report.Owner == raceName) { q++; }
             }
             return q;
         }

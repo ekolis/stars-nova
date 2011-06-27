@@ -36,7 +36,6 @@ namespace Nova.Common
     public class FleetIntel : Fleet
     {
         public int          Age;      
-        public Fleet        Fleet; // Consider a diferent name!
         public IntelLevel   IntelAmount;
         
         public const int UNSEEN = -1;
@@ -106,6 +105,7 @@ namespace Nova.Common
         public FleetIntel LoadFromXml(XmlNode xmlnode)
         {
             FleetIntel intel;
+            Fleet fleet = null;
             
             XmlNode node = xmlnode.FirstChild;
             while (node != null)
@@ -121,7 +121,7 @@ namespace Nova.Common
                             IntelAmount = (IntelLevel)Enum.Parse(typeof(IntelLevel), node.FirstChild.Value, true);
                             break;
                         case "fleet":
-                            Fleet = new Fleet(node);
+                            fleet = new Fleet(node);
                             break;
                     }
                 }
@@ -133,12 +133,12 @@ namespace Nova.Common
                 node = node.NextSibling;
             }
             
-            intel = new FleetIntel(Fleet, IntelAmount);
+            intel = new FleetIntel(fleet, IntelAmount);
             
             return intel;            
         }
         
-        public XmlElement ToXml(XmlDocument xmldoc)
+        public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelFleetIntel = xmldoc.CreateElement("FleetIntel");
             

@@ -47,7 +47,6 @@ namespace Nova.WinForms.Gui
   
         private StarIntelList starReports;
         private List<Fleet> playerFleets;
-        private StarIntelList playerStars;
         private Race playerRace;
         private int researchBudget;
         
