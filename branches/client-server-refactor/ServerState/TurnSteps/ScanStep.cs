@@ -105,53 +105,56 @@ namespace Nova.Server.TurnSteps
             // Fleets.            
             foreach (FleetIntel fleet in empire.FleetReports.Values)
             {
-                // TODO: Need to restrict this to fleets under the scan range somehow. -Aeglos 27 Jun 11
-                foreach (Fleet scanned in stateData.AllFleets.Values)
+                if (fleet.Owner == empire.EmpireRace.Name)
                 {
-                    if (scanned.Owner != empire.EmpireRace.Name)
+                    // TODO: Need to restrict this to fleets under the scan range somehow. -Aeglos 27 Jun 11
+                    foreach (Fleet scanned in stateData.AllFleets.Values)
                     {
-                        double range = 0;
-                        range = PointUtilities.Distance(fleet.Position, scanned.Position);
-                        if (range <= fleet.ScanRange)
-                        {
-                            if (!empire.FleetReports.Contains(scanned.Name))
-                            {
-                                empire.FleetReports.Add(new FleetIntel(scanned, IntelLevel.InScan, stateData.TurnYear));
-                            }
-                            else
-                            {                        
-                                empire.FleetReports[fleet.Name].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
-                            }
-                        }
-                    }
-                }
-                
-                foreach (Star scanned in stateData.AllStars.Values)
-                {
-                    if (scanned.Owner != empire.EmpireRace.Name)
-                    {
-                        if (scanned == fleet.InOrbit)
-                        {
-                            if (fleet.CanScan)
-                            {
-                                empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InDeepScan, stateData.TurnYear);
-                            }
-                            else
-                            {
-                                empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InOrbit, stateData.TurnYear);    
-                            }
-                        }
-                        else
+                        if (scanned.Owner != empire.EmpireRace.Name)
                         {
                             double range = 0;
                             range = PointUtilities.Distance(fleet.Position, scanned.Position);
-                            if (range <= fleet.PenScanRange)
+                            if (range <= fleet.ScanRange)
                             {
-                                empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InDeepScan, stateData.TurnYear);
+                                if (!empire.FleetReports.Contains(scanned.Name))
+                                {
+                                    empire.FleetReports.Add(new FleetIntel(scanned, IntelLevel.InScan, stateData.TurnYear));
+                                }
+                                else
+                                {                        
+                                    empire.FleetReports[fleet.Name].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
+                                }
                             }
-                            else if (range <= fleet.ScanRange)
-                            {                        
-                                empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
+                        }
+                    }
+                    
+                    foreach (Star scanned in stateData.AllStars.Values)
+                    {
+                        if (scanned.Owner != empire.EmpireRace.Name)
+                        {
+                            if (scanned == fleet.InOrbit)
+                            {
+                                if (fleet.CanScan)
+                                {
+                                    empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InDeepScan, stateData.TurnYear);
+                                }
+                                else
+                                {
+                                    empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InOrbit, stateData.TurnYear);    
+                                }
+                            }
+                            else
+                            {
+                                double range = 0;
+                                range = PointUtilities.Distance(fleet.Position, scanned.Position);
+                                if (range <= fleet.PenScanRange)
+                                {
+                                    empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InDeepScan, stateData.TurnYear);
+                                }
+                                else if (range <= fleet.ScanRange)
+                                {                        
+                                    empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
+                                }
                             }
                         }
                     }
