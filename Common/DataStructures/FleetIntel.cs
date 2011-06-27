@@ -91,6 +91,7 @@ namespace Nova.Common
                 Fleet.Position  = fleet.Position;
                 Fleet.Type      = fleet.Type;
                 Fleet.Bearing   = fleet.Bearing;
+                Fleet.Speed     = fleet.Speed;
 
             }
             
@@ -100,7 +101,7 @@ namespace Nova.Common
                     
             }
             
-            // If it is in range of Pen-Scanners.
+            // Pen scans do nothing for fleets.
             if (IntelAmount >= IntelLevel.InDeepScan)
             {                
    

@@ -24,5 +24,5 @@ To open the Nova Console on Dan's computer:
 Nova --console
 
 To run the Nova AI on Dan's computer:
-Nova --ai -r Insectoid -t 2101 -i "C:\Users\Daniel\Desktop\AR Test\insectoid.intel"
+Nova --ai -r Insectoid -t 2101 -i "C:\Users\daniel\Desktop\TestGame\insectoid.intel"
 
