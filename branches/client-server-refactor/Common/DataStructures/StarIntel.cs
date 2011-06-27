@@ -34,24 +34,31 @@ namespace Nova.Common
     /// and unscanned barely anything.
     /// </summary>
     [Serializable]
-    public class StarIntel
+    public class StarIntel : Star
     {
 
         public int          Age;      
-        public Star         Star; // Consider a diferent name!
+        //public Star         Star; // Consider a diferent name!
         public IntelLevel   IntelAmount;
         
         public const int UNSEEN = -1;
+        
+        public StarIntel() :
+            base()
+        {
+            
+        }
         
         /// <summary>
         /// Initializes a new instance of the StarReport class.
         /// </summary>
         /// <param name="star">The <see cref="Star"/> being reported</param>
-        public StarIntel(Star star, IntelLevel intelAmount)
+        public StarIntel(Star star, IntelLevel intelAmount) :
+            base()
         {   
             Age         = UNSEEN;            
             IntelAmount = IntelLevel.None;
-            Star  = new Star();
+            //Star  = new Star();
             
             Update(star, intelAmount);            
         }
@@ -62,21 +69,26 @@ namespace Nova.Common
         /// </summary>
         /// <param name="s">A <see cref="StarIntel"/> containing the desired Star.</param>
         /// <returns>The <see cref="Star"/> contained in this Intel.</returns>
-        public static explicit operator Star(StarIntel s)
-        {
+        /*public static explicit operator Star(StarIntel s)
+        //{
             return s.Star;
-        }   
+        } */  
         
         public void Update(Star star, IntelLevel intelAmount)
         {
+            if (star == null)
+            {
+                return;
+            }
+            
             // This controls what we update for this report.
             IntelAmount = intelAmount;
             
             // Information that is always available and doesn't
             // depend on scanning level.
-            Star.Name     = star.Name; 
-            Star.Type     = star.Type;
-            Star.Position = star.Position; // Can this change? Random Events?
+            Name     = star.Name; 
+            Type     = star.Type;
+            Position = star.Position; // Can this change? Random Events?
              
             if (IntelAmount >= IntelLevel.None)
             {            
@@ -96,50 +108,60 @@ namespace Nova.Common
                 // Non-pen can only detect fleets.
                 // FIXME:(priority 3) Is this accurate? does it
                 // also reveal the owner if it is or displays "???" ?
-                Star.OrbitingFleets   = star.OrbitingFleets;
-                Star.Starbase         = star.Starbase;
+                OrbitingFleets   = star.OrbitingFleets;
+                Starbase         = star.Starbase;
             }
             
             // If we are at least currently in orbit of the star
             // with no scanners.
             if (IntelAmount >= IntelLevel.InOrbit)
             {
-                Star.Owner                = star.Owner;                
-                Star.MineralConcentration = star.MineralConcentration;
-                Star.Gravity              = star.Gravity;
-                Star.Radiation            = star.Radiation;
-                Star.Temperature          = star.Temperature;                    
+                Owner                = star.Owner;                
+                MineralConcentration = star.MineralConcentration;
+                Gravity              = star.Gravity;
+                Radiation            = star.Radiation;
+                Temperature          = star.Temperature;                    
             }
             
             // If we are have Pen-Scanners, or we are
             // in orbit with scanners.
             if (IntelAmount >= IntelLevel.InDeepScan)
             {                
-                Star.Colonists = star.Colonists;    
+                Colonists = star.Colonists;    
             }
             
             // If the star is ours.
             if (IntelAmount >= IntelLevel.Owned)
             {                
-                Star.OriginalGravity      = star.OriginalGravity;
-                Star.OriginalRadiation    = star.OriginalRadiation;
-                Star.OriginalTemperature  = star.OriginalTemperature;
-                Star.Factories            = star.Factories;
-                Star.Mines                = star.Mines;
-                Star.ResourcesOnHand      = star.ResourcesOnHand;
-                Star.ResearchAllocation   = star.ResearchAllocation;
-                Star.ManufacturingQueue   = star.ManufacturingQueue;
-                Star.OnlyLeftover         = star.OnlyLeftover;
-                Star.Defenses             = star.Defenses;
-                Star.DefenseType          = star.DefenseType;
-                Star.ScanRange            = star.ScanRange;
-                Star.ScannerType          = star.ScannerType;
-                Star.ThisRace             = star.ThisRace;
+                OriginalGravity      = star.OriginalGravity;
+                OriginalRadiation    = star.OriginalRadiation;
+                OriginalTemperature  = star.OriginalTemperature;
+                Factories            = star.Factories;
+                Mines                = star.Mines;
+                ResourcesOnHand      = star.ResourcesOnHand;
+                ResearchAllocation   = star.ResearchAllocation;
+                ManufacturingQueue   = star.ManufacturingQueue;
+                OnlyLeftover         = star.OnlyLeftover;
+                Defenses             = star.Defenses;
+                DefenseType          = star.DefenseType;
+                ScanRange            = star.ScanRange;
+                ScannerType          = star.ScannerType;
+                ThisRace             = star.ThisRace;
             }
         }
         
-        public StarIntel(XmlNode xmlnode)
+        // Temporary property to avoid refactoring.
+        // Will remove soon.
+        public Star Star
         {
+            get{ return this;}
+        }
+        
+        public StarIntel LoadFromXml(XmlNode xmlnode)
+        {
+            StarIntel intel;
+            Star star = null;
+            
             XmlNode node = xmlnode.FirstChild;
             while (node != null)
             {
@@ -154,7 +176,7 @@ namespace Nova.Common
                             IntelAmount = (IntelLevel)Enum.Parse(typeof(IntelLevel), node.FirstChild.Value, true);
                             break;
                         case "star":
-                            Star = new Star(node);
+                            star = new Star(node);
                             break;
                     }
                 }
@@ -162,12 +184,14 @@ namespace Nova.Common
                 {
                     // ignore incomplete or unset values
                 }
-
+                
                 node = node.NextSibling;
-            }    
+            }
+            intel = new StarIntel(star, IntelAmount);
+            return intel;            
         }
         
-        public XmlElement ToXml(XmlDocument xmldoc)
+        public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelStarIntel = xmldoc.CreateElement("StarIntel");
             
@@ -175,7 +199,7 @@ namespace Nova.Common
             
             Global.SaveData(xmldoc, xmlelStarIntel, "IntelAmount", IntelAmount.ToString());
 
-            xmlelStarIntel.AppendChild(Star.ToXml(xmldoc));
+            xmlelStarIntel.AppendChild(base.ToXml(xmldoc));
 
             return xmlelStarIntel;   
         }
