@@ -633,24 +633,24 @@ namespace Nova.Client
                 }
             }
 
-            foreach (StarIntel report in EmpireIntel.StarReports.Values)
+            foreach (StarIntel star in EmpireIntel.StarReports.Values)
             {
-                if (report.ThisRace != null)
+                if (star.ThisRace != null)
                 {
                     // Reduntant, but works to check if race name is valid...
-                    if (report.Owner == EmpireIntel.EmpireRace.Name)
+                    if (star.Owner == EmpireIntel.EmpireRace.Name)
                     {
-                        report.ThisRace = EmpireIntel.EmpireRace;
+                        star.ThisRace = EmpireIntel.EmpireRace;
                     }
                     else
                     {
-                        report.ThisRace = null;
+                        star.ThisRace = null;
                     }
                 }
 
-                if (report.Starbase != null)
+                if (star.Starbase != null)
                 {
-                    report.Starbase = EmpireIntel.FleetReports[report.Owner + "/" + report.Starbase.FleetID];
+                    star.Starbase = EmpireIntel.FleetReports[star.Name + " Starbase"];
                 }
             }
         }     
