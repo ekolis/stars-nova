@@ -101,9 +101,10 @@ namespace Nova.Common
                 Speed     = fleet.Speed;
                 // TODO:(priority 6). Prevents a crash. Needs rework to show
                 // be able to call FleetComposition without passing all ships.
-                FleetShips  = fleet.FleetShips;
-                FleetID     = fleet.FleetID;
-                Cargo       = fleet.Cargo;                                
+                FleetShips      = fleet.FleetShips;
+                FleetID         = fleet.FleetID;
+                Cargo           = fleet.Cargo;
+                FuelAvailable   = fleet.FuelAvailable;                
             }
             
             // You can't orbit a fleet!
