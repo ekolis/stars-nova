@@ -50,8 +50,10 @@ namespace Nova.Common
         /// </summary>
         public enum ResearchField 
         { 
-            Biotechnology, Electronics, Energy, Propulsion, Weapons, Construction 
+            Biotechnology = 0, Electronics = 1, Energy = 2, Propulsion = 3, Weapons = 4, Construction = 5
         }
+        static public ResearchField FirstField = ResearchField.Biotechnology;
+        static public ResearchField LastField = ResearchField.Construction;
 
         //----------------------------------------------------------------------------
         // These members are private to hide the 

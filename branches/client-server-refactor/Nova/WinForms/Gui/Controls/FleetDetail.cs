@@ -139,12 +139,14 @@ namespace Nova.WinForms.Gui
         {
             try
             {
-                CargoDialog cargoDialog = new CargoDialog();
+                using (CargoDialog cargoDialog = new CargoDialog())
+                {
+                    cargoDialog.SetTarget(selectedFleet);
+                    cargoDialog.ShowDialog();
+                    UpdateCargoMeters();
+                    Invalidate();
+                }
 
-                cargoDialog.SetTarget(selectedFleet);
-                cargoDialog.ShowDialog();
-                cargoDialog.Dispose();
-                
                 meterCargo.CargoLevels = selectedFleet.Cargo;
 
             }
@@ -497,7 +499,8 @@ namespace Nova.WinForms.Gui
                 comboOtherFleets.SelectedIndex = 0;
             }
             buttonMerge.Enabled = haveFleets;
-            buttonCargoXfer.Enabled = haveFleets && fleet.TotalCargoCapacity > 0;
+//            buttonCargoXfer.Enabled = haveFleets && fleet.TotalCargoCapacity > 0; // dose not need cargo as we may want to xfer fuel - Dan 26 Jun 11
+            buttonCargoXfer.Enabled = haveFleets;
             buttonGotoFleet.Enabled = haveFleets;
             
             UpdateCargoMeters();
@@ -510,7 +513,7 @@ namespace Nova.WinForms.Gui
             meterFuel.Value = (int)selectedFleet.FuelAvailable;
             meterCargo.Maximum = selectedFleet.TotalCargoCapacity;
             meterCargo.CargoLevels = selectedFleet.Cargo;
-            comboOtherFleets_SelectedIndexChanged(null, null);          
+            comboOtherFleets_SelectedIndexChanged(null, null); // Updates the other meters to current selection          
         }
 
         /// ----------------------------------------------------------------------------

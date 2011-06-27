@@ -23,6 +23,9 @@ namespace Nova.Server.TurnSteps
 {
     using System;
     
+    /// <summary>
+    /// This step updates intel with scanning information.
+    /// </summary>
     public class ScanStep : ITurnStep
     {
         public ScanStep()

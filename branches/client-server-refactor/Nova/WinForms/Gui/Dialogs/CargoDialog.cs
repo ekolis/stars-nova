@@ -38,7 +38,10 @@ namespace Nova.ControlLibrary
     public partial class CargoDialog : Form
     {
         private Fleet fleet;
+        private Cargo fleetCargo;
+        private Cargo starCargo;
 
+        
         /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initializes a new instance of the CargoDialog class.
@@ -47,40 +50,100 @@ namespace Nova.ControlLibrary
         public CargoDialog()
         {
             InitializeComponent();
+            cargoIron.ValueChanged += cargoIron_ValueChanged;
+            cargoBoron.ValueChanged += cargoBoron_ValueChanged;
+            cargoGerman.ValueChanged += cargoGerman_ValueChanged;
+            cargoColonists.ValueChanged += cargoColonists_ValueChanged;
         }
 
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Process cancel button.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
-        private void CancelButton_Click(object sender, System.EventArgs e)
+        void cargoIron_ValueChanged(int newValue)
         {
-            DialogResult = DialogResult.Cancel;
+            if (fleetCargo.Mass - fleetCargo.Ironium + newValue > meterCargo.Maximum)
+                newValue = meterCargo.Maximum - fleetCargo.Mass + fleetCargo.Ironium;
+
+            int total = fleetCargo.Ironium + starCargo.Ironium;
+
+            if (newValue > total)
+                newValue = total;
+
+            fleetCargo.Ironium = newValue;
+            starCargo.Ironium = total - newValue;
+
+            UpdateMeters();
         }
 
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Process the OK button being pressed.
-        /// </summary>
-        /// <param name="sender">The source of the event.</param>
-        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
-        private void OkButton_Click(object sender, System.EventArgs e)
+        void cargoBoron_ValueChanged(int newValue)
         {
-            fleet.Cargo.Ironium = this.ironiumTransfer.Value;
-            fleet.Cargo.Boranium = boroniumTransfer.Value;
-            fleet.Cargo.Germanium = this.germaniumTransfer.Value;
-            fleet.Cargo.ColonistsInKilotons = colonistsTransfer.Value;
+            if (fleetCargo.Mass - fleetCargo.Boranium + newValue > meterCargo.Maximum)
+                newValue = meterCargo.Maximum - fleetCargo.Mass + fleetCargo.Boranium;
+
+            int total = fleetCargo.Boranium + starCargo.Boranium;
+
+            if (newValue > total)
+                newValue = total;
+
+            fleetCargo.Boranium = newValue;
+            starCargo.Boranium = total - newValue;
+            UpdateMeters();
+        }
+
+        void cargoGerman_ValueChanged(int newValue)
+        {
+            if (fleetCargo.Mass - fleetCargo.Germanium + newValue > meterCargo.Maximum)
+                newValue = meterCargo.Maximum - fleetCargo.Mass + fleetCargo.Germanium;
+
+            int total = fleetCargo.Germanium + starCargo.Germanium;
+
+            if (newValue > total)
+                newValue = total;
+
+            fleetCargo.Germanium = newValue;
+            starCargo.Germanium = total - newValue;
+            UpdateMeters();
+        }
+
+        void cargoColonists_ValueChanged(int newValue)
+        {
+            if (fleetCargo.Mass - fleetCargo.ColonistsInKilotons + newValue > meterCargo.Maximum)
+                newValue = meterCargo.Maximum - fleetCargo.Mass + fleetCargo.ColonistsInKilotons;
+
+            int total = fleetCargo.ColonistsInKilotons + starCargo.ColonistsInKilotons;
+
+            if (newValue > total)
+                newValue = total;
+
+            fleetCargo.ColonistsInKilotons = newValue;
+            starCargo.ColonistsInKilotons = total - newValue;
+            UpdateMeters();
+        }
+
+        
+        private void UpdateMeters()
+        {
+            cargoIron.Value = fleetCargo.Ironium;
+            cargoBoron.Value = fleetCargo.Boranium;
+            cargoGerman.Value = fleetCargo.Germanium;
+            cargoColonists.Value = fleetCargo.ColonistsInKilotons;
+
+            labelIron.Text = starCargo.Ironium + "KT";
+            labelBoron.Text = starCargo.Boranium + "KT";
+            labelGerman.Text = starCargo.Germanium + "KT";
+            labelColonists.Text = starCargo.ColonistsInKilotons + "KT";
+
+            meterCargo.CargoLevels = fleetCargo;
+        }
+
+        private void okButton_Click(object sender, EventArgs e)
+        {
+            fleet.Cargo = fleetCargo;
 
             Star star = fleet.InOrbit;
-            star.ResourcesOnHand.Ironium -= this.ironiumTransfer.Taken;
-            star.ResourcesOnHand.Boranium -= boroniumTransfer.Taken;
-            star.ResourcesOnHand.Germanium -= this.germaniumTransfer.Taken;
-            star.Colonists -= colonistsTransfer.Taken * Global.ColonistsPerKiloton;
+            star.ResourcesOnHand.Ironium = starCargo.Ironium;
+            star.ResourcesOnHand.Boranium = starCargo.Boranium;
+            star.ResourcesOnHand.Germanium = starCargo.Germanium;
+            int remainder = star.Colonists % Global.ColonistsPerKiloton;
+            star.Colonists = starCargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
+            star.Colonists += remainder;
 
             DialogResult = DialogResult.OK;
         }
@@ -95,29 +158,21 @@ namespace Nova.ControlLibrary
         {
             fleet = targetFleet;
 
-            ironiumTransfer.Maximum = fleet.TotalCargoCapacity;
-            boroniumTransfer.Maximum = fleet.TotalCargoCapacity;
-            germaniumTransfer.Maximum = fleet.TotalCargoCapacity;
-            colonistsTransfer.Maximum = fleet.TotalCargoCapacity;
+            fleetCargo = new Cargo(targetFleet.Cargo); // clone this so it can hold values in case we cancel
+            starCargo = new Cargo();
+            starCargo.Ironium = targetFleet.InOrbit.ResourcesOnHand.Ironium;
+            starCargo.Boranium =  targetFleet.InOrbit.ResourcesOnHand.Boranium;
+            starCargo.Germanium =  targetFleet.InOrbit.ResourcesOnHand.Germanium;
+            starCargo.ColonistsInKilotons = (targetFleet.InOrbit.Colonists/Global.ColonistsPerKiloton);
 
-            ironiumTransfer.Value = (int)fleet.Cargo.Ironium;
-            boroniumTransfer.Value = (int)fleet.Cargo.Boranium;
-            germaniumTransfer.Value = (int)fleet.Cargo.Germanium;
-            colonistsTransfer.Value = (int)fleet.Cargo.ColonistsInKilotons;
+            cargoIron.Maximum = targetFleet.TotalCargoCapacity;
+            cargoBoron.Maximum = targetFleet.TotalCargoCapacity;
+            cargoGerman.Maximum = targetFleet.TotalCargoCapacity;
+            cargoColonists.Maximum = targetFleet.TotalCargoCapacity;
 
-            Star star = fleet.InOrbit;
-            ironiumTransfer.Available = (int)star.ResourcesOnHand.Ironium;
-            boroniumTransfer.Available = (int)star.ResourcesOnHand.Boranium;
-            germaniumTransfer.Available = (int)star.ResourcesOnHand.Germanium;
-            colonistsTransfer.Available = (int)star.Colonists / Global.ColonistsPerKiloton;
+            meterCargo.Maximum = targetFleet.TotalCargoCapacity;
 
-            ironiumTransfer.Limit = cargoBay;
-            boroniumTransfer.Limit = cargoBay;
-            germaniumTransfer.Limit = cargoBay;
-            colonistsTransfer.Limit = cargoBay;
-
-            cargoBay.Maximum = fleet.TotalCargoCapacity;
-            cargoBay.Value = fleet.Cargo.Mass;
+            UpdateMeters();
         }
     }
 }

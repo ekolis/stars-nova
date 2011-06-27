@@ -350,7 +350,8 @@ namespace Nova.WinForms.Gui
                     using (CargoDialog cargoDialog = new CargoDialog())
                     {
                         cargoDialog.SetTarget(fleet);
-                        cargoDialog.ShowDialog();                        
+                        cargoDialog.ShowDialog(); 
+                        UpdateFields();
                     }
 
                     comboFleetsInOrbit_SelectedIndexChanged(null, null);
