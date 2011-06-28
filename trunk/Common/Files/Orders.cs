@@ -51,9 +51,7 @@ namespace Nova.Common
     [Serializable]
     public sealed class Orders
     {
-        public Dictionary<int, Fleet> RaceFleets = new Dictionary<int, Fleet>(); // For fleet orders
         public Dictionary<string, Design> RaceDesigns = new Dictionary<string, Design>();     // For any new designs
-        public List<Star> RaceStars = new List<Star>();       // For production queues
         
         /// <summary>
         /// List of fleets (Fleet.Key) to delete
@@ -65,7 +63,7 @@ namespace Nova.Common
         /// </summary>
         public List<string> DeletedDesigns = new List<string>(); 
 
-        public EmpireData PlayerData = new EmpireData();        // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.) and research %
+        public EmpireData EmpireStatus = new EmpireData();        // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.) and research %
         public int TechLevel;                               // This is the sum of all the player's tech levels, used for victory checks.
         
         /// ----------------------------------------------------------------------------
@@ -108,8 +106,6 @@ namespace Nova.Common
             // temporary variables for reading in designs, fleets, stars
             Design design = null;
             ShipDesign shipDesign = null;
-            Fleet fleet = null;
-            Star star = null;
 
             // Read the node
             while (xmlnode != null)
@@ -163,17 +159,7 @@ namespace Nova.Common
                                 deletedDesignsNode = deletedDesignsNode.NextSibling;
                             }
                             break;
-
-                        case "star":
-                            star = new Star(xmlnode);
-                            RaceStars.Add(star);
-                            break;
-
-                        case "fleet":
-                            fleet = new Fleet(xmlnode);
-                            RaceFleets.Add(fleet.FleetID, fleet);
-                            break;
-
+                            
                         // Deleted fleets are contained in their own section to seperate them from
                         // current fleets. We load this section in this loop.
                         case "deletedfleets":
@@ -187,7 +173,7 @@ namespace Nova.Common
                             break;
 
                         case "empiredata":
-                            PlayerData = new EmpireData(xmlnode);
+                            EmpireStatus = new EmpireData(xmlnode);
                             break;
 
                         default: break;
@@ -223,13 +209,8 @@ namespace Nova.Common
             xmlRoot.AppendChild(xmlelOrders);
 
             // Place the turn year first, so it can be determined quickly
-            Global.SaveData(xmldoc, xmlelOrders, "Turn", PlayerData.TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
-
-            // Store the fleets, to pass on fleet orders
-            foreach (Fleet fleet in RaceFleets.Values)
-            {
-                xmlelOrders.AppendChild(fleet.ToXml(xmldoc));
-            }
+            Global.SaveData(xmldoc, xmlelOrders, "Turn", EmpireStatus.TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            
             // store the designs, for any new designs
             foreach (Design design in RaceDesigns.Values)
             {
@@ -241,11 +222,6 @@ namespace Nova.Common
                 {
                     xmlelOrders.AppendChild(design.ToXml(xmldoc));
                 }
-            }
-            // store the stars, so we can pass production orders
-            foreach (Star star in RaceStars)
-            {
-                xmlelOrders.AppendChild(star.ToXml(xmldoc));
             }
 
             // Deleted fleets and designs are wrapped in a section node
@@ -266,7 +242,7 @@ namespace Nova.Common
             }
             xmlelOrders.AppendChild(xmlelDeletedDesigns);
 
-            xmlelOrders.AppendChild(PlayerData.ToXml(xmldoc));
+            xmlelOrders.AppendChild(EmpireStatus.ToXml(xmldoc));
 
             xmldoc.Save(compressionStream);
             compressionStream.Close();

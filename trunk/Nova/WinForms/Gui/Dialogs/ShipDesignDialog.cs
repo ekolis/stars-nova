@@ -880,7 +880,7 @@ namespace Nova.WinForms.Gui
 
             hullProperties.Modules = HullGrid.ActiveModules;
             newDesign.Name = DesignName.Text;
-            newDesign.Owner = stateData.PlayerRace.Name;
+            newDesign.Owner = stateData.EmpireIntel.EmpireRace.Name;
             newDesign.ShipHull = this.selectedHull;
             newDesign.Cost = DesignResources.Value;
             newDesign.Mass = Convert.ToInt32(ShipMass.Text);

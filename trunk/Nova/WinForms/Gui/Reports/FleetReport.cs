@@ -37,15 +37,15 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class FleetReport : Form
     {
-        private Dictionary<string, Fleet> allFleets;
+        private FleetIntelList fleetReports;
         private Race race;
         
         /// <Summary>
         /// Initializes a new instance of the FleetReport class.
         /// </Summary>
-        public FleetReport(Dictionary<string, Fleet> allFleets, Race race)
+        public FleetReport(FleetIntelList allFleets, Race race)
         {
-            this.allFleets = allFleets;
+            this.fleetReports = allFleets;
             this.race = race;
             
             InitializeComponent();
@@ -66,7 +66,7 @@ namespace Nova.WinForms.Gui
             this.fleetGridView.Columns[6].Name = "Cargo";
             this.fleetGridView.AutoSize = true;
 
-            foreach (Fleet fleet in allFleets.Values)
+            foreach (Fleet fleet in fleetReports.Values)
             {
                 if (fleet.Owner == race.Name)
                 {

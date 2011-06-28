@@ -37,15 +37,15 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class PlanetReport : Form
     {
-        private Dictionary<string, Star> allStars;
+        private StarIntelList allStarsIntel;
         private Race race;
         
         /// <Summary>
         /// Initializes a new instance of the PlanetReport class.
         /// </Summary>
-        public PlanetReport(Dictionary<string, Star> allStars, Race race)
+        public PlanetReport(StarIntelList allStars, Race race)
         {
-            this.allStars = allStars;
+            this.allStarsIntel = allStars;
             this.race = race;
             
             InitializeComponent();
@@ -66,31 +66,31 @@ namespace Nova.WinForms.Gui
             this.planetGridView.Columns[8].Name = "Minerals";
             this.planetGridView.AutoSize = true;
 
-            foreach (Star star in allStars.Values)
+            foreach (StarIntel report in allStarsIntel.Values)
             {
-                if (star.Owner == race.Name)
+                if (report.Owner == race.Name)
                 {
                     string[] row = new string[NumColumns];
 
                     string starbase = "-";
-                    if (star.Starbase != null)
+                    if (report.Starbase != null)
                     {
-                        starbase = star.Starbase.Name;
+                        starbase = report.Starbase.Name;
                     }
 
                     int i = 0;
-                    row[i++] = star.Name;
+                    row[i++] = report.Name;
                     row[i++] = starbase;
-                    row[i++] = star.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = star.Capacity(race).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = Math.Ceiling(star.HabitalValue(race) * 100).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = star.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = star.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = report.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = report.Capacity(race).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = Math.Ceiling(report.HabitalValue(race) * 100).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = report.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = report.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-                    Defenses.ComputeDefenseCoverage(star);
+                    Defenses.ComputeDefenseCoverage(report);
                     row[i++] = Defenses.SummaryCoverage.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-                    Nova.Common.Resources resources = star.ResourcesOnHand;
+                    Nova.Common.Resources resources = report.ResourcesOnHand;
                     StringBuilder text = new StringBuilder();
 
                     text.AppendFormat(
@@ -103,7 +103,7 @@ namespace Nova.WinForms.Gui
 
                     row[i++] = text.ToString();
 
-                    resources = star.MineralConcentration;
+                    resources = report.MineralConcentration;
                     text = new StringBuilder();
 
                     text.AppendFormat(

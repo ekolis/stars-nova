@@ -50,6 +50,15 @@ namespace Nova.Common.Components
         #region Construction
 
         /// <summary>
+        /// Default Constructor. Use this when loading from XML and adding components
+        /// from there one by one.
+        /// </summary>
+        public RaceComponents()
+        {
+            
+        }
+        
+        /// <summary>
         /// Constructor. Generates the list of available components at construction for the 
         /// given race from AllComponents.
         /// </summary>

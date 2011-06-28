@@ -113,7 +113,7 @@ namespace Nova.WinForms.Gui
             this.messageForm.Size = new System.Drawing.Size(350, 120);
             this.messageForm.TabIndex = 0;
             this.messageForm.TabStop = false;
-            this.messageForm.Text = "Year 2100 - No Messages";
+            this.messageForm.Text = "Year " + Global.StartingYear.ToString(System.Globalization.CultureInfo.InvariantCulture) + " - No Messages";
             // 
             // GotoButton
             // 

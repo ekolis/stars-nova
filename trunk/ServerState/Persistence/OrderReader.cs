@@ -143,18 +143,18 @@ namespace Nova.Server
                     this.stateData.AllDesigns.Remove(designKey);
                 }
 
-                foreach (Fleet fleet in playerOrders.RaceFleets.Values)
+                foreach (FleetIntel fleet in playerOrders.EmpireStatus.FleetReports.Values)
                 {
                     this.stateData.AllFleets[fleet.Key] = fleet;
                 }
 
                 // load the orders for each star. 
-                foreach (Star star in playerOrders.RaceStars)
+                foreach (StarIntel star in playerOrders.EmpireStatus.StarReports.Values)
                 {
                     this.stateData.AllStars[star.Name] = star;
                 }
 
-                this.stateData.AllEmpires[race.Name] = playerOrders.PlayerData;
+                this.stateData.AllEmpires[race.Name] = playerOrders.EmpireStatus;
                 this.stateData.AllTechLevels[race.Name] = playerOrders.TechLevel;
             }
             catch (Exception e)
@@ -178,11 +178,11 @@ namespace Nova.Server
         private void LinkOrderReferences(Orders playerOrders)
         {
             // Fleet reference to Star
-            foreach (Fleet fleet in playerOrders.RaceFleets.Values)
+            foreach (FleetIntel fleet in playerOrders.EmpireStatus.FleetReports.Values)
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = this.stateData.AllStars[fleet.InOrbit.Name];
+                    fleet.InOrbit = stateData.AllStars[fleet.InOrbit.Name];
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
@@ -192,15 +192,15 @@ namespace Nova.Server
             }
             // Star reference to Race
             // Star reference to Fleet (starbase)
-            foreach (Star star in playerOrders.RaceStars)
+            foreach (StarIntel star in playerOrders.EmpireStatus.StarReports.Values)
             {
                 if (star.ThisRace != null)
                 {
-                    star.ThisRace = this.stateData.AllRaces[star.ThisRace.Name];
+                    star.ThisRace = stateData.AllRaces[star.ThisRace.Name];
                 }
                 if (star.Starbase != null)
                 {
-                    star.Starbase = playerOrders.RaceFleets[star.Starbase.FleetID];
+                    star.Starbase = playerOrders.EmpireStatus.FleetReports[star.Starbase.Key];
                 }
             }
 

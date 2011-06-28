@@ -37,8 +37,9 @@ namespace Nova.WinForms.Gui
     public class PlanetSummary : System.Windows.Forms.UserControl
     {
         // List of the Star reports.
-        private Dictionary<string, StarReport> starReports;
-        private Race playerRace;        
+        private StarIntelList starReports;
+        private Race playerRace; 
+        private int turnYear;        
        
         // reference to the Star. This is only used for owned stars.
         private Star currentStar;
@@ -73,10 +74,11 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the PlanetSummary class.
         /// </Summary>
-        public PlanetSummary(Dictionary<string, StarReport> starReports, Race playerRace)
+        public PlanetSummary(StarIntelList starReports, Race playerRace, int year)
         {
             this.starReports = starReports;
             this.playerRace = playerRace;
+            this.turnYear = year;
             
             InitializeComponent();
         }
@@ -457,46 +459,66 @@ namespace Nova.WinForms.Gui
                 
                 int habValue = (int)Math.Ceiling(value.HabitalValue(playerRace) * 100);
                 
-                this.planetValue.Text = habValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
-
-                if (habValue < 0)
+                if (starReports[value.Name].Year == 0)
                 {
-                    this.planetValue.ForeColor = Color.Red;
+                    this.planetValue.Text = "???";
+                    this.planetValue.ForeColor = Color.Empty;
                 }
                 else
                 {
-                    this.planetValue.ForeColor = Color.Black;
-                }                
+                    this.planetValue.Text = habValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
+                    if (habValue < 0)
+                    {
+                        this.planetValue.ForeColor = Color.Red;
+                    }
+                    else
+                    {
+                        this.planetValue.ForeColor = Color.Green;
+                    } 
+                }
 
-                if (starReports[value.Name].Population == 0)
+                               
+    
+                if (starReports[value.Name].Year == 0)
                 {
-                    this.population.Text = "Uninhabited";
+                    this.population.Text = "???";
                 }
                 else
                 {
-                    this.population.Text = "Population: " + starReports[value.Name].Population;
+                    if (starReports[value.Name].Colonists == 0)
+                    {
+                        this.population.Text = "Uninhabited";
+                    }
+                    else
+                    {
+                        this.population.Text = "Population: " + starReports[value.Name].Colonists;
+                    }
                 }
-
-                if (starReports[value.Name].Age == 0)
+    
+                if (starReports[value.Name].Year == 0)
+                {
+                    this.reportAge.Text = "No Report";
+                }
+                else if (starReports[value.Name].Year == turnYear)
                 {
                     this.reportAge.Text = "Report is current";
                 }
-                else if (starReports[value.Name].Age == 1)
+                else if (starReports[value.Name].Year == turnYear - 1)
                 {
                     this.reportAge.Text = "Report is 1 year old";
                 }
                 else
                 {
-                    this.reportAge.Text = "Report is " + starReports[value.Name].Age + " years old";
+                    this.reportAge.Text = "Report is " + (turnYear - starReports[value.Name].Year) + " years old";
                 }
 
-                this.ironiumGauge.Value = starReports[value.Name].StarResources.Ironium;
-                this.boraniumGauge.Value = starReports[value.Name].StarResources.Boranium;
-                this.germaniumGauge.Value = starReports[value.Name].StarResources.Germanium;
+                this.ironiumGauge.Value = starReports[value.Name].ResourcesOnHand.Ironium;
+                this.boraniumGauge.Value = starReports[value.Name].ResourcesOnHand.Boranium;
+                this.germaniumGauge.Value = starReports[value.Name].ResourcesOnHand.Germanium;
 
-                this.ironiumGauge.Marker = (int)starReports[value.Name].Concentration.Ironium;
-                this.boraniumGauge.Marker = (int)starReports[value.Name].Concentration.Boranium;
-                this.germaniumGauge.Marker = (int)starReports[value.Name].Concentration.Germanium;
+                this.ironiumGauge.Marker = (int)starReports[value.Name].MineralConcentration.Ironium;
+                this.boraniumGauge.Marker = (int)starReports[value.Name].MineralConcentration.Boranium;
+                this.germaniumGauge.Marker = (int)starReports[value.Name].MineralConcentration.Germanium;
 
                 this.radiationGauge.Marker = starReports[value.Name].Radiation;
                 this.gravityGauge.Marker = starReports[value.Name].Gravity;
@@ -547,17 +569,17 @@ namespace Nova.WinForms.Gui
             
             if (this.currentStar != null
                 && this.currentStar.Owner == playerRace.Name
-                && starReports[currentStar.Name].Age == 0)
+                && starReports[currentStar.Name].Year == 0)
             {
                         
-            tt += "Your population on " + starReports[currentStar.Name].StarName + " is " + starReports[currentStar.Name].Population + "." + Environment.NewLine           
-                + starReports[currentStar.Name].StarName + " will support a population of up to "
+            tt += "Your population on " + currentStar.Name + " is " + currentStar.Colonists + "." + Environment.NewLine           
+                + currentStar.Name + " will support a population of up to "
                 + playerRace.MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " of your colonists." + Environment.NewLine
-                + "Your population on " + starReports[currentStar.Name].StarName + " will grow by "
+                + "Your population on " + currentStar.Name + " will grow by "
                 + currentStar.CalculateGrowth(playerRace).ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " to "
-                + (starReports[currentStar.Name].Population + currentStar.CalculateGrowth(playerRace)).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + (currentStar.Colonists + currentStar.CalculateGrowth(playerRace)).ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " next year.";             
             }
 

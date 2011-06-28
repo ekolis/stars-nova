@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -17,12 +17,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
-// ===========================================================================
-#endregion
-
-#region Module Description
-// ===========================================================================
-// See Fleet summary.
 // ===========================================================================
 #endregion
 
@@ -71,27 +65,20 @@ namespace Nova.Common
             Arrived, InTransit 
         }
 
-        #region Construction Initialisation
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// placeholder constructor - Fleet should be replaced by a reference to the fleet with the same ID
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Fleet(int id) 
         { 
             FleetID = id; 
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Fleet construction for unit testing and stack creation during a battle.
         /// </summary>
         /// <param name="n">The fleet name.</param>
         /// <param name="o">The fleet owner.</param>
         /// <param name="p">The fleet position</param>
-        /// ----------------------------------------------------------------------------
         public Fleet(string n, string o, NovaPoint p)
         {
             Name = n;
@@ -99,15 +86,12 @@ namespace Nova.Common
             Position = p;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor. This is only used by the battle engine so only the fields
         /// used by it in creating stacks need to be copied. Note that we copy the
         /// ships as well. Be careful when using the copy. It is a different object.
         /// </summary>
         /// <param name="copy">The fleet to copy.</param>
-        /// ----------------------------------------------------------------------------
         public Fleet(Fleet copy)
             : base(copy)
         {
@@ -123,15 +107,12 @@ namespace Nova.Common
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Fleet construction based on a ship and some parameters from a star (this is
         /// the usual case for most fleets when a new ship is manufactured at a star).
         /// </summary>
         /// <param name="ship">The ship being constructed.</param>
         /// <param name="star">The star constructing the ship.</param>
-        /// ----------------------------------------------------------------------------
         public Fleet(Ship ship, Star star)
         {
 
@@ -157,13 +138,6 @@ namespace Nova.Common
             Owner        = star.Owner;
         }
 
-
-        #endregion
-
-
-        #region Methods
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Move the fleet towards the waypoint at the top of the list. Fuel is consumed
         /// at the rate of the sum of each of the individual ships (i.e. available fuel
@@ -172,7 +146,6 @@ namespace Nova.Common
         /// <param name="availableTime">The portion of a year left for travel.</param>
         /// <param name="race">The race this fleet belongs to.</param>
         /// <returns>A TravelStatus indicating arrival or in-transit.</returns>
-        /// ----------------------------------------------------------------------------
         public TravelStatus Move(ref double availableTime, Race race)
         {
             Waypoint target = Waypoints[0];
@@ -243,8 +216,6 @@ namespace Nova.Common
             return arrived;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the fuel consumption (mg per year) of the fleet at the specified
         /// warp factor.
@@ -252,7 +223,6 @@ namespace Nova.Common
         /// <param name="warpFactor">The warp speed of the fleet.</param>
         /// <param name="race">The race this fleet belongs too.</param>
         /// <returns>The rate of fuel consumptionin mg / year.</returns>
-        /// ----------------------------------------------------------------------------
         public double FuelConsumption(int warpFactor, Race race)
         {
             double fuelConsumption = 0;
@@ -277,17 +247,9 @@ namespace Nova.Common
             return fuelConsumption;
         }
 
-        #endregion 
-
-
-
-        #region Properties
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the total normal bombing capability
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Bomb BombCapability
         {
             get
@@ -324,11 +286,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Property to determine if a fleet can re-fuel
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool CanRefuel
         {
             get
@@ -362,12 +322,10 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the composition of a fleet (ship design and number of ships of that
         /// design).
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Dictionary<string, int> Composition
         {
             get
@@ -391,11 +349,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the current Defense capability of a fleet 
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public double Defenses
         {
             get
@@ -428,11 +384,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine if the fleet has bombers
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool HasBombers
         {
             get
@@ -449,11 +403,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Choose an image from one of the ships in the fleet
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ShipIcon Icon
         {
             get
@@ -471,11 +423,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Report if a fleet is armed
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool IsArmed
         {
             get
@@ -491,11 +441,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Property to determine if a fleet is a starbase.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool IsStarbase
         {
             get
@@ -523,35 +471,9 @@ namespace Nova.Common
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
-        /// <summary>
-        /// Return the long range scan capability of the fleet.
-        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
-        /// </summary>
-        /// ----------------------------------------------------------------------------
-        public int LongRangeScan
-        {
-            get
-            {
-                int scanRange = 0;
-
-                foreach (Ship ship in FleetShips)
-                {
-                    if (ship.ScanRangeNormal > scanRange)
-                    {
-                        scanRange = ship.ScanRangeNormal;
-                    }
-                }
-                return scanRange;
-            }
-        }
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the mass of a fleet.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public new int Mass
         {
             get
@@ -568,11 +490,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the the number of mines this fleet can lay.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int NumberOfMines
         {
             get
@@ -587,19 +507,38 @@ namespace Nova.Common
                 return mineCount;
             }
         }
-
-        /// ----------------------------------------------------------------------------
+        
         /// <summary>
-        /// Return the short range scan capability of the fleet.
+        /// Return the penetrating range scan capability of the fleet.
         /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
         /// </summary>
-        /// ----------------------------------------------------------------------------
-        public int ShortRangeScan
+        public int PenScanRange
+        {
+            get
+            {
+                int penRange = 0;
+                
+                foreach (Ship ship in FleetShips)
+                {
+                    if (ship.ScanRangePenetrating > penRange)
+                    {
+                        penRange = ship.ScanRangePenetrating;
+                    }
+                }
+                return penRange;
+            }
+        }
+        
+        /// <summary>
+        /// Return the non penetrating range scan capability of the fleet.
+        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
+        /// </summary>
+        public int ScanRange
         {
             get
             {
                 int scanRange = 0;
-
+                
                 foreach (Ship ship in FleetShips)
                 {
                     if (ship.ScanRangeNormal > scanRange)
@@ -611,11 +550,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the current speed of the fleet
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int Speed
         {
             get
@@ -632,11 +569,9 @@ namespace Nova.Common
 
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the total amour strength of the fleet
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public double TotalArmorStrength
         {
             get
@@ -663,11 +598,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the cost of a fleet. 
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Resources TotalCost
         {
             get
@@ -705,11 +638,9 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the total shield strength of the fleet
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public double TotalShieldStrength
         {
             get
@@ -725,16 +656,10 @@ namespace Nova.Common
             }
         }
 
-        #endregion
-
-        #region Load Save Xml
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising constructor to load a fleet from an XmlNode (save file).
         /// </summary>
         /// <param name="node">An XmlNode representing the fleet.</param>
-        /// ----------------------------------------------------------------------------
         public Fleet(XmlNode node)
             : base(node)
         {
@@ -800,13 +725,11 @@ namespace Nova.Common
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Return an XmlElement representation of the Fleet
         /// </summary>
         /// <param name="xmldoc">The parent xml document.</param>
         /// <returns>An XmlElement representation of the Fleet.</returns>
-        /// ----------------------------------------------------------------------------
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelFleet = xmldoc.CreateElement("Fleet");
@@ -859,10 +782,5 @@ namespace Nova.Common
 
             return xmlelFleet;
         }
-
-
-        #endregion
-
-
     }
 }

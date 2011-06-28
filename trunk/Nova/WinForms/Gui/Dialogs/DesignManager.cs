@@ -98,8 +98,8 @@ namespace Nova.WinForms.Gui
                 this.designOwner.Items.Add(raceName);
             }
 
-            designOwner.SelectedItem = stateData.PlayerRace.Name;
-            ListDesigns(stateData.PlayerRace.Name);
+            designOwner.SelectedItem = stateData.EmpireIntel.EmpireRace.Name;
+            ListDesigns(stateData.EmpireIntel.EmpireRace.Name);
         }
 
 
@@ -197,7 +197,7 @@ Are you sure you want to do this?";
 
             List<Fleet> fleetsToRemove = new List<Fleet>();
 
-            foreach (Fleet fleet in this.turnData.AllFleets.Values)
+            foreach (FleetIntel fleet in turnData.EmpireIntel.FleetReports.Values)
             {
 
                 List<Ship> shipsToRemove = new List<Ship>();
@@ -223,8 +223,8 @@ Are you sure you want to do this?";
 
             foreach (Fleet fleet in fleetsToRemove)
             {
-                this.turnData.AllFleets.Remove(fleet.Key);
-                this.stateData.DeletedFleets.Add(fleet.Key);
+                stateData.EmpireIntel.FleetReports.Remove(fleet.Key);
+                stateData.DeletedFleets.Add(fleet.Key);
             }
 
             stateData.DeletedDesigns.Add(design.Key);
@@ -262,7 +262,7 @@ Are you sure you want to do this?";
 
             string race = this.designOwner.SelectedItem.ToString();
 
-            if (race == stateData.PlayerRace.Name)
+            if (race == stateData.EmpireIntel.EmpireRace.Name)
             {
                 this.delete.Enabled = true;
             }
@@ -295,8 +295,8 @@ Are you sure you want to do this?";
                 {
                     if (design.Owner == raceName)
                     {
-                        if (raceName == stateData.PlayerRace.Name ||
-                            this.stateData.KnownEnemyDesigns.ContainsKey(design.Key))
+                        if (raceName == stateData.EmpireIntel.EmpireRace.Name ||
+                            this.stateData.EnemyDesigns.ContainsKey(design.Key))
                         {
 
                             AddToDesignList(design);
@@ -322,7 +322,7 @@ Are you sure you want to do this?";
             itemToAdd.Text = design.Name;
             itemToAdd.Tag = design;
 
-            if (design.Owner == stateData.PlayerRace.Name)
+            if (design.Owner == stateData.EmpireIntel.EmpireRace.Name)
             {
                 int quantity = CountDesigns(design);
                 itemToAdd.SubItems.Add(quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
@@ -347,7 +347,7 @@ Are you sure you want to do this?";
         {
             int quantity = 0;
 
-            foreach (Fleet fleet in this.turnData.AllFleets.Values)
+            foreach (FleetIntel fleet in turnData.EmpireIntel.FleetReports.Values)
             {
                 foreach (Ship ship in fleet.FleetShips)
                 {

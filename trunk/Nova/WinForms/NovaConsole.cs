@@ -643,15 +643,16 @@ namespace Nova.WinForms.Console
                 // Launch the nova GUI
                 CommandArguments args = new CommandArguments();
                 args.Add(CommandArguments.Option.RaceName, raceName);
-                args.Add(CommandArguments.Option.Turn, stateData.TurnYear + 1);
+                args.Add(CommandArguments.Option.Turn, stateData.TurnYear);
                 args.Add(CommandArguments.Option.IntelFileName, Path.Combine(stateData.GameFolder, raceName + Global.IntelExtension));
                 
                 Nova.WinForms.Gui.NovaGUI gui = new Nova.WinForms.Gui.NovaGUI(args.ToArray());
                 gui.Show();
             }
-            catch
+            catch(Exception ex)
             {
-                Report.Error("NovaConsole.cs : PlayerList_DoubleClick() - Failed to launch GUI.");
+                Report.Error("NovaConsole.cs : PlayerList_DoubleClick() - Failed to launch GUI. Details:" +
+                             Environment.NewLine + ex.ToString());
             }
         }
 
@@ -824,7 +825,7 @@ namespace Nova.WinForms.Console
                 stateData.AllEmpires.TryGetValue(settings.RaceName, out empireData);
 
                 ListViewItem.ListViewSubItem yearItem = new ListViewItem.ListViewSubItem();
-                if (empireData == null || empireData.TurnYear == 0)
+                if (empireData == null || empireData.TurnYear == Global.StartingYear)
                 {
                     yearItem.Text = "No Orders";
                 }

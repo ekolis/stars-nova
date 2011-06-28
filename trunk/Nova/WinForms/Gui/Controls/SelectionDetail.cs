@@ -45,9 +45,8 @@ namespace Nova.WinForms.Gui
         private Item selectedItem = null;
         private UserControl selectedControl = null;
   
-        private Dictionary<string, StarReport> starReports;
-        private List<Fleet> playerFleets;
-        private StarList playerStars;
+        private StarIntelList starReports;
+        private FleetIntelList fleetReports;
         private Race playerRace;
         private int researchBudget;
         
@@ -64,26 +63,23 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
-        public SelectionDetail(Dictionary<string, StarReport> starReports,
-                               StarList playerStars,
-                               Dictionary<string, Fleet> allFleets,
-                               List<Fleet> playerFleets,
+        public SelectionDetail(StarIntelList starReports,
+                               FleetIntelList fleetReports,
                                List<string> deletedFleets,
                                Race playerRace,
                                int researchBudget,
                                ClientState stateData)
         {
             this.starReports = starReports;
-            this.playerStars = playerStars;
-            this.playerFleets = playerFleets;
+            this.fleetReports = fleetReports;
             this.playerRace = playerRace;
             this.researchBudget = researchBudget;
             
             // FIXME: (priority 3) see declaration.
             this.stateData = stateData;
             
-            PlanetDetail = new PlanetDetail(playerStars, starReports, playerFleets, researchBudget, stateData);
-            FleetDetail = new FleetDetail(starReports, allFleets, playerFleets, deletedFleets, playerRace);
+            PlanetDetail = new PlanetDetail(starReports, fleetReports, researchBudget, playerRace, stateData);
+            FleetDetail = new FleetDetail(starReports, fleetReports, deletedFleets, playerRace, stateData.EmpireIntel.TurnYear);
             
             InitializeComponent();
         }
@@ -100,14 +96,11 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplayPlanet(Item item)
         {
-            PlanetDetail.Value = item as Star;
+            PlanetDetail.Value = item as StarIntel;
             
-            if (selectedItem is Fleet || selectedItem == null)
-            {
-                selectedControl = PlanetDetail;
-                Controls.Clear();
-                Controls.Add(PlanetDetail);
-            }
+            selectedControl = PlanetDetail;
+            Controls.Clear();
+            Controls.Add(PlanetDetail);
 
             selectedItem = item;
         }
@@ -121,8 +114,8 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplayFleet(Item item)
         {
-            FleetDetail.Value = item as Fleet;
-            
+            FleetDetail.Value = item as FleetIntel;
+
             selectedControl = FleetDetail;
             Controls.Clear();
             Controls.Add(FleetDetail);

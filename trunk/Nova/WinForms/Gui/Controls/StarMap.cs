@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,28 +20,18 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module maintains the Star map.
-// ===========================================================================
-#endregion
-
-using System.Collections.Generic;
-using System.Diagnostics;
-
 namespace Nova.WinForms.Gui
 {
-    #region Using
     using System;
+    using System.Collections.Generic;
+    using System.Diagnostics;
     using System.Drawing;
     using System.Drawing.Drawing2D;
     using System.Windows.Forms;
 
-    using Client;
-    using Common;
-    using Common.DataStructures;
-    #endregion
-    
+    using Nova.Client;
+    using Nova.Common;
+    using Nova.Common.DataStructures;    
 
     /// <Summary>
     /// StarMap is the control which holds the actual playing map. 
@@ -83,9 +73,6 @@ namespace Nova.WinForms.Gui
             new Point(5, -12) 
         };
 
-
-        #region Variables
-        private readonly Dictionary<string, Fleet> visibleFleets = new Dictionary<string, Fleet>();
         private readonly Dictionary<string, Minefield> visibleMinefields = new Dictionary<string, Minefield>();
         private readonly Font nameFont;
         
@@ -111,13 +98,6 @@ namespace Nova.WinForms.Gui
         private int selection;
         private const double MIN_ZOOM = 0.2;
         private const double MAX_ZOOM = 5;
-
-        private NovaPoint mousePos = new NovaPoint(0,0);
-
-        #endregion
-
-
-        #region Construction and Initialization
 
         /// <Summary>
         /// Initializes a new instance of the StarMap class.
@@ -166,16 +146,11 @@ namespace Nova.WinForms.Gui
             horizontalScrollBar.Enabled = true;
             verticalScrollBar.Enabled = true;
 
-            DetermineVisibleFleets();
             DetermineVisibleMinefields();
             
             zoomFactor = 1.0;
             Zoom();
         }
-
-        #endregion
-
-        #region Drawing Methods
 
         /// <param name="graphics"></param>
         ///<Summary>
@@ -245,31 +220,31 @@ namespace Nova.WinForms.Gui
 
             // (1a) Planetary long-range scanners.
 
-            foreach (Star star in this.turnData.AllStars.Values)
+            foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
             {
-                if (star.Owner == stateData.PlayerRace.Name)
+                if (report.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
-                    DrawCircle(g, lrScanBrush, (Point)star.Position, star.ScanRange);
+                    DrawCircle(g, lrScanBrush, (Point)report.Position, report.ScanRange);
                 }
             }
 
-            // (1b) Fleet long-range scanners.
+            // (1b) Fleet non-pen scanners.
 
-            foreach (Fleet fleet in this.visibleFleets.Values)
+            foreach (Fleet fleet in stateData.EmpireIntel.FleetReports.Values)
             {
-                if (fleet.Owner == stateData.PlayerRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
-                    DrawCircle(g, lrScanBrush, (Point)fleet.Position, fleet.LongRangeScan);
+                    DrawCircle(g, lrScanBrush, (Point)fleet.Position, fleet.ScanRange);
                 }
             }
 
-            // (2) Fleet short-range scanners.
+            // (2) Fleet pen-scanners scanners.
 
-            foreach (Fleet fleet in this.visibleFleets.Values)
+            foreach (Fleet fleet in stateData.EmpireIntel.FleetReports.Values)
             {
-                if (fleet.Owner == stateData.PlayerRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
-                    DrawCircle(g, srScanBrush, (Point)fleet.Position, fleet.ShortRangeScan);
+                    DrawCircle(g, srScanBrush, (Point)fleet.Position, fleet.PenScanRange);
                 }
             }
 
@@ -280,7 +255,7 @@ namespace Nova.WinForms.Gui
                 Color cb;
                 Color cf;
 
-                if (minefield.Owner == stateData.PlayerRace.Name)
+                if (minefield.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     cb = Color.FromArgb(0, 0, 0, 0);
                     cf = Color.FromArgb(128, 0, 128, 0);
@@ -301,7 +276,7 @@ namespace Nova.WinForms.Gui
 
             // (4) Visible fleets.
 
-            foreach (Fleet fleet in this.visibleFleets.Values)
+            foreach (Fleet fleet in stateData.EmpireIntel.FleetReports.Values)
             {
                 if (fleet.Type != "Starbase")
                 {
@@ -312,10 +287,10 @@ namespace Nova.WinForms.Gui
             // (5) Stars plus starbases and orbiting fleet indications that are
             // the results of scans.
 
-            foreach (Star star in this.turnData.AllStars.Values)
+            foreach (StarIntel starIntel in stateData.EmpireIntel.StarReports.Values)
             {
-                DrawStar(g, star);
-                DrawOrbitingFleets(g, star);
+                DrawStar(g, starIntel);
+                DrawOrbitingFleets(g, starIntel);
             }
 
             // (6) Cursor.
@@ -412,7 +387,7 @@ namespace Nova.WinForms.Gui
                 g.TranslateTransform(position.X, position.Y);
                 g.RotateTransform((float)fleet.Bearing);
 
-                if (fleet.Owner == this.stateData.PlayerRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     g.FillPolygon(Brushes.Blue, triangle);
                 }
@@ -424,7 +399,7 @@ namespace Nova.WinForms.Gui
                 g.ResetTransform();
             }
 
-            if (fleet.Owner == this.stateData.PlayerRace.Name)
+            if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
             {
                 Waypoint first = fleet.Waypoints[0];
                 NovaPoint from = LogicalToDevice(first.Position);
@@ -454,16 +429,15 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DrawStar(Graphics g, Star star)
         {
-            StarReport report;
-            stateData.StarReports.TryGetValue(star.Name, out report);
+            StarIntel report = stateData.EmpireIntel.StarReports[star.Name];
             NovaPoint position = LogicalToDevice(star.Position);
             int size = 2;
             Brush starBrush = Brushes.White;
-            string owner = "?";
+            string owner = "???";
 
             // Bigger symbol for explored stars.
 
-            if (report != null)
+            if (report.Year > 0)
             {
                 size = 4;
                 owner = report.Owner;
@@ -472,13 +446,13 @@ namespace Nova.WinForms.Gui
             // Our stars are greenish, other's are red, unknown or uncolonised
             // stars are white.
 
-            if (owner == this.stateData.PlayerRace.Name)
+            if (owner == stateData.EmpireIntel.EmpireRace.Name)
             {
                 starBrush = Brushes.GreenYellow;
             }
             else
             {
-                if (owner != null && owner != "?")
+                if (owner != null && owner != "???")
                 {
                     starBrush = Brushes.Red;
                 }
@@ -506,8 +480,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DrawOrbitingFleets(Graphics g, Star star)
         {
-            StarReport report;
-            stateData.StarReports.TryGetValue(star.Name, out report);
+            StarIntel report = stateData.EmpireIntel.StarReports[star.Name];
             NovaPoint position = LogicalToDevice(star.Position);
             
             if (report == null)
@@ -525,7 +498,7 @@ namespace Nova.WinForms.Gui
                     4);
             }
 
-            if (report.Age == 0 && report.OrbitingFleets)
+            if (report.OrbitingFleets)
             {
                 int size = 12;
                 g.DrawEllipse(
@@ -536,78 +509,6 @@ namespace Nova.WinForms.Gui
                     size);
             }
         }
-
-        #endregion
-
-        #region Determine Visible
-
-        /// ----------------------------------------------------------------------------
-        /// <Summary>
-        /// Build a list of all fleets that are visible to the player.
-        /// </Summary>
-        /// <remarks>
-        /// This consists of:
-        /// (1) Fleets owned by the player
-        /// (2) Fleets within the range of scanners on ships owned by the player
-        /// (3) Fleets within the range of scanners on planets owned by the player
-        /// </remarks>
-        /// ----------------------------------------------------------------------------
-        private void DetermineVisibleFleets()
-        {
-            List<Fleet> playersFleets = new List<Fleet>();
-
-            // -------------------------------------------------------------------
-            // (1) First the easy one. Fleets owned by the player.
-            // -------------------------------------------------------------------
-
-            foreach (Fleet fleet in this.turnData.AllFleets.Values)
-            {
-                if (fleet.Owner == this.stateData.PlayerRace.Name)
-                {
-                    this.visibleFleets[fleet.Key] = fleet;
-                    playersFleets.Add(fleet);
-                }
-            }
-
-            // -------------------------------------------------------------------
-            // (2) Not so easy. Fleets within the scanning range of the player's
-            // Fleets.
-            // -------------------------------------------------------------------
-
-            foreach (Fleet fleet in playersFleets)
-            {
-                foreach (Fleet scan in this.turnData.AllFleets.Values)
-                {
-                    double range = 0;
-                    range = PointUtilities.Distance(fleet.Position, scan.Position);
-                    if (range <= fleet.LongRangeScan)
-                    {
-                        this.visibleFleets[scan.Key] = scan;
-                    }
-                }
-            }
-
-            // -------------------------------------------------------------------
-            // (3) Now that we know how to deal with ship scanners planet scanners
-            // are just the same.
-            // -------------------------------------------------------------------
-
-            foreach (Star star in this.turnData.AllStars.Values)
-            {
-                if (star.Owner == this.stateData.PlayerRace.Name)
-                {
-                    foreach (Fleet scanned in this.turnData.AllFleets.Values)
-                    {
-                        if (PointUtilities.Distance(star.Position, scanned.Position)
-                            <= star.ScanRange)
-                        {
-                            this.visibleFleets[scanned.Key] = scanned;
-                        }
-                    }
-                }
-            }
-        }
-
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -626,9 +527,9 @@ namespace Nova.WinForms.Gui
         {
             List<Fleet> playersFleets = new List<Fleet>();
 
-            foreach (Fleet fleet in this.turnData.AllFleets.Values)
+            foreach (Fleet fleet in turnData.EmpireIntel.FleetReports.Values)
             {
-                if (fleet.Owner == this.stateData.PlayerRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     playersFleets.Add(fleet);
                 }
@@ -640,7 +541,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Minefield minefield in this.turnData.AllMinefields.Values)
             {
-                if (minefield.Owner == this.stateData.PlayerRace.Name)
+                if (minefield.Owner == stateData.EmpireIntel.EmpireRace.Name)
                 {
                     this.visibleMinefields[minefield.Key] = minefield;
                 }
@@ -659,7 +560,7 @@ namespace Nova.WinForms.Gui
                     bool isIn = PointUtilities.CirclesOverlap(
                         fleet.Position,
                         minefield.Position,
-                        fleet.LongRangeScan,
+                        fleet.ScanRange,
                         minefield.Radius);
 
                     if (isIn == true)
@@ -674,17 +575,17 @@ namespace Nova.WinForms.Gui
             // are just the same.
             // -------------------------------------------------------------------
 
-            foreach (Minefield minefield in this.turnData.AllMinefields.Values)
+            foreach (Minefield minefield in turnData.AllMinefields.Values)
             {
-                foreach (Star star in this.turnData.AllStars.Values)
+                foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
                 {
-                    if (star.Owner == this.stateData.PlayerRace.Name)
+                    if (report.Owner == stateData.EmpireIntel.EmpireRace.Name)
                     {
 
                         bool isIn = PointUtilities.CirclesOverlap(
-                            star.Position,
+                            report.Position,
                             minefield.Position,
-                            star.ScanRange,
+                            report.ScanRange,
                             minefield.Radius);
 
                         if (isIn == true)
@@ -696,10 +597,6 @@ namespace Nova.WinForms.Gui
                 }
             }
         }
-
-        #endregion
-
-        #region Coordinate conversions
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -745,10 +642,6 @@ namespace Nova.WinForms.Gui
 
             return result;
         }
-
-        #endregion
-
-        #region Zoom
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -856,10 +749,6 @@ namespace Nova.WinForms.Gui
             verticalScrollBar.Value = scrollOffset.Y;
         }
 
-        #endregion
-
-        #region Scroll
-
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Horizontally scroll the Star map.
@@ -887,11 +776,6 @@ namespace Nova.WinForms.Gui
             RefreshStarMap();
         }
 
-
-        #endregion
-        
-        #region Interface IComparable
-
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// A sortable (by distance) version of the Item class.
@@ -915,10 +799,6 @@ namespace Nova.WinForms.Gui
                 return this.Distance.CompareTo(rhs.Distance);
             }
         }
-
-        #endregion
-
-        #region Mouse Events
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
@@ -1012,7 +892,6 @@ namespace Nova.WinForms.Gui
 
             int lastIndex = fleet.Waypoints.Count - 1;
             Waypoint lastWaypoint = fleet.Waypoints[lastIndex];
-            NovaPoint lastPosition = lastWaypoint.Position;
 
             if (waypoint.Destination == lastWaypoint.Destination)
             {
@@ -1141,10 +1020,6 @@ namespace Nova.WinForms.Gui
             SelectionChangedEvent(this, selectionArgs);
         }
 
-        #endregion
-
-        #region Misc Methods
-
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Set the position of the Star map selection cursor.
@@ -1170,7 +1045,7 @@ namespace Nova.WinForms.Gui
         {
             List<SortableItem> nearObjects = new List<SortableItem>();
 
-            foreach (Fleet fleet in this.visibleFleets.Values)
+            foreach (Fleet fleet in stateData.EmpireIntel.FleetReports.Values)
             {
                 if (!fleet.IsStarbase)
                 {
@@ -1184,14 +1059,14 @@ namespace Nova.WinForms.Gui
                 }
             }
 
-            foreach (Star star in this.turnData.AllStars.Values)
+            foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
             {
-                if (PointUtilities.IsNear(star.Position, position))
+                if (PointUtilities.IsNear(report.Position, position))
                 {
 
                     SortableItem thisItem = new SortableItem();
-                    thisItem.Target = star;
-                    thisItem.Distance = PointUtilities.Distance(position, star.Position);
+                    thisItem.Target = report;
+                    thisItem.Distance = PointUtilities.Distance(position, report.Position);
                     nearObjects.Add(thisItem);
                 }
             }
@@ -1239,10 +1114,6 @@ namespace Nova.WinForms.Gui
             displayBorders = toggleBorders.Checked;
             RefreshStarMap();
         }
-
-        #endregion
-        
-        #region Communication Events
         
         /// <Summary>
         /// This handles external events in which another GUI element
@@ -1258,7 +1129,5 @@ namespace Nova.WinForms.Gui
         {
             MapPanel.Invalidate();
         }
-        
-        #endregion
     }
 }

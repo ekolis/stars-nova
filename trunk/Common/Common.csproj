@@ -81,7 +81,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core">
-      <RequiredTargetFramework>3.5</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -105,6 +104,7 @@
     <Compile Include="Converters\InstanceDescriptorConverter.cs" />
     <Compile Include="Converters\ResourcesConverter.cs" />
     <Compile Include="Converters\TechLevelConverter.cs" />
+    <Compile Include="DataStructures\FleetIntelList.cs" />
     <Compile Include="DataStructures\Gravity.cs" />
     <Compile Include="DataStructures\GravityTolerance.cs" />
     <Compile Include="DataStructures\NovaPoint.cs" />
@@ -147,7 +147,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="FileSearcher.cs" />
-    <Compile Include="GameObjects\StarList.cs" />
     <Compile Include="IProgress.cs" />
     <Compile Include="ProgressDialog.cs">
       <SubType>Form</SubType>
@@ -226,6 +225,10 @@
     <Compile Include="..\VersionInfo.cs" />
     <Compile Include="Research.cs" />
     <Compile Include="DataStructures\EmpireData.cs" />
+    <Compile Include="DataStructures\StarIntel.cs" />
+    <Compile Include="DataStructures\FleetIntel.cs" />
+    <Compile Include="IntelLevel.cs" />
+    <Compile Include="DataStructures\StarIntelList.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProgressDialog.resx">
@@ -271,4 +274,7 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
     <ProjectGuid>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</ProjectGuid>
     <RootNamespace>Nova.Common</RootNamespace>
   </PropertyGroup>
+  <ItemGroup>
+    <Folder Include="GameObjects\" />
+  </ItemGroup>
 </Project>

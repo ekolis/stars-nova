@@ -692,7 +692,7 @@ namespace Nova.WinForms.Gui
             foreach (Design design in this.turnData.AllDesigns.Values)
             {
                 // check if this design belongs to this race
-                if (design.Owner == stateData.PlayerRace.Name || design.Owner == "*")
+                if (design.Owner == stateData.EmpireIntel.EmpireRace.Name || design.Owner == "*")
                 {
                     // what the purpose of this next line (shadallark) ???
                     // Looks like it is ment to prevent the current starbase design being re-used - Dan.
@@ -727,7 +727,7 @@ namespace Nova.WinForms.Gui
             {
                 // is it a starbase?
                 string tempName = this.queueList.Items[itemLoopCounter].Text;
-                Design tempDesign = turnData.AllDesigns[stateData.PlayerRace.Name + "/" + tempName];
+                Design tempDesign = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + tempName];
                 if (tempDesign.Type == "Starbase")
                 {
                     this.queueList.Items[itemLoopCounter].Checked = true;
@@ -782,7 +782,7 @@ namespace Nova.WinForms.Gui
                 this.addToQueue.Enabled = true;
                 string name = this.designList.SelectedItems[0].Text;
 
-                Design design = turnData.AllDesigns[stateData.PlayerRace.Name + "/" + name];
+                Design design = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + name];
 
                 this.designCost.Value = design.Cost;
             }
@@ -865,7 +865,7 @@ namespace Nova.WinForms.Gui
             }
 
             string name = this.designList.SelectedItems[0].Text;
-            Design design = turnData.AllDesigns[stateData.PlayerRace.Name + "/" + name];
+            Design design = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + name];
 
             // Starbases are handled differently to the other component types.
             if (design.Type == "Starbase")
@@ -1141,7 +1141,7 @@ namespace Nova.WinForms.Gui
                 item.Name = itemInList.SubItems[0].Text;
                 item.Quantity = Convert.ToInt32(itemInList.SubItems[1].Text);
 
-                Design design = turnData.AllDesigns[stateData.PlayerRace.Name + "/" + item.Name];
+                Design design = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + item.Name];
 
                 item.BuildState = itemInList.Tag as Resources;
 
@@ -1252,7 +1252,7 @@ namespace Nova.WinForms.Gui
                 for (int queueIndex = 1; queueIndex < queueList.Items.Count; queueIndex++)
                 {
                     string designName = queueList.Items[queueIndex].Text;
-                    Design currentDesign = turnData.AllDesigns[stateData.PlayerRace.Name + "/" + designName];
+                    Design currentDesign = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + designName];
 
                     quantityYetToBuild = Convert.ToInt32(queueList.Items[queueIndex].SubItems[1].Text);
                     currentStackCost = GetProductionCosts(queueList.Items[queueIndex]);
@@ -1298,7 +1298,7 @@ namespace Nova.WinForms.Gui
                             // Only do this if the Star is respecting research budget.
                             if (this.queueStar.OnlyLeftover == false)
                             {
-                                potentialResources.Energy -= potentialResources.Energy * stateData.ResearchBudget / 100;
+                                potentialResources.Energy -= potentialResources.Energy * stateData.EmpireIntel.ResearchBudget / 100;
                             }
 
                             // need to know how much of each mineral is currently available on the Star (this.queueStar.ResourcesOnHand)
@@ -1631,7 +1631,7 @@ namespace Nova.WinForms.Gui
             if (stackQuantity > 1)  
             {
                 string designName = stackOfInterest.Text;
-                Design currentDesign = turnData.AllDesigns[stateData.PlayerRace.Name + "/" + designName];
+                Design currentDesign = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + designName];
                     // as the first Item in the stack costs BuildState to complete the design cost
                     // is multiplied by the quantity - 1
                 costsToProduce += currentDesign.Cost * (stackQuantity - 1);

@@ -57,7 +57,7 @@ namespace Nova.Client
         {
             this.stateData = stateData;
             this.inputTurn = stateData.InputTurn;
-            this.raceName = stateData.PlayerRace.Name;
+            this.raceName = stateData.EmpireIntel.EmpireRace.Name;
         }    
         
         /// <summary>
@@ -68,52 +68,11 @@ namespace Nova.Client
         public void WriteOrders()
         {
             Orders outputTurn = new Orders();
-            EmpireData playerData = new EmpireData();
             
-            playerData.TurnYear = stateData.TurnYear;
-            playerData.ResearchBudget = stateData.ResearchBudget;
-            playerData.ResearchTopics = stateData.ResearchTopics;
-            playerData.ResearchResources = stateData.ResearchResources;
-            playerData.ResearchLevels = stateData.ResearchLevels;
-            playerData.PlayerRelations = stateData.PlayerRelations;
-            playerData.BattlePlans = stateData.BattlePlans;
-            outputTurn.PlayerData = playerData;
+            outputTurn.EmpireStatus = stateData.EmpireIntel;
+            
             outputTurn.TechLevel = CountTechLevels();
-            
-            foreach (Fleet fleet in inputTurn.AllFleets.Values)
-            {
-               if (fleet.Owner == raceName)
-               {
-                   outputTurn.RaceFleets.Add(fleet.FleetID, fleet);
-               }
-            }
-            
-            // While adding the details of the stars owned by the player's race
-            // tell the star how many of its resources have been allocated to be
-            // used for research (used in the Star.Update method). We also keep a
-            // local count so that we can "do" the research on the arrival of the
-            // next turn.
-            
-            // Don't keep a local count.
-            // stateData.ResearchAllocation = 0;
-            
-            foreach (Star star in inputTurn.AllStars.Values)
-            {
-               if (star.Owner == raceName)
-               {
-                   // Do not use ResourcesOnHand.Energy here, use
-                   // GetResourceRate instead, as ResourcesOnHand
-                   // already account for allocation each turn.
-            
-                   // Let the server handle this.
-                   // star.ResearchAllocation = (star.GetResourceRate() * stateData.ResearchBudget) / 100;
-            
-                   // Don't keep a local count.
-                   // stateData.ResearchAllocation += (int)star.ResearchAllocation;
-                   outputTurn.RaceStars.Add(star);
-               }
-            }
-            
+                        
             foreach (Design design in inputTurn.AllDesigns.Values)
             {
                if (design.Owner == raceName)
@@ -148,7 +107,7 @@ namespace Nova.Client
         {
            int total = 0;
         
-           foreach (int techLevel in stateData.ResearchLevels)
+           foreach (int techLevel in stateData.EmpireIntel.ResearchLevels)
            {
                total += techLevel;
            }
