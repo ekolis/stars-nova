@@ -29,6 +29,7 @@ namespace Nova.WinForms.Console
     using Nova.Common;
     using Nova.Common.DataStructures;
     using Nova.Server;
+    using Nova.Server.TurnSteps;
 
     /// <summary>
     /// Class to process a new turn.
@@ -37,6 +38,9 @@ namespace Nova.WinForms.Console
     {
         private ServerState stateData;
         private ServerState turnData;
+        
+        private SortedList<int, ITurnStep> turnSteps;
+        private const int SCANSTEP = 99;
         
         private OrderReader orderReader;
         private IntelWriter intelWriter;
@@ -57,6 +61,8 @@ namespace Nova.WinForms.Console
         {
             this.stateData = serverState;
             
+            this.turnSteps = new SortedList<int, ITurnStep>();
+            
             // Now that there is a state, comopose the turn processor.
             // TODO ???: Use dependency injection for this? It would
             // generate a HUGE constructor call... a factory to
@@ -73,6 +79,7 @@ namespace Nova.WinForms.Console
             this.intelWriter = new IntelWriter(this.stateData, this.scores);
             this.victoryCheck = new VictoryCheck(this.stateData, this.scores);
             
+            this.turnSteps.Add(SCANSTEP, new ScanStep());
         }
 
         /// ----------------------------------------------------------------------------
@@ -114,7 +121,7 @@ namespace Nova.WinForms.Console
             // TODO (priority 4) - split these up as per Stars! turn order
             // UPDATE May 11: Some of this is updated -Aeglos
             foreach (Star star in stateData.AllStars.Values)
-            {
+            {                
                 ProcessStar(star);
             }
                         
@@ -128,6 +135,11 @@ namespace Nova.WinForms.Console
             victoryCheck.Victor();
 
             stateData.TurnYear++;
+                       
+            foreach (ITurnStep turnStep in turnSteps.Values)
+            {
+                turnStep.Process(stateData);    
+            }
             
             intelWriter.WriteIntel();
 
@@ -600,6 +612,14 @@ namespace Nova.WinForms.Console
                   break;
                 }
             }
+        }
+        
+        /// <summary>
+        /// This is a utility function. Sets intel for the first tun.
+        /// </summary>
+        public void AssembleEmpireData()
+        {
+            turnSteps[SCANSTEP].Process(stateData);
         }
     }
 }

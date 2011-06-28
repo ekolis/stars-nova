@@ -34,43 +34,38 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class SelectionSummary : UserControl
     {
-        private Dictionary<string, StarReport> starReports;
+        private StarIntelList starReports;
         private Race playerRace;
+        private int turnYear;
         private Dictionary<string, RaceIcon> raceIcons;
         
         private Item summaryItem = null;
         private PlanetSummary planetSummary;
         private FleetSummary fleetSummary;
-        #region Construction
 
         /// <Summary>
         /// Initializes a new instance of the SelectionSummary class.
         /// </Summary>
-        public SelectionSummary(Dictionary<string, StarReport> starReports, Race playerRace, Dictionary<string, RaceIcon> raceIcons)
+        public SelectionSummary(StarIntelList starReports, Race playerRace, Dictionary<string, RaceIcon> raceIcons, int turnYear)
         {
             this.starReports = starReports;
             this.playerRace = playerRace;
             this.raceIcons = raceIcons;
+            this.turnYear = turnYear;
             
-            planetSummary = new PlanetSummary(starReports, playerRace);
+            planetSummary = new PlanetSummary(starReports, playerRace, turnYear);
             fleetSummary = new FleetSummary(raceIcons);
             
             InitializeComponent();
         }
 
-        #endregion
-
-        #region Methods
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Display a planet Summary
         /// </Summary>
         /// <param name="Item"></param>
-        /// ----------------------------------------------------------------------------
         private void DisplayPlanet(Item item)
         {
-            if (starReports.ContainsKey(item.Name) == false)
+            if (starReports[item.Name].Year == 0)
             {
                 this.selectedItem.Text = item.Name + " is unexplored";
                 summaryItem = null;
@@ -94,13 +89,10 @@ namespace Nova.WinForms.Gui
             summaryItem = item;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Display a fleet Summary
         /// </Summary>
         /// <param name="Item">The <see cref="Item"/> to display (a <see cref="Fleet"/> or <see cref="Star"/>).</param>
-        /// ----------------------------------------------------------------------------
         private void DisplayFleet(Item item)
         {
             this.selectedItem.Text = "Summary of " + item.Name;
@@ -116,8 +108,6 @@ namespace Nova.WinForms.Gui
             summaryItem = item;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Set the content of the Summary control. Depending on the type of the Item
         /// selected this may either be a planet (in which case the planet Summary
@@ -125,7 +115,6 @@ namespace Nova.WinForms.Gui
         /// to be displayed).
         /// </Summary>
         /// <param name="Item">The <see cref="Item"/> to display (a <see cref="Fleet"/> or <see cref="Star"/>).</param>
-        /// ----------------------------------------------------------------------------
         private void SetItem(Item item)
         {
             if (item == null)
@@ -150,22 +139,13 @@ namespace Nova.WinForms.Gui
             this.Value = e.Item;
         }
 
-        #endregion
-
-        #region Properties
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Property to access the displayed Item
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public Item Value
         {
             set { SetItem(value); }
             get { return summaryItem; }
         }
-
-        #endregion
-
     }
 }

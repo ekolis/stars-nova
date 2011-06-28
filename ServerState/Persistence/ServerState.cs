@@ -57,7 +57,7 @@ namespace Nova.Server
 
         public bool GameInProgress      = false;
         public int FleetID              = 1;
-        public int TurnYear             = 2100;
+        public int TurnYear             = Global.StartingYear;
         public string GameFolder        = null; // The path&folder where client files are held.
         public string StatePathName     = null; // path&file name to the saved state data
         
@@ -290,8 +290,7 @@ namespace Nova.Server
             // {
             //     Serializer.Serialize(stream, this);
             //    
-            //}
-            
+            //}   
         }
         
         /// <summary>
@@ -333,7 +332,7 @@ namespace Nova.Server
             }
             xmlelServerState.AppendChild(xmlelAllRaces);
             
-            // Store the Race Data
+            // Store the Empire's Data
             XmlElement xmlelAllEmpires = xmldoc.CreateElement("AllEmpires");
             foreach (KeyValuePair<string, EmpireData> empireData in AllEmpires)
             {
@@ -485,6 +484,44 @@ namespace Nova.Server
                     star.Starbase = AllFleets[star.Owner + "/" + star.Starbase.FleetID];
                 }
             }
+            
+            // Also link inside empiredata.
+            foreach (EmpireData empire in AllEmpires.Values)
+            {
+                foreach (Fleet fleet in empire.FleetReports.Values)
+                {
+                    if (fleet.InOrbit != null)
+                    {
+                        fleet.InOrbit = AllStars[fleet.InOrbit.Name];
+                    }
+                    // Ship reference to Design
+                    foreach (Ship ship in fleet.FleetShips)
+                    {
+                        ship.DesignUpdate(AllDesigns[ship.Owner + "/" + ship.DesignName] as ShipDesign);
+                    }
+                }
+                 
+                foreach (StarIntel report in empire.StarReports.Values)
+                {
+                    if (report.ThisRace != null)
+                    {
+                        // Reduntant, but works to check if race name is valid...
+                        if (report.Owner == empire.EmpireRace.Name)
+                        {
+                            report.ThisRace = empire.EmpireRace;
+                        }
+                        else
+                        {
+                            report.ThisRace = null;
+                        }
+                    }
+    
+                    if (report.Starbase != null)
+                    {
+                        report.Starbase = AllFleets[report.Owner + "/" + report.Starbase.FleetID];
+                    }
+                }
+            }
         }     
 
         /// ----------------------------------------------------------------------------
@@ -508,7 +545,7 @@ namespace Nova.Server
             GameFolder     = null;
             GameInProgress = false;
             FleetID        = 1;
-            TurnYear       = 2100;            
+            TurnYear       = Global.StartingYear;            
             StatePathName  = null;  
         }
 

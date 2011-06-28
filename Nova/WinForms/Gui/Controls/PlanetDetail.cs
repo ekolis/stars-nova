@@ -36,11 +36,11 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class PlanetDetail : System.Windows.Forms.UserControl
     {
-        private Star currentStar;
-        private StarList playerStars;
-        private Dictionary<string, StarReport> starReports;
-        private List<Fleet> playerFleets;
+        private StarIntel selectedStar;
+        private StarIntelList starReports;
+        private FleetIntelList fleetReports;
         private int researchBudget;
+        private Race empireRace;
         
         // FIXME:(priority 3) this should not be here. It is only needed to pass it
         // down to the ProductionDialog. In any case, ProductionDialog shouldn't need
@@ -67,12 +67,12 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the PlanetDetail class.
         /// </Summary>
-        public PlanetDetail(StarList playerStars, Dictionary<string, StarReport> starReports, List<Fleet> playerFleets, int researchBudget, ClientState stateData)
+        public PlanetDetail(StarIntelList starReports, FleetIntelList fleetReports, int researchBudget, Race empireRace, ClientState stateData)
         {
-            this.playerStars = playerStars;
             this.starReports = starReports;
-            this.playerFleets = playerFleets;
+            this.fleetReports = fleetReports;
             this.researchBudget = researchBudget;
+            this.empireRace = empireRace;
             this.stateData = stateData;
             
             InitializeComponent();
@@ -87,14 +87,14 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void ChangeProductionQueue_Click(object sender, EventArgs e)
         {
-            ProductionDialog productionDialog = new ProductionDialog(currentStar, stateData);
+            ProductionDialog productionDialog = new ProductionDialog(selectedStar, stateData);
 
             productionDialog.ShowDialog();
             productionDialog.Dispose();
             
             UpdateFields();
 
-            QueueList.Populate(productionQueue, currentStar.ManufacturingQueue);
+            QueueList.Populate(productionQueue, selectedStar.ManufacturingQueue);
 
         }
 
@@ -108,7 +108,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void NextPlanet_Click(object sender, EventArgs e)
         {
-            if (playerStars.Count == 1)
+            if (starReports.Owned(empireRace.Name) == 1)
             {
                 previousPlanet.Enabled = false;
                 nextPlanet.Enabled = false;
@@ -118,7 +118,7 @@ namespace Nova.WinForms.Gui
             previousPlanet.Enabled = true;
             nextPlanet.Enabled = true;
 
-            currentStar = playerStars.GetNext(currentStar);
+            selectedStar = starReports.GetNextOwned(starReports[selectedStar.Name]);
 
             // Inform of the selection change to all listening objects.
             FireStarSelectionChangedEvent();
@@ -135,7 +135,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void PreviousPlanet_Click(object sender, EventArgs e)
         {
-            if (playerStars.Count == 1)
+            if (starReports.Owned(empireRace.Name) == 1)
             {
                 previousPlanet.Enabled = false;
                 nextPlanet.Enabled = false;
@@ -145,7 +145,7 @@ namespace Nova.WinForms.Gui
             previousPlanet.Enabled = true;
             nextPlanet.Enabled = true;
 
-            currentStar = playerStars.GetPrevious(currentStar);
+            selectedStar = starReports.GetPreviousOwned(starReports[selectedStar.Name]);
 
             // Inform of the selection change to all listening objects.
             FireStarSelectionChangedEvent();
@@ -155,13 +155,13 @@ namespace Nova.WinForms.Gui
         private void FireCursorChangedEvent()
         {
             if( CursorChangedEvent != null )
-                CursorChangedEvent( this, new CursorArgs((Point)currentStar.Position));
+                CursorChangedEvent(this, new CursorArgs((Point)selectedStar.Position));
         }
 
         private void FireStarSelectionChangedEvent()
         {
             if (StarSelectionChangedEvent != null)
-                StarSelectionChangedEvent(this, new StarSelectionArgs(currentStar));
+                StarSelectionChangedEvent(this, new StarSelectionArgs(selectedStar));
         }
 
         /// ----------------------------------------------------------------------------
@@ -170,18 +170,18 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="selectedStar">The Star to be displayed</param>
         /// ----------------------------------------------------------------------------
-        private void SetStarDetails(Star selectedStar)
+        private void SetStarDetails(StarIntel selectedStar)
         {
             if (selectedStar == null)
                 return;
 
-            currentStar = selectedStar;
+            this.selectedStar = selectedStar;
 
             UpdateFields();
 
-            groupPlanetSelect.Text = "Planet " + currentStar.Name;
+            groupPlanetSelect.Text = "Planet " + selectedStar.Name;
 
-            if (playerStars.Count > 1)
+            if (starReports.Owned(empireRace.Name) > 1)
             {                
                 previousPlanet.Enabled = true;
                 nextPlanet.Enabled = true;
@@ -189,7 +189,7 @@ namespace Nova.WinForms.Gui
             else
             {
                 previousPlanet.Enabled = false;
-                previousPlanet.Enabled = false;
+                nextPlanet.Enabled = false;
             }
         }
 
@@ -201,29 +201,29 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void UpdateFields()
         {
-            if (currentStar == null)
+            if (selectedStar == null)
             {
                 return;
             }
 
-            QueueList.Populate(productionQueue, currentStar.ManufacturingQueue);
+            QueueList.Populate(productionQueue, selectedStar.ManufacturingQueue);
 
-            Defenses.ComputeDefenseCoverage(currentStar);
+            Defenses.ComputeDefenseCoverage(selectedStar);
 
-            defenseType.Text = currentStar.DefenseType;
-            defenses.Text = currentStar.Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            defenseType.Text = selectedStar.DefenseType;
+            defenses.Text = selectedStar.Defenses.ToString(System.Globalization.CultureInfo.InvariantCulture);
             defenseCoverage.Text = Defenses.SummaryCoverage.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-            factories.Text = currentStar.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture)
+            factories.Text = selectedStar.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture)
                              + " of " +
-                             currentStar.GetOperableFactories().ToString(System.Globalization.CultureInfo.InvariantCulture);
-            mines.Text = currentStar.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture)
-                         + " of " + currentStar.GetOperableMines().ToString(System.Globalization.CultureInfo.InvariantCulture);
-            population.Text = currentStar.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                             selectedStar.GetOperableFactories().ToString(System.Globalization.CultureInfo.InvariantCulture);
+            mines.Text = selectedStar.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                         + " of " + selectedStar.GetOperableMines().ToString(System.Globalization.CultureInfo.InvariantCulture);
+            population.Text = selectedStar.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-            resourceDisplay.ResourceRate = currentStar.GetResourceRate();
+            resourceDisplay.ResourceRate = selectedStar.GetResourceRate();
 
-            if (currentStar.OnlyLeftover == false)
+            if (selectedStar.OnlyLeftover == false)
             {
                 resourceDisplay.ResearchBudget = researchBudget;
             }
@@ -235,19 +235,19 @@ namespace Nova.WinForms.Gui
                 resourceDisplay.ResearchBudget = 0;
             }
 
-            resourceDisplay.Value = currentStar.ResourcesOnHand;
+            resourceDisplay.Value = selectedStar.ResourcesOnHand;
 
-            scannerRange.Text = currentStar.ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            scannerType.Text = currentStar.ScannerType;
+            scannerRange.Text = selectedStar.ScanRange.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            scannerType.Text = selectedStar.ScannerType;
 
-            if (currentStar.Starbase == null)
+            if (selectedStar.Starbase == null)
             {
                 starbasePanel.Text = "No Starbase";
                 starbasePanel.Enabled = false;
                 return;
             }
 
-            Fleet starbase = currentStar.Starbase;
+            Fleet starbase = selectedStar.Starbase;
             starbaseArmor.Text = starbase.TotalArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
             starbaseCapacity.Text =
                 starbase.TotalDockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -262,9 +262,9 @@ namespace Nova.WinForms.Gui
 
             List<String> fleetnames = new List<string>();
             fleetsInOrbit = new Dictionary<string, Fleet>();
-            foreach (Fleet fleet in playerFleets)
+            foreach (FleetIntel fleet in fleetReports.Values)
             {
-                if ( fleet.InOrbit != null &&  fleet.InOrbit.Name == currentStar.Name && !fleet.IsStarbase)
+                if ( fleet.InOrbit != null &&  fleet.InOrbit.Name == selectedStar.Name && !fleet.IsStarbase)
                 {
                     fleetnames.Add(fleet.Name);
                     fleetsInOrbit[fleet.Name] = fleet;
@@ -284,13 +284,13 @@ namespace Nova.WinForms.Gui
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
-        /// Access to the Star whose details are displayed in the panel.
+        /// Access to the Star Report whose details are displayed in the panel.
         /// </Summary>
         /// ----------------------------------------------------------------------------
-        public Star Value
+        public StarIntel Value
         {
             set { SetStarDetails(value); }
-            get { return currentStar; }
+            get { return selectedStar; }
         }
         private Fleet GetSelectedFleetInOrbit()
         {
@@ -353,7 +353,7 @@ namespace Nova.WinForms.Gui
                         cargoDialog.ShowDialog(); 
                         UpdateFields();
                     }
-                    starReports[fleet.InOrbit.Name] = new StarReport(fleet.InOrbit);  // Not sure why - coppied from FleetDetails!
+
                     comboFleetsInOrbit_SelectedIndexChanged(null, null);
                 }
                 catch

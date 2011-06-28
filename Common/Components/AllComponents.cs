@@ -64,6 +64,7 @@ namespace Nova.Common.Components
 
         private static string saveFilePath;
         private static string graphicsFilePath;
+        private static bool isLoaded = false;
 
         /// <summary>
         /// Prevents a default instance of the AllComponents class from being created.
@@ -133,6 +134,11 @@ namespace Nova.Common.Components
         /// </exception>
         public static void Restore()
         {
+            // If components are already loaded, GO AWAY DAMN DIALOG -Aeglos 25 Jun 11
+            if (isLoaded)
+            {
+                return;
+            }
             // Ensure we have the component definition file before starting the worker thread, or die.
             if (String.IsNullOrEmpty(saveFilePath))
             {
@@ -171,6 +177,7 @@ namespace Nova.Common.Components
                 conf.Remove(Global.ComponentFileName);
             }
             saveFilePath = null;
+            isLoaded = false;
         }
 
         #endregion
@@ -192,7 +199,8 @@ namespace Nova.Common.Components
             {
                 // blank the component data
                 Data = new AllComponents();
-
+                isLoaded = false;
+                
                 XmlDocument xmldoc = new XmlDocument();
 
                 using (FileStream componentFileStream = new FileStream(saveFilePath, FileMode.Open, FileAccess.Read))
@@ -231,6 +239,7 @@ namespace Nova.Common.Components
                             return;
                         }
                     }
+                    isLoaded = true;
                     callback.Success = true;
                 }
             }

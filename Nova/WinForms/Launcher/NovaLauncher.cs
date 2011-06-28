@@ -28,6 +28,7 @@ namespace Nova.WinForms.Launcher
     using System.Windows.Forms;
     
     using Nova.Common;
+    
     /// <Summary>
     /// The Stars! Nova - Launcher <see cref="Form"/>
     /// </Summary>
@@ -73,26 +74,22 @@ namespace Nova.WinForms.Launcher
             wizard.Show();
         }
         
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'exit' button is pressed, terminate the Nova Launcher
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void ExitButton_Click(object sender, EventArgs e)
         {
             Application.Exit();
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'Race Designer' button is pressed, launch the Race Designer application.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void RaceDesignerButton_Click(object sender, EventArgs e)
         {
             try
@@ -107,13 +104,11 @@ namespace Nova.WinForms.Launcher
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'New Game' button is pressed, launch the New Game Wizard.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void NewGameButton_Click(object sender, EventArgs e)
         {
             RunNewGameWizard();
@@ -122,13 +117,11 @@ namespace Nova.WinForms.Launcher
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'Open Game' button is pressed, open a file browser to locate the game and open it.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void OpenGameButton_Click(object sender, EventArgs e)
         {
             string intelFileName = "";
@@ -206,13 +199,11 @@ namespace Nova.WinForms.Launcher
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'Continue Game' button is pressed, continue the last opened game.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void ContinueGameButton_Click(object sender, EventArgs e)
         {
             // start the GUI
@@ -221,10 +212,11 @@ namespace Nova.WinForms.Launcher
                 CommandArguments args = new CommandArguments();
                 args.Add(CommandArguments.Option.GuiSwitch);
                 args.Add(CommandArguments.Option.StateFileName, this.clientStateFile);
+                
                 try
                 {
-                    Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());
-                    Application.Exit();
+                    Nova.WinForms.Gui.NovaGUI gui = new Nova.WinForms.Gui.NovaGUI(args.ToArray());
+                    gui.Show();
                 }
                 catch
                 {
@@ -237,8 +229,8 @@ namespace Nova.WinForms.Launcher
             {
                 try
                 {
-                    Process.Start(Assembly.GetExecutingAssembly().Location, CommandArguments.Option.ConsoleSwitch);
-                    Application.Exit();
+                    Nova.WinForms.Console.NovaConsoleMain novaConsole = new Nova.WinForms.Console.NovaConsoleMain();                    
+                    novaConsole.Show();
                     return;
                 }
                 catch
@@ -249,13 +241,11 @@ namespace Nova.WinForms.Launcher
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// When the 'Nova Website' link is clicked, go to the nova website with the default browser, if allowed.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void WebLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
             try
@@ -284,11 +274,9 @@ namespace Nova.WinForms.Launcher
             }    
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Support funtion to open the Nova Website
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         private void VisitLink()
         {
             // Change the color of the link text by setting LinkVisited 

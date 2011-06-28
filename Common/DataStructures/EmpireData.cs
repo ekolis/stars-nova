@@ -41,23 +41,33 @@ namespace Nova.Common
     [Serializable]
     public class EmpireData
     {
-        public int TurnYear;
+        public int TurnYear = Global.StartingYear; // The year that corresponds to this data
         
-        public int ResearchBudget;
-        public TechLevel ResearchLevels = new TechLevel(); // current level of technology
-        public TechLevel ResearchResources = new TechLevel(); // current cumulative resources on research
-        public TechLevel ResearchTopics = new TechLevel(); // order or research
-        public TechLevel ResearchLevelsGained = new TechLevel(); // research level increases, reset per turn.
+        public Race EmpireRace = new Race(); // This empire's race.
         
-        public Dictionary<string, PlayerRelation> PlayerRelations = new Dictionary<string, PlayerRelation>();
-        public Dictionary<string, BattlePlan> BattlePlans = new Dictionary<string, BattlePlan>();
+        public int          ResearchBudget          = 10; // % of resources allocated to research
+        public TechLevel    ResearchLevels          = new TechLevel(); // current levels of technology
+        public TechLevel    ResearchResources       = new TechLevel(); // current cumulative resources on technologies
+        public TechLevel    ResearchTopics          = new TechLevel(); // order or researching
+        public TechLevel    ResearchLevelsGained    = new TechLevel(); // research level increases, reset per turn.
+        
+        public StarIntelList        StarReports     = new StarIntelList();
+        public FleetIntelList       FleetReports    = new FleetIntelList();
+        
+        public Dictionary<string, PlayerRelation>   PlayerRelations = new Dictionary<string, PlayerRelation>();
+        public Dictionary<string, BattlePlan>       BattlePlans     = new Dictionary<string, BattlePlan>();
         
 
         /// <summary>
         /// default constructor
         /// </summary>
         public EmpireData() 
-        { 
+        {
+            // If no orders have ever been turned in then ensure battle plans contain at least the default
+            if (BattlePlans.Count == 0)
+            {
+                BattlePlans.Add("Default", new BattlePlan());
+            }
         }
 
         /// <summary>
@@ -77,6 +87,7 @@ namespace Nova.Common
         public EmpireData(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
+            XmlNode tNode;
             while (subnode != null)
             {
                 try
@@ -85,6 +96,10 @@ namespace Nova.Common
                     {
                         case "turnyear":
                             TurnYear = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "race":
+                            EmpireRace = new Race();
+                            EmpireRace.LoadRaceFromXml(subnode);
                             break;
                         case "researchbudget":
                             ResearchBudget = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -100,6 +115,26 @@ namespace Nova.Common
                             break;
                         case "researchtopics":
                             ResearchTopics = new TechLevel(subnode);
+                            break;
+                        case "starreports":
+                            tNode = subnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                StarIntel report = new StarIntel();
+                                report = report.LoadFromXml(tNode);
+                                StarReports.Add(report);
+                                tNode = tNode.NextSibling;
+                            }
+                            break;
+                        case "fleetreports":
+                            tNode = subnode.FirstChild;
+                            while (tNode != null)
+                            {
+                                FleetIntel report = new FleetIntel();
+                                report = report.LoadFromXml(tNode);
+                                FleetReports.Add(report);
+                                tNode = tNode.NextSibling;
+                            }
                             break;
                         case "relation":
                             {
@@ -124,7 +159,9 @@ namespace Nova.Common
 
                 // If no orders have ever been turned in then ensure battle plans contain at least the default
                 if (BattlePlans.Count == 0)
+                {
                     BattlePlans.Add("Default", new BattlePlan());
+                }
 
                 subnode = subnode.NextSibling;
             }
@@ -138,6 +175,9 @@ namespace Nova.Common
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelEmpireData = xmldoc.CreateElement("EmpireData");
+            
+            xmlelEmpireData.AppendChild(EmpireRace.ToXml(xmldoc));
+            
             Global.SaveData(xmldoc, xmlelEmpireData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelEmpireData, "ResearchBudget", ResearchBudget.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
@@ -145,6 +185,20 @@ namespace Nova.Common
             xmlelEmpireData.AppendChild(ResearchLevels.ToXml(xmldoc, "ResearchLevels"));
             xmlelEmpireData.AppendChild(ResearchResources.ToXml(xmldoc, "ResearchResources"));
             xmlelEmpireData.AppendChild(ResearchTopics.ToXml(xmldoc, "ResearchTopics"));
+            
+            XmlElement xmlelStarReports = xmldoc.CreateElement("StarReports");            
+            foreach (StarIntel report in StarReports.Values)
+            {
+                xmlelStarReports.AppendChild(report.ToXml(xmldoc));    
+            }
+            xmlelEmpireData.AppendChild(xmlelStarReports);
+            
+            XmlElement xmlelFleetReports = xmldoc.CreateElement("FleetReports");            
+            foreach (FleetIntel report in FleetReports.Values)
+            {
+                xmlelFleetReports.AppendChild(report.ToXml(xmldoc));    
+            }
+            xmlelEmpireData.AppendChild(xmlelFleetReports);
             
             foreach (string key in PlayerRelations.Keys)
             {
@@ -166,6 +220,25 @@ namespace Nova.Common
             }
 
             return xmlelEmpireData;
+        }
+        
+        public void Clear()
+        {
+            TurnYear = Global.StartingYear;
+        
+            EmpireRace = new Race();
+            
+            ResearchBudget = 10;
+            ResearchLevels          = new TechLevel();
+            ResearchResources       = new TechLevel();
+            ResearchTopics          = new TechLevel();
+            ResearchLevelsGained    = new TechLevel();
+            
+            StarReports.Clear();
+            FleetReports.Clear();
+            
+            PlayerRelations.Clear();
+            BattlePlans.Clear();
         }
     }
 }

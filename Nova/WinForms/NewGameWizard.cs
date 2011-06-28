@@ -149,9 +149,9 @@ namespace Nova.WinForms
                     // Initialize clean data for them. 
                     EmpireData empireData = new EmpireData();
                     stateData.AllEmpires[settings.RaceName] = empireData;
-                    empireData.BattlePlans.Add("Default", new BattlePlan());
 
                     stateData.AllRaces.Add(settings.RaceName, KnownRaces[settings.RaceName]);
+                    empireData.EmpireRace = stateData.AllRaces[settings.RaceName];
 
                     // Add initial state to the intel files.
                     ProcessPrimaryTraits(KnownRaces[settings.RaceName]);
@@ -175,15 +175,17 @@ namespace Nova.WinForms
 
                 try
                 {
+                    TurnGenerator firstTurn = new TurnGenerator(stateData);
+                    firstTurn.AssembleEmpireData();
                     Scores scores = new Scores(stateData);
                     IntelWriter intelWriter = new IntelWriter(stateData, scores);
                     intelWriter.WriteIntel();
                     stateData.Save();
                     GameSettings.Save();
                 }
-                catch
+                catch(Exception e)
                 {
-                    Report.Error("Creation of new game failed.");
+                    Report.Error("Creation of new game failed. Details:" + e.Message + Environment.NewLine + e.ToString());
                     return false;
                 }
             
@@ -194,9 +196,9 @@ namespace Nova.WinForms
                     novaConsole.Show();
                     return true;
                 }
-                catch(Exception ex)
+                catch(Exception e)
                 {
-                    Report.FatalError("Unable to launch Console. Details:" + Environment.NewLine + ex.ToString());
+                    Report.FatalError("Unable to launch Console. Details:" + Environment.NewLine + e.ToString());
                     return false;
                 }
         }

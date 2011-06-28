@@ -85,7 +85,7 @@ namespace Nova.WinForms.Console
             {
 
 
-                int gameTime = StateData.TurnYear - 2100;
+                int gameTime = StateData.TurnYear - Global.StartingYear;
 
                 if (gameTime < GameSettings.Data.MinimumGameTime)
                 {

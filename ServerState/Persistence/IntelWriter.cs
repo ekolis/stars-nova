@@ -79,16 +79,9 @@ namespace Nova.Server
             foreach (PlayerSettings player in StateData.AllPlayers)
             {
                 turnData = new Intel();
-                turnData.TurnYear = StateData.TurnYear;
-                turnData.MyRace = StateData.AllRaces[player.RaceName];
-                turnData.TurnYear = StateData.TurnYear;
-                turnData.AllStars = StateData.AllStars;
                 turnData.AllMinefields = StateData.AllMinefields;
-                turnData.AllFleets = StateData.AllFleets;
                 turnData.AllDesigns = StateData.AllDesigns;
-                turnData.ResearchLevelsGained = StateData.AllEmpires[player.RaceName].ResearchLevelsGained;
-                turnData.ResearchResources = StateData.AllEmpires[player.RaceName].ResearchResources;
-                turnData.ResearchLevels = StateData.AllEmpires[player.RaceName].ResearchLevels;
+                turnData.EmpireIntel = StateData.AllEmpires[player.RaceName];
                 
                 // Copy any messages
                 foreach (Message message in StateData.AllMessages)
@@ -115,7 +108,7 @@ namespace Nova.Server
                 // Don't try and generate a scores report on the very start of a new
                 // game.
 
-                if (StateData.TurnYear > 2100)
+                if (StateData.TurnYear > Global.StartingYear)
                 {
                     turnData.AllScores = Scores.GetScores();
                 }
