@@ -125,6 +125,11 @@ namespace Nova.Common
        // Turn data
        public const int StartingYear = 2100;
        public const int DiscardFleetReportAge = 1;
+       
+       // Limits
+       public const int MaxFleetAmount              = 512;
+       public const int MaxDesignsAmount            = 16;
+       public const int MaxStarbaseDesignsAmount    = 10;
 
        #endregion
 

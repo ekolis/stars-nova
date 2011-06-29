@@ -203,17 +203,20 @@ namespace Nova.Common
                 {
                     switch (subnode.Name.ToLower())
                     {
+                        case "itemid":
+                            itemId = int.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                            break;
                         case "mass":
-                            Mass = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Mass = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "name":
-                            Name = ((XmlText)subnode.FirstChild).Value;
+                            Name = subnode.FirstChild.Value;
                             break;
                         case "owner":
-                            Owner = ((XmlText)subnode.FirstChild).Value;
+                            Owner = subnode.FirstChild.Value;
                             break;
                         case "type":
-                            Type = ((XmlText)subnode.FirstChild).Value;
+                            Type = subnode.FirstChild.Value;
                             break;
                         case "position":
                             Position.X = int.Parse(subnode.SelectSingleNode("X").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -246,6 +249,8 @@ namespace Nova.Common
         {
             XmlElement xmlelItem = xmldoc.CreateElement("Item");
 
+            Global.SaveData(xmldoc, xmlelItem, "ItemId", itemId.ToString("X"));
+            
             if (Name != null)
             {
                 Global.SaveData(xmldoc, xmlelItem, "Name", Name);

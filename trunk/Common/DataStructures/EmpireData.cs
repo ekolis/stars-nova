@@ -59,6 +59,10 @@ namespace Nova.Common
         public Dictionary<string, PlayerRelation>   PlayerRelations = new Dictionary<string, PlayerRelation>();
         public Dictionary<string, BattlePlan>       BattlePlans     = new Dictionary<string, BattlePlan>();
         
+        public int FleetCounter             = 0;
+        public int DesignCounter            = 0;
+        public int StarbaseDesignCounter    = 0;
+        
         /// <summary>
         /// Sets or gets this empires unique integer Id.
         /// </summary>
@@ -72,7 +76,7 @@ namespace Nova.Common
             set
             {
                 // Empire Id should only be set on game creation, from a simple 0-127 int.
-                if (value > 127)    { throw new ArgumentException("EmpireId out or range"); }                
+                if (value > 127)    { throw new ArgumentException("EmpireId out of range"); }                
                 empireId = (value <<= 24);
             }
         }
@@ -113,15 +117,27 @@ namespace Nova.Common
                 {
                     switch (subnode.Name.ToLower())
                     {
+                        case "empireid":
+                            empireId = int.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                            break;
+                        case "fleetcounter":
+                            FleetCounter = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "designcounter":
+                            DesignCounter = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "starbasedesigncounter":
+                            StarbaseDesignCounter = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
                         case "turnyear":
-                            TurnYear = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            TurnYear = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "race":
                             EmpireRace = new Race();
                             EmpireRace.LoadRaceFromXml(subnode);
                             break;
                         case "researchbudget":
-                            ResearchBudget = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            ResearchBudget = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "researchlevelsgained":
                             ResearchLevelsGained = new TechLevel(subnode);
@@ -197,6 +213,13 @@ namespace Nova.Common
             
             xmlelEmpireData.AppendChild(EmpireRace.ToXml(xmldoc));
             
+            Global.SaveData(xmldoc, xmlelEmpireData, "EmpireId", empireId.ToString("X"));
+            
+            Global.SaveData(xmldoc, xmlelEmpireData, "FleetCounter", FleetCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelEmpireData, "DesignCounter", DesignCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelEmpireData, "StarbaseDesignCounter", StarbaseDesignCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
+
+            
             Global.SaveData(xmldoc, xmlelEmpireData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelEmpireData, "ResearchBudget", ResearchBudget.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
@@ -237,7 +260,7 @@ namespace Nova.Common
             {
                 xmlelEmpireData.AppendChild(BattlePlans[key].ToXml(xmldoc));
             }
-
+            
             return xmlelEmpireData;
         }
         
