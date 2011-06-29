@@ -59,9 +59,10 @@ namespace Nova.Common
         public Dictionary<int, PlayerRelation>   PlayerRelations = new Dictionary<int, PlayerRelation>();
         public Dictionary<string, BattlePlan>       BattlePlans     = new Dictionary<string, BattlePlan>();
         
-        public int FleetCounter             = 0;
-        public int DesignCounter            = 0;
-        public int StarbaseDesignCounter    = 0;
+        // See associated properties.
+        private int FleetCounter             = 0;
+        private int DesignCounter            = 0;
+        private int StarbaseDesignCounter    = 0;
         
         /// <summary>
         /// Sets or gets this empires unique integer Id.
@@ -78,6 +79,39 @@ namespace Nova.Common
                 // Empire Id should only be set on game creation, from a simple 0-127 int.
                 if (value > 127)    { throw new ArgumentException("EmpireId out of range"); }                
                 empireId = (value <<= 24);
+            }
+        }
+        
+        /// <summary>
+        /// Gets the next available FleetId from the internal FleetCounter.
+        /// </summary>
+        public int NextFleetId
+        {
+            get
+            {
+                return ++FleetCounter;
+            }
+        }
+        
+        /// <summary>
+        /// Gets the next available DesignId from the internal DesignCounter.
+        /// </summary>
+        public int NextDesignId
+        {
+            get
+            {
+                return ++DesignCounter
+            }
+        }
+        
+        /// <summary>
+        /// Gets the next available StarbaseDesignId from the internal StarbaseDesignCounter.
+        /// </summary>
+        public int NextStarbaseDesignId
+        {
+            get
+            {
+                return ++StarbaseDesignCounter
             }
         }
 
