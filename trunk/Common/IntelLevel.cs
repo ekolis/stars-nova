@@ -32,7 +32,7 @@ namespace Nova.Common
     {
         None = 0,        
         InScan = 1,
-        InOrbit = 2,
+        InPlace = 2,
         InDeepScan = 3,
         Owned = 4
     }

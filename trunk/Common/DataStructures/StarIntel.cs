@@ -88,20 +88,16 @@ namespace Nova.Common
             // If we are at least scanning with non-penetrating
             if (IntelAmount >= IntelLevel.InScan)
             {
-                // We can at least see it, so set age to current.
-                this.Year = year;
-                
-                // Non-pen can only detect fleets.
-                // FIXME:(priority 3) Is this accurate? does it
-                // also reveal the owner if it is or displays "???" ?
-                OrbitingFleets   = star.OrbitingFleets;
-                Starbase         = star.Starbase;
+               // Non-pen scanners are useless for stars.
             }
             
             // If we are at least currently in orbit of the star
             // with no scanners.
-            if (IntelAmount >= IntelLevel.InOrbit)
+            if (IntelAmount >= IntelLevel.InPlace)
             {
+                // We can at least see it, so set age to current.
+                this.Year = year;
+                
                 Owner                = star.Owner;                
                 MineralConcentration = star.MineralConcentration;
                 Gravity              = star.Gravity;

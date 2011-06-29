@@ -108,7 +108,7 @@ namespace Nova.Common
             }
             
             // You can't orbit a fleet!
-            if (IntelAmount >= IntelLevel.InOrbit)
+            if (IntelAmount >= IntelLevel.InPlace)
             {
                     
             }

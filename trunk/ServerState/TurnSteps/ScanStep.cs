@@ -43,22 +43,18 @@ namespace Nova.Server.TurnSteps
             {
                 this.stateData = stateData;
                 
-                DetermineIntel(empire);
-            }
-            
+                ReportOwnedStars(empire);
+                ReportOwnedFleets(empire);
+                ScanWithFleets(empire);
+                ScanWithStars(empire);
+            }  
         }
         
-        /// <Summary>
-        /// Build a list of all fleets and planets that are visible to the player.
-        /// </Summary>
-        /// <remarks>
-        private void DetermineIntel(EmpireData empire)
+        private void ReportOwnedStars(EmpireData empire)
         {
-            // First pass intel. Gets Owned Stars.
             foreach (Star star in stateData.AllStars.Values)
             {
-                // If star has no report (First turn) add it. Else
-                // update inherent visibility.
+                // If star has no report (First turn) add it.
                 if (!empire.StarReports.Contains(star.Name))
                 {
                     if (star.Owner == empire.EmpireRace.Name)
@@ -83,8 +79,11 @@ namespace Nova.Server.TurnSteps
                         empire.StarReports[star.Name].Update(star, IntelLevel.None, stateData.TurnYear);    
                     }
                 } 
-            }
-            
+            }    
+        }
+        
+        private void ReportOwnedFleets(EmpireData empire)
+        {
             // Get fleets owned by the player.
             foreach (Fleet fleet in stateData.AllFleets.Values)
             {
@@ -99,10 +98,13 @@ namespace Nova.Server.TurnSteps
                         empire.FleetReports[fleet.Name].Update(fleet, IntelLevel.Owned, stateData.TurnYear);
                     }
                 }
-            }
+            }    
+        }
+        
+        private void ScanWithFleets(EmpireData empire)
+        {
+            List<FleetIntel> toAdd = new List<FleetIntel>();
             
-            // (2) Not so easy. Objects within the scanning range of the player's
-            // Fleets.            
             foreach (FleetIntel fleet in empire.FleetReports.Values)
             {
                 if (fleet.Owner == empire.EmpireRace.Name)
@@ -118,7 +120,7 @@ namespace Nova.Server.TurnSteps
                             {
                                 if (!empire.FleetReports.Contains(scanned.Name))
                                 {
-                                    empire.FleetReports.Add(new FleetIntel(scanned, IntelLevel.InScan, stateData.TurnYear));
+                                    toAdd.Add(new FleetIntel(scanned, IntelLevel.InScan, stateData.TurnYear));
                                 }
                                 else
                                 {                        
@@ -140,7 +142,7 @@ namespace Nova.Server.TurnSteps
                                 }
                                 else
                                 {
-                                    empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InOrbit, stateData.TurnYear);    
+                                    empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InPlace, stateData.TurnYear);    
                                 }
                             }
                             else
@@ -151,18 +153,20 @@ namespace Nova.Server.TurnSteps
                                 {
                                     empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InDeepScan, stateData.TurnYear);
                                 }
-                                else if (range <= fleet.ScanRange)
-                                {                        
-                                    empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
-                                }
                             }
                         }
                     }
+                    
+                    foreach (FleetIntel scanned in toAdd)
+                    {
+                        empire.FleetReports.Add(scanned);
+                    }
                 }
-            }
-
-            // (3) Now that we know how to deal with ship scanners planet scanners
-            // are just the same.
+            }    
+        }     
+        
+        private void ScanWithStars(EmpireData empire)
+        {
             foreach (StarIntel star in empire.StarReports.Values)
             {
                 if (star.Owner == empire.EmpireRace.Name)
@@ -192,29 +196,24 @@ namespace Nova.Server.TurnSteps
                         {
                             double range = 0;
                             range = PointUtilities.Distance(star.Position, scanned.Position);
-                            // TODO:(priority 6) First check should use planetary Pen-Scan range, but it is not implemented yet.
+                            // TODO:(priority 6) Check should use planetary Pen-Scan range, but it is not implemented yet.
                             if (range <= star.ScanRange)
                             {
                                 empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InDeepScan, stateData.TurnYear);
                             }
-                            else if (range <= star.ScanRange)
-                            {                        
-                                empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
-                            }
                         }
                     }
                 }
-            }
-            
-            // (4) Now, we must remove any report from fleets not in any scan range.
-            // We can increase the Age threshold value, to keep reports a couple of years after loosing
-            // sight and then discard them.
-            
-            // Use a workaround, as removing within a foreach is a no-no
+            }    
+        }
+        
+        private void DiscardOldReports(EmpireData empire)
+        {
             List<FleetIntel> toRemove = new List<FleetIntel>();
+            
             foreach (FleetIntel fleet in empire.FleetReports.Values)
             {
-                if (fleet.Year - stateData.TurnYear > Global.DiscardFleetReportAge)
+                if (stateData.TurnYear - fleet.Year > Global.DiscardFleetReportAge)
                 {
                     toRemove.Add(fleet);
                 }    
@@ -223,7 +222,7 @@ namespace Nova.Server.TurnSteps
             foreach (FleetIntel fleet in toRemove)
             {
                 empire.FleetReports.Remove(fleet);
-            }
+            }    
         }
     }
 }
