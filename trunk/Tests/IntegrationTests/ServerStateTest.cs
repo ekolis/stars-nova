@@ -54,10 +54,10 @@ namespace Nova.Tests.IntegrationTests
             stateData.GameInProgress = true;
             stateData.GameFolder = "dummy_value";
             stateData.StatePathName = "unit_test.sstate";
-            stateData.AllTechLevels["foo"] = 10;
-            stateData.AllTechLevels["bar"] = 5;
-            stateData.AllFleets["foo"] = new Nova.Common.Fleet("foofleet", "foo", new Nova.Common.DataStructures.NovaPoint(0,0));
-            stateData.AllFleets["bar"] = new Nova.Common.Fleet("barfleet", "bar", new Nova.Common.DataStructures.NovaPoint(0,0));
+            stateData.AllTechLevels[1] = 10;
+            stateData.AllTechLevels[2] = 5;
+            stateData.AllFleets["foo"] = new Nova.Common.Fleet("foofleet", 1, new Nova.Common.DataStructures.NovaPoint(0,0));
+            stateData.AllFleets["bar"] = new Nova.Common.Fleet("barfleet", 1, new Nova.Common.DataStructures.NovaPoint(0,0));
 
             // serialise
             stateData.Save();
@@ -66,10 +66,10 @@ namespace Nova.Tests.IntegrationTests
             stateData.TurnYear = 2102;
             stateData.GameInProgress = false;
             stateData.GameFolder = "foo_bar";
-            stateData.AllTechLevels["foo"] = 2;
-            stateData.AllTechLevels["bar"] = 7;
-            stateData.AllFleets["foo"] = new Nova.Common.Fleet("fleetfoo", "foo", new Nova.Common.DataStructures.NovaPoint(0,0));
-            stateData.AllFleets["bar"] = new Nova.Common.Fleet("fleetbar", "bar", new Nova.Common.DataStructures.NovaPoint(0,0));
+            stateData.AllTechLevels[1] = 2;
+            stateData.AllTechLevels[2] = 7;
+            stateData.AllFleets["foo"] = new Nova.Common.Fleet("fleetfoo", 1, new Nova.Common.DataStructures.NovaPoint(0,0));
+            stateData.AllFleets["bar"] = new Nova.Common.Fleet("fleetbar", 1, new Nova.Common.DataStructures.NovaPoint(0,0));
 
             // deserialise
             stateData = stateData.Restore();
@@ -77,8 +77,8 @@ namespace Nova.Tests.IntegrationTests
             // test
             Assert.AreEqual(2101, stateData.TurnYear);            
             Assert.AreEqual("dummy_value", stateData.GameFolder);
-            Assert.AreEqual(10, stateData.AllTechLevels["foo"]);
-            Assert.AreEqual(5, stateData.AllTechLevels["bar"]);
+            Assert.AreEqual(10, stateData.AllTechLevels[1]);
+            Assert.AreEqual(5, stateData.AllTechLevels[2]);
             Assert.AreEqual("foofleet", stateData.AllFleets["foo"].Name);
             Assert.AreEqual("barfleet", stateData.AllFleets["bar"].Name);
             Assert.AreEqual(true, stateData.GameInProgress);

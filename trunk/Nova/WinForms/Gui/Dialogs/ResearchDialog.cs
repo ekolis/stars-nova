@@ -272,7 +272,7 @@ namespace Nova.WinForms.Gui
 
             foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
             {
-                if (report.Owner == raceName)
+                if (report.Owner == stateData.EmpireIntel.Id)
                 {
                     totalEnergy += report.GetResourceRate();
                 }

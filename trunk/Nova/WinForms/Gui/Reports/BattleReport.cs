@@ -37,15 +37,15 @@ namespace Nova.WinForms.Gui
     public partial class BattleReportDialog : Form
     {
         private List<BattleReport> battles;
-        private string raceName;
+        private EmpireData empireIntel;
         
         /// <Summary>
         /// Initializes a new instance of the BattleReportDialog class.
         /// </Summary>
-        public BattleReportDialog(List<BattleReport> battles, string raceName)
+        public BattleReportDialog(List<BattleReport> battles, EmpireData empireIntel)
         {
             this.battles = battles;
-            this.raceName = raceName;
+            this.empireIntel = empireIntel;
             
             InitializeComponent();
         }
@@ -64,7 +64,7 @@ namespace Nova.WinForms.Gui
             foreach (BattleReport report in battles)
             {
 
-                Dictionary<string, bool> countSides = new Dictionary<string, bool>();
+                Dictionary<int, bool> countSides = new Dictionary<int, bool>();
                 foreach (Fleet fleet in report.Stacks.Values)
                 {
                     countSides[fleet.Owner] = true;
@@ -75,7 +75,7 @@ namespace Nova.WinForms.Gui
 
                 foreach (Fleet fleet in report.Stacks.Values)
                 {
-                    if (fleet.Owner == raceName)
+                    if (fleet.Owner == empireIntel.Id)
                     {
                         ourShips += fleet.FleetShips.Count;
                     }
@@ -88,15 +88,15 @@ namespace Nova.WinForms.Gui
                 int ourLosses = 0;
                 int theirLosses = 0;
 
-                foreach (string race in report.Losses.Keys)
+                foreach (int empireId in report.Losses.Keys)
                 {
-                    if (race == raceName)
+                    if (empireId == empireIntel.Id)
                     {
-                        ourLosses += (int)report.Losses[race];
+                        ourLosses += report.Losses[empireId];
                     }
                     else
                     {
-                        theirLosses += (int)report.Losses[race];
+                        theirLosses += report.Losses[empireId];
                     }
                 }
 

@@ -40,11 +40,8 @@ namespace Nova.WinForms.Gui
     public partial class FleetDetail : System.Windows.Forms.UserControl
     {
         private FleetIntel selectedFleet;
-        private StarIntelList starReports;
-        private FleetIntelList fleetReports;
+        private readonly EmpireData empireIntel;
         private List<string> deletedFleets;
-        private Race empireRace;
-        private int turnYear;
             
         private Dictionary<string, Fleet> fleetsAtLocation = new Dictionary<string, Fleet>();
 
@@ -72,17 +69,10 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the FleetDetail class.
         /// </Summary>
-        public FleetDetail(StarIntelList starReports,
-                           FleetIntelList fleetReports,
-                           List<string> deletedFleets,
-                           Race playerRace,
-                           int turnYear)
+        public FleetDetail(EmpireData empireIntel, List<string> deletedFleets)
         {
-            this.starReports = starReports;
-            this.fleetReports = fleetReports;
+            this.empireIntel = empireIntel;
             this.deletedFleets = deletedFleets;
-            this.empireRace = playerRace;
-            this.turnYear = turnYear;
             
             InitializeComponent();
         }
@@ -251,7 +241,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void MangeFleet_Click(object sender, EventArgs e)
         {
-            ManageFleetDialog manageDialog = new ManageFleetDialog(fleetReports, deletedFleets, empireRace.Name, turnYear);
+            ManageFleetDialog manageDialog = new ManageFleetDialog(empireIntel, deletedFleets);
             manageDialog.ManagedFleet = selectedFleet;
             manageDialog.ShowDialog();
             manageDialog.Dispose();
@@ -266,7 +256,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void NextFleet_Click(object sender, System.EventArgs e)
         {
-            if (fleetReports.Owned(empireRace.Name) == 1)
+            if (empireIntel.FleetReports.Owned(empireIntel.Id) == 1)
             {
                 previousFleet.Enabled = false;
                 nextFleet.Enabled = false;
@@ -276,7 +266,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            selectedFleet = fleetReports.GetNextOwned(fleetReports[selectedFleet.Name]);
+            selectedFleet = empireIntel.FleetReports.GetNextOwned(empireIntel.FleetReports[selectedFleet.Name]);
             
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -298,7 +288,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void PreviousFleet_Click(object sender, EventArgs e)
         {
-            if (fleetReports.Owned(empireRace.Name) == 1)
+            if (empireIntel.FleetReports.Owned(empireIntel.Id) == 1)
             {
                 previousFleet.Enabled = false;
                 nextFleet.Enabled = false;
@@ -308,7 +298,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            selectedFleet = fleetReports.GetPreviousOwned(fleetReports[selectedFleet.Name]);
+            selectedFleet = empireIntel.FleetReports.GetPreviousOwned(empireIntel.FleetReports[selectedFleet.Name]);
 
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -350,7 +340,7 @@ namespace Nova.WinForms.Gui
 
                 double time = distance / (to.WarpFactor * to.WarpFactor);
 
-                double fuelUsed = selectedFleet.FuelConsumption(to.WarpFactor, empireRace)
+                double fuelUsed = selectedFleet.FuelConsumption(to.WarpFactor, empireIntel.EmpireRace)
 
                                 * time;
 
@@ -380,7 +370,7 @@ namespace Nova.WinForms.Gui
                     double speed = warp * warp;
                     double travelTime = distance / speed;
 
-                    fuelRequired += selectedFleet.FuelConsumption(warp, empireRace) * travelTime;
+                    fuelRequired += selectedFleet.FuelConsumption(warp, empireIntel.EmpireRace) * travelTime;
                 }
                 previous = waypoint;
             }
@@ -416,7 +406,7 @@ namespace Nova.WinForms.Gui
 
             this.selectedFleet = selectedFleet;
             
-            if (fleetReports.Count > 1)
+            if (empireIntel.FleetReports.Count > 1)
             {
                 previousFleet.Enabled = true;
                 nextFleet.Enabled = true;
@@ -457,7 +447,7 @@ namespace Nova.WinForms.Gui
 
             List<String> fleetnames = new List<string>();
             fleetsAtLocation = new Dictionary<string, Fleet>();
-            foreach (FleetIntel other in fleetReports.Values)
+            foreach (FleetIntel other in empireIntel.FleetReports.Values)
             {
                 if (selectedFleet.Position == other.Position && !other.IsStarbase && selectedFleet.FleetID != other.FleetID)
                 {

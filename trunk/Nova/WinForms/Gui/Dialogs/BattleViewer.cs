@@ -164,7 +164,7 @@ namespace Nova.WinForms.Gui
         {
             Fleet stack = this.myStacks[movement.StackName];
             this.movedTo.Text = movement.Position.ToString();
-            this.stackOwner.Text = stack.Owner;
+            this.stackOwner.Text = stack.Owner.ToString("X");
             stack.Position = movement.Position;
 
             // We have moved, clear out the other fields as they may change.
@@ -198,7 +198,7 @@ namespace Nova.WinForms.Gui
                 else
                 {
                     targetName.Text = target.Name;
-                    targetOwner.Text = target.Owner;
+                    targetOwner.Text = target.Owner.ToString("X");
 
                     // FIXME (priority 6) - display shields and armor
                     targetShields.Text = target.TotalShieldStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);

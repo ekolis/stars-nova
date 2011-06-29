@@ -29,7 +29,7 @@ namespace Nova.WinForms.Gui
       private void InitializeComponent()
       {
          this.groupBox1 = new System.Windows.Forms.GroupBox();
-         this.raceList = new System.Windows.Forms.ListBox();
+         this.empireList = new System.Windows.Forms.ListBox();
          this.groupBox2 = new System.Windows.Forms.GroupBox();
          this.enemyButton = new System.Windows.Forms.RadioButton();
          this.neutralButton = new System.Windows.Forms.RadioButton();
@@ -41,7 +41,7 @@ namespace Nova.WinForms.Gui
          // 
          // groupBox1
          // 
-         this.groupBox1.Controls.Add(this.raceList);
+         this.groupBox1.Controls.Add(this.empireList);
          this.groupBox1.Location = new System.Drawing.Point(8, 3);
          this.groupBox1.Name = "groupBox1";
          this.groupBox1.Size = new System.Drawing.Size(174, 182);
@@ -51,14 +51,14 @@ namespace Nova.WinForms.Gui
          // 
          // RaceList
          // 
-         this.raceList.Dock = System.Windows.Forms.DockStyle.Fill;
-         this.raceList.FormattingEnabled = true;
-         this.raceList.Location = new System.Drawing.Point(3, 16);
-         this.raceList.Name = "raceList";
-         this.raceList.Size = new System.Drawing.Size(168, 160);
-         this.raceList.Sorted = true;
-         this.raceList.TabIndex = 0;
-         this.raceList.SelectedIndexChanged += new System.EventHandler(this.SelectedRaceChanged);
+         this.empireList.Dock = System.Windows.Forms.DockStyle.Fill;
+         this.empireList.FormattingEnabled = true;
+         this.empireList.Location = new System.Drawing.Point(3, 16);
+         this.empireList.Name = "raceList";
+         this.empireList.Size = new System.Drawing.Size(168, 160);
+         this.empireList.Sorted = true;
+         this.empireList.TabIndex = 0;
+         this.empireList.SelectedIndexChanged += new System.EventHandler(this.SelectedRaceChanged);
          // 
          // groupBox2
          // 
@@ -141,7 +141,7 @@ namespace Nova.WinForms.Gui
       #endregion
 
       private System.Windows.Forms.GroupBox groupBox1;
-      private System.Windows.Forms.ListBox raceList;
+      private System.Windows.Forms.ListBox empireList;
       private System.Windows.Forms.GroupBox groupBox2;
       private System.Windows.Forms.RadioButton enemyButton;
       private System.Windows.Forms.RadioButton neutralButton;

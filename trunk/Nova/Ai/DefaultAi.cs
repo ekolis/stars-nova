@@ -40,7 +40,7 @@ namespace Nova.Ai
             {
                 Star star = starIntel;
                 
-                if (star.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                if (star.Owner == stateData.EmpireIntel.Id)
                 {
                     
                     star.ManufacturingQueue.Queue.Clear();
@@ -128,7 +128,7 @@ namespace Nova.Ai
                 foreach (StarIntel starIntel in turnData.EmpireIntel.StarReports.Values)
                 {
                     Star star = starIntel;
-                    if (star.HabitalValue(stateData.EmpireIntel.EmpireRace) > 0 && star.Owner == null)
+                    if (star.HabitalValue(stateData.EmpireIntel.EmpireRace) > 0 && star.Owner == Global.NoOwner)
                     {
                         SendFleet(star, colonyShipsFleets[0], WaypointTask.Colonise);
                         colonyShipsFleets.RemoveAt(0);

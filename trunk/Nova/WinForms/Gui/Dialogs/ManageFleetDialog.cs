@@ -35,22 +35,18 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class ManageFleetDialog : Form
     {
-        private readonly FleetIntelList fleetReports;
+        private readonly EmpireData empireIntel;
         private List<string> deletedFleets;
-        private string raceName;
-        private int turnYear;
         private Fleet selectedFleet;
 
         /// <Summary>
         /// Initializes a new instance of the ManageFleetDialog class.
         /// </Summary>
-        public ManageFleetDialog(FleetIntelList fleetReports, List<string> deletedFleets, string raceName, int turnYear)
+        public ManageFleetDialog(EmpireData empireIntel, List<string> deletedFleets)
         {
             // FIXME:(???) Do we need allFleets here? Can't we use the player's fleets instead? -Aeglos 21 Jun 11 
-            this.fleetReports = fleetReports; 
+            this.empireIntel = empireIntel;
             this.deletedFleets = deletedFleets;
-            this.raceName = raceName;
-            this.turnYear = turnYear;
             
             InitializeComponent();            
         }
@@ -65,7 +61,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void RenameButton_Click(object sender, EventArgs e)
         {
-            RenameFleet renameDialog = new RenameFleet(fleetReports, deletedFleets, raceName, turnYear);
+            RenameFleet renameDialog = new RenameFleet(empireIntel.FleetReports, deletedFleets, empireIntel.EmpireRace.Name, empireIntel.TurnYear);
 
             // TODO (priority 5): Implement the fleet selection event.
 
@@ -85,15 +81,15 @@ namespace Nova.WinForms.Gui
         private void MergeButton_Click(object sender, EventArgs e)
         {
             string fleetName = this.coLocatedFleets.SelectedItems[0].Text;
-            string fleetKey = raceName + "/" + fleetName;
+            string fleetKey = empireIntel.EmpireRace.Name + "/" + fleetName;
 
-            Fleet fleetToMerge = this.fleetReports[fleetKey];
+            Fleet fleetToMerge = empireIntel.FleetReports[fleetKey];
             foreach (Ship ship in fleetToMerge.FleetShips)
             {
                 this.selectedFleet.FleetShips.Add(ship);
             }
 
-            this.fleetReports.Remove(fleetKey);
+            empireIntel.FleetReports.Remove(fleetKey);
             deletedFleets.Add(fleetKey);
             UpdateDialogDetails();
 
@@ -122,7 +118,7 @@ namespace Nova.WinForms.Gui
 
             this.coLocatedFleets.Items.Clear();
 
-            foreach (Fleet fleet in this.fleetReports.Values)
+            foreach (Fleet fleet in empireIntel.FleetReports.Values)
             {
                 if (fleet.Name != this.selectedFleet.Name)
                 {

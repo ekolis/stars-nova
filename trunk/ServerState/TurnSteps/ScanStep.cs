@@ -57,7 +57,7 @@ namespace Nova.Server.TurnSteps
                 // If star has no report (First turn) add it.
                 if (!empire.StarReports.Contains(star.Name))
                 {
-                    if (star.Owner == empire.EmpireRace.Name)
+                    if (star.Owner == empire.Id)
                     {
                         empire.StarReports.Add(new StarIntel(star, IntelLevel.Owned, stateData.TurnYear));
                     }
@@ -70,7 +70,7 @@ namespace Nova.Server.TurnSteps
                 {
                     // FIXME:(priority 6) If two empires use the same race&name, this gives both
                     // the same intel access to each other's stars. Implement EmpireID
-                    if (star.Owner == empire.EmpireRace.Name)
+                    if (star.Owner == empire.Id)
                     {
                         empire.StarReports[star.Name].Update(star, IntelLevel.Owned, stateData.TurnYear);                    
                     }
@@ -87,7 +87,7 @@ namespace Nova.Server.TurnSteps
             // Get fleets owned by the player.
             foreach (Fleet fleet in stateData.AllFleets.Values)
             {
-                if (fleet.Owner == empire.EmpireRace.Name)
+                if (fleet.Owner == empire.Id)
                 {
                     if (!empire.FleetReports.Contains(fleet.Name))
                     {
@@ -107,12 +107,12 @@ namespace Nova.Server.TurnSteps
             
             foreach (FleetIntel fleet in empire.FleetReports.Values)
             {
-                if (fleet.Owner == empire.EmpireRace.Name)
+                if (fleet.Owner == empire.Id)
                 {
                     // TODO: Need to restrict this to fleets under the scan range somehow. -Aeglos 27 Jun 11
                     foreach (Fleet scanned in stateData.AllFleets.Values)
                     {
-                        if (scanned.Owner != empire.EmpireRace.Name)
+                        if (scanned.Owner != empire.Id)
                         {
                             double range = 0;
                             range = PointUtilities.Distance(fleet.Position, scanned.Position);
@@ -132,7 +132,7 @@ namespace Nova.Server.TurnSteps
                     
                     foreach (Star scanned in stateData.AllStars.Values)
                     {
-                        if (scanned.Owner != empire.EmpireRace.Name)
+                        if (scanned.Owner != empire.Id)
                         {
                             if (scanned == fleet.InOrbit)
                             {
@@ -169,11 +169,11 @@ namespace Nova.Server.TurnSteps
         {
             foreach (StarIntel star in empire.StarReports.Values)
             {
-                if (star.Owner == empire.EmpireRace.Name)
+                if (star.Owner == empire.Id)
                 {
                     foreach (Fleet scanned in stateData.AllFleets.Values)
                     {
-                        if (scanned.Owner != empire.EmpireRace.Name)
+                        if (scanned.Owner != empire.Id)
                         {
                             if (PointUtilities.Distance(star.Position, scanned.Position)
                                 <= star.ScanRange)
@@ -192,7 +192,7 @@ namespace Nova.Server.TurnSteps
                     
                     foreach (Star scanned in stateData.AllStars.Values)
                     {
-                        if (scanned.Owner != empire.EmpireRace.Name)
+                        if (scanned.Owner != empire.Id)
                         {
                             double range = 0;
                             range = PointUtilities.Distance(star.Position, scanned.Position);

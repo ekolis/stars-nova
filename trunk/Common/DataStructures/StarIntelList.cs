@@ -268,14 +268,14 @@ namespace Nova.Common
         /// <summary>
         /// Returns the amount of stars owned by someone. 
         /// </summary>
-        /// <param name="raceName">A <see cref="System.String"/> indicating the owner to look for </param>
+        /// <param name="empireId">A <see cref="System.String"/> indicating the owner to look for </param>
         /// <returns> The amount of stars property of the specified owner. </returns>
-        public int Owned(string raceName)
+        public int Owned(int empireId)
         {
             int q = 0;
             foreach (StarIntel report in Dictionary.Values)
             {
-                if (report.Owner == raceName) { q++; }
+                if (report.Owner == empireId) { q++; }
             }
             return q;
         }

@@ -149,22 +149,22 @@ namespace Nova.WinForms
                     // Initialize clean data for them. 
                     EmpireData empireData = new EmpireData();
                     empireData.Id = settings.PlayerNumber;
-                    stateData.AllEmpires[settings.RaceName] = empireData;
+                    stateData.AllEmpires[empireData.Id] = empireData;
 
                     stateData.AllRaces.Add(settings.RaceName, KnownRaces[settings.RaceName]);
                     empireData.EmpireRace = stateData.AllRaces[settings.RaceName];
 
                     // Add initial state to the intel files.
-                    ProcessPrimaryTraits(KnownRaces[settings.RaceName]);
-                    ProcessSecondaryTraits(KnownRaces[settings.RaceName]);
+                    ProcessPrimaryTraits(empireData);
+                    ProcessSecondaryTraits(empireData);
                 }
 
-                foreach (PlayerSettings settings in stateData.AllPlayers)
+                foreach (EmpireData wolf in stateData.AllEmpires.Values)
                 {
                     // Create initial relations as the race names may change
-                    foreach (PlayerSettings playerSettings in stateData.AllPlayers)
+                    foreach (EmpireData lamb in stateData.AllEmpires.Values)
                     {
-                        stateData.AllEmpires[settings.RaceName].PlayerRelations[playerSettings.RaceName] = PlayerRelation.Enemy;
+                        stateData.AllEmpires[wolf.Id].PlayerRelations[lamb.Id] = PlayerRelation.Enemy;
                     }
                   
                 }
@@ -613,7 +613,7 @@ namespace Nova.WinForms
         /// <Summary>
         /// Process the Primary Traits for this race.
         /// </Summary>
-        private void ProcessPrimaryTraits(Race race)
+        private void ProcessPrimaryTraits(EmpireData empire)
         {
             // TODO (priority 4) Special Components
             // Races are granted access to components currently based on tech level and primary/secondary traits (not tested).
@@ -626,31 +626,30 @@ namespace Nova.WinForms
 
             // TODO (priority 4) Implement Starting Items
    
-            EmpireData empireData = stateData.AllEmpires[race.Name];
-            empireData.ResearchLevels = new TechLevel(0);
+            empire.ResearchLevels = new TechLevel(0);
 
-            switch (race.Traits.Primary.Code)
+            switch (empire.EmpireRace.Traits.Primary.Code)
             {
                 case "HE":
                     // Start with one armed scout + 3 mini-colony ships
                     break;
 
                 case "SS":
-                    empireData.ResearchLevels[TechLevel.ResearchField.Electronics] = 5;
+                    empire.ResearchLevels[TechLevel.ResearchField.Electronics] = 5;
                     // Start with one scout + one colony ship.
                     break;
 
                 case "WM":
-                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 1;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
+                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] = 1;
+                    empire.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
                     // Start with one armed scout + one colony ship.
                     break;
 
                 case "CA":
-                    empireData.ResearchLevels[TechLevel.ResearchField.Weapons] = 1;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 1;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 6;
+                    empire.ResearchLevels[TechLevel.ResearchField.Weapons] = 1;
+                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] = 1;
+                    empire.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
+                    empire.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 6;
                     // Start with an orbital terraforming ship
                     break;
 
@@ -659,82 +658,74 @@ namespace Nova.WinForms
                     break;
 
                 case "SD":
-                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 2;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 2;
+                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] = 2;
+                    empire.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 2;
                     // Start with one scout, one colony ship, Two mine layers (one standard, one speed trap)
                     break;
 
                 case "PP":
-                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] = 4;
+                    empire.ResearchLevels[TechLevel.ResearchField.Energy] = 4;
                     // Two shielded scouts, one colony ship, two starting planets in a non-tiny universe
                     break;
 
                 case "IT":
-                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 5;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Construction] = 5;
+                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] = 5;
+                    empire.ResearchLevels[TechLevel.ResearchField.Construction] = 5;
                     // one scout, one colony ship, one destroyer, one privateer, 2 planets with 100/250 stargates (in non-tiny universe)
                     break;
 
                 case "AR":
-                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
+                    empire.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
 
                     // starts with one scout, one orbital construction colony ship
                     break;
 
                 case "JOAT":
-                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] = 3;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Construction] = 3;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 3;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Electronics] = 3;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] = 3;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Weapons] = 3;
+                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] = 3;
+                    empire.ResearchLevels[TechLevel.ResearchField.Construction] = 3;
+                    empire.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 3;
+                    empire.ResearchLevels[TechLevel.ResearchField.Electronics] = 3;
+                    empire.ResearchLevels[TechLevel.ResearchField.Energy] = 3;
+                    empire.ResearchLevels[TechLevel.ResearchField.Weapons] = 3;
                     // two scouts, one colony ship, one medium freighter, one mini miner, one destroyer
                     break;
 
                 default:
-                    Report.Error("NewGameWizard.cs - ProcessPrimaryTraits() - Unknown Primary Trait \"" + race.Traits.Primary.Code + "\"");
+                    Report.Error("NewGameWizard.cs - ProcessPrimaryTraits() - Unknown Primary Trait \"" + empire.EmpireRace.Traits.Primary.Code + "\"");
                     break;
             } // switch on PRT
-
-#if (DEBUG)
-            // Just for testing
-            // TODO (priority 4) get this from a settings file, or other central location for convenience.
-            empireData.ResearchLevels = new TechLevel(0);
-#endif
         }
         
         /// <Summary>
         /// Read the Secondary Traits for this race.
         /// </Summary>
-        private void ProcessSecondaryTraits(Race race)
+        private void ProcessSecondaryTraits(EmpireData empire)
         {
             // TODO (priority 4) finish the rest of the LRTs.
             // Not all of these properties are fully implemented here, as they may require changes elsewhere in the game engine.
             // Where a trait is listed as 'TODO ??? (priority 4)' this means it first needs to be checked if it has been implemented elsewhere.
-            
-            EmpireData empireData = stateData.AllEmpires[race.Name];
-            
-            if (race.Traits.Contains("IFE"))
+                        
+            if (empire.EmpireRace.Traits.Contains("IFE"))
             {
                 // Ships burn 15% less fuel : TODO ??? (priority 4)
 
                 // Fuel Mizer and Galaxy Scoop engines available : Implemented in component definitions.
 
                 // propulsion tech starts one level higher
-                empireData.ResearchLevels[TechLevel.ResearchField.Propulsion]++;
+                empire.ResearchLevels[TechLevel.ResearchField.Propulsion]++;
             }
-            if (race.Traits.Contains("TT"))
+            if (empire.EmpireRace.Traits.Contains("TT"))
             {
                 // Begin the game able to adjust each environment attribute up to 3%
                 // Higher levels of terraforming are available : implemented in component definitions.
                 // Total Terraforming requires 30% fewer resources : implemented in component definitions.
             }
-            if (race.Traits.Contains("ARM"))
+            if (empire.EmpireRace.Traits.Contains("ARM"))
             {
                 // Grants access to three additional mining hulls and two new robots : implemented in component definitions.
                 // Start the game with two midget miners : TODO ??? (priority 4)
             }
-            if (race.Traits.Contains("ISB"))
+            if (empire.EmpireRace.Traits.Contains("ISB"))
             {
                 // Two additional starbase designs (space dock & ultra station) : implemented in component definitions.
                 // Starbases have built in 20% cloacking : TODO ??? (priority 4)
@@ -754,74 +745,74 @@ namespace Nova.WinForms
                 */
             }
 
-            if (race.Traits.Contains("GR"))
+            if (empire.EmpireRace.Traits.Contains("GR"))
             {
                 // 50% resources go to selected research field. 15% to each other field. 115% total. TODO ??? (priority 4)
             }
-            if (race.Traits.Contains("UR"))
+            if (empire.EmpireRace.Traits.Contains("UR"))
             {
                 // Affects minerals and resources returned due to scrapping. TODO ??? (priority 4).
             }
-            if (race.Traits.Contains("MA"))
+            if (empire.EmpireRace.Traits.Contains("MA"))
             {
                 // One instance of mineral alchemy costs 25 resources instead of 100. TODO ??? (priority 4)
             }
-            if (race.Traits.Contains("NRSE"))
+            if (empire.EmpireRace.Traits.Contains("NRSE"))
             {
                 // affects which engines are available : implemented in component definitions.
             }
-            if (race.Traits.Contains("OBRM"))
+            if (empire.EmpireRace.Traits.Contains("OBRM"))
             {
                 // affects which mining robots will be available : implemented in component definitions.
             }
-            if (race.Traits.Contains("CE"))
+            if (empire.EmpireRace.Traits.Contains("CE"))
             {
                 // Engines cost 50% less TODO (priority 4)
                 // Engines have a 10% chance of not engaging above warp 6 : TODO ??? (priority 4)
             }
-            if (race.Traits.Contains("NAS"))
+            if (empire.EmpireRace.Traits.Contains("NAS"))
             {
                 // No access to standard penetrating scanners : implemented in component definitions.
                 // Ranges of conventional scanners are doubled : TODO ??? (priority 4)
             }
-            if (race.Traits.Contains("LSP"))
+            if (empire.EmpireRace.Traits.Contains("LSP"))
             {
                 // Starting population is 17500 instead of 25000 : TODO ??? (priority 4)
             }
-            if (race.Traits.Contains("BET"))
+            if (empire.EmpireRace.Traits.Contains("BET"))
             {
                 // TODO ??? (priority 4)
                 // New technologies initially cost twice as much to build. 
                 // Once all tech requirements are exceeded cost is normal. 
                 // Miniaturization occurs at 5% per level up to 80% (instead of 4% per level up to 75%)
             }
-            if (race.Traits.Contains("RS"))
+            if (empire.EmpireRace.Traits.Contains("RS"))
             {
                 // TODO ??? (priority 4)
                 // All shields are 40% stronger than the listed rating.
                 // Shields regenrate at 10% of max strength each round of combat.
                 // All armors are 50% of their rated strength.
             }
-            if (race.Traits.Contains("ExtraTech"))
+            if (empire.EmpireRace.Traits.Contains("ExtraTech"))
             {
                 // All extra technologies start on level 3 or 4 with JOAT
-                if (race.Traits.Primary.Code == "JOAT")
+                if (empire.EmpireRace.Traits.Primary.Code == "JOAT")
                 {
-                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] += 1;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Construction] += 1;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Biotechnology] += 1;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Electronics] += 1;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] += 1;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Weapons] += 1;
+                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] += 1;
+                    empire.ResearchLevels[TechLevel.ResearchField.Construction] += 1;
+                    empire.ResearchLevels[TechLevel.ResearchField.Biotechnology] += 1;
+                    empire.ResearchLevels[TechLevel.ResearchField.Electronics] += 1;
+                    empire.ResearchLevels[TechLevel.ResearchField.Energy] += 1;
+                    empire.ResearchLevels[TechLevel.ResearchField.Weapons] += 1;
                 }
                 else
                 {
-                    empireData.ResearchLevels[TechLevel.ResearchField.Propulsion] += 3;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Construction] += 3;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Biotechnology] += 3;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Electronics] += 3;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Energy] += 3;
-                    empireData.ResearchLevels[TechLevel.ResearchField.Weapons] += 3;
+                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] += 3;
+                    empire.ResearchLevels[TechLevel.ResearchField.Construction] += 3;
+                    empire.ResearchLevels[TechLevel.ResearchField.Biotechnology] += 3;
+                    empire.ResearchLevels[TechLevel.ResearchField.Electronics] += 3;
+                    empire.ResearchLevels[TechLevel.ResearchField.Energy] += 3;
+                    empire.ResearchLevels[TechLevel.ResearchField.Weapons] += 3;
                 }
             }
         }

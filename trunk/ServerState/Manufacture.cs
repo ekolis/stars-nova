@@ -252,7 +252,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private void CreateShip(ShipDesign design, Star star)
         {
-            Race race = stateData.AllRaces[star.Owner];
+            Race race = stateData.AllEmpires[star.Owner].EmpireRace;
 
             Ship ship = new Ship(design);
             ship.Name = design.Name;

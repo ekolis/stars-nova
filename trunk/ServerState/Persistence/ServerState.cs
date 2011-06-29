@@ -46,10 +46,10 @@ namespace Nova.Server
     {
         public List<BattleReport>               AllBattles      = new List<BattleReport>();
         public List<PlayerSettings>             AllPlayers      = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
-        public Dictionary<string, int>          AllTechLevels   = new Dictionary<string, int>(); // Sum of a player's techlevels, for scoring purposes.
+        public Dictionary<int, int>          AllTechLevels   = new Dictionary<int, int>(); // Sum of a player's techlevels, for scoring purposes.
         public Dictionary<string, Design>       AllDesigns      = new Dictionary<string, Design>();
         public Dictionary<string, Fleet>        AllFleets       = new Dictionary<string, Fleet>();
-        public Dictionary<string, EmpireData>   AllEmpires      = new Dictionary<string, EmpireData>(); // Game specific data about the race; relations, battle plans, research, etc.
+        public Dictionary<int, EmpireData>   AllEmpires      = new Dictionary<int, EmpireData>(); // Game specific data about the race; relations, battle plans, research, etc.
         public Dictionary<string, Race>         AllRaces        = new Dictionary<string, Race>(); // Data about the race (traits etc)
         public Dictionary<string, Star>         AllStars        = new Dictionary<string, Star>();
         public Dictionary<string, Minefield>    AllMinefields   = new Dictionary<string, Minefield>();
@@ -134,7 +134,8 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                AllTechLevels.Add(tNode.Attributes["Id"].Value, int.Parse(tNode.FirstChild.Value));
+                                AllTechLevels.Add(int.Parse(tNode.Attributes["Id"].Value, System.Globalization.NumberStyles.HexNumber),
+                                                  int.Parse(tNode.FirstChild.Value));
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -172,7 +173,8 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                AllEmpires.Add(tNode.Attributes["Id"].Value, new EmpireData(tNode));
+                                AllEmpires.Add(int.Parse(tNode.Attributes["Id"].Value, System.Globalization.NumberStyles.HexNumber),
+                                               new EmpireData(tNode));
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -334,20 +336,20 @@ namespace Nova.Server
             
             // Store the Empire's Data
             XmlElement xmlelAllEmpires = xmldoc.CreateElement("AllEmpires");
-            foreach (KeyValuePair<string, EmpireData> empireData in AllEmpires)
+            foreach (KeyValuePair<int, EmpireData> empireData in AllEmpires)
             {
                 child = empireData.Value.ToXml(xmldoc);
-                child.SetAttribute("Id", empireData.Key);                
+                child.SetAttribute("Id", empireData.Key.ToString("X"));
                 xmlelAllEmpires.AppendChild(child);
             }
             xmlelServerState.AppendChild(xmlelAllEmpires);
             
             // Store the tech level sums.
             XmlElement xmlelAllTechLevels = xmldoc.CreateElement("AllTechLevels");
-            foreach (KeyValuePair<string, int> techLevels in AllTechLevels)
+            foreach (KeyValuePair<int, int> techLevels in AllTechLevels)
             {
                 child = xmldoc.CreateElement("TechLevels");                
-                child.SetAttribute("Id", techLevels.Key);
+                child.SetAttribute("Id", techLevels.Key.ToString("X"));
                 child.InnerText = techLevels.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 xmlelAllTechLevels.AppendChild(child);
             }
@@ -442,7 +444,7 @@ namespace Nova.Server
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(AllDesigns[ship.Owner + "/" + ship.DesignName] as ShipDesign);
+                    ship.DesignUpdate(AllDesigns[AllEmpires[ship.Owner].EmpireRace.Name + "/" + ship.DesignName] as ShipDesign);
                 }
             }
             
@@ -468,8 +470,8 @@ namespace Nova.Server
             {
                 if (star.ThisRace != null)
                 {
-                    // Reduntant, but works to check if race name is valid...
-                    if (star.Owner == AllRaces[star.ThisRace.Name].Name)
+                    // Reduntant, but works to check if race is valid...
+                    if (star.Owner == AllEmpires[star.Owner].Id)
                     {
                         star.ThisRace = AllRaces[star.ThisRace.Name];
                     }
@@ -481,7 +483,7 @@ namespace Nova.Server
 
                 if (star.Starbase != null)
                 {
-                    star.Starbase = AllFleets[star.Owner + "/" + star.Starbase.FleetID];
+                    star.Starbase = AllFleets[AllEmpires[star.Owner].EmpireRace.Name + "/" + star.Starbase.FleetID];
                 }
             }
             
@@ -497,7 +499,7 @@ namespace Nova.Server
                     // Ship reference to Design
                     foreach (Ship ship in fleet.FleetShips)
                     {
-                        ship.DesignUpdate(AllDesigns[ship.Owner + "/" + ship.DesignName] as ShipDesign);
+                        ship.DesignUpdate(AllDesigns[AllEmpires[ship.Owner].EmpireRace.Name + "/" + ship.DesignName] as ShipDesign);
                     }
                 }
                  
@@ -506,7 +508,7 @@ namespace Nova.Server
                     if (report.ThisRace != null)
                     {
                         // Reduntant, but works to check if race name is valid...
-                        if (report.Owner == empire.EmpireRace.Name)
+                        if (report.Owner == empire.Id)
                         {
                             report.ThisRace = empire.EmpireRace;
                         }
@@ -518,7 +520,7 @@ namespace Nova.Server
     
                     if (report.Starbase != null)
                     {
-                        report.Starbase = AllFleets[report.Owner + "/" + report.Starbase.FleetID];
+                        report.Starbase = AllFleets[AllEmpires[report.Owner].EmpireRace.Name + "/" + report.Starbase.FleetID];
                     }
                 }
             }

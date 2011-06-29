@@ -58,25 +58,25 @@ namespace Nova.WinForms.Console
         {
 
             // check for last man standing - doesn't matter the year
-            List<string> remainingPlayers = new List<string>();
+            List<int> remainingEmpires = new List<int>();
             foreach (Star star in StateData.AllStars.Values)
             {
-                if (string.IsNullOrEmpty(star.Owner))
+                if (star.Owner == Global.NoOwner)
                 {
                     continue;
                 }
-                if (!remainingPlayers.Contains(star.Owner))
+                if (!remainingEmpires.Contains(star.Owner))
                 {
-                    remainingPlayers.Add(star.Owner);
+                    remainingEmpires.Add(star.Owner);
                 }
             }
 
-            if (remainingPlayers.Count == 1)
+            if (remainingEmpires.Count == 1)
             {
-                Race race = StateData.AllRaces[remainingPlayers[0]];
+                EmpireData empire = StateData.AllEmpires[remainingEmpires[0]];
                 Message message = new Message();
-                message.Audience = "*";
-                message.Text = "The " + race.PluralName +
+                message.Audience = Global.AllEmpires;
+                message.Text = "The " + empire.EmpireRace.PluralName +
                                    " have won the game";
                 StateData.AllMessages.Add(message);
                 return;
@@ -92,17 +92,17 @@ namespace Nova.WinForms.Console
                     return;
                 }
 
-                foreach (Race race in StateData.AllRaces.Values)
+                foreach (EmpireData empire in StateData.AllEmpires.Values)
                 {
                     int targetsMet = 0;
 
-                    targetsMet += OccupiedPlanets(race.Name);
-                    targetsMet += AttainedTechLevel(race.Name);
-                    targetsMet += ScoreExceeded(race.Name);
-                    targetsMet += ProductionCapacity(race.Name);
-                    targetsMet += CapitalShips(race.Name);
-                    targetsMet += HighestScore(race.Name, gameTime);
-                    targetsMet += ExceedsSecondPlace(race.Name);
+                    targetsMet += OccupiedPlanets(empire.Id);
+                    targetsMet += AttainedTechLevel(empire.Id);
+                    targetsMet += ScoreExceeded(empire.Id);
+                    targetsMet += ProductionCapacity(empire.Id);
+                    targetsMet += CapitalShips(empire.Id);
+                    targetsMet += HighestScore(empire.Id, gameTime);
+                    targetsMet += ExceedsSecondPlace(empire.Id);
 
                     if (messageSent == false &&
                         targetsMet >= GameSettings.Data.TargetsToMeet)
@@ -110,8 +110,8 @@ namespace Nova.WinForms.Console
 
                         messageSent = true;
                         Message message = new Message();
-                        message.Audience = "*";
-                        message.Text = "The " + race.PluralName +
+                        message.Audience = Global.AllEmpires;
+                        message.Text = "The " + empire.EmpireRace.PluralName +
                                            " have won the game";
                         StateData.AllMessages.Add(message);
                         return;
@@ -128,7 +128,7 @@ namespace Nova.WinForms.Console
         /// <param name="raceName">Name of the race to check.</param>
         /// <returns>1 if the required number of planets is occupied, otherwise 0.</returns>
         /// ----------------------------------------------------------------------------
-        private int OccupiedPlanets(string raceName)
+        private int OccupiedPlanets(int empireId)
         {
             // See if this option has been turned on
 
@@ -141,7 +141,7 @@ namespace Nova.WinForms.Console
 
             foreach (Star star in StateData.AllStars.Values)
             {
-                if (star.Owner == raceName)
+                if (star.Owner == empireId)
                 {
                     starsOwned++;
                 }
@@ -167,7 +167,7 @@ namespace Nova.WinForms.Console
         /// <param name="raceName">Name of the race to check.</param>
         /// <returns>1 if race has attained the required tech, otherwise 0.</returns>
         /// ----------------------------------------------------------------------------
-        private int AttainedTechLevel(string raceName)
+        private int AttainedTechLevel(int empireId)
         {
             // See if this tech level option has been turned on
 
@@ -188,7 +188,7 @@ namespace Nova.WinForms.Console
             }
 
             int highestFields = 0;
-            TechLevel raceTechLevels = StateData.AllEmpires[raceName].ResearchLevels;
+            TechLevel raceTechLevels = StateData.AllEmpires[empireId].ResearchLevels;
 
             foreach (int level in raceTechLevels)
             {
@@ -214,7 +214,7 @@ namespace Nova.WinForms.Console
         /// <param name="raceName">Name of race to check.</param>
         /// <returns>1 if the required score has been met, otherwise 0</returns>
         /// ----------------------------------------------------------------------------
-        private int ScoreExceeded(string raceName)
+        private int ScoreExceeded(int empireId)
         {
             if (GameSettings.Data.TotalScore.IsChecked == false)
             {
@@ -226,7 +226,7 @@ namespace Nova.WinForms.Console
         
             foreach (ScoreRecord scoreDetail in allScores)
             {
-                if (scoreDetail.Race == raceName)
+                if (scoreDetail.EmpireId == empireId)
                 {
                     if (scoreDetail.Score >= GameSettings.Data.TotalScore.NumericValue)
                     {
@@ -250,7 +250,7 @@ namespace Nova.WinForms.Console
         /// 1 if the required production capacity has been met, otherwise 0
         /// </returns>
         /// ----------------------------------------------------------------------------
-        private int ProductionCapacity(string raceName)
+        private int ProductionCapacity(int empireId)
         {
             if (GameSettings.Data.ProductionCapacity.IsChecked == false)
             {
@@ -261,7 +261,7 @@ namespace Nova.WinForms.Console
 
             foreach (Star star in StateData.AllStars.Values)
             {
-                if (star.Owner == raceName)
+                if (star.Owner == empireId)
                 {
                     capacity += (int)star.ResourcesOnHand.Energy / 1000;
                 }
@@ -283,7 +283,7 @@ namespace Nova.WinForms.Console
         /// <param name="raceName">Name of the race to check.</param>
         /// <returns>1 if the required number of capital ships has been met, otherwise 0</returns>
         /// ----------------------------------------------------------------------------
-        private int CapitalShips(string raceName)
+        private int CapitalShips(int empireId)
         {
             if (GameSettings.Data.CapitalShips.IsChecked == false)
             {
@@ -294,7 +294,7 @@ namespace Nova.WinForms.Console
 
             foreach (ScoreRecord scoreDetail in allScores)
             {
-                if (scoreDetail.Race == raceName)
+                if (scoreDetail.EmpireId == empireId)
                 {
                     if (scoreDetail.CapitalShips >=
                         GameSettings.Data.CapitalShips.NumericValue)
@@ -318,7 +318,7 @@ namespace Nova.WinForms.Console
         /// <param name="years">Number of game years/turns that have passed.</param>
         /// <returns>1 if this race has the highest score, otherwise 0</returns>
         /// ----------------------------------------------------------------------------
-        private int HighestScore(string raceName, int years)
+        private int HighestScore(int empireId, int years)
         {
             if (GameSettings.Data.HighestScore.IsChecked == false)
             {
@@ -335,7 +335,7 @@ namespace Nova.WinForms.Console
 
             foreach (ScoreRecord scoreDetail in allScores)
             {
-                if (scoreDetail.Race == raceName)
+                if (scoreDetail.EmpireId == empireId)
                 {
                     raceScore = scoreDetail.Score;
                 }
@@ -362,7 +362,7 @@ namespace Nova.WinForms.Console
         /// <param name="raceName">Name of the race to check.</param>
         /// <returns>1 if the second place score is exceeded by the required amount, 0 otherwise.</returns>
         /// ----------------------------------------------------------------------------
-        private int ExceedsSecondPlace(string raceName)
+        private int ExceedsSecondPlace(int empireId)
         {
             if (GameSettings.Data.CapitalShips.IsChecked == false)
             {
@@ -378,7 +378,7 @@ namespace Nova.WinForms.Console
 
             foreach (ScoreRecord scoreDetail in allScores)
             {
-                if (scoreDetail.Race == raceName)
+                if (scoreDetail.EmpireId == empireId)
                 {
                     ourScore = scoreDetail.Score;
                 }

@@ -108,41 +108,41 @@ namespace Nova.NewGame
         /// </summary>
         public void InitialisePlayerData()
         {
-            foreach (Race race in stateData.AllRaces.Values)
+            foreach (EmpireData empire in stateData.AllEmpires.Values)
             {
-                string player = race.Name;
-
+                string player = empire.EmpireRace.Name;
+                
                 Design mine = new Design();
                 Design factory = new Design();
                 Design defense = new Design();
 
-                mine.Cost = new Nova.Common.Resources(0, 0, 0, race.MineBuildCost);
+                mine.Cost = new Nova.Common.Resources(0, 0, 0, empire.EmpireRace.MineBuildCost);
                 mine.Name = "Mine";
                 mine.Type = "Mine";
-                mine.Owner = player;
+                mine.Owner = empire.Id;
 
                 // If we have the secondary racial trait Cheap Factories they need 1K
                 // less germanium to build.
-                int factoryBuildCostGerm = race.HasTrait("CF") ? 3 : 4;
-                factory.Cost = new Nova.Common.Resources(0, 0, factoryBuildCostGerm, race.FactoryBuildCost);
+                int factoryBuildCostGerm = empire.EmpireRace.HasTrait("CF") ? 3 : 4;
+                factory.Cost = new Nova.Common.Resources(0, 0, factoryBuildCostGerm, empire.EmpireRace.FactoryBuildCost);
                 factory.Name = "Factory";
                 factory.Type = "Factory";
-                factory.Owner = player;
+                factory.Owner = empire.Id;
 
                 defense.Cost = new Nova.Common.Resources(5, 5, 5, 15);
                 defense.Name = "Defenses";
                 defense.Type = "Defenses";
-                defense.Owner = player;
+                defense.Owner = empire.Id;
                 stateData.AllDesigns[player + "/Mine"] = mine;
                 stateData.AllDesigns[player + "/Factory"] = factory;
                 stateData.AllDesigns[player + "/Defenses"] = defense;
-                PrepareDesigns(race, player);
-                InitialiseHomeStar(race, player);
+                PrepareDesigns(empire, player);
+                InitialiseHomeStar(empire, player);
             }
 
             Nova.Common.Message welcome = new Nova.Common.Message();
             welcome.Text = "Your race is ready to explore the universe.";
-            welcome.Audience = "*";
+            welcome.Audience = Global.AllEmpires;
 
             stateData.AllMessages.Add(welcome);
         }
@@ -152,7 +152,7 @@ namespace Nova.NewGame
         /// </summary>
         /// <param name="race">The <see cref="Race"/> of the player being initialised.</param>
         /// <param name="player">The player being initialised.</param>
-        private void PrepareDesigns(Race race, string player)
+        private void PrepareDesigns(EmpireData empire, string player)
         {
             // Read components data and create some basic stuff
             AllComponents.Restore();
@@ -169,7 +169,7 @@ namespace Nova.NewGame
             starbaseHull = components["Space Station"];
             engine = components["Quick Jump 5"];
 
-            if (race.Traits.Primary.Code != "HE")
+            if (empire.EmpireRace.Traits.Primary.Code != "HE")
             {
                 colonyShipHull = components["Colony Ship"]; // (components["Colony Ship"] as Component).Properties["Hull"] as Hull;
             }
@@ -182,7 +182,7 @@ namespace Nova.NewGame
 
             starbaseHull = components["Space Dock"]; // (components["Space Dock"] as Component).Properties["Hull"] as Hull;
 
-            if (race.HasTrait("AR") == true)
+            if (empire.EmpireRace.HasTrait("AR") == true)
             {
                 colonizer = components["Orbital Construction Module"]; // (components["Orbital Construction Module"] as Component).Properties["Colonizer"] as Colonizer;
             }
@@ -216,7 +216,7 @@ namespace Nova.NewGame
 
             cs.Type = "Ship";
             cs.Name = "Santa Maria";
-            cs.Owner = player;
+            cs.Owner = empire.Id;
             cs.Update();
 
             ShipDesign scout = new ShipDesign();
@@ -238,12 +238,12 @@ namespace Nova.NewGame
 
             scout.Type = "Ship";
             scout.Name = "Scout";
-            scout.Owner = player;
+            scout.Owner = empire.Id;
             scout.Update();
 
             ShipDesign starbase = new ShipDesign();
             starbase.Name = "Starbase";
-            starbase.Owner = player;
+            starbase.Owner = empire.Id;
 
             starbase.ShipHull = starbaseHull;
             starbase.Type = "Starbase";
@@ -343,7 +343,7 @@ namespace Nova.NewGame
         /// </summary>
         /// <param name="race"><see cref="Race"/> to be positioned.</param>
         /// <param name="spaceAllocator">The <see cref="SpaceAllocator"/> being used to allocate positions.</param>
-        private void InitialiseHomeStar(Race race, string player)
+        private void InitialiseHomeStar(EmpireData empire, string player)
         {
             if (map.Homeworlds.Count > 0)
             {
@@ -361,8 +361,8 @@ namespace Nova.NewGame
 
                 star.Name = nameGenerator.NextName;
 
-                AllocateHomeStarResources(star, race);
-                AllocateHomeStarOrbitalInstallations(star, race, player);
+                AllocateHomeStarResources(star, empire);
+                AllocateHomeStarOrbitalInstallations(star, empire, player);
                 
                 stateData.AllStars[star.Name] = star;                
                 
@@ -380,10 +380,10 @@ namespace Nova.NewGame
         /// </summary>
         /// <param name="star"></param>
         /// <param name="race"></param>
-        private void AllocateHomeStarOrbitalInstallations(Star star, Race race, string player)
+        private void AllocateHomeStarOrbitalInstallations(Star star, EmpireData empire, string player)
         {
             ShipDesign colonyShipDesign = stateData.AllDesigns[player + "/Santa Maria"] as ShipDesign;
-            if (race.Traits.Primary.Code != "HE")
+            if (empire.EmpireRace.Traits.Primary.Code != "HE")
             {
                 Ship cs = new Ship(colonyShipDesign);
                 Fleet fleet1 = new Fleet(cs, star);
@@ -425,27 +425,27 @@ namespace Nova.NewGame
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        private void AllocateHomeStarResources(Star star, Race race)
+        private void AllocateHomeStarResources(Star star, EmpireData empire)
         {
             Random random = new Random();
 
             // Set the owner of the home star in order to obtain proper
             // starting resources.
-            star.Owner = race.Name;
-            star.ThisRace = race;
+            star.Owner = empire.Id;
+            star.ThisRace = empire.EmpireRace;
 
             // Set the habital values for this star to the optimum for each race.
             // This should result in a planet value of 100% for this race's home
             // world.            
-            star.Radiation = race.RadiationTolerance.OptimumLevel;
-            star.Temperature = race.TemperatureTolerance.OptimumLevel;
-            star.Gravity = race.GravityTolerance.OptimumLevel;
+            star.Radiation = empire.EmpireRace.RadiationTolerance.OptimumLevel;
+            star.Temperature = empire.EmpireRace.TemperatureTolerance.OptimumLevel;
+            star.Gravity = empire.EmpireRace.GravityTolerance.OptimumLevel;
             
             star.OriginalRadiation = star.Radiation;
             star.OriginalGravity = star.Gravity;
             star.OriginalTemperature = star.Temperature;
             
-            star.Colonists = race.GetStartingPopulation();
+            star.Colonists = empire.EmpireRace.GetStartingPopulation();
 
             star.ResourcesOnHand.Boranium = random.Next(300, 500);
             star.ResourcesOnHand.Ironium = random.Next(300, 500);

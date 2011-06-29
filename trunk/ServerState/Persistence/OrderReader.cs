@@ -63,18 +63,18 @@ namespace Nova.Server
             // or cheats. Instead of cloning we can use the already
             // existing serialization techniques; serialize the state
             // and then deserialize into a new objetct.
-            this.stateData.Save();
-            this.turnData = this.stateData.Restore();
+            stateData.Save();
+            turnData = stateData.Restore();
             
-            this.turnData.AllTechLevels.Clear();
+            turnData.AllTechLevels.Clear();
 
-            foreach (Race race in this.turnData.AllRaces.Values)
+            foreach (EmpireData empire in turnData.AllEmpires.Values)
             {
                 // TODO (priority 4) only load those that are not yet turned in.
-                this.ReadPlayerTurn(race);
+                ReadPlayerTurn(empire);
             }
             
-            return this.stateData;
+            return stateData;
         }
 
 
@@ -85,12 +85,12 @@ namespace Nova.Server
         /// </summary>
         /// <param name="race">The race who's orders are to be loaded.</param>
         /// ----------------------------------------------------------------------------
-        private void ReadPlayerTurn(Race race)
+        private void ReadPlayerTurn(EmpireData empire)
         {
             Orders playerOrders;
             try
             {
-                string fileName = Path.Combine(this.stateData.GameFolder, race.Name + Global.OrdersExtension);
+                string fileName = Path.Combine(this.stateData.GameFolder, empire.EmpireRace.Name + Global.OrdersExtension);
 
                 if (!File.Exists(fileName))
                 {
@@ -116,7 +116,7 @@ namespace Nova.Server
             }
             catch (Exception e)
             {
-                Report.Error(Environment.NewLine + "There was a problem reading in the orders for " + race.Name + Environment.NewLine + "Details: " + e.Message);
+                Report.Error(Environment.NewLine + "There was a problem reading in the orders for " + empire.EmpireRace.Name + Environment.NewLine + "Details: " + e.Message);
                 return;
             }
             try
@@ -154,12 +154,12 @@ namespace Nova.Server
                     this.stateData.AllStars[star.Name] = star;
                 }
 
-                this.stateData.AllEmpires[race.Name] = playerOrders.EmpireStatus;
-                this.stateData.AllTechLevels[race.Name] = playerOrders.TechLevel;
+                this.stateData.AllEmpires[empire.Id] = playerOrders.EmpireStatus;
+                this.stateData.AllTechLevels[empire.Id] = playerOrders.TechLevel;
             }
             catch (Exception e)
             {
-                Report.FatalError(Environment.NewLine + "There was a problem processing the orders for " + race.Name + Environment.NewLine + "Details: " + e.Message);
+                Report.FatalError(Environment.NewLine + "There was a problem processing the orders for " + empire.EmpireRace.Name + Environment.NewLine + "Details: " + e.Message);
             }
         }
 

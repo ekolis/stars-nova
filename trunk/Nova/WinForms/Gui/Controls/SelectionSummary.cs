@@ -34,9 +34,7 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class SelectionSummary : UserControl
     {
-        private StarIntelList starReports;
-        private Race playerRace;
-        private int turnYear;
+        private readonly EmpireData empireIntel;
         private Dictionary<string, RaceIcon> raceIcons;
         
         private Item summaryItem = null;
@@ -46,15 +44,13 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the SelectionSummary class.
         /// </Summary>
-        public SelectionSummary(StarIntelList starReports, Race playerRace, Dictionary<string, RaceIcon> raceIcons, int turnYear)
+        public SelectionSummary(EmpireData empireIntel, Dictionary<string, RaceIcon> raceIcons)
         {
-            this.starReports = starReports;
-            this.playerRace = playerRace;
+            this.empireIntel = empireIntel;
             this.raceIcons = raceIcons;
-            this.turnYear = turnYear;
             
-            planetSummary = new PlanetSummary(starReports, playerRace, turnYear);
-            fleetSummary = new FleetSummary(raceIcons);
+            planetSummary = new PlanetSummary(empireIntel);
+            fleetSummary = new FleetSummary(empireIntel, raceIcons);
             
             InitializeComponent();
         }
@@ -65,7 +61,7 @@ namespace Nova.WinForms.Gui
         /// <param name="Item"></param>
         private void DisplayPlanet(Item item)
         {
-            if (starReports[item.Name].Year == 0)
+            if (empireIntel.StarReports[item.Name].Year == 0)
             {
                 this.selectedItem.Text = item.Name + " is unexplored";
                 summaryItem = null;

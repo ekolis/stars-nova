@@ -38,34 +38,34 @@ namespace Nova.WinForms.Gui
     /// </remarks>
     public partial class PlayerRelations : Form
     {
-        private readonly Dictionary<string, PlayerRelation> relations;
-        private List<string> allRaceNames;
-        private string raceName;
+        private readonly Dictionary<int, PlayerRelation> relations;
+        private List<int> allEmpireIds;
+        private int empireId;
 
         #region Construction
 
         /// <Summary>
         /// Initializes a new instance of the PlayerRelations class.
         /// </Summary>
-        public PlayerRelations(Dictionary<string, PlayerRelation> relations, List<string> allRaceNames, string raceName)
+        public PlayerRelations(Dictionary<int, PlayerRelation> relations, List<int> allEmpireIds, int empireId)
         {
             this.relations = relations;
-            this.allRaceNames = allRaceNames;
-            this.raceName = raceName;
+            this.allEmpireIds = allEmpireIds;
+            this.empireId = empireId;
             
             InitializeComponent();
 
-            foreach (string otherRaceName in allRaceNames)
+            foreach (int otherEmpireId in allEmpireIds)
             {
-                if (otherRaceName != raceName)
+                if (otherEmpireId != empireId)
                 {
-                    this.raceList.Items.Add(otherRaceName);
+                    this.empireList.Items.Add(otherEmpireId);
                 }
             }
 
-            if (this.raceList.Items.Count > 0)
+            if (this.empireList.Items.Count > 0)
             {
-                this.raceList.SelectedIndex = 0;
+                this.empireList.SelectedIndex = 0;
             }
         }
 
@@ -90,13 +90,13 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void SelectedRaceChanged(object sender, EventArgs e)
         {
-            string selectedRace = this.raceList.SelectedItem as string;
+            int selectedEmpire = (int)empireList.SelectedItem;
 
-            if (this.relations[selectedRace] == PlayerRelation.Enemy)
+            if (this.relations[selectedEmpire] == PlayerRelation.Enemy)
             {
                 this.enemyButton.Checked = true;
             }
-            else if (this.relations[selectedRace] == PlayerRelation.Enemy)
+            else if (this.relations[selectedEmpire] == PlayerRelation.Enemy)
             {
                 this.neutralButton.Checked = true;
             }
@@ -113,9 +113,9 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void RelationChanged(object sender, EventArgs e)
         {
-            string selectedRace = this.raceList.SelectedItem as string;
+            int selectedEmpire = (int)empireList.SelectedItem;
             RadioButton button = sender as RadioButton;
-            relations[selectedRace] = enemyButton.Checked ? PlayerRelation.Enemy :
+            relations[selectedEmpire] = enemyButton.Checked ? PlayerRelation.Enemy :
                 friendButton.Checked ? PlayerRelation.Friend :
                 PlayerRelation.Neutral;
         }

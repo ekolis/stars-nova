@@ -65,7 +65,7 @@ namespace Nova.WinForms.Gui
                 int numColumns = 10;
                 string[] row = new string[numColumns];
 
-                row[i++] = score.Race;
+                row[i++] = score.EmpireId.ToString("X");
                 row[i++] = score.Rank.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 row[i++] = score.Score.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 row[i++] = score.Planets.ToString(System.Globalization.CultureInfo.InvariantCulture);

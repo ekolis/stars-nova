@@ -228,12 +228,12 @@ namespace Nova.WinForms.Console
         public void Scrap(Fleet fleet, Star star, bool colonise)
         {
             double amount = 0;
-            Race race = stateData.AllRaces[fleet.Owner];
+            EmpireData empire = stateData.AllEmpires[fleet.Owner];
             double resources = 0;
 
             if (star != null)
             {
-                if (race.HasTrait("UR"))
+                if (empire.EmpireRace.HasTrait("UR"))
                 {
                     if (star != null)
                     {

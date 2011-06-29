@@ -76,27 +76,27 @@ namespace Nova.Server
         /// -------------------------------------------------------------------
         public void WriteIntel()
         {
-            foreach (PlayerSettings player in StateData.AllPlayers)
+            foreach (EmpireData empire in StateData.AllEmpires.Values)
             {
                 turnData = new Intel();
                 turnData.AllMinefields = StateData.AllMinefields;
                 turnData.AllDesigns = StateData.AllDesigns;
-                turnData.EmpireIntel = StateData.AllEmpires[player.RaceName];
+                turnData.EmpireIntel = StateData.AllEmpires[empire.Id];
                 
                 // Copy any messages
                 foreach (Message message in StateData.AllMessages)
                 {
-                    if (message.Audience == "*" || message.Audience == player.RaceName)
+                    if (message.Audience == Global.AllEmpires || message.Audience == empire.Id)
                     {
                         turnData.Messages.Add(message);
                     }
                 }
 
-                // Copy the list of player races
-                foreach (Race race in StateData.AllRaces.Values)
+                // Copy the list of other empires
+                foreach (EmpireData lamb in StateData.AllEmpires.Values)
                 {
-                    turnData.AllRaceNames.Add(race.Name);
-                    turnData.RaceIcons[race.Name] = race.Icon;
+                    turnData.AllEmpireIds.Add(lamb.Id);
+                    turnData.RaceIcons[lamb.EmpireRace.Name] = lamb.EmpireRace.Icon;
                 }
 
                 // Copy any battle reports
@@ -123,7 +123,7 @@ namespace Nova.Server
                     Report.Error("Intel Writer: WriteIntel() - Unable to create file \"Nova.intel\".");
                     return;
                 }
-                string turnFileName = Path.Combine(StateData.GameFolder, player.RaceName + Global.IntelExtension);
+                string turnFileName = Path.Combine(StateData.GameFolder, empire.EmpireRace.Name + Global.IntelExtension);
 
                 // Write out the intel file, as xml, but also handle the case of it being locked (in use).
                 bool locked = false;
