@@ -119,9 +119,9 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Get or set this item's unique Id (Item.Id, Flet.Id, Ship.Id, etc).
+        /// Return this item's Id without the owner bits.
         /// </summary>
-        public int Id
+        public int PureId
         {
             get
             {
@@ -133,6 +133,23 @@ namespace Nova.Common
                 if (value > 0x00FFFFFF) { throw new ArgumentException("ItemId out of range"); }
                 itemId &= 0x7F000000;                
                 itemId |= value;    
+            }
+        }
+        
+        /// <summary>
+        /// Get or set this item's unique Id (Item.Id, Flet.Id, Ship.Id, etc).
+        /// This includes the owner; use this by default.
+        /// </summary>
+        public int Id
+        {
+            get
+            {
+                return itemId;    
+            }
+            
+            set
+            {              
+                itemId = value;    
             }
         }
         
