@@ -40,6 +40,7 @@ namespace Nova.Common
     [Serializable]
     public class Item
     {
+        private int itemId;
         /// <summary>
         /// The mass of the item (in kT).
         /// </summary>
@@ -117,6 +118,43 @@ namespace Nova.Common
         {
             get { return this.Owner + "/" + this.Name; }
         }
+        
+        /// <summary>
+        /// Get or set this item's unique Id (Item.Id, Flet.Id, Ship.Id, etc).
+        /// </summary>
+        public int Id
+        {
+            get
+            {
+                return itemId & 0x00FFFFFF;    
+            }
+            
+            set
+            {
+                if (value > 0x00FFFFFF) { throw new ArgumentException("ItemId out of range"); }
+                itemId &= 0x7F000000;                
+                itemId |= value;    
+            }
+        }
+        
+        /// <summary>
+        /// Get or set this item's owner Id. This should match the Id from the empire
+        /// that owns this object.
+        /// </summary>
+//        public int Owner
+//        {
+//            get
+//            {
+//                return itemId & 0x7F000000;
+//            }
+//            
+//            set
+//            {
+//                if (value < 0x01000000) { throw new ArgumentException("OwnerId out of range"); }
+//                itemId &= 0x00FFFFFF;
+//                itemId |= value;
+//            }
+//        }
 
         #endregion
 

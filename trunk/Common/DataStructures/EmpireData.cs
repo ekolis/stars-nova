@@ -41,6 +41,8 @@ namespace Nova.Common
     [Serializable]
     public class EmpireData
     {
+        private int empireId;
+        
         public int TurnYear = Global.StartingYear; // The year that corresponds to this data
         
         public Race EmpireRace = new Race(); // This empire's race.
@@ -57,6 +59,23 @@ namespace Nova.Common
         public Dictionary<string, PlayerRelation>   PlayerRelations = new Dictionary<string, PlayerRelation>();
         public Dictionary<string, BattlePlan>       BattlePlans     = new Dictionary<string, BattlePlan>();
         
+        /// <summary>
+        /// Sets or gets this empires unique integer Id.
+        /// </summary>
+        public int Id
+        {
+            get
+            {
+                return empireId & 0x7F000000;
+            }
+            
+            set
+            {
+                // Empire Id should only be set on game creation, from a simple 0-127 int.
+                if (value > 127)    { throw new ArgumentException("EmpireId out or range"); }                
+                empireId = (value <<= 24);
+            }
+        }
 
         /// <summary>
         /// default constructor
