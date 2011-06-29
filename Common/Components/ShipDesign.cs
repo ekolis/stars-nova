@@ -89,6 +89,7 @@ namespace Nova.Common.Components
 
         #region Methods
 
+
         /// <summary>
         /// The ship design object has all information that could be found from a scan
         /// of the the ship hull modules. However scanning these for a particular piece
