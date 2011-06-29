@@ -100,7 +100,7 @@ namespace Nova.Common
         {
             get
             {
-                return ++DesignCounter
+                return ++DesignCounter;
             }
         }
         
@@ -111,7 +111,7 @@ namespace Nova.Common
         {
             get
             {
-                return ++StarbaseDesignCounter
+                return ++StarbaseDesignCounter;
             }
         }
 
