@@ -272,6 +272,12 @@ namespace Nova.Common
             }
         }
 
+        public virtual string Key
+        {
+            get { return this.Owner + "/" + this.Name; }
+        }
+        
+
         /// <summary>
         /// The name of the ship's underlying design.
         /// </summary>

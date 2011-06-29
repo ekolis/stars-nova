@@ -74,7 +74,7 @@ namespace Nova.Common
         /// <summary>
         /// Override the Key method of Item
         /// </summary>
-        public override string Key
+        public string Key
         {
             get { return keyId.ToString(System.Globalization.CultureInfo.InvariantCulture); }
         }

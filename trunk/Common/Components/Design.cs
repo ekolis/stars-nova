@@ -85,6 +85,12 @@ namespace Nova.Common.Components
             return xmlelDesign;
         }
 
+        public virtual string Key
+        {
+            get { return this.Owner + "/" + this.Name; }
+        }
+        
+
         #endregion
     }
 }

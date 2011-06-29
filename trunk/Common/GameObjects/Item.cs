@@ -109,15 +109,6 @@ namespace Nova.Common
         #endregion
 
         #region Properties
-
-        /// <summary>
-        /// Return a key for use in hash tables to locate items.
-        /// </summary>
-        public virtual string Key
-        {
-            get { return this.Owner + "/" + this.Name; }
-        }
-        
         /// <summary>
         /// Return this item's Id without the owner bits.
         /// </summary>

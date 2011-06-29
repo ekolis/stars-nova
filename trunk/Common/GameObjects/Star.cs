@@ -619,7 +619,7 @@ namespace Nova.Common
             }
         }
 
-        public override string Key
+        public string Key
         {
             get
             {
