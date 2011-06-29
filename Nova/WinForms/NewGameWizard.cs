@@ -148,6 +148,7 @@ namespace Nova.WinForms
 
                     // Initialize clean data for them. 
                     EmpireData empireData = new EmpireData();
+                    empireData.Id = settings.PlayerNumber;
                     stateData.AllEmpires[settings.RaceName] = empireData;
 
                     stateData.AllRaces.Add(settings.RaceName, KnownRaces[settings.RaceName]);
