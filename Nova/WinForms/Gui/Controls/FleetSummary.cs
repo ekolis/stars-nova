@@ -34,13 +34,15 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class FleetSummary : UserControl
     {
+        private readonly EmpireData empireIntel;
         private Dictionary<string, RaceIcon>  raceIcons;
 
         /// <Summary>
         /// Initializes a new instance of the FleetSummary class.
         /// </Summary>
-        public FleetSummary(Dictionary<string, RaceIcon>  raceIcons)
+        public FleetSummary(EmpireData empireIntel, Dictionary<string, RaceIcon>  raceIcons)
         {
+            this.empireIntel = empireIntel;
             this.raceIcons = raceIcons;
             
             InitializeComponent();
@@ -55,14 +57,15 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplaySummary(Fleet fleet)
         {
-            string ownerRaceName = fleet.Owner;
+            int ownerId = fleet.Owner;
             this.fleetShipCount.Text = fleet.Composition.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.fleetMass.Text = fleet.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.fleetSpeed.Text = fleet.Speed.ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.fleetImage.Image = fleet.Icon.Image;
-            this.fleetOwner.Text = ownerRaceName;
-
-            this.raceIcon.Image = raceIcons[ownerRaceName].Image;
+            // FIXME:(priority 3) look for enemy name inside EmpireData.
+            // this needs the appropiate collections to be refactores.
+            this.fleetOwner.Text = ownerId.ToString("X");
+            //this.raceIcon.Image = raceIcons[ownerId].Image;
         }
 
 

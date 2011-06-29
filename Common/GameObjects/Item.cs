@@ -40,7 +40,11 @@ namespace Nova.Common
     [Serializable]
     public class Item
     {
-        private int itemId;
+        /// <summary>
+        /// This item's Id. It contains it's owner on the higher 7 bits.
+        /// </summary>
+        private int itemId = Global.NoOwner; // Default to no-id and no owner.
+        
         /// <summary>
         /// The mass of the item (in kT).
         /// </summary>
@@ -55,11 +59,6 @@ namespace Nova.Common
         /// The name of the derived item, for example the name of a star.
         /// </summary>
         public string Name;
-
-        /// <summary>
-        /// The race name of the owner of this item (null if no owner). 
-        /// </summary>
-        public string Owner;
 
         /// <summary>
         /// The type of the derived item (e.g. "Ship", "Star", "Starbase", etc.)
@@ -141,20 +140,20 @@ namespace Nova.Common
         /// Get or set this item's owner Id. This should match the Id from the empire
         /// that owns this object.
         /// </summary>
-//        public int Owner
-//        {
-//            get
-//            {
-//                return itemId & 0x7F000000;
-//            }
-//            
-//            set
-//            {
-//                if (value < 0x01000000) { throw new ArgumentException("OwnerId out of range"); }
-//                itemId &= 0x00FFFFFF;
-//                itemId |= value;
-//            }
-//        }
+        public int Owner
+        {
+            get
+            {
+                return itemId & 0x7F000000;
+            }
+            
+            set
+            {
+                if (value < 0x01000000 && value != Global.NoOwner) { throw new ArgumentException("OwnerId out of range"); }
+                itemId &= 0x00FFFFFF;
+                itemId |= value;
+            }
+        }
 
         #endregion
 
@@ -212,9 +211,6 @@ namespace Nova.Common
                         case "name":
                             Name = subnode.FirstChild.Value;
                             break;
-                        case "owner":
-                            Owner = subnode.FirstChild.Value;
-                            break;
                         case "type":
                             Type = subnode.FirstChild.Value;
                             break;
@@ -254,10 +250,6 @@ namespace Nova.Common
             if (Name != null)
             {
                 Global.SaveData(xmldoc, xmlelItem, "Name", Name);
-            }
-            if (Owner != null)
-            {
-                Global.SaveData(xmldoc, xmlelItem, "Owner", Owner);
             }
             if (Type != null)
             {

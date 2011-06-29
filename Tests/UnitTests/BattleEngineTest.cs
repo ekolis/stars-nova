@@ -64,10 +64,10 @@ namespace Nova.Tests.UnitTests
         private ServerState stateData = new ServerState();
         private BattleEngine battleEngine;
         
-        private Fleet fleet1 = new Fleet("fleet1", "Tom", new Point(100, 200));
-        private Fleet fleet2 = new Fleet("fleet2", "Dick", new Point(100, 200));
-        private Fleet fleet3 = new Fleet("fleet3", "Harry", new Point(300, 400));
-        private Fleet fleet4 = new Fleet("fleet4", "Harry", new Point(300, 400));
+        private Fleet fleet1 = new Fleet("fleet1", 1, new Point(100, 200));
+        private Fleet fleet2 = new Fleet("fleet2", 2, new Point(100, 200));
+        private Fleet fleet3 = new Fleet("fleet3", 3, new Point(300, 400));
+        private Fleet fleet4 = new Fleet("fleet4", 4, new Point(300, 400));
 
         private ShipDesign cruiser = new ShipDesign();
         private ShipDesign frigate = new ShipDesign();
@@ -196,12 +196,12 @@ namespace Nova.Tests.UnitTests
         {
             EmpireData empireData = new EmpireData();
 
-            empireData.PlayerRelations["Dick"] = PlayerRelation.Enemy;
+            empireData.PlayerRelations[1] = PlayerRelation.Enemy;
             empireData.BattlePlans["Default"] = new BattlePlan();
-            stateData.AllEmpires["Tom"] = empireData;
+            stateData.AllEmpires[2] = empireData;
 
-            empireData.PlayerRelations["Tom"] = PlayerRelation.Enemy;
-            stateData.AllEmpires["Dick"] = empireData;
+            empireData.PlayerRelations[2] = PlayerRelation.Enemy;
+            stateData.AllEmpires[3] = empireData;
 
             int numberOfTargets = battleEngine.SelectTargets(zoneStacks);
 

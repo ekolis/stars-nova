@@ -65,7 +65,7 @@ namespace Nova.Common
         
         public List<Message> Messages = new List<Message>();
         public List<BattleReport> Battles = new List<BattleReport>();
-        public List<string> AllRaceNames = new List<string>();
+        public List<int> AllEmpireIds = new List<int>();
         public List<ScoreRecord> AllScores = new List<ScoreRecord>();
 
         /// <summary>
@@ -91,7 +91,7 @@ namespace Nova.Common
         public void Clear()
         {
             AllDesigns.Clear();
-            AllRaceNames.Clear();
+            AllEmpireIds.Clear();
             AllMinefields.Clear();
             Battles.Clear();
             Messages.Clear();
@@ -246,9 +246,9 @@ namespace Nova.Common
             }
 
             // AllRaceNames 
-            foreach (string raceName in AllRaceNames)
+            foreach (int empireId in AllEmpireIds)
             {
-                Global.SaveData(xmldoc, xmlelIntel, "RaceName", raceName.ToString());
+                Global.SaveData(xmldoc, xmlelIntel, "EmpireId", empireId.ToString("X"));
             }
 
             // AllScores 

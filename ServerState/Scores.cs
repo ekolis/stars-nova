@@ -53,9 +53,9 @@ namespace Nova.Server
         {
             List<ScoreRecord> scores = new List<ScoreRecord>();
 
-            foreach (PlayerSettings player in stateData.AllPlayers)
+            foreach (EmpireData empire in stateData.AllEmpires.Values)
             {
-                scores.Add(GetScoreRecord(player.RaceName));
+                scores.Add(GetScoreRecord(empire.Id));
             }
 
             SetRanks(scores);
@@ -71,7 +71,7 @@ namespace Nova.Server
         /// <param name="raceName">The name fo the race to build a <see cref="ScoreRecord"/> for.</param>
         /// <returns>A <see cref="ScoreRecord"/> for the given race.</returns>
         /// ----------------------------------------------------------------------------
-        private ScoreRecord GetScoreRecord(string raceName)
+        private ScoreRecord GetScoreRecord(int empireId)
         {
             double totalScore = 0;
             ScoreRecord score = new ScoreRecord();
@@ -86,7 +86,7 @@ namespace Nova.Server
             foreach (Star star in stateData.AllStars.Values)
             {
 
-                if (star.Owner == raceName)
+                if (star.Owner == empireId)
                 {
                     score.Planets++;
                     resources += (int)star.ResourcesOnHand.Energy;
@@ -117,7 +117,7 @@ namespace Nova.Server
             foreach (Fleet fleet in stateData.AllFleets.Values)
             {
 
-                if (fleet.Owner == raceName)
+                if (fleet.Owner == empireId)
                 {
                     foreach (Ship ship in fleet.FleetShips)
                     {
@@ -156,10 +156,10 @@ namespace Nova.Server
             // Single instance values
             // ----------------------------------------------------------------------------
 
-            score.Race = raceName;
-            if (stateData.AllTechLevels.ContainsKey(raceName))
+            score.EmpireId = empireId;
+            if (stateData.AllTechLevels.ContainsKey(empireId))
             {
-                score.TechLevel = stateData.AllTechLevels[raceName];
+                score.TechLevel = stateData.AllTechLevels[empireId];
 
                 if (score.TechLevel < 4)
                 {

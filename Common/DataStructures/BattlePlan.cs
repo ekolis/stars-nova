@@ -36,11 +36,13 @@ namespace Nova.Common
     [Serializable]
     public class BattlePlan
     {
+        //FIXME:(priority 2) This should all be enums!
         public string Name            = "Default";
         public string PrimaryTarget   = "Armed Ships";
         public string SecondaryTarget = "Any";
         public string Tactic          = "Maximise Damage";
         public string Attack          = "Enemies";
+        public int TargetId;
 
         #region Construction
 
@@ -69,19 +71,22 @@ namespace Nova.Common
                     switch (subnode.Name.ToLower())
                     {
                         case "name":
-                            Name = ((XmlText)subnode.FirstChild).Value;
+                            Name = subnode.FirstChild.Value;
                             break;
                         case "primarytarget":
-                            PrimaryTarget = ((XmlText)subnode.FirstChild).Value;
+                            PrimaryTarget = subnode.FirstChild.Value;
                             break;
                         case "secondarytarget":
-                            SecondaryTarget = ((XmlText)subnode.FirstChild).Value;
+                            SecondaryTarget = subnode.FirstChild.Value;
                             break;
                         case "tactic":
-                            Tactic = ((XmlText)subnode.FirstChild).Value;
+                            Tactic = subnode.FirstChild.Value;
                             break;
                         case "attack":
-                            Attack = ((XmlText)subnode.FirstChild).Value;
+                            Attack = subnode.FirstChild.Value;
+                            break;
+                        case "targetid":
+                            TargetId = int.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                             break;
                     }
                 }
@@ -107,6 +112,7 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelBattlePlan, "SecondaryTarget", SecondaryTarget);
             Global.SaveData(xmldoc, xmlelBattlePlan, "Tactic", Tactic);
             Global.SaveData(xmldoc, xmlelBattlePlan, "Attack", Attack);
+            Global.SaveData(xmldoc, xmlelBattlePlan, "TargetId", TargetId.ToString("X"));
 
             return xmlelBattlePlan;
         }

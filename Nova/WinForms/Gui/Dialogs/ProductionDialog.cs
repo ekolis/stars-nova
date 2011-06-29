@@ -692,7 +692,7 @@ namespace Nova.WinForms.Gui
             foreach (Design design in this.turnData.AllDesigns.Values)
             {
                 // check if this design belongs to this race
-                if (design.Owner == stateData.EmpireIntel.EmpireRace.Name || design.Owner == "*")
+                if (design.Owner == stateData.EmpireIntel.Id || design.Owner == Global.AllEmpires)
                 {
                     // what the purpose of this next line (shadallark) ???
                     // Looks like it is ment to prevent the current starbase design being re-used - Dan.

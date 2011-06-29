@@ -32,16 +32,11 @@ namespace Nova.WinForms.Gui
             this.aboutToolStripMenuItem         = new System.Windows.Forms.ToolStripMenuItem();
             
             this.messages           = new Nova.WinForms.Gui.Messages();
-            this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(stateData.EmpireIntel.StarReports,
-                                                                            stateData.EmpireIntel.FleetReports,
+            this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(stateData.EmpireIntel,
                                                                             stateData.DeletedFleets,
-                                                                            stateData.EmpireIntel.EmpireRace,
-                                                                            stateData.EmpireIntel.ResearchBudget,
                                                                             stateData);
-            this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(stateData.EmpireIntel.StarReports,
-                                                                             stateData.EmpireIntel.EmpireRace,
-                                                                             stateData.InputTurn.RaceIcons,
-                                                                             stateData.EmpireIntel.TurnYear);
+            this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(stateData.EmpireIntel,
+                                                                             stateData.InputTurn.RaceIcons);
             this.mapControl         = new Nova.WinForms.Gui.StarMap();
 
             this.groupBox2.SuspendLayout();

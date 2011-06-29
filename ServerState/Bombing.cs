@@ -150,7 +150,7 @@ namespace Nova.WinForms.Console
                 star.Colonists = 0;
                 star.Mines = 0;
                 star.Factories = 0;
-                star.Owner = null;
+                star.Owner = Global.NoOwner;
             }
 
             Message lamb = new Message();

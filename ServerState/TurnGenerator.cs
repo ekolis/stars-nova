@@ -101,11 +101,11 @@ namespace Nova.WinForms.Console
             stateData = turnData;
             
             // Do per user operations.
-            foreach (Race race in stateData.AllRaces.Values)
+            foreach (EmpireData empire in stateData.AllEmpires.Values)
             {
                 // Does not do much for now, only sets up some basic
                 // (but required) variables.
-                SanitizeResearch(race);
+                SanitizeResearch(empire.Id);
             }
 
             // Do all fleet movement and actions 
@@ -234,12 +234,11 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private void ProcessStar(Star star)
         {            
-            string owner = star.Owner;
-            if (owner == null)
+            if (star.Owner == Global.NoOwner)
             {
                 return; // nothing to do for an empty star system.
             }
-            Race race = stateData.AllRaces[star.Owner];
+            Race race = stateData.AllEmpires[star.Owner].EmpireRace;
             
             star.UpdateMinerals();
             
@@ -247,7 +246,7 @@ namespace Nova.WinForms.Console
             // Note that this sets the allocation for research to zero for all stars
             // which have "contribute only leftover resources to research". This
             // makes those stars be handled after manufacturing.
-            int percentage = stateData.AllEmpires[race.Name].ResearchBudget;
+            int percentage = stateData.AllEmpires[star.Owner].ResearchBudget;
             star.UpdateResearch(percentage);
             star.UpdateResources();
             
@@ -440,7 +439,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private bool UpdateFleet(Fleet fleet)
         {
-            Race race = stateData.AllRaces[fleet.Owner];
+            Race race = stateData.AllEmpires[fleet.Owner].EmpireRace;
 
             Waypoint currentPosition = new Waypoint();
             double availableTime = 1.0;
@@ -503,10 +502,10 @@ namespace Nova.WinForms.Console
             return false;
         }
         
-        private bool SanitizeResearch(Race race)
+        private bool SanitizeResearch(int empireId)
         {
             // Reset the list of new levels gained.
-            stateData.AllEmpires[race.Name].ResearchLevelsGained.Zero();
+            stateData.AllEmpires[empireId].ResearchLevelsGained.Zero();
             
             return true;
             
@@ -522,14 +521,12 @@ namespace Nova.WinForms.Console
         /// </remarks>
         private void ContributeAllocatedResearch(Race race, Star star)
         {   
-            // Paranoia
-            string owner = star.Owner;
-            if (owner == null || owner != race.Name)
+            if (star.Owner == Global.NoOwner)
             {
                 return;
             }
 
-            EmpireData playerData = stateData.AllEmpires[race.Name];
+            EmpireData playerData = stateData.AllEmpires[star.Owner];
 
             TechLevel targetAreas = playerData.ResearchTopics;
             TechLevel.ResearchField targetArea = TechLevel.ResearchField.Energy; // default to Energy.
@@ -549,7 +546,7 @@ namespace Nova.WinForms.Console
             playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResearchAllocation;
             star.ResearchAllocation = 0;            
             
-            TechLevel newLevels = stateData.AllEmpires[race.Name].ResearchLevelsGained;
+            TechLevel newLevels = stateData.AllEmpires[star.Owner].ResearchLevelsGained;
             
             while (true)
             {
@@ -569,14 +566,12 @@ namespace Nova.WinForms.Console
         
         private void ContributeLeftoverResearch(Race race, Star star)
         {
-            // Paranoia
-            string owner = star.Owner;
-            if (owner == null || owner != race.Name)
+            if (star.Owner == Global.NoOwner)
             {
                 return;
             }
             
-            EmpireData playerData = stateData.AllEmpires[race.Name];
+            EmpireData playerData = stateData.AllEmpires[star.Owner];
             
             TechLevel targetAreas = playerData.ResearchTopics;
             TechLevel.ResearchField targetArea = TechLevel.ResearchField.Energy; // default to Energy.
@@ -596,7 +591,7 @@ namespace Nova.WinForms.Console
             playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResourcesOnHand.Energy;
             star.ResourcesOnHand.Energy = 0;
             
-            TechLevel newLevels = stateData.AllEmpires[race.Name].ResearchLevelsGained;
+            TechLevel newLevels = stateData.AllEmpires[star.Owner].ResearchLevelsGained;
             
             while (true)
             {

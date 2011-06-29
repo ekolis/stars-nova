@@ -37,10 +37,7 @@ namespace Nova.WinForms.Gui
     public partial class PlanetDetail : System.Windows.Forms.UserControl
     {
         private StarIntel selectedStar;
-        private StarIntelList starReports;
-        private FleetIntelList fleetReports;
-        private int researchBudget;
-        private Race empireRace;
+        private readonly EmpireData empireIntel;
         
         // FIXME:(priority 3) this should not be here. It is only needed to pass it
         // down to the ProductionDialog. In any case, ProductionDialog shouldn't need
@@ -67,12 +64,9 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the PlanetDetail class.
         /// </Summary>
-        public PlanetDetail(StarIntelList starReports, FleetIntelList fleetReports, int researchBudget, Race empireRace, ClientState stateData)
+        public PlanetDetail(EmpireData empireIntel, ClientState stateData)
         {
-            this.starReports = starReports;
-            this.fleetReports = fleetReports;
-            this.researchBudget = researchBudget;
-            this.empireRace = empireRace;
+            this.empireIntel = empireIntel;
             this.stateData = stateData;
             
             InitializeComponent();
@@ -108,7 +102,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void NextPlanet_Click(object sender, EventArgs e)
         {
-            if (starReports.Owned(empireRace.Name) == 1)
+            if (empireIntel.StarReports.Owned(empireIntel.Id) == 1)
             {
                 previousPlanet.Enabled = false;
                 nextPlanet.Enabled = false;
@@ -118,7 +112,7 @@ namespace Nova.WinForms.Gui
             previousPlanet.Enabled = true;
             nextPlanet.Enabled = true;
 
-            selectedStar = starReports.GetNextOwned(starReports[selectedStar.Name]);
+            selectedStar = empireIntel.StarReports.GetNextOwned(empireIntel.StarReports[selectedStar.Name]);
 
             // Inform of the selection change to all listening objects.
             FireStarSelectionChangedEvent();
@@ -135,7 +129,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void PreviousPlanet_Click(object sender, EventArgs e)
         {
-            if (starReports.Owned(empireRace.Name) == 1)
+            if (empireIntel.StarReports.Owned(empireIntel.Id) == 1)
             {
                 previousPlanet.Enabled = false;
                 nextPlanet.Enabled = false;
@@ -145,7 +139,7 @@ namespace Nova.WinForms.Gui
             previousPlanet.Enabled = true;
             nextPlanet.Enabled = true;
 
-            selectedStar = starReports.GetPreviousOwned(starReports[selectedStar.Name]);
+            selectedStar = empireIntel.StarReports.GetPreviousOwned(empireIntel.StarReports[selectedStar.Name]);
 
             // Inform of the selection change to all listening objects.
             FireStarSelectionChangedEvent();
@@ -181,7 +175,7 @@ namespace Nova.WinForms.Gui
 
             groupPlanetSelect.Text = "Planet " + selectedStar.Name;
 
-            if (starReports.Owned(empireRace.Name) > 1)
+            if (empireIntel.StarReports.Owned(empireIntel.Id) > 1)
             {                
                 previousPlanet.Enabled = true;
                 nextPlanet.Enabled = true;
@@ -225,7 +219,7 @@ namespace Nova.WinForms.Gui
 
             if (selectedStar.OnlyLeftover == false)
             {
-                resourceDisplay.ResearchBudget = researchBudget;
+                resourceDisplay.ResearchBudget = empireIntel.ResearchBudget;
             }
             else
             {
@@ -262,7 +256,7 @@ namespace Nova.WinForms.Gui
 
             List<String> fleetnames = new List<string>();
             fleetsInOrbit = new Dictionary<string, Fleet>();
-            foreach (FleetIntel fleet in fleetReports.Values)
+            foreach (FleetIntel fleet in empireIntel.FleetReports.Values)
             {
                 if ( fleet.InOrbit != null &&  fleet.InOrbit.Name == selectedStar.Name && !fleet.IsStarbase)
                 {

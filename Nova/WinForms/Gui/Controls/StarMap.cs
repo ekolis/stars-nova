@@ -222,7 +222,7 @@ namespace Nova.WinForms.Gui
 
             foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
             {
-                if (report.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                if (report.Owner == stateData.EmpireIntel.Id)
                 {
                     DrawCircle(g, lrScanBrush, (Point)report.Position, report.ScanRange);
                 }
@@ -232,7 +232,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in stateData.EmpireIntel.FleetReports.Values)
             {
-                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.Id)
                 {
                     DrawCircle(g, lrScanBrush, (Point)fleet.Position, fleet.ScanRange);
                 }
@@ -242,7 +242,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in stateData.EmpireIntel.FleetReports.Values)
             {
-                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.Id)
                 {
                     DrawCircle(g, srScanBrush, (Point)fleet.Position, fleet.PenScanRange);
                 }
@@ -255,7 +255,7 @@ namespace Nova.WinForms.Gui
                 Color cb;
                 Color cf;
 
-                if (minefield.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                if (minefield.Owner == stateData.EmpireIntel.Id)
                 {
                     cb = Color.FromArgb(0, 0, 0, 0);
                     cf = Color.FromArgb(128, 0, 128, 0);
@@ -387,7 +387,7 @@ namespace Nova.WinForms.Gui
                 g.TranslateTransform(position.X, position.Y);
                 g.RotateTransform((float)fleet.Bearing);
 
-                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.Id)
                 {
                     g.FillPolygon(Brushes.Blue, triangle);
                 }
@@ -399,7 +399,7 @@ namespace Nova.WinForms.Gui
                 g.ResetTransform();
             }
 
-            if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
+            if (fleet.Owner == stateData.EmpireIntel.Id)
             {
                 Waypoint first = fleet.Waypoints[0];
                 NovaPoint from = LogicalToDevice(first.Position);
@@ -433,7 +433,7 @@ namespace Nova.WinForms.Gui
             NovaPoint position = LogicalToDevice(star.Position);
             int size = 2;
             Brush starBrush = Brushes.White;
-            string owner = "???";
+            int owner = Global.NoOwner;
 
             // Bigger symbol for explored stars.
 
@@ -446,13 +446,13 @@ namespace Nova.WinForms.Gui
             // Our stars are greenish, other's are red, unknown or uncolonised
             // stars are white.
 
-            if (owner == stateData.EmpireIntel.EmpireRace.Name)
+            if (owner == stateData.EmpireIntel.Id)
             {
                 starBrush = Brushes.GreenYellow;
             }
             else
             {
-                if (owner != null && owner != "???")
+                if (owner != Global.NoOwner)
                 {
                     starBrush = Brushes.Red;
                 }
@@ -529,7 +529,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in turnData.EmpireIntel.FleetReports.Values)
             {
-                if (fleet.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                if (fleet.Owner == stateData.EmpireIntel.Id)
                 {
                     playersFleets.Add(fleet);
                 }
@@ -541,7 +541,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Minefield minefield in this.turnData.AllMinefields.Values)
             {
-                if (minefield.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                if (minefield.Owner == stateData.EmpireIntel.Id)
                 {
                     this.visibleMinefields[minefield.Key] = minefield;
                 }
@@ -579,7 +579,7 @@ namespace Nova.WinForms.Gui
             {
                 foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
                 {
-                    if (report.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                    if (report.Owner == stateData.EmpireIntel.Id)
                     {
 
                         bool isIn = PointUtilities.CirclesOverlap(

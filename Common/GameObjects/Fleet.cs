@@ -79,7 +79,7 @@ namespace Nova.Common
         /// <param name="n">The fleet name.</param>
         /// <param name="o">The fleet owner.</param>
         /// <param name="p">The fleet position</param>
-        public Fleet(string n, string o, NovaPoint p)
+        public Fleet(string n, int o, NovaPoint p)
         {
             Name = n;
             Owner = o;

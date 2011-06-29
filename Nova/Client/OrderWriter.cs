@@ -75,7 +75,7 @@ namespace Nova.Client
                         
             foreach (Design design in inputTurn.AllDesigns.Values)
             {
-               if (design.Owner == raceName)
+               if (design.Owner == stateData.EmpireIntel.Id)
                {
                    outputTurn.RaceDesigns.Add(design.Key, design);
                }

@@ -326,9 +326,9 @@ namespace Nova.Client
             // Add some initial state
             if (FirstTurn)
             {
-                foreach (string raceName in InputTurn.AllRaceNames)
+                foreach (int empireId in InputTurn.AllEmpireIds)
                 {
-                    EmpireIntel.PlayerRelations[raceName] = PlayerRelation.Neutral;
+                    EmpireIntel.PlayerRelations[empireId] = PlayerRelation.Neutral;
                 }
             }
             
@@ -638,7 +638,7 @@ namespace Nova.Client
                 if (star.ThisRace != null)
                 {
                     // Reduntant, but works to check if race name is valid...
-                    if (star.Owner == EmpireIntel.EmpireRace.Name)
+                    if (star.Owner == EmpireIntel.Id)
                     {
                         star.ThisRace = EmpireIntel.EmpireRace;
                     }

@@ -53,7 +53,7 @@ namespace Nova.Common.DataStructures
         }
         public List<BattleStep> Steps = new List<BattleStep>();
         public Dictionary<string, Fleet> Stacks = new Dictionary<string, Fleet>();
-        public Dictionary<string, int> Losses = new Dictionary<string, int>(); // raceName, lossCount
+        public Dictionary<int, int> Losses = new Dictionary<int, int>(); // empireId, lossCount
         
         /// <summary>
         /// Default constructor.
@@ -118,9 +118,9 @@ namespace Nova.Common.DataStructures
                             break;
 
                         case "losses":
-                            string raceName = subnode.SelectSingleNode("Race").FirstChild.Value;
+                            int empireId = int.Parse(subnode.SelectSingleNode("EmpireId").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             int lossCount = int.Parse(subnode.SelectSingleNode("Count").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            Losses.Add(raceName, lossCount);
+                            Losses.Add(empireId, lossCount);
                             break;
 
                         case "fleet": 
@@ -190,10 +190,10 @@ namespace Nova.Common.DataStructures
             // Losses< raceName, lossCount>
             if (Losses.Count > 0)
             {
-                foreach (KeyValuePair<string, int> de in Losses)
+                foreach (KeyValuePair<int, int> de in Losses)
                 {
                     XmlElement xmlelLosses = xmldoc.CreateElement("Losses");
-                    Global.SaveData(xmldoc, xmlelLosses, "Race", de.Key);
+                    Global.SaveData(xmldoc, xmlelLosses, "EmpireId", de.Key);
                     Global.SaveData(xmldoc, xmlelLosses, "Count", de.Value.ToString(System.Globalization.CultureInfo.InvariantCulture));
                     xmlelBattleReport.AppendChild(xmlelLosses);
                 }

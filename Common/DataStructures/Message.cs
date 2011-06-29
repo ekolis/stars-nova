@@ -41,7 +41,7 @@ namespace Nova.Common
     public class Message
     {
         public string Text;      // The text to display in the message box.
-        public string Audience;  // A string representing the destination of the message. Either a race name or an asterix. 
+        public int Audience;     // An int representing the destination of the message. 0 means everyone. 
         public string Type;      // Text that indicates the type of event that generated the message.
         public object Event;     // An object used with the Goto button to display more information to the player. See Messages.GotoButton_Click
         // Ensure when adding new message types to add code to the Xml functions to handle your object type.
@@ -61,7 +61,7 @@ namespace Nova.Common
         /// <param name="audience">A string representing the destination of the message. Either a race name or and asterix.</param>
         /// <param name="messageEvent">An object used with the Goto button to display more information to the player. See Messages.GotoButton_Click</param>
         /// <param name="text">The text to display in the message box.</param>
-        public Message(string audience, string text, string messageType, object messageEvent)
+        public Message(int audience, string text, string messageType, object messageEvent)
         {
             Audience = audience;
             Text     = text;
@@ -92,13 +92,13 @@ namespace Nova.Common
                         case "text":
                             if (subnode.FirstChild != null)
                             {
-                                Text = ((XmlText)subnode.FirstChild).Value;
+                                Text = subnode.FirstChild.Value;
                             }
                             break;
                         case "audience":
                             if (subnode.FirstChild != null)
                             {
-                                Audience = ((XmlText)subnode.FirstChild).Value;
+                                Audience = int.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                             }
                             break;
                         case "type":
@@ -112,7 +112,7 @@ namespace Nova.Common
                             break;
 
                         case "Minefield":
-                            Event = ((XmlText)subnode.FirstChild).Value;
+                            Event = subnode.FirstChild.Value;
                             break;
 
                         default: break;
@@ -138,10 +138,9 @@ namespace Nova.Common
             {
                 Global.SaveData(xmldoc, xmlelMessage, "Text", Text);
             }
-            if (Audience != null)
-            {
-                Global.SaveData(xmldoc, xmlelMessage, "Audience", Audience);
-            }
+
+            Global.SaveData(xmldoc, xmlelMessage, "Audience", Audience.ToString("X"));
+
             if (Type != null)
             {
                 Global.SaveData(xmldoc, xmlelMessage, "Type", Type);

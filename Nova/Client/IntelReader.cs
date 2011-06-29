@@ -158,7 +158,7 @@ namespace Nova.Client
             {
                 if (star.ThisRace != null)
                 {
-                    if (star.Owner == stateData.EmpireIntel.EmpireRace.Name)
+                    if (star.Owner == stateData.EmpireIntel.Id)
                     {
                         star.ThisRace = stateData.EmpireIntel.EmpireRace;
                     }
@@ -239,8 +239,8 @@ namespace Nova.Client
         {
             foreach (Message message in stateData.InputTurn.Messages)
             {
-                if ((message.Audience == stateData.EmpireIntel.EmpireRace.Name) ||
-                    (message.Audience == "*"))
+                if ((message.Audience == stateData.EmpireIntel.Id) ||
+                    (message.Audience == Global.AllEmpires))
                 {
                     stateData.Messages.Add(message);
                 }
@@ -277,7 +277,7 @@ namespace Nova.Client
         private void ReportLevelUpdate(TechLevel.ResearchField area, int level)
         {
             Message techAdvanceMessage = new Message(
-                stateData.EmpireIntel.EmpireRace.Name,
+                stateData.EmpireIntel.Id,
                 "Your race has advanced to Tech Level " + level + " in the " + area.ToString() + " field",
                 "TechAdvance",
                 null);
@@ -298,13 +298,13 @@ namespace Nova.Client
                     if (component.Properties.ContainsKey("Scaner") && component.Type == "Planetary Installations")
                     {
                         newComponentMessage = new Message(
-                            stateData.EmpireIntel.EmpireRace.Name,
+                            stateData.EmpireIntel.Id,
                             null,
                             "All existing planetary scanners has been replaced by " + component.Name + " " + component.Type,
                             null);
                         foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
                         {
-                            if (report.Owner == stateData.EmpireIntel.EmpireRace.Name &&
+                            if (report.Owner == stateData.EmpireIntel.Id &&
                                 report.ScannerType != string.Empty)
                             {
                                 report.ScannerType = component.Name;
@@ -314,7 +314,7 @@ namespace Nova.Client
                     else
                     {
                         newComponentMessage = new Message(
-                           stateData.EmpireIntel.EmpireRace.Name,
+                           stateData.EmpireIntel.Id,
                            null,
                            "You now have available the " + component.Name + " " + component.Type + " component",
                            null);

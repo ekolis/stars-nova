@@ -94,7 +94,7 @@ namespace Nova.WinForms.Console
                 stateData.AllMessages.Add(message);
                 return;
             }
-            if (star.Owner == null)
+            if (star.Owner == Global.NoOwner)
             {
                 // This star has not been colonised. Can't invade.
                 Message message = new Message();
@@ -159,13 +159,13 @@ namespace Nova.WinForms.Console
 
             // Apply defender and attacker bonuses
             double attackerBonus = 1.1;
-            if (stateData.AllRaces[fleet.Owner].HasTrait("WM"))
+            if (stateData.AllEmpires[fleet.Owner].EmpireRace.HasTrait("WM"))
             {
                 attackerBonus *= 1.5;
             }
 
             double defenderBonus = 1.0;
-            if (stateData.AllRaces[fleet.Owner].HasTrait("IS"))
+            if (stateData.AllEmpires[fleet.Owner].EmpireRace.HasTrait("IS"))
             {
                 defenderBonus *= 2.0;
             }
@@ -232,7 +232,7 @@ namespace Nova.WinForms.Console
                 star.Colonists = 0;
                 star.Mines = 0;
                 star.Factories = 0;
-                star.Owner = null;
+                star.Owner = Global.NoOwner;
             }
 
         }

@@ -42,7 +42,6 @@ namespace Nova.WinForms.Gui
     public partial class DesignManager : Form
     {
         private readonly ClientState stateData;
-        private readonly Intel turnData;
 
         /// <Summary>
         /// This event should be fired when a waypoint is deleted,
@@ -59,7 +58,6 @@ namespace Nova.WinForms.Gui
         {
             InitializeComponent();
             this.stateData = stateData;
-            this.turnData = this.stateData.InputTurn;
             this.hullGrid.ModuleSelected += DesignModuleSelected;
         }
 
@@ -93,13 +91,13 @@ namespace Nova.WinForms.Gui
             // Populate the "Design Owner" ComboBox with a list of players and
             // select the current race as the default
 
-            foreach (string raceName in this.turnData.AllRaceNames)
+            foreach (int empireId in stateData.InputTurn.AllEmpireIds)
             {
-                this.designOwner.Items.Add(raceName);
+                this.designOwner.Items.Add(empireId);
             }
 
             designOwner.SelectedItem = stateData.EmpireIntel.EmpireRace.Name;
-            ListDesigns(stateData.EmpireIntel.EmpireRace.Name);
+            ListDesigns(stateData.EmpireIntel.Id);
         }
 
 
@@ -121,7 +119,7 @@ namespace Nova.WinForms.Gui
             string race = this.designOwner.SelectedItem.ToString();
 
             ShipDesign design =
-                       this.turnData.AllDesigns[race + "/" + name] as ShipDesign;
+                       stateData.InputTurn.AllDesigns[race + "/" + name] as ShipDesign;
 
             DisplayDesign(design);
         }
@@ -197,7 +195,7 @@ Are you sure you want to do this?";
 
             List<Fleet> fleetsToRemove = new List<Fleet>();
 
-            foreach (FleetIntel fleet in turnData.EmpireIntel.FleetReports.Values)
+            foreach (FleetIntel fleet in stateData.EmpireIntel.FleetReports.Values)
             {
 
                 List<Ship> shipsToRemove = new List<Ship>();
@@ -228,7 +226,7 @@ Are you sure you want to do this?";
             }
 
             stateData.DeletedDesigns.Add(design.Key);
-            this.turnData.AllDesigns.Remove(design.Key);
+            stateData.InputTurn.AllDesigns.Remove(design.Key);
             DesignOwner_SelectedIndexChanged(null, null);
 
             // Ensure the Star map is updated in case we've completely removed any
@@ -250,7 +248,7 @@ Are you sure you want to do this?";
         /// ----------------------------------------------------------------------------
         private void DesignOwner_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListDesigns(this.designOwner.SelectedItem.ToString());
+            ListDesigns(int.Parse(this.designOwner.SelectedItem.ToString()));
             this.hullGrid.Clear(true);
             this.designName.Text = null;
             this.designResources.Value = new Nova.Common.Resources();
@@ -284,18 +282,18 @@ Are you sure you want to do this?";
         /// </Summary>
         /// <param name="raceName"></param>
         /// ----------------------------------------------------------------------------
-        private void ListDesigns(string raceName)
+        private void ListDesigns(int ownerId)
         {
             this.designList.Items.Clear();
             this.designList.BeginUpdate();
 
-            foreach (Design design in this.turnData.AllDesigns.Values)
+            foreach (Design design in stateData.InputTurn.AllDesigns.Values)
             {
                 if (design.Type == "Ship" || design.Type == "Starbase")
                 {
-                    if (design.Owner == raceName)
+                    if (design.Owner == ownerId)
                     {
-                        if (raceName == stateData.EmpireIntel.EmpireRace.Name ||
+                        if (ownerId == stateData.EmpireIntel.Id ||
                             this.stateData.EnemyDesigns.ContainsKey(design.Key))
                         {
 
@@ -322,7 +320,7 @@ Are you sure you want to do this?";
             itemToAdd.Text = design.Name;
             itemToAdd.Tag = design;
 
-            if (design.Owner == stateData.EmpireIntel.EmpireRace.Name)
+            if (design.Owner == stateData.EmpireIntel.Id)
             {
                 int quantity = CountDesigns(design);
                 itemToAdd.SubItems.Add(quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
@@ -347,7 +345,7 @@ Are you sure you want to do this?";
         {
             int quantity = 0;
 
-            foreach (FleetIntel fleet in turnData.EmpireIntel.FleetReports.Values)
+            foreach (FleetIntel fleet in stateData.EmpireIntel.FleetReports.Values)
             {
                 foreach (Ship ship in fleet.FleetShips)
                 {

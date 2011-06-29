@@ -212,7 +212,7 @@ namespace Nova.WinForms.Console
 
             foreach (List<Fleet> coLocatedFleets in fleetPositions)
             {
-                Dictionary<string, bool> races = new Dictionary<string, bool>();
+                Dictionary<int, bool> races = new Dictionary<int, bool>();
 
                 foreach (Fleet fleet in coLocatedFleets)
                 {
@@ -308,15 +308,15 @@ namespace Nova.WinForms.Console
         /// <param name="zoneStacks">All stacks in this battle.</param>
         public void PositionStacks(List<Fleet> zoneStacks)
         {
-            Dictionary<string, string> races = new Dictionary<string, string>();
-            Dictionary<string, Point> racePositions = new Dictionary<string, Point>();
+            Dictionary<int, int> empires = new Dictionary<int, int>();
+            Dictionary<int, Point> racePositions = new Dictionary<int, Point>();
 
             foreach (Fleet stack in zoneStacks)
             {
-                races[stack.Owner] = stack.Owner;
+                empires[stack.Owner] = stack.Owner;
             }
 
-            SpaceAllocator spaceAllocator = new SpaceAllocator(races.Count);
+            SpaceAllocator spaceAllocator = new SpaceAllocator(empires.Count);
 
             // Ensure that we allocate enough space so that all race stacks are
             // out of weapons range (scaled).
@@ -330,7 +330,7 @@ namespace Nova.WinForms.Console
             // Now allocate a position for each race in the centre of one of the
             // allocated spacial chunks.
 
-            foreach (string raceName in races.Values)
+            foreach (int empireId in empires.Values)
             {
                 Rectangle newPosition = spaceAllocator.GetBox();
                 Point position = new Point();
@@ -338,8 +338,8 @@ namespace Nova.WinForms.Console
                 position.X = newPosition.X + (newPosition.Width / 2);
                 position.Y = newPosition.Y + (newPosition.Height / 2);
 
-                racePositions[raceName] = position;
-                battle.Losses[raceName] = 0;
+                racePositions[empireId] = position;
+                battle.Losses[empireId] = 0;
             }
 
             // Place all stacks belonging to the same race at the same position.
@@ -450,17 +450,15 @@ namespace Nova.WinForms.Console
 
             BattlePlan battlePlan = wolfData.BattlePlans[wolf.BattlePlan];
 
-            string attackTarget = battlePlan.Attack;
-
-            if (attackTarget == "Everyone")
+            if (battlePlan.Attack == "Everyone")
             {
                 return true;
             }
-            else if (attackTarget == lamb.Owner)
+            else if (battlePlan.TargetId == lamb.Owner)
             {
                 return true;
             }
-            else if (attackTarget == "Enemies" && lambRelation == PlayerRelation.Enemy)
+            else if (battlePlan.Attack == "Enemies" && lambRelation == PlayerRelation.Enemy)
             {
                 return true;
             }
@@ -738,8 +736,8 @@ namespace Nova.WinForms.Console
                 }
             }
 
-            string targetRace = details.TargetStack.Owner;
-            battle.Losses[targetRace] = (int)battle.Losses[targetRace] + 1;
+            int targetEmpire = details.TargetStack.Owner;
+            battle.Losses[targetEmpire] = battle.Losses[targetEmpire] + 1;
         }
 
         /// <summary>
@@ -911,21 +909,21 @@ namespace Nova.WinForms.Console
         /// </summary>
         private void ReportLosses()
         {
-            foreach (string race in battle.Losses.Keys)
+            foreach (int empire in battle.Losses.Keys)
             {
                 Message message = new Message(
-                    race,
+                    empire,
                     "There was a battle at " + battle.Location + "\r\n",
                     "BattleReport",
                     battle);
 
-                if ((int)battle.Losses[race] == 0)
+                if (battle.Losses[empire] == 0)
                 {
                     message.Text += "None of your ships were destroyed";
                 }
                 else
                 {
-                    message.Text += ((int)battle.Losses[race]).ToString(System.Globalization.CultureInfo.InvariantCulture) +
+                    message.Text += (battle.Losses[empire]).ToString(System.Globalization.CultureInfo.InvariantCulture) +
                        " of your ships were destroyed";
                 }
 

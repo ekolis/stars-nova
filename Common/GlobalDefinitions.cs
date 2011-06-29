@@ -130,6 +130,10 @@ namespace Nova.Common
        public const int MaxFleetAmount              = 512;
        public const int MaxDesignsAmount            = 16;
        public const int MaxStarbaseDesignsAmount    = 10;
+       
+       // Defaults
+       public const int NoOwner = 0x00000000; // As an empire Id cannot be 0, it is used for no owner.
+       public const int AllEmpires = NoOwner;
 
        #endregion
 

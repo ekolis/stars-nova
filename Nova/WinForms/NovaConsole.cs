@@ -822,7 +822,7 @@ namespace Nova.WinForms.Console
                 // and color code to highlight which races we are waiting on (if we wait).
 
                 EmpireData empireData;
-                stateData.AllEmpires.TryGetValue(settings.RaceName, out empireData);
+                stateData.AllEmpires.TryGetValue((settings.PlayerNumber << 24), out empireData);
 
                 ListViewItem.ListViewSubItem yearItem = new ListViewItem.ListViewSubItem();
                 if (empireData == null || empireData.TurnYear == Global.StartingYear)
@@ -915,7 +915,7 @@ namespace Nova.WinForms.Console
                     }
 
                     EmpireData empireData;
-                    stateData.AllEmpires.TryGetValue(settings.RaceName, out empireData);
+                    stateData.AllEmpires.TryGetValue((settings.PlayerNumber << 24), out empireData);
                     if (empireData == null || empireData.TurnYear != stateData.TurnYear)
                     {
                         // TODO: Add support for running custom AIs based on settings.AiProgram.

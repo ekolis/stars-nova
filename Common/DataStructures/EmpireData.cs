@@ -51,12 +51,12 @@ namespace Nova.Common
         public TechLevel    ResearchLevels          = new TechLevel(); // current levels of technology
         public TechLevel    ResearchResources       = new TechLevel(); // current cumulative resources on technologies
         public TechLevel    ResearchTopics          = new TechLevel(); // order or researching
-        public TechLevel    ResearchLevelsGained    = new TechLevel(); // research level increases, reset per turn.
+        public TechLevel    ResearchLevelsGained    = new TechLevel(); // research level increases, reset per turn
         
         public StarIntelList        StarReports     = new StarIntelList();
         public FleetIntelList       FleetReports    = new FleetIntelList();
         
-        public Dictionary<string, PlayerRelation>   PlayerRelations = new Dictionary<string, PlayerRelation>();
+        public Dictionary<int, PlayerRelation>   PlayerRelations = new Dictionary<int, PlayerRelation>();
         public Dictionary<string, BattlePlan>       BattlePlans     = new Dictionary<string, BattlePlan>();
         
         public int FleetCounter             = 0;
@@ -98,7 +98,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="lamb">The name of the race who may be attacked.</param>
         /// <returns>true if lamb is one of this race's enemies, otherwise false.</returns>
-        public bool IsEnemy(string lamb)
+        public bool IsEnemy(int lamb)
         {
             return PlayerRelations[lamb] == PlayerRelation.Enemy;
         }
@@ -173,8 +173,8 @@ namespace Nova.Common
                             break;
                         case "relation":
                             {
-                                string key = ((XmlText)subnode.SelectSingleNode("Race").FirstChild).Value;
-                                string value = ((XmlText)subnode.SelectSingleNode("Status").FirstChild).Value;
+                                int key = int.Parse(subnode.SelectSingleNode("Id").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                                string value = subnode.SelectSingleNode("Status").FirstChild.Value;
                                 PlayerRelation rel = value.Equals("Enemy", StringComparison.InvariantCultureIgnoreCase) ? PlayerRelation.Enemy :
                                                      value.Equals("Friend", StringComparison.InvariantCultureIgnoreCase) ? PlayerRelation.Friend :
                                                      PlayerRelation.Neutral;
@@ -242,12 +242,12 @@ namespace Nova.Common
             }
             xmlelEmpireData.AppendChild(xmlelFleetReports);
             
-            foreach (string key in PlayerRelations.Keys)
+            foreach (int lambId in PlayerRelations.Keys)
             {
                 XmlElement xmlelRelation = xmldoc.CreateElement("Relation");
-                Global.SaveData(xmldoc, xmlelRelation, "Race", key);
+                Global.SaveData(xmldoc, xmlelRelation, "Id", lambId.ToString("X"));
                 string rel;
-                switch( PlayerRelations[key])
+                switch( PlayerRelations[lambId])
                 {
                     case PlayerRelation.Enemy: rel = "Enemy"; break;
                     case PlayerRelation.Friend: rel = "Friend"; break;

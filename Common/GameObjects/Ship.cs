@@ -477,9 +477,6 @@ namespace Nova.Common
                             this.design = new ShipDesign();
                             this.design.Name = ((XmlText)subnode.FirstChild).Value; // Only the DesignName is loaded. This design must be replaced in the post load linking.
                             break;
-                        case "owner":
-                            Owner = ((XmlText)subnode.FirstChild).Value;
-                            break;
                         case "mass":
                             Mass = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;

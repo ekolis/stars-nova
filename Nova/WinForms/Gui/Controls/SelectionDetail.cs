@@ -45,10 +45,7 @@ namespace Nova.WinForms.Gui
         private Item selectedItem = null;
         private UserControl selectedControl = null;
   
-        private StarIntelList starReports;
-        private FleetIntelList fleetReports;
-        private Race playerRace;
-        private int researchBudget;
+        private readonly EmpireData empireIntel;
         
         public PlanetDetail PlanetDetail; 
         public FleetDetail FleetDetail;
@@ -63,23 +60,17 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
-        public SelectionDetail(StarIntelList starReports,
-                               FleetIntelList fleetReports,
+        public SelectionDetail(EmpireData empireIntel,
                                List<string> deletedFleets,
-                               Race playerRace,
-                               int researchBudget,
                                ClientState stateData)
         {
-            this.starReports = starReports;
-            this.fleetReports = fleetReports;
-            this.playerRace = playerRace;
-            this.researchBudget = researchBudget;
+            this.empireIntel = empireIntel;
             
             // FIXME: (priority 3) see declaration.
             this.stateData = stateData;
             
-            PlanetDetail = new PlanetDetail(starReports, fleetReports, researchBudget, playerRace, stateData);
-            FleetDetail = new FleetDetail(starReports, fleetReports, deletedFleets, playerRace, stateData.EmpireIntel.TurnYear);
+            PlanetDetail = new PlanetDetail(empireIntel, stateData);
+            FleetDetail = new FleetDetail(empireIntel, deletedFleets);
             
             InitializeComponent();
         }
@@ -144,7 +135,7 @@ namespace Nova.WinForms.Gui
             // To avoid confusion when another race's fleet or planet is selected
             // grey out (disable) the Detail panel.
 
-            if (item.Owner == playerRace.Name)
+            if (item.Owner == empireIntel.Id)
             {
                 Enabled = true;
             }
