@@ -51,7 +51,7 @@ namespace Nova.Tests.IntegrationTests
         [Test]
         public void Map800x400Test()
         {
-            const int NUM_ATTEMPTS = 0; // set to 100 to ensure fail
+            const int NUM_ATTEMPTS = 1; 
 
             // Generate the map
             ServerState stateData = new ServerState();
