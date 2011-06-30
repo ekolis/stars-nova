@@ -90,14 +90,10 @@ namespace Nova.Tests.IntegrationTests
             catch
             {
                 // fail on any exception
-                // MessageBox.Show("Number of stars: " + stateData.AllStars.Count);
+                System.Windows.Forms.MessageBox.Show("Number of stars: " + stateData.AllStars.Count); // keep this line for debugging - Dan 01 Jul 11
                 Assert.Fail();
             }
-
-            //Assert.Fail("This test does not pass with 100 repeats. Repeats have been disable to speed testing.");
-            
         }
-        
     }
 }
 
