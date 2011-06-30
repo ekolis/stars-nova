@@ -92,13 +92,6 @@ namespace Nova.Server
                     }
                 }
 
-                // Copy the list of other empires
-                foreach (EmpireData lamb in StateData.AllEmpires.Values)
-                {
-                    turnData.AllEmpireIds.Add(lamb.Id);
-                    turnData.RaceIcons[lamb.EmpireRace.Name] = lamb.EmpireRace.Icon;
-                }
-
                 // Copy any battle reports
                 foreach (BattleReport report in StateData.AllBattles)
                 {

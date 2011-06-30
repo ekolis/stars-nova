@@ -446,7 +446,7 @@ namespace Nova.WinForms.Console
             }
 
             EmpireData wolfData = stateData.AllEmpires[wolf.Owner];
-            PlayerRelation lambRelation = wolfData.PlayerRelations[lamb.Owner];
+            PlayerRelation lambRelation = wolfData.OtherEmpires[lamb.Owner].Relation;
 
             BattlePlan battlePlan = wolfData.BattlePlans[wolf.BattlePlan];
 

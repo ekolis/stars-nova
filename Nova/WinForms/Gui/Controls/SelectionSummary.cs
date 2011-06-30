@@ -35,7 +35,6 @@ namespace Nova.WinForms.Gui
     public partial class SelectionSummary : UserControl
     {
         private readonly EmpireData empireIntel;
-        private Dictionary<string, RaceIcon> raceIcons;
         
         private Item summaryItem = null;
         private PlanetSummary planetSummary;
@@ -44,13 +43,12 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the SelectionSummary class.
         /// </Summary>
-        public SelectionSummary(EmpireData empireIntel, Dictionary<string, RaceIcon> raceIcons)
+        public SelectionSummary(EmpireData empireIntel)
         {
             this.empireIntel = empireIntel;
-            this.raceIcons = raceIcons;
             
             planetSummary = new PlanetSummary(empireIntel);
-            fleetSummary = new FleetSummary(empireIntel, raceIcons);
+            fleetSummary = new FleetSummary(empireIntel);
             
             InitializeComponent();
         }

@@ -134,9 +134,11 @@ namespace Nova.WinForms
                                                          GameSettings.Data.GameName + Global.SettingsExtension;
                     conf[Global.ServerStateKey] = stateData.StatePathName;
                 }
+                
                 // Copy the player & race data to the ServerState
                 stateData.AllPlayers = Players;
 
+                // Assemble empires.
                 foreach (PlayerSettings settings in stateData.AllPlayers)
                 {
                     if (stateData.AllRaces.ContainsKey(settings.RaceName))
@@ -145,26 +147,30 @@ namespace Nova.WinForms
                         // This may mean a 2nd copy of the race in the data, but it's not much data and a copy of it doesn't really matter
                         settings.RaceName = AddKnownRace(KnownRaces[settings.RaceName].Clone());
                     }
+                    stateData.AllRaces.Add(settings.RaceName, KnownRaces[settings.RaceName]);
 
                     // Initialize clean data for them. 
                     EmpireData empireData = new EmpireData();
                     empireData.Id = settings.PlayerNumber;
-                    stateData.AllEmpires[empireData.Id] = empireData;
-
-                    stateData.AllRaces.Add(settings.RaceName, KnownRaces[settings.RaceName]);
                     empireData.EmpireRace = stateData.AllRaces[settings.RaceName];
+                    
+                    stateData.AllEmpires[empireData.Id] = empireData;                  
 
                     // Add initial state to the intel files.
                     ProcessPrimaryTraits(empireData);
                     ProcessSecondaryTraits(empireData);
                 }
-
+                
+                // Create initial relations.
                 foreach (EmpireData wolf in stateData.AllEmpires.Values)
-                {
-                    // Create initial relations as the race names may change
+                {                    
                     foreach (EmpireData lamb in stateData.AllEmpires.Values)
                     {
-                        stateData.AllEmpires[wolf.Id].PlayerRelations[lamb.Id] = PlayerRelation.Enemy;
+                        if (wolf.Id != lamb.Id)
+                        {
+                            wolf.OtherEmpires.Add(lamb.Id, new EnemyData(lamb));
+                            wolf.OtherEmpires[lamb.Id].Relation = PlayerRelation.Enemy;                            
+                        }
                     }
                   
                 }
