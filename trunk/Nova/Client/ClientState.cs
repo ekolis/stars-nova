@@ -322,15 +322,6 @@ namespace Nova.Client
             
             // See which components are available.
             UpdateAvailableComponents();
-                        
-            // Add some initial state
-            if (FirstTurn)
-            {
-                foreach (int empireId in InputTurn.AllEmpireIds)
-                {
-                    EmpireIntel.PlayerRelations[empireId] = PlayerRelation.Neutral;
-                }
-            }
             
             FirstTurn = false;
         }

@@ -91,7 +91,7 @@ namespace Nova.WinForms.Gui
             // Populate the "Design Owner" ComboBox with a list of players and
             // select the current race as the default
 
-            foreach (int empireId in stateData.InputTurn.AllEmpireIds)
+            foreach (int empireId in stateData.EmpireIntel.OtherEmpires.Keys)
             {
                 this.designOwner.Items.Add(empireId);
             }

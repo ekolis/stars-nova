@@ -56,8 +56,9 @@ namespace Nova.Common
         public StarIntelList        StarReports     = new StarIntelList();
         public FleetIntelList       FleetReports    = new FleetIntelList();
         
-        public Dictionary<int, PlayerRelation>   PlayerRelations = new Dictionary<int, PlayerRelation>();
         public Dictionary<string, BattlePlan>       BattlePlans     = new Dictionary<string, BattlePlan>();
+        
+        public Dictionary<int, EnemyData> OtherEmpires = new Dictionary<int, EnemyData>();
         
         // See associated properties.
         private int FleetCounter             = 0;
@@ -128,13 +129,13 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Determine if this race wishes to treat lamb as an enemy.
+        /// Determine if this empire wishes to treat lamb as an enemy.
         /// </summary>
-        /// <param name="lamb">The name of the race who may be attacked.</param>
-        /// <returns>true if lamb is one of this race's enemies, otherwise false.</returns>
+        /// <param name="lamb">The id of the empire who may be attacked.</param>
+        /// <returns>true if lamb is one of this empire's enemies, otherwise false.</returns>
         public bool IsEnemy(int lamb)
         {
-            return PlayerRelations[lamb] == PlayerRelation.Enemy;
+            return OtherEmpires[lamb].Relation == PlayerRelation.Enemy;
         }
 
         /// <summary>
@@ -151,7 +152,7 @@ namespace Nova.Common
                 {
                     switch (subnode.Name.ToLower())
                     {
-                        case "empireid":
+                        case "id":
                             empireId = int.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                             break;
                         case "fleetcounter":
@@ -205,16 +206,15 @@ namespace Nova.Common
                                 tNode = tNode.NextSibling;
                             }
                             break;
-                        case "relation":
+                        case "otherempires":
+                            tNode = subnode.FirstChild;
+                            while (tNode != null)
                             {
-                                int key = int.Parse(subnode.SelectSingleNode("Id").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                                string value = subnode.SelectSingleNode("Status").FirstChild.Value;
-                                PlayerRelation rel = value.Equals("Enemy", StringComparison.InvariantCultureIgnoreCase) ? PlayerRelation.Enemy :
-                                                     value.Equals("Friend", StringComparison.InvariantCultureIgnoreCase) ? PlayerRelation.Friend :
-                                                     PlayerRelation.Neutral;
-                                PlayerRelations.Add(key, rel);
-                                break;
+                                EnemyData otherEmpire = new EnemyData(tNode);
+                                OtherEmpires.Add(otherEmpire.Id, otherEmpire);
+                                tNode = tNode.NextSibling;
                             }
+                            break;
                         case "battleplan":
                             BattlePlan plan = new BattlePlan(subnode);
                             BattlePlans[plan.Name] = plan;
@@ -247,7 +247,7 @@ namespace Nova.Common
             
             xmlelEmpireData.AppendChild(EmpireRace.ToXml(xmldoc));
             
-            Global.SaveData(xmldoc, xmlelEmpireData, "EmpireId", empireId.ToString("X"));
+            Global.SaveData(xmldoc, xmlelEmpireData, "Id", empireId.ToString("X"));
             
             Global.SaveData(xmldoc, xmlelEmpireData, "FleetCounter", FleetCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelEmpireData, "DesignCounter", DesignCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
@@ -276,20 +276,13 @@ namespace Nova.Common
             }
             xmlelEmpireData.AppendChild(xmlelFleetReports);
             
-            foreach (int lambId in PlayerRelations.Keys)
+            XmlElement xmlelEnemyIntel = xmldoc.CreateElement("OtherEmpires");            
+            foreach (EnemyData otherEmpire in OtherEmpires.Values)
             {
-                XmlElement xmlelRelation = xmldoc.CreateElement("Relation");
-                Global.SaveData(xmldoc, xmlelRelation, "Id", lambId.ToString("X"));
-                string rel;
-                switch( PlayerRelations[lambId])
-                {
-                    case PlayerRelation.Enemy: rel = "Enemy"; break;
-                    case PlayerRelation.Friend: rel = "Friend"; break;
-                    default: rel = "Neutral"; break;
-                }
-                Global.SaveData(xmldoc, xmlelRelation, "Status", rel);
-                xmlelEmpireData.AppendChild(xmlelRelation);
+                xmlelEnemyIntel.AppendChild(otherEmpire.ToXml(xmldoc));    
             }
+            xmlelEmpireData.AppendChild(xmlelEnemyIntel);
+            
             foreach (string key in BattlePlans.Keys)
             {
                 xmlelEmpireData.AppendChild(BattlePlans[key].ToXml(xmldoc));
@@ -313,7 +306,6 @@ namespace Nova.Common
             StarReports.Clear();
             FleetReports.Clear();
             
-            PlayerRelations.Clear();
             BattlePlans.Clear();
         }
     }

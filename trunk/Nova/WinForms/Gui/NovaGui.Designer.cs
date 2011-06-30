@@ -35,8 +35,7 @@ namespace Nova.WinForms.Gui
             this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(stateData.EmpireIntel,
                                                                             stateData.DeletedFleets,
                                                                             stateData);
-            this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(stateData.EmpireIntel,
-                                                                             stateData.InputTurn.RaceIcons);
+            this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(stateData.EmpireIntel);
             this.mapControl         = new Nova.WinForms.Gui.StarMap();
 
             this.groupBox2.SuspendLayout();

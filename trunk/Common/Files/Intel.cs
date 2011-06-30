@@ -65,15 +65,7 @@ namespace Nova.Common
         
         public List<Message> Messages = new List<Message>();
         public List<BattleReport> Battles = new List<BattleReport>();
-        public List<int> AllEmpireIds = new List<int>();
         public List<ScoreRecord> AllScores = new List<ScoreRecord>();
-
-        /// <summary>
-        /// Provide access for the client/GUI to a list of race icons for races the player has encountered, indexed by race name.
-        /// Disambiguation: The AllRaceIcons singleton is a collection of all posible icons for use when creating races.
-        /// The server/console should obtain race icon information from ServerState.Data.AllRaces. The client can not maintain such a collection as it has insuficient data on all races.
-        /// </summary>
-        public Dictionary<string, RaceIcon> RaceIcons = new Dictionary<string, RaceIcon>();
         
         public Dictionary<string, Design> AllDesigns = new Dictionary<string, Design>();
         public Dictionary<string, Minefield> AllMinefields = new Dictionary<string, Minefield>();
@@ -91,7 +83,6 @@ namespace Nova.Common
         public void Clear()
         {
             AllDesigns.Clear();
-            AllEmpireIds.Clear();
             AllMinefields.Clear();
             Battles.Clear();
             Messages.Clear();
@@ -145,45 +136,6 @@ namespace Nova.Common
                         case "scorerecord":
                             ScoreRecord newScore = new ScoreRecord(xmlnode);
                             AllScores.Add(newScore);
-                            break;
-
-                        case "raceiconrecord":
-                            // The race icon record is a dictionary entry (i.e. key/value pair) which links the race name to a given RaceIcon.
-                            // This provides the client/GUI with a way to find icons for known races (as it doesn't/can't have AllRace data). 
-                            // Both key and value must be serialised as the race name is not something that can be generated from the icon.
-                            try
-                            {
-                                // first node should be the race name
-                                string raceName;
-                                XmlNode raceNameNode = xmlnode.FirstChild;
-                                if (raceNameNode.Name.ToLower() == "racename")
-                                {
-                                    raceName = raceNameNode.FirstChild.Value;
-                                }
-                                else
-                                {
-                                    throw new Exception("Intel.cs : Xml Constructor - failed to load race icon record: race name not found.");
-                                }
-
-                                // second node should be the RaceIcon
-                                RaceIcon newIcon = null;
-                                XmlNode iconSourceNode = raceNameNode.NextSibling;
-                                if (iconSourceNode.Name.ToLower() == "raceicon")
-                                {
-                                    newIcon = new RaceIcon(xmlnode.FirstChild);
-                                }
-                                else
-                                {
-                                    throw new Exception("Intel.cs : Xml Constructor - failed to load race icon record: RaceIcon not found");
-                                }
-
-                                RaceIcons.Add(raceName, newIcon);
-                            }
-                            catch (Exception e)
-                            {
-                                Report.FatalError(e.Message + "\n Details: \n" + e);
-
-                            }
                             break;
 
                         case "design":
@@ -245,25 +197,10 @@ namespace Nova.Common
                 }
             }
 
-            // AllRaceNames 
-            foreach (int empireId in AllEmpireIds)
-            {
-                Global.SaveData(xmldoc, xmlelIntel, "EmpireId", empireId.ToString("X"));
-            }
-
             // AllScores 
             foreach (ScoreRecord score in AllScores)
             {
                 xmlelIntel.AppendChild(score.ToXml(xmldoc));
-            }
-
-            // RaceIcons
-            foreach (KeyValuePair<string, RaceIcon> raceIconRecord in RaceIcons)
-            {
-                XmlElement xmlelRaceIconRecord = xmldoc.CreateElement("RaceIconRecord");
-                Global.SaveData(xmldoc, xmlelRaceIconRecord, "RaceName", raceIconRecord.Key);
-                xmlelRaceIconRecord.AppendChild(raceIconRecord.Value.ToXml(xmldoc));
-                xmlelIntel.AppendChild(xmlelRaceIconRecord);
             }
 
             // AllDesigns 

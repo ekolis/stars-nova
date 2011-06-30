@@ -203,8 +203,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void PlayerRelationsMenuItem_Click(object sender, EventArgs e)
         {
-            PlayerRelations relationshipDialog = new PlayerRelations(stateData.EmpireIntel.PlayerRelations,
-                                                                     stateData.InputTurn.AllEmpireIds,
+            PlayerRelations relationshipDialog = new PlayerRelations(stateData.EmpireIntel.OtherEmpires,
                                                                      stateData.EmpireIntel.Id);
             relationshipDialog.ShowDialog();
             relationshipDialog.Dispose();

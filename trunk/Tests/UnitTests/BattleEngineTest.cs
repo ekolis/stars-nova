@@ -196,11 +196,11 @@ namespace Nova.Tests.UnitTests
         {
             EmpireData empireData = new EmpireData();
 
-            empireData.PlayerRelations[1] = PlayerRelation.Enemy;
+            empireData.OtherEmpires[1].Relation = PlayerRelation.Enemy;
             empireData.BattlePlans["Default"] = new BattlePlan();
             stateData.AllEmpires[2] = empireData;
 
-            empireData.PlayerRelations[2] = PlayerRelation.Enemy;
+            empireData.OtherEmpires[2].Relation = PlayerRelation.Enemy;
             stateData.AllEmpires[3] = empireData;
 
             int numberOfTargets = battleEngine.SelectTargets(zoneStacks);
