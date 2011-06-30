@@ -90,7 +90,7 @@ namespace Nova.Common
         {
             get
             {
-                return ++FleetCounter;
+                return (++FleetCounter | empireId);
             }
         }
         
@@ -101,7 +101,7 @@ namespace Nova.Common
         {
             get
             {
-                return ++DesignCounter;
+                return (++DesignCounter | empireId);
             }
         }
         
@@ -112,7 +112,7 @@ namespace Nova.Common
         {
             get
             {
-                return ++StarbaseDesignCounter;
+                return (++StarbaseDesignCounter | empireId);
             }
         }
 
