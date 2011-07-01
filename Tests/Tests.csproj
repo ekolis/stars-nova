@@ -80,6 +80,7 @@
     <Compile Include="UnitTests\BombingTest.cs" />
     <Compile Include="IntegrationTests\IntelTests.cs" />
     <Compile Include="IntegrationTests\NewGameTest.cs" />
+    <Compile Include="UnitTests\ItemTest.cs" />
     <Compile Include="UnitTests\PointUtilitiesTests.cs" />
     <Compile Include="IntegrationTests\ServerStateTest.cs" />
     <Compile Include="UnitTests\DefencesTest.cs" />
