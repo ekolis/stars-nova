@@ -35,6 +35,7 @@ using Nova.Common;
 using Nova.Common.DataStructures;
 using Nova.Tests;
 using Nova.Tests.IntegrationTests;
+using Nova.Tests.UnitTests;
 
 namespace TestHarness
 {
@@ -47,17 +48,19 @@ namespace TestHarness
         public static void Main(string[] args)
         {
             // Run the New Game Test
+            /*
             NewGameTest test = new NewGameTest();
             for (int i = 1; i < 1000; i++)
             {
                 test.Map800x400Test();
             }
+             */
             // Run the Intel Serialization Test
             /*
             Intel test = new Intel();
             test.SerialisationTestEmptyIntel();
             test.SerialisationTestIntel();             
-             * */
+             */
 
             // Debuging battle test
             /*
@@ -69,7 +72,16 @@ namespace TestHarness
             /*
             BattleReport test = new BattleReport();
             test.SerialisationTestBattleReport();
-            */
+             */
+
+            // ItemTest
+            ItemTest test = new ItemTest();
+            test.Init();
+            test.Item1Owner();
+            test.Item1PureId();
+            test.Item2Owner();
+            test.Item2PureId();
+
 
         }
     }
