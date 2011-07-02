@@ -63,10 +63,13 @@ namespace TestHarness
              */
 
             // Debuging battle test
-            /*
+            
             BattleEngineTest test = new BattleEngineTest();
             test.Test1DetermineCoLocatedFleets();
-             */
+            test.Test2EliminateSingleRaces();
+            test.Test3GenerateStacks();
+            test.Test4SelectTargets();
+             
 
             // BattleReport
             /*
@@ -75,13 +78,14 @@ namespace TestHarness
              */
 
             // ItemTest
+            /*
             ItemTest test = new ItemTest();
             test.Init();
             test.Item1Owner();
             test.Item1PureId();
             test.Item2Owner();
             test.Item2PureId();
-
+            */
 
         }
     }

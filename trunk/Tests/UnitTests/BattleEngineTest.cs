@@ -67,7 +67,7 @@ namespace Nova.Tests.UnitTests
         private Fleet fleet1 = new Fleet("fleet1", 1, new Point(100, 200));
         private Fleet fleet2 = new Fleet("fleet2", 2, new Point(100, 200));
         private Fleet fleet3 = new Fleet("fleet3", 3, new Point(300, 400));
-        private Fleet fleet4 = new Fleet("fleet4", 4, new Point(300, 400));
+        private Fleet fleet4 = new Fleet("fleet4", 3, new Point(300, 400));
 
         private ShipDesign cruiser = new ShipDesign();
         private ShipDesign frigate = new ShipDesign();
@@ -102,17 +102,19 @@ namespace Nova.Tests.UnitTests
             Hull hull = new Hull();
             hull.FuelCapacity = 100;
             hull.Modules = new List<HullModule>();
+            shipHull.Cost = cost;
+            shipHull.Mass = 5000;
             shipHull.Properties.Add("Hull", hull);
             shipHull.Properties.Add("Battle Movement", new DoubleProperty(1.0));
 
             cruiser.ShipHull = shipHull;
-            cruiser.Mass = 5000;
-            cruiser.Cost = cost;
+            // cruiser.Mass = 5000;
+            // cruiser.Cost = cost;
             cruiser.Name = "Cruiser";
 
             frigate.ShipHull = shipHull;
-            frigate.Mass = 5000;
-            frigate.Cost = cost;
+            // frigate.Mass = 5000;
+            // frigate.Cost = cost;
             frigate.Name = "Frigate";
 
             ship1 = new Ship(cruiser);
@@ -187,21 +189,33 @@ namespace Nova.Tests.UnitTests
         /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Test for SelectTargets. In addition to submitting the stacks to the routine
-        /// we must also set up enough of an environment so that the races (tom and
-        /// dick) are enemies with an attack plan.
+        /// we must also set up enough of an environment so that the empires (1 "Tom" 
+        /// & 2 "Dick") are enemies with an attack plan.
         /// </Summary>
         /// ----------------------------------------------------------------------------
         [Test]
         public void Test4SelectTargets()
         {
-            EmpireData empireData = new EmpireData();
+            EmpireData empireData1 = new EmpireData();
+            EmpireData empireData2 = new EmpireData();
 
-            empireData.OtherEmpires[1].Relation = PlayerRelation.Enemy;
-            empireData.BattlePlans["Default"] = new BattlePlan();
-            stateData.AllEmpires[2] = empireData;
+            empireData1.Id = 1;
+            empireData1.EmpireRace.Name = "Tom";
 
-            empireData.OtherEmpires[2].Relation = PlayerRelation.Enemy;
-            stateData.AllEmpires[3] = empireData;
+            empireData2.Id = 2;
+            empireData2.EmpireRace.Name = "Dick";
+
+            empireData1.BattlePlans["Default"] = new BattlePlan();
+            empireData2.BattlePlans["Default"] = new BattlePlan();
+
+            empireData1.OtherEmpires.Add(1, new EnemyData(empireData2));
+            empireData2.OtherEmpires.Add(2, new EnemyData(empireData1));
+
+            empireData1.OtherEmpires[1].Relation = PlayerRelation.Enemy;
+            empireData2.OtherEmpires[2].Relation = PlayerRelation.Enemy;
+
+            stateData.AllEmpires[2] = empireData1;
+            stateData.AllEmpires[1] = empireData2;
 
             int numberOfTargets = battleEngine.SelectTargets(zoneStacks);
 
