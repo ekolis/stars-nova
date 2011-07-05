@@ -52,7 +52,7 @@ namespace Nova.Common.DataStructures
             } 
         }
         public List<BattleStep> Steps = new List<BattleStep>();
-        public Dictionary<string, Fleet> Stacks = new Dictionary<string, Fleet>();
+        public Dictionary<int, Fleet> Stacks = new Dictionary<int, Fleet>();
         public Dictionary<int, int> Losses = new Dictionary<int, int>(); // empireId, lossCount
         
         /// <summary>
@@ -125,7 +125,7 @@ namespace Nova.Common.DataStructures
 
                         case "fleet": 
                             Fleet newStack = new Fleet(subnode);
-                            Stacks.Add(newStack.Key, newStack);
+                            Stacks.Add(newStack.Id, newStack);
                             break;
                     }
                 }

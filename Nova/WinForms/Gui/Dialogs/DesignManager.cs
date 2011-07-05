@@ -221,8 +221,8 @@ Are you sure you want to do this?";
 
             foreach (Fleet fleet in fleetsToRemove)
             {
-                stateData.EmpireIntel.FleetReports.Remove(fleet.Key);
-                stateData.DeletedFleets.Add(fleet.Key);
+                stateData.EmpireIntel.FleetReports.Remove(fleet.Id);
+                stateData.DeletedFleets.Add(fleet.Id);
             }
 
             stateData.DeletedDesigns.Add(design.Key);

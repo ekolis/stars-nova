@@ -164,7 +164,7 @@ namespace Nova.WinForms.Console
                     // first remove the old starbase
                     if (star.Starbase != null)
                     {
-                        stateData.AllFleets.Remove(star.Starbase.Key);
+                        stateData.AllFleets.Remove(star.Starbase.Id);
                         star.Starbase = null;
                     }
 
@@ -252,7 +252,8 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private void CreateShip(ShipDesign design, Star star)
         {
-            Race race = stateData.AllEmpires[star.Owner].EmpireRace;
+            EmpireData empire = stateData.AllEmpires[star.Owner]; 
+           
 
             Ship ship = new Ship(design);
             ship.Name = design.Name;
@@ -263,17 +264,12 @@ namespace Nova.WinForms.Console
             message.Text = star.Name + " has produced a new " + design.Name;
             stateData.AllMessages.Add(message);
 
-            Fleet fleet = new Fleet(ship, star);
-            // TODO: This should use a ID counter per race, otherwise players may have an idea how many fleets have been created
-            // if the global fleet counter is used.
-            // ??? - We should remove the global counter altogether as players can still manually check the .intel file
-            // and figure the number from the fleetID there. - Aeglos 20 Jun 11
-            fleet.Name = ship.Name + " #" + stateData.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            fleet.FleetID = stateData.FleetID;
+            Fleet fleet = new Fleet(ship, star);        
+            fleet.Id = empire.NextFleetId;
+            fleet.Name = ship.Name + " #" + fleet.PureId;
 
             // Add the fleet to the state data so it can be tracked.
-            stateData.AllFleets[fleet.Key] = fleet;
-            stateData.FleetID++;
+            stateData.AllFleets[fleet.Id] = fleet;          
 
             if (design.Type == "Starbase")
             {
@@ -286,7 +282,7 @@ namespace Nova.WinForms.Console
                 fleet.Name = ship.DesignName;
                 fleet.InOrbit = star;
 
-                if (race.HasTrait("ISB"))
+                if (empire.EmpireRace.HasTrait("ISB"))
                 {
                     fleet.Cloaked = 20;
                 }

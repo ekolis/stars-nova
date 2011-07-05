@@ -152,15 +152,15 @@ namespace Nova.Common
         {
             get
             {
-                return (itemId & 0x7F000000) >> 24;
+                return itemId & 0x7F000000;
             }
             
             set
             {
                 // if (value < 0x01000000 && value != Global.NoOwner) { throw new ArgumentException("OwnerId out of range"); }
-                if (value > 0x7F) { throw new ArgumentException("OwnerId out of range"); }
+                if (value < 0x00FFFFFF && value != 0) { throw new ArgumentException("OwnerId out of range"); }
                 itemId &= 0x00FFFFFF;
-                itemId |= (value << 24);
+                itemId |= value;
             }
         }
 

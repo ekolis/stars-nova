@@ -41,7 +41,6 @@ namespace Nova.WinForms.Gui
     {
         private FleetIntel selectedFleet;
         private readonly EmpireData empireIntel;
-        private List<string> deletedFleets;
             
         private Dictionary<string, Fleet> fleetsAtLocation = new Dictionary<string, Fleet>();
 
@@ -69,10 +68,9 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the FleetDetail class.
         /// </Summary>
-        public FleetDetail(EmpireData empireIntel, List<string> deletedFleets)
+        public FleetDetail(EmpireData empireIntel)
         {
             this.empireIntel = empireIntel;
-            this.deletedFleets = deletedFleets;
             
             InitializeComponent();
         }
@@ -241,10 +239,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void MangeFleet_Click(object sender, EventArgs e)
         {
-            ManageFleetDialog manageDialog = new ManageFleetDialog(empireIntel, deletedFleets);
-            manageDialog.ManagedFleet = selectedFleet;
-            manageDialog.ShowDialog();
-            manageDialog.Dispose();
+            MessageBox.Show(this, "This needs redoing - sorry");
         }
 
         /// ----------------------------------------------------------------------------
@@ -266,7 +261,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            selectedFleet = empireIntel.FleetReports.GetNextOwned(empireIntel.FleetReports[selectedFleet.Name]);
+            selectedFleet = empireIntel.FleetReports.GetNextOwned(empireIntel.FleetReports[selectedFleet.Id]);
             
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -298,7 +293,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            selectedFleet = empireIntel.FleetReports.GetPreviousOwned(empireIntel.FleetReports[selectedFleet.Name]);
+            selectedFleet = empireIntel.FleetReports.GetPreviousOwned(empireIntel.FleetReports[selectedFleet.Id]);
 
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -449,7 +444,7 @@ namespace Nova.WinForms.Gui
             fleetsAtLocation = new Dictionary<string, Fleet>();
             foreach (FleetIntel other in empireIntel.FleetReports.Values)
             {
-                if (selectedFleet.Position == other.Position && !other.IsStarbase && selectedFleet.FleetID != other.FleetID)
+                if (selectedFleet.Position == other.Position && !other.IsStarbase && selectedFleet.Id != other.Id)
                 {
                     fleetnames.Add(other.Name);
                     fleetsAtLocation[other.Name] = other;
@@ -585,7 +580,7 @@ namespace Nova.WinForms.Gui
             using (CargoTransferDialog dia = new CargoTransferDialog())
             {
                 Fleet other = GetSelectedFleetAtLocation();
-                if( other != null && other.FleetID != selectedFleet.FleetID )
+                if( other != null && other.Id != selectedFleet.Id )
                 {
                     dia.SetFleets(selectedFleet, other );
                     if (dia.ShowDialog() == DialogResult.OK)

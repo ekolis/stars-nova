@@ -155,15 +155,15 @@ namespace Nova.WinForms.Console
         private void CleanupFleets()
         {
             // create a list of all fleets that have been destroyed
-            List<string> destroyedFleets = new List<string>();
+            List<int> destroyedFleets = new List<int>();
             foreach (Fleet fleet in stateData.AllFleets.Values)
             {
                 if (fleet.FleetShips.Count == 0)
                 {
-                    destroyedFleets.Add(fleet.Key);
+                    destroyedFleets.Add(fleet.Id);
                 }
             }
-            foreach (string key in destroyedFleets)
+            foreach (int key in destroyedFleets)
             {
                 stateData.AllFleets.Remove(key);
             }

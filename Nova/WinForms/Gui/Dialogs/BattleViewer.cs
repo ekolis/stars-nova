@@ -188,8 +188,8 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                Fleet target;
-                theBattle.Stacks.TryGetValue(targetKey.TargetShip, out target);
+                Fleet target = null;
+                //theBattle.Stacks.TryGetValue(targetKey.TargetShip, out target); // This target is a ship not a fleet?
 
                 if (target == null)
                 {

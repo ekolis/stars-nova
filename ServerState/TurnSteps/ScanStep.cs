@@ -89,13 +89,13 @@ namespace Nova.Server.TurnSteps
             {
                 if (fleet.Owner == empire.Id)
                 {
-                    if (!empire.FleetReports.Contains(fleet.Name))
+                    if (!empire.FleetReports.ContainsKey(fleet.Id))
                     {
                         empire.FleetReports.Add(new FleetIntel(fleet, IntelLevel.Owned, stateData.TurnYear));
                     }
                     else
                     {                        
-                        empire.FleetReports[fleet.Name].Update(fleet, IntelLevel.Owned, stateData.TurnYear);
+                        empire.FleetReports[fleet.Id].Update(fleet, IntelLevel.Owned, stateData.TurnYear);
                     }
                 }
             }    
@@ -118,13 +118,13 @@ namespace Nova.Server.TurnSteps
                             range = PointUtilities.Distance(fleet.Position, scanned.Position);
                             if (range <= fleet.ScanRange)
                             {
-                                if (!empire.FleetReports.Contains(scanned.Name))
+                                if (!empire.FleetReports.ContainsKey(scanned.Id))
                                 {
                                     toAdd.Add(new FleetIntel(scanned, IntelLevel.InScan, stateData.TurnYear));
                                 }
                                 else
                                 {                        
-                                    empire.FleetReports[fleet.Name].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
+                                    empire.FleetReports[fleet.Id].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
                                 }
                             }
                         }
@@ -178,13 +178,13 @@ namespace Nova.Server.TurnSteps
                             if (PointUtilities.Distance(star.Position, scanned.Position)
                                 <= star.ScanRange)
                             {
-                                if (!empire.FleetReports.Contains(scanned.Name))
+                                if (!empire.FleetReports.ContainsKey(scanned.Id))
                                 {
                                     empire.FleetReports.Add(new FleetIntel(scanned, IntelLevel.InScan, stateData.TurnYear));
                                 }
                                 else
                                 {                        
-                                    empire.FleetReports[scanned.Name].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
+                                    empire.FleetReports[scanned.Id].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
                                 }
                             }
                         }

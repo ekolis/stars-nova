@@ -133,7 +133,7 @@ namespace Nova.Server
                     this.stateData.AllDesigns[design.Key] = design;
                 }
 
-                foreach (string fleetKey in playerOrders.DeletedFleets)
+                foreach (int fleetKey in playerOrders.DeletedFleets)
                 {
                     this.stateData.AllFleets.Remove(fleetKey);
                 }
@@ -145,7 +145,7 @@ namespace Nova.Server
 
                 foreach (FleetIntel fleet in playerOrders.EmpireStatus.FleetReports.Values)
                 {
-                    this.stateData.AllFleets[fleet.Key] = fleet;
+                    this.stateData.AllFleets[fleet.Id] = fleet;
                 }
 
                 // load the orders for each star. 
@@ -200,7 +200,7 @@ namespace Nova.Server
                 }
                 if (star.Starbase != null)
                 {
-                    star.Starbase = playerOrders.EmpireStatus.FleetReports[star.Starbase.Key];
+                    star.Starbase = playerOrders.EmpireStatus.FleetReports[star.Starbase.Id];
                 }
             }
 

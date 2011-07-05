@@ -386,36 +386,36 @@ namespace Nova.NewGame
             if (empire.EmpireRace.Traits.Primary.Code != "HE")
             {
                 Ship cs = new Ship(colonyShipDesign);
-                Fleet fleet1 = new Fleet(cs, star);
+                Fleet fleet1 = new Fleet(cs, star);                               
+                fleet1.Id = empire.NextFleetId;
                 fleet1.Name = colonyShipDesign.Name + " #1";
-                fleet1.FleetID = stateData.FleetID++;
-                stateData.AllFleets[player + "/" + fleet1.FleetID] = fleet1;
+                stateData.AllFleets[fleet1.Id] = fleet1;
             }
             else
             {
                 for (int i = 1; i <= 3; i++)
                 {
                     Ship cs = new Ship(colonyShipDesign);
-                    Fleet fleet = new Fleet(cs, star);
-                    fleet.FleetID = stateData.FleetID++;
+                    Fleet fleet = new Fleet(cs, star);                    
+                    fleet.Id = empire.NextFleetId;
                     fleet.Name = String.Format("{0} #{1}", colonyShipDesign.Name, i);                    
-                    stateData.AllFleets[player + "/" + fleet.FleetID] = fleet;
+                    stateData.AllFleets[fleet.Id] = fleet;
                 }
             }
 
             ShipDesign scoutDesign = stateData.AllDesigns[player + "/Scout"] as ShipDesign;
             Ship scout = new Ship(scoutDesign);
             Fleet scoutFleet = new Fleet(scout, star);
-            scoutFleet.FleetID = stateData.FleetID++;
+            scoutFleet.Id = empire.NextFleetId;
             scoutFleet.Name = "Scout #1";       
-            stateData.AllFleets[player + "/" + scoutFleet.FleetID] = scoutFleet;
+            stateData.AllFleets[scoutFleet.Id] = scoutFleet;
  
             ShipDesign starbaseDesign = stateData.AllDesigns[player + "/Starbase"] as ShipDesign;
             Ship starbase = new Ship(starbaseDesign);
-            Fleet starbaseFleet = new Fleet(starbase, star);
-            starbaseFleet.FleetID = stateData.FleetID++;
+            Fleet starbaseFleet = new Fleet(starbase, star);            
+            starbaseFleet.Id = empire.NextFleetId;
             starbaseFleet.Name = star.Name + " Starbase";
-            stateData.AllFleets[player + "/" + starbaseFleet.FleetID] = starbaseFleet;
+            stateData.AllFleets[starbaseFleet.Id] = starbaseFleet;
             star.Starbase = starbaseFleet;
         }
 

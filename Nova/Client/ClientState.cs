@@ -20,6 +20,8 @@
 // ===========================================================================
 #endregion
 
+using System.Linq;
+
 namespace Nova.Client
 {
     using System;
@@ -44,7 +46,7 @@ namespace Nova.Client
         public EmpireData       EmpireIntel     = new EmpireData();
         
         public List<string>     DeletedDesigns  = new List<string>();
-        public List<string>     DeletedFleets   = new List<string>();
+        public List<int>        DeletedFleets   = new List<int>();
         public List<Message>    Messages        = new List<Message>();
        
         public Dictionary<string, Design> EnemyDesigns = new Dictionary<string, Design>();        
@@ -94,7 +96,7 @@ namespace Nova.Client
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                DeletedFleets.Add(tNode.FirstChild.Value);
+                                DeletedFleets.Add( Int32.Parse(tNode.FirstChild.Value));
                                 tNode = tNode.NextSibling;
                             }
                             break;                        
@@ -475,10 +477,10 @@ namespace Nova.Client
                 
                 // Deleted Fleets
                 XmlElement xmlelDeletedFleets = xmldoc.CreateElement("DeletedFleets");
-                foreach (string fleetKey in DeletedFleets)
+                foreach (int fleetKey in DeletedFleets)
                 {
                     // only need to store enough data to find the deleted fleet.
-                    Global.SaveData(xmldoc, xmlelDeletedFleets, "FleetKey", fleetKey);
+                    Global.SaveData(xmldoc, xmlelDeletedFleets, "FleetKey", fleetKey.ToString("X"));
                 }
                 xmlelClientState.AppendChild(xmlelDeletedFleets);
                 
@@ -641,7 +643,8 @@ namespace Nova.Client
 
                 if (star.Starbase != null)
                 {
-                    star.Starbase = EmpireIntel.FleetReports[star.Name + " Starbase"];
+                    string sbFleetName = star.Name + " Starbase"; //Yuck yuck yuck :(  need to fix starbases
+                    EmpireIntel.FleetReports.First(x => x.Value.Name == sbFleetName);           
                 }
             }
         }     

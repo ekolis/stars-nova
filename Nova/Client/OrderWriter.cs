@@ -81,7 +81,7 @@ namespace Nova.Client
                }
             }
             
-            foreach (string fleetKey in stateData.DeletedFleets)
+            foreach (int fleetKey in stateData.DeletedFleets)
             {
                outputTurn.DeletedFleets.Add(fleetKey);
             }

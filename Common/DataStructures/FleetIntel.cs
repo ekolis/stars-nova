@@ -102,7 +102,7 @@ namespace Nova.Common
                 // TODO:(priority 6). Prevents a crash. Needs rework to show
                 // be able to call FleetComposition without passing all ships.
                 FleetShips      = fleet.FleetShips;
-                FleetID         = fleet.FleetID;
+                Id = fleet.Id; // TODO: Again why copy the ID?
                 Cargo           = fleet.Cargo;
                 FuelAvailable   = fleet.FuelAvailable;                
             }

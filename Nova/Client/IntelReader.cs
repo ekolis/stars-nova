@@ -28,6 +28,7 @@ namespace Nova.Client
     using System.IO;
     using System.Xml;
     using System.Xml.Serialization;
+    using System.Linq;
 
     using Nova.Common;
     using Nova.Common.Components;
@@ -170,7 +171,8 @@ namespace Nova.Client
 
                 if (star.Starbase != null)
                 {
-                    star.Starbase = stateData.EmpireIntel.FleetReports[star.Name + " Starbase"];
+                    string sbFleetName = star.Name + " Starbase"; //Yuck yuck yuck :(  need to fix starbases
+                    stateData.EmpireIntel.FleetReports.First(x => x.Value.Name == sbFleetName );                    
                 }
             }
 

@@ -56,7 +56,7 @@ namespace Nova.Common
         /// <summary>
         /// List of fleets (Fleet.Key) to delete
         /// </summary>
-        public List<string> DeletedFleets = new List<string>();
+        public List<int> DeletedFleets = new List<int>();
 
         /// <summary>
         /// List of designs (Design.Key) to delete
@@ -167,7 +167,8 @@ namespace Nova.Common
                             while (deletedFleetsNode != null)
                             {
                                 // only the fleet.key is stored in the xml file
-                                DeletedFleets.Add(deletedFleetsNode.FirstChild.Value);
+                                int key = Int32.Parse(deletedFleetsNode.FirstChild.Value);
+                                DeletedFleets.Add(key);
                                 deletedFleetsNode = deletedFleetsNode.NextSibling;
                             }
                             break;
@@ -228,10 +229,10 @@ namespace Nova.Common
             // so they can be told appart from current designs and fleets when
             // loaded.
             XmlElement xmlelDeletedFleets = xmldoc.CreateElement("DeletedFleets");
-            foreach (string fleetKey in DeletedFleets)
+            foreach (int fleetKey in DeletedFleets)
             {
                 // only need to store enough data to find the deleted fleet.
-                Global.SaveData(xmldoc, xmlelDeletedFleets, "FleetKey", fleetKey);
+                Global.SaveData(xmldoc, xmlelDeletedFleets, "FleetKey", fleetKey.ToString("X"));
             }
             xmlelOrders.AppendChild(xmlelDeletedFleets);
 
