@@ -129,6 +129,7 @@ namespace Nova.Common
                 ScanRange            = star.ScanRange;
                 ScannerType          = star.ScannerType;
                 ThisRace             = star.ThisRace;
+                Starbase             = star.Starbase;
             }
         }
         

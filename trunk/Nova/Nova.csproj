@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -223,12 +223,6 @@
     <Compile Include="WinForms\Gui\Dialogs\DesignManager.Designer.cs">
       <DependentUpon>DesignManager.cs</DependentUpon>
     </Compile>
-    <Compile Include="WinForms\Gui\Dialogs\ManageFleetDialog.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WinForms\Gui\Dialogs\ManageFleetDialog.Designer.cs">
-      <DependentUpon>ManageFleetDialog.cs</DependentUpon>
-    </Compile>
     <Compile Include="WinForms\Gui\Dialogs\PlayerRelations.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -237,12 +231,6 @@
     </Compile>
     <Compile Include="WinForms\Gui\Dialogs\ProductionDialog.cs">
       <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WinForms\Gui\Dialogs\RenameFleet.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="WinForms\Gui\Dialogs\RenameFleet.Designer.cs">
-      <DependentUpon>RenameFleet.cs</DependentUpon>
     </Compile>
     <Compile Include="WinForms\Gui\Dialogs\ResearchDialog.cs">
       <SubType>Form</SubType>
@@ -404,20 +392,12 @@
       <DependentUpon>DesignManager.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\Gui\Dialogs\ManageFleetDialog.resx">
-      <DependentUpon>ManageFleetDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
     <EmbeddedResource Include="WinForms\Gui\Dialogs\PlayerRelations.resx">
       <DependentUpon>PlayerRelations.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\Gui\Dialogs\ProductionDialog.resx">
       <DependentUpon>ProductionDialog.cs</DependentUpon>
-      <SubType>Designer</SubType>
-    </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\Gui\Dialogs\RenameFleet.resx">
-      <DependentUpon>RenameFleet.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\Gui\Dialogs\ResearchDialog.resx">
@@ -527,7 +507,5 @@
   </Target>
   -->
   <ItemGroup />
-  <ItemGroup>
-    <Folder Include="Client\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>

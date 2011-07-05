@@ -238,21 +238,22 @@ namespace Nova.WinForms.Gui
             {
                 starbasePanel.Text = "No Starbase";
                 starbasePanel.Enabled = false;
-                return;
             }
+            else
+            {
+                Fleet starbase = selectedStar.Starbase;
+                starbaseArmor.Text = starbase.TotalArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                starbaseCapacity.Text =
+                    starbase.TotalDockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                starbaseDamage.Text = "0";
+                starbasePanel.Enabled = true;
+                starbasePanel.Text = starbase.Name;
+                starbaseShields.Text = starbase.TotalShieldStrength.ToString();
 
-            Fleet starbase = selectedStar.Starbase;
-            starbaseArmor.Text = starbase.TotalArmorStrength.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            starbaseCapacity.Text =
-                starbase.TotalDockCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            starbaseDamage.Text = "0";
-            starbasePanel.Enabled = true;
-            starbasePanel.Text = starbase.Name;
-            starbaseShields.Text = starbase.TotalShieldStrength.ToString();
-
-            massDriverType.Text = "None";
-            massDriverDestination.Text = "None";
-            targetButton.Enabled = false;
+                massDriverType.Text = "None";
+                massDriverDestination.Text = "None";
+                targetButton.Enabled = false;
+            }
 
             List<String> fleetnames = new List<string>();
             fleetsInOrbit = new Dictionary<string, Fleet>();

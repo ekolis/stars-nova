@@ -48,7 +48,7 @@ namespace Nova.Server
         public List<PlayerSettings>             AllPlayers      = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
         public Dictionary<int, int>          AllTechLevels   = new Dictionary<int, int>(); // Sum of a player's techlevels, for scoring purposes.
         public Dictionary<string, Design>       AllDesigns      = new Dictionary<string, Design>();
-        public Dictionary<string, Fleet>        AllFleets       = new Dictionary<string, Fleet>();
+        public Dictionary<int, Fleet>        AllFleets       = new Dictionary<int, Fleet>();
         public Dictionary<int, EmpireData>   AllEmpires      = new Dictionary<int, EmpireData>(); // Game specific data about the race; relations, battle plans, research, etc.
         public Dictionary<string, Race>         AllRaces        = new Dictionary<string, Race>(); // Data about the race (traits etc)
         public Dictionary<string, Star>         AllStars        = new Dictionary<string, Star>();
@@ -56,7 +56,7 @@ namespace Nova.Server
         public List<Message>                    AllMessages     = new List<Message>(); // All messages generated this turn.
 
         public bool GameInProgress      = false;
-        public int FleetID              = 1;
+        //public int FleetID              = 1;
         public int TurnYear             = Global.StartingYear;
         public string GameFolder        = null; // The path&folder where client files are held.
         public string StatePathName     = null; // path&file name to the saved state data
@@ -96,9 +96,9 @@ namespace Nova.Server
                         case "gameinprogress":
                             GameInProgress = bool.Parse(xmlnode.FirstChild.Value);
                             break;                        
-                        case "fleetid":
-                            FleetID = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;                        
+                        //case "fleetid":
+                        //    FleetID = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        //    break;                        
                         case "turnyear":
                             TurnYear = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;                        
@@ -164,7 +164,8 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                AllFleets.Add(tNode.Attributes["Id"].Value, new Fleet(tNode));
+                                Fleet fleet = new Fleet(tNode);
+                                AllFleets.Add(fleet.Id, fleet);
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -311,7 +312,7 @@ namespace Nova.Server
             xmlRoot.AppendChild(xmlelServerState);
             
             Global.SaveData(xmldoc, xmlelServerState, "GameInProgress", GameInProgress.ToString());
-            Global.SaveData(xmldoc, xmlelServerState, "FleetID", FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            //Global.SaveData(xmldoc, xmlelServerState, "FleetID", FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelServerState, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelServerState, "GameFolder", GameFolder);
             Global.SaveData(xmldoc, xmlelServerState, "StatePathName", StatePathName);
@@ -386,10 +387,10 @@ namespace Nova.Server
             
             // Store the fleets
             XmlElement xmlelAllFleets = xmldoc.CreateElement("AllFleets");
-            foreach (KeyValuePair<string, Fleet> fleet in AllFleets)
+            foreach (KeyValuePair<int, Fleet> fleet in AllFleets)
             {   
                 child = fleet.Value.ToXml(xmldoc);
-                child.SetAttribute("Id", fleet.Key);                
+                child.SetAttribute("Id", fleet.Key.ToString("X"));                
                 xmlelAllFleets.AppendChild(child);
             }
             xmlelServerState.AppendChild(xmlelAllFleets);
@@ -483,7 +484,7 @@ namespace Nova.Server
 
                 if (star.Starbase != null)
                 {
-                    star.Starbase = AllFleets[AllEmpires[star.Owner].EmpireRace.Name + "/" + star.Starbase.FleetID];
+                    star.Starbase = AllFleets[star.Starbase.Id];
                 }
             }
             
@@ -520,7 +521,7 @@ namespace Nova.Server
     
                     if (report.Starbase != null)
                     {
-                        report.Starbase = AllFleets[AllEmpires[report.Owner].EmpireRace.Name + "/" + report.Starbase.FleetID];
+                        report.Starbase = AllFleets[report.Starbase.Id];
                     }
                 }
             }
@@ -546,7 +547,7 @@ namespace Nova.Server
             
             GameFolder     = null;
             GameInProgress = false;
-            FleetID        = 1;
+            //FleetID        = 1;
             TurnYear       = Global.StartingYear;            
             StatePathName  = null;  
         }

@@ -225,7 +225,7 @@ namespace Nova.WinForms.Console
             {
                 message.Text += "All of your ships were destroyed.\n";
                 message.Text += "You lost this fleet.";
-                stateData.AllFleets.Remove(fleet.Key);
+                stateData.AllFleets.Remove(fleet.Id);
             }
 
             stateData.AllMessages.Add(message);

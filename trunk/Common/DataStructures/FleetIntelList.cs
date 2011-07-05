@@ -33,7 +33,7 @@ namespace Nova.Common
     /// as well as maintaining a sorted list for next/previous functionality. 
     /// </summary>
     [Serializable]
-    public class FleetIntelList : DictionaryBase
+    public class FleetIntelList : Dictionary<int, FleetIntel>
     {
         /// /// <summary>
         /// default constructor
@@ -48,7 +48,7 @@ namespace Nova.Common
         /// <param name="report">The Fleet to be added to the FleetList</param>
         public void Add(FleetIntel report)
         {
-            Dictionary.Add(report.Name, report);
+            Add(report.Id, report);
         }
 
         /// <summary>
@@ -57,20 +57,7 @@ namespace Nova.Common
         /// <param name="report">The fleet to remove.</param>
         public void Remove(FleetIntel report)
         {
-            Dictionary.Remove(report.Name);
-        }
-
-        /// <summary>
-        /// Remove a fleet from the FleetList
-        /// </summary>
-        /// <param name="fleetName">The name of the fleet.</param>
-        public void Remove(string fleetName)
-        {
-            if (Dictionary.Contains(fleetName))
-            {
-                Dictionary.Remove(fleetName);
-            }
-
+            Remove(report.Id);
         }
 
         /// <summary>
@@ -89,71 +76,19 @@ namespace Nova.Common
                 return false;
             }
             
-            return Dictionary.Contains(fleet.Name);
+            return ContainsKey(fleet.Id);
         }
 
         /// <summary>
         /// Check if the racial traits contains a particular trait.
         /// </summary>
-        /// <param name="fleetName">The name of a fleet.</param>
+        /// <param name="Id">The name of a fleet.</param>
         /// <returns>true if fleetName is the name of one of the fleets in the FleetList</returns>
-        public bool Contains(string fleetName)
+        public bool Contains(int Id)
         {
-            return Dictionary.Contains(fleetName);
+            return ContainsKey(Id);
         }
 
-        /// <summary>
-        /// Allow array type indexing to a FleetList.
-        /// </summary>
-        /// <param name="index">The name of the fleet.</param>
-        /// <returns></returns>
-        public FleetIntel this[string index]
-        {
-            get
-            {
-                if (!Dictionary.Contains(index))
-                {
-                    return null;
-                }
-                return Dictionary[index] as FleetIntel;
-            }
-            set
-            {
-                if (!Dictionary.Contains(index))
-                {
-                    return;
-                }
-                Dictionary[index] = value;
-            }
-        }
-
-        /// <summary>
-        /// Get the next fleet report in the list.
-        /// </summary>
-        /// <param name="report">The current report.</param>
-        /// <returns>The next fleet report, or the current if there is only one.</returns>
-        /// <exception cref="NullReferenceException"> if fleet is null.</exception>
-        public FleetIntel GetNext(FleetIntel report)
-        {
-            if (report == null)
-            {
-                throw new ArgumentNullException("report");
-            }
-            if (Dictionary.Count <= 1)
-            {
-                return report;
-            }
-
-            List<string> keyList = new List<string>();
-            keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
-            keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Name) + 1;
-            if (nextIndex >= keyList.Count)
-            {
-                nextIndex = 0;
-            }
-            return Dictionary[keyList[nextIndex]] as FleetIntel;
-        }      
         
         /// <summary>
         /// Get the next fleet report in the list that belongs to the same owner.
@@ -167,15 +102,15 @@ namespace Nova.Common
             {
                 throw new ArgumentNullException("report");
             }
-            if (Dictionary.Count <= 1)
+            if (Count <= 1)
             {
                 return report;
             }
 
-            List<string> keyList = new List<string>();
-            keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
+            List<int> keyList = new List<int>();
+            keyList.AddRange(Keys);
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Name);
+            int nextIndex = keyList.IndexOf(report.Id);
             
             do
             {
@@ -185,39 +120,11 @@ namespace Nova.Common
                     nextIndex = 0;
                 }
             }
-            while ((Dictionary[keyList[nextIndex]] as FleetIntel).Owner != report.Owner);
+            while (this[keyList[nextIndex]].Owner != report.Owner);
             
-            return Dictionary[keyList[nextIndex]] as FleetIntel;
+            return this[keyList[nextIndex]];
         }
         
-        /// <summary>
-        /// Get the previous fleet in the list.
-        /// </summary>
-        /// <param name="report">The current fleet.</param>
-        /// <returns>The previous fleet, or the current fleet if there is only one.</returns>
-        /// <exception cref="NullReferenceException"> if fleet is null.</exception>
-        public FleetIntel GetPrevious(FleetIntel report)
-        {
-            if (report == null)
-            {
-                throw new ArgumentNullException("report");
-            }
-            if (Dictionary.Count <= 1)
-            {
-                return report;
-            }
-
-            List<string> keyList = new List<string>();
-            keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
-            keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Name) - 1;
-            if (nextIndex < 0)
-            {
-                nextIndex = keyList.Count - 1;
-            }
-            return Dictionary[keyList[nextIndex]] as FleetIntel;
-
-        }
         
         /// <summary>
         /// Get the previous fleet report in the list that belongs to same owner.
@@ -231,15 +138,15 @@ namespace Nova.Common
             {
                 throw new ArgumentNullException("report");
             }
-            if (Dictionary.Count <= 1)
+            if (Count <= 1)
             {
                 return report;
             }
 
-            List<string> keyList = new List<string>();
-            keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
+            List<int> keyList = new List<int>();
+            keyList.AddRange(Keys);
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Name);
+            int nextIndex = keyList.IndexOf(report.Id);
             
             do
             {
@@ -249,22 +156,11 @@ namespace Nova.Common
                     nextIndex = keyList.Count - 1;
                 }
             }
-            while ((Dictionary[keyList[nextIndex]] as FleetIntel).Owner != report.Owner);
+            while (this[keyList[nextIndex]].Owner != report.Owner);
             
-            return Dictionary[keyList[nextIndex]] as FleetIntel;
+            return this[keyList[nextIndex]];
         }
 
-        /// <summary>
-        /// Get the internal collection of values.
-        /// </summary>
-        public ICollection Values
-        {
-            get
-            {
-                return Dictionary.Values;
-            }
-        }
-        
         /// <summary>
         /// Returns the amount of fleets owned by someone. 
         /// </summary>
@@ -273,7 +169,7 @@ namespace Nova.Common
         public int Owned(int empireId)
         {
             int q = 0;
-            foreach (FleetIntel report in Dictionary.Values)
+            foreach (FleetIntel report in Values)
             {
                 if (report.Owner == empireId) { q++; }
             }

@@ -100,114 +100,114 @@ namespace Nova.WinForms
         /// </Summary>
         private bool CreateGame()
         {
-                // New game dialog was OK, create a game
-                // Get a location to save the game:
-                FolderBrowserDialog gameFolderBrowser = new FolderBrowserDialog();
-                gameFolderBrowser.RootFolder = Environment.SpecialFolder.Desktop;
-                gameFolderBrowser.SelectedPath = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
-                gameFolderBrowser.Description = "Choose New Game Folder";
-                DialogResult gameFolderBrowserResult = gameFolderBrowser.ShowDialog();
+            // New game dialog was OK, create a game
+            // Get a location to save the game:
+            FolderBrowserDialog gameFolderBrowser = new FolderBrowserDialog();
+            gameFolderBrowser.RootFolder = Environment.SpecialFolder.Desktop;
+            gameFolderBrowser.SelectedPath = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
+            gameFolderBrowser.Description = "Choose New Game Folder";
+            DialogResult gameFolderBrowserResult = gameFolderBrowser.ShowDialog(this);
 
-                // Check for cancel being pressed (in the new game save file dialog).
-                if (gameFolderBrowserResult != DialogResult.OK)
+            // Check for cancel being pressed (in the new game save file dialog).
+            if (gameFolderBrowserResult != DialogResult.OK)
+            {
+                return false;
+            }
+
+            // store the updated Game Folder information
+            using (Config conf = new Config())
+            {
+                conf[Global.ServerFolderKey] = gameFolderBrowser.SelectedPath;
+
+                stateData.GameFolder = gameFolderBrowser.SelectedPath;
+                // Don't set ClientFolderKey in case we want to simulate a LAN game 
+                // on one PC for testing. 
+                // Should be set when the ClientState is initialised. If that is by 
+                // launching Nova GUI from the console then the GameFolder will be 
+                // passed as the path to the .intel and the ClientFolderKey will then 
+                // be updated.
+
+                // Construct appropriate state and settings file names
+                stateData.StatePathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
+                                          GameSettings.Data.GameName + Global.ServerStateExtension;
+                GameSettings.Data.SettingsPathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
+                                                     GameSettings.Data.GameName + Global.SettingsExtension;
+                conf[Global.ServerStateKey] = stateData.StatePathName;
+            }
+
+            // Copy the player & race data to the ServerState
+            stateData.AllPlayers = Players;
+
+            // Assemble empires.
+            foreach (PlayerSettings settings in stateData.AllPlayers)
+            {
+                if (stateData.AllRaces.ContainsKey(settings.RaceName))
                 {
-                    return false;
+                    // Copy the race to a new key and change the setting to de-duplicate the race.
+                    // This may mean a 2nd copy of the race in the data, but it's not much data and a copy of it doesn't really matter
+                    settings.RaceName = AddKnownRace(KnownRaces[settings.RaceName].Clone());
                 }
+                stateData.AllRaces.Add(settings.RaceName, KnownRaces[settings.RaceName]);
 
-                // store the updated Game Folder information
-                using (Config conf = new Config())
+                // Initialize clean data for them. 
+                EmpireData empireData = new EmpireData();
+                empireData.Id = settings.PlayerNumber;
+                empireData.EmpireRace = stateData.AllRaces[settings.RaceName];
+
+                stateData.AllEmpires[empireData.Id] = empireData;
+
+                // Add initial state to the intel files.
+                ProcessPrimaryTraits(empireData);
+                ProcessSecondaryTraits(empireData);
+            }
+
+            // Create initial relations.
+            foreach (EmpireData wolf in stateData.AllEmpires.Values)
+            {
+                foreach (EmpireData lamb in stateData.AllEmpires.Values)
                 {
-                    conf[Global.ServerFolderKey] = gameFolderBrowser.SelectedPath;
-
-                    stateData.GameFolder = gameFolderBrowser.SelectedPath;
-                    // Don't set ClientFolderKey in case we want to simulate a LAN game 
-                    // on one PC for testing. 
-                    // Should be set when the ClientState is initialised. If that is by 
-                    // launching Nova GUI from the console then the GameFolder will be 
-                    // passed as the path to the .intel and the ClientFolderKey will then 
-                    // be updated.
-
-                    // Construct appropriate state and settings file names
-                    stateData.StatePathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
-                                                     GameSettings.Data.GameName + Global.ServerStateExtension;
-                    GameSettings.Data.SettingsPathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
-                                                         GameSettings.Data.GameName + Global.SettingsExtension;
-                    conf[Global.ServerStateKey] = stateData.StatePathName;
-                }
-                
-                // Copy the player & race data to the ServerState
-                stateData.AllPlayers = Players;
-
-                // Assemble empires.
-                foreach (PlayerSettings settings in stateData.AllPlayers)
-                {
-                    if (stateData.AllRaces.ContainsKey(settings.RaceName))
+                    if (wolf.Id != lamb.Id)
                     {
-                        // Copy the race to a new key and change the setting to de-duplicate the race.
-                        // This may mean a 2nd copy of the race in the data, but it's not much data and a copy of it doesn't really matter
-                        settings.RaceName = AddKnownRace(KnownRaces[settings.RaceName].Clone());
+                        wolf.OtherEmpires.Add(lamb.Id, new EnemyData(lamb));
+                        wolf.OtherEmpires[lamb.Id].Relation = PlayerRelation.Enemy;
                     }
-                    stateData.AllRaces.Add(settings.RaceName, KnownRaces[settings.RaceName]);
-
-                    // Initialize clean data for them. 
-                    EmpireData empireData = new EmpireData();
-                    empireData.Id = settings.PlayerNumber;
-                    empireData.EmpireRace = stateData.AllRaces[settings.RaceName];
-                    
-                    stateData.AllEmpires[empireData.Id] = empireData;                  
-
-                    // Add initial state to the intel files.
-                    ProcessPrimaryTraits(empireData);
-                    ProcessSecondaryTraits(empireData);
-                }
-                
-                // Create initial relations.
-                foreach (EmpireData wolf in stateData.AllEmpires.Values)
-                {                    
-                    foreach (EmpireData lamb in stateData.AllEmpires.Values)
-                    {
-                        if (wolf.Id != lamb.Id)
-                        {
-                            wolf.OtherEmpires.Add(lamb.Id, new EnemyData(lamb));
-                            wolf.OtherEmpires[lamb.Id].Relation = PlayerRelation.Enemy;                            
-                        }
-                    }
-                  
                 }
 
-                StarMapInitialiser starMapInitialiser = new StarMapInitialiser(stateData);
-                starMapInitialiser.GenerateStars();
+            }
 
-                starMapInitialiser.InitialisePlayerData();
+            StarMapInitialiser starMapInitialiser = new StarMapInitialiser(stateData);
+            starMapInitialiser.GenerateStars();
 
-                try
-                {
-                    TurnGenerator firstTurn = new TurnGenerator(stateData);
-                    firstTurn.AssembleEmpireData();
-                    Scores scores = new Scores(stateData);
-                    IntelWriter intelWriter = new IntelWriter(stateData, scores);
-                    intelWriter.WriteIntel();
-                    stateData.Save();
-                    GameSettings.Save();
-                }
-                catch(Exception e)
-                {
-                    Report.Error("Creation of new game failed. Details:" + e.Message + Environment.NewLine + e.ToString());
-                    return false;
-                }
-            
-                // start the server
-                try
-                {
-                    NovaConsoleMain novaConsole = new NovaConsoleMain();                    
-                    novaConsole.Show();
-                    return true;
-                }
-                catch(Exception e)
-                {
-                    Report.FatalError("Unable to launch Console. Details:" + Environment.NewLine + e.ToString());
-                    return false;
-                }
+            starMapInitialiser.InitialisePlayerData();
+
+            try
+            {
+                TurnGenerator firstTurn = new TurnGenerator(stateData);
+                firstTurn.AssembleEmpireData();
+                Scores scores = new Scores(stateData);
+                IntelWriter intelWriter = new IntelWriter(stateData, scores);
+                intelWriter.WriteIntel();
+                stateData.Save();
+                GameSettings.Save();
+            }
+            catch (Exception e)
+            {
+                Report.Error("Creation of new game failed. Details:" + e.Message + Environment.NewLine + e.ToString());
+                return false;
+            }
+
+            // start the server
+            try
+            {
+                NovaConsoleMain novaConsole = new NovaConsoleMain();
+                novaConsole.Show();
+                return true;
+            }
+            catch (Exception e)
+            {
+                Report.FatalError("Unable to launch Console. Details:" + Environment.NewLine + e.ToString());
+                return false;
+            }
         }
 
         #region Event Methods

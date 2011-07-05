@@ -151,7 +151,7 @@ namespace Nova.WinForms.Console
 
                 foreach (Fleet stack in zoneStacks)
                 {
-                    battle.Stacks[stack.Name] = new Fleet(stack);
+                    battle.Stacks[stack.Id] = new Fleet(stack);
                 }
 
                 DoBattle(zoneStacks);
@@ -170,11 +170,11 @@ namespace Nova.WinForms.Console
         public List<List<Fleet>> DetermineCoLocatedFleets()
         {
             List<List<Fleet>> allFleetPositions = new List<List<Fleet>>();
-            Dictionary<string, bool> fleetDone = new Dictionary<string, bool>();
+            Dictionary<int, bool> fleetDone = new Dictionary<int, bool>();
             
             foreach (Fleet fleetA in stateData.AllFleets.Values)
             {
-                if (fleetDone.ContainsKey(fleetA.Key))
+                if (fleetDone.ContainsKey(fleetA.Id))
                 {
                     continue;
                 }
@@ -189,7 +189,7 @@ namespace Nova.WinForms.Console
                     }
 
                     coLocatedFleets.Add(fleetB);
-                    fleetDone[fleetB.Key] = true;
+                    fleetDone[fleetB.Id] = true;
                 }
 
                 if (coLocatedFleets.Count > 1)
@@ -252,7 +252,7 @@ namespace Nova.WinForms.Console
                 {
                     string name = "Stack #" + stackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     stack = new Fleet(name, fleet.Owner, fleet.Position);
-                    stack.FleetID = stackId;
+                    stack.Id = stackId;
                     stackId++;
 
                     stack.BattlePlan = fleet.BattlePlan;
@@ -688,7 +688,7 @@ namespace Nova.WinForms.Console
         private void DischargeWeapon(Ship ship, WeaponDetails details, Ship target)
         {
             BattleStepTarget report = new BattleStepTarget();
-            report.TargetShip = target.Key;
+            report.TargetShip = target.Key; // err.. shouldn't targetship be a fleet?
             battle.Steps.Add(report);
 
             // Identify the attack parameters that have to take into account

@@ -26,8 +26,8 @@
 // ===========================================================================
 #endregion
 
+using System.Globalization;
 
-    
 namespace Nova.Common
 {
     using System;
@@ -729,7 +729,7 @@ namespace Nova.Common
                         // Starbase will point to the Fleet that is this planet's starbase (if any), 
                         // for now create a placeholder Fleet and load its FleetID
                         case "starbase":
-                            Starbase = new Fleet(int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture));
+                            Starbase = new Fleet(int.Parse(subnode.FirstChild.Value,NumberStyles.HexNumber));
                             break;
 
                         default:
@@ -770,7 +770,7 @@ namespace Nova.Common
             // Starbase and ThisRace are stored as references only (just the name is saved).
             if (Starbase != null)
             {
-                Global.SaveData(xmldoc, xmlelStar, "Starbase", Starbase.FleetID.ToString());
+                Global.SaveData(xmldoc, xmlelStar, "Starbase", Starbase.Id.ToString("X"));
             }
             
             if (ThisRace != null)
@@ -823,5 +823,10 @@ namespace Nova.Common
         }
 
         #endregion
+
+        public override string ToString()
+        {
+            return "Star: " + Name;
+        }
     }
 }

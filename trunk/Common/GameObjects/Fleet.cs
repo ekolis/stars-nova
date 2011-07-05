@@ -40,8 +40,7 @@ namespace Nova.Common
     /// </summary>
     [Serializable]
     public class Fleet : Item
-    {
-        public int FleetID = 0;
+    {       
         public List<Ship>       FleetShips  = new List<Ship>();
         public List<Waypoint>   Waypoints   = new List<Waypoint>();
 
@@ -70,7 +69,7 @@ namespace Nova.Common
         /// </summary>
         public Fleet(int id) 
         { 
-            FleetID = id; 
+            Id = id; 
         }
 
         /// <summary>
@@ -97,7 +96,7 @@ namespace Nova.Common
         {
             BattleSpeed = copy.BattleSpeed;
             BattlePlan = copy.BattlePlan;
-            FleetID = copy.FleetID;
+            Id = copy.Id;  // TODO: Why are we copying fleets? copying this ID worries me..
             Target = copy.Target;
             InOrbit = copy.InOrbit;
        
@@ -458,19 +457,7 @@ namespace Nova.Common
                 return false;
             }
         }
-
-        /// <summary>
-        /// Return a unique identifier for the fleet/stack.
-        /// Why don't we just use the fleet ID??
-        /// </summary>
-        public string Key
-        {
-            get
-            {
-                return Owner + "/" + FleetID.ToString();
-            }
-        }
-
+        
         /// <summary>
         /// Return the mass of a fleet.
         /// </summary>
@@ -673,7 +660,7 @@ namespace Nova.Common
                     switch (subnode.Name.ToLower())
                     {
                         case "fleetid":
-                            FleetID = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Id = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "targetid":
                             Target = new Fleet(int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture));
@@ -736,10 +723,9 @@ namespace Nova.Common
 
             xmlelFleet.AppendChild(base.ToXml(xmldoc));
 
-            Global.SaveData(xmldoc, xmlelFleet, "FleetID", this.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
             if (Target != null)
             {
-                Global.SaveData(xmldoc, xmlelFleet, "TargetID", Target.FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                Global.SaveData(xmldoc, xmlelFleet, "TargetID", Target.Id.ToString("X"));
             }
             else
             {
