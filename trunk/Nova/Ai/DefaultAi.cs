@@ -54,7 +54,7 @@ namespace Nova.Ai
                         item.Quantity = (int)((star.ResourcesOnHand.Germanium - 50) / 5);
                         item.Quantity = Math.Max(0, item.Quantity);
     
-                        design = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + item.Name];
+                        design = turnData.AllDesigns[stateData.EmpireIntel.Id + "/" + item.Name];
     
                         item.BuildState = design.Cost;
     
@@ -66,7 +66,7 @@ namespace Nova.Ai
                     item = new ProductionQueue.Item();
                     item.Name = "Mine";
                     item.Quantity = 100;
-                    design = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + item.Name];
+                    design = turnData.AllDesigns[stateData.EmpireIntel.Id + "/" + item.Name];
                     item.BuildState = design.Cost;
                     star.ManufacturingQueue.Queue.Add(item);
     
@@ -75,7 +75,7 @@ namespace Nova.Ai
                     item = new ProductionQueue.Item();
                     item.Name = "Defenses";
                     item.Quantity = defenceToBuild;
-                    design = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + item.Name];
+                    design = turnData.AllDesigns[stateData.EmpireIntel.Id + "/" + item.Name];
                     item.BuildState = design.Cost;
                     star.ManufacturingQueue.Queue.Add(item);
                 }

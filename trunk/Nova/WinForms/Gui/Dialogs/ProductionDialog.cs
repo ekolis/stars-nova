@@ -727,7 +727,7 @@ namespace Nova.WinForms.Gui
             {
                 // is it a starbase?
                 string tempName = this.queueList.Items[itemLoopCounter].Text;
-                Design tempDesign = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + tempName];
+                Design tempDesign = turnData.AllDesigns[stateData.EmpireIntel.Id + "/" + tempName];
                 if (tempDesign.Type == "Starbase")
                 {
                     this.queueList.Items[itemLoopCounter].Checked = true;
@@ -782,7 +782,7 @@ namespace Nova.WinForms.Gui
                 this.addToQueue.Enabled = true;
                 string name = this.designList.SelectedItems[0].Text;
 
-                Design design = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + name];
+                Design design = turnData.AllDesigns[stateData.EmpireIntel.Id + "/" + name];
 
                 this.designCost.Value = design.Cost;
             }
@@ -865,7 +865,7 @@ namespace Nova.WinForms.Gui
             }
 
             string name = this.designList.SelectedItems[0].Text;
-            Design design = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + name];
+            Design design = turnData.AllDesigns[stateData.EmpireIntel.Id + "/" + name];
 
             // Starbases are handled differently to the other component types.
             if (design.Type == "Starbase")
@@ -1141,7 +1141,7 @@ namespace Nova.WinForms.Gui
                 item.Name = itemInList.SubItems[0].Text;
                 item.Quantity = Convert.ToInt32(itemInList.SubItems[1].Text);
 
-                Design design = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + item.Name];
+                Design design = turnData.AllDesigns[stateData.EmpireIntel.Id + "/" + item.Name];
 
                 item.BuildState = itemInList.Tag as Resources;
 
@@ -1252,7 +1252,7 @@ namespace Nova.WinForms.Gui
                 for (int queueIndex = 1; queueIndex < queueList.Items.Count; queueIndex++)
                 {
                     string designName = queueList.Items[queueIndex].Text;
-                    Design currentDesign = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + designName];
+                    Design currentDesign = turnData.AllDesigns[stateData.EmpireIntel.Id + "/" + designName];
 
                     quantityYetToBuild = Convert.ToInt32(queueList.Items[queueIndex].SubItems[1].Text);
                     currentStackCost = GetProductionCosts(queueList.Items[queueIndex]);
@@ -1631,7 +1631,7 @@ namespace Nova.WinForms.Gui
             if (stackQuantity > 1)  
             {
                 string designName = stackOfInterest.Text;
-                Design currentDesign = turnData.AllDesigns[stateData.EmpireIntel.EmpireRace.Name + "/" + designName];
+                Design currentDesign = turnData.AllDesigns[stateData.EmpireIntel.Id + "/" + designName];
                     // as the first Item in the stack costs BuildState to complete the design cost
                     // is multiplied by the quantity - 1
                 costsToProduce += currentDesign.Cost * (stackQuantity - 1);
