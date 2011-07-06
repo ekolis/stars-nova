@@ -34,7 +34,7 @@ namespace Nova.WinForms.Gui
           System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DesignManager));
           this.groupBox1 = new System.Windows.Forms.GroupBox();
           this.label3 = new System.Windows.Forms.Label();
-          this.designOwner = new System.Windows.Forms.ComboBox();
+          this.comboDesignOwner = new System.Windows.Forms.ComboBox();
           this.groupBox7 = new System.Windows.Forms.GroupBox();
           this.designList = new System.Windows.Forms.ListView();
           this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
@@ -82,7 +82,7 @@ namespace Nova.WinForms.Gui
           // groupBox1
           // 
           this.groupBox1.Controls.Add(this.label3);
-          this.groupBox1.Controls.Add(this.designOwner);
+          this.groupBox1.Controls.Add(this.comboDesignOwner);
           this.groupBox1.Controls.Add(this.groupBox7);
           this.groupBox1.Controls.Add(this.groupBox6);
           this.groupBox1.Location = new System.Drawing.Point(12, 11);
@@ -103,12 +103,12 @@ namespace Nova.WinForms.Gui
           // 
           // DesignOwner
           // 
-          this.designOwner.FormattingEnabled = true;
-          this.designOwner.Location = new System.Drawing.Point(6, 37);
-          this.designOwner.Name = "designOwner";
-          this.designOwner.Size = new System.Drawing.Size(333, 21);
-          this.designOwner.TabIndex = 4;
-          this.designOwner.SelectedIndexChanged += new System.EventHandler(this.DesignOwner_SelectedIndexChanged);
+          this.comboDesignOwner.FormattingEnabled = true;
+          this.comboDesignOwner.Location = new System.Drawing.Point(6, 37);
+          this.comboDesignOwner.Name = "comboDesignOwner";
+          this.comboDesignOwner.Size = new System.Drawing.Size(333, 21);
+          this.comboDesignOwner.TabIndex = 4;
+          this.comboDesignOwner.SelectedIndexChanged += new System.EventHandler(this.DesignOwner_SelectedIndexChanged);
           // 
           // groupBox7
           // 
@@ -530,7 +530,7 @@ namespace Nova.WinForms.Gui
       private System.Windows.Forms.Button delete;
       private System.Windows.Forms.TextBox componentSummary;
       private System.Windows.Forms.Label label3;
-      private System.Windows.Forms.ComboBox designOwner;
+      private System.Windows.Forms.ComboBox comboDesignOwner;
       private System.Windows.Forms.Label label6;
       private System.Windows.Forms.Label label7;
       private System.Windows.Forms.Label cargoCapacity;

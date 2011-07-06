@@ -91,13 +91,24 @@ namespace Nova.WinForms.Gui
             // Populate the "Design Owner" ComboBox with a list of players and
             // select the current race as the default
 
+            ComboBoxItem<int> thisRace = new ComboBoxItem<int>(stateData.EmpireIntel.EmpireRace.Name, stateData.EmpireIntel.Id);
+            comboDesignOwner.Items.Add(thisRace);
+
             foreach (int empireId in stateData.EmpireIntel.OtherEmpires.Keys)
             {
-                this.designOwner.Items.Add(empireId);
+                comboDesignOwner.Items.Add( new ComboBoxItem<int>(stateData.EmpireIntel.OtherEmpires[empireId].RaceName, empireId));
             }
 
-            designOwner.SelectedItem = stateData.EmpireIntel.EmpireRace.Name;
+            comboDesignOwner.SelectedItem = thisRace;
             ListDesigns(stateData.EmpireIntel.Id);
+        }
+
+        private int GetSelectedEmpireId()
+        {
+            ComboBoxItem<int> item = this.comboDesignOwner.SelectedItem as ComboBoxItem<int>;
+            if (item != null)
+                return item.Tag;
+            return 0;
         }
 
 
@@ -116,10 +127,9 @@ namespace Nova.WinForms.Gui
             }
 
             string name = this.designList.SelectedItems[0].Text;
-            string race = this.designOwner.SelectedItem.ToString();
+            int empireid = GetSelectedEmpireId();
 
-            ShipDesign design =
-                       stateData.InputTurn.AllDesigns[race + "/" + name] as ShipDesign;
+            ShipDesign design = stateData.InputTurn.AllDesigns[empireid + "/" + name] as ShipDesign;
 
             DisplayDesign(design);
         }
@@ -248,25 +258,25 @@ Are you sure you want to do this?";
         /// ----------------------------------------------------------------------------
         private void DesignOwner_SelectedIndexChanged(object sender, EventArgs e)
         {
-            ListDesigns(int.Parse(this.designOwner.SelectedItem.ToString()));
-            this.hullGrid.Clear(true);
-            this.designName.Text = null;
-            this.designResources.Value = new Nova.Common.Resources();
-            this.shipMass.Text = "0";
-            this.maxCapacity.Text = "0";
-            this.shipArmor.Text = "0";
-            this.shipShields.Text = "0";
-            this.shipCloak.Text = "0";
+            int empireId = GetSelectedEmpireId();
+            ListDesigns(empireId);
+            hullGrid.Clear(true);
+            designName.Text = null;
+            designResources.Value = new Nova.Common.Resources();
+            shipMass.Text = "0";
+            maxCapacity.Text = "0";
+            shipArmor.Text = "0";
+            shipShields.Text = "0";
+            shipCloak.Text = "0";
 
-            string race = this.designOwner.SelectedItem.ToString();
-
-            if (race == stateData.EmpireIntel.EmpireRace.Name)
+           
+            if (empireId == stateData.EmpireIntel.Id)
             {
-                this.delete.Enabled = true;
+                delete.Enabled = true;
             }
             else
             {
-                this.delete.Enabled = false;
+                delete.Enabled = false;
             }
         }
 
