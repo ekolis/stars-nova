@@ -137,10 +137,10 @@ namespace Nova.Tests.UnitTests
             fleet3.FleetShips.Add(ship3);
             fleet4.FleetShips.Add(ship4);
 
-            stateData.AllFleets["fleet1"] = fleet1;
-            stateData.AllFleets["fleet2"] = fleet2;
-            stateData.AllFleets["fleet3"] = fleet3;
-            stateData.AllFleets["fleet4"] = fleet4;
+            stateData.AllFleets[fleet1.Id] = fleet1;
+            stateData.AllFleets[fleet2.Id] = fleet2;
+            stateData.AllFleets[fleet3.Id] = fleet3;
+            stateData.AllFleets[fleet4.Id] = fleet4;
         }
 
 
