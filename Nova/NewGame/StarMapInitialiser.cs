@@ -157,7 +157,7 @@ namespace Nova.NewGame
             // Read components data and create some basic stuff
             AllComponents.Restore();
             Dictionary<string, Component> components = AllComponents.Data.Components;
-            Component colonyShipHull = null, scoutHull = null, starbaseHull = null;
+            Component colonyShipHull = null, scoutHull = null; 
             Component engine = null, colonyShipEngine = null;
             Component colonizer = null;
             Component scaner = components["Bat Scanner"];
@@ -166,7 +166,7 @@ namespace Nova.NewGame
             Component laser = components["Laser"];
             Component torpedo = components["Alpha Torpedo"];
 
-            starbaseHull = components["Space Station"];
+            Component starbaseHull = components["Space Station"];
             engine = components["Quick Jump 5"];
 
             if (empire.EmpireRace.Traits.Primary.Code != "HE")
@@ -180,7 +180,7 @@ namespace Nova.NewGame
             }
             scoutHull = components["Scout"]; // (components["Scout"] as Component).Properties["Hull"] as Hull;
 
-            starbaseHull = components["Space Dock"]; // (components["Space Dock"] as Component).Properties["Hull"] as Hull;
+            Component spaceDockHull = components["Space Dock"]; // (components["Space Dock"] as Component).Properties["Hull"] as Hull;
 
             if (empire.EmpireRace.HasTrait("AR") == true)
             {

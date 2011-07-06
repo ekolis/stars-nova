@@ -160,6 +160,9 @@
     <Compile Include="WinForms\Gui\Dialogs\CargoTransferDialog.Designer.cs">
       <DependentUpon>CargoTransferDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinForms\Gui\Dialogs\ProductionDialog.Designer.cs">
+      <DependentUpon>ProductionDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\Gui\NovaGui.Designer.cs">
       <DependentUpon>NovaGUI.cs</DependentUpon>
     </Compile>
