@@ -63,11 +63,18 @@ namespace Nova.WinForms
             {
                 // add known race to selectable races in race selection drop down
                 raceSelectionBox.Items.Add(raceName);
+            }
 
+            Random rand = new Random();
+            List<String> racenames = new List<string>(KnownRaces.Keys);
+            for( int i = 0; i < 2; ++i ) // Add 2 players to a new game
+            {
                 // add known race to list of players
+                string racename = racenames[rand.Next(racenames.Count)];
+                racenames.Remove(racename);
                 this.numberOfPlayers++;
                 ListViewItem player = new ListViewItem("  " + this.numberOfPlayers.ToString());
-                player.SubItems.Add(raceName);
+                player.SubItems.Add(racename);
                 player.SubItems.Add("Human");
                 playerList.Items.Add(player);
             }
