@@ -39,7 +39,7 @@ namespace Nova.NewGame
         private readonly Random randomGenerator = new Random();
         private readonly List<string> starNamePool = new List<string>();
         private readonly List<string> raceNamePool = new List<string>();
-        private int counter;
+        private readonly HashSet<string> usedRaceNames = new HashSet<string>();
 
         #region Construction
 
@@ -50,8 +50,7 @@ namespace Nova.NewGame
         public NameGenerator()
         {
             this.starNamePool.AddRange(this.starNames);
-            this.raceNamePool.AddRange(this.raceNames);
-            this.counter = 0;
+            this.raceNamePool.AddRange(this.raceNames);        
         }
 
         #endregion
@@ -77,25 +76,25 @@ namespace Nova.NewGame
         /// <summary>
         /// Randomly pull a race name out of our hat.
         /// </summary>
-        public string NextRaceName
+        public string GetNextRaceName(string existing)
         {
-            get
+            int namePostfix = 0;
+            string origname = existing;
+            while (usedRaceNames.Contains(existing))
             {
                 if (this.raceNamePool.Count > 1)
                 {
-                    int index = this.randomGenerator.Next(0, this.raceNamePool.Count - 1);
-                    string name = raceNamePool[index];
-    
-                    this.raceNamePool.RemoveAt(index);
-    
-                    return name;
+                    existing = raceNamePool[randomGenerator.Next(raceNamePool.Count)];
+                    raceNamePool.Remove(existing);
                 }
                 else
                 {
                     // none left. eek! - fall back to just adding a number
-                    return raceNamePool[0] + counter++;
+                    existing = origname + namePostfix++;
                 }
             }
+            usedRaceNames.Add(existing);
+            return existing;
         }
 
         /// <summary>
