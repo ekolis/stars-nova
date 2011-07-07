@@ -33,27 +33,23 @@ namespace Nova.WinForms.Gui
     /// <Summary>
     /// Describes the possible player relation stances.
     /// </Summary>
-    /// <remarks>
-    /// FIXME (priority 5) - the use of literal strings for "Friend" "Enemy" and "Neutral" is a potential source of errors. An enumaration should be used. Needs to be applied to other code throughout the solution.
-    /// </remarks>
     public partial class PlayerRelations : Form
     {
-        private Dictionary<int, EmpireIntel> otherEmpires;
-        private int empireId;
+        private Dictionary<int, EmpireIntel> empireReports;
 
         #region Construction
 
         /// <Summary>
         /// Initializes a new instance of the PlayerRelations class.
         /// </Summary>
-        public PlayerRelations(Dictionary<int, EmpireIntel> otherEmpires, int empireId)
+        public PlayerRelations(Dictionary<int, EmpireIntel> empireReports, int empireId)
         {
-            this.otherEmpires = otherEmpires;
+            this.empireReports = empireReports;
             this.empireId = empireId;
             
             InitializeComponent();
 
-            foreach (int otherEmpireId in otherEmpires.Keys)
+            foreach (int otherEmpireId in empireReports.Keys)
             {
                 if (otherEmpireId != empireId)
                 {
@@ -90,11 +86,11 @@ namespace Nova.WinForms.Gui
         {
             int selectedEmpire = (int)empireList.SelectedItem;
 
-            if (otherEmpires[selectedEmpire].Relation == PlayerRelation.Enemy)
+            if (empireReports[selectedEmpire].Relation == PlayerRelation.Enemy)
             {
                 this.enemyButton.Checked = true;
             }
-            else if (otherEmpires[selectedEmpire].Relation == PlayerRelation.Enemy)
+            else if (empireReports[selectedEmpire].Relation == PlayerRelation.Enemy)
             {
                 this.neutralButton.Checked = true;
             }
@@ -113,7 +109,7 @@ namespace Nova.WinForms.Gui
         {
             int selectedEmpire = (int)empireList.SelectedItem;
             RadioButton button = sender as RadioButton;
-            otherEmpires[selectedEmpire].Relation = enemyButton.Checked ? PlayerRelation.Enemy :
+            empireReports[selectedEmpire].Relation = enemyButton.Checked ? PlayerRelation.Enemy :
                 friendButton.Checked ? PlayerRelation.Friend :
                 PlayerRelation.Neutral;
         }
