@@ -68,8 +68,6 @@ namespace Nova.Server.TurnSteps
                 }
                 else
                 {
-                    // FIXME:(priority 6) If two empires use the same race&name, this gives both
-                    // the same intel access to each other's stars. Implement EmpireID
                     if (star.Owner == empire.Id)
                     {
                         empire.StarReports[star.Name].Update(star, IntelLevel.Owned, stateData.TurnYear);                    
