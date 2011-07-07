@@ -138,7 +138,7 @@ namespace Nova.WinForms.Gui
             logical.Y = GameSettings.Data.MapHeight;
 
             extent.X = (int)(this.logical.X * this.zoomFactor) + extraSpace.X * 2;
-            extent.Y = (int)(this.logical.Y * this.zoomFactor) + extraSpace.X * 2;
+            extent.Y = (int)(this.logical.Y * this.zoomFactor) + extraSpace.Y * 2;
 
             turnData = this.stateData.InputTurn;
             isInitialised = true;
@@ -196,12 +196,12 @@ namespace Nova.WinForms.Gui
             
             
             // This is the specified area which represents the playing universe      
-            Rectangle targetArea = new Rectangle((Point)backgroundOrigin, renderSize); 
+            Rectangle backgroundArea = new Rectangle((Point)backgroundOrigin, renderSize);
             
             if (this.displayBackground == true)
             {
                 Image backdrop = Nova.Properties.Resources.Plasma;
-                g.DrawImage(backdrop, targetArea);
+                g.DrawImage(backdrop, backgroundArea);
                 // Free the image after using it. This prevents a nasty
                 // memory leak under Mono on Linux.
                 backdrop.Dispose();
@@ -209,7 +209,10 @@ namespace Nova.WinForms.Gui
             
             if (this.displayBorders == true)
             {
-                g.DrawRectangle(new Pen(Brushes.DimGray), targetArea);
+                Pen borderPen = new Pen(Brushes.DimGray);
+                borderPen.DashStyle = DashStyle.Dot;
+                g.DrawRectangle(borderPen, backgroundArea);
+                borderPen.Dispose();
             }
             
             Color lrScanColour = Color.FromArgb(128, 128, 0, 0);
