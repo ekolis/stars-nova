@@ -80,8 +80,8 @@ namespace Nova.WinForms.Gui
                     row[i++] = report.Name;
                     row[i++] = starbase;
                     row[i++] = report.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = report.Capacity(empireState.EmpireRace).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = Math.Ceiling(report.HabitalValue(empireState.EmpireRace) * 100).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = report.Capacity(empireState.Race).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = Math.Ceiling(report.HabitalValue(empireState.Race) * 100).ToString(System.Globalization.CultureInfo.InvariantCulture);
                     row[i++] = report.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     row[i++] = report.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture);
 

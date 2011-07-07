@@ -159,7 +159,7 @@ namespace Nova.WinForms
                 // Initialize clean data for them. 
                 EmpireData empireData = new EmpireData();
                 empireData.Id = settings.PlayerNumber;
-                empireData.EmpireRace = stateData.AllRaces[settings.RaceName];
+                empireData.Race = stateData.AllRaces[settings.RaceName];
 
                 stateData.AllEmpires[empireData.Id] = empireData;
 
@@ -641,7 +641,7 @@ namespace Nova.WinForms
    
             empire.ResearchLevels = new TechLevel(0);
 
-            switch (empire.EmpireRace.Traits.Primary.Code)
+            switch (empire.Race.Traits.Primary.Code)
             {
                 case "HE":
                     // Start with one armed scout + 3 mini-colony ships
@@ -704,7 +704,7 @@ namespace Nova.WinForms
                     break;
 
                 default:
-                    Report.Error("NewGameWizard.cs - ProcessPrimaryTraits() - Unknown Primary Trait \"" + empire.EmpireRace.Traits.Primary.Code + "\"");
+                    Report.Error("NewGameWizard.cs - ProcessPrimaryTraits() - Unknown Primary Trait \"" + empire.Race.Traits.Primary.Code + "\"");
                     break;
             } // switch on PRT
         }
@@ -718,7 +718,7 @@ namespace Nova.WinForms
             // Not all of these properties are fully implemented here, as they may require changes elsewhere in the game engine.
             // Where a trait is listed as 'TODO ??? (priority 4)' this means it first needs to be checked if it has been implemented elsewhere.
                         
-            if (empire.EmpireRace.Traits.Contains("IFE"))
+            if (empire.Race.Traits.Contains("IFE"))
             {
                 // Ships burn 15% less fuel : TODO ??? (priority 4)
 
@@ -727,18 +727,18 @@ namespace Nova.WinForms
                 // propulsion tech starts one level higher
                 empire.ResearchLevels[TechLevel.ResearchField.Propulsion]++;
             }
-            if (empire.EmpireRace.Traits.Contains("TT"))
+            if (empire.Race.Traits.Contains("TT"))
             {
                 // Begin the game able to adjust each environment attribute up to 3%
                 // Higher levels of terraforming are available : implemented in component definitions.
                 // Total Terraforming requires 30% fewer resources : implemented in component definitions.
             }
-            if (empire.EmpireRace.Traits.Contains("ARM"))
+            if (empire.Race.Traits.Contains("ARM"))
             {
                 // Grants access to three additional mining hulls and two new robots : implemented in component definitions.
                 // Start the game with two midget miners : TODO ??? (priority 4)
             }
-            if (empire.EmpireRace.Traits.Contains("ISB"))
+            if (empire.Race.Traits.Contains("ISB"))
             {
                 // Two additional starbase designs (space dock & ultra station) : implemented in component definitions.
                 // Starbases have built in 20% cloacking : TODO ??? (priority 4)
@@ -758,58 +758,58 @@ namespace Nova.WinForms
                 */
             }
 
-            if (empire.EmpireRace.Traits.Contains("GR"))
+            if (empire.Race.Traits.Contains("GR"))
             {
                 // 50% resources go to selected research field. 15% to each other field. 115% total. TODO ??? (priority 4)
             }
-            if (empire.EmpireRace.Traits.Contains("UR"))
+            if (empire.Race.Traits.Contains("UR"))
             {
                 // Affects minerals and resources returned due to scrapping. TODO ??? (priority 4).
             }
-            if (empire.EmpireRace.Traits.Contains("MA"))
+            if (empire.Race.Traits.Contains("MA"))
             {
                 // One instance of mineral alchemy costs 25 resources instead of 100. TODO ??? (priority 4)
             }
-            if (empire.EmpireRace.Traits.Contains("NRSE"))
+            if (empire.Race.Traits.Contains("NRSE"))
             {
                 // affects which engines are available : implemented in component definitions.
             }
-            if (empire.EmpireRace.Traits.Contains("OBRM"))
+            if (empire.Race.Traits.Contains("OBRM"))
             {
                 // affects which mining robots will be available : implemented in component definitions.
             }
-            if (empire.EmpireRace.Traits.Contains("CE"))
+            if (empire.Race.Traits.Contains("CE"))
             {
                 // Engines cost 50% less TODO (priority 4)
                 // Engines have a 10% chance of not engaging above warp 6 : TODO ??? (priority 4)
             }
-            if (empire.EmpireRace.Traits.Contains("NAS"))
+            if (empire.Race.Traits.Contains("NAS"))
             {
                 // No access to standard penetrating scanners : implemented in component definitions.
                 // Ranges of conventional scanners are doubled : TODO ??? (priority 4)
             }
-            if (empire.EmpireRace.Traits.Contains("LSP"))
+            if (empire.Race.Traits.Contains("LSP"))
             {
                 // Starting population is 17500 instead of 25000 : TODO ??? (priority 4)
             }
-            if (empire.EmpireRace.Traits.Contains("BET"))
+            if (empire.Race.Traits.Contains("BET"))
             {
                 // TODO ??? (priority 4)
                 // New technologies initially cost twice as much to build. 
                 // Once all tech requirements are exceeded cost is normal. 
                 // Miniaturization occurs at 5% per level up to 80% (instead of 4% per level up to 75%)
             }
-            if (empire.EmpireRace.Traits.Contains("RS"))
+            if (empire.Race.Traits.Contains("RS"))
             {
                 // TODO ??? (priority 4)
                 // All shields are 40% stronger than the listed rating.
                 // Shields regenrate at 10% of max strength each round of combat.
                 // All armors are 50% of their rated strength.
             }
-            if (empire.EmpireRace.Traits.Contains("ExtraTech"))
+            if (empire.Race.Traits.Contains("ExtraTech"))
             {
                 // All extra technologies start on level 3 or 4 with JOAT
-                if (empire.EmpireRace.Traits.Primary.Code == "JOAT")
+                if (empire.Race.Traits.Primary.Code == "JOAT")
                 {
                     empire.ResearchLevels[TechLevel.ResearchField.Propulsion] += 1;
                     empire.ResearchLevels[TechLevel.ResearchField.Construction] += 1;

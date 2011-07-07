@@ -216,7 +216,7 @@ namespace Nova.WinForms.Gui
             int level = (int)researchLevels[this.targetArea];
             int target = Research.Cost(
                 this.targetArea,
-                this.stateData.EmpireState.EmpireRace,
+                this.stateData.EmpireState.Race,
                 researchLevels,
                 researchLevels[this.targetArea] + 1);
 
@@ -267,7 +267,7 @@ namespace Nova.WinForms.Gui
         private int CountEnergy()
         {
             double totalEnergy = 0;
-            string raceName = stateData.EmpireState.EmpireRace.Name;
+            string raceName = stateData.EmpireState.Race.Name;
             Intel turnData = this.stateData.InputTurn;
 
             foreach (StarIntel report in stateData.EmpireState.StarReports.Values)

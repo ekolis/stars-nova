@@ -238,7 +238,7 @@ namespace Nova.WinForms.Console
             {
                 return; // nothing to do for an empty star system.
             }
-            Race race = stateData.AllEmpires[star.Owner].EmpireRace;
+            Race race = stateData.AllEmpires[star.Owner].Race;
             
             star.UpdateMinerals();
             
@@ -439,7 +439,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private bool UpdateFleet(Fleet fleet)
         {
-            Race race = stateData.AllEmpires[fleet.Owner].EmpireRace;
+            Race race = stateData.AllEmpires[fleet.Owner].Race;
 
             Waypoint currentPosition = new Waypoint();
             double availableTime = 1.0;

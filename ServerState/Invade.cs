@@ -159,13 +159,13 @@ namespace Nova.WinForms.Console
 
             // Apply defender and attacker bonuses
             double attackerBonus = 1.1;
-            if (stateData.AllEmpires[fleet.Owner].EmpireRace.HasTrait("WM"))
+            if (stateData.AllEmpires[fleet.Owner].Race.HasTrait("WM"))
             {
                 attackerBonus *= 1.5;
             }
 
             double defenderBonus = 1.0;
-            if (stateData.AllEmpires[fleet.Owner].EmpireRace.HasTrait("IS"))
+            if (stateData.AllEmpires[fleet.Owner].Race.HasTrait("IS"))
             {
                 defenderBonus *= 2.0;
             }

@@ -281,7 +281,7 @@ namespace Nova.WinForms.Console
                 fleet.Name = star.Name + " " + fleet.Type;
                 fleet.InOrbit = star;
 
-                if (empire.EmpireRace.HasTrait("ISB"))
+                if (empire.Race.HasTrait("ISB"))
                 {
                     fleet.Cloaked = 20;
                 }

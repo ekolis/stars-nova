@@ -215,7 +215,7 @@ namespace Nova.Client
 
             if (commandArguments.Contains(CommandArguments.Option.RaceName))
             {
-                EmpireState.EmpireRace.Name = commandArguments[CommandArguments.Option.RaceName];
+                EmpireState.Race.Name = commandArguments[CommandArguments.Option.RaceName];
             }
             if (commandArguments.Contains(CommandArguments.Option.StateFileName))
             {
@@ -249,8 +249,8 @@ namespace Nova.Client
                 // - get GameFolder from the conf file - already done.
 
                 // - look for races and ask the user to pick one. 
-                EmpireState.EmpireRace.Name = SelectRace(GameFolder);
-                if (!string.IsNullOrEmpty(EmpireState.EmpireRace.Name))
+                EmpireState.Race.Name = SelectRace(GameFolder);
+                if (!string.IsNullOrEmpty(EmpireState.Race.Name))
                 {
                     isLoaded = true;
                 }
@@ -336,13 +336,13 @@ namespace Nova.Client
         {
             if (AvailableComponents == null)
             {
-                AvailableComponents = new RaceComponents(EmpireState.EmpireRace, EmpireState.ResearchLevels);
+                AvailableComponents = new RaceComponents(EmpireState.Race, EmpireState.ResearchLevels);
             }
             else
             {
                 try
                 {
-                    AvailableComponents.DetermineRaceComponents(EmpireState.EmpireRace, EmpireState.ResearchLevels);
+                    AvailableComponents.DetermineRaceComponents(EmpireState.Race, EmpireState.ResearchLevels);
                 }
                 catch
                 {
@@ -362,7 +362,7 @@ namespace Nova.Client
         /// </remarks>
         public ClientState Restore()
         {
-            ClientState newState = Restore(GameFolder, EmpireState.EmpireRace.Name);
+            ClientState newState = Restore(GameFolder, EmpireState.Race.Name);
             
             DeletedDesigns  = newState.DeletedDesigns;
             DeletedFleets   = newState.DeletedFleets;
@@ -633,7 +633,7 @@ namespace Nova.Client
                     // Reduntant, but works to check if race name is valid...
                     if (star.Owner == EmpireState.Id)
                     {
-                        star.ThisRace = EmpireState.EmpireRace;
+                        star.ThisRace = EmpireState.Race;
                     }
                     else
                     {

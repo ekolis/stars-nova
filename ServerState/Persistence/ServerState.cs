@@ -512,7 +512,7 @@ namespace Nova.Server
                         // Reduntant, but works to check if race name is valid...
                         if (report.Owner == empire.Id)
                         {
-                            report.ThisRace = empire.EmpireRace;
+                            report.ThisRace = empire.Race;
                         }
                         else
                         {

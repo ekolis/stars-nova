@@ -53,8 +53,8 @@ namespace Nova.Common
         public EmpireIntel(EmpireData empire)
         {
             empireId = empire.Id;
-            RaceName = empire.EmpireRace.Name;
-            Icon = empire.EmpireRace.Icon;
+            RaceName = empire.Race.Name;
+            Icon = empire.Race.Icon;
         }
         
         public EmpireIntel(XmlNode node)

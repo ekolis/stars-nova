@@ -309,7 +309,7 @@ namespace Nova.WinForms.Gui
         {
             // prepare the arguments that will tell how to re-initialise.
             CommandArguments commandArguments = new CommandArguments();
-            commandArguments.Add(CommandArguments.Option.RaceName, stateData.EmpireState.EmpireRace.Name);
+            commandArguments.Add(CommandArguments.Option.RaceName, stateData.EmpireState.Race.Name);
             commandArguments.Add(CommandArguments.Option.Turn, stateData.EmpireState.TurnYear + 1);
 
             stateData.Initialize(commandArguments.ToArray());
@@ -351,7 +351,7 @@ namespace Nova.WinForms.Gui
             this.Messages.MessageList = stateData.Messages;
 
             this.CurrentTurn = stateData.EmpireState.TurnYear;
-            this.CurrentRace = stateData.EmpireState.EmpireRace.Name;
+            this.CurrentRace = stateData.EmpireState.Race.Name;
 
             this.MapControl.Initialise(stateData);
 

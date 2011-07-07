@@ -335,7 +335,7 @@ namespace Nova.WinForms.Gui
 
                 double time = distance / (to.WarpFactor * to.WarpFactor);
 
-                double fuelUsed = selectedFleet.FuelConsumption(to.WarpFactor, empireState.EmpireRace)
+                double fuelUsed = selectedFleet.FuelConsumption(to.WarpFactor, empireState.Race)
 
                                 * time;
 
@@ -365,7 +365,7 @@ namespace Nova.WinForms.Gui
                     double speed = warp * warp;
                     double travelTime = distance / speed;
 
-                    fuelRequired += selectedFleet.FuelConsumption(warp, empireState.EmpireRace) * travelTime;
+                    fuelRequired += selectedFleet.FuelConsumption(warp, empireState.Race) * travelTime;
                 }
                 previous = waypoint;
             }
