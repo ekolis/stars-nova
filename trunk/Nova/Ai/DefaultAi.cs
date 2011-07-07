@@ -44,56 +44,56 @@ namespace Nova.Ai
                 {
                     
                     star.ManufacturingQueue.Queue.Clear();
-                    ProductionQueue.Item item = new ProductionQueue.Item();
+                    ProductionItem productionItem = new ProductionItem();
     
                     // build factories (limited by Germanium, and don't want to use it all)
                     if (star.ResourcesOnHand.Germanium > 50)
                     {
-                        item.Name = "Factory";
-                        item.Quantity = (int)((star.ResourcesOnHand.Germanium - 50) / 5);
-                        item.Quantity = Math.Max(0, item.Quantity);
+                        productionItem.Name = "Factory";
+                        productionItem.Quantity = (int)((star.ResourcesOnHand.Germanium - 50) / 5);
+                        productionItem.Quantity = Math.Max(0, productionItem.Quantity);
                         
                         foreach (Design design in turnData.AllDesigns.Values)
                         {
                             if (design.Owner == stateData.EmpireState.Id && design.Type == "Factory")
                             {
-                                item.BuildState = design.Cost;       
+                                productionItem.BuildState = design.Cost;       
                             }
                         }                        
     
-                        star.ManufacturingQueue.Queue.Add(item);
+                        star.ManufacturingQueue.Queue.Add(productionItem);
     
                     }
     
                     // build mines
-                    item = new ProductionQueue.Item();
-                    item.Name = "Mine";
-                    item.Quantity = 100;
+                    productionItem = new ProductionItem();
+                    productionItem.Name = "Mine";
+                    productionItem.Quantity = 100;
                     
                     foreach (Design design in turnData.AllDesigns.Values)
                     {
                         if (design.Owner == stateData.EmpireState.Id && design.Type == "Mine")
                         {
-                            item.BuildState = design.Cost;       
+                            productionItem.BuildState = design.Cost;       
                         }
                     }
                     
-                    star.ManufacturingQueue.Queue.Add(item);
+                    star.ManufacturingQueue.Queue.Add(productionItem);
     
                     // build defenses
                     int defenceToBuild = Global.MaxDefenses - star.Defenses;
-                    item = new ProductionQueue.Item();
-                    item.Name = "Defenses";
-                    item.Quantity = defenceToBuild;
+                    productionItem = new ProductionItem();
+                    productionItem.Name = "Defenses";
+                    productionItem.Quantity = defenceToBuild;
                     
                     foreach (Design design in turnData.AllDesigns.Values)
                     {
                         if (design.Owner == stateData.EmpireState.Id && design.Type == "Defenses")
                         {
-                            item.BuildState = design.Cost;       
+                            productionItem.BuildState = design.Cost;       
                         }
                     }
-                    star.ManufacturingQueue.Queue.Add(item);
+                    star.ManufacturingQueue.Queue.Add(productionItem);
                 }
             }
         }

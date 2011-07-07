@@ -38,104 +38,10 @@ namespace Nova.Common
     [Serializable]
     public class ProductionQueue
     {
-
-        /// <summary>
-        /// Details of a design in the queue.
-        /// </summary>
-        [Serializable]
-        public class Item // FIXME (priority 5) - Seems like a bad name as there is already an Item type in the Nova.Common namespace
-        {
-            public int Id;                // Design id
-            public string Name;           // Design Name
-            public int Quantity;          // Number to build
-            public Resources BuildState;  // Resources need to build item // ??? (priority 6) just the next 1 or the whole lot? - Dan 10 Jan 10
-            // Should be removed in favor of Unit.ResourcesNeeded * Quantity
-            public bool Autobuild;
-            private IProductionUnit unit;
-
-            /// <summary>
-            /// default constructor
-            /// </summary>
-            public Item() 
-            { 
-            }
-
-            /// <summary>
-            /// Return the resources needed to 
-            /// </summary>
-            /// <returns></returns>
-            public Resources NeededResources()
-            {
-                Resources unitResources = this.unit.NeededResources();
-                return new Resources(
-                    (int)unitResources.Ironium * Quantity,
-                    (int)unitResources.Boranium * Quantity,
-                    (int)unitResources.Germanium * Quantity,
-                    (int)unitResources.Energy * Quantity);
-            }
-
-            #region Load Save Xml
-
-            /// <summary>
-            /// Load: Read in a ProductionQueue.Item from and XmlNode representation.
-            /// </summary>
-            /// <param name="node">An XmlNode containing a representation of a ProductionQueue.Item</param>
-            public Item(XmlNode node)
-            {
-                XmlNode subnode = node.FirstChild;
-                while (subnode != null)
-                {
-                    try
-                    {
-                        switch (subnode.Name.ToLower())
-                        {
-                            case "id":
-                                Id = int.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
-                                break;
-                            case "name":
-                                Name = subnode.FirstChild.Value;
-                                break;
-                            case "quantity":
-                                Quantity = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                                break;
-                            case "resource":
-                                BuildState = new Resources(subnode);
-                                break;
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        Report.Error(e.Message);
-                    }
-                    subnode = subnode.NextSibling;
-                }
-            }
-
-            /// <summary>
-            /// Save: Generate an XmlElement representation of the ProductionQueue.Item for saving.
-            /// </summary>
-            /// <param name="xmldoc">The parent XmlDocument</param>
-            /// <returns>An XmlElement representation of the ProductionQueue.Item</returns>
-            public XmlElement ToXml(XmlDocument xmldoc)
-            {
-                XmlElement xmlelProductionOrder = xmldoc.CreateElement("ProductionOrder");
-
-                Global.SaveData(xmldoc, xmlelProductionOrder, "Id", Id.ToString("X"));
-                Global.SaveData(xmldoc, xmlelProductionOrder, "Name", Name);
-                Global.SaveData(xmldoc, xmlelProductionOrder, "Quantity", Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-                xmlelProductionOrder.AppendChild(BuildState.ToXml(xmldoc));
-
-                return xmlelProductionOrder;
-            }
-
-            #endregion
-        }
-
-
         /// <summary>
         /// The production queue itself.
         /// </summary>
-        public List<Item> Queue = new List<Item>();
+        public List<ProductionItem> Queue = new List<ProductionItem>();
 
         /// <summary>
         /// default constructor
@@ -159,7 +65,7 @@ namespace Nova.Common
                 {
                     if (subnode.Name.ToLower() == "productionorder")
                     {
-                        ProductionQueue.Item order = new ProductionQueue.Item(subnode);
+                        ProductionItem order = new ProductionItem(subnode);
                         if (order != null)
                         {
                             Queue.Add(order); // TODO (priority 6) ensure they load in the correct order.
@@ -182,7 +88,7 @@ namespace Nova.Common
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProductionQueue = xmldoc.CreateElement("ProductionQueue");
-            foreach (ProductionQueue.Item item in Queue)
+            foreach (ProductionItem item in Queue)
             {
                 xmlelProductionQueue.AppendChild(item.ToXml(xmldoc));
             }

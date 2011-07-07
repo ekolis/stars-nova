@@ -42,7 +42,7 @@ namespace Nova.WinForms.Console
     public class Manufacture
     {
 
-        private List<ProductionQueue.Item> deletions = new List<ProductionQueue.Item>();
+        private List<ProductionItem> deletions = new List<ProductionItem>();
         private ServerState stateData;
         private WaypointTasks waypointTasks;
   
@@ -66,7 +66,7 @@ namespace Nova.WinForms.Console
         {
             deletions.Clear();
 
-            foreach (ProductionQueue.Item item in star.ManufacturingQueue.Queue)
+            foreach (ProductionItem item in star.ManufacturingQueue.Queue)
             {
 
                 bool resourcesExhausted = BuildQueueItem(item, star);
@@ -76,7 +76,7 @@ namespace Nova.WinForms.Console
                 }
             }
 
-            foreach (ProductionQueue.Item item in deletions)
+            foreach (ProductionItem item in deletions)
             {
                 star.ManufacturingQueue.Queue.Remove(item);
             }
@@ -88,18 +88,18 @@ namespace Nova.WinForms.Console
         /// Deal with one entry in the production queue (which may be for a quantity of
         /// more than one of that design).
         /// </summary>
-        /// <param name="item">An item to be produced.</param>
+        /// <param name="productionItem">An item to be produced.</param>
         /// <param name="star">The star doing production.</param>
         /// <returns>true if all resources have been exhausted.</returns>
         /// ----------------------------------------------------------------------------
-        private bool BuildQueueItem(ProductionQueue.Item item, Star star)
+        private bool BuildQueueItem(ProductionItem productionItem, Star star)
         {
             bool resourcesExhausted = false;
 
-            while (item.Quantity > 0)
+            while (productionItem.Quantity > 0)
             {
 
-                resourcesExhausted = BuildDesign(item, star);
+                resourcesExhausted = BuildDesign(productionItem, star);
                 if (resourcesExhausted)
                 {
                     break;
@@ -116,14 +116,14 @@ namespace Nova.WinForms.Console
         /// manufacture this year decrement the required resources by the percentage
         /// we can achieve.
         /// </summary>
-        /// <param name="item">An item to be produced.</param>
+        /// <param name="productionItem">An item to be produced.</param>
         /// <param name="star">The star system doing production</param>
         /// <returns>true if the star is unable to finish productio of this item.</returns>
         /// ----------------------------------------------------------------------------
-        private bool BuildDesign(ProductionQueue.Item item, Star star)
+        private bool BuildDesign(ProductionItem productionItem, Star star)
         {
-            Design design = stateData.AllDesigns[item.Id];
-            Nova.Common.Resources needed = item.BuildState;
+            Design design = stateData.AllDesigns[productionItem.Id];
+            Nova.Common.Resources needed = productionItem.BuildState;
 
             // If we've ran out of resources then give up. Note that there may be
             // a surplus in some areas and a deficit in others so we have to check
@@ -131,7 +131,7 @@ namespace Nova.WinForms.Console
 
             if (!(star.ResourcesOnHand >= needed))
             {
-                PartialBuild(item, needed, star);
+                PartialBuild(productionItem, needed, star);
                 return true;
             }
 
@@ -151,7 +151,7 @@ namespace Nova.WinForms.Console
                     if (star.Defenses >= Global.MaxDefenses)
                     {
                         star.Defenses = Global.MaxDefenses; // This should never be required, but just in case.
-                        item.Quantity = 0;
+                        productionItem.Quantity = 0;
                     }
                     break;
 
@@ -175,15 +175,15 @@ namespace Nova.WinForms.Console
                     break;
             }
 
-            item.Quantity--;
+            productionItem.Quantity--;
 
-            if (item.Quantity == 0)
+            if (productionItem.Quantity == 0)
             {
-                deletions.Add(item);
+                deletions.Add(productionItem);
             }
             else
             {
-                item.BuildState = design.Cost;
+                productionItem.BuildState = design.Cost;
             }
 
             return false;
@@ -195,12 +195,12 @@ namespace Nova.WinForms.Console
         /// We do not have quite enough resources to complete production so use the percent
         /// that we can achieve, deplete the reserves, and adjust the BuildState accordingly.
         /// </summary>
-        /// <param name="item">The item to be partially produced.</param>
+        /// <param name="productionItem">The item to be partially produced.</param>
         /// <param name="neededResources">The Resources cost to complete production of the item (either BuildState or design.Cost).</param>
         /// <param name="star">The Star System doing the production.</param>
         /// ----------------------------------------------------------------------------
         private void PartialBuild(
-            ProductionQueue.Item item,
+            ProductionItem productionItem,
             Resources neededResources,
             Star star)
         {
@@ -237,7 +237,7 @@ namespace Nova.WinForms.Console
             star.ResourcesOnHand -= usedResources;
 
             neededResources -= usedResources;
-            item.BuildState = neededResources;
+            productionItem.BuildState = neededResources;
         }
 
 
