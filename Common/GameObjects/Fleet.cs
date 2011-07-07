@@ -80,7 +80,7 @@ namespace Nova.Common
         public Fleet(string n, int o, NovaPoint p)
         {
             Name = n;
-            Owner = o;
+            OwnerLow = o;
             Position = p;
         }
 
