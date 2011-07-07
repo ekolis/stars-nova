@@ -157,10 +157,28 @@ namespace Nova.Common
             
             set
             {
-                // if (value < 0x01000000 && value != Global.NoOwner) { throw new ArgumentException("OwnerId out of range"); }
-                if (value < 0x00FFFFFF && value != 0) { throw new ArgumentException("OwnerId out of range"); }
+                if (value < 0x01000000 && value != Global.NoOwner) { throw new ArgumentException("OwnerId out of range"); }
                 itemId &= 0x00FFFFFF;
                 itemId |= value;
+            }
+        }
+        
+        /// <summary>
+        /// Get or set this item's owner Id, in a 1-127 integer range. Used
+        /// Mainly for testing.
+        /// </summary>
+        public int OwnerLow
+        {
+            get
+            {
+                return (itemId & 0x7F000000) >> 24;
+            }
+            
+            set
+            {
+                if (value > 0x7F) { throw new ArgumentException("OwnerId out of range"); }
+                itemId &= 0x00FFFFFF;
+                itemId |= (value << 24);
             }
         }
 
