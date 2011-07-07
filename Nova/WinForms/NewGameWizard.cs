@@ -92,7 +92,7 @@ namespace Nova.WinForms
         {
             string name = race.Name;
             // De-dupe race names here. Not the ideal solution but for now it'll have to do.
-            race.Name = nameGenerator.NextRaceName;
+            race.Name = nameGenerator.GetNextRaceName(name);
 
             if (race.Name != name)
             {
