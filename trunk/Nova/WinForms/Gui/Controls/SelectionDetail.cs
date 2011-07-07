@@ -45,7 +45,7 @@ namespace Nova.WinForms.Gui
         private Item selectedItem = null;
         private UserControl selectedControl = null;
   
-        private readonly EmpireData empireIntel;
+        private readonly EmpireData empireState;
         
         public PlanetDetail PlanetDetail; 
         public FleetDetail FleetDetail;
@@ -60,17 +60,17 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
-        public SelectionDetail(EmpireData empireIntel,
+        public SelectionDetail(EmpireData empireState,
                                List<int> deletedFleets,
                                ClientState stateData)
         {
-            this.empireIntel = empireIntel;
+            this.empireState = empireState;
             
             // FIXME: (priority 3) see declaration.
             this.stateData = stateData;
             
-            PlanetDetail = new PlanetDetail(empireIntel, stateData);
-            FleetDetail = new FleetDetail(empireIntel);
+            PlanetDetail = new PlanetDetail(empireState, stateData);
+            FleetDetail = new FleetDetail(empireState);
             
             InitializeComponent();
         }
@@ -135,7 +135,7 @@ namespace Nova.WinForms.Gui
             // To avoid confusion when another race's fleet or planet is selected
             // grey out (disable) the Detail panel.
 
-            if (item.Owner == empireIntel.Id)
+            if (item.Owner == empireState.Id)
             {
                 Enabled = true;
             }

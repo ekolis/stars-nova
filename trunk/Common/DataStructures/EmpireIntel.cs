@@ -28,7 +28,7 @@ namespace Nova.Common
     /// <summary>
     /// Description of EnemyIntel.
     /// </summary>
-    public class EnemyData
+    public class EmpireIntel
     {
         private int empireId;
         
@@ -50,14 +50,14 @@ namespace Nova.Common
             }
         }
         
-        public EnemyData(EmpireData empire)
+        public EmpireIntel(EmpireData empire)
         {
             empireId = empire.Id;
             RaceName = empire.EmpireRace.Name;
             Icon = empire.EmpireRace.Icon;
         }
         
-        public EnemyData(XmlNode node)
+        public EmpireIntel(XmlNode node)
         {
             while (node != null)
             {
@@ -65,7 +65,7 @@ namespace Nova.Common
                 {
                     switch (node.Name.ToLower())
                     {
-                        case "empire":
+                        case "empireintel":
                             node = node.FirstChild;
                             continue;
                             
@@ -95,7 +95,7 @@ namespace Nova.Common
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             // create the outer element
-            XmlElement xmlelEnemy = xmldoc.CreateElement("Empire");
+            XmlElement xmlelEnemy = xmldoc.CreateElement("EmpireIntel");
 
             Global.SaveData(xmldoc, xmlelEnemy, "Id", empireId.ToString("X"));
             

@@ -77,7 +77,7 @@ namespace Nova.Client
                 Intel newIntel = new Intel(xmldoc);
 
                 // check this is a new turn, not an old one or the same one.
-                if (newIntel.EmpireIntel.TurnYear >= stateData.EmpireIntel.TurnYear)
+                if (newIntel.EmpireState.TurnYear >= stateData.EmpireState.TurnYear)
                 {
                     stateData.GameFolder = Path.GetDirectoryName(turnFileName);
                     stateData.Restore();
@@ -98,7 +98,7 @@ namespace Nova.Client
         /// </summary>
         public void ProcessIntel()
         {
-            stateData.EmpireIntel = stateData.InputTurn.EmpireIntel;
+            stateData.EmpireState = stateData.InputTurn.EmpireState;
 
             // Clear old turn data from StateData
             stateData.DeletedFleets.Clear();
@@ -140,28 +140,28 @@ namespace Nova.Client
             }
 
             // Fleet reference to Star
-            foreach (FleetIntel fleet in stateData.EmpireIntel.FleetReports.Values)
+            foreach (FleetIntel fleet in stateData.EmpireState.FleetReports.Values)
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = stateData.EmpireIntel.StarReports[fleet.InOrbit.Name];
+                    fleet.InOrbit = stateData.EmpireState.StarReports[fleet.InOrbit.Name];
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
                     // FIXME (priority 4) - this way of forming the key is a kludge
-                    ship.DesignUpdate(stateData.InputTurn.AllDesigns[ship.Owner + "/" + ship.DesignName] as ShipDesign);
+                    ship.DesignUpdate(stateData.InputTurn.AllDesigns[ship.DesignId] as ShipDesign);
                 }
             }
             // Star reference to Race
             // Star reference to Fleet (starbase)
-            foreach (StarIntel star in stateData.EmpireIntel.StarReports.Values)
+            foreach (StarIntel star in stateData.EmpireState.StarReports.Values)
             {
                 if (star.ThisRace != null)
                 {
-                    if (star.Owner == stateData.EmpireIntel.Id)
+                    if (star.Owner == stateData.EmpireState.Id)
                     {
-                        star.ThisRace = stateData.EmpireIntel.EmpireRace;
+                        star.ThisRace = stateData.EmpireState.EmpireRace;
                     }
                     else
                     {
@@ -172,7 +172,7 @@ namespace Nova.Client
                 if (star.Starbase != null)
                 {
                     string sbFleetName = star.Name + " Starbase"; //Yuck yuck yuck :(  need to fix starbases
-                    stateData.EmpireIntel.FleetReports.First(x => x.Value.Name == sbFleetName );                    
+                    stateData.EmpireState.FleetReports.First(x => x.Value.Name == sbFleetName );                    
                 }
             }
 
@@ -184,15 +184,15 @@ namespace Nova.Client
                 {
                     foreach (Ship ship in fleet.FleetShips)
                     {
-                        if (stateData.EnemyDesigns.ContainsKey(ship.DesignName))
+                        if (stateData.EnemyDesigns.ContainsKey(ship.DesignId))
                         {
                             // FIXME (priority 4) - this way of forming the key is a kludge
-                            ship.DesignUpdate((ShipDesign)stateData.EnemyDesigns[ship.Owner + "/" + ship.DesignName]);
+                            ship.DesignUpdate((ShipDesign)stateData.EnemyDesigns[ship.DesignId]);
                         }
                         else
                         {
                             // FIXME (priority 4) - this way of forming the key is a kludge
-                            ship.DesignUpdate((ShipDesign)stateData.InputTurn.AllDesigns[ship.Owner + "/" + ship.DesignName]);
+                            ship.DesignUpdate((ShipDesign)stateData.InputTurn.AllDesigns[ship.DesignId]);
                         }
                     }
                 }
@@ -241,7 +241,7 @@ namespace Nova.Client
         {
             foreach (Message message in stateData.InputTurn.Messages)
             {
-                if ((message.Audience == stateData.EmpireIntel.Id) ||
+                if ((message.Audience == stateData.EmpireState.Id) ||
                     (message.Audience == Global.AllEmpires))
                 {
                     stateData.Messages.Add(message);
@@ -256,16 +256,16 @@ namespace Nova.Client
         {
             foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
             {
-                if (stateData.EmpireIntel.ResearchLevelsGained == null)
+                if (stateData.EmpireState.ResearchLevelsGained == null)
                 {
                     return;
                 }
 
-                while (stateData.EmpireIntel.ResearchLevelsGained[area] > 0)
+                while (stateData.EmpireState.ResearchLevelsGained[area] > 0)
                 {
                     // Report new levels.
-                    stateData.EmpireIntel.ResearchLevelsGained[area] = stateData.EmpireIntel.ResearchLevelsGained[area] - 1;
-                    ReportLevelUpdate(area, stateData.EmpireIntel.ResearchLevels[area]);
+                    stateData.EmpireState.ResearchLevelsGained[area] = stateData.EmpireState.ResearchLevelsGained[area] - 1;
+                    ReportLevelUpdate(area, stateData.EmpireState.ResearchLevels[area]);
                 }
             }
         }
@@ -279,14 +279,14 @@ namespace Nova.Client
         private void ReportLevelUpdate(TechLevel.ResearchField area, int level)
         {
             Message techAdvanceMessage = new Message(
-                stateData.EmpireIntel.Id,
+                stateData.EmpireState.Id,
                 "Your race has advanced to Tech Level " + level + " in the " + area.ToString() + " field",
                 "TechAdvance",
                 null);
             stateData.Messages.Add(techAdvanceMessage);
 
             Dictionary<string, Component> allComponents = AllComponents.Data.Components;
-            TechLevel oldResearchLevel = stateData.EmpireIntel.ResearchLevels;
+            TechLevel oldResearchLevel = stateData.EmpireState.ResearchLevels;
             TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 
             newResearchLevel[area] = level;
@@ -300,13 +300,13 @@ namespace Nova.Client
                     if (component.Properties.ContainsKey("Scaner") && component.Type == "Planetary Installations")
                     {
                         newComponentMessage = new Message(
-                            stateData.EmpireIntel.Id,
+                            stateData.EmpireState.Id,
                             null,
                             "All existing planetary scanners has been replaced by " + component.Name + " " + component.Type,
                             null);
-                        foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
+                        foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
                         {
-                            if (report.Owner == stateData.EmpireIntel.Id &&
+                            if (report.Owner == stateData.EmpireState.Id &&
                                 report.ScannerType != string.Empty)
                             {
                                 report.ScannerType = component.Name;
@@ -316,7 +316,7 @@ namespace Nova.Client
                     else
                     {
                         newComponentMessage = new Message(
-                           stateData.EmpireIntel.Id,
+                           stateData.EmpireState.Id,
                            null,
                            "You now have available the " + component.Name + " " + component.Type + " component",
                            null);
@@ -325,7 +325,7 @@ namespace Nova.Client
                 }
             }
 
-            stateData.EmpireIntel.ResearchLevels = newResearchLevel;
+            stateData.EmpireState.ResearchLevels = newResearchLevel;
         }
 
     }

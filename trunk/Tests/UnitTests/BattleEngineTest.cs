@@ -208,11 +208,11 @@ namespace Nova.Tests.UnitTests
             empireData1.BattlePlans["Default"] = new BattlePlan();
             empireData2.BattlePlans["Default"] = new BattlePlan();
 
-            empireData1.OtherEmpires.Add(1, new EnemyData(empireData2));
-            empireData2.OtherEmpires.Add(2, new EnemyData(empireData1));
+            empireData1.EmpireReports.Add(1, new EmpireIntel(empireData2));
+            empireData2.EmpireReports.Add(2, new EmpireIntel(empireData1));
 
-            empireData1.OtherEmpires[1].Relation = PlayerRelation.Enemy;
-            empireData2.OtherEmpires[2].Relation = PlayerRelation.Enemy;
+            empireData1.EmpireReports[1].Relation = PlayerRelation.Enemy;
+            empireData2.EmpireReports[2].Relation = PlayerRelation.Enemy;
 
             stateData.AllEmpires[2] = empireData1;
             stateData.AllEmpires[1] = empireData2;

@@ -260,32 +260,16 @@ namespace Nova.Common
                 return this.design.Cost;
             }
         }
-
-        /// <summary>
-        /// The Key of the ship's underlying design.
-        /// </summary>
-        public string DesignKey
-        {
-            get
-            {
-                return this.design.Key;
-            }
-        }
-
-        public virtual string Key
-        {
-            get { return this.Owner + "/" + this.Name; }
-        }
         
 
         /// <summary>
         /// The name of the ship's underlying design.
         /// </summary>
-        public string DesignName
+        public int DesignId
         {
             get
             {
-                return this.design.Name;
+                return this.design.Id;
             }
         }
 
@@ -481,16 +465,16 @@ namespace Nova.Common
                     {
                         case "design":
                             this.design = new ShipDesign();
-                            this.design.Name = ((XmlText)subnode.FirstChild).Value; // Only the DesignName is loaded. This design must be replaced in the post load linking.
+                            this.design.Id = int.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber); // Only the Id is loaded. This design must be replaced in the post load linking.
                             break;
                         case "mass":
-                            Mass = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Mass = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "shields":
-                            Shields = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Shields = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "armor":
-                            Armor = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Armor = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "cost":
                             Cost = new Resources(subnode);
@@ -517,7 +501,7 @@ namespace Nova.Common
             XmlElement xmlelShip = xmldoc.CreateElement("Ship");
 
             // Design
-            Global.SaveData(xmldoc, xmlelShip, "Design", this.design.Name);
+            Global.SaveData(xmldoc, xmlelShip, "Design", this.design.Id.ToString("X"));
 
             // Item base class
             xmlelShip.AppendChild(base.ToXml(xmldoc));

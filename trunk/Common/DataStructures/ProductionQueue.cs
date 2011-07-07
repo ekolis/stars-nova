@@ -45,7 +45,8 @@ namespace Nova.Common
         [Serializable]
         public class Item // FIXME (priority 5) - Seems like a bad name as there is already an Item type in the Nova.Common namespace
         {
-            public string Name;           // Design name, e.g. "Space Dock"
+            public int Id;                // Design id
+            public string Name;           // Design Name
             public int Quantity;          // Number to build
             public Resources BuildState;  // Resources need to build item // ??? (priority 6) just the next 1 or the whole lot? - Dan 10 Jan 10
             // Should be removed in favor of Unit.ResourcesNeeded * Quantity
@@ -88,11 +89,14 @@ namespace Nova.Common
                     {
                         switch (subnode.Name.ToLower())
                         {
+                            case "id":
+                                Id = int.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                                break;
                             case "name":
-                                Name = ((XmlText)subnode.FirstChild).Value;
+                                Name = subnode.FirstChild.Value;
                                 break;
                             case "quantity":
-                                Quantity = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                                Quantity = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                                 break;
                             case "resource":
                                 BuildState = new Resources(subnode);
@@ -116,6 +120,7 @@ namespace Nova.Common
             {
                 XmlElement xmlelProductionOrder = xmldoc.CreateElement("ProductionOrder");
 
+                Global.SaveData(xmldoc, xmlelProductionOrder, "Id", Id.ToString("X"));
                 Global.SaveData(xmldoc, xmlelProductionOrder, "Name", Name);
                 Global.SaveData(xmldoc, xmlelProductionOrder, "Quantity", Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
                 xmlelProductionOrder.AppendChild(BuildState.ToXml(xmldoc));

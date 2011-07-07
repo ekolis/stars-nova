@@ -53,17 +53,15 @@ namespace Nova.Common
         public TechLevel    ResearchTopics          = new TechLevel(); // order or researching
         public TechLevel    ResearchLevelsGained    = new TechLevel(); // research level increases, reset per turn
         
-        public StarIntelList        StarReports     = new StarIntelList();
-        public FleetIntelList       FleetReports    = new FleetIntelList();
+        public StarIntelList                    StarReports     = new StarIntelList();
+        public FleetIntelList                   FleetReports    = new FleetIntelList();
+        public Dictionary<int, EmpireIntel>     EmpireReports   = new Dictionary<int, EmpireIntel>();
         
         public Dictionary<string, BattlePlan>       BattlePlans     = new Dictionary<string, BattlePlan>();
-        
-        public Dictionary<int, EnemyData> OtherEmpires = new Dictionary<int, EnemyData>();
         
         // See associated properties.
         private int FleetCounter             = 0;
         private int DesignCounter            = 0;
-        private int StarbaseDesignCounter    = 0;
         
         /// <summary>
         /// Sets or gets this empires unique integer Id.
@@ -104,17 +102,6 @@ namespace Nova.Common
                 return (++DesignCounter | empireId);
             }
         }
-        
-        /// <summary>
-        /// Gets the next available StarbaseDesignId from the internal StarbaseDesignCounter.
-        /// </summary>
-        public int NextStarbaseDesignId
-        {
-            get
-            {
-                return (++StarbaseDesignCounter | empireId);
-            }
-        }
 
         /// <summary>
         /// default constructor
@@ -135,7 +122,7 @@ namespace Nova.Common
         /// <returns>true if lamb is one of this empire's enemies, otherwise false.</returns>
         public bool IsEnemy(int lamb)
         {
-            return OtherEmpires[lamb].Relation == PlayerRelation.Enemy;
+            return EmpireReports[lamb].Relation == PlayerRelation.Enemy;
         }
 
         /// <summary>
@@ -160,9 +147,6 @@ namespace Nova.Common
                             break;
                         case "designcounter":
                             DesignCounter = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
-                        case "starbasedesigncounter":
-                            StarbaseDesignCounter = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "turnyear":
                             TurnYear = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -210,8 +194,8 @@ namespace Nova.Common
                             tNode = subnode.FirstChild;
                             while (tNode != null)
                             {
-                                EnemyData otherEmpire = new EnemyData(tNode);
-                                OtherEmpires.Add(otherEmpire.Id, otherEmpire);
+                                EmpireIntel report = new EmpireIntel(tNode);
+                                EmpireReports.Add(report.Id, report);
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -251,7 +235,6 @@ namespace Nova.Common
             
             Global.SaveData(xmldoc, xmlelEmpireData, "FleetCounter", FleetCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelEmpireData, "DesignCounter", DesignCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            Global.SaveData(xmldoc, xmlelEmpireData, "StarbaseDesignCounter", StarbaseDesignCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             
             Global.SaveData(xmldoc, xmlelEmpireData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
@@ -277,9 +260,9 @@ namespace Nova.Common
             xmlelEmpireData.AppendChild(xmlelFleetReports);
             
             XmlElement xmlelEnemyIntel = xmldoc.CreateElement("OtherEmpires");            
-            foreach (EnemyData otherEmpire in OtherEmpires.Values)
+            foreach (EmpireIntel report in EmpireReports.Values)
             {
-                xmlelEnemyIntel.AppendChild(otherEmpire.ToXml(xmldoc));    
+                xmlelEnemyIntel.AppendChild(report.ToXml(xmldoc));    
             }
             xmlelEmpireData.AppendChild(xmlelEnemyIntel);
             

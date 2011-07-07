@@ -38,7 +38,7 @@ namespace Nova.WinForms.Gui
     /// </remarks>
     public partial class PlayerRelations : Form
     {
-        private Dictionary<int, EnemyData> otherEmpires;
+        private Dictionary<int, EmpireIntel> otherEmpires;
         private int empireId;
 
         #region Construction
@@ -46,7 +46,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the PlayerRelations class.
         /// </Summary>
-        public PlayerRelations(Dictionary<int, EnemyData> otherEmpires, int empireId)
+        public PlayerRelations(Dictionary<int, EmpireIntel> otherEmpires, int empireId)
         {
             this.otherEmpires = otherEmpires;
             this.empireId = empireId;

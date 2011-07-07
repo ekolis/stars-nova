@@ -37,15 +37,15 @@ namespace Nova.WinForms.Gui
     public partial class BattleReportDialog : Form
     {
         private List<BattleReport> battles;
-        private EmpireData empireIntel;
+        private EmpireData empireState;
         
         /// <Summary>
         /// Initializes a new instance of the BattleReportDialog class.
         /// </Summary>
-        public BattleReportDialog(List<BattleReport> battles, EmpireData empireIntel)
+        public BattleReportDialog(List<BattleReport> battles, EmpireData empireState)
         {
             this.battles = battles;
-            this.empireIntel = empireIntel;
+            this.empireState = empireState;
             
             InitializeComponent();
         }
@@ -75,7 +75,7 @@ namespace Nova.WinForms.Gui
 
                 foreach (Fleet fleet in report.Stacks.Values)
                 {
-                    if (fleet.Owner == empireIntel.Id)
+                    if (fleet.Owner == empireState.Id)
                     {
                         ourShips += fleet.FleetShips.Count;
                     }
@@ -90,7 +90,7 @@ namespace Nova.WinForms.Gui
 
                 foreach (int empireId in report.Losses.Keys)
                 {
-                    if (empireId == empireIntel.Id)
+                    if (empireId == empireState.Id)
                     {
                         ourLosses += report.Losses[empireId];
                     }

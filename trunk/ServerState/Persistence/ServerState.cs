@@ -47,7 +47,7 @@ namespace Nova.Server
         public List<BattleReport>               AllBattles      = new List<BattleReport>();
         public List<PlayerSettings>             AllPlayers      = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
         public Dictionary<int, int>          AllTechLevels   = new Dictionary<int, int>(); // Sum of a player's techlevels, for scoring purposes.
-        public Dictionary<string, Design>       AllDesigns      = new Dictionary<string, Design>();
+        public Dictionary<int, Design>       AllDesigns      = new Dictionary<int, Design>();
         public Dictionary<int, Fleet>        AllFleets       = new Dictionary<int, Fleet>();
         public Dictionary<int, EmpireData>   AllEmpires      = new Dictionary<int, EmpireData>(); // Game specific data about the race; relations, battle plans, research, etc.
         public Dictionary<string, Race>         AllRaces        = new Dictionary<string, Race>(); // Data about the race (traits etc)
@@ -144,13 +144,14 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
+                                int id = int.Parse(tNode.Attributes["Id"].Value, System.Globalization.NumberStyles.HexNumber);
                                 if (tNode.Name.ToLower() == "design")
                                 {
-                                    AllDesigns.Add(tNode.Attributes["Id"].Value, new Design(tNode));
+                                    AllDesigns.Add(id, new Design(tNode));
                                 }
                                 else if (tNode.Name.ToLower() == "shipdesign")
                                 {
-                                    AllDesigns.Add(tNode.Attributes["Id"].Value, new ShipDesign(tNode));
+                                    AllDesigns.Add(id, new ShipDesign(tNode));
                                 }
                                 else
                                 {
@@ -368,7 +369,7 @@ namespace Nova.Server
 
             // Store the designs
             XmlElement xmlelAllDesigns = xmldoc.CreateElement("AllDesigns");
-            foreach (KeyValuePair<string, Design> design in AllDesigns)
+            foreach (KeyValuePair<int, Design> design in AllDesigns)
             {
                 
                 if (design.Value.Type == "Ship" || design.Value.Type == "Starbase")
@@ -380,7 +381,7 @@ namespace Nova.Server
                     child = design.Value.ToXml(xmldoc);
                 }    
                 
-                child.SetAttribute("Id", design.Key);
+                child.SetAttribute("Id", design.Key.ToString("X"));
                 xmlelAllDesigns.AppendChild(child);                                            
             }
             xmlelServerState.AppendChild(xmlelAllDesigns);
@@ -445,7 +446,7 @@ namespace Nova.Server
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(AllDesigns[AllEmpires[ship.Owner].EmpireRace.Name + "/" + ship.DesignName] as ShipDesign);
+                    ship.DesignUpdate(AllDesigns[ship.DesignId] as ShipDesign);
                 }
             }
             
@@ -500,7 +501,7 @@ namespace Nova.Server
                     // Ship reference to Design
                     foreach (Ship ship in fleet.FleetShips)
                     {
-                        ship.DesignUpdate(AllDesigns[AllEmpires[ship.Owner].EmpireRace.Name + "/" + ship.DesignName] as ShipDesign);
+                        ship.DesignUpdate(AllDesigns[ship.DesignId] as ShipDesign);
                     }
                 }
                  

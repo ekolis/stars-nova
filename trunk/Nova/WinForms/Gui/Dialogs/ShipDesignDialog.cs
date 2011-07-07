@@ -46,7 +46,7 @@ namespace Nova.WinForms.Gui
     {
         private readonly ClientState stateData;
         private readonly Dictionary<string, Component> allComponents;
-        private readonly Dictionary<string, Design> allDesigns;
+        private readonly Dictionary<int, Design> allDesigns;
         private readonly Dictionary<string, int> imageIndices = new Dictionary<string, int>();
         private readonly ImageList componentImages = new ImageList();
 
@@ -880,7 +880,7 @@ namespace Nova.WinForms.Gui
 
             hullProperties.Modules = HullGrid.ActiveModules;
             newDesign.Name = DesignName.Text;
-            newDesign.Owner = stateData.EmpireIntel.Id;
+            newDesign.Owner = stateData.EmpireState.Id;
             newDesign.ShipHull = this.selectedHull;
             newDesign.Cost = DesignResources.Value;
             newDesign.Mass = Convert.ToInt32(ShipMass.Text);
@@ -915,7 +915,7 @@ namespace Nova.WinForms.Gui
            }
             */
 
-            this.allDesigns[newDesign.Key] = newDesign;
+            this.allDesigns[newDesign.Id] = newDesign;
             Close();
         }
 

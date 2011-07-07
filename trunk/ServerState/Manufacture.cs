@@ -122,8 +122,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private bool BuildDesign(ProductionQueue.Item item, Star star)
         {
-            string designName = star.Owner + "/" + item.Name;
-            Design design = stateData.AllDesigns[designName];
+            Design design = stateData.AllDesigns[item.Id];
             Nova.Common.Resources needed = item.BuildState;
 
             // If we've ran out of resources then give up. Note that there may be
@@ -279,7 +278,7 @@ namespace Nova.WinForms.Console
                 }
                 star.Starbase = fleet;
                 fleet.Type = "Starbase";
-                fleet.Name = ship.DesignName;
+                fleet.Name = star.Name + " " + fleet.Type;
                 fleet.InOrbit = star;
 
                 if (empire.EmpireRace.HasTrait("ISB"))

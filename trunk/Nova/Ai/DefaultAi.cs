@@ -36,16 +36,15 @@ namespace Nova.Ai
 
         private void HandleProduction()
         {
-            foreach (StarIntel starIntel in stateData.EmpireIntel.StarReports.Values)
+            foreach (StarIntel starIntel in stateData.EmpireState.StarReports.Values)
             {
                 Star star = starIntel;
                 
-                if (star.Owner == stateData.EmpireIntel.Id)
+                if (star.Owner == stateData.EmpireState.Id)
                 {
                     
                     star.ManufacturingQueue.Queue.Clear();
                     ProductionQueue.Item item = new ProductionQueue.Item();
-                    Design design;
     
                     // build factories (limited by Germanium, and don't want to use it all)
                     if (star.ResourcesOnHand.Germanium > 50)
@@ -53,10 +52,14 @@ namespace Nova.Ai
                         item.Name = "Factory";
                         item.Quantity = (int)((star.ResourcesOnHand.Germanium - 50) / 5);
                         item.Quantity = Math.Max(0, item.Quantity);
-    
-                        design = turnData.AllDesigns[stateData.EmpireIntel.Id + "/" + item.Name];
-    
-                        item.BuildState = design.Cost;
+                        
+                        foreach (Design design in turnData.AllDesigns.Values)
+                        {
+                            if (design.Owner == stateData.EmpireState.Id && design.Type == "Factory")
+                            {
+                                item.BuildState = design.Cost;       
+                            }
+                        }                        
     
                         star.ManufacturingQueue.Queue.Add(item);
     
@@ -66,8 +69,15 @@ namespace Nova.Ai
                     item = new ProductionQueue.Item();
                     item.Name = "Mine";
                     item.Quantity = 100;
-                    design = turnData.AllDesigns[stateData.EmpireIntel.Id + "/" + item.Name];
-                    item.BuildState = design.Cost;
+                    
+                    foreach (Design design in turnData.AllDesigns.Values)
+                    {
+                        if (design.Owner == stateData.EmpireState.Id && design.Type == "Mine")
+                        {
+                            item.BuildState = design.Cost;       
+                        }
+                    }
+                    
                     star.ManufacturingQueue.Queue.Add(item);
     
                     // build defenses
@@ -75,8 +85,14 @@ namespace Nova.Ai
                     item = new ProductionQueue.Item();
                     item.Name = "Defenses";
                     item.Quantity = defenceToBuild;
-                    design = turnData.AllDesigns[stateData.EmpireIntel.Id + "/" + item.Name];
-                    item.BuildState = design.Cost;
+                    
+                    foreach (Design design in turnData.AllDesigns.Values)
+                    {
+                        if (design.Owner == stateData.EmpireState.Id && design.Type == "Defenses")
+                        {
+                            item.BuildState = design.Cost;       
+                        }
+                    }
                     star.ManufacturingQueue.Queue.Add(item);
                 }
             }
@@ -94,7 +110,7 @@ namespace Nova.Ai
         {
             //scout
             List<Fleet> scoutFleets = new List<Fleet>();
-            foreach (Fleet fleet in stateData.EmpireIntel.FleetReports.Values)
+            foreach (Fleet fleet in stateData.EmpireState.FleetReports.Values)
             {
                 if (fleet.Name.Contains("Scout") == true && fleet.Waypoints.Count == 1)
                 {
@@ -116,7 +132,7 @@ namespace Nova.Ai
             }
             //colonization
             List<Fleet> colonyShipsFleets = new List<Fleet>();
-            foreach (Fleet fleet in stateData.EmpireIntel.FleetReports.Values)
+            foreach (Fleet fleet in stateData.EmpireState.FleetReports.Values)
             {
                 if (fleet.CanColonize == true && fleet.Waypoints.Count == 1)
                     colonyShipsFleets.Add(fleet);
@@ -125,10 +141,10 @@ namespace Nova.Ai
             if (colonyShipsFleets.Count > 0)
             {
                 //check if there is any good star to colonize
-                foreach (StarIntel starIntel in turnData.EmpireIntel.StarReports.Values)
+                foreach (StarIntel starIntel in turnData.EmpireState.StarReports.Values)
                 {
                     Star star = starIntel;
-                    if (star.HabitalValue(stateData.EmpireIntel.EmpireRace) > 0 && star.Owner == Global.NoOwner)
+                    if (star.HabitalValue(stateData.EmpireState.EmpireRace) > 0 && star.Owner == Global.NoOwner)
                     {
                         SendFleet(star, colonyShipsFleets[0], WaypointTask.Colonise);
                         colonyShipsFleets.RemoveAt(0);
@@ -147,7 +163,7 @@ namespace Nova.Ai
         {
             Star star = null;
             Double distance = double.MaxValue;
-            foreach (StarIntel starIntel in turnData.EmpireIntel.StarReports.Values)
+            foreach (StarIntel starIntel in turnData.EmpireState.StarReports.Values)
             {
                 Star s = starIntel;
                 if (excludedStars.Contains(s) == true) 
@@ -184,14 +200,14 @@ namespace Nova.Ai
                     Nova.Common.TechLevel.ResearchField targetResearchField = TechLevel.ResearchField.Weapons; // default to researching weapons
                     for (TechLevel.ResearchField field = TechLevel.FirstField; field <= TechLevel.LastField; field++)
                     {
-                        if (stateData.EmpireIntel.ResearchLevels[field] < minLevel)
+                        if (stateData.EmpireState.ResearchLevels[field] < minLevel)
                         {
-                            minLevel = stateData.EmpireIntel.ResearchLevels[field];
+                            minLevel = stateData.EmpireState.ResearchLevels[field];
                             targetResearchField = field;
                         }
                     }
-                    stateData.EmpireIntel.ResearchTopics.Zero();
-                    stateData.EmpireIntel.ResearchTopics[targetResearchField] = 1;                        
+                    stateData.EmpireState.ResearchTopics.Zero();
+                    stateData.EmpireState.ResearchTopics[targetResearchField] = 1;                        
                 }
             }
            

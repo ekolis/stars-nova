@@ -175,8 +175,8 @@ namespace Nova.WinForms
                 {
                     if (wolf.Id != lamb.Id)
                     {
-                        wolf.OtherEmpires.Add(lamb.Id, new EnemyData(lamb));
-                        wolf.OtherEmpires[lamb.Id].Relation = PlayerRelation.Enemy;
+                        wolf.EmpireReports.Add(lamb.Id, new EmpireIntel(lamb));
+                        wolf.EmpireReports[lamb.Id].Relation = PlayerRelation.Enemy;
                     }
                 }
 

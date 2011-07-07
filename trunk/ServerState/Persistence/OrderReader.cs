@@ -130,7 +130,7 @@ namespace Nova.Server
                 // TODO (priority 5) - fine tune so the client can't modify things like a star's position, i.e. treat the data as orders only.
                 foreach (Design design in playerOrders.RaceDesigns.Values)
                 {
-                    this.stateData.AllDesigns[design.Key] = design;
+                    this.stateData.AllDesigns[design.Id] = design;
                 }
 
                 foreach (int fleetKey in playerOrders.DeletedFleets)
@@ -138,9 +138,9 @@ namespace Nova.Server
                     this.stateData.AllFleets.Remove(fleetKey);
                 }
 
-                foreach (string designKey in playerOrders.DeletedDesigns)
+                foreach (int designId in playerOrders.DeletedDesigns)
                 {
-                    this.stateData.AllDesigns.Remove(designKey);
+                    this.stateData.AllDesigns.Remove(designId);
                 }
 
                 foreach (FleetIntel fleet in playerOrders.EmpireStatus.FleetReports.Values)
@@ -187,7 +187,7 @@ namespace Nova.Server
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(playerOrders.RaceDesigns[ship.DesignName] as ShipDesign);
+                    ship.DesignUpdate(playerOrders.RaceDesigns[ship.DesignId] as ShipDesign);
                 }
             }
             // Star reference to Race
