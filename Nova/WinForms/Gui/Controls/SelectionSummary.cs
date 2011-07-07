@@ -34,7 +34,7 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class SelectionSummary : UserControl
     {
-        private readonly EmpireData empireIntel;
+        private readonly EmpireData empireState;
         
         private Item summaryItem = null;
         private PlanetSummary planetSummary;
@@ -43,12 +43,12 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the SelectionSummary class.
         /// </Summary>
-        public SelectionSummary(EmpireData empireIntel)
+        public SelectionSummary(EmpireData empireState)
         {
-            this.empireIntel = empireIntel;
+            this.empireState = empireState;
             
-            planetSummary = new PlanetSummary(empireIntel);
-            fleetSummary = new FleetSummary(empireIntel);
+            planetSummary = new PlanetSummary(empireState);
+            fleetSummary = new FleetSummary(empireState);
             
             InitializeComponent();
         }
@@ -59,7 +59,7 @@ namespace Nova.WinForms.Gui
         /// <param name="Item"></param>
         private void DisplayPlanet(Item item)
         {
-            if (empireIntel.StarReports[item.Name].Year == 0)
+            if (empireState.StarReports[item.Name].Year == 0)
             {
                 this.selectedItem.Text = item.Name + " is unexplored";
                 summaryItem = null;

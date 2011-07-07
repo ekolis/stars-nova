@@ -79,7 +79,7 @@ namespace Nova.WinForms.Gui
             InitializeComponent();
 
             this.stateData = stateData;
-            this.currentLevel = this.stateData.EmpireIntel.ResearchLevels;
+            this.currentLevel = this.stateData.EmpireState.ResearchLevels;
 
             // Provide a convienient way of getting a button from it's name.
             this.buttons.Add("Energy", this.energyButton);
@@ -105,7 +105,7 @@ namespace Nova.WinForms.Gui
             // TODO: Implement a proper hierarchy of research ("next research field") system.
             foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
             {
-                if (this.stateData.EmpireIntel.ResearchTopics[area] == 1)
+                if (this.stateData.EmpireState.ResearchTopics[area] == 1)
                 {
                     this.targetArea = area;
                     break;        
@@ -118,7 +118,7 @@ namespace Nova.WinForms.Gui
 
             this.availableEnergy = CountEnergy();
             this.availableResources.Text = this.availableEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            this.resourceBudget.Value = this.stateData.EmpireIntel.ResearchBudget;
+            this.resourceBudget.Value = this.stateData.EmpireState.ResearchBudget;
             this.dialogInitialised = true;
 
             ParameterChanged(null, null);
@@ -147,9 +147,9 @@ namespace Nova.WinForms.Gui
             {
                 try
                 {
-                    stateData.EmpireIntel.ResearchTopics[this.targetArea] = 0;
+                    stateData.EmpireState.ResearchTopics[this.targetArea] = 0;
                     this.targetArea = (TechLevel.ResearchField)Enum.Parse(typeof(TechLevel.ResearchField), button.Text, true);
-                    stateData.EmpireIntel.ResearchTopics[this.targetArea] = 1;
+                    stateData.EmpireState.ResearchTopics[this.targetArea] = 1;
                 }
                 catch (System.ArgumentException)
                 {
@@ -159,7 +159,7 @@ namespace Nova.WinForms.Gui
             
             // Populate the expected research benefits list
             Dictionary<string, Component> allComponents = AllComponents.Data.Components;
-            TechLevel oldResearchLevel = this.stateData.EmpireIntel.ResearchLevels;
+            TechLevel oldResearchLevel = this.stateData.EmpireState.ResearchLevels;
             TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 
             newResearchLevel[this.targetArea] = oldResearchLevel[this.targetArea] + 1;
@@ -206,22 +206,22 @@ namespace Nova.WinForms.Gui
             int percentage = (int)this.resourceBudget.Value;
             int allocatedEnergy = (this.availableEnergy * percentage) / 100;
 
-            this.stateData.EmpireIntel.ResearchBudget = percentage;
+            this.stateData.EmpireState.ResearchBudget = percentage;
 
             int resourcesRequired = 0;
             int yearsToComplete = 0;
 
-            TechLevel researchLevels = this.stateData.EmpireIntel.ResearchLevels;            
+            TechLevel researchLevels = this.stateData.EmpireState.ResearchLevels;            
 
             int level = (int)researchLevels[this.targetArea];
             int target = Research.Cost(
                 this.targetArea,
-                this.stateData.EmpireIntel.EmpireRace,
+                this.stateData.EmpireState.EmpireRace,
                 researchLevels,
                 researchLevels[this.targetArea] + 1);
 
             resourcesRequired = target
-               - (int)this.stateData.EmpireIntel.ResearchResources[this.targetArea];
+               - (int)this.stateData.EmpireState.ResearchResources[this.targetArea];
 
             if (level >= 26)
             {
@@ -267,12 +267,12 @@ namespace Nova.WinForms.Gui
         private int CountEnergy()
         {
             double totalEnergy = 0;
-            string raceName = stateData.EmpireIntel.EmpireRace.Name;
+            string raceName = stateData.EmpireState.EmpireRace.Name;
             Intel turnData = this.stateData.InputTurn;
 
-            foreach (StarIntel report in stateData.EmpireIntel.StarReports.Values)
+            foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
             {
-                if (report.Owner == stateData.EmpireIntel.Id)
+                if (report.Owner == stateData.EmpireState.Id)
                 {
                     totalEnergy += report.GetResourceRate();
                 }

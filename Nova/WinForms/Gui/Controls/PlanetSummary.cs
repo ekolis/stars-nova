@@ -37,7 +37,7 @@ namespace Nova.WinForms.Gui
     public class PlanetSummary : System.Windows.Forms.UserControl
     {
         // List of the Star reports.
-        private readonly EmpireData empireIntel;        
+        private readonly EmpireData empireState;        
        
         // reference to the Star. This is only used for owned stars.
         private Star currentStar;
@@ -72,9 +72,9 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the PlanetSummary class.
         /// </Summary>
-        public PlanetSummary(EmpireData empireIntel)
+        public PlanetSummary(EmpireData empireState)
         {
-            this.empireIntel = empireIntel;
+            this.empireState = empireState;
             
             InitializeComponent();
         }
@@ -453,9 +453,9 @@ namespace Nova.WinForms.Gui
             {
                 this.currentStar = value;
                 
-                int habValue = (int)Math.Ceiling(value.HabitalValue(empireIntel.EmpireRace) * 100);
+                int habValue = (int)Math.Ceiling(value.HabitalValue(empireState.EmpireRace) * 100);
                 
-                if (empireIntel.StarReports[value.Name].Year == 0)
+                if (empireState.StarReports[value.Name].Year == 0)
                 {
                     this.planetValue.Text = "???";
                     this.planetValue.ForeColor = Color.Empty;
@@ -475,86 +475,86 @@ namespace Nova.WinForms.Gui
 
                                
     
-                if (empireIntel.StarReports[value.Name].Year == 0)
+                if (empireState.StarReports[value.Name].Year == 0)
                 {
                     this.population.Text = "???";
                 }
                 else
                 {
-                    if (empireIntel.StarReports[value.Name].Colonists == 0)
+                    if (empireState.StarReports[value.Name].Colonists == 0)
                     {
                         this.population.Text = "Uninhabited";
                     }
                     else
                     {
-                        this.population.Text = "Population: " + empireIntel.StarReports[value.Name].Colonists;
+                        this.population.Text = "Population: " + empireState.StarReports[value.Name].Colonists;
                     }
                 }
     
-                if (empireIntel.StarReports[value.Name].Year == 0)
+                if (empireState.StarReports[value.Name].Year == 0)
                 {
                     this.reportAge.Text = "No Report";
                 }
-                else if (empireIntel.StarReports[value.Name].Year == empireIntel.TurnYear)
+                else if (empireState.StarReports[value.Name].Year == empireState.TurnYear)
                 {
                     this.reportAge.Text = "Report is current";
                 }
-                else if (empireIntel.StarReports[value.Name].Year == empireIntel.TurnYear - 1)
+                else if (empireState.StarReports[value.Name].Year == empireState.TurnYear - 1)
                 {
                     this.reportAge.Text = "Report is 1 year old";
                 }
                 else
                 {
-                    this.reportAge.Text = "Report is " + (empireIntel.TurnYear - empireIntel.StarReports[value.Name].Year) + " years old";
+                    this.reportAge.Text = "Report is " + (empireState.TurnYear - empireState.StarReports[value.Name].Year) + " years old";
                 }
 
-                this.ironiumGauge.Value = empireIntel.StarReports[value.Name].ResourcesOnHand.Ironium;
-                this.boraniumGauge.Value = empireIntel.StarReports[value.Name].ResourcesOnHand.Boranium;
-                this.germaniumGauge.Value = empireIntel.StarReports[value.Name].ResourcesOnHand.Germanium;
+                this.ironiumGauge.Value = empireState.StarReports[value.Name].ResourcesOnHand.Ironium;
+                this.boraniumGauge.Value = empireState.StarReports[value.Name].ResourcesOnHand.Boranium;
+                this.germaniumGauge.Value = empireState.StarReports[value.Name].ResourcesOnHand.Germanium;
 
-                this.ironiumGauge.Marker = empireIntel.StarReports[value.Name].MineralConcentration.Ironium;
-                this.boraniumGauge.Marker = empireIntel.StarReports[value.Name].MineralConcentration.Boranium;
-                this.germaniumGauge.Marker = empireIntel.StarReports[value.Name].MineralConcentration.Germanium;
+                this.ironiumGauge.Marker = empireState.StarReports[value.Name].MineralConcentration.Ironium;
+                this.boraniumGauge.Marker = empireState.StarReports[value.Name].MineralConcentration.Boranium;
+                this.germaniumGauge.Marker = empireState.StarReports[value.Name].MineralConcentration.Germanium;
 
-                this.radiationGauge.Marker = empireIntel.StarReports[value.Name].Radiation;
-                this.gravityGauge.Marker = empireIntel.StarReports[value.Name].Gravity;
-                this.temperatureGauge.Marker = empireIntel.StarReports[value.Name].Temperature;
+                this.radiationGauge.Marker = empireState.StarReports[value.Name].Radiation;
+                this.gravityGauge.Marker = empireState.StarReports[value.Name].Gravity;
+                this.temperatureGauge.Marker = empireState.StarReports[value.Name].Temperature;
 
-                this.radiationLevel.Text = empireIntel.StarReports[value.Name].Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
-                this.gravityLevel.Text = Gravity.FormatWithUnit(empireIntel.StarReports[value.Name].Gravity); 
-                this.temperatureLevel.Text = Temperature.FormatWithUnit(empireIntel.StarReports[value.Name].Temperature);
+                this.radiationLevel.Text = empireState.StarReports[value.Name].Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
+                this.gravityLevel.Text = Gravity.FormatWithUnit(empireState.StarReports[value.Name].Gravity); 
+                this.temperatureLevel.Text = Temperature.FormatWithUnit(empireState.StarReports[value.Name].Temperature);
 
-                if (empireIntel.EmpireRace.RadiationTolerance.Immune)
+                if (empireState.EmpireRace.RadiationTolerance.Immune)
                 {
                     this.radiationGauge.TopValue = 0.0;
                     this.radiationGauge.BottomValue = 0.0;
                 }
                 else
                 {
-                    this.radiationGauge.TopValue = empireIntel.EmpireRace.RadiationTolerance.MaximumValue;
-                    this.radiationGauge.BottomValue = empireIntel.EmpireRace.RadiationTolerance.MinimumValue;
+                    this.radiationGauge.TopValue = empireState.EmpireRace.RadiationTolerance.MaximumValue;
+                    this.radiationGauge.BottomValue = empireState.EmpireRace.RadiationTolerance.MinimumValue;
                 }
 
-                if (empireIntel.EmpireRace.GravityTolerance.Immune)
+                if (empireState.EmpireRace.GravityTolerance.Immune)
                 {
                     this.gravityGauge.TopValue = 0.0;
                     this.gravityGauge.BottomValue = 0.0;
                 }
                 else
                 {
-                    this.gravityGauge.TopValue = empireIntel.EmpireRace.GravityTolerance.MaximumValue;
-                    this.gravityGauge.BottomValue = empireIntel.EmpireRace.GravityTolerance.MinimumValue;
+                    this.gravityGauge.TopValue = empireState.EmpireRace.GravityTolerance.MaximumValue;
+                    this.gravityGauge.BottomValue = empireState.EmpireRace.GravityTolerance.MinimumValue;
                 }
 
-                if (empireIntel.EmpireRace.TemperatureTolerance.Immune)
+                if (empireState.EmpireRace.TemperatureTolerance.Immune)
                 {
                     this.temperatureGauge.TopValue = 0.0;
                     this.temperatureGauge.BottomValue = 0.0;
                 }
                 else
                 {
-                    this.temperatureGauge.TopValue = empireIntel.EmpireRace.TemperatureTolerance.MaximumValue;
-                    this.temperatureGauge.BottomValue = empireIntel.EmpireRace.TemperatureTolerance.MinimumValue;
+                    this.temperatureGauge.TopValue = empireState.EmpireRace.TemperatureTolerance.MaximumValue;
+                    this.temperatureGauge.BottomValue = empireState.EmpireRace.TemperatureTolerance.MinimumValue;
                 }
             }
         }
@@ -564,18 +564,18 @@ namespace Nova.WinForms.Gui
             string tt = "";
             
             if (this.currentStar != null
-                && this.currentStar.Owner == empireIntel.Id
-                && empireIntel.StarReports[currentStar.Name].Year == 0)
+                && this.currentStar.Owner == empireState.Id
+                && empireState.StarReports[currentStar.Name].Year == 0)
             {
                         
             tt += "Your population on " + currentStar.Name + " is " + currentStar.Colonists + "." + Environment.NewLine           
                 + currentStar.Name + " will support a population of up to "
-                + empireIntel.EmpireRace.MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + empireState.EmpireRace.MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " of your colonists." + Environment.NewLine
                 + "Your population on " + currentStar.Name + " will grow by "
-                + currentStar.CalculateGrowth(empireIntel.EmpireRace).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + currentStar.CalculateGrowth(empireState.EmpireRace).ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " to "
-                + (currentStar.Colonists + currentStar.CalculateGrowth(empireIntel.EmpireRace)).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + (currentStar.Colonists + currentStar.CalculateGrowth(empireState.EmpireRace)).ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " next year.";             
             }
 

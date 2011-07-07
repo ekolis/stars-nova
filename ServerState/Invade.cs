@@ -105,7 +105,7 @@ namespace Nova.WinForms.Console
                 stateData.AllMessages.Add(message);
                 return;
             }
-            PlayerRelation relation = stateData.AllEmpires[fleet.Owner].OtherEmpires[star.Owner].Relation;
+            PlayerRelation relation = stateData.AllEmpires[fleet.Owner].EmpireReports[star.Owner].Relation;
             switch (relation)
             {
                 case PlayerRelation.Friend:

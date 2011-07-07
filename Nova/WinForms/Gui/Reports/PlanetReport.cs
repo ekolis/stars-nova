@@ -37,14 +37,14 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class PlanetReport : Form
     {
-        private readonly EmpireData empireIntel;
+        private readonly EmpireData empireState;
         
         /// <Summary>
         /// Initializes a new instance of the PlanetReport class.
         /// </Summary>
-        public PlanetReport(EmpireData empireIntel)
+        public PlanetReport(EmpireData empireState)
         {
-            this.empireIntel = empireIntel;
+            this.empireState = empireState;
             
             InitializeComponent();
         }
@@ -64,9 +64,9 @@ namespace Nova.WinForms.Gui
             this.planetGridView.Columns[8].Name = "Minerals";
             this.planetGridView.AutoSize = true;
 
-            foreach (StarIntel report in empireIntel.StarReports.Values)
+            foreach (StarIntel report in empireState.StarReports.Values)
             {
-                if (report.Owner == empireIntel.Id)
+                if (report.Owner == empireState.Id)
                 {
                     string[] row = new string[NumColumns];
 
@@ -80,8 +80,8 @@ namespace Nova.WinForms.Gui
                     row[i++] = report.Name;
                     row[i++] = starbase;
                     row[i++] = report.Colonists.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = report.Capacity(empireIntel.EmpireRace).ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    row[i++] = Math.Ceiling(report.HabitalValue(empireIntel.EmpireRace) * 100).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = report.Capacity(empireState.EmpireRace).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = Math.Ceiling(report.HabitalValue(empireState.EmpireRace) * 100).ToString(System.Globalization.CultureInfo.InvariantCulture);
                     row[i++] = report.Mines.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     row[i++] = report.Factories.ToString(System.Globalization.CultureInfo.InvariantCulture);
 

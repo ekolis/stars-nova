@@ -61,13 +61,13 @@ namespace Nova.Common
     [Serializable]
     public sealed class Intel
     {
-        public EmpireData EmpireIntel = new EmpireData();
+        public EmpireData EmpireState = new EmpireData();
         
         public List<Message> Messages = new List<Message>();
         public List<BattleReport> Battles = new List<BattleReport>();
         public List<ScoreRecord> AllScores = new List<ScoreRecord>();
         
-        public Dictionary<string, Design> AllDesigns = new Dictionary<string, Design>();
+        public Dictionary<int, Design> AllDesigns = new Dictionary<int, Design>();
         public Dictionary<string, Minefield> AllMinefields = new Dictionary<string, Minefield>();
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace Nova.Common
             AllMinefields.Clear();
             Battles.Clear();
             Messages.Clear();
-            EmpireIntel.Clear();
+            EmpireState.Clear();
         }
 
         #region To From Xml
@@ -120,7 +120,7 @@ namespace Nova.Common
                             continue;
 
                         case "empiredata":
-                            EmpireIntel = new EmpireData(xmlnode);
+                            EmpireState = new EmpireData(xmlnode);
                             break;
 
                         case "message":
@@ -140,13 +140,13 @@ namespace Nova.Common
 
                         case "design":
                             Design newDesign = new Design(xmlnode);
-                            AllDesigns[newDesign.Key] = newDesign;
+                            AllDesigns[newDesign.Id] = newDesign;
                             // AllDesigns.Add(newDesign.Key, newDesign);
                             break;
 
                         case "shipdesign":
                             ShipDesign newShipDesign = new ShipDesign(xmlnode);
-                            AllDesigns[newShipDesign.Key] = newShipDesign;
+                            AllDesigns[newShipDesign.Id] = newShipDesign;
                             // AllDesigns.Add(newShipDesign.Key, newShipDesign);
                             break;
 
@@ -177,7 +177,7 @@ namespace Nova.Common
             // create the outer element
             XmlElement xmlelIntel = xmldoc.CreateElement("Intel");
             
-            xmlelIntel.AppendChild(EmpireIntel.ToXml(xmldoc));
+            xmlelIntel.AppendChild(EmpireState.ToXml(xmldoc));
 
             // Messages 
             if (Messages.Count > 0)

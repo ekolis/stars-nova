@@ -81,7 +81,7 @@ namespace Nova.Server
                 turnData = new Intel();
                 turnData.AllMinefields = StateData.AllMinefields;
                 turnData.AllDesigns = StateData.AllDesigns;
-                turnData.EmpireIntel = StateData.AllEmpires[empire.Id];
+                turnData.EmpireState = StateData.AllEmpires[empire.Id];
                 
                 // Copy any messages
                 foreach (Message message in StateData.AllMessages)

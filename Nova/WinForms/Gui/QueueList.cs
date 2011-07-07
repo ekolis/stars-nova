@@ -53,9 +53,9 @@ namespace Nova.WinForms.Gui
             {
                 ListViewItem item = new ListViewItem();
                 item.Text = itemToMake.Name;
+                item.Tag = itemToMake; // add the BuildState to the ListViewItem.Tag (as Tag.BuildState!)
                 item.SubItems.Add(itemToMake.Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-                // add the BuildState to the ListViewItem.Tag
-                item.Tag = itemToMake.BuildState;
+                              
                 // either set the Checked stat here for Starbases or in the OnLoad Method of ProductionDialog.cs
 
                 listView.Items.Add(item);

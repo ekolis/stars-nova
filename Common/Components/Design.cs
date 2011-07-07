@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,45 +20,31 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Design base class (characteristics common to all designs)
-// A Design with a Type of "Ship" or "Starbase" is a ShipDesign type.
-// (Type is inherited from Item)
-// Other Designs include "Mine", "Factory" and "Defense".
-//
-// TODO (priority 5) refactor this to reverse the current inheritance. 
-// A design is not yet an item, but an Item has all the properties of its Design. 
-// Does it make sense for a Design to have a Position? It currently does because 
-// it inherits one from Item. 
-// ===========================================================================
-#endregion
-
 namespace Nova.Common.Components
 {
-    #region Using Statements
     using System;
     using System.Xml;
-    #endregion
 
     /// <summary>
-    /// A design.
+    // Design base class (characteristics common to all designs)
+    /// A Design with a Type of "Ship" or "Starbase" is a ShipDesign type.
+    /// (Type is inherited from Item)
+    /// Other Designs include "Mine", "Factory" and "Defense".
+    ///
+    /// TODO (priority 5) refactor this to reverse the current inheritance. 
+    /// A design is not yet an item, but an Item has all the properties of its Design. 
+    /// Does it make sense for a Design to have a Position? It currently does because 
+    /// it inherits one from Item. 
     /// </summary>
     [Serializable]
     public class Design : Item
     {
-        #region Construction
-
         /// <summary>
         /// Default constructor.
         /// </summary>
         public Design() : base()
         { 
         }
-
-        #endregion
-
-        #region Load Save Xml
 
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
@@ -83,14 +69,6 @@ namespace Nova.Common.Components
             xmlelDesign.AppendChild(base.ToXml(xmldoc));
 
             return xmlelDesign;
-        }
-
-        public virtual string Key
-        {
-            get { return this.Owner + "/" + this.Name; }
-        }
-        
-
-        #endregion
+        }        
     }
 }

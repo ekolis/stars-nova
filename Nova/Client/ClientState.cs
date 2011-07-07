@@ -43,13 +43,13 @@ namespace Nova.Client
     [Serializable]
     public sealed class ClientState
     {
-        public EmpireData       EmpireIntel     = new EmpireData();
+        public EmpireData       EmpireState     = new EmpireData();
         
-        public List<string>     DeletedDesigns  = new List<string>();
+        public List<int>     DeletedDesigns  = new List<int>();
         public List<int>        DeletedFleets   = new List<int>();
         public List<Message>    Messages        = new List<Message>();
        
-        public Dictionary<string, Design> EnemyDesigns = new Dictionary<string, Design>();        
+        public Dictionary<int, Design> EnemyDesigns = new Dictionary<int, Design>();        
         
         public Intel            InputTurn           = null;
         public RaceComponents   AvailableComponents = null;    
@@ -90,7 +90,7 @@ namespace Nova.Client
                             continue;
                         
                         case "empiredata":
-                            EmpireIntel = new EmpireData(xmlnode);
+                            EmpireState = new EmpireData(xmlnode);
                             break;                        
                         case "deletedfleets":
                             tNode = xmlnode.FirstChild;
@@ -104,7 +104,8 @@ namespace Nova.Client
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                DeletedDesigns.Add(tNode.FirstChild.Value);
+                                int id = int.Parse(tNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                                DeletedDesigns.Add(id);
                                 tNode = tNode.NextSibling;
                             }
                             break;                        
@@ -118,12 +119,12 @@ namespace Nova.Client
                                 if (tNode.Name.ToLower() == "design")
                                 {
                                     Design design = new Design(tNode);
-                                    EnemyDesigns.Add(design.Key, design);
+                                    EnemyDesigns.Add(design.Id, design);
                                 }
                                 else if (tNode.Name.ToLower() == "shipdesign")
                                 {
                                     ShipDesign design = new ShipDesign(tNode);
-                                    EnemyDesigns.Add(design.Key, design);
+                                    EnemyDesigns.Add(design.Id, design);
                                 }
                                 else
                                 {
@@ -214,7 +215,7 @@ namespace Nova.Client
 
             if (commandArguments.Contains(CommandArguments.Option.RaceName))
             {
-                EmpireIntel.EmpireRace.Name = commandArguments[CommandArguments.Option.RaceName];
+                EmpireState.EmpireRace.Name = commandArguments[CommandArguments.Option.RaceName];
             }
             if (commandArguments.Contains(CommandArguments.Option.StateFileName))
             {
@@ -248,8 +249,8 @@ namespace Nova.Client
                 // - get GameFolder from the conf file - already done.
 
                 // - look for races and ask the user to pick one. 
-                EmpireIntel.EmpireRace.Name = SelectRace(GameFolder);
-                if (!string.IsNullOrEmpty(EmpireIntel.EmpireRace.Name))
+                EmpireState.EmpireRace.Name = SelectRace(GameFolder);
+                if (!string.IsNullOrEmpty(EmpireState.EmpireRace.Name))
                 {
                     isLoaded = true;
                 }
@@ -335,13 +336,13 @@ namespace Nova.Client
         {
             if (AvailableComponents == null)
             {
-                AvailableComponents = new RaceComponents(EmpireIntel.EmpireRace, EmpireIntel.ResearchLevels);
+                AvailableComponents = new RaceComponents(EmpireState.EmpireRace, EmpireState.ResearchLevels);
             }
             else
             {
                 try
                 {
-                    AvailableComponents.DetermineRaceComponents(EmpireIntel.EmpireRace, EmpireIntel.ResearchLevels);
+                    AvailableComponents.DetermineRaceComponents(EmpireState.EmpireRace, EmpireState.ResearchLevels);
                 }
                 catch
                 {
@@ -361,7 +362,7 @@ namespace Nova.Client
         /// </remarks>
         public ClientState Restore()
         {
-            ClientState newState = Restore(GameFolder, EmpireIntel.EmpireRace.Name);
+            ClientState newState = Restore(GameFolder, EmpireState.EmpireRace.Name);
             
             DeletedDesigns  = newState.DeletedDesigns;
             DeletedFleets   = newState.DeletedFleets;
@@ -372,7 +373,7 @@ namespace Nova.Client
             InputTurn           = newState.InputTurn;
             AvailableComponents = newState.AvailableComponents;
             
-            EmpireIntel = newState.EmpireIntel;
+            EmpireState = newState.EmpireState;
             
             FirstTurn     = newState.FirstTurn;             
             GameFolder    = newState.GameFolder; 
@@ -473,22 +474,22 @@ namespace Nova.Client
                 xmlRoot.AppendChild(xmlelClientState);
                 
                 // Empire Data
-                xmlelClientState.AppendChild(EmpireIntel.ToXml(xmldoc));
+                xmlelClientState.AppendChild(EmpireState.ToXml(xmldoc));
                 
                 // Deleted Fleets
                 XmlElement xmlelDeletedFleets = xmldoc.CreateElement("DeletedFleets");
-                foreach (int fleetKey in DeletedFleets)
+                foreach (int fleetId in DeletedFleets)
                 {
                     // only need to store enough data to find the deleted fleet.
-                    Global.SaveData(xmldoc, xmlelDeletedFleets, "FleetKey", fleetKey.ToString("X"));
+                    Global.SaveData(xmldoc, xmlelDeletedFleets, "FleetId", fleetId.ToString("X"));
                 }
                 xmlelClientState.AppendChild(xmlelDeletedFleets);
                 
                 // Deleted Designs
                 XmlElement xmlelDeletedDesigns = xmldoc.CreateElement("DeletedDesigns");
-                foreach (string designKey in DeletedDesigns)
+                foreach (int designId in DeletedDesigns)
                 {
-                    Global.SaveData(xmldoc, xmlelDeletedDesigns, "DesignKey", designKey);
+                    Global.SaveData(xmldoc, xmlelDeletedDesigns, "DesignId", designId.ToString("X"));
                 }
                 xmlelClientState.AppendChild(xmlelDeletedDesigns);
                 
@@ -596,16 +597,16 @@ namespace Nova.Client
         private void LinkClientStateReferences()
         {
             // Fleet reference to Star
-            foreach (FleetIntel fleet in EmpireIntel.FleetReports.Values)
+            foreach (FleetIntel fleet in EmpireState.FleetReports.Values)
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = EmpireIntel.StarReports[fleet.InOrbit.Name];
+                    fleet.InOrbit = EmpireState.StarReports[fleet.InOrbit.Name];
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(InputTurn.AllDesigns[ship.Owner + "/" + ship.DesignName] as ShipDesign);
+                    ship.DesignUpdate(InputTurn.AllDesigns[ship.DesignId] as ShipDesign);
                 }
             }
             
@@ -626,14 +627,14 @@ namespace Nova.Client
                 }
             }
 
-            foreach (StarIntel star in EmpireIntel.StarReports.Values)
+            foreach (StarIntel star in EmpireState.StarReports.Values)
             {
                 if (star.ThisRace != null)
                 {
                     // Reduntant, but works to check if race name is valid...
-                    if (star.Owner == EmpireIntel.Id)
+                    if (star.Owner == EmpireState.Id)
                     {
-                        star.ThisRace = EmpireIntel.EmpireRace;
+                        star.ThisRace = EmpireState.EmpireRace;
                     }
                     else
                     {
@@ -644,7 +645,7 @@ namespace Nova.Client
                 if (star.Starbase != null)
                 {
                     string sbFleetName = star.Name + " Starbase"; //Yuck yuck yuck :(  need to fix starbases
-                    EmpireIntel.FleetReports.First(x => x.Value.Name == sbFleetName);           
+                    EmpireState.FleetReports.First(x => x.Value.Name == sbFleetName);           
                 }
             }
         }     

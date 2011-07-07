@@ -32,10 +32,10 @@ namespace Nova.WinForms.Gui
             this.aboutToolStripMenuItem         = new System.Windows.Forms.ToolStripMenuItem();
             
             this.messages           = new Nova.WinForms.Gui.Messages();
-            this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(stateData.EmpireIntel,
+            this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(stateData.EmpireState,
                                                                             stateData.DeletedFleets,
                                                                             stateData);
-            this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(stateData.EmpireIntel);
+            this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(stateData.EmpireState);
             this.mapControl         = new Nova.WinForms.Gui.StarMap();
 
             this.groupBox2.SuspendLayout();
@@ -261,7 +261,7 @@ namespace Nova.WinForms.Gui
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(928, 770);
             this.Name = "NovaGUI";
-            this.Text = "Nova - " + stateData.EmpireIntel.EmpireRace.PluralName;
+            this.Text = "Nova - " + stateData.EmpireState.EmpireRace.PluralName;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NovaGUI_FormClosing);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             this.groupBox2.ResumeLayout(false);

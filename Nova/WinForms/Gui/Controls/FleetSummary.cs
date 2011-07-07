@@ -34,14 +34,14 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class FleetSummary : UserControl
     {
-        private readonly EmpireData empireIntel;
+        private readonly EmpireData empireState;
 
         /// <Summary>
         /// Initializes a new instance of the FleetSummary class.
         /// </Summary>
-        public FleetSummary(EmpireData empireIntel)
+        public FleetSummary(EmpireData empireState)
         {
-            this.empireIntel = empireIntel;
+            this.empireState = empireState;
             
             InitializeComponent();
         }
@@ -63,13 +63,13 @@ namespace Nova.WinForms.Gui
             // FIXME:(priority 3) look for enemy name inside EmpireData.
             // this needs the appropiate collections to be refactores.
             this.fleetOwner.Text = ownerId.ToString("X");
-            if (ownerId != empireIntel.Id)
+            if (ownerId != empireState.Id)
             {
-                this.raceIcon.Image = empireIntel.OtherEmpires[ownerId].Icon.Image;
+                this.raceIcon.Image = empireState.EmpireReports[ownerId].Icon.Image;
             }
             else
             {
-                this.raceIcon.Image = empireIntel.EmpireRace.Icon.Image;
+                this.raceIcon.Image = empireState.EmpireRace.Icon.Image;
             }
         }
 

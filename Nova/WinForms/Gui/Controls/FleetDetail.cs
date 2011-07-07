@@ -40,7 +40,7 @@ namespace Nova.WinForms.Gui
     public partial class FleetDetail : System.Windows.Forms.UserControl
     {
         private FleetIntel selectedFleet;
-        private readonly EmpireData empireIntel;
+        private readonly EmpireData empireState;
             
         private Dictionary<string, Fleet> fleetsAtLocation = new Dictionary<string, Fleet>();
 
@@ -68,9 +68,9 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the FleetDetail class.
         /// </Summary>
-        public FleetDetail(EmpireData empireIntel)
+        public FleetDetail(EmpireData empireState)
         {
-            this.empireIntel = empireIntel;
+            this.empireState = empireState;
             
             InitializeComponent();
         }
@@ -251,7 +251,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void NextFleet_Click(object sender, System.EventArgs e)
         {
-            if (empireIntel.FleetReports.Owned(empireIntel.Id) == 1)
+            if (empireState.FleetReports.Owned(empireState.Id) == 1)
             {
                 previousFleet.Enabled = false;
                 nextFleet.Enabled = false;
@@ -261,7 +261,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            selectedFleet = empireIntel.FleetReports.GetNextOwned(empireIntel.FleetReports[selectedFleet.Id]);
+            selectedFleet = empireState.FleetReports.GetNextOwned(empireState.FleetReports[selectedFleet.Id]);
             
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -283,7 +283,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void PreviousFleet_Click(object sender, EventArgs e)
         {
-            if (empireIntel.FleetReports.Owned(empireIntel.Id) == 1)
+            if (empireState.FleetReports.Owned(empireState.Id) == 1)
             {
                 previousFleet.Enabled = false;
                 nextFleet.Enabled = false;
@@ -293,7 +293,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            selectedFleet = empireIntel.FleetReports.GetPreviousOwned(empireIntel.FleetReports[selectedFleet.Id]);
+            selectedFleet = empireState.FleetReports.GetPreviousOwned(empireState.FleetReports[selectedFleet.Id]);
 
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -335,7 +335,7 @@ namespace Nova.WinForms.Gui
 
                 double time = distance / (to.WarpFactor * to.WarpFactor);
 
-                double fuelUsed = selectedFleet.FuelConsumption(to.WarpFactor, empireIntel.EmpireRace)
+                double fuelUsed = selectedFleet.FuelConsumption(to.WarpFactor, empireState.EmpireRace)
 
                                 * time;
 
@@ -365,7 +365,7 @@ namespace Nova.WinForms.Gui
                     double speed = warp * warp;
                     double travelTime = distance / speed;
 
-                    fuelRequired += selectedFleet.FuelConsumption(warp, empireIntel.EmpireRace) * travelTime;
+                    fuelRequired += selectedFleet.FuelConsumption(warp, empireState.EmpireRace) * travelTime;
                 }
                 previous = waypoint;
             }
@@ -401,7 +401,7 @@ namespace Nova.WinForms.Gui
 
             this.selectedFleet = selectedFleet;
             
-            if (empireIntel.FleetReports.Count > 1)
+            if (empireState.FleetReports.Count > 1)
             {
                 previousFleet.Enabled = true;
                 nextFleet.Enabled = true;
@@ -442,7 +442,7 @@ namespace Nova.WinForms.Gui
 
             List<String> fleetnames = new List<string>();
             fleetsAtLocation = new Dictionary<string, Fleet>();
-            foreach (FleetIntel other in empireIntel.FleetReports.Values)
+            foreach (FleetIntel other in empireState.FleetReports.Values)
             {
                 if (selectedFleet.Position == other.Position && !other.IsStarbase && selectedFleet.Id != other.Id)
                 {

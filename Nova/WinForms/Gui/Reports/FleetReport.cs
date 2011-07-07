@@ -37,14 +37,14 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class FleetReport : Form
     {
-        private EmpireData empireIntel;
+        private EmpireData empireState;
         
         /// <Summary>
         /// Initializes a new instance of the FleetReport class.
         /// </Summary>
-        public FleetReport(EmpireData empireIntel)
+        public FleetReport(EmpireData empireState)
         {
-            this.empireIntel = empireIntel;
+            this.empireState = empireState;
             
             InitializeComponent();
         }
@@ -64,9 +64,9 @@ namespace Nova.WinForms.Gui
             this.fleetGridView.Columns[6].Name = "Cargo";
             this.fleetGridView.AutoSize = true;
 
-            foreach (Fleet fleet in empireIntel.FleetReports.Values)
+            foreach (Fleet fleet in empireState.FleetReports.Values)
             {
-                if (fleet.Owner == empireIntel.Id)
+                if (fleet.Owner == empireState.Id)
                 {
 
                     if (fleet.Type == "Starbase")

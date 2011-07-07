@@ -238,13 +238,13 @@ namespace Nova.WinForms.Console
         /// <returns>A list of fleet stacks.</returns>
         public List<Fleet> BuildFleetStacks(Fleet fleet)
         {
-            Dictionary<string, Fleet> fleetStacks = new Dictionary<string, Fleet>();
+            Dictionary<int, Fleet> fleetStacks = new Dictionary<int, Fleet>();
 
             foreach (Ship ship in fleet.FleetShips)
             {
                 ship.Cost = ship.DesignCost; // ??? why is the cost of the ship being reset here?
                 Fleet stack;
-                fleetStacks.TryGetValue(ship.DesignName, out stack);
+                fleetStacks.TryGetValue(ship.DesignId, out stack);
 
                 // If no stack exists for this design then create one now.
 
@@ -258,7 +258,7 @@ namespace Nova.WinForms.Console
                     stack.BattlePlan = fleet.BattlePlan;
                     stack.BattleSpeed = ship.BattleSpeed;
 
-                    fleetStacks[ship.DesignName] = stack;
+                    fleetStacks[ship.DesignId] = stack;
                 }
 
                 // Add this ship into the stack but give each ship a name (normally
@@ -446,7 +446,7 @@ namespace Nova.WinForms.Console
             }
 
             EmpireData wolfData = stateData.AllEmpires[wolf.Owner];
-            PlayerRelation lambRelation = wolfData.OtherEmpires[lamb.Owner].Relation;
+            PlayerRelation lambRelation = wolfData.EmpireReports[lamb.Owner].Relation;
 
             BattlePlan battlePlan = wolfData.BattlePlans[wolf.BattlePlan];
 
@@ -688,7 +688,8 @@ namespace Nova.WinForms.Console
         private void DischargeWeapon(Ship ship, WeaponDetails details, Ship target)
         {
             BattleStepTarget report = new BattleStepTarget();
-            report.TargetShip = target.Key; // err.. shouldn't targetship be a fleet?
+            // FIXME:(priority 8) this will probably display yunk on the battle viewer!
+            report.TargetShip = target.Name; // err.. shouldn't targetship be a fleet?
             battle.Steps.Add(report);
 
             // Identify the attack parameters that have to take into account
@@ -818,7 +819,7 @@ namespace Nova.WinForms.Console
             BattleStepWeapons fire = new BattleStepWeapons();
             fire.HitPower = hitPower;
             fire.Targeting = "Shields";
-            fire.WeaponTarget.TargetShip = target.Key;
+            fire.WeaponTarget.TargetShip = target.Name;
             battle.Steps.Add(fire);
 
             return hitPower;
@@ -836,7 +837,7 @@ namespace Nova.WinForms.Console
             BattleStepWeapons armor = new BattleStepWeapons();
             armor.HitPower = hitPower;
             armor.Targeting = "Armor";
-            armor.WeaponTarget.TargetShip = target.Key;
+            armor.WeaponTarget.TargetShip = target.Name;
             battle.Steps.Add(armor);
         }
 

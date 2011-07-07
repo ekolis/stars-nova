@@ -57,7 +57,7 @@ namespace Nova.Client
         {
             this.stateData = stateData;
             this.inputTurn = stateData.InputTurn;
-            this.raceName = stateData.EmpireIntel.EmpireRace.Name;
+            this.raceName = stateData.EmpireState.EmpireRace.Name;
         }    
         
         /// <summary>
@@ -69,15 +69,15 @@ namespace Nova.Client
         {
             Orders outputTurn = new Orders();
             
-            outputTurn.EmpireStatus = stateData.EmpireIntel;
+            outputTurn.EmpireStatus = stateData.EmpireState;
             
             outputTurn.TechLevel = CountTechLevels();
                         
             foreach (Design design in inputTurn.AllDesigns.Values)
             {
-               if (design.Owner == stateData.EmpireIntel.Id)
+               if (design.Owner == stateData.EmpireState.Id)
                {
-                   outputTurn.RaceDesigns.Add(design.Key, design);
+                   outputTurn.RaceDesigns.Add(design.Id, design);
                }
             }
             
@@ -86,9 +86,9 @@ namespace Nova.Client
                outputTurn.DeletedFleets.Add(fleetKey);
             }
             
-            foreach (string designKey in stateData.DeletedDesigns)
+            foreach (int designId in stateData.DeletedDesigns)
             {
-               outputTurn.DeletedDesigns.Add(designKey);
+               outputTurn.DeletedDesigns.Add(designId);
             }
             
             string turnFileName = Path.Combine(stateData.GameFolder, raceName + Global.OrdersExtension);
@@ -107,7 +107,7 @@ namespace Nova.Client
         {
            int total = 0;
         
-           foreach (int techLevel in stateData.EmpireIntel.ResearchLevels)
+           foreach (int techLevel in stateData.EmpireState.ResearchLevels)
            {
                total += techLevel;
            }

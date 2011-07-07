@@ -51,7 +51,7 @@ namespace Nova.Common
     [Serializable]
     public sealed class Orders
     {
-        public Dictionary<string, Design> RaceDesigns = new Dictionary<string, Design>();     // For any new designs
+        public Dictionary<int, Design> RaceDesigns = new Dictionary<int, Design>();     // For any new designs
         
         /// <summary>
         /// List of fleets (Fleet.Key) to delete
@@ -61,7 +61,7 @@ namespace Nova.Common
         /// <summary>
         /// List of designs (Design.Key) to delete
         /// </summary>
-        public List<string> DeletedDesigns = new List<string>(); 
+        public List<int> DeletedDesigns = new List<int>(); 
 
         public EmpireData EmpireStatus = new EmpireData();        // Player relations, battle orders & turn # (turn # so we can check these orders are for the right year.) and research %
         public int TechLevel;                               // This is the sum of all the player's tech levels, used for victory checks.
@@ -130,12 +130,12 @@ namespace Nova.Common
                                 if (type.ToLower() == "ship" || type == "starbase")
                                 {
                                     shipDesign = new ShipDesign(xmlnode);
-                                    RaceDesigns.Add(shipDesign.Name, shipDesign);
+                                    RaceDesigns.Add(shipDesign.Id, shipDesign);
                                 }
                                 else
                                 {
                                     design = new Design(xmlnode);
-                                    RaceDesigns.Add(design.Name, design);
+                                    RaceDesigns.Add(design.Id, design);
                                 }
                             }
                             break;
@@ -143,7 +143,7 @@ namespace Nova.Common
                         case "shipdesign":
                             {
                                 shipDesign = new ShipDesign(xmlnode);
-                                RaceDesigns.Add(shipDesign.Name, shipDesign);
+                                RaceDesigns.Add(shipDesign.Id, shipDesign);
                             }
                             break;
 
@@ -154,8 +154,9 @@ namespace Nova.Common
                             XmlNode deletedDesignsNode = xmlnode.FirstChild;
                             while (deletedDesignsNode != null)
                             {
-                                // only the fleet.key is stored in the xml file
-                                DeletedDesigns.Add(deletedDesignsNode.FirstChild.Value);
+                                // only the fleet.id is stored in the xml file
+                                int id = int.Parse(deletedDesignsNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                                DeletedDesigns.Add(id);
                                 deletedDesignsNode = deletedDesignsNode.NextSibling;
                             }
                             break;
@@ -237,9 +238,9 @@ namespace Nova.Common
             xmlelOrders.AppendChild(xmlelDeletedFleets);
 
             XmlElement xmlelDeletedDesigns = xmldoc.CreateElement("DeletedDesigns");
-            foreach (string designKey in DeletedDesigns)
+            foreach (int designId in DeletedDesigns)
             {
-                Global.SaveData(xmldoc, xmlelDeletedDesigns, "DesignKey", designKey);
+                Global.SaveData(xmldoc, xmlelDeletedDesigns, "DesignId", designId);
             }
             xmlelOrders.AppendChild(xmlelDeletedDesigns);
 
