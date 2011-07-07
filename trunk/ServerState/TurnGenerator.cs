@@ -135,6 +135,10 @@ namespace Nova.WinForms.Console
             victoryCheck.Victor();
 
             stateData.TurnYear++;
+            foreach (EmpireData empire in stateData.AllEmpires.Values)
+            {
+                empire.TurnYear = stateData.TurnYear;
+            }
                        
             foreach (ITurnStep turnStep in turnSteps.Values)
             {

@@ -199,9 +199,6 @@ namespace Nova.Common
         /// ----------------------------------------------------------------------------
         public void ToXml(string ordersFileName)
         {
-            FileStream ordersFile = new FileStream(ordersFileName, FileMode.Create);
-            GZipStream compressionStream = new GZipStream(ordersFile, CompressionMode.Compress);
-
             // Setup the XML document
             XmlDocument xmldoc = new XmlDocument();
             XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
@@ -246,10 +243,13 @@ namespace Nova.Common
 
             xmlelOrders.AppendChild(EmpireStatus.ToXml(xmldoc));
 
-            xmldoc.Save(compressionStream);
-            compressionStream.Close();
+            Stream output = new FileStream(ordersFileName, FileMode.Create);
+            //output = new GZipStream(output, CompressionMode.Compress);
 
-            ordersFile.Close();
+            xmldoc.Save(output);
+            output.Close();
+
+            output.Close();
         }
 
         #endregion

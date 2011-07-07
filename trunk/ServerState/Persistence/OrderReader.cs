@@ -99,10 +99,11 @@ namespace Nova.Server
 
                 // Load from an xml file
                 XmlDocument xmldoc = new XmlDocument();
-                using (FileStream fileStream = new FileStream(fileName, FileMode.Open, FileAccess.Read))
+                using (Stream disposeme = new FileStream(fileName, FileMode.Open, FileAccess.Read))
                 {
-                    GZipStream compressionStream = new GZipStream(fileStream, CompressionMode.Decompress);
-                    xmldoc.Load(compressionStream);
+                    Stream input = disposeme;
+                    //input = new GZipStream(input, CompressionMode.Decompress);
+                    xmldoc.Load(input);
 
                     // check these orders are for the right turn
                     int ordersTurn = int.Parse(xmldoc.SelectSingleNode("ROOT/Orders/Turn").InnerText);
