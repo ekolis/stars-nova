@@ -132,7 +132,7 @@ namespace Nova.WinForms.Gui
             for (itemLoopCounter = 0; itemLoopCounter < this.queueList.Items.Count; itemLoopCounter++)
             {
                 // is it a starbase?
-                int tempId = (queueList.Items[itemLoopCounter].Tag as ProductionQueue.Item).Id;
+                int tempId = (queueList.Items[itemLoopCounter].Tag as ProductionItem).Id;
                 Design tempDesign = turnData.AllDesigns[tempId];
 
                 if (tempDesign.Type == "Starbase")
@@ -329,7 +329,7 @@ namespace Nova.WinForms.Gui
 
             if (this.queueList.SelectedItems.Count > 0)
             {
-                int designId = (queueList.Items[queueList.SelectedIndices[0]].Tag as Design).Id;
+                int designId = (queueList.Items[queueList.SelectedIndices[0]].Tag as ProductionItem).Id;
                 string designName = this.queueList.Items[queueList.SelectedIndices[0]].Text;
                 Design selectedDesign = this.turnData.AllDesigns[designId] as Design;
                 
@@ -441,16 +441,16 @@ namespace Nova.WinForms.Gui
         private void AddDesign(Design design, int quantity)
         {
             ListViewItem itemToAdd = new ListViewItem();
-            ProductionQueue.Item pItem = new ProductionQueue.Item();
+            ProductionItem pProductionItem = new ProductionItem();
             ListViewItem itemAdded;
    
-            pItem.Name = design.Name;
-            pItem.Id = design.Id;
-            pItem.BuildState = design.Cost;
+            pProductionItem.Name = design.Name;
+            pProductionItem.Id = design.Id;
+            pProductionItem.BuildState = design.Cost;
             
             itemToAdd.Text = design.Name;
             itemToAdd.SubItems.Add(quantity.ToString());
-            itemToAdd.Tag = pItem;    // when first added the partial BuildState is the full design cost
+            itemToAdd.Tag = pProductionItem;    // when first added the partial BuildState is the full design cost
             // set the Checked Status if this is a Starbase
             if (design.Type == "Starbase")
             {
@@ -550,15 +550,15 @@ namespace Nova.WinForms.Gui
             
             foreach (ListViewItem itemInList in this.queueList.Items)
             {
-                ProductionQueue.Item item = new ProductionQueue.Item();
+                ProductionItem productionItem = new ProductionItem();
 
-                item.Name = itemInList.SubItems[0].Text;
-                item.Id = (itemInList.Tag as ProductionQueue.Item).Id;
-                item.Quantity = Convert.ToInt32(itemInList.SubItems[1].Text);
+                productionItem.Name = itemInList.SubItems[0].Text;
+                productionItem.Id = (itemInList.Tag as ProductionItem).Id;
+                productionItem.Quantity = Convert.ToInt32(itemInList.SubItems[1].Text);
 
-                item.BuildState = (itemInList.Tag as ProductionQueue.Item).BuildState;
+                productionItem.BuildState = (itemInList.Tag as ProductionItem).BuildState;
 
-                this.queueStar.ManufacturingQueue.Queue.Add(item);
+                this.queueStar.ManufacturingQueue.Queue.Add(productionItem);
             }
             
             Close();
@@ -664,7 +664,7 @@ namespace Nova.WinForms.Gui
 
                 for (int queueIndex = 1; queueIndex < queueList.Items.Count; queueIndex++)
                 {
-                    int designId = (queueList.Items[queueIndex].Tag as ProductionQueue.Item).Id;
+                    int designId = (queueList.Items[queueIndex].Tag as ProductionItem).Id;
                     Design currentDesign = turnData.AllDesigns[designId];
 
                     quantityYetToBuild = Convert.ToInt32(queueList.Items[queueIndex].SubItems[1].Text);
@@ -900,7 +900,7 @@ namespace Nova.WinForms.Gui
                     {
                         selectedItemCost = GetProductionCosts(this.queueList.Items[queueIndex]);
 
-                        Resources currentBuildState = (queueList.Items[queueIndex].Tag as ProductionQueue.Item).BuildState;
+                        Resources currentBuildState = (queueList.Items[queueIndex].Tag as ProductionItem).BuildState;
 
                         // determine the percent complete; defined as the resource that is the most complete
                         if (currentDesign.Cost.Ironium > 0)
@@ -1035,7 +1035,7 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                costsToProduce = (stackOfInterest.Tag as ProductionQueue.Item).BuildState;
+                costsToProduce = (stackOfInterest.Tag as ProductionItem).BuildState;
             }
 
             int stackQuantity = Convert.ToInt32(stackOfInterest.SubItems[1].Text);
@@ -1043,7 +1043,7 @@ namespace Nova.WinForms.Gui
             // this check should not be required, but better to be safe than sorry
             if (stackQuantity > 1)  
             {
-                int designId = (stackOfInterest.Tag as ProductionQueue.Item).Id;
+                int designId = (stackOfInterest.Tag as ProductionItem).Id;
                 Design currentDesign = turnData.AllDesigns[designId];
                     // as the first Item in the stack costs BuildState to complete the design cost
                     // is multiplied by the quantity - 1

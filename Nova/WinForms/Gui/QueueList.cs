@@ -49,7 +49,7 @@ namespace Nova.WinForms.Gui
             listView.Items.Clear();
             listView.BeginUpdate();
 
-            foreach (ProductionQueue.Item itemToMake in toMake.Queue)
+            foreach (ProductionItem itemToMake in toMake.Queue)
             {
                 ListViewItem item = new ListViewItem();
                 item.Text = itemToMake.Name;

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
   <PropertyGroup>
     <ProjectType>Local</ProjectType>
@@ -109,6 +109,7 @@
     <Compile Include="DataStructures\Gravity.cs" />
     <Compile Include="DataStructures\GravityTolerance.cs" />
     <Compile Include="DataStructures\NovaPoint.cs" />
+    <Compile Include="DataStructures\ProductionItem.cs" />
     <Compile Include="DataStructures\ShipIcon.cs" />
     <Compile Include="DataStructures\RadiationTolerance.cs" />
     <Compile Include="DataStructures\Temperature.cs" />
