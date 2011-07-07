@@ -36,6 +36,7 @@ namespace Nova.WinForms.Gui
     public partial class PlayerRelations : Form
     {
         private Dictionary<int, EmpireIntel> empireReports;
+        private int empireId;
 
         #region Construction
 

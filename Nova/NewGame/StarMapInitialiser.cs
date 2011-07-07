@@ -82,7 +82,7 @@ namespace Nova.NewGame
                 star.Position.X = starPosition[0];
                 star.Position.Y = starPosition[1];
 
-                star.Name = nameGenerator.NextName;
+                star.Name = nameGenerator.NextStarName;
 
                 star.MineralConcentration.Boranium = random.Next(1, 99);
                 star.MineralConcentration.Ironium = random.Next(1, 99);
@@ -359,7 +359,7 @@ namespace Nova.NewGame
                 
                 map.Homeworlds.Remove(starPosition);
 
-                star.Name = nameGenerator.NextName;
+                star.Name = nameGenerator.NextStarName;
 
                 AllocateHomeStarResources(star, empire);
                 AllocateHomeStarOrbitalInstallations(star, empire, player);

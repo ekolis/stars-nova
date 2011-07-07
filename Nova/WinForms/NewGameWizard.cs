@@ -44,7 +44,7 @@ namespace Nova.WinForms
         private ServerState stateData;
 
         public Dictionary<string, Race> KnownRaces = new Dictionary<string, Race>();
-        private RaceNameGenerator raceNameGenerator = new RaceNameGenerator();
+        private NameGenerator nameGenerator = new NameGenerator();
 
         /// <Summary>
         /// Initializes a new instance of the NewGameWizard class.
@@ -92,7 +92,7 @@ namespace Nova.WinForms
         {
             string name = race.Name;
             // De-dupe race names here. Not the ideal solution but for now it'll have to do.
-            race.Name = raceNameGenerator.GenerateNextName(race.Name);
+            race.Name = nameGenerator.NextRaceName;
 
             if (race.Name != name)
             {
@@ -831,74 +831,6 @@ namespace Nova.WinForms
         }
                         
         #endregion
-
-        private class RaceNameGenerator
-        {
-            /// ----------------------------------------------------------------------------
-            /// <summary>
-            /// The list of race names we can return. Taken from Stars!.exe. May need changing?
-            /// </summary>
-            /// ----------------------------------------------------------------------------
-            private static readonly string[] raceNames = 
-            {
-                "Berserker",
-                "Bulushi",
-                "Golem",
-                "Nulon",
-                "Tritizoid",
-                "Valadiac",
-                "Ubert",
-                "Felite",
-                "Ferret",
-                "House",
-                "Cat",
-                "Crusher",
-                "Picardi",
-                "Rush'n",
-                "American",
-                "Hawk",
-                "Eagle",
-                "Mensoid",
-                "Loraxoid",
-                "Hicardi",
-                "Nairnian",
-                "Cleaver",
-                "Hooveron",
-                "Nee",
-                "Kurkonian"
-            };
-            
-            private HashSet<string> usedNames = new HashSet<string>();
-            private List<string> namePool = new List<string>();
-            private Random rand = new Random();
-
-            public RaceNameGenerator()
-            {
-                namePool.AddRange(raceNames);
-            }
-            
-            public string GenerateNextName(string name)
-            {
-                int counter = 0;
-                string origname = name;
-                while (usedNames.Contains(name))
-                {
-                    if (namePool.Count > 1)
-                    {
-                        name = namePool[rand.Next(namePool.Count)];
-                        namePool.Remove(name);
-                    }
-                    else
-                    {
-                        // none left. eek! - fall back to just adding a number
-                        name = origname + counter++;
-                    }
-                }                
-                usedNames.Add(name);
-                return name;
-            }
-
-        }
 
     }
 
