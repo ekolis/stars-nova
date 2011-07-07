@@ -45,7 +45,7 @@ namespace Nova.Client
     {
         public EmpireData       EmpireState     = new EmpireData();
         
-        public List<int>     DeletedDesigns  = new List<int>();
+        public List<int>        DeletedDesigns  = new List<int>();
         public List<int>        DeletedFleets   = new List<int>();
         public List<Message>    Messages        = new List<Message>();
        
@@ -596,21 +596,6 @@ namespace Nova.Client
         /// </summary>
         private void LinkClientStateReferences()
         {
-            // Fleet reference to Star
-            foreach (FleetIntel fleet in EmpireState.FleetReports.Values)
-            {
-                if (fleet.InOrbit != null)
-                {
-                    fleet.InOrbit = EmpireState.StarReports[fleet.InOrbit.Name];
-                }
-                // Ship reference to Design
-                foreach (Ship ship in fleet.FleetShips)
-                {
-                    ship.DesignUpdate(InputTurn.AllDesigns[ship.DesignId] as ShipDesign);
-                }
-            }
-            
-            
             // HullModule reference to a component
             foreach (Design design in InputTurn.AllDesigns.Values)
             {
@@ -624,6 +609,20 @@ namespace Nova.Client
                             AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
                         }
                     }
+                }
+            }
+            
+            // Fleet reference to Star
+            foreach (FleetIntel fleet in EmpireState.FleetReports.Values)
+            {
+                if (fleet.InOrbit != null)
+                {
+                    fleet.InOrbit = EmpireState.StarReports[fleet.InOrbit.Name];
+                }
+                // Ship reference to Design
+                foreach (Ship ship in fleet.FleetShips)
+                {
+                    ship.DesignUpdate(InputTurn.AllDesigns[ship.DesignId] as ShipDesign);
                 }
             }
 
@@ -644,8 +643,7 @@ namespace Nova.Client
 
                 if (star.Starbase != null)
                 {
-                    string sbFleetName = star.Name + " Starbase"; //Yuck yuck yuck :(  need to fix starbases
-                    EmpireState.FleetReports.First(x => x.Value.Name == sbFleetName);           
+                    star.Starbase = EmpireState.FleetReports[star.Starbase.Id];        
                 }
             }
         }     

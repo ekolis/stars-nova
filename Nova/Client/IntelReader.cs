@@ -149,10 +149,10 @@ namespace Nova.Client
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    // FIXME (priority 4) - this way of forming the key is a kludge
                     ship.DesignUpdate(stateData.InputTurn.AllDesigns[ship.DesignId] as ShipDesign);
                 }
             }
+            
             // Star reference to Race
             // Star reference to Fleet (starbase)
             foreach (StarIntel star in stateData.EmpireState.StarReports.Values)
@@ -171,8 +171,7 @@ namespace Nova.Client
 
                 if (star.Starbase != null)
                 {
-                    string sbFleetName = star.Name + " Starbase"; //Yuck yuck yuck :(  need to fix starbases
-                    stateData.EmpireState.FleetReports.First(x => x.Value.Name == sbFleetName );                    
+                    star.Starbase = stateData.EmpireState.FleetReports[star.Starbase.Id];                  
                 }
             }
 
@@ -186,12 +185,10 @@ namespace Nova.Client
                     {
                         if (stateData.EnemyDesigns.ContainsKey(ship.DesignId))
                         {
-                            // FIXME (priority 4) - this way of forming the key is a kludge
                             ship.DesignUpdate((ShipDesign)stateData.EnemyDesigns[ship.DesignId]);
                         }
                         else
                         {
-                            // FIXME (priority 4) - this way of forming the key is a kludge
                             ship.DesignUpdate((ShipDesign)stateData.InputTurn.AllDesigns[ship.DesignId]);
                         }
                     }
