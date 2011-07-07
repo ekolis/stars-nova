@@ -261,7 +261,7 @@ namespace Nova.WinForms.Gui
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(928, 770);
             this.Name = "NovaGUI";
-            this.Text = "Nova - " + stateData.EmpireState.EmpireRace.PluralName;
+            this.Text = "Nova - " + stateData.EmpireState.Race.PluralName;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NovaGUI_FormClosing);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             this.groupBox2.ResumeLayout(false);

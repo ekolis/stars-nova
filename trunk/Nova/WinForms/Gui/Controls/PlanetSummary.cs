@@ -453,7 +453,7 @@ namespace Nova.WinForms.Gui
             {
                 this.currentStar = value;
                 
-                int habValue = (int)Math.Ceiling(value.HabitalValue(empireState.EmpireRace) * 100);
+                int habValue = (int)Math.Ceiling(value.HabitalValue(empireState.Race) * 100);
                 
                 if (empireState.StarReports[value.Name].Year == 0)
                 {
@@ -524,37 +524,37 @@ namespace Nova.WinForms.Gui
                 this.gravityLevel.Text = Gravity.FormatWithUnit(empireState.StarReports[value.Name].Gravity); 
                 this.temperatureLevel.Text = Temperature.FormatWithUnit(empireState.StarReports[value.Name].Temperature);
 
-                if (empireState.EmpireRace.RadiationTolerance.Immune)
+                if (empireState.Race.RadiationTolerance.Immune)
                 {
                     this.radiationGauge.TopValue = 0.0;
                     this.radiationGauge.BottomValue = 0.0;
                 }
                 else
                 {
-                    this.radiationGauge.TopValue = empireState.EmpireRace.RadiationTolerance.MaximumValue;
-                    this.radiationGauge.BottomValue = empireState.EmpireRace.RadiationTolerance.MinimumValue;
+                    this.radiationGauge.TopValue = empireState.Race.RadiationTolerance.MaximumValue;
+                    this.radiationGauge.BottomValue = empireState.Race.RadiationTolerance.MinimumValue;
                 }
 
-                if (empireState.EmpireRace.GravityTolerance.Immune)
+                if (empireState.Race.GravityTolerance.Immune)
                 {
                     this.gravityGauge.TopValue = 0.0;
                     this.gravityGauge.BottomValue = 0.0;
                 }
                 else
                 {
-                    this.gravityGauge.TopValue = empireState.EmpireRace.GravityTolerance.MaximumValue;
-                    this.gravityGauge.BottomValue = empireState.EmpireRace.GravityTolerance.MinimumValue;
+                    this.gravityGauge.TopValue = empireState.Race.GravityTolerance.MaximumValue;
+                    this.gravityGauge.BottomValue = empireState.Race.GravityTolerance.MinimumValue;
                 }
 
-                if (empireState.EmpireRace.TemperatureTolerance.Immune)
+                if (empireState.Race.TemperatureTolerance.Immune)
                 {
                     this.temperatureGauge.TopValue = 0.0;
                     this.temperatureGauge.BottomValue = 0.0;
                 }
                 else
                 {
-                    this.temperatureGauge.TopValue = empireState.EmpireRace.TemperatureTolerance.MaximumValue;
-                    this.temperatureGauge.BottomValue = empireState.EmpireRace.TemperatureTolerance.MinimumValue;
+                    this.temperatureGauge.TopValue = empireState.Race.TemperatureTolerance.MaximumValue;
+                    this.temperatureGauge.BottomValue = empireState.Race.TemperatureTolerance.MinimumValue;
                 }
             }
         }
@@ -570,12 +570,12 @@ namespace Nova.WinForms.Gui
                         
             tt += "Your population on " + currentStar.Name + " is " + currentStar.Colonists + "." + Environment.NewLine           
                 + currentStar.Name + " will support a population of up to "
-                + empireState.EmpireRace.MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + empireState.Race.MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " of your colonists." + Environment.NewLine
                 + "Your population on " + currentStar.Name + " will grow by "
-                + currentStar.CalculateGrowth(empireState.EmpireRace).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + currentStar.CalculateGrowth(empireState.Race).ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " to "
-                + (currentStar.Colonists + currentStar.CalculateGrowth(empireState.EmpireRace)).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + (currentStar.Colonists + currentStar.CalculateGrowth(empireState.Race)).ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " next year.";             
             }
 

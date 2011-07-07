@@ -93,7 +93,7 @@ namespace Nova.WinForms.Gui
             // Populate the "Design Owner" ComboBox with a list of players and
             // select the current race as the default
 
-            ComboBoxItem<int> thisRace = new ComboBoxItem<int>(stateData.EmpireState.EmpireRace.Name, stateData.EmpireState.Id);
+            ComboBoxItem<int> thisRace = new ComboBoxItem<int>(stateData.EmpireState.Race.Name, stateData.EmpireState.Id);
             comboDesignOwner.Items.Add(thisRace);
 
             foreach (int empireId in stateData.EmpireState.EmpireReports.Keys)

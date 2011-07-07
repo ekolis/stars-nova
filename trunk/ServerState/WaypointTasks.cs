@@ -233,7 +233,7 @@ namespace Nova.WinForms.Console
 
             if (star != null)
             {
-                if (empire.EmpireRace.HasTrait("UR"))
+                if (empire.Race.HasTrait("UR"))
                 {
                     if (star != null)
                     {

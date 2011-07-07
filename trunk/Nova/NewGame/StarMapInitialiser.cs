@@ -110,21 +110,21 @@ namespace Nova.NewGame
         {
             foreach (EmpireData empire in stateData.AllEmpires.Values)
             {
-                string player = empire.EmpireRace.Name;
+                string player = empire.Race.Name;
                 
                 Design mine = new Design();
                 Design factory = new Design();
                 Design defense = new Design();
 
-                mine.Cost = new Nova.Common.Resources(0, 0, 0, empire.EmpireRace.MineBuildCost);
+                mine.Cost = new Nova.Common.Resources(0, 0, 0, empire.Race.MineBuildCost);
                 mine.Name = "Mine";
                 mine.Type = "Mine";
                 mine.Id = empire.NextDesignId;
 
                 // If we have the secondary racial trait Cheap Factories they need 1K
                 // less germanium to build.
-                int factoryBuildCostGerm = empire.EmpireRace.HasTrait("CF") ? 3 : 4;
-                factory.Cost = new Nova.Common.Resources(0, 0, factoryBuildCostGerm, empire.EmpireRace.FactoryBuildCost);
+                int factoryBuildCostGerm = empire.Race.HasTrait("CF") ? 3 : 4;
+                factory.Cost = new Nova.Common.Resources(0, 0, factoryBuildCostGerm, empire.Race.FactoryBuildCost);
                 factory.Name = "Factory";
                 factory.Type = "Factory";
                 factory.Id = empire.NextDesignId;
@@ -170,7 +170,7 @@ namespace Nova.NewGame
             Component starbaseHull = components["Space Station"];
             engine = components["Quick Jump 5"];
 
-            if (empire.EmpireRace.Traits.Primary.Code != "HE")
+            if (empire.Race.Traits.Primary.Code != "HE")
             {
                 colonyShipHull = components["Colony Ship"]; // (components["Colony Ship"] as Component).Properties["Hull"] as Hull;
             }
@@ -183,7 +183,7 @@ namespace Nova.NewGame
 
             Component spaceDockHull = components["Space Dock"]; // (components["Space Dock"] as Component).Properties["Hull"] as Hull;
 
-            if (empire.EmpireRace.HasTrait("AR") == true)
+            if (empire.Race.HasTrait("AR") == true)
             {
                 colonizer = components["Orbital Construction Module"]; // (components["Orbital Construction Module"] as Component).Properties["Colonizer"] as Colonizer;
             }
@@ -391,7 +391,7 @@ namespace Nova.NewGame
                 }
             }
             
-            if (empire.EmpireRace.Traits.Primary.Code != "HE")
+            if (empire.Race.Traits.Primary.Code != "HE")
             {
                 Ship cs = new Ship(colonyShipDesign);
                 Fleet fleet1 = new Fleet(cs, star);                               
@@ -456,20 +456,20 @@ namespace Nova.NewGame
             // Set the owner of the home star in order to obtain proper
             // starting resources.
             star.Owner = empire.Id;
-            star.ThisRace = empire.EmpireRace;
+            star.ThisRace = empire.Race;
 
             // Set the habital values for this star to the optimum for each race.
             // This should result in a planet value of 100% for this race's home
             // world.            
-            star.Radiation = empire.EmpireRace.RadiationTolerance.OptimumLevel;
-            star.Temperature = empire.EmpireRace.TemperatureTolerance.OptimumLevel;
-            star.Gravity = empire.EmpireRace.GravityTolerance.OptimumLevel;
+            star.Radiation = empire.Race.RadiationTolerance.OptimumLevel;
+            star.Temperature = empire.Race.TemperatureTolerance.OptimumLevel;
+            star.Gravity = empire.Race.GravityTolerance.OptimumLevel;
             
             star.OriginalRadiation = star.Radiation;
             star.OriginalGravity = star.Gravity;
             star.OriginalTemperature = star.Temperature;
             
-            star.Colonists = empire.EmpireRace.GetStartingPopulation();
+            star.Colonists = empire.Race.GetStartingPopulation();
 
             star.ResourcesOnHand.Boranium = random.Next(300, 500);
             star.ResourcesOnHand.Ironium = random.Next(300, 500);

@@ -45,7 +45,7 @@ namespace Nova.Common
         
         public int TurnYear = Global.StartingYear; // The year that corresponds to this data
         
-        public Race EmpireRace = new Race(); // This empire's race.
+        private Race race = new Race(); // This empire's race.
         
         public int          ResearchBudget          = 10; // % of resources allocated to research
         public TechLevel    ResearchLevels          = new TechLevel(); // current levels of technology
@@ -57,11 +57,27 @@ namespace Nova.Common
         public FleetIntelList                   FleetReports    = new FleetIntelList();
         public Dictionary<int, EmpireIntel>     EmpireReports   = new Dictionary<int, EmpireIntel>();
         
-        public Dictionary<string, BattlePlan>       BattlePlans     = new Dictionary<string, BattlePlan>();
+        public Dictionary<string, BattlePlan>   BattlePlans     = new Dictionary<string, BattlePlan>();
         
         // See associated properties.
         private int FleetCounter             = 0;
         private int DesignCounter            = 0;
+        
+        public Race Race
+        {
+            get
+            {
+                return this.race;
+            }
+            
+            set
+            {
+                if (value != null)
+                {
+                    race = value;
+                }
+            }
+        }
         
         /// <summary>
         /// Sets or gets this empires unique integer Id.
@@ -108,11 +124,7 @@ namespace Nova.Common
         /// </summary>
         public EmpireData() 
         {
-            // If no orders have ever been turned in then ensure battle plans contain at least the default
-            if (BattlePlans.Count == 0)
-            {
-                BattlePlans.Add("Default", new BattlePlan());
-            }
+            BattlePlans.Add("Default", new BattlePlan());
         }
 
         /// <summary>
@@ -152,8 +164,8 @@ namespace Nova.Common
                             TurnYear = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "race":
-                            EmpireRace = new Race();
-                            EmpireRace.LoadRaceFromXml(subnode);
+                            race = new Race();
+                            Race.LoadRaceFromXml(subnode);
                             break;
                         case "researchbudget":
                             ResearchBudget = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -229,7 +241,7 @@ namespace Nova.Common
         {
             XmlElement xmlelEmpireData = xmldoc.CreateElement("EmpireData");
             
-            xmlelEmpireData.AppendChild(EmpireRace.ToXml(xmldoc));
+            xmlelEmpireData.AppendChild(race.ToXml(xmldoc));
             
             Global.SaveData(xmldoc, xmlelEmpireData, "Id", empireId.ToString("X"));
             
@@ -278,7 +290,7 @@ namespace Nova.Common
         {
             TurnYear = Global.StartingYear;
         
-            EmpireRace = new Race();
+            Race = new Race();
             
             ResearchBudget = 10;
             ResearchLevels          = new TechLevel();

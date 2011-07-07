@@ -90,7 +90,7 @@ namespace Nova.Server
             Orders playerOrders;
             try
             {
-                string fileName = Path.Combine(this.stateData.GameFolder, empire.EmpireRace.Name + Global.OrdersExtension);
+                string fileName = Path.Combine(this.stateData.GameFolder, empire.Race.Name + Global.OrdersExtension);
 
                 if (!File.Exists(fileName))
                 {
@@ -116,7 +116,7 @@ namespace Nova.Server
             }
             catch (Exception e)
             {
-                Report.Error(Environment.NewLine + "There was a problem reading in the orders for " + empire.EmpireRace.Name + Environment.NewLine + "Details: " + e.Message);
+                Report.Error(Environment.NewLine + "There was a problem reading in the orders for " + empire.Race.Name + Environment.NewLine + "Details: " + e.Message);
                 return;
             }
             try
@@ -159,7 +159,7 @@ namespace Nova.Server
             }
             catch (Exception e)
             {
-                Report.FatalError(Environment.NewLine + "There was a problem processing the orders for " + empire.EmpireRace.Name + Environment.NewLine + "Details: " + e.Message);
+                Report.FatalError(Environment.NewLine + "There was a problem processing the orders for " + empire.Race.Name + Environment.NewLine + "Details: " + e.Message);
             }
         }
 

@@ -76,7 +76,7 @@ namespace Nova.WinForms.Console
                 EmpireData empire = StateData.AllEmpires[remainingEmpires[0]];
                 Message message = new Message();
                 message.Audience = Global.AllEmpires;
-                message.Text = "The " + empire.EmpireRace.PluralName +
+                message.Text = "The " + empire.Race.PluralName +
                                    " have won the game";
                 StateData.AllMessages.Add(message);
                 return;
@@ -111,7 +111,7 @@ namespace Nova.WinForms.Console
                         messageSent = true;
                         Message message = new Message();
                         message.Audience = Global.AllEmpires;
-                        message.Text = "The " + empire.EmpireRace.PluralName +
+                        message.Text = "The " + empire.Race.PluralName +
                                            " have won the game";
                         StateData.AllMessages.Add(message);
                         return;

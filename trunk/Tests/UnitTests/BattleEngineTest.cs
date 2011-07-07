@@ -200,10 +200,10 @@ namespace Nova.Tests.UnitTests
             EmpireData empireData2 = new EmpireData();
 
             empireData1.Id = 1;
-            empireData1.EmpireRace.Name = "Tom";
+            empireData1.Race.Name = "Tom";
 
             empireData2.Id = 2;
-            empireData2.EmpireRace.Name = "Dick";
+            empireData2.Race.Name = "Dick";
 
             empireData1.BattlePlans["Default"] = new BattlePlan();
             empireData2.BattlePlans["Default"] = new BattlePlan();

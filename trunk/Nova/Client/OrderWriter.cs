@@ -57,7 +57,7 @@ namespace Nova.Client
         {
             this.stateData = stateData;
             this.inputTurn = stateData.InputTurn;
-            this.raceName = stateData.EmpireState.EmpireRace.Name;
+            this.raceName = stateData.EmpireState.Race.Name;
         }    
         
         /// <summary>

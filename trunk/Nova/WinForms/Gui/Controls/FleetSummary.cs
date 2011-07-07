@@ -69,7 +69,7 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                this.raceIcon.Image = empireState.EmpireRace.Icon.Image;
+                this.raceIcon.Image = empireState.Race.Icon.Image;
             }
         }
 

@@ -161,7 +161,7 @@ namespace Nova.Client
                 {
                     if (star.Owner == stateData.EmpireState.Id)
                     {
-                        star.ThisRace = stateData.EmpireState.EmpireRace;
+                        star.ThisRace = stateData.EmpireState.Race;
                     }
                     else
                     {
