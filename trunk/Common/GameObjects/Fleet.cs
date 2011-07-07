@@ -24,7 +24,6 @@ using System.Collections.Generic;
 
 namespace Nova.Common
 {
-
     using System;
     using System.Linq;
     using System.Xml;
