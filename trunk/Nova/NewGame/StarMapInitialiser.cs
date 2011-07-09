@@ -455,7 +455,7 @@ namespace Nova.NewGame
             star.ThisRace = empire.Race;
 
             // Set the habital values for this star to the optimum for each race.
-            // This should result in a planet value of 100% for this race's home
+            // This should allTurnedIn in a planet value of 100% for this race's home
             // world.            
             star.Radiation = empire.Race.RadiationTolerance.OptimumLevel;
             star.Temperature = empire.Race.TemperatureTolerance.OptimumLevel;

@@ -801,7 +801,7 @@ namespace Nova.WinForms.Console
         /// <returns>true if all players are turned in</returns>
         private bool SetPlayerList()
         {
-            bool result = true;
+            bool allTurnedIn = true;
             playerList.Items.Clear();
 
             if (stateData.GameInProgress)
@@ -826,7 +826,7 @@ namespace Nova.WinForms.Console
                 stateData.AllEmpires.TryGetValue((settings.PlayerNumber), out empireData);
 
                 ListViewItem.ListViewSubItem yearItem = new ListViewItem.ListViewSubItem();
-                if (empireData == null || empireData.TurnYear == Global.StartingYear)
+                if (empireData == null || (empireData.TurnYear == Global.StartingYear && ! empireData.TurnSubmitted))
                 {
                     yearItem.Text = "No Orders";
                 }
@@ -835,12 +835,12 @@ namespace Nova.WinForms.Console
                     yearItem.Text = empireData.TurnYear.ToString();
                 }
 
-                if (empireData == null || empireData.TurnYear != stateData.TurnYear + 1)
+                if (empireData == null || empireData.TurnYear != stateData.TurnYear || ! empireData.TurnSubmitted)
                 {
                     // FIXME (priority 3) - Display the turn year color coded - red for waiting, green for turned in.
                     yearItem.ForeColor = System.Drawing.Color.Red;
 
-                    result = false; // don't allow the turn to be generated (unless forced)
+                    allTurnedIn = false; // don't allow the turn to be generated (unless forced)
                 }
                 else
                 {
@@ -852,7 +852,7 @@ namespace Nova.WinForms.Console
                 // PlayerList.Invalidate(); // Tried this in an attempt to get the colors to show. Dan - 6 Feb 10
             }
 
-            return result;
+            return allTurnedIn;
         }
 
         /// <Summary>
@@ -916,8 +916,8 @@ namespace Nova.WinForms.Console
                     }
 
                     EmpireData empireData;
-                    stateData.AllEmpires.TryGetValue((settings.PlayerNumber << 24), out empireData);
-                    if (empireData == null || empireData.TurnYear != stateData.TurnYear)
+                    stateData.AllEmpires.TryGetValue((settings.PlayerNumber), out empireData);
+                    if (empireData == null || empireData.TurnYear != stateData.TurnYear || ! empireData.TurnSubmitted)
                     {
                         // TODO: Add support for running custom AIs based on settings.AiProgram.
                         CommandArguments args = new CommandArguments();

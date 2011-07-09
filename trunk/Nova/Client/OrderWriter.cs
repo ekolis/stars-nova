@@ -68,7 +68,7 @@ namespace Nova.Client
         public void WriteOrders()
         {
             // Advance the turn year, to show this empire has finished with the current turn year.
-            stateData.EmpireState.TurnYear++;
+            stateData.EmpireState.TurnSubmitted = true;
 
             Orders outputTurn = new Orders();
             

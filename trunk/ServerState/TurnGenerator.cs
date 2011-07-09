@@ -138,6 +138,7 @@ namespace Nova.WinForms.Console
             foreach (EmpireData empire in stateData.AllEmpires.Values)
             {
                 empire.TurnYear = stateData.TurnYear;
+                empire.TurnSubmitted = false;
             }
                        
             foreach (ITurnStep turnStep in turnSteps.Values)
