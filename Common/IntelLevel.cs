@@ -30,11 +30,11 @@ namespace Nova.Common
     /// </summary>
     public enum IntelLevel
     {
-        None = 0,        
-        InScan = 1,
-        InPlace = 2,
-        InDeepScan = 3,
-        Owned = 4
+        None = 0, // never visited        
+        InScan = 1, // in range of non-penetrating scanner - not much better than None.
+        InPlace = 2, // Have a fleet in orbit
+        InDeepScan = 3, // In range of a penetrating scanner.
+        Owned = 4 // Best kind of star ;)
     }
 }
 

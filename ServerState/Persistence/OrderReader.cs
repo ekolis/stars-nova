@@ -146,13 +146,21 @@ namespace Nova.Server
 
                 foreach (FleetIntel fleet in playerOrders.EmpireStatus.FleetReports.Values)
                 {
-                    this.stateData.AllFleets[fleet.Key] = fleet;
+                    stateData.AllEmpires[empire.Id].FleetReports[fleet.Key] = fleet;
+                    if (fleet.Owner == empire.Id)
+                    {
+                        stateData.AllFleets[fleet.Key] = fleet; // TODO (priority 6) - verify validity of orders.
+                    }
                 }
 
                 // load the orders for each star. 
                 foreach (StarIntel star in playerOrders.EmpireStatus.StarReports.Values)
                 {
-                    this.stateData.AllStars[star.Name] = star;
+                    stateData.AllEmpires[empire.Id].StarReports[star.Name] = star;
+                    if (star.Owner == empire.Id)
+                    {
+                        stateData.AllStars[star.Name] = star;
+                    }
                 }
 
                 this.stateData.AllEmpires[empire.Id] = playerOrders.EmpireStatus;

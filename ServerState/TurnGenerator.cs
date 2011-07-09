@@ -115,7 +115,6 @@ namespace Nova.WinForms.Console
                 ProcessFleet(fleet);
             }
             CleanupFleets();
-            
 
             // Handle star based actions - growth and production
             // TODO (priority 4) - split these up as per Stars! turn order
