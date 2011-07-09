@@ -830,10 +830,11 @@ namespace Nova.WinForms.Console
                 {
                     yearItem.Text = "No Orders";
                 }
-                else
+                else 
                 {
-                    yearItem.Text = empireData.TurnYear.ToString();
+                    yearItem.Text = empireData.LastTurnSubmitted.ToString();
                 }
+
 
                 if (empireData == null || empireData.TurnYear != stateData.TurnYear || ! empireData.TurnSubmitted)
                 {
