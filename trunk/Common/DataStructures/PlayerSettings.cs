@@ -36,7 +36,7 @@ namespace Nova.Common
     {
         public string RaceName; // The path & file name of the race.
         public string AiProgram; // The path & file name of the AI application or "Human"
-        public int PlayerNumber; // The order number of the player from 1 - Global.MaxPlayers        
+        public ushort PlayerNumber; // The order number of the player from 1 - Global.MaxPlayers        
     
         /// <summary>
         /// Default constructor. 
@@ -65,7 +65,7 @@ namespace Nova.Common
                             AiProgram = subnode.FirstChild.Value;
                             break;
                         case "playernumber":
-                            PlayerNumber = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            PlayerNumber = ushort.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                     }
                 }

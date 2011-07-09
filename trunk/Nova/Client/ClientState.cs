@@ -44,12 +44,12 @@ namespace Nova.Client
     public sealed class ClientState
     {
         public EmpireData       EmpireState     = new EmpireData();
-        
-        public List<int>        DeletedDesigns  = new List<int>();
-        public List<int>        DeletedFleets   = new List<int>();
+
+        public List<long>       DeletedDesigns  = new List<long>();
+        public List<long>       DeletedFleets   = new List<long>();
         public List<Message>    Messages        = new List<Message>();
-       
-        public Dictionary<int, Design> EnemyDesigns = new Dictionary<int, Design>();        
+
+        public Dictionary<long, Design> EnemyDesigns = new Dictionary<long, Design>();        
         
         public Intel            InputTurn           = null;
         public RaceComponents   AvailableComponents = null;    
@@ -104,8 +104,8 @@ namespace Nova.Client
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                int id = int.Parse(tNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
-                                DeletedDesigns.Add(id);
+                                int deletedDesignKey = int.Parse(tNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                                DeletedDesigns.Add(deletedDesignKey);
                                 tNode = tNode.NextSibling;
                             }
                             break;                        
@@ -119,12 +119,12 @@ namespace Nova.Client
                                 if (tNode.Name.ToLower() == "design")
                                 {
                                     Design design = new Design(tNode);
-                                    EnemyDesigns.Add(design.Id, design);
+                                    EnemyDesigns.Add(design.Key, design);
                                 }
                                 else if (tNode.Name.ToLower() == "shipdesign")
                                 {
                                     ShipDesign design = new ShipDesign(tNode);
-                                    EnemyDesigns.Add(design.Id, design);
+                                    EnemyDesigns.Add(design.Key, design);
                                 }
                                 else
                                 {
@@ -487,9 +487,9 @@ namespace Nova.Client
                 
                 // Deleted Designs
                 XmlElement xmlelDeletedDesigns = xmldoc.CreateElement("DeletedDesigns");
-                foreach (int designId in DeletedDesigns)
+                foreach (int designKey in DeletedDesigns)
                 {
-                    Global.SaveData(xmldoc, xmlelDeletedDesigns, "DesignId", designId.ToString("X"));
+                    Global.SaveData(xmldoc, xmlelDeletedDesigns, "DesignKey", designKey.ToString("X"));
                 }
                 xmlelClientState.AppendChild(xmlelDeletedDesigns);
                 
@@ -514,7 +514,7 @@ namespace Nova.Client
                 }
                 xmlelClientState.AppendChild(xmlelEnemyDesigns);
                 
-                // THIS HAS TO GO!
+                // FIXME (priority 6) - THIS HAS TO GO!
                 xmlelClientState.AppendChild(InputTurn.ToXml(xmldoc));
                 
                 // Available Components
@@ -622,7 +622,7 @@ namespace Nova.Client
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(InputTurn.AllDesigns[ship.DesignId] as ShipDesign);
+                    ship.DesignUpdate(InputTurn.AllDesigns[ship.DesignKey] as ShipDesign);
                 }
             }
 
@@ -643,7 +643,7 @@ namespace Nova.Client
 
                 if (star.Starbase != null)
                 {
-                    star.Starbase = EmpireState.FleetReports[star.Starbase.Id];        
+                    star.Starbase = EmpireState.FleetReports[star.Starbase.Key];        
                 }
             }
         }     

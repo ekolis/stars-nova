@@ -64,24 +64,25 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// placeholder constructor - Fleet should be replaced by a reference to the fleet with the same ID
+        /// placeholder constructor - Fleet should be replaced by a reference to the fleet with the same Key
         /// </summary>
-        public Fleet(int id) 
+        public Fleet(long newKey) 
         { 
-            Id = id; 
+            Key = newKey; 
         }
 
         /// <summary>
         /// Fleet construction for unit testing and stack creation during a battle.
         /// </summary>
-        /// <param name="n">The fleet name.</param>
-        /// <param name="o">The fleet owner.</param>
-        /// <param name="p">The fleet position</param>
-        public Fleet(string n, int o, NovaPoint p)
+        /// <param name="name">The fleet name.</param>
+        /// <param name="id">The fleet id.</param>
+        /// <param name="position">The fleet position</param>
+        public Fleet(string name, ushort owner, uint id, NovaPoint position)
         {
-            Name = n;
-            OwnerLow = o;
-            Position = p;
+            Name = name;
+            Owner = owner;
+            Id = id;
+            Position = position;
         }
 
         /// <summary>
@@ -95,7 +96,12 @@ namespace Nova.Common
         {
             BattleSpeed = copy.BattleSpeed;
             BattlePlan = copy.BattlePlan;
-            Id = copy.Id;  // TODO: Why are we copying fleets? copying this ID worries me..
+            Key = copy.Key;  // FIXME (priority 5): Why are we copying fleets? copying this ID worries me..
+                             // We are copying fleets as a step toward making battle stacks. 
+                             // It should not really be a copy as a stack contains only one ship design. 
+                             // Need to work out what happens when we have a fleet contianing multiple designs and then form stacks for the battle engine. 
+                             // To the best of my knowledge this has never happend in nova because merging fleets was not previously possible. Not sure if it is yet...
+                             // -- Dan 09 Jul 11
             Target = copy.Target;
             InOrbit = copy.InOrbit;
        
@@ -111,7 +117,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="ship">The ship being constructed.</param>
         /// <param name="star">The star constructing the ship.</param>
-        public Fleet(Ship ship, Star star)
+        public Fleet(Ship ship, Star star, long newKey)
         {
 
             FleetShips.Add(ship);
@@ -133,7 +139,7 @@ namespace Nova.Common
 
             Position     = star.Position;       
             InOrbit      = star;                
-            Owner        = star.Owner;
+            Key          = newKey;
         }
 
         /// <summary>
@@ -659,10 +665,10 @@ namespace Nova.Common
                     switch (subnode.Name.ToLower())
                     {
                         case "fleetid":
-                            Id = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Id = uint.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "targetid":
-                            Target = new Fleet(int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture));
+                            Target = new Fleet(long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture));
                             break;
                         case "cargo":
                             Cargo = new Cargo(subnode);
@@ -724,7 +730,7 @@ namespace Nova.Common
 
             if (Target != null)
             {
-                Global.SaveData(xmldoc, xmlelFleet, "TargetID", Target.Id.ToString("X"));
+                Global.SaveData(xmldoc, xmlelFleet, "TargetID", Target.Key.ToString("X"));
             }
             else
             {

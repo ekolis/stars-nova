@@ -43,7 +43,7 @@ namespace Nova.Common.DataStructures
         /// </summary>
         public string Location  = null;
         public int SpaceSize    = 0;
-        public int Year = 0;
+        public int Year         = 0;
         public string Key 
         { 
             get 
@@ -52,8 +52,8 @@ namespace Nova.Common.DataStructures
             } 
         }
         public List<BattleStep> Steps = new List<BattleStep>();
-        public Dictionary<int, Fleet> Stacks = new Dictionary<int, Fleet>();
-        public Dictionary<int, int> Losses = new Dictionary<int, int>(); // empireId, lossCount
+        public Dictionary<long, Fleet> Stacks = new Dictionary<long, Fleet>();
+        public Dictionary<long, int> Losses = new Dictionary<long, int>(); // empireId, lossCount
         
         /// <summary>
         /// Default constructor.
@@ -125,7 +125,7 @@ namespace Nova.Common.DataStructures
 
                         case "fleet": 
                             Fleet newStack = new Fleet(subnode);
-                            Stacks.Add(newStack.Id, newStack);
+                            Stacks.Add(newStack.Key, newStack);
                             break;
                     }
                 }
@@ -190,7 +190,7 @@ namespace Nova.Common.DataStructures
             // Losses< raceName, lossCount>
             if (Losses.Count > 0)
             {
-                foreach (KeyValuePair<int, int> de in Losses)
+                foreach (KeyValuePair<long, int> de in Losses)
                 {
                     XmlElement xmlelLosses = xmldoc.CreateElement("Losses");
                     Global.SaveData(xmldoc, xmlelLosses, "EmpireId", de.Key);

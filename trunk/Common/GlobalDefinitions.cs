@@ -99,7 +99,7 @@ namespace Nova.Common
        public const double  PopulationFactorOnlyBasicRemoteMining   = 1.1;
 
        // Combat
-       public const int MaxWeaponRange  = 10;
+       public const int MaxWeaponRange  = 7; // Doom/Armegeddon on station.
        public const int MaxDefenses     = 100;
        
        // Environment

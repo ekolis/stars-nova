@@ -96,7 +96,7 @@ namespace Nova.WinForms.Gui
             ComboBoxItem<int> thisRace = new ComboBoxItem<int>(stateData.EmpireState.Race.Name, stateData.EmpireState.Id);
             comboDesignOwner.Items.Add(thisRace);
 
-            foreach (int empireId in stateData.EmpireState.EmpireReports.Keys)
+            foreach (ushort empireId in stateData.EmpireState.EmpireReports.Keys)
             {
                 comboDesignOwner.Items.Add( new ComboBoxItem<int>(stateData.EmpireState.EmpireReports[empireId].RaceName, empireId));
             }
@@ -128,9 +128,9 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            int designId = (this.designList.SelectedItems[0].Tag as ShipDesign).Id;
+            long designKey = (this.designList.SelectedItems[0].Tag as ShipDesign).Key;
 
-            ShipDesign design = stateData.InputTurn.AllDesigns[designId] as ShipDesign;
+            ShipDesign design = stateData.InputTurn.AllDesigns[designKey] as ShipDesign;
 
             DisplayDesign(design);
         }
@@ -213,7 +213,7 @@ Are you sure you want to do this?";
 
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    if (ship.DesignId == design.Id)
+                    if (ship.DesignKey == design.Key)
                     {
                         shipsToRemove.Add(ship);
                     }
@@ -232,12 +232,12 @@ Are you sure you want to do this?";
 
             foreach (Fleet fleet in fleetsToRemove)
             {
-                stateData.EmpireState.FleetReports.Remove(fleet.Id);
-                stateData.DeletedFleets.Add(fleet.Id);
+                stateData.EmpireState.FleetReports.Remove(fleet.Key);
+                stateData.DeletedFleets.Add(fleet.Key);
             }
 
-            stateData.DeletedDesigns.Add(design.Id);
-            stateData.InputTurn.AllDesigns.Remove(design.Id);
+            stateData.DeletedDesigns.Add(design.Key);
+            stateData.InputTurn.AllDesigns.Remove(design.Key);
             DesignOwner_SelectedIndexChanged(null, null);
 
             // Ensure the Star map is updated in case we've completely removed any
@@ -304,7 +304,7 @@ Are you sure you want to do this?";
                     if (design.Owner == ownerId)
                     {
                         if (ownerId == stateData.EmpireState.Id ||
-                            this.stateData.EnemyDesigns.ContainsKey(design.Id))
+                            this.stateData.EnemyDesigns.ContainsKey(design.Key))
                         {
 
                             AddToDesignList(design);
@@ -359,7 +359,7 @@ Are you sure you want to do this?";
             {
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    if (ship.DesignId == design.Id)
+                    if (ship.DesignKey == design.Key)
                     {
                         quantity++;
                     }

@@ -62,7 +62,12 @@ namespace Nova.WinForms.Console
 
         private ServerState stateData;
         private BattleReport battle;
-        private int stackId;
+
+        /// <summary>
+        /// used to generate fleet id numbers for battle stacks
+        /// </summary>
+        private uint stackId;
+
         int battleRound = 0;
 
         /// <summary>
@@ -151,7 +156,7 @@ namespace Nova.WinForms.Console
 
                 foreach (Fleet stack in zoneStacks)
                 {
-                    battle.Stacks[stack.Id] = new Fleet(stack);
+                    battle.Stacks[stack.Key] = new Fleet(stack);
                 }
 
                 DoBattle(zoneStacks);
@@ -170,11 +175,11 @@ namespace Nova.WinForms.Console
         public List<List<Fleet>> DetermineCoLocatedFleets()
         {
             List<List<Fleet>> allFleetPositions = new List<List<Fleet>>();
-            Dictionary<int, bool> fleetDone = new Dictionary<int, bool>();
+            Dictionary<long, bool> fleetDone = new Dictionary<long, bool>();
             
             foreach (Fleet fleetA in stateData.AllFleets.Values)
             {
-                if (fleetDone.ContainsKey(fleetA.Id))
+                if (fleetDone.ContainsKey(fleetA.Key))
                 {
                     continue;
                 }
@@ -189,7 +194,7 @@ namespace Nova.WinForms.Console
                     }
 
                     coLocatedFleets.Add(fleetB);
-                    fleetDone[fleetB.Id] = true;
+                    fleetDone[fleetB.Key] = true;
                 }
 
                 if (coLocatedFleets.Count > 1)
@@ -238,27 +243,25 @@ namespace Nova.WinForms.Console
         /// <returns>A list of fleet stacks.</returns>
         public List<Fleet> BuildFleetStacks(Fleet fleet)
         {
-            Dictionary<int, Fleet> fleetStacks = new Dictionary<int, Fleet>();
+            Dictionary<long, Fleet> fleetStacks = new Dictionary<long, Fleet>();
 
             foreach (Ship ship in fleet.FleetShips)
             {
-                ship.Cost = ship.DesignCost; // ??? why is the cost of the ship being reset here?
+                ship.Cost = ship.DesignCost; // FIXME (priority 3) - Why is the cost of the ship being reset here? It may be different than the design cost because of the level of minaturisation available at the time it was built.
                 Fleet stack;
-                fleetStacks.TryGetValue(ship.DesignId, out stack);
+                fleetStacks.TryGetValue(ship.DesignKey, out stack);
 
                 // If no stack exists for this design then create one now.
-
                 if (stack == null)
                 {
                     string name = "Stack #" + stackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    stack = new Fleet(name, fleet.Owner, fleet.Position);
-                    stack.Id = stackId;
+                    stack = new Fleet(name, fleet.Owner, stackId, fleet.Position);
                     stackId++;
 
                     stack.BattlePlan = fleet.BattlePlan;
                     stack.BattleSpeed = ship.BattleSpeed;
 
-                    fleetStacks[ship.DesignId] = stack;
+                    fleetStacks[ship.DesignKey] = stack;
                 }
 
                 // Add this ship into the stack but give each ship a name (normally

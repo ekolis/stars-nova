@@ -46,17 +46,16 @@ namespace Nova.Server
     {
         public List<BattleReport>               AllBattles      = new List<BattleReport>();
         public List<PlayerSettings>             AllPlayers      = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
-        public Dictionary<int, int>          AllTechLevels   = new Dictionary<int, int>(); // Sum of a player's techlevels, for scoring purposes.
-        public Dictionary<int, Design>       AllDesigns      = new Dictionary<int, Design>();
-        public Dictionary<int, Fleet>        AllFleets       = new Dictionary<int, Fleet>();
-        public Dictionary<int, EmpireData>   AllEmpires      = new Dictionary<int, EmpireData>(); // Game specific data about the race; relations, battle plans, research, etc.
+        public Dictionary<int, int>             AllTechLevels   = new Dictionary<int, int>(); // Sum of a player's techlevels, for scoring purposes.
+        public Dictionary<long, Design>         AllDesigns = new Dictionary<long, Design>();
+        public Dictionary<long, Fleet>          AllFleets = new Dictionary<long, Fleet>();
+        public Dictionary<int, EmpireData>      AllEmpires      = new Dictionary<int, EmpireData>(); // Game specific data about the race; relations, battle plans, research, etc.
         public Dictionary<string, Race>         AllRaces        = new Dictionary<string, Race>(); // Data about the race (traits etc)
         public Dictionary<string, Star>         AllStars        = new Dictionary<string, Star>();
-        public Dictionary<string, Minefield>    AllMinefields   = new Dictionary<string, Minefield>();
+        public Dictionary<long, Minefield>      AllMinefields = new Dictionary<long, Minefield>();
         public List<Message>                    AllMessages     = new List<Message>(); // All messages generated this turn.
 
         public bool GameInProgress      = false;
-        //public int FleetID              = 1;
         public int TurnYear             = Global.StartingYear;
         public string GameFolder        = null; // The path&folder where client files are held.
         public string StatePathName     = null; // path&file name to the saved state data
@@ -144,14 +143,14 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                int id = int.Parse(tNode.Attributes["Id"].Value, System.Globalization.NumberStyles.HexNumber);
+                                long designKey = long.Parse(tNode.Attributes["Id"].Value, System.Globalization.NumberStyles.HexNumber);
                                 if (tNode.Name.ToLower() == "design")
                                 {
-                                    AllDesigns.Add(id, new Design(tNode));
+                                    AllDesigns.Add(designKey, new Design(tNode));
                                 }
                                 else if (tNode.Name.ToLower() == "shipdesign")
                                 {
-                                    AllDesigns.Add(id, new ShipDesign(tNode));
+                                    AllDesigns.Add(designKey, new ShipDesign(tNode));
                                 }
                                 else
                                 {
@@ -166,7 +165,7 @@ namespace Nova.Server
                             while (tNode != null)
                             {
                                 Fleet fleet = new Fleet(tNode);
-                                AllFleets.Add(fleet.Id, fleet);
+                                AllFleets.Add(fleet.Key, fleet);
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -205,7 +204,7 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                AllMinefields.Add(tNode.Attributes["Id"].Value, new Minefield(tNode));
+                                AllMinefields.Add(int.Parse(tNode.Attributes["Id"].Value, System.Globalization.NumberStyles.HexNumber), new Minefield(tNode));
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -249,17 +248,6 @@ namespace Nova.Server
                 
                 return serverState;
             }
-   
-            // Old binary serialization.
-            // ServerState serverState = new ServerState();
-            // using (FileStream stream = new FileStream(StatePathName, FileMode.Open))
-            // {                    
-            //     serverState = (ServerState)Serializer.Deserialize(stream);
-            // 
-            //     return serverState;
-            // }
-            
-            
         }
 
 
@@ -288,13 +276,6 @@ namespace Nova.Server
             }
 
             ToXml();
-            
-            // Old binay serialization.
-            // using (FileStream stream = new FileStream(StatePathName, FileMode.Create))
-            // {
-            //     Serializer.Serialize(stream, this);
-            //    
-            //}   
         }
         
         /// <summary>
@@ -369,7 +350,7 @@ namespace Nova.Server
 
             // Store the designs
             XmlElement xmlelAllDesigns = xmldoc.CreateElement("AllDesigns");
-            foreach (KeyValuePair<int, Design> design in AllDesigns)
+            foreach (KeyValuePair<long, Design> design in AllDesigns)
             {
                 
                 if (design.Value.Type == "Ship" || design.Value.Type == "Starbase")
@@ -388,7 +369,7 @@ namespace Nova.Server
             
             // Store the fleets
             XmlElement xmlelAllFleets = xmldoc.CreateElement("AllFleets");
-            foreach (KeyValuePair<int, Fleet> fleet in AllFleets)
+            foreach (KeyValuePair<long, Fleet> fleet in AllFleets)
             {   
                 child = fleet.Value.ToXml(xmldoc);
                 child.SetAttribute("Id", fleet.Key.ToString("X"));                
@@ -398,10 +379,10 @@ namespace Nova.Server
 
             // Store the Minefields
             XmlElement xmlelAllMinefields = xmldoc.CreateElement("AllMinefields");
-            foreach (KeyValuePair<string, Minefield> minefield in AllMinefields)
+            foreach (KeyValuePair<long, Minefield> minefield in AllMinefields)
             {
                 child = minefield.Value.ToXml(xmldoc);
-                child.SetAttribute("Id", minefield.Key);                
+                child.SetAttribute("Id", minefield.Key.ToString("X"));                
                 xmlelAllMinefields.AppendChild(child);
             }
             xmlelServerState.AppendChild(xmlelAllMinefields);
@@ -443,10 +424,11 @@ namespace Nova.Server
                 {
                     fleet.InOrbit = AllStars[fleet.InOrbit.Name];
                 }
+
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(AllDesigns[ship.DesignId] as ShipDesign);
+                    ship.DesignUpdate(AllDesigns[ship.DesignKey] as ShipDesign);
                 }
             }
             
@@ -485,7 +467,7 @@ namespace Nova.Server
 
                 if (star.Starbase != null)
                 {
-                    star.Starbase = AllFleets[star.Starbase.Id];
+                    star.Starbase = AllFleets[star.Starbase.Key];
                 }
             }
             
@@ -501,7 +483,7 @@ namespace Nova.Server
                     // Ship reference to Design
                     foreach (Ship ship in fleet.FleetShips)
                     {
-                        ship.DesignUpdate(AllDesigns[ship.DesignId] as ShipDesign);
+                        ship.DesignUpdate(AllDesigns[ship.DesignKey] as ShipDesign);
                     }
                 }
                  
@@ -522,7 +504,7 @@ namespace Nova.Server
     
                     if (report.Starbase != null)
                     {
-                        report.Starbase = AllFleets[report.Starbase.Id];
+                        report.Starbase = AllFleets[report.Starbase.Key];
                     }
                 }
             }

@@ -20,36 +20,23 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module converts the console's state into Intel and saves it, thereby 
-// generating the next turn to be played.
-//
-// This is a static helper object that acts on ConsoleState to produce an Intel 
-// Object.
-// ===========================================================================
-#endregion
-
-#region Using Statements
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Xml;
-
-using Nova.Common;
-using Nova.Common.DataStructures;
-
-#endregion
-
-// ============================================================================
-// Manipulation of the turn data that is shared between the Console and GUI.
-// ============================================================================
-
 namespace Nova.Server
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Runtime.Serialization;
+    using System.Runtime.Serialization.Formatters.Binary;
+    using System.Xml;
+
+    using Nova.Common;
+    using Nova.Common.DataStructures;
+
+    /// <summary>
+    /// This module converts the console's state into Intel and saves it, thereby 
+    /// generating the next turn to be played.
+    /// </summary>
     public class IntelWriter
     {
         private readonly ServerState StateData;
@@ -63,7 +50,7 @@ namespace Nova.Server
         }
 
         #region Methods
-        /// -------------------------------------------------------------------
+
         /// <summary>
         /// Save the turn data.
         /// </summary>
@@ -73,7 +60,6 @@ namespace Nova.Server
         /// So make sure any pointers to AllStars refer to the copy in turnData otherwise we'll get
         /// duplicated (but separate) star objects.
         /// </remarks>
-        /// -------------------------------------------------------------------
         public void WriteIntel()
         {
             foreach (EmpireData empire in StateData.AllEmpires.Values)
@@ -128,7 +114,6 @@ namespace Nova.Server
                     {
                         using (Stream turnFile = new FileStream(turnFileName /*+ ".xml"*/, FileMode.Create))
                         {
-
                             // Setup the XML document
                             XmlDocument xmldoc = new XmlDocument();
                             Global.InitializeXmlDocument(xmldoc);
@@ -151,7 +136,6 @@ namespace Nova.Server
         }
 
         #endregion
-
     }
 }
 

@@ -122,7 +122,7 @@ namespace Nova.WinForms.Console
         /// ----------------------------------------------------------------------------
         private bool BuildDesign(ProductionItem productionItem, Star star)
         {
-            Design design = stateData.AllDesigns[productionItem.Id];
+            Design design = stateData.AllDesigns[productionItem.Key];
             Nova.Common.Resources needed = productionItem.BuildState;
 
             // If we've ran out of resources then give up. Note that there may be
@@ -163,7 +163,7 @@ namespace Nova.WinForms.Console
                     // first remove the old starbase
                     if (star.Starbase != null)
                     {
-                        stateData.AllFleets.Remove(star.Starbase.Id);
+                        stateData.AllFleets.Remove(star.Starbase.Key);
                         star.Starbase = null;
                     }
 
@@ -263,12 +263,11 @@ namespace Nova.WinForms.Console
             message.Text = star.Name + " has produced a new " + design.Name;
             stateData.AllMessages.Add(message);
 
-            Fleet fleet = new Fleet(ship, star);        
-            fleet.Id = empire.NextFleetId;
-            fleet.Name = ship.Name + " #" + fleet.PureId;
+            Fleet fleet = new Fleet(ship, star, empire.GetNextFleetKey());        
+            fleet.Name = ship.Name + " #" + fleet.Id;
 
             // Add the fleet to the state data so it can be tracked.
-            stateData.AllFleets[fleet.Id] = fleet;          
+            stateData.AllFleets[fleet.Key] = fleet;          
 
             if (design.Type == "Starbase")
             {

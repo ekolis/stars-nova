@@ -261,7 +261,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            selectedFleet = empireState.FleetReports.GetNextOwned(empireState.FleetReports[selectedFleet.Id]);
+            selectedFleet = empireState.FleetReports.GetNextOwned(empireState.FleetReports[selectedFleet.Key]);
             
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -293,7 +293,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            selectedFleet = empireState.FleetReports.GetPreviousOwned(empireState.FleetReports[selectedFleet.Id]);
+            selectedFleet = empireState.FleetReports.GetPreviousOwned(empireState.FleetReports[selectedFleet.Key]);
 
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -444,7 +444,7 @@ namespace Nova.WinForms.Gui
             fleetsAtLocation = new Dictionary<string, Fleet>();
             foreach (FleetIntel other in empireState.FleetReports.Values)
             {
-                if (selectedFleet.Position == other.Position && !other.IsStarbase && selectedFleet.Id != other.Id)
+                if (selectedFleet.Position == other.Position && !other.IsStarbase && selectedFleet.Key != other.Key)
                 {
                     fleetnames.Add(other.Name);
                     fleetsAtLocation[other.Name] = other;
@@ -580,7 +580,7 @@ namespace Nova.WinForms.Gui
             using (CargoTransferDialog dia = new CargoTransferDialog())
             {
                 Fleet other = GetSelectedFleetAtLocation();
-                if( other != null && other.Id != selectedFleet.Id )
+                if( other != null && other.Key != selectedFleet.Key )
                 {
                     dia.SetFleets(selectedFleet, other );
                     if (dia.ShowDialog() == DialogResult.OK)

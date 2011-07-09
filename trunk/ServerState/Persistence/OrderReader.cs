@@ -107,7 +107,7 @@ namespace Nova.Server
 
                     // check these orders are for the right turn
                     int ordersTurn = int.Parse(xmldoc.SelectSingleNode("ROOT/Orders/Turn").InnerText);
-                    if (ordersTurn != this.stateData.TurnYear)
+                    if (ordersTurn != this.stateData.TurnYear + 1) // +1 because the empire has finished with the current turn year.
                     {
                         return;
                     }
@@ -131,7 +131,7 @@ namespace Nova.Server
                 // TODO (priority 5) - fine tune so the client can't modify things like a star's position, i.e. treat the data as orders only.
                 foreach (Design design in playerOrders.RaceDesigns.Values)
                 {
-                    this.stateData.AllDesigns[design.Id] = design;
+                    this.stateData.AllDesigns[design.Key] = design;
                 }
 
                 foreach (int fleetKey in playerOrders.DeletedFleets)
@@ -146,7 +146,7 @@ namespace Nova.Server
 
                 foreach (FleetIntel fleet in playerOrders.EmpireStatus.FleetReports.Values)
                 {
-                    this.stateData.AllFleets[fleet.Id] = fleet;
+                    this.stateData.AllFleets[fleet.Key] = fleet;
                 }
 
                 // load the orders for each star. 
@@ -188,7 +188,7 @@ namespace Nova.Server
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(playerOrders.RaceDesigns[ship.DesignId] as ShipDesign);
+                    ship.DesignUpdate(playerOrders.RaceDesigns[ship.DesignKey] as ShipDesign);
                 }
             }
             // Star reference to Race
@@ -201,7 +201,7 @@ namespace Nova.Server
                 }
                 if (star.Starbase != null)
                 {
-                    star.Starbase = playerOrders.EmpireStatus.FleetReports[star.Starbase.Id];
+                    star.Starbase = playerOrders.EmpireStatus.FleetReports[star.Starbase.Key];
                 }
             }
 

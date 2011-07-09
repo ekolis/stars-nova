@@ -55,7 +55,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplaySummary(Fleet fleet)
         {
-            int ownerId = fleet.Owner;
+            ushort ownerId = fleet.Owner;
             this.fleetShipCount.Text = fleet.Composition.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.fleetMass.Text = fleet.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.fleetSpeed.Text = fleet.Speed.ToString(System.Globalization.CultureInfo.InvariantCulture);

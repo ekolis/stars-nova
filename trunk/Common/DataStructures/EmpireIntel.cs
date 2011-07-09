@@ -30,14 +30,14 @@ namespace Nova.Common
     /// </summary>
     public class EmpireIntel
     {
-        private int empireId;
+        private ushort empireId;
         
         public string RaceName;
         
         public PlayerRelation Relation;
         public RaceIcon Icon;
         
-        public int Id
+        public ushort Id
         {
             get
             {
@@ -73,7 +73,7 @@ namespace Nova.Common
                             RaceName = node.FirstChild.Value;
                             break;
                         case "id":
-                            empireId = int.Parse(node.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                            empireId = ushort.Parse(node.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                             break;
                         case "relation":
                             Relation = (PlayerRelation)Enum.Parse(typeof(PlayerRelation), node.FirstChild.Value);

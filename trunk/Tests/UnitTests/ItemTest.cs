@@ -20,47 +20,62 @@
 #endregion
 
 using Nova.Common;
+using NUnit;
 using NUnit.Framework;
 
 namespace Nova.Tests.UnitTests
 {
+    /// <summary>
+    /// Unit testing for <see cref="Item"/>.
+    /// </summary>
     [TestFixture]
     public class ItemTest
     {
-        Item testItem1 = new Item();
-        Item testItem2 = new Item();
-
-        [SetUp]
-        public void Init()
+        /// <summary>
+        /// Test that valid Owner values can be set a read for an <see cref="Item"/>.
+        /// </summary>
+        /// <param name="testOwner">The value to be set as the Owner of the <see cref="Item"/>.</param>
+        /// <returns>The value read back from the Owner property of the <see cref="Item"/>.</returns>
+        [TestCase(1, Result = 1)]
+        [TestCase(255, Result = 255)]
+        public ushort test1ValidOwner(int testOwner)
         {
-            testItem1.PureId = 1;
-            testItem1.Owner = 4;
-            testItem2.PureId = 2;
-            testItem2.Owner = 6;
+            Item testItem = new Item();
+            testItem.Owner = (ushort) testOwner;
+            return testItem.Owner;
         }
 
-        [Test]
-        public void Item1PureId()
+        /// <summary>
+        /// Test that valid Id values can be set a read for an <see cref="Item"/>.
+        /// </summary>
+        /// <param name="testId">The value to be set as the Id of the <see cref="Item"/>.</param>
+        /// <returns>The value read back from the Id property of the <see cref="Item"/>.</returns>
+        [TestCase(1, Result = 1)]
+        [TestCase(0xFFFFFFFF, Result = 0xFFFFFFFF)]
+        public uint test2ValidId(long testId)
         {
-            Assert.AreEqual(1, testItem1.PureId);
+            Item testItem = new Item();
+            testItem.Id = (uint) testId;
+            return testItem.Id;
         }
 
-        [Test]
-        public void Item2PureId()
+        /// <summary>
+        /// Test that valid key values can be set and read.
+        /// </summary>
+        /// <param name="testOwner">The value to be set as the Owner of the <see cref="Item"/>.</param>
+        /// <param name="testId">The value to be set as the Id of the <see cref="Item"/>.</param>
+        /// <returns>The value read back from the Key property of the <see cref="Item"/>.</returns>
+        [TestCase(1, 1, Result = 0x0100000001)]
+        [TestCase(255, 1, Result = 0xFF00000001)]
+        [TestCase(1, 0xFFFFFFFF, Result = 0x01FFFFFFFF)]
+        [TestCase(255, 0xFFFFFFFF, Result = 0xFFFFFFFFFF)]
+        public long test3ValidKey(int testOwner, long testId)
         {
-            Assert.AreEqual(2, testItem2.PureId);
-        }
+            Item testItem = new Item();
+            testItem.Owner = (ushort) testOwner;
+            testItem.Id = (uint) testId;
 
-        [Test]
-        public void Item1Owner()
-        {
-            Assert.AreEqual(4, testItem1.Owner);
-        }
-
-        [Test]
-        public void Item2Owner()
-        {
-            Assert.AreEqual(6, testItem2.Owner);
+            return testItem.Key;
         }
     }
 }

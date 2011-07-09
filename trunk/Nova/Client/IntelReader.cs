@@ -116,8 +116,8 @@ namespace Nova.Client
         /// When intel is loaded from file, objects may contain references to other objects.
         /// As these may be loaded in any order (or be cross linked) it is necessary to tidy
         /// up these references once the file is fully loaded and all objects exist.
-        /// In most cases a placeholder object has been created with the Name set from the file,
-        /// and we need to find the actual reference using this Name.
+        /// In most cases a placeholder object has been created with the Key set from the file,
+        /// and we need to find the actual reference using this Key.
         /// Objects can't do this themselves as they don't have access to the state data, 
         /// so we do it here.
         /// </summary>
@@ -149,7 +149,7 @@ namespace Nova.Client
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(stateData.InputTurn.AllDesigns[ship.DesignId] as ShipDesign);
+                    ship.DesignUpdate(stateData.InputTurn.AllDesigns[ship.DesignKey] as ShipDesign);
                 }
             }
             
@@ -171,10 +171,9 @@ namespace Nova.Client
 
                 if (star.Starbase != null)
                 {
-                    star.Starbase = stateData.EmpireState.FleetReports[star.Starbase.Id];                  
+                    star.Starbase = stateData.EmpireState.FleetReports[star.Starbase.Key];                  
                 }
             }
-
 
             // link the ship designs in battle reports to the stacks
             foreach (BattleReport battle in stateData.InputTurn.Battles)
@@ -183,13 +182,13 @@ namespace Nova.Client
                 {
                     foreach (Ship ship in fleet.FleetShips)
                     {
-                        if (stateData.EnemyDesigns.ContainsKey(ship.DesignId))
+                        if (stateData.EnemyDesigns.ContainsKey(ship.DesignKey))
                         {
-                            ship.DesignUpdate((ShipDesign)stateData.EnemyDesigns[ship.DesignId]);
+                            ship.DesignUpdate((ShipDesign)stateData.EnemyDesigns[ship.DesignKey]);
                         }
                         else
                         {
-                            ship.DesignUpdate((ShipDesign)stateData.InputTurn.AllDesigns[ship.DesignId]);
+                            ship.DesignUpdate((ShipDesign)stateData.InputTurn.AllDesigns[ship.DesignKey]);
                         }
                     }
                 }

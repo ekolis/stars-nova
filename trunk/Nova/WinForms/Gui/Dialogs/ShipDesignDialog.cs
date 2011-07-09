@@ -46,7 +46,7 @@ namespace Nova.WinForms.Gui
     {
         private readonly ClientState stateData;
         private readonly Dictionary<string, Component> allComponents;
-        private readonly Dictionary<int, Design> allDesigns;
+        private readonly Dictionary<long, Design> allDesigns;
         private readonly Dictionary<string, int> imageIndices = new Dictionary<string, int>();
         private readonly ImageList componentImages = new ImageList();
 
@@ -915,7 +915,7 @@ namespace Nova.WinForms.Gui
            }
             */
 
-            this.allDesigns[newDesign.Id] = newDesign;
+            this.allDesigns[newDesign.Key] = newDesign;
             Close();
         }
 

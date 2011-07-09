@@ -26,7 +26,7 @@ namespace Nova.Common.Components
     using System.Xml;
 
     /// <summary>
-    // Design base class (characteristics common to all designs)
+    /// Design base class (characteristics common to all designs)
     /// A Design with a Type of "Ship" or "Starbase" is a ShipDesign type.
     /// (Type is inherited from Item)
     /// Other Designs include "Mine", "Factory" and "Defense".

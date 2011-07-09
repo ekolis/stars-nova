@@ -40,6 +40,10 @@ namespace Nova.Tests.IntegrationTests
     [TestFixture]
     public class ServerStateTest
     {
+        private const int Player1Id = 1;
+        private const int Player2Id = 2;
+        private const int Player3Id = 3;
+
         /// <Summary>
         /// Test the (de)serialising of the ServerState.
         /// 
@@ -56,10 +60,10 @@ namespace Nova.Tests.IntegrationTests
             stateData.StatePathName = "unit_test.sstate";
             stateData.AllTechLevels[1] = 10;
             stateData.AllTechLevels[2] = 5;
-            Common.Fleet fleet1 = new Nova.Common.Fleet("foofleet", 1, new Nova.Common.DataStructures.NovaPoint(0,0));
-            Common.Fleet fleet2 = new Nova.Common.Fleet("barfleet", 1, new Nova.Common.DataStructures.NovaPoint(0,0));
-            stateData.AllFleets[fleet1.Id] = fleet1;
-            stateData.AllFleets[fleet2.Id] =  fleet2;
+            Common.Fleet fleet1 = new Nova.Common.Fleet("foofleet", Player1Id, 1, new Nova.Common.DataStructures.NovaPoint(0, 0));
+            Common.Fleet fleet2 = new Nova.Common.Fleet("barfleet", Player1Id, 2, new Nova.Common.DataStructures.NovaPoint(0, 0));
+            stateData.AllFleets[fleet1.Key] = fleet1;
+            stateData.AllFleets[fleet2.Key] =  fleet2;
 
             // serialise
             stateData.Save();
@@ -70,10 +74,10 @@ namespace Nova.Tests.IntegrationTests
             stateData.GameFolder = "foo_bar";
             stateData.AllTechLevels[1] = 2;
             stateData.AllTechLevels[2] = 7;
-            fleet1 = new Nova.Common.Fleet("fleetfoo", 1, new Nova.Common.DataStructures.NovaPoint(0,0));
-            fleet2 = new Nova.Common.Fleet("fleetbar", 1, new Nova.Common.DataStructures.NovaPoint(0,0));
-            stateData.AllFleets[fleet1.Id] = fleet1;
-            stateData.AllFleets[fleet2.Id] = fleet2;
+            fleet1 = new Nova.Common.Fleet("fleetfoo", Player1Id, 1, new Nova.Common.DataStructures.NovaPoint(0, 0));
+            fleet2 = new Nova.Common.Fleet("fleetbar", Player1Id, 2, new Nova.Common.DataStructures.NovaPoint(0, 0));
+            stateData.AllFleets[fleet1.Key] = fleet1;
+            stateData.AllFleets[fleet2.Key] = fleet2;
 
             // deserialise
             stateData = stateData.Restore();
@@ -83,8 +87,8 @@ namespace Nova.Tests.IntegrationTests
             Assert.AreEqual("dummy_value", stateData.GameFolder);
             Assert.AreEqual(10, stateData.AllTechLevels[1]);
             Assert.AreEqual(5, stateData.AllTechLevels[2]);
-            Assert.AreEqual("foofleet", stateData.AllFleets[fleet1.Id].Name);
-            Assert.AreEqual("barfleet", stateData.AllFleets[fleet2.Id].Name);
+            Assert.AreEqual("foofleet", stateData.AllFleets[fleet1.Key].Name);
+            Assert.AreEqual("barfleet", stateData.AllFleets[fleet2.Key].Name);
             Assert.AreEqual(true, stateData.GameInProgress);
         }
     }

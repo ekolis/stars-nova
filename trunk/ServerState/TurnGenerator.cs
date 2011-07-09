@@ -64,7 +64,7 @@ namespace Nova.WinForms.Console
             this.turnSteps = new SortedList<int, ITurnStep>();
             
             // Now that there is a state, comopose the turn processor.
-            // TODO ???: Use dependency injection for this? It would
+            // TODO ??? (priority 4): Use dependency injection for this? It would
             // generate a HUGE constructor call... a factory to
             // abstract it perhaps? -Aeglos
             this.orderReader = new OrderReader(this.stateData);            
@@ -96,7 +96,7 @@ namespace Nova.WinForms.Console
             turnData = orderReader.ReadOrders();
             
             // For now, just copy the new turn right away.
-            // TODO: Integrity check the new turn before
+            // TODO (priority 6): Integrity check the new turn before
             // updating the state (cheats, errors).
             stateData = turnData;
             
@@ -159,12 +159,12 @@ namespace Nova.WinForms.Console
         private void CleanupFleets()
         {
             // create a list of all fleets that have been destroyed
-            List<int> destroyedFleets = new List<int>();
+            List<long> destroyedFleets = new List<long>();
             foreach (Fleet fleet in stateData.AllFleets.Values)
             {
                 if (fleet.FleetShips.Count == 0)
                 {
-                    destroyedFleets.Add(fleet.Id);
+                    destroyedFleets.Add(fleet.Key);
                 }
             }
             foreach (int key in destroyedFleets)

@@ -10,7 +10,7 @@ namespace Nova.Common
     [Serializable]
     public class ProductionItem 
     {
-        public int Id;                // Design id
+        public long Key;              // Design Key
         public string Name;           // Design Name
         public int Quantity;          // Number to build
         public Resources BuildState;  // Resources need to build item // ??? (priority 6) just the next 1 or the whole lot? - Dan 10 Jan 10
@@ -54,8 +54,8 @@ namespace Nova.Common
                 {
                     switch (subnode.Name.ToLower())
                     {
-                        case "id":
-                            Id = Int32.Parse(subnode.FirstChild.Value, NumberStyles.HexNumber);
+                        case "key":
+                            Key = long.Parse(subnode.FirstChild.Value, NumberStyles.HexNumber);
                             break;
                         case "name":
                             Name = subnode.FirstChild.Value;
@@ -85,7 +85,7 @@ namespace Nova.Common
         {
             XmlElement xmlelProductionOrder = xmldoc.CreateElement("ProductionOrder");
 
-            Global.SaveData(xmldoc, xmlelProductionOrder, "Id", Id.ToString("X"));
+            Global.SaveData(xmldoc, xmlelProductionOrder, "Key", Key.ToString("X"));
             Global.SaveData(xmldoc, xmlelProductionOrder, "Name", Name);
             Global.SaveData(xmldoc, xmlelProductionOrder, "Quantity", Quantity.ToString(CultureInfo.InvariantCulture));
             xmlelProductionOrder.AppendChild(BuildState.ToXml(xmldoc));
