@@ -58,7 +58,7 @@ namespace Nova.WinForms.Console
         {
 
             // check for last man standing - doesn't matter the year
-            List<int> remainingEmpires = new List<int>();
+            List<ushort> remainingEmpires = new List<ushort>();
             foreach (Star star in StateData.AllStars.Values)
             {
                 if (star.Owner == Global.NoOwner)

@@ -353,7 +353,8 @@ namespace Nova.NewGame
                 int[] starPosition = map.Homeworlds[random.Next(map.Homeworlds.Count)];   
                 
                 Star star = new Star();
-                
+                star.Owner = empire.Id;
+
                 star.Position.X = starPosition[0];
                 star.Position.Y = starPosition[1];
                 

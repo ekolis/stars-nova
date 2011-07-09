@@ -141,24 +141,17 @@ namespace Nova.Common
             XmlNode node = xmlnode.FirstChild;
             while (node != null)
             {
-                try
+                switch (node.Name.ToLower())
                 {
-                    switch (node.Name.ToLower())
-                    {
-                        case "year":
-                            Year = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
-                        case "intelamount":
-                            IntelAmount = (IntelLevel)Enum.Parse(typeof(IntelLevel), node.FirstChild.Value, true);
-                            break;
-                        case "star":
-                            star = new Star(node);
-                            break;
-                    }
-                }
-                catch
-                {
-                    // ignore incomplete or unset values
+                    case "year":
+                        Year = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        break;
+                    case "intelamount":
+                        IntelAmount = (IntelLevel)Enum.Parse(typeof(IntelLevel), node.FirstChild.Value, true);
+                        break;
+                    case "star":
+                        star = new Star(node);
+                        break;
                 }
                 
                 node = node.NextSibling;
