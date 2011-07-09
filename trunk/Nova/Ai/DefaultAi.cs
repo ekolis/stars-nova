@@ -52,7 +52,8 @@ namespace Nova.Ai
                     // build factories (limited by Germanium, and don't want to use it all)
                     if (star.ResourcesOnHand.Germanium > 50)
                     {
-                        int factoriesToBuild = (int)((star.ResourcesOnHand.Germanium - 50) / 5); // FIXME (priority 5) - replace the divisor (5) with the cost of factories for this Race.
+                        int factoryBuildCostGerm = stateData.EmpireState.Race.HasTrait("CF") ? 3 : 4;
+                        int factoriesToBuild = (int)((star.ResourcesOnHand.Germanium - 50) / factoryBuildCostGerm);
                         Design factoryDesign = null;
                         foreach (Design design in turnData.AllDesigns.Values)
                         {
