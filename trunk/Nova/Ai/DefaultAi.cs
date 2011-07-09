@@ -34,6 +34,9 @@ namespace Nova.Ai
     {
         private Intel turnData;
 
+        /// <summary>
+        /// Setup the production queue for the AI
+        /// </summary>
         private void HandleProduction()
         {
             foreach (StarIntel starIntel in stateData.EmpireState.StarReports.Values)
@@ -42,61 +45,65 @@ namespace Nova.Ai
                 
                 if (star.Owner == stateData.EmpireState.Id)
                 {
-                    
+
                     star.ManufacturingQueue.Queue.Clear();
                     ProductionItem productionItem = new ProductionItem();
-    
+
                     // build factories (limited by Germanium, and don't want to use it all)
                     if (star.ResourcesOnHand.Germanium > 50)
                     {
-                        productionItem.Name = "Factory";
-                        productionItem.Quantity = (int)((star.ResourcesOnHand.Germanium - 50) / 5);
-                        productionItem.Quantity = Math.Max(0, productionItem.Quantity);
-                        
+                        int factoriesToBuild = (int)((star.ResourcesOnHand.Germanium - 50) / 5); // FIXME (priority 5) - replace the divisor (5) with the cost of factories for this Race.
+                        Design factoryDesign = null;
                         foreach (Design design in turnData.AllDesigns.Values)
                         {
                             if (design.Owner == stateData.EmpireState.Id && design.Type == "Factory")
                             {
-                                productionItem.BuildState = design.Cost;       
+                                factoryDesign = design;
                             }
-                        }                        
-    
-                        star.ManufacturingQueue.Queue.Add(productionItem);
-    
-                    }
-    
-                    // build mines
-                    productionItem = new ProductionItem();
-                    productionItem.Name = "Mine";
-                    productionItem.Quantity = 100;
-                    
-                    foreach (Design design in turnData.AllDesigns.Values)
-                    {
-                        if (design.Owner == stateData.EmpireState.Id && design.Type == "Mine")
-                        {
-                            productionItem.BuildState = design.Cost;       
                         }
+                        if (factoryDesign == null) throw new System.Exception("Could not locate a factory design.");
+                        productionItem = new ProductionItem(factoriesToBuild, factoryDesign);
+                        star.ManufacturingQueue.Queue.Add(productionItem);
                     }
-                    
-                    star.ManufacturingQueue.Queue.Add(productionItem);
-    
+
+                    // build mines
+                    int maxMines = 5000; // FIXME (priority 3) - determine the maximum number of mines for this star.
+                    if (star.Mines < maxMines) 
+                    {
+                        Design mineDesign = null;
+                        foreach (Design design in turnData.AllDesigns.Values)
+                        {
+                            if (design.Owner == stateData.EmpireState.Id && design.Type == "Mine")
+                            {
+                                mineDesign = design;
+                            }
+                        }
+                        if (mineDesign == null) throw new System.Exception("Could not locate a mine design.");
+                        productionItem = new ProductionItem(maxMines - star.Mines, mineDesign);
+                        star.ManufacturingQueue.Queue.Add(productionItem);
+                    }
+
                     // build defenses
                     int defenceToBuild = Global.MaxDefenses - star.Defenses;
-                    productionItem = new ProductionItem();
-                    productionItem.Name = "Defenses";
-                    productionItem.Quantity = defenceToBuild;
-                    
-                    foreach (Design design in turnData.AllDesigns.Values)
+                    if (defenceToBuild > 0)
                     {
-                        if (design.Owner == stateData.EmpireState.Id && design.Type == "Defenses")
+
+                        Design defenceDesign = null;
+                        foreach (Design design in turnData.AllDesigns.Values)
                         {
-                            productionItem.BuildState = design.Cost;       
+                            if (design.Owner == stateData.EmpireState.Id && design.Type == "Defenses")
+                            {
+                                defenceDesign = design;
+                            }
                         }
+                        if (defenceDesign == null) throw new System.Exception("Could not locate a defence design.");
+                        productionItem = new ProductionItem(defenceToBuild, defenceDesign);
+                        star.ManufacturingQueue.Queue.Add(productionItem);
                     }
-                    star.ManufacturingQueue.Queue.Add(productionItem);
                 }
             }
         }
+
         public override void DoMove()
         {
             turnData = stateData.InputTurn;
@@ -154,6 +161,7 @@ namespace Nova.Ai
                 }
             }
         }
+
         /// <summary>
         /// Return closest star to current fleet
         /// </summary>
@@ -210,7 +218,6 @@ namespace Nova.Ai
                     stateData.EmpireState.ResearchTopics[targetResearchField] = 1;                        
                 }
             }
-           
         }
     }
 }

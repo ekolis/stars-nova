@@ -1,9 +1,32 @@
-﻿using System;
-using System.Globalization;
-using System.Xml;
+﻿#region Copyright Notice
+// ============================================================================
+// Copyright (C) 2010, 2011 stars-nova
+//
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
 
 namespace Nova.Common
 {
+    using System;
+    using System.Globalization;
+    using System.Xml;
+
+    using Nova.Common.Components;
+
     /// <summary>
     /// Details of a design in the queue.
     /// </summary>
@@ -13,7 +36,7 @@ namespace Nova.Common
         public long Key;              // Design Key
         public string Name;           // Design Name
         public int Quantity;          // Number to build
-        public Resources BuildState;  // Resources need to build item // ??? (priority 6) just the next 1 or the whole lot? - Dan 10 Jan 10
+        public Resources BuildState;  // Resources need to complete construction of current item (for tracking partial construction). Should be set to the cost of one item when first added to the queue.
         // Should be removed in favor of Unit.ResourcesNeeded * Quantity
         public bool Autobuild;
         private IProductionUnit unit;
@@ -23,6 +46,19 @@ namespace Nova.Common
         /// </summary>
         public ProductionItem() 
         { 
+        }
+
+        /// <summary>
+        /// Initialising constructor.
+        /// </summary>
+        /// <param name="quantity">The number of items to produce.</param>
+        /// <param name="design">The <see cref="Design"/> to build.</param>
+        public ProductionItem(int quantity, Design design)
+        {
+            Name = design.Name;
+            Quantity = quantity;
+            BuildState = design.Cost;
+            Key = design.Key;
         }
 
         /// <summary>
