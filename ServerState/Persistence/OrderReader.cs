@@ -107,7 +107,7 @@ namespace Nova.Server
 
                     // check these orders are for the right turn
                     int ordersTurn = int.Parse(xmldoc.SelectSingleNode("ROOT/Orders/Turn").InnerText);
-                    if (ordersTurn != this.stateData.TurnYear + 1) // +1 because the empire has finished with the current turn year.
+                    if (ordersTurn != this.stateData.TurnYear) 
                     {
                         return;
                     }

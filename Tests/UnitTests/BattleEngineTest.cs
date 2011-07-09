@@ -162,7 +162,7 @@ namespace Nova.Tests.UnitTests
         /// <Summary>
         /// Test for DetermineCoLocatedFleets. The test data has one set of two fleets
         /// at the one location and the other set of two fleets at another location so
-        /// the result should be 2.
+        /// the allTurnedIn should be 2.
         /// </Summary>
         [Test]
         public void Test1DetermineCoLocatedFleets()

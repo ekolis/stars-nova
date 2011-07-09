@@ -44,6 +44,7 @@ namespace Nova.Common
         private ushort      empireId;
         
         public int          TurnYear                = Global.StartingYear; // The year that corresponds to this data
+        public bool         TurnSubmitted           = false;
         
         private Race        race                    = new Race(); // This empire's race.
         
@@ -157,6 +158,9 @@ namespace Nova.Common
                     case "turnyear":
                         TurnYear = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
+                    case "turnsubmitted":
+                        TurnSubmitted = bool.Parse(subnode.FirstChild.Value);
+                        break;
                     case "race":
                         race = new Race();
                         Race.LoadRaceFromXml(subnode);
@@ -239,6 +243,7 @@ namespace Nova.Common
 
             
             Global.SaveData(xmldoc, xmlelEmpireData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelEmpireData, "TurnSubmitted", TurnSubmitted.ToString());
             Global.SaveData(xmldoc, xmlelEmpireData, "ResearchBudget", ResearchBudget.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
             xmlelEmpireData.AppendChild(ResearchLevelsGained.ToXml(xmldoc, "ResearchLevelsGained"));
