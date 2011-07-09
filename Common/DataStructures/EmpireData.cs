@@ -43,9 +43,21 @@ namespace Nova.Common
     {
         private ushort      empireId;
         
-        public int          TurnYear                = Global.StartingYear; // The year that corresponds to this data
+        /// <summary>
+        /// The year that corresponds to this data. Normally the current game year.
+        /// </summary>
+        public int          TurnYear                = Global.StartingYear;  
+
+        /// <summary>
+        /// Set to true when submit turn is selected in the client. Indicates when orders are ready for processing by the server.
+        /// </summary>
         public bool         TurnSubmitted           = false;
-        
+
+        /// <summary>
+        /// The last game year for which a turn was submitted. Should be the previous game year until the current year is submitted. May be several years previous if turns were skipped. 
+        /// </summary>
+        public int          LastTurnSubmitted       = 0;             
+
         private Race        race                    = new Race(); // This empire's race.
         
         public int          ResearchBudget          = 10; // % of resources allocated to research
@@ -161,6 +173,9 @@ namespace Nova.Common
                     case "turnsubmitted":
                         TurnSubmitted = bool.Parse(subnode.FirstChild.Value);
                         break;
+                    case "lastturnsubmitted":
+                        LastTurnSubmitted = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        break;
                     case "race":
                         race = new Race();
                         Race.LoadRaceFromXml(subnode);
@@ -244,6 +259,7 @@ namespace Nova.Common
             
             Global.SaveData(xmldoc, xmlelEmpireData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelEmpireData, "TurnSubmitted", TurnSubmitted.ToString());
+            Global.SaveData(xmldoc, xmlelEmpireData, "LastTurnSubmitted", LastTurnSubmitted.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelEmpireData, "ResearchBudget", ResearchBudget.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
             xmlelEmpireData.AppendChild(ResearchLevelsGained.ToXml(xmldoc, "ResearchLevelsGained"));

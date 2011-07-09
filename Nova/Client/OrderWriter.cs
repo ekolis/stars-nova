@@ -69,6 +69,7 @@ namespace Nova.Client
         {
             // Advance the turn year, to show this empire has finished with the current turn year.
             stateData.EmpireState.TurnSubmitted = true;
+            stateData.EmpireState.LastTurnSubmitted = stateData.EmpireState.TurnYear;
 
             Orders outputTurn = new Orders();
             
