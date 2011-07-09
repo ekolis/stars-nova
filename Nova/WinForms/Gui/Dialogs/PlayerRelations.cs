@@ -35,22 +35,22 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class PlayerRelations : Form
     {
-        private Dictionary<int, EmpireIntel> empireReports;
-        private int empireId;
+        private Dictionary<ushort, EmpireIntel> empireReports;
+        private ushort empireId;
 
         #region Construction
 
         /// <Summary>
         /// Initializes a new instance of the PlayerRelations class.
         /// </Summary>
-        public PlayerRelations(Dictionary<int, EmpireIntel> empireReports, int empireId)
+        public PlayerRelations(Dictionary<ushort, EmpireIntel> empireReports, ushort empireId)
         {
             this.empireReports = empireReports;
             this.empireId = empireId;
             
             InitializeComponent();
 
-            foreach (int otherEmpireId in empireReports.Keys)
+            foreach (ushort otherEmpireId in empireReports.Keys)
             {
                 if (otherEmpireId != empireId)
                 {
@@ -85,7 +85,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void SelectedRaceChanged(object sender, EventArgs e)
         {
-            int selectedEmpire = (int)empireList.SelectedItem;
+            ushort selectedEmpire = (ushort) empireList.SelectedItem;
 
             if (empireReports[selectedEmpire].Relation == PlayerRelation.Enemy)
             {
@@ -108,11 +108,20 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void RelationChanged(object sender, EventArgs e)
         {
-            int selectedEmpire = (int)empireList.SelectedItem;
+            ushort selectedEmpire = (ushort)empireList.SelectedItem;
             RadioButton button = sender as RadioButton;
-            empireReports[selectedEmpire].Relation = enemyButton.Checked ? PlayerRelation.Enemy :
-                friendButton.Checked ? PlayerRelation.Friend :
-                PlayerRelation.Neutral;
+            if (enemyButton.Checked)
+            {
+                empireReports[selectedEmpire].Relation = PlayerRelation.Enemy;
+            }
+            else if (friendButton.Checked)
+            {
+                empireReports[selectedEmpire].Relation = PlayerRelation.Friend;
+            }
+            else
+            {
+                empireReports[selectedEmpire].Relation = PlayerRelation.Neutral;
+            }
         }
 
         #endregion

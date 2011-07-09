@@ -67,6 +67,9 @@ namespace Nova.Client
         /// </summary>
         public void WriteOrders()
         {
+            // Advance the turn year, to show this empire has finished with the current turn year.
+            stateData.EmpireState.TurnYear++;
+
             Orders outputTurn = new Orders();
             
             outputTurn.EmpireStatus = stateData.EmpireState;
@@ -77,7 +80,7 @@ namespace Nova.Client
             {
                if (design.Owner == stateData.EmpireState.Id)
                {
-                   outputTurn.RaceDesigns.Add(design.Id, design);
+                   outputTurn.RaceDesigns.Add(design.Key, design);
                }
             }
             

@@ -619,18 +619,14 @@ namespace Nova.Common
             }
         }
 
-        public string Key
+        /// <summary>
+        /// Override the inherited property Item.Key. Stars use there Name as a unique key as their owner does not affect their unique identity like fleets/ships/minefields.
+        /// </summary>
+        public new string Key
         {
             get
             {
-                if (!string.IsNullOrEmpty(Name))
-                {
-                    return Name;
-                }
-                else
-                {
-                    throw new Exception("Star with no name cannot generate a key.");
-                }
+                return Name;
             }
         }
 
@@ -729,7 +725,7 @@ namespace Nova.Common
                         // Starbase will point to the Fleet that is this planet's starbase (if any), 
                         // for now create a placeholder Fleet and load its FleetID
                         case "starbase":
-                            Starbase = new Fleet(int.Parse(subnode.FirstChild.Value,NumberStyles.HexNumber));
+                            Starbase = new Fleet(long.Parse(subnode.FirstChild.Value, NumberStyles.HexNumber));
                             break;
 
                         default:
@@ -770,7 +766,7 @@ namespace Nova.Common
             // Starbase and ThisRace are stored as references only (just the name is saved).
             if (Starbase != null)
             {
-                Global.SaveData(xmldoc, xmlelStar, "Starbase", Starbase.Id.ToString("X"));
+                Global.SaveData(xmldoc, xmlelStar, "Starbase", Starbase.Key.ToString("X"));
             }
             
             if (ThisRace != null)

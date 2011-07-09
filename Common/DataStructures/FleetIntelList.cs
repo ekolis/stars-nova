@@ -33,7 +33,7 @@ namespace Nova.Common
     /// as well as maintaining a sorted list for next/previous functionality. 
     /// </summary>
     [Serializable]
-    public class FleetIntelList : Dictionary<int, FleetIntel>
+    public class FleetIntelList : Dictionary<long, FleetIntel>
     {
         /// /// <summary>
         /// default constructor
@@ -48,7 +48,7 @@ namespace Nova.Common
         /// <param name="report">The Fleet to be added to the FleetList</param>
         public void Add(FleetIntel report)
         {
-            Add(report.Id, report);
+            Add(report.Key, report);
         }
 
         /// <summary>
@@ -57,7 +57,7 @@ namespace Nova.Common
         /// <param name="report">The fleet to remove.</param>
         public void Remove(FleetIntel report)
         {
-            Remove(report.Id);
+            Remove(report.Key);
         }
 
         /// <summary>
@@ -76,17 +76,17 @@ namespace Nova.Common
                 return false;
             }
             
-            return ContainsKey(fleet.Id);
+            return ContainsKey(fleet.Key);
         }
 
         /// <summary>
         /// Check if the racial traits contains a particular trait.
         /// </summary>
-        /// <param name="Id">The name of a fleet.</param>
+        /// <param name="Key">The name of a fleet.</param>
         /// <returns>true if fleetName is the name of one of the fleets in the FleetList</returns>
-        public bool Contains(int Id)
+        public bool Contains(int Key)
         {
-            return ContainsKey(Id);
+            return ContainsKey(Key);
         }
 
         
@@ -107,10 +107,10 @@ namespace Nova.Common
                 return report;
             }
 
-            List<int> keyList = new List<int>();
+            List<long> keyList = new List<long>();
             keyList.AddRange(Keys);
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Id);
+            int nextIndex = keyList.IndexOf(report.Key);
             
             do
             {
@@ -143,10 +143,10 @@ namespace Nova.Common
                 return report;
             }
 
-            List<int> keyList = new List<int>();
+            List<long> keyList = new List<long>();
             keyList.AddRange(Keys);
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Id);
+            int nextIndex = keyList.IndexOf(report.Key);
             
             do
             {

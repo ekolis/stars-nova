@@ -39,13 +39,12 @@ namespace Nova.Common
         public IntelLevel   IntelAmount;
 
         /// <summary>
-        /// Constructor to use with LoadFromXml. Calls Fleet(-1) which is a
+        /// Constructor to use with LoadFromXml. Calls Fleet(0) which is a
         /// bogus ID which should be replaced during xml load.
         /// </summary>
         public FleetIntel() :
-            base(-1)
+            base(0)
         {
-            
         }
         
         /// <summary>
@@ -102,7 +101,7 @@ namespace Nova.Common
                 // TODO:(priority 6). Prevents a crash. Needs rework to show
                 // be able to call FleetComposition without passing all ships.
                 FleetShips      = fleet.FleetShips;
-                Id = fleet.Id; // TODO: Again why copy the ID?
+                Key = fleet.Key; // TODO: Again why copy the Key?
                 Cargo           = fleet.Cargo;
                 FuelAvailable   = fleet.FuelAvailable;                
             }

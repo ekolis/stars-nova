@@ -265,11 +265,11 @@ namespace Nova.Common
         /// <summary>
         /// The name of the ship's underlying design.
         /// </summary>
-        public int DesignId
+        public long DesignKey
         {
             get
             {
-                return this.design.Id;
+                return this.design.Key;
             }
         }
 
@@ -465,7 +465,7 @@ namespace Nova.Common
                     {
                         case "design":
                             this.design = new ShipDesign();
-                            this.design.Id = int.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber); // Only the Id is loaded. This design must be replaced in the post load linking.
+                            this.design.Key = long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber); // Only the Id is loaded. This design must be replaced in the post load linking.
                             break;
                         case "mass":
                             Mass = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -501,7 +501,7 @@ namespace Nova.Common
             XmlElement xmlelShip = xmldoc.CreateElement("Ship");
 
             // Design
-            Global.SaveData(xmldoc, xmlelShip, "Design", this.design.Id.ToString("X"));
+            Global.SaveData(xmldoc, xmlelShip, "Design", this.design.Key.ToString("X"));
 
             // Item base class
             xmlelShip.AppendChild(base.ToXml(xmldoc));

@@ -132,10 +132,10 @@ namespace Nova.WinForms.Gui
             for (itemLoopCounter = 0; itemLoopCounter < this.queueList.Items.Count; itemLoopCounter++)
             {
                 // is it a starbase?
-                int tempId = (queueList.Items[itemLoopCounter].Tag as ProductionItem).Id;
-                Design tempDesign = turnData.AllDesigns[tempId];
+                long tempKey = (queueList.Items[itemLoopCounter].Tag as ProductionItem).Key;
+                Design productionItemDesign = turnData.AllDesigns[tempKey];
 
-                if (tempDesign.Type == "Starbase")
+                if (productionItemDesign.Type == "Starbase")
                 {
                     this.queueList.Items[itemLoopCounter].Checked = true;
                     int designsLoopCounter = 0; // inner loop counter used for stepping through the Design List
@@ -187,9 +187,9 @@ namespace Nova.WinForms.Gui
             else
             {
                 this.addToQueue.Enabled = true;
-                int designId = (this.designList.SelectedItems[0].Tag as Design).Id;
+                long designKey = (this.designList.SelectedItems[0].Tag as Design).Key;
 
-                Design design = turnData.AllDesigns[designId];
+                Design design = turnData.AllDesigns[designKey];
 
                 this.designCost.Value = design.Cost;
             }
@@ -271,8 +271,8 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            int designId = (designList.SelectedItems[0].Tag as Design).Id;
-            Design design = turnData.AllDesigns[designId];
+            long designKey = (designList.SelectedItems[0].Tag as Design).Key;
+            Design design = turnData.AllDesigns[designKey];
 
             // Starbases are handled differently to the other component types.
             if (design.Type == "Starbase")
@@ -329,9 +329,9 @@ namespace Nova.WinForms.Gui
 
             if (this.queueList.SelectedItems.Count > 0)
             {
-                int designId = (queueList.Items[queueList.SelectedIndices[0]].Tag as ProductionItem).Id;
+                long designKey = (queueList.Items[queueList.SelectedIndices[0]].Tag as ProductionItem).Key;
                 string designName = this.queueList.Items[queueList.SelectedIndices[0]].Text;
-                Design selectedDesign = this.turnData.AllDesigns[designId] as Design;
+                Design selectedDesign = this.turnData.AllDesigns[designKey] as Design;
                 
                 if (queueList.Items[s].Checked == true)
                 {
@@ -445,7 +445,7 @@ namespace Nova.WinForms.Gui
             ListViewItem itemAdded;
    
             pProductionItem.Name = design.Name;
-            pProductionItem.Id = design.Id;
+            pProductionItem.Key = design.Key;
             pProductionItem.BuildState = design.Cost;
             
             itemToAdd.Text = design.Name;
@@ -553,7 +553,7 @@ namespace Nova.WinForms.Gui
                 ProductionItem productionItem = new ProductionItem();
 
                 productionItem.Name = itemInList.SubItems[0].Text;
-                productionItem.Id = (itemInList.Tag as ProductionItem).Id;
+                productionItem.Key = (itemInList.Tag as ProductionItem).Key;
                 productionItem.Quantity = Convert.ToInt32(itemInList.SubItems[1].Text);
 
                 productionItem.BuildState = (itemInList.Tag as ProductionItem).BuildState;
@@ -664,8 +664,8 @@ namespace Nova.WinForms.Gui
 
                 for (int queueIndex = 1; queueIndex < queueList.Items.Count; queueIndex++)
                 {
-                    int designId = (queueList.Items[queueIndex].Tag as ProductionItem).Id;
-                    Design currentDesign = turnData.AllDesigns[designId];
+                    long designKey = (queueList.Items[queueIndex].Tag as ProductionItem).Key;
+                    Design currentDesign = turnData.AllDesigns[designKey];
 
                     quantityYetToBuild = Convert.ToInt32(queueList.Items[queueIndex].SubItems[1].Text);
                     currentStackCost = GetProductionCosts(queueList.Items[queueIndex]);
@@ -1043,8 +1043,8 @@ namespace Nova.WinForms.Gui
             // this check should not be required, but better to be safe than sorry
             if (stackQuantity > 1)  
             {
-                int designId = (stackOfInterest.Tag as ProductionItem).Id;
-                Design currentDesign = turnData.AllDesigns[designId];
+                long designKey = (stackOfInterest.Tag as ProductionItem).Key;
+                Design currentDesign = turnData.AllDesigns[designKey];
                     // as the first Item in the stack costs BuildState to complete the design cost
                     // is multiplied by the quantity - 1
                 costsToProduce += currentDesign.Cost * (stackQuantity - 1);

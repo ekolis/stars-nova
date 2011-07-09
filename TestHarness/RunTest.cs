@@ -47,6 +47,31 @@ namespace TestHarness
     {
         public static void Main(string[] args)
         {
+            // ItemTest
+            /*
+            ItemTest test = new ItemTest();
+            test.test1ValidOwner(1);
+            test.test2ValidId(1);
+            test.test3ValidKey(1, 1);
+            */
+
+            // ServerStateTest
+            
+            ServerStateTest test = new ServerStateTest();
+            test.SerialisationTest();
+            
+
+            // Debuging battle test
+            /*
+            BattleEngineTest test = new BattleEngineTest();
+            test.Test1DetermineCoLocatedFleets();
+            test.Test2EliminateSingleRaces();
+            test.Test3GenerateStacks();
+            test.Test4SelectTargets();
+            test.Test5PositionStacks();
+            test.Test6DoBattle();
+            */
+            
             // Run the New Game Test
             /*
             NewGameTest test = new NewGameTest();
@@ -62,30 +87,11 @@ namespace TestHarness
             test.SerialisationTestIntel();             
              */
 
-            // Debuging battle test
-            
-            BattleEngineTest test = new BattleEngineTest();
-            test.Test1DetermineCoLocatedFleets();
-            test.Test2EliminateSingleRaces();
-            test.Test3GenerateStacks();
-            test.Test4SelectTargets();
-             
-
             // BattleReport
             /*
             BattleReport test = new BattleReport();
             test.SerialisationTestBattleReport();
              */
-
-            // ItemTest
-            /*
-            ItemTest test = new ItemTest();
-            test.Init();
-            test.Item1Owner();
-            test.Item1PureId();
-            test.Item2Owner();
-            test.Item2PureId();
-            */
 
         }
     }

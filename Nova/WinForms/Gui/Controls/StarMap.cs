@@ -73,19 +73,19 @@ namespace Nova.WinForms.Gui
             new Point(5, -12) 
         };
 
-        private readonly Dictionary<string, Minefield> visibleMinefields = new Dictionary<string, Minefield>();
+        private readonly Dictionary<long, Minefield> visibleMinefields = new Dictionary<long, Minefield>();
         private readonly Font nameFont;
         
         private Intel turnData;
         private ClientState stateData;
-        private NovaPoint cursorPosition = new Point(0, 0);
-        private NovaPoint lastClick = new Point(0, 0);
+        private NovaPoint cursorPosition    = new Point(0, 0);
+        private NovaPoint lastClick         = new Point(0, 0);
 
-        private NovaPoint logical = new Point(0, 0);  // Size of the logical coordinate system (size of the game universe).        
-        private NovaPoint extent = new Point(0, 0);   // How big is the logical map in terms of Size
-        private NovaPoint displayOffset = new NovaPoint(0, 0); // If extent is less then the panel size this is used to center the map in the panel
-        private NovaPoint scrollOffset = new NovaPoint(0, 0); // Where the scroll bars are set to
-        private double zoomFactor = 1.0;              // Is used to adjust the Extent of the map.
+        private NovaPoint logical           = new Point(0, 0);  // Size of the logical coordinate system (size of the game universe).        
+        private NovaPoint extent            = new Point(0, 0);   // How big is the logical map in terms of Size
+        private NovaPoint displayOffset     = new NovaPoint(0, 0); // If extent is less then the panel size this is used to center the map in the panel
+        private NovaPoint scrollOffset      = new NovaPoint(0, 0); // Where the scroll bars are set to
+        private double zoomFactor           = 1.0;              // Is used to adjust the Extent of the map.
 
         private readonly NovaPoint extraSpace = new NovaPoint(40, 40); // Extra padding round the map for star names etc.
 

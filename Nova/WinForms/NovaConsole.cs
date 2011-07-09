@@ -579,7 +579,8 @@ namespace Nova.WinForms.Console
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void RefreshMenuItem_Click(object sender, EventArgs e)
         {
-            // debug - commented this out as console is searching for files each time the timer goes off
+            // FIXME (priority 4) - Delete this once proven to work without it (release testing). - Dan 09 Jul 11
+            // Commented this out as console is searching for files each time the timer goes off. 
             // ServerState.Data.AllRaces = FileSearcher.GetAvailableRaces();
    
             OrderReader orderReader = new OrderReader(stateData);
@@ -822,7 +823,7 @@ namespace Nova.WinForms.Console
                 // and color code to highlight which races we are waiting on (if we wait).
 
                 EmpireData empireData;
-                stateData.AllEmpires.TryGetValue((settings.PlayerNumber << 24), out empireData);
+                stateData.AllEmpires.TryGetValue((settings.PlayerNumber), out empireData);
 
                 ListViewItem.ListViewSubItem yearItem = new ListViewItem.ListViewSubItem();
                 if (empireData == null || empireData.TurnYear == Global.StartingYear)
@@ -834,7 +835,7 @@ namespace Nova.WinForms.Console
                     yearItem.Text = empireData.TurnYear.ToString();
                 }
 
-                if (empireData == null || empireData.TurnYear != stateData.TurnYear)
+                if (empireData == null || empireData.TurnYear != stateData.TurnYear + 1)
                 {
                     // FIXME (priority 3) - Display the turn year color coded - red for waiting, green for turned in.
                     yearItem.ForeColor = System.Drawing.Color.Red;
@@ -848,7 +849,7 @@ namespace Nova.WinForms.Console
                 listItem.SubItems.Add(yearItem);
 
                 playerList.Items.Add(listItem);
-                // PlayerList.Invalidate(); // Tryed this in an attempt to get the colors to show. Dan - 6 Feb 10
+                // PlayerList.Invalidate(); // Tried this in an attempt to get the colors to show. Dan - 6 Feb 10
             }
 
             return result;

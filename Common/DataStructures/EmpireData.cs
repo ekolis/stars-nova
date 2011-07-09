@@ -41,11 +41,11 @@ namespace Nova.Common
     [Serializable]
     public class EmpireData
     {
-        private int empireId;
+        private ushort      empireId;
         
-        public int TurnYear = Global.StartingYear; // The year that corresponds to this data
+        public int          TurnYear                = Global.StartingYear; // The year that corresponds to this data
         
-        private Race race = new Race(); // This empire's race.
+        private Race        race                    = new Race(); // This empire's race.
         
         public int          ResearchBudget          = 10; // % of resources allocated to research
         public TechLevel    ResearchLevels          = new TechLevel(); // current levels of technology
@@ -53,15 +53,15 @@ namespace Nova.Common
         public TechLevel    ResearchTopics          = new TechLevel(); // order or researching
         public TechLevel    ResearchLevelsGained    = new TechLevel(); // research level increases, reset per turn
         
-        public StarIntelList                    StarReports     = new StarIntelList();
-        public FleetIntelList                   FleetReports    = new FleetIntelList();
-        public Dictionary<int, EmpireIntel>     EmpireReports   = new Dictionary<int, EmpireIntel>();
+        public StarIntelList        StarReports     = new StarIntelList();
+        public FleetIntelList       FleetReports    = new FleetIntelList();
+        public Dictionary<ushort, EmpireIntel>     EmpireReports   = new Dictionary<ushort, EmpireIntel>();
         
         public Dictionary<string, BattlePlan>   BattlePlans     = new Dictionary<string, BattlePlan>();
         
         // See associated properties.
-        private int FleetCounter             = 0;
-        private int DesignCounter            = 0;
+        private long        FleetCounter             = 0;
+        private long        DesignCounter            = 0;
         
         public Race Race
         {
@@ -82,41 +82,37 @@ namespace Nova.Common
         /// <summary>
         /// Sets or gets this empires unique integer Id.
         /// </summary>
-        public int Id
+        public ushort Id
         {
             get
             {
-                return empireId & 0x7F000000;
+                return empireId;
             }
             
             set
             {
                 // Empire Id should only be set on game creation, from a simple 0-127 int.
                 if (value > 127)    { throw new ArgumentException("EmpireId out of range"); }                
-                empireId = (value <<= 24);
+                empireId = value;
             }
         }
         
         /// <summary>
-        /// Gets the next available FleetId from the internal FleetCounter.
+        /// Gets the next available Fleet Key from the internal FleetCounter.
         /// </summary>
-        public int NextFleetId
+        public long GetNextFleetKey()
         {
-            get
-            {
-                return (++FleetCounter | empireId);
-            }
+            ++FleetCounter;
+            return ((long)FleetCounter | ((long)empireId << 32));
         }
-        
+
         /// <summary>
-        /// Gets the next available DesignId from the internal DesignCounter.
+        /// Gets the next available Key for the empire.
         /// </summary>
-        public int NextDesignId
+        public long GetNextDesignKey()
         {
-            get
-            {
-                return (++DesignCounter | empireId);
-            }
+            ++DesignCounter;
+            return ((long)DesignCounter | ((long)empireId << 32));
         }
 
         /// <summary>
@@ -132,7 +128,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="lamb">The id of the empire who may be attacked.</param>
         /// <returns>true if lamb is one of this empire's enemies, otherwise false.</returns>
-        public bool IsEnemy(int lamb)
+        public bool IsEnemy(ushort lamb)
         {
             return EmpireReports[lamb].Relation == PlayerRelation.Enemy;
         }
@@ -147,79 +143,72 @@ namespace Nova.Common
             XmlNode tNode;
             while (subnode != null)
             {
-                try
+                switch (subnode.Name.ToLower())
                 {
-                    switch (subnode.Name.ToLower())
-                    {
-                        case "id":
-                            empireId = int.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
-                            break;
-                        case "fleetcounter":
-                            FleetCounter = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
-                        case "designcounter":
-                            DesignCounter = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
-                        case "turnyear":
-                            TurnYear = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
-                        case "race":
-                            race = new Race();
-                            Race.LoadRaceFromXml(subnode);
-                            break;
-                        case "researchbudget":
-                            ResearchBudget = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
-                        case "researchlevelsgained":
-                            ResearchLevelsGained = new TechLevel(subnode);
-                            break;
-                        case "researchlevels":
-                            ResearchLevels = new TechLevel(subnode);
-                            break;
-                        case "researchresources":
-                            ResearchResources = new TechLevel(subnode);
-                            break;
-                        case "researchtopics":
-                            ResearchTopics = new TechLevel(subnode);
-                            break;
-                        case "starreports":
-                            tNode = subnode.FirstChild;
-                            while (tNode != null)
-                            {
-                                StarIntel report = new StarIntel();
-                                report = report.LoadFromXml(tNode);
-                                StarReports.Add(report);
-                                tNode = tNode.NextSibling;
-                            }
-                            break;
-                        case "fleetreports":
-                            tNode = subnode.FirstChild;
-                            while (tNode != null)
-                            {
-                                FleetIntel report = new FleetIntel();
-                                report = report.LoadFromXml(tNode);
-                                FleetReports.Add(report);
-                                tNode = tNode.NextSibling;
-                            }
-                            break;
-                        case "otherempires":
-                            tNode = subnode.FirstChild;
-                            while (tNode != null)
-                            {
-                                EmpireIntel report = new EmpireIntel(tNode);
-                                EmpireReports.Add(report.Id, report);
-                                tNode = tNode.NextSibling;
-                            }
-                            break;
-                        case "battleplan":
-                            BattlePlan plan = new BattlePlan(subnode);
-                            BattlePlans[plan.Name] = plan;
-                            break;
-                    }
-                }
-                catch
-                {
-                    // ignore incomplete or unset values
+                    case "id":
+                        empireId = ushort.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                        break;
+                    case "fleetcounter":
+                        FleetCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        break;
+                    case "designcounter":
+                        DesignCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        break;
+                    case "turnyear":
+                        TurnYear = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        break;
+                    case "race":
+                        race = new Race();
+                        Race.LoadRaceFromXml(subnode);
+                        break;
+                    case "researchbudget":
+                        ResearchBudget = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        break;
+                    case "researchlevelsgained":
+                        ResearchLevelsGained = new TechLevel(subnode);
+                        break;
+                    case "researchlevels":
+                        ResearchLevels = new TechLevel(subnode);
+                        break;
+                    case "researchresources":
+                        ResearchResources = new TechLevel(subnode);
+                        break;
+                    case "researchtopics":
+                        ResearchTopics = new TechLevel(subnode);
+                        break;
+                    case "starreports":
+                        tNode = subnode.FirstChild;
+                        while (tNode != null)
+                        {
+                            StarIntel report = new StarIntel();
+                            report = report.LoadFromXml(tNode);
+                            StarReports.Add(report);
+                            tNode = tNode.NextSibling;
+                        }
+                        break;
+                    case "fleetreports":
+                        tNode = subnode.FirstChild;
+                        while (tNode != null)
+                        {
+                            FleetIntel report = new FleetIntel();
+                            report = report.LoadFromXml(tNode);
+                            FleetReports.Add(report);
+                            tNode = tNode.NextSibling;
+                        }
+                        break;
+                    case "otherempires":
+                        tNode = subnode.FirstChild;
+                        while (tNode != null)
+                        {
+                            EmpireIntel report = new EmpireIntel(tNode);
+                            EmpireReports.Add(report.Id, report);
+                            tNode = tNode.NextSibling;
+                        }
+                        break;
+                    case "battleplan":
+                        BattlePlan plan = new BattlePlan(subnode);
+                        BattlePlans[plan.Name] = plan;
+                        break;
                 }
 
                 // If no orders have ever been turned in then ensure battle plans contain at least the default

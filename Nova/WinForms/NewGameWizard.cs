@@ -605,7 +605,7 @@ namespace Nova.WinForms
                 foreach (ListViewItem player in playerList.Items)
                 {
                     PlayerSettings settings = new PlayerSettings();
-                    settings.PlayerNumber = Int32.Parse(player.SubItems[0].Text);
+                    settings.PlayerNumber = ushort.Parse(player.SubItems[0].Text);
                     settings.RaceName = player.SubItems[1].Text;
                     settings.AiProgram = player.SubItems[2].Text;
 

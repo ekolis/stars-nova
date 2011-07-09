@@ -119,7 +119,7 @@ namespace Nova.NewGame
                 mine.Cost = new Nova.Common.Resources(0, 0, 0, empire.Race.MineBuildCost);
                 mine.Name = "Mine";
                 mine.Type = "Mine";
-                mine.Id = empire.NextDesignId;
+                mine.Key = empire.GetNextDesignKey();
 
                 // If we have the secondary racial trait Cheap Factories they need 1K
                 // less germanium to build.
@@ -127,16 +127,16 @@ namespace Nova.NewGame
                 factory.Cost = new Nova.Common.Resources(0, 0, factoryBuildCostGerm, empire.Race.FactoryBuildCost);
                 factory.Name = "Factory";
                 factory.Type = "Factory";
-                factory.Id = empire.NextDesignId;
+                factory.Key = empire.GetNextDesignKey();
 
                 defense.Cost = new Nova.Common.Resources(5, 5, 5, 15);
                 defense.Name = "Defenses";
                 defense.Type = "Defenses";
-                defense.Id = empire.NextDesignId;
+                defense.Key = empire.GetNextDesignKey();
                 
-                stateData.AllDesigns[mine.Id] = mine;
-                stateData.AllDesigns[factory.Id] = factory;
-                stateData.AllDesigns[defense.Id] = defense;
+                stateData.AllDesigns[mine.Key] = mine;
+                stateData.AllDesigns[factory.Key] = factory;
+                stateData.AllDesigns[defense.Key] = defense;
                 PrepareDesigns(empire, player);
                 InitialiseHomeStar(empire, player);
             }
@@ -217,7 +217,7 @@ namespace Nova.NewGame
 
             cs.Type = "Ship";
             cs.Name = "Santa Maria";
-            cs.Id = empire.NextDesignId;
+            cs.Key = empire.GetNextDesignKey();
             cs.Update();
 
             ShipDesign scout = new ShipDesign();
@@ -239,12 +239,12 @@ namespace Nova.NewGame
 
             scout.Type = "Ship";
             scout.Name = "Scout";
-            scout.Id = empire.NextDesignId;
+            scout.Key = empire.GetNextDesignKey();
             scout.Update();
 
             ShipDesign starbase = new ShipDesign();
             starbase.Name = "Starbase";
-            starbase.Id = empire.NextDesignId;
+            starbase.Key = empire.GetNextDesignKey();
             starbase.ShipHull = starbaseHull;
             starbase.Type = "Starbase";
             starbase.Icon = new ShipIcon(starbaseHull.ImageFile, (Bitmap)starbaseHull.ComponentImage);
@@ -287,9 +287,9 @@ namespace Nova.NewGame
 
             starbase.Update();
 
-            stateData.AllDesigns[starbase.Id] = starbase;
-            stateData.AllDesigns[cs.Id] = cs;
-            stateData.AllDesigns[scout.Id] = scout;
+            stateData.AllDesigns[starbase.Key] = starbase;
+            stateData.AllDesigns[cs.Key] = cs;
+            stateData.AllDesigns[scout.Key] = scout;
             /*
             switch (race.Traits.Primary.Code)
             {
@@ -394,20 +394,18 @@ namespace Nova.NewGame
             if (empire.Race.Traits.Primary.Code != "HE")
             {
                 Ship cs = new Ship(colonyShipDesign);
-                Fleet fleet1 = new Fleet(cs, star);                               
-                fleet1.Id = empire.NextFleetId;
+                Fleet fleet1 = new Fleet(cs, star, empire.GetNextFleetKey());                               
                 fleet1.Name = colonyShipDesign.Name + " #1";
-                stateData.AllFleets[fleet1.Id] = fleet1;
+                stateData.AllFleets[fleet1.Key] = fleet1;
             }
             else
             {
                 for (int i = 1; i <= 3; i++)
                 {
                     Ship cs = new Ship(colonyShipDesign);
-                    Fleet fleet = new Fleet(cs, star);                    
-                    fleet.Id = empire.NextFleetId;
+                    Fleet fleet = new Fleet(cs, star, empire.GetNextFleetKey());                    
                     fleet.Name = String.Format("{0} #{1}", colonyShipDesign.Name, i);                    
-                    stateData.AllFleets[fleet.Id] = fleet;
+                    stateData.AllFleets[fleet.Key] = fleet;
                 }
             }
    
@@ -421,10 +419,9 @@ namespace Nova.NewGame
             }
             
             Ship scout = new Ship(scoutDesign);
-            Fleet scoutFleet = new Fleet(scout, star);
-            scoutFleet.Id = empire.NextFleetId;
+            Fleet scoutFleet = new Fleet(scout, star, empire.GetNextFleetKey());
             scoutFleet.Name = "Scout #1";       
-            stateData.AllFleets[scoutFleet.Id] = scoutFleet;
+            stateData.AllFleets[scoutFleet.Key] = scoutFleet;
  
             ShipDesign starbaseDesign = null;
             foreach (Design design in stateData.AllDesigns.Values)
@@ -436,10 +433,9 @@ namespace Nova.NewGame
             }
             
             Ship starbase = new Ship(starbaseDesign);
-            Fleet starbaseFleet = new Fleet(starbase, star);            
-            starbaseFleet.Id = empire.NextFleetId;
+            Fleet starbaseFleet = new Fleet(starbase, star, empire.GetNextFleetKey());            
             starbaseFleet.Name = star.Name + " Starbase";
-            stateData.AllFleets[starbaseFleet.Id] = starbaseFleet;
+            stateData.AllFleets[starbaseFleet.Key] = starbaseFleet;
             star.Starbase = starbaseFleet;
         }
 

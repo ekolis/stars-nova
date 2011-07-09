@@ -71,14 +71,6 @@ namespace Nova.Common
             }
         }
 
-        /// <summary>
-        /// Override the Key method of Item
-        /// </summary>
-        public string Key
-        {
-            get { return keyId.ToString(System.Globalization.CultureInfo.InvariantCulture); }
-        }
-
         #endregion
 
         #region To From Xml

@@ -67,8 +67,8 @@ namespace Nova.Common
         public List<BattleReport> Battles = new List<BattleReport>();
         public List<ScoreRecord> AllScores = new List<ScoreRecord>();
         
-        public Dictionary<int, Design> AllDesigns = new Dictionary<int, Design>();
-        public Dictionary<string, Minefield> AllMinefields = new Dictionary<string, Minefield>();
+        public Dictionary<long, Design> AllDesigns = new Dictionary<long, Design>();
+        public Dictionary<long, Minefield> AllMinefields = new Dictionary<long, Minefield>();
 
         /// <summary>
         /// Default constructor.
@@ -140,13 +140,13 @@ namespace Nova.Common
 
                         case "design":
                             Design newDesign = new Design(xmlnode);
-                            AllDesigns[newDesign.Id] = newDesign;
+                            AllDesigns[newDesign.Key] = newDesign;
                             // AllDesigns.Add(newDesign.Key, newDesign);
                             break;
 
                         case "shipdesign":
                             ShipDesign newShipDesign = new ShipDesign(xmlnode);
-                            AllDesigns[newShipDesign.Id] = newShipDesign;
+                            AllDesigns[newShipDesign.Key] = newShipDesign;
                             // AllDesigns.Add(newShipDesign.Key, newShipDesign);
                             break;
 
