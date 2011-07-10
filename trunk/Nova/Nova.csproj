@@ -182,7 +182,7 @@
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WinForms\Gui\Controls\StarMapPanel.cs">
-      <SubType>Component</SubType>
+      <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WinForms\Gui\Controls\PlanetDetail.cs">
       <SubType>UserControl</SubType>

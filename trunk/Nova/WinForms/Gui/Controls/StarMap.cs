@@ -111,7 +111,13 @@ namespace Nova.WinForms.Gui
 
             MapPanel.Paint += MapPanel_Paint;
 
-            nameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);                        
+
+            nameFont = new Font("Arial", (float)7.5, FontStyle.Regular, GraphicsUnit.Point);
+
+            verticalScrollBar.GotFocus += delegate { MapPanel.Focus(); };
+            horizontalScrollBar.GotFocus += delegate { MapPanel.Focus(); };
+
+            MapPanel.ArrowKeyPressed += new KeyEventHandler(MapPanel_ArrowKeyPressed);
         }
 
 
@@ -1131,6 +1137,28 @@ namespace Nova.WinForms.Gui
         public void RefreshStarMap()
         {
             MapPanel.Invalidate();
+        }
+
+        void MapPanel_ArrowKeyPressed(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.Up:
+                    verticalScrollBar.Value = Math.Max( verticalScrollBar.Minimum, verticalScrollBar.Value - verticalScrollBar.LargeChange);
+                    break;
+                case Keys.Down:
+                    verticalScrollBar.Value = Math.Min(verticalScrollBar.Maximum, verticalScrollBar.Value + verticalScrollBar.LargeChange);
+                    break;
+                case Keys.Left:
+                    horizontalScrollBar.Value = Math.Max(horizontalScrollBar.Minimum, horizontalScrollBar.Value - horizontalScrollBar.LargeChange);
+                    break;
+                case Keys.Right:
+                    horizontalScrollBar.Value = Math.Min(horizontalScrollBar.Maximum, horizontalScrollBar.Value + horizontalScrollBar.LargeChange);
+                    break;
+            }
+            scrollOffset.X = horizontalScrollBar.Value;
+            scrollOffset.Y = verticalScrollBar.Value;
+            RefreshStarMap();
         }
     }
 }

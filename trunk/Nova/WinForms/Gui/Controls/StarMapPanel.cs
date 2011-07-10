@@ -19,10 +19,15 @@
 // ===========================================================================
 #endregion
 
+using System;
+using System.Windows.Forms;
+
 namespace Nova.WinForms.Gui
 {
-    public class StarMapPanel : System.Windows.Forms.Panel
+    public class StarMapPanel : UserControl
     {
+        public event KeyEventHandler ArrowKeyPressed;
+
         public StarMapPanel()
         {
             // This goes here instead of StarMap. All drawing code affets the
@@ -32,6 +37,31 @@ namespace Nova.WinForms.Gui
             SetStyle(System.Windows.Forms.ControlStyles.AllPaintingInWmPaint, true);
             SetStyle(System.Windows.Forms.ControlStyles.OptimizedDoubleBuffer, true);
             UpdateStyles();    
-        }    
+        }
+
+        protected override void OnPreviewKeyDown(PreviewKeyDownEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Right)
+            {
+                e.IsInputKey = true;
+            }
+        }
+
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Left || e.KeyCode == Keys.Up || e.KeyCode == Keys.Down || e.KeyCode == Keys.Right)
+            {
+                FireArrowKeyMove(e);
+            }
+        }
+
+        private void FireArrowKeyMove(KeyEventArgs keyEventArgs)
+        {
+            if (ArrowKeyPressed != null)
+            {
+                ArrowKeyPressed(this, keyEventArgs);
+            }
+        }
     }
+
 }
