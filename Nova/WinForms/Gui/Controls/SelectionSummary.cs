@@ -53,6 +53,11 @@ namespace Nova.WinForms.Gui
             InitializeComponent();
         }
 
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+        }
+
         /// <Summary>
         /// Display a planet Summary
         /// </Summary>
