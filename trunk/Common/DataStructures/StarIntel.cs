@@ -36,7 +36,6 @@ namespace Nova.Common
     [Serializable]
     public class StarIntel : Star
     {
-
         public int          Year;      
         public IntelLevel   IntelAmount;
         
