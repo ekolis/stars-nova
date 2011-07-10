@@ -120,8 +120,6 @@ namespace Nova.Server
                 Report.Error(Environment.NewLine + "There was a problem reading in the orders for " + empire.Race.Name + Environment.NewLine + "Details: " + e.Message);
                 return;
             }
-            try
-            {
                 // Regardless of how it was loaded:
                 this.LinkOrderReferences(playerOrders);
 
@@ -165,11 +163,6 @@ namespace Nova.Server
 
                 this.stateData.AllEmpires[empire.Id] = playerOrders.EmpireStatus;
                 this.stateData.AllTechLevels[empire.Id] = playerOrders.TechLevel;
-            }
-            catch (Exception e)
-            {
-                Report.FatalError(Environment.NewLine + "There was a problem processing the orders for " + empire.Race.Name + Environment.NewLine + "Details: " + e.Message);
-            }
         }
 
         /// ----------------------------------------------------------------------------
@@ -193,10 +186,13 @@ namespace Nova.Server
                 {
                     fleet.InOrbit = stateData.AllStars[fleet.InOrbit.Name];
                 }
-                // Ship reference to Design
-                foreach (Ship ship in fleet.FleetShips)
+                if (fleet.Owner == playerOrders.EmpireStatus.Id) // prevent attempting to link enemy fleets to own designs (crash). TODO (priority 4) - decide if they should be linked to something else - Dan 10/7/11.
                 {
-                    ship.DesignUpdate(playerOrders.RaceDesigns[ship.DesignKey] as ShipDesign);
+                    // Ship reference to Design
+                    foreach (Ship ship in fleet.FleetShips)
+                    {
+                        ship.DesignUpdate(playerOrders.RaceDesigns[ship.DesignKey] as ShipDesign);
+                    }
                 }
             }
             // Star reference to Race
