@@ -293,7 +293,7 @@ namespace Nova.Client
                 {
                     stateData.AvailableComponents.Add(component);
                     Message newComponentMessage = null;
-                    if (component.Properties.ContainsKey("Scaner") && component.Type == ItemType.PlanetaryInstallations)
+                    if (component.Properties.ContainsKey("Scanner") && component.Type == ItemType.PlanetaryInstallations)
                     {
                         newComponentMessage = new Message(
                             stateData.EmpireState.Id,
