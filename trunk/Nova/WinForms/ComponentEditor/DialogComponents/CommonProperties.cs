@@ -119,7 +119,7 @@ namespace Nova.WinForms.ComponentEditor
 
             foreach (Nova.Common.Components.Component thing in this.allComponents.Values)
             {
-                if (thing.Type == objectName)
+                if (thing.Type.ToDescription() == objectName)
                 {
                     ComponentList.Items.Add(thing.Name);
                 }

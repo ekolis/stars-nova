@@ -353,7 +353,7 @@ namespace Nova.Server
             foreach (KeyValuePair<long, Design> design in AllDesigns)
             {
                 
-                if (design.Value.Type == "Ship" || design.Value.Type == "Starbase")
+                if (design.Value.Type == ItemType.Ship || design.Value.Type == ItemType.Starbase)
                 {
                     child = ((ShipDesign)design.Value).ToXml(xmldoc);                    
                 }
@@ -435,7 +435,7 @@ namespace Nova.Server
             // HullModule reference to a component
             foreach (Design design in AllDesigns.Values)
             {
-                if (design.Type.ToLower() == "ship" || design.Type.ToLower() == "starbase")
+                if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
                 {
                     ShipDesign ship = design as ShipDesign;
                     foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)

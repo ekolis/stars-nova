@@ -123,7 +123,7 @@ namespace Nova.Common
             FleetShips.Add(ship);
 
             FuelAvailable = TotalFuelCapacity;
-            Type          = "Fleet";
+            Type          = ItemType.Fleet;
 
             // Have one waypoint to reflect the fleet's current position and the
             // planet it is in orbit around.

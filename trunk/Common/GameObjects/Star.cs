@@ -86,7 +86,7 @@ namespace Nova.Common
             this.ManufacturingQueue = new ProductionQueue();
             this.MineralConcentration = new Resources();
             this.ResourcesOnHand = new Resources();
-            Type = "Star";
+            Type = ItemType.Star;
         }
 
         #endregion

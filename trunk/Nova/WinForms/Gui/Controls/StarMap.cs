@@ -287,7 +287,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in stateData.EmpireState.FleetReports.Values)
             {
-                if (fleet.Type != "Starbase")
+                if (fleet.Type != ItemType.Starbase)
                 {
                     DrawFleet(g, fleet);
                 }

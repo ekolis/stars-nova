@@ -117,6 +117,7 @@
     <Compile Include="DataStructures\XmlSerializableDictionary.cs" />
     <Compile Include="Files\AllShipIcons.cs" />
     <Compile Include="Files\Config.cs" />
+    <Compile Include="GameObjects\ItemType.cs" />
     <Compile Include="PasswordUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>

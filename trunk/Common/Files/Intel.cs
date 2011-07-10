@@ -206,7 +206,7 @@ namespace Nova.Common
             // AllDesigns 
             foreach (Design design in AllDesigns.Values)
             {
-                if (design.Type == "Starbase" || design.Type == "Ship")
+                if (design.Type == ItemType.Starbase || design.Type == ItemType.Ship)
                 {
                     xmlelIntel.AppendChild(((ShipDesign)design).ToXml(xmldoc));
                 }

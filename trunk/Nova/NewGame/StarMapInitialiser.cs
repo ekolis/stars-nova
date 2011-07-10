@@ -118,7 +118,7 @@ namespace Nova.NewGame
 
                 mine.Cost = new Nova.Common.Resources(0, 0, 0, empire.Race.MineBuildCost);
                 mine.Name = "Mine";
-                mine.Type = "Mine";
+                mine.Type = ItemType.Mine;
                 mine.Key = empire.GetNextDesignKey();
 
                 // If we have the secondary racial trait Cheap Factories they need 1K
@@ -126,12 +126,12 @@ namespace Nova.NewGame
                 int factoryBuildCostGerm = empire.Race.HasTrait("CF") ? 3 : 4;
                 factory.Cost = new Nova.Common.Resources(0, 0, factoryBuildCostGerm, empire.Race.FactoryBuildCost);
                 factory.Name = "Factory";
-                factory.Type = "Factory";
+                factory.Type = ItemType.Factory;
                 factory.Key = empire.GetNextDesignKey();
 
                 defense.Cost = new Nova.Common.Resources(5, 5, 5, 15);
                 defense.Name = "Defenses";
-                defense.Type = "Defenses";
+                defense.Type = ItemType.Defenses;
                 defense.Key = empire.GetNextDesignKey();
                 
                 stateData.AllDesigns[mine.Key] = mine;
@@ -215,7 +215,7 @@ namespace Nova.NewGame
             }
             cs.Icon = new ShipIcon(colonyShipHull.ImageFile, (Bitmap)colonyShipHull.ComponentImage);
 
-            cs.Type = "Ship";
+            cs.Type = ItemType.Ship;
             cs.Name = "Santa Maria";
             cs.Key = empire.GetNextDesignKey();
             cs.Update();
@@ -237,7 +237,7 @@ namespace Nova.NewGame
             }
             scout.Icon = new ShipIcon(scoutHull.ImageFile, (Bitmap)scoutHull.ComponentImage);
 
-            scout.Type = "Ship";
+            scout.Type = ItemType.Ship;
             scout.Name = "Scout";
             scout.Key = empire.GetNextDesignKey();
             scout.Update();
@@ -246,7 +246,7 @@ namespace Nova.NewGame
             starbase.Name = "Starbase";
             starbase.Key = empire.GetNextDesignKey();
             starbase.ShipHull = starbaseHull;
-            starbase.Type = "Starbase";
+            starbase.Type = ItemType.Starbase;
             starbase.Icon = new ShipIcon(starbaseHull.ImageFile, (Bitmap)starbaseHull.ComponentImage);
             bool weaponSwitcher = false; // start with laser
             bool armorSwitcher = false; // start with armor

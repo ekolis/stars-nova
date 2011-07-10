@@ -31,7 +31,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
 using System.Windows.Forms;
-
+using Nova.Common;
 using Nova.Common.Components;
 
 namespace Nova.ControlLibrary
@@ -334,15 +334,15 @@ namespace Nova.ControlLibrary
                                 as DragDropData;
 
             // Not the right component for this cell.
-            if (!cell.ComponentType.Contains(data.SelectedComponent.Type) &&
-                  !(cell.ComponentType.Contains("Weapon") && (data.SelectedComponent.Type == "Beam Weapons" || data.SelectedComponent.Type == "Torpedoes")) &&
+            if (!cell.ComponentType.Contains(data.SelectedComponent.Type.ToDescription()) &&
+                !(cell.ComponentType.Contains("Weapon") && (data.SelectedComponent.Type == ItemType.BeamWeapons || data.SelectedComponent.Type == ItemType.Torpedoes)) &&
                     cell.ComponentType != "General Purpose")
             {
                 return;
             }
 
             // General Purpose dosen't allow engines
-            if (cell.ComponentType == "General Purpose" && data.SelectedComponent.Type == "Engine")
+            if (cell.ComponentType == "General Purpose" && data.SelectedComponent.Type == ItemType.Engine)
             {
                 return;
             }

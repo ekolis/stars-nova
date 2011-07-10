@@ -105,7 +105,7 @@ namespace Nova.WinForms.Gui
                     }
 
                     // Check if this design can be built at this Star - ships are limited by dock capacity of the starbase.
-                    if (design.Type == "Ship")
+                    if (design.Type == ItemType.Ship)
                     {
                         if (dockCapacity > design.Mass)
                         {
@@ -135,7 +135,7 @@ namespace Nova.WinForms.Gui
                 long tempKey = (queueList.Items[itemLoopCounter].Tag as ProductionItem).Key;
                 Design productionItemDesign = turnData.AllDesigns[tempKey];
 
-                if (productionItemDesign.Type == "Starbase")
+                if (productionItemDesign.Type == ItemType.Starbase)
                 {
                     this.queueList.Items[itemLoopCounter].Checked = true;
                     int designsLoopCounter = 0; // inner loop counter used for stepping through the Design List
@@ -275,7 +275,7 @@ namespace Nova.WinForms.Gui
             Design design = turnData.AllDesigns[designKey];
 
             // Starbases are handled differently to the other component types.
-            if (design.Type == "Starbase")
+            if (design.Type == ItemType.Starbase)
             {
                 AddStarbase(design);
                 return;
@@ -452,7 +452,7 @@ namespace Nova.WinForms.Gui
             itemToAdd.SubItems.Add(quantity.ToString());
             itemToAdd.Tag = pProductionItem;    // when first added the partial BuildState is the full design cost
             // set the Checked Status if this is a Starbase
-            if (design.Type == "Starbase")
+            if (design.Type == ItemType.Starbase)
             {
                 itemToAdd.Checked = true;
             }
@@ -753,11 +753,11 @@ namespace Nova.WinForms.Gui
                                     minYearsTotal = yearsSoFar;
                                 }
                                 maxYearsTotal = yearsSoFar;
-                                if (currentDesign.Type == "Mine")
+                                if (currentDesign.Type == ItemType.Mine)
                                 {
                                     minesInQueue += quantityYetToBuild;
                                 }
-                                if (currentDesign.Type == "Factory")
+                                if (currentDesign.Type == ItemType.Factory)
                                 {
                                     factoriesInQueue += quantityYetToBuild;
                                 }
