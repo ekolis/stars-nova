@@ -299,7 +299,7 @@ Are you sure you want to do this?";
 
             foreach (Design design in stateData.InputTurn.AllDesigns.Values)
             {
-                if (design.Type == "Ship" || design.Type == "Starbase")
+                if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
                 {
                     if (design.Owner == ownerId)
                     {
@@ -389,7 +389,7 @@ Are you sure you want to do this?";
             this.shipShields.Text = design.Shield.ToString(System.Globalization.CultureInfo.InvariantCulture);
             this.cargoCapacity.Text = design.CargoCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
-            if (design.Type == "Starbase")
+            if (design.Type == ItemType.Starbase)
             {
                 this.capacityType.Text = "Dock Capacity";
                 this.capacityUnits.Text = "kT";

@@ -810,22 +810,22 @@ namespace Nova.WinForms.Gui
 
             foreach (Component component in this.stateData.AvailableComponents.Values)
             {
-                if (component.Type.Contains("Planetary"))
+                if (component.Type.ToDescription().Contains("Planetary"))
                 {
                     continue;
                 }
-                if (component.Type.Contains("Defenses"))
+                if (component.Type == ItemType.Defenses)
                 {
                     continue;
                 }
-                if (component.Type.Contains("Hull"))
+                if (component.Type == ItemType.Hull)
                 {
                     continue;
                 }
 
-                if (!techList.Contains(component.Type))
+                if (!techList.Contains(component.Type.ToDescription()))
                 {
-                    techList.Add(component.Type);
+                    techList.Add(component.Type.ToDescription());
                 }
             }
             techList.Sort();
@@ -889,11 +889,11 @@ namespace Nova.WinForms.Gui
 
             if (hullProperties.IsStarbase)
             {
-                newDesign.Type = "Starbase";
+                newDesign.Type = ItemType.Starbase;
             }
             else
             {
-                newDesign.Type = "Ship";
+                newDesign.Type = ItemType.Ship;
                 if (newDesign.Engine == null)
                 {
                     Report.Error("A ship design must have an engine");
@@ -946,7 +946,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Component component in this.stateData.AvailableComponents.Values)
             {
-                if (component.Type == nodeType)
+                if (component.Type.ToDescription() == nodeType)
                 {
                     ListViewItem item = new ListViewItem();
                     item.Text = component.Name;
@@ -975,7 +975,7 @@ namespace Nova.WinForms.Gui
             ComponentMass.Text = selection.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
             Description.Text = selection.Description;
 
-            if (selection.Type == "Engine")
+            if (selection.Type == ItemType.Engine)
             {
                 graph1.Data = (selection.Properties["Engine"] as Engine).FuelConsumption;
             }

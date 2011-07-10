@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -33,8 +33,7 @@ namespace Nova.Common
     /// </summary>
     [Serializable]
     public class Item
-    {
-
+    {     
         /// <summary>
         /// Backing store for the game wide unique key. 
         /// First bit is for sign. Negative values are reserved for special flags.
@@ -69,11 +68,8 @@ namespace Nova.Common
 
         /// <summary>
         /// The type of the derived item (e.g. "Ship", "Star", "Starbase", etc.)
-        /// <remarks>
-        /// FIXME (priority 5) - An enumerated type would improve data matching and avoid unneccessary errors.
-        /// </remarks>
         /// </summary>
-        public string Type;
+        public ItemType Type = ItemType.None;
 
         /// <summary>
         /// Position of the Item (if any)
@@ -111,7 +107,7 @@ namespace Nova.Common
         #endregion
 
         #region Properties
-
+        
         /// <summary>
         /// Property for accessing the game wide unique key.
         /// </summary>
@@ -170,12 +166,10 @@ namespace Nova.Common
 
         #region Save Load Xml
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising constructor from an XmlNode representing the Item (from a save file).
         /// </summary>
         /// <param name="node">An XmlNode representing the Item</param>
-        /// ----------------------------------------------------------------------------
         public Item(XmlNode node)
         {
             if (node == null)
@@ -223,7 +217,7 @@ namespace Nova.Common
                             Name = subnode.FirstChild.Value;
                             break;
                         case "type":
-                            Type = subnode.FirstChild.Value;
+                            Type = (ItemType)Enum.Parse(typeof(ItemType), subnode.FirstChild.Value);
                             break;
                         case "position":
                             Position.X = int.Parse(subnode.SelectSingleNode("X").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -245,13 +239,11 @@ namespace Nova.Common
 
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Return an XmlElement representation of the <see cref="Item"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelItem = xmldoc.CreateElement("Item");
@@ -262,10 +254,9 @@ namespace Nova.Common
             {
                 Global.SaveData(xmldoc, xmlelItem, "Name", Name);
             }
-            if (Type != null)
-            {
-                Global.SaveData(xmldoc, xmlelItem, "Type", Type);
-            }
+            
+            Global.SaveData(xmldoc, xmlelItem, "Type", Type.ToString());
+
             if (Mass != 0)
             {
                 Global.SaveData(xmldoc, xmlelItem, "Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));

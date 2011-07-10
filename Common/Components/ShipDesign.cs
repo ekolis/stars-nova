@@ -488,7 +488,7 @@ namespace Nova.Common.Components
                     Hull hull = ShipHull.Properties["Hull"] as Hull;
                     foreach (HullModule module in hull.Modules)
                     {
-                        if (module.AllocatedComponent != null && module.AllocatedComponent.Type == "Engine")
+                        if (module.AllocatedComponent != null && module.AllocatedComponent.Type == ItemType.Engine)
                         {
                             return module.ComponentCount;
                         }

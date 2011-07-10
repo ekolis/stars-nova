@@ -3,7 +3,7 @@
   <Component>
     <Item>
       <Name>Scoper 150</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
@@ -66,7 +66,7 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
   <Component>
     <Item>
       <Name>Planetary Shield</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>5</Boranium>
         <Ironium>5</Ironium>
@@ -126,7 +126,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Missile Battery</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>5</Boranium>
         <Ironium>5</Ironium>
@@ -178,7 +178,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Bludgeon</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>10</Mass>
       <Resource>
         <Boranium>22</Boranium>
@@ -568,7 +568,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Streaming Pulverizer</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>1</Mass>
       <Resource>
         <Boranium>20</Boranium>
@@ -599,7 +599,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Robo-Midget Miner</Name>
-      <Type>Mining Robot</Type>
+      <Type>MiningRobot</Type>
       <Mass>80</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -626,7 +626,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Mine Dispenser 80</Name>
-      <Type>Mine Layer</Type>
+      <Type>MineLayer</Type>
       <Mass>30</Mass>
       <Resource>
         <Boranium>14</Boranium>
@@ -1027,7 +1027,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Colloidal Phaser</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>2</Mass>
       <Resource>
         <Boranium>14</Boranium>
@@ -1058,7 +1058,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Speed Trap 20</Name>
-      <Type>Mine Layer</Type>
+      <Type>MineLayer</Type>
       <Mass>100</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -1200,7 +1200,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Yakimora Light Phaser</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>1</Mass>
       <Resource>
         <Boranium>8</Boranium>
@@ -1231,7 +1231,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Blackjack</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>10</Mass>
       <Resource>
         <Boranium>16</Boranium>
@@ -1262,7 +1262,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Mark IV Blaster</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>2</Mass>
       <Resource>
         <Boranium>12</Boranium>
@@ -1342,7 +1342,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Pulsed Sapper</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>1</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -1431,7 +1431,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Snooper 620X</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
@@ -1464,7 +1464,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Heavy Blaster</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>2</Mass>
       <Resource>
         <Boranium>20</Boranium>
@@ -1495,7 +1495,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Gatling Neutrino Cannnon</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>3</Mass>
       <Resource>
         <Boranium>28</Boranium>
@@ -1688,7 +1688,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Gatling Gun</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>3</Mass>
       <Resource>
         <Boranium>20</Boranium>
@@ -2046,7 +2046,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Robo-Miner</Name>
-      <Type>Mining Robot</Type>
+      <Type>MiningRobot</Type>
       <Mass>240</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -2393,7 +2393,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Blunderbuss</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>10</Mass>
       <Resource>
         <Boranium>30</Boranium>
@@ -2573,7 +2573,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Mine Dispenser 40</Name>
-      <Type>Mine Layer</Type>
+      <Type>MineLayer</Type>
       <Mass>25</Mass>
       <Resource>
         <Boranium>10</Boranium>
@@ -2776,7 +2776,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Speed Trap 50</Name>
-      <Type>Mine Layer</Type>
+      <Type>MineLayer</Type>
       <Mass>140</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -2892,7 +2892,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Scoper 220</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
@@ -3011,7 +3011,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Scoper 280</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
@@ -3041,7 +3041,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Snooper 320X</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
@@ -3100,7 +3100,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Heavy Dispenser 50</Name>
-      <Type>Mine Layer</Type>
+      <Type>MineLayer</Type>
       <Mass>10</Mass>
       <Resource>
         <Boranium>20</Boranium>
@@ -3340,7 +3340,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Phased Sapper</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>1</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -3400,7 +3400,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Orbital Adjuster</Name>
-      <Type>Mining Robot</Type>
+      <Type>MiningRobot</Type>
       <Mass>80</Mass>
       <Resource>
         <Boranium>25</Boranium>
@@ -3478,7 +3478,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Neutron Shield</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>5</Boranium>
         <Ironium>5</Ironium>
@@ -3507,7 +3507,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Heavy Dispenser 110</Name>
-      <Type>Mine Layer</Type>
+      <Type>MineLayer</Type>
       <Mass>15</Mass>
       <Resource>
         <Boranium>20</Boranium>
@@ -3542,7 +3542,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Robo-Mini Miner</Name>
-      <Type>Mining Robot</Type>
+      <Type>MiningRobot</Type>
       <Mass>240</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -3597,7 +3597,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Speed Trap 30</Name>
-      <Type>Mine Layer</Type>
+      <Type>MineLayer</Type>
       <Mass>135</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -3792,7 +3792,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Mini Gun</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>3</Mass>
       <Resource>
         <Boranium>16</Boranium>
@@ -4452,7 +4452,7 @@ This scanner has an intrinsic 20% cloaking ability.</Description>
   <Component>
     <Item>
       <Name>Laser Battery</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>5</Boranium>
         <Ironium>5</Ironium>
@@ -4727,7 +4727,7 @@ This scanner alows you to steal minerals from other races planets.</Description>
   <Component>
     <Item>
       <Name>Myopic Disruptor</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>1</Mass>
       <Resource>
         <Boranium>14</Boranium>
@@ -5317,7 +5317,7 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
   <Component>
     <Item>
       <Name>Viewer 90</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
@@ -5509,7 +5509,7 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
   <Component>
     <Item>
       <Name>Mine Dispenser 130</Name>
-      <Type>Mine Layer</Type>
+      <Type>MineLayer</Type>
       <Mass>30</Mass>
       <Resource>
         <Boranium>18</Boranium>
@@ -5542,7 +5542,7 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
   <Component>
     <Item>
       <Name>Mine Dispenser 50</Name>
-      <Type>Mine Layer</Type>
+      <Type>MineLayer</Type>
       <Mass>25</Mass>
       <Resource>
         <Boranium>12</Boranium>
@@ -5741,7 +5741,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Viewer 50</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
@@ -5771,7 +5771,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Laser</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>1</Mass>
       <Resource>
         <Boranium>6</Boranium>
@@ -5802,7 +5802,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Robo-Super Miner</Name>
-      <Type>Mining Robot</Type>
+      <Type>MiningRobot</Type>
       <Mass>240</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -6050,7 +6050,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Mini Blaster</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>1</Mass>
       <Resource>
         <Boranium>10</Boranium>
@@ -6321,7 +6321,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Anti-Matter Pulverizer</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>2</Mass>
       <Resource>
         <Boranium>22</Boranium>
@@ -6625,7 +6625,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Heavy Dispenser 200</Name>
-      <Type>Mine Layer</Type>
+      <Type>MineLayer</Type>
       <Mass>20</Mass>
       <Resource>
         <Boranium>45</Boranium>
@@ -6770,7 +6770,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>SDI</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>5</Boranium>
         <Ironium>5</Ironium>
@@ -7117,7 +7117,7 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
   <Component>
     <Item>
       <Name>Robo-Ultra Miner</Name>
-      <Type>Mining Robot</Type>
+      <Type>MiningRobot</Type>
       <Mass>80</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -7542,7 +7542,7 @@ This scanner alows you to steal minerals from other races ships.</Description>
   <Component>
     <Item>
       <Name>Syncro Sapper</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>1</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -7723,7 +7723,7 @@ This scanner alows you to steal minerals from other races ships.</Description>
   <Component>
     <Item>
       <Name>X-Ray Laser</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>1</Mass>
       <Resource>
         <Boranium>6</Boranium>
@@ -7754,7 +7754,7 @@ This scanner alows you to steal minerals from other races ships.</Description>
   <Component>
     <Item>
       <Name>Snooper 500X</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
@@ -7977,7 +7977,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Mega Disruptor</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>2</Mass>
       <Resource>
         <Boranium>30</Boranium>
@@ -8039,7 +8039,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Phaser Bazooka</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>2</Mass>
       <Resource>
         <Boranium>8</Boranium>
@@ -8104,7 +8104,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Robo-Maxi Miner</Name>
-      <Type>Mining Robot</Type>
+      <Type>MiningRobot</Type>
       <Mass>240</Mass>
       <Resource>
         <Boranium>0</Boranium>
@@ -8158,7 +8158,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Disruptor</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>2</Mass>
       <Resource>
         <Boranium>16</Boranium>
@@ -8322,7 +8322,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Snooper 400X</Name>
-      <Type>Planetary Installations</Type>
+      <Type>PlanetaryInstallations</Type>
       <Resource>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
@@ -8355,7 +8355,7 @@ This scanner is capable of determining a planets basics statistics at a range up
   <Component>
     <Item>
       <Name>Big Mutha Cannon</Name>
-      <Type>Beam Weapons</Type>
+      <Type>BeamWeapons</Type>
       <Mass>3</Mass>
       <Resource>
         <Boranium>36</Boranium>

@@ -213,7 +213,7 @@ namespace Nova.Common
             // store the designs, for any new designs
             foreach (Design design in RaceDesigns.Values)
             {
-                if (design.Type == "Ship" || design.Type == "Starbase")
+                if (design.Type == ItemType.Starbase || design.Type == ItemType.Ship)
                 {
                     xmlelOrders.AppendChild(((ShipDesign)design).ToXml(xmldoc));
                 }

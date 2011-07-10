@@ -126,7 +126,7 @@ namespace Nova.Client
             // HullModule reference to a component
             foreach (Design design in stateData.InputTurn.AllDesigns.Values)
             {
-                if (design.Type.ToLower() == "ship" || design.Type.ToLower() == "starbase")
+                if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
                 {
                     ShipDesign ship = design as ShipDesign;
                     foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)
@@ -293,7 +293,7 @@ namespace Nova.Client
                 {
                     stateData.AvailableComponents.Add(component);
                     Message newComponentMessage = null;
-                    if (component.Properties.ContainsKey("Scaner") && component.Type == "Planetary Installations")
+                    if (component.Properties.ContainsKey("Scaner") && component.Type == ItemType.PlanetaryInstallations)
                     {
                         newComponentMessage = new Message(
                             stateData.EmpireState.Id,

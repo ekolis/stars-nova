@@ -1361,7 +1361,7 @@ namespace Nova.WinForms.ComponentEditor
            }
 
            Nova.Common.Components.Component newComponent = new Nova.Common.Components.Component(CommonProperties);
-           newComponent.Type = this.componentType.Text;
+           newComponent.Type = (ItemType)Enum.Parse(typeof(ItemType), this.componentType.Text);
            newComponent.Restrictions = new RaceRestriction(restrictions);
            newComponent.ImageFile = this.componentImage.ImageFile;
 
@@ -1661,7 +1661,7 @@ namespace Nova.WinForms.ComponentEditor
 
            foreach (Component thing in AllComponents.Data.Components.Values)
            {
-               if (thing.Type == componentTypeSelected)
+               if (thing.Type.ToDescription() == componentTypeSelected)
                {
                    this.componentList.Items.Add(thing.Name);
                }
@@ -1789,7 +1789,7 @@ namespace Nova.WinForms.ComponentEditor
           this.componentHullAffinity.Items.Clear();
           foreach (Nova.Common.Components.Component thing in Nova.Common.Components.AllComponents.Data.Components.Values)
           {
-              if (thing.Type == "Hull")
+              if (thing.Type == ItemType.Hull)
               {
                   this.componentHullAffinity.Items.Add(thing.Name);
               }

@@ -212,7 +212,7 @@ namespace Nova.Server
             // HullModule reference to a component
             foreach (Design design in playerOrders.RaceDesigns.Values)
             {
-                if (design.Type == "Ship")
+                if (design.Type == ItemType.Ship)
                 {
                     ShipDesign ship = design as ShipDesign;
                     foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)

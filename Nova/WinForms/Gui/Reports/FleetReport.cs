@@ -69,7 +69,7 @@ namespace Nova.WinForms.Gui
                 if (fleet.Owner == empireState.Id)
                 {
 
-                    if (fleet.Type == "Starbase")
+                    if (fleet.Type == ItemType.Starbase)
                     {
                         continue;
                     }

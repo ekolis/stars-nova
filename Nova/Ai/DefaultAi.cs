@@ -57,7 +57,7 @@ namespace Nova.Ai
                         Design factoryDesign = null;
                         foreach (Design design in turnData.AllDesigns.Values)
                         {
-                            if (design.Owner == stateData.EmpireState.Id && design.Type == "Factory")
+                            if (design.Owner == stateData.EmpireState.Id && design.Type == ItemType.Factory)
                             {
                                 factoryDesign = design;
                             }
@@ -74,7 +74,7 @@ namespace Nova.Ai
                         Design mineDesign = null;
                         foreach (Design design in turnData.AllDesigns.Values)
                         {
-                            if (design.Owner == stateData.EmpireState.Id && design.Type == "Mine")
+                            if (design.Owner == stateData.EmpireState.Id && design.Type == ItemType.Mine)
                             {
                                 mineDesign = design;
                             }
@@ -92,7 +92,7 @@ namespace Nova.Ai
                         Design defenceDesign = null;
                         foreach (Design design in turnData.AllDesigns.Values)
                         {
-                            if (design.Owner == stateData.EmpireState.Id && design.Type == "Defenses")
+                            if (design.Owner == stateData.EmpireState.Id && design.Type == ItemType.Defenses)
                             {
                                 defenceDesign = design;
                             }

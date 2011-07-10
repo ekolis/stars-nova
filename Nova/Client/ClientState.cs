@@ -503,7 +503,7 @@ namespace Nova.Client
                 XmlElement xmlelEnemyDesigns = xmldoc.CreateElement("EnemyDesigns");
                 foreach (Design design in EnemyDesigns.Values)
                 {
-                    if (design.Type == "Starbase" || design.Type == "Ship")
+                    if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
                     {
                         xmlelEnemyDesigns.AppendChild(((ShipDesign)design).ToXml(xmldoc));
                     }
@@ -599,7 +599,7 @@ namespace Nova.Client
             // HullModule reference to a component
             foreach (Design design in InputTurn.AllDesigns.Values)
             {
-                if (design.Type.ToLower() == "ship" || design.Type.ToLower() == "starbase")
+                if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
                 {
                     ShipDesign ship = design as ShipDesign;
                     foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)

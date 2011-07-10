@@ -138,15 +138,15 @@ namespace Nova.WinForms.Console
             star.ResourcesOnHand -= needed;
             switch (design.Type)
             {
-                case "Mine":
+                case ItemType.Mine:
                     star.Mines++;
                     break;
 
-                case "Factory":
+                case ItemType.Factory:
                     star.Factories++;
                     break;
 
-                case "Defenses":
+                case ItemType.Defenses:
                     star.Defenses++;
                     if (star.Defenses >= Global.MaxDefenses)
                     {
@@ -155,11 +155,11 @@ namespace Nova.WinForms.Console
                     }
                     break;
 
-                case "Ship":
+                case ItemType.Ship:
                     CreateShip(design as ShipDesign, star);
                     break;
 
-                case "Starbase":
+                case ItemType.Starbase:
                     // first remove the old starbase
                     if (star.Starbase != null)
                     {
@@ -171,7 +171,7 @@ namespace Nova.WinForms.Console
                     break;
 
                 default:
-                    Report.Error("Unknown item in production queue " + design.Type);
+                    Report.Error("Unknown item in production queue " + design.Type.ToDescription());
                     break;
             }
 
@@ -269,14 +269,14 @@ namespace Nova.WinForms.Console
             // Add the fleet to the state data so it can be tracked.
             stateData.AllFleets[fleet.Key] = fleet;          
 
-            if (design.Type == "Starbase")
+            if (design.Type == ItemType.Starbase)
             {
                 if (star.Starbase != null)
                 {
                     waypointTasks.Scrap(star.Starbase, star, false);
                 }
                 star.Starbase = fleet;
-                fleet.Type = "Starbase";
+                fleet.Type = ItemType.Starbase;
                 fleet.Name = star.Name + " " + fleet.Type;
                 fleet.InOrbit = star;
 
