@@ -110,8 +110,13 @@ namespace Nova.WinForms
             // New game dialog was OK, create a game
             // Get a location to save the game:
             FolderBrowserDialog gameFolderBrowser = new FolderBrowserDialog();
-            gameFolderBrowser.RootFolder = Environment.SpecialFolder.Desktop;
-            gameFolderBrowser.SelectedPath = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
+            gameFolderBrowser.RootFolder = Environment.SpecialFolder.DesktopDirectory;
+            // string newGameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
+            string newGameFolder = Environment.GetFolderPath(Environment.SpecialFolder.Personal) + Path.DirectorySeparatorChar + "Stars! Nova" + Path.DirectorySeparatorChar + gameName.Text;
+
+            Directory.CreateDirectory(newGameFolder);
+
+            gameFolderBrowser.SelectedPath = newGameFolder;
             gameFolderBrowser.Description = "Choose New Game Folder";
             DialogResult gameFolderBrowserResult = gameFolderBrowser.ShowDialog(this);
 
