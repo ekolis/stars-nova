@@ -140,11 +140,11 @@ namespace Nova.Client
             }
 
             // Fleet reference to Star
-            foreach (FleetIntel fleet in stateData.EmpireState.FleetReports.Values)
+            foreach (FleetIntel fleet in stateData.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = stateData.EmpireState.StarReports[fleet.InOrbit.Name];
+                    fleet.InOrbit = stateData.EmpireState.OwnedStars[fleet.InOrbit.Name];
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
@@ -155,7 +155,7 @@ namespace Nova.Client
             
             // Star reference to Race
             // Star reference to Fleet (starbase)
-            foreach (StarIntel star in stateData.EmpireState.StarReports.Values)
+            foreach (StarIntel star in stateData.EmpireState.OwnedStars.Values)
             {
                 if (star.ThisRace != null)
                 {
@@ -171,7 +171,7 @@ namespace Nova.Client
 
                 if (star.Starbase != null)
                 {
-                    star.Starbase = stateData.EmpireState.FleetReports[star.Starbase.Key];                  
+                    star.Starbase = stateData.EmpireState.OwnedFleets[star.Starbase.Key];                  
                 }
             }
 
@@ -300,7 +300,7 @@ namespace Nova.Client
                             null,
                             "All existing planetary scanners has been replaced by " + component.Name + " " + component.Type,
                             null);
-                        foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
+                        foreach (StarIntel report in stateData.EmpireState.OwnedStars.Values)
                         {
                             if (report.Owner == stateData.EmpireState.Id &&
                                 report.ScannerType != string.Empty)

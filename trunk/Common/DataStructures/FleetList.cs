@@ -33,12 +33,12 @@ namespace Nova.Common
     /// as well as maintaining a sorted list for next/previous functionality. 
     /// </summary>
     [Serializable]
-    public class FleetIntelList : Dictionary<long, FleetIntel>
+    public class FleetList : Dictionary<long, FleetIntel>
     {
         /// /// <summary>
         /// default constructor
         /// </summary>
-        public FleetIntelList()
+        public FleetList()
         {
         }
 

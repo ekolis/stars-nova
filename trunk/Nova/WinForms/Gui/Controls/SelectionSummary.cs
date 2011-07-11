@@ -64,7 +64,7 @@ namespace Nova.WinForms.Gui
         /// <param name="Item"></param>
         private void DisplayPlanet(Item item)
         {
-            if (empireState.StarReports[item.Name].Year == 0)
+            if (empireState.OwnedStars[item.Name].Year == 0)
             {
                 this.selectedItem.Text = item.Name + " is unexplored";
                 summaryItem = null;

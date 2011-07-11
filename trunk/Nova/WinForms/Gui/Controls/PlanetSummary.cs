@@ -455,7 +455,7 @@ namespace Nova.WinForms.Gui
                 
                 int habValue = (int)Math.Ceiling(value.HabitalValue(empireState.Race) * 100);
                 
-                if (empireState.StarReports[value.Name].Year == 0)
+                if (empireState.OwnedStars[value.Name].Year == 0)
                 {
                     this.planetValue.Text = "???";
                     this.planetValue.ForeColor = Color.Empty;
@@ -475,54 +475,54 @@ namespace Nova.WinForms.Gui
 
                                
     
-                if (empireState.StarReports[value.Name].Year == 0)
+                if (empireState.OwnedStars[value.Name].Year == 0)
                 {
                     this.population.Text = "???";
                 }
                 else
                 {
-                    if (empireState.StarReports[value.Name].Colonists == 0)
+                    if (empireState.OwnedStars[value.Name].Colonists == 0)
                     {
                         this.population.Text = "Uninhabited";
                     }
                     else
                     {
-                        this.population.Text = "Population: " + empireState.StarReports[value.Name].Colonists;
+                        this.population.Text = "Population: " + empireState.OwnedStars[value.Name].Colonists;
                     }
                 }
     
-                if (empireState.StarReports[value.Name].Year == 0)
+                if (empireState.OwnedStars[value.Name].Year == 0)
                 {
                     this.reportAge.Text = "No Report";
                 }
-                else if (empireState.StarReports[value.Name].Year == empireState.TurnYear)
+                else if (empireState.OwnedStars[value.Name].Year == empireState.TurnYear)
                 {
                     this.reportAge.Text = "Report is current";
                 }
-                else if (empireState.StarReports[value.Name].Year == empireState.TurnYear - 1)
+                else if (empireState.OwnedStars[value.Name].Year == empireState.TurnYear - 1)
                 {
                     this.reportAge.Text = "Report is 1 year old";
                 }
                 else
                 {
-                    this.reportAge.Text = "Report is " + (empireState.TurnYear - empireState.StarReports[value.Name].Year) + " years old";
+                    this.reportAge.Text = "Report is " + (empireState.TurnYear - empireState.OwnedStars[value.Name].Year) + " years old";
                 }
 
-                this.ironiumGauge.Value = empireState.StarReports[value.Name].ResourcesOnHand.Ironium;
-                this.boraniumGauge.Value = empireState.StarReports[value.Name].ResourcesOnHand.Boranium;
-                this.germaniumGauge.Value = empireState.StarReports[value.Name].ResourcesOnHand.Germanium;
+                this.ironiumGauge.Value = empireState.OwnedStars[value.Name].ResourcesOnHand.Ironium;
+                this.boraniumGauge.Value = empireState.OwnedStars[value.Name].ResourcesOnHand.Boranium;
+                this.germaniumGauge.Value = empireState.OwnedStars[value.Name].ResourcesOnHand.Germanium;
 
-                this.ironiumGauge.Marker = empireState.StarReports[value.Name].MineralConcentration.Ironium;
-                this.boraniumGauge.Marker = empireState.StarReports[value.Name].MineralConcentration.Boranium;
-                this.germaniumGauge.Marker = empireState.StarReports[value.Name].MineralConcentration.Germanium;
+                this.ironiumGauge.Marker = empireState.OwnedStars[value.Name].MineralConcentration.Ironium;
+                this.boraniumGauge.Marker = empireState.OwnedStars[value.Name].MineralConcentration.Boranium;
+                this.germaniumGauge.Marker = empireState.OwnedStars[value.Name].MineralConcentration.Germanium;
 
-                this.radiationGauge.Marker = empireState.StarReports[value.Name].Radiation;
-                this.gravityGauge.Marker = empireState.StarReports[value.Name].Gravity;
-                this.temperatureGauge.Marker = empireState.StarReports[value.Name].Temperature;
+                this.radiationGauge.Marker = empireState.OwnedStars[value.Name].Radiation;
+                this.gravityGauge.Marker = empireState.OwnedStars[value.Name].Gravity;
+                this.temperatureGauge.Marker = empireState.OwnedStars[value.Name].Temperature;
 
-                this.radiationLevel.Text = empireState.StarReports[value.Name].Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
-                this.gravityLevel.Text = Gravity.FormatWithUnit(empireState.StarReports[value.Name].Gravity); 
-                this.temperatureLevel.Text = Temperature.FormatWithUnit(empireState.StarReports[value.Name].Temperature);
+                this.radiationLevel.Text = empireState.OwnedStars[value.Name].Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
+                this.gravityLevel.Text = Gravity.FormatWithUnit(empireState.OwnedStars[value.Name].Gravity); 
+                this.temperatureLevel.Text = Temperature.FormatWithUnit(empireState.OwnedStars[value.Name].Temperature);
 
                 if (empireState.Race.RadiationTolerance.Immune)
                 {
@@ -565,7 +565,7 @@ namespace Nova.WinForms.Gui
             
             if (this.currentStar != null
                 && this.currentStar.Owner == empireState.Id
-                && empireState.StarReports[currentStar.Name].Year == 0)
+                && empireState.OwnedStars[currentStar.Name].Year == 0)
             {
                         
             tt += "Your population on " + currentStar.Name + " is " + currentStar.Colonists + "." + Environment.NewLine           

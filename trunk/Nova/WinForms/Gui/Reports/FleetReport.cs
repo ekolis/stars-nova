@@ -64,7 +64,7 @@ namespace Nova.WinForms.Gui
             this.fleetGridView.Columns[6].Name = "Cargo";
             this.fleetGridView.AutoSize = true;
 
-            foreach (Fleet fleet in empireState.FleetReports.Values)
+            foreach (Fleet fleet in empireState.OwnedFleets.Values)
             {
                 if (fleet.Owner == empireState.Id)
                 {

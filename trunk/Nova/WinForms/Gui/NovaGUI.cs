@@ -356,7 +356,7 @@ namespace Nova.WinForms.Gui
 
             // Select a Star owned by the player (if any) as the default display.
 
-            foreach (StarIntel starIntel in stateData.EmpireState.StarReports.Values)
+            foreach (StarIntel starIntel in stateData.EmpireState.OwnedStars.Values)
             {
                 Star star = starIntel;
                 if (star.Owner == stateData.EmpireState.Id)
@@ -385,7 +385,7 @@ namespace Nova.WinForms.Gui
 
             // Select a Star owned by the player (if any) as the default display.
 
-            foreach (StarIntel starIntel in stateData.EmpireState.StarReports.Values)
+            foreach (StarIntel starIntel in stateData.EmpireState.OwnedStars.Values)
             {
                 Star star = starIntel;
                 if (star.Owner == stateData.EmpireState.Id)

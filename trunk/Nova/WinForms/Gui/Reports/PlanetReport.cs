@@ -64,7 +64,7 @@ namespace Nova.WinForms.Gui
             this.planetGridView.Columns[8].Name = "Minerals";
             this.planetGridView.AutoSize = true;
 
-            foreach (StarIntel report in empireState.StarReports.Values)
+            foreach (StarIntel report in empireState.OwnedStars.Values)
             {
                 if (report.Owner == empireState.Id)
                 {

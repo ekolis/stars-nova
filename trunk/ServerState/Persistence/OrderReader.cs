@@ -142,9 +142,9 @@ namespace Nova.Server
                     this.stateData.AllDesigns.Remove(designId);
                 }
 
-                foreach (FleetIntel fleet in playerOrders.EmpireStatus.FleetReports.Values)
+                foreach (FleetIntel fleet in playerOrders.EmpireStatus.OwnedFleets.Values)
                 {
-                    stateData.AllEmpires[empire.Id].FleetReports[fleet.Key] = fleet;
+                    stateData.AllEmpires[empire.Id].OwnedFleets[fleet.Key] = fleet;
                     if (fleet.Owner == empire.Id)
                     {
                         stateData.AllFleets[fleet.Key] = fleet; // TODO (priority 6) - verify validity of orders.
@@ -152,9 +152,9 @@ namespace Nova.Server
                 }
 
                 // load the orders for each star. 
-                foreach (StarIntel star in playerOrders.EmpireStatus.StarReports.Values)
+                foreach (StarIntel star in playerOrders.EmpireStatus.OwnedStars.Values)
                 {
-                    stateData.AllEmpires[empire.Id].StarReports[star.Name] = star;
+                    stateData.AllEmpires[empire.Id].OwnedStars[star.Name] = star;
                     if (star.Owner == empire.Id)
                     {
                         stateData.AllStars[star.Name] = star;
@@ -180,7 +180,7 @@ namespace Nova.Server
         private void LinkOrderReferences(Orders playerOrders)
         {
             // Fleet reference to Star
-            foreach (FleetIntel fleet in playerOrders.EmpireStatus.FleetReports.Values)
+            foreach (FleetIntel fleet in playerOrders.EmpireStatus.OwnedFleets.Values)
             {
                 if (fleet.InOrbit != null)
                 {
@@ -197,7 +197,7 @@ namespace Nova.Server
             }
             // Star reference to Race
             // Star reference to Fleet (starbase)
-            foreach (StarIntel star in playerOrders.EmpireStatus.StarReports.Values)
+            foreach (StarIntel star in playerOrders.EmpireStatus.OwnedStars.Values)
             {
                 if (star.ThisRace != null)
                 {
@@ -205,7 +205,7 @@ namespace Nova.Server
                 }
                 if (star.Starbase != null)
                 {
-                    star.Starbase = playerOrders.EmpireStatus.FleetReports[star.Starbase.Key];
+                    star.Starbase = playerOrders.EmpireStatus.OwnedFleets[star.Starbase.Key];
                 }
             }
 

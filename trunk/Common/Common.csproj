@@ -105,7 +105,7 @@
     <Compile Include="Converters\InstanceDescriptorConverter.cs" />
     <Compile Include="Converters\ResourcesConverter.cs" />
     <Compile Include="Converters\TechLevelConverter.cs" />
-    <Compile Include="DataStructures\FleetIntelList.cs" />
+    <Compile Include="DataStructures\FleetList.cs" />
     <Compile Include="DataStructures\Gravity.cs" />
     <Compile Include="DataStructures\GravityTolerance.cs" />
     <Compile Include="DataStructures\NovaPoint.cs" />
@@ -231,7 +231,7 @@
     <Compile Include="DataStructures\StarIntel.cs" />
     <Compile Include="DataStructures\FleetIntel.cs" />
     <Compile Include="IntelLevel.cs" />
-    <Compile Include="DataStructures\StarIntelList.cs" />
+    <Compile Include="DataStructures\StarList.cs" />
     <Compile Include="DataStructures\EmpireIntel.cs" />
   </ItemGroup>
   <ItemGroup>

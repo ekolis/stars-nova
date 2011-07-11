@@ -119,7 +119,7 @@ namespace Nova.Tests.IntegrationTests
                 Star testStar = new Star();
                 testStar.Name = "Pluto";
                 testStar.Colonists = 25000;
-                testData.EmpireState.StarReports.Add(new StarIntel(testStar, IntelLevel.Owned, testData.EmpireState.TurnYear));
+                testData.EmpireState.OwnedStars.Add(new StarIntel(testStar, IntelLevel.Owned, testData.EmpireState.TurnYear));
 
 
                 // setup the file name
@@ -169,10 +169,10 @@ namespace Nova.Tests.IntegrationTests
 
                 // test if it worked
                 Assert.IsTrue(loadedData.EmpireState.TurnYear == 3500);
-                Assert.IsTrue(loadedData.EmpireState.StarReports.Contains("Pluto") &&
-                              loadedData.EmpireState.StarReports["Pluto"].Name == "Pluto");
-                Assert.IsTrue(loadedData.EmpireState.StarReports.Contains("Pluto") &&
-                              loadedData.EmpireState.StarReports["Pluto"].Colonists == 25000);
+                Assert.IsTrue(loadedData.EmpireState.OwnedStars.Contains("Pluto") &&
+                              loadedData.EmpireState.OwnedStars["Pluto"].Name == "Pluto");
+                Assert.IsTrue(loadedData.EmpireState.OwnedStars.Contains("Pluto") &&
+                              loadedData.EmpireState.OwnedStars["Pluto"].Colonists == 25000);
 
             }
             catch (Exception e)

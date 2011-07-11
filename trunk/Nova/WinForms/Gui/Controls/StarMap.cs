@@ -229,7 +229,7 @@ namespace Nova.WinForms.Gui
 
             // (1a) Planetary long-range scanners.
 
-            foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
+            foreach (StarIntel report in stateData.EmpireState.OwnedStars.Values)
             {
                 if (report.Owner == stateData.EmpireState.Id)
                 {
@@ -239,7 +239,7 @@ namespace Nova.WinForms.Gui
 
             // (1b) Fleet non-pen scanners.
 
-            foreach (Fleet fleet in stateData.EmpireState.FleetReports.Values)
+            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.Owner == stateData.EmpireState.Id)
                 {
@@ -249,7 +249,7 @@ namespace Nova.WinForms.Gui
 
             // (2) Fleet pen-scanners scanners.
 
-            foreach (Fleet fleet in stateData.EmpireState.FleetReports.Values)
+            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.Owner == stateData.EmpireState.Id)
                 {
@@ -285,7 +285,7 @@ namespace Nova.WinForms.Gui
 
             // (4) Visible fleets.
 
-            foreach (Fleet fleet in stateData.EmpireState.FleetReports.Values)
+            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.Type != ItemType.Starbase)
                 {
@@ -296,7 +296,7 @@ namespace Nova.WinForms.Gui
             // (5) Stars plus starbases and orbiting fleet indications that are
             // the results of scans.
 
-            foreach (StarIntel starIntel in stateData.EmpireState.StarReports.Values)
+            foreach (StarIntel starIntel in stateData.EmpireState.OwnedStars.Values)
             {
                 DrawStar(g, starIntel);
                 DrawOrbitingFleets(g, starIntel);
@@ -438,7 +438,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DrawStar(Graphics g, Star star)
         {
-            StarIntel report = stateData.EmpireState.StarReports[star.Name];
+            StarIntel report = stateData.EmpireState.OwnedStars[star.Name];
             NovaPoint position = LogicalToDevice(star.Position);
             int size = 2;
             Brush starBrush = Brushes.White;
@@ -489,7 +489,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DrawOrbitingFleets(Graphics g, Star star)
         {
-            StarIntel report = stateData.EmpireState.StarReports[star.Name];
+            StarIntel report = stateData.EmpireState.OwnedStars[star.Name];
             NovaPoint position = LogicalToDevice(star.Position);
             
             if (report == null)
@@ -536,7 +536,7 @@ namespace Nova.WinForms.Gui
         {
             List<Fleet> playersFleets = new List<Fleet>();
 
-            foreach (Fleet fleet in turnData.EmpireState.FleetReports.Values)
+            foreach (Fleet fleet in turnData.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.Owner == stateData.EmpireState.Id)
                 {
@@ -586,7 +586,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Minefield minefield in turnData.AllMinefields.Values)
             {
-                foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
+                foreach (StarIntel report in stateData.EmpireState.OwnedStars.Values)
                 {
                     if (report.Owner == stateData.EmpireState.Id)
                     {
@@ -1054,7 +1054,7 @@ namespace Nova.WinForms.Gui
         {
             List<SortableItem> nearObjects = new List<SortableItem>();
 
-            foreach (Fleet fleet in stateData.EmpireState.FleetReports.Values)
+            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
             {
                 if (!fleet.IsStarbase)
                 {
@@ -1068,7 +1068,7 @@ namespace Nova.WinForms.Gui
                 }
             }
 
-            foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
+            foreach (StarIntel report in stateData.EmpireState.OwnedStars.Values)
             {
                 if (PointUtilities.IsNear(report.Position, position))
                 {

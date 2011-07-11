@@ -39,7 +39,7 @@ namespace Nova.Ai
         /// </summary>
         private void HandleProduction()
         {
-            foreach (StarIntel starIntel in stateData.EmpireState.StarReports.Values)
+            foreach (StarIntel starIntel in stateData.EmpireState.OwnedStars.Values)
             {
                 Star star = starIntel;
                 
@@ -118,7 +118,7 @@ namespace Nova.Ai
         {
             //scout
             List<Fleet> scoutFleets = new List<Fleet>();
-            foreach (Fleet fleet in stateData.EmpireState.FleetReports.Values)
+            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.Name.Contains("Scout") == true && fleet.Waypoints.Count == 1)
                 {
@@ -140,7 +140,7 @@ namespace Nova.Ai
             }
             //colonization
             List<Fleet> colonyShipsFleets = new List<Fleet>();
-            foreach (Fleet fleet in stateData.EmpireState.FleetReports.Values)
+            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.CanColonize == true && fleet.Waypoints.Count == 1)
                     colonyShipsFleets.Add(fleet);
@@ -149,7 +149,7 @@ namespace Nova.Ai
             if (colonyShipsFleets.Count > 0)
             {
                 //check if there is any good star to colonize
-                foreach (StarIntel starIntel in turnData.EmpireState.StarReports.Values)
+                foreach (StarIntel starIntel in turnData.EmpireState.OwnedStars.Values)
                 {
                     Star star = starIntel;
                     if (star.HabitalValue(stateData.EmpireState.Race) > 0 && star.Owner == Global.NoOwner)
@@ -172,7 +172,7 @@ namespace Nova.Ai
         {
             Star star = null;
             Double distance = double.MaxValue;
-            foreach (StarIntel starIntel in turnData.EmpireState.StarReports.Values)
+            foreach (StarIntel starIntel in turnData.EmpireState.OwnedStars.Values)
             {
                 Star s = starIntel;
                 if (excludedStars.Contains(s) == true) 

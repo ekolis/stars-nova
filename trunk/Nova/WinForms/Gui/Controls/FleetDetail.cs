@@ -251,7 +251,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void NextFleet_Click(object sender, System.EventArgs e)
         {
-            if (empireState.FleetReports.Owned(empireState.Id) == 1)
+            if (empireState.OwnedFleets.Owned(empireState.Id) == 1)
             {
                 previousFleet.Enabled = false;
                 nextFleet.Enabled = false;
@@ -261,7 +261,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            selectedFleet = empireState.FleetReports.GetNextOwned(empireState.FleetReports[selectedFleet.Key]);
+            selectedFleet = empireState.OwnedFleets.GetNextOwned(empireState.OwnedFleets[selectedFleet.Key]);
             
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -283,7 +283,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void PreviousFleet_Click(object sender, EventArgs e)
         {
-            if (empireState.FleetReports.Owned(empireState.Id) == 1)
+            if (empireState.OwnedFleets.Owned(empireState.Id) == 1)
             {
                 previousFleet.Enabled = false;
                 nextFleet.Enabled = false;
@@ -293,7 +293,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            selectedFleet = empireState.FleetReports.GetPreviousOwned(empireState.FleetReports[selectedFleet.Key]);
+            selectedFleet = empireState.OwnedFleets.GetPreviousOwned(empireState.OwnedFleets[selectedFleet.Key]);
 
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -401,7 +401,7 @@ namespace Nova.WinForms.Gui
 
             this.selectedFleet = selectedFleet;
             
-            if (empireState.FleetReports.Count > 1)
+            if (empireState.OwnedFleets.Count > 1)
             {
                 previousFleet.Enabled = true;
                 nextFleet.Enabled = true;
@@ -442,7 +442,7 @@ namespace Nova.WinForms.Gui
 
             List<String> fleetnames = new List<string>();
             fleetsAtLocation = new Dictionary<string, Fleet>();
-            foreach (FleetIntel other in empireState.FleetReports.Values)
+            foreach (FleetIntel other in empireState.OwnedFleets.Values)
             {
                 if (selectedFleet.Position == other.Position && !other.IsStarbase && selectedFleet.Key != other.Key)
                 {
