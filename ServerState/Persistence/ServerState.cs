@@ -474,7 +474,7 @@ namespace Nova.Server
             // Also link inside empiredata.
             foreach (EmpireData empire in AllEmpires.Values)
             {
-                foreach (Fleet fleet in empire.FleetReports.Values)
+                foreach (Fleet fleet in empire.OwnedFleets.Values)
                 {
                     if (fleet.InOrbit != null)
                     {
@@ -487,7 +487,7 @@ namespace Nova.Server
                     }
                 }
                  
-                foreach (StarIntel report in empire.StarReports.Values)
+                foreach (StarIntel report in empire.OwnedStars.Values)
                 {
                     if (report.ThisRace != null)
                     {

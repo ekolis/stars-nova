@@ -55,26 +55,26 @@ namespace Nova.Server.TurnSteps
             foreach (Star star in stateData.AllStars.Values)
             {
                 // If star has no report (First turn) add it.
-                if (!empire.StarReports.Contains(star.Name))
+                if (!empire.OwnedStars.Contains(star.Name))
                 {
                     if (star.Owner == empire.Id)
                     {
-                        empire.StarReports.Add(new StarIntel(star, IntelLevel.Owned, stateData.TurnYear));
+                        empire.OwnedStars.Add(new StarIntel(star, IntelLevel.Owned, stateData.TurnYear));
                     }
                     else
                     {
-                        empire.StarReports.Add(new StarIntel(star, IntelLevel.None, stateData.TurnYear));
+                        empire.OwnedStars.Add(new StarIntel(star, IntelLevel.None, stateData.TurnYear));
                     }
                 }
                 else
                 {
                     if (star.Owner == empire.Id)
                     {
-                        empire.StarReports[star.Name].Update(star, IntelLevel.Owned, stateData.TurnYear);                    
+                        empire.OwnedStars[star.Name].Update(star, IntelLevel.Owned, stateData.TurnYear);                    
                     }
                     else
                     {
-                        empire.StarReports[star.Name].Update(star, IntelLevel.None, stateData.TurnYear);    
+                        empire.OwnedStars[star.Name].Update(star, IntelLevel.None, stateData.TurnYear);    
                     }
                 } 
             }    
@@ -87,13 +87,13 @@ namespace Nova.Server.TurnSteps
             {
                 if (fleet.Owner == empire.Id)
                 {
-                    if (!empire.FleetReports.ContainsKey(fleet.Key))
+                    if (!empire.OwnedFleets.ContainsKey(fleet.Key))
                     {
-                        empire.FleetReports.Add(new FleetIntel(fleet, IntelLevel.Owned, stateData.TurnYear));
+                        empire.OwnedFleets.Add(new FleetIntel(fleet, IntelLevel.Owned, stateData.TurnYear));
                     }
                     else
                     {                        
-                        empire.FleetReports[fleet.Key].Update(fleet, IntelLevel.Owned, stateData.TurnYear);
+                        empire.OwnedFleets[fleet.Key].Update(fleet, IntelLevel.Owned, stateData.TurnYear);
                     }
                 }
             }    
@@ -103,7 +103,7 @@ namespace Nova.Server.TurnSteps
         {
             List<FleetIntel> toAdd = new List<FleetIntel>();
             
-            foreach (FleetIntel fleet in empire.FleetReports.Values)
+            foreach (FleetIntel fleet in empire.OwnedFleets.Values)
             {
                 if (fleet.Owner == empire.Id)
                 {
@@ -116,13 +116,13 @@ namespace Nova.Server.TurnSteps
                             range = PointUtilities.Distance(fleet.Position, scanned.Position);
                             if (range <= fleet.ScanRange)
                             {
-                                if (!empire.FleetReports.ContainsKey(scanned.Key))
+                                if (!empire.OwnedFleets.ContainsKey(scanned.Key))
                                 {
                                     toAdd.Add(new FleetIntel(scanned, IntelLevel.InScan, stateData.TurnYear));
                                 }
                                 else
                                 {                        
-                                    empire.FleetReports[fleet.Key].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
+                                    empire.OwnedFleets[fleet.Key].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
                                 }
                             }
                         }
@@ -136,11 +136,11 @@ namespace Nova.Server.TurnSteps
                             {
                                 if (fleet.CanScan)
                                 {
-                                    empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InDeepScan, stateData.TurnYear);
+                                    empire.OwnedStars[scanned.Name].Update(scanned, IntelLevel.InDeepScan, stateData.TurnYear);
                                 }
                                 else
                                 {
-                                    empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InPlace, stateData.TurnYear);    
+                                    empire.OwnedStars[scanned.Name].Update(scanned, IntelLevel.InPlace, stateData.TurnYear);    
                                 }
                             }
                             else
@@ -149,7 +149,7 @@ namespace Nova.Server.TurnSteps
                                 range = PointUtilities.Distance(fleet.Position, scanned.Position);
                                 if (range <= fleet.PenScanRange)
                                 {
-                                    empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InDeepScan, stateData.TurnYear);
+                                    empire.OwnedStars[scanned.Name].Update(scanned, IntelLevel.InDeepScan, stateData.TurnYear);
                                 }
                             }
                         }
@@ -157,7 +157,7 @@ namespace Nova.Server.TurnSteps
                     
                     foreach (FleetIntel scanned in toAdd)
                     {
-                        empire.FleetReports.Add(scanned);
+                        empire.OwnedFleets.Add(scanned);
                     }
                 }
             }    
@@ -165,7 +165,7 @@ namespace Nova.Server.TurnSteps
         
         private void ScanWithStars(EmpireData empire)
         {
-            foreach (StarIntel star in empire.StarReports.Values)
+            foreach (StarIntel star in empire.OwnedStars.Values)
             {
                 if (star.Owner == empire.Id)
                 {
@@ -176,13 +176,13 @@ namespace Nova.Server.TurnSteps
                             if (PointUtilities.Distance(star.Position, scanned.Position)
                                 <= star.ScanRange)
                             {
-                                if (!empire.FleetReports.ContainsKey(scanned.Key))
+                                if (!empire.OwnedFleets.ContainsKey(scanned.Key))
                                 {
-                                    empire.FleetReports.Add(new FleetIntel(scanned, IntelLevel.InScan, stateData.TurnYear));
+                                    empire.OwnedFleets.Add(new FleetIntel(scanned, IntelLevel.InScan, stateData.TurnYear));
                                 }
                                 else
                                 {                        
-                                    empire.FleetReports[scanned.Key].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
+                                    empire.OwnedFleets[scanned.Key].Update(scanned, IntelLevel.InScan, stateData.TurnYear);
                                 }
                             }
                         }
@@ -197,7 +197,7 @@ namespace Nova.Server.TurnSteps
                             // TODO:(priority 6) Check should use planetary Pen-Scan range, but it is not implemented yet.
                             if (range <= star.ScanRange)
                             {
-                                empire.StarReports[scanned.Name].Update(scanned, IntelLevel.InDeepScan, stateData.TurnYear);
+                                empire.OwnedStars[scanned.Name].Update(scanned, IntelLevel.InDeepScan, stateData.TurnYear);
                             }
                         }
                     }
@@ -209,7 +209,7 @@ namespace Nova.Server.TurnSteps
         {
             List<FleetIntel> toRemove = new List<FleetIntel>();
             
-            foreach (FleetIntel fleet in empire.FleetReports.Values)
+            foreach (FleetIntel fleet in empire.OwnedFleets.Values)
             {
                 if (stateData.TurnYear - fleet.Year > Global.DiscardFleetReportAge)
                 {
@@ -219,7 +219,7 @@ namespace Nova.Server.TurnSteps
             
             foreach (FleetIntel fleet in toRemove)
             {
-                empire.FleetReports.Remove(fleet);
+                empire.OwnedFleets.Remove(fleet);
             }    
         }
     }

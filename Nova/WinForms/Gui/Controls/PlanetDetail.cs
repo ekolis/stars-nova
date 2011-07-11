@@ -102,7 +102,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void NextPlanet_Click(object sender, EventArgs e)
         {
-            if (empireState.StarReports.Owned(empireState.Id) == 1)
+            if (empireState.OwnedStars.Owned(empireState.Id) == 1)
             {
                 previousPlanet.Enabled = false;
                 nextPlanet.Enabled = false;
@@ -112,7 +112,7 @@ namespace Nova.WinForms.Gui
             previousPlanet.Enabled = true;
             nextPlanet.Enabled = true;
 
-            selectedStar = empireState.StarReports.GetNextOwned(empireState.StarReports[selectedStar.Name]);
+            selectedStar = empireState.OwnedStars.GetNextOwned(empireState.OwnedStars[selectedStar.Name]);
 
             // Inform of the selection change to all listening objects.
             FireStarSelectionChangedEvent();
@@ -129,7 +129,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void PreviousPlanet_Click(object sender, EventArgs e)
         {
-            if (empireState.StarReports.Owned(empireState.Id) == 1)
+            if (empireState.OwnedStars.Owned(empireState.Id) == 1)
             {
                 previousPlanet.Enabled = false;
                 nextPlanet.Enabled = false;
@@ -139,7 +139,7 @@ namespace Nova.WinForms.Gui
             previousPlanet.Enabled = true;
             nextPlanet.Enabled = true;
 
-            selectedStar = empireState.StarReports.GetPreviousOwned(empireState.StarReports[selectedStar.Name]);
+            selectedStar = empireState.OwnedStars.GetPreviousOwned(empireState.OwnedStars[selectedStar.Name]);
 
             // Inform of the selection change to all listening objects.
             FireStarSelectionChangedEvent();
@@ -175,7 +175,7 @@ namespace Nova.WinForms.Gui
 
             groupPlanetSelect.Text = "Planet " + selectedStar.Name;
 
-            if (empireState.StarReports.Owned(empireState.Id) > 1)
+            if (empireState.OwnedStars.Owned(empireState.Id) > 1)
             {                
                 previousPlanet.Enabled = true;
                 nextPlanet.Enabled = true;
@@ -257,7 +257,7 @@ namespace Nova.WinForms.Gui
 
             List<String> fleetnames = new List<string>();
             fleetsInOrbit = new Dictionary<string, Fleet>();
-            foreach (FleetIntel fleet in empireState.FleetReports.Values)
+            foreach (FleetIntel fleet in empireState.OwnedFleets.Values)
             {
                 if ( fleet.InOrbit != null &&  fleet.InOrbit.Name == selectedStar.Name && !fleet.IsStarbase)
                 {

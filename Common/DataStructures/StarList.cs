@@ -33,12 +33,12 @@ namespace Nova.Common
     /// as well as maintaining a sorted list for next/previous functionality. 
     /// </summary>
     [Serializable]
-    public class StarIntelList : DictionaryBase
+    public class StarList : DictionaryBase
     {
         /// /// <summary>
         /// default constructor
         /// </summary>
-        public StarIntelList()
+        public StarList()
         {
         }
 

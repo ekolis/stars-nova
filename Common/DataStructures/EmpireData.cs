@@ -66,9 +66,13 @@ namespace Nova.Common
         public TechLevel    ResearchTopics          = new TechLevel(); // order or researching
         public TechLevel    ResearchLevelsGained    = new TechLevel(); // research level increases, reset per turn
         
-        public StarIntelList        StarReports     = new StarIntelList();
-        public FleetIntelList       FleetReports    = new FleetIntelList();
-        public Dictionary<ushort, EmpireIntel>     EmpireReports   = new Dictionary<ushort, EmpireIntel>();
+        public StarList OwnedStars = new StarList();
+        public Dictionary<string, StarIntel> StarReports  = new Dictionary<string, StarIntel>();
+        
+        public FleetList OwnedFleets = new FleetList();
+        public Dictionary<ushort, FleetIntel> FleetReports  = new Dictionary<ushort, FleetIntel>();
+        
+        public Dictionary<ushort, EmpireIntel>  EmpireReports   = new Dictionary<ushort, EmpireIntel>();
         
         public Dictionary<string, BattlePlan>   BattlePlans     = new Dictionary<string, BattlePlan>();
         
@@ -201,7 +205,7 @@ namespace Nova.Common
                         {
                             StarIntel report = new StarIntel();
                             report = report.LoadFromXml(tNode);
-                            StarReports.Add(report);
+                            OwnedStars.Add(report);
                             tNode = tNode.NextSibling;
                         }
                         break;
@@ -211,7 +215,7 @@ namespace Nova.Common
                         {
                             FleetIntel report = new FleetIntel();
                             report = report.LoadFromXml(tNode);
-                            FleetReports.Add(report);
+                            OwnedFleets.Add(report);
                             tNode = tNode.NextSibling;
                         }
                         break;
@@ -268,14 +272,14 @@ namespace Nova.Common
             xmlelEmpireData.AppendChild(ResearchTopics.ToXml(xmldoc, "ResearchTopics"));
             
             XmlElement xmlelStarReports = xmldoc.CreateElement("StarReports");            
-            foreach (StarIntel report in StarReports.Values)
+            foreach (StarIntel report in OwnedStars.Values)
             {
                 xmlelStarReports.AppendChild(report.ToXml(xmldoc));    
             }
             xmlelEmpireData.AppendChild(xmlelStarReports);
             
             XmlElement xmlelFleetReports = xmldoc.CreateElement("FleetReports");            
-            foreach (FleetIntel report in FleetReports.Values)
+            foreach (FleetIntel report in OwnedFleets.Values)
             {
                 xmlelFleetReports.AppendChild(report.ToXml(xmldoc));    
             }
@@ -308,8 +312,8 @@ namespace Nova.Common
             ResearchTopics          = new TechLevel();
             ResearchLevelsGained    = new TechLevel();
             
-            StarReports.Clear();
-            FleetReports.Clear();
+            OwnedStars.Clear();
+            OwnedFleets.Clear();
             
             BattlePlans.Clear();
         }

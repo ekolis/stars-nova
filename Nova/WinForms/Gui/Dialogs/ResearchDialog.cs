@@ -270,7 +270,7 @@ namespace Nova.WinForms.Gui
             string raceName = stateData.EmpireState.Race.Name;
             Intel turnData = this.stateData.InputTurn;
 
-            foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
+            foreach (StarIntel report in stateData.EmpireState.OwnedStars.Values)
             {
                 if (report.Owner == stateData.EmpireState.Id)
                 {

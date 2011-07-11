@@ -39,7 +39,7 @@ namespace Nova.Common
     [Serializable]
     public class Star : Item
     {
-        public bool OrbitingFleets; //FIXME:(???) What is this used for? -Aeglos 24 Jun 11
+        public bool OrbitingFleets;
         public ProductionQueue ManufacturingQueue;
         public Resources MineralConcentration;
         public Resources ResourcesOnHand;
@@ -763,6 +763,8 @@ namespace Nova.Common
             xmlelResourcesOnHand.AppendChild(ResourcesOnHand.ToXml(xmldoc));
             xmlelStar.AppendChild(xmlelResourcesOnHand);
 
+            Global.SaveData(xmldoc, xmlelStar, "OrbitingFleets", OrbitingFleets.ToString());
+  
             // Starbase and ThisRace are stored as references only (just the name is saved).
             if (Starbase != null)
             {

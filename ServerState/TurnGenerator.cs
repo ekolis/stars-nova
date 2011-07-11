@@ -476,7 +476,6 @@ namespace Nova.WinForms.Console
                     if (star != null)
                     {
                         fleet.InOrbit = star;
-                        star.OrbitingFleets = true;
                     }
 
                     waypointTasks.Perform(fleet, thisWaypoint);

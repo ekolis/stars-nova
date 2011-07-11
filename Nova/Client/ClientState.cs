@@ -613,11 +613,11 @@ namespace Nova.Client
             }
             
             // Fleet reference to Star
-            foreach (FleetIntel fleet in EmpireState.FleetReports.Values)
+            foreach (FleetIntel fleet in EmpireState.OwnedFleets.Values)
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = EmpireState.StarReports[fleet.InOrbit.Name];
+                    fleet.InOrbit = EmpireState.OwnedStars[fleet.InOrbit.Name];
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
@@ -626,7 +626,7 @@ namespace Nova.Client
                 }
             }
 
-            foreach (StarIntel star in EmpireState.StarReports.Values)
+            foreach (StarIntel star in EmpireState.OwnedStars.Values)
             {
                 if (star.ThisRace != null)
                 {
@@ -643,7 +643,7 @@ namespace Nova.Client
 
                 if (star.Starbase != null)
                 {
-                    star.Starbase = EmpireState.FleetReports[star.Starbase.Key];        
+                    star.Starbase = EmpireState.OwnedFleets[star.Starbase.Key];        
                 }
             }
         }     
