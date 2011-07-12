@@ -142,7 +142,7 @@ namespace Nova.WinForms.Gui.Controls
             if (fillWidth > 0)
             {
                 if (x + fillWidth > area.Width)
-                    fillWidth = area.Width - x;
+                    fillWidth = area.Width - x + 1;
                 g.FillRectangle(brush, x, area.Y, fillWidth, area.Height);
             }
             return fillWidth;
