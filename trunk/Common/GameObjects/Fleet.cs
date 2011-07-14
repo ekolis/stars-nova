@@ -50,7 +50,7 @@ namespace Nova.Common
         public Cargo Cargo = new Cargo(); 
 
         public Fleet Target = null;
-        public Star InOrbit = null;
+        public Item InOrbit = null;
         public double BattleSpeed = 0; // used by a stack on the battle board
         public double Bearing = 0;
         public double Cloaked = 0;

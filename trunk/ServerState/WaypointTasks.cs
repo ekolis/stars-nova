@@ -67,7 +67,7 @@ namespace Nova.WinForms.Console
             }
             else if (waypoint.Task ==  WaypointTask.Scrap)
             {
-                Scrap(fleet, fleet.InOrbit, false);
+                Scrap(fleet, stateData.AllStars[fleet.InOrbit.Name], false);
             }
             else if (waypoint.Task == WaypointTask.UnloadCargo )
             {

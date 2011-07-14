@@ -68,7 +68,7 @@ namespace Nova.WinForms.Console
             // and that we have troops.
 
             int troops = fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
-            Star star = fleet.InOrbit;
+            Star star = stateData.AllStars[fleet.InOrbit.Name];
 
             if (troops == 0)
             {
