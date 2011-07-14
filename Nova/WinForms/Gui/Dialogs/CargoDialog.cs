@@ -125,10 +125,10 @@ namespace Nova.ControlLibrary
             cargoGerman.Value = fleetCargo.Germanium;
             cargoColonists.Value = fleetCargo.ColonistsInKilotons;
 
-            labelIron.Text = starCargo.Ironium + "KT";
-            labelBoran.Text = starCargo.Boranium + "KT";
-            labelGerman.Text = starCargo.Germanium + "KT";
-            labelColonists.Text = starCargo.ColonistsInKilotons + "KT";
+            labelIron.Text = starCargo.Ironium + " kT";
+            labelBoran.Text = starCargo.Boranium + " kT";
+            labelGerman.Text = starCargo.Germanium + " kT";
+            labelColonists.Text = starCargo.ColonistsInKilotons + " kT";
 
             meterCargo.CargoLevels = fleetCargo;
         }
@@ -136,14 +136,17 @@ namespace Nova.ControlLibrary
         private void okButton_Click(object sender, EventArgs e)
         {
             fleet.Cargo = fleetCargo;
-
-            Star star = fleet.InOrbit;
-            star.ResourcesOnHand.Ironium = starCargo.Ironium;
-            star.ResourcesOnHand.Boranium = starCargo.Boranium;
-            star.ResourcesOnHand.Germanium = starCargo.Germanium;
-            int remainder = star.Colonists % Global.ColonistsPerKiloton;
-            star.Colonists = starCargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
-            star.Colonists += remainder;
+            
+            if (fleet.InOrbit.Type == ItemType.Star)
+            {
+                Star star = fleet.InOrbit as Star;
+                star.ResourcesOnHand.Ironium = starCargo.Ironium;
+                star.ResourcesOnHand.Boranium = starCargo.Boranium;
+                star.ResourcesOnHand.Germanium = starCargo.Germanium;
+                int remainder = star.Colonists % Global.ColonistsPerKiloton;
+                star.Colonists = starCargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
+                star.Colonists += remainder;
+            }
 
             DialogResult = DialogResult.OK;
         }
@@ -156,14 +159,24 @@ namespace Nova.ControlLibrary
         /// ----------------------------------------------------------------------------
         public void SetTarget(Fleet targetFleet)
         {
-            fleet = targetFleet;
-
+            fleet = targetFleet;                     
             fleetCargo = new Cargo(targetFleet.Cargo); // clone this so it can hold values in case we cancel
             starCargo = new Cargo();
-            starCargo.Ironium = targetFleet.InOrbit.ResourcesOnHand.Ironium;
-            starCargo.Boranium =  targetFleet.InOrbit.ResourcesOnHand.Boranium;
-            starCargo.Germanium =  targetFleet.InOrbit.ResourcesOnHand.Germanium;
-            starCargo.ColonistsInKilotons = (targetFleet.InOrbit.Colonists/Global.ColonistsPerKiloton);
+            
+            if (targetFleet.InOrbit.Type == ItemType.Star)
+            {
+                starCargo.Ironium = (targetFleet.InOrbit as Star).ResourcesOnHand.Ironium;
+                starCargo.Boranium =  (targetFleet.InOrbit as Star).ResourcesOnHand.Boranium;
+                starCargo.Germanium =  (targetFleet.InOrbit as Star).ResourcesOnHand.Germanium;
+                starCargo.ColonistsInKilotons = ((targetFleet.InOrbit as Star).Colonists/Global.ColonistsPerKiloton);
+            }
+            else
+            {
+                starCargo.Ironium = 0;
+                starCargo.Boranium =  0;
+                starCargo.Germanium =  0;
+                starCargo.ColonistsInKilotons = 0;    
+            }
 
             cargoIron.Maximum = targetFleet.TotalCargoCapacity;
             cargoBoran.Maximum = targetFleet.TotalCargoCapacity;

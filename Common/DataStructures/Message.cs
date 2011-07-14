@@ -157,11 +157,11 @@ namespace Nova.Common
                         break;
 
                     case "Minefield":
-                        Global.SaveData(xmldoc, xmlelMessage, "Event", ((Minefield)Event).Key);
+                        Global.SaveData(xmldoc, xmlelMessage, "Event", (Event as Minefield).Key);
                         break;
 
                     case "BattleReport":
-                        Global.SaveData(xmldoc, xmlelMessage, "Event", ((BattleReport)Event).Key);
+                        Global.SaveData(xmldoc, xmlelMessage, "Event", (Event as BattleReport).Key);
                         break;
 
                     default:

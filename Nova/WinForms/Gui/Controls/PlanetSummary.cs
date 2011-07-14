@@ -466,13 +466,13 @@ namespace Nova.WinForms.Gui
                     this.planetValue.ForeColor = Color.Green;
                 } 
 
-                if (empireState.StarReports[value.Name].Colonists == 0)
+                if (empireState.StarReports[value.Name].Owner == Global.NoOwner)
                 {
                     this.population.Text = "Uninhabited";
                 }
                 else
                 {
-                    this.population.Text = "Population: " + empireState.OwnedStars[value.Name].Colonists;
+                    this.population.Text = "Population: " + empireState.StarReports[value.Name].Colonists;
                 }
 
                 if (reportYear == empireState.TurnYear)

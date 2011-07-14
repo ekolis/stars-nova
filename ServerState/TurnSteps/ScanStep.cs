@@ -167,16 +167,16 @@ namespace Nova.Server.TurnSteps
                             else
                             {
                                 empire.StarReports.Add(scanned.Name, scanned.GenerateReport(scanLevel, stateData.TurnYear));
-                            }    
+                            }                          
                         }
                     }
-                    
-                    foreach (FleetIntel scanned in toAdd)
-                    {
-                        empire.OwnedFleets.Add(scanned);
-                    }
                 }
-            }    
+            }
+            
+            foreach (FleetIntel scanned in toAdd)
+            {
+                empire.OwnedFleets.Add(scanned);
+            }            
         }     
         
         private void ScanWithStars(EmpireData empire)

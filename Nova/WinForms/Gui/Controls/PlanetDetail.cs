@@ -155,7 +155,7 @@ namespace Nova.WinForms.Gui
         private void FireStarSelectionChangedEvent()
         {
             if (StarSelectionChangedEvent != null)
-                StarSelectionChangedEvent(this, new StarSelectionArgs(selectedStar));
+                StarSelectionChangedEvent(this, new StarSelectionArgs(empireState.StarReports[selectedStar.Name]));
         }
 
         /// ----------------------------------------------------------------------------

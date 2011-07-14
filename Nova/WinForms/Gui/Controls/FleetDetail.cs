@@ -551,7 +551,7 @@ namespace Nova.WinForms.Gui
             if (selectedFleet != null && selectedFleet.InOrbit != null)
             {
                 if (StarSelectionChangedEvent != null)
-                    StarSelectionChangedEvent(this, new StarSelectionArgs(selectedFleet.InOrbit));
+                    StarSelectionChangedEvent(this, new StarSelectionArgs(empireState.StarReports[selectedFleet.InOrbit.Name]));
                 if( CursorChangedEvent != null )
                     CursorChangedEvent(this, new CursorArgs((Point)selectedFleet.InOrbit.Position));
             }

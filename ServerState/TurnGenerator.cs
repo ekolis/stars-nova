@@ -302,6 +302,7 @@ namespace Nova.WinForms.Console
             }
 
             // See if the fleet is orbiting a star
+            fleet.InOrbit = null;
             foreach (Star star in stateData.AllStars.Values)
             {
                 if (star.Position.X == fleet.Position.X && star.Position.Y == fleet.Position.Y)
@@ -327,7 +328,7 @@ namespace Nova.WinForms.Console
 
             if (fleet.InOrbit != null && fleet.HasBombers)
             {
-                bombing.Bomb(fleet, fleet.InOrbit);
+                bombing.Bomb(fleet, stateData.AllStars[fleet.InOrbit.Name]);
             }
 
             return false;
@@ -360,8 +361,13 @@ namespace Nova.WinForms.Console
             {
                 return;
             }
-
-            Star star = fleet.InOrbit;
+            
+            Star star = null;
+            
+            if (fleet.InOrbit != null)
+            {
+                star = stateData.AllStars[fleet.InOrbit.Name];
+            }
             // refuel
             if (star != null && star.Owner == fleet.Owner /* TODO (priority 6) or friendly*/ && star.Starbase != null && star.Starbase.CanRefuel)
             {

@@ -617,7 +617,14 @@ namespace Nova.Client
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = EmpireState.OwnedStars[fleet.InOrbit.Name];
+                    if (EmpireState.StarReports[fleet.InOrbit.Name].Owner == fleet.Owner)
+                    {
+                        fleet.InOrbit = EmpireState.OwnedStars[fleet.InOrbit.Name];
+                    }
+                    else
+                    {
+                        fleet.InOrbit = EmpireState.StarReports[fleet.InOrbit.Name];
+                    }
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)

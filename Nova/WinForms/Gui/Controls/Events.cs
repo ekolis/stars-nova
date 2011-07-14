@@ -121,9 +121,9 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public class StarSelectionArgs : System.EventArgs
     {
-        public Star Star;
+        public StarIntel Star;
 
-        public StarSelectionArgs(Star star)
+        public StarSelectionArgs(StarIntel star)
         {
             this.Star = star;
         }
