@@ -203,9 +203,17 @@ namespace Nova.Common
                         tNode = subnode.FirstChild;
                         while (tNode != null)
                         {
-                            StarIntel report = new StarIntel();
-                            report = report.LoadFromXml(tNode);
-                            OwnedStars.Add(report);
+                            StarIntel report = new StarIntel(tNode);
+                            StarReports.Add(report.Name, report);
+                            tNode = tNode.NextSibling;
+                        }
+                        break;
+                    case "ownedstars":
+                        tNode = subnode.FirstChild;
+                        while (tNode != null)
+                        {
+                            Star star = new Star(tNode);
+                            OwnedStars.Add(star);
                             tNode = tNode.NextSibling;
                         }
                         break;
@@ -272,11 +280,18 @@ namespace Nova.Common
             xmlelEmpireData.AppendChild(ResearchTopics.ToXml(xmldoc, "ResearchTopics"));
             
             XmlElement xmlelStarReports = xmldoc.CreateElement("StarReports");            
-            foreach (StarIntel report in OwnedStars.Values)
+            foreach (StarIntel report in StarReports.Values)
             {
                 xmlelStarReports.AppendChild(report.ToXml(xmldoc));    
             }
             xmlelEmpireData.AppendChild(xmlelStarReports);
+            
+            XmlElement xmlelOwnedStars = xmldoc.CreateElement("OwnedStars");            
+            foreach (Star star in OwnedStars.Values)
+            {
+                xmlelOwnedStars.AppendChild(star.ToXml(xmldoc));    
+            }
+            xmlelEmpireData.AppendChild(xmlelOwnedStars);
             
             XmlElement xmlelFleetReports = xmldoc.CreateElement("FleetReports");            
             foreach (FleetIntel report in OwnedFleets.Values)

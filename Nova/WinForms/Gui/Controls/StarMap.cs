@@ -229,7 +229,7 @@ namespace Nova.WinForms.Gui
 
             // (1a) Planetary long-range scanners.
 
-            foreach (StarIntel report in stateData.EmpireState.OwnedStars.Values)
+            foreach (Star report in stateData.EmpireState.OwnedStars.Values)
             {
                 if (report.Owner == stateData.EmpireState.Id)
                 {
@@ -296,10 +296,10 @@ namespace Nova.WinForms.Gui
             // (5) Stars plus starbases and orbiting fleet indications that are
             // the results of scans.
 
-            foreach (StarIntel starIntel in stateData.EmpireState.OwnedStars.Values)
+            foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
             {
-                DrawStar(g, starIntel);
-                DrawOrbitingFleets(g, starIntel);
+                DrawStar(g, report);
+                DrawOrbitingFleets(g, report);
             }
 
             // (6) Cursor.
@@ -436,32 +436,29 @@ namespace Nova.WinForms.Gui
         /// </remarks>
         /// <param name="Star">The Star sytem to draw.</param>
         /// ----------------------------------------------------------------------------
-        private void DrawStar(Graphics g, Star star)
+        private void DrawStar(Graphics g, StarIntel report)
         {
-            StarIntel report = stateData.EmpireState.OwnedStars[star.Name];
-            NovaPoint position = LogicalToDevice(star.Position);
+            NovaPoint position = LogicalToDevice(report.Position);
             int size = 2;
             Brush starBrush = Brushes.White;
-            int owner = Global.NoOwner;
 
             // Bigger symbol for explored stars.
 
-            if (report.Year > 0)
+            if (report.Year > Global.Unset)
             {
                 size = 4;
-                owner = report.Owner;
             }
 
             // Our stars are greenish, other's are red, unknown or uncolonised
             // stars are white.
 
-            if (owner == stateData.EmpireState.Id)
+            if (report.Owner == stateData.EmpireState.Id)
             {
                 starBrush = Brushes.GreenYellow;
             }
             else
             {
-                if (owner != Global.NoOwner)
+                if (report.Owner != Global.NoOwner)
                 {
                     starBrush = Brushes.Red;
                 }
@@ -475,7 +472,7 @@ namespace Nova.WinForms.Gui
             {
                 StringFormat format = new StringFormat();
                 format.Alignment = StringAlignment.Center;               
-                g.DrawString(star.Name, this.nameFont, Brushes.White, position.X, position.Y + 5, format);
+                g.DrawString(report.Name, this.nameFont, Brushes.White, position.X, position.Y + 5, format);
             }
         }
 
@@ -487,10 +484,9 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="Star">The Star being drawn.</param>
         /// ----------------------------------------------------------------------------
-        private void DrawOrbitingFleets(Graphics g, Star star)
+        private void DrawOrbitingFleets(Graphics g, StarIntel report)
         {
-            StarIntel report = stateData.EmpireState.OwnedStars[star.Name];
-            NovaPoint position = LogicalToDevice(star.Position);
+            NovaPoint position = LogicalToDevice(report.Position);
             
             if (report == null)
             {
@@ -507,7 +503,7 @@ namespace Nova.WinForms.Gui
                     4);
             }
 
-            if (report.OrbitingFleets)
+            if (report.HasFleetsInOrbit)
             {
                 int size = 12;
                 g.DrawEllipse(
@@ -586,7 +582,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Minefield minefield in turnData.AllMinefields.Values)
             {
-                foreach (StarIntel report in stateData.EmpireState.OwnedStars.Values)
+                foreach (Star report in stateData.EmpireState.OwnedStars.Values)
                 {
                     if (report.Owner == stateData.EmpireState.Id)
                     {
@@ -787,30 +783,6 @@ namespace Nova.WinForms.Gui
 
         /// ----------------------------------------------------------------------------
         /// <Summary>
-        /// A sortable (by distance) version of the Item class.
-        /// </Summary>
-        /// <remarks>
-        /// FIXME (priority 5) - this class shouldn't be hidden inside this module. Is there any reason not to implement this via inheritance or make Item itself sortable?
-        /// </remarks>
-        /// ----------------------------------------------------------------------------
-        public class SortableItem : IComparable<SortableItem>
-        {
-            public double Distance;
-            public Item Target;
-
-            public int CompareTo(SortableItem other)
-            {
-                // Put stars first
-                if (Target.Type.Equals("Star") && !other.Target.Type.Equals("Star"))
-                    return -1;
-
-                SortableItem rhs = (SortableItem)other;
-                return this.Distance.CompareTo(rhs.Distance);
-            }
-        }
-
-        /// ----------------------------------------------------------------------------
-        /// <Summary>
         /// Process a mouse down event.
         /// </Summary>
         /// <param name="sender"></param>
@@ -871,7 +843,7 @@ namespace Nova.WinForms.Gui
             NovaPoint click = new NovaPoint(e.X, e.Y);
             Fleet fleet = item as Fleet;
             NovaPoint position = DeviceToLogical(click);
-            List<SortableItem> nearObjects = FindNearObjects(position);
+            List<Item> nearObjects = FindNearObjects(position);
             Waypoint waypoint = new Waypoint();
 
             waypoint.Position = position;
@@ -891,10 +863,9 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                SortableItem selected = nearObjects[0];
-                Item target = selected.Target;
-                waypoint.Position = target.Position;
-                waypoint.Destination = target.Name;
+                Item selected = nearObjects[0];
+                waypoint.Position = selected.Position;
+                waypoint.Destination = selected.Name;
             }
 
             // If the new waypoint is the same as the last one then do nothing.
@@ -931,7 +902,7 @@ namespace Nova.WinForms.Gui
             NovaPoint click = new NovaPoint(e.X, e.Y);
             position = DeviceToLogical(click);
 
-            List<SortableItem> nearObjects = FindNearObjects(position);
+            List<Item> nearObjects = FindNearObjects(position);
             if (nearObjects.Count == 0)
             {
                 return;
@@ -956,8 +927,7 @@ namespace Nova.WinForms.Gui
             }
 
             this.lastClick = click;
-            SortableItem selected = nearObjects[this.selection];
-            Item item = selected.Target;        
+            Item item = nearObjects[this.selection];       
 
             SetCursor(item.Position);
    
@@ -975,7 +945,7 @@ namespace Nova.WinForms.Gui
             NovaPoint click = new NovaPoint(e.X, e.Y);
             position = DeviceToLogical(click);
 
-            List<SortableItem> nearObjects = FindNearObjects(position);
+            List<Item> nearObjects = FindNearObjects(position);
             if (nearObjects.Count == 0)
             {
                 return;
@@ -984,17 +954,17 @@ namespace Nova.WinForms.Gui
             selectItemMenu.Items.Clear();
             bool needSep = false;
             bool doneSep = false;
-            foreach (SortableItem sortableItem in nearObjects)
+            foreach (Item sortableItem in nearObjects)
             {
-                ToolStripItem menuItem = selectItemMenu.Items.Add(sortableItem.Target.Name);
+                ToolStripItem menuItem = selectItemMenu.Items.Add(sortableItem.Name);
                 menuItem.Click += ContextSelect;
-                menuItem.Tag = sortableItem.Target;
-                if (sortableItem.Target.Type.Equals("Star"))
+                menuItem.Tag = sortableItem;
+                if (sortableItem.Type == ItemType.StarIntel)
                 {
                     menuItem.Image = Properties.Resources.planeticon;
                     needSep = true;
                 }
-                else if (sortableItem.Target.Type.Equals("Fleet"))
+                else if (sortableItem.Type == ItemType.Fleet)
                 {
                     menuItem.Image = Properties.Resources.fleet;
                     if (needSep && !doneSep)
@@ -1050,9 +1020,9 @@ namespace Nova.WinForms.Gui
         /// <param name="position">Starting Point for the search.</param>
         /// <returns>A list of Fleet and Star objects.</returns>
         /// ----------------------------------------------------------------------------
-        private List<SortableItem> FindNearObjects(NovaPoint position)
+        private List<Item> FindNearObjects(NovaPoint position)
         {
-            List<SortableItem> nearObjects = new List<SortableItem>();
+            List<Item> nearObjects = new List<Item>();
 
             foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
             {
@@ -1060,23 +1030,18 @@ namespace Nova.WinForms.Gui
                 {
                     if (PointUtilities.IsNear(fleet.Position, position))
                     {
-                        SortableItem thisItem = new SortableItem();
-                        thisItem.Target = fleet;
-                        thisItem.Distance = PointUtilities.Distance(position, fleet.Position);
-                        nearObjects.Add(thisItem);
+                        fleet.sortableDistance = PointUtilities.Distance(position, fleet.Position);
+                        nearObjects.Add(fleet);
                     }
                 }
             }
 
-            foreach (StarIntel report in stateData.EmpireState.OwnedStars.Values)
+            foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
             {
                 if (PointUtilities.IsNear(report.Position, position))
                 {
-
-                    SortableItem thisItem = new SortableItem();
-                    thisItem.Target = report;
-                    thisItem.Distance = PointUtilities.Distance(position, report.Position);
-                    nearObjects.Add(thisItem);
+                    report.sortableDistance = PointUtilities.Distance(position, report.Position);
+                    nearObjects.Add(report);
                 }
             }
 

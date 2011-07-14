@@ -36,7 +36,7 @@ namespace Nova.Common
     public class FleetIntel : Fleet
     {
         public int          Year;      
-        public IntelLevel   IntelAmount;
+        public ScanLevel   IntelAmount;
 
         /// <summary>
         /// Constructor to use with LoadFromXml. Calls Fleet(0) which is a
@@ -51,16 +51,16 @@ namespace Nova.Common
         /// Initializes a new instance of the FleetIntel class.
         /// </summary>
         /// <param name="fleet">The <see cref="Fleet"/> being reported</param>
-        public FleetIntel(Fleet fleet, IntelLevel intelAmount, int year) :
+        public FleetIntel(Fleet fleet, ScanLevel intelAmount, int year) :
             base(fleet)
         {
             Year        = 0;            
-            IntelAmount = IntelLevel.None;
+            IntelAmount = ScanLevel.None;
            
             Update(fleet, intelAmount, year);
         } 
         
-        public void Update(Fleet fleet, IntelLevel intelAmount, int year)
+        public void Update(Fleet fleet, ScanLevel intelAmount, int year)
         {
             if (fleet == null)
             {
@@ -83,13 +83,13 @@ namespace Nova.Common
             Waypoints   = fleet.Waypoints;
             Owner       = fleet.Owner;
              
-            if (IntelAmount >= IntelLevel.None)
+            if (IntelAmount >= ScanLevel.None)
             {            
                 // We keep the information we have.
             }
             
             // If we are at least scanning with non-penetrating
-            if (IntelAmount >= IntelLevel.InScan)
+            if (IntelAmount >= ScanLevel.InScan)
             {
                 // We can at least see it, so set age to current.
                 this.Year = year;
@@ -107,19 +107,19 @@ namespace Nova.Common
             }
             
             // You can't orbit a fleet!
-            if (IntelAmount >= IntelLevel.InPlace)
+            if (IntelAmount >= ScanLevel.InPlace)
             {
                     
             }
             
             // Pen scans do nothing for fleets.
-            if (IntelAmount >= IntelLevel.InDeepScan)
+            if (IntelAmount >= ScanLevel.InDeepScan)
             {                
    
             }
             
             // If the fleet is ours.
-            if (IntelAmount >= IntelLevel.Owned)
+            if (IntelAmount >= ScanLevel.Owned)
             {
                 Waypoints = fleet.Waypoints;
             }    
@@ -141,7 +141,7 @@ namespace Nova.Common
                             Year = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "intelamount":
-                            IntelAmount = (IntelLevel)Enum.Parse(typeof(IntelLevel), node.FirstChild.Value, true);
+                            IntelAmount = (ScanLevel)Enum.Parse(typeof(ScanLevel), node.FirstChild.Value, true);
                             break;
                         case "fleet":
                             fleet = new Fleet(node);

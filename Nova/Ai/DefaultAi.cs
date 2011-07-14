@@ -39,10 +39,8 @@ namespace Nova.Ai
         /// </summary>
         private void HandleProduction()
         {
-            foreach (StarIntel starIntel in stateData.EmpireState.OwnedStars.Values)
+            foreach (Star star in stateData.EmpireState.OwnedStars.Values)
             {
-                Star star = starIntel;
-                
                 if (star.Owner == stateData.EmpireState.Id)
                 {
 
@@ -125,16 +123,16 @@ namespace Nova.Ai
                     scoutFleets.Add(fleet);
                 }
             }
-            List<Star> excludedStars = new List<Star>();
+            List<StarIntel> excludedStars = new List<StarIntel>();
             if (scoutFleets.Count > 0)
             {
                 foreach (Fleet fleet in scoutFleets)
                 {
-                    Star s = CloesestStar(fleet, excludedStars);
+                    StarIntel s = CloesestStar(fleet, excludedStars);
                     if (s != null)
                     {
                         excludedStars.Add(s);
-                        SendFleet(s, fleet, WaypointTask.None );
+                        SendFleet(s, fleet, WaypointTask.None);
                     }
                 }
             }
@@ -149,12 +147,11 @@ namespace Nova.Ai
             if (colonyShipsFleets.Count > 0)
             {
                 //check if there is any good star to colonize
-                foreach (StarIntel starIntel in turnData.EmpireState.OwnedStars.Values)
+                foreach (StarIntel report in turnData.EmpireState.StarReports.Values)
                 {
-                    Star star = starIntel;
-                    if (star.HabitalValue(stateData.EmpireState.Race) > 0 && star.Owner == Global.NoOwner)
+                    if (stateData.EmpireState.Race.HabitalValue(report) > 0 && report.Owner == Global.NoOwner)
                     {
-                        SendFleet(star, colonyShipsFleets[0], WaypointTask.Colonise);
+                        SendFleet(report, colonyShipsFleets[0], WaypointTask.Colonise);
                         colonyShipsFleets.RemoveAt(0);
                         if (colonyShipsFleets.Count == 0)
                             break;
@@ -168,25 +165,25 @@ namespace Nova.Ai
         /// </summary>
         /// <param name="fleet"></param>
         /// <returns></returns>
-        private Star CloesestStar(Fleet fleet, List<Star> excludedStars)
+        private StarIntel CloesestStar(Fleet fleet, List<StarIntel> excludedStars)
         {
-            Star star = null;
+            StarIntel target = null;
             Double distance = double.MaxValue;
-            foreach (StarIntel starIntel in turnData.EmpireState.OwnedStars.Values)
+            foreach (StarIntel report in turnData.EmpireState.StarReports.Values)
             {
-                Star s = starIntel;
-                if (excludedStars.Contains(s) == true) 
+                if (excludedStars.Contains(report) == true) 
                     continue;
 
-                if (distance > Math.Sqrt(Math.Pow(fleet.Position.X - s.Position.X, 2) + Math.Pow(fleet.Position.Y - s.Position.Y, 2)))
+                if (distance > Math.Sqrt(Math.Pow(fleet.Position.X - report.Position.X, 2) + Math.Pow(fleet.Position.Y - report.Position.Y, 2)))
                 {
-                    star = s;
-                    distance = Math.Sqrt(Math.Pow(fleet.Position.X - s.Position.X, 2) + Math.Pow(fleet.Position.Y - s.Position.Y, 2));
+                    target = report;
+                    distance = Math.Sqrt(Math.Pow(fleet.Position.X - target.Position.X, 2) + Math.Pow(fleet.Position.Y - target.Position.Y, 2));
                 }
             }
-            return star;
+            return target;
         }
-        private void SendFleet(Star star, Fleet fleet, WaypointTask task)
+        
+        private void SendFleet(StarIntel star, Fleet fleet, WaypointTask task)
         {
             Waypoint w = new Waypoint();
             w.Position = star.Position;

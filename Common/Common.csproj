@@ -230,7 +230,7 @@
     <Compile Include="DataStructures\EmpireData.cs" />
     <Compile Include="DataStructures\StarIntel.cs" />
     <Compile Include="DataStructures\FleetIntel.cs" />
-    <Compile Include="IntelLevel.cs" />
+    <Compile Include="ScanLevel.cs" />
     <Compile Include="DataStructures\StarList.cs" />
     <Compile Include="DataStructures\EmpireIntel.cs" />
   </ItemGroup>

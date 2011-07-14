@@ -28,12 +28,12 @@ namespace Nova.Common
     using System.Text;
     
     /// <summary> 
-    /// Defines a colletion of StarIntel objects using DictionaryBase.
+    /// Defines a colletion of Star objects using Dictionary.
     /// Allows these to be accessed by the star's name (which is a unique key),
     /// as well as maintaining a sorted list for next/previous functionality. 
     /// </summary>
     [Serializable]
-    public class StarList : DictionaryBase
+    public class StarList : Dictionary<string, Star>
     {
         /// /// <summary>
         /// default constructor
@@ -45,32 +45,19 @@ namespace Nova.Common
         /// <summary>
         /// Add a new star to the StarList
         /// </summary>
-        /// <param name="report">The Star to be added to the StarList</param>
-        public void Add(StarIntel report)
+        /// <param name="star">The Star to be added to the StarList</param>
+        public void Add(Star star)
         {
-            Dictionary.Add(report.Name, report);
+            Add(star.Name, star);
         }
 
         /// <summary>
         /// Remove a Star from the StarList
         /// </summary>
-        /// <param name="report">The star to remove.</param>
-        public void Remove(StarIntel report)
+        /// <param name="star">The star to remove.</param>
+        public void Remove(Star star)
         {
-            Dictionary.Remove(report.Name);
-        }
-
-        /// <summary>
-        /// Remove a star from the StarList
-        /// </summary>
-        /// <param name="starName">The name of the star.</param>
-        public void Remove(string starName)
-        {
-            if (Dictionary.Contains(starName))
-            {
-                Dictionary.Remove(starName);
-            }
-
+            Remove(star.Name);
         }
 
         /// <summary>
@@ -89,7 +76,7 @@ namespace Nova.Common
                 return false;
             }
             
-            return Dictionary.Contains(star.Name);
+            return ContainsKey(star.Name);
         }
 
         /// <summary>
@@ -99,185 +86,64 @@ namespace Nova.Common
         /// <returns>true if starName is the name of one of the stars in the StarList</returns>
         public bool Contains(string starName)
         {
-            return Dictionary.Contains(starName);
+            return ContainsKey(starName);
         }
 
         /// <summary>
-        /// Allow array type indexing to a StarList.
+        /// Get the next star in the list.
         /// </summary>
-        /// <param name="index">The name of the star.</param>
-        /// <returns></returns>
-        public StarIntel this[string index]
-        {
-            get
-            {
-                if (!Dictionary.Contains(index))
-                {
-                    return null;
-                }
-                return Dictionary[index] as StarIntel;
-            }
-            set
-            {
-                if (!Dictionary.Contains(index))
-                {
-                    return;
-                }
-                Dictionary[index] = value;
-            }
-        }
-
-        /// <summary>
-        /// Get the next star report in the list.
-        /// </summary>
-        /// <param name="report">The current report.</param>
-        /// <returns>The next star report, or the current if there is only one.</returns>
+        /// <param name="star">The current star.</param>
+        /// <returns>The next star, or the current if there is only one.</returns>
         /// <exception cref="NullReferenceException"> if star is null.</exception>
-        public StarIntel GetNext(StarIntel report)
+        public Star GetNext(Star star)
         {
-            if (report == null)
+            if (star == null)
             {
                 throw new ArgumentNullException("report");
             }
-            if (Dictionary.Count <= 1)
+            if (Count <= 1)
             {
-                return report;
+                return star;
             }
 
             List<string> keyList = new List<string>();
-            keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
+            keyList.AddRange(Enumerable.Cast<string>(Keys));
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Name) + 1;
+            int nextIndex = keyList.IndexOf(star.Name) + 1;
             if (nextIndex >= keyList.Count)
             {
                 nextIndex = 0;
             }
-            return Dictionary[keyList[nextIndex]] as StarIntel;
+            return this[keyList[nextIndex]] as Star;
         }      
-        
-        /// <summary>
-        /// Get the next star report in the list that belongs to the same owner.
-        /// </summary>
-        /// <param name="report">The current report.</param>
-        /// <returns>The next star report, or the current if there is only one.</returns>
-        /// <exception cref="NullReferenceException"> if star is null.</exception>
-        public StarIntel GetNextOwned(StarIntel report)
-        {
-            if (report == null)
-            {
-                throw new ArgumentNullException("report");
-            }
-            if (Dictionary.Count <= 1)
-            {
-                return report;
-            }
-
-            List<string> keyList = new List<string>();
-            keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
-            keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Name);
-            
-            do
-            {
-                nextIndex = nextIndex + 1;
-                if (nextIndex >= keyList.Count)
-                {
-                    nextIndex = 0;
-                }
-            }
-            while ((Dictionary[keyList[nextIndex]] as StarIntel).Owner != report.Owner);
-            
-            return Dictionary[keyList[nextIndex]] as StarIntel;
-        }
         
         /// <summary>
         /// Get the previous star in the list.
         /// </summary>
-        /// <param name="report">The current star.</param>
+        /// <param name="star">The current star.</param>
         /// <returns>The previous star, or the current star if there is only one.</returns>
         /// <exception cref="NullReferenceException"> if star is null.</exception>
-        public StarIntel GetPrevious(StarIntel report)
+        public Star GetPrevious(Star star)
         {
-            if (report == null)
+            if (star == null)
             {
                 throw new ArgumentNullException("report");
             }
-            if (Dictionary.Count <= 1)
+            if (Count <= 1)
             {
-                return report;
+                return star;
             }
 
             List<string> keyList = new List<string>();
-            keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
+            keyList.AddRange(Enumerable.Cast<string>(Keys));
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Name) - 1;
+            int nextIndex = keyList.IndexOf(star.Name) - 1;
             if (nextIndex < 0)
             {
                 nextIndex = keyList.Count - 1;
             }
-            return Dictionary[keyList[nextIndex]] as StarIntel;
+            return this[keyList[nextIndex]] as Star;
 
-        }
-        
-        /// <summary>
-        /// Get the previous star report in the list that belongs to same owner.
-        /// </summary>
-        /// <param name="report">The current report.</param>
-        /// <returns>The next star report, or the current if there is only one.</returns>
-        /// <exception cref="NullReferenceException"> if star is null.</exception>
-        public StarIntel GetPreviousOwned(StarIntel report)
-        {
-            if (report == null)
-            {
-                throw new ArgumentNullException("report");
-            }
-            if (Dictionary.Count <= 1)
-            {
-                return report;
-            }
-
-            List<string> keyList = new List<string>();
-            keyList.AddRange(Enumerable.Cast<string>(Dictionary.Keys));
-            keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Name);
-            
-            do
-            {
-                nextIndex = nextIndex - 1;
-                if (nextIndex < 0)
-                {
-                    nextIndex = keyList.Count - 1;
-                }
-            }
-            while ((Dictionary[keyList[nextIndex]] as StarIntel).Owner != report.Owner);
-            
-            return Dictionary[keyList[nextIndex]] as StarIntel;
-        }
-
-        /// <summary>
-        /// Get the internal collection of values.
-        /// </summary>
-        public ICollection Values
-        {
-            get
-            {
-                return Dictionary.Values;
-            }
-        }
-        
-        /// <summary>
-        /// Returns the amount of stars owned by someone. 
-        /// </summary>
-        /// <param name="empireId">A <see cref="System.String"/> indicating the owner to look for </param>
-        /// <returns> The amount of stars property of the specified owner. </returns>
-        public int Owned(int empireId)
-        {
-            int q = 0;
-            foreach (StarIntel report in Dictionary.Values)
-            {
-                if (report.Owner == empireId) { q++; }
-            }
-            return q;
         }
     }
 }

@@ -626,7 +626,7 @@ namespace Nova.Client
                 }
             }
 
-            foreach (StarIntel star in EmpireState.OwnedStars.Values)
+            foreach (Star star in EmpireState.OwnedStars.Values)
             {
                 if (star.ThisRace != null)
                 {

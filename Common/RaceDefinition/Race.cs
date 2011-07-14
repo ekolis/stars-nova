@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,29 +20,23 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module defines all the parameters that define the characteristics of a
-// race. These values are all set in the race designer. This object also manages
-// the loading ans saving of race data to a file.
-// ===========================================================================
-#endregion
-
 namespace Nova.Common
 {
     using System;
     using System.IO;
     using System.Xml;
 
-    /// /// <summary>
-    /// All of the race parameters
+    /// <summary>
+    /// This Class defines all the parameters that define the characteristics of a
+    /// race. These values are all set in the race designer. This object also manages
+    /// the loading ans saving of race data to a file.
     /// </summary>
     [Serializable]
     public sealed class Race
     {
-        public EnvironmentTolerance GravityTolerance = new GravityTolerance();
-        public EnvironmentTolerance RadiationTolerance = new RadiationTolerance();
-        public EnvironmentTolerance TemperatureTolerance = new TemperatureTolerance();
+        public EnvironmentTolerance GravityTolerance        = new GravityTolerance();
+        public EnvironmentTolerance RadiationTolerance      = new RadiationTolerance();
+        public EnvironmentTolerance TemperatureTolerance    = new TemperatureTolerance();
 
         public TechLevel ResearchCosts = new TechLevel(0);
 
@@ -66,8 +60,6 @@ namespace Nova.Common
         // Growth goes from 3 to 20 and is not normalized here.
         public double GrowthRate;
 
-        #region Construction
-
         // required for searializable class
         public Race() 
         { 
@@ -90,10 +82,147 @@ namespace Nova.Common
             fileStream.Close();
         }
 
-        #endregion
+        
+        /// <summary>
+        /// Calculate this race's Habitability for a given star.
+        /// </summary>
+        /// <param name="star">The star for which the Habitability is being determined.</param>
+        /// <returns>The normalised habitability of the star (-1 to +1).</returns>
+        /// <remarks>
+        /// This algorithm is taken from the Stars! Technical FAQ:
+        /// http://www.starsfaq.com/advfaq/contents.htm
+        ///
+        /// Return the habital value of this star for the specified race (in the range
+        /// -1 to +1 where 1 = 100%). Note that the star environment values are
+        /// percentages of the total range.
+        ///
+        /// The full equation (from the Stars! Technical FAQ) is: 
+        ///
+        /// Hab% = SQRT[(1-g)^2+(1-t)^2+(1-r)^2]*(1-x)*(1-y)*(1-z)/SQRT[3] 
+        ///
+        /// Where g, t,and r (stand for gravity, temperature, and radiation)are given
+        /// by Clicks_from_center/Total_clicks_from_center_to_edge and where x,y, and z
+        /// are:
+        ///
+        /// x=g-1/2 for g>1/2
+        /// x=0 for g less than 1/2 
+        /// y=t-1/2 for t>1/2
+        /// y=0 for t less than 1/2 
+        /// z=r-1/2 for r>1/2
+        /// z=0 for r less than 1/2 
+        /// </remarks>
+        public double HabitalValue(Star star)
+        {
+            double r = NormalizeHabitalityDistance(RadiationTolerance, star.Radiation);
+            double g = NormalizeHabitalityDistance(GravityTolerance, star.Gravity);
+            double t = NormalizeHabitalityDistance(TemperatureTolerance, star.Temperature);
 
-        #region Methods
+            if (r > 1 || g > 1 || t > 1)
+            {
+                // currently not habitable
+                int result = 0;
+                int maxMalus = GetMaxMalus();
+                if (r > 1)
+                {
+                    result -= GetMalusForEnvironment(RadiationTolerance, star.Radiation, maxMalus);
+                }
+                if (g > 1)
+                {
+                    result -= GetMalusForEnvironment(GravityTolerance, star.Gravity, maxMalus);
+                }
+                if (t > 1)
+                {
+                    result -= GetMalusForEnvironment(TemperatureTolerance, star.Temperature, maxMalus);
+                }
+                return result / 100.0;
+            }
 
+            double x = 0;
+            double y = 0;
+            double z = 0;
+
+            if (g > 0.5)
+            {
+                x = g - 0.5;
+            }
+            if (t > 0.5)
+            {
+                y = t - 0.5;
+            }
+            if (r > 0.5)
+            {
+                z = r - 0.5;
+            }
+
+            double h = Math.Sqrt(
+                            ((1 - g) * (1 - g)) + ((1 - t) * (1 - t)) + ((1 - r) * (1 - r))) * (1 - x) * (1 - y) * (1 - z)
+                                 / Math.Sqrt(3.0);
+            return h;
+        }
+
+        /// <summary>
+        /// Calculate this race's Habitability for a given star report.
+        /// </summary>
+        /// <param name="report">The star report for which the Habitability is being determined.</param>
+        /// <returns>The normalised habitability of the star (-1 to +1).</returns>
+        public double HabitalValue(StarIntel report)
+        {
+            Star star = new Star();
+            star.Gravity = report.Gravity;
+            star.Radiation = report.Radiation;
+            star.Temperature = report.Temperature;
+            
+            return HabitalValue(star);
+        }
+        
+        private int GetMaxMalus()
+        {
+            int maxMalus = 15;
+            if (HasTrait("TT"))
+            {
+                maxMalus = 30;
+            }
+            return maxMalus;
+        }
+
+        private int GetMalusForEnvironment(EnvironmentTolerance tolerance, int starValue, int maxMalus)
+        {
+            if (starValue > tolerance.MaximumValue)
+            {
+                return Math.Min(maxMalus, starValue - tolerance.MaximumValue);
+            }
+            else if (starValue < tolerance.MinimumValue)
+            {
+                return Math.Min(maxMalus, tolerance.MinimumValue - starValue);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        
+        /// <summary>
+        /// Clicks_from_center/Total_clicks_from_center_to_edge 
+        /// </summary>
+        /// <param name="tol"></param>
+        /// <param name="starValue"></param>
+        /// <returns></returns>
+        private double NormalizeHabitalityDistance(EnvironmentTolerance tol, int starValue)
+        {
+            if (tol.Immune)
+            {
+                return 0.0;
+            }
+
+            int minv = tol.MinimumValue;
+            int maxv = tol.MaximumValue;
+            int span = Math.Abs(maxv - minv);
+            double totalClicksFromCenterToEdge = span / 2;
+            double centre = minv + totalClicksFromCenterToEdge;
+            double clicksFromCenter = Math.Abs(centre - starValue);
+            return clicksFromCenter / totalClicksFromCenterToEdge;
+        }
+        
         /// <summary>
         /// Calculate the number of resources this race requires to construct a factory.
         /// </summary>
@@ -131,10 +260,6 @@ namespace Nova.Common
             }
             return this.Traits.Contains(trait);
         }
-
-        #endregion
-
-        #region Properties
 
         /// <summary>
         /// The maximum planetary population for this race.
@@ -184,8 +309,6 @@ namespace Nova.Common
             return population;
         }
 
-        #endregion
-
         // Quick and dirty way to clone a race but has the big advantage
         // of picking up XML changes automagically
         public Race Clone()
@@ -196,8 +319,6 @@ namespace Nova.Common
             ret.LoadRaceFromXml(ele);
             return ret;
         }
-
-        #region Load Save Xml
 
         /// <summary>
         /// Save: Serialise this Race to an <see cref="XmlElement"/>.
@@ -379,7 +500,5 @@ namespace Nova.Common
                 xmlnode = xmlnode.NextSibling;
             }
         }
-
-        #endregion
     }
 }

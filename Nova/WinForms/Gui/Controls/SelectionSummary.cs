@@ -64,7 +64,7 @@ namespace Nova.WinForms.Gui
         /// <param name="Item"></param>
         private void DisplayPlanet(Item item)
         {
-            if (empireState.OwnedStars[item.Name].Year == 0)
+            if (empireState.StarReports[item.Name].Year == Global.Unset)
             {
                 this.selectedItem.Text = item.Name + " is unexplored";
                 summaryItem = null;
@@ -74,7 +74,7 @@ namespace Nova.WinForms.Gui
 
             this.selectedItem.Text = "Summary of " + item.Name;
             planetSummary.Location = new Point(5, 15);
-            planetSummary.Value = item as Star;
+            planetSummary.Value = item as StarIntel;
 
             // If we are displaying a fleet clear it out and add the planet
             // Summary display.
@@ -98,7 +98,7 @@ namespace Nova.WinForms.Gui
             fleetSummary.Location = new Point(5, 15);
             fleetSummary.Value = item as Fleet;
 
-            if (summaryItem is Star || summaryItem == null)
+            if (summaryItem is StarIntel || summaryItem == null)
             {
                 this.selectedItem.Controls.Clear();
                 this.selectedItem.Controls.Add(fleetSummary);

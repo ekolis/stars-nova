@@ -32,7 +32,7 @@ namespace Nova.Common
     /// Base class for most game items. 
     /// </summary>
     [Serializable]
-    public class Item
+    public class Item : IComparable<Item>
     {     
         /// <summary>
         /// Backing store for the game wide unique key. 
@@ -75,8 +75,11 @@ namespace Nova.Common
         /// Position of the Item (if any)
         /// </summary>
         public NovaPoint Position = new NovaPoint();
-
-        #region Construction
+        
+        /// <summary>
+        /// Distance to an arbitrary position, used to sort Items by distance.
+        /// </summary>
+        public double sortableDistance;
 
         /// <summary>
         /// Default Construction
@@ -103,10 +106,6 @@ namespace Nova.Common
             this.Position = existing.Position;
             this.Cost = new Resources(existing.Cost);
         }
-
-        #endregion
-
-        #region Properties
         
         /// <summary>
         /// Property for accessing the game wide unique key.
@@ -162,10 +161,20 @@ namespace Nova.Common
             }
         }
         
-        #endregion
+        /// <summary>
+        /// Compares this Item's sortableDistance with another's.
+        /// </summary>
+        /// <param name="other">The Item to compare this to</param>
+        public int CompareTo(Item other)
+        {
+            // Put stars first
+            if (Type == ItemType.Star && other.Type != ItemType.Star)
+                return -1;
 
-        #region Save Load Xml
-
+            Item rhs = (Item)other;
+            return sortableDistance.CompareTo(rhs.sortableDistance);
+        }
+        
         /// <summary>
         /// Load: Initialising constructor from an XmlNode representing the Item (from a save file).
         /// </summary>
@@ -207,7 +216,7 @@ namespace Nova.Common
                 {
                     switch (subnode.Name.ToLower())
                     {
-                        case "itemid":
+                        case "key":
                             key = long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                             break;
                         case "mass":
@@ -248,7 +257,7 @@ namespace Nova.Common
         {
             XmlElement xmlelItem = xmldoc.CreateElement("Item");
 
-            Global.SaveData(xmldoc, xmlelItem, "ItemId", Key.ToString("X"));
+            Global.SaveData(xmldoc, xmlelItem, "Key", Key.ToString("X"));
             
             if (Name != null)
             {
@@ -275,8 +284,5 @@ namespace Nova.Common
             }
             return xmlelItem;
         }
-
-        #endregion
-
     }
 }

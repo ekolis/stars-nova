@@ -134,6 +134,7 @@ namespace Nova.Common
        // Defaults
        public const int NoOwner = 0x00000000; // As an empire Id cannot be 0, it is used for no owner.
        public const int AllEmpires = NoOwner;
+       public const int Unset = -10000;
 
        #endregion
 
