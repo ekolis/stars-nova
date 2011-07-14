@@ -152,7 +152,7 @@ namespace Nova.Server
                 }
 
                 // load the orders for each star. 
-                foreach (StarIntel star in playerOrders.EmpireStatus.OwnedStars.Values)
+                foreach (Star star in playerOrders.EmpireStatus.OwnedStars.Values)
                 {
                     stateData.AllEmpires[empire.Id].OwnedStars[star.Name] = star;
                     if (star.Owner == empire.Id)
@@ -197,7 +197,7 @@ namespace Nova.Server
             }
             // Star reference to Race
             // Star reference to Fleet (starbase)
-            foreach (StarIntel star in playerOrders.EmpireStatus.OwnedStars.Values)
+            foreach (Star star in playerOrders.EmpireStatus.OwnedStars.Values)
             {
                 if (star.ThisRace != null)
                 {

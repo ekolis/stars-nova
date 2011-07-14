@@ -119,7 +119,7 @@ namespace Nova.Tests.IntegrationTests
                 Star testStar = new Star();
                 testStar.Name = "Pluto";
                 testStar.Colonists = 25000;
-                testData.EmpireState.OwnedStars.Add(new StarIntel(testStar, IntelLevel.Owned, testData.EmpireState.TurnYear));
+                testData.EmpireState.StarReports.Add(testStar.Name, testStar.GenerateReport(ScanLevel.Owned, testData.EmpireState.TurnYear));
 
 
                 // setup the file name

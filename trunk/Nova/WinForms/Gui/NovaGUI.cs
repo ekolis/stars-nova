@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -356,15 +356,14 @@ namespace Nova.WinForms.Gui
 
             // Select a Star owned by the player (if any) as the default display.
 
-            foreach (StarIntel starIntel in stateData.EmpireState.OwnedStars.Values)
+            foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
             {
-                Star star = starIntel;
-                if (star.Owner == stateData.EmpireState.Id)
+                if (report.Owner == stateData.EmpireState.Id)
                 {
-                    MapControl.SetCursor(star.Position);
-                    MapControl.CenterMapOnPoint(star.Position);
-                    SelectionDetail.Value = star;
-                    SelectionSummary.Value = star;
+                    MapControl.SetCursor(report.Position);
+                    MapControl.CenterMapOnPoint(report.Position);
+                    SelectionDetail.Value = stateData.EmpireState.OwnedStars[report.Name];
+                    SelectionSummary.Value = report;
                     break;
                 }
             }
@@ -375,24 +374,23 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         public void NextTurn()
         {
-            this.Messages.Year = stateData.EmpireState.TurnYear;
-            this.Messages.MessageList = stateData.Messages;
+            Messages.Year = stateData.EmpireState.TurnYear;
+            Messages.MessageList = stateData.Messages;
 
-            this.Invalidate(true);
+            Invalidate(true);
 
-            this.MapControl.Initialise(stateData);
-            this.MapControl.Invalidate();
+            MapControl.Initialise(stateData);
+            MapControl.Invalidate();
 
             // Select a Star owned by the player (if any) as the default display.
 
-            foreach (StarIntel starIntel in stateData.EmpireState.OwnedStars.Values)
+            foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
             {
-                Star star = starIntel;
-                if (star.Owner == stateData.EmpireState.Id)
+                if (report.Owner == stateData.EmpireState.Id)
                 {
-                    this.MapControl.SetCursor((System.Drawing.Point)star.Position);
-                    this.SelectionDetail.Value = star;
-                    this.SelectionSummary.Value = star;
+                    MapControl.SetCursor((System.Drawing.Point)report.Position);
+                    SelectionDetail.Value = stateData.EmpireState.OwnedStars[report.Name];
+                    SelectionSummary.Value = report;
                     break;
                 }
             }

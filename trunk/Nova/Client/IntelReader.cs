@@ -155,7 +155,7 @@ namespace Nova.Client
             
             // Star reference to Race
             // Star reference to Fleet (starbase)
-            foreach (StarIntel star in stateData.EmpireState.OwnedStars.Values)
+            foreach (Star star in stateData.EmpireState.OwnedStars.Values)
             {
                 if (star.ThisRace != null)
                 {
@@ -300,12 +300,12 @@ namespace Nova.Client
                             null,
                             "All existing planetary scanners has been replaced by " + component.Name + " " + component.Type,
                             null);
-                        foreach (StarIntel report in stateData.EmpireState.OwnedStars.Values)
+                        foreach (Star star in stateData.EmpireState.OwnedStars.Values)
                         {
-                            if (report.Owner == stateData.EmpireState.Id &&
-                                report.ScannerType != string.Empty)
+                            if (star.Owner == stateData.EmpireState.Id &&
+                                star.ScannerType != string.Empty)
                             {
-                                report.ScannerType = component.Name;
+                                star.ScannerType = component.Name;
                             }
                         }
                     }

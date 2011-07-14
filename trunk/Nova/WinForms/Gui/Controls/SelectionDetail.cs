@@ -87,7 +87,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplayPlanet(Item item)
         {
-            PlanetDetail.Value = item as StarIntel;
+            PlanetDetail.Value = item as Star;
             
             selectedControl = PlanetDetail;
             Controls.Clear();

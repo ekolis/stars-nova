@@ -40,7 +40,7 @@ namespace Nova.WinForms.Gui
         private readonly EmpireData empireState;        
        
         // reference to the Star. This is only used for owned stars.
-        private Star currentStar;
+        private StarIntel currentStar;
         
         private System.ComponentModel.IContainer components;
         private Label reportAge;
@@ -445,84 +445,73 @@ namespace Nova.WinForms.Gui
         }
         
         /// <Summary>
-        /// Select the Star whose details are to be displayed
+        /// Select the Star whose summary is to be displayed
         /// </Summary>
-        public Star Value
+        public StarIntel Value
         {
             set
             {
-                this.currentStar = value;
+                currentStar = value;
+                int reportYear = empireState.StarReports[value.Name].Year;
                 
-                int habValue = (int)Math.Ceiling(value.HabitalValue(empireState.Race) * 100);
+                int habValue = (int)Math.Ceiling(empireState.Race.HabitalValue(value) * 100);
                 
-                if (empireState.OwnedStars[value.Name].Year == 0)
+                this.planetValue.Text = habValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
+                if (habValue < 0)
                 {
-                    this.planetValue.Text = "???";
-                    this.planetValue.ForeColor = Color.Empty;
+                    this.planetValue.ForeColor = Color.Red;
                 }
                 else
                 {
-                    this.planetValue.Text = habValue.ToString(System.Globalization.CultureInfo.InvariantCulture) + "%";
-                    if (habValue < 0)
-                    {
-                        this.planetValue.ForeColor = Color.Red;
-                    }
-                    else
-                    {
-                        this.planetValue.ForeColor = Color.Green;
-                    } 
+                    this.planetValue.ForeColor = Color.Green;
+                } 
+
+                if (empireState.StarReports[value.Name].Colonists == 0)
+                {
+                    this.population.Text = "Uninhabited";
+                }
+                else
+                {
+                    this.population.Text = "Population: " + empireState.OwnedStars[value.Name].Colonists;
                 }
 
-                               
-    
-                if (empireState.OwnedStars[value.Name].Year == 0)
-                {
-                    this.population.Text = "???";
-                }
-                else
-                {
-                    if (empireState.OwnedStars[value.Name].Colonists == 0)
-                    {
-                        this.population.Text = "Uninhabited";
-                    }
-                    else
-                    {
-                        this.population.Text = "Population: " + empireState.OwnedStars[value.Name].Colonists;
-                    }
-                }
-    
-                if (empireState.OwnedStars[value.Name].Year == 0)
-                {
-                    this.reportAge.Text = "No Report";
-                }
-                else if (empireState.OwnedStars[value.Name].Year == empireState.TurnYear)
+                if (reportYear == empireState.TurnYear)
                 {
                     this.reportAge.Text = "Report is current";
                 }
-                else if (empireState.OwnedStars[value.Name].Year == empireState.TurnYear - 1)
+                else if (reportYear == empireState.TurnYear - 1)
                 {
                     this.reportAge.Text = "Report is 1 year old";
                 }
                 else
                 {
-                    this.reportAge.Text = "Report is " + (empireState.TurnYear - empireState.OwnedStars[value.Name].Year) + " years old";
+                    this.reportAge.Text = "Report is " + (empireState.TurnYear - reportYear) + " years old";
+                }
+                
+                if (value.Owner == empireState.Id)
+                {
+                    this.ironiumGauge.Value = empireState.OwnedStars[value.Name].ResourcesOnHand.Ironium;
+                    this.boraniumGauge.Value = empireState.OwnedStars[value.Name].ResourcesOnHand.Boranium;
+                    this.germaniumGauge.Value = empireState.OwnedStars[value.Name].ResourcesOnHand.Germanium;
+                }
+                else
+                {
+                    this.ironiumGauge.Value = 0;
+                    this.boraniumGauge.Value = 0;
+                    this.germaniumGauge.Value = 0;
                 }
 
-                this.ironiumGauge.Value = empireState.OwnedStars[value.Name].ResourcesOnHand.Ironium;
-                this.boraniumGauge.Value = empireState.OwnedStars[value.Name].ResourcesOnHand.Boranium;
-                this.germaniumGauge.Value = empireState.OwnedStars[value.Name].ResourcesOnHand.Germanium;
+                this.ironiumGauge.Marker = empireState.StarReports[value.Name].MineralConcentration.Ironium;
+                this.boraniumGauge.Marker = empireState.StarReports[value.Name].MineralConcentration.Boranium;
+                this.germaniumGauge.Marker = empireState.StarReports[value.Name].MineralConcentration.Germanium;
 
-                this.ironiumGauge.Marker = empireState.OwnedStars[value.Name].MineralConcentration.Ironium;
-                this.boraniumGauge.Marker = empireState.OwnedStars[value.Name].MineralConcentration.Boranium;
-                this.germaniumGauge.Marker = empireState.OwnedStars[value.Name].MineralConcentration.Germanium;
+                this.radiationGauge.Marker = empireState.StarReports[value.Name].Radiation;
+                this.gravityGauge.Marker = empireState.StarReports[value.Name].Gravity;
+                this.temperatureGauge.Marker = empireState.StarReports[value.Name].Temperature;
 
-                this.radiationGauge.Marker = empireState.OwnedStars[value.Name].Radiation;
-                this.gravityGauge.Marker = empireState.OwnedStars[value.Name].Gravity;
-                this.temperatureGauge.Marker = empireState.OwnedStars[value.Name].Temperature;
-
-                this.radiationLevel.Text = empireState.OwnedStars[value.Name].Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
-                this.gravityLevel.Text = Gravity.FormatWithUnit(empireState.OwnedStars[value.Name].Gravity); 
-                this.temperatureLevel.Text = Temperature.FormatWithUnit(empireState.OwnedStars[value.Name].Temperature);
+                this.radiationLevel.Text = empireState.StarReports[value.Name].Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture) + "mR";
+                this.gravityLevel.Text = Gravity.FormatWithUnit(empireState.StarReports[value.Name].Gravity); 
+                this.temperatureLevel.Text = Temperature.FormatWithUnit(empireState.StarReports[value.Name].Temperature);
 
                 if (empireState.Race.RadiationTolerance.Immune)
                 {
@@ -563,9 +552,9 @@ namespace Nova.WinForms.Gui
         {               
             string tt = "";
             
-            if (this.currentStar != null
-                && this.currentStar.Owner == empireState.Id
-                && empireState.OwnedStars[currentStar.Name].Year == 0)
+            if (currentStar != null
+                && currentStar.Owner == empireState.Id
+                && empireState.StarReports[currentStar.Name].Year == Global.Unset)
             {
                         
             tt += "Your population on " + currentStar.Name + " is " + currentStar.Colonists + "." + Environment.NewLine           
@@ -573,9 +562,9 @@ namespace Nova.WinForms.Gui
                 + empireState.Race.MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " of your colonists." + Environment.NewLine
                 + "Your population on " + currentStar.Name + " will grow by "
-                + currentStar.CalculateGrowth(empireState.Race).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + empireState.OwnedStars[currentStar.Name].CalculateGrowth(empireState.Race).ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " to "
-                + (currentStar.Colonists + currentStar.CalculateGrowth(empireState.Race)).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                + (currentStar.Colonists + empireState.OwnedStars[currentStar.Name].CalculateGrowth(empireState.Race)).ToString(System.Globalization.CultureInfo.InvariantCulture)
                 + " next year.";             
             }
 

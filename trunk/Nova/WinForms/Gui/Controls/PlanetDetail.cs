@@ -36,7 +36,7 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class PlanetDetail : System.Windows.Forms.UserControl
     {
-        private StarIntel selectedStar;
+        private Star selectedStar;
         private readonly EmpireData empireState;
         
         // FIXME:(priority 3) this should not be here. It is only needed to pass it
@@ -102,7 +102,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void NextPlanet_Click(object sender, EventArgs e)
         {
-            if (empireState.OwnedStars.Owned(empireState.Id) == 1)
+            if (empireState.OwnedStars.Count == 1)
             {
                 previousPlanet.Enabled = false;
                 nextPlanet.Enabled = false;
@@ -112,7 +112,7 @@ namespace Nova.WinForms.Gui
             previousPlanet.Enabled = true;
             nextPlanet.Enabled = true;
 
-            selectedStar = empireState.OwnedStars.GetNextOwned(empireState.OwnedStars[selectedStar.Name]);
+            selectedStar = empireState.OwnedStars.GetNext(empireState.OwnedStars[selectedStar.Name]);
 
             // Inform of the selection change to all listening objects.
             FireStarSelectionChangedEvent();
@@ -129,7 +129,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void PreviousPlanet_Click(object sender, EventArgs e)
         {
-            if (empireState.OwnedStars.Owned(empireState.Id) == 1)
+            if (empireState.OwnedStars.Count == 1)
             {
                 previousPlanet.Enabled = false;
                 nextPlanet.Enabled = false;
@@ -139,7 +139,7 @@ namespace Nova.WinForms.Gui
             previousPlanet.Enabled = true;
             nextPlanet.Enabled = true;
 
-            selectedStar = empireState.OwnedStars.GetPreviousOwned(empireState.OwnedStars[selectedStar.Name]);
+            selectedStar = empireState.OwnedStars.GetPrevious(empireState.OwnedStars[selectedStar.Name]);
 
             // Inform of the selection change to all listening objects.
             FireStarSelectionChangedEvent();
@@ -164,7 +164,7 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="selectedStar">The Star to be displayed</param>
         /// ----------------------------------------------------------------------------
-        private void SetStarDetails(StarIntel selectedStar)
+        private void SetStarDetails(Star selectedStar)
         {
             if (selectedStar == null)
                 return;
@@ -175,7 +175,7 @@ namespace Nova.WinForms.Gui
 
             groupPlanetSelect.Text = "Planet " + selectedStar.Name;
 
-            if (empireState.OwnedStars.Owned(empireState.Id) > 1)
+            if (empireState.OwnedStars.Count > 1)
             {                
                 previousPlanet.Enabled = true;
                 nextPlanet.Enabled = true;
@@ -282,7 +282,7 @@ namespace Nova.WinForms.Gui
         /// Access to the Star Report whose details are displayed in the panel.
         /// </Summary>
         /// ----------------------------------------------------------------------------
-        public StarIntel Value
+        public Star Value
         {
             set { SetStarDetails(value); }
             get { return selectedStar; }

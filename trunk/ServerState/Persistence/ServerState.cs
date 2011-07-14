@@ -94,10 +94,7 @@ namespace Nova.Server
                         
                         case "gameinprogress":
                             GameInProgress = bool.Parse(xmlnode.FirstChild.Value);
-                            break;                        
-                        //case "fleetid":
-                        //    FleetID = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                        //    break;                        
+                            break;                                                
                         case "turnyear":
                             TurnYear = int.Parse(xmlnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;                        
@@ -133,7 +130,7 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                AllTechLevels.Add(int.Parse(tNode.Attributes["Id"].Value, System.Globalization.NumberStyles.HexNumber),
+                                AllTechLevels.Add(int.Parse(tNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber),
                                                   int.Parse(tNode.FirstChild.Value));
                                 tNode = tNode.NextSibling;
                             }
@@ -143,7 +140,7 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                long designKey = long.Parse(tNode.Attributes["Id"].Value, System.Globalization.NumberStyles.HexNumber);
+                                long designKey = long.Parse(tNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber);
                                 if (tNode.Name.ToLower() == "design")
                                 {
                                     AllDesigns.Add(designKey, new Design(tNode));
@@ -174,7 +171,7 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                AllEmpires.Add(int.Parse(tNode.Attributes["Id"].Value, System.Globalization.NumberStyles.HexNumber),
+                                AllEmpires.Add(int.Parse(tNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber),
                                                new EmpireData(tNode));
                                 tNode = tNode.NextSibling;
                             }
@@ -186,7 +183,7 @@ namespace Nova.Server
                             {
                                 Race race = new Race();
                                 race.LoadRaceFromXml(tNode);
-                                AllRaces.Add(tNode.Attributes["Id"].Value, race);
+                                AllRaces.Add(tNode.Attributes["Key"].Value, race);
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -195,7 +192,7 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                AllStars.Add(tNode.Attributes["Id"].Value, new Star(tNode));
+                                AllStars.Add(tNode.Attributes["Key"].Value, new Star(tNode));
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -204,7 +201,7 @@ namespace Nova.Server
                             tNode = xmlnode.FirstChild;
                             while (tNode != null)
                             {
-                                AllMinefields.Add(int.Parse(tNode.Attributes["Id"].Value, System.Globalization.NumberStyles.HexNumber), new Minefield(tNode));
+                                AllMinefields.Add(int.Parse(tNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber), new Minefield(tNode));
                                 tNode = tNode.NextSibling;
                             }
                             break;
@@ -312,7 +309,7 @@ namespace Nova.Server
             foreach (KeyValuePair<string, Race> race in AllRaces)
             {
                 child = race.Value.ToXml(xmldoc);
-                child.SetAttribute("Id", race.Key);                
+                child.SetAttribute("Key", race.Key);                
                 xmlelAllRaces.AppendChild(child);
             }
             xmlelServerState.AppendChild(xmlelAllRaces);
@@ -322,7 +319,7 @@ namespace Nova.Server
             foreach (KeyValuePair<int, EmpireData> empireData in AllEmpires)
             {
                 child = empireData.Value.ToXml(xmldoc);
-                child.SetAttribute("Id", empireData.Key.ToString("X"));
+                child.SetAttribute("Key", empireData.Key.ToString("X"));
                 xmlelAllEmpires.AppendChild(child);
             }
             xmlelServerState.AppendChild(xmlelAllEmpires);
@@ -332,7 +329,7 @@ namespace Nova.Server
             foreach (KeyValuePair<int, int> techLevels in AllTechLevels)
             {
                 child = xmldoc.CreateElement("TechLevels");                
-                child.SetAttribute("Id", techLevels.Key.ToString("X"));
+                child.SetAttribute("Key", techLevels.Key.ToString("X"));
                 child.InnerText = techLevels.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 xmlelAllTechLevels.AppendChild(child);
             }
@@ -343,7 +340,7 @@ namespace Nova.Server
             foreach (KeyValuePair<string, Star> star in AllStars)
             {
                 child = star.Value.ToXml(xmldoc);
-                child.SetAttribute("Id", star.Key);                
+                child.SetAttribute("Key", star.Key);                
                 xmlelAllStars.AppendChild(child);
             }
             xmlelServerState.AppendChild(xmlelAllStars);
@@ -362,7 +359,7 @@ namespace Nova.Server
                     child = design.Value.ToXml(xmldoc);
                 }    
                 
-                child.SetAttribute("Id", design.Key.ToString("X"));
+                child.SetAttribute("Key", design.Key.ToString("X"));
                 xmlelAllDesigns.AppendChild(child);                                            
             }
             xmlelServerState.AppendChild(xmlelAllDesigns);
@@ -372,7 +369,7 @@ namespace Nova.Server
             foreach (KeyValuePair<long, Fleet> fleet in AllFleets)
             {   
                 child = fleet.Value.ToXml(xmldoc);
-                child.SetAttribute("Id", fleet.Key.ToString("X"));                
+                child.SetAttribute("Key", fleet.Key.ToString("X"));                
                 xmlelAllFleets.AppendChild(child);
             }
             xmlelServerState.AppendChild(xmlelAllFleets);
@@ -382,7 +379,7 @@ namespace Nova.Server
             foreach (KeyValuePair<long, Minefield> minefield in AllMinefields)
             {
                 child = minefield.Value.ToXml(xmldoc);
-                child.SetAttribute("Id", minefield.Key.ToString("X"));                
+                child.SetAttribute("Key", minefield.Key.ToString("X"));                
                 xmlelAllMinefields.AppendChild(child);
             }
             xmlelServerState.AppendChild(xmlelAllMinefields);
@@ -487,24 +484,24 @@ namespace Nova.Server
                     }
                 }
                  
-                foreach (StarIntel report in empire.OwnedStars.Values)
+                foreach (Star star in empire.OwnedStars.Values)
                 {
-                    if (report.ThisRace != null)
+                    if (star.ThisRace != null)
                     {
                         // Reduntant, but works to check if race name is valid...
-                        if (report.Owner == empire.Id)
+                        if (star.Owner == empire.Id)
                         {
-                            report.ThisRace = empire.Race;
+                            star.ThisRace = empire.Race;
                         }
                         else
                         {
-                            report.ThisRace = null;
+                            star.ThisRace = null;
                         }
                     }
     
-                    if (report.Starbase != null)
+                    if (star.Starbase != null)
                     {
-                        report.Starbase = AllFleets[report.Starbase.Key];
+                        star.Starbase = AllFleets[star.Starbase.Key];
                     }
                 }
             }

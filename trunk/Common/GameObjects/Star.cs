@@ -20,26 +20,22 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This object represents a Star system, the basic unit of stars-nova settlement/expansion.
-// ===========================================================================
-#endregion
-
 using System.Globalization;
 
 namespace Nova.Common
 {
     using System;
     using System.Xml;
+    
+    using Nova.Common;
 
     /// <summary>
-    /// Star Class
+    /// This object represents a Star system, the basic unit of stars-nova settlement/expansion.
     /// </summary>
     [Serializable]
     public class Star : Item
     {
-        public bool OrbitingFleets;
+        public bool HasFleetsInOrbit;
         public ProductionQueue ManufacturingQueue;
         public Resources MineralConcentration;
         public Resources ResourcesOnHand;
@@ -75,8 +71,6 @@ namespace Nova.Common
         /// </summary>
         public Race ThisRace = null;
 
-        #region Construction
-
         /// <summary>
         /// default constructor
         /// </summary>
@@ -88,11 +82,6 @@ namespace Nova.Common
             this.ResourcesOnHand = new Resources();
             Type = ItemType.Star;
         }
-
-        #endregion
-
-        // Methods that access or calculate values without changing the Star system.
-        #region Information Methods
 
         /// <summary>
         /// Determine the number of factories that can be operated.
@@ -289,134 +278,7 @@ namespace Nova.Common
             
             return (int)Math.Ceiling(capacity);
         }
-
-
-        /// <summary>
-        /// Calculate this star's Habitability for a given race.
-        /// </summary>
-        /// <param name="race">The race for which the Habitability is being determined.</param>
-        /// <returns>The normalised habitability of this star (-1 to +1).</returns>
-        /// <remarks>
-        /// This algorithm is taken from the Stars! Technical FAQ:
-        /// http://www.starsfaq.com/advfaq/contents.htm
-        ///
-        /// Return the habital value of this star for the specified race (in the range
-        /// -1 to +1 where 1 = 100%). Note that the star environment values are
-        /// percentages of the total range.
-        ///
-        /// The full equation (from the Stars! Technical FAQ) is: 
-        ///
-        /// Hab% = SQRT[(1-g)^2+(1-t)^2+(1-r)^2]*(1-x)*(1-y)*(1-z)/SQRT[3] 
-        ///
-        /// Where g, t,and r (stand for gravity, temperature, and radiation)are given
-        /// by Clicks_from_center/Total_clicks_from_center_to_edge and where x,y, and z
-        /// are:
-        ///
-        /// x=g-1/2 for g>1/2
-        /// x=0 for g less than 1/2 
-        /// y=t-1/2 for t>1/2
-        /// y=0 for t less than 1/2 
-        /// z=r-1/2 for r>1/2
-        /// z=0 for r less than 1/2 
-        /// </remarks>
-        public double HabitalValue(Race race)
-        {
-            double r = NormalizeHabitalityDistance(race.RadiationTolerance, Radiation);
-            double g = NormalizeHabitalityDistance(race.GravityTolerance, Gravity);
-            double t = NormalizeHabitalityDistance(race.TemperatureTolerance, Temperature);
-
-            if (r > 1 || g > 1 || t > 1)
-            {
-                // currently not habitable
-                int result = 0;
-                int maxMalus = GetMaxMalus(race);
-                if (r > 1)
-                {
-                    result -= GetMalusForEnvironment(race.RadiationTolerance, Radiation, maxMalus);
-                }
-                if (g > 1)
-                {
-                    result -= GetMalusForEnvironment(race.GravityTolerance, Gravity, maxMalus);
-                }
-                if (t > 1)
-                {
-                    result -= GetMalusForEnvironment(race.TemperatureTolerance, Temperature, maxMalus);
-                }
-                return result / 100.0;
-            }
-
-            double x = 0;
-            double y = 0;
-            double z = 0;
-
-            if (g > 0.5)
-            {
-                x = g - 0.5;
-            }
-            if (t > 0.5)
-            {
-                y = t - 0.5;
-            }
-            if (r > 0.5)
-            {
-                z = r - 0.5;
-            }
-
-            double h = Math.Sqrt(
-                            ((1 - g) * (1 - g)) + ((1 - t) * (1 - t)) + ((1 - r) * (1 - r))) * (1 - x) * (1 - y) * (1 - z)
-                                 / Math.Sqrt(3.0);
-            return h;
-        }
-
-        private static int GetMaxMalus(Race race)
-        {
-            int maxMalus = 15;
-            if (race.HasTrait("TT"))
-            {
-                maxMalus = 30;
-            }
-            return maxMalus;
-        }
-
-        private int GetMalusForEnvironment(EnvironmentTolerance tolerance, int starValue, int maxMalus)
-        {
-            if (starValue > tolerance.MaximumValue)
-            {
-                return Math.Min(maxMalus, starValue - tolerance.MaximumValue);
-            }
-            else if (starValue < tolerance.MinimumValue)
-            {
-                return Math.Min(maxMalus, tolerance.MinimumValue - starValue);
-            }
-            else
-            {
-                return 0;
-            }
-        }
-
-        /// <summary>
-        /// Clicks_from_center/Total_clicks_from_center_to_edge 
-        /// </summary>
-        /// <param name="tol"></param>
-        /// <param name="starValue"></param>
-        /// <returns></returns>
-        private double NormalizeHabitalityDistance(EnvironmentTolerance tol, int starValue)
-        {
-            if (tol.Immune)
-            {
-                return 0.0;
-            }
-
-            int minv = tol.MinimumValue;
-            int maxv = tol.MaximumValue;
-            int span = Math.Abs(maxv - minv);
-            double totalClicksFromCenterToEdge = span / 2;
-            double centre = minv + totalClicksFromCenterToEdge;
-            double clicksFromCenter = Math.Abs(centre - starValue);
-            return clicksFromCenter / totalClicksFromCenterToEdge;
-        }
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Calculates the growth for the star.
         /// </summary>
@@ -425,10 +287,9 @@ namespace Nova.Common
         /// <remarks>
         /// See Upadate()
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public int CalculateGrowth(Race race)
         {
-            double habitalValue = HabitalValue(race);
+            double habitalValue = race.HabitalValue(this);
             double growthRate = race.GrowthRate;
 
             if (race.HasTrait("HyperExpansion"))
@@ -460,12 +321,7 @@ namespace Nova.Common
             finalGrowth *= 100;
             
             return finalGrowth;
-        }
-
-        #endregion
-
-        // These methods change the star system. They should only be called server side.
-        #region Action Methods     
+        } 
         
         /// <summary>
         /// Update the population of a star system.
@@ -587,10 +443,6 @@ namespace Nova.Common
             return mined;
         }
 
-        #endregion
-
-        #region Properties
-
         public int Defenses
         {
             set
@@ -630,10 +482,6 @@ namespace Nova.Common
             }
         }
 
-        #endregion
-
-        #region Load Save Xml
-
         /// <summary>
         /// Load: Initialising constructor to read in a Star from an XmlNode (from a saved file).
         /// </summary>
@@ -653,7 +501,7 @@ namespace Nova.Common
                     switch (subnode.Name.ToLower())
                     {
                         case "orbitingfleets":
-                            OrbitingFleets = bool.Parse(subnode.FirstChild.Value);
+                            HasFleetsInOrbit = bool.Parse(subnode.FirstChild.Value);
                             break;
                         case "productionqueue":
                             ManufacturingQueue = new ProductionQueue(subnode);
@@ -763,7 +611,7 @@ namespace Nova.Common
             xmlelResourcesOnHand.AppendChild(ResourcesOnHand.ToXml(xmldoc));
             xmlelStar.AppendChild(xmlelResourcesOnHand);
 
-            Global.SaveData(xmldoc, xmlelStar, "OrbitingFleets", OrbitingFleets.ToString());
+            Global.SaveData(xmldoc, xmlelStar, "OrbitingFleets", HasFleetsInOrbit.ToString());
   
             // Starbase and ThisRace are stored as references only (just the name is saved).
             if (Starbase != null)
@@ -820,11 +668,16 @@ namespace Nova.Common
             return xmlelStar;
         }
 
-        #endregion
-
         public override string ToString()
         {
             return "Star: " + Name;
+        }
+        
+        public StarIntel GenerateReport(ScanLevel scan, int year)
+        {
+            StarIntel report = new StarIntel(this, scan, year);
+            
+            return report;
         }
     }
 }

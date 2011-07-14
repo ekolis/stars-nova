@@ -1,7 +1,6 @@
 #region Copyright Notice
 // ============================================================================
-// Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -28,13 +27,12 @@ namespace Nova.Common
     /// Enumerates the different levels of knowledge amount
     /// for objects such as Stars and Fleets.
     /// </summary>
-    public enum IntelLevel
+    public enum ScanLevel
     {
-        None = 0, // never visited        
-        InScan = 1, // in range of non-penetrating scanner - not much better than None.
-        InPlace = 2, // Have a fleet in orbit
+        None = 0, // Never visited or currently not in range of any scanner.        
+        InScan = 1, // In range of non-penetrating scanner - not much better than None.
+        InPlace = 2, // Have a fleet in orbit or in same position as another fleet.
         InDeepScan = 3, // In range of a penetrating scanner.
         Owned = 4 // Best kind of star ;)
     }
 }
-
