@@ -18,7 +18,6 @@ namespace Nova.WinForms.Gui
     {
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FleetDetail));
             this.WaypointTasks = new System.Windows.Forms.ComboBox();
             this.label14 = new System.Windows.Forms.Label();
             this.warpText = new System.Windows.Forms.Label();
@@ -48,6 +47,7 @@ namespace Nova.WinForms.Gui
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.wayPoints = new Nova.WinForms.Gui.WaypointListBox();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.btnRename = new System.Windows.Forms.Button();
             this.fleetComposition = new System.Windows.Forms.ListView();
             this.typeHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.numberHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -242,9 +242,9 @@ namespace Nova.WinForms.Gui
             this.manageFleet.Name = "manageFleet";
             this.manageFleet.Size = new System.Drawing.Size(56, 23);
             this.manageFleet.TabIndex = 92;
-            this.manageFleet.Text = "Manage";
+            this.manageFleet.Text = "Split";
             this.manageFleet.UseVisualStyleBackColor = true;
-            this.manageFleet.Click += new System.EventHandler(this.MangeFleet_Click);
+            this.manageFleet.Click += new System.EventHandler(this.SplitFleetClick);
             // 
             // groupBox1
             // 
@@ -365,6 +365,7 @@ namespace Nova.WinForms.Gui
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.btnRename);
             this.groupBox4.Controls.Add(this.fleetComposition);
             this.groupBox4.Controls.Add(this.manageFleet);
             this.groupBox4.Location = new System.Drawing.Point(176, 119);
@@ -373,6 +374,16 @@ namespace Nova.WinForms.Gui
             this.groupBox4.TabIndex = 97;
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Fleet Composition";
+            // 
+            // btnRename
+            // 
+            this.btnRename.Location = new System.Drawing.Point(114, 116);
+            this.btnRename.Name = "btnRename";
+            this.btnRename.Size = new System.Drawing.Size(56, 23);
+            this.btnRename.TabIndex = 93;
+            this.btnRename.Text = "Rename";
+            this.btnRename.UseVisualStyleBackColor = true;
+            this.btnRename.Click += new System.EventHandler(this.RenameClick);
             // 
             // fleetComposition
             // 
@@ -622,6 +633,7 @@ namespace Nova.WinForms.Gui
         private Controls.CargoMeter meterFuelOther;
         private Label label10;
         private Label label11;
+        private Button btnRename;
         
     }
 }

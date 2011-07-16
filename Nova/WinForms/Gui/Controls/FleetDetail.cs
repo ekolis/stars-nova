@@ -237,7 +237,7 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         /// ----------------------------------------------------------------------------
-        private void MangeFleet_Click(object sender, EventArgs e)
+        private void SplitFleetClick(object sender, EventArgs e)
         {
             MessageBox.Show(this, "This needs redoing - sorry");
         }
@@ -593,6 +593,22 @@ namespace Nova.WinForms.Gui
                         UpdateCargoMeters();
                         Invalidate();
                     }
+                }
+            }
+        }
+        
+        private void RenameClick(object sender, EventArgs e)
+        {
+            using (RenameFleetDialog dia = new RenameFleetDialog())
+            {
+                dia.FleetName = selectedFleet.Name;
+                if (dia.ShowDialog() == DialogResult.OK)
+                {
+                    selectedFleet.Name = dia.FleetName;
+                    // Reselect fleet to update all UI
+                    FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);                    
+                    if (FleetSelectionChangedEvent != null)
+                        FleetSelectionChangedEvent(this, selectionArgs);
                 }
             }
         }
