@@ -23,8 +23,7 @@
 #region Module Description
 // ===========================================================================
 // Ship class. 
-// Note that ships never exist in isolation, they are always part
-// of a fleet. Consequently, all the movement attributes can be found in the
+// Note that ships never exist in isolation, they are always part// of a fleet. Consequently, all the movement attributes can be found in the
 // fleet class. 
 // ===========================================================================
 #endregion
@@ -55,8 +54,10 @@ namespace Nova.Common
         /// Create a ship of a specified design.
         /// </summary>
         /// <param name="shipDesign"></param>
-        public Ship(ShipDesign shipDesign)
+        public Ship(ShipDesign shipDesign, long key)
         {
+            Key = key;
+
             this.design = shipDesign;
             this.design.Update(); // ensure summary properties have been calculated
 
@@ -68,7 +69,7 @@ namespace Nova.Common
             Cost = shipDesign.Cost;
             Name = shipDesign.Name;
             Owner = shipDesign.Owner;
-            Type = shipDesign.Type;
+            Type = shipDesign.Type;            
         }
 
         /// <summary>
@@ -84,11 +85,17 @@ namespace Nova.Common
             this.design.Update(); // ensure summary properties are calculated
             Shields = copy.Shields;
             Armor = copy.Armor;
+            this.Key = copy.Key;
         }
 
         #endregion
 
         #region Methods
+
+        public ShipDesign Design
+        {
+            get { return design; }
+        }
 
         /// <summary>
         /// Replace the design of the ship

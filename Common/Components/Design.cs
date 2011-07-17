@@ -42,8 +42,9 @@ namespace Nova.Common.Components
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public Design() : base()
-        { 
+        public Design()
+            : base()
+        {
         }
 
         /// <summary>
@@ -69,6 +70,17 @@ namespace Nova.Common.Components
             xmlelDesign.AppendChild(base.ToXml(xmldoc));
 
             return xmlelDesign;
-        }        
+        }
+
+        public override int GetHashCode()
+        {
+            return Key.GetHashCode();
+        }
+
+        public override bool Equals(object obj)
+        {
+            Design des = obj as Design;
+            return des == null ? false : Key == des.Key;
+        }
     }
 }
