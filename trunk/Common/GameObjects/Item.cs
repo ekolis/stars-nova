@@ -78,6 +78,9 @@ namespace Nova.Common
         
         /// <summary>
         /// Distance to an arbitrary position, used to sort Items by distance.
+        /// TODO: see below
+        /// Oh this is not good design... this is a field used by StarMap, which should
+        /// really keep this data itself. It also means that CompareTo can be removed from this class
         /// </summary>
         public double sortableDistance;
 
@@ -165,6 +168,9 @@ namespace Nova.Common
         /// Compares this Item's sortableDistance with another's.
         /// </summary>
         /// <param name="other">The Item to compare this to</param>
+        /// TODO: see below
+        /// Oh this is not good design... this is used by StarMap, which should
+        /// really keep have a comparator for this. It also means that sortableDistance can be removed from this class
         public int CompareTo(Item other)
         {
             // Put stars first

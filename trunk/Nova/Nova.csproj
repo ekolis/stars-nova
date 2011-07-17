@@ -160,6 +160,12 @@
     <Compile Include="WinForms\Gui\Dialogs\CargoTransferDialog.Designer.cs">
       <DependentUpon>CargoTransferDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinForms\Gui\Dialogs\SplitFleetsDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="WinForms\Gui\Dialogs\SplitFleetsDialog.Designer.cs">
+      <DependentUpon>SplitFleetsDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\Gui\Dialogs\ProductionDialog.Designer.cs">
       <DependentUpon>ProductionDialog.cs</DependentUpon>
     </Compile>
@@ -364,6 +370,9 @@
     <EmbeddedResource Include="WinForms\Gui\Dialogs\CargoTransferDialog.resx">
       <DependentUpon>CargoTransferDialog.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="WinForms\Gui\Dialogs\SplitFleetsDialog.resx">
+      <DependentUpon>SplitFleetsDialog.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="WinForms\Gui\Dialogs\RenameFleetDialog.resx">
       <DependentUpon>RenameFleetDialog.cs</DependentUpon>
     </EmbeddedResource>
@@ -521,6 +530,7 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup />
-  <ItemGroup />
+  <ItemGroup>
+    <None Include="Resources\smallplus.png" />
+  </ItemGroup>
 </Project>

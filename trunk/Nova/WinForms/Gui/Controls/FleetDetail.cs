@@ -20,6 +20,7 @@
 // ===========================================================================
 #endregion
 
+using Nova.Common.Components;
 using Nova.WinForms.Gui.Dialogs;
 
 namespace Nova.WinForms.Gui
@@ -239,7 +240,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void SplitFleetClick(object sender, EventArgs e)
         {
-            MessageBox.Show(this, "This needs redoing - sorry");
+            DoSplitMerge();
         }
 
         /// ----------------------------------------------------------------------------
@@ -414,13 +415,13 @@ namespace Nova.WinForms.Gui
 
             groupFleetSelection.Text = "Fleet " + selectedFleet.Name;
 
-            Dictionary<string, int> designs = selectedFleet.Composition;
+            Dictionary<Design, int> designs = selectedFleet.Composition;
             fleetComposition.Items.Clear();
 
-            foreach (string key in designs.Keys)
+            foreach (KeyValuePair<Design, int> design in designs)
             {
-                ListViewItem listItem = new ListViewItem(key);
-                listItem.SubItems.Add(designs[key].ToString(System.Globalization.CultureInfo.InvariantCulture));
+                ListViewItem listItem = new ListViewItem(design.Key.Name);
+                listItem.SubItems.Add(design.Value.ToString(System.Globalization.CultureInfo.InvariantCulture));
                 fleetComposition.Items.Add(listItem);
             }
 
@@ -459,7 +460,6 @@ namespace Nova.WinForms.Gui
                 comboOtherFleets.SelectedIndex = 0;
             }
             buttonMerge.Enabled = haveFleets;
-//            buttonCargoXfer.Enabled = haveFleets && fleet.TotalCargoCapacity > 0; // dose not need cargo as we may want to xfer fuel - Dan 26 Jun 11
             buttonCargoXfer.Enabled = haveFleets;
             buttonGotoFleet.Enabled = haveFleets;
             
@@ -572,7 +572,18 @@ namespace Nova.WinForms.Gui
 
         private void buttonMerge_Click(object sender, EventArgs e)
         {
-            MessageBox.Show(this, "This will allow fleet merging");
+            Fleet newFleet = GetSelectedFleetAtLocation();
+            DoSplitMerge(newFleet);
+        }
+
+        private void DoSplitMerge( Fleet otherFleet = null)
+        {
+            using (SplitFleetDialog splitFleet = new SplitFleetDialog())
+            {
+                splitFleet.SetFleet(selectedFleet, otherFleet);
+                splitFleet.ShowDialog();
+                ReselectFleetToUpdateUi();    
+            }
         }
 
         private void buttonCargoXfer_Click(object sender, EventArgs e)
@@ -606,11 +617,16 @@ namespace Nova.WinForms.Gui
                 {
                     selectedFleet.Name = dia.FleetName;
                     // Reselect fleet to update all UI
-                    FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);                    
-                    if (FleetSelectionChangedEvent != null)
-                        FleetSelectionChangedEvent(this, selectionArgs);
+                    ReselectFleetToUpdateUi();
                 }
             }
+        }
+
+        private void ReselectFleetToUpdateUi()
+        {
+            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);                    
+            if (FleetSelectionChangedEvent != null)
+                FleetSelectionChangedEvent(this, selectionArgs);
         }
     }
 }

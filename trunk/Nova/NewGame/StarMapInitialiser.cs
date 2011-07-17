@@ -394,7 +394,7 @@ namespace Nova.NewGame
             
             if (empire.Race.Traits.Primary.Code != "HE")
             {
-                Ship cs = new Ship(colonyShipDesign);
+                Ship cs = new Ship(colonyShipDesign, empire.GetNextShipKey());
                 Fleet fleet1 = new Fleet(cs, star, empire.GetNextFleetKey());                               
                 fleet1.Name = colonyShipDesign.Name + " #1";
                 stateData.AllFleets[fleet1.Key] = fleet1;
@@ -403,7 +403,7 @@ namespace Nova.NewGame
             {
                 for (int i = 1; i <= 3; i++)
                 {
-                    Ship cs = new Ship(colonyShipDesign);
+                    Ship cs = new Ship(colonyShipDesign, empire.GetNextShipKey());
                     Fleet fleet = new Fleet(cs, star, empire.GetNextFleetKey());                    
                     fleet.Name = String.Format("{0} #{1}", colonyShipDesign.Name, i);                    
                     stateData.AllFleets[fleet.Key] = fleet;
@@ -419,7 +419,7 @@ namespace Nova.NewGame
                 }
             }
             
-            Ship scout = new Ship(scoutDesign);
+            Ship scout = new Ship(scoutDesign, empire.GetNextShipKey());
             Fleet scoutFleet = new Fleet(scout, star, empire.GetNextFleetKey());
             scoutFleet.Name = "Scout #1";       
             stateData.AllFleets[scoutFleet.Key] = scoutFleet;
@@ -433,7 +433,7 @@ namespace Nova.NewGame
                 }
             }
             
-            Ship starbase = new Ship(starbaseDesign);
+            Ship starbase = new Ship(starbaseDesign, empire.GetNextShipKey());
             Fleet starbaseFleet = new Fleet(starbase, star, empire.GetNextFleetKey());            
             starbaseFleet.Name = star.Name + " Starbase";
             stateData.AllFleets[starbaseFleet.Key] = starbaseFleet;

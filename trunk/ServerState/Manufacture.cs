@@ -253,11 +253,10 @@ namespace Nova.WinForms.Console
         {
             EmpireData empire = stateData.AllEmpires[star.Owner]; 
            
-
-            Ship ship = new Ship(design);
+            Ship ship = new Ship(design, empire.GetNextShipKey());
             ship.Name = design.Name;
             ship.Owner = star.Owner;
-
+        
             Message message = new Message();
             message.Audience = star.Owner;
             message.Text = star.Name + " has produced a new " + design.Name;

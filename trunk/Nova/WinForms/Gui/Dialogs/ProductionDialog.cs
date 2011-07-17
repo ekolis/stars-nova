@@ -99,7 +99,7 @@ namespace Nova.WinForms.Gui
                     // what the purpose of this next line (shadallark) ???
                     // Looks like it is ment to prevent the current starbase design being re-used - Dan.
                     // prevent the current starbase design from being re-used
-                    if (starbase != null && starbase.Composition.ContainsKey(design.Name))
+                    if (starbase != null && starbase.Composition.ContainsKey(design))
                     {
                         continue;
                     }

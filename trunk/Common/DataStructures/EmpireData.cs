@@ -79,6 +79,7 @@ namespace Nova.Common
         // See associated properties.
         private long        FleetCounter             = 0;
         private long        DesignCounter            = 0;
+        private long        ShipCounter              = 0;
         
         public Race Race
         {
@@ -132,6 +133,12 @@ namespace Nova.Common
             return ((long)DesignCounter | ((long)empireId << 32));
         }
 
+        public long GetNextShipKey()
+        {
+            ++ShipCounter;
+            return ((long)ShipCounter | ((long)empireId << 32));
+        }
+
         /// <summary>
         /// default constructor
         /// </summary>
@@ -170,6 +177,9 @@ namespace Nova.Common
                         break;
                     case "designcounter":
                         DesignCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        break;
+                    case "shipcounter":
+                        ShipCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "turnyear":
                         TurnYear = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -267,6 +277,7 @@ namespace Nova.Common
             
             Global.SaveData(xmldoc, xmlelEmpireData, "FleetCounter", FleetCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelEmpireData, "DesignCounter", DesignCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelEmpireData, "ShipCounter", ShipCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             
             Global.SaveData(xmldoc, xmlelEmpireData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
