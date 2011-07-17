@@ -145,7 +145,7 @@
             this.MinimizeBox = false;
             this.Name = "SplitFleetDialog";
             this.ShowIcon = false;
-            this.Text = "Split Fleet";
+            this.Text = "Split/Merge Fleet";
             this.fleetLayoutPanel.ResumeLayout(false);
             this.fleetLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();
