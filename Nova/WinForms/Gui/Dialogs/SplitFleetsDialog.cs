@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -97,6 +98,125 @@ namespace Nova.WinForms.Gui.Dialogs
                 right.Value = newval;
             else
                 left.Value = newval;
-        }   
+        }
+
+        public void ReassignShips( Fleet left, Fleet right)
+        {
+            for (int i = 0; i < designs.Count; i++)
+            {
+                int leftOldCount = leftFleet[designs[i]];
+                int leftNewCount = (int)leftNumerics[i].Value;
+                
+                if( leftNewCount == leftOldCount)
+                    continue; // no moves of this design
+
+                Fleet from;
+                Fleet to;
+                int moveCount;
+                if (leftNewCount > leftOldCount)
+                {
+                    from = right;
+                    to = left;
+                    moveCount = leftNewCount - leftOldCount;
+                }
+                else
+                {
+                    from = left;
+                    to = right;
+                    moveCount = leftOldCount - leftNewCount;
+                }
+
+                List<Ship> toMove = new List<Ship>();
+                foreach (Ship fleetShip in from.FleetShips)
+                {
+                    if (fleetShip.Design.Key == designs[i].Key)
+                    {
+                        toMove.Add(fleetShip);
+                        --moveCount;
+                        if( moveCount == 0 )
+                            break;
+                    }
+                }
+                foreach (Ship ship in toMove)
+                {
+                    from.FleetShips.Remove(ship);
+                    to.FleetShips.Add(ship);
+                }
+            }
+
+            // Ships are moved. Now to reassign fuel/cargo
+            int ktToMove = 0;
+            Cargo fromCargo = left.Cargo;
+            Cargo toCargo = right.Cargo;
+            if( left.Cargo.Mass > left.TotalCargoCapacity )
+            {
+                fromCargo = left.Cargo;
+                toCargo = right.Cargo;
+                ktToMove = left.Cargo.Mass - left.TotalCargoCapacity;
+            }
+            else if( right.Cargo.Mass > right.TotalCargoCapacity )
+            {
+                fromCargo = right.Cargo;
+                toCargo = left.Cargo;
+                ktToMove = right.Cargo.Mass - right.TotalCargoCapacity;
+            }
+
+            double proportion = (double)ktToMove/fromCargo.Mass;
+            if (ktToMove > 0)
+            {
+                // Try and move cargo
+                int ironToMove = (int)Math.Ceiling(fromCargo.Ironium*proportion);
+                if (ironToMove > ktToMove)
+                    ironToMove = ktToMove;
+                toCargo.Ironium += ironToMove;
+                fromCargo.Ironium -= ironToMove;
+                ktToMove -= ironToMove;
+            }
+            if (ktToMove > 0)
+            {
+                // Try and move cargo
+                int borToMove = (int)Math.Ceiling(fromCargo.Boranium* proportion);
+                if (borToMove > ktToMove)
+                    borToMove = ktToMove;
+                toCargo.Boranium += borToMove;
+                fromCargo.Boranium -= borToMove;
+                ktToMove -= borToMove;
+            }
+            if (ktToMove > 0)
+            {
+                // Try and move cargo
+                int germToMove = (int)Math.Ceiling(fromCargo.Germanium * proportion);
+                if (germToMove > ktToMove)
+                    germToMove = ktToMove;
+                toCargo.Germanium += germToMove;
+                fromCargo.Germanium -= germToMove;
+                ktToMove -= germToMove;
+            }
+            if (ktToMove > 0)
+            {
+                // Try and move cargo
+                int colsToMove = (int)Math.Ceiling(fromCargo.ColonistsInKilotons * proportion);
+                if (colsToMove > ktToMove)
+                    colsToMove = ktToMove;
+                toCargo.ColonistsInKilotons += colsToMove;
+                fromCargo.ColonistsInKilotons -= colsToMove;
+                ktToMove -= colsToMove;
+            }
+            Debug.Assert(ktToMove == 0);
+
+            // fuel
+            if (left.FuelAvailable > left.TotalFuelCapacity)
+            {
+                // Move excess to right and set left to max
+                right.FuelAvailable += left.FuelAvailable - left.TotalFuelCapacity;
+                left.FuelAvailable = left.TotalFuelCapacity;
+            }
+            else if( right.FuelAvailable > right.TotalFuelCapacity)
+            {
+                // Move excess to left and set right to max
+                left.FuelAvailable += right.FuelAvailable - right.TotalFuelCapacity;
+                right.FuelAvailable = right.TotalFuelCapacity;
+            }
+        }
     }
 }
