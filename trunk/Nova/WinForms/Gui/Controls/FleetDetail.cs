@@ -43,7 +43,7 @@ namespace Nova.WinForms.Gui
         private FleetIntel selectedFleet;
         private readonly EmpireData empireState;
             
-        private Dictionary<string, Fleet> fleetsAtLocation = new Dictionary<string, Fleet>();
+        private Dictionary<long, FleetIntel> fleetsAtLocation = new Dictionary<long, FleetIntel>();
 
         /// <Summary>
         /// This event should be fired when the selected Fleet
@@ -439,24 +439,24 @@ namespace Nova.WinForms.Gui
             bool inOrbit = selectedFleet.InOrbit != null;
             groupOrbitPlanet.Text = inOrbit ? "Orbiting " + selectedFleet.InOrbit.Name : "In deep space";
             buttonCargo.Enabled = inOrbit && selectedFleet.TotalCargoCapacity > 0;            
-            buttonGotoPlanet.Enabled = inOrbit;           
+            buttonGotoPlanet.Enabled = inOrbit;
 
-            List<String> fleetnames = new List<string>();
-            fleetsAtLocation = new Dictionary<string, Fleet>();
+            List<ComboBoxItem<FleetIntel>> fleets = new List<ComboBoxItem<FleetIntel>>();
+            fleetsAtLocation = new Dictionary<long, FleetIntel>();
             foreach (FleetIntel other in empireState.OwnedFleets.Values)
             {
                 if (selectedFleet.Position == other.Position && !other.IsStarbase && selectedFleet.Key != other.Key)
                 {
-                    fleetnames.Add(other.Name);
-                    fleetsAtLocation[other.Name] = other;
+                    fleets.Add(new ComboBoxItem<FleetIntel>(other.Name, other));
+                    fleetsAtLocation[other.Key] = other;
                 }
             }
-            fleetnames.Sort();
+            fleets.Sort(delegate(ComboBoxItem<FleetIntel> x, ComboBoxItem<FleetIntel> y) { return x.DisplayName.CompareTo(y.DisplayName); });
             comboOtherFleets.Items.Clear();
-            bool haveFleets = fleetnames.Count > 0;
+            bool haveFleets = fleets.Count > 0;
             if ( haveFleets )
             {
-                comboOtherFleets.Items.AddRange(fleetnames.ToArray());
+                comboOtherFleets.Items.AddRange(fleets.ToArray());
                 comboOtherFleets.SelectedIndex = 0;
             }
             buttonMerge.Enabled = haveFleets;
@@ -514,13 +514,14 @@ namespace Nova.WinForms.Gui
             get { return WaypointTasks.Text; }
         }
 
-        private Fleet GetSelectedFleetAtLocation()
+        private FleetIntel GetSelectedFleetAtLocation()
         {
             if (comboOtherFleets.SelectedItem == null)
                 return null;
 
-            Fleet fleet;
-            if (!fleetsAtLocation.TryGetValue(comboOtherFleets.SelectedItem.ToString(), out fleet))
+            ComboBoxItem<FleetIntel> selected = comboOtherFleets.SelectedItem as ComboBoxItem<FleetIntel>;
+            FleetIntel fleet;
+            if (!fleetsAtLocation.TryGetValue(selected.Tag.Key, out fleet))
                 return null;
 
             return fleet;
@@ -572,18 +573,66 @@ namespace Nova.WinForms.Gui
 
         private void buttonMerge_Click(object sender, EventArgs e)
         {
-            Fleet newFleet = GetSelectedFleetAtLocation();
+            FleetIntel newFleet = GetSelectedFleetAtLocation();
             DoSplitMerge(newFleet);
         }
 
-        private void DoSplitMerge( Fleet otherFleet = null)
+        private void DoSplitMerge( FleetIntel otherFleet = null)
         {
             using (SplitFleetDialog splitFleet = new SplitFleetDialog())
             {
                 splitFleet.SetFleet(selectedFleet, otherFleet);
-                splitFleet.ShowDialog();
-                ReselectFleetToUpdateUi();    
+                if( splitFleet.ShowDialog() == DialogResult.OK )
+                {
+                    //TODO need to create a new fleet for split. The below will ignore the changes
+                    if (otherFleet == null)
+                    {
+                        // Need a new fleet. Clone existing then change stuff
+                        otherFleet = new FleetIntel(MakeNewFleet(selectedFleet), ScanLevel.Owned, empireState.TurnYear);
+                        empireState.OwnedFleets[otherFleet.Key] = otherFleet;
+                    }
+                    splitFleet.ReassignShips(selectedFleet, otherFleet);
+
+                    // Now remove any empty fleets...
+                    if (otherFleet.FleetShips.Count == 0)
+                    {
+                        empireState.OwnedFleets.Remove(otherFleet.Key);
+                    }
+                    if (selectedFleet.FleetShips.Count == 0)
+                    {
+                        empireState.OwnedFleets.Remove(selectedFleet.Key);
+                        // Set the other fleet to be selected
+                        selectedFleet = otherFleet;
+                    }
+                }
+                ReselectFleetToUpdateUi();
             }
+        }
+
+        private Fleet MakeNewFleet(Fleet existing)
+        {
+            Fleet newFleet = new Fleet(empireState.GetNextFleetKey());
+
+            newFleet.Type = ItemType.Fleet;
+
+            // Have one waypoint to reflect the fleet's current position and the
+            // planet it is in orbit around.
+
+            Waypoint w = new Waypoint();
+            w.Position = existing.Waypoints[0].Position;
+            w.Destination = existing.Waypoints[0].Destination;
+            w.WarpFactor = 0;
+
+            newFleet.Waypoints.Add(w);
+
+            // Inititialise the fleet elements that come from the star.
+
+            newFleet.Position = existing.Position;
+            newFleet.InOrbit = existing.InOrbit;
+
+            newFleet.Name = "New Fleet #" + newFleet.Id;
+
+            return newFleet;
         }
 
         private void buttonCargoXfer_Click(object sender, EventArgs e)

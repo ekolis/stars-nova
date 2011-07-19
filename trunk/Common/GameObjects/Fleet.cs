@@ -119,7 +119,6 @@ namespace Nova.Common
         /// <param name="star">The star constructing the ship.</param>
         public Fleet(Ship ship, Star star, long newKey)
         {
-
             FleetShips.Add(ship);
 
             FuelAvailable = TotalFuelCapacity;
