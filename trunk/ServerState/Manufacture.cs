@@ -125,49 +125,63 @@ namespace Nova.WinForms.Console
             Design design = stateData.AllDesigns[productionItem.Key];
             Nova.Common.Resources needed = productionItem.BuildState;
 
+
+            // Try and build as many of this item as we can
             // If we've ran out of resources then give up. Note that there may be
             // a surplus in some areas and a deficit in others so we have to check
             // the individual resource components for over-payment.
-
-            if (!(star.ResourcesOnHand >= needed))
+            int countToBuild = 0;
+            bool doAPartialBuild = false;
+            while (productionItem.Quantity > 0)
             {
-                PartialBuild(productionItem, needed, star);
-                return true;
+                if (!(star.ResourcesOnHand >= needed))
+                {
+                    doAPartialBuild = true;
+                    break;                    
+                }
+
+                star.ResourcesOnHand -= needed;
+                productionItem.Quantity--;
+                countToBuild++;                
             }
 
-            star.ResourcesOnHand -= needed;
             switch (design.Type)
             {
                 case ItemType.Mine:
-                    star.Mines++;
+                    star.Mines += countToBuild;
                     break;
 
                 case ItemType.Factory:
-                    star.Factories++;
+                    star.Factories += countToBuild;
                     break;
 
                 case ItemType.Defenses:
-                    star.Defenses++;
+                    star.Defenses += countToBuild;
                     if (star.Defenses >= Global.MaxDefenses)
                     {
                         star.Defenses = Global.MaxDefenses; // This should never be required, but just in case.
+                        // TODO: Should probably refund the resources if it is required though!
                         productionItem.Quantity = 0;
                     }
                     break;
 
                 case ItemType.Ship:
-                    CreateShip(design as ShipDesign, star);
+                    CreateShip(design as ShipDesign, star, countToBuild);
                     break;
 
                 case ItemType.Starbase:
                     // first remove the old starbase
-                    if (star.Starbase != null)
+                    while (countToBuild > 0)
                     {
-                        stateData.AllFleets.Remove(star.Starbase.Key);
-                        star.Starbase = null;
-                    }
+                        if (star.Starbase != null)
+                        {
+                            stateData.AllFleets.Remove(star.Starbase.Key);
+                            star.Starbase = null;
+                        }
 
-                    CreateShip(design as ShipDesign, star);
+                        CreateShip(design as ShipDesign, star, 1);
+                        countToBuild--;
+                    }
                     break;
 
                 default:
@@ -175,18 +189,24 @@ namespace Nova.WinForms.Console
                     break;
             }
 
-            productionItem.Quantity--;
 
-            if (productionItem.Quantity == 0)
+            if (doAPartialBuild)
             {
-                deletions.Add(productionItem);
+                PartialBuild(productionItem, needed, star);
+                return true;
             }
             else
             {
-                productionItem.BuildState = design.Cost;
+                if (productionItem.Quantity == 0)
+                {
+                    deletions.Add(productionItem);
+                }
+                else
+                {
+                    productionItem.BuildState = design.Cost;
+                }
+                return false;
             }
-
-            return false;
         }
 
 
@@ -249,22 +269,35 @@ namespace Nova.WinForms.Console
         /// <param name="design">A ShipDesign to be constructed.</param>
         /// <param name="star">The star system producing the ship.</param>
         /// ----------------------------------------------------------------------------
-        private void CreateShip(ShipDesign design, Star star)
+        private void CreateShip(ShipDesign design, Star star, int countToBuild)
         {
-            EmpireData empire = stateData.AllEmpires[star.Owner]; 
-           
-            Ship ship = new Ship(design, empire.GetNextShipKey());
-            ship.Name = design.Name;
-            ship.Owner = star.Owner;
-        
+            EmpireData empire = stateData.AllEmpires[star.Owner];
+
+            Fleet fleet = null;
+            for (int i = 0; i < countToBuild; ++i)
+            {
+                Ship ship = new Ship(design, empire.GetNextShipKey());
+                ship.Name = design.Name;
+                ship.Owner = star.Owner;
+                if (fleet == null)
+                {
+                    fleet = new Fleet(ship, star, empire.GetNextFleetKey());
+                    fleet.Name = design.Name + " #" + fleet.Id;
+                }
+                else
+                {
+                    fleet.FleetShips.Add(ship);
+                }
+                fleet.FuelAvailable = fleet.TotalFuelCapacity;
+            }
+            
+
             Message message = new Message();
             message.Audience = star.Owner;
-            message.Text = star.Name + " has produced a new " + design.Name;
+            message.Text = star.Name + " has produced " + countToBuild + " new " + design.Name;
             stateData.AllMessages.Add(message);
 
-            Fleet fleet = new Fleet(ship, star, empire.GetNextFleetKey());        
-            fleet.Name = ship.Name + " #" + fleet.Id;
-
+            
             // Add the fleet to the state data so it can be tracked.
             stateData.AllFleets[fleet.Key] = fleet;          
 
@@ -289,8 +322,6 @@ namespace Nova.WinForms.Console
             {
                 fleet.InOrbit = star;
             }
-
         }
-
     }
 }
