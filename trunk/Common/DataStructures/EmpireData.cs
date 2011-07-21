@@ -194,20 +194,17 @@ namespace Nova.Common
                         race = new Race();
                         Race.LoadRaceFromXml(subnode);
                         break;
-                    case "researchbudget":
-                        ResearchBudget = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                        break;
-                    case "researchlevelsgained":
-                        ResearchLevelsGained = new TechLevel(subnode);
-                        break;
-                    case "researchlevels":
-                        ResearchLevels = new TechLevel(subnode);
-                        break;
-                    case "researchresources":
-                        ResearchResources = new TechLevel(subnode);
-                        break;
-                    case "researchtopics":
-                        ResearchTopics = new TechLevel(subnode);
+                    case "research":
+                        tNode = subnode.SelectSingleNode("Budget");
+                        ResearchBudget = int.Parse(tNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        tNode = subnode.SelectSingleNode("LevelsGained");
+                        ResearchLevelsGained = new TechLevel(tNode);
+                        tNode = subnode.SelectSingleNode("AttainedLevels");
+                        ResearchLevels = new TechLevel(tNode);
+                        tNode = subnode.SelectSingleNode("SpentResources");
+                        ResearchResources = new TechLevel(tNode);
+                        tNode = subnode.SelectSingleNode("Topics");
+                        ResearchTopics = new TechLevel(tNode);
                         break;
                     case "starreports":
                         tNode = subnode.FirstChild;
@@ -279,10 +276,8 @@ namespace Nova.Common
         {
             XmlElement xmlelEmpireData = xmldoc.CreateElement("EmpireData");
             
-            xmlelEmpireData.AppendChild(race.ToXml(xmldoc));
-            
             Global.SaveData(xmldoc, xmlelEmpireData, "Id", empireId.ToString("X"));
-            
+                        
             Global.SaveData(xmldoc, xmlelEmpireData, "FleetCounter", FleetCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelEmpireData, "DesignCounter", DesignCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelEmpireData, "ShipCounter", ShipCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
@@ -291,12 +286,16 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelEmpireData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelEmpireData, "TurnSubmitted", TurnSubmitted.ToString());
             Global.SaveData(xmldoc, xmlelEmpireData, "LastTurnSubmitted", LastTurnSubmitted.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            Global.SaveData(xmldoc, xmlelEmpireData, "ResearchBudget", ResearchBudget.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
-            xmlelEmpireData.AppendChild(ResearchLevelsGained.ToXml(xmldoc, "ResearchLevelsGained"));
-            xmlelEmpireData.AppendChild(ResearchLevels.ToXml(xmldoc, "ResearchLevels"));
-            xmlelEmpireData.AppendChild(ResearchResources.ToXml(xmldoc, "ResearchResources"));
-            xmlelEmpireData.AppendChild(ResearchTopics.ToXml(xmldoc, "ResearchTopics"));
+            xmlelEmpireData.AppendChild(race.ToXml(xmldoc));
+            
+            XmlElement xmlelResearch = xmldoc.CreateElement("Research");
+            Global.SaveData(xmldoc, xmlelResearch, "Budget", ResearchBudget.ToString(System.Globalization.CultureInfo.InvariantCulture));            
+            xmlelResearch.AppendChild(ResearchLevelsGained.ToXml(xmldoc, "LevelsGained"));
+            xmlelResearch.AppendChild(ResearchLevels.ToXml(xmldoc, "AttainedLevels"));
+            xmlelResearch.AppendChild(ResearchResources.ToXml(xmldoc, "SpentResources"));
+            xmlelResearch.AppendChild(ResearchTopics.ToXml(xmldoc, "Topics"));            
+            xmlelEmpireData.AppendChild(xmlelResearch);
             
             XmlElement xmlelStarReports = xmldoc.CreateElement("StarReports");            
             foreach (StarIntel report in StarReports.Values)
