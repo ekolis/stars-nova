@@ -26,6 +26,8 @@ namespace Nova.Common
     using System.Collections;
     using System.Collections.Generic;
     using System.Xml;
+    
+    using Nova.Common.Components;
 
     public enum PlayerRelation
     {
@@ -64,7 +66,8 @@ namespace Nova.Common
         public TechLevel    ResearchLevels          = new TechLevel(); // current levels of technology
         public TechLevel    ResearchResources       = new TechLevel(); // current cumulative resources on technologies
         public TechLevel    ResearchTopics          = new TechLevel(); // order or researching
-        public TechLevel    ResearchLevelsGained    = new TechLevel(); // research level increases, reset per turn
+        
+        public RaceComponents   AvailableComponents = new RaceComponents();
         
         public StarList OwnedStars = new StarList();
         public Dictionary<string, StarIntel> StarReports  = new Dictionary<string, StarIntel>();
@@ -197,8 +200,6 @@ namespace Nova.Common
                     case "research":
                         tNode = subnode.SelectSingleNode("Budget");
                         ResearchBudget = int.Parse(tNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                        tNode = subnode.SelectSingleNode("LevelsGained");
-                        ResearchLevelsGained = new TechLevel(tNode);
                         tNode = subnode.SelectSingleNode("AttainedLevels");
                         ResearchLevels = new TechLevel(tNode);
                         tNode = subnode.SelectSingleNode("SpentResources");
@@ -254,6 +255,14 @@ namespace Nova.Common
                     case "battleplan":
                         BattlePlan plan = new BattlePlan(subnode);
                         BattlePlans[plan.Name] = plan;
+                        break;                        
+                    case "availablecomponents":
+                        tNode = subnode.FirstChild;
+                        while (tNode != null)
+                        { 
+                            AvailableComponents.Add(new Component(tNode));
+                            tNode = tNode.NextSibling;
+                        }
                         break;
                 }
 
@@ -291,11 +300,18 @@ namespace Nova.Common
             
             XmlElement xmlelResearch = xmldoc.CreateElement("Research");
             Global.SaveData(xmldoc, xmlelResearch, "Budget", ResearchBudget.ToString(System.Globalization.CultureInfo.InvariantCulture));            
-            xmlelResearch.AppendChild(ResearchLevelsGained.ToXml(xmldoc, "LevelsGained"));
             xmlelResearch.AppendChild(ResearchLevels.ToXml(xmldoc, "AttainedLevels"));
             xmlelResearch.AppendChild(ResearchResources.ToXml(xmldoc, "SpentResources"));
             xmlelResearch.AppendChild(ResearchTopics.ToXml(xmldoc, "Topics"));            
             xmlelEmpireData.AppendChild(xmlelResearch);
+            
+            // Available Components
+            XmlElement xmlelAvaiableComponents = xmldoc.CreateElement("AvailableComponents");
+            foreach (Component component in AvailableComponents.Values)
+            {
+                xmlelAvaiableComponents.AppendChild(component.ToXml(xmldoc));
+            }
+            xmlelEmpireData.AppendChild(xmlelAvaiableComponents);
             
             XmlElement xmlelStarReports = xmldoc.CreateElement("StarReports");            
             foreach (StarIntel report in StarReports.Values)
@@ -350,7 +366,8 @@ namespace Nova.Common
             ResearchLevels          = new TechLevel();
             ResearchResources       = new TechLevel();
             ResearchTopics          = new TechLevel();
-            ResearchLevelsGained    = new TechLevel();
+            
+            AvailableComponents     = new RaceComponents();
             
             OwnedStars.Clear();
             OwnedFleets.Clear();

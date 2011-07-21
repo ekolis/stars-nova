@@ -782,7 +782,7 @@ namespace Nova.WinForms.Gui
             // first one in the list as the default. Also, make the default design
             // name the same as the hull name as a first guess. 
             HullList.Items.Clear();
-            foreach (Component component in this.stateData.AvailableComponents.Values)
+            foreach (Component component in stateData.EmpireState.AvailableComponents.Values)
             {
                 if (component.Properties.ContainsKey("Hull"))
                 {
@@ -794,7 +794,7 @@ namespace Nova.WinForms.Gui
             {
                 HullList.SelectedIndex = 0;
                 string selectedHullName = HullList.SelectedItem as string;
-                this.selectedHull = this.stateData.AvailableComponents[selectedHullName];
+                this.selectedHull = stateData.EmpireState.AvailableComponents[selectedHullName];
                 this.selectedHull.Name = selectedHullName;
                 HullGrid.HullName = selectedHullName;
                 UpdateHullFields();
@@ -808,7 +808,7 @@ namespace Nova.WinForms.Gui
             // Populate the tree view control from the AvailableComponents
             List<string> techList = new List<string>();
 
-            foreach (Component component in this.stateData.AvailableComponents.Values)
+            foreach (Component component in stateData.EmpireState.AvailableComponents.Values)
             {
                 if (component.Type.ToDescription().Contains("Planetary"))
                 {
@@ -944,7 +944,7 @@ namespace Nova.WinForms.Gui
 
             ListView.LargeImageList = this.componentImages;
 
-            foreach (Component component in this.stateData.AvailableComponents.Values)
+            foreach (Component component in stateData.EmpireState.AvailableComponents.Values)
             {
                 if (component.Type.ToDescription() == nodeType)
                 {
@@ -1103,7 +1103,7 @@ namespace Nova.WinForms.Gui
             string selectedHullName = HullList.SelectedItem as string;
 
             DesignName.Text = selectedHullName;
-            Nova.Common.Components.Component hull = this.stateData.AvailableComponents[selectedHullName];
+            Nova.Common.Components.Component hull = stateData.EmpireState.AvailableComponents[selectedHullName];
             this.selectedHull = new Nova.Common.Components.Component(hull);
             this.selectedHull.Name = selectedHullName;
             HullGrid.HullName = selectedHullName;
@@ -1198,7 +1198,7 @@ namespace Nova.WinForms.Gui
         {
             int index = 0;
 
-            foreach (Component component in this.stateData.AvailableComponents.Values)
+            foreach (Component component in stateData.EmpireState.AvailableComponents.Values)
             {
                 // TODO (priority 4) - work out why it sometimes is null.
                 if (component != null)

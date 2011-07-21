@@ -47,12 +47,12 @@ namespace Nova.Server
         public List<BattleReport>               AllBattles      = new List<BattleReport>();
         public List<PlayerSettings>             AllPlayers      = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
         public Dictionary<int, int>             AllTechLevels   = new Dictionary<int, int>(); // Sum of a player's techlevels, for scoring purposes.
-        public Dictionary<long, Design>         AllDesigns = new Dictionary<long, Design>();
-        public Dictionary<long, Fleet>          AllFleets = new Dictionary<long, Fleet>();
+        public Dictionary<long, Design>         AllDesigns      = new Dictionary<long, Design>();
+        public Dictionary<long, Fleet>          AllFleets       = new Dictionary<long, Fleet>();
         public Dictionary<int, EmpireData>      AllEmpires      = new Dictionary<int, EmpireData>(); // Game specific data about the race; relations, battle plans, research, etc.
         public Dictionary<string, Race>         AllRaces        = new Dictionary<string, Race>(); // Data about the race (traits etc)
         public Dictionary<string, Star>         AllStars        = new Dictionary<string, Star>();
-        public Dictionary<long, Minefield>      AllMinefields = new Dictionary<long, Minefield>();
+        public Dictionary<long, Minefield>      AllMinefields   = new Dictionary<long, Minefield>();
         public List<Message>                    AllMessages     = new List<Message>(); // All messages generated this turn.
 
         public bool GameInProgress      = false;

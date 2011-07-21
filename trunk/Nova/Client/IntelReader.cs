@@ -109,7 +109,6 @@ namespace Nova.Client
             LinkIntelReferences();
 
             ProcessMessages();
-            ProcessResearch();
         }
 
         /// <summary>
@@ -251,85 +250,5 @@ namespace Nova.Client
                 }
             }
         }
-
-        /// <summary>
-        /// Recieve research updates.
-        /// </summary>
-        private void ProcessResearch()
-        {
-            foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
-            {
-                if (stateData.EmpireState.ResearchLevelsGained == null)
-                {
-                    return;
-                }
-
-                while (stateData.EmpireState.ResearchLevelsGained[area] > 0)
-                {
-                    // Report new levels.
-                    stateData.EmpireState.ResearchLevelsGained[area] = stateData.EmpireState.ResearchLevelsGained[area] - 1;
-                    ReportLevelUpdate(area, stateData.EmpireState.ResearchLevels[area]);
-                }
-            }
-        }
-
-        /// <summary>
-        /// Report an update in tech level and any new components that have became
-        /// available.
-        /// </summary>
-        /// <param name="area">The field of research.</param>
-        /// <param name="level">The new level obtained.</param>
-        private void ReportLevelUpdate(TechLevel.ResearchField area, int level)
-        {
-            Message techAdvanceMessage = new Message(
-                stateData.EmpireState.Id,
-                "Your race has advanced to Tech Level " + level + " in the " + area.ToString() + " field",
-                "TechAdvance",
-                null);
-            stateData.Messages.Add(techAdvanceMessage);
-
-            Dictionary<string, Component> allComponents = AllComponents.Data.Components;
-            TechLevel oldResearchLevel = stateData.EmpireState.ResearchLevels;
-            TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
-
-            newResearchLevel[area] = level;
-
-            foreach (Component component in allComponents.Values)
-            {
-                if (component.RequiredTech > oldResearchLevel && component.RequiredTech <= newResearchLevel)
-                {
-                    stateData.AvailableComponents.Add(component);
-                    Message newComponentMessage = null;
-                    if (component.Properties.ContainsKey("Scanner") && component.Type == ItemType.PlanetaryInstallations)
-                    {
-                        newComponentMessage = new Message(
-                            stateData.EmpireState.Id,
-                            null,
-                            "All existing planetary scanners has been replaced by " + component.Name + " " + component.Type,
-                            null);
-                        foreach (Star star in stateData.EmpireState.OwnedStars.Values)
-                        {
-                            if (star.Owner == stateData.EmpireState.Id &&
-                                star.ScannerType != string.Empty)
-                            {
-                                star.ScannerType = component.Name;
-                            }
-                        }
-                    }
-                    else
-                    {
-                        newComponentMessage = new Message(
-                           stateData.EmpireState.Id,
-                           null,
-                           "You now have available the " + component.Name + " " + component.Type + " component",
-                           null);
-                    }
-                    stateData.Messages.Add(newComponentMessage);
-                }
-            }
-
-            stateData.EmpireState.ResearchLevels = newResearchLevel;
-        }
-
     }
 }
