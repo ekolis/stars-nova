@@ -33,7 +33,7 @@ namespace Nova.Common
     /// as well as maintaining a sorted list for next/previous functionality. 
     /// </summary>
     [Serializable]
-    public class FleetList : Dictionary<long, FleetIntel>
+    public class FleetList : Dictionary<long, Fleet>
     {
         /// /// <summary>
         /// default constructor
@@ -45,19 +45,19 @@ namespace Nova.Common
         /// <summary>
         /// Add a new fleet to the FleetList
         /// </summary>
-        /// <param name="report">The Fleet to be added to the FleetList</param>
-        public void Add(FleetIntel report)
+        /// <param name="fleet">The Fleet to be added to the FleetList</param>
+        public void Add(Fleet fleet)
         {
-            Add(report.Key, report);
+            Add(fleet.Key, fleet);
         }
 
         /// <summary>
         /// Remove a Fleet from the FleetList
         /// </summary>
-        /// <param name="report">The fleet to remove.</param>
-        public void Remove(FleetIntel report)
+        /// <param name="fleet">The fleet to remove.</param>
+        public void Remove(Fleet fleet)
         {
-            Remove(report.Key);
+            Remove(fleet.Key);
         }
 
         /// <summary>
@@ -84,7 +84,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="Key">The name of a fleet.</param>
         /// <returns>true if fleetName is the name of one of the fleets in the FleetList</returns>
-        public bool Contains(int Key)
+        public bool Contains(long Key)
         {
             return ContainsKey(Key);
         }
@@ -93,24 +93,24 @@ namespace Nova.Common
         /// <summary>
         /// Get the next fleet report in the list that belongs to the same owner.
         /// </summary>
-        /// <param name="report">The current report.</param>
+        /// <param name="fleet">The current report.</param>
         /// <returns>The next fleet report, or the current if there is only one.</returns>
         /// <exception cref="NullReferenceException"> if fleet is null.</exception>
-        public FleetIntel GetNextOwned(FleetIntel report)
+        public Fleet GetNext(Fleet fleet)
         {
-            if (report == null)
+            if (fleet == null)
             {
-                throw new ArgumentNullException("report");
+                throw new ArgumentNullException("fleet");
             }
             if (Count <= 1)
             {
-                return report;
+                return fleet;
             }
 
             List<long> keyList = new List<long>();
             keyList.AddRange(Keys);
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Key);
+            int nextIndex = keyList.IndexOf(fleet.Key);
             
             do
             {
@@ -120,7 +120,7 @@ namespace Nova.Common
                     nextIndex = 0;
                 }
             }
-            while (this[keyList[nextIndex]].Owner != report.Owner);
+            while (this[keyList[nextIndex]].Owner != fleet.Owner);
             
             return this[keyList[nextIndex]];
         }
@@ -129,24 +129,24 @@ namespace Nova.Common
         /// <summary>
         /// Get the previous fleet report in the list that belongs to same owner.
         /// </summary>
-        /// <param name="report">The current report.</param>
+        /// <param name="fleet">The current report.</param>
         /// <returns>The next fleet report, or the current if there is only one.</returns>
         /// <exception cref="NullReferenceException"> if fleet is null.</exception>
-        public FleetIntel GetPreviousOwned(FleetIntel report)
+        public Fleet GetPrevious(Fleet fleet)
         {
-            if (report == null)
+            if (fleet == null)
             {
                 throw new ArgumentNullException("report");
             }
             if (Count <= 1)
             {
-                return report;
+                return fleet;
             }
 
             List<long> keyList = new List<long>();
             keyList.AddRange(Keys);
             keyList.Sort();
-            int nextIndex = keyList.IndexOf(report.Key);
+            int nextIndex = keyList.IndexOf(fleet.Key);
             
             do
             {
@@ -156,24 +156,9 @@ namespace Nova.Common
                     nextIndex = keyList.Count - 1;
                 }
             }
-            while (this[keyList[nextIndex]].Owner != report.Owner);
+            while (this[keyList[nextIndex]].Owner != fleet.Owner);
             
             return this[keyList[nextIndex]];
-        }
-
-        /// <summary>
-        /// Returns the amount of fleets owned by someone. 
-        /// </summary>
-        /// <param name="empireId">A <see cref="System.String"/> indicating the owner to look for </param>
-        /// <returns> The amount of fleets property of the specified owner. </returns>
-        public int Owned(int empireId)
-        {
-            int q = 0;
-            foreach (FleetIntel report in Values)
-            {
-                if (report.Owner == empireId) { q++; }
-            }
-            return q;
         }
     }
 }

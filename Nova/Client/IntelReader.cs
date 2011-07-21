@@ -140,7 +140,7 @@ namespace Nova.Client
             }
 
             // Fleet reference to Star
-            foreach (FleetIntel fleet in stateData.EmpireState.OwnedFleets.Values)
+            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.InOrbit != null)
                 {

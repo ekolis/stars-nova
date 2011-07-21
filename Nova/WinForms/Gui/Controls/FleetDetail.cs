@@ -40,10 +40,10 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class FleetDetail : System.Windows.Forms.UserControl
     {
-        private FleetIntel selectedFleet;
+        private Fleet selectedFleet;
         private readonly EmpireData empireState;
             
-        private Dictionary<long, FleetIntel> fleetsAtLocation = new Dictionary<long, FleetIntel>();
+        private Dictionary<long, Fleet> fleetsAtLocation = new Dictionary<long, Fleet>();
 
         /// <Summary>
         /// This event should be fired when the selected Fleet
@@ -252,7 +252,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void NextFleet_Click(object sender, System.EventArgs e)
         {
-            if (empireState.OwnedFleets.Owned(empireState.Id) == 1)
+            if (empireState.OwnedFleets.Count == 1)
             {
                 previousFleet.Enabled = false;
                 nextFleet.Enabled = false;
@@ -262,7 +262,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            selectedFleet = empireState.OwnedFleets.GetNextOwned(empireState.OwnedFleets[selectedFleet.Key]);
+            selectedFleet = empireState.OwnedFleets.GetNext(empireState.OwnedFleets[selectedFleet.Key]);
             
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -284,7 +284,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void PreviousFleet_Click(object sender, EventArgs e)
         {
-            if (empireState.OwnedFleets.Owned(empireState.Id) == 1)
+            if (empireState.OwnedFleets.Count == 1)
             {
                 previousFleet.Enabled = false;
                 nextFleet.Enabled = false;
@@ -294,7 +294,7 @@ namespace Nova.WinForms.Gui
             previousFleet.Enabled = true;
             nextFleet.Enabled = true;
 
-            selectedFleet = empireState.OwnedFleets.GetPreviousOwned(empireState.OwnedFleets[selectedFleet.Key]);
+            selectedFleet = empireState.OwnedFleets.GetPrevious(empireState.OwnedFleets[selectedFleet.Key]);
 
             FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
             CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
@@ -395,7 +395,7 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="fleet">The selected fleet.</param>
         /// ----------------------------------------------------------------------------
-        private void SetFleetDetails(FleetIntel selectedFleet)
+        private void SetFleetDetails(Fleet selectedFleet)
         {
             if (selectedFleet == null)
                 return;
@@ -441,17 +441,17 @@ namespace Nova.WinForms.Gui
             buttonCargo.Enabled = inOrbit && selectedFleet.TotalCargoCapacity > 0;            
             buttonGotoPlanet.Enabled = inOrbit;
 
-            List<ComboBoxItem<FleetIntel>> fleets = new List<ComboBoxItem<FleetIntel>>();
-            fleetsAtLocation = new Dictionary<long, FleetIntel>();
-            foreach (FleetIntel other in empireState.OwnedFleets.Values)
+            List<ComboBoxItem<Fleet>> fleets = new List<ComboBoxItem<Fleet>>();
+            fleetsAtLocation = new Dictionary<long, Fleet>();
+            foreach (Fleet other in empireState.OwnedFleets.Values)
             {
                 if (selectedFleet.Position == other.Position && !other.IsStarbase && selectedFleet.Key != other.Key)
                 {
-                    fleets.Add(new ComboBoxItem<FleetIntel>(other.Name, other));
+                    fleets.Add(new ComboBoxItem<Fleet>(other.Name, other));
                     fleetsAtLocation[other.Key] = other;
                 }
             }
-            fleets.Sort(delegate(ComboBoxItem<FleetIntel> x, ComboBoxItem<FleetIntel> y) { return x.DisplayName.CompareTo(y.DisplayName); });
+            fleets.Sort(delegate(ComboBoxItem<Fleet> x, ComboBoxItem<Fleet> y) { return x.DisplayName.CompareTo(y.DisplayName); });
             comboOtherFleets.Items.Clear();
             bool haveFleets = fleets.Count > 0;
             if ( haveFleets )
@@ -481,7 +481,7 @@ namespace Nova.WinForms.Gui
         /// Property to set or get the fleet currently being displayed.
         /// </Summary>
         /// ----------------------------------------------------------------------------
-        public FleetIntel Value
+        public Fleet Value
         {
             set
             {
@@ -514,13 +514,13 @@ namespace Nova.WinForms.Gui
             get { return WaypointTasks.Text; }
         }
 
-        private FleetIntel GetSelectedFleetAtLocation()
+        private Fleet GetSelectedFleetAtLocation()
         {
             if (comboOtherFleets.SelectedItem == null)
                 return null;
 
-            ComboBoxItem<FleetIntel> selected = comboOtherFleets.SelectedItem as ComboBoxItem<FleetIntel>;
-            FleetIntel fleet;
+            ComboBoxItem<Fleet> selected = comboOtherFleets.SelectedItem as ComboBoxItem<Fleet>;
+            Fleet fleet;
             if (!fleetsAtLocation.TryGetValue(selected.Tag.Key, out fleet))
                 return null;
 
@@ -573,11 +573,11 @@ namespace Nova.WinForms.Gui
 
         private void buttonMerge_Click(object sender, EventArgs e)
         {
-            FleetIntel newFleet = GetSelectedFleetAtLocation();
+            Fleet newFleet = GetSelectedFleetAtLocation();
             DoSplitMerge(newFleet);
         }
 
-        private void DoSplitMerge( FleetIntel otherFleet = null)
+        private void DoSplitMerge(Fleet otherFleet = null)
         {
             using (SplitFleetDialog splitFleet = new SplitFleetDialog())
             {
@@ -588,7 +588,7 @@ namespace Nova.WinForms.Gui
                     if (otherFleet == null)
                     {
                         // Need a new fleet. Clone existing then change stuff
-                        otherFleet = new FleetIntel(MakeNewFleet(selectedFleet), ScanLevel.Owned, empireState.TurnYear);
+                        otherFleet = MakeNewFleet(selectedFleet);
                         empireState.OwnedFleets[otherFleet.Key] = otherFleet;
                     }
                     splitFleet.ReassignShips(selectedFleet, otherFleet);

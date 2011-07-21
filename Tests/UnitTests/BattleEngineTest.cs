@@ -133,10 +133,10 @@ namespace Nova.Tests.UnitTests
             // frigate.Cost = cost;
             frigate.Name = "Frigate";
 
-            ship1 = new Ship(cruiser);
-            ship2 = new Ship(frigate);
-            ship3 = new Ship(cruiser);
-            ship4 = new Ship(frigate);
+            ship1 = new Ship(cruiser, empireData1.GetNextShipKey());
+            ship2 = new Ship(frigate, empireData2.GetNextShipKey());
+            ship3 = new Ship(cruiser, empireData3.GetNextShipKey());
+            ship4 = new Ship(frigate, empireData3.GetNextShipKey());
 
             ship1.Armor = 100;
             ship2.Armor = 200;

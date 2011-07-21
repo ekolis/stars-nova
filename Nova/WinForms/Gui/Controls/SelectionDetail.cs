@@ -105,7 +105,7 @@ namespace Nova.WinForms.Gui
         /// ----------------------------------------------------------------------------
         private void DisplayFleet(Item item)
         {
-            FleetDetail.Value = item as FleetIntel;
+            FleetDetail.Value = item as Fleet;
 
             selectedControl = FleetDetail;
             Controls.Clear();

@@ -768,5 +768,12 @@ namespace Nova.Common
 
             return xmlelFleet;
         }
+        
+        public FleetIntel GenerateReport(ScanLevel scan, int year)
+        {
+            FleetIntel report = new FleetIntel(this, scan, year);
+            
+            return report;
+        }
     }
 }

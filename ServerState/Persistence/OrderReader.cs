@@ -142,7 +142,7 @@ namespace Nova.Server
                     this.stateData.AllDesigns.Remove(designId);
                 }
 
-                foreach (FleetIntel fleet in playerOrders.EmpireStatus.OwnedFleets.Values)
+                foreach (Fleet fleet in playerOrders.EmpireStatus.OwnedFleets.Values)
                 {
                     stateData.AllEmpires[empire.Id].OwnedFleets[fleet.Key] = fleet;
                     if (fleet.Owner == empire.Id)
@@ -180,7 +180,7 @@ namespace Nova.Server
         private void LinkOrderReferences(Orders playerOrders)
         {
             // Fleet reference to Star
-            foreach (FleetIntel fleet in playerOrders.EmpireStatus.OwnedFleets.Values)
+            foreach (Fleet fleet in playerOrders.EmpireStatus.OwnedFleets.Values)
             {
                 if (fleet.InOrbit != null)
                 {
