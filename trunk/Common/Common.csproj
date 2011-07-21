@@ -112,6 +112,7 @@
     <Compile Include="DataStructures\ProductionItem.cs" />
     <Compile Include="DataStructures\ShipIcon.cs" />
     <Compile Include="DataStructures\RadiationTolerance.cs" />
+    <Compile Include="DataStructures\ShipIntel.cs" />
     <Compile Include="DataStructures\Temperature.cs" />
     <Compile Include="DataStructures\TemperatureTolerance.cs" />
     <Compile Include="DataStructures\XmlSerializableDictionary.cs" />

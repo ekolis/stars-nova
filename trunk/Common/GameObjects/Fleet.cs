@@ -339,7 +339,9 @@ namespace Nova.Common
                 {
                     int count;
                     if (!fleetComposition.TryGetValue(ship.Design, out count))
+                    {
                         count = 0;
+                    }
                     count++;
                     fleetComposition[ship.Design] = count;
                 }

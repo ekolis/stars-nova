@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,14 +20,6 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Ship class. 
-// Note that ships never exist in isolation, they are always part// of a fleet. Consequently, all the movement attributes can be found in the
-// fleet class. 
-// ===========================================================================
-#endregion
-
 namespace Nova.Common
 {
     using System;
@@ -37,6 +29,9 @@ namespace Nova.Common
 
     /// <summary>
     /// Ship class. 
+    /// Note that ships never exist in isolation, they are always part
+    /// of a fleet. Consequently, all the movement attributes can be found in the
+    /// fleet class.  
     /// </summary>
     [Serializable]
     public class Ship : Item
@@ -47,8 +42,6 @@ namespace Nova.Common
         // These are the current shield / armor values, modified by damage.
         public double Shields;
         public double Armor;
-
-        #region Construction
 
         /// <summary>
         /// Create a ship of a specified design.
@@ -87,10 +80,6 @@ namespace Nova.Common
             Armor = copy.Armor;
             this.Key = copy.Key;
         }
-
-        #endregion
-
-        #region Methods
 
         public ShipDesign Design
         {
@@ -169,10 +158,6 @@ namespace Nova.Common
 
             return fuelConsumption;
         }
-
-        #endregion
-
-        #region Properties
 
         /// <summary>
         /// Get the highest speed the ship can travel for 0 fuel.
@@ -449,10 +434,6 @@ namespace Nova.Common
             }
         }
 
-        #endregion
-
-        #region Load Save Xml
-
         /// <summary>
         /// Initialising Constructor from an xml node.
         /// Precondition: node is a "Ship" node Nova save file (xml document).
@@ -518,7 +499,15 @@ namespace Nova.Common
 
             return xmlelShip;
         }
-
-        #endregion
+        
+        public ShipIntel GenerateReport()
+        {
+            ShipIntel report = new ShipIntel();
+            report.Design   = Design.Key;
+            report.Name     = Name;
+            report.Count    = 1; // This has to be updated at Fleet or FleetIntel level
+            
+            return report;
+        }
     }
 }
