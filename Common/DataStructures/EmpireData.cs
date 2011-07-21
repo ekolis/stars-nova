@@ -65,7 +65,7 @@ namespace Nova.Common
         public int          ResearchBudget          = 10; // % of resources allocated to research
         public TechLevel    ResearchLevels          = new TechLevel(); // current levels of technology
         public TechLevel    ResearchResources       = new TechLevel(); // current cumulative resources on technologies
-        public TechLevel    ResearchTopics          = new TechLevel(); // order or researching
+        public TechLevel    ResearchTopics          = new TechLevel(); // order of researching
         
         public RaceComponents   AvailableComponents = new RaceComponents();
         

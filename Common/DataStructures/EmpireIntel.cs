@@ -1,7 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -26,37 +25,30 @@ namespace Nova.Common
     using System.Xml;
     
     /// <summary>
-    /// Description of EnemyIntel.
+    /// Report on enemy or neutral empires
     /// </summary>
     public class EmpireIntel
     {
-        private ushort empireId;
+        public ushort           Id          {get; set;}        
+        public string           RaceName    {get; set;}
+        public PlayerRelation   Relation    {get; set;}
+        public RaceIcon         Icon        {get; set;}        
         
-        public string RaceName;
-        
-        public PlayerRelation Relation;
-        public RaceIcon Icon;
-        
-        public ushort Id
-        {
-            get
-            {
-                return empireId;
-            }
-            
-            set
-            {               
-                empireId = value;
-            }
-        }
-        
+        /// <summary>
+        /// Default Constructor.
+        /// </summary>
+        /// <param name="empire"></param>
         public EmpireIntel(EmpireData empire)
         {
-            empireId = empire.Id;
+            Id = empire.Id;
             RaceName = empire.Race.Name;
             Icon = empire.Race.Icon;
         }
         
+        /// <summary>
+        /// Load: Initialising constructor to read in an empire report from an XmlNode (from a saved file).
+        /// </summary>
+        /// <param name="xmlnode">An XmlNode representing an Empire report.</param>
         public EmpireIntel(XmlNode node)
         {
             while (node != null)
@@ -73,7 +65,7 @@ namespace Nova.Common
                             RaceName = node.FirstChild.Value;
                             break;
                         case "id":
-                            empireId = ushort.Parse(node.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                            Id = ushort.Parse(node.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                             break;
                         case "relation":
                             Relation = (PlayerRelation)Enum.Parse(typeof(PlayerRelation), node.FirstChild.Value);
@@ -91,13 +83,18 @@ namespace Nova.Common
                 node = node.NextSibling;
             }
         }
-                
+        
+        /// <summary>
+        /// Create an XmlElement representation of the empire report for saving.
+        /// </summary>
+        /// <param name="xmldoc">The parent XmlDocument</param>
+        /// <returns>An XmlElement representation of the report.</returns>        
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             // create the outer element
             XmlElement xmlelEnemy = xmldoc.CreateElement("EmpireIntel");
 
-            Global.SaveData(xmldoc, xmlelEnemy, "Id", empireId.ToString("X"));
+            Global.SaveData(xmldoc, xmlelEnemy, "Id", Id.ToString("X"));
             
             Global.SaveData(xmldoc, xmlelEnemy, "RaceName", RaceName);
             
