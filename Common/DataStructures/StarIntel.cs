@@ -22,7 +22,6 @@
 namespace Nova.Common
 {
     using System;
-    using System.ComponentModel;
     using System.Xml;
 
     using Nova.Common.DataStructures;

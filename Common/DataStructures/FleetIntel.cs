@@ -1,7 +1,6 @@
 #region Copyright Notice
 // ============================================================================
-// Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -23,26 +22,25 @@
 namespace Nova.Common
 {
     using System;
+    using System.Collections.Generic;
     using System.Xml;
  
-    using Nova.Common;
     using Nova.Common.DataStructures;
 
     /// <summary>
-    /// This module describes what we know about each star system we have visited 
-    /// or scanned.
+    /// This module describes basic things we can
+    /// know about a Fleet.
     /// </summary>
     [Serializable]
     public class FleetIntel : Item
     {
-        public int          Year    {get; set;}
-        public double       Bearing {get; set;}
-        public int          Speed   {get; set;}
-
+        public int                           Year        {get; set;}
+        public double                        Bearing     {get; set;}
+        public int                           Speed       {get; set;}
+        public Dictionary<long, ShipIntel>   Composition {get; set;}
 
         /// <summary>
-        /// Constructor to use with LoadFromXml. Calls Fleet(0) which is a
-        /// bogus ID which should be replaced during xml load.
+        /// Default constructor. Sets sensible but meaningless default values for this report.
         /// </summary>
         public FleetIntel() :
             base()
@@ -51,9 +49,11 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Initializes a new instance of the FleetIntel class.
+        /// Creates a fleet report from a fleet.
         /// </summary>
-        /// <param name="fleet">The <see cref="Fleet"/> being reported</param>
+        /// <param name="fleet">Fleet to report</param>
+        /// <param name="scan">Amount of Knowledge to set</param>
+        /// <param name="year">Year of the data</param>
         public FleetIntel(Fleet fleet, ScanLevel scan, int year) :
             base()
         {
@@ -61,10 +61,15 @@ namespace Nova.Common
             Update(fleet, scan, year);
         }
 
+        /// <summary>
+        /// Load: Initialising constructor to read in a Fleet report from an XmlNode (from a saved file).
+        /// </summary>
+        /// <param name="xmlnode">An XmlNode representing a Fleet report.</param>
         public FleetIntel(XmlNode xmlnode) :
             base(xmlnode)
         {            
             XmlNode node = xmlnode.FirstChild;
+            XmlNode tNode;
             
             while (node != null)
             {
@@ -74,6 +79,23 @@ namespace Nova.Common
                     {
                         case "year":
                             Year = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "bearing":
+                            Bearing = double.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "speed":
+                            Speed = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "composition":
+                            // We can't call Clear() or we'll erase data set by base(xmlnode), so initialize collection here.
+                            Composition = new Dictionary<long, ShipIntel>();
+                            
+                            tNode = node.FirstChild;
+                            while (tNode != null)
+                            {
+                                Composition.Add(long.Parse(tNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber), new ShipIntel(tNode));
+                                tNode = tNode.NextSibling;
+                            }
                             break;
                     }
                 }
@@ -95,9 +117,18 @@ namespace Nova.Common
             Name                    = String.Empty;
             Position                = new NovaPoint();
             Owner                   = Global.NoOwner;
-            Type                    = ItemType.FleetIntel;           
+            Type                    = ItemType.FleetIntel;
+            Bearing                 = Global.Unset;
+            Speed                   = Global.Unset;
+            Composition             = new Dictionary<long, ShipIntel>();
         }
         
+        /// <summary>
+        /// Updates the report with data from a fleet.
+        /// </summary>
+        /// <param name="fleet">Fleet to report</param>
+        /// <param name="scan">Amount of Knowledge to set</param>
+        /// <param name="year">Year of the udpated data</param>
         public void Update(Fleet fleet, ScanLevel scan, int year)
         {
             if (fleet == null) { return; }
@@ -110,6 +141,17 @@ namespace Nova.Common
             Name        = fleet.Name;
             Type        = ItemType.FleetIntel;
             
+            foreach (Ship ship in fleet.FleetShips)
+            {
+                if (!Composition.ContainsKey(ship.Key))
+                {
+                    Composition.Add(ship.Key, ship.GenerateReport());
+                }
+                else
+                {
+                    Composition[ship.Key].Count++;
+                }
+            }
              
             if (scan >= ScanLevel.None)
             {            
@@ -127,7 +169,7 @@ namespace Nova.Common
                 Speed     = fleet.Speed;               
             }
             
-            // You can't orbit a fleet!
+            // If in the same position.
             if (scan >= ScanLevel.InPlace)
             {
                     
@@ -142,18 +184,38 @@ namespace Nova.Common
             // If the fleet is ours.
             if (scan >= ScanLevel.Owned)
             {
-
+                // Owned fleets are handled elsewhere.
             }    
         }
         
+        /// <summary>
+        /// Create an XmlElement representation of the fleet report for saving.
+        /// </summary>
+        /// <param name="xmldoc">The parent XmlDocument</param>
+        /// <returns>An XmlElement representation of the report.</returns>
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
+            XmlElement child;
+            
             XmlElement xmlelFleetIntel = xmldoc.CreateElement("FleetIntel");
             
             Global.SaveData(xmldoc, xmlelFleetIntel, "Year", Year.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
             // include inherited Item properties
             xmlelFleetIntel.AppendChild(base.ToXml(xmldoc));
+            
+            Global.SaveData(xmldoc, xmlelFleetIntel, "Bearing", Bearing.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelFleetIntel, "Speed", Speed.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            
+            // Store the composition
+            XmlElement xmlelComposition = xmldoc.CreateElement("Composition");
+            foreach (KeyValuePair<long, ShipIntel> report in Composition)
+            {
+                child = report.Value.ToXml(xmldoc);
+                child.SetAttribute("Key", report.Key.ToString("X"));
+                xmlelComposition.AppendChild(child);
+            }
+            xmlelFleetIntel.AppendChild(xmlelComposition);
 
             return xmlelFleetIntel;   
         }
