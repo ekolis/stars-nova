@@ -70,7 +70,7 @@ namespace Nova.Common
         public Dictionary<string, StarIntel> StarReports  = new Dictionary<string, StarIntel>();
         
         public FleetList OwnedFleets = new FleetList();
-        public Dictionary<ushort, FleetIntel> FleetReports  = new Dictionary<ushort, FleetIntel>();
+        public Dictionary<long, FleetIntel> FleetReports  = new Dictionary<long, FleetIntel>();
         
         public Dictionary<ushort, EmpireIntel>  EmpireReports   = new Dictionary<ushort, EmpireIntel>();
         
@@ -231,9 +231,17 @@ namespace Nova.Common
                         tNode = subnode.FirstChild;
                         while (tNode != null)
                         {
-                            FleetIntel report = new FleetIntel();
-                            report = report.LoadFromXml(tNode);
-                            OwnedFleets.Add(report);
+                            FleetIntel report = new FleetIntel(tNode);
+                            FleetReports.Add(report.Key, report);
+                            tNode = tNode.NextSibling;
+                        }
+                        break;
+                    case "ownedfleets":
+                        tNode = subnode.FirstChild;
+                        while (tNode != null)
+                        {
+                            Fleet fleet = new Fleet(tNode);
+                            OwnedFleets.Add(fleet);
                             tNode = tNode.NextSibling;
                         }
                         break;
@@ -305,11 +313,18 @@ namespace Nova.Common
             xmlelEmpireData.AppendChild(xmlelOwnedStars);
             
             XmlElement xmlelFleetReports = xmldoc.CreateElement("FleetReports");            
-            foreach (FleetIntel report in OwnedFleets.Values)
+            foreach (FleetIntel report in FleetReports.Values)
             {
                 xmlelFleetReports.AppendChild(report.ToXml(xmldoc));    
             }
             xmlelEmpireData.AppendChild(xmlelFleetReports);
+            
+            XmlElement xmlelOnedFleets = xmldoc.CreateElement("OwnedFleets");            
+            foreach (Fleet fleet in OwnedFleets.Values)
+            {
+                xmlelOnedFleets.AppendChild(fleet.ToXml(xmldoc));    
+            }
+            xmlelEmpireData.AppendChild(xmlelOnedFleets);
             
             XmlElement xmlelEnemyIntel = xmldoc.CreateElement("OtherEmpires");            
             foreach (EmpireIntel report in EmpireReports.Values)

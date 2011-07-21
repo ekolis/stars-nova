@@ -257,7 +257,7 @@ namespace Nova.WinForms.Gui
 
             List<String> fleetnames = new List<string>();
             fleetsInOrbit = new Dictionary<string, Fleet>();
-            foreach (FleetIntel fleet in empireState.OwnedFleets.Values)
+            foreach (Fleet fleet in empireState.OwnedFleets.Values)
             {
                 if ( fleet.InOrbit != null &&  fleet.InOrbit.Name == selectedStar.Name && !fleet.IsStarbase)
                 {

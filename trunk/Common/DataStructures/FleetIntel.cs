@@ -33,104 +33,39 @@ namespace Nova.Common
     /// or scanned.
     /// </summary>
     [Serializable]
-    public class FleetIntel : Fleet
+    public class FleetIntel : Item
     {
-        public int          Year;      
-        public ScanLevel   IntelAmount;
+        public int          Year    {get; set;}
+        public double       Bearing {get; set;}
+        public int          Speed   {get; set;}
+
 
         /// <summary>
         /// Constructor to use with LoadFromXml. Calls Fleet(0) which is a
         /// bogus ID which should be replaced during xml load.
         /// </summary>
         public FleetIntel() :
-            base(0)
+            base()
         {
+            Clear();
         }
         
         /// <summary>
         /// Initializes a new instance of the FleetIntel class.
         /// </summary>
         /// <param name="fleet">The <see cref="Fleet"/> being reported</param>
-        public FleetIntel(Fleet fleet, ScanLevel intelAmount, int year) :
-            base(fleet)
+        public FleetIntel(Fleet fleet, ScanLevel scan, int year) :
+            base()
         {
-            Year        = 0;            
-            IntelAmount = ScanLevel.None;
-           
-            Update(fleet, intelAmount, year);
-        } 
-        
-        public void Update(Fleet fleet, ScanLevel intelAmount, int year)
-        {
-            if (fleet == null)
-            {
-                return;
-            }
-            
-            if (year < this.Year)
-            {
-                return;
-            }
-            
-            // This controls what we update for this report.
-            IntelAmount = intelAmount;
-            
-            // Information that is always available and doesn't
-            // depend on scanning level. Nothing for fleets.
-            
-            //TODO:(priority 5) This is needed to prevent a crash.
-            //Needs rework as waypoints shouldn't be exposed.
-            Waypoints   = fleet.Waypoints;
-            Owner       = fleet.Owner;
-             
-            if (IntelAmount >= ScanLevel.None)
-            {            
-                // We keep the information we have.
-            }
-            
-            // If we are at least scanning with non-penetrating
-            if (IntelAmount >= ScanLevel.InScan)
-            {
-                // We can at least see it, so set age to current.
-                this.Year = year;
-                
-                Position  = fleet.Position;
-                Type      = fleet.Type;
-                Bearing   = fleet.Bearing;
-                Speed     = fleet.Speed;
-                // TODO:(priority 6). Prevents a crash. Needs rework to show
-                // be able to call FleetComposition without passing all ships.
-                FleetShips      = fleet.FleetShips;
-                Key = fleet.Key; // TODO: Again why copy the Key?
-                Cargo           = fleet.Cargo;
-                FuelAvailable   = fleet.FuelAvailable;                
-            }
-            
-            // You can't orbit a fleet!
-            if (IntelAmount >= ScanLevel.InPlace)
-            {
-                    
-            }
-            
-            // Pen scans do nothing for fleets.
-            if (IntelAmount >= ScanLevel.InDeepScan)
-            {                
-   
-            }
-            
-            // If the fleet is ours.
-            if (IntelAmount >= ScanLevel.Owned)
-            {
-                Waypoints = fleet.Waypoints;
-            }    
+            Clear();           
+            Update(fleet, scan, year);
         }
-        
-        public FleetIntel LoadFromXml(XmlNode xmlnode)
-        {
-            FleetIntel intel;
-            Fleet fleet = null;
-            
+
+        public FleetIntel(XmlNode xmlnode) :
+            base(xmlnode)
+        {            
             XmlNode node = xmlnode.FirstChild;
+            
             while (node != null)
             {
                 try
@@ -140,25 +75,75 @@ namespace Nova.Common
                         case "year":
                             Year = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
-                        case "intelamount":
-                            IntelAmount = (ScanLevel)Enum.Parse(typeof(ScanLevel), node.FirstChild.Value, true);
-                            break;
-                        case "fleet":
-                            fleet = new Fleet(node);
-                            break;
                     }
                 }
-                catch
+                catch (Exception e)
                 {
-                    // ignore incomplete or unset values
+                    Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
                 }
 
                 node = node.NextSibling;
+            }           
+        }        
+        
+        /// <summary>
+        /// Resets all values to default.
+        /// </summary>
+        public void Clear()
+        {
+            Year                    = Global.Unset;
+            Name                    = String.Empty;
+            Position                = new NovaPoint();
+            Owner                   = Global.NoOwner;
+            Type                    = ItemType.FleetIntel;           
+        }
+        
+        public void Update(Fleet fleet, ScanLevel scan, int year)
+        {
+            if (fleet == null) { return; }
+            if (year < this.Year) { return; }
+            
+            // Information that is always available and doesn't
+            // depend on scanning level. Nothing for fleets.
+            
+            Key         = fleet.Key;
+            Name        = fleet.Name;
+            Type        = ItemType.FleetIntel;
+            
+             
+            if (scan >= ScanLevel.None)
+            {            
+                // We keep the information we have.
             }
             
-            intel = new FleetIntel(fleet, IntelAmount, Year);
+            // If we are at least scanning with non-penetrating
+            if (scan >= ScanLevel.InScan)
+            {
+                // We can at least see it, so set age to current.
+                Year = year;
+                
+                Position  = fleet.Position;
+                Bearing   = fleet.Bearing;
+                Speed     = fleet.Speed;               
+            }
             
-            return intel;            
+            // You can't orbit a fleet!
+            if (scan >= ScanLevel.InPlace)
+            {
+                    
+            }
+            
+            // Pen scans do nothing for fleets.
+            if (scan >= ScanLevel.InDeepScan)
+            {                
+   
+            }
+            
+            // If the fleet is ours.
+            if (scan >= ScanLevel.Owned)
+            {
+
+            }    
         }
         
         public new XmlElement ToXml(XmlDocument xmldoc)
@@ -167,8 +152,7 @@ namespace Nova.Common
             
             Global.SaveData(xmldoc, xmlelFleetIntel, "Year", Year.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
-            Global.SaveData(xmldoc, xmlelFleetIntel, "IntelAmount", IntelAmount.ToString());
-
+            // include inherited Item properties
             xmlelFleetIntel.AppendChild(base.ToXml(xmldoc));
 
             return xmlelFleetIntel;   

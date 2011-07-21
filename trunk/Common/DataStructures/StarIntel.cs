@@ -83,16 +83,6 @@ namespace Nova.Common
                     case "year":
                         Year = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
-                    case "name":
-                        Name = node.FirstChild.Value;
-                        break;
-                    case "position":
-                        Position.X = int.Parse(node.SelectSingleNode("X").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                        Position.Y = int.Parse(node.SelectSingleNode("Y").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                        break;
-                    case "owner":
-                        Owner = ushort.Parse(node.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
-                        break;
                     case "mineralconcentration":
                         MineralConcentration = new Resources(node.FirstChild);
                         break;

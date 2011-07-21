@@ -56,7 +56,8 @@ namespace Nova.Common
         Starbase,
         Fleet,
         Star,
-        [Description("Star Report")] StarIntel        
+        [Description("Star Report")] StarIntel,
+        [Description("Fleet Report")] FleetIntel
     }
     
     public static class ItemTypeExtensions
