@@ -49,10 +49,9 @@ namespace Nova.Client
         public List<long>       DeletedFleets   = new List<long>();
         public List<Message>    Messages        = new List<Message>();
 
-        public Dictionary<long, Design> EnemyDesigns = new Dictionary<long, Design>();        
+        public Dictionary<long, Design> EnemyDesigns = new Dictionary<long, Design>();
         
-        public Intel            InputTurn           = null;
-        public RaceComponents   AvailableComponents = null;    
+        public Intel            InputTurn           = null;            
         
         public bool FirstTurn   = true;  
         
@@ -137,16 +136,7 @@ namespace Nova.Client
                             //THIS HAS TO GO!
                             InputTurn = new Intel();
                             InputTurn.LoadFromXmlNode(xmlnode);
-                            break;                        
-                        case "availablecomponents":
-                            AvailableComponents = new RaceComponents();
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
-                            { 
-                                AvailableComponents.Add(new Component(tNode));
-                                tNode = tNode.NextSibling;
-                            }
-                            break;
+                            break;                       
                         case "firstturn":
                             FirstTurn = bool.Parse(xmlnode.FirstChild.Value);
                             break;
@@ -322,33 +312,8 @@ namespace Nova.Client
             {
                 Report.FatalError("ClientState.cs Initialise() - Failed to find any .intel when initialising turn");
             }            
-            
-            // See which components are available.
-            UpdateAvailableComponents();
-            
+                        
             FirstTurn = false;
-        }
-
-        /// <summary>
-        /// Determine which tech components the player has access too
-        /// </summary>
-        private void UpdateAvailableComponents()
-        {
-            if (AvailableComponents == null)
-            {
-                AvailableComponents = new RaceComponents(EmpireState.Race, EmpireState.ResearchLevels);
-            }
-            else
-            {
-                try
-                {
-                    AvailableComponents.DetermineRaceComponents(EmpireState.Race, EmpireState.ResearchLevels);
-                }
-                catch
-                {
-                    Report.FatalError("Could not restore component definition file.");
-                }
-            }
         }
 
         /// <summary>
@@ -371,7 +336,6 @@ namespace Nova.Client
             EnemyDesigns   = newState.EnemyDesigns;     
             
             InputTurn           = newState.InputTurn;
-            AvailableComponents = newState.AvailableComponents;
             
             EmpireState = newState.EmpireState;
             
@@ -516,14 +480,6 @@ namespace Nova.Client
                 
                 // FIXME (priority 6) - THIS HAS TO GO!
                 xmlelClientState.AppendChild(InputTurn.ToXml(xmldoc));
-                
-                // Available Components
-                XmlElement xmlelAvaiableComponents = xmldoc.CreateElement("AvailableComponents");
-                foreach (Component component in AvailableComponents.Values)
-                {
-                    xmlelAvaiableComponents.AppendChild(component.ToXml(xmldoc));
-                }
-                xmlelClientState.AppendChild(xmlelAvaiableComponents);
                 
                 Global.SaveData(xmldoc, xmlelClientState, "FirstTurn", FirstTurn.ToString());
                 Global.SaveData(xmldoc, xmlelClientState, "GameFolder", GameFolder);

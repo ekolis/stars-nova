@@ -30,6 +30,7 @@ namespace Nova.WinForms
     using System.Windows.Forms;
 
     using Nova.Common;
+    using Nova.Common.Components;
     using Nova.NewGame;
     using Nova.Server;
     using Nova.WinForms.Console;
@@ -171,6 +172,10 @@ namespace Nova.WinForms
                 // Add initial state to the intel files.
                 ProcessPrimaryTraits(empireData);
                 ProcessSecondaryTraits(empireData);
+                
+                // Load components!
+                AllComponents.Restore();
+                empireData.AvailableComponents = new RaceComponents(empireData.Race, empireData.ResearchLevels);
             }
 
             // Create initial relations.

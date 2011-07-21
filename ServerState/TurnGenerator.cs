@@ -40,6 +40,9 @@ namespace Nova.WinForms.Console
         private ServerState turnData;
         
         private SortedList<int, ITurnStep> turnSteps;
+        
+        // Used to order turn steps.
+        private const int STARSTEP = 12;
         private const int SCANSTEP = 99;
         
         private OrderReader orderReader;
@@ -80,6 +83,7 @@ namespace Nova.WinForms.Console
             this.victoryCheck = new VictoryCheck(this.stateData, this.scores);
             
             this.turnSteps.Add(SCANSTEP, new ScanStep());
+            this.turnSteps.Add(STARSTEP, new StarUpdateStep());
         }
 
         /// ----------------------------------------------------------------------------
@@ -99,14 +103,6 @@ namespace Nova.WinForms.Console
             // TODO (priority 6): Integrity check the new turn before
             // updating the state (cheats, errors).
             stateData = turnData;
-            
-            // Do per user operations.
-            foreach (EmpireData empire in stateData.AllEmpires.Values)
-            {
-                // Does not do much for now, only sets up some basic
-                // (but required) variables.
-                SanitizeResearch(empire.Id);
-            }
 
             // Do all fleet movement and actions 
             // TODO (priority 4) - split this up into waypoint zero and waypoint 1 actions
@@ -242,41 +238,8 @@ namespace Nova.WinForms.Console
             {
                 return; // nothing to do for an empty star system.
             }
-            Race race = stateData.AllEmpires[star.Owner].Race;
-            
-            star.UpdateMinerals();
-            
-            // According to the allocated budget submited, update star resources.
-            // Note that this sets the allocation for research to zero for all stars
-            // which have "contribute only leftover resources to research". This
-            // makes those stars be handled after manufacturing.
-            int percentage = stateData.AllEmpires[star.Owner].ResearchBudget;
-            star.UpdateResearch(percentage);
-            star.UpdateResources();
-            
-            ContributeAllocatedResearch(race, star);
-            
-            int initialPopulation = star.Colonists;
-            star.UpdatePopulation(race);
-            int finalPopulation = star.Colonists;
 
-            if (finalPopulation < initialPopulation)
-            {
-                int died = initialPopulation - finalPopulation;
-                Message message = new Message();
-                message.Audience = star.Owner;
-                message.Text = died.ToString(System.Globalization.CultureInfo.InvariantCulture)
-                   + " of your colonists have been killed"
-                   + " by the environment on " + star.Name;
-                stateData.AllMessages.Add(message);
-            }
-
-            manufacture.Items(star);
-            
-            ContributeLeftoverResearch(race, star);
-            
-            star.UpdateResearch(percentage);
-            star.UpdateResources();
+            manufacture.Items(star);           
         }
 
 
@@ -509,113 +472,6 @@ namespace Nova.WinForms.Console
             }
 
             return false;
-        }
-        
-        private bool SanitizeResearch(int empireId)
-        {
-            // Reset the list of new levels gained.
-            stateData.AllEmpires[empireId].ResearchLevelsGained.Zero();
-            
-            return true;
-            
-        }
-        
-        /// <summary>
-        /// Contributes allocated research from the star.
-        /// </summary>
-        /// <param name="race">Star's owner race</param>
-        /// <param name="star">Star to process</param>
-        /// <remarks>
-        /// Note that stars which contribute only leftovers are not accounted for.
-        /// </remarks>
-        private void ContributeAllocatedResearch(Race race, Star star)
-        {   
-            if (star.Owner == Global.NoOwner)
-            {
-                return;
-            }
-
-            EmpireData playerData = stateData.AllEmpires[star.Owner];
-
-            TechLevel targetAreas = playerData.ResearchTopics;
-            TechLevel.ResearchField targetArea = TechLevel.ResearchField.Energy; // default to Energy.
-            
-            // Find the first research priority
-            // TODO: Implement a proper hierarchy of research ("next research field") system.
-            foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
-            {
-                if (targetAreas[area] == 1)
-                {
-                    targetArea = area;
-                    break;        
-                }
-            }
-            
-            // Consume resources for research for added paranoia.
-            playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResearchAllocation;
-            star.ResearchAllocation = 0;            
-            
-            TechLevel newLevels = stateData.AllEmpires[star.Owner].ResearchLevelsGained;
-            
-            while (true)
-            {
-                int cost = Research.Cost(targetArea, race, playerData.ResearchLevels, playerData.ResearchLevels[targetArea] + 1);
-                
-                if (playerData.ResearchResources[targetArea] >= cost)
-                {
-                    playerData.ResearchLevels[targetArea] = playerData.ResearchLevels[targetArea] + 1;
-                    newLevels[targetArea] = newLevels[targetArea] + 1;
-                }
-                else
-                {
-                    break;
-                }
-            }
-        }
-        
-        private void ContributeLeftoverResearch(Race race, Star star)
-        {
-            if (star.Owner == Global.NoOwner)
-            {
-                return;
-            }
-            
-            EmpireData playerData = stateData.AllEmpires[star.Owner];
-            
-            TechLevel targetAreas = playerData.ResearchTopics;
-            TechLevel.ResearchField targetArea = TechLevel.ResearchField.Energy; // default to Energy.
-            
-            // Find the first research priority
-            // TODO: Implement a proper hierarchy of research ("next research field") system.
-            foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
-            {
-                if (targetAreas[area] == 1)
-                {
-                    targetArea = area;
-                    break;        
-                }
-            }
-            
-            // Consume resources for research for added paranoia.
-            playerData.ResearchResources[targetArea] = playerData.ResearchResources[targetArea] + star.ResourcesOnHand.Energy;
-            star.ResourcesOnHand.Energy = 0;
-            
-            TechLevel newLevels = stateData.AllEmpires[star.Owner].ResearchLevelsGained;
-            
-            while (true)
-            {
-                int cost = Research.Cost(targetArea, race, playerData.ResearchLevels, playerData.ResearchLevels[targetArea] + 1);
-                
-                if (playerData.ResearchResources[targetArea] >= cost)
-                {
-                    playerData.ResearchLevels[targetArea] = playerData.ResearchLevels[targetArea] + 1;
-                    newLevels[targetArea] = newLevels[targetArea] + 1;
-                }
-                else
-                {
-                  break;
-                }
-            }
         }
         
         /// <summary>
