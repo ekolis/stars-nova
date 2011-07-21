@@ -45,6 +45,7 @@ namespace Nova.WinForms.Console
         private const int STARSTEP = 12;
         private const int SCANSTEP = 99;
         
+        // TODO: (priority 5) refactor all these into ITurnStep(s).
         private OrderReader orderReader;
         private IntelWriter intelWriter;
         private BattleEngine battleEngine;
@@ -82,8 +83,8 @@ namespace Nova.WinForms.Console
             this.intelWriter = new IntelWriter(this.stateData, this.scores);
             this.victoryCheck = new VictoryCheck(this.stateData, this.scores);
             
-            this.turnSteps.Add(SCANSTEP, new ScanStep());
-            this.turnSteps.Add(STARSTEP, new StarUpdateStep());
+            turnSteps.Add(SCANSTEP, new ScanStep());
+            turnSteps.Add(STARSTEP, new StarUpdateStep());
         }
 
         /// ----------------------------------------------------------------------------

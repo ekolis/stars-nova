@@ -48,7 +48,7 @@ namespace Nova.Common
         /// <summary>
         /// Load: Initialising constructor to read in an empire report from an XmlNode (from a saved file).
         /// </summary>
-        /// <param name="xmlnode">An XmlNode representing an Empire report.</param>
+        /// <param name="node">An XmlNode representing an Empire report.</param>
         public EmpireIntel(XmlNode node)
         {
             while (node != null)

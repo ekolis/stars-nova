@@ -173,6 +173,8 @@ namespace Nova.WinForms
                 ProcessPrimaryTraits(empireData);
                 ProcessSecondaryTraits(empireData);
                 
+                // TODO: (priority 6) Set spent resources according to initial levels, instead of zero.
+                
                 // Load components!
                 AllComponents.Restore();
                 empireData.AvailableComponents = new RaceComponents(empireData.Race, empireData.ResearchLevels);

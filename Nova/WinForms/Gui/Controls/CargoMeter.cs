@@ -118,7 +118,7 @@ namespace Nova.WinForms.Gui.Controls
                 PaintSingleBar(g, area);
             }
 
-            string text = String.Format("{0} of {1}{2}", Value, Maximum, Cargo == CargoType.Fuel ? "mg" : "KT");
+            string text = String.Format("{0} of {1}{2}", Value, Maximum, Cargo == CargoType.Fuel ? " mg" : " kT");
             Size s = TextRenderer.MeasureText(g, text, Font);
             int textX = area.Width/2 - s.Width/2;
             int textY = area.Height/2 - s.Height/2;
