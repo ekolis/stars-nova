@@ -145,48 +145,51 @@ namespace Nova.WinForms.Console
                 countToBuild++;                
             }
 
-            switch (design.Type)
+            if (countToBuild > 0)
             {
-                case ItemType.Mine:
-                    star.Mines += countToBuild;
-                    break;
+                switch (design.Type)
+                {
+                    case ItemType.Mine:
+                        star.Mines += countToBuild;
+                        break;
 
-                case ItemType.Factory:
-                    star.Factories += countToBuild;
-                    break;
+                    case ItemType.Factory:
+                        star.Factories += countToBuild;
+                        break;
 
-                case ItemType.Defenses:
-                    star.Defenses += countToBuild;
-                    if (star.Defenses >= Global.MaxDefenses)
-                    {
-                        star.Defenses = Global.MaxDefenses; // This should never be required, but just in case.
-                        // TODO: Should probably refund the resources if it is required though!
-                        productionItem.Quantity = 0;
-                    }
-                    break;
-
-                case ItemType.Ship:
-                    CreateShip(design as ShipDesign, star, countToBuild);
-                    break;
-
-                case ItemType.Starbase:
-                    // first remove the old starbase
-                    while (countToBuild > 0)
-                    {
-                        if (star.Starbase != null)
+                    case ItemType.Defenses:
+                        star.Defenses += countToBuild;
+                        if (star.Defenses >= Global.MaxDefenses)
                         {
-                            stateData.AllFleets.Remove(star.Starbase.Key);
-                            star.Starbase = null;
+                            star.Defenses = Global.MaxDefenses; // This should never be required, but just in case.
+                            // TODO: Should probably refund the resources if it is required though!
+                            productionItem.Quantity = 0;
                         }
+                        break;
 
-                        CreateShip(design as ShipDesign, star, 1);
-                        countToBuild--;
-                    }
-                    break;
+                    case ItemType.Ship:
+                        CreateShip(design as ShipDesign, star, countToBuild);
+                        break;
 
-                default:
-                    Report.Error("Unknown item in production queue " + design.Type.ToDescription());
-                    break;
+                    case ItemType.Starbase:
+                        // first remove the old starbase
+                        while (countToBuild > 0)
+                        {
+                            if (star.Starbase != null)
+                            {
+                                stateData.AllFleets.Remove(star.Starbase.Key);
+                                star.Starbase = null;
+                            }
+
+                            CreateShip(design as ShipDesign, star, 1);
+                            countToBuild--;
+                        }
+                        break;
+
+                    default:
+                        Report.Error("Unknown item in production queue " + design.Type.ToDescription());
+                        break;
+                }
             }
 
 
