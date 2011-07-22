@@ -42,8 +42,8 @@ namespace Nova.Common.Components
         /// <summary>
         /// Default constructor.
         /// </summary>
-        public Design()
-            : base()
+        public Design(long key)
+            : base(key)
         {
         }
 

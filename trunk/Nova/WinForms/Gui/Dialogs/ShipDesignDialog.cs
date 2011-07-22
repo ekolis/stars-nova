@@ -875,7 +875,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OK_Click(object sender, System.EventArgs e)
         {
-            ShipDesign newDesign = new ShipDesign();
+            ShipDesign newDesign = new ShipDesign(stateData.EmpireState.GetNextDesignKey());
             Hull hullProperties = this.selectedHull.Properties["Hull"] as Hull;
 
             hullProperties.Modules = HullGrid.ActiveModules;
