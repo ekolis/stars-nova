@@ -78,11 +78,10 @@ namespace Nova.Common.Components
 
         #region Construction
 
-        /// <summary>
-        /// Default constructor.
-        /// </summary>
-        public ShipDesign()
+        public ShipDesign(long designkey)
+            : base(designkey)
         {
+            Key = designkey;
         }
 
         #endregion

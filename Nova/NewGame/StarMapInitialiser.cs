@@ -111,15 +111,14 @@ namespace Nova.NewGame
             foreach (EmpireData empire in stateData.AllEmpires.Values)
             {
                 string player = empire.Race.Name;
-                
-                Design mine = new Design();
-                Design factory = new Design();
-                Design defense = new Design();
+
+                Design mine = new Design(empire.GetNextDesignKey());
+                Design factory = new Design(empire.GetNextDesignKey());
+                Design defense = new Design(empire.GetNextDesignKey());
 
                 mine.Cost = new Nova.Common.Resources(0, 0, 0, empire.Race.MineBuildCost);
                 mine.Name = "Mine";
                 mine.Type = ItemType.Mine;
-                mine.Key = empire.GetNextDesignKey();
 
                 // If we have the secondary racial trait Cheap Factories they need 1K
                 // less germanium to build.
@@ -127,12 +126,10 @@ namespace Nova.NewGame
                 factory.Cost = new Nova.Common.Resources(0, 0, factoryBuildCostGerm, empire.Race.FactoryBuildCost);
                 factory.Name = "Factory";
                 factory.Type = ItemType.Factory;
-                factory.Key = empire.GetNextDesignKey();
 
                 defense.Cost = new Nova.Common.Resources(5, 5, 5, 15);
                 defense.Name = "Defenses";
                 defense.Type = ItemType.Defenses;
-                defense.Key = empire.GetNextDesignKey();
                 
                 stateData.AllDesigns[mine.Key] = mine;
                 stateData.AllDesigns[factory.Key] = factory;
@@ -198,7 +195,7 @@ namespace Nova.NewGame
                 colonyShipEngine = engine;
             }
 
-            ShipDesign cs = new ShipDesign();
+            ShipDesign cs = new ShipDesign(empire.GetNextDesignKey());
             cs.ShipHull = colonyShipHull;
             foreach (HullModule module in (cs.ShipHull.Properties["Hull"] as Hull).Modules)
             {
@@ -217,10 +214,9 @@ namespace Nova.NewGame
 
             cs.Type = ItemType.Ship;
             cs.Name = "Santa Maria";
-            cs.Key = empire.GetNextDesignKey();
             cs.Update();
 
-            ShipDesign scout = new ShipDesign();
+            ShipDesign scout = new ShipDesign(empire.GetNextDesignKey());
             scout.ShipHull = scoutHull;
             foreach (HullModule module in (scout.ShipHull.Properties["Hull"] as Hull).Modules)
             {
@@ -239,12 +235,10 @@ namespace Nova.NewGame
 
             scout.Type = ItemType.Ship;
             scout.Name = "Scout";
-            scout.Key = empire.GetNextDesignKey();
             scout.Update();
 
-            ShipDesign starbase = new ShipDesign();
+            ShipDesign starbase = new ShipDesign(empire.GetNextDesignKey());
             starbase.Name = "Starbase";
-            starbase.Key = empire.GetNextDesignKey();
             starbase.ShipHull = starbaseHull;
             starbase.Type = ItemType.Starbase;
             starbase.Icon = new ShipIcon(starbaseHull.ImageFile, (Bitmap)starbaseHull.ComponentImage);

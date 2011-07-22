@@ -452,8 +452,7 @@ namespace Nova.Common
                     switch (subnode.Name.ToLower())
                     {
                         case "design":
-                            this.design = new ShipDesign();
-                            this.design.Key = long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber); // Only the Id is loaded. This design must be replaced in the post load linking.
+                            this.design = new ShipDesign(long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber));
                             break;
                         case "mass":
                             Mass = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);

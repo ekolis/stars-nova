@@ -64,8 +64,8 @@ namespace Nova.Tests.UnitTests
         private Fleet fleet3 = new Fleet("fleet3", Player3Id, 1, new Point(300, 400));
         private Fleet fleet4 = new Fleet("fleet4", Player3Id, 2, new Point(300, 400));
 
-        private ShipDesign cruiser = new ShipDesign();
-        private ShipDesign frigate = new ShipDesign();
+        private ShipDesign cruiser = new ShipDesign(12345);
+        private ShipDesign frigate = new ShipDesign(67890);
 
         private Ship ship1;
         private Ship ship2;

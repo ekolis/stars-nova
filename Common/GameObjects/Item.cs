@@ -83,6 +83,11 @@ namespace Nova.Common
         { 
         }
 
+        public Item(long key)
+        {
+            Key = key;
+        }
+
         /// <summary>
         /// Copy (initialising) constructor
         /// </summary>
