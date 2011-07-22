@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -17,13 +17,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
-// ===========================================================================
-#endregion
-
-#region Module Description
-// ===========================================================================
-// Control to act as a container to hold the appropriate Detail control of a
-// selected Item.
 // ===========================================================================
 #endregion
 
@@ -55,8 +48,6 @@ namespace Nova.WinForms.Gui
         // ProductionDialog shouldn't need the whole state either. Must refactor this.
         private ClientState stateData;
 
-        #region Construction
-
         /// <Summary>
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
@@ -75,47 +66,38 @@ namespace Nova.WinForms.Gui
             InitializeComponent();
         }
 
-        #endregion
-
-        #region Methods
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Display planet Detail
         /// </Summary>
         /// <param name="Item">The <see cref="Item"/> to display (a <see cref="Fleet"/> or <see cref="Star"/>).</param>
-        /// ----------------------------------------------------------------------------
-        private void DisplayPlanet(Item item)
+        private void DisplayPlanet(Star star)
         {
-            PlanetDetail.Value = item as Star;
+            PlanetDetail.Value = star;
             
             selectedControl = PlanetDetail;
             Controls.Clear();
             Controls.Add(PlanetDetail);
 
-            selectedItem = item;
+            selectedItem = star;
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Display fleet Detail
         /// </Summary>
         /// <param name="Item">The <see cref="Item"/> to display (a <see cref="Fleet"/> or <see cref="Star"/>).</param>
-        /// ----------------------------------------------------------------------------
-        private void DisplayFleet(Item item)
+        private void DisplayFleet(Fleet fleet)
         {
-            FleetDetail.Value = item as Fleet;
+            FleetDetail.Value = fleet;
 
             selectedControl = FleetDetail;
             Controls.Clear();
             Controls.Add(FleetDetail);
 
-            selectedItem = item;
+            selectedItem = fleet;
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Set the content of the Detail control. Depending on the type of the Item
         /// selected this may either be a planet (in which case the planet Detail
@@ -123,7 +105,6 @@ namespace Nova.WinForms.Gui
         /// to be displayed).
         /// </Summary>
         /// <param name="Item">The <see cref="Item"/> to display (a <see cref="Fleet"/> or <see cref="Star"/>).</param>
-        /// ----------------------------------------------------------------------------
         private void SetItem(Item item)
         {
             if (item == null)
@@ -145,13 +126,14 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
+            // Detail panel works with owned objects, so retrieve them from their reports.
             if (item is Fleet)
             {
-                DisplayFleet(item);
+                DisplayFleet(item as Fleet);
             }
             else
             {
-                DisplayPlanet(item);
+                DisplayPlanet(item as Star);
             }
         }
         
@@ -160,20 +142,14 @@ namespace Nova.WinForms.Gui
             return selectedItem;
         }
 
-        public void SelectionChanged(object sender, SelectionArgs e)
+        public void DetailChangeSelection(object sender, DetailSelectionArgs e)
         {
-            this.Value = e.Item;
+            this.Value = e.Detail;
         }
-        
-        #endregion
 
-        #region Properties
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Property to access the selected Item (Fleet or Star).
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public Item Value
         {
             set { SetItem(value); }
@@ -181,16 +157,12 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Property to access the actual Detail control being displayed.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public UserControl Control
         {
             get { return selectedControl; }
         }
-
-        #endregion
     }
 }

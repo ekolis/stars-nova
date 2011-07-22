@@ -20,19 +20,6 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// The Nova GUI is the program used to play a turn of nova. In a multiplayer/network
-// game it is the main client side program. The Nova GUI reads in a .intel
-// file to determine what the player race knows about the universe and when a 
-// turn is submitted, generates a .orders file for processing of the next game
-// year. A history is maintained by the ConsoleState object as a .state file.
-//
-// This module holds the program entry Point and handles all things related to
-// the main GUI window.
-// ===========================================================================
-#endregion
-
 namespace Nova.WinForms.Gui
 {
     using System;
@@ -42,15 +29,20 @@ namespace Nova.WinForms.Gui
     using Nova.Common;
 
     /// <Summary>
-    /// Main Windows form class.
+    /// The Nova GUI is the form used to play a turn of nova. In a multiplayer/network
+    /// game it is the main client side program. The Nova GUI reads in a .intel
+    /// file to determine what the player race knows about the universe and when a 
+    /// turn is submitted, generates a .orders file for processing of the next game
+    /// year. A history is maintained by the ConsoleState object as a .state file.
+    ///
+    /// This module holds the program entry Point and handles all things related to
+    /// the main GUI window.
     /// </Summary>
     public partial class NovaGUI : Form
     {
         public int CurrentTurn;      // control turnvar used for to decide to load new turn... (Thread)
         public string CurrentRace;   // control var used for to decide to load new turn... (Thread)
         protected ClientState stateData;
-
-        #region Construction and Disposal
 
         /// <Summary>
         /// Construct the main window.
@@ -66,18 +58,17 @@ namespace Nova.WinForms.Gui
             
              // These used to be in the designer.cs file, but visual studio designer throws a whappy so they are here
             // for now so it works again
-            SelectionDetail.FleetDetail.FleetSelectionChangedEvent += FleetChangeSelection;
+            SelectionDetail.FleetDetail.DetailSelectionChangedEvent += DetailChangeSelection;
             SelectionDetail.FleetDetail.RefreshStarMapEvent += MapControl.RefreshStarMap;
-            SelectionDetail.FleetDetail.StarSelectionChangedEvent += StarChangeSelection;
+            SelectionDetail.FleetDetail.SummarySelectionChangedEvent += SummaryChangeSelection;
             SelectionDetail.PlanetDetail.CursorChangedEvent += MapControl.ChangeCursor;
-            SelectionDetail.PlanetDetail.StarSelectionChangedEvent += StarChangeSelection;
-            SelectionDetail.PlanetDetail.FleetSelectionChangedEvent += FleetChangeSelection;
+            SelectionDetail.PlanetDetail.DetailSelectionChangedEvent += DetailChangeSelection;
+            SelectionDetail.PlanetDetail.SummarySelectionChangedEvent += SummaryChangeSelection;
             
 
             MapControl.RequestSelectionEvent += SelectionDetail.ReportItem;
-            MapControl.SelectionChangedEvent += SelectionDetail.SelectionChanged;
-            MapControl.SelectionChangedEvent += SelectionSummary.SelectionChanged;
-            MapControl.WaypointChangedEvent +=  SelectionDetail.FleetDetail.WaypointListChanged;
+            MapControl.SummarySelectionChangedEvent += SelectionSummary.SummaryChangeSelection;
+            MapControl.DetailSelectionChangedEvent += SelectionDetail.DetailChangeSelection;
         }
 
         public SelectionDetail SelectionDetail
@@ -99,10 +90,6 @@ namespace Nova.WinForms.Gui
         {
             get { return messages; }
         }
-
-        #endregion
-
-        #region Event Methods
 
         /// <Summary>
         /// Exit menu Item selected.
@@ -321,10 +308,9 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">
         /// A <see cref="System.Object"/>The source of the event.</param>
         /// <param name="e">A <see cref="FleetSelectionArgs"/> that contains the event data.</param>
-        public void FleetChangeSelection(object sender, FleetSelectionArgs e)
+        public void DetailChangeSelection(object sender, DetailSelectionArgs e)
         {
             this.SelectionDetail.Value = e.Detail;
-            this.SelectionSummary.Value = e.Summary;
         }
         
         /// <Summary>
@@ -333,13 +319,10 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">
         /// A <see cref="System.Object"/>The source of the event.</param>
         /// <param name="e">A <see cref="FleetSelectionArgs"/> that contains the event data.</param>
-        public void StarChangeSelection(object sender, StarSelectionArgs e)
+        public void SummaryChangeSelection(object sender, SummarySelectionArgs e)
         {
-            this.SelectionDetail.Value = e.Star;
-            this.SelectionSummary.Value = e.Star;
+            this.SelectionSummary.Value = e.Summary;
         }
-
-        #endregion
         
         /// <Summary>
         /// Load controls with any data we may have for them.

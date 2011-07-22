@@ -45,12 +45,11 @@ namespace Nova.WinForms.Gui
         private ClientState stateData;
         
         /// <Summary>
-        /// This event should be fired when the selected Star
-        /// changes.
+        /// This event should be fired when the selection changes.
         /// </Summary>
-        public event StarSelectionChanged StarSelectionChangedEvent;
+        public event SummarySelectionChanged SummarySelectionChangedEvent;
 
-        public event FleetSelectionChanged FleetSelectionChangedEvent;
+        public event DetailSelectionChanged DetailSelectionChangedEvent;
         
         /// <Summary>
         /// This event should be fired in addition to
@@ -72,13 +71,11 @@ namespace Nova.WinForms.Gui
             InitializeComponent();
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// The change queue button has been pressed.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void ChangeProductionQueue_Click(object sender, EventArgs e)
         {
             ProductionDialog productionDialog = new ProductionDialog(selectedStar, stateData);
@@ -93,13 +90,11 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Next planet button pressed
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void NextPlanet_Click(object sender, EventArgs e)
         {
             if (empireState.OwnedStars.Count == 1)
@@ -120,13 +115,11 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Previous planet button pressed
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void PreviousPlanet_Click(object sender, EventArgs e)
         {
             if (empireState.OwnedStars.Count == 1)
@@ -154,16 +147,14 @@ namespace Nova.WinForms.Gui
 
         private void FireStarSelectionChangedEvent()
         {
-            if (StarSelectionChangedEvent != null)
-                StarSelectionChangedEvent(this, new StarSelectionArgs(empireState.StarReports[selectedStar.Name]));
+            if (DetailSelectionChangedEvent != null)
+                DetailSelectionChangedEvent(this, new DetailSelectionArgs(selectedStar));
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Set the Star which is to be displayed
         /// </Summary>
         /// <param name="selectedStar">The Star to be displayed</param>
-        /// ----------------------------------------------------------------------------
         private void SetStarDetails(Star selectedStar)
         {
             if (selectedStar == null)
@@ -188,11 +179,9 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Update all the fields in the planet Detail display.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         private void UpdateFields()
         {
             if (selectedStar == null)
@@ -277,11 +266,9 @@ namespace Nova.WinForms.Gui
             buttonGoto.Enabled = haveFleets;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Access to the Star Report whose details are displayed in the panel.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public Star Value
         {
             set { SetStarDetails(value); }
@@ -324,14 +311,7 @@ namespace Nova.WinForms.Gui
             Fleet fleet = GetSelectedFleetInOrbit();
             if (fleet != null)
             {
-                FleetSelectionArgs selectionArgs = new FleetSelectionArgs(fleet, fleet);
-                CursorArgs cursorArgs = new CursorArgs((Point)fleet.Position);
-
-                // Inform of the selection change to all listening objects.
-                if( FleetSelectionChangedEvent != null )
-                    FleetSelectionChangedEvent(this, selectionArgs);
-                if( CursorChangedEvent != null )
-                CursorChangedEvent(this, cursorArgs);          
+                UpdateListeners(fleet);
             }
         }
 
@@ -356,6 +336,33 @@ namespace Nova.WinForms.Gui
                     Report.Debug("FleetDetail.cs : CargoButton_Click() - Failed to open cargo dialog.");
                 }
             }
+        }
+        
+        private void UpdateListeners(Item item)
+        {
+            if (DetailSelectionChangedEvent != null && item.Owner == empireState.Id)
+            {
+                DetailSelectionChangedEvent(this, new DetailSelectionArgs(item));
+            }
+            if (SummarySelectionChangedEvent != null)
+            {
+                SummarySelectionArgs summaryArgs;
+                
+                if (item.Type == ItemType.Fleet)
+                {
+                    summaryArgs = new SummarySelectionArgs(empireState.FleetReports[item.Key]);
+                }
+                else
+                {
+                    summaryArgs = new SummarySelectionArgs(empireState.StarReports[item.Name]);
+                }
+                
+                SummarySelectionChangedEvent(this, summaryArgs);
+            }
+            if( CursorChangedEvent != null )
+            {
+                CursorChangedEvent(this, new CursorArgs((Point)item.Position));
+            }    
         }
     }
 }

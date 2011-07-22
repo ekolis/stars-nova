@@ -1,3 +1,4 @@
+using NUnit.Framework;
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2011 The Stars-Nova Project
@@ -34,10 +35,27 @@ namespace Nova.Common
     [Serializable]
     public class FleetIntel : Item
     {
-        public int                           Year        {get; set;}
-        public double                        Bearing     {get; set;}
-        public int                           Speed       {get; set;}
-        public Dictionary<long, ShipIntel>   Composition {get; set;}
+        public int                          Year        {get; set;}
+        public ShipIcon                     Icon        {get; set;}
+        public double                       Bearing     {get; set;}
+        public int                          Speed       {get; set;}
+        public bool                         InOrbit     {get; set;}
+        public bool                         IsStarbase  {get; set;}
+        public Dictionary<long, ShipIntel>  Composition {get; set;}
+        
+        public int Count
+        {
+            get
+            {
+                int qty = 0;
+                foreach (ShipIntel report in Composition.Values)
+                {
+                    qty += report.Count;
+                }
+                
+                return qty;
+            }
+        }
 
         /// <summary>
         /// Default constructor. Sets sensible but meaningless default values for this report.
@@ -80,11 +98,21 @@ namespace Nova.Common
                         case "year":
                             Year = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
+                        case "icon":
+                            string iconSource = node.FirstChild.Value;
+                            Icon = AllShipIcons.Data.GetIconBySource(iconSource);
+                            break;
                         case "bearing":
                             Bearing = double.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "speed":
                             Speed = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            break;
+                        case "inorbit":
+                            InOrbit = bool.Parse(node.FirstChild.Value);
+                            break;
+                        case "isstarbase":
+                            IsStarbase = bool.Parse(node.FirstChild.Value);
                             break;
                         case "composition":
                             // We can't call Clear() or we'll erase data set by base(xmlnode), so initialize collection here.
@@ -139,19 +167,8 @@ namespace Nova.Common
             
             Key         = fleet.Key;
             Name        = fleet.Name;
+            Icon        = fleet.Icon;
             Type        = ItemType.FleetIntel;
-            
-            foreach (Ship ship in fleet.FleetShips)
-            {
-                if (!Composition.ContainsKey(ship.Key))
-                {
-                    Composition.Add(ship.Key, ship.GenerateReport());
-                }
-                else
-                {
-                    Composition[ship.Key].Count++;
-                }
-            }
              
             if (scan >= ScanLevel.None)
             {            
@@ -164,9 +181,12 @@ namespace Nova.Common
                 // We can at least see it, so set age to current.
                 Year = year;
                 
-                Position  = fleet.Position;
-                Bearing   = fleet.Bearing;
-                Speed     = fleet.Speed;               
+                Position    = fleet.Position;
+                Bearing     = fleet.Bearing;
+                Speed       = fleet.Speed;
+                InOrbit     = (fleet.InOrbit == null) ? false : true;
+                IsStarbase  = fleet.IsStarbase;
+                Composition = fleet.CompositionReport;                                
             }
             
             // If in the same position.
@@ -204,8 +224,12 @@ namespace Nova.Common
             // include inherited Item properties
             xmlelFleetIntel.AppendChild(base.ToXml(xmldoc));
             
+            Global.SaveData(xmldoc, xmlelFleetIntel, "Icon", Icon.Source);
+            
             Global.SaveData(xmldoc, xmlelFleetIntel, "Bearing", Bearing.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelFleetIntel, "Speed", Speed.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelFleetIntel, "InOrbit", InOrbit.ToString());
+            Global.SaveData(xmldoc, xmlelFleetIntel, "IsStarbase", IsStarbase.ToString());
             
             // Store the composition
             XmlElement xmlelComposition = xmldoc.CreateElement("Composition");

@@ -202,7 +202,9 @@ namespace Nova.WinForms
             try
             {
                 TurnGenerator firstTurn = new TurnGenerator(stateData);
+                
                 firstTurn.AssembleEmpireData();
+                                
                 Scores scores = new Scores(stateData);
                 IntelWriter intelWriter = new IntelWriter(stateData, scores);
                 intelWriter.WriteIntel();

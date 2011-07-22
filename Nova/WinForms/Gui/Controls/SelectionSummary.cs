@@ -62,41 +62,41 @@ namespace Nova.WinForms.Gui
         /// Display a planet Summary
         /// </Summary>
         /// <param name="Item"></param>
-        private void DisplayPlanet(Item item)
+        private void DisplayPlanet(StarIntel report)
         {
-            if (empireState.StarReports[item.Name].Year == Global.Unset)
+            if (empireState.StarReports[report.Name].Year == Global.Unset)
             {
-                this.selectedItem.Text = item.Name + " is unexplored";
+                this.selectedItem.Text = report.Name + " is unexplored";
                 summaryItem = null;
                 this.selectedItem.Controls.Clear();
                 return;
             }
 
-            this.selectedItem.Text = "Summary of " + item.Name;
+            this.selectedItem.Text = "Summary of " + report.Name;
             planetSummary.Location = new Point(5, 15);
-            planetSummary.Value = item as StarIntel;
+            planetSummary.Value = report;
 
             // If we are displaying a fleet clear it out and add the planet
             // Summary display.
 
-            if (summaryItem is Fleet || summaryItem == null)
+            if (summaryItem is FleetIntel || summaryItem == null)
             {
                 this.selectedItem.Controls.Clear();
                 this.selectedItem.Controls.Add(planetSummary);
             }
 
-            summaryItem = item;
+            summaryItem = report;
         }
 
         /// <Summary>
         /// Display a fleet Summary
         /// </Summary>
         /// <param name="Item">The <see cref="Item"/> to display (a <see cref="Fleet"/> or <see cref="Star"/>).</param>
-        private void DisplayFleet(Item item)
+        private void DisplayFleet(FleetIntel report)
         {
-            this.selectedItem.Text = "Summary of " + item.Name;
+            this.selectedItem.Text = "Summary of " + report.Name;
             fleetSummary.Location = new Point(5, 15);
-            fleetSummary.Value = item as Fleet;
+            fleetSummary.Value = report;
 
             if (summaryItem is StarIntel || summaryItem == null)
             {
@@ -104,7 +104,7 @@ namespace Nova.WinForms.Gui
                 this.selectedItem.Controls.Add(fleetSummary);
             }
 
-            summaryItem = item;
+            summaryItem = report;
         }
 
         /// <Summary>
@@ -123,21 +123,21 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            if (item is Fleet)
+            if (item is FleetIntel)
             {
-                DisplayFleet(item);
+                DisplayFleet(item as FleetIntel);
             }
             else
             {
-                DisplayPlanet(item);
+                DisplayPlanet(item as StarIntel);
             }
         }
         
-        public void SelectionChanged(object sender, SelectionArgs e)
+        public void SummaryChangeSelection(object sender, SummarySelectionArgs e)
         {
-            this.Value = e.Item;
+            this.Value = e.Summary;
         }
-
+       
         /// <Summary>
         /// Property to access the displayed Item
         /// </Summary>

@@ -1,4 +1,5 @@
-﻿#region Copyright Notice
+﻿using System;
+#region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
 // Copyright (C) 2009, 2010 stars-nova
@@ -51,21 +52,12 @@ namespace Nova.WinForms.Gui
     public delegate void CursorChanged(object sender, CursorArgs e);
 
     /// <Summary>
-    /// This is the hook to listen for changes on the selected object.
-    /// Objects who subscribe to this should respond to the new selection
-    /// by using the SelectionArgs supplied which holds the updated
-    /// selection data.
-    /// </Summary>
-    public delegate void SelectionChanged(object sender, SelectionArgs e);
-
-
-    /// <Summary>
     /// This is the hook to listen for a new selected Star.
     /// Objects who subscribe to this should respond to the Star
     /// selection change by using the StarSelectionArgs supplied which hold
     /// the newly selected Star data.
     /// </Summary>
-    public delegate void StarSelectionChanged(object sender, StarSelectionArgs e);
+    public delegate void SummarySelectionChanged(object sender, SummarySelectionArgs e);
 
 
     /// <Summary>
@@ -79,8 +71,7 @@ namespace Nova.WinForms.Gui
     /// selection change by using the FleetSelectionArgs supplied which hold
     /// the newly selected Fleet data.
     /// </Summary>
-    public delegate void FleetSelectionChanged(object sender, FleetSelectionArgs e);
-
+    public delegate void DetailSelectionChanged(object sender, DetailSelectionArgs e);
     /// <Summary>
     /// This is the hook to listen for when to update the starmap.
     /// This should be used to repain the map in certain cases, for example,
@@ -102,46 +93,71 @@ namespace Nova.WinForms.Gui
             this.Point = point;
         }
     }
-
+    
     /// <Summary>
-    /// Holds data related to the current selection. 
+    /// Holds data related to the summary selection. 
     /// </Summary>
-    public class SelectionArgs : System.EventArgs
+    public class SummarySelectionArgs : System.EventArgs
     {
-        public Item Item;
-
-        public SelectionArgs(Item item)
+        private Item summary;
+        
+        public Item Summary
         {
-            this.Item = item;
+            get
+            {
+                return summary;
+            }
+            
+            set
+            {
+                if (value.Type != ItemType.FleetIntel && value.Type != ItemType.StarIntel)
+                {
+                    throw new ArgumentException("Summary arguments can only be FleetIntel or StarIntel types");
+                }
+                else
+                {
+                    summary = value;    
+                }
+            }
+        }
+
+        public SummarySelectionArgs(Item summary)
+        {
+            Summary = summary;
         }
     }
 
-    /// <Summary>
-    /// Holds data related to the current Star selection. 
-    /// </Summary>
-    public class StarSelectionArgs : System.EventArgs
-    {
-        public StarIntel Star;
 
-        public StarSelectionArgs(StarIntel star)
+    /// <Summary>
+    /// Holds data related to the detailed selection. 
+    /// </Summary>
+    public class DetailSelectionArgs : System.EventArgs
+    {
+        private Item detail;
+        
+        public Item Detail
         {
-            this.Star = star;
+            get
+            {
+                return detail;
+            }
+            
+            set
+            {
+                if (value.Type != ItemType.Fleet && value.Type != ItemType.Star)
+                {
+                    throw new ArgumentException("Detail arguments can only be Fleet or Star types");
+                }
+                else
+                {
+                    detail = value;    
+                }
+            }
+        }
+
+        public DetailSelectionArgs(Item detail)
+        {
+            Detail = detail;
         }
     }
-
-
-    /// <Summary>
-    /// Holds data related to the current Fleet selection. 
-    /// </Summary>
-    public class FleetSelectionArgs : System.EventArgs
-    {
-        public Fleet Detail;
-        public Fleet Summary;
-
-        public FleetSelectionArgs(Fleet detail, Fleet summary)
-        {
-            this.Detail = detail;
-            this.Summary = summary;
-        }
-    } 
 }

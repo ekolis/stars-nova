@@ -53,23 +53,24 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="fleet">The <see cref="Fleet"/> to display.</param>
         /// ----------------------------------------------------------------------------
-        private void DisplaySummary(Fleet fleet)
+        private void DisplaySummary(FleetIntel report)
         {
-            ushort ownerId = fleet.Owner;
-            this.fleetShipCount.Text = fleet.Composition.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            this.fleetMass.Text = fleet.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            this.fleetSpeed.Text = fleet.Speed.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            this.fleetImage.Image = fleet.Icon.Image;
-            // FIXME:(priority 3) look for enemy name inside EmpireData.
-            // this needs the appropiate collections to be refactores.
-            this.fleetOwner.Text = ownerId.ToString("X");
+            ushort ownerId = report.Owner;
+            
+            fleetShipCount.Text = report.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            fleetMass.Text = report.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            fleetSpeed.Text = report.Speed.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            fleetImage.Image = report.Icon.Image;
+            
             if (ownerId != empireState.Id)
             {
-                this.raceIcon.Image = empireState.EmpireReports[ownerId].Icon.Image;
+                raceIcon.Image = empireState.EmpireReports[ownerId].Icon.Image;
+                fleetOwner.Text = empireState.EmpireReports[ownerId].RaceName;
             }
             else
             {
-                this.raceIcon.Image = empireState.Race.Icon.Image;
+                raceIcon.Image = empireState.Race.Icon.Image;
+                fleetOwner.Text = empireState.Race.Name;
             }
         }
 
@@ -79,7 +80,7 @@ namespace Nova.WinForms.Gui
         /// Select the fleet whose details are to be displayed
         /// </Summary>
         /// ----------------------------------------------------------------------------
-        public Fleet Value
+        public FleetIntel Value
         {
             set { DisplaySummary(value); }
         }
