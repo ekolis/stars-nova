@@ -366,15 +366,15 @@ namespace Nova.Common
             string applicationDirectory = (new System.IO.FileInfo(Assembly.GetExecutingAssembly().Location)).DirectoryName;
 
             string[] folders = applicationDirectory.Split(Path.DirectorySeparatorChar);
-            string upThree = "../../..";
-            upThree = upThree.Replace('/', Path.DirectorySeparatorChar);
+            string upTwo = "../..";
+            upTwo = upTwo.Replace('/', Path.DirectorySeparatorChar);
             if (folders[folders.Length - 1].ToLower() == "debug")
             {
-                novaRoot = Path.Combine(applicationDirectory, upThree);
+                novaRoot = Path.Combine(applicationDirectory, upTwo);
             }
             else if (folders[folders.Length - 1].ToLower() == "release")
             {
-                novaRoot = Path.Combine(applicationDirectory, upThree);
+                novaRoot = Path.Combine(applicationDirectory, upTwo);
             }
             else
             {
