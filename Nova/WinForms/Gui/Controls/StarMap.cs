@@ -932,6 +932,8 @@ namespace Nova.WinForms.Gui
             selectItemMenu.Show(this, e.X, e.Y);
         }
 
+        
+
         private void ContextSelect(object sender, EventArgs e)
         {
             ToolStripItem menuItem = sender as ToolStripItem;
@@ -974,7 +976,6 @@ namespace Nova.WinForms.Gui
                 {
                     if (PointUtilities.IsNear(report.Position, position))
                     {
-                        report.sortableDistance = PointUtilities.Distance(position, report.Position);
                         nearObjects.Add(report);
                     }
                 }
@@ -984,15 +985,31 @@ namespace Nova.WinForms.Gui
             {
                 if (PointUtilities.IsNear(report.Position, position))
                 {
-                    report.sortableDistance = PointUtilities.Distance(position, report.Position);
                     nearObjects.Add(report);
                 }
             }
 
-            nearObjects.Sort();
+            nearObjects.Sort(ItemSorter);
             return nearObjects;
         }
 
+        private static int ItemSorter(Item x, Item y)
+        {
+            if (x.Type == y.Type)
+            {
+                return x.Name.CompareTo(y.Name);
+            }
+
+            switch (x.Type)
+            {
+                case ItemType.StarIntel:
+                    return y.Type == ItemType.FleetIntel ? -1 : 0;
+                case ItemType.FleetIntel:
+                    return y.Type == ItemType.StarIntel ? 1 : 0;
+                default:
+                    return x.Name.CompareTo(y.Name);
+            }
+        }
 
         /// <Summary>
         /// Toggle the display of the Star names.
