@@ -184,7 +184,8 @@ namespace Nova.Common
                 Gravity                 = star.Gravity;
                 Radiation               = star.Radiation;
                 Temperature             = star.Temperature;
-                Starbase                = star.Starbase;                
+                Starbase                = star.Starbase;
+                HasFleetsInOrbit        = star.HasFleetsInOrbit;                
             }
             
             // If we are have Pen-Scanners, or we are

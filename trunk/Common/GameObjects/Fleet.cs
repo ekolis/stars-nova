@@ -349,6 +349,28 @@ namespace Nova.Common
                 return fleetComposition;
             }
         }
+        
+        public Dictionary<long, ShipIntel> CompositionReport
+        {
+            get
+            {
+                Dictionary<long, ShipIntel> compositionReport = new Dictionary<long, ShipIntel>();
+                
+                foreach (Ship ship in FleetShips)
+                {
+                    if (!compositionReport.ContainsKey(ship.Key))
+                    {
+                        compositionReport.Add(ship.Key, ship.GenerateReport());
+                    }
+                    else
+                    {
+                        compositionReport[ship.Key].Count++;
+                    }
+                }
+                
+                return compositionReport;
+            }
+        }
 
         /// <summary>
         /// Return the current Defense capability of a fleet 

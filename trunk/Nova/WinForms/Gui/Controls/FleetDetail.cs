@@ -49,9 +49,9 @@ namespace Nova.WinForms.Gui
         /// This event should be fired when the selected Fleet
         /// changes.
         /// </Summary>
-        public event FleetSelectionChanged FleetSelectionChangedEvent;
+        public event SummarySelectionChanged SummarySelectionChangedEvent;
 
-        public event StarSelectionChanged StarSelectionChangedEvent;
+        public event DetailSelectionChanged DetailSelectionChangedEvent;
         
         /// <Summary>
         /// This event should be fired in addition to
@@ -76,13 +76,11 @@ namespace Nova.WinForms.Gui
             InitializeComponent();
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Called when the warp factor slider is moved.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void SpeedChanged(object sender, System.EventArgs e)
         {
             warpText.Text = "Warp " + warpFactor.Value.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -97,14 +95,12 @@ namespace Nova.WinForms.Gui
             }
         }
         
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// On a waypoint being selected update the speed and tasks controls to
         /// reflect the values of the selected waypoint.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void WaypointSelection(object sender, System.EventArgs e)
         {
             if (wayPoints.SelectedItems.Count <= 0)
@@ -116,13 +112,11 @@ namespace Nova.WinForms.Gui
             DisplayLegDetails(index);
         }
         
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Cargo button pressed. Pop up the cargo transfer dialog.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void CargoButton_Click(object sender, System.EventArgs e)
         {
             try
@@ -145,13 +139,11 @@ namespace Nova.WinForms.Gui
                 
         }
         
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Catch the backspace key to delete a fleet waypoint.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         public void OnKeyPress(object sender, KeyPressEventArgs e)
         {
             if (wayPoints.SelectedItems.Count <= 0)
@@ -199,14 +191,12 @@ namespace Nova.WinForms.Gui
 
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// If a waypoint task changes, and a waypoint is selected, change the task at
         /// that waypoint.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void WaypointTaskChanged(object sender, EventArgs e)
         {
             if (wayPoints.SelectedItems.Count <= 0)
@@ -219,37 +209,22 @@ namespace Nova.WinForms.Gui
 
             waypoint.SetTask(WaypointTasks.Text);
         }
-        
-        /// ----------------------------------------------------------------------------
-        /// <Summary>
-        /// A waypoint has been added or deleted.
-        /// </Summary>
-        /// <param name="sender">The source of the event.</param>
-        /// ----------------------------------------------------------------------------
-        public void WaypointListChanged(object sender)
-        {
-            Refresh();
-        }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// The manage fleet button has been pressed.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void SplitFleetClick(object sender, EventArgs e)
         {
             DoSplitMerge();
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Process the Next button being pressed.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void NextFleet_Click(object sender, System.EventArgs e)
         {
             if (empireState.OwnedFleets.Count == 1)
@@ -264,24 +239,15 @@ namespace Nova.WinForms.Gui
 
             selectedFleet = empireState.OwnedFleets.GetNext(empireState.OwnedFleets[selectedFleet.Key]);
             
-            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
-            CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
-            
-            // Inform of the selection change to all listening objects.
-            if( FleetSelectionChangedEvent  != null )
-                FleetSelectionChangedEvent(this, selectionArgs);
-            if( CursorChangedEvent != null )
-            CursorChangedEvent(this, cursorArgs);
+            UpdateListeners(selectedFleet);
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Process the previous button being pressed.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void PreviousFleet_Click(object sender, EventArgs e)
         {
             if (empireState.OwnedFleets.Count == 1)
@@ -296,23 +262,14 @@ namespace Nova.WinForms.Gui
 
             selectedFleet = empireState.OwnedFleets.GetPrevious(empireState.OwnedFleets[selectedFleet.Key]);
 
-            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);
-            CursorArgs cursorArgs = new CursorArgs((Point)selectedFleet.Position);
-
-            // Inform of the selection change to all listening objects.
-            if (FleetSelectionChangedEvent != null)
-                FleetSelectionChangedEvent(this, selectionArgs);
-            if (CursorChangedEvent != null)
-                CursorChangedEvent(this, cursorArgs);
+            UpdateListeners(selectedFleet);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// If there is another waypoint before the selected one, display the fuel,
         /// time, etc. required for this leg.
         /// </Summary>
         /// <param name="index">Index of the waypoint to display.</param>
-        /// ----------------------------------------------------------------------------
         public void DisplayLegDetails(int index)
         {
             Waypoint thisWaypoint = selectedFleet.Waypoints[index];
@@ -375,26 +332,23 @@ namespace Nova.WinForms.Gui
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Add a new waypoint into the waypoint list control.
         /// </Summary>
         /// <param name="waypoint">A new waypoint to add.</param>
-        /// ----------------------------------------------------------------------------
         public void AddWaypoint(Waypoint waypoint)
         {
             wayPoints.Items.Add(waypoint.Destination);
             wayPoints.SelectedIndex = wayPoints.Items.Count - 1;
             DisplayLegDetails(wayPoints.SelectedIndex);
+            ReselectFleetToUpdateUi();
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Set up all the display controls to reflect the selected fleet
         /// </Summary>
         /// <param name="fleet">The selected fleet.</param>
-        /// ----------------------------------------------------------------------------
         private void SetFleetDetails(Fleet selectedFleet)
         {
             if (selectedFleet == null)
@@ -476,11 +430,9 @@ namespace Nova.WinForms.Gui
             comboOtherFleets_SelectedIndexChanged(null, null); // Updates the other meters to current selection          
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Property to set or get the fleet currently being displayed.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public Fleet Value
         {
             set
@@ -504,11 +456,9 @@ namespace Nova.WinForms.Gui
             get { return warpFactor.Value; }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Get waypoint task.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public string Task
         {
             get { return WaypointTasks.Text; }
@@ -551,24 +501,16 @@ namespace Nova.WinForms.Gui
         {
             if (selectedFleet != null && selectedFleet.InOrbit != null)
             {
-                if (StarSelectionChangedEvent != null)
-                    StarSelectionChangedEvent(this, new StarSelectionArgs(empireState.StarReports[selectedFleet.InOrbit.Name]));
-                if( CursorChangedEvent != null )
-                    CursorChangedEvent(this, new CursorArgs((Point)selectedFleet.InOrbit.Position));
+                UpdateListeners(selectedFleet.InOrbit);
             }
         }
 
         private void buttonGotoFleet_Click(object sender, EventArgs e)
         {
             Fleet newFleet = GetSelectedFleetAtLocation();
-            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(newFleet, newFleet);
-            CursorArgs cursorArgs = new CursorArgs((Point)newFleet.Position);
 
             // Inform of the selection change to all listening objects.
-            if (FleetSelectionChangedEvent != null)
-                FleetSelectionChangedEvent(this, selectionArgs);
-            if (CursorChangedEvent != null)
-                CursorChangedEvent(this, cursorArgs);
+            UpdateListeners(newFleet);
         }
 
         private void buttonMerge_Click(object sender, EventArgs e)
@@ -673,9 +615,38 @@ namespace Nova.WinForms.Gui
 
         private void ReselectFleetToUpdateUi()
         {
-            FleetSelectionArgs selectionArgs = new FleetSelectionArgs(selectedFleet, selectedFleet);                    
-            if (FleetSelectionChangedEvent != null)
-                FleetSelectionChangedEvent(this, selectionArgs);
+            DetailSelectionArgs detailArgs = new DetailSelectionArgs(selectedFleet);
+            if (DetailSelectionChangedEvent != null)
+            {
+                DetailSelectionChangedEvent(this, detailArgs);
+            }
+        }
+        
+        private void UpdateListeners(Item item)
+        {
+            if (DetailSelectionChangedEvent != null && item.Owner == empireState.Id)
+            {
+                DetailSelectionChangedEvent(this, new DetailSelectionArgs(item));
+            }
+            if (SummarySelectionChangedEvent != null)
+            {
+                SummarySelectionArgs summaryArgs;
+                
+                if (item.Type == ItemType.Fleet)
+                {
+                    summaryArgs = new SummarySelectionArgs(empireState.FleetReports[item.Key]);
+                }
+                else
+                {
+                    summaryArgs = new SummarySelectionArgs(empireState.StarReports[item.Name]);
+                }
+                
+                SummarySelectionChangedEvent(this, summaryArgs);
+            }
+            if( CursorChangedEvent != null )
+            {
+                CursorChangedEvent(this, new CursorArgs((Point)item.Position));
+            }    
         }
     }
 }

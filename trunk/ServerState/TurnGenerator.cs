@@ -480,6 +480,7 @@ namespace Nova.WinForms.Console
         /// </summary>
         public void AssembleEmpireData()
         {
+            // Generates initial reports.
             turnSteps[SCANSTEP].Process(stateData);
         }
     }

@@ -500,7 +500,7 @@ namespace Nova.Common
                 {
                     switch (subnode.Name.ToLower())
                     {
-                        case "orbitingfleets":
+                        case "hasfleetsinorbit":
                             HasFleetsInOrbit = bool.Parse(subnode.FirstChild.Value);
                             break;
                         case "productionqueue":
@@ -611,7 +611,7 @@ namespace Nova.Common
             xmlelResourcesOnHand.AppendChild(ResourcesOnHand.ToXml(xmldoc));
             xmlelStar.AppendChild(xmlelResourcesOnHand);
 
-            Global.SaveData(xmldoc, xmlelStar, "OrbitingFleets", HasFleetsInOrbit.ToString());
+            Global.SaveData(xmldoc, xmlelStar, "HasFleetsInOrbit", HasFleetsInOrbit.ToString());
   
             // Starbase and ThisRace are stored as references only (just the name is saved).
             if (Starbase != null)
