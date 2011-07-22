@@ -69,6 +69,7 @@ namespace Nova.WinForms.Gui
             MapControl.RequestSelectionEvent += SelectionDetail.ReportItem;
             MapControl.SummarySelectionChangedEvent += SelectionSummary.SummaryChangeSelection;
             MapControl.DetailSelectionChangedEvent += SelectionDetail.DetailChangeSelection;
+            MapControl.WaypointChangedEvent += SelectionDetail.FleetDetail.WaypointListChanged;
         }
 
         public SelectionDetail SelectionDetail
