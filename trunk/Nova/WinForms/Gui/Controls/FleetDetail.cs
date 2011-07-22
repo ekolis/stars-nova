@@ -648,5 +648,10 @@ namespace Nova.WinForms.Gui
                 CursorChangedEvent(this, new CursorArgs((Point)item.Position));
             }    
         }
+
+        public void WaypointListChanged(object sender)
+        {
+            ReselectFleetToUpdateUi();
+        }
     }
 }

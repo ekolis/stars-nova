@@ -52,7 +52,8 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         public event SummarySelectionChanged SummarySelectionChangedEvent;        
         public event DetailSelectionChanged DetailSelectionChangedEvent;
-        
+        public event WaypointChanged WaypointChangedEvent;
+
         private readonly Point[] triangle = 
         { 
             new Point(0, 5), 
@@ -838,9 +839,14 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            
             fleet.Waypoints.Add(waypoint);
+
             RefreshStarMap();
+
+            if (WaypointChangedEvent != null)
+            {
+                WaypointChangedEvent(this);
+            }
         }
 
 
@@ -1070,7 +1076,8 @@ namespace Nova.WinForms.Gui
                 if (newSelection.Owner == stateData.EmpireState.Id)
                 {
                     detailArgs = new DetailSelectionArgs(stateData.EmpireState.OwnedFleets[newSelection.Key]);
-                    DetailSelectionChangedEvent(this, detailArgs);
+                    if( DetailSelectionChangedEvent != null )
+                        DetailSelectionChangedEvent(this, detailArgs);
                 }
             }
             else
@@ -1080,11 +1087,13 @@ namespace Nova.WinForms.Gui
                 if (newSelection.Owner == stateData.EmpireState.Id)
                 {
                     detailArgs = new DetailSelectionArgs(stateData.EmpireState.OwnedStars[newSelection.Name]);
-                    DetailSelectionChangedEvent(this, detailArgs);
+                    if (DetailSelectionChangedEvent != null)
+                        DetailSelectionChangedEvent(this, detailArgs);
                 }
             }
-            
-            SummarySelectionChangedEvent(this, summaryArgs);
+
+            if (SummarySelectionChangedEvent != null )
+                SummarySelectionChangedEvent(this, summaryArgs);
         }
     }
 }
