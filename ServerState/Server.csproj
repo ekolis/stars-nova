@@ -72,7 +72,6 @@
     <Compile Include="Bombing.cs" />
     <Compile Include="CheckForMinefields.cs" />
     <Compile Include="Persistence\IntelWriter.cs" />
-    <Compile Include="Invade.cs" />
     <Compile Include="Manufacture.cs" />
     <Compile Include="Persistence\OrderReader.cs" />
     <Compile Include="Scores.cs" />
