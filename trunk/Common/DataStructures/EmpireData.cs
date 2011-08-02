@@ -370,7 +370,11 @@ namespace Nova.Common
             AvailableComponents     = new RaceComponents();
             
             OwnedStars.Clear();
+            StarReports.Clear();
             OwnedFleets.Clear();
+            FleetReports.Clear();
+            
+            EmpireReports.Clear();
             
             BattlePlans.Clear();
         }
