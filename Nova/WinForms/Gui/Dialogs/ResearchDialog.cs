@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -17,14 +17,7 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
-// ===========================================================================
-#endregion
-
-#region Module Description
-// ===========================================================================
-// Dialog for displaying current research levels and allocating resources to
-// further research.
-// ===========================================================================
+// ============================================================================
 #endregion
 
 namespace Nova.WinForms.Gui
@@ -37,8 +30,6 @@ namespace Nova.WinForms.Gui
     using Nova.Client;
     using Nova.Common;
     using Nova.Common.Components;
-
-    #region Delegates
     
     /// <Summary>
     /// This is the hook to listen for changes in research budget.
@@ -48,10 +39,9 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public delegate bool ResearchAllocationChanged();
     
-    #endregion
-    
     /// <Summary>
-    /// Research Dialog
+    /// Dialog for displaying current research levels and allocating resources to
+    /// further research.
     /// </Summary>
     public partial class ResearchDialog : Form
     {
@@ -68,8 +58,6 @@ namespace Nova.WinForms.Gui
         private readonly ClientState stateData;
         private readonly bool dialogInitialised;
         private TechLevel.ResearchField targetArea;
-
-        #region Construction
 
         /// <Summary>
         /// Initializes a new instance of the ResearchDialog class.
@@ -124,9 +112,6 @@ namespace Nova.WinForms.Gui
             ParameterChanged(null, null);
         }
 
-        #endregion
-
-        #region Event Methods
 
         /// <Summary>
         /// A new area has been selected for research. Make a note of where the research
@@ -195,6 +180,7 @@ namespace Nova.WinForms.Gui
             
             Close();
         }
+        
 
         /// <Summary>
         /// The resource budget has been changed. Update all relevant fields.
@@ -256,9 +242,6 @@ namespace Nova.WinForms.Gui
             this.numericResources.Text = allocatedEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);            
         }
 
-        #endregion
-
-        #region Utility Methods
 
         /// <Summary>
         /// Return the total number of energy resources available to the current race
@@ -267,19 +250,15 @@ namespace Nova.WinForms.Gui
         private int CountEnergy()
         {
             double totalEnergy = 0;
-            string raceName = stateData.EmpireState.Race.Name;
-            Intel turnData = this.stateData.InputTurn;
 
-            foreach (Star report in stateData.EmpireState.OwnedStars.Values)
+            foreach (Star star in stateData.EmpireState.OwnedStars.Values)
             {
-                if (report.Owner == stateData.EmpireState.Id)
+                if (star.Owner == stateData.EmpireState.Id)
                 {
-                    totalEnergy += report.GetResourceRate();
+                    totalEnergy += star.GetResourceRate();
                 }
             }
             return (int)totalEnergy;
         }
-
-        #endregion
     }
 }

@@ -117,7 +117,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Determine if two positions are "near".
+        /// Determine if two positions are within a 40x40 box.
         /// </summary>
         /// <param name="position1">The first position.</param>
         /// <param name="position2">The second position.</param>
