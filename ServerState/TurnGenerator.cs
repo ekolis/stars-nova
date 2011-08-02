@@ -51,8 +51,7 @@ namespace Nova.WinForms.Console
         private BattleEngine battleEngine;
         private Bombing bombing;
         private CheckForMinefields checkForMinefields;
-        private Invade invade;
-        private LayMines layMines;
+        private Invade invade;        
         private Manufacture manufacture;
         private Scores scores;
         private VictoryCheck victoryCheck;
@@ -76,8 +75,7 @@ namespace Nova.WinForms.Console
             this.bombing = new Bombing(this.stateData);
             this.checkForMinefields = new CheckForMinefields(this.stateData);
             this.invade = new Invade(this.stateData);
-            this.layMines = new LayMines(this.stateData);
-            this.waypointTasks = new WaypointTasks(this.stateData, this.invade, this.layMines);
+            this.waypointTasks = new WaypointTasks(this.stateData, this.invade);
             this.manufacture = new Manufacture(this.stateData, this.waypointTasks);
             this.scores = new Scores(this.stateData);
             this.intelWriter = new IntelWriter(this.stateData, this.scores);

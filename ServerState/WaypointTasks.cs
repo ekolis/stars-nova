@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,41 +20,30 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module deals with Fleet waypoint tasks
-// ===========================================================================
-#endregion
-
-using Nova.Common;
-using Nova.Server;
-
 namespace Nova.WinForms.Console
 {
-
+    using Nova.Common;
+    using Nova.Server;
+    
     /// <summary>
-    /// Class to process a new turn.
+    /// Class to carry out fleet waypoint tasks
     /// </summary>
     public class WaypointTasks
     {
         private ServerState stateData;
         private Invade invade;
-        private LayMines layMines;
         
-        public WaypointTasks(ServerState serverState, Invade invade, LayMines layMines)
+        public WaypointTasks(ServerState serverState, Invade invade)
         {
             this.stateData = serverState;
             this.invade = invade;
-            this.layMines = layMines;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Perform the waypoint task
         /// </summary>
         /// <param name="fleet"></param>
         /// <param name="waypoint"></param>
-        /// ----------------------------------------------------------------------------
         public void Perform(Fleet fleet, Waypoint waypoint)
         {
             if (waypoint.Task == WaypointTask.Colonise )
@@ -75,18 +64,16 @@ namespace Nova.WinForms.Console
             }
             else if (waypoint.Task == WaypointTask.LayMines )
             {
-                layMines.DoMines(fleet);
+                LayMines(fleet);
             }
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Colonise a planet.
         /// </summary>
         /// <param name="fleet"></param>
         /// <param name="waypoint"></param>
-        /// ----------------------------------------------------------------------------
         private void Colonise(Fleet fleet, Waypoint waypoint)
         {
             Message message = new Message();
@@ -134,13 +121,11 @@ namespace Nova.WinForms.Console
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Unload a fleet's cargo
         /// </summary>
         /// <param name="fleet"></param>
         /// <param name="waypoint"></param>
-        /// ----------------------------------------------------------------------------
         private void UnloadCargo(Fleet fleet, Waypoint waypoint)
         {
             Message message = new Message();
@@ -186,7 +171,6 @@ namespace Nova.WinForms.Console
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Scrap a single ship
         /// </summary>
@@ -194,7 +178,6 @@ namespace Nova.WinForms.Console
         /// <param name="star"></param>
         /// <param name="amount"></param>
         /// <param name="resources"></param>
-        /// ----------------------------------------------------------------------------
         public void Scrap(Ship ship, Star star, double amount, double resources)
         {
             double factor = amount / 100;            
@@ -203,7 +186,6 @@ namespace Nova.WinForms.Console
         }
 
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Scrap a fleet (fleets include starbases).
         /// </summary>
@@ -224,7 +206,6 @@ namespace Nova.WinForms.Console
         /// next year. Scrapping at a planet gives you 45% of the minerals and 35% of
         /// the resources.These resources are not strictly additive.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public void Scrap(Fleet fleet, Star star, bool colonise)
         {
             double amount = 0;
@@ -285,6 +266,46 @@ namespace Nova.WinForms.Console
             message.Audience = fleet.Owner;
             message.Text = fleet.Name + " has been scrapped";
             stateData.AllMessages.Add(message);
+        }
+        
+
+        /// <summary>
+        /// See if we can lay mines here. If so, lay them. If there is no Minefield here
+        /// start a new one. 
+        /// </summary>
+        /// <param name="fleet">A (potential) mine laying fleet.</param>
+        public void LayMines(Fleet fleet)
+        {
+            if (fleet.NumberOfMines == 0)
+            {
+                return;
+            }
+
+            // See if a Minefield is already here (owned by us). We allow a
+            // certaintolerance in distance because it is unlikely that the
+            // waypoint has been set exactly right.
+
+            foreach (Minefield minefield in stateData.AllMinefields.Values)
+            {
+                if (PointUtilities.IsNear(fleet.Position, minefield.Position))
+                {
+                    if (minefield.Owner == fleet.Owner)
+                    {
+                        minefield.NumberOfMines += fleet.NumberOfMines;
+                        return;
+                    }
+                }
+            }
+
+            // No Minefield found. Start a new one.
+
+            Minefield newField = new Minefield();
+
+            newField.Position = fleet.Position;
+            newField.Owner = fleet.Owner;
+            newField.NumberOfMines = fleet.NumberOfMines;
+
+            stateData.AllMinefields[newField.Key] = newField;
         }
     }
 }
