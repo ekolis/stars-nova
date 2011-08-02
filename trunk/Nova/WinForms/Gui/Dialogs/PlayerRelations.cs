@@ -38,8 +38,6 @@ namespace Nova.WinForms.Gui
         private Dictionary<ushort, EmpireIntel> empireReports;
         private ushort empireId;
 
-        #region Construction
-
         /// <Summary>
         /// Initializes a new instance of the PlayerRelations class.
         /// </Summary>
@@ -50,23 +48,20 @@ namespace Nova.WinForms.Gui
             
             InitializeComponent();
 
-            foreach (ushort otherEmpireId in empireReports.Keys)
+            foreach (ushort otherEmpireId in this.empireReports.Keys)
             {
-                if (otherEmpireId != empireId)
+                if (otherEmpireId != this.empireId)
                 {
-                    this.empireList.Items.Add(otherEmpireId);
+                    empireList.Items.Add(otherEmpireId);
                 }
             }
 
-            if (this.empireList.Items.Count > 0)
+            if (empireList.Items.Count > 0)
             {
-                this.empireList.SelectedIndex = 0;
+                empireList.SelectedIndex = 0;
             }
         }
 
-        #endregion
-
-        #region Event Methods
 
         /// <Summary>
         /// Exit dialog button pressed
@@ -89,15 +84,15 @@ namespace Nova.WinForms.Gui
 
             if (empireReports[selectedEmpire].Relation == PlayerRelation.Enemy)
             {
-                this.enemyButton.Checked = true;
+                enemyButton.Checked = true;
             }
             else if (empireReports[selectedEmpire].Relation == PlayerRelation.Enemy)
             {
-                this.neutralButton.Checked = true;
+                neutralButton.Checked = true;
             }
             else
             {
-                this.friendButton.Checked = true;
+                friendButton.Checked = true;
             }
         }
 
@@ -123,7 +118,5 @@ namespace Nova.WinForms.Gui
                 empireReports[selectedEmpire].Relation = PlayerRelation.Neutral;
             }
         }
-
-        #endregion
     }
 }

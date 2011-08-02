@@ -178,8 +178,6 @@ namespace Nova.NewGame
             }
             scoutHull = components["Scout"]; // (components["Scout"] as Component).Properties["Hull"] as Hull;
 
-            Component spaceDockHull = components["Space Dock"]; // (components["Space Dock"] as Component).Properties["Hull"] as Hull;
-
             if (empire.Race.HasTrait("AR") == true)
             {
                 colonizer = components["Orbital Construction Module"]; // (components["Orbital Construction Module"] as Component).Properties["Colonizer"] as Colonizer;
