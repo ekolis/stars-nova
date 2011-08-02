@@ -76,7 +76,7 @@ namespace Nova.WinForms.Console
             this.checkForMinefields = new CheckForMinefields(this.stateData);
             this.invade = new Invade(this.stateData);
             this.waypointTasks = new WaypointTasks(this.stateData, this.invade);
-            this.manufacture = new Manufacture(this.stateData, this.waypointTasks);
+            this.manufacture = new Manufacture(this.stateData);
             this.scores = new Scores(this.stateData);
             this.intelWriter = new IntelWriter(this.stateData, this.scores);
             this.victoryCheck = new VictoryCheck(this.stateData, this.scores);
