@@ -44,12 +44,10 @@ namespace Nova.WinForms.Console
 
         private List<ProductionItem> deletions = new List<ProductionItem>();
         private ServerState stateData;
-        private WaypointTasks waypointTasks;
   
-        public Manufacture(ServerState serverState, WaypointTasks waypointTasks)
+        public Manufacture(ServerState serverState)
         {
             this.stateData = serverState;
-            this.waypointTasks = waypointTasks;
         }
 
         /// ----------------------------------------------------------------------------
@@ -308,7 +306,12 @@ namespace Nova.WinForms.Console
             {
                 if (star.Starbase != null)
                 {
-                    waypointTasks.Scrap(star.Starbase, star, false);
+                    // Old starbases are not scrapped. Instead, the reduced
+                    // upgrade cost should have already been factored when first
+                    // queuing the "upgrade", so the old SB is just
+                    // discarded and replaced at this point. -Aeglos 2 Aug 11
+                    star.Starbase = null;
+                    //waypointTasks.Scrap(star.Starbase, star, false);
                 }
                 star.Starbase = fleet;
                 fleet.Type = ItemType.Starbase;
