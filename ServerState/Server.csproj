@@ -84,6 +84,9 @@
     <Compile Include="TurnGenerator.cs" />
     <Compile Include="TurnSteps\TurnStep.cs" />
     <Compile Include="TurnSteps\ScanStep.cs" />
+    <Compile Include="NewGame\NameGenerator.cs" />
+    <Compile Include="NewGame\StarMapInitialiser.cs" />
+    <Compile Include="NewGame\StarsMapGenerator.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Common\Common.csproj">
@@ -121,4 +124,7 @@
   </Target>
   -->
   <ItemGroup />
+  <ItemGroup>
+    <Folder Include="NewGame\" />
+  </ItemGroup>
 </Project>

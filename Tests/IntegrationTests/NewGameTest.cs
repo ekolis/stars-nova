@@ -28,8 +28,8 @@
 #endregion
 
 using Nova.Common;
-using Nova.NewGame;
 using Nova.Server;
+using Nova.Server.NewGame;
 using NUnit.Framework;
 
 namespace Nova.Tests.IntegrationTests

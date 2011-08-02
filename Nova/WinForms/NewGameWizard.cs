@@ -30,9 +30,9 @@ namespace Nova.WinForms
     using System.Windows.Forms;
 
     using Nova.Common;
-    using Nova.Common.Components;
-    using Nova.NewGame;
+    using Nova.Common.Components;    
     using Nova.Server;
+    using Nova.Server.NewGame;
     using Nova.WinForms.Console;
 
     /// <Summary>
