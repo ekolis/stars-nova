@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2010 stars-nova
+// Copyright (C) 2010, 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -19,33 +19,20 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Records the settings specific to a running game (map, victory conditions)
-// This module is implemented as a singleton.
-// ===========================================================================
-#endregion
-
-#region Using Statements
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Runtime.Serialization.Formatters;
-using System.Runtime.Serialization.Formatters.Binary;
-using System.Text;
-using System.Windows.Forms;
-using System.Xml;
-using System.Xml.Serialization;
-
-
-#endregion
-
 namespace Nova.Common
 {
+    using System;    
+    using System.IO;  
+    using System.Windows.Forms;    
+    using System.Xml.Serialization;
+    
+    /// <summary>
+    /// Records the settings specific to a running game (map, victory conditions)
+    /// This module is implemented as a singleton. 
+    /// </summary>
     [Serializable]
     public sealed class GameSettings
     {
-
         // Map settings
 
         public int MapWidth = 400;
@@ -59,14 +46,14 @@ namespace Nova.Common
 
         // Victory conditions (with initial default values)
 
-        public EnabledValue PlanetsOwned = new EnabledValue(true, 60);
-        public EnabledValue TechLevels = new EnabledValue(false, 22);
-        public EnabledValue NumberOfFields = new EnabledValue(false, 4);
-        public EnabledValue TotalScore = new EnabledValue(false, 1000);
-        public EnabledValue SecondPlaceScore = new EnabledValue(false, 0);
-        public EnabledValue ProductionCapacity = new EnabledValue(false, 1000);
-        public EnabledValue CapitalShips = new EnabledValue(false, 100);
-        public EnabledValue HighestScore = new EnabledValue(false, 100);
+        public EnabledValue PlanetsOwned        = new EnabledValue(true, 60);
+        public EnabledValue TechLevels          = new EnabledValue(false, 22);
+        public EnabledValue NumberOfFields      = new EnabledValue(false, 4);
+        public EnabledValue TotalScore          = new EnabledValue(false, 1000);
+        public EnabledValue SecondPlaceScore    = new EnabledValue(false, 0);
+        public EnabledValue ProductionCapacity  = new EnabledValue(false, 1000);
+        public EnabledValue CapitalShips        = new EnabledValue(false, 100);
+        public EnabledValue HighestScore        = new EnabledValue(false, 100);
         public int TargetsToMeet = 1;
         public int MinimumGameTime = 50;
 
@@ -128,11 +115,10 @@ namespace Nova.Common
 
         #region Methods
 
-        //-------------------------------------------------------------------
+
         /// <summary>
         /// Restore the persistent data.
         /// </summary>
-        //-------------------------------------------------------------------
         public static void Restore()
         {
             string fileName = Data.SettingsPathName;
@@ -153,11 +139,10 @@ namespace Nova.Common
             }
         }
 
-        //-------------------------------------------------------------------
+
         /// <summary>
         /// Save the console persistent data.
         /// </summary>
-        //-------------------------------------------------------------------
         public static void Save()
         {
 

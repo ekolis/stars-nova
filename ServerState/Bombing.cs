@@ -26,14 +26,15 @@
 // ===========================================================================
 #endregion
 
-using System;
 
-using Nova.Common;
-using Nova.Common.Components;
-using Nova.Server;
 
 namespace Nova.WinForms.Console
 {
+    using System;
+
+    using Nova.Common;
+    using Nova.Common.Components;
+    using Nova.Server;
 
     /// <summary>
     /// Deal with bombing
