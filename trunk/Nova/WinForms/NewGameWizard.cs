@@ -21,8 +21,7 @@
 
 namespace Nova.WinForms
 {
-    using System;
-    using System.Collections;
+    using System;    
     using System.Collections.Generic;
     using System.Diagnostics;
     using System.IO;
@@ -30,8 +29,6 @@ namespace Nova.WinForms
     using System.Windows.Forms;
 
     using Nova.Common;
-    using Nova.Common.Components;    
-    using Nova.Server;
     using Nova.Server.NewGame;
     using Nova.WinForms.Console;
 
@@ -42,23 +39,21 @@ namespace Nova.WinForms
     public partial class NewGameWizard : Form
     {
         private int numberOfPlayers;
-        private ServerState stateData;
-
-        public Dictionary<string, Race> KnownRaces = new Dictionary<string, Race>();
-        private NameGenerator nameGenerator = new NameGenerator();
+  
+        /// <summary>
+        /// List of races available to be selected by players or assigned to AIs. 
+        /// </summary>
+        public Dictionary<string, Race> KnownRaces = new Dictionary<string, Race>();        
 
         /// <Summary>
         /// Initializes a new instance of the NewGameWizard class.
         /// </Summary>
         public NewGameWizard()
         {
-            InitializeComponent();
-            
-            // New clean server state
-            this.stateData = new ServerState();
+            InitializeComponent();            
 
             // Setup the list of known races.
-            FileSearcher.GetAvailableRaces().ForEach(race => AddKnownRace(race));
+            FileSearcher.GetAvailableRaces().ForEach(race => KnownRaces[race.Name] = race);
 
             foreach (string raceName in KnownRaces.Keys)
             {
@@ -66,20 +61,22 @@ namespace Nova.WinForms
                 raceSelectionBox.Items.Add(raceName);
             }
 
-            Random rand = new Random();
+            Random rand = new Random();            
             List<String> racenames = new List<string>(KnownRaces.Keys);
+            
             for( int i = 0; i < 2; ++i ) // Add 2 players to a new game
             {
                 // add known race to list of players
                 string racename = racenames[rand.Next(racenames.Count)];
                 racenames.Remove(racename);
-                this.numberOfPlayers++;
+                numberOfPlayers++;
+                
                 ListViewItem player = new ListViewItem("  " + this.numberOfPlayers.ToString());
                 player.SubItems.Add(racename);
                 player.SubItems.Add("Human");
                 playerList.Items.Add(player);
             }
-            if (this.numberOfPlayers > 0)
+            if (numberOfPlayers > 0)
             {
                 raceSelectionBox.SelectedIndex = 0;
             }
@@ -89,22 +86,9 @@ namespace Nova.WinForms
             UpdatePlayerListButtons();
         }
 
-        private string AddKnownRace(Race race)
-        {
-            string name = race.Name;
-            // De-dupe race names here. Not the ideal solution but for now it'll have to do.
-            race.Name = nameGenerator.GetNextRaceName(name);
-
-            if (race.Name != name)
-            {
-                race.PluralName = race.Name + "s";                
-            }                            
-            KnownRaces[race.Name] = race;
-            return race.Name;
-        }
-
+        
         /// <Summary>
-        /// run the wizard
+        /// Create a new game state and settings.
         /// </Summary>
         private bool CreateGame()
         {
@@ -126,89 +110,16 @@ namespace Nova.WinForms
             {
                 return false;
             }
-
-            // store the updated Game Folder information
-            using (Config conf = new Config())
-            {
-                conf[Global.ServerFolderKey] = gameFolderBrowser.SelectedPath;
-
-                stateData.GameFolder = gameFolderBrowser.SelectedPath;
-                // Don't set ClientFolderKey in case we want to simulate a LAN game 
-                // on one PC for testing. 
-                // Should be set when the ClientState is initialised. If that is by 
-                // launching Nova GUI from the console then the GameFolder will be 
-                // passed as the path to the .intel and the ClientFolderKey will then 
-                // be updated.
-
-                // Construct appropriate state and settings file names
-                stateData.StatePathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
-                                          GameSettings.Data.GameName + Global.ServerStateExtension;
-                GameSettings.Data.SettingsPathName = gameFolderBrowser.SelectedPath + Path.DirectorySeparatorChar +
-                                                     GameSettings.Data.GameName + Global.SettingsExtension;
-                conf[Global.ServerStateKey] = stateData.StatePathName;
-            }
-
-            // Copy the player & race data to the ServerState
-            stateData.AllPlayers = Players;
-
-            // Assemble empires.
-            foreach (PlayerSettings settings in stateData.AllPlayers)
-            {
-                if (stateData.AllRaces.ContainsKey(settings.RaceName))
-                {
-                    // Copy the race to a new key and change the setting to de-duplicate the race.
-                    // This may mean a 2nd copy of the race in the data, but it's not much data and a copy of it doesn't really matter
-                    settings.RaceName = AddKnownRace(KnownRaces[settings.RaceName].Clone());
-                }
-                stateData.AllRaces.Add(settings.RaceName, KnownRaces[settings.RaceName]);
-
-                // Initialize clean data for them. 
-                EmpireData empireData = new EmpireData();
-                empireData.Id = settings.PlayerNumber;
-                empireData.Race = stateData.AllRaces[settings.RaceName];
-
-                stateData.AllEmpires[empireData.Id] = empireData;
-
-                // Add initial state to the intel files.
-                ProcessPrimaryTraits(empireData);
-                ProcessSecondaryTraits(empireData);
-                
-                // TODO: (priority 6) Set spent resources according to initial levels, instead of zero.
-                
-                // Load components!
-                AllComponents.Restore();
-                empireData.AvailableComponents = new RaceComponents(empireData.Race, empireData.ResearchLevels);
-            }
-
-            // Create initial relations.
-            foreach (EmpireData wolf in stateData.AllEmpires.Values)
-            {
-                foreach (EmpireData lamb in stateData.AllEmpires.Values)
-                {
-                    if (wolf.Id != lamb.Id)
-                    {
-                        wolf.EmpireReports.Add(lamb.Id, new EmpireIntel(lamb));
-                        wolf.EmpireReports[lamb.Id].Relation = PlayerRelation.Enemy;
-                    }
-                }
-
-            }
-
-            StarMapInitialiser starMapInitialiser = new StarMapInitialiser(stateData);
-            starMapInitialiser.GenerateStars();
-
-            starMapInitialiser.InitialisePlayerData();
-
+   
             try
             {
-                TurnGenerator firstTurn = new TurnGenerator(stateData);
+                GameInitialiser game = new GameInitialiser(gameFolderBrowser.SelectedPath);
                 
-                firstTurn.AssembleEmpireData();
-                                
-                Scores scores = new Scores(stateData);
-                IntelWriter intelWriter = new IntelWriter(stateData, scores);
-                intelWriter.WriteIntel();
-                stateData.Save();
+                game.GenerateEmpires(Players, KnownRaces);
+                game.GenerateStarMap();
+                game.GenerateAssets();
+                game.GenerateIntel();                
+                game.StateData.Save();
                 GameSettings.Save();
             }
             catch (Exception e)
@@ -217,7 +128,7 @@ namespace Nova.WinForms
                 return false;
             }
 
-            // start the server
+            // start the server gui
             try
             {
                 NovaConsoleMain novaConsole = new NovaConsoleMain();
@@ -231,7 +142,6 @@ namespace Nova.WinForms
             }
         }
 
-        #region Event Methods
 
         /// <Summary>
         /// Occurs when the OK button is clicked.
@@ -273,11 +183,13 @@ namespace Nova.WinForms
             //this.Close();
         }
         
+        
         private void CancelButton_Click(object sender, EventArgs eventArgs)
         {
             DialogResult = DialogResult.Cancel;
             this.Close();
         }
+        
 
         /// <Summary>
         /// Occurs when the Tutorial button is clicked.
@@ -289,6 +201,7 @@ namespace Nova.WinForms
             Report.Information("Sorry, there is no tutorial yet.");
             // TODO (priority 7): Load or create the tutorial client data.
         }
+        
 
         /// <Summary>
         /// Add a new player to the player list
@@ -309,6 +222,7 @@ namespace Nova.WinForms
             playerList.SelectedIndices.Add(playerList.Items.Count - 1);
             numberOfPlayers = playerList.Items.Count;
         }
+        
 
         /// <Summary>
         /// When the 'New Race' button is pressed, launch the Race Designer.
@@ -326,6 +240,7 @@ namespace Nova.WinForms
                 Report.Error("Failed to launch Race Designer.");
             }
         }
+        
 
         /// <Summary>
         /// Update the GUI when the currently selected player changes.
@@ -337,6 +252,7 @@ namespace Nova.WinForms
             UpdatePlayerDetails();
             UpdatePlayerListButtons();
         }
+        
 
         /// <Summary>
         /// When the 'Delete' button is pressed, delete the currently selected player from the game.
@@ -371,6 +287,7 @@ namespace Nova.WinForms
             }
             UpdatePlayerListButtons();
         }
+        
 
         /// <Summary>
         /// When the 'Up' button is pressed, move the currently selected player up one slot in the list.
@@ -403,6 +320,7 @@ namespace Nova.WinForms
             }
             RenumberPlayers();
         }
+        
 
         /// <Summary>
         /// When the 'Down' button is pressed, move the currently selected player down in the list.
@@ -435,6 +353,7 @@ namespace Nova.WinForms
             }
             RenumberPlayers();
         }
+        
 
         /// <Summary>
         /// When the 'Browse' button beside the race name is pressed, open a file browser to search for additional races.
@@ -452,9 +371,12 @@ namespace Nova.WinForms
                 if (result == DialogResult.OK)
                 {
                     Race race = new Race(fd.FileName);
-                    AddKnownRace(race);
-                    raceSelectionBox.Items.Add(race.Name);
-                    raceSelectionBox.SelectedIndex = raceSelectionBox.Items.Count - 1;
+                    if (!KnownRaces.ContainsKey(race.Name))
+                    {
+                        KnownRaces.Add(race.Name, race);
+                        raceSelectionBox.Items.Add(race.Name);
+                        raceSelectionBox.SelectedIndex = raceSelectionBox.Items.Count - 1;
+                    }
                 }
             }
             catch
@@ -462,6 +384,7 @@ namespace Nova.WinForms
                 Report.Error("Error opening race file.");
             }
         }
+        
 
         /// <Summary>
         /// When the 'Browse' button is pressed beside the AI/Human drop-down, open a file dialog to search for additional AIs.
@@ -493,6 +416,7 @@ namespace Nova.WinForms
                 }
             }
         }
+        
 
         /// <Summary>
         /// Update the number of stars to be generated when changed in the <see cref="NumericUpDown"/> control.
@@ -503,6 +427,7 @@ namespace Nova.WinForms
         {
             GameSettings.Data.NumberOfStars = (int)numberOfStars.Value;
         }
+        
 
         /// <Summary>
         /// Change the race of the currently selected player to the race chosen from the drop down.
@@ -518,6 +443,7 @@ namespace Nova.WinForms
 
             playerList.Items[playerList.SelectedIndices[0]].SubItems[1].Text = raceSelectionBox.SelectedItem.ToString();
         }
+        
 
         /// <Summary>
         /// Change the ai/human status of the currently selected player to the ai/human chosen from the drop down.
@@ -534,9 +460,6 @@ namespace Nova.WinForms
             playerList.Items[playerList.SelectedIndices[0]].SubItems[2].Text = aiSelectionBox.SelectedItem.ToString();
         }
 
-        #endregion
-
-        #region Utility Methods
 
         /// <Summary>
         /// Update the New/Modify Player details based on the selected player.
@@ -552,6 +475,7 @@ namespace Nova.WinForms
                 break; // only one player can be selected.
             }
         }
+        
 
         /// <Summary>
         /// Enable/Disable the Up/Down/Delete player buttons depending on the selected player.
@@ -589,6 +513,7 @@ namespace Nova.WinForms
                 playerDeleteButton.Enabled = true;
             }
         }
+        
 
         /// <Summary>
         /// Update the player numbers in the list to be in the order presented (e.g. after moving/deleting a player).
@@ -604,9 +529,6 @@ namespace Nova.WinForms
             }
         }
 
-        #endregion
-
-        #region Properties
 
         /// <Summary>
         /// Provide access to the list of players.
@@ -628,223 +550,11 @@ namespace Nova.WinForms
                 return players;
             }
         }
-
-        #endregion
+        
 
         private void MapDensity_ValueChanged(object sender, EventArgs e)
         {
         }
-                        
-        #region Game Initialization
-                        
-        /// <Summary>
-        /// Process the Primary Traits for this race.
-        /// </Summary>
-        private void ProcessPrimaryTraits(EmpireData empire)
-        {
-            // TODO (priority 4) Special Components
-            // Races are granted access to components currently based on tech level and primary/secondary traits (not tested).
-            // Need to grant special access in a few circumstances
-            // 1. JOAT Hulls with pen scans. (either make a different hull with a built in pen scan, of the same name and layout; or modify scanning and scan display functions)
-            // 2. Mystery Trader Items - probably need to implement the idea of 'hidden' technology to cover this.
-
-            // TODO (priority 4) Starting Tech
-            // Need to specify starting tech levels. These must be checked by the server/console. Started below - Dan 26 Jan 10
-
-            // TODO (priority 4) Implement Starting Items
-   
-            empire.ResearchLevels = new TechLevel(0);
-
-            switch (empire.Race.Traits.Primary.Code)
-            {
-                case "HE":
-                    // Start with one armed scout + 3 mini-colony ships
-                    break;
-
-                case "SS":
-                    empire.ResearchLevels[TechLevel.ResearchField.Electronics] = 5;
-                    // Start with one scout + one colony ship.
-                    break;
-
-                case "WM":
-                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] = 1;
-                    empire.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
-                    // Start with one armed scout + one colony ship.
-                    break;
-
-                case "CA":
-                    empire.ResearchLevels[TechLevel.ResearchField.Weapons] = 1;
-                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] = 1;
-                    empire.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
-                    empire.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 6;
-                    // Start with an orbital terraforming ship
-                    break;
-
-                case "IS":
-                    // Start with one scout and one colony ship
-                    break;
-
-                case "SD":
-                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] = 2;
-                    empire.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 2;
-                    // Start with one scout, one colony ship, Two mine layers (one standard, one speed trap)
-                    break;
-
-                case "PP":
-                    empire.ResearchLevels[TechLevel.ResearchField.Energy] = 4;
-                    // Two shielded scouts, one colony ship, two starting planets in a non-tiny universe
-                    break;
-
-                case "IT":
-                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] = 5;
-                    empire.ResearchLevels[TechLevel.ResearchField.Construction] = 5;
-                    // one scout, one colony ship, one destroyer, one privateer, 2 planets with 100/250 stargates (in non-tiny universe)
-                    break;
-
-                case "AR":
-                    empire.ResearchLevels[TechLevel.ResearchField.Energy] = 1;
-
-                    // starts with one scout, one orbital construction colony ship
-                    break;
-
-                case "JOAT":
-                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] = 3;
-                    empire.ResearchLevels[TechLevel.ResearchField.Construction] = 3;
-                    empire.ResearchLevels[TechLevel.ResearchField.Biotechnology] = 3;
-                    empire.ResearchLevels[TechLevel.ResearchField.Electronics] = 3;
-                    empire.ResearchLevels[TechLevel.ResearchField.Energy] = 3;
-                    empire.ResearchLevels[TechLevel.ResearchField.Weapons] = 3;
-                    // two scouts, one colony ship, one medium freighter, one mini miner, one destroyer
-                    break;
-
-                default:
-                    Report.Error("NewGameWizard.cs - ProcessPrimaryTraits() - Unknown Primary Trait \"" + empire.Race.Traits.Primary.Code + "\"");
-                    break;
-            } // switch on PRT
-        }
-        
-        /// <Summary>
-        /// Read the Secondary Traits for this race.
-        /// </Summary>
-        private void ProcessSecondaryTraits(EmpireData empire)
-        {
-            // TODO (priority 4) finish the rest of the LRTs.
-            // Not all of these properties are fully implemented here, as they may require changes elsewhere in the game engine.
-            // Where a trait is listed as 'TODO ??? (priority 4)' this means it first needs to be checked if it has been implemented elsewhere.
-                        
-            if (empire.Race.Traits.Contains("IFE"))
-            {
-                // Ships burn 15% less fuel : TODO ??? (priority 4)
-
-                // Fuel Mizer and Galaxy Scoop engines available : Implemented in component definitions.
-
-                // propulsion tech starts one level higher
-                empire.ResearchLevels[TechLevel.ResearchField.Propulsion]++;
-            }
-            if (empire.Race.Traits.Contains("TT"))
-            {
-                // Begin the game able to adjust each environment attribute up to 3%
-                // Higher levels of terraforming are available : implemented in component definitions.
-                // Total Terraforming requires 30% fewer resources : implemented in component definitions.
-            }
-            if (empire.Race.Traits.Contains("ARM"))
-            {
-                // Grants access to three additional mining hulls and two new robots : implemented in component definitions.
-                // Start the game with two midget miners : TODO ??? (priority 4)
-            }
-            if (empire.Race.Traits.Contains("ISB"))
-            {
-                // Two additional starbase designs (space dock & ultra station) : implemented in component definitions.
-                // Starbases have built in 20% cloacking : TODO ??? (priority 4)
-
-                // Improved Starbases gives a 20% discount to starbase hulls.
-                /*
-                foreach (Component component in ClientState.Data.AvailableComponents.Values)
-                {
-                    // TODO (priority 3) - work out why it sometimes is null.
-                    if (component == null || component.Type != "Hull") continue;
-                    Hull hull = component.Properties["Hull"] as Hull;
-                    if (hull == null || !hull.IsStarbase) continue;
-
-                    Resources cost = component.Cost;
-                    cost *= 0.8;
-                }
-                */
-            }
-
-            if (empire.Race.Traits.Contains("GR"))
-            {
-                // 50% resources go to selected research field. 15% to each other field. 115% total. TODO ??? (priority 4)
-            }
-            if (empire.Race.Traits.Contains("UR"))
-            {
-                // Affects minerals and resources returned due to scrapping. TODO ??? (priority 4).
-            }
-            if (empire.Race.Traits.Contains("MA"))
-            {
-                // One instance of mineral alchemy costs 25 resources instead of 100. TODO ??? (priority 4)
-            }
-            if (empire.Race.Traits.Contains("NRSE"))
-            {
-                // affects which engines are available : implemented in component definitions.
-            }
-            if (empire.Race.Traits.Contains("OBRM"))
-            {
-                // affects which mining robots will be available : implemented in component definitions.
-            }
-            if (empire.Race.Traits.Contains("CE"))
-            {
-                // Engines cost 50% less TODO (priority 4)
-                // Engines have a 10% chance of not engaging above warp 6 : TODO ??? (priority 4)
-            }
-            if (empire.Race.Traits.Contains("NAS"))
-            {
-                // No access to standard penetrating scanners : implemented in component definitions.
-                // Ranges of conventional scanners are doubled : TODO ??? (priority 4)
-            }
-            if (empire.Race.Traits.Contains("LSP"))
-            {
-                // Starting population is 17500 instead of 25000 : TODO ??? (priority 4)
-            }
-            if (empire.Race.Traits.Contains("BET"))
-            {
-                // TODO ??? (priority 4)
-                // New technologies initially cost twice as much to build. 
-                // Once all tech requirements are exceeded cost is normal. 
-                // Miniaturization occurs at 5% per level up to 80% (instead of 4% per level up to 75%)
-            }
-            if (empire.Race.Traits.Contains("RS"))
-            {
-                // TODO ??? (priority 4)
-                // All shields are 40% stronger than the listed rating.
-                // Shields regenrate at 10% of max strength each round of combat.
-                // All armors are 50% of their rated strength.
-            }
-            if (empire.Race.Traits.Contains("ExtraTech"))
-            {
-                // All extra technologies start on level 3 or 4 with JOAT
-                if (empire.Race.Traits.Primary.Code == "JOAT")
-                {
-                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] += 1;
-                    empire.ResearchLevels[TechLevel.ResearchField.Construction] += 1;
-                    empire.ResearchLevels[TechLevel.ResearchField.Biotechnology] += 1;
-                    empire.ResearchLevels[TechLevel.ResearchField.Electronics] += 1;
-                    empire.ResearchLevels[TechLevel.ResearchField.Energy] += 1;
-                    empire.ResearchLevels[TechLevel.ResearchField.Weapons] += 1;
-                }
-                else
-                {
-                    empire.ResearchLevels[TechLevel.ResearchField.Propulsion] += 3;
-                    empire.ResearchLevels[TechLevel.ResearchField.Construction] += 3;
-                    empire.ResearchLevels[TechLevel.ResearchField.Biotechnology] += 3;
-                    empire.ResearchLevels[TechLevel.ResearchField.Electronics] += 3;
-                    empire.ResearchLevels[TechLevel.ResearchField.Energy] += 3;
-                    empire.ResearchLevels[TechLevel.ResearchField.Weapons] += 3;
-                }
-            }
-        }
-                        
-        #endregion
 
     }
 

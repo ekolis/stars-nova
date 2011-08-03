@@ -84,7 +84,7 @@ namespace Nova.Tests.IntegrationTests
                     StarMapInitialiser starMapInitializer = new StarMapInitialiser(stateData);
                     
                     starMapInitializer.GenerateStars();
-                    starMapInitializer.InitialisePlayerData();
+                    starMapInitializer.GeneratePlayerAssets();
                 }
             }
             catch

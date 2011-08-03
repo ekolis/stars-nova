@@ -22,8 +22,7 @@
 
 namespace Nova.Server.NewGame
 {
-    using System;
-    using System.Collections;
+    using System;    
     using System.Collections.Generic;
  
     /// <summary>
@@ -74,7 +73,8 @@ namespace Nova.Server.NewGame
         {
             int namePostfix = 0;
             string origname = existing;
-            while (usedRaceNames.Contains(existing))
+            
+            do
             {
                 if (this.raceNamePool.Count > 1)
                 {
@@ -87,6 +87,8 @@ namespace Nova.Server.NewGame
                     existing = origname + namePostfix++;
                 }
             }
+            while (usedRaceNames.Contains(existing));
+                
             usedRaceNames.Add(existing);
             return existing;
         }

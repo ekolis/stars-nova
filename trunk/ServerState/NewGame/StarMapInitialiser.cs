@@ -21,8 +21,7 @@
 
 namespace Nova.Server.NewGame
 {
-    using System;
-    using System.Collections;
+    using System;    
     using System.Collections.Generic;
     using System.Drawing;
 
@@ -37,18 +36,17 @@ namespace Nova.Server.NewGame
     public class StarMapInitialiser
     {
         private ServerState stateData;
-        private StarsMapGenerator map;
+        private StarMapGenerator map;
         private NameGenerator nameGenerator = new NameGenerator();
         
         public StarMapInitialiser(ServerState serverState)
         {
             this.stateData = serverState;
-            this.map = new StarsMapGenerator(GameSettings.Data.MapWidth,
+            this.map = new StarMapGenerator(GameSettings.Data.MapWidth,
                                              GameSettings.Data.MapHeight,
                                              GameSettings.Data.StarSeparation,
                                              GameSettings.Data.StarDensity,
-                                             GameSettings.Data.StarUniformity,
-                                             serverState.AllPlayers.Count);
+                                             GameSettings.Data.StarUniformity);
         }
 
 
@@ -64,7 +62,7 @@ namespace Nova.Server.NewGame
         /// </remarks>
         public void GenerateStars()
         {
-            map.Generate();
+            map.Generate(stateData.AllPlayers.Count);
 
             Random random = new Random(); // NB: do this outside the loop so that random is seeded only once.
             foreach (int[] starPosition in map.Stars)
@@ -99,7 +97,7 @@ namespace Nova.Server.NewGame
         /// Initialise the general game data for each player. E,g, picking a home
         /// planet, allocating initial resources, etc.
         /// </summary>
-        public void InitialisePlayerData()
+        public void GeneratePlayerAssets()
         {
             foreach (EmpireData empire in stateData.AllEmpires.Values)
             {

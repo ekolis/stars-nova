@@ -34,7 +34,7 @@ namespace Nova.Server.NewGame
     /// function. After each star is placed the density function is changed 
     /// accordingly to reduce function.
     /// </remarks>
-    public class StarsMapGenerator 
+    public class StarMapGenerator 
     {
         // the number of failed attempts to stop after
         private const int FailuresThreshold = 5000;
@@ -45,7 +45,7 @@ namespace Nova.Server.NewGame
         private readonly int starSeparation;
         private readonly int starDensity;
         private readonly int starUniformity;
-        private readonly int numPlayers;
+        private int numPlayers;
 
         // non-normalized probability density function
         // values are between 0 and 1
@@ -71,7 +71,7 @@ namespace Nova.Server.NewGame
         /// </summary>
         /// <param name="mapWidth">Width of the map in ly.</param>
         /// <param name="mapHeight">Height of the map in ly.</param>
-        public StarsMapGenerator(int mapWidth, int mapHeight, int starSeparation, int starDensity, int starUniformity, int numPlayers)
+        public StarMapGenerator(int mapWidth, int mapHeight, int starSeparation, int starDensity, int starUniformity)
         {
             this.mapWidth = mapWidth;
             this.mapHeight = mapHeight;
@@ -80,7 +80,7 @@ namespace Nova.Server.NewGame
             this.starDensity = starDensity;
             this.starUniformity = starUniformity;
             
-            this.numPlayers = numPlayers;
+            
             
             this.density = new double[mapWidth, mapHeight];
         }
@@ -90,8 +90,9 @@ namespace Nova.Server.NewGame
         /// Generate stars and homeworlds.
         /// Note that the number of generated stars will be a random value.
         /// </summary>
-        public void Generate()
+        public void Generate(int numPlayers)
         {
+            this.numPlayers = numPlayers;            
             // Initial uniform density
             this.SetStandardDensity();
             this.SetHomeworldReducer();
