@@ -26,15 +26,12 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using Nova.Common;
-using Nova.Common.Components;
-using Nova.Server;
-
-namespace Nova.WinForms.Console
+namespace Nova.Server
 {
+    using System.Collections.Generic;
+    
+    using Nova.Common;
+    using Nova.Common.Components;
 
     /// <summary>
     /// Class to manufacture new items.

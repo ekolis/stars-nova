@@ -26,9 +26,7 @@
 // ===========================================================================
 #endregion
 
-
-
-namespace Nova.WinForms.Console
+namespace Nova.Server
 {
     using System;
 

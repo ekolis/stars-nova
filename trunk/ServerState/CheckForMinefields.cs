@@ -27,18 +27,14 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Text;
-
-using Nova.Common;
-using Nova.Common.DataStructures;
-using Nova.Server;
-
-namespace Nova.WinForms.Console
+namespace Nova.Server
 {
+    using System;    
+    using System.Collections.Generic;
+    
+    using Nova.Common;
+    using Nova.Common.DataStructures;
+    
     /// <summary>
     /// Handle fleets hitting minefields.
     /// </summary>

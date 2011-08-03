@@ -26,10 +26,9 @@
 // ===========================================================================
 #endregion
 
-namespace Nova.WinForms.Console
+namespace Nova.Server
 {
-    using System;
-    using System.Collections;
+    using System;    
     using System.Collections.Generic;
     using System.Drawing;
 

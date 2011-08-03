@@ -26,12 +26,11 @@
 // ===========================================================================
 #endregion
 
-using System.Collections;
-using System.Collections.Generic;
-using Nova.Common;
-
 namespace Nova.Server
 {
+    using System.Collections.Generic;
+    using Nova.Common;
+    
     /// <summary>
     /// Manipulation of the turn data that is shared between the Console and GUI.
     /// </summary>

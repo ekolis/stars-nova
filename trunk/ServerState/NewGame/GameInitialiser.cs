@@ -27,7 +27,6 @@ namespace Nova.Server.NewGame
     using Nova.Common;
     using Nova.Common.Components;
     using Nova.Server;
-    using Nova.WinForms.Console;
     
     /// <summary>
     /// Creates a game from scratch
