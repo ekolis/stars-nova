@@ -20,7 +20,7 @@
 // ===========================================================================
 #endregion
 
-namespace Nova.WinForms.Console
+namespace Nova.Server
 {
     using System;    
     using System.Collections.Generic;
@@ -28,7 +28,6 @@ namespace Nova.WinForms.Console
     
     using Nova.Common;
     using Nova.Common.DataStructures;
-    using Nova.Server;
     using Nova.Server.TurnSteps;
 
     /// <summary>

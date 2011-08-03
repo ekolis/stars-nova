@@ -27,14 +27,12 @@
 // ===========================================================================
 #endregion
 
-using System;
-
-using Nova.Common;
-using Nova.Common.Components;
-
-
-namespace Nova.WinForms.Console
+namespace Nova.Server
 {
+    using System;
+
+    using Nova.Common;
+    using Nova.Common.Components;
 
     /// ----------------------------------------------------------------------------
     /// <summary>
