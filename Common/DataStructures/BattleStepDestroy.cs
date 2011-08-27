@@ -22,10 +22,8 @@
 
 namespace Nova.Common.DataStructures
 {
-    #region Using Statements
     using System;
     using System.Xml;
-    #endregion
 
     /// <summary>
     /// A class to destroy a ship in a given stack.
@@ -33,7 +31,6 @@ namespace Nova.Common.DataStructures
     [Serializable]
     public class BattleStepDestroy : BattleStep
     {
-
         public string ShipName = null; // ship in the real fleet
         public string StackName = null; // stack in the battle engine
 
@@ -61,7 +58,6 @@ namespace Nova.Common.DataStructures
                 {
                     switch (subnode.Name.ToLower())
                     {
-
                         case "shipname":
                             ShipName = subnode.FirstChild.Value;
                             break;
@@ -82,8 +78,8 @@ namespace Nova.Common.DataStructures
         /// <summary>
         /// Generate an XmlElement representation of the BattleStepDestroy for saving to file.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement representing the BattleStepDestroy</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representing the BattleStepDestroy.</returns>
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattleStepDestroy = xmldoc.CreateElement("BattleStepDestroy");

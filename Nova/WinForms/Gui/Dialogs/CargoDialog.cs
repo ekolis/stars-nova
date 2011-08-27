@@ -56,15 +56,19 @@ namespace Nova.ControlLibrary
             cargoColonists.ValueChanged += cargoColonists_ValueChanged;
         }
 
-        void cargoIron_ValueChanged(int newValue)
+        public void cargoIron_ValueChanged(int newValue)
         {
             if (fleetCargo.Mass - fleetCargo.Ironium + newValue > meterCargo.Maximum)
+            {
                 newValue = meterCargo.Maximum - fleetCargo.Mass + fleetCargo.Ironium;
+            }
 
             int total = fleetCargo.Ironium + starCargo.Ironium;
 
             if (newValue > total)
+            {
                 newValue = total;
+            }
 
             fleetCargo.Ironium = newValue;
             starCargo.Ironium = total - newValue;
@@ -72,45 +76,57 @@ namespace Nova.ControlLibrary
             UpdateMeters();
         }
 
-        void cargoBoran_ValueChanged(int newValue)
+        public void cargoBoran_ValueChanged(int newValue)
         {
             if (fleetCargo.Mass - fleetCargo.Boranium + newValue > meterCargo.Maximum)
+            {
                 newValue = meterCargo.Maximum - fleetCargo.Mass + fleetCargo.Boranium;
+            }
 
             int total = fleetCargo.Boranium + starCargo.Boranium;
 
             if (newValue > total)
+            {
                 newValue = total;
+            }
 
             fleetCargo.Boranium = newValue;
             starCargo.Boranium = total - newValue;
             UpdateMeters();
         }
 
-        void cargoGerman_ValueChanged(int newValue)
+        public void cargoGerman_ValueChanged(int newValue)
         {
             if (fleetCargo.Mass - fleetCargo.Germanium + newValue > meterCargo.Maximum)
+            {
                 newValue = meterCargo.Maximum - fleetCargo.Mass + fleetCargo.Germanium;
+            }
 
             int total = fleetCargo.Germanium + starCargo.Germanium;
 
             if (newValue > total)
+            {
                 newValue = total;
+            }
 
             fleetCargo.Germanium = newValue;
             starCargo.Germanium = total - newValue;
             UpdateMeters();
         }
 
-        void cargoColonists_ValueChanged(int newValue)
+        public void cargoColonists_ValueChanged(int newValue)
         {
             if (fleetCargo.Mass - fleetCargo.ColonistsInKilotons + newValue > meterCargo.Maximum)
+            {
                 newValue = meterCargo.Maximum - fleetCargo.Mass + fleetCargo.ColonistsInKilotons;
+            }
 
             int total = fleetCargo.ColonistsInKilotons + starCargo.ColonistsInKilotons;
 
             if (newValue > total)
+            {
                 newValue = total;
+            }
 
             fleetCargo.ColonistsInKilotons = newValue;
             starCargo.ColonistsInKilotons = total - newValue;
@@ -168,7 +184,7 @@ namespace Nova.ControlLibrary
                 starCargo.Ironium = (targetFleet.InOrbit as Star).ResourcesOnHand.Ironium;
                 starCargo.Boranium =  (targetFleet.InOrbit as Star).ResourcesOnHand.Boranium;
                 starCargo.Germanium =  (targetFleet.InOrbit as Star).ResourcesOnHand.Germanium;
-                starCargo.ColonistsInKilotons = ((targetFleet.InOrbit as Star).Colonists/Global.ColonistsPerKiloton);
+                starCargo.ColonistsInKilotons = (targetFleet.InOrbit as Star).Colonists / Global.ColonistsPerKiloton;
             }
             else
             {

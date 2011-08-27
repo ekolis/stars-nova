@@ -38,7 +38,7 @@ namespace Nova.Common
     public static class Report
     {
         /// <summary>
-        /// Report an error
+        /// Report an error.
         /// </summary>
         /// <param name="text">Message to display.</param>
         public static void Error(string text)
@@ -86,7 +86,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Report Debug Messages if in debugging mode. Otherwise do nothing
+        /// Report Debug Messages if in debugging mode. Otherwise do nothing.
         /// </summary>
         /// <param name="text">Message to display.</param>
         [Conditional("DEBUG")]

@@ -92,9 +92,9 @@ namespace Nova.Common
         #region To From Xml
 
         /// <summary>
-        /// Load <see cref="Intel">Intel</see> from an xml document 
+        /// Load <see cref="Intel">Intel</see> from an xml document.
         /// </summary>
-        /// <param name="xmldoc">produced using XmlDocument.Load(filename)</param>
+        /// <param name="xmldoc">Produced using XmlDocument.Load(filename).</param>
         public Intel(XmlDocument xmldoc)
         {
             XmlNode xmlnode = xmldoc.DocumentElement;
@@ -102,7 +102,7 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Load <see cref="Intel">Intel</see> from an xml node 
+        /// Load <see cref="Intel">Intel</see> from an xml node.
         /// </summary>
         public void LoadFromXmlNode(XmlNode xmlnode)
         {
@@ -171,7 +171,7 @@ namespace Nova.Common
         /// Save: Serialise this object to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Intel</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Intel.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             // create the outer element

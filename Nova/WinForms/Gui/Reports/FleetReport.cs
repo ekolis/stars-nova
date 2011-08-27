@@ -68,7 +68,6 @@ namespace Nova.WinForms.Gui
             {
                 if (fleet.Owner == empireState.Id)
                 {
-
                     if (fleet.Type == ItemType.Starbase)
                     {
                         continue;
@@ -93,7 +92,7 @@ namespace Nova.WinForms.Gui
                         Waypoint waypoint = fleet.Waypoints[1];
 
                         destination = waypoint.Destination;
-                        if (waypoint.Task != WaypointTask.None )
+                        if (waypoint.Task != WaypointTask.None)
                         {
                             task = waypoint.GetTask();
                         }

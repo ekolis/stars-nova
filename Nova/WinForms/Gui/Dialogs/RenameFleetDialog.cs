@@ -18,7 +18,10 @@ namespace Nova.WinForms.Gui.Dialogs
 
         public string FleetName
         {
-            get { return txtNewName.Text.Trim(); }
+            get 
+            { 
+                return txtNewName.Text.Trim(); 
+            }
 
             set 
             { 

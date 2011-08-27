@@ -69,7 +69,8 @@ namespace Nova.WinForms.Gui
             this.fileToolStripMenuItem,
             this.toolsToolStripMenuItem,
             this.reportsToolStripMenuItem,
-            this.helpToolStripMenuItem});
+            this.helpToolStripMenuItem
+            });
             this.mainMenu.Location = new System.Drawing.Point(0, 0);
             this.mainMenu.Name = "mainMenu";
             this.mainMenu.Size = new System.Drawing.Size(993, 24);
@@ -78,8 +79,10 @@ namespace Nova.WinForms.Gui
             // 
             // fileToolStripMenuItem
             // 
-            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.exitToolStripMenuItem});
+            this.fileToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] 
+            {
+                this.exitToolStripMenuItem
+            });
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "&File";

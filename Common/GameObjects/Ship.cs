@@ -87,7 +87,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Replace the design of the ship
+        /// Replace the design of the ship.
         /// </summary>
         /// <param name="design"></param>
         public void DesignUpdate(ShipDesign design)
@@ -107,7 +107,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Update the summary statistics for the ship
+        /// Update the summary statistics for the ship.
         /// </summary>
         public void Update()
         {
@@ -171,7 +171,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Checks if ship can colonize
+        /// Checks if ship can colonize.
         /// </summary>
         public bool CanColonize
         {
@@ -328,7 +328,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Get if the ship is a bomber
+        /// Get if the ship is a bomber.
         /// </summary>
         public bool IsBomber
         {
@@ -355,7 +355,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Get total mine laying capacity for this ship
+        /// Get total mine laying capacity for this ship.
         /// </summary>
         /// <remarks>
         /// TODO (priority 6) Client code must handle heavy and speed trap mines too.
@@ -370,7 +370,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Get the power rating of this ship - stub: TODO (priority 6)
+        /// Get the power rating of this ship - stub: TODO (priority 6).
         /// </summary>
         public int PowerRating
         {
@@ -382,7 +382,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// true if the ship has any sort of scanner.
+        /// True if the ship has any sort of scanner.
         /// </summary>
         public bool CanScan
         {
@@ -444,11 +444,9 @@ namespace Nova.Common
         {
             try
             {
-
                 XmlNode subnode = node.FirstChild;
                 while (subnode != null)
                 {
-
                     switch (subnode.Name.ToLower())
                     {
                         case "design":
@@ -480,9 +478,9 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Generate an xml representation of the ship for saving
+        /// Generate an xml representation of the ship for saving.
         /// </summary>
-        /// <param name="xmldoc">The master XmlDocument</param>
+        /// <param name="xmldoc">The master XmlDocument.</param>
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelShip = xmldoc.CreateElement("Ship");

@@ -92,8 +92,8 @@ namespace Nova.WinForms.Gui
         private bool displayBorders = false;
         
         private int selection;
-        private const double MIN_ZOOM = 0.2;
-        private const double MAX_ZOOM = 5;
+        private const double MinZoom = 0.2;
+        private const double MaxZoom = 5;
 
         /// <Summary>
         /// Initializes a new instance of the StarMap class.
@@ -117,7 +117,7 @@ namespace Nova.WinForms.Gui
         }
 
 
-        void MapPanel_Paint(object sender, PaintEventArgs e)
+        private void MapPanel_Paint(object sender, PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
             DrawEverything(e.Graphics);
@@ -137,8 +137,8 @@ namespace Nova.WinForms.Gui
             logical.X = GameSettings.Data.MapWidth;
             logical.Y = GameSettings.Data.MapHeight;
 
-            extent.X = (int)(this.logical.X * this.zoomFactor) + extraSpace.X * 2;
-            extent.Y = (int)(this.logical.Y * this.zoomFactor) + extraSpace.Y * 2;
+            extent.X = (int)(this.logical.X * this.zoomFactor) + (extraSpace.X * 2);
+            extent.Y = (int)(this.logical.Y * this.zoomFactor) + (extraSpace.Y * 2);
 
             turnData = this.stateData.InputTurn;
             isInitialised = true;
@@ -153,7 +153,7 @@ namespace Nova.WinForms.Gui
         }
 
         /// <param name="graphics"></param>
-        ///<Summary>
+        /// <Summary>
         /// Draws every object on the playing map to the graphics buffer.
         /// </Summary>
         /// <remarks>
@@ -172,7 +172,6 @@ namespace Nova.WinForms.Gui
         /// </remarks>
         private void DrawEverything(Graphics g)
         {
-            
             if (this.isInitialised == false)
             {
                 return;
@@ -183,9 +182,9 @@ namespace Nova.WinForms.Gui
    
             // (0) Draw the image backdrop and universe borders          
             NovaPoint backgroundOrigin = LogicalToDevice(new NovaPoint(0, 0));
-            backgroundOrigin.Offset(-20,-20);
+            backgroundOrigin.Offset(-20, -20);
             NovaPoint backgroundExtent = LogicalToDevice(logical);
-            backgroundExtent.Offset(20,20);
+            backgroundExtent.Offset(20, 20);
             
 
             Size renderSize = new Size();
@@ -302,9 +301,9 @@ namespace Nova.WinForms.Gui
             position.Y += 5;
             g.TranslateTransform(position.X, position.Y);
             g.RotateTransform(180f);
-            g.FillPolygon(Brushes.Yellow, cursorShape );
+            g.FillPolygon(Brushes.Yellow, cursorShape);
             g.ResetTransform();
-            //g.DrawImage(this.cursorBitmap, (Point)position);
+            // g.DrawImage(this.cursorBitmap, (Point)position);
 
             // (7) Zoom/Scroll/Cursor info for debugging.
             DrawDebugInfo(g);
@@ -545,7 +544,6 @@ namespace Nova.WinForms.Gui
             {
                 foreach (Minefield minefield in this.turnData.AllMinefields.Values)
                 {
-
                     bool isIn = PointUtilities.CirclesOverlap(
                         fleet.Position,
                         minefield.Position,
@@ -570,7 +568,6 @@ namespace Nova.WinForms.Gui
                 {
                     if (report.Owner == stateData.EmpireState.Id)
                     {
-
                         bool isIn = PointUtilities.CirclesOverlap(
                             report.Position,
                             minefield.Position,
@@ -581,7 +578,6 @@ namespace Nova.WinForms.Gui
                         {
                             this.visibleMinefields[minefield.Key] = minefield;
                         }
-
                     }
                 }
             }
@@ -623,7 +619,7 @@ namespace Nova.WinForms.Gui
             NovaPoint result = new NovaPoint();
 
             result.X = (int)((p.X - displayOffset.X + scrollOffset.X - extraSpace.X) / zoomFactor);
-            result.Y = (int) ((p.Y - displayOffset.Y + scrollOffset.Y - extraSpace.Y )/zoomFactor);
+            result.Y = (int)((p.Y - displayOffset.Y + scrollOffset.Y - extraSpace.Y) / zoomFactor);
 
             return result;
         }
@@ -635,7 +631,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         public void ZoomInClick(object sender, System.EventArgs e)
         {
-            Zoom( 1.4 );
+            Zoom(1.4);
         }
 
 
@@ -646,22 +642,21 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         public void ZoomOutClick(object sender, System.EventArgs e)
         {
-            Zoom( 1 / 1.4 );
+            Zoom(1 / 1.4);
         }
 
-
         /// <summary>
-        /// Handle zooming via the mousewheel
+        /// Handle zooming via the mousewheel.
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        void StarMap_MouseWheel(object sender, MouseEventArgs e)
+        private void StarMap_MouseWheel(object sender, MouseEventArgs e)
         {
-            double zoomChange = 1 + (Math.Sign(e.Delta)) * 0.15;            
+            double zoomChange = 1 + (Math.Sign(e.Delta) * 0.15);  
             // This event fires on the StarMap control so we have to remove the mappanel offset to 
             // get the real mouse location
             NovaPoint preserveLocation = new NovaPoint(e.X - MapPanel.Left, e.Y - MapPanel.Top);
-            Zoom(zoomChange, preserveLocation );
+            Zoom(zoomChange, preserveLocation);
         }
 
         /// <Summary>
@@ -671,13 +666,14 @@ namespace Nova.WinForms.Gui
         {
             Zoom(1.0, null);
         }
-        private void Zoom( double delta )
+
+        private void Zoom(double delta)
         {
             Zoom(delta, null);
         }
-        private void Zoom( double delta, NovaPoint preserveDisplayLocation )
-        {
 
+        private void Zoom(double delta, NovaPoint preserveDisplayLocation)
+        {
             if (System.Object.ReferenceEquals(preserveDisplayLocation, null))
             {
                 preserveDisplayLocation = new NovaPoint(MapPanel.Width / 2, MapPanel.Height / 2);
@@ -685,13 +681,13 @@ namespace Nova.WinForms.Gui
             NovaPoint preserveLogicalLocation = DeviceToLogical(preserveDisplayLocation);
 
             zoomFactor *= delta;
-            this.zoomFactor = Math.Max(MIN_ZOOM, this.zoomFactor);
-            this.zoomFactor = Math.Min(MAX_ZOOM, this.zoomFactor);
-            this.zoomOut.Enabled = zoomFactor > MIN_ZOOM;
-            this.zoomIn.Enabled = zoomFactor < MAX_ZOOM;
+            this.zoomFactor = Math.Max(MinZoom, this.zoomFactor);
+            this.zoomFactor = Math.Min(MaxZoom, this.zoomFactor);
+            this.zoomOut.Enabled = zoomFactor > MinZoom;
+            this.zoomIn.Enabled = zoomFactor < MaxZoom;
 
-            this.extent.X = (int)(this.logical.X * this.zoomFactor) + extraSpace.X * 2;
-            this.extent.Y = (int)(this.logical.Y * this.zoomFactor) + extraSpace.X * 2;
+            this.extent.X = (int)(this.logical.X * this.zoomFactor) + (extraSpace.X * 2);
+            this.extent.Y = (int)(this.logical.Y * this.zoomFactor) + (extraSpace.X * 2);
 
             // In the case where the Map Panel is bigger than what we want to display (i.e. extent)
             // then we add an offset to center the displayed map inside the panel
@@ -704,7 +700,6 @@ namespace Nova.WinForms.Gui
 
             // Try and scroll map back to location
             ScrollToDisplayLocation(preserveDisplayLocation, preserveLogicalLocation);
-            
 
             this.RefreshStarMap();
         }
@@ -728,19 +723,16 @@ namespace Nova.WinForms.Gui
             verticalScrollBar.Value = scrollOffset.Y;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Horizontally scroll the Star map.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void MapScrollH(object sender, ScrollEventArgs e)
         {
             scrollOffset.X = e.NewValue;
             RefreshStarMap();
         }
-
 
         /// <Summary>
         /// Vertically scroll the Star map.
@@ -785,8 +777,6 @@ namespace Nova.WinForms.Gui
             }
         }
 
-  
-
         /// <Summary>
         /// Left Shift Mouse: Set Waypoints.
         /// </Summary>
@@ -809,7 +799,7 @@ namespace Nova.WinForms.Gui
 
             waypoint.Position = position;
             waypoint.WarpFactor = 6;
-            waypoint.Task =  WaypointTask.None ;
+            waypoint.Task =  WaypointTask.None;
 
             // If there are no items near the selected position then set the
             // waypoint to just be a position in space. Otherwise, make the target
@@ -926,24 +916,24 @@ namespace Nova.WinForms.Gui
                         doneSep = true;
                     }
                 }
-
             }
             
             selectItemMenu.Show(this, e.X, e.Y);
         }
 
-        
-
         private void ContextSelect(object sender, EventArgs e)
         {
             ToolStripItem menuItem = sender as ToolStripItem;
             if (menuItem == null)
+            {
                 return;
+            }
 
             Item item = menuItem.Tag as Item;
-            if(item == null)
+            if (item == null)
+            {
                 return;
-
+            }
             SetCursor(item.Position);
 
             NotifyListeners(item);
@@ -958,7 +948,6 @@ namespace Nova.WinForms.Gui
             cursorPosition = position;
             RefreshStarMap();
         }
-
 
         /// <Summary>
         /// Provides a list of objects within a certain distance from a position,
@@ -1089,12 +1078,14 @@ namespace Nova.WinForms.Gui
             if (newSelection.Type == ItemType.FleetIntel)
             {
                 summaryArgs = new SummarySelectionArgs(newSelection as FleetIntel);
-                
+
                 if (newSelection.Owner == stateData.EmpireState.Id)
                 {
                     detailArgs = new DetailSelectionArgs(stateData.EmpireState.OwnedFleets[newSelection.Key]);
-                    if( DetailSelectionChangedEvent != null )
+                    if (DetailSelectionChangedEvent != null)
+                    {
                         DetailSelectionChangedEvent(this, detailArgs);
+                    }
                 }
             }
             else
@@ -1105,12 +1096,16 @@ namespace Nova.WinForms.Gui
                 {
                     detailArgs = new DetailSelectionArgs(stateData.EmpireState.OwnedStars[newSelection.Name]);
                     if (DetailSelectionChangedEvent != null)
+                    {
                         DetailSelectionChangedEvent(this, detailArgs);
+                    }
                 }
             }
 
-            if (SummarySelectionChangedEvent != null )
+            if (SummarySelectionChangedEvent != null)
+            {
                 SummarySelectionChangedEvent(this, summaryArgs);
+            }
         }
     }
 }

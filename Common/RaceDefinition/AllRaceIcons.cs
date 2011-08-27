@@ -85,9 +85,9 @@ namespace Nova.Common
         #region Methods
 
         /// <summary>
-        /// Load the race images
+        /// Load the race images.
         /// </summary>
-        /// <returns>true if the race icons were successfuly loaded.</returns>
+        /// <returns>Returns true if the race icons were successfuly loaded.</returns>
         public static bool Restore()
         {
             if (Data.IconList.Count < 1)

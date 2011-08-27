@@ -1,5 +1,4 @@
-﻿using System;
-#region Copyright Notice
+﻿#region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
 // Copyright (C) 2009, 2010 stars-nova
@@ -30,9 +29,8 @@
 
 namespace Nova.WinForms.Gui
 {
+    using System;
     using System.Drawing;
-
-    #region Delegates
 
     using Nova.Common;
 
@@ -79,8 +77,6 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public delegate void RefreshStarMap();
 
-    #endregion
-
     /// <Summary>
     /// Holds data related to the current cursor position
     /// </Summary>
@@ -126,7 +122,6 @@ namespace Nova.WinForms.Gui
             Summary = summary;
         }
     }
-
 
     /// <Summary>
     /// Holds data related to the detailed selection. 

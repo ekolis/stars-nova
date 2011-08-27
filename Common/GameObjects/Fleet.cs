@@ -64,7 +64,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// placeholder constructor - Fleet should be replaced by a reference to the fleet with the same Key
+        /// Placeholder constructor - Fleet should be replaced by a reference to the fleet with the same Key.
         /// </summary>
         public Fleet(long newKey) 
         { 
@@ -76,7 +76,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="name">The fleet name.</param>
         /// <param name="id">The fleet id.</param>
-        /// <param name="position">The fleet position</param>
+        /// <param name="position">The fleet position.</param>
         public Fleet(string name, ushort owner, uint id, NovaPoint position)
         {
             Name = name;
@@ -251,7 +251,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Return the total normal bombing capability
+        /// Return the total normal bombing capability.
         /// </summary>
         public Bomb BombCapability
         {
@@ -270,7 +270,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Check if any of the ships has colonization module
+        /// Check if any of the ships has colonization module.
         /// </summary>
         public bool CanColonize
         {
@@ -290,7 +290,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Property to determine if a fleet can re-fuel
+        /// Property to determine if a fleet can re-fuel.
         /// </summary>
         public bool CanRefuel
         {
@@ -308,7 +308,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// true if the fleet has at least one ship with a scanner.
+        /// This property is true if the fleet has at least one ship with a scanner.
         /// </summary>
         public bool CanScan
         {
@@ -373,7 +373,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Return the current Defense capability of a fleet 
+        /// Return the current Defense capability of a fleet.
         /// </summary>
         public double Defenses
         {
@@ -408,7 +408,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Determine if the fleet has bombers
+        /// Determine if the fleet has bombers.
         /// </summary>
         public bool HasBombers
         {
@@ -427,7 +427,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Choose an image from one of the ships in the fleet
+        /// Choose an image from one of the ships in the fleet.
         /// </summary>
         public ShipIcon Icon
         {
@@ -447,7 +447,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Report if a fleet is armed
+        /// Report if a fleet is armed.
         /// </summary>
         public bool IsArmed
         {
@@ -521,7 +521,7 @@ namespace Nova.Common
         
         /// <summary>
         /// Return the penetrating range scan capability of the fleet.
-        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
+        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear).
         /// </summary>
         public int PenScanRange
         {
@@ -542,7 +542,7 @@ namespace Nova.Common
         
         /// <summary>
         /// Return the non penetrating range scan capability of the fleet.
-        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear)
+        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear).
         /// </summary>
         public int ScanRange
         {
@@ -562,7 +562,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Return the current speed of the fleet
+        /// Return the current speed of the fleet.
         /// </summary>
         public int Speed
         {
@@ -581,7 +581,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Return the total amour strength of the fleet
+        /// Return the total amour strength of the fleet.
         /// </summary>
         public double TotalArmorStrength
         {
@@ -599,7 +599,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// find the total cargo capacity of the fleet
+        /// Find the total cargo capacity of the fleet.
         /// </summary>
         public int TotalCargoCapacity
         {
@@ -628,7 +628,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// find the total dock capacity of the fleet
+        /// Find the total dock capacity of the fleet.
         /// </summary>
         public int TotalDockCapacity
         {
@@ -639,7 +639,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// find the total fuel capacity of all ships in the fleet
+        /// Find the total fuel capacity of all ships in the fleet.
         /// </summary>
         public int TotalFuelCapacity
         {
@@ -650,7 +650,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Return the total shield strength of the fleet
+        /// Return the total shield strength of the fleet.
         /// </summary>
         public double TotalShieldStrength
         {
@@ -737,7 +737,7 @@ namespace Nova.Common
 
 
         /// <summary>
-        /// Save: Return an XmlElement representation of the Fleet
+        /// Save: Return an XmlElement representation of the Fleet.
         /// </summary>
         /// <param name="xmldoc">The parent xml document.</param>
         /// <returns>An XmlElement representation of the Fleet.</returns>

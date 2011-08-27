@@ -20,23 +20,14 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Test of Defense coverage.
-// ===========================================================================
-#endregion
-
-using Nova.Common;
-using NUnit.Framework;
-
 namespace Nova.Tests.UnitTests
 {
+    using Nova.Common;
+    using NUnit.Framework;
 
-    /// ----------------------------------------------------------------------------
     /// <Summary>
     /// Unit test for Defense coverage calculations
     /// </Summary>
-    /// ----------------------------------------------------------------------------
     [TestFixture]
     public class DefensesTest
     {

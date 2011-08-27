@@ -25,14 +25,14 @@ namespace Nova.Common
     using System.Xml;
     
     /// <summary>
-    /// Report on enemy or neutral empires
+    /// Report on enemy or neutral empires.
     /// </summary>
     public class EmpireIntel
     {
-        public ushort           Id          {get; set;}        
-        public string           RaceName    {get; set;}
-        public PlayerRelation   Relation    {get; set;}
-        public RaceIcon         Icon        {get; set;}        
+        public ushort           Id          { get; set; }        
+        public string           RaceName    { get; set; }
+        public PlayerRelation   Relation    { get; set; }
+        public RaceIcon         Icon        { get; set; }        
         
         /// <summary>
         /// Default Constructor.
@@ -87,7 +87,7 @@ namespace Nova.Common
         /// <summary>
         /// Create an XmlElement representation of the empire report for saving.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
         /// <returns>An XmlElement representation of the report.</returns>        
         public XmlElement ToXml(XmlDocument xmldoc)
         {

@@ -10,7 +10,7 @@
         public T Tag { get; set; }
         public string DisplayName { get; set; }
 
-        public ComboBoxItem( string display, T tag )
+        public ComboBoxItem(string display, T tag)
         {
             DisplayName = display;
             Tag = tag;

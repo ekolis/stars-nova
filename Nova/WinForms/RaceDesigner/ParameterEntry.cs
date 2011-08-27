@@ -20,17 +20,9 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Class to support the format of each array entry (note that element 0
-// of the Cost array is used to hold previous counter values).
-// ===========================================================================
-#endregion
-
-using System;
-
 namespace Nova.WinForms.RaceDesigner
 {
+    using System;
 
     /// <Summary>
     /// Class to support the format of each array entry (note that element 0

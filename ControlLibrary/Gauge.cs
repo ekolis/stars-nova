@@ -20,19 +20,12 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// A simple gauge control.
-// ===========================================================================
-#endregion
-
-using System;
-using System.ComponentModel;
-using System.Drawing;
-using System.Windows.Forms;
-
 namespace Nova.ControlLibrary
 {
+    using System;
+    using System.ComponentModel;
+    using System.Drawing;
+    using System.Windows.Forms;
 
     /// <summary>
     /// A simple gauge control.

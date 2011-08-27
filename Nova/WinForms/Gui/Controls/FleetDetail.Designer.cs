@@ -1,15 +1,36 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-
-using Nova.Client;
-using Nova.Common;
-using Nova.ControlLibrary;
+﻿#region Copyright Notice
+// ============================================================================
+// Copyright (C) 2008 Ken Reed
+// Copyright (C) 2009, 2010, 2011 stars-nova
+//
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>;.
+//
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program. If not, see <http://www.gnu.org/licenses/>;
+// ===========================================================================
+#endregion
 
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Windows.Forms;
+
+    using Nova.Client;
+    using Nova.Common;
+    using Nova.ControlLibrary;
 
     /// <Summary>
     /// Ship Detail display panel.
@@ -49,8 +70,8 @@ namespace Nova.WinForms.Gui
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.btnRename = new System.Windows.Forms.Button();
             this.fleetComposition = new System.Windows.Forms.ListView();
-            this.typeHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.numberHeader = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.typeHeader = (System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader());
+            this.numberHeader = (System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader());
             this.groupFleetSelection = new System.Windows.Forms.GroupBox();
             this.previousFleet = new System.Windows.Forms.Button();
             this.nextFleet = new System.Windows.Forms.Button();
@@ -79,13 +100,16 @@ namespace Nova.WinForms.Gui
             this.WaypointTasks.BackColor = System.Drawing.SystemColors.Window;
             this.WaypointTasks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.WaypointTasks.ItemHeight = 13;
-            this.WaypointTasks.Items.AddRange(new object[] {
+            this.WaypointTasks.Items.AddRange(new object[] 
+            {
             "None",
             "Colonise",
             "Invade",
             "Scrap",
             "Unload Cargo",
-            "Lay Mines"});
+            "Lay Mines"
+            }
+            );
             this.WaypointTasks.Location = new System.Drawing.Point(9, 226);
             this.WaypointTasks.Name = "WaypointTasks";
             this.WaypointTasks.Size = new System.Drawing.Size(152, 21);
@@ -201,7 +225,7 @@ namespace Nova.WinForms.Gui
             // 
             // buttonCargo
             // 
-            this.buttonCargo.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.buttonCargo.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.buttonCargo.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.buttonCargo.Location = new System.Drawing.Point(115, 17);
             this.buttonCargo.Name = "buttonCargo";
@@ -260,8 +284,7 @@ namespace Nova.WinForms.Gui
             // 
             this.comboBox1.Enabled = false;
             this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Default"});
+            this.comboBox1.Items.AddRange(new object[] {"Default"});
             this.comboBox1.Location = new System.Drawing.Point(7, 20);
             this.comboBox1.Name = "comboBox1";
             this.comboBox1.Size = new System.Drawing.Size(152, 21);

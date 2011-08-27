@@ -72,7 +72,7 @@ namespace Nova.Common
         public Race ThisRace = null;
 
         /// <summary>
-        /// default constructor
+        /// Default constructor.
         /// </summary>
         public Star()
         {
@@ -86,7 +86,7 @@ namespace Nova.Common
         /// <summary>
         /// Determine the number of factories that can be operated.
         /// </summary>
-        /// <returns>the number of factories that can be operated</returns>
+        /// <returns>The number of factories that can be operated.</returns>
         public int GetOperableFactories()
         {           
              if (ThisRace == null)
@@ -107,7 +107,7 @@ namespace Nova.Common
         /// Determine the number of factories that can be operated next turn
         /// considering growth.
         /// </summary>
-        /// <returns>the number of factories that can be operated next turn.</returns>
+        /// <returns>The number of factories that can be operated next turn.</returns>
         public int GetFutureOperableFactories()
         {
             if (ThisRace == null)
@@ -124,7 +124,7 @@ namespace Nova.Common
         /// <summary>
         /// Calculate the number of mines that can be operated.
         /// </summary>
-        /// <returns>the number of mines that can be operated</returns>
+        /// <returns>The number of mines that can be operated.</returns>
         public int GetOperableMines()
         {            
              if (ThisRace == null)
@@ -141,7 +141,7 @@ namespace Nova.Common
         /// Determine the number of mines that can be operated next turn
         /// considering growth.
         /// </summary>
-        /// <returns>the number of mines that can be operated next turn.</returns>
+        /// <returns>The number of mines that can be operated next turn.</returns>
         public int GetFutureOperableMines()
         {
             if (ThisRace == null)
@@ -158,7 +158,7 @@ namespace Nova.Common
         /// <summary>
         /// Calculate the number of factories currently operated.
         /// </summary>
-        /// <returns>the number of factories currently in operation.</returns>
+        /// <returns>The number of factories currently in operation.</returns>
         public int GetFactoriesInUse()
         {
             int potentialFactories = GetOperableFactories();
@@ -168,7 +168,7 @@ namespace Nova.Common
         /// <summary>
         /// Calculate the number of mines currently operated.
         /// </summary>
-        /// <returns>the number of mines currently in operated</returns>
+        /// <returns>The number of mines currently in operated.</returns>
         public int GetMinesInUse()
         {
             int potentialMines = GetOperableMines();
@@ -178,7 +178,7 @@ namespace Nova.Common
         /// <summary>
         /// Calculate the amount of resources currently generated.
         /// </summary>
-        /// <returns>the resources generated</returns>
+        /// <returns>The resources generated.</returns>
         public int GetResourceRate()
         {
             if (ThisRace == null || Colonists <= 0)
@@ -198,7 +198,7 @@ namespace Nova.Common
         /// Calculate the amount of resources generated next turn accounting growth and
         /// factory production.
         /// </summary>
-        /// <returns>the resources generated next turn</returns>
+        /// <returns>The resources generated next turn.</returns>
         public int GetFutureResourceRate(int extraFactories)
         {
             if (ThisRace == null || Colonists <= 0)
@@ -219,7 +219,7 @@ namespace Nova.Common
         /// <summary>
         /// Calculate the amount of kT of minerals that can currently be mined.
         /// </summary>
-        /// <returns>the mining rate in kT</returns>
+        /// <returns>The mining rate in kT.</returns>
         public int GetMiningRate(int concentration)
         {
             if (ThisRace == null)
@@ -241,7 +241,7 @@ namespace Nova.Common
         /// Calculate the amount of kT of minerals that can be mined considering additional
         /// mines, for example in production ones.
         /// </summary>
-        /// <returns>the potential mining rate in kT</returns>
+        /// <returns>The potential mining rate in kT.</returns>
         public int GetFutureMiningRate(int concentration, int extraMines)
         {  
             if (ThisRace == null)
@@ -264,7 +264,7 @@ namespace Nova.Common
         /// Calculate the utilised capacity (as a percentage).
         /// </summary>
         /// <param name="race"></param>
-        /// <returns>Capacity in the range 1 - 100 (%)</returns>
+        /// <returns>Capacity in the range 1 - 100 (%).</returns>
         public int Capacity(Race race)
         {
             double maxPopulation = race.MaxPopulation;
@@ -338,7 +338,7 @@ namespace Nova.Common
         /// <summary>
         /// Updates the research allocation for the star.
         /// </summary>
-        /// <param name="budget">The new budget (0-100)</param>
+        /// <param name="budget">The new budget (0-100).</param>
         public void UpdateResearch(int budget)
         {
             if (OnlyLeftover == false)
@@ -591,7 +591,7 @@ namespace Nova.Common
         /// <summary>
         /// Create an XmlElement representation of the star for saving.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
         /// <returns>An XmlElement representation of the star.</returns>
         public new XmlElement ToXml(XmlDocument xmldoc)
         {

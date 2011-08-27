@@ -19,33 +19,26 @@
 // ===========================================================================
 #endregion
 
-#region Using Statements
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Security.AccessControl;
-using System.Windows.Forms;
-using System.Xml.Schema;
-using System.Xml.Serialization;
-
-
-#endregion
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
+    using System.Security.AccessControl;
+    using System.Windows.Forms;
+    using System.Xml.Schema;
+    using System.Xml.Serialization;
+
+    /// <summary>
+    /// Class to manage the application configuration settings. 
+    /// </summary>
     [Serializable]
     public sealed class Config : IDisposable, IXmlSerializable
     {
-        #region Data
-
         private readonly Dictionary<string, string> settings = new Dictionary<string, string>(); // string key, string value
         private bool initialised;
-
-        #endregion
-
-        #region Construction
 
         /// <summary>
         /// Initialises a new instance of the Config class.
@@ -54,19 +47,13 @@ namespace Nova.Common
         {
         }
 
-        #endregion
-
-        #region Methods
-
-        //-------------------------------------------------------------------
         /// <summary>
-        /// Restore the configuration settings from nova.conf
+        /// Restore the configuration settings from nova.conf.
         /// </summary>
         /// <remarks>
         /// If there is no configuration file yet it will be created when the
         /// settings are saved for the first time.
         /// </remarks>
-        //-------------------------------------------------------------------
         public void Restore()
         {
             string fileName = FileSearcher.GetConfigFile();
@@ -75,7 +62,6 @@ namespace Nova.Common
             {
                 using (FileStream confFile = new FileStream(fileName, FileMode.Open, FileAccess.Read))
                 {
-
                     // Data = Serializer.Deserialize(state) as GameSettings;
                     XmlSerializer s = new XmlSerializer(typeof(Config));
                     Config data = new Config();
@@ -91,11 +77,9 @@ namespace Nova.Common
             this.initialised = true;
         }
 
-        //-------------------------------------------------------------------
         /// <summary>
         /// Save the console persistent data.
         /// </summary>
-        //-------------------------------------------------------------------
         public void Save()
         {
             string fileName = FileSearcher.GetConfigFile();
@@ -189,10 +173,6 @@ namespace Nova.Common
             }
         }
 
-        #endregion
-
-        #region IXmlSerializable
-
         XmlSchema IXmlSerializable.GetSchema()
         {
             throw new System.NotImplementedException("The method or operation is not implemented.");
@@ -233,7 +213,5 @@ namespace Nova.Common
             }
             reader.ReadEndElement();
         }
-
-        #endregion
     }
 }

@@ -110,7 +110,6 @@ namespace Nova.Tests.IntegrationTests
             StringWriter stringStream = new StringWriter();
             try
             {
-
                 // setup a test object
                 Intel testData = new Intel();
 

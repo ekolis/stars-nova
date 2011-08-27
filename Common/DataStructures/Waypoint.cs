@@ -59,7 +59,7 @@ namespace Nova.Common
         public WaypointTask Task = WaypointTask.None;
 
         /// <summary>
-        /// Default constructor
+        /// Default constructor.
         /// </summary>
         public Waypoint()
         {
@@ -70,7 +70,7 @@ namespace Nova.Common
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
-        /// <param name="node">node is a "Waypoint" node Nova save file (xml document).
+        /// <param name="node">A node is a "Waypoint" node Nova save file (xml document).
         /// </param>
         public Waypoint(XmlNode node)
         {
@@ -86,7 +86,7 @@ namespace Nova.Common
                             break;
 
                         case "task":
-                            SetTask( ((XmlText)subnode.FirstChild).Value);
+                            SetTask(((XmlText)subnode.FirstChild).Value);
                             break;
 
                         case "warpfactor":
@@ -111,7 +111,7 @@ namespace Nova.Common
         /// Save: Serialise this Waypoint to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Waypoint</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Waypoint.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelWaypoint = xmldoc.CreateElement("Waypoint");

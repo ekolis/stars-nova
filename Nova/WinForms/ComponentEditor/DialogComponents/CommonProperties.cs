@@ -20,32 +20,23 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Dialog component dealing with properties common to all components.
-// ===========================================================================
-#endregion
-
-#region Using Statements
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Windows.Forms;
-
-using Nova.Common;
-using Nova.Common.Components;
-
-#endregion
-
 namespace Nova.WinForms.ComponentEditor
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Windows.Forms;
 
+    using Nova.Common;
+    using Nova.Common.Components;
+
+    /// <summary>
+    /// Dialog component dealing with properties common to all components.
+    /// </summary>
     public partial class CommonProperties : UserControl
     {
         public event EventHandler ListBoxChanged;
         private readonly Dictionary<string, Component> allComponents;
-
-        #region Construction
 
         /// <Summary>
         /// Initializes a new instance of the CommonProperties class.
@@ -55,19 +46,13 @@ namespace Nova.WinForms.ComponentEditor
             InitializeComponent();
             this.allComponents = Nova.Common.Components.AllComponents.Data.Components;
         }
-        #endregion
 
-
-        #region Event Methods
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// List box selection changed. Delegate the processing of this event to the
         /// appropriate dialog.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void ComponentList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (ComponentList.SelectedItem == null)
@@ -81,17 +66,10 @@ namespace Nova.WinForms.ComponentEditor
             }
         }
 
-        #endregion
-
-
-        #region Suporting Methods
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Populate the list box wih all components of a specified type.
         /// </Summary>
         /// <param name="objectType">The component <see cref="Type"/>.</param>
-        /// ----------------------------------------------------------------------------
         public void UpdateListBox(Type objectType)
         {
             ComponentList.Items.Clear();
@@ -105,14 +83,11 @@ namespace Nova.WinForms.ComponentEditor
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Populate the list box wih all components of a specified type name (used when
         /// the actual type isn't known.
         /// </Summary>
         /// <param name="objectName">The type name.</param>
-        /// ----------------------------------------------------------------------------
         public void UpdateListBox(string objectName)
         {
             ComponentList.Items.Clear();
@@ -126,12 +101,9 @@ namespace Nova.WinForms.ComponentEditor
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Delete the currently selected component.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public void DeleteComponent()
         {
             string componentName = ComponentName.Text;
@@ -151,12 +123,9 @@ namespace Nova.WinForms.ComponentEditor
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Get and set the properties common to all components.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public Nova.Common.Components.Component Value
         {
             get
@@ -183,8 +152,5 @@ namespace Nova.WinForms.ComponentEditor
                 TechRequirements.Value  = value.RequiredTech;
             }
         }
-        #endregion
-
     }
-
 }

@@ -173,7 +173,7 @@ namespace Nova.Common.Components
         /// Serialise a <see cref="HullModule"/> to xml.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>an XmlElement representation of the HullModule</returns>
+        /// <returns>An XmlElement representation of the HullModule.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelModule = xmldoc.CreateElement("Module");

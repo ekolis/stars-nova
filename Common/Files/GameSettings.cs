@@ -130,22 +130,18 @@ namespace Nova.Common
             {
                 using (FileStream state = new FileStream(fileName, FileMode.Open))
                 {
-
                     // Data = Serializer.Deserialize(state) as GameSettings;
                     XmlSerializer s = new XmlSerializer(typeof(GameSettings));
                     Data = (GameSettings)s.Deserialize(state);
-
                 }
             }
         }
-
 
         /// <summary>
         /// Save the console persistent data.
         /// </summary>
         public static void Save()
         {
-
             if (Data.SettingsPathName == null)
             {
                 // TODO (priority 5) add the nicities. Update the game files location.

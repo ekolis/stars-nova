@@ -260,7 +260,7 @@ namespace Nova.WinForms.Launcher
   
         private void NewGameWizardClosing(object sender, FormClosingEventArgs e)
         {
-            switch((sender as Form).DialogResult)
+            switch ((sender as Form).DialogResult)
             {
             case DialogResult.OK:
                 Close();

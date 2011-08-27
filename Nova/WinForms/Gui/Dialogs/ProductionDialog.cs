@@ -379,9 +379,9 @@ namespace Nova.WinForms.Gui
         }
 
         /// <Summary>
-        /// Move selected Item up in queue
+        /// Move selected Item up in queue.
         /// </Summary>
-        /// <param name="sender">The source of the event</param>
+        /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void QueueUp_Click(object sender, EventArgs e)
         {
@@ -441,16 +441,16 @@ namespace Nova.WinForms.Gui
         private void AddDesign(Design design, int quantity)
         {
             ListViewItem itemToAdd = new ListViewItem();
-            ProductionItem pProductionItem = new ProductionItem();
+            ProductionItem newProductionItem = new ProductionItem();
             ListViewItem itemAdded;
    
-            pProductionItem.Name = design.Name;
-            pProductionItem.Key = design.Key;
-            pProductionItem.BuildState = design.Cost;
+            newProductionItem.Name = design.Name;
+            newProductionItem.Key = design.Key;
+            newProductionItem.BuildState = design.Cost;
             
             itemToAdd.Text = design.Name;
             itemToAdd.SubItems.Add(quantity.ToString());
-            itemToAdd.Tag = pProductionItem;    // when first added the partial BuildState is the full design cost
+            itemToAdd.Tag = newProductionItem;    // when first added the partial BuildState is the full design cost
             // set the Checked Status if this is a Starbase
             if (design.Type == ItemType.Starbase)
             {
@@ -1020,10 +1020,10 @@ namespace Nova.WinForms.Gui
         /// Determine the amount of Resources required to produce a stack of items from the ListView
         /// For each stack of items the first Item might be partially built as defined by
         /// the BuildState and therefore require less Resources than the rest of the items
-        /// in the stack which require the design.cost
+        /// in the stack which require the design.cost.
         /// </Summary>
         /// <returns>The resources required to produce the Item(s) of interest.</returns>
-        /// <param name="itemOfInterest">The Item(s) from the Production ListView to be evaluated</param>
+        /// <param name="itemOfInterest">The Item(s) from the Production ListView to be evaluated.</param>
         private Resources GetProductionCosts(ListViewItem stackOfInterest)
         {
             Resources costsToProduce = new Resources();

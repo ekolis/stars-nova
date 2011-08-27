@@ -20,24 +20,17 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// The resources needed to construct a game item;
-// ===========================================================================
-#endregion
-
-using System;
-using System.ComponentModel;
-using System.Xml;
-
-using Nova.Common.Converters;
-
 namespace Nova.Common
 {
+    using System;
+    using System.ComponentModel;
+    using System.Xml;
+
+    using Nova.Common.Converters;
 
     /// <summary>
-    /// Resource class. Individual resource values are either kT (minerals on hand)
-    /// or percent (mineral concentrations).
+    /// Resource class which represents the resources needed to construct a game item. 
+    /// Individual resource values are either kT (minerals on hand) or percent (mineral concentrations).
     /// </summary>
     [Serializable]
     [TypeConverter(typeof(ResourcesConverter))]
@@ -48,23 +41,16 @@ namespace Nova.Common
         public int Germanium = 0;
         public int Energy = 0;
 
-        #region Construction
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default Constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Resources() 
         { 
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising Constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Resources(int i, int b, int g, int e)
         {
             Ironium = i;
@@ -73,13 +59,10 @@ namespace Nova.Common
             Energy = e;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy constructor.
         /// </summary>
-        /// <param name="copy">object to copy</param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="copy">Object to copy.</param>
         public Resources(Resources copy)
         {
             this.Ironium = copy.Ironium;
@@ -88,18 +71,12 @@ namespace Nova.Common
             this.Energy = copy.Energy;
         }
 
-        #endregion
-
-        #region Operators
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// See if a resource set is greater than another.
         /// </summary>
         /// <param name="lhs"></param>
         /// <param name="rhs"></param>
         /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public static bool operator >=(Resources lhs, Resources rhs)
         {
             if (lhs.Ironium >= rhs.Ironium && lhs.Boranium >= rhs.Boranium &&
@@ -110,29 +87,17 @@ namespace Nova.Common
             return false;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// See if a resources set is less than another.
         /// </summary>
-        /// <param name="lhs"></param>
-        /// <param name="rhs"></param>
-        /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public static bool operator <=(Resources lhs, Resources rhs)
         {
             return rhs >= lhs;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Subtract one resource set from another.
         /// </summary>
-        /// <param name="lhs"></param>
-        /// <param name="rhs"></param>
-        /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public static Resources operator -(Resources lhs, Resources rhs)
         {
             Resources result = new Resources();
@@ -145,12 +110,9 @@ namespace Nova.Common
             return result;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Add a resource set to another.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public static Resources operator +(Resources lhs, Resources rhs)
         {
             Resources result = new Resources();
@@ -197,31 +159,19 @@ namespace Nova.Common
             return rhs * lhs;
         }
 
-        #endregion
-
-        #region Properties
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the mass of a resource set (Energy does not contribute to the mass).
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int Mass
         {
             get { return Ironium + Boranium + Germanium; }
         }
 
-        #endregion
-
-        #region Load Save Xml
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
-        /// <param name="node">node is a "resource" <see cref="XmlNode"/> in a Nova compenent definition file (xml document).
+        /// <param name="node">A node is a "resource" <see cref="XmlNode"/> in a Nova compenent definition file (xml document).
         /// </param>
-        /// ----------------------------------------------------------------------------
         public Resources(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -253,13 +203,11 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this Resources to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>Return an <see cref="XmlElement"/> representation of the resource cost.</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelResource = xmldoc.CreateElement("Resource");
@@ -287,8 +235,5 @@ namespace Nova.Common
 
             return xmlelResource;
         }
-
-        #endregion
-
     }
 }

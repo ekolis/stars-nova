@@ -56,9 +56,6 @@ namespace Nova.Common
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// ??? (priority 6)
-        /// </summary>
         public void Construct()
         {
             throw new NotImplementedException();
@@ -66,7 +63,7 @@ namespace Nova.Common
 
         /// <summary>
         /// Return the <see cref="Resources"/> needed to build this defense.
-        /// ??? (priority 6) - is this before or after some resources have already been spent?
+        /// ??? (priority 6) - is this before or after some resources have already been spent?.
         /// </summary>
         public Resources NeededResources()
         {

@@ -54,7 +54,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Temporarily added to allow binary serialisation ??? (priority 9) 
+        /// Temporarily added to allow binary serialisation ??? (priority 9) .
         /// </summary>
         /// <param name="info"></param>
         /// <param name="context"></param>
@@ -75,7 +75,7 @@ namespace Nova.Common
         /// <summary>
         /// Generate the XML Schema for XmlSerializableDictionary.
         /// </summary>
-        /// <returns>The XML Schema for XmlSerializableDictionary"</returns>
+        /// <returns>The XML Schema for XmlSerializableDictionary".</returns>
         public XmlSchema GetSchema()
         {
             throw new System.NotImplementedException();

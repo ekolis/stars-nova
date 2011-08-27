@@ -20,12 +20,6 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Keeps details of the data needed for the Score report
-// ===========================================================================
-#endregion
-
 namespace Nova.Common
 {
     using System;
@@ -34,7 +28,7 @@ namespace Nova.Common
     using System.Xml;
 
     /// <summary>
-    /// Keeps details of the data needed for the Score report
+    /// Keeps details of the data needed for the Score report.
     /// </summary>
     [Serializable]
     public sealed class ScoreRecord : IComparable
@@ -58,7 +52,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Provide a sort by rank function
+        /// Provide a sort by rank function.
         /// </summary>
         /// <param name="rightHandSide"></param>
         public int CompareTo(object rightHandSide)
@@ -66,8 +60,6 @@ namespace Nova.Common
             ScoreRecord rhs = (ScoreRecord)rightHandSide;
             return rhs.Score.CompareTo(this.Score);
         }
-
-        #region Xml
 
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
@@ -137,7 +129,7 @@ namespace Nova.Common
         /// Save: Serialise this object to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the ScoreRecord</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the ScoreRecord.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelScoreRecord = xmldoc.CreateElement("ScoreRecord");
@@ -174,8 +166,5 @@ namespace Nova.Common
 
             return xmlelScoreRecord;
         }
-
-
-        #endregion
     }
 }

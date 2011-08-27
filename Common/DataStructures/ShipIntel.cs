@@ -32,7 +32,7 @@ namespace Nova.Common
         /// <summary>
         /// Ship/Design name, for displaying on GUI.
         /// </summary>
-        public string   Name    {get; set;}
+        public string   Name    { get; set; }
         
         /// <summary>
         /// Design Key, for lookup in known enemy designs. Note that
@@ -40,12 +40,12 @@ namespace Nova.Common
         /// on the known enemy designs collection. Nonetheless this Key is
         /// always set for consistency.
         /// </summary>
-        public long     Design  {get; set;}
+        public long     Design  { get; set; }
         
         /// <summary>
         /// Amount of Ships under this same design.
         /// </summary>
-        public int      Count   {get; set;}
+        public int      Count   { get; set; }
         
         /// <summary>
         /// Default constructor. Sets sensible but meaningless default values for this report.
@@ -102,7 +102,7 @@ namespace Nova.Common
         /// <summary>
         /// Create an XmlElement representation of the ship report for saving.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
         /// <returns>An XmlElement representation of the report.</returns>
         public new XmlElement ToXml(XmlDocument xmldoc)
         {

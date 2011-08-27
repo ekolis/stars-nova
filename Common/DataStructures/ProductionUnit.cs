@@ -19,20 +19,15 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This interface is to be used in ProductionOrder for specifying what is
-// the result of construction (a ship, a factory and so on).
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     /// <summary>
+    // This interface is to be used in ProductionOrder for specifying what is
+    // the result of construction (a ship, a factory and so on).
     /// Generic interface for any single production unit: 1 ship, 1 factory, 
     /// 1 mine, 1% terraform, 1 alchemy and so on.
     /// The implementation should contain all the needed information 
@@ -41,7 +36,6 @@ namespace Nova.Common
     /// </summary>
     public interface IProductionUnit
     {
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Method which checks whether another one unit can be constructed.
         /// The unit cannot be constructed either because of lack 
@@ -49,22 +43,17 @@ namespace Nova.Common
         /// (for example another factory cannot be constructed if maximum
         /// factory number limit is reached).
         /// </summary>
-        /// <returns>true in case unit can be constructed, false otherwise</returns>
-        /// ----------------------------------------------------------------------------
+        /// <returns>Returns true in case unit can be constructed, false otherwise.</returns>
         bool IsSkipped();
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Method which performs actual construction
+        /// Method which performs actual construction.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         void Construct();
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the resources needed to construct this unit.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         Resources NeededResources();
     }
 }

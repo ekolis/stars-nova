@@ -19,67 +19,47 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This class is used for "constructing" terraform 1%.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     /// <summary>
-    /// 
+    /// This class is used for "constructing" terraform 1%.
     /// </summary>
     public class TerraformProductionUnit : IProductionUnit
     {
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Initialising constructor
+        /// Initialising constructor.
         /// </summary>
-        /// <param name="star">The star that is producing this item</param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="star">The star that is producing this item.</param>
         public TerraformProductionUnit(Star star)
         {
         }
 
-        #region ProductionUnit Members
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Returns true if this production item is to be skipped this year.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool IsSkipped()
         {
             throw new NotImplementedException();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// "Construct" a 1% terraform.
+        /// Construct a 1% terraform.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public void Construct()
         {
             throw new NotImplementedException();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the Resources needed for this production item.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Resources NeededResources()
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 }

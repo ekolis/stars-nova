@@ -93,18 +93,12 @@ namespace Nova.Common
 
         #endregion
 
-        #region Methods
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Load the race images
+        /// Load the race images.
         /// </summary>
         /// <returns>true if the race icons were successfuly loaded.</returns>
-        /// ----------------------------------------------------------------------------
         public static bool Restore()
         {
-
-
             if (Data.IconList.Count < 1)
             {
                 try
@@ -192,7 +186,5 @@ namespace Nova.Common
             return icon;
 
         }
-
-        #endregion
     }
 }

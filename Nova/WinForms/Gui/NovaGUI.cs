@@ -122,7 +122,6 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnKeyPress(object sender, KeyPressEventArgs e)
         {
-          
             switch (e.KeyChar)
             {
                 case '+':
@@ -177,7 +176,7 @@ namespace Nova.WinForms.Gui
             {
                 stateData.Save();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Report.Error("Unable to save the client state." + Environment.NewLine + ex.Message);                
             }                

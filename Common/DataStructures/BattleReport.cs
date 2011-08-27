@@ -67,7 +67,7 @@ namespace Nova.Common.DataStructures
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
         /// </summary>
-        /// <param name="node">A <see cref="BattleReport"/> XmlNode from a Nova save file (xml document)</param>
+        /// <param name="node">A <see cref="BattleReport"/> XmlNode from a Nova save file (xml document).</param>
         public BattleReport(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -75,7 +75,6 @@ namespace Nova.Common.DataStructures
             {
                 try
                 {
-
                     switch (subnode.Name.ToLower())
                     {
                         case "root":
@@ -140,8 +139,8 @@ namespace Nova.Common.DataStructures
         /// <summary>
         /// Generate an XmlElement representation of the ShipDesign for saving to file.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement representing the BattleReport</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representing the BattleReport.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattleReport = xmldoc.CreateElement("BattleReport");

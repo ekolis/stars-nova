@@ -2,24 +2,23 @@
 // (c) Mathew Adams, 2001
 // The Code Project
 // http://www.codeproject.com/KB/miscctrl/progressdialog.aspx
+//
+// Modified for stars-nova.
 // ===========================================================================
-
-#region Module Description
-// ===========================================================================
-// A progress dialog box.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Text;
-using System.Windows.Forms;
 
 namespace Nova.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Data;
+    using System.Drawing;
+    using System.Text;
+    using System.Windows.Forms;
+
+    /// <summary>
+    /// A progress dialog box.
+    /// </summary>
     public partial class ProgressDialog : Form, IProgressCallback
     {
         public delegate void SetTextInvoker(string text);
@@ -33,20 +32,18 @@ namespace Nova.Common
         private bool requiresClose = true;
         private bool operationSuccess; // shadow for property Success
 
-
         public ProgressDialog()
         {
             // Required for Windows Form Designer support
             InitializeComponent();
         }
 
-        #region Implementation of IProgressCallback
         /// <summary>
         /// Call this method from the worker thread to initialize
         /// the progress meter.
         /// </summary>
-        /// <param name="minimum">The minimum value in the progress range (e.g. 0)</param>
-        /// <param name="maximum">The maximum value in the progress range (e.g. 100)</param>
+        /// <param name="minimum">The minimum value in the progress range (e.g. 0).</param>
+        /// <param name="maximum">The maximum value in the progress range (e.g. 100).</param>
         public void Begin(int minimum, int maximum)
         {
             initEvent.WaitOne();
@@ -55,7 +52,7 @@ namespace Nova.Common
 
         /// <summary>
         /// Call this method from the worker thread to initialize
-        /// the progress callback, without setting the range
+        /// the progress callback, without setting the range.
         /// </summary>
         public void Begin()
         {
@@ -64,10 +61,10 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Call this method from the worker thread to reset the range in the progress callback
+        /// Call this method from the worker thread to reset the range in the progress callback.
         /// </summary>
-        /// <param name="minimum">The minimum value in the progress range (e.g. 0)</param>
-        /// <param name="maximum">The maximum value in the progress range (e.g. 100)</param>
+        /// <param name="minimum">The minimum value in the progress range (e.g. 0).</param>
+        /// <param name="maximum">The maximum value in the progress range (e.g. 100).</param>
         /// <remarks>You must have called one of the Begin() methods prior to this call.</remarks>
         public void SetRange(int minimum, int maximum)
         {
@@ -78,7 +75,7 @@ namespace Nova.Common
         /// <summary>
         /// Call this method from the worker thread to update the progress text.
         /// </summary>
-        /// <param name="text">The progress text to display</param>
+        /// <param name="text">The progress text to display.</param>
         public void SetText(string text)
         {
             Invoke(new SetTextInvoker(DoSetText), new object[] { text });
@@ -87,7 +84,7 @@ namespace Nova.Common
         /// <summary>
         /// Call this method from the worker thread to increase the progress counter by a specified value.
         /// </summary>
-        /// <param name="val">The amount by which to increment the progress indicator</param>
+        /// <param name="val">The amount by which to increment the progress indicator.</param>
         public void Increment(int val)
         {
             Invoke(new IncrementInvoker(DoIncrement), new object[] { val });
@@ -104,7 +101,7 @@ namespace Nova.Common
 
 
         /// <summary>
-        /// If this property is true, then you should abort work
+        /// If this property is true, then you should abort work.
         /// </summary>
         public bool IsAborting
         {
@@ -127,7 +124,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Call this method from the worker thread to finalize the progress meter
+        /// Call this method from the worker thread to finalize the progress meter.
         /// </summary>
         public void End()
         {
@@ -136,9 +133,7 @@ namespace Nova.Common
                 Invoke(new MethodInvoker(DoEnd));
             }
         }
-        #endregion
 
-        #region Implementation members invoked on the owner thread
         private void DoSetText(string text)
         {
             label.Text = text;
@@ -180,9 +175,7 @@ namespace Nova.Common
         {
             Close();
         }
-        #endregion
 
-        #region Overrides
         /// <summary>
         /// Handles the form load, and sets an event to ensure that
         /// intialization is synchronized with the appearance of the form.
@@ -196,7 +189,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Handler for 'Close' clicking
+        /// Handler for 'Close' clicking.
         /// </summary>
         /// <param name="e"></param>
         protected override void OnClosing(System.ComponentModel.CancelEventArgs e)
@@ -206,11 +199,8 @@ namespace Nova.Common
             base.OnClosing(e);
         }
 
-        #endregion
-
-        #region Implementation Utilities
         /// <summary>
-        /// Utility function that formats and updates the title bar text
+        /// Utility function that formats and updates the title bar text.
         /// </summary>
         private void UpdateStatusText()
         {
@@ -218,13 +208,11 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Utility function to terminate the thread
+        /// Utility function to terminate the thread.
         /// </summary>
         private void AbortWork()
         {
             abortEvent.Set();
         }
-        #endregion
-
     }
 }

@@ -52,12 +52,12 @@ namespace Nova.Tests.UnitTests
     [TestFixture]
     public class BattleEngineTest
     {
-        private ServerState stateData = new ServerState();
-        private BattleEngine battleEngine;
-
         private const int Player1Id = 1;
         private const int Player2Id = 2;
         private const int Player3Id = 3;
+
+        private ServerState stateData = new ServerState();
+        private BattleEngine battleEngine;
 
         private Fleet fleet1 = new Fleet("fleet1", Player1Id, 1, new Point(100, 200));
         private Fleet fleet2 = new Fleet("fleet2", Player2Id, 1, new Point(100, 200));

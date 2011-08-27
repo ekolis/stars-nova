@@ -38,7 +38,7 @@ namespace Nova.Tests.UnitTests
         /// <returns>The value read back from the Owner property of the <see cref="Item"/>.</returns>
         [TestCase(1, Result = 1)]
         [TestCase(255, Result = 255)]
-        public ushort test1ValidOwner(int testOwner)
+        public ushort Test1ValidOwner(int testOwner)
         {
             Item testItem = new Item();
             testItem.Owner = (ushort) testOwner;
@@ -52,7 +52,7 @@ namespace Nova.Tests.UnitTests
         /// <returns>The value read back from the Id property of the <see cref="Item"/>.</returns>
         [TestCase(1, Result = 1)]
         [TestCase(0xFFFFFFFF, Result = 0xFFFFFFFF)]
-        public uint test2ValidId(long testId)
+        public uint Test2ValidId(long testId)
         {
             Item testItem = new Item();
             testItem.Id = (uint) testId;
@@ -69,7 +69,7 @@ namespace Nova.Tests.UnitTests
         [TestCase(255, 1, Result = 0xFF00000001)]
         [TestCase(1, 0xFFFFFFFF, Result = 0x01FFFFFFFF)]
         [TestCase(255, 0xFFFFFFFF, Result = 0xFFFFFFFFFF)]
-        public long test3ValidKey(int testOwner, long testId)
+        public long Test3ValidKey(int testOwner, long testId)
         {
             Item testItem = new Item();
             testItem.Owner = (ushort) testOwner;

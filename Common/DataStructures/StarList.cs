@@ -35,24 +35,24 @@ namespace Nova.Common
     [Serializable]
     public class StarList : Dictionary<string, Star>
     {
-        /// /// <summary>
-        /// default constructor
+        /// <summary>
+        /// Default constructor.
         /// </summary>
         public StarList()
         {
         }
 
         /// <summary>
-        /// Add a new star to the StarList
+        /// Add a new star to the StarList.
         /// </summary>
-        /// <param name="star">The Star to be added to the StarList</param>
+        /// <param name="star">The Star to be added to the StarList.</param>
         public void Add(Star star)
         {
             Add(star.Name, star);
         }
 
         /// <summary>
-        /// Remove a Star from the StarList
+        /// Remove a Star from the StarList.
         /// </summary>
         /// <param name="star">The star to remove.</param>
         public void Remove(Star star)
@@ -63,8 +63,8 @@ namespace Nova.Common
         /// <summary>
         /// Check if the racial traits contains a particular trait.
         /// </summary>
-        /// <param name="star">The Star to check for</param>
-        /// <returns>true if star is in the StarList</returns>
+        /// <param name="star">The Star to check for.</param>
+        /// <returns>true if star is in the StarList.</returns>
         public bool Contains(Star star)
         {
             if (star == null)
@@ -83,7 +83,7 @@ namespace Nova.Common
         /// Check if the racial traits contains a particular trait.
         /// </summary>
         /// <param name="starName">The name of a star.</param>
-        /// <returns>true if starName is the name of one of the stars in the StarList</returns>
+        /// <returns>true if starName is the name of one of the stars in the StarList.</returns>
         public bool Contains(string starName)
         {
             return ContainsKey(starName);
@@ -143,7 +143,6 @@ namespace Nova.Common
                 nextIndex = keyList.Count - 1;
             }
             return this[keyList[nextIndex]] as Star;
-
         }
     }
 }

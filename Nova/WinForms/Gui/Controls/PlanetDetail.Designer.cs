@@ -17,8 +17,8 @@ namespace Nova.WinForms.Gui
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
             this.productionQueue = new System.Windows.Forms.ListView();
-            this.description = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.quantity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.description = (System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader());
+            this.quantity = (System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader());
             this.changeProductionQueue = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.population = new System.Windows.Forms.Label();
@@ -83,7 +83,7 @@ namespace Nova.WinForms.Gui
             // 
             // mines
             // 
-            this.mines.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.mines.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.mines.Location = new System.Drawing.Point(67, 40);
             this.mines.Name = "mines";
             this.mines.Size = new System.Drawing.Size(89, 16);
@@ -109,14 +109,17 @@ namespace Nova.WinForms.Gui
             // 
             // productionQueue
             // 
-            this.productionQueue.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            this.productionQueue.Anchor = (System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom
                         | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
             this.productionQueue.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.productionQueue.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-            this.productionQueue.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.productionQueue.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] 
+            {
             this.description,
-            this.quantity});
+            this.quantity 
+            }
+            );
             this.productionQueue.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.None;
             this.productionQueue.Location = new System.Drawing.Point(6, 22);
             this.productionQueue.MultiSelect = false;
@@ -140,7 +143,7 @@ namespace Nova.WinForms.Gui
             // 
             // changeProductionQueue
             // 
-            this.changeProductionQueue.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+            this.changeProductionQueue.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left));
             this.changeProductionQueue.Location = new System.Drawing.Point(6, 85);
             this.changeProductionQueue.Name = "changeProductionQueue";
             this.changeProductionQueue.Size = new System.Drawing.Size(75, 23);
@@ -163,7 +166,7 @@ namespace Nova.WinForms.Gui
             // 
             // population
             // 
-            this.population.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.population.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.population.Location = new System.Drawing.Point(78, 89);
             this.population.Name = "population";
             this.population.Size = new System.Drawing.Size(64, 16);
@@ -181,7 +184,7 @@ namespace Nova.WinForms.Gui
             // 
             // factories
             // 
-            this.factories.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.factories.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.factories.Location = new System.Drawing.Point(64, 24);
             this.factories.Name = "factories";
             this.factories.Size = new System.Drawing.Size(92, 16);
@@ -200,7 +203,7 @@ namespace Nova.WinForms.Gui
             // 
             // defenseCoverage
             // 
-            this.defenseCoverage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.defenseCoverage.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.defenseCoverage.Location = new System.Drawing.Point(128, 23);
             this.defenseCoverage.Name = "defenseCoverage";
             this.defenseCoverage.Size = new System.Drawing.Size(28, 16);
@@ -259,7 +262,7 @@ namespace Nova.WinForms.Gui
             // 
             // scannerRange
             // 
-            this.scannerRange.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.scannerRange.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.scannerRange.Location = new System.Drawing.Point(95, 38);
             this.scannerRange.Name = "scannerRange";
             this.scannerRange.Size = new System.Drawing.Size(47, 16);
@@ -269,7 +272,7 @@ namespace Nova.WinForms.Gui
             // 
             // scannerType
             // 
-            this.scannerType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.scannerType.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.scannerType.Location = new System.Drawing.Point(90, 21);
             this.scannerType.Name = "scannerType";
             this.scannerType.Size = new System.Drawing.Size(68, 16);
@@ -318,7 +321,7 @@ namespace Nova.WinForms.Gui
             // 
             // defenseType
             // 
-            this.defenseType.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.defenseType.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.defenseType.Location = new System.Drawing.Point(93, 58);
             this.defenseType.Name = "defenseType";
             this.defenseType.Size = new System.Drawing.Size(65, 13);
@@ -328,7 +331,7 @@ namespace Nova.WinForms.Gui
             // 
             // defenses
             // 
-            this.defenses.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.defenses.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.defenses.Location = new System.Drawing.Point(128, 40);
             this.defenses.Name = "defenses";
             this.defenses.Size = new System.Drawing.Size(28, 16);
@@ -395,7 +398,7 @@ namespace Nova.WinForms.Gui
             // 
             // label21
             // 
-            this.label21.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label21.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.label21.AutoSize = true;
             this.label21.Location = new System.Drawing.Point(156, 70);
             this.label21.Name = "label21";
@@ -406,7 +409,7 @@ namespace Nova.WinForms.Gui
             // 
             // label26
             // 
-            this.label26.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label26.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.label26.AutoSize = true;
             this.label26.Location = new System.Drawing.Point(158, 50);
             this.label26.Name = "label26";
@@ -417,7 +420,7 @@ namespace Nova.WinForms.Gui
             // 
             // label27
             // 
-            this.label27.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label27.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.label27.AutoSize = true;
             this.label27.Location = new System.Drawing.Point(158, 14);
             this.label27.Name = "label27";
@@ -428,7 +431,7 @@ namespace Nova.WinForms.Gui
             // 
             // label12
             // 
-            this.label12.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.label12.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right));
             this.label12.AutoSize = true;
             this.label12.Location = new System.Drawing.Point(158, 32);
             this.label12.Name = "label12";

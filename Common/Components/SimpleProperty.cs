@@ -20,29 +20,19 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This class defines a simple property used for any property which has no 
-// value - it simply exists or not. For example 'Transport Ships Only' or
-// 'Unarmed Ships Only' or 'Doubles Minelayer Efficiency'.
-// ===========================================================================
-#endregion
-
 namespace Nova.Common.Components
 {
     using System;
     using System.Xml;
 
     /// <summary>
-    /// Simple Property Class
+    /// This class defines a simple property used for any property which has no 
+    /// value - it simply exists or not. For example 'Transport Ships Only' or
+    /// 'Unarmed Ships Only' or 'Doubles Minelayer Efficiency'.
     /// </summary>
     [Serializable]
     public class SimpleProperty : ComponentProperty
     {
-        // This property has no data!
-
-        #region Construction
-
         /// /// <summary>
         /// Default constructor.
         /// </summary>
@@ -51,16 +41,12 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Copy constructor
+        /// Copy constructor.
         /// </summary>
         /// <param name="existing">Existing property to copy.</param>
         public SimpleProperty(SimpleProperty existing) 
         { 
         }
-
-        #endregion
-
-        #region Interface ICloneable
 
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
@@ -70,10 +56,6 @@ namespace Nova.Common.Components
         {
             return new SimpleProperty();
         }
-
-        #endregion
-
-        #region Operators
 
         /// <summary>
         /// Polymorphic addition of properties.
@@ -98,7 +80,7 @@ namespace Nova.Common.Components
         /// </summary>
         /// <param name="op1">LHS operator.</param>
         /// <param name="op2">RHS operator.</param>
-        /// <returns>op1</returns>
+        /// <returns>Always returns op1.</returns>
         public static SimpleProperty operator +(SimpleProperty op1, SimpleProperty op2)
         {
             return op1;
@@ -115,10 +97,6 @@ namespace Nova.Common.Components
             return op1;
         }
 
-        #endregion
-
-        #region Load Save Xml
-
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
@@ -133,15 +111,13 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
 
             return xmlelProperty;
         }
-
-        #endregion
     }
 }
 

@@ -20,19 +20,13 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Definition of an engine object.
-// ===========================================================================
-#endregion
-
 namespace Nova.Common.Components
 {
     using System;
     using System.Xml;
 
     /// <summary>
-    /// Engine property.
+    /// Definition of an engine property.
     /// </summary>
     [Serializable]
     public class Engine : ComponentProperty
@@ -44,7 +38,7 @@ namespace Nova.Common.Components
 
         #region Properties
         /// <summary>
-        /// Gets max speed at which engine uses 0 fuel
+        /// Gets max speed at which engine uses 0 fuel.
         /// </summary>
         public int FreeWarpSpeed
         {

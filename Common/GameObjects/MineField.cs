@@ -41,28 +41,17 @@ namespace Nova.Common
         public int SafeSpeed = 4;
         private static int keyId; // TODO (priority 5) Minefield key will be shared amonst all minefields. Lacks a non-static unique id.
 
-
-        #region Construction
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Default constructor
+        /// Default constructor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Minefield()
         {
             keyId++;
         }
 
-        #endregion
-
-        #region Properties
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine the spacial radius of a Minefield. 
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int Radius
         {
             get
@@ -71,18 +60,11 @@ namespace Nova.Common
             }
         }
 
-        #endregion
-
-        #region To From Xml
-
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate an XmlElement representation of the Minefield for saving to file.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement representing the Minefield</returns>
-        /// ----------------------------------------------------------------------------
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representing the Minefield.</returns>
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelMinefield = xmldoc.CreateElement("Minefiled");
@@ -96,13 +78,10 @@ namespace Nova.Common
             return xmlelMinefield;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
         /// </summary>
-        /// <param name="node">A <see cref="Minefield"/> node Nova save file (xml document)</param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="node">A <see cref="Minefield"/> node Nova save file (xml document).</param>
         public Minefield(XmlNode node)
             : base(node.SelectSingleNode("Item"))
         {
@@ -133,7 +112,5 @@ namespace Nova.Common
                 subnode = subnode.NextSibling;
             }   
         }
-
-        #endregion
     }
 }

@@ -157,7 +157,7 @@ namespace Nova.Common.Components
         /// Add a property to the ShipDesign.Summary.
         /// </summary>
         /// <param name="property">
-        /// The property to be added to the ShipDesign.Summary
+        /// The property to be added to the ShipDesign.Summary.
         /// </param><param name="type">
         /// The type of the property: one of Component.propertyKeys, normally 
         /// the key used to obtain it from a Properties dictionary.
@@ -294,7 +294,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Get the total FuelCapacity of this ShipDesign
+        /// Get the total FuelCapacity of this ShipDesign.
         /// </summary>
         public int FuelCapacity
         {
@@ -348,7 +348,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// true if the ship design includes a scanner
+        /// True if the ship design includes a scanner.
         /// </summary>
         public bool CanScan
         {
@@ -366,7 +366,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Get the normal scanner capability of this ShipDesign (0 if none)
+        /// Get the normal scanner capability of this ShipDesign (0 if none).
         /// </summary>
         public int NormalScan
         {
@@ -384,7 +384,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Get the penetrating scanner ability of this ShipDesign (0 if none)
+        /// Get the penetrating scanner ability of this ShipDesign (0 if none).
         /// </summary>
         public int PenetratingScan
         {
@@ -498,7 +498,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Determine if this is a starbase hull
+        /// Determine if this is a starbase hull.
         /// </summary>
         public bool IsStarbase
         {
@@ -563,8 +563,8 @@ namespace Nova.Common.Components
         /// (and recursing through all components). All figured values will need to be 
         /// recalculated on loading.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement representing the ShipDesign</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representing the ShipDesign.</returns>
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelShipDesign = xmldoc.CreateElement("ShipDesign");
@@ -577,7 +577,7 @@ namespace Nova.Common.Components
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
         /// </summary>
-        /// <param name="node">A "ShipDesign" node Nova save file (xml document)</param>
+        /// <param name="node">A "ShipDesign" node Nova save file (xml document).</param>
         public ShipDesign(XmlNode node)
             : base(node.SelectSingleNode("Design"))
         {

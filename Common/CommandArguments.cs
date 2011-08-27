@@ -105,7 +105,7 @@ namespace Nova.Common
         /// <summary>
         /// Initializes a new instance of the CommandArguments class.
         /// </summary>
-        /// <param name="args">an array of string arguments, the format normally recived by a main function.</param>
+        /// <param name="args">An array of string arguments, the format normally recived by a main function.</param>
         public CommandArguments(string[] args) 
         {
             // process the argument list
@@ -133,8 +133,8 @@ namespace Nova.Common
         /// <summary>
         /// Add an option/argument pair.
         /// </summary>
-        /// <param name="option">of the form -[:alphanum:], or as defined by CommandArguments.Option</param>
-        /// <param name="argument">any string, such as a file name or race name</param>
+        /// <param name="option">Of the form -[:alphanum:], or as defined by CommandArguments.Option.</param>
+        /// <param name="argument">Any string, such as a file name or race name.</param>
         public void Add(string option, string argument)
         {
             AddOption(option, argument);
@@ -143,8 +143,8 @@ namespace Nova.Common
         /// <summary>
         /// Add an option/argument pair.
         /// </summary>
-        /// <param name="option">of the form -[:alpha:], or as defined by CommandArguments.Option</param>
-        /// <param name="argument">any integer argument, such as a turn year</param>
+        /// <param name="option">Of the form -[:alpha:], or as defined by CommandArguments.Option.</param>
+        /// <param name="argument">Any integer argument, such as a turn year.</param>
         public void Add(string option, int argument)
         {
             AddOption(option, argument.ToString());
@@ -153,7 +153,7 @@ namespace Nova.Common
         /// <summary>
         /// Check if the CommandArgument(s) contains a particulat option.
         /// </summary>
-        /// <param name="option">From CommandArgument.Option or of the form -[:alpha:]</param>
+        /// <param name="option">From CommandArgument.Option or of the form -[:alpha:].</param>
         /// <returns></returns>
         public bool Contains(string option)
         {
@@ -185,7 +185,7 @@ namespace Nova.Common
         /// <summary>
         /// Allow array type indexing to a Command Argument.
         /// </summary>
-        /// <param name="option">The option, as defined in CommandArguments.Option</param>
+        /// <param name="option">The option, as defined in CommandArguments.Option.</param>
         /// <returns></returns>
         public string this[string option]
         {
@@ -199,7 +199,7 @@ namespace Nova.Common
         /// Convert the CommandArguments to a single string as they would appear on the command line. Use for parsing the options and arguments to Process.Start()
         /// The arguments are returned in the same order that they were added.
         /// </summary>
-        /// <returns>a single string representing the option and argument pairs</returns>
+        /// <returns>A single string representing the option and argument pairs.</returns>
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
@@ -219,7 +219,7 @@ namespace Nova.Common
         /// Convert the CommandArguments to an array of strings as they would be recieved by a main function.
         /// The arguments are returned in the same order that they were added.
         /// </summary>
-        /// <returns>an array of strings containing all the option and argument pairs</returns>
+        /// <returns>An array of strings containing all the option and argument pairs.</returns>
         public string[] ToArray()
         {
             List<string> commandLine = new List<string>();
@@ -263,7 +263,7 @@ namespace Nova.Common
 
         /// <summary>
         /// WARNING : not implemented, will throw an exception.
-        /// process one or more arguments passed as a string
+        /// process one or more arguments passed as a string.
         /// </summary>
         /// <param name="argument"></param>
         private void Parse(string argument)
@@ -273,7 +273,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// process one or more arguments passed as a string[]
+        /// Process one or more arguments passed as a string[].
         /// </summary>
         /// <param name="args">The aray of string arguments.</param>
         private void Parse(string[] args)

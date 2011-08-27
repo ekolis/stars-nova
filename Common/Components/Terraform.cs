@@ -20,22 +20,14 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This class defines a terraforming property.
-// ===========================================================================
-#endregion
-
 namespace Nova.Common.Components
 {
-    #region Using Statements
     using System;
     using System.Xml;
     using Nova.Common;
-    #endregion
 
     /// <summary>
-    /// Terraform class
+    /// This class defines a terraforming property.
     /// </summary>
     [Serializable]
     public class Terraform : ComponentProperty
@@ -43,8 +35,6 @@ namespace Nova.Common.Components
         public int MaxModifiedGravity     = 0;
         public int MaxModifiedTemperature = 0;
         public int MaxModifiedRadiation   = 0;
-
-        #region Construction
 
         /// <summary>
         /// Default constructor.
@@ -64,10 +54,6 @@ namespace Nova.Common.Components
             this.MaxModifiedRadiation = existing.MaxModifiedRadiation;
         }
 
-        #endregion
-
-        #region Interface ICloneable
-
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
@@ -76,10 +62,6 @@ namespace Nova.Common.Components
         {
             return new Terraform(this);
         }
-
-        #endregion
-
-        #region Operators
 
         /// <summary>
         /// Polymorphic addition of properties.
@@ -105,8 +87,8 @@ namespace Nova.Common.Components
         /// <summary>
         /// Provide a way to add properties in the ship design.
         /// </summary>
-        /// <param name="op1">LHS operator</param>
-        /// <param name="op2">RHS operator</param>
+        /// <param name="op1">LHS operator.</param>
+        /// <param name="op2">RHS operator.</param>
         /// <returns>A single terraform property that represents the stack.</returns>
         public static Terraform operator +(Terraform op1, Terraform op2)
         {
@@ -131,16 +113,11 @@ namespace Nova.Common.Components
             return op1.Clone() as Terraform;
         }
 
-        #endregion
-
-        #region Load Save Xml
-
         /// <summary>
-        /// Load from Xml
+        /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
-        /// <param name="node">
-        /// node is a "Property" node with Type=="Terraform" in a Nova 
-        /// compenent definition file (xml document).
+        /// <param name="node">An <see cref="XmlNode"/> within
+        /// a Nova compenent definition file (xml document).
         /// </param>
         public Terraform(XmlNode node)
         {
@@ -174,7 +151,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -197,8 +174,6 @@ namespace Nova.Common.Components
 
             return xmlelProperty;
         }
-
-        #endregion
     }
 }
 

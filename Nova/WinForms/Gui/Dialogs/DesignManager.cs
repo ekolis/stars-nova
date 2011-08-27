@@ -51,8 +51,6 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         public event RefreshStarMap RefreshStarMapEvent;
         
-        #region Construction
-
         /// <Summary>
         /// Initializes a new instance of the DesignManager class.
         /// </Summary>
@@ -63,31 +61,22 @@ namespace Nova.WinForms.Gui
             this.hullGrid.ModuleSelected += DesignModuleSelected;
         }
 
-        #endregion
-
-        #region Event Methods
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Done button pressed. Just exit the dialog.
         /// </Summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        /// ----------------------------------------------------------------------------
         private void Done_Click(object sender, EventArgs e)
         {
             Close();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Populate the available designs items list box with the existing ship designs
         /// (we don't include anything that does not have a hull in the list).
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void DesignManager_Load(object sender, EventArgs e)
         {
             // Populate the "Design Owner" ComboBox with a list of players and
@@ -98,7 +87,7 @@ namespace Nova.WinForms.Gui
 
             foreach (ushort empireId in stateData.EmpireState.EmpireReports.Keys)
             {
-                comboDesignOwner.Items.Add( new ComboBoxItem<int>(stateData.EmpireState.EmpireReports[empireId].RaceName, empireId));
+                comboDesignOwner.Items.Add(new ComboBoxItem<int>(stateData.EmpireState.EmpireReports[empireId].RaceName, empireId));
             }
 
             comboDesignOwner.SelectedItem = thisRace;
@@ -109,18 +98,17 @@ namespace Nova.WinForms.Gui
         {
             ComboBoxItem<int> item = this.comboDesignOwner.SelectedItem as ComboBoxItem<int>;
             if (item != null)
+            {
                 return item.Tag;
+            }
             return 0;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// A new design has been selected, display it.
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void DesignList_SelectedIndexChanged(object sender, EventArgs e)
         {
             if (this.designList.SelectedItems.Count <= 0)
@@ -135,14 +123,11 @@ namespace Nova.WinForms.Gui
             DisplayDesign(design);
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Deal with a hull module being selected
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void DesignModuleSelected(object sender, EventArgs e)
         {            
             Panel gridModule = sender as Panel;         
@@ -164,8 +149,6 @@ namespace Nova.WinForms.Gui
             this.componentSummary.Text = component.Description;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// The delete button has been pressed. Confirm he really means it and, if he
         /// does, delete all ships based on that design, if that leaves the fleet
@@ -173,7 +156,6 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void Delete_Click(object sender, EventArgs e)
         {
             string text =
@@ -208,7 +190,6 @@ Are you sure you want to do this?";
 
             foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
             {
-
                 List<Ship> shipsToRemove = new List<Ship>();
 
                 foreach (Ship ship in fleet.FleetShips)
@@ -247,8 +228,6 @@ Are you sure you want to do this?";
 
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// A new race has been selected. Update the design list to reflect this and
         /// reset the design display. Only allow the delete button to be used if the
@@ -256,7 +235,6 @@ Are you sure you want to do this?";
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void DesignOwner_SelectedIndexChanged(object sender, EventArgs e)
         {
             int empireId = GetSelectedEmpireId();
@@ -280,18 +258,12 @@ Are you sure you want to do this?";
             }
         }
 
-        #endregion
-
-        #region Utility Methods
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Populate the design list with a list of designs for a specified race if we
         /// know what that design is (we only discover other race's designs after a
         /// battle. We also only deal with ship or starbase designs.
         /// </Summary>
         /// <param name="raceName"></param>
-        /// ----------------------------------------------------------------------------
         private void ListDesigns(int ownerId)
         {
             this.designList.Items.Clear();
@@ -303,10 +275,8 @@ Are you sure you want to do this?";
                 {
                     if (design.Owner == ownerId)
                     {
-                        if (ownerId == stateData.EmpireState.Id ||
-                            this.stateData.EnemyDesigns.ContainsKey(design.Key))
+                        if (ownerId == stateData.EmpireState.Id || this.stateData.EnemyDesigns.ContainsKey(design.Key))
                         {
-
                             AddToDesignList(design);
                         }
                     }
@@ -316,13 +286,10 @@ Are you sure you want to do this?";
             this.designList.EndUpdate();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Add a design into the list of designs
         /// </Summary>
         /// <param name="design">The design to add to the design list.</param>
-        /// ----------------------------------------------------------------------------
         private void AddToDesignList(Design design)
         {
             ListViewItem itemToAdd = new ListViewItem();
@@ -343,14 +310,11 @@ Are you sure you want to do this?";
             this.designList.Items.Add(itemToAdd);
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Count the number of ships based on a specific design
         /// </Summary>
         /// <param name="design">The design to count instances of.</param>
         /// <returns>The number of ships of the given design that have been built.</returns>
-        /// ----------------------------------------------------------------------------
         private int CountDesigns(Design design)
         {
             int quantity = 0;
@@ -369,13 +333,10 @@ Are you sure you want to do this?";
             return quantity;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Display Design
         /// </Summary>
         /// <param name="design">The <see cref="ShipDesign"/> to display.</param>
-        /// ----------------------------------------------------------------------------
         private void DisplayDesign(ShipDesign design)
         {
             design.Update();
@@ -402,8 +363,5 @@ Are you sure you want to do this?";
                 this.maxCapacity.Text = design.FuelCapacity.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
         }
-
-        #endregion
     }
-
 }

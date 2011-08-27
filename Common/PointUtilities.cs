@@ -176,10 +176,10 @@ namespace Nova.Common
         /// </summary>
         /// <remarks>
         /// FIXME (priority 6) - rounding can cause no movement to occur. 
-        /// Fix added, requires testing - Dan 4 Apr 10
+        /// Fix added, requires testing - Dan 4 Apr 10.
         /// </remarks>
-        /// <param name="from">The stating <see cref="NovaPoint"/></param>
-        /// <param name="to">The destination <see cref="NovaPoint"/></param>
+        /// <param name="from">The stating <see cref="NovaPoint"/>.</param>
+        /// <param name="to">The destination <see cref="NovaPoint"/>.</param>
         /// <param name="distance">The actual distance to move.</param>
         /// <returns>If the distance between from and to is less than 'distance' then returns 'to.
         /// Otherwise a point 'distance' away from 'from' in the direction of 'to'.</returns>

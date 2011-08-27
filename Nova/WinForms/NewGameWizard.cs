@@ -62,9 +62,10 @@ namespace Nova.WinForms
             }
 
             Random rand = new Random();            
-            List<String> racenames = new List<string>(KnownRaces.Keys);
-            
-            for( int i = 0; i < 2; ++i ) // Add 2 players to a new game
+            List<string> racenames = new List<string>(KnownRaces.Keys);
+
+            // Add 2 players to a new game
+            for (int i = 0; i < 2; ++i) 
             {
                 // add known race to list of players
                 string racename = racenames[rand.Next(racenames.Count)];
@@ -180,7 +181,7 @@ namespace Nova.WinForms
                 DialogResult = DialogResult.Retry;
             }
             
-            //this.Close();
+            // this.Close();
         }
         
         

@@ -28,7 +28,6 @@ namespace Nova.Client
     using System.IO;
     using System.Xml;
     using System.Xml.Serialization;
-    using System.Linq;
 
     using Nova.Common;
     using Nova.Common.Components;

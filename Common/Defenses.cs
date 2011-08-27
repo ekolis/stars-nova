@@ -19,24 +19,18 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module returns details of a planet's Defenses
-// TODO (priority 5) - Transfer this to the Defense component property.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
 
+    /// <summary>
+    /// This module returns details of a planet's Defenses
+    /// TODO (priority 5) - Transfer this to the Defense component property.
+    /// </summary>
     public static class Defenses
     {
-        #region Fields
-
         public static Dictionary<string, double> DefenseTypes = new Dictionary<string, double>();
         public static double PopulationCoverage;
         public static double BuildingCoverage;
@@ -44,12 +38,8 @@ namespace Nova.Common
         public static double SmartBombCoverage;
         public static int SummaryCoverage;
 
-        #endregion Fields
-
-        #region Construction
-
         /// <summary>
-        /// Constructor
+        /// Constructor.
         /// </summary>
         static Defenses()
         {
@@ -59,10 +49,6 @@ namespace Nova.Common
             DefenseTypes["Planet"]  = 0.0299;   // 2.99%
             DefenseTypes["Neutron"] = 0.0379;   // 3.79%
         }
-
-        #endregion Construction
-
-        #region Methods
 
         /// <summary>
         /// Determine the Defenses of a planet. Note: results are normalised so that
@@ -97,8 +83,6 @@ namespace Nova.Common
 
             SummaryCoverage = (int)summary;
         }
-
-        #endregion 
     }
 }
 

@@ -274,7 +274,6 @@ namespace Nova.WinForms.ComponentEditor
            // only save if the user says OK!
            if (result == DialogResult.OK)
            {
-
                System.IO.FileInfo info = new System.IO.FileInfo(fd.FileName);
 
                // FIXME (priority 3) - Create the selected file, if it doesn't already exist. This is a workaround for the FIXME below.
@@ -1752,9 +1751,9 @@ namespace Nova.WinForms.ComponentEditor
 
 
       /// <Summary>
-      /// General dialog handling
+      /// General dialog handling.
       /// </Summary>
-      /// <param name="dialog">A dialog <see cref="Form"/></param>
+      /// <param name="dialog">A dialog <see cref="Form"/>.</param>
       private void DoDialog(Form dialog)
       {
           dialog.ShowDialog();

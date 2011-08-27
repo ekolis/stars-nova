@@ -33,8 +33,6 @@ using NUnit.Framework;
 
 namespace Nova.Tests.UnitTests
 {
-
-
     // ============================================================================
     // Algorithms:
     // Normalpopkills = sum[bomb_kill_perc(n)*#(n)] * (1-Def(pop))
@@ -64,13 +62,11 @@ namespace Nova.Tests.UnitTests
     [TestFixture]
     public class BombingTest
     {
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// bombing Test
         /// 
         /// TODO Clean up unit test. Using logic (Math.Max()) and magic numbers in tests is not recommended.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         [Test]
         public void BombingEffect()
         {

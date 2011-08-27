@@ -63,7 +63,6 @@ namespace Nova.WinForms.Gui
 
             foreach (BattleReport report in battles)
             {
-
                 Dictionary<int, bool> countSides = new Dictionary<int, bool>();
                 foreach (Fleet fleet in report.Stacks.Values)
                 {

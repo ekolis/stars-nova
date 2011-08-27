@@ -20,24 +20,17 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// A simple control that combines a checkbox with an up-down counter.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Windows.Forms;
-using Nova.Common;
-
 namespace Nova.ControlLibrary
 {
+    using System;
+    using System.Windows.Forms;
+    using Nova.Common;
+
     /// <summary>
     /// A user control that combines a counter and a check box.
     /// </summary>
     public partial class EnabledCounter : UserControl
     {
-
         /// <summary>
         /// Initializes a new instance of the EnabledCounter class.
         /// </summary>
@@ -57,69 +50,56 @@ namespace Nova.ControlLibrary
         // Minimum Value (Minimum)
         // Maximum Value (Maximum)
         // ============================================================================
-        #region Properties
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the current value of the counter.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int ControlCounter
         {
             get { return (int)this.upDownCounter.Value; }
             set { this.upDownCounter.Value = value; }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the text displayed on the control.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public string ControlText
         {
             get { return this.checkBox.Text; }
             set { this.checkBox.Text = value; }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the selection checkbox within the control.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool ControlSelected
         {
             get { return this.checkBox.Checked; }
             set { this.checkBox.Checked = value; }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the maximum value of the counter.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int Minimum
         {
             get { return (int)this.upDownCounter.Minimum; }
             set { this.upDownCounter.Minimum = value; }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the maximum value of the counter.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int Maximum
         {
             get { return (int)this.upDownCounter.Maximum; }
             set { this.upDownCounter.Maximum = value; }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get and set control value as an EnabledValue. This interface is meant to be
         /// used at run-time.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public EnabledValue Value
         {
             get
@@ -136,9 +116,5 @@ namespace Nova.ControlLibrary
                 this.checkBox.Checked = value.IsChecked;
             }
         }
-
-
-        #endregion
     }
-
 }

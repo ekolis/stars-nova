@@ -37,49 +37,52 @@ using System.Windows.Forms;
 namespace Nova.ControlLibrary
 {
     /// <summary>
-    /// Simple control that can display 2d graph
+    /// Simple control that can display 2d graph.
     /// </summary>
     public partial class Graph : UserControl
     {
-        #region Fields
         private int[] data;
         private int minVal = int.MaxValue;
         private int maxVal = int.MinValue;
         private Rectangle graphBounds;
-        #endregion
 
-        #region Properties
         /// <summary>
-        /// Gets or sets data line color
+        /// Gets or sets data line color.
         /// </summary>
         public Color LineColor { get; set; }
+
         /// <summary>
-        /// Gets or sets axis color
+        /// Gets or sets axis color.
         /// </summary>
         public Color AxisColor { get; set; }
 
         /// <summary>
-        /// How much horizontal space should be left blank on left side of the graph. Value in percent 0.03 = 3%
+        /// How much horizontal space should be left blank on left side of the graph. Value in percent 0.03 = 3%.
         /// </summary>
         public double HoriozontalSpace { get; set; }
+
         /// <summary>
-        /// How much veritcal space should be left blank on left side of the graph. Value in percent 0.03 = 3%
+        /// How much veritcal space should be left blank on left side of the graph. Value in percent 0.03 = 3%.
         /// </summary>
         public double VerticalSpace { get; set; }
+
         /// <summary>
-        /// Size of the tile box in pixels
+        /// Size of the tile box in pixels.
         /// </summary>
         public double TitleSize { get; set; }
+
         /// <summary>
-        /// Gets or sets graph image
+        /// Gets or sets graph image.
         /// </summary>
         public Image Image { get; set; }
+
         /// <summary>
-        /// Gets or sets Title 
+        /// Gets or sets Title.
         /// </summary>
         public string Title { get; set; }
+
         /// <summary>
-        /// Gets or sets data
+        /// Gets or sets data.
         /// </summary>
         public int[] Data
         {
@@ -89,9 +92,7 @@ namespace Nova.ControlLibrary
                 RefreshDiagram();
             }
         }
-        #endregion
 
-        #region Methods
         private void CalcMinMaxVal()
         {
             for (int i = 0; i < data.Length; i++)
@@ -100,8 +101,9 @@ namespace Nova.ControlLibrary
                 maxVal = Math.Max(maxVal, data[i]);
             }
         }
+
         /// <summary>
-        /// Draws data on the graphics object
+        /// Draws data on the graphics object.
         /// </summary>
         /// <param name="g"></param>
         private void DrawData(ref Graphics g)
@@ -133,15 +135,13 @@ namespace Nova.ControlLibrary
                 g.DrawLine(markPen, (int)(tickX * i), graphBounds.Bottom, (int)(tickX * i), graphBounds.Bottom - 4);
             }
 
-
-
-
             markPen.Dispose();
             p.Dispose();
             brush.Dispose();
         }
+
         /// <summary>
-        /// Draw axis on graphic object
+        /// Draw axis on graphic object.
         /// </summary>
         /// <param name="g"></param>
         private void DrawAxis(ref Graphics g)
@@ -155,8 +155,9 @@ namespace Nova.ControlLibrary
             p.Dispose();
             brush.Dispose();
         }
+
         /// <summary>
-        /// Draw title
+        /// Draw title.
         /// </summary>
         /// <param name="g"></param>
         private void DrawTitle(ref Graphics g)
@@ -172,8 +173,9 @@ namespace Nova.ControlLibrary
             
             g.DrawString(Title, Control.DefaultFont, Brushes.Black, titleBounds);
         }
+
         /// <summary>
-        /// Calculate graph bounds for given image size
+        /// Calculate graph bounds for given image size.
         /// </summary>
         /// <param name="imageWidth"></param>
         /// <param name="imageHeight"></param>
@@ -201,8 +203,9 @@ namespace Nova.ControlLibrary
                     (int)(imageHeight - (TitleSize * (1.0 + VerticalSpace) * leftOverVertical)));
             }
         }
+
         /// <summary>
-        /// Refreshes the diagram
+        /// Refreshes the diagram.
         /// </summary>
         public void RefreshDiagram()
         {
@@ -226,9 +229,7 @@ namespace Nova.ControlLibrary
             }
             pictureBox.Image = Image;
         }
-        #endregion
 
-        #region Constructors
         public Graph()
         {
             InitializeComponent();
@@ -238,11 +239,11 @@ namespace Nova.ControlLibrary
             VerticalSpace = 0.02;
             TitleSize = 13;
         }
+
         public Graph(int[] data)
             : this()
         {
             Data = data;
         }
-        #endregion
     }
 }
