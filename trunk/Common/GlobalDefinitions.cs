@@ -208,8 +208,8 @@ namespace Nova.Common
        /// <summary>
        /// Add the local directory seperator character (\ or /) to a path, if required.
        /// </summary>
-       /// <param name="path">A file path</param>
-       /// <returns>path + the (local) directory seperater character added to the end, if required.</returns>
+       /// <param name="path">A file path.</param>
+       /// <returns>Returns path + the (local) directory seperater character added to the end, if required.</returns>
        private static string AddDirSeparator(string path)
        {
            if (!path.EndsWith(Path.DirectorySeparatorChar + ""))

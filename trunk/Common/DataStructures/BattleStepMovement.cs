@@ -60,7 +60,6 @@ namespace Nova.Common.DataStructures
                 {
                     switch (subnode.Name.ToLower())
                     {
-
                         case "stackname":
                             StackName = subnode.FirstChild.Value;
                             break;
@@ -81,8 +80,8 @@ namespace Nova.Common.DataStructures
         /// <summary>
         /// Generate an XmlElement representation of the xmlelBattleStepMovement for saving to file.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement representing the xmlelBattleStepMovement</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representing the xmlelBattleStepMovement.</returns>
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattleStepMovement = xmldoc.CreateElement("BattleStepMovement");

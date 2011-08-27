@@ -42,19 +42,26 @@ using System.Collections;
 namespace Nova.Common
 {
     /// <summary>
-    /// Maintains a collection of TraitEntry objects.
+    /// Defines a colletion of TraitEntry objects using DictionaryBase.
+    /// Allows these to be accessed as either Strings or TraitEnty objects, with 
+    /// TraitEntry.Code acting as the dictionary key. A trait can be added or
+    /// removed from a Trait list using only its mnemonic Code by using the
+    /// PrimaryTraits and SecondaryTraits lists for reference.
+    ///
+    /// See PrimaryTraits and SecondaryTraits for descriptions of these traits.
     /// </summary>
+    /// <remarks>
+    /// Design notes:
+    /// Intention is to make working with traits intuitive without worying about
+    /// when they are String or TraitEntry objects.
+    /// </remarks>
     [Serializable]
     public class TraitList : DictionaryBase
     {
-        #region Methods
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Add a new trait to the race's collection of traits.
         /// </summary>
         /// <param name="new_trait">A TraitEntry, such as those in SecondaryTraits.</param>
-        /// ----------------------------------------------------------------------------
         public void Add(TraitEntry new_trait)
         {
             Dictionary.Add(new_trait.Code, new_trait);
@@ -63,7 +70,7 @@ namespace Nova.Common
         /// <summary>
         /// Add a new trait to the race's collection of traits.
         /// </summary>
-        /// <param name="newTrait">The code or short name of a trait such as IS for Improved Starbases. These are defined in AllTraits</param>
+        /// <param name="newTrait">The code or short name of a trait such as IS for Improved Starbases. These are defined in AllTraits.</param>
         public void Add(string newTrait)
         {
             foreach (DictionaryEntry de in AllTraits.Data.Secondary)
@@ -104,10 +111,6 @@ namespace Nova.Common
             return Dictionary.Contains(trait);
         }
 
-        #endregion
-
-        #region Properties
-
         /// <summary>
         /// Allow array type indexing to a TraitList.
         /// </summary>
@@ -120,7 +123,5 @@ namespace Nova.Common
                 return Dictionary[index] as TraitEntry;
             }
         }
-
-        #endregion
     }
 }

@@ -80,9 +80,9 @@ namespace Nova.Common
         public Dictionary<string, BattlePlan>   BattlePlans     = new Dictionary<string, BattlePlan>();
         
         // See associated properties.
-        private long        FleetCounter             = 0;
-        private long        DesignCounter            = 0;
-        private long        ShipCounter              = 0;
+        private long        fleetCounter             = 0;
+        private long        designCounter            = 0;
+        private long        shipCounter              = 0;
         
         public Race Race
         {
@@ -113,7 +113,10 @@ namespace Nova.Common
             set
             {
                 // Empire Id should only be set on game creation, from a simple 0-127 int.
-                if (value > 127)    { throw new ArgumentException("EmpireId out of range"); }                
+                if (value > 127)    
+                { 
+                    throw new ArgumentException("EmpireId out of range"); 
+                }  
                 empireId = value;
             }
         }
@@ -123,8 +126,8 @@ namespace Nova.Common
         /// </summary>
         public long GetNextFleetKey()
         {
-            ++FleetCounter;
-            return ((long)FleetCounter | ((long)empireId << 32));
+            ++fleetCounter;
+            return (long)fleetCounter | ((long)empireId << 32);
         }
 
         /// <summary>
@@ -132,18 +135,18 @@ namespace Nova.Common
         /// </summary>
         public long GetNextDesignKey()
         {
-            ++DesignCounter;
-            return ((long)DesignCounter | ((long)empireId << 32));
+            ++designCounter;
+            return (long)designCounter | ((long)empireId << 32);
         }
 
         public long GetNextShipKey()
         {
-            ++ShipCounter;
-            return ((long)ShipCounter | ((long)empireId << 32));
+            ++shipCounter;
+            return (long)shipCounter | ((long)empireId << 32);
         }
 
         /// <summary>
-        /// default constructor
+        /// Default constructor.
         /// </summary>
         public EmpireData() 
         {
@@ -163,11 +166,11 @@ namespace Nova.Common
         /// <summary>
         /// Load: constructor to load EmpireData from an XmlNode representation.
         /// </summary>
-        /// <param name="node">An XmlNode containing a EmpireData representation (from a save file)</param>
+        /// <param name="node">An XmlNode containing a EmpireData representation (from a save file).</param>
         public EmpireData(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
-            XmlNode tNode;
+            XmlNode textNode;
             while (subnode != null)
             {
                 switch (subnode.Name.ToLower())
@@ -176,13 +179,13 @@ namespace Nova.Common
                         empireId = ushort.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                         break;
                     case "fleetcounter":
-                        FleetCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        fleetCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "designcounter":
-                        DesignCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        designCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "shipcounter":
-                        ShipCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        shipCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "turnyear":
                         TurnYear = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -198,58 +201,58 @@ namespace Nova.Common
                         Race.LoadRaceFromXml(subnode);
                         break;
                     case "research":
-                        tNode = subnode.SelectSingleNode("Budget");
-                        ResearchBudget = int.Parse(tNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                        tNode = subnode.SelectSingleNode("AttainedLevels");
-                        ResearchLevels = new TechLevel(tNode);
-                        tNode = subnode.SelectSingleNode("SpentResources");
-                        ResearchResources = new TechLevel(tNode);
-                        tNode = subnode.SelectSingleNode("Topics");
-                        ResearchTopics = new TechLevel(tNode);
+                        textNode = subnode.SelectSingleNode("Budget");
+                        ResearchBudget = int.Parse(textNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        textNode = subnode.SelectSingleNode("AttainedLevels");
+                        ResearchLevels = new TechLevel(textNode);
+                        textNode = subnode.SelectSingleNode("SpentResources");
+                        ResearchResources = new TechLevel(textNode);
+                        textNode = subnode.SelectSingleNode("Topics");
+                        ResearchTopics = new TechLevel(textNode);
                         break;
                     case "starreports":
-                        tNode = subnode.FirstChild;
-                        while (tNode != null)
+                        textNode = subnode.FirstChild;
+                        while (textNode != null)
                         {
-                            StarIntel report = new StarIntel(tNode);
+                            StarIntel report = new StarIntel(textNode);
                             StarReports.Add(report.Name, report);
-                            tNode = tNode.NextSibling;
+                            textNode = textNode.NextSibling;
                         }
                         break;
                     case "ownedstars":
-                        tNode = subnode.FirstChild;
-                        while (tNode != null)
+                        textNode = subnode.FirstChild;
+                        while (textNode != null)
                         {
-                            Star star = new Star(tNode);
+                            Star star = new Star(textNode);
                             OwnedStars.Add(star);
-                            tNode = tNode.NextSibling;
+                            textNode = textNode.NextSibling;
                         }
                         break;
                     case "fleetreports":
-                        tNode = subnode.FirstChild;
-                        while (tNode != null)
+                        textNode = subnode.FirstChild;
+                        while (textNode != null)
                         {
-                            FleetIntel report = new FleetIntel(tNode);
+                            FleetIntel report = new FleetIntel(textNode);
                             FleetReports.Add(report.Key, report);
-                            tNode = tNode.NextSibling;
+                            textNode = textNode.NextSibling;
                         }
                         break;
                     case "ownedfleets":
-                        tNode = subnode.FirstChild;
-                        while (tNode != null)
+                        textNode = subnode.FirstChild;
+                        while (textNode != null)
                         {
-                            Fleet fleet = new Fleet(tNode);
+                            Fleet fleet = new Fleet(textNode);
                             OwnedFleets.Add(fleet);
-                            tNode = tNode.NextSibling;
+                            textNode = textNode.NextSibling;
                         }
                         break;
                     case "otherempires":
-                        tNode = subnode.FirstChild;
-                        while (tNode != null)
+                        textNode = subnode.FirstChild;
+                        while (textNode != null)
                         {
-                            EmpireIntel report = new EmpireIntel(tNode);
+                            EmpireIntel report = new EmpireIntel(textNode);
                             EmpireReports.Add(report.Id, report);
-                            tNode = tNode.NextSibling;
+                            textNode = textNode.NextSibling;
                         }
                         break;
                     case "battleplan":
@@ -257,11 +260,11 @@ namespace Nova.Common
                         BattlePlans[plan.Name] = plan;
                         break;                        
                     case "availablecomponents":
-                        tNode = subnode.FirstChild;
-                        while (tNode != null)
+                        textNode = subnode.FirstChild;
+                        while (textNode != null)
                         { 
-                            AvailableComponents.Add(new Component(tNode));
-                            tNode = tNode.NextSibling;
+                            AvailableComponents.Add(new Component(textNode));
+                            textNode = textNode.NextSibling;
                         }
                         break;
                 }
@@ -277,19 +280,19 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Save: Generate an XmlElement representation of the EmpireData
+        /// Save: Generate an XmlElement representation of the EmpireData.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement reprsenting the EmpireData (to be written to file)</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement reprsenting the EmpireData (to be written to file).</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelEmpireData = xmldoc.CreateElement("EmpireData");
             
             Global.SaveData(xmldoc, xmlelEmpireData, "Id", empireId.ToString("X"));
                         
-            Global.SaveData(xmldoc, xmlelEmpireData, "FleetCounter", FleetCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            Global.SaveData(xmldoc, xmlelEmpireData, "DesignCounter", DesignCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            Global.SaveData(xmldoc, xmlelEmpireData, "ShipCounter", ShipCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelEmpireData, "FleetCounter", fleetCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelEmpireData, "DesignCounter", designCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelEmpireData, "ShipCounter", shipCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             
             Global.SaveData(xmldoc, xmlelEmpireData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));

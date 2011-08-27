@@ -33,7 +33,6 @@ namespace Nova.Common.DataStructures
     [Serializable]
     public class BattleStepWeapons : BattleStep
     {
-        
         public double HitPower = 0;
         public string Targeting = null;
         public BattleStepTarget WeaponTarget = new BattleStepTarget();
@@ -90,8 +89,8 @@ namespace Nova.Common.DataStructures
         /// <summary>
         /// Generate an XmlElement representation of the BattleStepWeapons for saving to file.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement representing the ShipDesign</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representing the ShipDesign.</returns>
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattleStepWeapons = xmldoc.CreateElement("BattleStepWeapons");

@@ -19,18 +19,6 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Racial Traits: 
-// Defines a colletion of TraitEntry objects representing the singular primary
-// and zero or more lesser (secondary) racial traits. See PrimaryTraits and 
-// SecondaryTraits for descriptions of these traits.
-//
-// Design notes:
-// Inherits from TraitList and adds a PrimaryTrait field
-// ===========================================================================
-#endregion
-
 namespace Nova.Common
 {
     using System;
@@ -40,25 +28,24 @@ namespace Nova.Common
     using System.Xml;
 
     /// <summary>
-    ///  Class to store and compare a Race's traits.
+    /// Racial Traits: 
+    /// Defines a colletion of TraitEntry objects representing the singular primary
+    /// and zero or more lesser (secondary) racial traits. See PrimaryTraits and 
+    /// SecondaryTraits for descriptions of these traits.
     /// </summary>
+    /// <remarks>
+    /// Inherits from TraitList and adds a PrimaryTrait field.</remarks>
     [Serializable]
     public class RacialTraits : TraitList
     {
         private TraitEntry primaryTrait = AllTraits.Data.Primary["JOAT"]; // Start with some default primary trait
 
-        #region Construction
-
         /// <summary>
-        /// default constructor
+        /// Default constructor.
         /// </summary>
         public RacialTraits()
         {
         }
-
-        #endregion
-
-        #region Methods
 
         /// <summary>
         /// Loop through all of a races traits, starting with the primary trait.
@@ -98,8 +85,8 @@ namespace Nova.Common
         /// It can be set using the SetPrimary() accessor function passing either a 
         /// TraitEntry or a String containing one of the primary trait codes.
         /// </summary>
-        /// Design note: did not use a set method as I needed to overload depending on 
-        /// whether a TraitEntry or a String is used to set the Primary racial trait.
+        /// <remarks>Did not use a set method as I needed to overload depending on 
+        /// whether a TraitEntry or a String is used to set the Primary racial trait.</remarks>
         public TraitEntry Primary
         {
             get
@@ -139,7 +126,5 @@ namespace Nova.Common
 
             Report.Error("The primaryTrait \"" + primaryTrait + "\" is not recognised. Failed to set primary trait.");
         }
-
-        #endregion
     }
 }

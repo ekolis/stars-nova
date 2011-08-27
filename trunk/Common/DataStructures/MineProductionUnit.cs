@@ -19,47 +19,31 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This class is used for constructing 1 mine.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     /// <summary>
-    /// Implementation of ProductionUnit for mine building.
+    /// Implementation of ProductionUnit for constructing one mine.
     /// </summary>
     public class MineProductionUnit : IProductionUnit
     {
         private Star star;
 
-        #region Construction
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising constructor.
         /// </summary>
-        /// <param name="star">Star on which the mine is to be constructed</param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="star">Star on which the mine is to be constructed.</param>
         public MineProductionUnit(Star star)
         {
             this.star = star;
         }
 
-        #endregion
-
-        #region ProductionUnit Members
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return true if this item will be skipped in production.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool IsSkipped()
         {
             if (star.Mines >= star.GetOperableMines())
@@ -75,11 +59,9 @@ namespace Nova.Common
             return false;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Produce the mine.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public void Construct()
         {
             if (IsSkipped())
@@ -91,16 +73,12 @@ namespace Nova.Common
             star.Mines++;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Returns the <see cref="Resources"/> needed to build this Mine.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Resources NeededResources()
         {
             return star.ThisRace.GetMineResources();
         }
-
-        #endregion
     }
 }

@@ -33,8 +33,10 @@ namespace Nova.WinForms.Gui.Controls
 
         public CargoMeter()
         {
-            if( !DesignMode )
+            if (!DesignMode)
+            {
                 cargoLevels = new Cargo();
+            }
             InitializeComponent();
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             UpdateStyles();    
@@ -53,7 +55,11 @@ namespace Nova.WinForms.Gui.Controls
         [DefaultValue(100)]
         public int Maximum
         {
-            get { return maximum; }
+            get  
+            { 
+                return maximum; 
+            }
+
             set 
             {  
                 maximum = value;
@@ -69,7 +75,9 @@ namespace Nova.WinForms.Gui.Controls
             get
             {
                 if (IsMulti)
-                    return Math.Min( Maximum, CargoLevels.Mass);
+                {
+                    return Math.Min(Maximum, CargoLevels.Mass);
+                }
                 return level;
             }
             set
@@ -85,8 +93,16 @@ namespace Nova.WinForms.Gui.Controls
         [DesignerSerializationVisibility(DesignerSerializationVisibility.Hidden)]
         public Cargo CargoLevels
         {
-            get { return cargoLevels; }
-            set { cargoLevels = value; Invalidate();}
+            get  
+            { 
+                return cargoLevels; 
+            }
+
+            set 
+            { 
+                cargoLevels = value; 
+                Invalidate(); 
+            }
         }
 
 
@@ -100,7 +116,7 @@ namespace Nova.WinForms.Gui.Controls
             ControlPaint.DrawBorder3D(g, area);
 
             // Draw border
-            //g.DrawRectangle(Pens.Black, area.X, area.Y, area.Width - 1, area.Height - 1);
+            // g.DrawRectangle(Pens.Black, area.X, area.Y, area.Width - 1, area.Height - 1);
 
             // Prepare for internal area fill
             area.X += 1;
@@ -120,15 +136,17 @@ namespace Nova.WinForms.Gui.Controls
 
             string text = String.Format("{0} of {1}{2}", Value, Maximum, Cargo == CargoType.Fuel ? " mg" : " kT");
             Size s = TextRenderer.MeasureText(g, text, Font);
-            int textX = area.Width/2 - s.Width/2;
-            int textY = area.Height/2 - s.Height/2;
-            TextRenderer.DrawText(g, text, Font, new Point(textX,textY), ForeColor );
+            int textX = (area.Width / 2) - (s.Width / 2);
+            int textY = (area.Height / 2) - (s.Height / 2);
+            TextRenderer.DrawText(g, text, Font, new Point(textX, textY), ForeColor);
         }
 
         private void PaintMultiBar(Graphics g, Rectangle area)
-        {            
-            if( CargoLevels == null )
+        {
+            if (CargoLevels == null)
+            {
                 CargoLevels = new Cargo();
+            }
             int x = area.X;
             x += FillBar(area, g, x, CargoLevels.Ironium, GetCargoBrush(CargoType.Ironium));
             x += FillBar(area, g, x, CargoLevels.Boranium, GetCargoBrush(CargoType.Boranium));
@@ -142,7 +160,9 @@ namespace Nova.WinForms.Gui.Controls
             if (fillWidth > 0)
             {
                 if (x + fillWidth > area.Width)
+                {
                     fillWidth = area.Width - x + 1;
+                }
                 g.FillRectangle(brush, x, area.Y, fillWidth, area.Height);
             }
             return fillWidth;
@@ -156,9 +176,7 @@ namespace Nova.WinForms.Gui.Controls
             Color c = GetCargoColor(Cargo);
             if (fillWidth > 0)
             {
-                using (
-                    LinearGradientBrush brush = new LinearGradientBrush(area.Location, new Point(area.X + fillWidth, area.Y),
-                                                                        Color.FromArgb(64,c.R,c.G,c.B), c))
+                using (LinearGradientBrush brush = new LinearGradientBrush(area.Location, new Point(area.X + fillWidth, area.Y), Color.FromArgb(64, c.R, c.G, c.B), c))
                 {                    
                     g.FillRectangle(brush, area.X, area.Y, fillWidth, area.Height);
                 }
@@ -212,7 +230,9 @@ namespace Nova.WinForms.Gui.Controls
         private void FireValueChanged()
         {
             if (ValueChanged != null)
+            {
                 ValueChanged(Value);
+            }
         }
 
         
@@ -238,7 +258,7 @@ namespace Nova.WinForms.Gui.Controls
             Capture = false;
         }
 
-        private void PositionSlide( int x )
+        private void PositionSlide(int x)
         {
             double maxDouble = Maximum;
             double pos = x - 1;

@@ -80,8 +80,11 @@ namespace Nova.WinForms.Gui
             this.designList.AutoArrange = false;
             this.designList.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.designList.CausesValidation = false;
-            this.designList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-                                    this.description});
+            this.designList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] 
+            {
+                                    this.description
+            }
+            );
             this.designList.FullRowSelect = true;
             this.designList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.designList.HideSelection = false;
@@ -117,9 +120,11 @@ namespace Nova.WinForms.Gui
             // 
             this.queueList.AutoArrange = false;
             this.queueList.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.queueList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.queueList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] 
+            {
                                     this.queueDescription,
-                                    this.queueQuantity});
+                                    this.queueQuantity
+            });
             this.queueList.FullRowSelect = true;
             this.queueList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.queueList.HideSelection = false;
@@ -158,7 +163,7 @@ namespace Nova.WinForms.Gui
             // 
             // ok
             // 
-            this.ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
+            this.ok.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
             this.ok.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ok.Location = new System.Drawing.Point(446, 494);
             this.ok.Name = "ok";

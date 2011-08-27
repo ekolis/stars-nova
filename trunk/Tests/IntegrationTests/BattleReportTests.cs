@@ -39,7 +39,6 @@ namespace Nova.Tests.IntegrationTests
             StringWriter stringStream = new StringWriter();
             try
             {
-
                 // setup a test object
                 BattleReport testData = new BattleReport();
 

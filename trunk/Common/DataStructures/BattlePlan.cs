@@ -36,7 +36,7 @@ namespace Nova.Common
     [Serializable]
     public class BattlePlan
     {
-        //FIXME:(priority 2) This should all be enums!
+        // FIXME:(priority 2) This should all be enums!
         public string Name            = "Default";
         public string PrimaryTarget   = "Armed Ships";
         public string SecondaryTarget = "Any";
@@ -47,7 +47,7 @@ namespace Nova.Common
         #region Construction
 
         /// <summary>
-        /// default constructor
+        /// Default constructor.
         /// </summary>
         public BattlePlan() 
         { 
@@ -58,9 +58,9 @@ namespace Nova.Common
         #region Load Save Xml
 
         /// <summary>
-        /// Load: Initialising constructor from an XmlNode
+        /// Load: Initialising constructor from an XmlNode.
         /// </summary>
-        /// <param name="node">An XmlNode representing a BattlePlan</param>
+        /// <param name="node">An XmlNode representing a BattlePlan.</param>
         public BattlePlan(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -101,8 +101,8 @@ namespace Nova.Common
         /// <summary>
         /// Save: Generate an XmlElement representation of a battle plan for saving.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement representaion of the BattlePlan</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representaion of the BattlePlan.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattlePlan = xmldoc.CreateElement("BattlePlan");

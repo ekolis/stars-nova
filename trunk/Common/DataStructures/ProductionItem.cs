@@ -42,7 +42,7 @@ namespace Nova.Common
         private IProductionUnit unit;
 
         /// <summary>
-        /// default constructor
+        /// Default constructor.
         /// </summary>
         public ProductionItem() 
         { 
@@ -62,7 +62,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Return the resources needed to 
+        /// Return the resources needed to.
         /// </summary>
         /// <returns></returns>
         public Resources NeededResources()
@@ -80,7 +80,7 @@ namespace Nova.Common
         /// <summary>
         /// Load: Read in a ProductionQueue.Item from and XmlNode representation.
         /// </summary>
-        /// <param name="node">An XmlNode containing a representation of a ProductionQueue.Item</param>
+        /// <param name="node">An XmlNode containing a representation of a ProductionQueue.Item.</param>
         public ProductionItem(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -115,8 +115,8 @@ namespace Nova.Common
         /// <summary>
         /// Save: Generate an XmlElement representation of the ProductionQueue.Item for saving.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement representation of the ProductionQueue.Item</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representation of the ProductionQueue.Item.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProductionOrder = xmldoc.CreateElement("ProductionOrder");

@@ -23,9 +23,9 @@
 namespace Nova.WinForms.Gui
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
-    using System.Collections.Generic;
     
     using Nova.Client;
     using Nova.Common;
@@ -556,16 +556,15 @@ namespace Nova.WinForms.Gui
                 && currentStar.Owner == empireState.Id
                 && empireState.StarReports[currentStar.Name].Year == Global.Unset)
             {
-                        
-            tt += "Your population on " + currentStar.Name + " is " + currentStar.Colonists + "." + Environment.NewLine           
-                + currentStar.Name + " will support a population of up to "
-                + empireState.Race.MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture)
-                + " of your colonists." + Environment.NewLine
-                + "Your population on " + currentStar.Name + " will grow by "
-                + empireState.OwnedStars[currentStar.Name].CalculateGrowth(empireState.Race).ToString(System.Globalization.CultureInfo.InvariantCulture)
-                + " to "
-                + (currentStar.Colonists + empireState.OwnedStars[currentStar.Name].CalculateGrowth(empireState.Race)).ToString(System.Globalization.CultureInfo.InvariantCulture)
-                + " next year.";             
+                tt += "Your population on " + currentStar.Name + " is " + currentStar.Colonists + "." + Environment.NewLine           
+                    + currentStar.Name + " will support a population of up to "
+                    + empireState.Race.MaxPopulation.ToString(System.Globalization.CultureInfo.InvariantCulture)
+                    + " of your colonists." + Environment.NewLine
+                    + "Your population on " + currentStar.Name + " will grow by "
+                    + empireState.OwnedStars[currentStar.Name].CalculateGrowth(empireState.Race).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                    + " to "
+                    + (currentStar.Colonists + empireState.OwnedStars[currentStar.Name].CalculateGrowth(empireState.Race)).ToString(System.Globalization.CultureInfo.InvariantCulture)
+                    + " next year.";             
             }
 
             tooltip.Show(tt, population);

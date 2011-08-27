@@ -20,12 +20,6 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module deals with fleets bombing a planet. 
-// ===========================================================================
-#endregion
-
 namespace Nova.Server
 {
     using System;
@@ -35,7 +29,7 @@ namespace Nova.Server
     using Nova.Server;
 
     /// <summary>
-    /// Deal with bombing
+    /// Deal with bombing.
     /// </summary>
     public class Bombing
     {
@@ -46,13 +40,11 @@ namespace Nova.Server
             this.stateData = serverState;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// See if we can bomb the planet.
         /// </summary>
         /// <param name="fleet">Potential bombing fleet.</param>
         /// <param name="star">Potential bombing target.</param>
-        /// ----------------------------------------------------------------------------
         public void Bomb(Fleet fleet, Star star)
         {
             // The fleet is in orbit around a planet. If it has no colonists or
@@ -161,9 +153,7 @@ namespace Nova.Server
             wolf.Text = messageText;
             wolf.Audience = fleet.Owner;
             stateData.AllMessages.Add(wolf);
-
         }
-
     }
 }
 

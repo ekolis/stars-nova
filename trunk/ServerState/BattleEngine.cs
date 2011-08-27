@@ -46,28 +46,47 @@ namespace Nova.Server
         private readonly int movementPhasesPerRound = 3;
         private readonly int maxBattleRounds = 16;
         // The above table as a 2d lookup. Note round 8 moved to the first postion as we use battleRound % 8.
-        int[,] MovementTable = new int [,] {
-                                        {0, 1, 0, 1, 0, 1, 0, 1},
-                                        {1, 1, 1, 0, 1, 1, 1, 0},
-                                        {1, 1, 1, 1, 1, 1, 1, 1},
-                                        {1, 2, 1, 1, 1, 2, 1, 1},
-                                        {1, 2, 1, 2, 1, 2, 1, 2},
-                                        {2, 2, 2, 1, 2, 2, 2, 1},
-                                        {2, 2, 2, 2, 2, 2, 2, 2},
-                                        {2, 3, 2, 2, 2, 3, 2, 2},
-                                        {2, 3, 2, 3, 2, 3, 2, 3}
-                                    };
+        private readonly int[,] MovementTable = new int[,] 
+        {
+            {
+                0, 1, 0, 1, 0, 1, 0, 1
+            },
+            {
+                1, 1, 1, 0, 1, 1, 1, 0
+            },
+            {
+                1, 1, 1, 1, 1, 1, 1, 1
+            },
+            {
+                1, 2, 1, 1, 1, 2, 1, 1
+            },
+            {
+                1, 2, 1, 2, 1, 2, 1, 2
+            },
+            {
+                2, 2, 2, 1, 2, 2, 2, 1
+            },
+            {
+                2, 2, 2, 2, 2, 2, 2, 2
+            },
+            {
+                2, 3, 2, 2, 2, 3, 2, 2
+            },
+            {
+                2, 3, 2, 3, 2, 3, 2, 3
+            }
+        };
 
 
         private ServerState stateData;
         private BattleReport battle;
 
         /// <summary>
-        /// used to generate fleet id numbers for battle stacks
+        /// Used to generate fleet id numbers for battle stacks.
         /// </summary>
         private uint stackId;
 
-        int battleRound = 0;
+        private int battleRound = 0;
 
         /// <summary>
         /// Creates a new battle engine.
@@ -305,7 +324,7 @@ namespace Nova.Server
         }
 
         /// <summary>
-        /// Set the initial position of all of the stacks
+        /// Set the initial position of all of the stacks.
         /// </summary>
         /// <param name="zoneStacks">All stacks in this battle.</param>
         public void PositionStacks(List<Fleet> zoneStacks)
@@ -325,7 +344,7 @@ namespace Nova.Server
 
             int spaceSize = spaceAllocator.GridAxisCount * Global.MaxWeaponRange;
 
-//            spaceAllocator.AllocateSpace(spaceSize);
+            // spaceAllocator.AllocateSpace(spaceSize);
             spaceAllocator.AllocateSpace(10); // Set to the standard Stars! battle board size - Dan 26 Jun 11
             battle.SpaceSize = spaceSize;
 
@@ -537,8 +556,9 @@ namespace Nova.Server
                         {
                             movesThisRound = MovementTable[7, battleRound % 8];
                         }
-                        else // if (stack.BattleSpeed > 2.25)
+                        else 
                         {
+                            // stack.BattleSpeed > 2.25
                             movesThisRound = MovementTable[8, battleRound % 8];
                         }
 
@@ -607,12 +627,11 @@ namespace Nova.Server
                     }
                 }
             }
-
         }
 
         /// <summary>
         /// Launch the attack. We need the ship object as it may have components that
-        /// affect the hit power of a weapon discharge (capacitors and battle computers)
+        /// affect the hit power of a weapon discharge (capacitors and battle computers).
         /// </summary>
         /// <param name="ship">A single ship.</param>
         /// <param name="allWeapons">A list of the ship's weapons.</param>
@@ -620,7 +639,6 @@ namespace Nova.Server
         /// before any other ship. Each weapon in the battle should fire in priority order.
         private void Attack(Ship ship, List<WeaponDetails> allWeapons)
         {
-
             // Sort the weapon list according to weapon system initiative and then
             // fire the weapons in that order.
 
@@ -766,7 +784,7 @@ namespace Nova.Server
         }
 
         /// <summary>
-        /// Fire a missile weapon system
+        /// Fire a missile weapon system.
         /// </summary>
         /// <param name="target">Missile weapon target.</param>
         /// <param name="hitPower">Damage the weapon can do.</param>
@@ -796,7 +814,7 @@ namespace Nova.Server
         }
 
         /// <summary>
-        /// Attack the shields
+        /// Attack the shields.
         /// </summary>
         /// <param name="target">Ship being fired on.</param>
         /// <param name="hitPower">Damage output of the weapon.</param>
@@ -828,7 +846,7 @@ namespace Nova.Server
         }
 
         /// <summary>
-        /// Attack the Armor
+        /// Attack the Armor.
         /// </summary>
         /// <param name="target">Target being fired on.</param>
         /// <param name="hitPower">Weapon damage.</param>
@@ -926,7 +944,7 @@ namespace Nova.Server
                 }
                 else
                 {
-                    message.Text += (battle.Losses[empire]).ToString(System.Globalization.CultureInfo.InvariantCulture) +
+                    message.Text += battle.Losses[empire].ToString(System.Globalization.CultureInfo.InvariantCulture) +
                        " of your ships were destroyed";
                 }
 

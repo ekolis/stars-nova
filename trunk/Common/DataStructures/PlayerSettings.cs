@@ -22,7 +22,6 @@
 
 namespace Nova.Common
 {
-
     using System;
     using System.Collections.Generic;
     using System.Text;
@@ -48,7 +47,7 @@ namespace Nova.Common
         /// <summary>
         /// Load: constructor to load PlayerSettings from an XmlNode representation.
         /// </summary>
-        /// <param name="node">An XmlNode containing a PlayerSettings representation (from a save file)</param>
+        /// <param name="node">An XmlNode containing a PlayerSettings representation (from a save file).</param>
         public PlayerSettings(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -79,10 +78,10 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Save: Generate an XmlElement representation of the PlayerSettings
+        /// Save: Generate an XmlElement representation of the PlayerSettings.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement reprsenting the PlayerSettings (to be written to file)</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement reprsenting the PlayerSettings (to be written to file).</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelPlayerSettings = xmldoc.CreateElement("PlayerSettings");

@@ -22,10 +22,10 @@
 
 namespace Nova.WinForms.Gui
 {
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
-    using System.Collections.Generic;
-
+    
     using Nova.Client;
     using Nova.Common;
 
@@ -35,10 +35,10 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class SelectionDetail : UserControl
     {
+        private readonly EmpireData empireState;
+        
         private Item selectedItem = null;
         private UserControl selectedControl = null;
-  
-        private readonly EmpireData empireState;
         
         public PlanetDetail PlanetDetail; 
         public FleetDetail FleetDetail;
@@ -51,9 +51,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
-        public SelectionDetail(EmpireData empireState,
-                               List<long> deletedFleets,
-                               ClientState stateData)
+        public SelectionDetail(EmpireData empireState, List<long> deletedFleets,  ClientState stateData)
         {
             this.empireState = empireState;
             

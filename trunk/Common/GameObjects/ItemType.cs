@@ -34,7 +34,7 @@ namespace Nova.Common
         Mine,
         Factory,
         Defenses,
-        Defense, //FIXME; (priority 4) Disambiguate this two defense items!
+        Defense, // FIXME; (priority 4) Disambiguate this two defense items!
         [Description("Planetary Installations")] PlanetaryInstallations,
         Hull,
         Engine,

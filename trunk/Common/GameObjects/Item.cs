@@ -33,7 +33,10 @@ namespace Nova.Common
     /// </summary>
     [Serializable]
     public class Item
-    {     
+    {
+        private const long IdMask = 0x00000000FFFFFFFF;
+        private const long OwnerMask = 0x000000FF00000000;
+
         /// <summary>
         /// Backing store for the game wide unique key. 
         /// First bit is for sign. Negative values are reserved for special flags.
@@ -44,12 +47,9 @@ namespace Nova.Common
         /// S-----------------------OOOOOOOOIIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
         /// IIIIIIIIIIIIIIIIIIIIIIIIIIIIIIII
         /// ^                  ^                ^            ^
-        /// +-- sign bit       +-- reserved     +-- owner    +-- client generated Id
+        /// +-- sign bit       +-- reserved     +-- owner    +-- client generated Id.
         /// </summary>
         private long key = Global.NoOwner; // Default to no-id and no owner.
-
-        private const long idMask = 0x00000000FFFFFFFF;
-        private const long ownerMask = 0x000000FF00000000;
 
         /// <summary>
         /// The mass of the item (in kT).
@@ -67,17 +67,17 @@ namespace Nova.Common
         public string Name;
 
         /// <summary>
-        /// The type of the derived item (e.g. "Ship", "Star", "Starbase", etc.)
+        /// The type of the derived item (e.g. "Ship", "Star", "Starbase", etc).
         /// </summary>
         public ItemType Type = ItemType.None;
 
         /// <summary>
-        /// Position of the Item (if any)
+        /// Position of the Item (if any).
         /// </summary>
         public NovaPoint Position = new NovaPoint();
         
         /// <summary>
-        /// Default Construction
+        /// Default Construction.
         /// </summary>
         public Item() 
         { 
@@ -89,7 +89,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Copy (initialising) constructor
+        /// Copy (initialising) constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="Item"/>.</param>
         public Item(Item existing)
@@ -118,7 +118,10 @@ namespace Nova.Common
             }
             set
             {
-                if (value < 0) { throw new ArgumentException("OwnerId out of range"); }
+                if (value < 0) 
+                { 
+                    throw new ArgumentException("OwnerId out of range"); 
+                }
                 key = value;
             }
         }
@@ -131,14 +134,17 @@ namespace Nova.Common
         {
             get
             {
-                return (ushort) ((key & ownerMask) >> 32);
+                return (ushort)((key & OwnerMask) >> 32);
             }
 
             set
             {
-                if (value > 0xFF || value < 0) { throw new ArgumentException("OwnerId out of range"); }
-                key &= idMask;
-                key |= ((long)value << 32);
+                if (value > 0xFF || value < 0) 
+                { 
+                    throw new ArgumentException("OwnerId out of range"); 
+                }
+                key &= IdMask;
+                key |= (long)value << 32;
             }
         }
 
@@ -150,13 +156,16 @@ namespace Nova.Common
         {
             get
             {
-                return (uint) (key & idMask);
+                return (uint)(key & IdMask);
             }
 
             set
             {
-                if (value > idMask || value < 0) { throw new ArgumentException("ItemId out of range"); }
-                key &= ownerMask;
+                if (value > IdMask || value < 0) 
+                { 
+                    throw new ArgumentException("ItemId out of range"); 
+                }
+                key &= OwnerMask;
                 key |= value;
             }
         }
@@ -164,7 +173,7 @@ namespace Nova.Common
         /// <summary>
         /// Load: Initialising constructor from an XmlNode representing the Item (from a save file).
         /// </summary>
-        /// <param name="node">An XmlNode representing the Item</param>
+        /// <param name="node">An XmlNode representing the Item.</param>
         public Item(XmlNode node)
         {
             if (node == null)
@@ -185,7 +194,6 @@ namespace Nova.Common
             }
             else
             {
-
                 itemNode = node.SelectSingleNode("Item");
                 if (itemNode == null)
                 {
@@ -238,7 +246,7 @@ namespace Nova.Common
         /// Save: Return an XmlElement representation of the <see cref="Item"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelItem = xmldoc.CreateElement("Item");

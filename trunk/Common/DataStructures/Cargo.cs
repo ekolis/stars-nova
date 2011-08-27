@@ -20,27 +20,18 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Cargo that may be carried by a ship (if it has a cargo pod).
-// ===========================================================================
-#endregion
-
-using System.Collections;
-using System.ComponentModel;
-using System.ComponentModel.Design.Serialization;
-using System.Globalization;
-using System.Reflection;
-
 namespace Nova.Common
 {
-    #region Using Statements
     using System;
+    using System.Collections;
+    using System.ComponentModel;
+    using System.ComponentModel.Design.Serialization;
+    using System.Globalization;
+    using System.Reflection;
     using System.Xml;
-    #endregion
-
+    
     /// <summary>
-    /// Cargo class
+    /// Cargo that may be carried by a ship (if it has a cargo pod).
     /// </summary>
     [Serializable]
     [TypeConverter(typeof(CargoTypeConverter))]
@@ -64,9 +55,9 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Copy Constructor
+        /// Copy Constructor.
         /// </summary>
-        /// <param name="copy">Cargo object to copy</param>
+        /// <param name="copy">Cargo object to copy.</param>
         public Cargo(Cargo copy)
         {
             this.Ironium = copy.Ironium;
@@ -104,7 +95,6 @@ namespace Nova.Common
             {
                 try
                 {
-
                     switch (subnode.Name.ToLower())
                     {
                         case "ironium":
@@ -142,7 +132,7 @@ namespace Nova.Common
         /// Save: Serialise this object to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Cargo</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Cargo.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelCargo = xmldoc.CreateElement("Cargo");
@@ -171,10 +161,11 @@ namespace Nova.Common
         public override object ConvertTo(ITypeDescriptorContext context, CultureInfo culture, object value, Type destinationType)
         {
             Cargo cargo = value as Cargo;
-            if( cargo == null )
+            if (cargo == null)
+            {
                 return "0,0,0,0";
-            return String.Format("{0},{1},{2},{3}", cargo.Ironium, cargo.Boranium, cargo.Germanium,
-                                 cargo.ColonistsInKilotons);
+            }
+            return String.Format("{0},{1},{2},{3}", cargo.Ironium, cargo.Boranium, cargo.Germanium, cargo.ColonistsInKilotons);
         }
     }
 }

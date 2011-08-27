@@ -260,7 +260,6 @@ namespace Nova.ControlLibrary
 
             get
             {
-
                 Resources resources = new Resources();
 
                 resources.Ironium = Convert.ToInt32(this.ironium.Text);

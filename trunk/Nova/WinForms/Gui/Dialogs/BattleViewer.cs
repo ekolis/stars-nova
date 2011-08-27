@@ -38,7 +38,6 @@ using Nova.Common.DataStructures;
 
 namespace Nova.WinForms.Gui
 {
-
     /// <Summary>
     /// Dialog for viewing battle progress and outcome.
     /// </Summary>
@@ -159,7 +158,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Update the movement of a stack.
         /// </Summary>
-        /// <param name="movement">movement to display</param>
+        /// <param name="movement">Movement to display.</param>
         private void UpdateMovement(BattleStepMovement movement)
         {
             Fleet stack = this.myStacks[movement.StackName];
@@ -189,7 +188,7 @@ namespace Nova.WinForms.Gui
             else
             {
                 Fleet target = null;
-                //theBattle.Stacks.TryGetValue(targetKey.TargetShip, out target); // This target is a ship not a fleet?
+                // theBattle.Stacks.TryGetValue(targetKey.TargetShip, out target); // This target is a ship not a fleet?
 
                 if (target == null)
                 {
@@ -222,10 +221,9 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Deal with weapons being fired.
         /// </Summary>
-        /// <param name="weapons">weapon to display</param>
+        /// <param name="weapons">Weapon to display.</param>
         private void UpdateWeapons(BattleStepWeapons weapons)
         {
-
             if (weapons == null)
             {
                 this.weaponPower.Text = "";

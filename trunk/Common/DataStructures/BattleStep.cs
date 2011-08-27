@@ -44,7 +44,7 @@ namespace Nova.Common.DataStructures
         /// <summary>
         /// Load: Initialising constructor from an XmlNode representing the BattleStep (from a save file).
         /// </summary>
-        /// <param name="node">An XmlNode representing the BattleStep</param>
+        /// <param name="node">An XmlNode representing the BattleStep.</param>
         public BattleStep(XmlNode node)
         {
             if (node == null)
@@ -90,7 +90,7 @@ namespace Nova.Common.DataStructures
         /// Save: Return an XmlElement representation of the <see cref="BattleStep"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the BattleStep</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the BattleStep.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattleStep = xmldoc.CreateElement("BattleStep");

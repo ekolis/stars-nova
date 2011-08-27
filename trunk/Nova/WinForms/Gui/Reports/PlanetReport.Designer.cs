@@ -10,7 +10,7 @@ namespace Nova.WinForms.Gui
       /// <Summary>
       /// Clean up any resources being used.
       /// </Summary>
-      /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+      /// <param name="disposing">Set to true if managed resources should be disposed; otherwise, false.</param>
       protected override void Dispose(bool disposing)
       {
          if (disposing && (components != null))

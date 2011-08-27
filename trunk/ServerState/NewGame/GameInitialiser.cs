@@ -29,7 +29,7 @@ namespace Nova.Server.NewGame
     using Nova.Server;
     
     /// <summary>
-    /// Creates a game from scratch
+    /// Creates a game from scratch.
     /// </summary>
     public class GameInitialiser
     {

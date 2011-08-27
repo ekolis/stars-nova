@@ -66,7 +66,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// constructor for Race. 
+        /// Constructor for Race. 
         /// Reads all the race data in from an xml formated save file.
         /// </summary>
         /// <param name="fileName">A nova save file containing a race.</param>
@@ -202,7 +202,7 @@ namespace Nova.Common
         }
         
         /// <summary>
-        /// Clicks_from_center/Total_clicks_from_center_to_edge 
+        /// Clicks_from_center / Total_clicks_from_center_to_edge .
         /// </summary>
         /// <param name="tol"></param>
         /// <param name="starValue"></param>
@@ -324,7 +324,7 @@ namespace Nova.Common
         /// Save: Serialise this Race to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Race</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Race.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelRace = xmldoc.CreateElement("Race");
@@ -400,7 +400,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Load a Race from an xml document 
+        /// Load a Race from an xml document.
         /// </summary>
         /// <param name="xmlnode">An XmlNode, see Race constructor for generation.</param>
         public void LoadRaceFromXml(XmlNode xmlnode)

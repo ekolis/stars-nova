@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
-using System.Drawing;
 using System.Data;
-using System.Linq;
+using System.Drawing;
 using System.Text;
 using System.Windows.Forms;
 
@@ -27,7 +26,10 @@ namespace Nova.WinForms.Gui.Controls
 
         public int Maximum
         {
-            get { return meterCargo.Maximum;  }
+            get 
+            { 
+                return meterCargo.Maximum;  
+            }
             set 
             { 
                 meterCargo.Maximum = value;
@@ -37,11 +39,16 @@ namespace Nova.WinForms.Gui.Controls
 
         public int Value
         {
-            get { return meterCargo.Value; }
+            get 
+            { 
+                return meterCargo.Value; 
+            }
             set 
             {
                 if (value > Maximum)
+                {
                     value = Maximum;
+                }
                 meterCargo.Value = value;
                 ignoreNumericChange = true;
                 numeric.Value = value;
@@ -55,7 +62,7 @@ namespace Nova.WinForms.Gui.Controls
             set { meterCargo.Cargo = value; }
         }
 
-        void meterCargo_ValueChanged(int newValue)
+        public void meterCargo_ValueChanged(int newValue)
         {
             ignoreNumericChange = true;
             numeric.Value = newValue;
@@ -63,7 +70,7 @@ namespace Nova.WinForms.Gui.Controls
             FireValueChanged();
         }
 
-        void numeric_ValueChanged(object sender, EventArgs e)
+        public void numeric_ValueChanged(object sender, EventArgs e)
         {
             if (!ignoreNumericChange)
             {
@@ -74,7 +81,11 @@ namespace Nova.WinForms.Gui.Controls
 
         public bool Reversed
         {
-            get { return reversed; }
+            get 
+            { 
+                return reversed; 
+            }
+
             set
             {
                 if (reversed != value)
@@ -110,7 +121,9 @@ namespace Nova.WinForms.Gui.Controls
         private void FireValueChanged()
         {
             if (ValueChanged != null)
+            {
                 ValueChanged(Value);
+            }
         }
     }
 }

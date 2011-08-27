@@ -21,7 +21,11 @@ namespace Nova.WinForms.Gui.Dialogs
         private List<NumericUpDown> rightNumerics;
 
 
-        private enum Side { Left, Right };
+        private enum Side 
+        { 
+            Left, 
+            Right 
+        }
 
         public SplitFleetDialog()
         {
@@ -35,16 +39,20 @@ namespace Nova.WinForms.Gui.Dialogs
             foreach (Design des in leftFleet.Keys)
             {
                 if (!rightFleet.ContainsKey(des))
+                {
                     rightFleet[des] = 0;
+                }
             }
             foreach (Design des in rightFleet.Keys)
             {
                 if (!leftFleet.ContainsKey(des))
+                {
                     leftFleet[des] = 0;
+                }
             }
 
             designs = new List<Design>();
-            designs.AddRange(leftFleet.Keys.OrderBy(x=>x.Name));
+            designs.AddRange(leftFleet.Keys.OrderBy(x => x.Name));
             
             leftNumerics = new List<NumericUpDown>();
             rightNumerics = new List<NumericUpDown>();
@@ -59,8 +67,8 @@ namespace Nova.WinForms.Gui.Dialogs
                 rowStyle.SizeType = SizeType.AutoSize;
             } 
             fleetLayoutPanel.Height = designs.Count * 26;
-            this.Height += designs.Count*26 - 26;
-            for( int i = 0; i < designs.Count; ++i)
+            this.Height += (designs.Count * 26) - 26;
+            for (int i = 0; i < designs.Count; ++i)
             {
                 int index = i;
                 NumericUpDown num = new NumericUpDown();
@@ -95,20 +103,26 @@ namespace Nova.WinForms.Gui.Dialogs
             decimal newval = side == Side.Left ? left.Value : right.Value;
             newval = max - newval;
             if (side == Side.Left)
+            {
                 right.Value = newval;
+            }
             else
+            {
                 left.Value = newval;
+            }
         }
 
-        public void ReassignShips( Fleet left, Fleet right)
+        public void ReassignShips(Fleet left, Fleet right)
         {
             for (int i = 0; i < designs.Count; i++)
             {
                 int leftOldCount = leftFleet[designs[i]];
                 int leftNewCount = (int)leftNumerics[i].Value;
-                
-                if( leftNewCount == leftOldCount)
+
+                if (leftNewCount == leftOldCount)
+                {
                     continue; // no moves of this design
+                }
 
                 Fleet from;
                 Fleet to;
@@ -133,8 +147,10 @@ namespace Nova.WinForms.Gui.Dialogs
                     {
                         toMove.Add(fleetShip);
                         --moveCount;
-                        if( moveCount == 0 )
+                        if (moveCount == 0)
+                        {
                             break;
+                        }
                     }
                 }
                 foreach (Ship ship in toMove)
@@ -148,26 +164,28 @@ namespace Nova.WinForms.Gui.Dialogs
             int ktToMove = 0;
             Cargo fromCargo = left.Cargo;
             Cargo toCargo = right.Cargo;
-            if( left.Cargo.Mass > left.TotalCargoCapacity )
+            if (left.Cargo.Mass > left.TotalCargoCapacity)
             {
                 fromCargo = left.Cargo;
                 toCargo = right.Cargo;
                 ktToMove = left.Cargo.Mass - left.TotalCargoCapacity;
             }
-            else if( right.Cargo.Mass > right.TotalCargoCapacity )
+            else if (right.Cargo.Mass > right.TotalCargoCapacity)
             {
                 fromCargo = right.Cargo;
                 toCargo = left.Cargo;
                 ktToMove = right.Cargo.Mass - right.TotalCargoCapacity;
             }
 
-            double proportion = (double)ktToMove/fromCargo.Mass;
+            double proportion = (double)ktToMove / fromCargo.Mass;
             if (ktToMove > 0)
             {
                 // Try and move cargo
-                int ironToMove = (int)Math.Ceiling(fromCargo.Ironium*proportion);
+                int ironToMove = (int)Math.Ceiling(fromCargo.Ironium * proportion);
                 if (ironToMove > ktToMove)
+                {
                     ironToMove = ktToMove;
+                }
                 toCargo.Ironium += ironToMove;
                 fromCargo.Ironium -= ironToMove;
                 ktToMove -= ironToMove;
@@ -175,9 +193,11 @@ namespace Nova.WinForms.Gui.Dialogs
             if (ktToMove > 0)
             {
                 // Try and move cargo
-                int borToMove = (int)Math.Ceiling(fromCargo.Boranium* proportion);
+                int borToMove = (int)Math.Ceiling(fromCargo.Boranium * proportion);
                 if (borToMove > ktToMove)
+                {
                     borToMove = ktToMove;
+                }
                 toCargo.Boranium += borToMove;
                 fromCargo.Boranium -= borToMove;
                 ktToMove -= borToMove;
@@ -187,7 +207,9 @@ namespace Nova.WinForms.Gui.Dialogs
                 // Try and move cargo
                 int germToMove = (int)Math.Ceiling(fromCargo.Germanium * proportion);
                 if (germToMove > ktToMove)
+                {
                     germToMove = ktToMove;
+                }
                 toCargo.Germanium += germToMove;
                 fromCargo.Germanium -= germToMove;
                 ktToMove -= germToMove;
@@ -197,12 +219,14 @@ namespace Nova.WinForms.Gui.Dialogs
                 // Try and move cargo
                 int colsToMove = (int)Math.Ceiling(fromCargo.ColonistsInKilotons * proportion);
                 if (colsToMove > ktToMove)
+                {
                     colsToMove = ktToMove;
+                }
                 toCargo.ColonistsInKilotons += colsToMove;
                 fromCargo.ColonistsInKilotons -= colsToMove;
                 ktToMove -= colsToMove;
             }
-            Debug.Assert(ktToMove == 0);
+            Debug.Assert(ktToMove == 0, "Must not be negative.");
 
             // fuel
             if (left.FuelAvailable > left.TotalFuelCapacity)
@@ -211,7 +235,7 @@ namespace Nova.WinForms.Gui.Dialogs
                 right.FuelAvailable += left.FuelAvailable - left.TotalFuelCapacity;
                 left.FuelAvailable = left.TotalFuelCapacity;
             }
-            else if( right.FuelAvailable > right.TotalFuelCapacity)
+            else if (right.FuelAvailable > right.TotalFuelCapacity)
             {
                 // Move excess to left and set right to max
                 left.FuelAvailable += right.FuelAvailable - right.TotalFuelCapacity;

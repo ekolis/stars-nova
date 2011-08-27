@@ -40,9 +40,9 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class FleetDetail : System.Windows.Forms.UserControl
     {
-        private Fleet selectedFleet;
         private readonly EmpireData empireState;
-            
+
+        private Fleet selectedFleet;
         private Dictionary<long, Fleet> fleetsAtLocation = new Dictionary<long, Fleet>();
 
         /// <Summary>
@@ -163,8 +163,10 @@ namespace Nova.WinForms.Gui
             wayPoints.Items.RemoveAt(index);
             wayPoints.SelectedIndex = wayPoints.Items.Count - 1;
 
-            if( RefreshStarMapEvent != null )
-                        RefreshStarMapEvent();
+            if (RefreshStarMapEvent != null)
+            {
+                RefreshStarMapEvent();
+            }
         }
 
         /// <Summary>
@@ -183,12 +185,13 @@ namespace Nova.WinForms.Gui
                     wayPoints.Items.RemoveAt(index);
                     wayPoints.SelectedIndex = wayPoints.Items.Count - 1;
 
-                    if( RefreshStarMapEvent != null )
+                    if (RefreshStarMapEvent != null)
+                    {
                         RefreshStarMapEvent();
+                    }
                 }
                 e.Handled = true;
             }
-
         }
 
         /// <Summary>
@@ -217,7 +220,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void SplitFleetClick(object sender, EventArgs e)
         {
-            DoSplitMerge();
+            DoSplitMerge(null);
         }
 
         /// <Summary>
@@ -352,7 +355,9 @@ namespace Nova.WinForms.Gui
         private void SetFleetDetails(Fleet selectedFleet)
         {
             if (selectedFleet == null)
+            {
                 return;
+            }
 
             this.selectedFleet = selectedFleet;
             
@@ -405,10 +410,13 @@ namespace Nova.WinForms.Gui
                     fleetsAtLocation[other.Key] = other;
                 }
             }
-            fleets.Sort(delegate(ComboBoxItem<Fleet> x, ComboBoxItem<Fleet> y) { return x.DisplayName.CompareTo(y.DisplayName); });
+            fleets.Sort(delegate(ComboBoxItem<Fleet> x, ComboBoxItem<Fleet> y) 
+            { 
+                return x.DisplayName.CompareTo(y.DisplayName); 
+            });
             comboOtherFleets.Items.Clear();
             bool haveFleets = fleets.Count > 0;
-            if ( haveFleets )
+            if (haveFleets)
             {
                 comboOtherFleets.Items.AddRange(fleets.ToArray());
                 comboOtherFleets.SelectedIndex = 0;
@@ -467,13 +475,16 @@ namespace Nova.WinForms.Gui
         private Fleet GetSelectedFleetAtLocation()
         {
             if (comboOtherFleets.SelectedItem == null)
+            {
                 return null;
+            }
 
             ComboBoxItem<Fleet> selected = comboOtherFleets.SelectedItem as ComboBoxItem<Fleet>;
             Fleet fleet;
             if (!fleetsAtLocation.TryGetValue(selected.Tag.Key, out fleet))
+            {
                 return null;
-
+            }
             return fleet;
         }
 
@@ -519,14 +530,14 @@ namespace Nova.WinForms.Gui
             DoSplitMerge(newFleet);
         }
 
-        private void DoSplitMerge(Fleet otherFleet = null)
+        private void DoSplitMerge(Fleet otherFleet)
         {
             using (SplitFleetDialog splitFleet = new SplitFleetDialog())
             {
                 splitFleet.SetFleet(selectedFleet, otherFleet);
-                if( splitFleet.ShowDialog() == DialogResult.OK )
+                if (splitFleet.ShowDialog() == DialogResult.OK)
                 {
-                    //TODO need to create a new fleet for split. The below will ignore the changes
+                    // TODO need to create a new fleet for split. The below will ignore the changes
                     if (otherFleet == null)
                     {
                         // Need a new fleet. Clone existing then change stuff
@@ -582,9 +593,9 @@ namespace Nova.WinForms.Gui
             using (CargoTransferDialog dia = new CargoTransferDialog())
             {
                 Fleet other = GetSelectedFleetAtLocation();
-                if( other != null && other.Key != selectedFleet.Key )
+                if (other != null && other.Key != selectedFleet.Key)
                 {
-                    dia.SetFleets(selectedFleet, other );
+                    dia.SetFleets(selectedFleet, other);
                     if (dia.ShowDialog() == DialogResult.OK)
                     {
                         selectedFleet.Cargo = dia.LeftCargo;
@@ -643,7 +654,7 @@ namespace Nova.WinForms.Gui
                 
                 SummarySelectionChangedEvent(this, summaryArgs);
             }
-            if( CursorChangedEvent != null )
+            if (CursorChangedEvent != null)
             {
                 CursorChangedEvent(this, new CursorArgs((Point)item.Position));
             }    

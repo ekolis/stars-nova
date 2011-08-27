@@ -20,23 +20,19 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// A component for displaying or editing a ship hull design.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-using Nova.Common;
-using Nova.Common.Components;
-
 namespace Nova.ControlLibrary
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Windows.Forms;
+    using Nova.Common;
+    using Nova.Common.Components;
 
+    /// <summary>
+    /// A component for displaying or editing a ship hull design.
+    /// </summary>
     public partial class HullGrid : UserControl
     {
         public event EventHandler ModuleSelected;
@@ -48,12 +44,9 @@ namespace Nova.ControlLibrary
         private Font font               = null;
         private RectangleF textRect     = new RectangleF(0, 0, 58, 58);
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Data dragged and (possibly) dropped while designing a ship.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public class DragDropData
         {
             public Nova.Common.Components.Component SelectedComponent;
@@ -63,8 +56,6 @@ namespace Nova.ControlLibrary
             public HullModule SourceHullModule;
             public HullModule TargetHullModule;
         }
-
-        #region Construction
 
         /// <summary>
         /// Initializes a new instance of the HullGrid class.
@@ -104,18 +95,12 @@ namespace Nova.ControlLibrary
             panelMap[24] = this.grid24;
         }
 
-        #endregion
-
-        #region Event Methods
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Right-click context menu has selected an item (only available when cell
         /// editing is enabled). 
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void CellContextMenuItem(object sender, ToolStripItemClickedEventArgs e)
         {
             ContextMenuStrip contextMenu = sender as ContextMenuStrip;
@@ -126,7 +111,6 @@ namespace Nova.ControlLibrary
             // Decrement the count of the number of modules that may be added to
             // this cell. If the count reaches zero then the cell becomes empty.
             // -------------------------------------------------------------------
-
 
             if (selection.Text == "Decrement Modules")
             {
@@ -242,13 +226,11 @@ namespace Nova.ControlLibrary
             hullCell.Invalidate();
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Instigate Drag and Drop of the selected grid item
+        /// Instigate Drag and Drop of the selected grid item.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void Grid_DragBegin(object sender, MouseEventArgs e)
         {
             Panel panel = sender as Panel;           
@@ -308,7 +290,6 @@ namespace Nova.ControlLibrary
             ModuleUpdated(sender, eventArgs);
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Process a drag entering a cell and see if we are willing to accept the
         /// data. The component must be of the correct type and must be allowed on the
@@ -317,7 +298,6 @@ namespace Nova.ControlLibrary
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void Grid_DragEnter(object sender, DragEventArgs e)
         {
             e.Effect = DragDropEffects.None;
@@ -386,14 +366,11 @@ namespace Nova.ControlLibrary
             e.Effect = data.Operation;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Process a drop event.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void Grid_DragDrop(object sender, DragEventArgs e)
         {
             DragDropData data = e.Data.GetData(typeof(DragDropData))
@@ -423,15 +400,12 @@ namespace Nova.ControlLibrary
             panel.Invalidate();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Draw a cell. 
         /// </summary>
         /// <remarks>There are three cases as shown in the code.</remarks>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void Grid0_Paint(object sender, PaintEventArgs e)
         {
             Panel panel = sender as Panel;
@@ -462,15 +436,12 @@ namespace Nova.ControlLibrary
             DrawAllocatedCell(panel, e.Graphics);
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// A grid cell has been clicked. If anyone has registered an interest tell
         /// them.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         public void GridCell_Click(object sender, EventArgs e)
         {
             if (ModuleSelected != null)
@@ -479,8 +450,6 @@ namespace Nova.ControlLibrary
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Draw a defined but empty cell.
         /// </summary>
@@ -490,7 +459,6 @@ namespace Nova.ControlLibrary
         /// </remarks>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void DrawEmptyCell(Panel panel, Graphics graphics)
         {
             panel.BackColor = Color.Silver;
@@ -510,16 +478,10 @@ namespace Nova.ControlLibrary
             graphics.DrawString(text, font, Brushes.Blue, textRect, format);
         }
 
-        #endregion
-
-        #region Utility Methods
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Clear out the grid.
         /// </summary>
         /// <param name="panelVisible">True if this panel is visible for this hull type.</param>
-        /// ----------------------------------------------------------------------------
         public void Clear(bool panelVisible)
         {
             foreach (Panel panel in panelMap)
@@ -532,14 +494,11 @@ namespace Nova.ControlLibrary
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Draw an allocated cell.
         /// </summary>
         /// <param name="panel">The <see cref="Panel"/> to draw on.</param>
         /// <param name="graphics">The <see cref="Graphics"/> to place on the panel.</param>
-        /// ----------------------------------------------------------------------------
         private void DrawAllocatedCell(Panel panel, Graphics graphics)
         {
             HullModule cell = panel.Tag as HullModule;
@@ -556,22 +515,13 @@ namespace Nova.ControlLibrary
             }
         }
 
-        #endregion
-
-        #region Properties
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get or Set the active modules.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public List<HullModule> ActiveModules
         {
-
-            // ----------------------------------------------------------------------------
             // Return the details of the hull modules that have been selected to receive
             // a component.
-            // ----------------------------------------------------------------------------
 
             get
             {
@@ -590,10 +540,7 @@ namespace Nova.ControlLibrary
                 return activeModules;
             }
 
-
-            // ----------------------------------------------------------------------------
             // Populate the grid cells from a list of Modules.
-            // ----------------------------------------------------------------------------
             set
             {
                 List<HullModule> hullModules = value;
@@ -624,14 +571,11 @@ namespace Nova.ControlLibrary
             } // set
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Property to hide (Nova GUI case) or show (Component Designer case) empty
         /// hull modules. For the Nova GUI case we also shut down the editing context
         /// menu for each cell.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool HideEmptyModules
         {
             get
@@ -652,8 +596,5 @@ namespace Nova.ControlLibrary
         }
 
         public string HullName { get; set; }
-
-        #endregion
-
     }
 }

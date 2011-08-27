@@ -20,26 +20,19 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Class defining the set of technology levels required before a component is
-// required to gain access to a component.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Xml;
-
-using Nova.Common.Converters;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.ComponentModel;
+    using System.Xml;
+
+    using Nova.Common.Converters;
 
     /// <summary>
-    /// TechLevels Class.
+    /// Class defining the set of technology levels required before a component is
+    /// required to gain access to a component.
     /// </summary>
     [Serializable]
     [TypeConverter(typeof(TechLevelConverter))]
@@ -55,7 +48,6 @@ namespace Nova.Common
         static public ResearchField FirstField = ResearchField.Biotechnology;
         static public ResearchField LastField = ResearchField.Construction;
 
-        //----------------------------------------------------------------------------
         // These members are private to hide the 
         // implementaion of the hashtable and force access through the enums, 
         // in order to prevent errors due to using string literals (e.g. "Biotech" vs "Biotechnology")
@@ -67,13 +59,9 @@ namespace Nova.Common
          "Propulsion",    "Weapons",     "Construction" 
         };
 
-        #region Construction
-
-        //----------------------------------------------------------------------------
         /// <summary>
-        /// Default Constructor
+        /// Default Constructor.
         /// </summary>
-        //----------------------------------------------------------------------------
         public TechLevel()
         {
             foreach (string key in ResearchKeys)
@@ -82,13 +70,10 @@ namespace Nova.Common
             }
         }
 
-
-        //----------------------------------------------------------------------------
         /// <summary>
-        /// Constructor setting all levels to a specified value
+        /// Constructor setting all levels to a specified value.
         /// </summary>
         /// <param name="level">Level to set all techs too.</param>
-        //----------------------------------------------------------------------------
         public TechLevel(int level)
         {
             foreach (string key in ResearchKeys)
@@ -97,8 +82,6 @@ namespace Nova.Common
             }
         }
 
-
-        //----------------------------------------------------------------------------
         /// <summary>
         /// Constructor setting all levels to individual values.
         /// </summary>
@@ -108,7 +91,6 @@ namespace Nova.Common
         /// <param name="propulsion">Level to set the propulsion.</param>
         /// <param name="weapons">Level to set the weapons.</param>
         /// <param name="construction">Level to set the construction.</param>
-        //----------------------------------------------------------------------------
         public TechLevel(int biotechnology, int electronics, int energy, int propulsion, int weapons, int construction)
         {
             this.techValues["Biotechnology"] = biotechnology;
@@ -119,44 +101,29 @@ namespace Nova.Common
             this.techValues["Construction"] = construction;
         }
 
-
-        //----------------------------------------------------------------------------
         /// <summary>
-        /// Copy Constructor
+        /// Copy Constructor.
         /// </summary>
-        /// <param name="copy">object to copy</param>
-        //----------------------------------------------------------------------------
+        /// <param name="copy">Object to copy.</param>
         public TechLevel(TechLevel copy)
         {
             this.techValues = new Dictionary<string, int>(copy.techValues);
         }
 
-        #endregion
-
-        #region Interfaces
-
-        //----------------------------------------------------------------------------
         /// <summary>
         /// Provide a new TechLevel instance which is a copy of the current instance.
         /// </summary>
         /// <returns></returns>
-        //----------------------------------------------------------------------------
         public TechLevel Clone()
         {
             return new TechLevel(this);
         }
 
-        #endregion
-
-        #region Operators
-
-        //----------------------------------------------------------------------------
         /// <summary>
         /// Index operator to allow array type indexing to a TechLevel.
         /// </summary>
-        /// <param name="index">A TechLevel.ResearchField</param>
+        /// <param name="index">A TechLevel.ResearchField.</param>
         /// <returns>The current tech level.</returns>
-        //----------------------------------------------------------------------------
         public int this[ResearchField index]
         {
             get
@@ -219,11 +186,9 @@ namespace Nova.Common
             }
         }
 
-        //----------------------------------------------------------------------------
         /// <summary>
         /// Allow <c>foreach</c> to work with TechLevel.
         /// </summary>
-        //----------------------------------------------------------------------------
         public IEnumerator GetEnumerator()
         {
             foreach (int level in this.techValues.Values)
@@ -231,7 +196,6 @@ namespace Nova.Common
                 yield return level;
             }
         }
-
 
         // =============================================================================
         // Note: For two tech levels A and B if any field in A is less than any coresponding
@@ -251,11 +215,9 @@ namespace Nova.Common
         //       TODO (priority 5) - Given the complexity here some unit tests would be nice.
         // =============================================================================
 
-        //----------------------------------------------------------------------------
         /// <summary>
         /// Return true if lhs >= rhs (for all fields).
         /// </summary>
-        //----------------------------------------------------------------------------
         public static bool operator >=(TechLevel lhs, TechLevel rhs)
         {
             Dictionary<string, int> lhsT = lhs.techValues;
@@ -272,26 +234,21 @@ namespace Nova.Common
             return true;
         }
 
-        //----------------------------------------------------------------------------
         /// <summary>
         /// Return true if lhs >= rhs for all fields and lhs > rhs for at least one field.
         /// </summary>
         /// <param name="lhs"></param>
         /// <param name="rhs"></param>
         /// <returns></returns>
-        //----------------------------------------------------------------------------
         public static bool operator >(TechLevel lhs, TechLevel rhs)
         {
             return !(lhs <= rhs);
         
         }
 
-
-        //----------------------------------------------------------------------------
         /// <summary>
-        /// return true if lhs &lt; rhs in any field.
+        /// Return true if lhs &lt; rhs in any field.
         /// </summary>
-        //----------------------------------------------------------------------------
         public static bool operator <(TechLevel lhs, TechLevel rhs)
         {
             Dictionary<string, int> lhsT = lhs.techValues;
@@ -308,12 +265,9 @@ namespace Nova.Common
             return false;
         }
 
-
-        //----------------------------------------------------------------------------
         /// <summary>
-        /// return true if lhs &lt; rhs in any field or lhs == rhs
+        /// Return true if lhs &lt; rhs in any field or lhs == rhs.
         /// </summary>
-         //----------------------------------------------------------------------------
         public static bool operator <=(TechLevel lhs, TechLevel rhs)
         {
             Dictionary<string, int> lhsT = lhs.techValues;
@@ -335,11 +289,9 @@ namespace Nova.Common
             return false;
         }
         
-        //----------------------------------------------------------------------------
         /// <summary>
         /// Setting all levels to zero.
         /// </summary>
-        //----------------------------------------------------------------------------
         public void Zero()
         {
             this.techValues["Biotechnology"] = 0;
@@ -350,20 +302,12 @@ namespace Nova.Common
             this.techValues["Construction"] = 0;
         }
 
-        #endregion
-
-        #region Save Load Xml
-
-        // ============================================================================
-        // Initialising Constructor from an xml node.
-        // Precondition: node is a "tech" node in a Nova compenent definition file (xml document).
-        // ============================================================================
-        //----------------------------------------------------------------------------
         /// <summary>
-        /// 
+        /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
-        /// <param name="node"></param>
-        //----------------------------------------------------------------------------
+        /// <param name="node">An <see cref="XmlNode"/> within
+        /// a Nova compenent definition file (xml document).
+        /// </param>
         public TechLevel(XmlNode node)
         {
             XmlNode subnode = node.FirstChild;
@@ -388,27 +332,23 @@ namespace Nova.Common
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Tech Level.</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc)
         {
            return this.ToXml(xmldoc, "Tech");
         }
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/> with a specified
         /// node name.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <param name="nodeName">The node name of this XML element </param>
+        /// <param name="nodeName">The node name of this XML element.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the Tech Level.</returns>
-        /// ----------------------------------------------------------------------------
         public XmlElement ToXml(XmlDocument xmldoc, string nodeName)
         {
             XmlElement xmlelResource = xmldoc.CreateElement(nodeName);
@@ -423,8 +363,5 @@ namespace Nova.Common
 
             return xmlelResource;
         }
-
-        #endregion
-
     }
 }

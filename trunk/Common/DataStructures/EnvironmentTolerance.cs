@@ -34,7 +34,7 @@ namespace Nova.Common
     #endregion
 
     /// <summary>
-    /// Class to hold environmental tolerance details
+    /// Class to hold environmental tolerance details.
     /// </summary>
     [Serializable]
     public class EnvironmentTolerance
@@ -121,7 +121,7 @@ namespace Nova.Common
         /// <summary>
         /// Load from XML.
         /// </summary>
-        /// <param name="node">node is a "EnvironmentTolerance" <see cref="XmlNode"/> in 
+        /// <param name="node">The node is a "EnvironmentTolerance" <see cref="XmlNode"/> in 
         /// a Nova component definition file (xml document).
         /// </param>
         public void FromXml(XmlNode node)
@@ -163,7 +163,7 @@ namespace Nova.Common
         /// Save: Serialise this EnvironmentTolerance to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the EnvironmentTolerance</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the EnvironmentTolerance.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement("EnvironmentTolerance");

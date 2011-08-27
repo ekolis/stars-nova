@@ -35,24 +35,24 @@ namespace Nova.Common
     [Serializable]
     public class FleetList : Dictionary<long, Fleet>
     {
-        /// /// <summary>
-        /// default constructor
+        /// <summary>
+        /// Default constructor.
         /// </summary>
         public FleetList()
         {
         }
 
         /// <summary>
-        /// Add a new fleet to the FleetList
+        /// Add a new fleet to the FleetList.
         /// </summary>
-        /// <param name="fleet">The Fleet to be added to the FleetList</param>
+        /// <param name="fleet">The Fleet to be added to the FleetList.</param>
         public void Add(Fleet fleet)
         {
             Add(fleet.Key, fleet);
         }
 
         /// <summary>
-        /// Remove a Fleet from the FleetList
+        /// Remove a Fleet from the FleetList.
         /// </summary>
         /// <param name="fleet">The fleet to remove.</param>
         public void Remove(Fleet fleet)
@@ -63,8 +63,8 @@ namespace Nova.Common
         /// <summary>
         /// Check if the racial traits contains a particular trait.
         /// </summary>
-        /// <param name="fleet">The Fleet to check for</param>
-        /// <returns>true if fleet is in the FleetList</returns>
+        /// <param name="fleet">The Fleet to check for.</param>
+        /// <returns>true if fleet is in the FleetList.</returns>
         public bool Contains(Fleet fleet)
         {
             if (fleet == null)
@@ -82,11 +82,11 @@ namespace Nova.Common
         /// <summary>
         /// Check if the racial traits contains a particular trait.
         /// </summary>
-        /// <param name="Key">The name of a fleet.</param>
-        /// <returns>true if fleetName is the name of one of the fleets in the FleetList</returns>
-        public bool Contains(long Key)
+        /// <param name="key">The name of a fleet.</param>
+        /// <returns>true if fleetName is the name of one of the fleets in the FleetList.</returns>
+        public bool Contains(long key)
         {
-            return ContainsKey(Key);
+            return ContainsKey(key);
         }
 
         

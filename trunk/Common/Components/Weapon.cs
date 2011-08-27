@@ -47,7 +47,7 @@ namespace Nova.Common.Components
     }
 
     /// <summary>
-    /// Weapon class
+    /// Weapon class.
     /// </summary>
     [Serializable]
     public class Weapon : ComponentProperty
@@ -69,7 +69,7 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
-        /// Copy constructor
+        /// Copy constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="Weapon"/> compoenent.</param>
         public Weapon(Weapon existing)
@@ -88,7 +88,7 @@ namespace Nova.Common.Components
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
-        /// <returns>A clone of this <see cref="Weapon"/></returns>
+        /// <returns>A clone of this <see cref="Weapon"/>.</returns>
         public override object Clone()
         {
             return new Weapon(this);
@@ -149,7 +149,7 @@ namespace Nova.Common.Components
 
         /// <summary>
         /// Provide a way to add properties in the ship design.
-        /// only power adds, and this only makes sense if the weapons are the same
+        /// only power adds, and this only makes sense if the weapons are the same.
         /// </summary>
         /// <param name="op1">LHS operator.</param>
         /// <param name="op2">RHS operator.</param>
@@ -173,7 +173,7 @@ namespace Nova.Common.Components
 
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
-        /// only power adds, and this only makes sense if the weapons are the same
+        /// only power adds, and this only makes sense if the weapons are the same.
         /// </summary>
         /// <param name="op1">The <see cref="Weapon"/> to be scaled.</param>
         /// <param name="scalar">The number of components in the stack.</param>
@@ -193,7 +193,7 @@ namespace Nova.Common.Components
         /// Load from Xml.
         /// </summary>
         /// <param name="node">
-        /// node is a "Property" node with Type=="Weapon" in a Nova 
+        /// A node is a "Property" node with Type=="Weapon" in a Nova 
         /// compenent definition file (xml document).
         /// </param>
         public Weapon(XmlNode node)
@@ -248,10 +248,10 @@ namespace Nova.Common.Components
         }
 
         /// /// <summary>
-        /// Save as Xml
+        /// Save as Xml.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>an XmlElement representation of the Property</returns>
+        /// <returns>An XmlElement representation of the Property.</returns>
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");

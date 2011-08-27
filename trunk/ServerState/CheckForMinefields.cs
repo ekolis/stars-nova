@@ -20,13 +20,6 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Check to see if a fleet is in an enemy Minefield and inflict appropriate
-// damage.
-// ===========================================================================
-#endregion
-
 namespace Nova.Server
 {
     using System;    
@@ -36,7 +29,7 @@ namespace Nova.Server
     using Nova.Common.DataStructures;
     
     /// <summary>
-    /// Handle fleets hitting minefields.
+    /// Check to see if a fleet is in an enemy Minefield and inflict appropriate damage.
     /// </summary>
     public class CheckForMinefields
     {
@@ -48,19 +41,16 @@ namespace Nova.Server
             this.stateData = serverState;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Do a check for minefileds.
         /// </summary>
         /// <param name="fleet">A moving fleet.</param>
-        /// <returns>false</returns>
-        /// ----------------------------------------------------------------------------
+        /// <returns>Returns false.</returns>
         public bool Check(Fleet fleet)
         {
             foreach (Minefield minefield in
                      stateData.AllMinefields.Values)
             {
-
                 if (IsInField(fleet, minefield))
                 {
                     bool hit = CheckForHit(fleet, minefield);
@@ -85,20 +75,13 @@ namespace Nova.Server
             return false;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Determine if a fleet is within a Minefield. The fleet is inside the
         /// circle if the distance between the field and the center of the field is
         /// less than the radius of the field.
         /// </summary>
-        /// <param name="fleet"></param>
-        /// <param name="minefield"></param>
-        /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         private bool IsInField(Fleet fleet, Minefield minefield)
         {
-
             // If we are travelling at a "safe" speed we can just pretend we are
             // not in a Minefield.
 
@@ -117,8 +100,6 @@ namespace Nova.Server
             return false;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check if the fleet hits the minefiled.
         /// </summary>
@@ -134,7 +115,6 @@ namespace Nova.Server
         /// <param name="fleet">The moving fleet.</param>
         /// <param name="minefield">The minefield being traversed.</param>
         /// <returns>true if the minefield is hit.</returns>
-        /// ----------------------------------------------------------------------------
         private bool CheckForHit(Fleet fleet, Minefield minefield)
         {
             // Calculate how long we are going to be in the Minefield. This is the
@@ -163,8 +143,6 @@ namespace Nova.Server
             return false;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// We've hit a mine. Inflict appropriate damage to the fleet and bring it to a
         /// stop. If all ships are gone destroy the fleet.
@@ -172,11 +150,10 @@ namespace Nova.Server
         /// Let's start with the simplest algoritm:
         ///
         /// 5 destroyers take 500dp damage = 100dp each = 50dp to armor, 50dp to shields
-        /// (absorbed)
+        /// (absorbed).
         /// </summary>
         /// <param name="fleet">The fleet that hit the minefield.</param>
         /// <param name="minefield">The minefield being impacted.</param>
-        /// ----------------------------------------------------------------------------
         private void InflictDamage(Fleet fleet, Minefield minefield)
         {
             int shipDamage = 100 / 2;

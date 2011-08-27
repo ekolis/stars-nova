@@ -20,12 +20,6 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// manufacture the items in a star's queue
-// ===========================================================================
-#endregion
-
 namespace Nova.Server
 {
     using System.Collections.Generic;
@@ -34,11 +28,10 @@ namespace Nova.Server
     using Nova.Common.Components;
 
     /// <summary>
-    /// Class to manufacture new items.
+    /// Class to manufacture the items in a star's queue.
     /// </summary>
     public class Manufacture
     {
-
         private List<ProductionItem> deletions = new List<ProductionItem>();
         private ServerState stateData;
   
@@ -47,7 +40,6 @@ namespace Nova.Server
             this.stateData = serverState;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// manufacture the items in a production queue (resources permitting).
         /// </summary>
@@ -56,7 +48,6 @@ namespace Nova.Server
         /// Dont't preserve resource count as resource depletion is needed to
         /// contribute with leftover resources for research.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         public void Items(Star star)
         {
             deletions.Clear();
@@ -77,8 +68,6 @@ namespace Nova.Server
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Deal with one entry in the production queue (which may be for a quantity of
         /// more than one of that design).
@@ -86,7 +75,6 @@ namespace Nova.Server
         /// <param name="productionItem">An item to be produced.</param>
         /// <param name="star">The star doing production.</param>
         /// <returns>true if all resources have been exhausted.</returns>
-        /// ----------------------------------------------------------------------------
         private bool BuildQueueItem(ProductionItem productionItem, Star star)
         {
             bool resourcesExhausted = false;
@@ -104,8 +92,6 @@ namespace Nova.Server
             return resourcesExhausted;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Build one instance of a particular design. Even if we can't complete
         /// manufacture this year decrement the required resources by the percentage
@@ -114,12 +100,10 @@ namespace Nova.Server
         /// <param name="productionItem">An item to be produced.</param>
         /// <param name="star">The star system doing production</param>
         /// <returns>true if the star is unable to finish productio of this item.</returns>
-        /// ----------------------------------------------------------------------------
         private bool BuildDesign(ProductionItem productionItem, Star star)
         {
             Design design = stateData.AllDesigns[productionItem.Key];
             Nova.Common.Resources needed = productionItem.BuildState;
-
 
             // Try and build as many of this item as we can
             // If we've ran out of resources then give up. Note that there may be
@@ -207,8 +191,6 @@ namespace Nova.Server
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// We do not have quite enough resources to complete production so use the percent
         /// that we can achieve, deplete the reserves, and adjust the BuildState accordingly.
@@ -216,7 +198,6 @@ namespace Nova.Server
         /// <param name="productionItem">The item to be partially produced.</param>
         /// <param name="neededResources">The Resources cost to complete production of the item (either BuildState or design.Cost).</param>
         /// <param name="star">The Star System doing the production.</param>
-        /// ----------------------------------------------------------------------------
         private void PartialBuild(
             ProductionItem productionItem,
             Resources neededResources,
@@ -258,15 +239,12 @@ namespace Nova.Server
             productionItem.BuildState = neededResources;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Create a new ship or starbase at the specified location. Starbases are
         /// handled just like ships except that they cannot move.
         /// </summary>
         /// <param name="design">A ShipDesign to be constructed.</param>
         /// <param name="star">The star system producing the ship.</param>
-        /// ----------------------------------------------------------------------------
         private void CreateShip(ShipDesign design, Star star, int countToBuild)
         {
             EmpireData empire = stateData.AllEmpires[star.Owner];

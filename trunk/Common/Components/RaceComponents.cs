@@ -46,7 +46,6 @@ namespace Nova.Common.Components
         /// </summary>
         public RaceComponents()
         {
-            
         }
         
         /// <summary>

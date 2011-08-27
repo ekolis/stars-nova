@@ -35,7 +35,7 @@ namespace Nova.Ai
         private Intel turnData;
 
         /// <summary>
-        /// Setup the production queue for the AI
+        /// Setup the production queue for the AI.
         /// </summary>
         private void HandleProduction()
         {
@@ -43,7 +43,6 @@ namespace Nova.Ai
             {
                 if (star.Owner == stateData.EmpireState.Id)
                 {
-
                     star.ManufacturingQueue.Queue.Clear();
                     ProductionItem productionItem = new ProductionItem();
 
@@ -60,7 +59,10 @@ namespace Nova.Ai
                                 factoryDesign = design;
                             }
                         }
-                        if (factoryDesign == null) throw new System.Exception("Could not locate a factory design.");
+                        if (factoryDesign == null)
+                        {
+                            throw new System.Exception("Could not locate a factory design.");
+                        }
                         productionItem = new ProductionItem(factoriesToBuild, factoryDesign);
                         star.ManufacturingQueue.Queue.Add(productionItem);
                     }
@@ -77,7 +79,10 @@ namespace Nova.Ai
                                 mineDesign = design;
                             }
                         }
-                        if (mineDesign == null) throw new System.Exception("Could not locate a mine design.");
+                        if (mineDesign == null)
+                        {
+                            throw new System.Exception("Could not locate a mine design.");
+                        }
                         productionItem = new ProductionItem(maxMines - star.Mines, mineDesign);
                         star.ManufacturingQueue.Queue.Add(productionItem);
                     }
@@ -86,7 +91,6 @@ namespace Nova.Ai
                     int defenceToBuild = Global.MaxDefenses - star.Defenses;
                     if (defenceToBuild > 0)
                     {
-
                         Design defenceDesign = null;
                         foreach (Design design in turnData.AllDesigns.Values)
                         {
@@ -95,7 +99,10 @@ namespace Nova.Ai
                                 defenceDesign = design;
                             }
                         }
-                        if (defenceDesign == null) throw new System.Exception("Could not locate a defence design.");
+                        if (defenceDesign == null)
+                        {
+                            throw new System.Exception("Could not locate a defence design.");
+                        }
                         productionItem = new ProductionItem(defenceToBuild, defenceDesign);
                         star.ManufacturingQueue.Queue.Add(productionItem);
                     }
@@ -114,7 +121,7 @@ namespace Nova.Ai
 
         private void HandleMovements()
         {
-            //scout
+            // scout
             List<Fleet> scoutFleets = new List<Fleet>();
             foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
             {
@@ -136,17 +143,19 @@ namespace Nova.Ai
                     }
                 }
             }
-            //colonization
+            // colonization
             List<Fleet> colonyShipsFleets = new List<Fleet>();
             foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.CanColonize == true && fleet.Waypoints.Count == 1)
+                {
                     colonyShipsFleets.Add(fleet);
+                }
             }
             
             if (colonyShipsFleets.Count > 0)
             {
-                //check if there is any good star to colonize
+                // check if there is any good star to colonize
                 foreach (StarIntel report in turnData.EmpireState.StarReports.Values)
                 {
                     if (stateData.EmpireState.Race.HabitalValue(report) > 0 && report.Owner == Global.NoOwner)
@@ -154,26 +163,29 @@ namespace Nova.Ai
                         SendFleet(report, colonyShipsFleets[0], WaypointTask.Colonise);
                         colonyShipsFleets.RemoveAt(0);
                         if (colonyShipsFleets.Count == 0)
+                        {
                             break;
+                        }
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Return closest star to current fleet
+        /// Return closest star to current fleet.
         /// </summary>
         /// <param name="fleet"></param>
         /// <returns></returns>
         private StarIntel CloesestStar(Fleet fleet, List<StarIntel> excludedStars)
         {
             StarIntel target = null;
-            Double distance = double.MaxValue;
+            double distance = double.MaxValue;
             foreach (StarIntel report in turnData.EmpireState.StarReports.Values)
             {
-                if (excludedStars.Contains(report) == true) 
+                if (excludedStars.Contains(report) == true)
+                {
                     continue;
-
+                }
                 if (distance > Math.Sqrt(Math.Pow(fleet.Position.X - report.Position.X, 2) + Math.Pow(fleet.Position.Y - report.Position.Y, 2)))
                 {
                     target = report;

@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 stars-nova
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,19 +20,13 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This class defines a mine-layer property.
-// ===========================================================================
-#endregion
-
 namespace Nova.Common.Components
 {
     using System;
     using System.Xml;
 
     /// <summary>
-    /// MineLayer property class
+    /// This class defines a mine-layer property.
     /// </summary>
     [Serializable]
     public class MineLayer : ComponentProperty
@@ -51,17 +45,15 @@ namespace Nova.Common.Components
         public int MinFleetDamage = 500;
         public int MinRamScoopDamage = 600;
 
-        #region Construction
-
         /// <summary>
-        /// default constructor.
+        /// Default constructor.
         /// </summary>
         public MineLayer()
         {
         }
 
         /// <summary>
-        /// copy constructor
+        /// Copy constructor.
         /// </summary>
         /// <param name="existing"><see cref="MineLayer"/> to copy.</param>
         public MineLayer(MineLayer existing)
@@ -75,10 +67,6 @@ namespace Nova.Common.Components
             this.MinRamScoopDamage = existing.MinRamScoopDamage;
         }
 
-        #endregion
-
-        #region Interface ICloneable
-
         /// <summary>
         /// Implement the ICloneable interface so properties can be cloned.
         /// </summary>
@@ -87,10 +75,6 @@ namespace Nova.Common.Components
         {
             return new MineLayer(this);
         }
-
-        #endregion
-
-        #region Operators
 
         /// <summary>
         /// Polymorphic addition of properties.
@@ -124,8 +108,8 @@ namespace Nova.Common.Components
         /// In Stars! mines are the same if HitChance is the 
         /// same, and that test is used here.
         /// </remarks>
-        /// <param name="op1">LHS operator</param>
-        /// <param name="op2">RHS operator</param>
+        /// <param name="op1">LHS operator.</param>
+        /// <param name="op2">RHS operator.</param>
         /// <returns>A single <see cref="MineLayer"/> property with a laying rate equal to the total of op1 and op2.</returns>
         public static MineLayer operator +(MineLayer op1, MineLayer op2)
         {
@@ -139,12 +123,11 @@ namespace Nova.Common.Components
             return sum;
         }
 
-
         /// <summary>
         /// Operator* to scale (multiply) properties in the ship design.
         /// Only laying rates scale, and this only makes sense if the mine layers produce
         /// the same mines. For Stars! like mines they are the same if HitChance is the 
-        /// same
+        /// same.
         /// </summary>
         /// <param name="op1"><see cref="MineLayer"/> to be scaled.</param>
         /// <param name="scalar">Number of <see cref="MineLayer"/>s in the stack.</param>
@@ -156,15 +139,11 @@ namespace Nova.Common.Components
             return sum;
         }
 
-        #endregion
-
-        #region Load Save Xml
-
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
         /// </summary>
         /// <param name="node">
-        /// node is a "Property" node with Type=="MineLayer" in a Nova 
+        /// The node is a "Property" node with Type=="MineLayer" in a Nova 
         /// compenent definition file (xml document).
         /// </param>
         public MineLayer(XmlNode node)
@@ -215,7 +194,7 @@ namespace Nova.Common.Components
         /// Save: Serialise this property to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
-        /// <returns>An <see cref="XmlElement"/> representation of the Property</returns>
+        /// <returns>An <see cref="XmlElement"/> representation of the Property.</returns>
         public override XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProperty = xmldoc.CreateElement("Property");
@@ -258,8 +237,6 @@ namespace Nova.Common.Components
 
             return xmlelProperty;
         }
-
-        #endregion
     }
 }
 

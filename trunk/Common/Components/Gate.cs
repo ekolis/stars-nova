@@ -96,7 +96,7 @@ namespace Nova.Common.Components
 
         /// <summary>
         /// Provide a way to add properties in the ship design.
-        /// (Gates are not addative, see the remarks.)
+        /// (Gates are not addative, see the remarks).
         /// </summary>
         /// <param name="op1">LHS operand.</param>
         /// <param name="op2">RHS operand.</param>

@@ -67,13 +67,13 @@ namespace Nova.Client
         }
         
         /// <summary>
-        /// Load <see cref="Intel">ClientState</see> from an xml document
+        /// Load <see cref="Intel">ClientState</see> from an xml document.
         /// </summary>
-        /// <param name="xmldoc">produced using XmlDocument.Load(filename)</param>
+        /// <param name="xmldoc">Produced using XmlDocument.Load(filename).</param>
         public ClientState(XmlDocument xmldoc)
         {            
             XmlNode xmlnode = xmldoc.DocumentElement;
-            XmlNode tNode;
+            XmlNode textNode;
             
             while (xmlnode != null)
             {
@@ -92,48 +92,48 @@ namespace Nova.Client
                             EmpireState = new EmpireData(xmlnode);
                             break;                        
                         case "deletedfleets":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
-                                DeletedFleets.Add( Int32.Parse(tNode.FirstChild.Value));
-                                tNode = tNode.NextSibling;
+                                DeletedFleets.Add(Int32.Parse(textNode.FirstChild.Value));
+                                textNode = textNode.NextSibling;
                             }
                             break;                        
                         case "deleteddesigns":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
-                                int deletedDesignKey = int.Parse(tNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                                int deletedDesignKey = int.Parse(textNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                                 DeletedDesigns.Add(deletedDesignKey);
-                                tNode = tNode.NextSibling;
+                                textNode = textNode.NextSibling;
                             }
                             break;                        
                         case "message":
                             Messages.Add(new Message(xmlnode));
                             break;                        
                         case "enemydesigns":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
-                                if (tNode.Name.ToLower() == "design")
+                                if (textNode.Name.ToLower() == "design")
                                 {
-                                    Design design = new Design(tNode);
+                                    Design design = new Design(textNode);
                                     EnemyDesigns.Add(design.Key, design);
                                 }
-                                else if (tNode.Name.ToLower() == "shipdesign")
+                                else if (textNode.Name.ToLower() == "shipdesign")
                                 {
-                                    ShipDesign design = new ShipDesign(tNode);
+                                    ShipDesign design = new ShipDesign(textNode);
                                     EnemyDesigns.Add(design.Key, design);
                                 }
                                 else
                                 {
                                     throw new System.NotImplementedException("Unrecognised design type.");
                                 }
-                                tNode = tNode.NextSibling;
+                                textNode = textNode.NextSibling;
                             }
                             break;
                         case "intel":
-                            //THIS HAS TO GO!
+                            // THIS HAS TO GO!
                             InputTurn = new Intel();
                             InputTurn.LoadFromXmlNode(xmlnode);
                             break;                       
@@ -489,7 +489,7 @@ namespace Nova.Client
         }
 
         /// <summary>
-        /// Pop up a dialog to select the race to play
+        /// Pop up a dialog to select the race to play.
         /// </summary>
         /// <param name="gameFolder">The folder to look in for races.</param>
         /// <remarks>

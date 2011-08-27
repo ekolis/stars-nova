@@ -20,21 +20,16 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Class for a star's production queue.
-// ===========================================================================
-#endregion
-
 namespace Nova.Common
 {
-    #region Using Statements
     using System;
     using System.Collections;
     using System.Collections.Generic;
     using System.Xml;
-    #endregion
 
+    /// <summary>
+    /// Class for a star's production queue.
+    /// </summary>
     [Serializable]
     public class ProductionQueue
     {
@@ -44,16 +39,14 @@ namespace Nova.Common
         public List<ProductionItem> Queue = new List<ProductionItem>();
 
         /// <summary>
-        /// default constructor
+        /// Default constructor.
         /// </summary>
         public ProductionQueue() 
         { 
         }
 
-        #region Load Save Xml
-
         /// <summary>
-        /// Read in a ProductionQueue from an XmlElement representation
+        /// Read in a ProductionQueue from an XmlElement representation.
         /// </summary>
         /// <param name="node">A ProductionQueue XmlNode, normally read from a nova data file.</param>
         public ProductionQueue(XmlNode node)
@@ -83,8 +76,8 @@ namespace Nova.Common
         /// <summary>
         /// Save: Generate an XmlElement representation of the ProductionQueue to save to file.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement representing the ProductionQueue</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representing the ProductionQueue.</returns>
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProductionQueue = xmldoc.CreateElement("ProductionQueue");
@@ -94,7 +87,5 @@ namespace Nova.Common
             }
             return xmlelProductionQueue;
         }
-
-        #endregion
     }
 }

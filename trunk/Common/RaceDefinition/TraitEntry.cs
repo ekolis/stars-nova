@@ -20,20 +20,12 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// TraitEntry: 
-// An object containing all the data relating to a single Primary or lesser
-// racial trait.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     /// <summary>
     /// Class to support the format of each trait. Static definitions of all the 
     /// primary and secondary racial traits are in PrimaryTraits.cs and SecondaryTraits.cs
@@ -47,15 +39,13 @@ namespace Nova.Common
         public int Cost;           // in advantage points, negative cost give more points to buy other things
         public string Description; // Detailed description (paragraph).
 
-        #region Construction
-
         /// <summary>
         /// Trait constructor. In most instances a string containing the trait code is 
         /// sufficient. Use this when it is necessary to have acess to all the details of a trait.
         /// </summary>
-        /// <param name="n">Name e.g. "Hyper Expansion" or "Regenerating Shields" (may contain spaces)</param>
-        /// <param name="a">Code e.g. "HE" or "RS" (must be unique, all caps, no spaces or punctuation)</param>
-        /// <param name="c">Cost in advantage points, negative cost give more points to buy other things</param>
+        /// <param name="n">Name e.g. "Hyper Expansion" or "Regenerating Shields" (may contain spaces).</param>
+        /// <param name="a">Code e.g. "HE" or "RS" (must be unique, all caps, no spaces or punctuation).</param>
+        /// <param name="c">Cost in advantage points, negative cost give more points to buy other things.</param>
         /// <param name="d">Detailed description (paragraph).</param>
         public TraitEntry(string n, string a, int c, string d)
         {
@@ -65,12 +55,8 @@ namespace Nova.Common
             Description = d;
         }
 
-        #endregion
-
-        #region Methods
-
         /// <summary>
-        /// Return the TraitKey for a TraitEntry
+        /// Return the TraitKey for a TraitEntry.
         /// </summary>
         public override int GetHashCode()
         {
@@ -90,7 +76,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Return a String representation of the TraitEntry
+        /// Return a String representation of the TraitEntry.
         /// </summary>
         /// <returns></returns>
         public new string ToString()
@@ -98,16 +84,12 @@ namespace Nova.Common
             return Name;
         }
 
-        #endregion
-
-        #region Operators
-
         /// <summary>
         /// Test for equality.
         /// </summary>
         /// <param name="a">Trait to compare.</param>
-        /// <param name="b">Trait to compare</param>
-        /// <returns>true if the traits are the same trait.</returns>
+        /// <param name="b">Trait to compare.</param>
+        /// <returns>Returns true if the traits are the same trait.</returns>
         public static bool operator ==(TraitEntry a, TraitEntry b)
         {
             return a.Code == b.Code;
@@ -134,8 +116,8 @@ namespace Nova.Common
         /// Test for equality.
         /// </summary>
         /// <param name="a">Trait to compare.</param>
-        /// <param name="b">Trait to compare</param>
-        /// <returns>true if the traits are the same trait.</returns>
+        /// <param name="b">Trait to compare.</param>
+        /// <returns>Returns true if the traits are the same trait.</returns>
         public static bool operator !=(TraitEntry a, TraitEntry b)
         {
             return a.Code != b.Code;
@@ -145,8 +127,8 @@ namespace Nova.Common
         /// Test for equality.
         /// </summary>
         /// <param name="a">Trait to compare.</param>
-        /// <param name="b">Trait to compare</param>
-        /// <returns>true if the traits are the same trait.</returns>       
+        /// <param name="b">Trait to compare.</param>
+        /// <returns>Returns true if the traits are the same trait.</returns>       
         public static bool operator ==(string a, TraitEntry b)
         {
             return a == b.Code;
@@ -156,8 +138,8 @@ namespace Nova.Common
         /// Test for in-equality.
         /// </summary>
         /// <param name="a">Trait to compare.</param>
-        /// <param name="b">Trait to compare</param>
-        /// <returns>true if the traits are the same trait.</returns>       
+        /// <param name="b">Trait to compare.</param>
+        /// <returns>Returns true if the traits are the same trait.</returns>       
         public static bool operator !=(string a, TraitEntry b)
         {
             return a != b.Code;
@@ -167,8 +149,8 @@ namespace Nova.Common
         /// Test for equality.
         /// </summary>
         /// <param name="a">Trait to compare.</param>
-        /// <param name="b">Trait to compare</param>
-        /// <returns>true if the traits are the same trait.</returns>       
+        /// <param name="b">Trait to compare.</param>
+        /// <returns>Returns true if the traits are the same trait.</returns>       
         public static bool operator ==(TraitEntry a, string b)
         {
             return a.Code == b;
@@ -178,13 +160,11 @@ namespace Nova.Common
         /// Test for inequality.
         /// </summary>
         /// <param name="a">Trait to compare.</param>
-        /// <param name="b">Trait to compare</param>
-        /// <returns>true if the traits are the same trait.</returns>       
+        /// <param name="b">Trait to compare.</param>
+        /// <returns>Returns true if the traits are the same trait.</returns>       
         public static bool operator !=(TraitEntry a, string b)
         {
             return a.Code != b;
         }
-
-        #endregion
     }
 }

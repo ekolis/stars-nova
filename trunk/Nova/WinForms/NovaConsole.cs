@@ -650,7 +650,7 @@ namespace Nova.WinForms.Console
                 Nova.WinForms.Gui.NovaGUI gui = new Nova.WinForms.Gui.NovaGUI(args.ToArray());
                 gui.Show();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Report.Error("NovaConsole.cs : PlayerList_DoubleClick() - Failed to launch GUI. Details:" +
                              Environment.NewLine + ex.ToString());
@@ -764,7 +764,7 @@ namespace Nova.WinForms.Console
         }
 
         /// <summary>
-        /// ??? What is this for?
+        ///  FIXME (priority 4) - what is this for?.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
@@ -798,7 +798,7 @@ namespace Nova.WinForms.Console
         /// <Summary>
         /// Set the player list "Turn In" field.
         /// </Summary>
-        /// <returns>true if all players are turned in</returns>
+        /// <returns>Returns true if all players are turned in.</returns>
         private bool SetPlayerList()
         {
             bool allTurnedIn = true;
@@ -823,7 +823,7 @@ namespace Nova.WinForms.Console
                 // and color code to highlight which races we are waiting on (if we wait).
 
                 EmpireData empireData;
-                stateData.AllEmpires.TryGetValue((settings.PlayerNumber), out empireData);
+                stateData.AllEmpires.TryGetValue(settings.PlayerNumber, out empireData);
 
                 ListViewItem.ListViewSubItem yearItem = new ListViewItem.ListViewSubItem();
                 if (empireData == null || (empireData.TurnYear == Global.StartingYear && ! empireData.TurnSubmitted))
@@ -917,7 +917,7 @@ namespace Nova.WinForms.Console
                     }
 
                     EmpireData empireData;
-                    stateData.AllEmpires.TryGetValue((settings.PlayerNumber), out empireData);
+                    stateData.AllEmpires.TryGetValue(settings.PlayerNumber, out empireData);
                     if (empireData == null || empireData.TurnYear != stateData.TurnYear || ! empireData.TurnSubmitted)
                     {
                         // TODO: Add support for running custom AIs based on settings.AiProgram.
@@ -944,7 +944,7 @@ namespace Nova.WinForms.Console
         
         private void NewGameWizardClosing(object sender, FormClosingEventArgs e)
         {
-            switch((sender as Form).DialogResult)
+            switch ((sender as Form).DialogResult)
             {
             case DialogResult.OK:
                 Close();

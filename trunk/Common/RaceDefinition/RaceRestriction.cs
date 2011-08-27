@@ -59,7 +59,7 @@ namespace Nova.Common
         #region Construction
 
         /// <summary>
-        /// Default Constructor
+        /// Default Constructor.
         /// </summary>
         public RaceRestriction()
         {
@@ -71,7 +71,7 @@ namespace Nova.Common
 
 
         /// <summary>
-        /// Copy Constructor
+        /// Copy Constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="RaceRestriction"/> to copy.</param>
         public RaceRestriction(RaceRestriction existing)

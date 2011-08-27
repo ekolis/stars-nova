@@ -23,9 +23,9 @@
 namespace Nova.WinForms.Gui
 {
     using System;
+    using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
-    using System.Collections.Generic;
     
     using Nova.Client;
     using Nova.Common;
@@ -36,8 +36,9 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class PlanetDetail : System.Windows.Forms.UserControl
     {
-        private Star selectedStar;
         private readonly EmpireData empireState;
+
+        private Star selectedStar;
         
         // FIXME:(priority 3) this should not be here. It is only needed to pass it
         // down to the ProductionDialog. In any case, ProductionDialog shouldn't need
@@ -58,7 +59,7 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         public event CursorChanged CursorChangedEvent;
 
-        private Dictionary<String, Fleet> fleetsInOrbit = new Dictionary<string, Fleet>();
+        private Dictionary<string, Fleet> fleetsInOrbit = new Dictionary<string, Fleet>();
 
         /// <Summary>
         /// Initializes a new instance of the PlanetDetail class.
@@ -141,24 +142,30 @@ namespace Nova.WinForms.Gui
 
         private void FireCursorChangedEvent()
         {
-            if( CursorChangedEvent != null )
+            if (CursorChangedEvent != null)
+            {
                 CursorChangedEvent(this, new CursorArgs((Point)selectedStar.Position));
+            }
         }
 
         private void FireStarSelectionChangedEvent()
         {
             if (DetailSelectionChangedEvent != null)
+            {
                 DetailSelectionChangedEvent(this, new DetailSelectionArgs(selectedStar));
+            }
         }
 
         /// <Summary>
-        /// Set the Star which is to be displayed
+        /// Set the Star which is to be displayed.
         /// </Summary>
-        /// <param name="selectedStar">The Star to be displayed</param>
+        /// <param name="selectedStar">The Star to be displayed.</param>
         private void SetStarDetails(Star selectedStar)
         {
             if (selectedStar == null)
+            {
                 return;
+            }
 
             this.selectedStar = selectedStar;
 
@@ -244,11 +251,11 @@ namespace Nova.WinForms.Gui
                 targetButton.Enabled = false;
             }
 
-            List<String> fleetnames = new List<string>();
+            List<string> fleetnames = new List<string>();
             fleetsInOrbit = new Dictionary<string, Fleet>();
             foreach (Fleet fleet in empireState.OwnedFleets.Values)
             {
-                if ( fleet.InOrbit != null &&  fleet.InOrbit.Name == selectedStar.Name && !fleet.IsStarbase)
+                if (fleet.InOrbit != null &&  fleet.InOrbit.Name == selectedStar.Name && !fleet.IsStarbase)
                 {
                     fleetnames.Add(fleet.Name);
                     fleetsInOrbit[fleet.Name] = fleet;
@@ -277,11 +284,15 @@ namespace Nova.WinForms.Gui
         private Fleet GetSelectedFleetInOrbit()
         {
             if (comboFleetsInOrbit.SelectedItem == null)
+            {
                 return null;
+            }
 
             Fleet fleet;
             if (!fleetsInOrbit.TryGetValue(comboFleetsInOrbit.SelectedItem.ToString(), out fleet))
+            {
                 return null;
+            }
 
             return fleet;
         }
@@ -359,7 +370,7 @@ namespace Nova.WinForms.Gui
                 
                 SummarySelectionChangedEvent(this, summaryArgs);
             }
-            if( CursorChangedEvent != null )
+            if (CursorChangedEvent != null)
             {
                 CursorChangedEvent(this, new CursorArgs((Point)item.Position));
             }    

@@ -35,13 +35,13 @@ namespace Nova.Common
     [Serializable]
     public class FleetIntel : Item
     {
-        public int                          Year        {get; set;}
-        public ShipIcon                     Icon        {get; set;}
-        public double                       Bearing     {get; set;}
-        public int                          Speed       {get; set;}
-        public bool                         InOrbit     {get; set;}
-        public bool                         IsStarbase  {get; set;}
-        public Dictionary<long, ShipIntel>  Composition {get; set;}
+        public int                          Year        { get; set; }
+        public ShipIcon                     Icon        { get; set; }
+        public double                       Bearing     { get; set; }
+        public int                          Speed       { get; set; }
+        public bool                         InOrbit     { get; set; }
+        public bool                         IsStarbase  { get; set; }
+        public Dictionary<long, ShipIntel>  Composition { get; set; }
         
         public int Count
         {
@@ -69,9 +69,9 @@ namespace Nova.Common
         /// <summary>
         /// Creates a fleet report from a fleet.
         /// </summary>
-        /// <param name="fleet">Fleet to report</param>
-        /// <param name="scan">Amount of Knowledge to set</param>
-        /// <param name="year">Year of the data</param>
+        /// <param name="fleet">Fleet to report.</param>
+        /// <param name="scan">Amount of Knowledge to set.</param>
+        /// <param name="year">Year of the data.</param>
         public FleetIntel(Fleet fleet, ScanLevel scan, int year) :
             base()
         {
@@ -87,7 +87,7 @@ namespace Nova.Common
             base(xmlnode)
         {            
             XmlNode node = xmlnode.FirstChild;
-            XmlNode tNode;
+            XmlNode subNode;
             
             while (node != null)
             {
@@ -118,11 +118,11 @@ namespace Nova.Common
                             // We can't call Clear() or we'll erase data set by base(xmlnode), so initialize collection here.
                             Composition = new Dictionary<long, ShipIntel>();
                             
-                            tNode = node.FirstChild;
-                            while (tNode != null)
+                            subNode = node.FirstChild;
+                            while (subNode != null)
                             {
-                                Composition.Add(long.Parse(tNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber), new ShipIntel(tNode));
-                                tNode = tNode.NextSibling;
+                                Composition.Add(long.Parse(subNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber), new ShipIntel(subNode));
+                                subNode = subNode.NextSibling;
                             }
                             break;
                     }
@@ -154,13 +154,19 @@ namespace Nova.Common
         /// <summary>
         /// Updates the report with data from a fleet.
         /// </summary>
-        /// <param name="fleet">Fleet to report</param>
-        /// <param name="scan">Amount of Knowledge to set</param>
-        /// <param name="year">Year of the udpated data</param>
+        /// <param name="fleet">Fleet to report.</param>
+        /// <param name="scan">Amount of Knowledge to set.</param>
+        /// <param name="year">Year of the udpated data.</param>
         public void Update(Fleet fleet, ScanLevel scan, int year)
         {
-            if (fleet == null) { return; }
-            if (year < this.Year) { return; }
+            if (fleet == null) 
+            { 
+                return; 
+            }
+            if (year < this.Year) 
+            { 
+                return; 
+            }
             
             // Information that is always available and doesn't
             // depend on scanning level. Nothing for fleets.
@@ -192,13 +198,11 @@ namespace Nova.Common
             // If in the same position.
             if (scan >= ScanLevel.InPlace)
             {
-                    
             }
             
             // Pen scans do nothing for fleets.
             if (scan >= ScanLevel.InDeepScan)
             {                
-   
             }
             
             // If the fleet is ours.
@@ -211,7 +215,7 @@ namespace Nova.Common
         /// <summary>
         /// Create an XmlElement representation of the fleet report for saving.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
         /// <returns>An XmlElement representation of the report.</returns>
         public new XmlElement ToXml(XmlDocument xmldoc)
         {

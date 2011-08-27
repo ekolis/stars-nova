@@ -103,7 +103,7 @@ namespace Nova.Client
     
         /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Return the sum of the levels reached in all research areas
+        /// Return the sum of the levels reached in all research areas.
         /// </summary>
         /// <returns>The sum of all tech levels.</returns>
         /// ----------------------------------------------------------------------------

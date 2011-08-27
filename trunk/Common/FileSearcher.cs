@@ -19,42 +19,37 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// The FileSearcher object is used to find a file that is part of Nova. It uses
-// the following stratergy:
-// First, check if the file path is defined by a key in nova.conf, else
-// see if the file is in the expected relative path location, else
-// see if the file can be found by searching the nova installation directory, else
-// ask the user to locate the file, else
-// let the calling function know that we can't find the file and have it decide 
-// what to do.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.IO;
-using System.Reflection;
-using System.Windows.Forms;
-
-using Microsoft.Win32;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.IO;
+    using System.Reflection;
+    using System.Windows.Forms;
+
+    using Microsoft.Win32;
+
+    /// <summary>
+    /// The FileSearcher object is used to find a file that is part of Nova. It uses
+    /// the following stratergy:
+    /// First, check if the file path is defined by a key in nova.conf, else
+    /// see if the file is in the expected relative path location, else
+    /// see if the file can be found by searching the nova installation directory, else
+    /// ask the user to locate the file, else
+    /// let the calling function know that we can't find the file and have it decide 
+    /// what to do.
+    /// </summary>
     public static class FileSearcher
     {
         private static bool disableComponentGraphics; // if we can't find them the first time, stop asking.
-
-        #region Public Methods
 
         /// <summary>
         /// Identify the player race's. 
         /// This is done by enumerating the race files present and
         /// loading each race definition.
         /// </summary>
-        /// <returns>An List containing all the races (may contain duplicates)</returns>
+        /// <returns>An List containing all the races (may contain duplicates).</returns>
         public static List<Race> GetAvailableRaces()
         {
             List<Race> allRaces = new List<Race>();
@@ -78,7 +73,6 @@ namespace Nova.Common
             }
             return allRaces;
         }
-
 
         /// <summary>
         /// Get the game settings file.
@@ -218,7 +212,7 @@ namespace Nova.Common
         /// Find the file 'fileName'. 
         /// </summary>
         /// <param name="configKey">The config file key we would like to store the file path in. If this key is not set and we find the file, then it will be set to save searching next time. Ideally this key is set when the application is installed.</param>
-        /// <param name="pathOnly">true if the config file should contain only the path. False if it is the path+file name</param>
+        /// <param name="pathOnly">Set to true if the config file should contain only the path. False if it is the path+file name.</param>
         /// <param name="developmentPath">The expected path relative to the running application, in the development environment.</param>
         /// <param name="deployedPath">The expected path relative to the running application, in the deployed environment.</param>
         /// <param name="fileName">The name of the file we are looing for.</param>
@@ -291,7 +285,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="configKey">The config file key we would like the folder path to be stored in.</param>
         /// <param name="defaultFolder">The default folder name, as in NovaRoot\defaultFolder, to use if the key is not set.</param>
-        /// <returns>The path to the folder, being either the folder defined by the key, or Path.Combine(NovaRoot, defaultFolder). Will create the folder if neccessary</returns>
+        /// <returns>The path to the folder, being either the folder defined by the key, or Path.Combine(NovaRoot, defaultFolder). Will create the folder if neccessary.</returns>
         public static string GetFolder(string configKey, string defaultFolder)
         {
             // Tempory storage for building the absolute path reference
@@ -347,13 +341,8 @@ namespace Nova.Common
             return folderPath;
         }
 
-        #endregion
-
-        // --------------------- Private Implementation Functions -------------------------------------------------
-        #region Private Methods
-
         /// <summary>
-        /// Try to locate the nova root directory
+        /// Try to locate the nova root directory.
         /// </summary>
         /// <returns></returns>
         private static string GetNovaRoot()
@@ -412,7 +401,5 @@ namespace Nova.Common
             
             return fileDialog.FileName;
         }
-
-        #endregion
     }
 }

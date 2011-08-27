@@ -44,7 +44,7 @@ namespace Nova.Client
     public partial class SelectRaceDialog : Form
     {
         /// <summary>
-        /// ??? (priority 4)
+        /// What is this ??? (priority 4).
         /// </summary>
         public SelectRaceDialog()
         {

@@ -19,18 +19,13 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This class is used for constructing 1 factory.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace Nova.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
     /// <summary>
     /// Implementation of ProductionUnit for factory building.
     /// </summary>
@@ -38,28 +33,18 @@ namespace Nova.Common
     {
         private Star star;
 
-        #region Construction
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Initialising constructor
+        /// Initialising constructor.
         /// </summary>
-        /// <param name="star">Star on which the factory is to be constructed</param>
-        /// ----------------------------------------------------------------------------
+        /// <param name="star">Star on which the factory is to be constructed.</param>
         public FactoryProductionUnit(Star star)
         {
             this.star = star;
         }
         
-        #endregion
-
-        #region ProductionUnit Members
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Returns true if this production item will be skipped.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool IsSkipped()
         {
             if (star.Factories >= star.GetOperableFactories())
@@ -75,12 +60,10 @@ namespace Nova.Common
             return false;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construct one factory.
         /// FIXME (priority 5) - doesn't account for partial construction.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public void Construct()
         {
             if (IsSkipped())
@@ -92,17 +75,13 @@ namespace Nova.Common
             star.Factories++;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Returns the Resources needed to construct this factory.
         /// </summary>
         /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public Resources NeededResources()
         {
             return star.ThisRace.GetFactoryResources();
         }
-
-        #endregion
     }
 }

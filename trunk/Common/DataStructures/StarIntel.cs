@@ -33,14 +33,14 @@ namespace Nova.Common
     [Serializable]
     public class StarIntel : Item
     {
-        public int          Year                    {get; set;}
-        public Resources    MineralConcentration    {get; set;}
-        public int          Gravity                 {get; set;}
-        public int          Radiation               {get; set;}
-        public int          Temperature             {get; set;}
-        public int          Colonists               {get; set;}
-        public bool         HasFleetsInOrbit        {get; set;}
-        public Fleet        Starbase                {get; set;}
+        public int          Year                    { get; set; }
+        public Resources    MineralConcentration    { get; set; }
+        public int          Gravity                 { get; set; }
+        public int          Radiation               { get; set; }
+        public int          Temperature             { get; set; }
+        public int          Colonists               { get; set; }
+        public bool         HasFleetsInOrbit        { get; set; }
+        public Fleet        Starbase                { get; set; }
 
         /// <summary>
         /// Default constructor. Sets sensible but meaningless default values for this report.
@@ -54,9 +54,9 @@ namespace Nova.Common
         /// <summary>
         /// Creates a star report from a star.
         /// </summary>
-        /// <param name="star">Star to report</param>
-        /// <param name="scan">Amount of Knowledge to set</param>
-        /// <param name="year">Year of the data</param>
+        /// <param name="star">Star to report.</param>
+        /// <param name="scan">Amount of Knowledge to set.</param>
+        /// <param name="year">Year of the data.</param>
         public StarIntel(Star star, ScanLevel scan, int year) :
             base()
         {
@@ -136,7 +136,7 @@ namespace Nova.Common
         /// <summary>
         /// Returns the name of the Star.
         /// </summary>
-        /// <returns>A string with the format "Star: [name]"</returns>
+        /// <returns>A string with the format "Star: [name]".</returns>
         public override string ToString()
         {
             return "Star: " + Name;
@@ -145,16 +145,22 @@ namespace Nova.Common
         /// <summary>
         /// Updates the report with data from a star.
         /// </summary>
-        /// <param name="star">Star to report</param>
-        /// <param name="scan">Amount of Knowledge to set</param>
-        /// <param name="year">Year of the udpated data</param>
+        /// <param name="star">Star to report.</param>
+        /// <param name="scan">Amount of Knowledge to set.</param>
+        /// <param name="year">Year of the udpated data.</param>
         public void Update(Star star, ScanLevel scan, int year)
         {
             Clear();
             
-            if (star == null) { return; }
+            if (star == null) 
+            {
+                return;
+            }
 
-            if (year < this.Year) { return; }
+            if (year < this.Year) 
+            { 
+                return; 
+            }
             
             // Information that is always available and doesn't
             // depend on scanning level.
@@ -206,7 +212,7 @@ namespace Nova.Common
         /// <summary>
         /// Create an XmlElement representation of the star report for saving.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
         /// <returns>An XmlElement representation of the report.</returns>
         public new XmlElement ToXml(XmlDocument xmldoc)
         {

@@ -57,11 +57,9 @@ namespace Nova.Common.DataStructures
                 {
                     switch (subnode.Name.ToLower())
                     {
-
                         case "targetship":
                             TargetShip = subnode.FirstChild.Value;
                             break;
-
                     }
                 }
                 catch (Exception e)
@@ -75,8 +73,8 @@ namespace Nova.Common.DataStructures
         /// <summary>
         /// Generate an XmlElement representation of the BattleStepTarget for saving to file.
         /// </summary>
-        /// <param name="xmldoc">The parent XmlDocument</param>
-        /// <returns>An XmlElement representing the BattleStepTarget</returns>
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representing the BattleStepTarget.</returns>
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelBattleStepTarget = xmldoc.CreateElement("BattleStepTarget");

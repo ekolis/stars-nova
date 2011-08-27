@@ -35,7 +35,6 @@ namespace Nova.WinForms.ComponentEditor
 {
     public partial class TechRequirements : UserControl
     {
-
         /// <Summary>
         /// Initializes a new instance of the TechRequirements class.
         /// </Summary>
@@ -44,12 +43,9 @@ namespace Nova.WinForms.ComponentEditor
             InitializeComponent();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Property for getting/setting the Tech levels in the control.
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public TechLevel Value
         {
             // Get the tech levels from the control
@@ -67,8 +63,7 @@ namespace Nova.WinForms.ComponentEditor
                 return techLevel;
             }
 
-
-            // Set the tech levels in the control     
+            // Set the tech levels in the control  
             set
             {
                 this.bioTechLevel.Value = (int)value[TechLevel.ResearchField.Biotechnology];
@@ -78,7 +73,6 @@ namespace Nova.WinForms.ComponentEditor
                 this.weaponsTechLevel.Value = (int)value[TechLevel.ResearchField.Weapons];
                 this.constructionTechLevel.Value = (int)value[TechLevel.ResearchField.Construction];
             }
-
         }
     }
 }
