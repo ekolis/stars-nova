@@ -20,12 +20,6 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Check for a victor (doesn't mean the end of a game, though)
-// ===========================================================================
-#endregion
-
 namespace Nova.Server
 { 
     using System.Collections.Generic;
@@ -34,7 +28,7 @@ namespace Nova.Server
     using Nova.Server;
     
     /// <summary>
-    /// Check for victor.
+    /// Check for a victor (doesn't mean the end of a game, though).
     /// </summary>
     public class VictoryCheck
     {
@@ -48,14 +42,11 @@ namespace Nova.Server
             this.Scores = scores;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check for victor.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public void Victor()
         {
-
             // check for last man standing - doesn't matter the year
             List<ushort> remainingEmpires = new List<ushort>();
             foreach (Star star in StateData.AllStars.Values)
@@ -82,8 +73,6 @@ namespace Nova.Server
             }
             else
             {
-
-
                 int gameTime = StateData.TurnYear - Global.StartingYear;
 
                 if (gameTime < GameSettings.Data.MinimumGameTime)
@@ -106,7 +95,6 @@ namespace Nova.Server
                     if (messageSent == false &&
                         targetsMet >= GameSettings.Data.TargetsToMeet)
                     {
-
                         messageSent = true;
                         Message message = new Message();
                         message.Audience = Global.AllEmpires;
@@ -119,14 +107,11 @@ namespace Nova.Server
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check to see if the player owns the required percentage of planets.
         /// </summary>
         /// <param name="raceName">Name of the race to check.</param>
-        /// <returns>1 if the required number of planets is occupied, otherwise 0.</returns>
-        /// ----------------------------------------------------------------------------
+        /// <returns>Returns 1 if the required number of planets is occupied, otherwise 0.</returns>
         private int OccupiedPlanets(int empireId)
         {
             // See if this option has been turned on
@@ -157,15 +142,12 @@ namespace Nova.Server
             return 0;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check to see if the player has attained the required tech level in the
         /// specified number of fields.
         /// </summary>
         /// <param name="raceName">Name of the race to check.</param>
-        /// <returns>1 if race has attained the required tech, otherwise 0.</returns>
-        /// ----------------------------------------------------------------------------
+        /// <returns>Returns 1 if race has attained the required tech, otherwise 0.</returns>
         private int AttainedTechLevel(int empireId)
         {
             // See if this tech level option has been turned on
@@ -205,14 +187,11 @@ namespace Nova.Server
             return 0;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check to see if the player has exceeded the required score.
         /// </summary>
         /// <param name="raceName">Name of race to check.</param>
-        /// <returns>1 if the required score has been met, otherwise 0</returns>
-        /// ----------------------------------------------------------------------------
+        /// <returns>Returns 1 if the required score has been met, otherwise 0.</returns>
         private int ScoreExceeded(int empireId)
         {
             if (GameSettings.Data.TotalScore.IsChecked == false)
@@ -234,21 +213,17 @@ namespace Nova.Server
                     break;
                 }
             }
-
             return 0;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check to see if the player has exceeded the required production capacity (in
         /// K resources).
         /// </summary>
         /// <param name="raceName">Name of the race to check.</param>
         /// <returns>
-        /// 1 if the required production capacity has been met, otherwise 0
+        /// Returns 1 if the required production capacity has been met, otherwise 0.
         /// </returns>
-        /// ----------------------------------------------------------------------------
         private int ProductionCapacity(int empireId)
         {
             if (GameSettings.Data.ProductionCapacity.IsChecked == false)
@@ -274,14 +249,11 @@ namespace Nova.Server
             return 0;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Check to see if the player has met the required number of capital ships
+        /// Check to see if the player has met the required number of capital ships.
         /// </summary>
         /// <param name="raceName">Name of the race to check.</param>
-        /// <returns>1 if the required number of capital ships has been met, otherwise 0</returns>
-        /// ----------------------------------------------------------------------------
+        /// <returns>Returns 1 if the required number of capital ships has been met, otherwise 0.</returns>
         private int CapitalShips(int empireId)
         {
             if (GameSettings.Data.CapitalShips.IsChecked == false)
@@ -307,16 +279,13 @@ namespace Nova.Server
             return 0;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check to see if the player has the highest score after the specified number
-        /// of years
+        /// of years.
         /// </summary>
         /// <param name="raceName">Name of the race to check.</param>
         /// <param name="years">Number of game years/turns that have passed.</param>
-        /// <returns>1 if this race has the highest score, otherwise 0</returns>
-        /// ----------------------------------------------------------------------------
+        /// <returns>Returns 1 if this race has the highest score, otherwise 0.</returns>
         private int HighestScore(int empireId, int years)
         {
             if (GameSettings.Data.HighestScore.IsChecked == false)
@@ -352,15 +321,12 @@ namespace Nova.Server
             return 1;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Check to see if the player has exceeded the second place score by the
         /// specified amount.
         /// </summary>
         /// <param name="raceName">Name of the race to check.</param>
-        /// <returns>1 if the second place score is exceeded by the required amount, 0 otherwise.</returns>
-        /// ----------------------------------------------------------------------------
+        /// <returns>Returns 1 if the second place score is exceeded by the required amount, 0 otherwise.</returns>
         private int ExceedsSecondPlace(int empireId)
         {
             if (GameSettings.Data.CapitalShips.IsChecked == false)
@@ -395,7 +361,5 @@ namespace Nova.Server
             }
             return 0;
         }
-
-
     }
 }

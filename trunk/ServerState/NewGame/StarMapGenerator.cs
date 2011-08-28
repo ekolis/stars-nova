@@ -107,7 +107,7 @@ namespace Nova.Server.NewGame
            
         
         /// <summary>
-        /// Sets an uniform density of 1 across the universe
+        /// Sets an uniform density of 1 across the universe.
         /// </summary>
         private void SetStandardDensity()
         {
@@ -162,9 +162,11 @@ namespace Nova.Server.NewGame
             this.minSeparation = (int)Math.Min(this.mapWidth, this.mapHeight) /
                 (2 * playerFactor);
             
-            this.maxRadius = (Math.Abs(mapWidth - mapHeight) / (mapWidth + mapHeight)) *
-                (this.minSeparation * this.numPlayers / (2.0 - (this.starDensity / 100))) + 
-                Math.Sqrt((Math.Pow(playerFactor, 2.0) - numPlayers) / (Math.Pow(playerFactor, 2.0))) * minSeparation;
+
+            // This could do with some explanation ??? (priority 4).
+            this.maxRadius = Math.Abs(mapWidth - mapHeight) / (mapWidth + mapHeight) *
+                this.minSeparation * this.numPlayers / (2.0 - (this.starDensity / 100)) + 
+                (Math.Sqrt((Math.Pow(playerFactor, 2.0) - numPlayers) / (Math.Pow(playerFactor, 2.0))) * minSeparation);
             
             this.updateFrameSize = (int)Math.Max(Math.Ceiling(this.maxRadius), Math.Ceiling((double)this.minSeparation));
         }
@@ -239,8 +241,8 @@ namespace Nova.Server.NewGame
         /// <summary>
         /// Update Density after the star has been placed at co-ordinate (x,y).
         /// </summary>
-        /// <param name="x">x ordinate of newly place star.</param>
-        /// <param name="y">y ordinate of newly place star.</param>
+        /// <param name="x">X ordinate of newly place star.</param>
+        /// <param name="y">Y ordinate of newly place star.</param>
         private void UpdateDensities(int x, int y)
         {
             for (int i = (x - (this.updateFrameSize / 2) > 0) ? (x - (this.updateFrameSize / 2)) : 0; i <= ((x + (this.updateFrameSize / 2) < this.mapWidth) ? (x + (this.updateFrameSize / 2)) : (this.mapWidth - 1)); ++i)
@@ -283,15 +285,15 @@ namespace Nova.Server.NewGame
         /// </summary>
         private void AccountHomeworlds()
         {
-            foreach (int[] hwPos in this.homeworlds)
+            foreach (int[] homeWorldPosition in this.homeworlds)
             {
-                UpdateDensities(hwPos[0], hwPos[1]);
+                UpdateDensities(homeWorldPosition[0], homeWorldPosition[1]);
             }
         }
 
         
         /// <summary>
-        /// Returns(only) the list of stars as a List of int[2]; int[0] is x, int[1] is y 
+        /// Returns(only) the list of stars as a List of int[2]; int[0] is x, int[1] is y.
         /// </summary>
         public List<int[]> Stars
         {
@@ -300,13 +302,13 @@ namespace Nova.Server.NewGame
                 return this.stars;
             }
             
-            set{}
-                
+            set
+            {
+            }
         }
         
-        
         /// <summary>
-        /// Returns(only) the list of homeworlds as a List of int[2]; int[0] is x, int[1] is y 
+        /// Returns(only) the list of homeworlds as a List of int[2]; int[0] is x, int[1] is y.
         /// </summary>
         public List<int[]> Homeworlds
         {
@@ -315,7 +317,9 @@ namespace Nova.Server.NewGame
                 return this.homeworlds;
             }
             
-            set {}
+            set 
+            {
+            }
         }
     }
 }

@@ -85,8 +85,8 @@ namespace Nova.Server.TurnSteps
         /// <summary>
         /// Contributes allocated research from the star.
         /// </summary>
-        /// <param name="race">Star's owner race</param>
-        /// <param name="star">Star to process</param>
+        /// <param name="race">Star's owner race.</param>
+        /// <param name="star">Star to process.</param>
         /// <remarks>
         /// Note that stars which contribute only leftovers are not accounted for.
         /// </remarks>

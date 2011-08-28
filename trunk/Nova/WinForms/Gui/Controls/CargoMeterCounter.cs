@@ -20,8 +20,8 @@ namespace Nova.WinForms.Gui.Controls
         public CargoMeterCounter()
         {
             InitializeComponent();
-            numeric.ValueChanged += numeric_ValueChanged;
-            meterCargo.ValueChanged += meterCargo_ValueChanged;
+            numeric.ValueChanged += Numeric_ValueChanged;
+            meterCargo.ValueChanged += MeterCargo_ValueChanged;
         }
 
         public int Maximum
@@ -62,7 +62,7 @@ namespace Nova.WinForms.Gui.Controls
             set { meterCargo.Cargo = value; }
         }
 
-        public void meterCargo_ValueChanged(int newValue)
+        public void MeterCargo_ValueChanged(int newValue)
         {
             ignoreNumericChange = true;
             numeric.Value = newValue;
@@ -70,7 +70,7 @@ namespace Nova.WinForms.Gui.Controls
             FireValueChanged();
         }
 
-        public void numeric_ValueChanged(object sender, EventArgs e)
+        public void Numeric_ValueChanged(object sender, EventArgs e)
         {
             if (!ignoreNumericChange)
             {

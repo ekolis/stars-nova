@@ -435,7 +435,7 @@ namespace Nova.WinForms.Gui
             meterFuel.Value = (int)selectedFleet.FuelAvailable;
             meterCargo.Maximum = selectedFleet.TotalCargoCapacity;
             meterCargo.CargoLevels = selectedFleet.Cargo;
-            comboOtherFleets_SelectedIndexChanged(null, null); // Updates the other meters to current selection          
+            ComboOtherFleets_SelectedIndexChanged(null, null); // Updates the other meters to current selection          
         }
 
         /// <Summary>
@@ -488,7 +488,7 @@ namespace Nova.WinForms.Gui
             return fleet;
         }
 
-        private void comboOtherFleets_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboOtherFleets_SelectedIndexChanged(object sender, EventArgs e)
         {
             Fleet fleet = GetSelectedFleetAtLocation();
             if (fleet == null)
@@ -508,7 +508,7 @@ namespace Nova.WinForms.Gui
             Invalidate();
         }
 
-        private void buttonGotoPlanet_Click(object sender, EventArgs e)
+        private void ButtonGotoPlanet_Click(object sender, EventArgs e)
         {
             if (selectedFleet != null && selectedFleet.InOrbit != null)
             {
@@ -516,7 +516,7 @@ namespace Nova.WinForms.Gui
             }
         }
 
-        private void buttonGotoFleet_Click(object sender, EventArgs e)
+        private void ButtonGotoFleet_Click(object sender, EventArgs e)
         {
             Fleet newFleet = GetSelectedFleetAtLocation();
 
@@ -524,7 +524,7 @@ namespace Nova.WinForms.Gui
             UpdateListeners(newFleet);
         }
 
-        private void buttonMerge_Click(object sender, EventArgs e)
+        private void ButtonMerge_Click(object sender, EventArgs e)
         {
             Fleet newFleet = GetSelectedFleetAtLocation();
             DoSplitMerge(newFleet);
@@ -588,7 +588,7 @@ namespace Nova.WinForms.Gui
             return newFleet;
         }
 
-        private void buttonCargoXfer_Click(object sender, EventArgs e)
+        private void ButtonCargoXfer_Click(object sender, EventArgs e)
         {
             using (CargoTransferDialog dia = new CargoTransferDialog())
             {

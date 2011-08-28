@@ -599,7 +599,7 @@ namespace Nova.WinForms.Gui
             this.comboFleetsInOrbit.Name = "comboFleetsInOrbit";
             this.comboFleetsInOrbit.Size = new System.Drawing.Size(162, 21);
             this.comboFleetsInOrbit.TabIndex = 0;
-            this.comboFleetsInOrbit.SelectedIndexChanged += new System.EventHandler(this.comboFleetsInOrbit_SelectedIndexChanged);
+            this.comboFleetsInOrbit.SelectedIndexChanged += new System.EventHandler(this.ComboFleetsInOrbit_SelectedIndexChanged);
             // 
             // label10
             // 
@@ -625,7 +625,7 @@ namespace Nova.WinForms.Gui
             this.buttonGoto.TabIndex = 92;
             this.buttonGoto.Text = "Goto";
             this.buttonGoto.UseVisualStyleBackColor = true;
-            this.buttonGoto.Click += new System.EventHandler(this.buttonGoto_Click);
+            this.buttonGoto.Click += new System.EventHandler(this.ButtonGoto_Click);
             // 
             // buttonCargo
             // 
@@ -635,7 +635,7 @@ namespace Nova.WinForms.Gui
             this.buttonCargo.TabIndex = 93;
             this.buttonCargo.Text = "Cargo";
             this.buttonCargo.UseVisualStyleBackColor = true;
-            this.buttonCargo.Click += new System.EventHandler(this.buttonCargo_Click);
+            this.buttonCargo.Click += new System.EventHandler(this.ButtonCargo_Click);
             // 
             // groupBox7
             // 

@@ -34,13 +34,11 @@ namespace Nova.Server
     using Nova.Common.DataStructures;
     using Message = Nova.Common.Message;
     
-    /// ----------------------------------------------------------------------------
     /// <summary>
     /// This file contains data that are persistent across multiple invocations of
     /// Nova Server. (It also holds the odd item that doesn't need to be persistent
     /// but it's just convenient to keep all "global" data in one place.
     /// </summary>
-    /// ----------------------------------------------------------------------------
     [Serializable]
     public sealed class ServerState
     {
@@ -60,24 +58,21 @@ namespace Nova.Server
         public string GameFolder        = null; // The path&folder where client files are held.
         public string StatePathName     = null; // path&file name to the saved state data
         
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Creates a new fresh server state.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ServerState()
         { 
         }
   
         /// <summary>
-        /// Load <see cref="Intel">ServerState</see> from an xml document
+        /// Load <see cref="Intel">ServerState</see> from an xml document.
         /// </summary>
-        /// <param name="xmldoc">produced using XmlDocument.Load(filename)</param>
+        /// <param name="xmldoc">Produced using XmlDocument.Load(filename).</param>
         public ServerState(XmlDocument xmldoc)
         {            
             XmlNode xmlnode = xmldoc.DocumentElement;
-            XmlNode tNode;
+            XmlNode textNode;
             
             while (xmlnode != null)
             {
@@ -109,109 +104,109 @@ namespace Nova.Server
                         // they are in the correct format.
                         
                         case "allbattles":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
-                                AllBattles.Add(new BattleReport(tNode));
-                                tNode = tNode.NextSibling;
+                                AllBattles.Add(new BattleReport(textNode));
+                                textNode = textNode.NextSibling;
                             }
                             break;
                         
                         case "allplayers":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
-                                AllPlayers.Add(new PlayerSettings(tNode));
-                                tNode = tNode.NextSibling;
+                                AllPlayers.Add(new PlayerSettings(textNode));
+                                textNode = textNode.NextSibling;
                             }
                             break;
                         
                         case "alltechlevels":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
-                                AllTechLevels.Add(int.Parse(tNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber),
-                                                  int.Parse(tNode.FirstChild.Value));
-                                tNode = tNode.NextSibling;
+                                AllTechLevels.Add(int.Parse(textNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber), int.Parse(textNode.FirstChild.Value));
+                                textNode = textNode.NextSibling;
                             }
                             break;
                         
                         case "alldesigns":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
-                                long designKey = long.Parse(tNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber);
-                                if (tNode.Name.ToLower() == "design")
+                                long designKey = long.Parse(textNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber);
+                                if (textNode.Name.ToLower() == "design")
                                 {
-                                    AllDesigns.Add(designKey, new Design(tNode));
+                                    AllDesigns.Add(designKey, new Design(textNode));
                                 }
-                                else if (tNode.Name.ToLower() == "shipdesign")
+                                else if (textNode.Name.ToLower() == "shipdesign")
                                 {
-                                    AllDesigns.Add(designKey, new ShipDesign(tNode));
+                                    AllDesigns.Add(designKey, new ShipDesign(textNode));
                                 }
                                 else
                                 {
                                     throw new System.NotImplementedException("Unrecognised design type.");
                                 }
-                                tNode = tNode.NextSibling;
+                                textNode = textNode.NextSibling;
                             }
                             break;
                         
                         case "allfleets":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
-                                Fleet fleet = new Fleet(tNode);
+                                Fleet fleet = new Fleet(textNode);
                                 AllFleets.Add(fleet.Key, fleet);
-                                tNode = tNode.NextSibling;
+                                textNode = textNode.NextSibling;
                             }
                             break;
                         
                         case "allempires":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
-                                AllEmpires.Add(int.Parse(tNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber),
-                                               new EmpireData(tNode));
-                                tNode = tNode.NextSibling;
+                                AllEmpires.Add(
+                                    int.Parse(textNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber),
+                                    new EmpireData(textNode));
+                                textNode = textNode.NextSibling;
                             }
                             break;
                         
                         case "allraces":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
                                 Race race = new Race();
-                                race.LoadRaceFromXml(tNode);
-                                AllRaces.Add(tNode.Attributes["Key"].Value, race);
-                                tNode = tNode.NextSibling;
+                                race.LoadRaceFromXml(textNode);
+                                AllRaces.Add(textNode.Attributes["Key"].Value, race);
+                                textNode = textNode.NextSibling;
                             }
                             break;
                         
                         case "allstars":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
-                                AllStars.Add(tNode.Attributes["Key"].Value, new Star(tNode));
-                                tNode = tNode.NextSibling;
+                                AllStars.Add(textNode.Attributes["Key"].Value, new Star(textNode));
+                                textNode = textNode.NextSibling;
                             }
                             break;
                         
                         case "allminefields":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
-                                AllMinefields.Add(int.Parse(tNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber), new Minefield(tNode));
-                                tNode = tNode.NextSibling;
+                                AllMinefields.Add(int.Parse(textNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber), new Minefield(textNode));
+                                textNode = textNode.NextSibling;
                             }
                             break;
                         
                         case "allmessages":
-                            tNode = xmlnode.FirstChild;
-                            while (tNode != null)
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
                             {
-                                AllMessages.Add(new Message(tNode));
-                                tNode = tNode.NextSibling;
+                                AllMessages.Add(new Message(textNode));
+                                textNode = textNode.NextSibling;
                             }
                             break;
                     }
@@ -226,11 +221,9 @@ namespace Nova.Server
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Restore the persistent data. 
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ServerState Restore()
         {
             using (FileStream stateFile = new FileStream(StatePathName, FileMode.Open))
@@ -247,12 +240,9 @@ namespace Nova.Server
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Save the console persistent data.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public void Save()
         {
             if (StatePathName == null)
@@ -291,7 +281,7 @@ namespace Nova.Server
             xmlRoot.AppendChild(xmlelServerState);
             
             Global.SaveData(xmldoc, xmlelServerState, "GameInProgress", GameInProgress.ToString());
-            //Global.SaveData(xmldoc, xmlelServerState, "FleetID", FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            // Global.SaveData(xmldoc, xmlelServerState, "FleetID", FleetID.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelServerState, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelServerState, "GameFolder", GameFolder);
             Global.SaveData(xmldoc, xmlelServerState, "StatePathName", StatePathName);
@@ -349,7 +339,6 @@ namespace Nova.Server
             XmlElement xmlelAllDesigns = xmldoc.CreateElement("AllDesigns");
             foreach (KeyValuePair<long, Design> design in AllDesigns)
             {
-                
                 if (design.Value.Type == ItemType.Ship || design.Value.Type == ItemType.Starbase)
                 {
                     child = ((ShipDesign)design.Value).ToXml(xmldoc);                    
@@ -507,11 +496,9 @@ namespace Nova.Server
             }
         }     
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Reset all values to the defaults
+        /// Reset all values to the defaults.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public void Clear()
         {            
             AllBattles.Clear();
@@ -527,10 +514,9 @@ namespace Nova.Server
             
             GameFolder     = null;
             GameInProgress = false;
-            //FleetID        = 1;
+            // FleetID        = 1;
             TurnYear       = Global.StartingYear;            
             StatePathName  = null;  
         }
-
     }
 }

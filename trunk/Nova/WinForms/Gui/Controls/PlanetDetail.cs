@@ -297,7 +297,7 @@ namespace Nova.WinForms.Gui
             return fleet;
         }
 
-        private void comboFleetsInOrbit_SelectedIndexChanged(object sender, EventArgs e)
+        private void ComboFleetsInOrbit_SelectedIndexChanged(object sender, EventArgs e)
         {
             Fleet fleet = GetSelectedFleetInOrbit();
             if (fleet == null)
@@ -317,7 +317,7 @@ namespace Nova.WinForms.Gui
             Invalidate();
         }
 
-        private void buttonGoto_Click(object sender, EventArgs e)
+        private void ButtonGoto_Click(object sender, EventArgs e)
         {
             Fleet fleet = GetSelectedFleetInOrbit();
             if (fleet != null)
@@ -326,7 +326,7 @@ namespace Nova.WinForms.Gui
             }
         }
 
-        private void buttonCargo_Click(object sender, EventArgs e)
+        private void ButtonCargo_Click(object sender, EventArgs e)
         {
             Fleet fleet = GetSelectedFleetInOrbit();
             if (fleet != null)
@@ -340,7 +340,7 @@ namespace Nova.WinForms.Gui
                         UpdateFields();
                     }
 
-                    comboFleetsInOrbit_SelectedIndexChanged(null, null);
+                    ComboFleetsInOrbit_SelectedIndexChanged(null, null);
                 }
                 catch
                 {

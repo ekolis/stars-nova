@@ -347,7 +347,7 @@ namespace Nova.WinForms.Gui
             this.buttonGotoPlanet.Size = new System.Drawing.Size(56, 23);
             this.buttonGotoPlanet.TabIndex = 89;
             this.buttonGotoPlanet.Text = "Goto";
-            this.buttonGotoPlanet.Click += new System.EventHandler(this.buttonGotoPlanet_Click);
+            this.buttonGotoPlanet.Click += new System.EventHandler(this.ButtonGotoPlanet_Click);
             // 
             // groupBox3
             // 
@@ -526,7 +526,7 @@ namespace Nova.WinForms.Gui
             this.buttonMerge.TabIndex = 94;
             this.buttonMerge.Text = "Merge";
             this.buttonMerge.UseVisualStyleBackColor = true;
-            this.buttonMerge.Click += new System.EventHandler(this.buttonMerge_Click);
+            this.buttonMerge.Click += new System.EventHandler(this.ButtonMerge_Click);
             // 
             // buttonCargoXfer
             // 
@@ -536,7 +536,7 @@ namespace Nova.WinForms.Gui
             this.buttonCargoXfer.TabIndex = 93;
             this.buttonCargoXfer.Text = "Cargo";
             this.buttonCargoXfer.UseVisualStyleBackColor = true;
-            this.buttonCargoXfer.Click += new System.EventHandler(this.buttonCargoXfer_Click);
+            this.buttonCargoXfer.Click += new System.EventHandler(this.ButtonCargoXfer_Click);
             // 
             // buttonGotoFleet
             // 
@@ -546,7 +546,7 @@ namespace Nova.WinForms.Gui
             this.buttonGotoFleet.TabIndex = 92;
             this.buttonGotoFleet.Text = "Goto";
             this.buttonGotoFleet.UseVisualStyleBackColor = true;
-            this.buttonGotoFleet.Click += new System.EventHandler(this.buttonGotoFleet_Click);
+            this.buttonGotoFleet.Click += new System.EventHandler(this.ButtonGotoFleet_Click);
             // 
             // comboOtherFleets
             // 
@@ -556,7 +556,7 @@ namespace Nova.WinForms.Gui
             this.comboOtherFleets.Name = "comboOtherFleets";
             this.comboOtherFleets.Size = new System.Drawing.Size(162, 21);
             this.comboOtherFleets.TabIndex = 0;
-            this.comboOtherFleets.SelectedIndexChanged += new System.EventHandler(this.comboOtherFleets_SelectedIndexChanged);
+            this.comboOtherFleets.SelectedIndexChanged += new System.EventHandler(this.ComboOtherFleets_SelectedIndexChanged);
             // 
             // groupOrbitPlanet
             // 

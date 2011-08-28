@@ -20,19 +20,13 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module provides score data.
-// ===========================================================================
-#endregion
-
 namespace Nova.Server
 {
     using System.Collections.Generic;
     using Nova.Common;
     
     /// <summary>
-    /// Manipulation of the turn data that is shared between the Console and GUI.
+    /// Class to provide score data.
     /// </summary>
     public class Scores
     {
@@ -43,11 +37,9 @@ namespace Nova.Server
             this.stateData = serverState;
         }
         
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Return a list of all scores 
+        /// Return a list of all scores.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public List<ScoreRecord> GetScores()
         {
             List<ScoreRecord> scores = new List<ScoreRecord>();
@@ -62,14 +54,11 @@ namespace Nova.Server
             return scores;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Build a <see cref="ScoreRecord"/> for a given race
+        /// Build a <see cref="ScoreRecord"/> for a given race.
         /// </summary>
         /// <param name="raceName">The name fo the race to build a <see cref="ScoreRecord"/> for.</param>
         /// <returns>A <see cref="ScoreRecord"/> for the given race.</returns>
-        /// ----------------------------------------------------------------------------
         private ScoreRecord GetScoreRecord(int empireId)
         {
             double totalScore = 0;
@@ -84,7 +73,6 @@ namespace Nova.Server
 
             foreach (Star star in stateData.AllStars.Values)
             {
-
                 if (star.Owner == empireId)
                 {
                     score.Planets++;
@@ -105,7 +93,7 @@ namespace Nova.Server
             totalScore += resources / 30;
 
             // ----------------------------------------------------------------------------
-            // Count ship specific values
+            // Count ship specific values.
             // ----------------------------------------------------------------------------
 
             int unarmedShips = 0;
@@ -115,7 +103,6 @@ namespace Nova.Server
 
             foreach (Fleet fleet in stateData.AllFleets.Values)
             {
-
                 if (fleet.Owner == empireId)
                 {
                     foreach (Ship ship in fleet.FleetShips)
@@ -152,7 +139,7 @@ namespace Nova.Server
             }
 
             // ----------------------------------------------------------------------------
-            // Single instance values
+            // Single instance values.
             // ----------------------------------------------------------------------------
 
             score.EmpireId = empireId;
@@ -183,12 +170,9 @@ namespace Nova.Server
             return score;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Set the rank for all races.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         private void SetRanks(List<ScoreRecord> scores)
         {
             scores.Sort();

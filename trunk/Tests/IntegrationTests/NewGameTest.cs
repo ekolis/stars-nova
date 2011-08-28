@@ -34,7 +34,6 @@ using NUnit.Framework;
 
 namespace Nova.Tests.IntegrationTests
 {
-
     /// <Summary>
     /// Test for game generation
     /// </Summary>

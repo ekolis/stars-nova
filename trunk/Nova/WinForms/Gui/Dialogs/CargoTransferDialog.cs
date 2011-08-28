@@ -23,16 +23,16 @@ namespace Nova.WinForms.Gui.Dialogs
         {
             InitializeComponent();
 
-            cargoIronLeft.ValueChanged += cargoIronLeft_ValueChanged;
-            cargoIronRight.ValueChanged += cargoIronRight_ValueChanged;
-            cargoBoraniumLeft.ValueChanged += cargoBoraniumLeft_ValueChanged;
-            cargoBoraniumRight.ValueChanged += cargoBoraniumRight_ValueChanged;
-            cargoGermaniumLeft.ValueChanged += cargoGermaniumLeft_ValueChanged;
-            cargoGermaniumRight.ValueChanged += cargoGermaniumRight_ValueChanged;
-            cargoColonistsLeft.ValueChanged += cargoColonistsLeft_ValueChanged;
-            cargoColonistsRight.ValueChanged += cargoColonistsRight_ValueChanged;
-            fuelLeft.ValueChanged += fuelLeft_ValueChanged;
-            fuelRight.ValueChanged += fuelRight_ValueChanged;
+            cargoIronLeft.ValueChanged += CargoIronLeft_ValueChanged;
+            cargoIronRight.ValueChanged += CargoIronRight_ValueChanged;
+            cargoBoraniumLeft.ValueChanged += CargoBoraniumLeft_ValueChanged;
+            cargoBoraniumRight.ValueChanged += CargoBoraniumRight_ValueChanged;
+            cargoGermaniumLeft.ValueChanged += CargoGermaniumLeft_ValueChanged;
+            cargoGermaniumRight.ValueChanged += CargoGermaniumRight_ValueChanged;
+            cargoColonistsLeft.ValueChanged += CargoColonistsLeft_ValueChanged;
+            cargoColonistsRight.ValueChanged += CargoColonistsRight_ValueChanged;
+            fuelLeft.ValueChanged += FuelLeft_ValueChanged;
+            fuelRight.ValueChanged += FuelRight_ValueChanged;
         }
 
         private int ReJigValues(int newValue, out int newRightValue, int leftLevel, int rightLevel, int leftMass, int rightMass, int leftMax, int rightMax)
@@ -69,7 +69,7 @@ namespace Nova.WinForms.Gui.Dialogs
             return newValue;
         }
 
-        private void cargoIronLeft_ValueChanged(int newValue)
+        private void CargoIronLeft_ValueChanged(int newValue)
         {
             int newRightValue;
             newValue = ReJigValues(newValue, out newRightValue, leftCargo.Ironium, rightCargo.Ironium, leftCargo.Mass, rightCargo.Mass, cargoMeterLeft.Maximum, cargoMeterRight.Maximum);
@@ -79,7 +79,7 @@ namespace Nova.WinForms.Gui.Dialogs
         }
 
 
-        public void cargoIronRight_ValueChanged(int newValue)
+        public void CargoIronRight_ValueChanged(int newValue)
         {
             int newLeftLevel;
             newValue = ReJigValues(newValue, out newLeftLevel, rightCargo.Ironium, leftCargo.Ironium, rightCargo.Mass, leftCargo.Mass, cargoMeterRight.Maximum, cargoMeterLeft.Maximum);
@@ -88,7 +88,7 @@ namespace Nova.WinForms.Gui.Dialogs
             UpdateMeters();
         }
 
-        private void cargoBoraniumLeft_ValueChanged(int newValue)
+        private void CargoBoraniumLeft_ValueChanged(int newValue)
         {
             int newRightValue;
             newValue = ReJigValues(newValue, out newRightValue, leftCargo.Boranium, rightCargo.Boranium, leftCargo.Mass, rightCargo.Mass, cargoMeterLeft.Maximum, cargoMeterRight.Maximum);
@@ -97,7 +97,7 @@ namespace Nova.WinForms.Gui.Dialogs
             UpdateMeters();
         }
 
-        private void cargoBoraniumRight_ValueChanged(int newValue)
+        private void CargoBoraniumRight_ValueChanged(int newValue)
         {
             int newLeftLevel;
             newValue = ReJigValues(newValue, out newLeftLevel, rightCargo.Boranium, leftCargo.Boranium, rightCargo.Mass, leftCargo.Mass, cargoMeterRight.Maximum, cargoMeterLeft.Maximum);
@@ -106,7 +106,7 @@ namespace Nova.WinForms.Gui.Dialogs
             UpdateMeters();
         }
 
-        private void cargoGermaniumLeft_ValueChanged(int newValue)
+        private void CargoGermaniumLeft_ValueChanged(int newValue)
         {
             int newRightValue;
             newValue = ReJigValues(newValue, out newRightValue, leftCargo.Germanium, rightCargo.Germanium, leftCargo.Mass, rightCargo.Mass, cargoMeterLeft.Maximum, cargoMeterRight.Maximum);
@@ -115,7 +115,7 @@ namespace Nova.WinForms.Gui.Dialogs
             UpdateMeters();
         }
 
-        private void cargoGermaniumRight_ValueChanged(int newValue)
+        private void CargoGermaniumRight_ValueChanged(int newValue)
         {
             int newLeftLevel;
             newValue = ReJigValues(newValue, out newLeftLevel, rightCargo.Germanium, leftCargo.Germanium, rightCargo.Mass, leftCargo.Mass, cargoMeterRight.Maximum, cargoMeterLeft.Maximum);
@@ -124,7 +124,7 @@ namespace Nova.WinForms.Gui.Dialogs
             UpdateMeters();
         }
 
-        private void cargoColonistsLeft_ValueChanged(int newValue)
+        private void CargoColonistsLeft_ValueChanged(int newValue)
         {
             int newRightValue;
             newValue = ReJigValues(newValue, out newRightValue, leftCargo.ColonistsInKilotons, rightCargo.ColonistsInKilotons, leftCargo.Mass, rightCargo.Mass, cargoMeterLeft.Maximum, cargoMeterRight.Maximum);
@@ -133,7 +133,7 @@ namespace Nova.WinForms.Gui.Dialogs
             UpdateMeters();
         }
 
-        private void cargoColonistsRight_ValueChanged(int newValue)
+        private void CargoColonistsRight_ValueChanged(int newValue)
         {
             int newLeftLevel;
             newValue = ReJigValues(newValue, out newLeftLevel, rightCargo.ColonistsInKilotons, leftCargo.ColonistsInKilotons, rightCargo.Mass, leftCargo.Mass, cargoMeterRight.Maximum, cargoMeterLeft.Maximum);
@@ -142,7 +142,7 @@ namespace Nova.WinForms.Gui.Dialogs
             UpdateMeters();
         }
 
-        private void fuelLeft_ValueChanged(int newValue)
+        private void FuelLeft_ValueChanged(int newValue)
         {
             int newRightValue;
             newValue = ReJigValues(newValue, out newRightValue, leftFuel, rightFuel, leftFuel, rightFuel, fuelLeft.Maximum, fuelRight.Maximum);
@@ -151,7 +151,7 @@ namespace Nova.WinForms.Gui.Dialogs
             UpdateMeters();
         }
 
-        private void fuelRight_ValueChanged(int newValue)
+        private void FuelRight_ValueChanged(int newValue)
         {
             int newLeftLevel;
             newValue = ReJigValues(newValue, out newLeftLevel, rightFuel, leftFuel, rightFuel, leftFuel, fuelRight.Maximum, fuelLeft.Maximum);
