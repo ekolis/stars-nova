@@ -404,9 +404,9 @@ namespace Nova.WinForms.Gui
         }
         
         /// <Summary>
-        /// Move selected Item down in queue 
+        /// Move selected Item down in queue.
         /// </Summary>
-        /// <param name="sender">The source of the event</param>
+        /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void QueueDown_Click(object sender, EventArgs e)
         {

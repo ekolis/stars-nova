@@ -28,7 +28,7 @@ namespace Nova.Server
     using Nova.Server;
     
     /// <summary>
-    /// Class to carry out fleet waypoint tasks
+    /// Class to carry out fleet waypoint tasks.
     /// </summary>
     public class WaypointTasks
     {
@@ -40,17 +40,17 @@ namespace Nova.Server
         }
 
         /// <summary>
-        /// Perform the waypoint task
+        /// Perform the waypoint task.
         /// </summary>
         /// <param name="fleet"></param>
         /// <param name="waypoint"></param>
         public void Perform(Fleet fleet, Waypoint waypoint)
         {
-            if (waypoint.Task == WaypointTask.Colonise )
+            if (waypoint.Task == WaypointTask.Colonise)
             {
                 Colonise(fleet, waypoint);
             }
-            else if (waypoint.Task == WaypointTask.Invade )
+            else if (waypoint.Task == WaypointTask.Invade)
             {
                 Invade(fleet);
             }
@@ -58,11 +58,11 @@ namespace Nova.Server
             {
                 Scrap(fleet, stateData.AllStars[fleet.InOrbit.Name], false);
             }
-            else if (waypoint.Task == WaypointTask.UnloadCargo )
+            else if (waypoint.Task == WaypointTask.UnloadCargo)
             {
                 UnloadCargo(fleet, waypoint);
             }
-            else if (waypoint.Task == WaypointTask.LayMines )
+            else if (waypoint.Task == WaypointTask.LayMines)
             {
                 LayMines(fleet);
             }
@@ -104,7 +104,7 @@ namespace Nova.Server
                 else
                 {
                     message.Text = "You have colonised " + waypoint.Destination;
-                    waypoint.Task =  WaypointTask.None ;
+                    waypoint.Task =  WaypointTask.None;
                     Star star = stateData.AllStars[waypoint.Destination];
 
                     star.ResourcesOnHand.Ironium = fleet.Cargo.Ironium;
@@ -122,7 +122,7 @@ namespace Nova.Server
 
 
         /// <summary>
-        /// Unload a fleet's cargo
+        /// Unload a fleet's cargo.
         /// </summary>
         /// <param name="fleet"></param>
         /// <param name="waypoint"></param>
@@ -146,7 +146,7 @@ namespace Nova.Server
 
             stateData.AllMessages.Add(message);
 
-            waypoint.Task =  WaypointTask.None ;
+            waypoint.Task =  WaypointTask.None;
 
             targetStar.ResourcesOnHand.Ironium += fleet.Cargo.Ironium;
             targetStar.ResourcesOnHand.Boranium += fleet.Cargo.Boranium;
@@ -172,7 +172,7 @@ namespace Nova.Server
 
 
         /// <summary>
-        /// Scrap a single ship
+        /// Scrap a single ship.
         /// </summary>
         /// <param name="ship"></param>
         /// <param name="star"></param>
@@ -310,7 +310,7 @@ namespace Nova.Server
         
         
         /// <summary>
-        /// invade a star system.
+        /// Invade a star system.
         /// </summary>
         /// <param name="fleet">The invading fleet.</param>
         public void Invade(Fleet fleet)

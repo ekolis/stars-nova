@@ -42,11 +42,12 @@ namespace Nova.Server.NewGame
         public StarMapInitialiser(ServerState serverState)
         {
             this.stateData = serverState;
-            this.map = new StarMapGenerator(GameSettings.Data.MapWidth,
-                                             GameSettings.Data.MapHeight,
-                                             GameSettings.Data.StarSeparation,
-                                             GameSettings.Data.StarDensity,
-                                             GameSettings.Data.StarUniformity);
+            this.map = new StarMapGenerator(
+                GameSettings.Data.MapWidth,
+                GameSettings.Data.MapHeight,
+                GameSettings.Data.StarSeparation,
+                GameSettings.Data.StarDensity,
+                GameSettings.Data.StarUniformity);
         }
 
 
@@ -332,7 +333,6 @@ namespace Nova.Server.NewGame
         {
             if (map.Homeworlds.Count > 0)
             {
-                
                 Random random = new Random();
                 
                 int[] starPosition = map.Homeworlds[random.Next(map.Homeworlds.Count)];   

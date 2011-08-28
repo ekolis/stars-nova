@@ -41,7 +41,7 @@ namespace Nova.Server
         }
 
         /// <summary>
-        /// manufacture the items in a production queue (resources permitting).
+        /// Manufacture the items in a production queue (resources permitting).
         /// </summary>
         /// <param name="star">The star doing production.</param>
         /// <remarks>
@@ -54,7 +54,6 @@ namespace Nova.Server
 
             foreach (ProductionItem item in star.ManufacturingQueue.Queue)
             {
-
                 bool resourcesExhausted = BuildQueueItem(item, star);
                 if (resourcesExhausted)
                 {
@@ -81,7 +80,6 @@ namespace Nova.Server
 
             while (productionItem.Quantity > 0)
             {
-
                 resourcesExhausted = BuildDesign(productionItem, star);
                 if (resourcesExhausted)
                 {
@@ -98,7 +96,7 @@ namespace Nova.Server
         /// we can achieve.
         /// </summary>
         /// <param name="productionItem">An item to be produced.</param>
-        /// <param name="star">The star system doing production</param>
+        /// <param name="star">The star system doing production.</param>
         /// <returns>true if the star is unable to finish productio of this item.</returns>
         private bool BuildDesign(ProductionItem productionItem, Star star)
         {
@@ -286,7 +284,7 @@ namespace Nova.Server
                     // queuing the "upgrade", so the old SB is just
                     // discarded and replaced at this point. -Aeglos 2 Aug 11
                     star.Starbase = null;
-                    //waypointTasks.Scrap(star.Starbase, star, false);
+                    // waypointTasks.Scrap(star.Starbase, star, false);
                 }
                 star.Starbase = fleet;
                 fleet.Type = ItemType.Starbase;

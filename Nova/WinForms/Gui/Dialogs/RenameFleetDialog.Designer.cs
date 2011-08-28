@@ -70,7 +70,7 @@
             this.txtNewName.Name = "txtNewName";
             this.txtNewName.Size = new System.Drawing.Size(234, 20);
             this.txtNewName.TabIndex = 0;
-            this.txtNewName.TextChanged += new System.EventHandler(this.txtNewName_TextChanged);
+            this.txtNewName.TextChanged += new System.EventHandler(this.TextNewName_TextChanged);
             // 
             // lblFleetName
             // 

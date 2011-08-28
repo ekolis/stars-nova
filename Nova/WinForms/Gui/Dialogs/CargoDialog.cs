@@ -50,13 +50,13 @@ namespace Nova.ControlLibrary
         public CargoDialog()
         {
             InitializeComponent();
-            cargoIron.ValueChanged += cargoIron_ValueChanged;
-            cargoBoran.ValueChanged += cargoBoran_ValueChanged;
-            cargoGerman.ValueChanged += cargoGerman_ValueChanged;
-            cargoColonists.ValueChanged += cargoColonists_ValueChanged;
+            cargoIron.ValueChanged += CargoIron_ValueChanged;
+            cargoBoran.ValueChanged += CargoBoran_ValueChanged;
+            cargoGerman.ValueChanged += CargoGermanium_ValueChanged;
+            cargoColonists.ValueChanged += CargoColonists_ValueChanged;
         }
 
-        public void cargoIron_ValueChanged(int newValue)
+        public void CargoIron_ValueChanged(int newValue)
         {
             if (fleetCargo.Mass - fleetCargo.Ironium + newValue > meterCargo.Maximum)
             {
@@ -76,7 +76,7 @@ namespace Nova.ControlLibrary
             UpdateMeters();
         }
 
-        public void cargoBoran_ValueChanged(int newValue)
+        public void CargoBoran_ValueChanged(int newValue)
         {
             if (fleetCargo.Mass - fleetCargo.Boranium + newValue > meterCargo.Maximum)
             {
@@ -95,7 +95,7 @@ namespace Nova.ControlLibrary
             UpdateMeters();
         }
 
-        public void cargoGerman_ValueChanged(int newValue)
+        public void CargoGermanium_ValueChanged(int newValue)
         {
             if (fleetCargo.Mass - fleetCargo.Germanium + newValue > meterCargo.Maximum)
             {
@@ -114,7 +114,7 @@ namespace Nova.ControlLibrary
             UpdateMeters();
         }
 
-        public void cargoColonists_ValueChanged(int newValue)
+        public void CargoColonists_ValueChanged(int newValue)
         {
             if (fleetCargo.Mass - fleetCargo.ColonistsInKilotons + newValue > meterCargo.Maximum)
             {
@@ -149,7 +149,7 @@ namespace Nova.ControlLibrary
             meterCargo.CargoLevels = fleetCargo;
         }
 
-        private void okButton_Click(object sender, EventArgs e)
+        private void OkButton_Click(object sender, EventArgs e)
         {
             fleet.Cargo = fleetCargo;
             

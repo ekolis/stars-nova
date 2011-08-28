@@ -82,13 +82,11 @@ namespace Nova.Server
             turnSteps.Add(STARSTEP, new StarUpdateStep());
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Generate a new turn by reading in the player turn files to update the master
         /// copy of stars, ships, etc. Then do the processing required to take in the
         /// passage of one year of time and, finally, write out the new turn file.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public void Generate()
         {
             BackupTurn();
@@ -181,11 +179,9 @@ namespace Nova.Server
             
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Copy all turn files to a sub-directory prior to generating the new turn.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         private void BackupTurn()
         {
             // TODO (priority 3) - Add a setting to control the number of backups.
@@ -217,17 +213,12 @@ namespace Nova.Server
             {
                 Report.Error("There was a problem backing up the game files: " + Environment.NewLine + e.Message);
             }
-
-
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Process the elapse of one year (turn) for a star.
         /// </summary>
         /// <param name="star">The <see cref="Star"/> to process.</param>
-        /// ----------------------------------------------------------------------------
         private void ProcessStar(Star star)
         {            
             if (star.Owner == Global.NoOwner)
@@ -238,15 +229,11 @@ namespace Nova.Server
             manufacture.Items(star);           
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Process the elapse of one year (turn) for a fleet.
         /// </summary>
         /// <param name="fleet">The fleet to process a turn for.</param>
-        /// <returns>false</returns>
-        /// ??? (priority 4) - why does this always return false?
-        /// ----------------------------------------------------------------------------
+        /// <returns>Always returns false.</returns>
         private bool ProcessFleet(Fleet fleet)
         {
             if (fleet == null)
@@ -290,13 +277,12 @@ namespace Nova.Server
                 bombing.Bomb(fleet, stateData.AllStars[fleet.InOrbit.Name]);
             }
 
+            // ??? (priority 4) - why does this always return false?
             return false;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        /// Refuel and Repair
+        /// Refuel and Repair.
         /// </summary>
         /// <param name="fleet"></param>
         /// <remarks>
@@ -313,7 +299,6 @@ namespace Nova.Server
         /// TODO (priority 3) - A starbase is not counted towards repairs if it is under attack. 
         /// TODO (priority 3) - reference where these rules are from.
         /// </remarks>
-        /// ----------------------------------------------------------------------------
         private void RegenerateFleet(Fleet fleet)
         {
             if (fleet == null)
@@ -382,8 +367,6 @@ namespace Nova.Server
                 }
             }
 
-
-
             foreach (Ship ship in fleet.FleetShips)
             {
                 ship.Shields = ship.DesignShield;
@@ -396,16 +379,12 @@ namespace Nova.Server
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Update the status of a fleet moving through waypoints and performing any
         /// specified waypoint tasks.
         /// </summary>
         /// <param name="fleet"></param>
-        /// <returns>false</returns>
-        /// ??? (priority 4) - why does this always return false
-        /// ----------------------------------------------------------------------------
+        /// <returns>Always returns false.</returns>
         private bool UpdateFleet(Fleet fleet)
         {
             Race race = stateData.AllEmpires[fleet.Owner].Race;
@@ -445,9 +424,9 @@ namespace Nova.Server
 
                     waypointTasks.Perform(fleet, thisWaypoint);
 
-                    if (thisWaypoint.Task != WaypointTask.LayMines )
+                    if (thisWaypoint.Task != WaypointTask.LayMines)
                     {
-                        thisWaypoint.Task =  WaypointTask.None ;
+                        thisWaypoint.Task =  WaypointTask.None;
                     }
                 }
 
@@ -467,6 +446,7 @@ namespace Nova.Server
                 fleet.Bearing = ((Math.Atan2(dy, dx) * 180) / Math.PI) + 90;
             }
 
+            // ??? (priority 4) - why does this always return false.
             return false;
         }
         

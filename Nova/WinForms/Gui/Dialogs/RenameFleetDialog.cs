@@ -36,7 +36,7 @@ namespace Nova.WinForms.Gui.Dialogs
             txtNewName.Focus();
         }
 
-        private void txtNewName_TextChanged(object sender, EventArgs e)
+        private void TextNewName_TextChanged(object sender, EventArgs e)
         {
             btnOk.Enabled = txtNewName.Text.Trim().Length > 0;
         }

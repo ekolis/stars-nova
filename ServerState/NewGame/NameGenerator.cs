@@ -119,7 +119,7 @@ namespace Nova.Server.NewGame
   
         
         /// <summary>
-        /// The list of race names we can return. Taken from Stars!.exe. May need changing?
+        /// The list of race names we can return. Taken from Stars!.exe. 
         /// </summary>
         private readonly string[] raceNames = 
         {

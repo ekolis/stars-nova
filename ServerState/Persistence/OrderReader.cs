@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 stars-nova
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -19,25 +19,18 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module processes the reading of race orders.
-//
-// This is a static helper object that reads Orders and does processing on ConsoleState.
-// ===========================================================================
-#endregion
-
-#region Using Statements
-using System;
-using System.IO;
-using System.IO.Compression;
-using System.Xml;
-using Nova.Common;
-using Nova.Common.Components;
-#endregion
-
 namespace Nova.Server
 {
+    using System;
+    using System.IO;
+    using System.IO.Compression;
+    using System.Xml;
+    using Nova.Common;
+    using Nova.Common.Components;
+
+    /// <summary>
+    /// This class processes the reading of race orders files.
+    /// </summary>
     public class OrderReader
     {
         private readonly ServerState stateData;
@@ -48,13 +41,9 @@ namespace Nova.Server
             this.stateData = stateData;    
         }
         
-        #region Methods
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
-        ///  Read in all the race orders
+        ///  Read in all the race orders.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public ServerState ReadOrders()
         {
             // We need a copy of the server state to operate on
@@ -77,14 +66,11 @@ namespace Nova.Server
             return stateData;
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Read in the player turns and update the relevant data stores with the
         /// (possibly) new values. 
         /// </summary>
         /// <param name="race">The race who's orders are to be loaded.</param>
-        /// ----------------------------------------------------------------------------
         private void ReadPlayerTurn(EmpireData empire)
         {
             Orders playerOrders;
@@ -102,7 +88,7 @@ namespace Nova.Server
                 using (Stream disposeme = new FileStream(fileName, FileMode.Open, FileAccess.Read))
                 {
                     Stream input = disposeme;
-                    //input = new GZipStream(input, CompressionMode.Decompress);
+                    // input = new GZipStream(input, CompressionMode.Decompress);
                     xmldoc.Load(input);
 
                     // check these orders are for the right turn
@@ -165,7 +151,6 @@ namespace Nova.Server
                 this.stateData.AllTechLevels[empire.Id] = playerOrders.TechLevel;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// When orders are loaded from file, objects may contain references to other objects.
         /// As these may be loaded in any order (or be cross linked) it is necessary to tidy
@@ -176,7 +161,6 @@ namespace Nova.Server
         /// so we do it here.
         /// </summary>
         /// <param name="playerOrders">The <see cref="Orders"/> object to undergo post load linking.</param>
-        /// ----------------------------------------------------------------------------
         private void LinkOrderReferences(Orders playerOrders)
         {
             // Fleet reference to Star
@@ -186,7 +170,8 @@ namespace Nova.Server
                 {
                     fleet.InOrbit = stateData.AllStars[fleet.InOrbit.Name];
                 }
-                if (fleet.Owner == playerOrders.EmpireStatus.Id) // prevent attempting to link enemy fleets to own designs (crash). TODO (priority 4) - decide if they should be linked to something else - Dan 10/7/11.
+                // prevent attempting to link enemy fleets to own designs (crash). TODO (priority 4) - decide if they should be linked to something else - Dan 10/7/11.
+                if (fleet.Owner == playerOrders.EmpireStatus.Id) 
                 {
                     // Ship reference to Design
                     foreach (Ship ship in fleet.FleetShips)
@@ -225,8 +210,5 @@ namespace Nova.Server
                 }
             }
         }
-
-        #endregion
-
     }
 }
