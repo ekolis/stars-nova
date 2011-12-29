@@ -132,7 +132,7 @@ namespace Nova.WinForms
             // start the server gui
             try
             {
-                NovaConsoleMain novaConsole = new NovaConsoleMain();
+                NovaConsole novaConsole = new NovaConsole();
                 novaConsole.Show();
                 return true;
             }

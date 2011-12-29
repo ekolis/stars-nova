@@ -80,7 +80,7 @@ namespace Nova.Tests.IntegrationTests
             stateData.AllFleets[fleet2.Key] = fleet2;
 
             // deserialise
-            stateData = stateData.Restore();
+            stateData.Restore();
 
             // test
             Assert.AreEqual(2101, stateData.TurnYear);            

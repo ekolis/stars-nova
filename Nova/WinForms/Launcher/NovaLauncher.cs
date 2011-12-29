@@ -229,7 +229,7 @@ namespace Nova.WinForms.Launcher
             {
                 try
                 {
-                    Nova.WinForms.Console.NovaConsoleMain novaConsole = new Nova.WinForms.Console.NovaConsoleMain();                    
+                    Nova.WinForms.Console.NovaConsole novaConsole = new Nova.WinForms.Console.NovaConsole();                    
                     novaConsole.Show();
                     return;
                 }

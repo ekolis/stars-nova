@@ -96,6 +96,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComboBoxItem.cs" />
+    <Compile Include="Commands\ICommand.cs" />
+    <Compile Include="Commands\ResearchCommand.cs" />
     <Compile Include="Converters\HullModuleConverter.cs" />
     <Compile Include="DataStructures\BattleStep.cs" />
     <Compile Include="DataStructures\BattleStepDestroy.cs" />
@@ -196,7 +198,6 @@
     <Compile Include="DataStructures\ProductionUnit.cs" />
     <Compile Include="RaceDefinition\RaceIcon.cs" />
     <Compile Include="RaceDefinition\RaceRestriction.cs" />
-    <Compile Include="Files\Orders.cs" />
     <Compile Include="PointUtilities.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -280,5 +281,7 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
     <ProjectGuid>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</ProjectGuid>
     <RootNamespace>Nova.Common</RootNamespace>
   </PropertyGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Commands" />
+  </ItemGroup>
 </Project>

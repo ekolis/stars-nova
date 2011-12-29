@@ -57,7 +57,7 @@ namespace Nova.WinForms.Gui
             this.groupBox3 = new System.Windows.Forms.GroupBox();
             this.numericResources = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
-            this.resourceBudget = new System.Windows.Forms.NumericUpDown();
+            this.budgetPercentage = new System.Windows.Forms.NumericUpDown();
             this.label7 = new System.Windows.Forms.Label();
             this.availableResources = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
@@ -68,7 +68,7 @@ namespace Nova.WinForms.Gui
             this.groupBox1.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox3.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.resourceBudget)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.budgetPercentage)).BeginInit();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -274,7 +274,7 @@ namespace Nova.WinForms.Gui
             // 
             this.groupBox3.Controls.Add(this.numericResources);
             this.groupBox3.Controls.Add(this.label8);
-            this.groupBox3.Controls.Add(this.resourceBudget);
+            this.groupBox3.Controls.Add(this.budgetPercentage);
             this.groupBox3.Controls.Add(this.label7);
             this.groupBox3.Controls.Add(this.availableResources);
             this.groupBox3.Controls.Add(this.label5);
@@ -310,20 +310,20 @@ namespace Nova.WinForms.Gui
             // 
             // ResourceBudget
             // 
-            this.resourceBudget.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.resourceBudget.BackColor = System.Drawing.SystemColors.Info;
-            this.resourceBudget.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.resourceBudget.Location = new System.Drawing.Point(248, 70);
-            this.resourceBudget.Name = "resourceBudget";
-            this.resourceBudget.Size = new System.Drawing.Size(53, 16);
-            this.resourceBudget.TabIndex = 9;
-            this.resourceBudget.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
-            this.resourceBudget.Value = new decimal(new int[] {
+            this.budgetPercentage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.budgetPercentage.BackColor = System.Drawing.SystemColors.Info;
+            this.budgetPercentage.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.budgetPercentage.Location = new System.Drawing.Point(248, 70);
+            this.budgetPercentage.Name = "resourceBudget";
+            this.budgetPercentage.Size = new System.Drawing.Size(53, 16);
+            this.budgetPercentage.TabIndex = 9;
+            this.budgetPercentage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.budgetPercentage.Value = new decimal(new int[] {
             10,
             0,
             0,
             0});
-            this.resourceBudget.ValueChanged += new System.EventHandler(this.ParameterChanged);
+            this.budgetPercentage.ValueChanged += new System.EventHandler(this.ParameterChanged);
             // 
             // label7
             // 
@@ -410,7 +410,7 @@ namespace Nova.WinForms.Gui
             this.groupBox2.ResumeLayout(false);
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.resourceBudget)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.budgetPercentage)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -439,7 +439,7 @@ namespace Nova.WinForms.Gui
        private System.Windows.Forms.Label label4;
        private System.Windows.Forms.Label completionResources;
        private System.Windows.Forms.Label label3;
-       private System.Windows.Forms.NumericUpDown resourceBudget;
+       private System.Windows.Forms.NumericUpDown budgetPercentage;
        private System.Windows.Forms.Label label7;
        private System.Windows.Forms.Label availableResources;
        private System.Windows.Forms.Label label5;

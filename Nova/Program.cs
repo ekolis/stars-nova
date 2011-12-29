@@ -44,7 +44,7 @@ namespace Nova
             switch (firstArgument)
             {
                 case CommandArguments.Option.ConsoleSwitch:
-                    Application.Run(new WinForms.Console.NovaConsoleMain());
+                    Application.Run(new WinForms.Console.NovaConsole());
                     break;
                 case CommandArguments.Option.ComponentEditorSwitch:
                     WinForms.ComponentEditor.Program.Main();

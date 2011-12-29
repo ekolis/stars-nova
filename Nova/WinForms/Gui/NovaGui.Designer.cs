@@ -1,9 +1,9 @@
-﻿using System.Windows.Forms;
-using Nova.Common;
-using Nova.ControlLibrary;
-
-namespace Nova.WinForms.Gui
+﻿namespace Nova.WinForms.Gui
 {
+    using System.Windows.Forms;
+    using Nova.Common;
+    using Nova.ControlLibrary;
+
     public partial class NovaGUI
     {
         private void InitializeComponent()
