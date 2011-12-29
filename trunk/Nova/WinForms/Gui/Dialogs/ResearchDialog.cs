@@ -30,10 +30,11 @@ namespace Nova.WinForms.Gui
     using Nova.Client;
     using Nova.Common;
     using Nova.Common.Components;
+    using Nova.Common.Commands;
     
     /// <Summary>
     /// This is the hook to listen for changes in research budget.
-    /// Objects who subscribe to this should respond to this by
+    /// Objects who subscribe to this should respond by
     /// udpating their related values. We don't specify arguments
     /// because relevant data can be read on ClientState.
     /// </Summary>
@@ -52,12 +53,14 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         public event ResearchAllocationChanged ResearchAllocationChangedEvent;
 
+        private readonly bool dialogInitialised;
+        
+        private readonly ClientState stateData;
+
         private readonly Dictionary<string, RadioButton> buttons = new Dictionary<string, RadioButton>();
         private readonly TechLevel currentLevel;
-        private readonly int availableEnergy;
-        private readonly ClientState stateData;
-        private readonly bool dialogInitialised;
         private TechLevel.ResearchField targetArea;
+        private readonly int availableEnergy;         
 
         /// <Summary>
         /// Initializes a new instance of the ResearchDialog class.
@@ -67,23 +70,23 @@ namespace Nova.WinForms.Gui
             InitializeComponent();
 
             this.stateData = stateData;
-            this.currentLevel = this.stateData.EmpireState.ResearchLevels;
+            currentLevel = this.stateData.EmpireState.ResearchLevels;
 
             // Provide a convienient way of getting a button from it's name.
-            this.buttons.Add("Energy", this.energyButton);
-            this.buttons.Add("Weapons", this.weaponsButton);
-            this.buttons.Add("Propulsion", this.propulsionButton);
-            this.buttons.Add("Construction", this.constructionButton);
-            this.buttons.Add("Electronics", this.electronicsButton);
-            this.buttons.Add("Biotechnology", this.biotechButton);
+            buttons.Add("Energy", energyButton);
+            buttons.Add("Weapons", weaponsButton);
+            buttons.Add("Propulsion", propulsionButton);
+            buttons.Add("Construction", constructionButton);
+            buttons.Add("Electronics", electronicsButton);
+            buttons.Add("Biotechnology", biotechButton);
 
             // Set the currently attained research levels
-            this.energyLevel.Text = this.currentLevel[TechLevel.ResearchField.Energy].ToString();
-            this.weaponsLevel.Text = this.currentLevel[TechLevel.ResearchField.Weapons].ToString();
-            this.propulsionLevel.Text = this.currentLevel[TechLevel.ResearchField.Propulsion].ToString();
-            this.constructionLevel.Text = this.currentLevel[TechLevel.ResearchField.Construction].ToString();
-            this.electronicsLevel.Text = this.currentLevel[TechLevel.ResearchField.Electronics].ToString();
-            this.biotechLevel.Text = this.currentLevel[TechLevel.ResearchField.Biotechnology].ToString();
+            energyLevel.Text        = currentLevel[TechLevel.ResearchField.Energy].ToString();
+            weaponsLevel.Text       = currentLevel[TechLevel.ResearchField.Weapons].ToString();
+            propulsionLevel.Text    = currentLevel[TechLevel.ResearchField.Propulsion].ToString();
+            constructionLevel.Text  = currentLevel[TechLevel.ResearchField.Construction].ToString();
+            electronicsLevel.Text   = currentLevel[TechLevel.ResearchField.Electronics].ToString();
+            biotechLevel.Text       = currentLevel[TechLevel.ResearchField.Biotechnology].ToString();
 
             // Ensure that the correct RadioButton is checked to reflect the
             // current research selection and the budget up-down control is
@@ -95,19 +98,19 @@ namespace Nova.WinForms.Gui
             {
                 if (this.stateData.EmpireState.ResearchTopics[area] == 1)
                 {
-                    this.targetArea = area;
+                    targetArea = area;
                     break;        
                 }
             }
 
-            RadioButton button = this.buttons[Enum.GetName(typeof(TechLevel.ResearchField), this.targetArea)];
+            RadioButton button = buttons[Enum.GetName(typeof(TechLevel.ResearchField), targetArea)];
 
             button.Checked = true;
 
-            this.availableEnergy = CountEnergy();
-            this.availableResources.Text = this.availableEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            this.resourceBudget.Value = this.stateData.EmpireState.ResearchBudget;
-            this.dialogInitialised = true;
+            availableEnergy = CountEnergy();
+            availableResources.Text = this.availableEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            budgetPercentage.Value = this.stateData.EmpireState.ResearchBudget;
+            dialogInitialised = true;
 
             ParameterChanged(null, null);
         }
@@ -121,7 +124,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void CheckChanged(object sender, EventArgs e)
         {
-            if (this.dialogInitialised == false)
+            if (dialogInitialised == false)
             {
                 return;
             }
@@ -132,9 +135,9 @@ namespace Nova.WinForms.Gui
             {
                 try
                 {
-                    stateData.EmpireState.ResearchTopics[this.targetArea] = 0;
-                    this.targetArea = (TechLevel.ResearchField)Enum.Parse(typeof(TechLevel.ResearchField), button.Text, true);
-                    stateData.EmpireState.ResearchTopics[this.targetArea] = 1;
+                    stateData.EmpireState.ResearchTopics[targetArea] = 0;
+                    targetArea = (TechLevel.ResearchField)Enum.Parse(typeof(TechLevel.ResearchField), button.Text, true);
+                    stateData.EmpireState.ResearchTopics[targetArea] = 1;
                 }
                 catch (System.ArgumentException)
                 {
@@ -144,11 +147,11 @@ namespace Nova.WinForms.Gui
             
             // Populate the expected research benefits list
             Dictionary<string, Component> allComponents = AllComponents.Data.Components;
-            TechLevel oldResearchLevel = this.stateData.EmpireState.ResearchLevels;
+            TechLevel oldResearchLevel = currentLevel;
             TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 
-            newResearchLevel[this.targetArea] = oldResearchLevel[this.targetArea] + 1;
-            this.researchBenefits.Items.Clear();
+            newResearchLevel[targetArea] = oldResearchLevel[targetArea] + 1;
+            researchBenefits.Items.Clear();
 
             foreach (Nova.Common.Components.Component component in allComponents.Values)
             {
@@ -156,7 +159,7 @@ namespace Nova.WinForms.Gui
                     component.RequiredTech <= newResearchLevel)
                 {
                     string available = component.Name + " " + component.Type;
-                    this.researchBenefits.Items.Add(available);
+                    researchBenefits.Items.Add(available);
                 }
             }
 
@@ -171,6 +174,19 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OKClicked(object sender, EventArgs e)
         {
+            //Generate a research command to describe the changes.
+            ResearchCommand command = new ResearchCommand();
+            command.Budget = (int)budgetPercentage.Value;
+            command.Topics.Zero();
+            command.Topics[targetArea] = 1;
+            
+            stateData.Commands.Push(command);
+            
+            if (command.isValid(stateData.EmpireState))
+            {
+                command.ApplyToState(stateData.EmpireState);
+            }
+            
             // This is done for synchronization. We wait for the event handlers
             // to return something (and thus complete) before closing the Form and invalidating
             // all event handlers and delegates thus crashing everything into the fiery void of despair.
@@ -189,57 +205,38 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void ParameterChanged(object sender, EventArgs e)
         {
-            int percentage = (int)this.resourceBudget.Value;
-            int allocatedEnergy = (this.availableEnergy * percentage) / 100;
-
-            this.stateData.EmpireState.ResearchBudget = percentage;
-
-            int resourcesRequired = 0;
+        	int resourcesRequired = 0;
             int yearsToComplete = 0;
 
-            TechLevel researchLevels = this.stateData.EmpireState.ResearchLevels;            
+            //stateData.EmpireState.ResearchBudget = (int)resourceBudget.Value;
+            int budgetedEnergy = (availableEnergy * (int)budgetPercentage.Value) / 100;                   
+            
+            int targetCost = Research.Cost(targetArea, stateData.EmpireState.Race, currentLevel, currentLevel[targetArea] + 1);
 
-            int level = (int)researchLevels[this.targetArea];
-            int target = Research.Cost(
-                this.targetArea,
-                this.stateData.EmpireState.Race,
-                researchLevels,
-                researchLevels[this.targetArea] + 1);
+            resourcesRequired = targetCost - currentLevel[targetArea];
 
-            resourcesRequired = target
-               - (int)this.stateData.EmpireState.ResearchResources[this.targetArea];
-
-            if (level >= 26)
+            if (currentLevel[targetArea] >= 26)
             {
-                this.completionResources.Text = "Maxed";
+                completionResources.Text = "Maxed";
             }
             else
             {
-                this.completionResources.Text = ((int)resourcesRequired).ToString(System.Globalization.CultureInfo.InvariantCulture);
+                completionResources.Text = resourcesRequired.ToString(System.Globalization.CultureInfo.InvariantCulture);
             }
 
-            if (level >= 26)
+            if (budgetPercentage.Value != 0 &&
+                budgetedEnergy > 0 &&
+                currentLevel[targetArea] < 26)
             {
-                this.completionResources.Text = "Maxed";
+                yearsToComplete = resourcesRequired / budgetedEnergy;
+                completionTime.Text = yearsToComplete.ToString("f1");
             }
             else
             {
-                this.completionResources.Text = resourcesRequired.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                completionTime.Text = "Never";
             }
 
-            if (percentage != 0 &&
-                allocatedEnergy > 0 &&
-                level < 26)
-            {
-                yearsToComplete = resourcesRequired / allocatedEnergy;
-                this.completionTime.Text = yearsToComplete.ToString("f1");
-            }
-            else
-            {
-                this.completionTime.Text = "Never";
-            }
-
-            this.numericResources.Text = allocatedEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);            
+            numericResources.Text = budgetedEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);            
         }
 
 
@@ -249,7 +246,7 @@ namespace Nova.WinForms.Gui
         /// <returns>Total energy being invested in research.</returns>
         private int CountEnergy()
         {
-            double totalEnergy = 0;
+            int totalEnergy = 0;
 
             foreach (Star star in stateData.EmpireState.OwnedStars.Values)
             {
@@ -258,7 +255,7 @@ namespace Nova.WinForms.Gui
                     totalEnergy += star.GetResourceRate();
                 }
             }
-            return (int)totalEnergy;
+            return totalEnergy;
         }
     }
 }

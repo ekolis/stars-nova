@@ -27,6 +27,7 @@ namespace Nova.Server
     using System.IO;
     
     using Nova.Common;
+    using Nova.Common.Commands;
     using Nova.Common.DataStructures;
     using Nova.Server.TurnSteps;
 
@@ -36,7 +37,6 @@ namespace Nova.Server
     public class TurnGenerator
     {
         private ServerState stateData;
-        private ServerState turnData;
         
         private SortedList<int, ITurnStep> turnSteps;
         
@@ -60,23 +60,23 @@ namespace Nova.Server
         /// </summary>
         public TurnGenerator(ServerState serverState)
         {
-            this.stateData = serverState;
+            stateData = serverState;
             
-            this.turnSteps = new SortedList<int, ITurnStep>();
+            turnSteps = new SortedList<int, ITurnStep>();
             
             // Now that there is a state, comopose the turn processor.
             // TODO ??? (priority 4): Use dependency injection for this? It would
             // generate a HUGE constructor call... a factory to
             // abstract it perhaps? -Aeglos
-            this.orderReader = new OrderReader(this.stateData);            
-            this.battleEngine = new BattleEngine(this.stateData, new BattleReport());
-            this.bombing = new Bombing(this.stateData);
-            this.checkForMinefields = new CheckForMinefields(this.stateData);
-            this.waypointTasks = new WaypointTasks(this.stateData);
-            this.manufacture = new Manufacture(this.stateData);
-            this.scores = new Scores(this.stateData);
-            this.intelWriter = new IntelWriter(this.stateData, this.scores);
-            this.victoryCheck = new VictoryCheck(this.stateData, this.scores);
+            orderReader = new OrderReader(this.stateData);
+            battleEngine = new BattleEngine(this.stateData, new BattleReport());
+            bombing = new Bombing(this.stateData);
+            checkForMinefields = new CheckForMinefields(this.stateData);
+            waypointTasks = new WaypointTasks(this.stateData);
+            manufacture = new Manufacture(this.stateData);
+            scores = new Scores(this.stateData);
+            intelWriter = new IntelWriter(this.stateData, this.scores);
+            victoryCheck = new VictoryCheck(this.stateData, this.scores);
             
             turnSteps.Add(SCANSTEP, new ScanStep());
             turnSteps.Add(STARSTEP, new StarUpdateStep());
@@ -91,12 +91,12 @@ namespace Nova.Server
         {
             BackupTurn();
 
-            turnData = orderReader.ReadOrders();
-            
-            // For now, just copy the new turn right away.
+            // For now, just copy the command stacks right away.
             // TODO (priority 6): Integrity check the new turn before
             // updating the state (cheats, errors).
-            stateData = turnData;
+            orderReader.ReadOrders();
+            
+            ParseCommands();
 
             // Do all fleet movement and actions 
             // TODO (priority 4) - split this up into waypoint zero and waypoint 1 actions
@@ -142,6 +142,30 @@ namespace Nova.Server
 
         }
 
+        /// <summary>
+        /// Validates and applies all commands sent by the clients and read for this turn.
+        /// </summary>
+        private void ParseCommands()
+        {
+            foreach (EmpireData empire in stateData.AllEmpires.Values)
+            {
+                if (stateData.AllCommands.ContainsKey(empire.Id))
+                {
+                    foreach (ICommand command in stateData.AllCommands[empire.Id])
+                    {
+                        if (command.isValid(empire))
+                        {
+                            command.ApplyToState(empire);
+                        }
+                        else
+                        {
+                            // Flag as cheater or something?
+                        }
+                    }
+                }
+            }
+        }
+        
         /// <summary>
         /// Remove fleets that no longer have ships.
         /// This needs to be done after each time the fleet list is processed, as fleets can not be destroyed until the itterator complets.

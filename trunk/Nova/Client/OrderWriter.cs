@@ -23,29 +23,22 @@
 namespace Nova.Client
 {
     using System;
-    using System.Collections;
+    using System.Collections.Generic;
     using System.IO;
-    using System.Reflection;
-    using System.Resources;
-    using System.Runtime.Serialization;
-    using System.Runtime.Serialization.Formatters;
-    using System.Runtime.Serialization.Formatters.Binary;
+    using System.Xml;
+    
     using Nova.Common;
     using Nova.Common.Components;
+    using Nova.Common.Commands;
  
     /// <summary>
     /// This GUI module will generate the player's Orders, which are written to 
     /// file and sent to the Nova Console so that the turn for the next year can 
     /// be generated. 
-    ///
-    /// This is a static helper object that operates on GuiState and Intel to create
-    /// an Orders object and write the orders to file. 
     /// </summary>
     public class OrderWriter
     {
         private ClientState stateData;
-        private Intel inputTurn; // TODO (priority 4) - It seems strange to be still looking at the Intel passed to the player here. It should have been integrated into the GuiState by now! -- Dan 07 Jan 10
-        private string raceName;
         
         /// <summary>
         /// Default Constructor. 
@@ -56,8 +49,6 @@ namespace Nova.Client
         public OrderWriter(ClientState stateData)
         {
             this.stateData = stateData;
-            this.inputTurn = stateData.InputTurn;
-            this.raceName = stateData.EmpireState.Race.Name;
         }    
         
         /// <summary>
@@ -70,34 +61,29 @@ namespace Nova.Client
             // Advance the turn year, to show this empire has finished with the current turn year.
             stateData.EmpireState.TurnSubmitted = true;
             stateData.EmpireState.LastTurnSubmitted = stateData.EmpireState.TurnYear;
-
-            Orders outputTurn = new Orders();
             
-            outputTurn.EmpireStatus = stateData.EmpireState;
+            // Setup the XML document
+            XmlDocument xmldoc = new XmlDocument();
+            XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
             
-            outputTurn.TechLevel = CountTechLevels();
-                        
-            foreach (Design design in inputTurn.AllDesigns.Values)
+            Global.SaveData(xmldoc, xmlRoot, "Turn", stateData.EmpireState.LastTurnSubmitted.ToString());
+            Global.SaveData(xmldoc, xmlRoot, "Id", stateData.EmpireState.Id.ToString("X"));
+            
+            // add the orders to the document
+            XmlElement xmlelOrders = xmldoc.CreateElement("Orders");
+            xmlRoot.AppendChild(xmlelOrders);
+            
+            foreach (ICommand command in stateData.Commands)
             {
-               if (design.Owner == stateData.EmpireState.Id)
-               {
-                   outputTurn.RaceDesigns.Add(design.Key, design);
-               }
+                xmlelOrders.AppendChild(command.ToXml(xmldoc));
             }
             
-            foreach (int fleetKey in stateData.DeletedFleets)
-            {
-               outputTurn.DeletedFleets.Add(fleetKey);
-            }
+            string ordersFileName = Path.Combine(stateData.GameFolder, stateData.EmpireState.Race.Name + Global.OrdersExtension);
             
-            foreach (int designId in stateData.DeletedDesigns)
-            {
-               outputTurn.DeletedDesigns.Add(designId);
-            }
+            Stream output = new FileStream(ordersFileName, FileMode.Create);
             
-            string turnFileName = Path.Combine(stateData.GameFolder, raceName + Global.OrdersExtension);
-            
-            outputTurn.ToXml(turnFileName);
+            xmldoc.Save(output);
+            output.Close();
         }
     
     

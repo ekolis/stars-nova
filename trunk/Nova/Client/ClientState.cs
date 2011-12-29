@@ -20,12 +20,9 @@
 // ===========================================================================
 #endregion
 
-using System.Linq;
-
 namespace Nova.Client
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.Windows.Forms;
@@ -33,6 +30,7 @@ namespace Nova.Client
 
     using Nova.Common;
     using Nova.Common.Components;
+    using Nova.Common.Commands;
     using Message = Nova.Common.Message;
     
     /// <summary>
@@ -43,7 +41,9 @@ namespace Nova.Client
     [Serializable]
     public sealed class ClientState
     {
-        public EmpireData       EmpireState     = new EmpireData();
+        public EmpireData EmpireState = new EmpireData();
+        
+        public Stack<ICommand>   Commands = new Stack<ICommand>();
 
         public List<long>       DeletedDesigns  = new List<long>();
         public List<long>       DeletedFleets   = new List<long>();
@@ -51,11 +51,11 @@ namespace Nova.Client
 
         public Dictionary<long, Design> EnemyDesigns = new Dictionary<long, Design>();
         
-        public Intel            InputTurn           = null;            
+        public Intel InputTurn = null;            
         
-        public bool FirstTurn   = true;  
+        public bool FirstTurn = true;  
         
-        public string GameFolder    = null;
+        public string GameFolder = null;
         
         public string StatePathName; // path&filename
 
@@ -90,7 +90,22 @@ namespace Nova.Client
                         
                         case "empiredata":
                             EmpireState = new EmpireData(xmlnode);
-                            break;                        
+                            break;
+                            
+                        case "commands":
+                            textNode = xmlnode.FirstChild;
+                            while (textNode != null)
+                            {
+                                switch(textNode.Attributes["Type"].Value.ToString().ToLower())
+                                {
+                                    case "research":
+                                        Commands.Push(new ResearchCommand(textNode));
+                                    break;                                        
+                                }
+                                textNode = textNode.NextSibling;
+                            }
+                            break;
+                            
                         case "deletedfleets":
                             textNode = xmlnode.FirstChild;
                             while (textNode != null)
@@ -335,9 +350,11 @@ namespace Nova.Client
            
             EnemyDesigns   = newState.EnemyDesigns;     
             
-            InputTurn           = newState.InputTurn;
+            InputTurn      = newState.InputTurn;
             
             EmpireState = newState.EmpireState;
+            
+            Commands = newState.Commands;
             
             FirstTurn     = newState.FirstTurn;             
             GameFolder    = newState.GameFolder; 
@@ -430,7 +447,7 @@ namespace Nova.Client
         
         private void ToXml(FileStream stream)
         {
-            // Setup the XML document
+                // Setup the XML document
                 XmlDocument xmldoc = new XmlDocument();
                 XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
                 
@@ -439,6 +456,14 @@ namespace Nova.Client
                 
                 // Empire Data
                 xmlelClientState.AppendChild(EmpireState.ToXml(xmldoc));
+                
+                // Commands
+                XmlElement xmlelCommands = xmldoc.CreateElement("Commands");
+                foreach (ICommand command in Commands)
+                {
+                    xmlelCommands.AppendChild(command.ToXml(xmldoc));
+                }
+                xmlelClientState.AppendChild(xmlelCommands);
                 
                 // Deleted Fleets
                 XmlElement xmlelDeletedFleets = xmldoc.CreateElement("DeletedFleets");
@@ -557,8 +582,7 @@ namespace Nova.Client
             {
                 if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
                 {
-                    ShipDesign ship = design as ShipDesign;
-                    foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)
+                    foreach (HullModule module in ((design as ShipDesign).ShipHull.Properties["Hull"] as Hull).Modules)
                     {
                         if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                         {

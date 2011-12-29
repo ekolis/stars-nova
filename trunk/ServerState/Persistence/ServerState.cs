@@ -31,6 +31,7 @@ namespace Nova.Server
     
     using Nova.Common;
     using Nova.Common.Components;
+    using Nova.Common.Commands;
     using Nova.Common.DataStructures;
     using Message = Nova.Common.Message;
     
@@ -42,6 +43,7 @@ namespace Nova.Server
     [Serializable]
     public sealed class ServerState
     {
+        public Dictionary<int, Stack<ICommand>> AllCommands     = new Dictionary<int, Stack<ICommand>>();
         public List<BattleReport>               AllBattles      = new List<BattleReport>();
         public List<PlayerSettings>             AllPlayers      = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
         public Dictionary<int, int>             AllTechLevels   = new Dictionary<int, int>(); // Sum of a player's techlevels, for scoring purposes.
@@ -156,7 +158,9 @@ namespace Nova.Server
                             while (textNode != null)
                             {
                                 Fleet fleet = new Fleet(textNode);
-                                AllFleets.Add(fleet.Key, fleet);
+                                AllFleets.Add(
+                                    long.Parse(textNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber),
+                                    fleet);
                                 textNode = textNode.NextSibling;
                             }
                             break;
@@ -224,7 +228,7 @@ namespace Nova.Server
         /// <summary>
         /// Restore the persistent data. 
         /// </summary>
-        public ServerState Restore()
+        public void Restore()
         {
             using (FileStream stateFile = new FileStream(StatePathName, FileMode.Open))
             {
@@ -232,11 +236,28 @@ namespace Nova.Server
 
                 xmldoc.Load(stateFile);
                 
-                ServerState serverState = new ServerState(xmldoc);
+                // Temporary data store only!
+                ServerState restoredState = new ServerState(xmldoc);
                 
-                LinkServerStateReferences();
+                // We need to copy the restored values
+                AllCommands     = restoredState.AllCommands;
+                AllBattles      = restoredState.AllBattles;
+                AllPlayers      = restoredState.AllPlayers;
+                AllTechLevels   = restoredState.AllTechLevels;
+                AllDesigns      = restoredState.AllDesigns;
+                AllFleets       = restoredState.AllFleets;
+                AllEmpires      = restoredState.AllEmpires;
+                AllRaces        = restoredState.AllRaces;
+                AllStars        = restoredState.AllStars;
+                AllMinefields   = restoredState.AllMinefields;
+                AllMessages     = restoredState.AllMessages;
+        
+                GameInProgress    = restoredState.GameInProgress;
+                TurnYear          = restoredState.TurnYear;
+                GameFolder        = restoredState.GameFolder; // The path&folder where client files are held.
+                StatePathName     = restoredState.StatePathName;
                 
-                return serverState;
+                LinkServerStateReferences(); 
             }
         }
 
@@ -403,28 +424,12 @@ namespace Nova.Server
         /// </summary>
         private void LinkServerStateReferences()
         {
-            // Fleet reference to Star
-            foreach (Fleet fleet in AllFleets.Values)
-            {
-                if (fleet.InOrbit != null)
-                {
-                    fleet.InOrbit = AllStars[fleet.InOrbit.Name];
-                }
-
-                // Ship reference to Design
-                foreach (Ship ship in fleet.FleetShips)
-                {
-                    ship.DesignUpdate(AllDesigns[ship.DesignKey] as ShipDesign);
-                }
-            }
-            
             // HullModule reference to a component
             foreach (Design design in AllDesigns.Values)
             {
                 if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
                 {
-                    ShipDesign ship = design as ShipDesign;
-                    foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)
+                    foreach (HullModule module in ((design as ShipDesign).ShipHull.Properties["Hull"] as Hull).Modules)
                     {
                         if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                         {
@@ -433,14 +438,29 @@ namespace Nova.Server
                     }
                 }
             }
+                
             
-            // Star reference to Race
-            // Star reference to Fleet (starbase)
+            foreach (Fleet fleet in AllFleets.Values)
+            {
+                // Fleet reference to Star it is orbiting
+                if (fleet.InOrbit != null)
+                {
+                    fleet.InOrbit = AllStars[fleet.InOrbit.Name];
+                }
+
+                // Individual Ship reference to it's Design
+                foreach (Ship ship in fleet.FleetShips)
+                {
+                    ship.DesignUpdate(AllDesigns[ship.DesignKey] as ShipDesign);
+                }
+            }
+            
             foreach (Star star in AllStars.Values)
             {
+                // Star reference to the Race that owns it
                 if (star.ThisRace != null)
                 {
-                    // Reduntant, but works to check if race is valid...
+                    // Redundant, but works to check if race is valid...
                     if (star.Owner == AllEmpires[star.Owner].Id)
                     {
                         star.ThisRace = AllRaces[star.ThisRace.Name];
@@ -451,13 +471,15 @@ namespace Nova.Server
                     }
                 }
 
+                // Star reference to it's Starbase if any
                 if (star.Starbase != null)
                 {
                     star.Starbase = AllFleets[star.Starbase.Key];
                 }
             }
             
-            // Also link inside empiredata.
+            // Also link inside empiredata. Not mandatory for now, but
+            // better safe than sorry...
             foreach (EmpireData empire in AllEmpires.Values)
             {
                 foreach (Fleet fleet in empire.OwnedFleets.Values)
@@ -496,11 +518,13 @@ namespace Nova.Server
             }
         }     
 
+        
         /// <summary>
         /// Reset all values to the defaults.
         /// </summary>
         public void Clear()
-        {            
+        {   
+            AllCommands.Clear();
             AllBattles.Clear();
             AllPlayers.Clear();  
             AllTechLevels.Clear();
@@ -514,7 +538,6 @@ namespace Nova.Server
             
             GameFolder     = null;
             GameInProgress = false;
-            // FleetID        = 1;
             TurnYear       = Global.StartingYear;            
             StatePathName  = null;  
         }
