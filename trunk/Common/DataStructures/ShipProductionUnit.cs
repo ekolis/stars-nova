@@ -19,73 +19,52 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This class is used for constructing 1 ship.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-using Nova.Common.Components;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+    using Nova.Common.Components;
+
     /// <summary>
-    /// ShipProductionUnit class.
+    /// ShipProductionUnit class. This class is used for constructing 1 ship.
     /// </summary>
     public class ShipProductionUnit : IProductionUnit
     {
         private ShipDesign shipDesign;
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialising constructor.
         /// </summary>
         /// <param name="star">Star with this production queue.</param>
         /// <param name="shipDesign"><see cref="ShipDesign"/> to produce.</param>
-        /// ----------------------------------------------------------------------------
         public ShipProductionUnit(Star star, ShipDesign shipDesign)
         {
             this.shipDesign = shipDesign;
         }
         
-        #region ProductionUnit Members
-
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return true if production of this item will be skipped.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public bool IsSkipped()
         {
             throw new NotImplementedException();
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Construct the ship.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public void Construct()
         {
             throw new NotImplementedException();
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return the resources needed for construction.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Resources NeededResources()
         {
             return shipDesign.Cost;
         }
-
-        #endregion
     }
 }

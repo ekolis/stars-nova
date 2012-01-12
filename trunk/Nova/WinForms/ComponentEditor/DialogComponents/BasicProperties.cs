@@ -20,20 +20,12 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module contains the basic properties of the component.
-// ===========================================================================
-#endregion
-
-using System.Windows.Forms;
-
 namespace Nova.WinForms.ComponentEditor
 {
+    using System.Windows.Forms;
+
     public partial class BasicProperties : UserControl
     {
-        #region Construction
-
         /// <Summary>
         /// Initializes a new instance of the BasicProperties class.
         /// </Summary>
@@ -42,16 +34,9 @@ namespace Nova.WinForms.ComponentEditor
             InitializeComponent();
         }
 
-        #endregion
-
-
-        #region Properties
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Get the resource build cost from the control
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public Nova.Common.Resources Cost
         {
             get
@@ -66,7 +51,6 @@ namespace Nova.WinForms.ComponentEditor
                 return cost;
             }
 
-
             // Set the resource build cost in the control
             set
             {
@@ -77,19 +61,13 @@ namespace Nova.WinForms.ComponentEditor
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <Summary>
         /// Get and set the mass of the component
         /// </Summary>
-        /// ----------------------------------------------------------------------------
         public int Mass
         {
             get { return (int)this.componentMass.Value; }
             set { this.componentMass.Value = value; }
         }
-
-        #endregion
-
     }
 }

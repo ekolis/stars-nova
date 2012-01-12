@@ -19,25 +19,20 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module maintains a (singleton) list of all Traits.
-// Currently trait data is staticly defined in PrimaryTraits and SecondaryTraits
-// but may later be loaded at run time. All access to this data should be through
-// this object.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections.Generic;
-using System.Text;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Text;
+
+    /// <summary>
+    /// This class maintains a (singleton) list of all Traits.
+    /// Currently trait data is staticly defined in PrimaryTraits and SecondaryTraits
+    /// but may later be loaded at run time. All access to this data should be through
+    /// this object.
+    /// </summary>
     public sealed class AllTraits 
     {
-        #region Singleton
-
         private static readonly object Padlock = new object();
         private static AllTraits instance;
 
@@ -88,10 +83,6 @@ namespace Nova.Common
             }
         }
 
-        #endregion
-
-        #region Constants
-
         public const int NumberOfPrimaryRacialTraits = 10;
         public const int NumberOfSecondaryRacialTraits = 13;
       
@@ -139,8 +130,6 @@ namespace Nova.Common
             "Bleeding Edge Technology", 
             "Regenerating Shields"
         };
-
-        #endregion
 
         public TraitList All = new TraitList();
         public TraitList Primary = new TraitList();

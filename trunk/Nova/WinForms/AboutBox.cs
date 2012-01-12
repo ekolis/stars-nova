@@ -26,12 +26,12 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Reflection;
-using System.Windows.Forms;
-
 namespace Nova.WinForms
 {
+    using System;
+    using System.Reflection;
+    using System.Windows.Forms;
+
     public partial class AboutBox : Form
     {
         public AboutBox()

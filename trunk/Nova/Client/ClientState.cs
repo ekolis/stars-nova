@@ -25,6 +25,7 @@ namespace Nova.Client
     using System;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Windows.Forms;
     using System.Xml;
 
@@ -634,7 +635,6 @@ namespace Nova.Client
                 }
             }
         }     
-
     }
 }
 

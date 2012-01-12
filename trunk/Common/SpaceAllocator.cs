@@ -20,27 +20,18 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This class will "chop" the space into the requested number of boxes and
-// allocate a box on demand (removing the box from the list of available
-// boxes).
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-
 namespace Nova.Common
 {
-    /// ----------------------------------------------------------------------------
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Drawing;
+
     /// <summary>
     /// SpaceAllocator chops up the available space into a number of boxes which
-    /// can be given out one-by-one.
+    /// can be given out one-by-one, removing the box from the list of available
+    // boxes.
     /// </summary>
-    /// ----------------------------------------------------------------------------
     public class SpaceAllocator
     {
         public int GridAxisCount;
@@ -48,8 +39,6 @@ namespace Nova.Common
         private readonly List<Rectangle> availableBoxes = new List<Rectangle>();
         private readonly Random random = new Random();
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// <para>Construction
         /// </para><para>
@@ -61,7 +50,6 @@ namespace Nova.Common
         /// requested number is rounded up to a number that does.
         /// </para></summary>
         /// <param name="numberOfItems">The number of items to be distributed in the allocatable space.</param>
-        /// ----------------------------------------------------------------------------
         public SpaceAllocator(int numberOfItems)
         {
             GridAxisCount = (int)Math.Sqrt(numberOfItems);
@@ -76,14 +64,11 @@ namespace Nova.Common
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         ///  Create the requested number of boxes. The boxes are stored as rectangles in
         /// the available list of boxes.
         /// </summary>
         /// <param name="spaceSize">The length of one side of the allocatable space (assumed to be a square).</param>
-        /// ----------------------------------------------------------------------------
         public void AllocateSpace(int spaceSize)
         {
             // Find the size of a box side. This will allow us to find the
@@ -111,14 +96,11 @@ namespace Nova.Common
             }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Return one of the allocated boxes and remove the box from the list of
         /// available boxes.
         /// </summary>
         /// <returns></returns>
-        /// ----------------------------------------------------------------------------
         public Rectangle GetBox()
         {
             int boxNumber = this.random.Next(0, this.availableBoxes.Count - 1);

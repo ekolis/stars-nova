@@ -19,11 +19,11 @@
 // ===========================================================================
 #endregion
 
-using Nova.Common;
-using NUnit.Framework;
-
 namespace Nova.Tests.UnitTests
 {
+    using Nova.Common;
+    using NUnit.Framework;
+
     // TODO Clean up unit test. Using magic numbers is not recommended.
     [TestFixture]
     public class StarTest

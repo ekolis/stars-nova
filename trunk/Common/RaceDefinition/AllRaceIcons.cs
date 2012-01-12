@@ -19,32 +19,24 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module defines the class AllRaceIcons which is used to load and
-// store the game wide list of race icon images, as a collection of RaceIcons.
-// ===========================================================================
-#endregion
-
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-
-using Nova.Common.Components;
-
 namespace Nova.Common
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.IO;
+
+    using Nova.Common.Components;
+
     /// <summary>
-    /// A singleton containing all the useable race icons.
+    /// A singleton containing all the useable race icons, which is used to load and
+    /// store the game wide list of race icon images, as a collection of RaceIcons.
     /// </summary>
     public sealed class AllRaceIcons
     {
         private static readonly object Padlock = new object();
         private static AllRaceIcons instance;
         public List<RaceIcon> IconList = new List<RaceIcon>();
-
-        #region Singleton
 
         /// <summary>
         /// Private constructor to prevent anyone else creating instances of this class.
@@ -80,10 +72,6 @@ namespace Nova.Common
             }
         }
 
-        #endregion
-
-        #region Methods
-
         /// <summary>
         /// Load the race images.
         /// </summary>
@@ -111,7 +99,5 @@ namespace Nova.Common
             }
             return true;
         }
-
-        #endregion
     }
 }

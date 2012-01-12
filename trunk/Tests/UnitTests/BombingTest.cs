@@ -20,19 +20,13 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Test for the bombing code.
-// ===========================================================================
-#endregion
-
-using System;
-using Nova.Common;
-using Nova.Common.Components;
-using NUnit.Framework;
-
 namespace Nova.Tests.UnitTests
 {
+    using System;
+    using Nova.Common;
+    using Nova.Common.Components;
+    using NUnit.Framework;
+
     // ============================================================================
     // Algorithms:
     // Normalpopkills = sum[bomb_kill_perc(n)*#(n)] * (1-Def(pop))
@@ -63,7 +57,7 @@ namespace Nova.Tests.UnitTests
     public class BombingTest
     {
         /// <Summary>
-        /// bombing Test
+        /// Test for the bombing code.
         /// 
         /// TODO Clean up unit test. Using logic (Math.Max()) and magic numbers in tests is not recommended.
         /// </Summary>

@@ -19,28 +19,22 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
+    using System.Text;
+
     [Serializable]
     public class TemperatureTolerance : EnvironmentTolerance
     {
-        #region Construction
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Default constructor, required for serialization?.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public TemperatureTolerance() 
         { 
         }
-
-        #endregion
 
         // Calculate the minimum and maximum values of the tolerance ranges
         // expressed as a percentage of the total range. 

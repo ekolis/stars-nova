@@ -19,28 +19,11 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// TraitList: 
-// Defines a colletion of TraitEntry objects using DictionaryBase.
-// Allows these to be accessed as either Strings or TraitEnty objects, with 
-// TraitEntry.Code acting as the dictionary key. A trait can be added or
-// removed from a Trait list using only its mnemonic Code by using the
-// PrimaryTraits and SecondaryTraits lists for reference.
-//
-// See PrimaryTraits and SecondaryTraits for descriptions of these traits.
-//
-// Design notes:
-// Intention is to make working with traits intuitive without worying about
-// when they are String or TraitEntry objects.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections;
-
 namespace Nova.Common
 {
+    using System;
+    using System.Collections;
+
     /// <summary>
     /// Defines a colletion of TraitEntry objects using DictionaryBase.
     /// Allows these to be accessed as either Strings or TraitEnty objects, with 

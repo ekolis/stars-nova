@@ -20,19 +20,13 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module controls the checking of passwords.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Windows.Forms;
-
-using Nova.Common;
-
 namespace Nova.ControlLibrary
 {
+    using System;
+    using System.Windows.Forms;
+
+    using Nova.Common;
+
     /// <summary>
     /// An object to control the checking of passwords.
     /// </summary>
@@ -40,14 +34,10 @@ namespace Nova.ControlLibrary
     {
         private readonly Race empireData;
 
-        #region Construction and Dispose
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initializes a new instance of the CheckPassword class.
         /// </summary>
         /// <param name="empireData">The <see cref="Race"/> whose password is being checked.</param>
-        /// ----------------------------------------------------------------------------
         public CheckPassword(Race empireData)
         {
             InitializeComponent();
@@ -56,17 +46,11 @@ namespace Nova.ControlLibrary
             AcceptButton = this.okButton;
         }
 
-        #endregion
-
-        #region Event Methods
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// OK Button Pressed.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void OKButton_Click(object sender, EventArgs e)
         {
             string enteredPassword = this.password.Text;
@@ -83,8 +67,5 @@ namespace Nova.ControlLibrary
                 DialogResult = DialogResult.OK;
             }
         }
-
-        #endregion
-
     }
 }

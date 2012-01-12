@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 stars-nova
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,18 +20,11 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// An individual slider used in the cargo transfer dialog.
-// ===========================================================================
-#endregion
-
-using System;
-using System.ComponentModel;
-
-
 namespace Nova.ControlLibrary
 {
+    using System;
+    using System.ComponentModel;
+
     /// <summary>
     /// A control for transferring cargo.
     /// </summary>
@@ -49,18 +42,13 @@ namespace Nova.ControlLibrary
         private System.Windows.Forms.TrackBar sliderBar;
         private System.ComponentModel.Container components = null;
 
-        #region Construction and Dispose
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initializes a new instance of the CargoTransfer class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public CargoTransfer()
         {
             InitializeComponent();
         }
-
 
         /// <summary>
         /// Clean up any resources being used.
@@ -78,9 +66,6 @@ namespace Nova.ControlLibrary
             base.Dispose(disposing);
         }
 
-        #endregion
-
-        #region Component Designer generated code
         /// <summary> 
         /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
@@ -141,17 +126,12 @@ namespace Nova.ControlLibrary
             this.ResumeLayout(false);
 
         }
-        #endregion
 
-        #region Event Methods
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// This function is invoked when the slider bar is moved.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        /// ----------------------------------------------------------------------------
         private void SliderBar_Scroll(object sender, System.EventArgs e)
         {
             // Get the cargo mass excluding the contribution made by this slider
@@ -184,16 +164,10 @@ namespace Nova.ControlLibrary
             planetAmount.Text = availableAmount.ToString(System.Globalization.CultureInfo.InvariantCulture) + " kT";
         }
 
-        #endregion
-
-        #region Properties
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Sets or Gets the slider title.
         /// </summary>
         /// <value>A new title for the slider.</value>
-        /// ----------------------------------------------------------------------------
         [Description("Slider Title."), Category("User Data")]
         public string Title
         {
@@ -201,25 +175,20 @@ namespace Nova.ControlLibrary
             set { sliderTitle.Text = value; }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Sets or Gets the Maximum slider value.
         /// </summary>
         /// <value>The maximum slider value.</value>
-        /// ----------------------------------------------------------------------------
         public int Maximum
         {
             set { sliderBar.Maximum = value; }
             get { return sliderBar.Maximum; }
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Sets or Gets Slider value.
         /// </summary>
         /// <value>A new amount of cargo to set.</value>
-        /// ----------------------------------------------------------------------------
         public int Value
         {
             set
@@ -236,11 +205,9 @@ namespace Nova.ControlLibrary
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Set the amount available.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int Available
         {
             set
@@ -250,11 +217,9 @@ namespace Nova.ControlLibrary
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Set the cargo bay capacity of the control.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public Gauge Limit
         {
             set
@@ -263,15 +228,12 @@ namespace Nova.ControlLibrary
             }
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Get the amount of cargo taken.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public int Taken
         {
             get { return cargoAmount - initialAmount; }
         }
-        #endregion
     }
 }

@@ -20,24 +20,18 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// battle Viewer Dialog
-// ===========================================================================
-#endregion
-
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Windows.Forms;
-using Nova.Common;
-using Nova.Common.DataStructures;
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Linq;
+    using System.Text;
+    using System.Windows.Forms;
+    using Nova.Common;
+    using Nova.Common.DataStructures;
+
     /// <Summary>
     /// Dialog for viewing battle progress and outcome.
     /// </Summary>
@@ -46,9 +40,6 @@ namespace Nova.WinForms.Gui
         private readonly BattleReport theBattle;
         private readonly Dictionary<string, Fleet> myStacks = new Dictionary<string, Fleet>();
         private int eventCount;
-
-
-        #region Construction and Initialisation
 
         /// <Summary>
         /// Initializes a new instance of the BattleViewer class.
@@ -69,7 +60,6 @@ namespace Nova.WinForms.Gui
             }
         }
 
-
         /// <Summary>
         /// Initialisation performed on a load of the whole dialog.
         /// </Summary>
@@ -83,10 +73,6 @@ namespace Nova.WinForms.Gui
             this.battlePanel.BackgroundImageLayout = ImageLayout.Stretch;
             SetStepNumber();
         }
-
-        #endregion
-
-        #region Event Methods
 
         /// <Summary>
         /// Draw the battle panel by placing the images for the stacks in the
@@ -111,7 +97,6 @@ namespace Nova.WinForms.Gui
                 graphics.DrawImage(stack.Icon.Image, (Point)stack.Position);
             }
         }
-
 
         /// <Summary>
         /// Step through each battle event.
@@ -151,10 +136,6 @@ namespace Nova.WinForms.Gui
 
         }
 
-        #endregion
-
-        #region Utility Methods
-
         /// <Summary>
         /// Update the movement of a stack.
         /// </Summary>
@@ -173,7 +154,6 @@ namespace Nova.WinForms.Gui
 
             this.battlePanel.Invalidate();
         }
-
 
         /// <Summary>
         /// Update the current target details.
@@ -216,7 +196,6 @@ namespace Nova.WinForms.Gui
             this.targetShields.Text = "";
             this.targetArmor.Text = "";
         }
-
 
         /// <Summary>
         /// Deal with weapons being fired.
@@ -267,7 +246,6 @@ namespace Nova.WinForms.Gui
             }
         }
 
-
         /// <Summary>
         /// Just display the currrent step number in the battle replay control panel.
         /// </Summary>
@@ -282,8 +260,5 @@ namespace Nova.WinForms.Gui
 
             this.stepNumber.Text = title.ToString();
         }
-
-        #endregion
-
     }
 }

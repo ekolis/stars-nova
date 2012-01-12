@@ -19,22 +19,15 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module defines the class AllShipIcons which is used to load and
-// store the game wide list of ship icon images, as a collection of <see cref="ShipIcon"/>s.
-// ===========================================================================
-#endregion
-
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.IO;
-
-using Nova.Common.Components;
-
 namespace Nova.Common
 {
+    using System.Collections;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.IO;
+
+    using Nova.Common.Components;
+
     /// <summary>
     /// A singleton containing all the useable ship icons.
     /// This module defines the class AllShipIcons which is used to load and
@@ -47,24 +40,17 @@ namespace Nova.Common
         public List<ShipIcon> IconList = new List<ShipIcon>();
         public Dictionary<string, Dictionary<int, ShipIcon>> Hulls = new Dictionary<string, Dictionary<int, ShipIcon>>();
 
-        #region Singleton
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Private constructor to prevent anyone else creating instances of this class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         private AllShipIcons()
         {
         }
 
-
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Provide a mechanism of accessing the single instance of this class that we
         /// will create locally. Creation of the data is thread-safe.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public static AllShipIcons Data
         {
             get
@@ -90,8 +76,6 @@ namespace Nova.Common
                 instance = value;
             }
         }
-
-        #endregion
 
         /// <summary>
         /// Load the race images.
@@ -184,7 +168,6 @@ namespace Nova.Common
                 icon = Data.IconList[0];
             }
             return icon;
-
         }
     }
 }
