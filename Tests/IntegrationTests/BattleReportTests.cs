@@ -20,15 +20,15 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.IO;
-using System.Xml;
-using Nova.Common;
-using Nova.Common.DataStructures;
-using NUnit.Framework;
-
 namespace Nova.Tests.IntegrationTests
 {
+    using System;
+    using System.IO;
+    using System.Xml;
+    using Nova.Common;
+    using Nova.Common.DataStructures;
+    using NUnit.Framework;
+
     [TestFixture]
     public class BattleReportTests
     {

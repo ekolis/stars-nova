@@ -29,7 +29,7 @@ namespace Nova.Common
     
     /// <summary> 
     /// Defines a colletion of FleetIntel objects using DictionaryBase.
-    /// Allows these to be accessed by the fleet's name (which is a unique key),
+    /// Allows these to be accessed by the fleet's key (which is a unique key),
     /// as well as maintaining a sorted list for next/previous functionality. 
     /// </summary>
     [Serializable]
@@ -61,7 +61,7 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Check if the racial traits contains a particular trait.
+        /// Check if the fleet list contains a particular trait.
         /// </summary>
         /// <param name="fleet">The Fleet to check for.</param>
         /// <returns>true if fleet is in the FleetList.</returns>
@@ -80,10 +80,10 @@ namespace Nova.Common
         }
 
         /// <summary>
-        /// Check if the racial traits contains a particular trait.
+        /// Check if the fleet list contains a particular fleet.
         /// </summary>
         /// <param name="key">The name of a fleet.</param>
-        /// <returns>true if fleetName is the name of one of the fleets in the FleetList.</returns>
+        /// <returns>true if key is the key of one of the fleets in the FleetList.</returns>
         public bool Contains(long key)
         {
             return ContainsKey(key);

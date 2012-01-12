@@ -33,14 +33,14 @@
 // ===========================================================================
 #endregion
 
-using System;
-
-using Nova.Client;
-using Nova.Common;
-using Nova.Common.Components;
-
 namespace Nova.Ai
 {
+    using System;
+
+    using Nova.Client;
+    using Nova.Common;
+    using Nova.Common.Components;
+
     public class Program
     {
         private static readonly AbstractAI AI = new DefaultAi();
@@ -76,7 +76,7 @@ namespace Nova.Ai
             {
                 // TODO (priority 6) - bypass password entry for AI.
                 // Note: passwords have currently been disabled completely, awaiting a new more effective implementation - Dan 02 Mar 10
-               // ClientState.Initialize(commandArguments.ToArray()); 
+                // ClientState.Initialize(commandArguments.ToArray()); 
                 AI.Initialize(commandArguments);
             }
             catch

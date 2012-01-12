@@ -20,19 +20,14 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// User control for accessing research tech levels.
-// ===========================================================================
-#endregion
-
-#region Using Statements
-using System.Windows.Forms;
-using Nova.Common;
-#endregion
-
 namespace Nova.WinForms.ComponentEditor
 {
+    using System.Windows.Forms;
+    using Nova.Common;
+
+    /// <summary>
+    /// User control for accessing research tech levels.
+    /// </summary>
     public partial class TechRequirements : UserControl
     {
         /// <Summary>

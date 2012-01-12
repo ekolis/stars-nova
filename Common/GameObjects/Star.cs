@@ -20,11 +20,10 @@
 // ===========================================================================
 #endregion
 
-using System.Globalization;
-
 namespace Nova.Common
 {
     using System;
+    using System.Globalization;
     using System.Xml;
     
     using Nova.Common;

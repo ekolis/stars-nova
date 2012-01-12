@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011 stars-nova
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,18 +20,12 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Dialog for transferring cargo between a planet and a ship.
-// ===========================================================================
-#endregion
-
-using System;
-using System.Windows.Forms;
-using Nova.Common;
-
 namespace Nova.ControlLibrary
 {
+    using System;
+    using System.Windows.Forms;
+    using Nova.Common;
+
     /// <summary>
     /// A dialog for transferring cargo between a planet and a ship.
     /// </summary>
@@ -41,12 +35,9 @@ namespace Nova.ControlLibrary
         private Cargo fleetCargo;
         private Cargo starCargo;
 
-        
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initializes a new instance of the CargoDialog class.
         /// </summary>
-        /// ----------------------------------------------------------------------------
         public CargoDialog()
         {
             InitializeComponent();
@@ -167,12 +158,10 @@ namespace Nova.ControlLibrary
             DialogResult = DialogResult.OK;
         }
 
-        /// ----------------------------------------------------------------------------
         /// <summary>
         /// Initialise the various fields in the dialog.
         /// </summary>
         /// <param name="targetFleet">The <see cref="Fleet"/> transferring cargo.</param>
-        /// ----------------------------------------------------------------------------
         public void SetTarget(Fleet targetFleet)
         {
             fleet = targetFleet;                     

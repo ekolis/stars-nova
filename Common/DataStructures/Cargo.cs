@@ -45,8 +45,6 @@ namespace Nova.Common
         /// </summary>
         public int ColonistsInKilotons = 0;
 
-        #region Construction
-
         /// <summary>
         /// Defualt constructor (needed if there is a copy constructor).
         /// </summary>
@@ -66,10 +64,6 @@ namespace Nova.Common
             this.ColonistsInKilotons = copy.ColonistsInKilotons;
         }
 
-        #endregion
-
-        #region Properties
-
         /// <summary>
         /// Get the Mass of the cargo.
         /// </summary>
@@ -77,10 +71,6 @@ namespace Nova.Common
         {
             get { return Ironium + Boranium + Germanium + ColonistsInKilotons; }
         }
-
-        #endregion
-
-        #region Load Save Xml
 
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
@@ -127,7 +117,6 @@ namespace Nova.Common
             }
         }
 
-
         /// <summary>
         /// Save: Serialise this object to an <see cref="XmlElement"/>.
         /// </summary>
@@ -144,8 +133,6 @@ namespace Nova.Common
 
             return xmlelCargo;
         }
-
-        #endregion
 
         public void Add(Cargo rightCargo)
         {

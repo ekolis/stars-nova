@@ -19,11 +19,11 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Windows.Forms;
-
 namespace Nova.WinForms.Gui
 {
+    using System;
+    using System.Windows.Forms;
+
     public class StarMapPanel : UserControl
     {
         public event KeyEventHandler ArrowKeyPressed;
