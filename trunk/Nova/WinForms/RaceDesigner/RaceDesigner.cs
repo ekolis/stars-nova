@@ -1767,122 +1767,132 @@ namespace Nova.WinForms.RaceDesigner
                 return;
             }
 
-            Race raceParameters       = new Race();
-            raceParameters.Traits.SetPrimary(this.selectedRace);
-            raceParameters.Name       = this.raceName.Text;
-            raceParameters.PluralName = this.pluralRaceName.Text;
+            saveRace(makeRace());
+        }
+
+        private Race makeRace()
+        {
+            Race race = new Race();
+            race.Traits.SetPrimary(this.selectedRace);
+            race.Name = this.raceName.Text;
+            race.PluralName = this.pluralRaceName.Text;
 
             string passwordHash = new PasswordUtility().CalculateHash(this.password.Text);
 
-            raceParameters.Password = passwordHash;
-            raceParameters.Icon     = this.currentRaceIcon;
+            race.Password = passwordHash;
+            race.Icon = this.currentRaceIcon;
 
             // ----------------------------------------------------------------------------
             // Secondary Racial Traits
             // ----------------------------------------------------------------------------
             if (this.improvedFuelEfficiency.Checked)
             {
-                raceParameters.Traits.Add("IFE");
+                race.Traits.Add("IFE");
             }
             if (this.noRamEngines.Checked)
             {
-                raceParameters.Traits.Add("NRS");
+                race.Traits.Add("NRS");
             }
             if (this.totalTerraforming.Checked)
             {
-                raceParameters.Traits.Add("TT");
+                race.Traits.Add("TT");
             }
             if (this.cheapEngines.Checked)
             {
-                raceParameters.Traits.Add("CE");
+                race.Traits.Add("CE");
             }
             if (this.advancedRemoteMining.Checked)
             {
-                raceParameters.Traits.Add("ARM");
+                race.Traits.Add("ARM");
             }
             if (this.basicRemoteMining.Checked)
             {
-                raceParameters.Traits.Add("OBRM");
+                race.Traits.Add("OBRM");
             }
             if (this.improvedStarbases.Checked)
             {
-                raceParameters.Traits.Add("ISB");
+                race.Traits.Add("ISB");
             }
             if (this.noAdvancedScanners.Checked)
             {
-                raceParameters.Traits.Add("NAS");
+                race.Traits.Add("NAS");
             }
             if (this.generalisedResearch.Checked)
             {
-                raceParameters.Traits.Add("GR");
+                race.Traits.Add("GR");
             }
             if (this.lowStartingPopulation.Checked)
             {
-                raceParameters.Traits.Add("LSP");
+                race.Traits.Add("LSP");
             }
             if (this.ultimateRecycling.Checked)
             {
-                raceParameters.Traits.Add("UR");
+                race.Traits.Add("UR");
             }
             if (this.bleedingEdgeTechnology.Checked)
             {
-                raceParameters.Traits.Add("BET");
+                race.Traits.Add("BET");
             }
             if (this.mineralAlchemy.Checked)
             {
-                raceParameters.Traits.Add("MA");
+                race.Traits.Add("MA");
             }
             if (this.regeneratingShields.Checked)
             {
-                raceParameters.Traits.Add("RS");
+                race.Traits.Add("RS");
             }
             if (this.cheapFactories.Checked)
             {
-                raceParameters.Traits.Add("CF");
+                race.Traits.Add("CF");
             }
             if (this.extraTech.Checked)
             {
-                raceParameters.Traits.Add("ExtraTech");
+                race.Traits.Add("ExtraTech");
             }
 
             // ----------------------------------------------------------------------------
             // Production Costs and Rates
             // ----------------------------------------------------------------------------
 
-            raceParameters.ColonistsPerResource = (int)this.colonistProduction.Value;
-            raceParameters.OperableFactories    = (int)this.operableFactories.Value;
-            raceParameters.MineProductionRate   = (int)this.mineralProduction.Value;
-            raceParameters.OperableMines        = (int)this.operableMines.Value;
-            raceParameters.FactoryBuildCost     = (int)this.factoryBuildCost.Value;
-            raceParameters.MineBuildCost        = (int)this.resourcesPerMine.Value;
-            raceParameters.FactoryProduction    = (int)this.resourceProduction.Value;
+            race.ColonistsPerResource = (int)this.colonistProduction.Value;
+            race.OperableFactories = (int)this.operableFactories.Value;
+            race.MineProductionRate = (int)this.mineralProduction.Value;
+            race.OperableMines = (int)this.operableMines.Value;
+            race.FactoryBuildCost = (int)this.factoryBuildCost.Value;
+            race.MineBuildCost = (int)this.resourcesPerMine.Value;
+            race.FactoryProduction = (int)this.resourceProduction.Value;
 
             // ----------------------------------------------------------------------------
             // Environmental Tolerance
             // ----------------------------------------------------------------------------
 
-            raceParameters.GravityTolerance.MinimumValue = this.gravityTolerance.MinimumValue;
-            raceParameters.GravityTolerance.MaximumValue = this.gravityTolerance.MaximumValue;
-            raceParameters.GravityTolerance.Immune = this.gravityTolerance.Immune;
-            raceParameters.RadiationTolerance.MinimumValue = this.radiationTolerance.MinimumValue;
-            raceParameters.RadiationTolerance.MaximumValue = this.radiationTolerance.MaximumValue;
-            raceParameters.RadiationTolerance.Immune = this.radiationTolerance.Immune;
-            raceParameters.TemperatureTolerance.MinimumValue = this.temperatureTolerance.MinimumValue;
-            raceParameters.TemperatureTolerance.MaximumValue = this.temperatureTolerance.MaximumValue;
-            raceParameters.TemperatureTolerance.Immune = this.temperatureTolerance.Immune;
-            raceParameters.GrowthRate = (double)this.maxGrowth.Value;
+            race.GravityTolerance.MinimumValue = this.gravityTolerance.MinimumValue;
+            race.GravityTolerance.MaximumValue = this.gravityTolerance.MaximumValue;
+            race.GravityTolerance.Immune = this.gravityTolerance.Immune;
+            race.RadiationTolerance.MinimumValue = this.radiationTolerance.MinimumValue;
+            race.RadiationTolerance.MaximumValue = this.radiationTolerance.MaximumValue;
+            race.RadiationTolerance.Immune = this.radiationTolerance.Immune;
+            race.TemperatureTolerance.MinimumValue = this.temperatureTolerance.MinimumValue;
+            race.TemperatureTolerance.MaximumValue = this.temperatureTolerance.MaximumValue;
+            race.TemperatureTolerance.Immune = this.temperatureTolerance.Immune;
+            race.GrowthRate = (double)this.maxGrowth.Value;
 
             // ----------------------------------------------------------------------------
             // Research Costs
             // ----------------------------------------------------------------------------
 
-            raceParameters.ResearchCosts[TechLevel.ResearchField.Energy]        = this.energyResearch.Cost;
-            raceParameters.ResearchCosts[TechLevel.ResearchField.Weapons]       = this.weaponsResearch.Cost;
-            raceParameters.ResearchCosts[TechLevel.ResearchField.Propulsion]    = this.propulsionResearch.Cost;
-            raceParameters.ResearchCosts[TechLevel.ResearchField.Construction]  = this.constructionResearch.Cost;
-            raceParameters.ResearchCosts[TechLevel.ResearchField.Electronics]   = this.electronicsResearch.Cost;
-            raceParameters.ResearchCosts[TechLevel.ResearchField.Biotechnology] = this.biotechnologyResearch.Cost;
+            race.ResearchCosts[TechLevel.ResearchField.Energy] = this.energyResearch.Cost;
+            race.ResearchCosts[TechLevel.ResearchField.Weapons] = this.weaponsResearch.Cost;
+            race.ResearchCosts[TechLevel.ResearchField.Propulsion] = this.propulsionResearch.Cost;
+            race.ResearchCosts[TechLevel.ResearchField.Construction] = this.constructionResearch.Cost;
+            race.ResearchCosts[TechLevel.ResearchField.Electronics] = this.electronicsResearch.Cost;
+            race.ResearchCosts[TechLevel.ResearchField.Biotechnology] = this.biotechnologyResearch.Cost;
 
+            return race;
+        }
+
+        private void saveRace(Race race)
+        {
             // ----------------------------------------------------------------------------
             // Generate the race definition file
             //
@@ -1896,8 +1906,8 @@ namespace Nova.WinForms.RaceDesigner
                 string raceFilePath = FileSearcher.GetFolder(Global.RaceFolderKey, Global.RaceFolderName);
 
                 SaveFileDialog fd = new SaveFileDialog();
-                fd.Title = "Save Race - " + raceParameters.Name;
-                fd.FileName = raceParameters.Name + Global.RaceExtension;
+                fd.Title = "Save Race - " + race.Name;
+                fd.FileName = race.Name + Global.RaceExtension;
                 fd.InitialDirectory = raceFilePath;
                 DialogResult result = fd.ShowDialog();
                 if (result == DialogResult.OK)
@@ -1917,12 +1927,12 @@ namespace Nova.WinForms.RaceDesigner
                 Global.InitializeXmlDocument(xmldoc);
 
                 // add the components to the document
-                xmldoc.ChildNodes.Item(1).AppendChild(raceParameters.ToXml(xmldoc));
+                xmldoc.ChildNodes.Item(1).AppendChild(race.ToXml(xmldoc));
 
                 xmldoc.Save(saveFile);
                 saveFile.Close();
 
-                Report.Information("The " + raceParameters.PluralName + " have been saved to " + raceFilePath);
+                Report.Information("The " + race.PluralName + " have been saved to " + raceFilePath);
 
                 using (Config conf = new Config())
                 {
