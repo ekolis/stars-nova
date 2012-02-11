@@ -17,8 +17,8 @@ namespace Nova.Common.RaceDefinition
         const string PRT_SS = "SS";
         const string PRT_JT = "JOAT";
         const string LRT_TT = "TT";
-        private static Dictionary<string, int> prtCost; // int[] prtCost = new int[10] { 40, 95, 45, 10, -100, -150, 120, 180, 90, -66 };
-        private static Dictionary<string, int> lrtCost; // int lrtCost[14]={-235,-25,-159,-201,40,-240,-155,160,240,255,325,180,70,30};
+        private static Dictionary<string, int> prtCost;
+        private static Dictionary<string, int> lrtCost;
         private static int[] scienceCost = new int[] { 150, 330, 540, 780, 1050, 1380 };
 
         static RaceAdvantagePointCalculator()
@@ -52,99 +52,26 @@ namespace Nova.Common.RaceDefinition
             lrtCost.Add("RS", 30);
         }
 
-//        int[] lowerHab = new int[3];
-//        int[] centerHab = new int[3];
-//        int[] upperHab = new int[3];
-
         bool IMMUNE(int a)
         {
             return ((a) == -1);
         }
 
-        int planetValueCalc(Race race, int[] testPlanetHab)
+        double planetValueCalc(Race race, int[] testPlanetHab)
         {
             Star star = new Star();
             star.Gravity = testPlanetHab[0];
             star.Radiation = testPlanetHab[1];
             star.Temperature = testPlanetHab[2];
 
-            return (int)(race.HabitalValue(star) * 100);
+            return race.HabitalValue(star) * 100.0;
         }
-
-        //void BoundsCheck(Race race)
-        //{
-        //    int i, tmp;
-
-
-        //    for (i = 0; i < 3; i++)
-        //    {
-        //        lowerHab[i] = race.lowerHab(i);
-        //        centerHab[i] = race.centerHab(i);
-        //        upperHab[i] = race.upperHab(i);
-        //    }
-
-        //    for (i = 0; i < 3; i++)
-        //    {
-        //        if (IMMUNE(lowerHab[i]))
-        //        {
-        //            if (!IMMUNE(upperHab[i]) || !IMMUNE(centerHab[i]))
-        //            {
-        //                upperHab[i] = centerHab[i] = -1;
-        //            }
-        //        }
-        //        else
-        //        {
-        //            if (lowerHab[i] < 0)
-        //            {
-        //                lowerHab[i] = 0;
-        //            }
-        //            if (lowerHab[i] > 100)
-        //            {
-        //                lowerHab[i] = 100;
-        //            }
-        //            if (upperHab[i] > 100)
-        //            {
-        //                upperHab[i] = 100;
-        //            }
-        //            if (lowerHab[i] > upperHab[i])
-        //            {
-        //                lowerHab[i] = upperHab[i];
-        //            }
-        //            tmp = centerHab[i];
-        //            if (tmp != (lowerHab[i] + (upperHab[i] - lowerHab[i]) / 2))
-        //            {
-        //                tmp = lowerHab[i] + (upperHab[i] - lowerHab[i]) / 2;
-        //            }
-        //        }
-        //    }
-
-        //    if (race.GrowthRate > 20)
-        //    {
-        //        growthRate = 20;
-        //    }
-        //    if (growthRate < 1)
-        //    {
-        //        growthRate = 1;
-        //    }
-
-        //    for (i = 0; i < 16; i++)
-        //    {
-        //        if (playerData->stats[i] < statsMin[i])
-        //        {
-        //            playerData->stats[i] = statsMin[i];
-        //        }
-        //        if (playerData->stats[i] > statsMax[i])
-        //        {
-        //            playerData->stats[i] = statsMax[i];
-        //        }
-        //    }
-        //}
 
         private int habPoints(Race race)
         {
             bool isTotalTerraforming;
             double advantagePoints,v136,v13E;
-            int v12E,planetDesir;
+            double v12E,planetDesir;
             int v100,tmpHab,TTCorrFactor,h,i,j,k;
             int[] v108 = new int[3];
             int[] testHabStart = new int[3];
@@ -153,7 +80,7 @@ namespace Nova.Common.RaceDefinition
             int[] testPlanetHab = new int[3];
 
             advantagePoints = 0.0;
-            isTotalTerraforming = race.Traits.Contains("TT"); // getbit(playerData->grbit, GRBIT_LRT_TT);
+            isTotalTerraforming = race.Traits.Contains("TT");
 
             v108[0]=v108[1]=v108[2]=0;
 
@@ -165,21 +92,6 @@ namespace Nova.Common.RaceDefinition
 
                 for (i=0; i<3; i++)
                 {
-                    //if (playerData->centerHab[i]>100 ||
-                    //    playerData->lowerHab[i]>100 ||
-                    //    playerData->upperHab[i]>100 ||
-                    //    playerData->centerHab[i]<0 ||
-                    //    playerData->lowerHab[i]<0 ||
-                    //    playerData->upperHab[i]<0)
-                    //{
-                    //    if (!IMMUNE(playerData->centerHab[i]) &&
-                    //        !IMMUNE(playerData->lowerHab[i]) &&
-                    //        !IMMUNE(playerData->upperHab[i]))
-                    //    {
-                    //        playerData->centerHab[i]=playerData->lowerHab[i]=playerData->upperHab[i]=-1;					
-                    //    }
-                    //}
-
                     if (race.isImmune(i))
                     {
                         testHabStart[i] = 50;
@@ -341,8 +253,8 @@ namespace Nova.Common.RaceDefinition
 
             /*cout << "Step 4, points = " << points << endl;*/
 
-            facOperate = race.OperableFactories; // playerData->stats[STAT_FAC_OPERATE];
-            tenFacRes = race.FactoryProduction; // playerData->stats[STAT_TEN_FAC_RES];
+            facOperate = race.OperableFactories;
+            tenFacRes = race.FactoryProduction;
 
             if (facOperate > 10 || tenFacRes > 10)
             {
@@ -358,7 +270,7 @@ namespace Nova.Common.RaceDefinition
                     points -= ((tenFacRes * facOperate) * grRate) / 9;
             }
 
-            j = race.ColonistsPerResource / 100; //  playerData->stats[STAT_RES_PER_COL];
+            j = race.ColonistsPerResource / 100;
             if (j > 25) j = 25;
             if (j <= 7) points -= 2400;
             else if (j == 8) points -= 1260;
@@ -370,9 +282,9 @@ namespace Nova.Common.RaceDefinition
             if (PRT != PRT_AR)
             {
                 /*factories*/
-                prodPoints = 10 - race.FactoryProduction; // 10 - playerData->stats[STAT_TEN_FAC_RES];
-                costPoints = 10 - race.FactoryBuildCost; // 10 - playerData->stats[STAT_FAC_COST];
-                operPoints = 10 - race.OperableFactories; // 10 - playerData->stats[STAT_FAC_OPERATE];
+                prodPoints = 10 - race.FactoryProduction;
+                costPoints = 10 - race.FactoryBuildCost;
+                operPoints = 10 - race.OperableFactories;
                 tmpPoints = 0;
 
                 if (prodPoints > 0) tmpPoints = prodPoints * 100;
@@ -397,12 +309,12 @@ namespace Nova.Common.RaceDefinition
 
                 points += tmpPoints;
 
-                if (race.Traits.Contains("CF")) points -= 175; // if (getbit(playerData->grbit, GRBIT_FACT_GER_LESS) != 0) points -= 175;
+                if (race.Traits.Contains("CF")) points -= 175;
 
                 /*mines*/
-                prodPoints = 10 - race.MineProductionRate;  // 10 - playerData->stats[STAT_TEN_MINES_PROD];
-                costPoints = 3 - race.MineBuildCost; // 3 - playerData->stats[STAT_MINE_COST];
-                operPoints = 10 - race.OperableMines; // 10 - playerData->stats[STAT_MINE_OPERATE];
+                prodPoints = 10 - race.MineProductionRate;
+                costPoints = 3 - race.MineBuildCost;
+                operPoints = 10 - race.OperableMines;
                 tmpPoints = 0;
 
                 if (prodPoints > 0) tmpPoints = prodPoints * 100;
@@ -422,15 +334,6 @@ namespace Nova.Common.RaceDefinition
             points -= prtCost[PRT];
             i = k = 0;
 
-            //for(j=0;j<=13;j++)
-            //{
-            //    if (getbit(playerData->grbit,j)!=0)
-            //    {
-            //        if (lrtCost[j]>=0) i++;
-            //        else k++;
-            //        points+=lrtCost[j];
-            //    }
-            //}
             foreach (DictionaryEntry de in AllTraits.Data.Secondary)
             {
                 TraitEntry trait = de.Value as TraitEntry;
@@ -478,10 +381,10 @@ namespace Nova.Common.RaceDefinition
             else if (tmpPoints < 0)
             {
                 points += scienceCost[-tmpPoints - 1];
-                if (tmpPoints < -4 && (race.ColonistsPerResource / 100) < 10) points -= 190; // if (tmpPoints < -4 && playerData->stats[STAT_RES_PER_COL] < 10) points -= 190;
+                if (tmpPoints < -4 && (race.ColonistsPerResource / 100) < 10) points -= 190;
             }
-            if (race.Traits.Contains("ExtraTech")) points -= 180; // if (getbit(playerData->grbit, GRBIT_TECH75_LVL3) != 0) points -= 180;               
-            if (PRT == PRT_AR && race.ResearchCosts[TechLevel.ResearchField.Energy] == 50/*50% less*/) points -= 100;   // if (PRT==PRT_AR && playerData->stats[STAT_ENERGY_COST]==2/*50% less*/) points -= 100;
+            if (race.Traits.Contains("ExtraTech")) points -= 180;
+            if (PRT == PRT_AR && race.ResearchCosts[TechLevel.ResearchField.Energy] == 50/*50% less*/) points -= 100;
 
             /*cout << "Step 8, points = " << points << endl;*/
 

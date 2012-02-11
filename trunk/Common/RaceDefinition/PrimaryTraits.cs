@@ -63,16 +63,16 @@ namespace Nova.Common
 
         public static readonly TraitEntry[] Traits = new TraitEntry[]
             {
-                new TraitEntry("Hyper Expansion", "HE", 63, HyperExpansionDescription),
-                new TraitEntry("Super Stealth", "SS", 81, SuperStealthDescription),
-                new TraitEntry("War Monger", "WM", 65, WarMongerDescription),
-                new TraitEntry("Claim Adjuster", "CA", 53, ClaimAdjusterDescription),
-                new TraitEntry("Inner Strength", "IS", 17, InnerStrengthDescription),
-                new TraitEntry("Space Demolition", "SD", 0, SpaceDemolitionDescription),
-                new TraitEntry("Packet Physics", "PP", 90, PacketPhysicsDescription),
-                new TraitEntry("Inter-Stellar Traveller", "IT", 110, InterStellarTravellerDescription),
-                new TraitEntry("Alternate Reality", "AR", 80, AlternateRealityDescription),
-                new TraitEntry("Jack of all Trades", "JOAT", 28, JackOfAllTradesDescription)
+                new TraitEntry("Hyper Expansion", "HE", HyperExpansionDescription),
+                new TraitEntry("Super Stealth", "SS", SuperStealthDescription),
+                new TraitEntry("War Monger", "WM", WarMongerDescription),
+                new TraitEntry("Claim Adjuster", "CA", ClaimAdjusterDescription),
+                new TraitEntry("Inner Strength", "IS", InnerStrengthDescription),
+                new TraitEntry("Space Demolition", "SD", SpaceDemolitionDescription),
+                new TraitEntry("Packet Physics", "PP", PacketPhysicsDescription),
+                new TraitEntry("Inter-Stellar Traveller", "IT", InterStellarTravellerDescription),
+                new TraitEntry("Alternate Reality", "AR", AlternateRealityDescription),
+                new TraitEntry("Jack of all Trades", "JOAT", JackOfAllTradesDescription)
             };
     }
 }

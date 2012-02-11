@@ -76,22 +76,22 @@ namespace Nova.Common
 
         public static readonly TraitEntry[] Traits = new TraitEntry[]
             {
-                new TraitEntry("Improved Fuel Efficiency", "IFE", 78, ImprovedFuelEfficiencyDescription), 
-                new TraitEntry("Total Terraforming", "TT", 140, TotalTerraformingDescription),
-                new TraitEntry("Advanced Remote Mining", "ARM", 53, AdvancedRemoteMiningDescription),
-                new TraitEntry("Improved Star Bases", "ISB", 67, ImprovedStarBasesDescription),
-                new TraitEntry("Generalised Research", "GR", 67, GeneralisedResearchDescription),
-                new TraitEntry("Ultimate Recycling", "UR", 80, UltimateRecyclingDescription),
-                new TraitEntry("Mineral Alchemy", "MA", 51, MineralAlchemyDescription),
-                new TraitEntry("Cheap Factories", "CF", 58, CheapFactoriesDescription), // This is not a normal LRT!
-                new TraitEntry("No Ram Scoop Engines", "NRS", -53, NoRamScoopEnginesDescription),
-                new TraitEntry("Cheap Engines", "CE", -80, CheapEnginesDecription),
-                new TraitEntry("Only Basic Remote Mining", "OBRM", -85, OnlyBasicRemoteMiningDescription),
-                new TraitEntry("No Advanced Scanners", "NAS", -95, NoAdvancedScannersDecription),
-                new TraitEntry("Low Starting Population", "LSP", -60, LowStartingPopulationDescription),
-                new TraitEntry("Bleeding Edge Technology", "BET", -23, BleedingEdgeTechnologyDescription),
-                new TraitEntry("Regenerating Shields", "RS", -10, RegeneratingShieldsDescription),
-                new TraitEntry("Extra Tech", "ExtraTech", -10, RegeneratingShieldsDescription) // This is not a normal LRT!
+                new TraitEntry("Improved Fuel Efficiency", "IFE", ImprovedFuelEfficiencyDescription), 
+                new TraitEntry("Total Terraforming", "TT", TotalTerraformingDescription),
+                new TraitEntry("Advanced Remote Mining", "ARM", AdvancedRemoteMiningDescription),
+                new TraitEntry("Improved Star Bases", "ISB", ImprovedStarBasesDescription),
+                new TraitEntry("Generalised Research", "GR", GeneralisedResearchDescription),
+                new TraitEntry("Ultimate Recycling", "UR", UltimateRecyclingDescription),
+                new TraitEntry("Mineral Alchemy", "MA", MineralAlchemyDescription),
+                new TraitEntry("Cheap Factories", "CF", CheapFactoriesDescription), // This is not a normal LRT!
+                new TraitEntry("No Ram Scoop Engines", "NRS", NoRamScoopEnginesDescription),
+                new TraitEntry("Cheap Engines", "CE", CheapEnginesDecription),
+                new TraitEntry("Only Basic Remote Mining", "OBRM", OnlyBasicRemoteMiningDescription),
+                new TraitEntry("No Advanced Scanners", "NAS", NoAdvancedScannersDecription),
+                new TraitEntry("Low Starting Population", "LSP", LowStartingPopulationDescription),
+                new TraitEntry("Bleeding Edge Technology", "BET", BleedingEdgeTechnologyDescription),
+                new TraitEntry("Regenerating Shields", "RS", RegeneratingShieldsDescription),
+                new TraitEntry("Extra Tech", "ExtraTech", RegeneratingShieldsDescription) // This is not a normal LRT!
           };
    }
 }

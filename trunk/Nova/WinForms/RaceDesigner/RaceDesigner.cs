@@ -51,7 +51,6 @@ namespace Nova.WinForms.RaceDesigner
         private RaceIcon currentRaceIcon;
 
         // Non-designer generated variables
-        private int advantagePoints = 53;
         private TraitEntry selectedRace = AllTraits.Data.All["JOAT"];
         private bool parametersChanged;
 
@@ -1534,12 +1533,7 @@ namespace Nova.WinForms.RaceDesigner
                     if (radioButton.Checked)
                     {
                         this.selectedRace = AllTraits.Data.Primary[radioButton.Tag.ToString()];
-                        this.advantagePoints -= trait.Cost;
                         this.primaryTraitDescription.Text = trait.Description;
-                    }
-                    else
-                    {
-                        this.advantagePoints += trait.Cost;
                     }
 
                     this.parametersChanged = true;
@@ -1554,9 +1548,9 @@ namespace Nova.WinForms.RaceDesigner
         /// </summary>
         private void ShowAvailablePoints()
         {
-            Race race = makeRace();
+            Race race = getRace();
             int newAdvantagePoints = race.GetAdvantagePoints();
-            this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture) + "#" + newAdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            this.availablePoints.Text = newAdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
         }
 
 
@@ -1582,12 +1576,7 @@ namespace Nova.WinForms.RaceDesigner
                 {
                     if (checkBox.Checked)
                     {
-                        this.advantagePoints -= trait.Cost;
                         this.secondaryTraitDescription.Text = trait.Description;
-                    }
-                    else
-                    {
-                        this.advantagePoints += trait.Cost;
                     }
 
                     ShowAvailablePoints();
@@ -1617,32 +1606,8 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void UpDown_ValueChanged(object sender, EventArgs e)
         {
-            NumericUpDown upDown = (NumericUpDown)sender;
-
-            foreach (ParameterEntry parameter in ParameterCosts.Parameters)
-            {
-                if (parameter.ParameterName == upDown.Name)
-                {
-                    int newValue = (int)upDown.Value;
-                    int oldValue = parameter.Cost[0];
-
-                    if (upDown.Name == "colonistProduction")
-                    {
-                        this.advantagePoints += parameter.Cost[oldValue / 100];
-                        this.advantagePoints -= parameter.Cost[newValue / 100];
-                    }
-                    else
-                    {
-                        this.advantagePoints += parameter.Cost[oldValue];
-                        this.advantagePoints -= parameter.Cost[newValue];
-                    }
-
-                    parameter.Cost[0] = newValue;
-                    ShowAvailablePoints();
-                    this.parametersChanged = true;
-                    break;
-                }
-            }
+        	ShowAvailablePoints();
+            this.parametersChanged = true;
         }
 
         /// <Summary>
@@ -1654,7 +1619,6 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="value">Change in advantage points.</param>
         private void ResearchCost_SelectionChanged(object sender, int value)
         {
-            this.advantagePoints += value;
             ShowAvailablePoints();
             this.parametersChanged = true;
         }
@@ -1666,15 +1630,6 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void ExtraTech_CheckedChanged(object sender, EventArgs e)
         {
-            int cost = 60;
-            if (this.extraTech.Checked == true)
-            {
-                this.advantagePoints -= cost;
-            }
-            else
-            {
-                this.advantagePoints += cost;
-            }
             ShowAvailablePoints();
             this.parametersChanged = true;
         }
@@ -1691,12 +1646,6 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="oldRightPos"></param>
         private void Tolerance_RangeChanged(object sender, int newLeftPos, int newRightPos, int oldLeftPos, int oldRightPos)
         {
-            this.advantagePoints -= Utilities.BarWidthCost(oldLeftPos, oldRightPos);
-            this.advantagePoints += Utilities.BarWidthCost(newLeftPos, newRightPos);
-
-            this.advantagePoints -= Utilities.BarPositionCost(oldLeftPos, oldRightPos);
-            this.advantagePoints += Utilities.BarPositionCost(newLeftPos, newRightPos);
-
             ShowAvailablePoints();
             this.parametersChanged = true;
         }
@@ -1708,7 +1657,6 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="value"></param>
         private void Tolerance_CheckChanged(object sender, int value)
         {
-            this.advantagePoints += value;
             ShowAvailablePoints();
             this.parametersChanged = true;
         }
@@ -1746,7 +1694,7 @@ namespace Nova.WinForms.RaceDesigner
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void Finish_Click(object sender, System.EventArgs e)
         {
-            if (this.advantagePoints < 0)
+            if (getRace().GetAdvantagePoints() < 0)
             {
                 Report.Error("You are not allowed to generate a race file" +
                              "when you have less than zero Advantage Points");
@@ -1773,7 +1721,12 @@ namespace Nova.WinForms.RaceDesigner
                 return;
             }
 
-            saveRace(makeRace());
+            saveRace(getRace());
+        }
+
+        private Race getRace()
+        {
+            return makeRace();
         }
 
         private Race makeRace()
