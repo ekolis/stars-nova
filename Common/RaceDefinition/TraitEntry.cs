@@ -36,7 +36,6 @@ namespace Nova.Common
     {
         public string Name;        // e.g. "Hyper Expansion" or "Regenerating Shields" (may contain spaces)
         public string Code;        // e.g. "HE" or "RS" (must be unique, all caps, no spaces or punctuation) 
-        public int Cost;           // in advantage points, negative cost give more points to buy other things
         public string Description; // Detailed description (paragraph).
 
         /// <summary>
@@ -47,11 +46,10 @@ namespace Nova.Common
         /// <param name="a">Code e.g. "HE" or "RS" (must be unique, all caps, no spaces or punctuation).</param>
         /// <param name="c">Cost in advantage points, negative cost give more points to buy other things.</param>
         /// <param name="d">Detailed description (paragraph).</param>
-        public TraitEntry(string n, string a, int c, string d)
+        public TraitEntry(string n, string a, string d)
         {
             Name = n;
             Code = a;
-            Cost = c;
             Description = d;
         }
 
