@@ -51,6 +51,7 @@ namespace Nova.Common
     /// <item><term>Low Starting Population</term><description>-60 pts.</description></item>
     /// <item><term>Bleeding Edge Technology</term><description>-23 pts.</description></item>
     /// <item><term>Regenerating Shields</term><description>-10 pts.</description></item>
+    /// <item><term>Extra Tech Start at L4</term><description>-180 pts.</description></item>
     /// </list>
     /// </para>
     /// </summary>
@@ -71,6 +72,7 @@ namespace Nova.Common
         private const string LowStartingPopulationDescription = "You start with 30% fewer colonists.";
         private const string BleedingEdgeTechnologyDescription = "New techs initially cost twice as much to build. As soon as you exceed all of the tech requirements by one level the cost drops back to normal. Miniaturization occurs at 5% a level and pegs at 80%.";
         private const string RegeneratingShieldsDescription = "All shields are 40% stronger than the listed rating. Shields regenerate 10% of maxium strength after every round of battle. However, your armor will only be 50% of its rated strength.";
+        private const string ExtraCostStartLevel4Description = "All Techs with 75% extra Costs start at Tech Level 3, for JOAT at Tech Level 4.";
 
         public static readonly TraitEntry[] Traits = new TraitEntry[]
             {
@@ -81,14 +83,15 @@ namespace Nova.Common
                 new TraitEntry("Generalised Research", "GR", 67, GeneralisedResearchDescription),
                 new TraitEntry("Ultimate Recycling", "UR", 80, UltimateRecyclingDescription),
                 new TraitEntry("Mineral Alchemy", "MA", 51, MineralAlchemyDescription),
-                new TraitEntry("Cheap Factories", "CF", 58, CheapFactoriesDescription),
+                new TraitEntry("Cheap Factories", "CF", 58, CheapFactoriesDescription), // This is not a normal LRT!
                 new TraitEntry("No Ram Scoop Engines", "NRS", -53, NoRamScoopEnginesDescription),
                 new TraitEntry("Cheap Engines", "CE", -80, CheapEnginesDecription),
                 new TraitEntry("Only Basic Remote Mining", "OBRM", -85, OnlyBasicRemoteMiningDescription),
                 new TraitEntry("No Advanced Scanners", "NAS", -95, NoAdvancedScannersDecription),
                 new TraitEntry("Low Starting Population", "LSP", -60, LowStartingPopulationDescription),
                 new TraitEntry("Bleeding Edge Technology", "BET", -23, BleedingEdgeTechnologyDescription),
-                new TraitEntry("Regenerating Shields", "RS", -10, RegeneratingShieldsDescription)
+                new TraitEntry("Regenerating Shields", "RS", -10, RegeneratingShieldsDescription),
+                new TraitEntry("Extra Tech", "ExtraTech", -10, RegeneratingShieldsDescription) // This is not a normal LRT!
           };
    }
 }

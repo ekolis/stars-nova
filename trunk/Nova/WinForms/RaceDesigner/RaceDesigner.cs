@@ -349,7 +349,7 @@ namespace Nova.WinForms.RaceDesigner
             this.groupBox1.TabIndex = 6;
             this.groupBox1.TabStop = false;
             // 
-            // AvailablePoints
+            // availablePoints
             // 
             this.availablePoints.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.availablePoints.Location = new System.Drawing.Point(112, 10);
@@ -359,7 +359,7 @@ namespace Nova.WinForms.RaceDesigner
             this.availablePoints.Text = "53";
             this.availablePoints.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // TabConrol
+            // tabConrol
             // 
             this.tabConrol.Controls.Add(this.raceTab);
             this.tabConrol.Controls.Add(this.traitsTab);
@@ -373,7 +373,7 @@ namespace Nova.WinForms.RaceDesigner
             this.tabConrol.Size = new System.Drawing.Size(400, 422);
             this.tabConrol.TabIndex = 0;
             // 
-            // RaceTab
+            // raceTab
             // 
             this.raceTab.Controls.Add(this.label2);
             this.raceTab.Controls.Add(this.label3);
@@ -421,7 +421,7 @@ namespace Nova.WinForms.RaceDesigner
             this.groupBox2.TabIndex = 1;
             this.groupBox2.TabStop = false;
             // 
-            // PluralRaceName
+            // pluralRaceName
             // 
             this.pluralRaceName.Location = new System.Drawing.Point(104, 36);
             this.pluralRaceName.Name = "pluralRaceName";
@@ -429,7 +429,7 @@ namespace Nova.WinForms.RaceDesigner
             this.pluralRaceName.TabIndex = 2;
             this.pluralRaceName.Text = "Humanoids";
             // 
-            // PreviousImage
+            // previousImage
             // 
             this.previousImage.Location = new System.Drawing.Point(325, 36);
             this.previousImage.Name = "previousImage";
@@ -439,7 +439,7 @@ namespace Nova.WinForms.RaceDesigner
             this.previousImage.UseVisualStyleBackColor = true;
             this.previousImage.Click += new System.EventHandler(this.PreviousImage_Click);
             // 
-            // NextImage
+            // nextImage
             // 
             this.nextImage.Location = new System.Drawing.Point(325, 13);
             this.nextImage.Name = "nextImage";
@@ -449,7 +449,7 @@ namespace Nova.WinForms.RaceDesigner
             this.nextImage.UseVisualStyleBackColor = true;
             this.nextImage.Click += new System.EventHandler(this.NextImage_Click);
             // 
-            // PictureBox
+            // pictureBox
             // 
             this.pictureBox.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
             this.pictureBox.Location = new System.Drawing.Point(255, 14);
@@ -458,7 +458,7 @@ namespace Nova.WinForms.RaceDesigner
             this.pictureBox.TabIndex = 4;
             this.pictureBox.TabStop = false;
             // 
-            // Password
+            // password
             // 
             this.password.Location = new System.Drawing.Point(103, 60);
             this.password.Name = "password";
@@ -473,7 +473,7 @@ namespace Nova.WinForms.RaceDesigner
             this.label12.TabIndex = 3;
             this.label12.Text = "Password";
             // 
-            // RaceName
+            // raceName
             // 
             this.raceName.Location = new System.Drawing.Point(104, 13);
             this.raceName.Name = "raceName";
@@ -481,7 +481,7 @@ namespace Nova.WinForms.RaceDesigner
             this.raceName.TabIndex = 1;
             this.raceName.Text = "Humanoid";
             // 
-            // IconIndex
+            // iconIndex
             // 
             this.iconIndex.Location = new System.Drawing.Point(324, 62);
             this.iconIndex.Name = "iconIndex";
@@ -504,7 +504,7 @@ namespace Nova.WinForms.RaceDesigner
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Trait Description";
             // 
-            // PrimaryTraitDescription
+            // primaryTraitDescription
             // 
             this.primaryTraitDescription.Dock = System.Windows.Forms.DockStyle.Fill;
             this.primaryTraitDescription.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -536,7 +536,7 @@ namespace Nova.WinForms.RaceDesigner
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Primary Racial Traits";
             // 
-            // JackOfAllTrades
+            // jackOfAllTrades
             // 
             this.jackOfAllTrades.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.jackOfAllTrades.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -548,7 +548,7 @@ namespace Nova.WinForms.RaceDesigner
             this.jackOfAllTrades.Text = "Jack of all Trades";
             this.jackOfAllTrades.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
-            // AlternateReality
+            // alternateReality
             // 
             this.alternateReality.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.alternateReality.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -560,7 +560,7 @@ namespace Nova.WinForms.RaceDesigner
             this.alternateReality.Text = "Alternate Reality";
             this.alternateReality.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
-            // InterStellarTraveller
+            // interStellarTraveller
             // 
             this.interStellarTraveller.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.interStellarTraveller.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -572,7 +572,7 @@ namespace Nova.WinForms.RaceDesigner
             this.interStellarTraveller.Text = "Inter-stellar Traveller";
             this.interStellarTraveller.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
-            // PacketPhysics
+            // packetPhysics
             // 
             this.packetPhysics.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.packetPhysics.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -584,7 +584,7 @@ namespace Nova.WinForms.RaceDesigner
             this.packetPhysics.Text = "Packet Physics";
             this.packetPhysics.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
-            // SpaceDemolition
+            // spaceDemolition
             // 
             this.spaceDemolition.Anchor = System.Windows.Forms.AnchorStyles.Right;
             this.spaceDemolition.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -596,7 +596,7 @@ namespace Nova.WinForms.RaceDesigner
             this.spaceDemolition.Text = "Space Demolition";
             this.spaceDemolition.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
-            // InnerStrength
+            // innerStrength
             // 
             this.innerStrength.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.innerStrength.Location = new System.Drawing.Point(8, 112);
@@ -607,7 +607,7 @@ namespace Nova.WinForms.RaceDesigner
             this.innerStrength.Text = "Inner Strength";
             this.innerStrength.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
-            // ClaimAdjuster
+            // claimAdjuster
             // 
             this.claimAdjuster.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.claimAdjuster.Location = new System.Drawing.Point(8, 88);
@@ -618,7 +618,7 @@ namespace Nova.WinForms.RaceDesigner
             this.claimAdjuster.Text = "Claim Adjuster";
             this.claimAdjuster.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
-            // WarMonger
+            // warMonger
             // 
             this.warMonger.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.warMonger.Location = new System.Drawing.Point(8, 64);
@@ -629,7 +629,7 @@ namespace Nova.WinForms.RaceDesigner
             this.warMonger.Text = "War Monger";
             this.warMonger.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
-            // SuperStealth
+            // superStealth
             // 
             this.superStealth.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.superStealth.Location = new System.Drawing.Point(8, 42);
@@ -640,7 +640,7 @@ namespace Nova.WinForms.RaceDesigner
             this.superStealth.Text = "Super Stealth";
             this.superStealth.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
-            // HyperExpansion
+            // hyperExpansion
             // 
             this.hyperExpansion.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.hyperExpansion.Location = new System.Drawing.Point(8, 19);
@@ -651,7 +651,7 @@ namespace Nova.WinForms.RaceDesigner
             this.hyperExpansion.Text = "Hyper-Expansion";
             this.hyperExpansion.CheckedChanged += new System.EventHandler(this.RadioButton_CheckedChanged);
             // 
-            // TraitsTab
+            // traitsTab
             // 
             this.traitsTab.Controls.Add(this.groupBox7);
             this.traitsTab.Controls.Add(this.groupBox5);
@@ -673,7 +673,7 @@ namespace Nova.WinForms.RaceDesigner
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Trait Description";
             // 
-            // SecondaryTraitDescription
+            // secondaryTraitDescription
             // 
             this.secondaryTraitDescription.Location = new System.Drawing.Point(10, 16);
             this.secondaryTraitDescription.Name = "secondaryTraitDescription";
@@ -704,7 +704,7 @@ namespace Nova.WinForms.RaceDesigner
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Secondary Racial Traits";
             // 
-            // RegeneratingShields
+            // regeneratingShields
             // 
             this.regeneratingShields.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.regeneratingShields.Location = new System.Drawing.Point(211, 168);
@@ -715,7 +715,7 @@ namespace Nova.WinForms.RaceDesigner
             this.regeneratingShields.Text = "Regenerating shields";
             this.regeneratingShields.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // BleedingEdgeTechnology
+            // bleedingEdgeTechnology
             // 
             this.bleedingEdgeTechnology.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.bleedingEdgeTechnology.Location = new System.Drawing.Point(211, 144);
@@ -726,7 +726,7 @@ namespace Nova.WinForms.RaceDesigner
             this.bleedingEdgeTechnology.Text = "Bleeding edge technology";
             this.bleedingEdgeTechnology.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // LowStartingPopulation
+            // lowStartingPopulation
             // 
             this.lowStartingPopulation.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.lowStartingPopulation.Location = new System.Drawing.Point(211, 120);
@@ -737,7 +737,7 @@ namespace Nova.WinForms.RaceDesigner
             this.lowStartingPopulation.Text = "Low starting population";
             this.lowStartingPopulation.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // NoAdvancedScanners
+            // noAdvancedScanners
             // 
             this.noAdvancedScanners.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.noAdvancedScanners.Location = new System.Drawing.Point(211, 96);
@@ -748,7 +748,7 @@ namespace Nova.WinForms.RaceDesigner
             this.noAdvancedScanners.Text = "No advanced scanners";
             this.noAdvancedScanners.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // BasicRemoteMining
+            // basicRemoteMining
             // 
             this.basicRemoteMining.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.basicRemoteMining.Location = new System.Drawing.Point(211, 72);
@@ -759,7 +759,7 @@ namespace Nova.WinForms.RaceDesigner
             this.basicRemoteMining.Text = "Only basic remote mining";
             this.basicRemoteMining.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // CheapEngines
+            // cheapEngines
             // 
             this.cheapEngines.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cheapEngines.Location = new System.Drawing.Point(211, 48);
@@ -770,7 +770,7 @@ namespace Nova.WinForms.RaceDesigner
             this.cheapEngines.Text = "Cheap engines";
             this.cheapEngines.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // NoRAMEngines
+            // noRamEngines
             // 
             this.noRamEngines.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.noRamEngines.Location = new System.Drawing.Point(211, 24);
@@ -781,7 +781,7 @@ namespace Nova.WinForms.RaceDesigner
             this.noRamEngines.Text = "No RAM scoop engines";
             this.noRamEngines.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // MineralAlchemy
+            // mineralAlchemy
             // 
             this.mineralAlchemy.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.mineralAlchemy.Location = new System.Drawing.Point(16, 168);
@@ -792,7 +792,7 @@ namespace Nova.WinForms.RaceDesigner
             this.mineralAlchemy.Text = "Mineral alchemy";
             this.mineralAlchemy.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // UltimateRecycling
+            // ultimateRecycling
             // 
             this.ultimateRecycling.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ultimateRecycling.Location = new System.Drawing.Point(16, 144);
@@ -803,7 +803,7 @@ namespace Nova.WinForms.RaceDesigner
             this.ultimateRecycling.Text = "Ultimate recycling";
             this.ultimateRecycling.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // GeneralisedResearch
+            // generalisedResearch
             // 
             this.generalisedResearch.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.generalisedResearch.Location = new System.Drawing.Point(16, 120);
@@ -814,7 +814,7 @@ namespace Nova.WinForms.RaceDesigner
             this.generalisedResearch.Text = "Generalised reseach";
             this.generalisedResearch.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // ImprovedStarbases
+            // improvedStarbases
             // 
             this.improvedStarbases.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.improvedStarbases.Location = new System.Drawing.Point(16, 96);
@@ -825,7 +825,7 @@ namespace Nova.WinForms.RaceDesigner
             this.improvedStarbases.Text = "Improved starbases";
             this.improvedStarbases.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // AdvancedRemoteMining
+            // advancedRemoteMining
             // 
             this.advancedRemoteMining.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.advancedRemoteMining.Location = new System.Drawing.Point(16, 72);
@@ -836,7 +836,7 @@ namespace Nova.WinForms.RaceDesigner
             this.advancedRemoteMining.Text = "Advanced remote mining";
             this.advancedRemoteMining.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // TotalTerraforming
+            // totalTerraforming
             // 
             this.totalTerraforming.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.totalTerraforming.Location = new System.Drawing.Point(16, 48);
@@ -847,7 +847,7 @@ namespace Nova.WinForms.RaceDesigner
             this.totalTerraforming.Text = "Total terraforming";
             this.totalTerraforming.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // ImprovedFuelEfficiency
+            // improvedFuelEfficiency
             // 
             this.improvedFuelEfficiency.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.improvedFuelEfficiency.Location = new System.Drawing.Point(16, 24);
@@ -858,7 +858,7 @@ namespace Nova.WinForms.RaceDesigner
             this.improvedFuelEfficiency.Text = "Improved fuel efficiency";
             this.improvedFuelEfficiency.CheckedChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
-            // EnvironmentTab
+            // environmentTab
             // 
             this.environmentTab.Controls.Add(this.groupBox9);
             this.environmentTab.Location = new System.Drawing.Point(4, 22);
@@ -883,7 +883,7 @@ namespace Nova.WinForms.RaceDesigner
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Environment Tolerance";
             // 
-            // MaxGrowth
+            // maxGrowth
             // 
             this.maxGrowth.Location = new System.Drawing.Point(235, 320);
             this.maxGrowth.Maximum = new decimal(new int[] {
@@ -911,11 +911,12 @@ namespace Nova.WinForms.RaceDesigner
             this.label4.TabIndex = 3;
             this.label4.Text = "Maximum Colinists Growth Per Year";
             // 
-            // RadiationTolerance
+            // radiationTolerance
             // 
-            this.radiationTolerance.MinimumValue = 15;
-            this.radiationTolerance.MaximumValue = 85;
+            this.radiationTolerance.Immune = false;
             this.radiationTolerance.Location = new System.Drawing.Point(14, 220);
+            this.radiationTolerance.MaximumValue = 85;
+            this.radiationTolerance.MinimumValue = 15;
             this.radiationTolerance.Name = "radiationTolerance";
             this.radiationTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
             this.radiationTolerance.RangeTitle = "Radiation";
@@ -925,11 +926,12 @@ namespace Nova.WinForms.RaceDesigner
             this.radiationTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
             this.radiationTolerance.CheckChanged += new Nova.ControlLibrary.Range.CheckChangedHandler(this.Tolerance_CheckChanged);
             // 
-            // TemperatureTolerance
+            // temperatureTolerance
             // 
-            this.temperatureTolerance.MinimumValue = 15;
-            this.temperatureTolerance.MaximumValue = 85;
+            this.temperatureTolerance.Immune = false;
             this.temperatureTolerance.Location = new System.Drawing.Point(14, 118);
+            this.temperatureTolerance.MaximumValue = 85;
+            this.temperatureTolerance.MinimumValue = 15;
             this.temperatureTolerance.Name = "temperatureTolerance";
             this.temperatureTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(128)))), ((int)(((byte)(128)))));
             this.temperatureTolerance.RangeTitle = "Temperature";
@@ -939,21 +941,22 @@ namespace Nova.WinForms.RaceDesigner
             this.temperatureTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
             this.temperatureTolerance.CheckChanged += new Nova.ControlLibrary.Range.CheckChangedHandler(this.Tolerance_CheckChanged);
             // 
-            // GravityTolerance
-            //
-            this.gravityTolerance.MinimumValue = 15;
-            this.gravityTolerance.MaximumValue = 85;
+            // gravityTolerance
+            // 
+            this.gravityTolerance.Immune = false;
             this.gravityTolerance.Location = new System.Drawing.Point(14, 19);
+            this.gravityTolerance.MaximumValue = 85;
+            this.gravityTolerance.MinimumValue = 15;
             this.gravityTolerance.Name = "gravityTolerance";
             this.gravityTolerance.RangeBarColor = System.Drawing.Color.FromArgb(((int)(((byte)(128)))), ((int)(((byte)(128)))), ((int)(((byte)(255)))));
             this.gravityTolerance.RangeTitle = "Gravity";
-            this.gravityTolerance.RangeUnits = "g"; //Gravity.GetUnit();
+            this.gravityTolerance.RangeUnits = "g";
             this.gravityTolerance.Size = new System.Drawing.Size(324, 95);
             this.gravityTolerance.TabIndex = 0;
             this.gravityTolerance.RangeChanged += new Nova.ControlLibrary.Range.RangeChangedHandler(this.Tolerance_RangeChanged);
             this.gravityTolerance.CheckChanged += new Nova.ControlLibrary.Range.CheckChangedHandler(this.Tolerance_CheckChanged);
             // 
-            // ProductionTab
+            // productionTab
             // 
             this.productionTab.Controls.Add(this.groupBox12);
             this.productionTab.Controls.Add(this.groupBox11);
@@ -989,7 +992,7 @@ namespace Nova.WinForms.RaceDesigner
             this.label9.TabIndex = 9;
             this.label9.Text = "Mineral production (kT) per  set of 10 mines";
             // 
-            // MineralProduction
+            // mineralProduction
             // 
             this.mineralProduction.Location = new System.Drawing.Point(292, 16);
             this.mineralProduction.Maximum = new decimal(new int[] {
@@ -1013,7 +1016,7 @@ namespace Nova.WinForms.RaceDesigner
             0});
             this.mineralProduction.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
             // 
-            // OperableMines
+            // operableMines
             // 
             this.operableMines.Location = new System.Drawing.Point(292, 41);
             this.operableMines.Maximum = new decimal(new int[] {
@@ -1045,7 +1048,7 @@ namespace Nova.WinForms.RaceDesigner
             this.label10.TabIndex = 11;
             this.label10.Text = "Number of resources required to build a mine";
             // 
-            // ResourcesPerMine
+            // resourcesPerMine
             // 
             this.resourcesPerMine.Location = new System.Drawing.Point(293, 66);
             this.resourcesPerMine.Maximum = new decimal(new int[] {
@@ -1093,7 +1096,7 @@ namespace Nova.WinForms.RaceDesigner
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "Factories";
             // 
-            // CheapFactories
+            // cheapFactories
             // 
             this.cheapFactories.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cheapFactories.Location = new System.Drawing.Point(13, 92);
@@ -1102,6 +1105,7 @@ namespace Nova.WinForms.RaceDesigner
             this.cheapFactories.TabIndex = 15;
             this.cheapFactories.Tag = "CF";
             this.cheapFactories.Text = "Factories cost 1kT less Germanium";
+            this.cheapFactories.CheckStateChanged += new System.EventHandler(this.SecondaryTraits_CheckedChanged);
             // 
             // label8
             // 
@@ -1127,7 +1131,7 @@ namespace Nova.WinForms.RaceDesigner
             this.label6.TabIndex = 2;
             this.label6.Text = "Resources produced by each set of 10 factories";
             // 
-            // ResourceProduction
+            // resourceProduction
             // 
             this.resourceProduction.Location = new System.Drawing.Point(292, 19);
             this.resourceProduction.Maximum = new decimal(new int[] {
@@ -1151,7 +1155,7 @@ namespace Nova.WinForms.RaceDesigner
             0});
             this.resourceProduction.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
             // 
-            // FactoryBuildCost
+            // factoryBuildCost
             // 
             this.factoryBuildCost.Location = new System.Drawing.Point(292, 69);
             this.factoryBuildCost.Maximum = new decimal(new int[] {
@@ -1175,7 +1179,7 @@ namespace Nova.WinForms.RaceDesigner
             0});
             this.factoryBuildCost.ValueChanged += new System.EventHandler(this.UpDown_ValueChanged);
             // 
-            // OperableFactories
+            // operableFactories
             // 
             this.operableFactories.Location = new System.Drawing.Point(292, 44);
             this.operableFactories.Maximum = new decimal(new int[] {
@@ -1209,7 +1213,7 @@ namespace Nova.WinForms.RaceDesigner
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Spend Unused Allocation Points On:";
             // 
-            // UnusedPointsTarget
+            // unusedPointsTarget
             // 
             this.unusedPointsTarget.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.unusedPointsTarget.Items.AddRange(new object[] {
@@ -1234,7 +1238,7 @@ namespace Nova.WinForms.RaceDesigner
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Colonists";
             // 
-            // ColonistProduction
+            // colonistProduction
             // 
             this.colonistProduction.Increment = new decimal(new int[] {
             100,
@@ -1271,7 +1275,7 @@ namespace Nova.WinForms.RaceDesigner
             this.label5.TabIndex = 0;
             this.label5.Text = "Colonists required to generate one resource each year";
             // 
-            // ResearchTab
+            // researchTab
             // 
             this.researchTab.Controls.Add(this.extraTech);
             this.researchTab.Controls.Add(this.biotechnologyResearch);
@@ -1287,18 +1291,18 @@ namespace Nova.WinForms.RaceDesigner
             this.researchTab.Text = "Research";
             this.researchTab.UseVisualStyleBackColor = true;
             // 
-            // ExtraTech
+            // extraTech
             // 
             this.extraTech.AutoSize = true;
             this.extraTech.Location = new System.Drawing.Point(16, 369);
-            this.extraTech.Name = "extraTech";
+            this.extraTech.Name = "ExtraTech";
             this.extraTech.Size = new System.Drawing.Size(233, 17);
             this.extraTech.TabIndex = 6;
             this.extraTech.Text = "All extra cost technologies starts with level 3";
             this.extraTech.UseVisualStyleBackColor = true;
             this.extraTech.CheckedChanged += new System.EventHandler(this.ExtraTech_CheckedChanged);
             // 
-            // BiotechnologyResearch
+            // biotechnologyResearch
             // 
             this.biotechnologyResearch.Cost = 100;
             this.biotechnologyResearch.Location = new System.Drawing.Point(193, 250);
@@ -1308,7 +1312,7 @@ namespace Nova.WinForms.RaceDesigner
             this.biotechnologyResearch.Title = "Biotechnology Research";
             this.biotechnologyResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
-            // ElectronicsResearch
+            // electronicsResearch
             // 
             this.electronicsResearch.Cost = 100;
             this.electronicsResearch.Location = new System.Drawing.Point(196, 125);
@@ -1318,7 +1322,7 @@ namespace Nova.WinForms.RaceDesigner
             this.electronicsResearch.Title = "Electronics Research";
             this.electronicsResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
-            // ConstructionResearch
+            // constructionResearch
             // 
             this.constructionResearch.Cost = 100;
             this.constructionResearch.Location = new System.Drawing.Point(193, 9);
@@ -1328,7 +1332,7 @@ namespace Nova.WinForms.RaceDesigner
             this.constructionResearch.Title = "Construction Research";
             this.constructionResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
-            // PropulsionResearch
+            // propulsionResearch
             // 
             this.propulsionResearch.Cost = 100;
             this.propulsionResearch.Location = new System.Drawing.Point(3, 250);
@@ -1338,7 +1342,7 @@ namespace Nova.WinForms.RaceDesigner
             this.propulsionResearch.Title = "Propulsion Research";
             this.propulsionResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
-            // WeaponsResearch
+            // weaponsResearch
             // 
             this.weaponsResearch.Cost = 100;
             this.weaponsResearch.Location = new System.Drawing.Point(6, 125);
@@ -1348,7 +1352,7 @@ namespace Nova.WinForms.RaceDesigner
             this.weaponsResearch.Title = "Weapons Research";
             this.weaponsResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
-            // EnergyResearch
+            // energyResearch
             // 
             this.energyResearch.Cost = 100;
             this.energyResearch.Location = new System.Drawing.Point(3, 9);
@@ -1358,7 +1362,7 @@ namespace Nova.WinForms.RaceDesigner
             this.energyResearch.Title = "Energy Research";
             this.energyResearch.SelectionChanged += new Nova.ControlLibrary.ResearchCost.SelectionChangedHandler(this.ResearchCost_SelectionChanged);
             // 
-            // Finish
+            // finish
             // 
             this.finish.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.finish.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -1369,7 +1373,7 @@ namespace Nova.WinForms.RaceDesigner
             this.finish.Text = "Generate";
             this.finish.Click += new System.EventHandler(this.Finish_Click);
             // 
-            // Exit
+            // exit
             // 
             this.exit.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.exit.FlatStyle = System.Windows.Forms.FlatStyle.System;
@@ -1380,7 +1384,7 @@ namespace Nova.WinForms.RaceDesigner
             this.exit.Text = "Exit";
             this.exit.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // MainMenu
+            // mainMenu
             // 
             this.mainMenu.BackColor = System.Drawing.SystemColors.Control;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -1408,9 +1412,9 @@ namespace Nova.WinForms.RaceDesigner
             this.exitToolStripMenuItem.Text = "Exit";
             this.exitToolStripMenuItem.Click += new System.EventHandler(this.Exit_Click);
             // 
-            // LoadRaceFile
+            // loadRaceFile
             // 
-            this.loadRaceFile.Name = "LoadRaceFile";
+            this.loadRaceFile.Name = "loadRaceFile";
             this.loadRaceFile.Size = new System.Drawing.Size(149, 22);
             this.loadRaceFile.Text = "Load Race File";
             this.loadRaceFile.Click += new System.EventHandler(this.LoadRaceFile_Click);
@@ -1430,7 +1434,7 @@ namespace Nova.WinForms.RaceDesigner
             this.aboutToolStripMenuItem.Text = "About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutToolStripMenuItem_Click);
             // 
-            // OpenFileDialog
+            // openFileDialog
             // 
             this.openFileDialog.FileName = "OpenFileDialog";
             this.openFileDialog.Filter = "Race Definition File | *.race";
@@ -1550,7 +1554,9 @@ namespace Nova.WinForms.RaceDesigner
         /// </summary>
         private void ShowAvailablePoints()
         {
-            this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            Race race = makeRace();
+            int newAdvantagePoints = race.GetAdvantagePoints();
+            this.availablePoints.Text = this.advantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture) + "#" + newAdvantagePoints.ToString(System.Globalization.CultureInfo.InvariantCulture);
         }
 
 

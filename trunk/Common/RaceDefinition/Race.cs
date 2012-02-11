@@ -25,6 +25,9 @@ namespace Nova.Common
     using System;
     using System.IO;
     using System.Xml;
+    using System.Collections.Generic;
+
+    using Nova.Common.RaceDefinition;
 
     /// <summary>
     /// This Class defines all the parameters that define the characteristics of a
@@ -41,7 +44,6 @@ namespace Nova.Common
         public TechLevel ResearchCosts = new TechLevel(0);
 
         public RacialTraits Traits = new RacialTraits(); // Collection of all the race's traits, including the primary.
-        public int MineBuildCost;
 
         public string PluralName;
         public string Name;
@@ -54,6 +56,8 @@ namespace Nova.Common
         public int ColonistsPerResource;
         public int FactoryProduction;    // defined in the Race Designer as the amount of resources produced by 10 factories
         public int OperableFactories;
+
+        public int MineBuildCost;
         public int MineProductionRate;   // defined in the Race Designer as the amount of minerals (kT) mined by every 10 mines
         public int OperableMines;
 
@@ -174,7 +178,13 @@ namespace Nova.Common
             
             return HabitalValue(star);
         }
-        
+
+        public int GetAdvantagePoints()
+        {
+            RaceAdvantagePointCalculator calculator = new RaceAdvantagePointCalculator();
+            return calculator.calculateAdvantagePoints(this);
+        }
+
         private int GetMaxMalus()
         {
             int maxMalus = 15;
@@ -499,6 +509,62 @@ namespace Nova.Common
 
                 xmlnode = xmlnode.NextSibling;
             }
+        }
+
+        public int lowerHab(int habIndex)
+        {
+            switch (habIndex)
+            {
+                case 0:
+                    return GravityTolerance.MinimumValue;
+                case 1:
+                    return TemperatureTolerance.MinimumValue;
+                case 2:
+                    return RadiationTolerance.MinimumValue;
+            }
+            return 0;
+        }
+
+        public int upperHab(int habIndex)
+        {
+            switch (habIndex)
+            {
+                case 0:
+                    return GravityTolerance.MaximumValue;
+                case 1:
+                    return TemperatureTolerance.MaximumValue;
+                case 2:
+                    return RadiationTolerance.MaximumValue;
+            }
+            return 0;
+        }
+
+        public int centerHab(int habIndex)
+        {
+            switch (habIndex)
+            {
+                case 0:
+                    return GravityTolerance.OptimumLevel;
+                case 1:
+                    return TemperatureTolerance.OptimumLevel;
+                case 2:
+                    return RadiationTolerance.OptimumLevel;
+            }
+            return 0;
+        }
+
+        public bool isImmune(int habIndex)
+        {
+            switch (habIndex)
+            {
+                case 0:
+                    return GravityTolerance.Immune;
+                case 1:
+                    return TemperatureTolerance.Immune;
+                case 2:
+                    return RadiationTolerance.Immune;
+            }
+            return false;
         }
     }
 }
