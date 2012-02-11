@@ -73,11 +73,12 @@
     <RegisterForComInterop>false</RegisterForComInterop>
     <RemoveIntegerChecks>false</RemoveIntegerChecks>
     <WarningLevel>4</WarningLevel>
-    <DebugType>none</DebugType>
+    <DebugType>full</DebugType>
     <ErrorReport>prompt</ErrorReport>
     <OutputType>Library</OutputType>
     <RootNamespace>NovaCommon</RootNamespace>
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -161,8 +162,14 @@
     <Compile Include="ProgressDialog.Designer.cs">
       <DependentUpon>ProgressDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="RaceDefinition\AllRaceIcons.cs" />
     <Compile Include="RaceDefinition\AllTraits.cs" />
+    <Compile Include="RaceDefinition\RaceAdvantagePointCalculator.cs" />
     <Compile Include="RaceDefinition\TraitEntry.cs" />
     <Compile Include="RaceDefinition\TraitList.cs" />
     <Compile Include="Report.cs" />
@@ -248,6 +255,10 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="ClassDiagrams\AllItemsClassDiagram.cd" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
     <None Include="Resources\Nova.ico" />
   </ItemGroup>
   <ItemGroup>
@@ -281,7 +292,5 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
     <ProjectGuid>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</ProjectGuid>
     <RootNamespace>Nova.Common</RootNamespace>
   </PropertyGroup>
-  <ItemGroup>
-    <Folder Include="Commands" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
