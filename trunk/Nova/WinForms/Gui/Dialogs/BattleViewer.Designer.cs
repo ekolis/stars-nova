@@ -33,6 +33,10 @@ namespace Nova.WinForms.Gui
           this.battlePanel = new System.Windows.Forms.Panel();
           this.groupBox2 = new System.Windows.Forms.GroupBox();
           this.groupBox6 = new System.Windows.Forms.GroupBox();
+          this.damage = new System.Windows.Forms.Label();
+          this.label10 = new System.Windows.Forms.Label();
+          this.componentTarget = new System.Windows.Forms.Label();
+          this.label9 = new System.Windows.Forms.Label();
           this.weaponPower = new System.Windows.Forms.Label();
           this.label8 = new System.Windows.Forms.Label();
           this.groupBox5 = new System.Windows.Forms.GroupBox();
@@ -54,10 +58,6 @@ namespace Nova.WinForms.Gui
           this.label2 = new System.Windows.Forms.Label();
           this.battleLocation = new System.Windows.Forms.Label();
           this.label1 = new System.Windows.Forms.Label();
-          this.label9 = new System.Windows.Forms.Label();
-          this.componentTarget = new System.Windows.Forms.Label();
-          this.label10 = new System.Windows.Forms.Label();
-          this.damage = new System.Windows.Forms.Label();
           this.groupBox1.SuspendLayout();
           this.groupBox2.SuspendLayout();
           this.groupBox6.SuspendLayout();
@@ -76,7 +76,7 @@ namespace Nova.WinForms.Gui
           this.groupBox1.TabStop = false;
           this.groupBox1.Text = "Battle View";
           // 
-          // BattlePanel
+          // battlePanel
           // 
           this.battlePanel.BackColor = System.Drawing.Color.Black;
           this.battlePanel.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
@@ -119,7 +119,45 @@ namespace Nova.WinForms.Gui
           this.groupBox6.TabStop = false;
           this.groupBox6.Text = "Weapon Discharge";
           // 
-          // WeaponPower
+          // damage
+          // 
+          this.damage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+          this.damage.Location = new System.Drawing.Point(112, 74);
+          this.damage.Name = "damage";
+          this.damage.Size = new System.Drawing.Size(141, 18);
+          this.damage.TabIndex = 13;
+          this.damage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+          // 
+          // label10
+          // 
+          this.label10.AutoSize = true;
+          this.label10.Location = new System.Drawing.Point(11, 77);
+          this.label10.Name = "label10";
+          this.label10.Size = new System.Drawing.Size(47, 13);
+          this.label10.TabIndex = 12;
+          this.label10.Text = "Damage";
+          this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+          // 
+          // componentTarget
+          // 
+          this.componentTarget.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+          this.componentTarget.Location = new System.Drawing.Point(112, 49);
+          this.componentTarget.Name = "componentTarget";
+          this.componentTarget.Size = new System.Drawing.Size(141, 18);
+          this.componentTarget.TabIndex = 11;
+          this.componentTarget.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+          // 
+          // label9
+          // 
+          this.label9.AutoSize = true;
+          this.label9.Location = new System.Drawing.Point(11, 50);
+          this.label9.Name = "label9";
+          this.label9.Size = new System.Drawing.Size(95, 13);
+          this.label9.TabIndex = 10;
+          this.label9.Text = "Component Target";
+          this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+          // 
+          // weaponPower
           // 
           this.weaponPower.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
           this.weaponPower.Location = new System.Drawing.Point(112, 25);
@@ -149,7 +187,7 @@ namespace Nova.WinForms.Gui
           this.groupBox5.TabStop = false;
           this.groupBox5.Text = "Replay Control";
           // 
-          // StepNumber
+          // stepNumber
           // 
           this.stepNumber.Location = new System.Drawing.Point(11, 20);
           this.stepNumber.Name = "stepNumber";
@@ -157,7 +195,7 @@ namespace Nova.WinForms.Gui
           this.stepNumber.TabIndex = 3;
           this.stepNumber.Text = "Step 1 of 10";
           // 
-          // NextStep
+          // nextStep
           // 
           this.nextStep.Location = new System.Drawing.Point(11, 58);
           this.nextStep.Name = "nextStep";
@@ -184,7 +222,7 @@ namespace Nova.WinForms.Gui
           this.groupBox4.TabStop = false;
           this.groupBox4.Text = "Weapons Target";
           // 
-          // TargetArmor
+          // targetArmor
           // 
           this.targetArmor.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
           this.targetArmor.Location = new System.Drawing.Point(112, 98);
@@ -193,7 +231,7 @@ namespace Nova.WinForms.Gui
           this.targetArmor.TabIndex = 8;
           this.targetArmor.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
           // 
-          // TargetShields
+          // targetShields
           // 
           this.targetShields.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
           this.targetShields.Location = new System.Drawing.Point(112, 74);
@@ -202,7 +240,7 @@ namespace Nova.WinForms.Gui
           this.targetShields.TabIndex = 7;
           this.targetShields.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
           // 
-          // TargetOwner
+          // targetOwner
           // 
           this.targetOwner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
           this.targetOwner.Location = new System.Drawing.Point(112, 50);
@@ -211,7 +249,7 @@ namespace Nova.WinForms.Gui
           this.targetOwner.TabIndex = 6;
           this.targetOwner.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
           // 
-          // TargetName
+          // targetName
           // 
           this.targetName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
           this.targetName.Location = new System.Drawing.Point(112, 26);
@@ -235,7 +273,7 @@ namespace Nova.WinForms.Gui
           this.label6.AutoSize = true;
           this.label6.Location = new System.Drawing.Point(9, 101);
           this.label6.Name = "label6";
-          this.label6.Size = new System.Drawing.Size(40, 13);
+          this.label6.Size = new System.Drawing.Size(34, 13);
           this.label6.TabIndex = 3;
           this.label6.Text = "Armor";
           this.label6.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -275,7 +313,7 @@ namespace Nova.WinForms.Gui
           this.groupBox3.TabStop = false;
           this.groupBox3.Text = "Movement";
           // 
-          // MovedTo
+          // movedTo
           // 
           this.movedTo.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
           this.movedTo.Location = new System.Drawing.Point(112, 37);
@@ -294,7 +332,7 @@ namespace Nova.WinForms.Gui
           this.label4.Text = "Moved To";
           this.label4.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
           // 
-          // StackOwner
+          // stackOwner
           // 
           this.stackOwner.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
           this.stackOwner.Location = new System.Drawing.Point(112, 16);
@@ -313,7 +351,7 @@ namespace Nova.WinForms.Gui
           this.label2.Text = "Stack Owner";
           this.label2.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
           // 
-          // BattleLocation
+          // battleLocation
           // 
           this.battleLocation.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                       | System.Windows.Forms.AnchorStyles.Right)));
@@ -332,44 +370,6 @@ namespace Nova.WinForms.Gui
           this.label1.TabIndex = 0;
           this.label1.Text = "Battle Location:";
           // 
-          // label9
-          // 
-          this.label9.AutoSize = true;
-          this.label9.Location = new System.Drawing.Point(11, 50);
-          this.label9.Name = "label9";
-          this.label9.Size = new System.Drawing.Size(95, 13);
-          this.label9.TabIndex = 10;
-          this.label9.Text = "Component Target";
-          this.label9.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-          // 
-          // ComponentTarget
-          // 
-          this.componentTarget.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-          this.componentTarget.Location = new System.Drawing.Point(112, 49);
-          this.componentTarget.Name = "componentTarget";
-          this.componentTarget.Size = new System.Drawing.Size(141, 18);
-          this.componentTarget.TabIndex = 11;
-          this.componentTarget.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-          // 
-          // label10
-          // 
-          this.label10.AutoSize = true;
-          this.label10.Location = new System.Drawing.Point(11, 77);
-          this.label10.Name = "label10";
-          this.label10.Size = new System.Drawing.Size(47, 13);
-          this.label10.TabIndex = 12;
-          this.label10.Text = "Damage";
-          this.label10.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
-          // 
-          // Damage
-          // 
-          this.damage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
-          this.damage.Location = new System.Drawing.Point(112, 74);
-          this.damage.Name = "damage";
-          this.damage.Size = new System.Drawing.Size(141, 18);
-          this.damage.TabIndex = 13;
-          this.damage.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
-          // 
           // BattleViewer
           // 
           this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -379,7 +379,7 @@ namespace Nova.WinForms.Gui
           this.Controls.Add(this.groupBox1);
           this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
           this.Name = "BattleViewer";
-          this.Text = "Nova Battle Viewer";
+          this.Text = "Stars! Nova - Battle Viewer";
           this.Load += new System.EventHandler(this.OnLoad);
           this.groupBox1.ResumeLayout(false);
           this.groupBox2.ResumeLayout(false);

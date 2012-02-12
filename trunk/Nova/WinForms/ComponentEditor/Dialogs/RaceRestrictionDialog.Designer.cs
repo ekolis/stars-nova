@@ -731,7 +731,7 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Component Name";
             // 
-            // ComponentName
+            // componentName
             // 
             this.componentName.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
                         | System.Windows.Forms.AnchorStyles.Right)));
@@ -1477,7 +1477,7 @@
             this.label20.TabIndex = 0;
             this.label20.Text = "Improved Fuel Efficiency";
             // 
-            // ComponentImage
+            // componentImage
             // 
             this.componentImage.Location = new System.Drawing.Point(10, 32);
             this.componentImage.Name = "componentImage";
@@ -1485,7 +1485,7 @@
             this.componentImage.TabIndex = 13;
             this.componentImage.TabStop = false;
             // 
-            // Cancel
+            // cancel
             // 
             this.cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.cancel.Location = new System.Drawing.Point(658, 507);
@@ -1496,7 +1496,7 @@
             this.cancel.UseVisualStyleBackColor = true;
             this.cancel.Click += new System.EventHandler(this.Cancel_Click);
             // 
-            // Save
+            // save
             // 
             this.save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.save.Location = new System.Drawing.Point(739, 507);
@@ -1520,7 +1520,7 @@
             this.Controls.Add(this.groupBox1);
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Name = "RaceRestrictionDialog";
-            this.Text = "Component Race Restrictions";
+            this.Text = "Stars! Nova - Component Race Restrictions";
             this.groupBox1.ResumeLayout(false);
             this.panel10.ResumeLayout(false);
             this.panel10.PerformLayout();

@@ -482,7 +482,7 @@ namespace Nova.WinForms.ComponentEditor
             ((System.ComponentModel.ISupportInitialize)(this.weaponPower)).BeginInit();
             this.SuspendLayout();
             // 
-            // ResetFileLocation
+            // resetFileLocation
             // 
             this.resetFileLocation.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.newFileMenuItem,
@@ -491,34 +491,34 @@ namespace Nova.WinForms.ComponentEditor
             this.saveFileAsMenuItem,
             this.toolStripMenuItem3,
             this.exitToolStripMenuItem});
-            this.resetFileLocation.Name = "ResetFileLocation";
+            this.resetFileLocation.Name = "resetFileLocation";
             this.resetFileLocation.Size = new System.Drawing.Size(37, 20);
             this.resetFileLocation.Text = "&File";
             // 
-            // menuItem_NewFile
+            // newFileMenuItem
             // 
-            this.newFileMenuItem.Name = "menuItem_NewFile";
+            this.newFileMenuItem.Name = "newFileMenuItem";
             this.newFileMenuItem.Size = new System.Drawing.Size(114, 22);
             this.newFileMenuItem.Text = "&New";
             this.newFileMenuItem.Click += new System.EventHandler(this.MenuItem_NewFile_Click);
             // 
-            // menuItem_OpenFile
+            // openFileMenuItem
             // 
-            this.openFileMenuItem.Name = "menuItem_OpenFile";
+            this.openFileMenuItem.Name = "openFileMenuItem";
             this.openFileMenuItem.Size = new System.Drawing.Size(114, 22);
             this.openFileMenuItem.Text = "&Open";
             this.openFileMenuItem.Click += new System.EventHandler(this.OpenToolStripMenuItem_Click);
             // 
-            // menuItem_SaveFile
+            // saveFileMenuItem
             // 
-            this.saveFileMenuItem.Name = "menuItem_SaveFile";
+            this.saveFileMenuItem.Name = "saveFileMenuItem";
             this.saveFileMenuItem.Size = new System.Drawing.Size(114, 22);
             this.saveFileMenuItem.Text = "&Save";
             this.saveFileMenuItem.Click += new System.EventHandler(this.MenuItem_SaveFile_Click);
             // 
-            // menuItem_SaveFileAs
+            // saveFileAsMenuItem
             // 
-            this.saveFileAsMenuItem.Name = "menuItem_SaveFileAs";
+            this.saveFileAsMenuItem.Name = "saveFileAsMenuItem";
             this.saveFileAsMenuItem.Size = new System.Drawing.Size(114, 22);
             this.saveFileAsMenuItem.Text = "Save &As";
             this.saveFileAsMenuItem.Click += new System.EventHandler(this.MenuItem_SaveFileAs_Click);
@@ -550,7 +550,7 @@ namespace Nova.WinForms.ComponentEditor
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.AboutMenuClick);
             // 
-            // MainMenu
+            // mainMenu
             // 
             this.mainMenu.BackColor = System.Drawing.SystemColors.Control;
             this.mainMenu.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -581,16 +581,16 @@ namespace Nova.WinForms.ComponentEditor
             this.menuStripComponent.Size = new System.Drawing.Size(83, 20);
             this.menuStripComponent.Text = "&Component";
             // 
-            // menuItem_NewComponent
+            // newComponentMenuItem
             // 
-            this.newComponentMenuItem.Name = "menuItem_NewComponent";
+            this.newComponentMenuItem.Name = "newComponentMenuItem";
             this.newComponentMenuItem.Size = new System.Drawing.Size(163, 22);
             this.newComponentMenuItem.Text = "&New";
             this.newComponentMenuItem.Click += new System.EventHandler(this.MenuItem_NewComponent_Click);
             // 
-            // menuItem_EditComponent
+            // editComponentMenuItem
             // 
-            this.editComponentMenuItem.Name = "menuItem_EditComponent";
+            this.editComponentMenuItem.Name = "editComponentMenuItem";
             this.editComponentMenuItem.Size = new System.Drawing.Size(163, 22);
             this.editComponentMenuItem.Text = "&Edit";
             this.editComponentMenuItem.Click += new System.EventHandler(this.MenuItem_EditComponent_Click);
@@ -602,16 +602,16 @@ namespace Nova.WinForms.ComponentEditor
             this.copyToolStripMenuItem.Text = "&Copy";
             this.copyToolStripMenuItem.Click += new System.EventHandler(this.CopyToolStripMenuItem_Click);
             // 
-            // menuItem_DiscardComponentChanges
+            // discardComponentChangesMenuItem
             // 
-            this.discardComponentChangesMenuItem.Name = "menuItem_DiscardComponentChanges";
+            this.discardComponentChangesMenuItem.Name = "discardComponentChangesMenuItem";
             this.discardComponentChangesMenuItem.Size = new System.Drawing.Size(163, 22);
             this.discardComponentChangesMenuItem.Text = "Discard Changes";
             this.discardComponentChangesMenuItem.Click += new System.EventHandler(this.MenuItem_DiscardComponentChanges_Click);
             // 
-            // menuItem_SaveComponent
+            // saveComponentMenuItem
             // 
-            this.saveComponentMenuItem.Name = "menuItem_SaveComponent";
+            this.saveComponentMenuItem.Name = "saveComponentMenuItem";
             this.saveComponentMenuItem.Size = new System.Drawing.Size(163, 22);
             this.saveComponentMenuItem.Text = "&Save";
             this.saveComponentMenuItem.Click += new System.EventHandler(this.SaveComponent_Click);
@@ -627,9 +627,9 @@ namespace Nova.WinForms.ComponentEditor
             this.reloadToolStripMenuItem.Size = new System.Drawing.Size(163, 22);
             this.reloadToolStripMenuItem.Text = "Reload";
             // 
-            // menuItem_DeleteComponent
+            // deleteComponentMenuItem
             // 
-            this.deleteComponentMenuItem.Name = "menuItem_DeleteComponent";
+            this.deleteComponentMenuItem.Name = "deleteComponentMenuItem";
             this.deleteComponentMenuItem.Size = new System.Drawing.Size(163, 22);
             this.deleteComponentMenuItem.Text = "Delete";
             this.deleteComponentMenuItem.Click += new System.EventHandler(this.MenuItem_DeleteComponent_Click);
@@ -639,9 +639,9 @@ namespace Nova.WinForms.ComponentEditor
             this.toolStripMenuItem1.Name = "toolStripMenuItem1";
             this.toolStripMenuItem1.Size = new System.Drawing.Size(160, 6);
             // 
-            // menuItem_RaceRestrictions
+            // raceRestrictionsMenuItem
             // 
-            this.raceRestrictionsMenuItem.Name = "menuItem_RaceRestrictions";
+            this.raceRestrictionsMenuItem.Name = "raceRestrictionsMenuItem";
             this.raceRestrictionsMenuItem.Size = new System.Drawing.Size(163, 22);
             this.raceRestrictionsMenuItem.Text = "&Race Restrictions";
             this.raceRestrictionsMenuItem.Click += new System.EventHandler(this.MenuItem_RaceRestrictions_Click);
@@ -908,9 +908,9 @@ namespace Nova.WinForms.ComponentEditor
             this.planetaryToolStripMenuItem.Size = new System.Drawing.Size(186, 22);
             this.planetaryToolStripMenuItem.Text = "Planetary";
             // 
-            // DefenseToolStripMenuItem
+            // defenseToolStripMenuItem
             // 
-            this.defenseToolStripMenuItem.Name = "DefenseToolStripMenuItem";
+            this.defenseToolStripMenuItem.Name = "defenseToolStripMenuItem";
             this.defenseToolStripMenuItem.Size = new System.Drawing.Size(144, 22);
             this.defenseToolStripMenuItem.Text = "Defense";
             this.defenseToolStripMenuItem.Click += new System.EventHandler(this.MenuItem_AddProperty);
@@ -957,11 +957,11 @@ namespace Nova.WinForms.ComponentEditor
             this.deleteSelectedPropertyToolStripMenuItem.Text = "&Delete Selected Property";
             this.deleteSelectedPropertyToolStripMenuItem.Click += new System.EventHandler(this.DeleteSelectedPropertyToolStripMenuItem_Click);
             // 
-            // RestrictionSummary
+            // restrictionSummary
             // 
             this.restrictionSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                      | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.restrictionSummary, 2);
             this.restrictionSummary.ForeColor = System.Drawing.Color.Maroon;
             this.restrictionSummary.Location = new System.Drawing.Point(403, 178);
@@ -976,8 +976,8 @@ namespace Nova.WinForms.ComponentEditor
             // tableLayoutPanel1
             // 
             this.tableLayoutPanel1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                      | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.ColumnCount = 4;
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
             this.tableLayoutPanel1.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 200F));
@@ -1006,8 +1006,8 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox3
             // 
             this.groupBox3.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                      | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox3.Controls.Add(this.description);
             this.groupBox3.Location = new System.Drawing.Point(403, 3);
             this.groupBox3.Name = "groupBox3";
@@ -1017,11 +1017,11 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "Description";
             // 
-            // Description
+            // description
             // 
             this.description.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                      | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.description.Location = new System.Drawing.Point(7, 16);
             this.description.Multiline = true;
             this.description.Name = "description";
@@ -1032,8 +1032,8 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox4
             // 
             this.groupBox4.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                      | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox4.Controls.Add(this.componentList);
             this.groupBox4.Location = new System.Drawing.Point(3, 53);
             this.groupBox4.Name = "groupBox4";
@@ -1043,11 +1043,11 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "Component List";
             // 
-            // ComponentList
+            // componentList
             // 
             this.componentList.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                      | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.componentList.FormattingEnabled = true;
             this.componentList.Location = new System.Drawing.Point(3, 16);
             this.componentList.Name = "componentList";
@@ -1059,8 +1059,8 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox1
             // 
             this.groupBox1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                      | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox1.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.groupBox1.Controls.Add(this.componentType);
             this.groupBox1.Location = new System.Drawing.Point(3, 3);
@@ -1070,7 +1070,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "Component Type";
             // 
-            // ComponentType
+            // componentType
             // 
             this.componentType.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.SuggestAppend;
             this.componentType.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
@@ -1102,8 +1102,8 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox2
             // 
             this.groupBox2.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                      | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.groupBox2.Controls.Add(this.componentName);
             this.groupBox2.Location = new System.Drawing.Point(203, 3);
             this.groupBox2.Name = "groupBox2";
@@ -1112,7 +1112,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Name";
             // 
-            // ComponentName
+            // componentName
             // 
             this.componentName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.componentName.Location = new System.Drawing.Point(3, 16);
@@ -1123,8 +1123,8 @@ namespace Nova.WinForms.ComponentEditor
             // groupBox5
             // 
             this.groupBox5.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                      | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.tableLayoutPanel1.SetColumnSpan(this.groupBox5, 2);
             this.groupBox5.Controls.Add(this.propertyTabs);
             this.groupBox5.Location = new System.Drawing.Point(403, 266);
@@ -1134,12 +1134,12 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "Component Properties";
             // 
-            // PropertyTabs
+            // propertyTabs
             // 
             this.propertyTabs.Alignment = System.Windows.Forms.TabAlignment.Right;
             this.propertyTabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-                      | System.Windows.Forms.AnchorStyles.Left)
-                      | System.Windows.Forms.AnchorStyles.Right)));
+                        | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.propertyTabs.Controls.Add(this.tabArmor);
             this.propertyTabs.Controls.Add(this.tabMovement);
             this.propertyTabs.Controls.Add(this.tabBomb);
@@ -1223,7 +1223,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label1.TabIndex = 0;
             this.label1.Text = "Armor Value";
             // 
-            // Armor
+            // armor
             // 
             this.armor.Increment = new decimal(new int[] {
             5,
@@ -1263,7 +1263,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox9.TabStop = false;
             this.groupBox9.Text = "Battle Movement Property";
             // 
-            // BattleMovement
+            // battleMovement
             // 
             this.battleMovement.DecimalPlaces = 2;
             this.battleMovement.Increment = new decimal(new int[] {
@@ -1323,7 +1323,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "Bomb Properties";
             // 
-            // SmartBomb
+            // smartBomb
             // 
             this.smartBomb.AutoSize = true;
             this.smartBomb.Location = new System.Drawing.Point(9, 106);
@@ -1333,7 +1333,7 @@ namespace Nova.WinForms.ComponentEditor
             this.smartBomb.Text = "Smart Bomb";
             this.smartBomb.UseVisualStyleBackColor = true;
             // 
-            // MinimumPopKill
+            // minimumPopKill
             // 
             this.minimumPopKill.Increment = new decimal(new int[] {
             1,
@@ -1360,7 +1360,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label17.TabIndex = 11;
             this.label17.Text = "Minimum Kill";
             // 
-            // InstallationsDestroyed
+            // installationsDestroyed
             // 
             this.installationsDestroyed.Location = new System.Drawing.Point(112, 79);
             this.installationsDestroyed.Name = "installationsDestroyed";
@@ -1368,7 +1368,7 @@ namespace Nova.WinForms.ComponentEditor
             this.installationsDestroyed.TabIndex = 9;
             this.installationsDestroyed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // PopulationKill
+            // populationKill
             // 
             this.populationKill.DecimalPlaces = 1;
             this.populationKill.Increment = new decimal(new int[] {
@@ -1431,7 +1431,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label21.TabIndex = 2;
             this.label21.Text = "%";
             // 
-            // BeamDamage
+            // beamDamage
             // 
             this.beamDamage.Increment = new decimal(new int[] {
             5,
@@ -1494,7 +1494,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label23.TabIndex = 2;
             this.label23.Text = "kT";
             // 
-            // CargoCapacity
+            // cargoCapacity
             // 
             this.cargoCapacity.Increment = new decimal(new int[] {
             50,
@@ -1543,7 +1543,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox13.TabStop = false;
             this.groupBox13.Text = "Cloaking Properties";
             // 
-            // Cloaking
+            // cloaking
             // 
             this.cloaking.Increment = new decimal(new int[] {
             5,
@@ -1595,7 +1595,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox14.TabStop = false;
             this.groupBox14.Text = "Colonization Properties";
             // 
-            // OrbitalColonizationModule
+            // orbitalColonizationModule
             // 
             this.orbitalColonizationModule.AutoSize = true;
             this.orbitalColonizationModule.Location = new System.Drawing.Point(6, 52);
@@ -1605,7 +1605,7 @@ namespace Nova.WinForms.ComponentEditor
             this.orbitalColonizationModule.Text = "Orbital Colonization Module";
             this.orbitalColonizationModule.UseVisualStyleBackColor = true;
             // 
-            // ColonizationModule
+            // colonizationModule
             // 
             this.colonizationModule.AutoSize = true;
             this.colonizationModule.Checked = true;
@@ -1659,7 +1659,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label2.TabIndex = 0;
             this.label2.Text = "Accuracy";
             // 
-            // Initiative
+            // initiative
             // 
             this.initiative.Location = new System.Drawing.Point(80, 55);
             this.initiative.Name = "initiative";
@@ -1676,7 +1676,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label3.TabIndex = 1;
             this.label3.Text = "Initiative";
             // 
-            // Accuracy
+            // accuracy
             // 
             this.accuracy.Increment = new decimal(new int[] {
             5,
@@ -1720,7 +1720,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox16.TabStop = false;
             this.groupBox16.Text = "Defense Properties";
             // 
-            // DefenseCover100
+            // defenseCover100
             // 
             this.defenseCover100.AutoSize = true;
             this.defenseCover100.Location = new System.Drawing.Point(138, 115);
@@ -1747,7 +1747,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label36.TabIndex = 9;
             this.label36.Text = "100 Defenses Cover";
             // 
-            // DefenseCover80
+            // defenseCover80
             // 
             this.defenseCover80.AutoSize = true;
             this.defenseCover80.Location = new System.Drawing.Point(138, 91);
@@ -1756,7 +1756,7 @@ namespace Nova.WinForms.ComponentEditor
             this.defenseCover80.TabIndex = 8;
             this.defenseCover80.Text = "0.00";
             // 
-            // DefenseCover40
+            // defenseCover40
             // 
             this.defenseCover40.AutoSize = true;
             this.defenseCover40.Location = new System.Drawing.Point(138, 66);
@@ -1792,7 +1792,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label30.TabIndex = 4;
             this.label30.Text = "%";
             // 
-            // DefenseCover1
+            // defenseCover1
             // 
             this.defenseCover1.DecimalPlaces = 2;
             this.defenseCover1.Increment = new decimal(new int[] {
@@ -1863,7 +1863,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label92.TabIndex = 2;
             this.label92.Text = "%";
             // 
-            // BeamDeflector
+            // beamDeflector
             // 
             this.beamDeflector.Location = new System.Drawing.Point(80, 29);
             this.beamDeflector.Name = "beamDeflector";
@@ -1912,7 +1912,7 @@ namespace Nova.WinForms.ComponentEditor
             this.textBox6.TabStop = false;
             this.textBox6.Text = "Affects all ships.";
             // 
-            // EnergyDampener
+            // energyDampener
             // 
             this.energyDampener.DecimalPlaces = 2;
             this.energyDampener.Increment = new decimal(new int[] {
@@ -1990,7 +1990,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Engine Parameters";
             // 
-            // EngineFastestFreeSpeed
+            // engineFastestFreeSpeed
             // 
             this.engineFastestFreeSpeed.Location = new System.Drawing.Point(139, 70);
             this.engineFastestFreeSpeed.Maximum = new decimal(new int[] {
@@ -2049,7 +2049,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label81.TabIndex = 24;
             this.label81.Text = "W11";
             // 
-            // EngineOptimalSpeed
+            // engineOptimalSpeed
             // 
             this.engineOptimalSpeed.Location = new System.Drawing.Point(139, 20);
             this.engineOptimalSpeed.Maximum = new decimal(new int[] {
@@ -2071,7 +2071,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label80.TabIndex = 23;
             this.label80.Text = "Optimal Speed          W";
             // 
-            // EngineFastestSafeSpeed
+            // engineFastestSafeSpeed
             // 
             this.engineFastestSafeSpeed.Location = new System.Drawing.Point(139, 45);
             this.engineFastestSafeSpeed.Maximum = new decimal(new int[] {
@@ -2093,7 +2093,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label39.TabIndex = 21;
             this.label39.Text = "Fastest Safe Speed   W";
             // 
-            // RamScoopCheckBox
+            // ramScoopCheckBox
             // 
             this.ramScoopCheckBox.AutoSize = true;
             this.ramScoopCheckBox.Location = new System.Drawing.Point(213, 19);
@@ -2193,7 +2193,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label13.TabIndex = 10;
             this.label13.Text = "W1";
             // 
-            // W2Fuel
+            // warp2Fuel
             // 
             this.warp2Fuel.Location = new System.Drawing.Point(139, 109);
             this.warp2Fuel.Maximum = new decimal(new int[] {
@@ -2206,7 +2206,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp2Fuel.TabIndex = 1;
             this.warp2Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // W3Fuel
+            // warp3Fuel
             // 
             this.warp3Fuel.Location = new System.Drawing.Point(237, 109);
             this.warp3Fuel.Maximum = new decimal(new int[] {
@@ -2219,7 +2219,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp3Fuel.TabIndex = 2;
             this.warp3Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // W4Fuel
+            // warp4Fuel
             // 
             this.warp4Fuel.Location = new System.Drawing.Point(47, 135);
             this.warp4Fuel.Maximum = new decimal(new int[] {
@@ -2232,7 +2232,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp4Fuel.TabIndex = 3;
             this.warp4Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // W5Fuel
+            // warp5Fuel
             // 
             this.warp5Fuel.Location = new System.Drawing.Point(139, 135);
             this.warp5Fuel.Maximum = new decimal(new int[] {
@@ -2245,7 +2245,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp5Fuel.TabIndex = 4;
             this.warp5Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // W6Fuel
+            // warp6Fuel
             // 
             this.warp6Fuel.Location = new System.Drawing.Point(237, 136);
             this.warp6Fuel.Maximum = new decimal(new int[] {
@@ -2258,7 +2258,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp6Fuel.TabIndex = 5;
             this.warp6Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // W7Fuel
+            // warp7Fuel
             // 
             this.warp7Fuel.Location = new System.Drawing.Point(47, 161);
             this.warp7Fuel.Maximum = new decimal(new int[] {
@@ -2271,7 +2271,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp7Fuel.TabIndex = 6;
             this.warp7Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // W8Fuel
+            // warp8Fuel
             // 
             this.warp8Fuel.Location = new System.Drawing.Point(139, 161);
             this.warp8Fuel.Maximum = new decimal(new int[] {
@@ -2284,7 +2284,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp8Fuel.TabIndex = 7;
             this.warp8Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // W9Fuel
+            // warp9Fuel
             // 
             this.warp9Fuel.Location = new System.Drawing.Point(237, 161);
             this.warp9Fuel.Maximum = new decimal(new int[] {
@@ -2297,7 +2297,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp9Fuel.TabIndex = 8;
             this.warp9Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // W10Fuel
+            // warp10Fuel
             // 
             this.warp10Fuel.Location = new System.Drawing.Point(47, 187);
             this.warp10Fuel.Maximum = new decimal(new int[] {
@@ -2310,7 +2310,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp10Fuel.TabIndex = 9;
             this.warp10Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // W1Fuel
+            // warp1Fuel
             // 
             this.warp1Fuel.Location = new System.Drawing.Point(47, 109);
             this.warp1Fuel.Maximum = new decimal(new int[] {
@@ -2366,7 +2366,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label40.TabIndex = 4;
             this.label40.Text = "mg";
             // 
-            // FuelCapacity
+            // fuelCapacity
             // 
             this.fuelCapacity.Location = new System.Drawing.Point(91, 25);
             this.fuelCapacity.Maximum = new decimal(new int[] {
@@ -2388,7 +2388,7 @@ namespace Nova.WinForms.ComponentEditor
             this.labelFuelGeneration.TabIndex = 3;
             this.labelFuelGeneration.Text = "Fuel Generation";
             // 
-            // FuelGeneration
+            // fuelGeneration
             // 
             this.fuelGeneration.Location = new System.Drawing.Point(91, 55);
             this.fuelGeneration.Maximum = new decimal(new int[] {
@@ -2437,7 +2437,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "Gate Properties";
             // 
-            // GateMassInfinite
+            // gateMassInfinite
             // 
             this.gateMassInfinite.AutoSize = true;
             this.gateMassInfinite.Location = new System.Drawing.Point(209, 29);
@@ -2447,7 +2447,7 @@ namespace Nova.WinForms.ComponentEditor
             this.gateMassInfinite.Text = "Infinite Mass";
             this.gateMassInfinite.UseVisualStyleBackColor = true;
             // 
-            // GateRangeInfinite
+            // gateRangeInfinite
             // 
             this.gateRangeInfinite.AutoSize = true;
             this.gateRangeInfinite.Location = new System.Drawing.Point(209, 57);
@@ -2475,7 +2475,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label42.TabIndex = 3;
             this.label42.Text = "kT";
             // 
-            // SafeRange
+            // safeRange
             // 
             this.safeRange.Location = new System.Drawing.Point(102, 54);
             this.safeRange.Maximum = new decimal(new int[] {
@@ -2493,7 +2493,7 @@ namespace Nova.WinForms.ComponentEditor
             this.safeRange.TabIndex = 2;
             this.safeRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // SafeHullMass
+            // safeHullMass
             // 
             this.safeHullMass.Location = new System.Drawing.Point(102, 28);
             this.safeHullMass.Maximum = new decimal(new int[] {
@@ -2567,7 +2567,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox19.TabStop = false;
             this.groupBox19.Text = "Hull Properties";
             // 
-            // InfiniteDock
+            // infiniteDock
             // 
             this.infiniteDock.AutoSize = true;
             this.infiniteDock.Location = new System.Drawing.Point(181, 133);
@@ -2586,7 +2586,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label86.TabIndex = 31;
             this.label86.Text = "000";
             // 
-            // ARMaxPop
+            // alternateRealityMaxPop
             // 
             this.alternateRealityMaxPop.Location = new System.Drawing.Point(89, 158);
             this.alternateRealityMaxPop.Maximum = new decimal(new int[] {
@@ -2636,7 +2636,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label49.TabIndex = 14;
             this.label49.Text = "Fuel Capacity";
             // 
-            // HullCargoCapacity
+            // hullCargoCapacity
             // 
             this.hullCargoCapacity.Increment = new decimal(new int[] {
             5,
@@ -2663,7 +2663,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label48.TabIndex = 16;
             this.label48.Text = "Armor Strength";
             // 
-            // labelBaseCargo_kT
+            // labelBaseCargoKT
             // 
             this.labelBaseCargoKT.AutoSize = true;
             this.labelBaseCargoKT.Location = new System.Drawing.Point(145, 108);
@@ -2690,7 +2690,7 @@ namespace Nova.WinForms.ComponentEditor
             this.labelBaseCargo.TabIndex = 25;
             this.labelBaseCargo.Text = "Base Cargo";
             // 
-            // HullFuelCapacity
+            // hullFuelCapacity
             // 
             this.hullFuelCapacity.Location = new System.Drawing.Point(89, 28);
             this.hullFuelCapacity.Maximum = new decimal(new int[] {
@@ -2712,7 +2712,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label44.TabIndex = 24;
             this.label44.Text = "kT";
             // 
-            // HullInitiative
+            // hullInitiative
             // 
             this.hullInitiative.Location = new System.Drawing.Point(89, 80);
             this.hullInitiative.Name = "hullInitiative";
@@ -2720,7 +2720,7 @@ namespace Nova.WinForms.ComponentEditor
             this.hullInitiative.TabIndex = 17;
             this.hullInitiative.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // HullDockCapacity
+            // hullDockCapacity
             // 
             this.hullDockCapacity.Location = new System.Drawing.Point(89, 132);
             this.hullDockCapacity.Maximum = new decimal(new int[] {
@@ -2738,7 +2738,7 @@ namespace Nova.WinForms.ComponentEditor
             this.hullDockCapacity.TabIndex = 19;
             this.hullDockCapacity.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // HullArmor
+            // hullArmor
             // 
             this.hullArmor.Location = new System.Drawing.Point(89, 54);
             this.hullArmor.Maximum = new decimal(new int[] {
@@ -2800,7 +2800,7 @@ namespace Nova.WinForms.ComponentEditor
             this.textBox3.TabIndex = 1;
             this.textBox3.Text = "*This component may only be fitted to the hull specified above.";
             // 
-            // ComponentHullAffinity
+            // componentHullAffinity
             // 
             this.componentHullAffinity.FormattingEnabled = true;
             this.componentHullAffinity.Location = new System.Drawing.Point(19, 31);
@@ -2849,7 +2849,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label52.TabIndex = 4;
             this.label52.Text = "Deflection";
             // 
-            // Deflection
+            // deflection
             // 
             this.deflection.Increment = new decimal(new int[] {
             10,
@@ -2872,7 +2872,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabLayerEfficiency.TabIndex = 27;
             this.tabLayerEfficiency.Text = "Layer Efficiency";
             // 
-            // ImprovedMineLayingEfficiency
+            // improvedMineLayingEfficiency
             // 
             this.improvedMineLayingEfficiency.Controls.Add(this.textBox5);
             this.improvedMineLayingEfficiency.Controls.Add(this.mineLayerEfficiency);
@@ -2895,7 +2895,7 @@ namespace Nova.WinForms.ComponentEditor
             this.textBox5.TabStop = false;
             this.textBox5.Text = "Example: a multiplier of 2.00 doubles the number of mines layed per year.";
             // 
-            // MineLayerEfficiency
+            // mineLayerEfficiency
             // 
             this.mineLayerEfficiency.DecimalPlaces = 2;
             this.mineLayerEfficiency.Location = new System.Drawing.Point(112, 22);
@@ -2939,7 +2939,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox21.TabStop = false;
             this.groupBox21.Text = "Mass Driver Properties";
             // 
-            // MassDriverSpeed
+            // massDriverSpeed
             // 
             this.massDriverSpeed.Location = new System.Drawing.Point(134, 31);
             this.massDriverSpeed.Maximum = new decimal(new int[] {
@@ -2994,7 +2994,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox22.TabStop = false;
             this.groupBox22.Text = "Laying Parameters";
             // 
-            // MineMinRamScoopDamage
+            // mineMinRamScoopDamage
             // 
             this.mineMinRamScoopDamage.Increment = new decimal(new int[] {
             25,
@@ -3017,7 +3017,7 @@ namespace Nova.WinForms.ComponentEditor
             0,
             0});
             // 
-            // MineMinFleetDamage
+            // mineMinFleetDamage
             // 
             this.mineMinFleetDamage.Increment = new decimal(new int[] {
             25,
@@ -3040,7 +3040,7 @@ namespace Nova.WinForms.ComponentEditor
             0,
             0});
             // 
-            // MineDamagePerRamScoop
+            // mineDamagePerRamScoop
             // 
             this.mineDamagePerRamScoop.Increment = new decimal(new int[] {
             25,
@@ -3090,7 +3090,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label56.TabIndex = 8;
             this.label56.Text = "Ram Scoop Damage";
             // 
-            // MineDamagePerEngine
+            // mineDamagePerEngine
             // 
             this.mineDamagePerEngine.Increment = new decimal(new int[] {
             25,
@@ -3113,7 +3113,7 @@ namespace Nova.WinForms.ComponentEditor
             0,
             0});
             // 
-            // MineHitChance
+            // mineHitChance
             // 
             this.mineHitChance.DecimalPlaces = 1;
             this.mineHitChance.Increment = new decimal(new int[] {
@@ -3137,7 +3137,7 @@ namespace Nova.WinForms.ComponentEditor
             0,
             65536});
             // 
-            // MineSafeSpeed
+            // mineSafeSpeed
             // 
             this.mineSafeSpeed.Location = new System.Drawing.Point(128, 53);
             this.mineSafeSpeed.Maximum = new decimal(new int[] {
@@ -3182,7 +3182,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label59.TabIndex = 2;
             this.label59.Text = "Safe Speed";
             // 
-            // MineLayingRate
+            // mineLayingRate
             // 
             this.mineLayingRate.Location = new System.Drawing.Point(128, 27);
             this.mineLayingRate.Maximum = new decimal(new int[] {
@@ -3242,7 +3242,7 @@ namespace Nova.WinForms.ComponentEditor
             this.textBox2.TabIndex = 3;
             this.textBox2.Text = resources.GetString("textBox2.Text");
             // 
-            // Radiation
+            // radiation
             // 
             this.radiation.DecimalPlaces = 1;
             this.radiation.Location = new System.Drawing.Point(110, 33);
@@ -3302,7 +3302,7 @@ namespace Nova.WinForms.ComponentEditor
             this.richTextBox1.TabIndex = 3;
             this.richTextBox1.TabStop = false;
             this.richTextBox1.Text = "Note: The nominated mining rate in kT, of each mineral, will be produced at a con" +
-              "centration of 100. Average production is one half this value.";
+                "centration of 100. Average production is one half this value.";
             // 
             // label62
             // 
@@ -3313,7 +3313,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label62.TabIndex = 2;
             this.label62.Text = "kT/yr ";
             // 
-            // MiningRate
+            // miningRate
             // 
             this.miningRate.Location = new System.Drawing.Point(85, 30);
             this.miningRate.Name = "miningRate";
@@ -3361,7 +3361,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label64.TabIndex = 2;
             this.label64.Text = "% per year.";
             // 
-            // AdjusterRate
+            // adjusterRate
             // 
             this.adjusterRate.Location = new System.Drawing.Point(104, 29);
             this.adjusterRate.Minimum = new decimal(new int[] {
@@ -3426,7 +3426,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label37.TabIndex = 8;
             this.label37.Text = "ly";
             // 
-            // NormalRange
+            // normalRange
             // 
             this.normalRange.Increment = new decimal(new int[] {
             50,
@@ -3453,7 +3453,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label33.TabIndex = 7;
             this.label33.Text = "Penetrating Range";
             // 
-            // PenetratingRange
+            // penetratingRange
             // 
             this.penetratingRange.Increment = new decimal(new int[] {
             50,
@@ -3511,7 +3511,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label65.TabIndex = 11;
             this.label65.Text = "dp";
             // 
-            // Shield
+            // shield
             // 
             this.shield.Increment = new decimal(new int[] {
             50,
@@ -3560,7 +3560,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox30.TabStop = false;
             this.groupBox30.Text = "Tachyon Detector";
             // 
-            // TachyonDetector
+            // tachyonDetector
             // 
             this.tachyonDetector.Location = new System.Drawing.Point(73, 25);
             this.tachyonDetector.Name = "tachyonDetector";
@@ -3624,7 +3624,7 @@ namespace Nova.WinForms.ComponentEditor
             this.textBox1.Size = new System.Drawing.Size(202, 73);
             this.textBox1.TabIndex = 10;
             this.textBox1.Text = "Each unit of terraforming built will modify one habitability parameter by 1% up t" +
-              "o a maximum of the values indicated.";
+                "o a maximum of the values indicated.";
             // 
             // label73
             // 
@@ -3653,7 +3653,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label71.TabIndex = 7;
             this.label71.Text = "%";
             // 
-            // RadiationMod
+            // radiationMod
             // 
             this.radiationMod.Location = new System.Drawing.Point(118, 77);
             this.radiationMod.Name = "radiationMod";
@@ -3661,7 +3661,7 @@ namespace Nova.WinForms.ComponentEditor
             this.radiationMod.TabIndex = 6;
             this.radiationMod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // TemperatureMod
+            // temperatureMod
             // 
             this.temperatureMod.Location = new System.Drawing.Point(118, 51);
             this.temperatureMod.Name = "temperatureMod";
@@ -3669,7 +3669,7 @@ namespace Nova.WinForms.ComponentEditor
             this.temperatureMod.TabIndex = 5;
             this.temperatureMod.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // GravityMod
+            // gravityMod
             // 
             this.gravityMod.Location = new System.Drawing.Point(118, 25);
             this.gravityMod.Name = "gravityMod";
@@ -3819,7 +3819,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox27.TabStop = false;
             this.groupBox27.Text = "Weapon Properties";
             // 
-            // MinesSwept
+            // minesSwept
             // 
             this.minesSwept.AutoSize = true;
             this.minesSwept.Location = new System.Drawing.Point(6, 147);
@@ -3828,7 +3828,7 @@ namespace Nova.WinForms.ComponentEditor
             this.minesSwept.TabIndex = 5;
             this.minesSwept.Text = "Mines swept";
             // 
-            // WeaponAccuracy
+            // weaponAccuracy
             // 
             this.weaponAccuracy.Location = new System.Drawing.Point(96, 106);
             this.weaponAccuracy.Name = "weaponAccuracy";
@@ -3836,7 +3836,7 @@ namespace Nova.WinForms.ComponentEditor
             this.weaponAccuracy.TabIndex = 4;
             this.weaponAccuracy.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // WeaponRange
+            // weaponRange
             // 
             this.weaponRange.Location = new System.Drawing.Point(96, 58);
             this.weaponRange.Name = "weaponRange";
@@ -3844,7 +3844,7 @@ namespace Nova.WinForms.ComponentEditor
             this.weaponRange.TabIndex = 2;
             this.weaponRange.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // WeaponInitiative
+            // weaponInitiative
             // 
             this.weaponInitiative.Location = new System.Drawing.Point(96, 82);
             this.weaponInitiative.Name = "weaponInitiative";
@@ -3852,7 +3852,7 @@ namespace Nova.WinForms.ComponentEditor
             this.weaponInitiative.TabIndex = 3;
             this.weaponInitiative.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
             // 
-            // WeaponPower
+            // weaponPower
             // 
             this.weaponPower.Location = new System.Drawing.Point(96, 34);
             this.weaponPower.Maximum = new decimal(new int[] {
@@ -3901,7 +3901,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label76.TabIndex = 0;
             this.label76.Text = "Power";
             // 
-            // ComponentImage
+            // componentImage
             // 
             this.componentImage.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.componentImage.AutoSize = true;
@@ -3915,7 +3915,7 @@ namespace Nova.WinForms.ComponentEditor
             this.componentImage.Size = new System.Drawing.Size(118, 166);
             this.componentImage.TabIndex = 29;
             // 
-            // TechRequirements
+            // techRequirements
             // 
             this.techRequirements.Location = new System.Drawing.Point(203, 53);
             this.techRequirements.Name = "techRequirements";
@@ -3924,11 +3924,11 @@ namespace Nova.WinForms.ComponentEditor
             this.techRequirements.TabIndex = 0;
             this.techRequirements.Value = new Nova.Common.TechLevel(0, 0, 0, 0, 0, 0);
             // 
-            // BasicProperties
+            // basicProperties
             // 
             this.basicProperties.AutoSize = true;
             this.basicProperties.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
-            this.basicProperties.Cost = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+            this.basicProperties.Cost = new Nova.Common.Resources(0, 0, 0, 0);
             this.basicProperties.Location = new System.Drawing.Point(203, 266);
             this.basicProperties.Mass = 0;
             this.basicProperties.Name = "basicProperties";
@@ -3945,9 +3945,9 @@ namespace Nova.WinForms.ComponentEditor
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
             this.Name = "ComponentEditorWindow";
-            this.Text = "Nova Component Editor";
-            this.Load += new System.EventHandler(this.OnLoad);
+            this.Text = "Stars! Nova - Component Editor";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.OnFormClosing);
+            this.Load += new System.EventHandler(this.OnLoad);
             this.mainMenu.ResumeLayout(false);
             this.mainMenu.PerformLayout();
             this.tableLayoutPanel1.ResumeLayout(false);

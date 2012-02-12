@@ -44,7 +44,7 @@ namespace Nova.WinForms.ComponentEditor
       {
           System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(HullDialog));
           this.groupBox2 = new System.Windows.Forms.GroupBox();
-          this.HullGrid = new ControlLibrary.HullGrid();
+          this.HullGrid = new Nova.ControlLibrary.HullGrid();
           this.buttonClose = new System.Windows.Forms.Button();
           this.groupBox2.SuspendLayout();
           this.SuspendLayout();
@@ -61,8 +61,9 @@ namespace Nova.WinForms.ComponentEditor
           // 
           // HullGrid
           // 
-          this.HullGrid.ActiveModules = new System.Collections.Generic.List<Nova.Common.Components.HullModule>();
+          this.HullGrid.ActiveModules = ((System.Collections.Generic.List<Nova.Common.Components.HullModule>)(resources.GetObject("HullGrid.ActiveModules")));
           this.HullGrid.HideEmptyModules = false;
+          this.HullGrid.HullName = null;
           this.HullGrid.Location = new System.Drawing.Point(6, 17);
           this.HullGrid.Name = "HullGrid";
           this.HullGrid.Size = new System.Drawing.Size(340, 333);
@@ -86,10 +87,11 @@ namespace Nova.WinForms.ComponentEditor
           this.Controls.Add(this.buttonClose);
           this.Controls.Add(this.groupBox2);
           this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+          this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
           this.MaximizeBox = false;
           this.MinimizeBox = false;
           this.Name = "HullDialog";
-          this.Text = "Nova Hull Editor";
+          this.Text = "Stars! Nova - Hull Editor";
           this.groupBox2.ResumeLayout(false);
           this.ResumeLayout(false);
 

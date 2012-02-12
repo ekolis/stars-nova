@@ -180,8 +180,8 @@ namespace Nova.WinForms.Gui
             this.ComponentCost = new Nova.ControlLibrary.ResourceDisplay();
             this.panel1 = new System.Windows.Forms.Panel();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.ListView = new System.Windows.Forms.ListView();
             this.TreeView = new System.Windows.Forms.TreeView();
+            this.ListView = new System.Windows.Forms.ListView();
             this.groupBox2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HullImage)).BeginInit();
             this.groupBox4.SuspendLayout();
@@ -191,6 +191,7 @@ namespace Nova.WinForms.Gui
             this.groupBox6.SuspendLayout();
             this.groupBox5.SuspendLayout();
             this.panel1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
@@ -270,7 +271,7 @@ namespace Nova.WinForms.Gui
             // 
             // HullGrid
             // 
-            this.HullGrid.ActiveModules = new System.Collections.Generic.List<Nova.Common.Components.HullModule>();
+            this.HullGrid.ActiveModules = ((System.Collections.Generic.List<Nova.Common.Components.HullModule>)(resources.GetObject("HullGrid.ActiveModules")));
             this.HullGrid.HideEmptyModules = true;
             this.HullGrid.HullName = null;
             this.HullGrid.Location = new System.Drawing.Point(19, 126);
@@ -503,7 +504,7 @@ namespace Nova.WinForms.Gui
             this.DesignResources.Name = "DesignResources";
             this.DesignResources.Size = new System.Drawing.Size(150, 64);
             this.DesignResources.TabIndex = 10;
-            this.DesignResources.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+            this.DesignResources.Value = new Nova.Common.Resources(0, 0, 0, 0);
             // 
             // DesignName
             // 
@@ -554,7 +555,7 @@ namespace Nova.WinForms.Gui
             // 
             this.graph1.AxisColor = System.Drawing.Color.Black;
             this.graph1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.graph1.HoriozontalSpace = 0.03;
+            this.graph1.HoriozontalSpace = 0.03D;
             this.graph1.Image = null;
             this.graph1.LineColor = System.Drawing.Color.Red;
             this.graph1.Location = new System.Drawing.Point(3, 16);
@@ -562,8 +563,8 @@ namespace Nova.WinForms.Gui
             this.graph1.Size = new System.Drawing.Size(147, 96);
             this.graph1.TabIndex = 0;
             this.graph1.Title = null;
-            this.graph1.TitleSize = 13;
-            this.graph1.VerticalSpace = 0.02;
+            this.graph1.TitleSize = 13D;
+            this.graph1.VerticalSpace = 0.02D;
             // 
             // groupBox6
             // 
@@ -635,7 +636,7 @@ namespace Nova.WinForms.Gui
             this.ComponentCost.Name = "ComponentCost";
             this.ComponentCost.Size = new System.Drawing.Size(150, 64);
             this.ComponentCost.TabIndex = 0;
-            this.ComponentCost.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+            this.ComponentCost.Value = new Nova.Common.Resources(0, 0, 0, 0);
             // 
             // panel1
             // 
@@ -660,19 +661,6 @@ namespace Nova.WinForms.Gui
             this.splitContainer1.Size = new System.Drawing.Size(344, 313);
             this.splitContainer1.SplitterDistance = 154;
             this.splitContainer1.TabIndex = 0;
-            // 
-            // ListView
-            // 
-            this.ListView.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.ListView.Location = new System.Drawing.Point(0, 0);
-            this.ListView.MultiSelect = false;
-            this.ListView.Name = "ListView";
-            this.ListView.Size = new System.Drawing.Size(186, 313);
-            this.ListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
-            this.ListView.TabIndex = 0;
-            this.ListView.UseCompatibleStateImageBehavior = false;
-            this.ListView.SelectedIndexChanged += new System.EventHandler(this.ListSelectionChanged);
-            this.ListView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListView_MouseDown);
             // 
             // TreeView
             // 
@@ -723,6 +711,19 @@ namespace Nova.WinForms.Gui
             this.TreeView.Tag = "";
             this.TreeView.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.TreeNodeSelected);
             // 
+            // ListView
+            // 
+            this.ListView.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.ListView.Location = new System.Drawing.Point(0, 0);
+            this.ListView.MultiSelect = false;
+            this.ListView.Name = "ListView";
+            this.ListView.Size = new System.Drawing.Size(186, 313);
+            this.ListView.Sorting = System.Windows.Forms.SortOrder.Ascending;
+            this.ListView.TabIndex = 0;
+            this.ListView.UseCompatibleStateImageBehavior = false;
+            this.ListView.SelectedIndexChanged += new System.EventHandler(this.ListSelectionChanged);
+            this.ListView.MouseDown += new System.Windows.Forms.MouseEventHandler(this.ListView_MouseDown);
+            // 
             // ShipDesignDialog
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
@@ -732,10 +733,11 @@ namespace Nova.WinForms.Gui
             this.Controls.Add(this.SaveButton);
             this.Controls.Add(this.Cancel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ShipDesignDialog";
             this.ShowInTaskbar = false;
-            this.Text = "Nova Ship Designer";
+            this.Text = "Stars! Nova - Ship Designer";
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.HullImage)).EndInit();
@@ -751,6 +753,7 @@ namespace Nova.WinForms.Gui
             this.panel1.ResumeLayout(false);
             this.splitContainer1.Panel1.ResumeLayout(false);
             this.splitContainer1.Panel2.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
 

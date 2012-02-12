@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CargoTransferDialog));
             this.labelFleet1 = new System.Windows.Forms.Label();
             this.okButton = new System.Windows.Forms.Button();
             this.cancelButton = new System.Windows.Forms.Button();
@@ -294,12 +295,12 @@
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CargoTransferDialog";
-            this.ShowIcon = false;
             this.ShowInTaskbar = false;
-            this.Text = "Cargo Transfer";
+            this.Text = "Stars! Nova - Cargo Transfer";
             this.ResumeLayout(false);
             this.PerformLayout();
 

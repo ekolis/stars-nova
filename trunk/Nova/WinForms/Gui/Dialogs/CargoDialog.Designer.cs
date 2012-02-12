@@ -11,6 +11,7 @@ namespace Nova.ControlLibrary
     {
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(CargoDialog));
             this.cancelButton = new System.Windows.Forms.Button();
             this.okButton = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
@@ -33,7 +34,7 @@ namespace Nova.ControlLibrary
             // 
             // cancelButton
             // 
-            this.cancelButton.Anchor = (System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+            this.cancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.cancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.cancelButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.cancelButton.Location = new System.Drawing.Point(352, 270);
@@ -44,7 +45,7 @@ namespace Nova.ControlLibrary
             // 
             // okButton
             // 
-            this.okButton.Anchor = (System.Windows.Forms.AnchorStyles)(System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right);
+            this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.okButton.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.okButton.Location = new System.Drawing.Point(271, 270);
             this.okButton.Name = "okButton";
@@ -233,11 +234,12 @@ namespace Nova.ControlLibrary
             this.Controls.Add(this.okButton);
             this.Controls.Add(this.cancelButton);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "CargoDialog";
             this.ShowInTaskbar = false;
-            this.Text = "Cargo Transfer";
+            this.Text = "Stars! Nova - Cargo Transfer";
             this.ResumeLayout(false);
             this.PerformLayout();
 

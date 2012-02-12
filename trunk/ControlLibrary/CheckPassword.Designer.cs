@@ -54,7 +54,7 @@ namespace Nova.ControlLibrary
           this.groupBox1.TabStop = false;
           this.groupBox1.Text = "A Password is Required To Access This File";
           // 
-          // PassWord
+          // password
           // 
           this.password.Location = new System.Drawing.Point(12, 44);
           this.password.Name = "password";
@@ -70,7 +70,7 @@ namespace Nova.ControlLibrary
           this.label1.TabIndex = 0;
           this.label1.Text = "Please Enter The Password For This File";
           // 
-          // OKButton
+          // okButton
           // 
           this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
           this.okButton.Location = new System.Drawing.Point(155, 81);
@@ -81,7 +81,7 @@ namespace Nova.ControlLibrary
           this.okButton.UseVisualStyleBackColor = true;
           this.okButton.Click += new System.EventHandler(this.OKButton_Click);
           // 
-          // Cancel
+          // cancel
           // 
           this.cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
           this.cancel.Location = new System.Drawing.Point(27, 81);
@@ -102,7 +102,7 @@ namespace Nova.ControlLibrary
           this.MinimizeBox = false;
           this.Name = "CheckPassword";
           this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-          this.Text = "Nova Password Required";
+          this.Text = "Stars! Nova - Password Required";
           this.groupBox1.ResumeLayout(false);
           this.groupBox1.PerformLayout();
           this.ResumeLayout(false);

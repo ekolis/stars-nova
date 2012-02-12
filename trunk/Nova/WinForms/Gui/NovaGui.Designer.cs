@@ -9,7 +9,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaGUI));
-            
+
+            this.stateData = new Client.ClientState();
             this.groupBox2  = new System.Windows.Forms.GroupBox();
             this.mainMenu   = new System.Windows.Forms.MenuStrip();
             
@@ -262,7 +263,7 @@
             this.MainMenuStrip = this.mainMenu;
             this.MinimumSize = new System.Drawing.Size(928, 770);
             this.Name = "NovaGUI";
-            this.Text = "Nova - " + stateData.EmpireState.Race.PluralName;
+            this.Text = "Stars! Nova - " + stateData.EmpireState.Race.PluralName;
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.NovaGUI_FormClosing);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.OnKeyPress);
             this.groupBox2.ResumeLayout(false);
