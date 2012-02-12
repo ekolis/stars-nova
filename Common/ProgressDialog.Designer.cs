@@ -91,9 +91,10 @@ namespace Nova.Common
             this.Controls.Add(this.label);
             this.Controls.Add(this.ProgressBar);
             this.Name = "ProgressDialog";
-            this.Text = "ProgressDialog";
+            this.Text = "Stars! Nova - ProgressDialog";
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
 
         #endregion

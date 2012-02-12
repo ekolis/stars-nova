@@ -75,7 +75,7 @@ namespace Nova.Client
           this.RaceList.Size = new System.Drawing.Size(230, 290);
           this.RaceList.TabIndex = 2;
           // 
-          // OKButton
+          // okButton
           // 
           this.okButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
           this.okButton.DialogResult = System.Windows.Forms.DialogResult.OK;
@@ -87,7 +87,7 @@ namespace Nova.Client
           this.okButton.Text = "OK";
           this.okButton.UseVisualStyleBackColor = true;
           // 
-          // RaceCancelButton
+          // raceCancelButton
           // 
           this.raceCancelButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
           this.raceCancelButton.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -112,7 +112,7 @@ namespace Nova.Client
           this.Name = "SelectRaceDialog";
           this.ShowInTaskbar = false;
           this.SizeGripStyle = System.Windows.Forms.SizeGripStyle.Hide;
-          this.Text = "Nova - Select Race";
+          this.Text = "Stars! Nova - Select Race";
           this.groupBox1.ResumeLayout(false);
           this.ResumeLayout(false);
           this.PerformLayout();

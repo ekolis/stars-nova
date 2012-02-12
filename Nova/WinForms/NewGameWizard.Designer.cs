@@ -53,6 +53,8 @@ namespace Nova.WinForms
           this.okButton = new System.Windows.Forms.Button();
           this.tabControl1 = new System.Windows.Forms.TabControl();
           this.tabGameOptions = new System.Windows.Forms.TabPage();
+          this.groupBox7 = new System.Windows.Forms.GroupBox();
+          this.acceleratedStart = new System.Windows.Forms.CheckBox();
           this.groupBox6 = new System.Windows.Forms.GroupBox();
           this.gameName = new System.Windows.Forms.TextBox();
           this.groupBox3 = new System.Windows.Forms.GroupBox();
@@ -76,9 +78,9 @@ namespace Nova.WinForms
           this.newRaceButton = new System.Windows.Forms.Button();
           this.groupBox5 = new System.Windows.Forms.GroupBox();
           this.playerList = new System.Windows.Forms.ListView();
-          this.playerNumber = new System.Windows.Forms.ColumnHeader();
-          this.race = new System.Windows.Forms.ColumnHeader();
-          this.ai = new System.Windows.Forms.ColumnHeader();
+          this.playerNumber = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+          this.race = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+          this.ai = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
           this.playerDeleteButton = new System.Windows.Forms.Button();
           this.playerDownButton = new System.Windows.Forms.Button();
           this.playerUpButton = new System.Windows.Forms.Button();
@@ -92,14 +94,13 @@ namespace Nova.WinForms
           this.label8 = new System.Windows.Forms.Label();
           this.label7 = new System.Windows.Forms.Label();
           this.tabVictoryConditions = new System.Windows.Forms.TabPage();
-          this.groupBox7 = new System.Windows.Forms.GroupBox();
-          this.acceleratedStart = new System.Windows.Forms.CheckBox();
           this.groupBox1.SuspendLayout();
           this.groupBox2.SuspendLayout();
           ((System.ComponentModel.ISupportInitialize)(this.minimumGameTime)).BeginInit();
           ((System.ComponentModel.ISupportInitialize)(this.targetsToMeet)).BeginInit();
           this.tabControl1.SuspendLayout();
           this.tabGameOptions.SuspendLayout();
+          this.groupBox7.SuspendLayout();
           this.groupBox6.SuspendLayout();
           this.groupBox3.SuspendLayout();
           ((System.ComponentModel.ISupportInitialize)(this.starUniformity)).BeginInit();
@@ -112,7 +113,6 @@ namespace Nova.WinForms
           this.groupBox5.SuspendLayout();
           this.groupBox4.SuspendLayout();
           this.tabVictoryConditions.SuspendLayout();
-          this.groupBox7.SuspendLayout();
           this.SuspendLayout();
           // 
           // label2
@@ -143,7 +143,7 @@ namespace Nova.WinForms
           this.groupBox1.TabStop = false;
           this.groupBox1.Text = "Victory Conditions";
           // 
-          // TotalScore
+          // totalScore
           // 
           this.totalScore.ControlCounter = 100;
           this.totalScore.ControlSelected = false;
@@ -156,7 +156,7 @@ namespace Nova.WinForms
           this.totalScore.TabIndex = 11;
           this.totalScore.Value = new Nova.Common.EnabledValue(false, 100);
           // 
-          // ExceedSecondPlace
+          // exceedSecondPlace
           // 
           this.exceedSecondPlace.ControlCounter = 100;
           this.exceedSecondPlace.ControlSelected = false;
@@ -169,7 +169,7 @@ namespace Nova.WinForms
           this.exceedSecondPlace.TabIndex = 10;
           this.exceedSecondPlace.Value = new Nova.Common.EnabledValue(false, 100);
           // 
-          // HighestScore
+          // highestScore
           // 
           this.highestScore.ControlCounter = 100;
           this.highestScore.ControlSelected = false;
@@ -182,7 +182,7 @@ namespace Nova.WinForms
           this.highestScore.TabIndex = 9;
           this.highestScore.Value = new Nova.Common.EnabledValue(false, 100);
           // 
-          // CapitalShips
+          // capitalShips
           // 
           this.capitalShips.ControlCounter = 100;
           this.capitalShips.ControlSelected = false;
@@ -195,7 +195,7 @@ namespace Nova.WinForms
           this.capitalShips.TabIndex = 8;
           this.capitalShips.Value = new Nova.Common.EnabledValue(false, 100);
           // 
-          // ProductionCapacity
+          // productionCapacity
           // 
           this.productionCapacity.ControlCounter = 100;
           this.productionCapacity.ControlSelected = false;
@@ -208,7 +208,7 @@ namespace Nova.WinForms
           this.productionCapacity.TabIndex = 7;
           this.productionCapacity.Value = new Nova.Common.EnabledValue(false, 100);
           // 
-          // NumberOfFields
+          // numberOfFields
           // 
           this.numberOfFields.ControlCounter = 4;
           this.numberOfFields.ControlSelected = false;
@@ -221,7 +221,7 @@ namespace Nova.WinForms
           this.numberOfFields.TabIndex = 6;
           this.numberOfFields.Value = new Nova.Common.EnabledValue(false, 4);
           // 
-          // TechLevels
+          // techLevels
           // 
           this.techLevels.ControlCounter = 22;
           this.techLevels.ControlSelected = false;
@@ -234,7 +234,7 @@ namespace Nova.WinForms
           this.techLevels.TabIndex = 5;
           this.techLevels.Value = new Nova.Common.EnabledValue(false, 22);
           // 
-          // PlanetsOwned
+          // planetsOwned
           // 
           this.planetsOwned.ControlCounter = 60;
           this.planetsOwned.ControlSelected = false;
@@ -270,7 +270,7 @@ namespace Nova.WinForms
           this.groupBox2.TabStop = false;
           this.groupBox2.Text = "Main criteria";
           // 
-          // MinimumGameTime
+          // minimumGameTime
           // 
           this.minimumGameTime.Anchor = System.Windows.Forms.AnchorStyles.Right;
           this.minimumGameTime.Location = new System.Drawing.Point(277, 47);
@@ -303,7 +303,7 @@ namespace Nova.WinForms
           this.label5.Text = "Minimum game time (years)";
           this.label5.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
           // 
-          // TargetsToMeet
+          // targetsToMeet
           // 
           this.targetsToMeet.Anchor = System.Windows.Forms.AnchorStyles.Right;
           this.targetsToMeet.Location = new System.Drawing.Point(277, 17);
@@ -346,7 +346,7 @@ namespace Nova.WinForms
           this.cancelButton.TabIndex = 1;
           this.cancelButton.Text = "Cancel";
           this.cancelButton.UseVisualStyleBackColor = true;
-          this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click); 
+          this.cancelButton.Click += new System.EventHandler(this.CancelButton_Click);
           // 
           // tutorialButton
           // 
@@ -396,6 +396,26 @@ namespace Nova.WinForms
           this.tabGameOptions.TabIndex = 0;
           this.tabGameOptions.Text = "Game Options";
           this.tabGameOptions.UseVisualStyleBackColor = true;
+          // 
+          // groupBox7
+          // 
+          this.groupBox7.Controls.Add(this.acceleratedStart);
+          this.groupBox7.Location = new System.Drawing.Point(8, 271);
+          this.groupBox7.Name = "groupBox7";
+          this.groupBox7.Size = new System.Drawing.Size(364, 141);
+          this.groupBox7.TabIndex = 2;
+          this.groupBox7.TabStop = false;
+          this.groupBox7.Text = "Game Options";
+          // 
+          // acceleratedStart
+          // 
+          this.acceleratedStart.AutoSize = true;
+          this.acceleratedStart.Location = new System.Drawing.Point(6, 19);
+          this.acceleratedStart.Name = "acceleratedStart";
+          this.acceleratedStart.Size = new System.Drawing.Size(108, 17);
+          this.acceleratedStart.TabIndex = 1;
+          this.acceleratedStart.Text = "Accelerated Start";
+          this.acceleratedStart.UseVisualStyleBackColor = true;
           // 
           // groupBox6
           // 
@@ -709,16 +729,16 @@ namespace Nova.WinForms
           this.playerList.View = System.Windows.Forms.View.Details;
           this.playerList.SelectedIndexChanged += new System.EventHandler(this.PlayerList_SelectedIndexChanged);
           // 
-          // PlayerNumber
+          // playerNumber
           // 
           this.playerNumber.Text = "Player #";
           // 
-          // Race
+          // race
           // 
           this.race.Text = "Race";
           this.race.Width = 119;
           // 
-          // Ai
+          // ai
           // 
           this.ai.Text = "AI / Human";
           this.ai.Width = 104;
@@ -866,26 +886,6 @@ namespace Nova.WinForms
           this.tabVictoryConditions.Text = "Victory Conditions";
           this.tabVictoryConditions.UseVisualStyleBackColor = true;
           // 
-          // groupBox7
-          // 
-          this.groupBox7.Controls.Add(this.acceleratedStart);
-          this.groupBox7.Location = new System.Drawing.Point(8, 271);
-          this.groupBox7.Name = "groupBox7";
-          this.groupBox7.Size = new System.Drawing.Size(364, 141);
-          this.groupBox7.TabIndex = 2;
-          this.groupBox7.TabStop = false;
-          this.groupBox7.Text = "Game Options";
-          // 
-          // acceleratedStart
-          // 
-          this.acceleratedStart.AutoSize = true;
-          this.acceleratedStart.Location = new System.Drawing.Point(6, 19);
-          this.acceleratedStart.Name = "acceleratedStart";
-          this.acceleratedStart.Size = new System.Drawing.Size(108, 17);
-          this.acceleratedStart.TabIndex = 1;
-          this.acceleratedStart.Text = "Accelerated Start";
-          this.acceleratedStart.UseVisualStyleBackColor = true;
-          // 
           // NewGameWizard
           // 
           this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -900,7 +900,7 @@ namespace Nova.WinForms
           this.MaximizeBox = false;
           this.MinimizeBox = false;
           this.Name = "NewGameWizard";
-          this.Text = "New Game";
+          this.Text = "Stars! Nova - New Game";
           this.groupBox1.ResumeLayout(false);
           this.groupBox1.PerformLayout();
           this.groupBox2.ResumeLayout(false);
@@ -908,6 +908,8 @@ namespace Nova.WinForms
           ((System.ComponentModel.ISupportInitialize)(this.targetsToMeet)).EndInit();
           this.tabControl1.ResumeLayout(false);
           this.tabGameOptions.ResumeLayout(false);
+          this.groupBox7.ResumeLayout(false);
+          this.groupBox7.PerformLayout();
           this.groupBox6.ResumeLayout(false);
           this.groupBox6.PerformLayout();
           this.groupBox3.ResumeLayout(false);
@@ -923,8 +925,6 @@ namespace Nova.WinForms
           this.groupBox4.ResumeLayout(false);
           this.groupBox4.PerformLayout();
           this.tabVictoryConditions.ResumeLayout(false);
-          this.groupBox7.ResumeLayout(false);
-          this.groupBox7.PerformLayout();
           this.ResumeLayout(false);
 
         }

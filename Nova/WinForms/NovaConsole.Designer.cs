@@ -32,14 +32,13 @@ namespace Nova.WinForms.Console
         /// </Summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaConsole));
-            
             this.components = new System.ComponentModel.Container();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaConsole));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.playerList = new System.Windows.Forms.ListView();
-            this.ai = new System.Windows.Forms.ColumnHeader();
-            this.raceName = new System.Windows.Forms.ColumnHeader();
-            this.turnIn = new System.Windows.Forms.ColumnHeader();
+            this.ai = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.raceName = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.turnIn = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.runAiCheckBox = new System.Windows.Forms.CheckBox();
             this.autoGenerateCheckBox = new System.Windows.Forms.CheckBox();
@@ -99,8 +98,8 @@ namespace Nova.WinForms.Console
             this.playerList.TabIndex = 0;
             this.playerList.UseCompatibleStateImageBehavior = false;
             this.playerList.View = System.Windows.Forms.View.Details;
-            this.playerList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PlayerList_MouseClick);
             this.playerList.DoubleClick += new System.EventHandler(this.PlayerList_DoubleClick);
+            this.playerList.MouseClick += new System.Windows.Forms.MouseEventHandler(this.PlayerList_MouseClick);
             // 
             // ai
             // 
@@ -344,7 +343,7 @@ namespace Nova.WinForms.Console
             this.playerMenu.Name = "playerMenu";
             this.playerMenu.Size = new System.Drawing.Size(61, 4);
             // 
-            // NovaConsoleMain
+            // NovaConsole
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(472, 474);
@@ -355,10 +354,10 @@ namespace Nova.WinForms.Console
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MainMenuStrip = this.mainMenu;
             this.MaximizeBox = false;
-            this.Name = "NovaConsoleMain";
-            this.Text = "Nova Console";
-            this.Shown += new System.EventHandler(this.OnFirstShow);
+            this.Name = "NovaConsole";
+            this.Text = "Stars! Nova - Console";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.ConsoleFormClosing);
+            this.Shown += new System.EventHandler(this.OnFirstShow);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
             this.groupBox2.PerformLayout();
@@ -366,6 +365,7 @@ namespace Nova.WinForms.Console
             this.mainMenu.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
+
         }
             
             private GroupBox groupBox1;

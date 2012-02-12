@@ -50,6 +50,7 @@ namespace Nova.WinForms.Gui.Dialogs
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(SplitFleetDialog));
             this.fleetLayoutPanel = new System.Windows.Forms.TableLayoutPanel();
             this.label2 = new System.Windows.Forms.Label();
             this.numericUpDown1 = new System.Windows.Forms.NumericUpDown();
@@ -163,11 +164,11 @@ namespace Nova.WinForms.Gui.Dialogs
             this.Controls.Add(this.lblFleetRight);
             this.Controls.Add(this.fleetLayoutPanel);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "SplitFleetDialog";
-            this.ShowIcon = false;
-            this.Text = "Split/Merge Fleet";
+            this.Text = "Stars! Nova - Split/Merge Fleet";
             this.fleetLayoutPanel.ResumeLayout(false);
             this.fleetLayoutPanel.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.numericUpDown1)).EndInit();

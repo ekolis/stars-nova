@@ -15,13 +15,14 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProductionDialog));
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.designList = new System.Windows.Forms.ListView();
-            this.description = new System.Windows.Forms.ColumnHeader();
+            this.description = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
             this.queueList = new System.Windows.Forms.ListView();
-            this.queueDescription = new System.Windows.Forms.ColumnHeader();
-            this.queueQuantity = new System.Windows.Forms.ColumnHeader();
+            this.queueDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+            this.queueQuantity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.addToQueue = new System.Windows.Forms.Button();
             this.ok = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
@@ -80,11 +81,8 @@ namespace Nova.WinForms.Gui
             this.designList.AutoArrange = false;
             this.designList.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.designList.CausesValidation = false;
-            this.designList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] 
-            {
-                                    this.description
-            }
-            );
+            this.designList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.description});
             this.designList.FullRowSelect = true;
             this.designList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.designList.HideSelection = false;
@@ -120,11 +118,9 @@ namespace Nova.WinForms.Gui
             // 
             this.queueList.AutoArrange = false;
             this.queueList.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.queueList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] 
-            {
-                                    this.queueDescription,
-                                    this.queueQuantity
-            });
+            this.queueList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
+            this.queueDescription,
+            this.queueQuantity});
             this.queueList.FullRowSelect = true;
             this.queueList.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
             this.queueList.HideSelection = false;
@@ -163,7 +159,7 @@ namespace Nova.WinForms.Gui
             // 
             // ok
             // 
-            this.ok.Anchor = (System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right));
+            this.ok.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
             this.ok.FlatStyle = System.Windows.Forms.FlatStyle.System;
             this.ok.Location = new System.Drawing.Point(446, 494);
             this.ok.Name = "ok";
@@ -240,8 +236,8 @@ namespace Nova.WinForms.Gui
             // 
             // selectedPercentComplete
             // 
-            this.selectedPercentComplete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectedPercentComplete.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.selectedPercentComplete.Location = new System.Drawing.Point(87, 112);
             this.selectedPercentComplete.Name = "selectedPercentComplete";
             this.selectedPercentComplete.Size = new System.Drawing.Size(56, 16);
@@ -314,8 +310,8 @@ namespace Nova.WinForms.Gui
             // 
             // totalCostBoranium
             // 
-            this.totalCostBoranium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalCostBoranium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.totalCostBoranium.Location = new System.Drawing.Point(173, 47);
             this.totalCostBoranium.Name = "totalCostBoranium";
             this.totalCostBoranium.Size = new System.Drawing.Size(56, 16);
@@ -325,8 +321,8 @@ namespace Nova.WinForms.Gui
             // 
             // totalCostGermanium
             // 
-            this.totalCostGermanium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalCostGermanium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.totalCostGermanium.Location = new System.Drawing.Point(173, 63);
             this.totalCostGermanium.Name = "totalCostGermanium";
             this.totalCostGermanium.Size = new System.Drawing.Size(56, 16);
@@ -336,8 +332,8 @@ namespace Nova.WinForms.Gui
             // 
             // totalCostEnergy
             // 
-            this.totalCostEnergy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalCostEnergy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.totalCostEnergy.Location = new System.Drawing.Point(173, 79);
             this.totalCostEnergy.Name = "totalCostEnergy";
             this.totalCostEnergy.Size = new System.Drawing.Size(56, 16);
@@ -347,8 +343,8 @@ namespace Nova.WinForms.Gui
             // 
             // totalCostIronium
             // 
-            this.totalCostIronium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+            this.totalCostIronium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.totalCostIronium.Location = new System.Drawing.Point(173, 31);
             this.totalCostIronium.Name = "totalCostIronium";
             this.totalCostIronium.Size = new System.Drawing.Size(56, 16);
@@ -385,8 +381,8 @@ namespace Nova.WinForms.Gui
             // 
             // selectedCostBoranium
             // 
-            this.selectedCostBoranium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectedCostBoranium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.selectedCostBoranium.Location = new System.Drawing.Point(87, 47);
             this.selectedCostBoranium.Name = "selectedCostBoranium";
             this.selectedCostBoranium.Size = new System.Drawing.Size(56, 16);
@@ -396,8 +392,8 @@ namespace Nova.WinForms.Gui
             // 
             // selectedCostGermanium
             // 
-            this.selectedCostGermanium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectedCostGermanium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.selectedCostGermanium.Location = new System.Drawing.Point(87, 63);
             this.selectedCostGermanium.Name = "selectedCostGermanium";
             this.selectedCostGermanium.Size = new System.Drawing.Size(56, 16);
@@ -407,8 +403,8 @@ namespace Nova.WinForms.Gui
             // 
             // selectedCostEnergy
             // 
-            this.selectedCostEnergy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectedCostEnergy.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.selectedCostEnergy.Location = new System.Drawing.Point(87, 79);
             this.selectedCostEnergy.Name = "selectedCostEnergy";
             this.selectedCostEnergy.Size = new System.Drawing.Size(56, 16);
@@ -418,8 +414,8 @@ namespace Nova.WinForms.Gui
             // 
             // selectedCostIronium
             // 
-            this.selectedCostIronium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
-                                    | System.Windows.Forms.AnchorStyles.Right)));
+            this.selectedCostIronium.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+                        | System.Windows.Forms.AnchorStyles.Right)));
             this.selectedCostIronium.Location = new System.Drawing.Point(87, 31);
             this.selectedCostIronium.Name = "selectedCostIronium";
             this.selectedCostIronium.Size = new System.Drawing.Size(56, 16);
@@ -537,7 +533,6 @@ namespace Nova.WinForms.Gui
             // 
             this.AutoScaleBaseSize = new System.Drawing.Size(5, 13);
             this.ClientSize = new System.Drawing.Size(600, 526);
-            this.Controls.Add(this.onlyLeftovers);
             this.Controls.Add(this.queueDown);
             this.Controls.Add(this.queueUp);
             this.Controls.Add(this.removeFromQueue);
@@ -550,11 +545,12 @@ namespace Nova.WinForms.Gui
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.onlyLeftovers);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "ProductionDialog";
             this.ShowInTaskbar = false;
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
-            this.Text = "Production Queue";
+            this.Text = "Stars! Nova - Production Queue";
             this.Load += new System.EventHandler(this.OnLoad);
             this.groupBox1.ResumeLayout(false);
             this.groupBox2.ResumeLayout(false);
@@ -562,6 +558,7 @@ namespace Nova.WinForms.Gui
             this.groupBox4.ResumeLayout(false);
             this.groupBox4.PerformLayout();
             this.ResumeLayout(false);
+
         }
 
         

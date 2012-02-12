@@ -37,15 +37,19 @@ namespace Nova.WinForms.Gui
           this.comboDesignOwner = new System.Windows.Forms.ComboBox();
           this.groupBox7 = new System.Windows.Forms.GroupBox();
           this.designList = new System.Windows.Forms.ListView();
-          this.columnHeader1 = new System.Windows.Forms.ColumnHeader();
-          this.columnHeader2 = new System.Windows.Forms.ColumnHeader();
+          this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
+          this.columnHeader2 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
           this.groupBox6 = new System.Windows.Forms.GroupBox();
           this.componentSummary = new System.Windows.Forms.TextBox();
           this.description = new System.Windows.Forms.TextBox();
           this.groupBox2 = new System.Windows.Forms.GroupBox();
           this.hullImage = new System.Windows.Forms.PictureBox();
-          this.hullGrid = new ControlLibrary.HullGrid();
+          this.hullGrid = new Nova.ControlLibrary.HullGrid();
           this.groupBox4 = new System.Windows.Forms.GroupBox();
+          this.label11 = new System.Windows.Forms.Label();
+          this.label7 = new System.Windows.Forms.Label();
+          this.cargoCapacity = new System.Windows.Forms.Label();
+          this.label6 = new System.Windows.Forms.Label();
           this.capacityType = new System.Windows.Forms.Label();
           this.shipCloak = new System.Windows.Forms.Label();
           this.shipShields = new System.Windows.Forms.Label();
@@ -56,20 +60,16 @@ namespace Nova.WinForms.Gui
           this.label14 = new System.Windows.Forms.Label();
           this.label13 = new System.Windows.Forms.Label();
           this.capacityUnits = new System.Windows.Forms.Label();
-          this.label11 = new System.Windows.Forms.Label();
           this.label8 = new System.Windows.Forms.Label();
           this.label5 = new System.Windows.Forms.Label();
           this.label4 = new System.Windows.Forms.Label();
           this.label2 = new System.Windows.Forms.Label();
           this.groupBox3 = new System.Windows.Forms.GroupBox();
-          this.designResources = new ControlLibrary.ResourceDisplay();
+          this.designResources = new Nova.ControlLibrary.ResourceDisplay();
           this.designName = new System.Windows.Forms.TextBox();
           this.label1 = new System.Windows.Forms.Label();
           this.done = new System.Windows.Forms.Button();
           this.delete = new System.Windows.Forms.Button();
-          this.label6 = new System.Windows.Forms.Label();
-          this.cargoCapacity = new System.Windows.Forms.Label();
-          this.label7 = new System.Windows.Forms.Label();
           this.groupBox1.SuspendLayout();
           this.groupBox7.SuspendLayout();
           this.groupBox6.SuspendLayout();
@@ -101,7 +101,7 @@ namespace Nova.WinForms.Gui
           this.label3.TabIndex = 5;
           this.label3.Text = "Design Owner";
           // 
-          // DesignOwner
+          // comboDesignOwner
           // 
           this.comboDesignOwner.FormattingEnabled = true;
           this.comboDesignOwner.Location = new System.Drawing.Point(6, 37);
@@ -121,7 +121,7 @@ namespace Nova.WinForms.Gui
           this.groupBox7.TabStop = false;
           this.groupBox7.Text = "Designs";
           // 
-          // DesignList
+          // designList
           // 
           this.designList.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
             this.columnHeader1,
@@ -157,7 +157,7 @@ namespace Nova.WinForms.Gui
           this.groupBox6.TabStop = false;
           this.groupBox6.Text = "Component Summary";
           // 
-          // ComponentSummary
+          // componentSummary
           // 
           this.componentSummary.AcceptsTab = true;
           this.componentSummary.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -171,7 +171,7 @@ namespace Nova.WinForms.Gui
           this.componentSummary.Size = new System.Drawing.Size(326, 81);
           this.componentSummary.TabIndex = 9;
           // 
-          // Description
+          // description
           // 
           this.description.AcceptsTab = true;
           this.description.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
@@ -202,7 +202,7 @@ namespace Nova.WinForms.Gui
           this.groupBox2.TabStop = false;
           this.groupBox2.Text = "Design Detail";
           // 
-          // HullImage
+          // hullImage
           // 
           this.hullImage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
           this.hullImage.Location = new System.Drawing.Point(288, 18);
@@ -211,10 +211,11 @@ namespace Nova.WinForms.Gui
           this.hullImage.TabIndex = 19;
           this.hullImage.TabStop = false;
           // 
-          // HullGrid
+          // hullGrid
           // 
-          this.hullGrid.ActiveModules = new System.Collections.Generic.List<Nova.Common.Components.HullModule>();
+          this.hullGrid.ActiveModules = ((System.Collections.Generic.List<Nova.Common.Components.HullModule>)(resources.GetObject("hullGrid.ActiveModules")));
           this.hullGrid.HideEmptyModules = true;
+          this.hullGrid.HullName = null;
           this.hullGrid.Location = new System.Drawing.Point(23, 88);
           this.hullGrid.Name = "hullGrid";
           this.hullGrid.Size = new System.Drawing.Size(338, 338);
@@ -248,7 +249,43 @@ namespace Nova.WinForms.Gui
           this.groupBox4.TabStop = false;
           this.groupBox4.Text = "Primary Characteristics";
           // 
-          // CapacityType
+          // label11
+          // 
+          this.label11.AutoSize = true;
+          this.label11.Location = new System.Drawing.Point(143, 21);
+          this.label11.Name = "label11";
+          this.label11.Size = new System.Drawing.Size(20, 13);
+          this.label11.TabIndex = 5;
+          this.label11.Text = "kT";
+          // 
+          // label7
+          // 
+          this.label7.AutoSize = true;
+          this.label7.Location = new System.Drawing.Point(143, 94);
+          this.label7.Name = "label7";
+          this.label7.Size = new System.Drawing.Size(20, 13);
+          this.label7.TabIndex = 18;
+          this.label7.Text = "kT";
+          // 
+          // cargoCapacity
+          // 
+          this.cargoCapacity.Location = new System.Drawing.Point(92, 94);
+          this.cargoCapacity.Name = "cargoCapacity";
+          this.cargoCapacity.Size = new System.Drawing.Size(50, 13);
+          this.cargoCapacity.TabIndex = 17;
+          this.cargoCapacity.Text = "0";
+          this.cargoCapacity.TextAlign = System.Drawing.ContentAlignment.TopRight;
+          // 
+          // label6
+          // 
+          this.label6.AutoSize = true;
+          this.label6.Location = new System.Drawing.Point(6, 94);
+          this.label6.Name = "label6";
+          this.label6.Size = new System.Drawing.Size(79, 13);
+          this.label6.TabIndex = 16;
+          this.label6.Text = "Cargo Capacity";
+          // 
+          // capacityType
           // 
           this.capacityType.Location = new System.Drawing.Point(6, 34);
           this.capacityType.Name = "capacityType";
@@ -256,7 +293,7 @@ namespace Nova.WinForms.Gui
           this.capacityType.TabIndex = 1;
           this.capacityType.Text = "Max Fuel Capacity";
           // 
-          // ShipCloak
+          // shipCloak
           // 
           this.shipCloak.Location = new System.Drawing.Point(92, 79);
           this.shipCloak.Name = "shipCloak";
@@ -265,7 +302,7 @@ namespace Nova.WinForms.Gui
           this.shipCloak.Text = "0";
           this.shipCloak.TextAlign = System.Drawing.ContentAlignment.TopRight;
           // 
-          // ShipShields
+          // shipShields
           // 
           this.shipShields.Location = new System.Drawing.Point(92, 65);
           this.shipShields.Name = "shipShields";
@@ -274,7 +311,7 @@ namespace Nova.WinForms.Gui
           this.shipShields.Text = "0";
           this.shipShields.TextAlign = System.Drawing.ContentAlignment.TopRight;
           // 
-          // ShipArmor
+          // shipArmor
           // 
           this.shipArmor.Location = new System.Drawing.Point(92, 50);
           this.shipArmor.Name = "shipArmor";
@@ -283,7 +320,7 @@ namespace Nova.WinForms.Gui
           this.shipArmor.Text = "0";
           this.shipArmor.TextAlign = System.Drawing.ContentAlignment.TopRight;
           // 
-          // MaxCapacity
+          // maxCapacity
           // 
           this.maxCapacity.Location = new System.Drawing.Point(92, 34);
           this.maxCapacity.Name = "maxCapacity";
@@ -292,7 +329,7 @@ namespace Nova.WinForms.Gui
           this.maxCapacity.Text = "0";
           this.maxCapacity.TextAlign = System.Drawing.ContentAlignment.TopRight;
           // 
-          // ShipMass
+          // shipMass
           // 
           this.shipMass.Location = new System.Drawing.Point(92, 19);
           this.shipMass.Name = "shipMass";
@@ -328,7 +365,7 @@ namespace Nova.WinForms.Gui
           this.label13.TabIndex = 7;
           this.label13.Text = "dp";
           // 
-          // CapacityUnits
+          // capacityUnits
           // 
           this.capacityUnits.AutoSize = true;
           this.capacityUnits.Location = new System.Drawing.Point(143, 34);
@@ -336,15 +373,6 @@ namespace Nova.WinForms.Gui
           this.capacityUnits.Size = new System.Drawing.Size(21, 13);
           this.capacityUnits.TabIndex = 6;
           this.capacityUnits.Text = "mg";
-          // 
-          // label11
-          // 
-          this.label11.AutoSize = true;
-          this.label11.Location = new System.Drawing.Point(143, 21);
-          this.label11.Name = "label11";
-          this.label11.Size = new System.Drawing.Size(20, 13);
-          this.label11.TabIndex = 5;
-          this.label11.Text = "kT";
           // 
           // label8
           // 
@@ -369,7 +397,7 @@ namespace Nova.WinForms.Gui
           this.label4.AutoSize = true;
           this.label4.Location = new System.Drawing.Point(6, 49);
           this.label4.Name = "label4";
-          this.label4.Size = new System.Drawing.Size(40, 13);
+          this.label4.Size = new System.Drawing.Size(34, 13);
           this.label4.TabIndex = 2;
           this.label4.Text = "Armor";
           // 
@@ -393,15 +421,15 @@ namespace Nova.WinForms.Gui
           this.groupBox3.TabStop = false;
           this.groupBox3.Text = "Build Cost";
           // 
-          // DesignResources
+          // designResources
           // 
           this.designResources.Location = new System.Drawing.Point(9, 19);
           this.designResources.Name = "designResources";
           this.designResources.Size = new System.Drawing.Size(150, 64);
           this.designResources.TabIndex = 10;
-          this.designResources.Value = new Nova.Common.Resources(((int)(0)), ((int)(0)), ((int)(0)), ((int)(0)));
+          this.designResources.Value = new Nova.Common.Resources(0, 0, 0, 0);
           // 
-          // DesignName
+          // designName
           // 
           this.designName.Location = new System.Drawing.Point(23, 34);
           this.designName.Name = "designName";
@@ -416,7 +444,7 @@ namespace Nova.WinForms.Gui
           this.label1.TabIndex = 0;
           this.label1.Text = "Design Name";
           // 
-          // Done
+          // done
           // 
           this.done.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
           this.done.DialogResult = System.Windows.Forms.DialogResult.Cancel;
@@ -428,7 +456,7 @@ namespace Nova.WinForms.Gui
           this.done.Text = "Done";
           this.done.Click += new System.EventHandler(this.Done_Click);
           // 
-          // Delete
+          // delete
           // 
           this.delete.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right)));
           this.delete.Location = new System.Drawing.Point(575, 584);
@@ -438,33 +466,6 @@ namespace Nova.WinForms.Gui
           this.delete.Text = "Delete";
           this.delete.UseVisualStyleBackColor = true;
           this.delete.Click += new System.EventHandler(this.Delete_Click);
-          // 
-          // label6
-          // 
-          this.label6.AutoSize = true;
-          this.label6.Location = new System.Drawing.Point(6, 94);
-          this.label6.Name = "label6";
-          this.label6.Size = new System.Drawing.Size(79, 13);
-          this.label6.TabIndex = 16;
-          this.label6.Text = "Cargo Capacity";
-          // 
-          // CargoCapacity
-          // 
-          this.cargoCapacity.Location = new System.Drawing.Point(92, 94);
-          this.cargoCapacity.Name = "cargoCapacity";
-          this.cargoCapacity.Size = new System.Drawing.Size(50, 13);
-          this.cargoCapacity.TabIndex = 17;
-          this.cargoCapacity.Text = "0";
-          this.cargoCapacity.TextAlign = System.Drawing.ContentAlignment.TopRight;
-          // 
-          // label7
-          // 
-          this.label7.AutoSize = true;
-          this.label7.Location = new System.Drawing.Point(143, 94);
-          this.label7.Name = "label7";
-          this.label7.Size = new System.Drawing.Size(20, 13);
-          this.label7.TabIndex = 18;
-          this.label7.Text = "kT";
           // 
           // DesignManager
           // 
@@ -476,8 +477,9 @@ namespace Nova.WinForms.Gui
           this.Controls.Add(this.groupBox2);
           this.Controls.Add(this.done);
           this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+          this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
           this.Name = "DesignManager";
-          this.Text = "Nova Design Manager";
+          this.Text = "Stars! Nova - Design Manager";
           this.Load += new System.EventHandler(this.DesignManager_Load);
           this.groupBox1.ResumeLayout(false);
           this.groupBox1.PerformLayout();
