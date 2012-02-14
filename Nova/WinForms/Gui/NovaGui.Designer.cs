@@ -10,7 +10,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(NovaGUI));
 
-            this.stateData = new Client.ClientState();
             this.groupBox2  = new System.Windows.Forms.GroupBox();
             this.mainMenu   = new System.Windows.Forms.MenuStrip();
             
