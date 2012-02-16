@@ -1229,10 +1229,49 @@ namespace Nova.WinForms.ComponentEditor
        /// <param name="e"></param>
        private void FuelCostChanged(object sender, EventArgs e)
        {
-           string selectedComponentName = this.componentList.SelectedItem as string;
-           Nova.Common.Components.Component selectedComponent = AllComponents.Data.Components[selectedComponentName];
-           Engine engineProperties = selectedComponent.Properties["Engine"] as Engine;
-           this.labelFreeWarpValue.Text = engineProperties.FreeWarpSpeed.ToString();
+           int fastestFreeWarpSpeed = 1;
+           if (warp10Fuel.Value == 0)
+           {
+               fastestFreeWarpSpeed = 10;
+           }
+           else if (warp9Fuel.Value == 0)
+           {
+               fastestFreeWarpSpeed = 9;
+           }
+           else if (warp8Fuel.Value == 0)
+           {
+               fastestFreeWarpSpeed = 8;
+           }
+           else if (warp7Fuel.Value == 0)
+           {
+               fastestFreeWarpSpeed = 7;
+           }
+           else if (warp6Fuel.Value == 0)
+           {
+               fastestFreeWarpSpeed = 6;
+           }
+           else if (warp5Fuel.Value == 0)
+           {
+               fastestFreeWarpSpeed = 5;
+           }
+           else if (warp4Fuel.Value == 0)
+           {
+               fastestFreeWarpSpeed = 4;
+           }
+           else if (warp3Fuel.Value == 0)
+           {
+               fastestFreeWarpSpeed = 3;
+           }
+           else if (warp2Fuel.Value == 0)
+           {
+               fastestFreeWarpSpeed = 2;
+           }
+           else 
+           {
+               fastestFreeWarpSpeed = 1;
+           }
+  
+           this.labelFreeWarpValue.Text = fastestFreeWarpSpeed.ToString();
 
        }
 
