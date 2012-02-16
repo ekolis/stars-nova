@@ -810,7 +810,7 @@ namespace Nova.WinForms.ComponentEditor
 
        /// <Summary>
        /// When a selection in the list box changes repopulate the dialog with the
-       /// values for that electrical component. The processing of this event is
+       /// values for that component. The processing of this event is
        /// delegated from the Common Properties control.
        /// </Summary>
        /// <param name="sender">The source of the event.</param>
@@ -962,6 +962,8 @@ namespace Nova.WinForms.ComponentEditor
                    this.warp8Fuel.Value = (decimal)engineProperties.FuelConsumption[7];
                    this.warp9Fuel.Value = (decimal)engineProperties.FuelConsumption[8];
                    this.warp10Fuel.Value = (decimal)engineProperties.FuelConsumption[9];
+
+                   this.labelFreeWarpValue.Text = engineProperties.FreeWarpSpeed.ToString();
 
                    this.propertyTabs.TabPages.Add(tabEngine);
                    this.propertyTabs.SelectedTab = tabEngine;
@@ -1220,6 +1222,19 @@ namespace Nova.WinForms.ComponentEditor
 
        }
 
+       /// <summary>
+       /// Update the Fastest Free Fuel Speed whenever fuel costs are changed.
+       /// </summary>
+       /// <param name="sender"></param>
+       /// <param name="e"></param>
+       private void FuelCostChanged(object sender, EventArgs e)
+       {
+           string selectedComponentName = this.componentList.SelectedItem as string;
+           Nova.Common.Components.Component selectedComponent = AllComponents.Data.Components[selectedComponentName];
+           Engine engineProperties = selectedComponent.Properties["Engine"] as Engine;
+           this.labelFreeWarpValue.Text = engineProperties.FreeWarpSpeed.ToString();
+
+       }
 
        /// <Summary>
        /// Draw tabs horizontally to the right of the tab control.
@@ -1840,7 +1855,6 @@ namespace Nova.WinForms.ComponentEditor
       }
 
       #endregion
-
 
    }
 }

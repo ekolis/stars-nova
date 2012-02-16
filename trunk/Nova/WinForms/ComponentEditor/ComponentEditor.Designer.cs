@@ -181,7 +181,7 @@ namespace Nova.WinForms.ComponentEditor
             this.label90 = new System.Windows.Forms.Label();
             this.tabEngine = new System.Windows.Forms.TabPage();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
-            this.engineFastestFreeSpeed = new System.Windows.Forms.NumericUpDown();
+            this.labelFreeWarpValue = new System.Windows.Forms.Label();
             this.label85 = new System.Windows.Forms.Label();
             this.label84 = new System.Windows.Forms.Label();
             this.label83 = new System.Windows.Forms.Label();
@@ -399,7 +399,6 @@ namespace Nova.WinForms.ComponentEditor
             ((System.ComponentModel.ISupportInitialize)(this.energyDampener)).BeginInit();
             this.tabEngine.SuspendLayout();
             this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.engineFastestFreeSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.engineOptimalSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.engineFastestSafeSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.warp2Fuel)).BeginInit();
@@ -1175,7 +1174,7 @@ namespace Nova.WinForms.ComponentEditor
             this.propertyTabs.Multiline = true;
             this.propertyTabs.Name = "propertyTabs";
             this.propertyTabs.SelectedIndex = 0;
-            this.propertyTabs.Size = new System.Drawing.Size(780, 238);
+            this.propertyTabs.Size = new System.Drawing.Size(776, 238);
             this.propertyTabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.propertyTabs.TabIndex = 4;
             this.propertyTabs.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.PropertyTabs_DrawItem);
@@ -1187,7 +1186,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabArmor.Location = new System.Drawing.Point(4, 4);
             this.tabArmor.Name = "tabArmor";
             this.tabArmor.Padding = new System.Windows.Forms.Padding(3);
-            this.tabArmor.Size = new System.Drawing.Size(372, 230);
+            this.tabArmor.Size = new System.Drawing.Size(368, 230);
             this.tabArmor.TabIndex = 0;
             this.tabArmor.Text = "Armor";
             // 
@@ -1200,7 +1199,7 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox8.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox8.Location = new System.Drawing.Point(3, 3);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(366, 224);
+            this.groupBox8.Size = new System.Drawing.Size(362, 224);
             this.groupBox8.TabIndex = 2;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "Armor Properties";
@@ -1248,7 +1247,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabMovement.Location = new System.Drawing.Point(4, 4);
             this.tabMovement.Name = "tabMovement";
             this.tabMovement.Padding = new System.Windows.Forms.Padding(3);
-            this.tabMovement.Size = new System.Drawing.Size(372, 230);
+            this.tabMovement.Size = new System.Drawing.Size(368, 230);
             this.tabMovement.TabIndex = 1;
             this.tabMovement.Text = "Battle Movement";
             // 
@@ -1303,7 +1302,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabBomb.Location = new System.Drawing.Point(4, 4);
             this.tabBomb.Name = "tabBomb";
             this.tabBomb.Padding = new System.Windows.Forms.Padding(3);
-            this.tabBomb.Size = new System.Drawing.Size(372, 230);
+            this.tabBomb.Size = new System.Drawing.Size(368, 230);
             this.tabBomb.TabIndex = 2;
             this.tabBomb.Text = "Bomb";
             // 
@@ -1406,7 +1405,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabCapacitor.Controls.Add(this.groupBox11);
             this.tabCapacitor.Location = new System.Drawing.Point(4, 4);
             this.tabCapacitor.Name = "tabCapacitor";
-            this.tabCapacitor.Size = new System.Drawing.Size(372, 230);
+            this.tabCapacitor.Size = new System.Drawing.Size(368, 230);
             this.tabCapacitor.TabIndex = 3;
             this.tabCapacitor.Text = "Capacitor";
             // 
@@ -1469,7 +1468,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabCargo.Controls.Add(this.groupBox12);
             this.tabCargo.Location = new System.Drawing.Point(4, 4);
             this.tabCargo.Name = "tabCargo";
-            this.tabCargo.Size = new System.Drawing.Size(372, 230);
+            this.tabCargo.Size = new System.Drawing.Size(368, 230);
             this.tabCargo.TabIndex = 4;
             this.tabCargo.Text = "Cargo";
             // 
@@ -1527,7 +1526,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabCloak.Controls.Add(this.groupBox13);
             this.tabCloak.Location = new System.Drawing.Point(4, 4);
             this.tabCloak.Name = "tabCloak";
-            this.tabCloak.Size = new System.Drawing.Size(372, 230);
+            this.tabCloak.Size = new System.Drawing.Size(368, 230);
             this.tabCloak.TabIndex = 5;
             this.tabCloak.Text = "Cloak";
             // 
@@ -1580,7 +1579,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabColonization.Controls.Add(this.groupBox14);
             this.tabColonization.Location = new System.Drawing.Point(4, 4);
             this.tabColonization.Name = "tabColonization";
-            this.tabColonization.Size = new System.Drawing.Size(372, 230);
+            this.tabColonization.Size = new System.Drawing.Size(368, 230);
             this.tabColonization.TabIndex = 6;
             this.tabColonization.Text = "Colonization";
             // 
@@ -1623,7 +1622,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabComputer.Controls.Add(this.groupBox15);
             this.tabComputer.Location = new System.Drawing.Point(4, 4);
             this.tabComputer.Name = "tabComputer";
-            this.tabComputer.Size = new System.Drawing.Size(372, 230);
+            this.tabComputer.Size = new System.Drawing.Size(368, 230);
             this.tabComputer.TabIndex = 7;
             this.tabComputer.Text = "Computer";
             // 
@@ -1695,7 +1694,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabDefense.Controls.Add(this.groupBox16);
             this.tabDefense.Location = new System.Drawing.Point(4, 4);
             this.tabDefense.Name = "tabDefense";
-            this.tabDefense.Size = new System.Drawing.Size(372, 230);
+            this.tabDefense.Size = new System.Drawing.Size(368, 230);
             this.tabDefense.TabIndex = 8;
             this.tabDefense.Text = "Defense";
             // 
@@ -1838,7 +1837,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabDeflector.Controls.Add(this.groupBox32);
             this.tabDeflector.Location = new System.Drawing.Point(4, 4);
             this.tabDeflector.Name = "tabDeflector";
-            this.tabDeflector.Size = new System.Drawing.Size(372, 230);
+            this.tabDeflector.Size = new System.Drawing.Size(368, 230);
             this.tabDeflector.TabIndex = 28;
             this.tabDeflector.Text = "Deflector";
             // 
@@ -1886,7 +1885,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabEnergyDampener.Controls.Add(this.groupBox31);
             this.tabEnergyDampener.Location = new System.Drawing.Point(4, 4);
             this.tabEnergyDampener.Name = "tabEnergyDampener";
-            this.tabEnergyDampener.Size = new System.Drawing.Size(372, 230);
+            this.tabEnergyDampener.Size = new System.Drawing.Size(368, 230);
             this.tabEnergyDampener.TabIndex = 29;
             this.tabEnergyDampener.Text = "Energy Dampener";
             // 
@@ -1946,13 +1945,13 @@ namespace Nova.WinForms.ComponentEditor
             this.tabEngine.Controls.Add(this.groupBox6);
             this.tabEngine.Location = new System.Drawing.Point(4, 4);
             this.tabEngine.Name = "tabEngine";
-            this.tabEngine.Size = new System.Drawing.Size(372, 230);
+            this.tabEngine.Size = new System.Drawing.Size(368, 230);
             this.tabEngine.TabIndex = 9;
             this.tabEngine.Text = "Engine";
             // 
             // groupBox6
             // 
-            this.groupBox6.Controls.Add(this.engineFastestFreeSpeed);
+            this.groupBox6.Controls.Add(this.labelFreeWarpValue);
             this.groupBox6.Controls.Add(this.label85);
             this.groupBox6.Controls.Add(this.label84);
             this.groupBox6.Controls.Add(this.label83);
@@ -1990,19 +1989,15 @@ namespace Nova.WinForms.ComponentEditor
             this.groupBox6.TabStop = false;
             this.groupBox6.Text = "Engine Parameters";
             // 
-            // engineFastestFreeSpeed
+            // labelFreeWarpValue
             // 
-            this.engineFastestFreeSpeed.Location = new System.Drawing.Point(139, 70);
-            this.engineFastestFreeSpeed.Maximum = new decimal(new int[] {
-            12,
-            0,
-            0,
-            0});
-            this.engineFastestFreeSpeed.Name = "engineFastestFreeSpeed";
-            this.engineFastestFreeSpeed.ReadOnly = true;
-            this.engineFastestFreeSpeed.Size = new System.Drawing.Size(48, 20);
-            this.engineFastestFreeSpeed.TabIndex = 30;
-            this.engineFastestFreeSpeed.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.labelFreeWarpValue.AutoSize = true;
+            this.labelFreeWarpValue.Location = new System.Drawing.Point(159, 73);
+            this.labelFreeWarpValue.Name = "labelFreeWarpValue";
+            this.labelFreeWarpValue.Size = new System.Drawing.Size(13, 13);
+            this.labelFreeWarpValue.TabIndex = 30;
+            this.labelFreeWarpValue.Text = "0";
+            this.labelFreeWarpValue.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // label85
             // 
@@ -2205,6 +2200,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp2Fuel.Size = new System.Drawing.Size(46, 20);
             this.warp2Fuel.TabIndex = 1;
             this.warp2Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp2Fuel.ValueChanged += new System.EventHandler(this.FuelCostChanged);
             // 
             // warp3Fuel
             // 
@@ -2218,6 +2214,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp3Fuel.Size = new System.Drawing.Size(46, 20);
             this.warp3Fuel.TabIndex = 2;
             this.warp3Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp3Fuel.ValueChanged += new System.EventHandler(this.FuelCostChanged);
             // 
             // warp4Fuel
             // 
@@ -2231,6 +2228,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp4Fuel.Size = new System.Drawing.Size(46, 20);
             this.warp4Fuel.TabIndex = 3;
             this.warp4Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp4Fuel.ValueChanged += new System.EventHandler(this.FuelCostChanged);
             // 
             // warp5Fuel
             // 
@@ -2244,6 +2242,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp5Fuel.Size = new System.Drawing.Size(46, 20);
             this.warp5Fuel.TabIndex = 4;
             this.warp5Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp5Fuel.ValueChanged += new System.EventHandler(this.FuelCostChanged);
             // 
             // warp6Fuel
             // 
@@ -2257,6 +2256,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp6Fuel.Size = new System.Drawing.Size(46, 20);
             this.warp6Fuel.TabIndex = 5;
             this.warp6Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp6Fuel.ValueChanged += new System.EventHandler(this.FuelCostChanged);
             // 
             // warp7Fuel
             // 
@@ -2270,6 +2270,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp7Fuel.Size = new System.Drawing.Size(46, 20);
             this.warp7Fuel.TabIndex = 6;
             this.warp7Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp7Fuel.ValueChanged += new System.EventHandler(this.FuelCostChanged);
             // 
             // warp8Fuel
             // 
@@ -2283,6 +2284,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp8Fuel.Size = new System.Drawing.Size(46, 20);
             this.warp8Fuel.TabIndex = 7;
             this.warp8Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp8Fuel.ValueChanged += new System.EventHandler(this.FuelCostChanged);
             // 
             // warp9Fuel
             // 
@@ -2296,6 +2298,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp9Fuel.Size = new System.Drawing.Size(46, 20);
             this.warp9Fuel.TabIndex = 8;
             this.warp9Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp9Fuel.ValueChanged += new System.EventHandler(this.FuelCostChanged);
             // 
             // warp10Fuel
             // 
@@ -2309,6 +2312,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp10Fuel.Size = new System.Drawing.Size(46, 20);
             this.warp10Fuel.TabIndex = 9;
             this.warp10Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp10Fuel.ValueChanged += new System.EventHandler(this.FuelCostChanged);
             // 
             // warp1Fuel
             // 
@@ -2322,6 +2326,7 @@ namespace Nova.WinForms.ComponentEditor
             this.warp1Fuel.Size = new System.Drawing.Size(46, 20);
             this.warp1Fuel.TabIndex = 0;
             this.warp1Fuel.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.warp1Fuel.ValueChanged += new System.EventHandler(this.FuelCostChanged);
             // 
             // tabFuel
             // 
@@ -2329,7 +2334,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabFuel.Controls.Add(this.groupBox18);
             this.tabFuel.Location = new System.Drawing.Point(4, 4);
             this.tabFuel.Name = "tabFuel";
-            this.tabFuel.Size = new System.Drawing.Size(372, 230);
+            this.tabFuel.Size = new System.Drawing.Size(368, 230);
             this.tabFuel.TabIndex = 10;
             this.tabFuel.Text = "Fuel";
             // 
@@ -2416,7 +2421,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabGate.Controls.Add(this.groupBox7);
             this.tabGate.Location = new System.Drawing.Point(4, 4);
             this.tabGate.Name = "tabGate";
-            this.tabGate.Size = new System.Drawing.Size(372, 230);
+            this.tabGate.Size = new System.Drawing.Size(368, 230);
             this.tabGate.TabIndex = 11;
             this.tabGate.Text = "Gate";
             // 
@@ -2535,7 +2540,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabHull.Controls.Add(this.groupBox19);
             this.tabHull.Location = new System.Drawing.Point(4, 4);
             this.tabHull.Name = "tabHull";
-            this.tabHull.Size = new System.Drawing.Size(372, 230);
+            this.tabHull.Size = new System.Drawing.Size(368, 230);
             this.tabHull.TabIndex = 12;
             this.tabHull.Text = "Hull";
             // 
@@ -2775,7 +2780,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabHullAffinity.Controls.Add(this.groupBox29);
             this.tabHullAffinity.Location = new System.Drawing.Point(4, 4);
             this.tabHullAffinity.Name = "tabHullAffinity";
-            this.tabHullAffinity.Size = new System.Drawing.Size(372, 230);
+            this.tabHullAffinity.Size = new System.Drawing.Size(368, 230);
             this.tabHullAffinity.TabIndex = 24;
             this.tabHullAffinity.Text = "Hull Affinity";
             // 
@@ -2815,7 +2820,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabJammer.Controls.Add(this.groupBox20);
             this.tabJammer.Location = new System.Drawing.Point(4, 4);
             this.tabJammer.Name = "tabJammer";
-            this.tabJammer.Size = new System.Drawing.Size(372, 230);
+            this.tabJammer.Size = new System.Drawing.Size(368, 230);
             this.tabJammer.TabIndex = 13;
             this.tabJammer.Text = "Jammer";
             // 
@@ -2868,7 +2873,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabLayerEfficiency.Controls.Add(this.improvedMineLayingEfficiency);
             this.tabLayerEfficiency.Location = new System.Drawing.Point(4, 4);
             this.tabLayerEfficiency.Name = "tabLayerEfficiency";
-            this.tabLayerEfficiency.Size = new System.Drawing.Size(372, 230);
+            this.tabLayerEfficiency.Size = new System.Drawing.Size(368, 230);
             this.tabLayerEfficiency.TabIndex = 27;
             this.tabLayerEfficiency.Text = "Layer Efficiency";
             // 
@@ -2924,7 +2929,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabDriver.Controls.Add(this.groupBox21);
             this.tabDriver.Location = new System.Drawing.Point(4, 4);
             this.tabDriver.Name = "tabDriver";
-            this.tabDriver.Size = new System.Drawing.Size(372, 230);
+            this.tabDriver.Size = new System.Drawing.Size(368, 230);
             this.tabDriver.TabIndex = 14;
             this.tabDriver.Text = "Mass Driver";
             // 
@@ -2967,7 +2972,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabMineLayer.Controls.Add(this.groupBox22);
             this.tabMineLayer.Location = new System.Drawing.Point(4, 4);
             this.tabMineLayer.Name = "tabMineLayer";
-            this.tabMineLayer.Size = new System.Drawing.Size(372, 230);
+            this.tabMineLayer.Size = new System.Drawing.Size(368, 230);
             this.tabMineLayer.TabIndex = 16;
             this.tabMineLayer.Text = "Mine Layer";
             // 
@@ -3215,7 +3220,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabRadiation.Controls.Add(this.groupBox28);
             this.tabRadiation.Location = new System.Drawing.Point(4, 4);
             this.tabRadiation.Name = "tabRadiation";
-            this.tabRadiation.Size = new System.Drawing.Size(372, 230);
+            this.tabRadiation.Size = new System.Drawing.Size(368, 230);
             this.tabRadiation.TabIndex = 23;
             this.tabRadiation.Text = "Radiation";
             // 
@@ -3274,7 +3279,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabRobot.Controls.Add(this.groupBox23);
             this.tabRobot.Location = new System.Drawing.Point(4, 4);
             this.tabRobot.Name = "tabRobot";
-            this.tabRobot.Size = new System.Drawing.Size(372, 230);
+            this.tabRobot.Size = new System.Drawing.Size(368, 230);
             this.tabRobot.TabIndex = 17;
             this.tabRobot.Text = "Mining Robot";
             // 
@@ -3336,7 +3341,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabOrbitalAdjuster.Controls.Add(this.groupBox24);
             this.tabOrbitalAdjuster.Location = new System.Drawing.Point(4, 4);
             this.tabOrbitalAdjuster.Name = "tabOrbitalAdjuster";
-            this.tabOrbitalAdjuster.Size = new System.Drawing.Size(372, 230);
+            this.tabOrbitalAdjuster.Size = new System.Drawing.Size(368, 230);
             this.tabOrbitalAdjuster.TabIndex = 18;
             this.tabOrbitalAdjuster.Text = "Orbital Adjuster";
             // 
@@ -3389,7 +3394,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabScanner.Controls.Add(this.groupBox17);
             this.tabScanner.Location = new System.Drawing.Point(4, 4);
             this.tabScanner.Name = "tabScanner";
-            this.tabScanner.Size = new System.Drawing.Size(372, 230);
+            this.tabScanner.Size = new System.Drawing.Size(368, 230);
             this.tabScanner.TabIndex = 19;
             this.tabScanner.Text = "Scanner";
             // 
@@ -3486,7 +3491,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabShield.Controls.Add(this.groupBox25);
             this.tabShield.Location = new System.Drawing.Point(4, 4);
             this.tabShield.Name = "tabShield";
-            this.tabShield.Size = new System.Drawing.Size(372, 230);
+            this.tabShield.Size = new System.Drawing.Size(368, 230);
             this.tabShield.TabIndex = 20;
             this.tabShield.Text = "Shield";
             // 
@@ -3544,7 +3549,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabTachyonDetector.Controls.Add(this.groupBox30);
             this.tabTachyonDetector.Location = new System.Drawing.Point(4, 4);
             this.tabTachyonDetector.Name = "tabTachyonDetector";
-            this.tabTachyonDetector.Size = new System.Drawing.Size(372, 230);
+            this.tabTachyonDetector.Size = new System.Drawing.Size(368, 230);
             this.tabTachyonDetector.TabIndex = 30;
             this.tabTachyonDetector.Text = "Tachyon Detector";
             // 
@@ -3592,7 +3597,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabTerraforming.Controls.Add(this.groupBox26);
             this.tabTerraforming.Location = new System.Drawing.Point(4, 4);
             this.tabTerraforming.Name = "tabTerraforming";
-            this.tabTerraforming.Size = new System.Drawing.Size(372, 230);
+            this.tabTerraforming.Size = new System.Drawing.Size(368, 230);
             this.tabTerraforming.TabIndex = 21;
             this.tabTerraforming.Text = "Terraforming";
             // 
@@ -3710,7 +3715,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabTransportShipsOnly.Controls.Add(this.textBox4);
             this.tabTransportShipsOnly.Location = new System.Drawing.Point(4, 4);
             this.tabTransportShipsOnly.Name = "tabTransportShipsOnly";
-            this.tabTransportShipsOnly.Size = new System.Drawing.Size(372, 230);
+            this.tabTransportShipsOnly.Size = new System.Drawing.Size(368, 230);
             this.tabTransportShipsOnly.TabIndex = 26;
             this.tabTransportShipsOnly.Text = "Transport Ships Only";
             // 
@@ -3731,7 +3736,7 @@ namespace Nova.WinForms.ComponentEditor
             this.tabWeapon.Controls.Add(this.groupBox27);
             this.tabWeapon.Location = new System.Drawing.Point(4, 4);
             this.tabWeapon.Name = "tabWeapon";
-            this.tabWeapon.Size = new System.Drawing.Size(372, 230);
+            this.tabWeapon.Size = new System.Drawing.Size(368, 230);
             this.tabWeapon.TabIndex = 22;
             this.tabWeapon.Text = "Weapon";
             // 
@@ -4009,7 +4014,6 @@ namespace Nova.WinForms.ComponentEditor
             this.tabEngine.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.engineFastestFreeSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.engineOptimalSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.engineFastestSafeSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.warp2Fuel)).EndInit();
@@ -4259,7 +4263,6 @@ namespace Nova.WinForms.ComponentEditor
         private System.Windows.Forms.Label label90;
         private System.Windows.Forms.TabPage tabEngine;
         private System.Windows.Forms.GroupBox groupBox6;
-        private System.Windows.Forms.NumericUpDown engineFastestFreeSpeed;
         private System.Windows.Forms.Label label85;
         private System.Windows.Forms.Label label84;
         private System.Windows.Forms.Label label83;
@@ -4430,6 +4433,7 @@ namespace Nova.WinForms.ComponentEditor
         private System.Windows.Forms.Label label75;
         private System.Windows.Forms.Label label76;
         private TechRequirements techRequirements;
+        private System.Windows.Forms.Label labelFreeWarpValue;
     }
 }
 

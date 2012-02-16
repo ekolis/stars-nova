@@ -48,7 +48,7 @@ namespace Nova.Common.Components
                 {
                     if (FuelConsumption[i] == 0)
                     {
-                        return i;
+                        return i + 1; // the index number is one less than the warp speed
                     }
                 }
                 return 0;
