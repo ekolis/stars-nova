@@ -18,7 +18,7 @@
 Some example command lines:
 
 To open the GUI with the Googly race on Dan's computer:
-Nova --gui -r rabbitoid -t 2114 -i "C:\Users\daniel\Desktop\IdTest\rabbitoid.intel"
+Nova --gui -r rabbitoid -t 2114 -i "C:\Users\daniel\Desktop\NovaMapTest\Humanoid.intel"
 
 To open the Nova Console on Dan's computer:
 Nova --console
