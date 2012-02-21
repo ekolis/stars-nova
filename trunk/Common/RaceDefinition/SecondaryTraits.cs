@@ -91,7 +91,7 @@ namespace Nova.Common
                 new TraitEntry("Low Starting Population", "LSP", LowStartingPopulationDescription),
                 new TraitEntry("Bleeding Edge Technology", "BET", BleedingEdgeTechnologyDescription),
                 new TraitEntry("Regenerating Shields", "RS", RegeneratingShieldsDescription),
-                new TraitEntry("Extra Tech", "ExtraTech", RegeneratingShieldsDescription) // This is not a normal LRT!
+                new TraitEntry("Extra Tech", "ExtraTech", ExtraCostStartLevel4Description) // This is not a normal LRT!
           };
    }
 }

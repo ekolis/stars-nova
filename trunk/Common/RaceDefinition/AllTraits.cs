@@ -95,7 +95,7 @@ namespace Nova.Common
             // 10 PRTs
             "HE", "SS", "WM", "CA", "IS", "SD", "PP", "IT", "AR", "JOAT",
             // 14 LRTs
-            "IFE", "TT", "ARM", "ISB", "GR", "UR", "MA", "NRSE", "OBRM", /*"CE",*/ "NAS", "LSP", "BET", "RS"
+            "IFE", "TT", "ARM", "ISB", "GR", "UR", "MA", "NRSE", "OBRM", "CE", "NAS", "LSP", "BET", "RS"
         };
 
         /// <summary>
@@ -123,7 +123,7 @@ namespace Nova.Common
             "Ultimate Recycling", 
             "Mineral Alchemy", 
             "No Ram Scoop Engines", 
-        /*    "Cheap Engines",*/
+            "Cheap Engines",
             "Only Basic Remote Mining", 
             "No Advanced Scanners", 
             "Low Starting Population", 
