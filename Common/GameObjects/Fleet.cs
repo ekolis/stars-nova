@@ -182,7 +182,7 @@ namespace Nova.Common
                 arrived = TravelStatus.InTransit;
             }
 
-            if (travelTime > fuelTime)
+            if (travelTime >= fuelTime)
             {
                 travelTime = fuelTime;
                 arrived = TravelStatus.InTransit;

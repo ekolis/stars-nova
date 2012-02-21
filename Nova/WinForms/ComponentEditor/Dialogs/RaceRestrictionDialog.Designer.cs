@@ -109,9 +109,9 @@
             this.notAvailableOBRM = new System.Windows.Forms.RadioButton();
             this.label12 = new System.Windows.Forms.Label();
             this.panel13 = new System.Windows.Forms.Panel();
-            this.requiredNRSE = new System.Windows.Forms.RadioButton();
-            this.notRequiredNRSE = new System.Windows.Forms.RadioButton();
-            this.notAvailableNRSE = new System.Windows.Forms.RadioButton();
+            this.requiredCE = new System.Windows.Forms.RadioButton();
+            this.notRequiredCE = new System.Windows.Forms.RadioButton();
+            this.notAvailableCE = new System.Windows.Forms.RadioButton();
             this.label13 = new System.Windows.Forms.Label();
             this.panel14 = new System.Windows.Forms.Panel();
             this.requiredMA = new System.Windows.Forms.RadioButton();
@@ -151,6 +151,11 @@
             this.componentImage = new System.Windows.Forms.PictureBox();
             this.cancel = new System.Windows.Forms.Button();
             this.save = new System.Windows.Forms.Button();
+            this.panel24 = new System.Windows.Forms.Panel();
+            this.radioButton1 = new System.Windows.Forms.RadioButton();
+            this.radioButton2 = new System.Windows.Forms.RadioButton();
+            this.radioButton3 = new System.Windows.Forms.RadioButton();
+            this.label24 = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             this.panel10.SuspendLayout();
             this.panel9.SuspendLayout();
@@ -178,6 +183,7 @@
             this.panel19.SuspendLayout();
             this.panel20.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.componentImage)).BeginInit();
+            this.panel24.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -742,6 +748,7 @@
             // 
             // groupBox2
             // 
+            this.groupBox2.Controls.Add(this.panel24);
             this.groupBox2.Controls.Add(this.panel23);
             this.groupBox2.Controls.Add(this.panel22);
             this.groupBox2.Controls.Add(this.panel21);
@@ -757,7 +764,7 @@
             this.groupBox2.Controls.Add(this.panel20);
             this.groupBox2.Location = new System.Drawing.Point(423, 23);
             this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(429, 461);
+            this.groupBox2.Size = new System.Drawing.Size(429, 499);
             this.groupBox2.TabIndex = 5;
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "Lesser Racial Trait";
@@ -768,7 +775,7 @@
             this.panel23.Controls.Add(this.notRequiredRS);
             this.panel23.Controls.Add(this.notAvailableRS);
             this.panel23.Controls.Add(this.label23);
-            this.panel23.Location = new System.Drawing.Point(6, 359);
+            this.panel23.Location = new System.Drawing.Point(6, 390);
             this.panel23.Name = "panel23";
             this.panel23.Size = new System.Drawing.Size(413, 28);
             this.panel23.TabIndex = 5;
@@ -988,7 +995,7 @@
             this.panel12.Controls.Add(this.notRequiredOBRM);
             this.panel12.Controls.Add(this.notAvailableOBRM);
             this.panel12.Controls.Add(this.label12);
-            this.panel12.Location = new System.Drawing.Point(6, 325);
+            this.panel12.Location = new System.Drawing.Point(6, 356);
             this.panel12.Name = "panel12";
             this.panel12.Size = new System.Drawing.Size(413, 28);
             this.panel12.TabIndex = 4;
@@ -1039,49 +1046,49 @@
             // 
             // panel13
             // 
-            this.panel13.Controls.Add(this.requiredNRSE);
-            this.panel13.Controls.Add(this.notRequiredNRSE);
-            this.panel13.Controls.Add(this.notAvailableNRSE);
+            this.panel13.Controls.Add(this.requiredCE);
+            this.panel13.Controls.Add(this.notRequiredCE);
+            this.panel13.Controls.Add(this.notAvailableCE);
             this.panel13.Controls.Add(this.label13);
             this.panel13.Location = new System.Drawing.Point(6, 291);
             this.panel13.Name = "panel13";
             this.panel13.Size = new System.Drawing.Size(413, 28);
             this.panel13.TabIndex = 4;
             // 
-            // requiredNRSE
+            // requiredCE
             // 
-            this.requiredNRSE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.requiredNRSE.AutoSize = true;
-            this.requiredNRSE.Location = new System.Drawing.Point(334, 5);
-            this.requiredNRSE.Name = "requiredNRSE";
-            this.requiredNRSE.Size = new System.Drawing.Size(68, 17);
-            this.requiredNRSE.TabIndex = 3;
-            this.requiredNRSE.Text = "Required";
-            this.requiredNRSE.UseVisualStyleBackColor = true;
+            this.requiredCE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.requiredCE.AutoSize = true;
+            this.requiredCE.Location = new System.Drawing.Point(334, 5);
+            this.requiredCE.Name = "requiredCE";
+            this.requiredCE.Size = new System.Drawing.Size(68, 17);
+            this.requiredCE.TabIndex = 3;
+            this.requiredCE.Text = "Required";
+            this.requiredCE.UseVisualStyleBackColor = true;
             // 
-            // notRequiredNRSE
+            // notRequiredCE
             // 
-            this.notRequiredNRSE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.notRequiredNRSE.AutoSize = true;
-            this.notRequiredNRSE.Checked = true;
-            this.notRequiredNRSE.Location = new System.Drawing.Point(240, 5);
-            this.notRequiredNRSE.Name = "notRequiredNRSE";
-            this.notRequiredNRSE.Size = new System.Drawing.Size(88, 17);
-            this.notRequiredNRSE.TabIndex = 2;
-            this.notRequiredNRSE.TabStop = true;
-            this.notRequiredNRSE.Text = "Not Required";
-            this.notRequiredNRSE.UseVisualStyleBackColor = true;
+            this.notRequiredCE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.notRequiredCE.AutoSize = true;
+            this.notRequiredCE.Checked = true;
+            this.notRequiredCE.Location = new System.Drawing.Point(240, 5);
+            this.notRequiredCE.Name = "notRequiredCE";
+            this.notRequiredCE.Size = new System.Drawing.Size(88, 17);
+            this.notRequiredCE.TabIndex = 2;
+            this.notRequiredCE.TabStop = true;
+            this.notRequiredCE.Text = "Not Required";
+            this.notRequiredCE.UseVisualStyleBackColor = true;
             // 
-            // notAvailableNRSE
+            // notAvailableCE
             // 
-            this.notAvailableNRSE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.notAvailableNRSE.AutoSize = true;
-            this.notAvailableNRSE.Location = new System.Drawing.Point(146, 7);
-            this.notAvailableNRSE.Name = "notAvailableNRSE";
-            this.notAvailableNRSE.Size = new System.Drawing.Size(88, 17);
-            this.notAvailableNRSE.TabIndex = 1;
-            this.notAvailableNRSE.Text = "Not Available";
-            this.notAvailableNRSE.UseVisualStyleBackColor = true;
+            this.notAvailableCE.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.notAvailableCE.AutoSize = true;
+            this.notAvailableCE.Location = new System.Drawing.Point(146, 7);
+            this.notAvailableCE.Name = "notAvailableCE";
+            this.notAvailableCE.Size = new System.Drawing.Size(88, 17);
+            this.notAvailableCE.TabIndex = 1;
+            this.notAvailableCE.Text = "Not Available";
+            this.notAvailableCE.UseVisualStyleBackColor = true;
             // 
             // label13
             // 
@@ -1153,7 +1160,7 @@
             this.panel15.Controls.Add(this.notRequiredUR);
             this.panel15.Controls.Add(this.notAvailableUR);
             this.panel15.Controls.Add(this.label15);
-            this.panel15.Location = new System.Drawing.Point(6, 427);
+            this.panel15.Location = new System.Drawing.Point(6, 458);
             this.panel15.Name = "panel15";
             this.panel15.Size = new System.Drawing.Size(413, 28);
             this.panel15.TabIndex = 4;
@@ -1373,7 +1380,7 @@
             this.panel19.Controls.Add(this.notRequiredTT);
             this.panel19.Controls.Add(this.notAvailableTT);
             this.panel19.Controls.Add(this.label19);
-            this.panel19.Location = new System.Drawing.Point(6, 393);
+            this.panel19.Location = new System.Drawing.Point(6, 424);
             this.panel19.Name = "panel19";
             this.panel19.Size = new System.Drawing.Size(413, 28);
             this.panel19.TabIndex = 4;
@@ -1488,7 +1495,7 @@
             // cancel
             // 
             this.cancel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.cancel.Location = new System.Drawing.Point(658, 507);
+            this.cancel.Location = new System.Drawing.Point(699, 528);
             this.cancel.Name = "cancel";
             this.cancel.Size = new System.Drawing.Size(75, 23);
             this.cancel.TabIndex = 14;
@@ -1499,7 +1506,7 @@
             // save
             // 
             this.save.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.save.Location = new System.Drawing.Point(739, 507);
+            this.save.Location = new System.Drawing.Point(780, 528);
             this.save.Name = "save";
             this.save.Size = new System.Drawing.Size(75, 23);
             this.save.TabIndex = 15;
@@ -1507,11 +1514,66 @@
             this.save.UseVisualStyleBackColor = true;
             this.save.Click += new System.EventHandler(this.Save_Click);
             // 
+            // panel24
+            // 
+            this.panel24.Controls.Add(this.radioButton1);
+            this.panel24.Controls.Add(this.radioButton2);
+            this.panel24.Controls.Add(this.radioButton3);
+            this.panel24.Controls.Add(this.label24);
+            this.panel24.Location = new System.Drawing.Point(6, 322);
+            this.panel24.Name = "panel24";
+            this.panel24.Size = new System.Drawing.Size(413, 28);
+            this.panel24.TabIndex = 5;
+            // 
+            // radioButton1
+            // 
+            this.radioButton1.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButton1.AutoSize = true;
+            this.radioButton1.Location = new System.Drawing.Point(334, 5);
+            this.radioButton1.Name = "radioButton1";
+            this.radioButton1.Size = new System.Drawing.Size(68, 17);
+            this.radioButton1.TabIndex = 3;
+            this.radioButton1.Text = "Required";
+            this.radioButton1.UseVisualStyleBackColor = true;
+            // 
+            // radioButton2
+            // 
+            this.radioButton2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButton2.AutoSize = true;
+            this.radioButton2.Checked = true;
+            this.radioButton2.Location = new System.Drawing.Point(240, 5);
+            this.radioButton2.Name = "radioButton2";
+            this.radioButton2.Size = new System.Drawing.Size(88, 17);
+            this.radioButton2.TabIndex = 2;
+            this.radioButton2.TabStop = true;
+            this.radioButton2.Text = "Not Required";
+            this.radioButton2.UseVisualStyleBackColor = true;
+            // 
+            // radioButton3
+            // 
+            this.radioButton3.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.radioButton3.AutoSize = true;
+            this.radioButton3.Location = new System.Drawing.Point(146, 7);
+            this.radioButton3.Name = "radioButton3";
+            this.radioButton3.Size = new System.Drawing.Size(88, 17);
+            this.radioButton3.TabIndex = 1;
+            this.radioButton3.Text = "Not Available";
+            this.radioButton3.UseVisualStyleBackColor = true;
+            // 
+            // label24
+            // 
+            this.label24.AutoSize = true;
+            this.label24.Location = new System.Drawing.Point(6, 7);
+            this.label24.Name = "label24";
+            this.label24.Size = new System.Drawing.Size(79, 13);
+            this.label24.TabIndex = 0;
+            this.label24.Text = "Cheap Engines";
+            // 
             // RaceRestrictionDialog
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(867, 549);
+            this.ClientSize = new System.Drawing.Size(867, 563);
             this.Controls.Add(this.save);
             this.Controls.Add(this.cancel);
             this.Controls.Add(this.groupBox2);
@@ -1572,6 +1634,8 @@
             this.panel20.ResumeLayout(false);
             this.panel20.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.componentImage)).EndInit();
+            this.panel24.ResumeLayout(false);
+            this.panel24.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1659,9 +1723,9 @@
         private System.Windows.Forms.RadioButton notAvailableOBRM;
         private System.Windows.Forms.Label label12;
         private System.Windows.Forms.Panel panel13;
-        private System.Windows.Forms.RadioButton requiredNRSE;
-        private System.Windows.Forms.RadioButton notRequiredNRSE;
-        private System.Windows.Forms.RadioButton notAvailableNRSE;
+        private System.Windows.Forms.RadioButton requiredCE;
+        private System.Windows.Forms.RadioButton notRequiredCE;
+        private System.Windows.Forms.RadioButton notAvailableCE;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Panel panel14;
         private System.Windows.Forms.RadioButton requiredMA;
@@ -1700,5 +1764,10 @@
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Button cancel;
         private System.Windows.Forms.Button save;
+        private System.Windows.Forms.Panel panel24;
+        private System.Windows.Forms.RadioButton radioButton1;
+        private System.Windows.Forms.RadioButton radioButton2;
+        private System.Windows.Forms.RadioButton radioButton3;
+        private System.Windows.Forms.Label label24;
     }
 }

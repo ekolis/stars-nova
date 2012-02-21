@@ -415,12 +415,31 @@ namespace Nova.Server
 
             Waypoint currentPosition = new Waypoint();
             double availableTime = 1.0;
+            Random rand = new Random(); // FIXME (priority 4) - There should be only one random number source for the server.
 
             while (fleet.Waypoints.Count > 0)
             {
                 Waypoint thisWaypoint = fleet.Waypoints[0];
 
-                Fleet.TravelStatus result = fleet.Move(ref availableTime, race);
+                Fleet.TravelStatus fleetMoveResult;
+
+                // Check for Cheap Engines failing to start
+                if (thisWaypoint.WarpFactor > 6 && race.Traits.Contains("CE") && rand.Next(10) == 1)
+                {
+                    // Engines fail
+                    Message message = new Message();
+                    message.Audience = fleet.Owner;
+                    message.Text = "Fleet " + fleet.Name + "'s engines failed to start. Fleet has not moved this turn.";
+                    message.Type = "Cheap Engines";
+                    message.Event = this;
+                    stateData.AllMessages.Add(message);
+                    fleetMoveResult = Fleet.TravelStatus.InTransit;
+                }
+                else
+                {
+                     fleetMoveResult = fleet.Move(ref availableTime, race);
+                }
+
                 bool destroyed = checkForMinefields.Check(fleet);
 
                 if (destroyed == true)
@@ -428,7 +447,7 @@ namespace Nova.Server
                     return true;
                 }
 
-                if (result == Fleet.TravelStatus.InTransit)
+                if (fleetMoveResult == Fleet.TravelStatus.InTransit)
                 {
                     currentPosition.Position = fleet.Position;
                     currentPosition.Task =  WaypointTask.None;

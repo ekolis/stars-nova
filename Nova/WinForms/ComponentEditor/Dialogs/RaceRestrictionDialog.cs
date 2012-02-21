@@ -44,7 +44,7 @@ namespace Nova.WinForms.ComponentEditor
     public partial class RaceRestrictionDialog : Form
     {
         public RaceRestriction Restrictions = null; // data representing the restriction
-        private readonly RadioButton[,] radioMap = new RadioButton[23, 3]; // an array representation (map) of the radio button controls for ease of programatic manipulation
+        private readonly RadioButton[,] radioMap = new RadioButton[24, 3]; // an array representation (map) of the radio button controls for ease of programatic manipulation
 
 
         /// <Summary>
@@ -138,29 +138,33 @@ namespace Nova.WinForms.ComponentEditor
             this.radioMap[16, 1] = this.notRequiredMA;
             this.radioMap[16, 2] = this.requiredMA;
 
-            this.radioMap[17, 0] = this.notAvailableNRSE;
-            this.radioMap[17, 1] = this.notRequiredNRSE;
-            this.radioMap[17, 2] = this.requiredNRSE;
+            this.radioMap[17, 0] = this.notAvailableCE;
+            this.radioMap[17, 1] = this.notRequiredCE;
+            this.radioMap[17, 2] = this.requiredCE;
 
-            this.radioMap[18, 0] = this.notAvailableOBRM;
-            this.radioMap[18, 1] = this.notRequiredOBRM;
-            this.radioMap[18, 2] = this.requiredOBRM;
+            this.radioMap[18, 0] = this.notAvailableCE;
+            this.radioMap[18, 1] = this.notRequiredCE;
+            this.radioMap[18, 2] = this.requiredCE;
 
-            this.radioMap[19, 0] = this.notAvailableNAS;
-            this.radioMap[19, 1] = this.notRequiredNAS;
-            this.radioMap[19, 2] = this.requiredNAS;
+            this.radioMap[19, 0] = this.notAvailableOBRM;
+            this.radioMap[19, 1] = this.notRequiredOBRM;
+            this.radioMap[19, 2] = this.requiredOBRM;
 
-            this.radioMap[20, 0] = this.notAvailableLSP;
-            this.radioMap[20, 1] = this.notRequiredLSP;
-            this.radioMap[20, 2] = this.requiredLSP;
+            this.radioMap[20, 0] = this.notAvailableNAS;
+            this.radioMap[20, 1] = this.notRequiredNAS;
+            this.radioMap[20, 2] = this.requiredNAS;
 
-            this.radioMap[21, 0] = this.notAvailableBET;
-            this.radioMap[21, 1] = this.notRequiredBET;
-            this.radioMap[21, 2] = this.requiredBET;
+            this.radioMap[21, 0] = this.notAvailableLSP;
+            this.radioMap[21, 1] = this.notRequiredLSP;
+            this.radioMap[21, 2] = this.requiredLSP;
 
-            this.radioMap[22, 0] = this.notAvailableRS;
-            this.radioMap[22, 1] = this.notRequiredRS;
-            this.radioMap[22, 2] = this.requiredRS;
+            this.radioMap[22, 0] = this.notAvailableBET;
+            this.radioMap[22, 1] = this.notRequiredBET;
+            this.radioMap[22, 2] = this.requiredBET;
+
+            this.radioMap[23, 0] = this.notAvailableRS;
+            this.radioMap[23, 1] = this.notRequiredRS;
+            this.radioMap[23, 2] = this.requiredRS;
 
             // Initialise race restriction radio button selections.
             if (existingRestrictions != null)
