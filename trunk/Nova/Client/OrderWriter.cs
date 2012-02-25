@@ -58,32 +58,71 @@ namespace Nova.Client
         /// </summary>
         public void WriteOrders()
         {
-            // Advance the turn year, to show this empire has finished with the current turn year.
-            stateData.EmpireState.TurnSubmitted = true;
-            stateData.EmpireState.LastTurnSubmitted = stateData.EmpireState.TurnYear;
-            
-            // Setup the XML document
-            XmlDocument xmldoc = new XmlDocument();
-            XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
-            
-            Global.SaveData(xmldoc, xmlRoot, "Turn", stateData.EmpireState.LastTurnSubmitted.ToString());
-            Global.SaveData(xmldoc, xmlRoot, "Id", stateData.EmpireState.Id.ToString("X"));
-            
-            // add the orders to the document
-            XmlElement xmlelOrders = xmldoc.CreateElement("Orders");
-            xmlRoot.AppendChild(xmlelOrders);
-            
-            foreach (ICommand command in stateData.Commands)
+#if USE_COMMAND_ORDERS
             {
-                xmlelOrders.AppendChild(command.ToXml(xmldoc));
+                // Advance the turn year, to show this empire has finished with the current turn year.
+                stateData.EmpireState.TurnSubmitted = true;
+                stateData.EmpireState.LastTurnSubmitted = stateData.EmpireState.TurnYear;
+
+                // Setup the XML document
+                XmlDocument xmldoc = new XmlDocument();
+                XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
+
+                Global.SaveData(xmldoc, xmlRoot, "Turn", stateData.EmpireState.LastTurnSubmitted.ToString());
+                Global.SaveData(xmldoc, xmlRoot, "Id", stateData.EmpireState.Id.ToString("X"));
+
+                // add the orders to the document
+                XmlElement xmlelOrders = xmldoc.CreateElement("Orders");
+                xmlRoot.AppendChild(xmlelOrders);
+
+                foreach (ICommand command in stateData.Commands)
+                {
+                    xmlelOrders.AppendChild(command.ToXml(xmldoc));
+                }
+
+                string ordersFileName = Path.Combine(stateData.GameFolder, stateData.EmpireState.Race.Name + Global.OrdersExtension);
+
+                Stream output = new FileStream(ordersFileName, FileMode.Create);
+
+                xmldoc.Save(output);
+                output.Close();
             }
             
-            string ordersFileName = Path.Combine(stateData.GameFolder, stateData.EmpireState.Race.Name + Global.OrdersExtension);
-            
-            Stream output = new FileStream(ordersFileName, FileMode.Create);
-            
-            xmldoc.Save(output);
-            output.Close();
+#else
+            {
+                // Advance the turn year, to show this empire has finished with the current turn year.
+                stateData.EmpireState.TurnSubmitted = true;
+                stateData.EmpireState.LastTurnSubmitted = stateData.EmpireState.TurnYear;
+
+                Orders outputTurn = new Orders();
+
+                outputTurn.EmpireStatus = stateData.EmpireState;
+
+                outputTurn.TechLevel = CountTechLevels();
+
+                foreach (Design design in stateData.InputTurn.AllDesigns.Values)
+                {
+                    if (design.Owner == stateData.EmpireState.Id)
+                    {
+                        outputTurn.RaceDesigns.Add(design.Key, design);
+                    }
+                }
+
+                foreach (int fleetKey in stateData.DeletedFleets)
+                {
+                    outputTurn.DeletedFleets.Add(fleetKey);
+                }
+
+                foreach (int designId in stateData.DeletedDesigns)
+                {
+                    outputTurn.DeletedDesigns.Add(designId);
+                }
+
+                string turnFileName = Path.Combine(stateData.GameFolder, stateData.EmpireState.Race.Name + Global.OrdersExtension);
+
+                outputTurn.ToXml(turnFileName);
+            }
+#endif
         }
     
     

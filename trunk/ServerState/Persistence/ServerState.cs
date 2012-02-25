@@ -225,6 +225,7 @@ namespace Nova.Server
             }
         }
 
+#if USE_COMMAND_ORDERS
         /// <summary>
         /// Restore the persistent data. 
         /// </summary>
@@ -260,6 +261,26 @@ namespace Nova.Server
                 LinkServerStateReferences(); 
             }
         }
+#else
+        /// <summary>
+        /// Restore the persistent data. 
+        /// </summary>
+        public ServerState Restore()
+        {
+            using (FileStream stateFile = new FileStream(StatePathName, FileMode.Open))
+            {
+                XmlDocument xmldoc = new XmlDocument();
+
+                xmldoc.Load(stateFile);
+
+                ServerState serverState = new ServerState(xmldoc);
+
+                LinkServerStateReferences();
+
+                return serverState;
+            }
+        }
+#endif
 
         /// <summary>
         /// Save the console persistent data.
