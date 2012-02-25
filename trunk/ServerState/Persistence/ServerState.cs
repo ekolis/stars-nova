@@ -273,11 +273,30 @@ namespace Nova.Server
 
                 xmldoc.Load(stateFile);
 
-                ServerState serverState = new ServerState(xmldoc);
+                // Temporary data store only!
+                ServerState restoredState = new ServerState(xmldoc);
+
+                // We need to copy the restored values
+                AllCommands = restoredState.AllCommands;
+                AllBattles = restoredState.AllBattles;
+                AllPlayers = restoredState.AllPlayers;
+                AllTechLevels = restoredState.AllTechLevels;
+                AllDesigns = restoredState.AllDesigns;
+                AllFleets = restoredState.AllFleets;
+                AllEmpires = restoredState.AllEmpires;
+                AllRaces = restoredState.AllRaces;
+                AllStars = restoredState.AllStars;
+                AllMinefields = restoredState.AllMinefields;
+                AllMessages = restoredState.AllMessages;
+
+                GameInProgress = restoredState.GameInProgress;
+                TurnYear = restoredState.TurnYear;
+                GameFolder = restoredState.GameFolder; // The path&folder where client files are held.
+                StatePathName = restoredState.StatePathName;
 
                 LinkServerStateReferences();
 
-                return serverState;
+                return restoredState;
             }
         }
 #endif
