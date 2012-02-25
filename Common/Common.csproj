@@ -80,6 +80,20 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
     <DebugSymbols>true</DebugSymbols>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'USE_COMMAND_ORDERS|AnyCPU'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\USE_COMMAND_ORDERS\</OutputPath>
+    <DefineConstants>TRACE;DEBUG;USE_COMMAND_ORDERS</DefineConstants>
+    <BaseAddress>285212672</BaseAddress>
+    <WarningLevel>3</WarningLevel>
+    <FileAlignment>4096</FileAlignment>
+    <DebugType>full</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisIgnoreBuiltInRuleSets>true</CodeAnalysisIgnoreBuiltInRuleSets>
+    <CodeAnalysisIgnoreBuiltInRules>true</CodeAnalysisIgnoreBuiltInRules>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Core">
@@ -122,6 +136,7 @@
     <Compile Include="DataStructures\XmlSerializableDictionary.cs" />
     <Compile Include="Files\AllShipIcons.cs" />
     <Compile Include="Files\Config.cs" />
+    <Compile Include="Files\Orders.cs" />
     <Compile Include="GameObjects\ItemType.cs" />
     <Compile Include="PasswordUtility.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
