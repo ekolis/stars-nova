@@ -154,7 +154,9 @@ namespace Nova.Server
             // existing serialization techniques; serialize the state
             // and then deserialize into a new objetct.
             stateData.Save();
-            turnData = stateData.Restore();
+            turnData = new ServerState();
+            turnData.StatePathName = stateData.StatePathName;
+            turnData.Restore();
             
             turnData.AllTechLevels.Clear();
 
