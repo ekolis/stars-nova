@@ -333,7 +333,15 @@ namespace Nova.Common
             XmlElement xmlelFleetReports = xmldoc.CreateElement("FleetReports");            
             foreach (FleetIntel report in FleetReports.Values)
             {
-                xmlelFleetReports.AppendChild(report.ToXml(xmldoc));    
+                if (report.Composition.Count > 0)
+                {
+                    xmlelFleetReports.AppendChild(report.ToXml(xmldoc));
+                }
+                else
+                {
+                    // FIXME (priority 7) - Game crashes if it tries to write out a fleet report for a fleet with no ships. Was this fleet partly deleted? I think this has something to do with colonisers not being deleted properly. - Dan 26 Feb 12
+                    // Report.Error("EmpireData.ToXml(): Fleet " + report.Name + " contains no ships.");
+                }
             }
             xmlelEmpireData.AppendChild(xmlelFleetReports);
             
