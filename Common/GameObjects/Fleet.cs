@@ -676,10 +676,9 @@ namespace Nova.Common
         {
             // Read the node
             XmlNode subnode = node.FirstChild;
-
-            while (subnode != null)
+            try
             {
-                try
+                while (subnode != null)
                 {
                     switch (subnode.Name.ToLower())
                     {
@@ -687,7 +686,7 @@ namespace Nova.Common
                             Id = uint.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "targetid":
-                            Target = new Fleet(long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture));
+                            Target = new Fleet(long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber));
                             break;
                         case "cargo":
                             Cargo = new Cargo(subnode);
@@ -719,19 +718,21 @@ namespace Nova.Common
                             FleetShips.Add(ship);
                             break;
                         case "waypoint":
-                            Waypoint waypoint = new Waypoint(subnode); 
+                            Waypoint waypoint = new Waypoint(subnode);
                             Waypoints.Add(waypoint);
                             break;
 
                         default: break;
                     }
 
+
+                    subnode = subnode.NextSibling;
                 }
-                catch (Exception e)
-                {
-                    Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
-                }
-                subnode = subnode.NextSibling;
+            }
+            catch (Exception e)
+            {
+                Report.Error("Error loading fleet:" + Environment.NewLine + e.Message);
+                throw e;
             }
         }
 

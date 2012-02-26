@@ -95,7 +95,7 @@ namespace Nova.Common.DataStructures
                         case "year":
                             Year = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
-                             
+
                         case "battlesteptarget":
                             BattleStepTarget target = new BattleStepTarget(subnode);
                             Steps.Add(target);
@@ -122,7 +122,7 @@ namespace Nova.Common.DataStructures
                             Losses.Add(empireId, lossCount);
                             break;
 
-                        case "fleet": 
+                        case "fleet":
                             Fleet newStack = new Fleet(subnode);
                             Stacks.Add(newStack.Key, newStack);
                             break;
@@ -130,7 +130,8 @@ namespace Nova.Common.DataStructures
                 }
                 catch (Exception e)
                 {
-                    Report.Error("Error loading Battle Report : " + e.Message);
+                    Report.Error("Failed to load battle report: " + Environment.NewLine + e.Message);
+                    throw e;
                 }
                 subnode = subnode.NextSibling;
             }
