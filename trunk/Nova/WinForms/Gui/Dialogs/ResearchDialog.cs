@@ -178,12 +178,11 @@ namespace Nova.WinForms.Gui
             ResearchCommand command = new ResearchCommand();
             command.Budget = (int)budgetPercentage.Value;
             command.Topics.Zero();
-            command.Topics[targetArea] = 1;
-            
-            stateData.Commands.Push(command);
+            command.Topics[targetArea] = 1;    
             
             if (command.isValid(stateData.EmpireState))
             {
+                stateData.Commands.Push(command);
                 command.ApplyToState(stateData.EmpireState);
             }
             

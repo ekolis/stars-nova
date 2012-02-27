@@ -122,7 +122,7 @@ namespace Nova.Common
             Year                    = Global.Unset;
             Name                    = String.Empty;
             Position                = new NovaPoint();
-            Owner                   = Global.NoOwner;
+            Owner                   = Global.Nobody;
             Type                    = ItemType.StarIntel;
             MineralConcentration    = new Resources();
             Gravity                 = Global.Unset;

@@ -49,7 +49,7 @@ namespace Nova.Common
         /// ^                  ^                ^            ^
         /// +-- sign bit       +-- reserved     +-- owner    +-- client generated Id.
         /// </summary>
-        private long key = Global.NoOwner; // Default to no-id and no owner.
+        private long key = Global.Nobody; // Default to no-id and no owner.
 
         /// <summary>
         /// The mass of the item (in kT).

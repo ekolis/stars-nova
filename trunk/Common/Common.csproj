@@ -113,6 +113,7 @@
     <Compile Include="ComboBoxItem.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ResearchCommand.cs" />
+    <Compile Include="Commands\WaypointCommand.cs" />
     <Compile Include="Converters\HullModuleConverter.cs" />
     <Compile Include="DataStructures\BattleStep.cs" />
     <Compile Include="DataStructures\BattleStepDestroy.cs" />

@@ -144,7 +144,7 @@ namespace Nova.Common
             Year                    = Global.Unset;
             Name                    = String.Empty;
             Position                = new NovaPoint();
-            Owner                   = Global.NoOwner;
+            Owner                   = Global.Nobody;
             Type                    = ItemType.FleetIntel;
             Bearing                 = Global.Unset;
             Speed                   = Global.Unset;

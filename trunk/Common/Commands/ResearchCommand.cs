@@ -1,6 +1,5 @@
 ﻿ #region Copyright Notice
  // ============================================================================
- // Copyright (C) 2008 Ken Reed
  // Copyright (C) 2011 The Stars-Nova Project
  //
  // This file is part of Stars-Nova.
@@ -37,17 +36,20 @@ namespace Nova.Common.Commands
             set;
         }
         
+        
         public TechLevel Topics
         {
             get;
             set;
         }
         
+        
         public ResearchCommand()
         {
             Budget = 10;
             Topics = new TechLevel(0, 0, 1, 0, 0, 0);
         }
+        
         
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
@@ -76,18 +78,30 @@ namespace Nova.Common.Commands
             }
         }
         
+        
         public bool isValid(EmpireData empire)
         {
-            if (Budget < 0 || Budget > 100) { return false; }
+            if (Budget < 0 || Budget > 100)
+            {
+                return false;
+            }
+            
+            // Invalidate if nothing really changed.
+            if (Budget == empire.ResearchBudget && Topics == empire.ResearchTopics)
+            {
+                return false;
+            }
             
             return true;
         }
+        
         
         public void ApplyToState(EmpireData empire)
         {
             empire.ResearchBudget = Budget;
             empire.ResearchTopics = Topics;
         }
+        
         
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.

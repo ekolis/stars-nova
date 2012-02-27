@@ -466,7 +466,7 @@ namespace Nova.WinForms.Gui
                     this.planetValue.ForeColor = Color.Green;
                 } 
 
-                if (empireState.StarReports[value.Name].Owner == Global.NoOwner)
+                if (empireState.StarReports[value.Name].Owner == Global.Nobody)
                 {
                     this.population.Text = "Uninhabited";
                 }

@@ -124,6 +124,7 @@ namespace Nova.Server
             victoryCheck.Victor();
 
             stateData.TurnYear++;
+            
             foreach (EmpireData empire in stateData.AllEmpires.Values)
             {
                 empire.TurnYear = stateData.TurnYear;
@@ -139,7 +140,8 @@ namespace Nova.Server
 
             // remove old messages, do this last so that the 1st turn intro message is not removed before it is delivered.
             stateData.AllMessages = new List<Message>();
-
+            
+            CleanupOrders();
         }
 
         /// <summary>
@@ -149,19 +151,31 @@ namespace Nova.Server
         {
             foreach (EmpireData empire in stateData.AllEmpires.Values)
             {
-                if (stateData.AllCommands.ContainsKey(empire.Id))
+                if (!stateData.AllCommands.ContainsKey(empire.Id))
                 {
-                    foreach (ICommand command in stateData.AllCommands[empire.Id])
+                    continue;   
+                }
+                
+                foreach (ICommand command in stateData.AllCommands[empire.Id])
+                {
+                    if (command.isValid(empire))
                     {
-                        if (command.isValid(empire))
-                        {
-                            command.ApplyToState(empire);
-                        }
-                        else
-                        {
-                            // Flag as cheater or something?
-                        }
+                        command.ApplyToState(empire);
                     }
+                    else
+                    {
+                        // Flag as cheater or something?
+                    }
+                }
+                
+                foreach (Fleet fleet in empire.OwnedFleets.Values)
+                {
+                    stateData.AllFleets[fleet.Key] = fleet;
+                }
+                
+                foreach (Star star in empire.OwnedStars.Values)
+                {
+                    stateData.AllStars[star.Key] = star;
                 }
             }
         }
@@ -199,8 +213,24 @@ namespace Nova.Server
             {
                 stateData.AllStars[key].Starbase = null;
 
+            }            
+        }
+        
+        /// <summary>
+        /// Delete order files, done after turn generation.
+        /// </summary>
+        private void CleanupOrders()
+        {
+            // Delete orders on turn generation.
+            // Copy each file into it’s new directory.
+            DirectoryInfo source = new DirectoryInfo(stateData.GameFolder);
+            foreach (FileInfo fi in source.GetFiles())
+            {
+                if (fi.Name.ToLower().EndsWith(Global.OrdersExtension))
+                {
+                    File.Delete(fi.FullName);
+                }
             }
-            
         }
 
         /// <summary>
@@ -231,7 +261,6 @@ namespace Nova.Server
                     fi.CopyTo(Path.Combine(target.ToString(), fi.Name), true);
                 }
 
-
             }
             catch (Exception e)
             {
@@ -245,7 +274,7 @@ namespace Nova.Server
         /// <param name="star">The <see cref="Star"/> to process.</param>
         private void ProcessStar(Star star)
         {            
-            if (star.Owner == Global.NoOwner)
+            if (star.Owner == Global.Nobody)
             {
                 return; // nothing to do for an empty star system.
             }

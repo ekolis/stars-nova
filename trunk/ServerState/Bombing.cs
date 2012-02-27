@@ -141,7 +141,7 @@ namespace Nova.Server
                 star.Colonists = 0;
                 star.Mines = 0;
                 star.Factories = 0;
-                star.Owner = Global.NoOwner;
+                star.Owner = Global.Nobody;
             }
 
             Message lamb = new Message();

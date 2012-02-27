@@ -44,7 +44,7 @@ namespace Nova.Server.TurnSteps
             
             foreach (Star star in stateData.AllStars.Values)
             {                
-                if (star.Owner == Global.NoOwner || star.Colonists == 0)
+                if (star.Owner == Global.Nobody || star.Colonists == 0)
                 {
                     continue;
                 }
@@ -92,7 +92,7 @@ namespace Nova.Server.TurnSteps
         /// </remarks>
         private void ContributeAllocatedResearch(Star star)
         {   
-            if (star.Owner == Global.NoOwner)
+            if (star.Owner == Global.Nobody)
             {
                 return;
             }
@@ -134,7 +134,7 @@ namespace Nova.Server.TurnSteps
         
         private void ContributeLeftoverResearch(Star star)
         {
-            if (star.Owner == Global.NoOwner)
+            if (star.Owner == Global.Nobody)
             {
                 return;
             }

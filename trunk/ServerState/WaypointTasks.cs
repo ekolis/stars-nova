@@ -356,7 +356,7 @@ namespace Nova.Server
                 stateData.AllMessages.Add(message);
                 return;
             }
-            if (star.Owner == Global.NoOwner)
+            if (star.Owner == Global.Nobody)
             {
                 // This star has not been colonised. Can't invade.
                 Message message = new Message();
@@ -494,7 +494,7 @@ namespace Nova.Server
                 star.Colonists = 0;
                 star.Mines = 0;
                 star.Factories = 0;
-                star.Owner = Global.NoOwner;
+                star.Owner = Global.Nobody;
             }
 
         }

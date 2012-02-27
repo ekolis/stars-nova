@@ -100,16 +100,16 @@ namespace Nova.WinForms.Gui
             this.WaypointTasks.BackColor = System.Drawing.SystemColors.Window;
             this.WaypointTasks.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.WaypointTasks.ItemHeight = 13;
-            this.WaypointTasks.Items.AddRange(new object[] 
-            {
-            "None",
-            "Colonise",
-            "Invade",
-            "Scrap",
-            "Unload Cargo",
-            "Lay Mines"
-            }
-            );
+            this.WaypointTasks.Items.AddRange(new object[]
+                                              {
+                                                  "None",
+                                                  "Colonise",
+                                                  "Invade",
+                                                  "Scrap",
+                                                  "Unload Cargo",
+                                                  "Lay Mines"
+                                              }
+                                             );
             this.WaypointTasks.Location = new System.Drawing.Point(9, 226);
             this.WaypointTasks.Name = "WaypointTasks";
             this.WaypointTasks.Size = new System.Drawing.Size(152, 21);
@@ -169,7 +169,7 @@ namespace Nova.WinForms.Gui
             this.warpFactor.TabStop = false;
             this.warpFactor.TickStyle = System.Windows.Forms.TickStyle.None;
             this.warpFactor.Value = 4;
-            this.warpFactor.Scroll += new System.EventHandler(this.SpeedChanged);
+            this.warpFactor.Scroll += new System.EventHandler(this.WaypointSpeedChanged);
             // 
             // label1
             // 

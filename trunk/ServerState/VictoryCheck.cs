@@ -51,7 +51,7 @@ namespace Nova.Server
             List<ushort> remainingEmpires = new List<ushort>();
             foreach (Star star in StateData.AllStars.Values)
             {
-                if (star.Owner == Global.NoOwner)
+                if (star.Owner == Global.Nobody)
                 {
                     continue;
                 }

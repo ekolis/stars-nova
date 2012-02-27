@@ -158,7 +158,7 @@ namespace Nova.Ai
                 // check if there is any good star to colonize
                 foreach (StarIntel report in turnData.EmpireState.StarReports.Values)
                 {
-                    if (stateData.EmpireState.Race.HabitalValue(report) > 0 && report.Owner == Global.NoOwner)
+                    if (stateData.EmpireState.Race.HabitalValue(report) > 0 && report.Owner == Global.Nobody)
                     {
                         SendFleet(report, colonyShipsFleets[0], WaypointTask.Colonise);
                         colonyShipsFleets.RemoveAt(0);
