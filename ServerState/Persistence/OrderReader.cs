@@ -125,6 +125,9 @@ namespace Nova.Server
                             case "research":
                                 commands.Push(new ResearchCommand(subnode));
                                 break;
+                            case "waypoint":
+                                commands.Push(new WaypointCommand(subnode));
+                            break;
                         }
                         subnode = subnode.NextSibling;
                     }

@@ -59,7 +59,7 @@ namespace Nova.WinForms.Gui
             this.stateData = stateData;
             
             PlanetDetail = new PlanetDetail(empireState, stateData);
-            FleetDetail = new FleetDetail(empireState);
+            FleetDetail = new FleetDetail(stateData);
             
             InitializeComponent();
         }

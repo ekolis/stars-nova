@@ -132,8 +132,9 @@ namespace Nova.Common
        public const int MaxStarbaseDesignsAmount    = 10;
        
        // Defaults
-       public const int NoOwner = 0x00000000; // As an empire Id cannot be 0, it is used for no owner.
-       public const int AllEmpires = NoOwner;
+       public const int Nobody = 0x00000000; // As an empire Id cannot be 0, it is used for no owner.
+       public const int AllEmpires = Nobody;
+       public const int None = Nobody;
        public const int Unset = -10000;
 
        #endregion

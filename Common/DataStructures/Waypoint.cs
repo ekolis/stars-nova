@@ -53,19 +53,20 @@ namespace Nova.Common
     [Serializable]
     public class Waypoint
     {
-        public NovaPoint Position;
-        public string Destination;
+        public NovaPoint Position;        
         public int WarpFactor = 6;
         public WaypointTask Task = WaypointTask.None;
+        
+        public string Destination { get; set;}
 
+        
         /// <summary>
         /// Default constructor.
         /// </summary>
         public Waypoint()
         {
         }
-
-        #region Load Save Xml
+        
 
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
@@ -106,6 +107,7 @@ namespace Nova.Common
                 subnode = subnode.NextSibling;
             }
         }
+        
 
         /// <summary>
         /// Save: Serialise this Waypoint to an <see cref="XmlElement"/>.
@@ -116,9 +118,9 @@ namespace Nova.Common
         {
             XmlElement xmlelWaypoint = xmldoc.CreateElement("Waypoint");
 
-            Global.SaveData(xmldoc, xmlelWaypoint, "Destination", this.Destination);
-            Global.SaveData(xmldoc, xmlelWaypoint, "Task", this.GetTask());
-            Global.SaveData(xmldoc, xmlelWaypoint, "WarpFactor", this.WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelWaypoint, "Destination", Destination);
+            Global.SaveData(xmldoc, xmlelWaypoint, "Task", GetTask());
+            Global.SaveData(xmldoc, xmlelWaypoint, "WarpFactor", WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
             // point
             if (Position.X != 0 || Position.Y != 0)
             {
@@ -132,8 +134,7 @@ namespace Nova.Common
             return xmlelWaypoint;
         }
 
-        #endregion
-
+        
         public string GetTask()
         {
             if (Task == WaypointTask.UnloadCargo)

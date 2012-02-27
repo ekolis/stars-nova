@@ -31,7 +31,8 @@ namespace Nova.WinForms.Gui
 
     using Nova.Client;
     using Nova.Common;
-    using Nova.Common.DataStructures;    
+    using Nova.Common.Commands;
+    using Nova.Common.DataStructures;     
 
     /// <Summary>
     /// StarMap is the control which holds the actual playing map. 
@@ -445,7 +446,7 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                if (report.Owner != Global.NoOwner)
+                if (report.Owner != Global.Nobody)
                 {
                     starBrush = Brushes.Red;
                 }
@@ -818,7 +819,7 @@ namespace Nova.WinForms.Gui
                 waypoint.Position = selected.Position;
                 waypoint.Destination = selected.Name;
             }
-
+          
             // If the new waypoint is the same as the last one then do nothing.
 
             int lastIndex = fleet.Waypoints.Count - 1;
@@ -828,8 +829,15 @@ namespace Nova.WinForms.Gui
             {
                 return;
             }
-
-            fleet.Waypoints.Add(waypoint);
+            
+            WaypointCommand command = new WaypointCommand(WaypointCommand.Mode.Add, waypoint, fleet.Key);
+            
+            stateData.Commands.Push(command);
+            
+            if (command.isValid(stateData.EmpireState))
+            {
+                command.ApplyToState(stateData.EmpireState);
+            }
 
             RefreshStarMap();
 
@@ -860,22 +868,22 @@ namespace Nova.WinForms.Gui
             // the list of near objects. If it has, start at the beginning of the
             // list.
 
-            if ((Math.Abs(this.lastClick.X - click.X) > 10) ||
-                (Math.Abs(this.lastClick.Y - click.Y) > 10))
+            if ((Math.Abs(lastClick.X - click.X) > 10) ||
+                (Math.Abs(lastClick.Y - click.Y) > 10))
             {
-                this.selection = 0;
+                selection = 0;
             }
             else
             {
-                this.selection++;
-                if (this.selection >= nearObjects.Count)
+                selection++;
+                if (selection >= nearObjects.Count)
                 {
-                    this.selection = 0;
+                    selection = 0;
                 }
             }
 
-            this.lastClick = click;
-            Item item = nearObjects[this.selection];       
+            lastClick = click;
+            Item item = nearObjects[selection];       
 
             SetCursor(item.Position);
             
