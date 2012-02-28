@@ -68,6 +68,7 @@ namespace Nova.Common
         public TechLevel    ResearchTopics          = new TechLevel(); // order of researching
         
         public RaceComponents   AvailableComponents = new RaceComponents();
+        public Dictionary<long, Design> Designs     = new Dictionary<long, Design>(); 
         
         public StarList OwnedStars = new StarList();
         public Dictionary<string, StarIntel> StarReports  = new Dictionary<string, StarIntel>();
@@ -169,102 +170,128 @@ namespace Nova.Common
         /// <param name="node">An XmlNode containing a EmpireData representation (from a save file).</param>
         public EmpireData(XmlNode node)
         {
-            XmlNode subnode = node.FirstChild;
-            XmlNode textNode;
-            while (subnode != null)
+            XmlNode mainNode = node.FirstChild;
+            XmlNode subNode;
+            while (mainNode != null)
             {
-                switch (subnode.Name.ToLower())
+                switch (mainNode.Name.ToLower())
                 {
                     case "id":
-                        empireId = ushort.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                        empireId = ushort.Parse(mainNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                         break;
                     case "fleetcounter":
-                        fleetCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        fleetCounter = long.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "designcounter":
-                        designCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        designCounter = long.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "shipcounter":
-                        shipCounter = long.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        shipCounter = long.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "turnyear":
-                        TurnYear = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        TurnYear = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "turnsubmitted":
-                        TurnSubmitted = bool.Parse(subnode.FirstChild.Value);
+                        TurnSubmitted = bool.Parse(mainNode.FirstChild.Value);
                         break;
                     case "lastturnsubmitted":
-                        LastTurnSubmitted = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        LastTurnSubmitted = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "race":
                         race = new Race();
-                        Race.LoadRaceFromXml(subnode);
+                        Race.LoadRaceFromXml(mainNode);
                         break;
                     case "research":
-                        textNode = subnode.SelectSingleNode("Budget");
-                        ResearchBudget = int.Parse(textNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                        textNode = subnode.SelectSingleNode("AttainedLevels");
-                        ResearchLevels = new TechLevel(textNode);
-                        textNode = subnode.SelectSingleNode("SpentResources");
-                        ResearchResources = new TechLevel(textNode);
-                        textNode = subnode.SelectSingleNode("Topics");
-                        ResearchTopics = new TechLevel(textNode);
+                        subNode = mainNode.SelectSingleNode("Budget");
+                        ResearchBudget = int.Parse(subNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        subNode = mainNode.SelectSingleNode("AttainedLevels");
+                        ResearchLevels = new TechLevel(subNode);
+                        subNode = mainNode.SelectSingleNode("SpentResources");
+                        ResearchResources = new TechLevel(subNode);
+                        subNode = mainNode.SelectSingleNode("Topics");
+                        ResearchTopics = new TechLevel(subNode);
                         break;
                     case "starreports":
-                        textNode = subnode.FirstChild;
-                        while (textNode != null)
+                        subNode = mainNode.FirstChild;
+                        while (subNode != null)
                         {
-                            StarIntel report = new StarIntel(textNode);
+                            StarIntel report = new StarIntel(subNode);
                             StarReports.Add(report.Name, report);
-                            textNode = textNode.NextSibling;
+                            subNode = subNode.NextSibling;
                         }
                         break;
                     case "ownedstars":
-                        textNode = subnode.FirstChild;
-                        while (textNode != null)
+                        subNode = mainNode.FirstChild;
+                        while (subNode != null)
                         {
-                            Star star = new Star(textNode);
+                            Star star = new Star(subNode);
                             OwnedStars.Add(star);
-                            textNode = textNode.NextSibling;
+                            subNode = subNode.NextSibling;
                         }
                         break;
                     case "fleetreports":
-                        textNode = subnode.FirstChild;
-                        while (textNode != null)
+                        subNode = mainNode.FirstChild;
+                        while (subNode != null)
                         {
-                            FleetIntel report = new FleetIntel(textNode);
+                            FleetIntel report = new FleetIntel(subNode);
                             FleetReports.Add(report.Key, report);
-                            textNode = textNode.NextSibling;
+                            subNode = subNode.NextSibling;
                         }
                         break;
                     case "ownedfleets":
-                        textNode = subnode.FirstChild;
-                        while (textNode != null)
+                        subNode = mainNode.FirstChild;
+                        while (subNode != null)
                         {
-                            Fleet fleet = new Fleet(textNode);
+                            Fleet fleet = new Fleet(subNode);
                             OwnedFleets.Add(fleet);
-                            textNode = textNode.NextSibling;
+                            subNode = subNode.NextSibling;
                         }
                         break;
                     case "otherempires":
-                        textNode = subnode.FirstChild;
-                        while (textNode != null)
+                        subNode = mainNode.FirstChild;
+                        while (subNode != null)
                         {
-                            EmpireIntel report = new EmpireIntel(textNode);
+                            EmpireIntel report = new EmpireIntel(subNode);
                             EmpireReports.Add(report.Id, report);
-                            textNode = textNode.NextSibling;
+                            subNode = subNode.NextSibling;
                         }
                         break;
                     case "battleplan":
-                        BattlePlan plan = new BattlePlan(subnode);
+                        BattlePlan plan = new BattlePlan(mainNode);
                         BattlePlans[plan.Name] = plan;
                         break;                        
                     case "availablecomponents":
-                        textNode = subnode.FirstChild;
-                        while (textNode != null)
+                        subNode = mainNode.FirstChild;
+                        while (subNode != null)
                         { 
-                            AvailableComponents.Add(new Component(textNode));
-                            textNode = textNode.NextSibling;
+                            AvailableComponents.Add(new Component(subNode));
+                            subNode = subNode.NextSibling;
+                        }
+                        break;
+                    case "designs":
+                        subNode = mainNode.FirstChild;
+                        while (subNode != null)
+                        {
+                            Design design;
+                            
+                            if (subNode.Name.ToLower() == "design")
+                            {
+                                design = new Design(subNode);
+                                
+                            }
+                            else if (subNode.Name.ToLower() == "shipdesign")
+                            {
+                                design = new ShipDesign(subNode);
+                                
+                            }
+                            else
+                            {
+                                throw new System.NotImplementedException("Unrecognised design type.");
+                            }
+                            
+                            Designs.Add(design.Key, design);
+                            
+                            subNode = subNode.NextSibling;
                         }
                         break;
                 }
@@ -275,7 +302,7 @@ namespace Nova.Common
                     BattlePlans.Add("Default", new BattlePlan());
                 }
 
-                subnode = subnode.NextSibling;
+                mainNode = mainNode.NextSibling;
             }
         }
 
@@ -315,6 +342,21 @@ namespace Nova.Common
                 xmlelAvaiableComponents.AppendChild(component.ToXml(xmldoc));
             }
             xmlelEmpireData.AppendChild(xmlelAvaiableComponents);
+            
+            // Own Designs
+            XmlElement xmlelDesigns = xmldoc.CreateElement("Designs");
+            foreach (Design design in Designs.Values)
+            {
+                if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
+                {
+                    xmlelDesigns.AppendChild((design as ShipDesign).ToXml(xmldoc));
+                }
+                else
+                {
+                    xmlelDesigns.AppendChild(design.ToXml(xmldoc));
+                }                                              
+            }            
+            xmlelEmpireData.AppendChild(xmlelDesigns);
             
             XmlElement xmlelStarReports = xmldoc.CreateElement("StarReports");            
             foreach (StarIntel report in StarReports.Values)
@@ -379,6 +421,7 @@ namespace Nova.Common
             ResearchTopics          = new TechLevel();
             
             AvailableComponents     = new RaceComponents();
+            Designs                 = new Dictionary<long, Design>();
             
             OwnedStars.Clear();
             StarReports.Clear();

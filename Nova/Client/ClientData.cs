@@ -579,7 +579,7 @@ namespace Nova.Client
         private void LinkClientStateReferences()
         {
             // HullModule reference to a component
-            foreach (Design design in InputTurn.AllDesigns.Values)
+            foreach (Design design in EmpireState.Designs.Values)
             {
                 if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
                 {
@@ -610,7 +610,7 @@ namespace Nova.Client
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(InputTurn.AllDesigns[ship.DesignKey] as ShipDesign);
+                    ship.DesignUpdate(EmpireState.Designs[ship.DesignKey] as ShipDesign);
                 }
             }
 

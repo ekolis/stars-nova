@@ -132,7 +132,7 @@ namespace Nova.Server.NewGame
 
             Nova.Common.Message welcome = new Nova.Common.Message();
             welcome.Text = "Your race is ready to explore the universe.";
-            welcome.Audience = Global.AllEmpires;
+            welcome.Audience = Global.Everyone;
 
             serverState.AllMessages.Add(welcome);
         }

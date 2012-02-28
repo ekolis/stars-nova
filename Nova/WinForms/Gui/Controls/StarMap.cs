@@ -516,7 +516,7 @@ namespace Nova.WinForms.Gui
         {
             List<Fleet> playersFleets = new List<Fleet>();
 
-            foreach (Fleet fleet in turnData.EmpireState.OwnedFleets.Values)
+            foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.Owner == clientState.EmpireState.Id)
                 {

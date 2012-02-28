@@ -133,7 +133,7 @@ namespace Nova.Common
        
        // Defaults
        public const int Nobody = 0x00000000; // As an empire Id cannot be 0, it is used for no owner.
-       public const int AllEmpires = Nobody;
+       public const int Everyone = Nobody;
        public const int None = Nobody;
        public const int Unset = -10000;
 

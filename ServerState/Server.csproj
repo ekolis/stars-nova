@@ -88,6 +88,7 @@
     <Compile Include="Scores.cs" />
     <Compile Include="Persistence\ServerData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TurnSteps\FirstStep.cs" />
     <Compile Include="TurnSteps\StarUpdateStep.cs" />
     <Compile Include="VictoryCheck.cs" />
     <Compile Include="WaypointTasks.cs" />

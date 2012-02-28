@@ -100,12 +100,9 @@ namespace Nova.Client
 
                 outputTurn.TechLevel = CountTechLevels();
 
-                foreach (Design design in clientState.InputTurn.AllDesigns.Values)
+                foreach (Design design in clientState.EmpireState.Designs.Values)
                 {
-                    if (design.Owner == clientState.EmpireState.Id)
-                    {
-                        outputTurn.RaceDesigns.Add(design.Key, design);
-                    }
+                    outputTurn.RaceDesigns.Add(design.Key, design);
                 }
 
                 foreach (int fleetKey in clientState.DeletedFleets)

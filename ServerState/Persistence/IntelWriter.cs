@@ -23,15 +23,14 @@
 namespace Nova.Server
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.Runtime.Serialization;
-    using System.Runtime.Serialization.Formatters.Binary;
     using System.Xml;
 
     using Nova.Common;
     using Nova.Common.DataStructures;
+    using Nova.Common.Components;
 
     /// <summary>
     /// This module converts the console's state into Intel and saves it, thereby 
@@ -49,7 +48,6 @@ namespace Nova.Server
             this.Scores = scores;
         }
 
-        #region Methods
 
         /// <summary>
         /// Save the turn data.
@@ -66,13 +64,13 @@ namespace Nova.Server
             {
                 turnData = new Intel();
                 turnData.AllMinefields = serverState.AllMinefields;
-                turnData.AllDesigns = serverState.AllDesigns;
                 turnData.EmpireState = serverState.AllEmpires[empire.Id];
+                
                 
                 // Copy any messages
                 foreach (Message message in serverState.AllMessages)
                 {
-                    if (message.Audience == Global.AllEmpires || message.Audience == empire.Id)
+                    if (message.Audience == Global.Everyone || message.Audience == empire.Id)
                     {
                         turnData.Messages.Add(message);
                     }
@@ -135,7 +133,6 @@ namespace Nova.Server
 
         }
 
-        #endregion
     }
 }
 
