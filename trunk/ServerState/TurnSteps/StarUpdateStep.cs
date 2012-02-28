@@ -180,7 +180,7 @@ namespace Nova.Server.TurnSteps
         /// </summary>
         private void TechLevelUp(TechLevel.ResearchField area, EmpireData empire)
         {
-            TechLevel oldResearchLevel = empire.ResearchLevels;
+            TechLevel oldResearchLevel = empire.ResearchLevels.Clone();
             empire.ResearchLevels[area]++;
             TechLevel newResearchLevel = empire.ResearchLevels;
             
@@ -196,7 +196,7 @@ namespace Nova.Server.TurnSteps
 
             foreach (Component component in allComponents.Values)
             {
-                if (component.RequiredTech > oldResearchLevel && component.RequiredTech <= newResearchLevel)
+                if (oldResearchLevel < component.RequiredTech && newResearchLevel >= component.RequiredTech)
                 {
                     empire.AvailableComponents.Add(component);                    
                     Message newComponentMessage = null;
