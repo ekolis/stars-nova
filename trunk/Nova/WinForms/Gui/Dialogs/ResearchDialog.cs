@@ -227,8 +227,8 @@ namespace Nova.WinForms.Gui
                 budgetedEnergy > 0 &&
                 currentLevel[targetArea] < 26)
             {
-                yearsToComplete = resourcesRequired / budgetedEnergy;
-                completionTime.Text = yearsToComplete.ToString("f1");
+                yearsToComplete = (int)Math.Ceiling((double)resourcesRequired / budgetedEnergy);
+                completionTime.Text = yearsToComplete.ToString();
             }
             else
             {
