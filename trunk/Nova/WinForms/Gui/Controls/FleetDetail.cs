@@ -90,10 +90,10 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the FleetDetail class.
         /// </Summary>
-        public FleetDetail(ClientState stateData)
+        public FleetDetail(ClientData clientState)
         {
-            this.empireState = stateData.EmpireState;
-            this.commands = stateData.Commands;
+            this.empireState = clientState.EmpireState;
+            this.commands = clientState.Commands;
             
             InitializeComponent();
         }

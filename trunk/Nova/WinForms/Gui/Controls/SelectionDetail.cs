@@ -46,20 +46,20 @@ namespace Nova.WinForms.Gui
         // FIXME:(priority 3) this should not be here. It is only needed to pass it
         // down to the PlanetDetail (Who passes it to ProductionDialog). In any case,
         // ProductionDialog shouldn't need the whole state either. Must refactor this.
-        private ClientState stateData;
+        private ClientData clientState;
 
         /// <Summary>
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
-        public SelectionDetail(EmpireData empireState, List<long> deletedFleets,  ClientState stateData)
+        public SelectionDetail(EmpireData empireState, List<long> deletedFleets,  ClientData clientState)
         {
             this.empireState = empireState;
             
             // FIXME: (priority 3) see declaration.
-            this.stateData = stateData;
+            this.clientState = clientState;
             
-            PlanetDetail = new PlanetDetail(empireState, stateData);
-            FleetDetail = new FleetDetail(stateData);
+            PlanetDetail = new PlanetDetail(empireState, clientState);
+            FleetDetail = new FleetDetail(clientState);
             
             InitializeComponent();
         }

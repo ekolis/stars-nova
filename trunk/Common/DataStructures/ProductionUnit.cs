@@ -26,8 +26,8 @@ namespace Nova.Common
     using System.Text;
 
     /// <summary>
-    // This interface is to be used in ProductionOrder for specifying what is
-    // the result of construction (a ship, a factory and so on).
+    /// This interface is to be used in ProductionOrder for specifying what is
+    /// the result of construction (a ship, a factory and so on).
     /// Generic interface for any single production unit: 1 ship, 1 factory, 
     /// 1 mine, 1% terraform, 1 alchemy and so on.
     /// The implementation should contain all the needed information 

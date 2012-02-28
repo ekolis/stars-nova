@@ -43,7 +43,7 @@ namespace Nova.WinForms.Gui
         // FIXME:(priority 3) this should not be here. It is only needed to pass it
         // down to the ProductionDialog. In any case, ProductionDialog shouldn't need
         // the whole state either. Must refactor this.
-        private ClientState stateData;
+        private ClientData clientState;
         
         /// <Summary>
         /// This event should be fired when the selection changes.
@@ -64,10 +64,10 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the PlanetDetail class.
         /// </Summary>
-        public PlanetDetail(EmpireData empireState, ClientState stateData)
+        public PlanetDetail(EmpireData empireState, ClientData clientState)
         {
             this.empireState = empireState;
-            this.stateData = stateData;
+            this.clientState = clientState;
             
             InitializeComponent();
         }
@@ -79,7 +79,7 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void ChangeProductionQueue_Click(object sender, EventArgs e)
         {
-            ProductionDialog productionDialog = new ProductionDialog(selectedStar, stateData);
+            ProductionDialog productionDialog = new ProductionDialog(selectedStar, clientState);
 
             productionDialog.ShowDialog();
             productionDialog.Dispose();

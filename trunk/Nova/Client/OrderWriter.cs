@@ -38,7 +38,7 @@ namespace Nova.Client
     /// </summary>
     public class OrderWriter
     {
-        private ClientState stateData;
+        private ClientData clientState;
         
         /// <summary>
         /// Default Constructor. 
@@ -46,9 +46,9 @@ namespace Nova.Client
         /// <param name="stateData">
         /// A <see cref="ClientState"/> from where to extract the orders.
         /// </param>
-        public OrderWriter(ClientState stateData)
+        public OrderWriter(ClientData clientState)
         {
-            this.stateData = stateData;
+            this.clientState = clientState;
         }    
         
         /// <summary>
@@ -61,26 +61,26 @@ namespace Nova.Client
 #if USE_COMMAND_ORDERS
             {
                 // Advance the turn year, to show this empire has finished with the current turn year.
-                stateData.EmpireState.TurnSubmitted = true;
-                stateData.EmpireState.LastTurnSubmitted = stateData.EmpireState.TurnYear;
+                clientState.EmpireState.TurnSubmitted = true;
+                clientState.EmpireState.LastTurnSubmitted = clientState.EmpireState.TurnYear;
 
                 // Setup the XML document
                 XmlDocument xmldoc = new XmlDocument();
                 XmlElement xmlRoot = Global.InitializeXmlDocument(xmldoc);
 
-                Global.SaveData(xmldoc, xmlRoot, "Turn", stateData.EmpireState.LastTurnSubmitted.ToString());
-                Global.SaveData(xmldoc, xmlRoot, "Id", stateData.EmpireState.Id.ToString("X"));
+                Global.SaveData(xmldoc, xmlRoot, "Turn", clientState.EmpireState.LastTurnSubmitted.ToString());
+                Global.SaveData(xmldoc, xmlRoot, "Id", clientState.EmpireState.Id.ToString("X"));
 
                 // add the orders to the document
                 XmlElement xmlelOrders = xmldoc.CreateElement("Orders");
                 xmlRoot.AppendChild(xmlelOrders);
 
-                foreach (ICommand command in stateData.Commands)
+                foreach (ICommand command in clientState.Commands)
                 {
                     xmlelOrders.AppendChild(command.ToXml(xmldoc));
                 }
 
-                string ordersFileName = Path.Combine(stateData.GameFolder, stateData.EmpireState.Race.Name + Global.OrdersExtension);
+                string ordersFileName = Path.Combine(clientState.GameFolder, clientState.EmpireState.Race.Name + Global.OrdersExtension);
 
                 Stream output = new FileStream(ordersFileName, FileMode.Create);
 
@@ -91,34 +91,34 @@ namespace Nova.Client
 #else
             {
                 // Advance the turn year, to show this empire has finished with the current turn year.
-                stateData.EmpireState.TurnSubmitted = true;
-                stateData.EmpireState.LastTurnSubmitted = stateData.EmpireState.TurnYear;
+                clientState.EmpireState.TurnSubmitted = true;
+                clientState.EmpireState.LastTurnSubmitted = clientState.EmpireState.TurnYear;
 
                 Orders outputTurn = new Orders();
 
-                outputTurn.EmpireStatus = stateData.EmpireState;
+                outputTurn.EmpireStatus = clientState.EmpireState;
 
                 outputTurn.TechLevel = CountTechLevels();
 
-                foreach (Design design in stateData.InputTurn.AllDesigns.Values)
+                foreach (Design design in clientState.InputTurn.AllDesigns.Values)
                 {
-                    if (design.Owner == stateData.EmpireState.Id)
+                    if (design.Owner == clientState.EmpireState.Id)
                     {
                         outputTurn.RaceDesigns.Add(design.Key, design);
                     }
                 }
 
-                foreach (int fleetKey in stateData.DeletedFleets)
+                foreach (int fleetKey in clientState.DeletedFleets)
                 {
                     outputTurn.DeletedFleets.Add(fleetKey);
                 }
 
-                foreach (int designId in stateData.DeletedDesigns)
+                foreach (int designId in clientState.DeletedDesigns)
                 {
                     outputTurn.DeletedDesigns.Add(designId);
                 }
 
-                string turnFileName = Path.Combine(stateData.GameFolder, stateData.EmpireState.Race.Name + Global.OrdersExtension);
+                string turnFileName = Path.Combine(clientState.GameFolder, clientState.EmpireState.Race.Name + Global.OrdersExtension);
 
                 outputTurn.ToXml(turnFileName);
             }
@@ -136,7 +136,7 @@ namespace Nova.Client
         {
            int total = 0;
         
-           foreach (int techLevel in stateData.EmpireState.ResearchLevels)
+           foreach (int techLevel in clientState.EmpireState.ResearchLevels)
            {
                total += techLevel;
            }

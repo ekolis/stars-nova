@@ -336,7 +336,7 @@
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="WinForms\RaceDesigner\Utilities.cs" />
-    <Compile Include="Client\ClientState.cs" />
+    <Compile Include="Client\ClientData.cs" />
     <Compile Include="Client\IntelReader.cs" />
     <Compile Include="Client\OrderWriter.cs" />
     <Compile Include="Client\SelectRaceDialog.cs">

@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010. 2011 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -17,12 +17,6 @@
 //
 // You should have received a copy of the GNU General Public License
 // along with this program.  If not, see <http://www.gnu.org/licenses/>
-// ===========================================================================
-#endregion
-
-#region Module Description
-// ===========================================================================
-// Dialog to manipulate a planet's production queue.
 // ===========================================================================
 #endregion
 
@@ -45,28 +39,23 @@ namespace Nova.WinForms.Gui
         // ----------------------------------------------------------------------------
 
         private readonly Star queueStar;
-        private readonly ClientState stateData;
+        private readonly ClientData clientState;
         private readonly Intel turnData;
 
-
-        #region Construction and Disposal
 
         /// <Summary>
         /// Initializes a new instance of the ProductionDialog class.
         /// </Summary>
         /// <param name="Star">The Star to do a production dialog for.</param>
-        public ProductionDialog(Star star, ClientState stateData)
+        public ProductionDialog(Star star, ClientData clientState)
         {
             this.queueStar = star;
-            this.stateData = stateData;
-            this.turnData = this.stateData.InputTurn;
+            this.clientState = clientState;
+            this.turnData = this.clientState.InputTurn;
 
             InitializeComponent();
         }
 
-        #endregion
-
-        #region Event Methods
 
         /// <Summary>
         /// Populate the available designs items list box with the things we can build.
@@ -94,7 +83,7 @@ namespace Nova.WinForms.Gui
             foreach (Design design in this.turnData.AllDesigns.Values)
             {
                 // check if this design belongs to this race
-                if (design.Owner == stateData.EmpireState.Id || design.Owner == Global.AllEmpires)
+                if (design.Owner == clientState.EmpireState.Id || design.Owner == Global.AllEmpires)
                 {
                     // what the purpose of this next line (shadallark) ???
                     // Looks like it is ment to prevent the current starbase design being re-used - Dan.
@@ -572,9 +561,6 @@ namespace Nova.WinForms.Gui
             UpdateProductionCost();
         }
 
-        #endregion
-
-        #region Utility Methods
 
         /// <Summary> Add a starbase to the production queue. </Summary>
         /// <remarks>
@@ -711,7 +697,7 @@ namespace Nova.WinForms.Gui
                             // Only do this if the Star is respecting research budget.
                             if (this.queueStar.OnlyLeftover == false)
                             {
-                                potentialResources.Energy -= potentialResources.Energy * stateData.EmpireState.ResearchBudget / 100;
+                                potentialResources.Energy -= potentialResources.Energy * clientState.EmpireState.ResearchBudget / 100;
                             }
 
                             // need to know how much of each mineral is currently available on the Star (this.queueStar.ResourcesOnHand)
@@ -1052,7 +1038,5 @@ namespace Nova.WinForms.Gui
 
             return costsToProduce;
         }
-
-        #endregion
     }
 }

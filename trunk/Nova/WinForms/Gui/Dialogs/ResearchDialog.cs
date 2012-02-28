@@ -55,7 +55,7 @@ namespace Nova.WinForms.Gui
 
         private readonly bool dialogInitialised;
         
-        private readonly ClientState stateData;
+        private readonly ClientData clientState;
 
         private readonly Dictionary<string, RadioButton> buttons = new Dictionary<string, RadioButton>();
         private readonly TechLevel currentLevel;
@@ -65,12 +65,12 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the ResearchDialog class.
         /// </Summary>
-        public ResearchDialog(ClientState stateData)
+        public ResearchDialog(ClientData clientState)
         {
             InitializeComponent();
 
-            this.stateData = stateData;
-            currentLevel = this.stateData.EmpireState.ResearchLevels;
+            this.clientState = clientState;
+            currentLevel = this.clientState.EmpireState.ResearchLevels;
 
             // Provide a convienient way of getting a button from it's name.
             buttons.Add("Energy", energyButton);
@@ -96,7 +96,7 @@ namespace Nova.WinForms.Gui
             // TODO: Implement a proper hierarchy of research ("next research field") system.
             foreach (TechLevel.ResearchField area in Enum.GetValues(typeof(TechLevel.ResearchField)))
             {
-                if (this.stateData.EmpireState.ResearchTopics[area] == 1)
+                if (this.clientState.EmpireState.ResearchTopics[area] == 1)
                 {
                     targetArea = area;
                     break;        
@@ -109,7 +109,7 @@ namespace Nova.WinForms.Gui
 
             availableEnergy = CountEnergy();
             availableResources.Text = this.availableEnergy.ToString(System.Globalization.CultureInfo.InvariantCulture);
-            budgetPercentage.Value = this.stateData.EmpireState.ResearchBudget;
+            budgetPercentage.Value = this.clientState.EmpireState.ResearchBudget;
             dialogInitialised = true;
 
             ParameterChanged(null, null);
@@ -135,9 +135,9 @@ namespace Nova.WinForms.Gui
             {
                 try
                 {
-                    stateData.EmpireState.ResearchTopics[targetArea] = 0;
+                    clientState.EmpireState.ResearchTopics[targetArea] = 0;
                     targetArea = (TechLevel.ResearchField)Enum.Parse(typeof(TechLevel.ResearchField), button.Text, true);
-                    stateData.EmpireState.ResearchTopics[targetArea] = 1;
+                    clientState.EmpireState.ResearchTopics[targetArea] = 1;
                 }
                 catch (System.ArgumentException)
                 {
@@ -180,10 +180,10 @@ namespace Nova.WinForms.Gui
             command.Topics.Zero();
             command.Topics[targetArea] = 1;    
             
-            if (command.isValid(stateData.EmpireState))
+            if (command.isValid(clientState.EmpireState))
             {
-                stateData.Commands.Push(command);
-                command.ApplyToState(stateData.EmpireState);
+                clientState.Commands.Push(command);
+                command.ApplyToState(clientState.EmpireState);
             }
             
             // This is done for synchronization. We wait for the event handlers
@@ -210,7 +210,7 @@ namespace Nova.WinForms.Gui
             //stateData.EmpireState.ResearchBudget = (int)resourceBudget.Value;
             int budgetedEnergy = (availableEnergy * (int)budgetPercentage.Value) / 100;                   
             
-            int targetCost = Research.Cost(targetArea, stateData.EmpireState.Race, currentLevel, currentLevel[targetArea] + 1);
+            int targetCost = Research.Cost(targetArea, clientState.EmpireState.Race, currentLevel, currentLevel[targetArea] + 1);
 
             resourcesRequired = targetCost - currentLevel[targetArea];
 
@@ -247,9 +247,9 @@ namespace Nova.WinForms.Gui
         {
             int totalEnergy = 0;
 
-            foreach (Star star in stateData.EmpireState.OwnedStars.Values)
+            foreach (Star star in clientState.EmpireState.OwnedStars.Values)
             {
-                if (star.Owner == stateData.EmpireState.Id)
+                if (star.Owner == clientState.EmpireState.Id)
                 {
                     totalEnergy += star.GetResourceRate();
                 }
