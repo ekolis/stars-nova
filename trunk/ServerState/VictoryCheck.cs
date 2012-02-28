@@ -65,7 +65,7 @@ namespace Nova.Server
             {
                 EmpireData empire = serverState.AllEmpires[remainingEmpires[0]];
                 Message message = new Message();
-                message.Audience = Global.AllEmpires;
+                message.Audience = Global.Everyone;
                 message.Text = "The " + empire.Race.PluralName +
                                    " have won the game";
                 serverState.AllMessages.Add(message);
@@ -97,7 +97,7 @@ namespace Nova.Server
                     {
                         messageSent = true;
                         Message message = new Message();
-                        message.Audience = Global.AllEmpires;
+                        message.Audience = Global.Everyone;
                         message.Text = "The " + empire.Race.PluralName +
                                            " have won the game";
                         serverState.AllMessages.Add(message);

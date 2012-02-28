@@ -118,7 +118,7 @@ namespace Nova.WinForms.Gui
 
             long designKey = (this.designList.SelectedItems[0].Tag as ShipDesign).Key;
 
-            ShipDesign design = clientState.InputTurn.AllDesigns[designKey] as ShipDesign;
+            ShipDesign design = clientState.EmpireState.Designs[designKey] as ShipDesign;
 
             DisplayDesign(design);
         }
@@ -218,7 +218,7 @@ Are you sure you want to do this?";
             }
 
             clientState.DeletedDesigns.Add(design.Key);
-            clientState.InputTurn.AllDesigns.Remove(design.Key);
+            clientState.EmpireState.Designs.Remove(design.Key);
             DesignOwner_SelectedIndexChanged(null, null);
 
             // Ensure the Star map is updated in case we've completely removed any
@@ -269,7 +269,7 @@ Are you sure you want to do this?";
             this.designList.Items.Clear();
             this.designList.BeginUpdate();
 
-            foreach (Design design in clientState.InputTurn.AllDesigns.Values)
+            foreach (Design design in clientState.EmpireState.Designs.Values)
             {
                 if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
                 {

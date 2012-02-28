@@ -41,6 +41,7 @@ namespace Nova.Server
         private SortedList<int, ITurnStep> turnSteps;
         
         // Used to order turn steps.
+        private const int FIRSTSTEP = 00;
         private const int STARSTEP = 12;
         private const int SCANSTEP = 99;
         
@@ -78,6 +79,7 @@ namespace Nova.Server
             intelWriter = new IntelWriter(this.serverState, this.scores);
             victoryCheck = new VictoryCheck(this.serverState, this.scores);
             
+            turnSteps.Add(FIRSTSTEP, new FirstStep());
             turnSteps.Add(SCANSTEP, new ScanStep());
             turnSteps.Add(STARSTEP, new StarUpdateStep());
         }
@@ -528,6 +530,7 @@ namespace Nova.Server
         public void AssembleEmpireData()
         {
             // Generates initial reports.
+            turnSteps[FIRSTSTEP].Process(serverState);
             turnSteps[SCANSTEP].Process(serverState);
         }
     }

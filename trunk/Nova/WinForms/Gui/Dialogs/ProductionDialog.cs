@@ -40,8 +40,6 @@ namespace Nova.WinForms.Gui
 
         private readonly Star queueStar;
         private readonly ClientData clientState;
-        private readonly Intel turnData;
-
 
         /// <Summary>
         /// Initializes a new instance of the ProductionDialog class.
@@ -51,7 +49,6 @@ namespace Nova.WinForms.Gui
         {
             this.queueStar = star;
             this.clientState = clientState;
-            this.turnData = this.clientState.InputTurn;
 
             InitializeComponent();
         }
@@ -80,35 +77,31 @@ namespace Nova.WinForms.Gui
                 dockCapacity = starbase.TotalDockCapacity;
             }
 
-            foreach (Design design in this.turnData.AllDesigns.Values)
+            foreach (Design design in clientState.EmpireState.Designs.Values)
             {
-                // check if this design belongs to this race
-                if (design.Owner == clientState.EmpireState.Id || design.Owner == Global.AllEmpires)
+                // what the purpose of this next line (shadallark) ???
+                // Looks like it is ment to prevent the current starbase design being re-used - Dan.
+                // prevent the current starbase design from being re-used
+                if (starbase != null && starbase.Composition.ContainsKey(design))
                 {
-                    // what the purpose of this next line (shadallark) ???
-                    // Looks like it is ment to prevent the current starbase design being re-used - Dan.
-                    // prevent the current starbase design from being re-used
-                    if (starbase != null && starbase.Composition.ContainsKey(design))
-                    {
-                        continue;
-                    }
+                    continue;
+                }
 
-                    // Check if this design can be built at this Star - ships are limited by dock capacity of the starbase.
-                    if (design.Type == ItemType.Ship)
-                    {
-                        if (dockCapacity > design.Mass)
-                        {
-                            ListViewItem item = new ListViewItem(design.Name);
-                            item.Tag = design;
-                            this.designList.Items.Add(item);
-                        }
-                    }
-                    else
+                // Check if this design can be built at this Star - ships are limited by dock capacity of the starbase.
+                if (design.Type == ItemType.Ship)
+                {
+                    if (dockCapacity > design.Mass)
                     {
                         ListViewItem item = new ListViewItem(design.Name);
                         item.Tag = design;
                         this.designList.Items.Add(item);
                     }
+                }
+                else
+                {
+                    ListViewItem item = new ListViewItem(design.Name);
+                    item.Tag = design;
+                    this.designList.Items.Add(item);
                 }
             }
 
@@ -122,7 +115,7 @@ namespace Nova.WinForms.Gui
             {
                 // is it a starbase?
                 long tempKey = (queueList.Items[itemLoopCounter].Tag as ProductionItem).Key;
-                Design productionItemDesign = turnData.AllDesigns[tempKey];
+                Design productionItemDesign = clientState.EmpireState.Designs[tempKey];
 
                 if (productionItemDesign.Type == ItemType.Starbase)
                 {
@@ -178,7 +171,7 @@ namespace Nova.WinForms.Gui
                 this.addToQueue.Enabled = true;
                 long designKey = (this.designList.SelectedItems[0].Tag as Design).Key;
 
-                Design design = turnData.AllDesigns[designKey];
+                Design design = clientState.EmpireState.Designs[designKey];
 
                 this.designCost.Value = design.Cost;
             }
@@ -261,7 +254,7 @@ namespace Nova.WinForms.Gui
             }
 
             long designKey = (designList.SelectedItems[0].Tag as Design).Key;
-            Design design = turnData.AllDesigns[designKey];
+            Design design = clientState.EmpireState.Designs[designKey];
 
             // Starbases are handled differently to the other component types.
             if (design.Type == ItemType.Starbase)
@@ -320,7 +313,7 @@ namespace Nova.WinForms.Gui
             {
                 long designKey = (queueList.Items[queueList.SelectedIndices[0]].Tag as ProductionItem).Key;
                 string designName = this.queueList.Items[queueList.SelectedIndices[0]].Text;
-                Design selectedDesign = this.turnData.AllDesigns[designKey] as Design;
+                Design selectedDesign = clientState.EmpireState.Designs[designKey] as Design;
                 
                 if (queueList.Items[s].Checked == true)
                 {
@@ -651,7 +644,7 @@ namespace Nova.WinForms.Gui
                 for (int queueIndex = 1; queueIndex < queueList.Items.Count; queueIndex++)
                 {
                     long designKey = (queueList.Items[queueIndex].Tag as ProductionItem).Key;
-                    Design currentDesign = turnData.AllDesigns[designKey];
+                    Design currentDesign = clientState.EmpireState.Designs[designKey];
 
                     quantityYetToBuild = Convert.ToInt32(queueList.Items[queueIndex].SubItems[1].Text);
                     currentStackCost = GetProductionCosts(queueList.Items[queueIndex]);
@@ -1030,7 +1023,7 @@ namespace Nova.WinForms.Gui
             if (stackQuantity > 1)  
             {
                 long designKey = (stackOfInterest.Tag as ProductionItem).Key;
-                Design currentDesign = turnData.AllDesigns[designKey];
+                Design currentDesign = clientState.EmpireState.Designs[designKey];
                     // as the first Item in the stack costs BuildState to complete the design cost
                     // is multiplied by the quantity - 1
                 costsToProduce += currentDesign.Cost * (stackQuantity - 1);

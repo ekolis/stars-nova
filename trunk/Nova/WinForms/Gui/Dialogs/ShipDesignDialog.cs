@@ -773,7 +773,7 @@ namespace Nova.WinForms.Gui
 
             this.clientState = clientState;
             this.allComponents = Nova.Common.Components.AllComponents.Data.Components;
-            this.allDesigns = this.clientState.InputTurn.AllDesigns;
+            this.allDesigns = clientState.EmpireState.Designs;
 
             this.componentImages.ImageSize = new Size(64, 64);
             this.componentImages.ColorDepth = ColorDepth.Depth32Bit;

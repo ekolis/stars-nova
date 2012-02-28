@@ -67,7 +67,6 @@ namespace Nova.Common
         public List<BattleReport> Battles = new List<BattleReport>();
         public List<ScoreRecord> AllScores = new List<ScoreRecord>();
         
-        public Dictionary<long, Design> AllDesigns = new Dictionary<long, Design>();
         public Dictionary<long, Minefield> AllMinefields = new Dictionary<long, Minefield>();
 
         /// <summary>
@@ -82,7 +81,6 @@ namespace Nova.Common
         /// </summary>
         public void Clear()
         {
-            AllDesigns.Clear();
             AllMinefields.Clear();
             Battles.Clear();
             Messages.Clear();
@@ -138,18 +136,6 @@ namespace Nova.Common
                             AllScores.Add(newScore);
                             break;
 
-                        case "design":
-                            Design newDesign = new Design(xmlnode);
-                            AllDesigns[newDesign.Key] = newDesign;
-                            // AllDesigns.Add(newDesign.Key, newDesign);
-                            break;
-
-                        case "shipdesign":
-                            ShipDesign newShipDesign = new ShipDesign(xmlnode);
-                            AllDesigns[newShipDesign.Key] = newShipDesign;
-                            // AllDesigns.Add(newShipDesign.Key, newShipDesign);
-                            break;
-
                         case "minefield":
                             Minefield minefield = new Minefield(xmlnode);
                             AllMinefields.Add(minefield.Key, minefield);
@@ -201,19 +187,6 @@ namespace Nova.Common
             foreach (ScoreRecord score in AllScores)
             {
                 xmlelIntel.AppendChild(score.ToXml(xmldoc));
-            }
-
-            // AllDesigns 
-            foreach (Design design in AllDesigns.Values)
-            {
-                if (design.Type == ItemType.Starbase || design.Type == ItemType.Ship)
-                {
-                    xmlelIntel.AppendChild(((ShipDesign)design).ToXml(xmldoc));
-                }
-                else
-                {
-                    xmlelIntel.AppendChild(design.ToXml(xmldoc));
-                }
             }
 
             // AllMinefields

@@ -52,9 +52,9 @@ namespace Nova.Ai
                         int factoryBuildCostGerm = clientState.EmpireState.Race.HasTrait("CF") ? 3 : 4;
                         int factoriesToBuild = (int)((star.ResourcesOnHand.Germanium - 50) / factoryBuildCostGerm);
                         Design factoryDesign = null;
-                        foreach (Design design in turnData.AllDesigns.Values)
+                        foreach (Design design in clientState.EmpireState.Designs.Values)
                         {
-                            if (design.Owner == clientState.EmpireState.Id && design.Type == ItemType.Factory)
+                            if (design.Type == ItemType.Factory)
                             {
                                 factoryDesign = design;
                             }
@@ -72,9 +72,9 @@ namespace Nova.Ai
                     if (star.Mines < maxMines) 
                     {
                         Design mineDesign = null;
-                        foreach (Design design in turnData.AllDesigns.Values)
+                        foreach (Design design in clientState.EmpireState.Designs.Values)
                         {
-                            if (design.Owner == clientState.EmpireState.Id && design.Type == ItemType.Mine)
+                            if (design.Type == ItemType.Mine)
                             {
                                 mineDesign = design;
                             }
@@ -92,9 +92,9 @@ namespace Nova.Ai
                     if (defenceToBuild > 0)
                     {
                         Design defenceDesign = null;
-                        foreach (Design design in turnData.AllDesigns.Values)
+                        foreach (Design design in clientState.EmpireState.Designs.Values)
                         {
-                            if (design.Owner == clientState.EmpireState.Id && design.Type == ItemType.Defenses)
+                            if (design.Type == ItemType.Defenses)
                             {
                                 defenceDesign = design;
                             }

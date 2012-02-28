@@ -39,10 +39,10 @@ namespace Nova.Server.TurnSteps
         
         public void Process(ServerData serverState)
         {
+            this.serverState = serverState;
+            
             foreach (EmpireData empire in serverState.AllEmpires.Values)
-            {
-                this.serverState = serverState;
-                
+            {                            
                 AddStars(empire);
                 AddFleets(empire);
                 ScanWithFleets(empire);

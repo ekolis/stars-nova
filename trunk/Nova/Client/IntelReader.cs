@@ -122,7 +122,7 @@ namespace Nova.Client
         private void LinkIntelReferences()
         {
             // HullModule reference to a component
-            foreach (Design design in clientState.InputTurn.AllDesigns.Values)
+            foreach (Design design in clientState.EmpireState.Designs.Values)
             {
                 if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
                 {
@@ -154,7 +154,7 @@ namespace Nova.Client
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(clientState.InputTurn.AllDesigns[ship.DesignKey] as ShipDesign);
+                    ship.DesignUpdate(clientState.EmpireState.Designs[ship.DesignKey] as ShipDesign);
                 }
             }
             
@@ -193,7 +193,7 @@ namespace Nova.Client
                         }
                         else
                         {
-                            ship.DesignUpdate((ShipDesign)clientState.InputTurn.AllDesigns[ship.DesignKey]);
+                            ship.DesignUpdate((ShipDesign)clientState.EmpireState.Designs[ship.DesignKey]);
                         }
                     }
                 }
@@ -243,7 +243,7 @@ namespace Nova.Client
             foreach (Message message in clientState.InputTurn.Messages)
             {
                 if ((message.Audience == clientState.EmpireState.Id) ||
-                    (message.Audience == Global.AllEmpires))
+                    (message.Audience == Global.Everyone))
                 {
                     clientState.Messages.Add(message);
                 }
