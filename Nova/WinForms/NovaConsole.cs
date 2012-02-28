@@ -39,7 +39,7 @@ namespace Nova.WinForms.Console
     /// </Summary>
     public partial class NovaConsole : Form
     {
-        private ServerState stateData;       
+        private ServerData serverState;       
 
         /// <Summary>
         /// Initializes a new instance of the NovaConsoleMain class.
@@ -48,7 +48,7 @@ namespace Nova.WinForms.Console
         {
             InitializeComponent();
             // Fresh state; load game in progress later.            
-            this.stateData = new ServerState();
+            this.serverState = new ServerData();
         }
 
         /// <Summary>
@@ -80,24 +80,24 @@ namespace Nova.WinForms.Console
             /// no game in progress or the in progress game unknown.
             /// 
             /// First we try to open a current game based on the config file settings:
-            stateData.StatePathName = FileSearcher.GetFile(Global.ServerStateKey, false, "", "", "", false);
-            stateData.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
-            folderPath.Text = stateData.GameFolder;            
+            serverState.StatePathName = FileSearcher.GetFile(Global.ServerStateKey, false, "", "", "", false);
+            serverState.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
+            folderPath.Text = serverState.GameFolder;            
 
             AllComponents.Restore();
 
-            if (File.Exists(stateData.StatePathName))
+            if (File.Exists(serverState.StatePathName))
             { 
                 // We have a known game in progress. Load it:
-                stateData.Restore();
-                stateData.GameInProgress = true;
+                serverState.Restore();
+                serverState.GameInProgress = true;
                 
                 // load the game settings also
                 GameSettings.Restore();
                 generateTurnMenuItem.Enabled = true;
-                turnYearLabel.Text = stateData.TurnYear.ToString();
+                turnYearLabel.Text = serverState.TurnYear.ToString();
                 
-                OrderReader orderReader = new OrderReader(stateData);
+                OrderReader orderReader = new OrderReader(serverState);
                 orderReader.ReadOrders();
                 
                 SetPlayerList();
@@ -107,7 +107,7 @@ namespace Nova.WinForms.Console
             {
                 /// If nothing is defined then the only option is to enable the 
                 /// "New Game" button. 
-                stateData.GameInProgress = false;
+                serverState.GameInProgress = false;
                 newGameMenuItem.Enabled = true;
                 turnYearLabel.Text = "Create a new game.";
             }
@@ -122,9 +122,9 @@ namespace Nova.WinForms.Console
         {
             try
             {
-                if (stateData.GameInProgress)
+                if (serverState.GameInProgress)
                 {
-                    stateData.Save();
+                    serverState.Save();
                 }
             }
             catch
@@ -152,7 +152,7 @@ namespace Nova.WinForms.Console
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void SelectNewFolder(object sender, EventArgs e)
         {
-            stateData.Clear();
+            serverState.Clear();
             OnFirstShow(null, null);
         }
 
@@ -193,7 +193,7 @@ namespace Nova.WinForms.Console
             // Commented this out as console is searching for files each time the timer goes off. 
             // ServerState.Data.AllRaces = FileSearcher.GetAvailableRaces();
    
-            OrderReader orderReader = new OrderReader(stateData);
+            OrderReader orderReader = new OrderReader(serverState);
             orderReader.ReadOrders();
 
             if (SetPlayerList())
@@ -254,8 +254,8 @@ namespace Nova.WinForms.Console
                 // Launch the nova GUI
                 CommandArguments args = new CommandArguments();
                 args.Add(CommandArguments.Option.RaceName, raceName);
-                args.Add(CommandArguments.Option.Turn, stateData.TurnYear);
-                args.Add(CommandArguments.Option.IntelFileName, Path.Combine(stateData.GameFolder, raceName + Global.IntelExtension));
+                args.Add(CommandArguments.Option.Turn, serverState.TurnYear);
+                args.Add(CommandArguments.Option.IntelFileName, Path.Combine(serverState.GameFolder, raceName + Global.IntelExtension));
                 
                 Nova.WinForms.Gui.NovaGUI gui = new Nova.WinForms.Gui.NovaGUI(args.ToArray());
                 gui.Show();
@@ -292,7 +292,7 @@ namespace Nova.WinForms.Console
             try
             {
                 // TODO (priority 4) - reading all the .orders files is overkill. Only really want to read orders for races that aren't turned in yet, and only if they have changed.
-                OrderReader orderReader = new OrderReader(stateData);
+                OrderReader orderReader = new OrderReader(serverState);
                 orderReader.ReadOrders();
 
                 if (SetPlayerList())
@@ -335,7 +335,7 @@ namespace Nova.WinForms.Console
                 {
                     return;
                 }
-                stateData.StatePathName = fd.FileName;
+                serverState.StatePathName = fd.FileName;
             }
             catch
             {
@@ -343,22 +343,22 @@ namespace Nova.WinForms.Console
             }
 
             // TODO (priority 4) - This code is a repeat of what we do when the console is normally opened. Consider consolodating these sections.
-            stateData.GameFolder = System.IO.Path.GetDirectoryName(stateData.StatePathName);
-            folderPath.Text = stateData.GameFolder;            
+            serverState.GameFolder = System.IO.Path.GetDirectoryName(serverState.StatePathName);
+            folderPath.Text = serverState.GameFolder;            
 
             AllComponents.Restore();
 
-            if (File.Exists(stateData.StatePathName))
+            if (File.Exists(serverState.StatePathName))
             {
                 // We have a known game in progress. Load it:
-                stateData.Restore();
-                stateData.GameInProgress = true;
-                turnYearLabel.Text = stateData.TurnYear.ToString();
+                serverState.Restore();
+                serverState.GameInProgress = true;
+                turnYearLabel.Text = serverState.TurnYear.ToString();
                 // load the game settings also
                 GameSettings.Restore();
                 generateTurnMenuItem.Enabled = true;
-                turnYearLabel.Text = stateData.TurnYear.ToString();
-                OrderReader orderReader = new OrderReader(this.stateData);
+                turnYearLabel.Text = serverState.TurnYear.ToString();
+                OrderReader orderReader = new OrderReader(this.serverState);
                 orderReader.ReadOrders();
                 SetPlayerList();
                 Invalidate();
@@ -367,7 +367,7 @@ namespace Nova.WinForms.Console
             {
                 /// If nothing is defined then the only option is to enable the 
                 /// "New Game" button. 
-                stateData.GameInProgress = false;
+                serverState.GameInProgress = false;
                 this.newGameMenuItem.Enabled = true;
                 turnYearLabel.Text = "Create a new game.";
             }
@@ -411,12 +411,12 @@ namespace Nova.WinForms.Console
             bool allTurnedIn = true;
             playerList.Items.Clear();
 
-            if (stateData.GameInProgress)
+            if (serverState.GameInProgress)
             {
-                turnYearLabel.Text = stateData.TurnYear.ToString();
+                turnYearLabel.Text = serverState.TurnYear.ToString();
             }
 
-            foreach (PlayerSettings settings in stateData.AllPlayers)
+            foreach (PlayerSettings settings in serverState.AllPlayers)
             {
                 ListViewItem listItem = new ListViewItem();
 
@@ -430,7 +430,7 @@ namespace Nova.WinForms.Console
                 // and color code to highlight which races we are waiting on (if we wait).
 
                 EmpireData empireData;
-                stateData.AllEmpires.TryGetValue(settings.PlayerNumber, out empireData);
+                serverState.AllEmpires.TryGetValue(settings.PlayerNumber, out empireData);
 
                 ListViewItem.ListViewSubItem yearItem = new ListViewItem.ListViewSubItem();
                 if (empireData == null ||
@@ -445,7 +445,7 @@ namespace Nova.WinForms.Console
                 }
 
 
-                if (empireData == null || empireData.TurnYear != stateData.TurnYear || ! empireData.TurnSubmitted)
+                if (empireData == null || empireData.TurnYear != serverState.TurnYear || ! empireData.TurnSubmitted)
                 {
                     // FIXME (priority 3) - Display the turn year color coded - red for waiting, green for turned in.
                     yearItem.ForeColor = System.Drawing.Color.Red;
@@ -490,21 +490,21 @@ namespace Nova.WinForms.Console
             }
              */
 
-            if (!File.Exists(stateData.StatePathName))
+            if (!File.Exists(serverState.StatePathName))
             {
                 Report.Error("There is no game open. Open a current game or create a new game.");
                 return;
             }
-            TurnGenerator turn = new TurnGenerator(stateData);
+            TurnGenerator turn = new TurnGenerator(serverState);
             turn.Generate();
 
             newGameMenuItem.Enabled = false;
             generateTurnMenuItem.Enabled = false;
 
-            AddStatusMessage("New turn generated for year " + stateData.TurnYear);
-            turnYearLabel.Text = stateData.TurnYear.ToString();
+            AddStatusMessage("New turn generated for year " + serverState.TurnYear);
+            turnYearLabel.Text = serverState.TurnYear.ToString();
 
-            stateData.Save();
+            serverState.Save();
 
             SetPlayerList();
         }
@@ -518,7 +518,7 @@ namespace Nova.WinForms.Console
             {
                 // MessageBox.Show("Run AI");
 
-                foreach (PlayerSettings settings in stateData.AllPlayers)
+                foreach (PlayerSettings settings in serverState.AllPlayers)
                 {
                     if (settings.AiProgram == "Human")
                     {
@@ -526,15 +526,15 @@ namespace Nova.WinForms.Console
                     }
 
                     EmpireData empireData;
-                    stateData.AllEmpires.TryGetValue(settings.PlayerNumber, out empireData);
-                    if (empireData == null || empireData.TurnYear != stateData.TurnYear || ! empireData.TurnSubmitted)
+                    serverState.AllEmpires.TryGetValue(settings.PlayerNumber, out empireData);
+                    if (empireData == null || empireData.TurnYear != serverState.TurnYear || ! empireData.TurnSubmitted)
                     {
                         // TODO: Add support for running custom AIs based on settings.AiProgram.
                         CommandArguments args = new CommandArguments();
                         args.Add(CommandArguments.Option.AiSwitch);
                         args.Add(CommandArguments.Option.RaceName, settings.RaceName);
-                        args.Add(CommandArguments.Option.Turn, stateData.TurnYear);
-                        args.Add(CommandArguments.Option.IntelFileName, Path.Combine(stateData.GameFolder, settings.RaceName + Global.IntelExtension));
+                        args.Add(CommandArguments.Option.Turn, serverState.TurnYear);
+                        args.Add(CommandArguments.Option.IntelFileName, Path.Combine(serverState.GameFolder, settings.RaceName + Global.IntelExtension));
                         try
                         {
                             Process.Start(Assembly.GetExecutingAssembly().Location, args.ToString());

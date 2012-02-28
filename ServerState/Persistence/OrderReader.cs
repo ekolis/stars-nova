@@ -44,18 +44,18 @@ namespace Nova.Server
         private Dictionary<int, Stack<ICommand>> allCommands;
 #else
         // these are only needed for the old orders system
-        private readonly ServerState stateData;
-        private ServerState turnData;
+        private readonly ServerData serverState;
+        private ServerData turnData;
 #endif
-        public OrderReader(ServerState stateData)
+        public OrderReader(ServerData serverState)
         {
 #if USE_COMMAND_ORDERS
-            gameFolder = stateData.GameFolder;            
-            turnYear = stateData.TurnYear;
-            allEmpires = stateData.AllEmpires;
-            allCommands = stateData.AllCommands;
+            gameFolder = serverState.GameFolder;            
+            turnYear = serverState.TurnYear;
+            allEmpires = serverState.AllEmpires;
+            allCommands = serverState.AllCommands;
 #else
-            this.stateData = stateData;
+            this.serverState = serverState;
 #endif
         }
 
@@ -148,7 +148,7 @@ namespace Nova.Server
         /// <summary>
         ///  Read in all the race orders.
         /// </summary>
-        public ServerState ReadOrders()
+        public ServerData ReadOrders()
         {
             // We need a copy of the server state to operate on
             // since we want to return a tentative new state
@@ -156,9 +156,9 @@ namespace Nova.Server
             // or cheats. Instead of cloning we can use the already
             // existing serialization techniques; serialize the state
             // and then deserialize into a new objetct.
-            stateData.Save();
-            turnData = new ServerState();
-            turnData.StatePathName = stateData.StatePathName;
+            serverState.Save();
+            turnData = new ServerData();
+            turnData.StatePathName = serverState.StatePathName;
             turnData.Restore();
             
             turnData.AllTechLevels.Clear();
@@ -169,7 +169,7 @@ namespace Nova.Server
                 ReadPlayerTurn(empire);
             }
             
-            return stateData;
+            return serverState;
         }
 
         /// <summary>
@@ -182,7 +182,7 @@ namespace Nova.Server
             Orders playerOrders;
             try
             {
-                string fileName = Path.Combine(this.stateData.GameFolder, empire.Race.Name + Global.OrdersExtension);
+                string fileName = Path.Combine(this.serverState.GameFolder, empire.Race.Name + Global.OrdersExtension);
 
                 if (!File.Exists(fileName))
                 {
@@ -199,7 +199,7 @@ namespace Nova.Server
 
                     // check these orders are for the right turn
                     int ordersTurn = int.Parse(xmldoc.SelectSingleNode("ROOT/Orders/Turn").InnerText);
-                    if (ordersTurn != this.stateData.TurnYear) 
+                    if (ordersTurn != this.serverState.TurnYear) 
                     {
                         return;
                     }
@@ -221,40 +221,40 @@ namespace Nova.Server
                 // TODO (priority 5) - fine tune so the client can't modify things like a star's position, i.e. treat the data as orders only.
                 foreach (Design design in playerOrders.RaceDesigns.Values)
                 {
-                    this.stateData.AllDesigns[design.Key] = design;
+                    this.serverState.AllDesigns[design.Key] = design;
                 }
 
                 foreach (int fleetKey in playerOrders.DeletedFleets)
                 {
-                    this.stateData.AllFleets.Remove(fleetKey);
+                    this.serverState.AllFleets.Remove(fleetKey);
                 }
 
                 foreach (int designId in playerOrders.DeletedDesigns)
                 {
-                    this.stateData.AllDesigns.Remove(designId);
+                    this.serverState.AllDesigns.Remove(designId);
                 }
 
                 foreach (Fleet fleet in playerOrders.EmpireStatus.OwnedFleets.Values)
                 {
-                    stateData.AllEmpires[empire.Id].OwnedFleets[fleet.Key] = fleet;
+                    serverState.AllEmpires[empire.Id].OwnedFleets[fleet.Key] = fleet;
                     if (fleet.Owner == empire.Id)
                     {
-                        stateData.AllFleets[fleet.Key] = fleet; // TODO (priority 6) - verify validity of orders.
+                        serverState.AllFleets[fleet.Key] = fleet; // TODO (priority 6) - verify validity of orders.
                     }
                 }
 
                 // load the orders for each star. 
                 foreach (Star star in playerOrders.EmpireStatus.OwnedStars.Values)
                 {
-                    stateData.AllEmpires[empire.Id].OwnedStars[star.Name] = star;
+                    serverState.AllEmpires[empire.Id].OwnedStars[star.Name] = star;
                     if (star.Owner == empire.Id)
                     {
-                        stateData.AllStars[star.Name] = star;
+                        serverState.AllStars[star.Name] = star;
                     }
                 }
 
-                this.stateData.AllEmpires[empire.Id] = playerOrders.EmpireStatus;
-                this.stateData.AllTechLevels[empire.Id] = playerOrders.TechLevel;
+                this.serverState.AllEmpires[empire.Id] = playerOrders.EmpireStatus;
+                this.serverState.AllTechLevels[empire.Id] = playerOrders.TechLevel;
         }
 
         /// <summary>
@@ -274,7 +274,7 @@ namespace Nova.Server
             {
                 if (fleet.InOrbit != null)
                 {
-                    fleet.InOrbit = stateData.AllStars[fleet.InOrbit.Name];
+                    fleet.InOrbit = serverState.AllStars[fleet.InOrbit.Name];
                 }
                 // prevent attempting to link enemy fleets to own designs (crash). TODO (priority 4) - decide if they should be linked to something else - Dan 10/7/11.
                 if (fleet.Owner == playerOrders.EmpireStatus.Id)
@@ -292,7 +292,7 @@ namespace Nova.Server
             {
                 if (star.ThisRace != null)
                 {
-                    star.ThisRace = stateData.AllRaces[star.ThisRace.Name];
+                    star.ThisRace = serverState.AllRaces[star.ThisRace.Name];
                 }
                 if (star.Starbase != null)
                 {

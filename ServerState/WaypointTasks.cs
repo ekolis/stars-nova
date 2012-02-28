@@ -32,11 +32,11 @@ namespace Nova.Server
     /// </summary>
     public class WaypointTasks
     {
-        private ServerState stateData;
+        private ServerData serverState;
         
-        public WaypointTasks(ServerState serverState)
+        public WaypointTasks(ServerData serverState)
         {
-            this.stateData = serverState;
+            this.serverState = serverState;
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Nova.Server
             }
             else if (waypoint.Task ==  WaypointTask.Scrap)
             {
-                Scrap(fleet, stateData.AllStars[fleet.InOrbit.Name], false);
+                Scrap(fleet, serverState.AllStars[fleet.InOrbit.Name], false);
             }
             else if (waypoint.Task == WaypointTask.UnloadCargo)
             {
@@ -81,13 +81,13 @@ namespace Nova.Server
             message.Text = fleet.Name
                          + " attempted to colonise " + waypoint.Destination;
 
-            if (!stateData.AllStars.ContainsKey(waypoint.Destination))
+            if (!serverState.AllStars.ContainsKey(waypoint.Destination))
             {
                 message.Text += " but " + waypoint.Destination + " is not a star.";
             }
             else
             {
-                Star target = stateData.AllStars[waypoint.Destination];
+                Star target = serverState.AllStars[waypoint.Destination];
 
                 if (target.Colonists != 0)
                 {
@@ -105,7 +105,7 @@ namespace Nova.Server
                 {
                     message.Text = "You have colonised " + waypoint.Destination;
                     waypoint.Task =  WaypointTask.None;
-                    Star star = stateData.AllStars[waypoint.Destination];
+                    Star star = serverState.AllStars[waypoint.Destination];
 
                     star.ResourcesOnHand.Ironium = fleet.Cargo.Ironium;
                     star.ResourcesOnHand.Boranium = fleet.Cargo.Boranium;
@@ -117,7 +117,7 @@ namespace Nova.Server
                 }
             }
 
-            stateData.AllMessages.Add(message);
+            serverState.AllMessages.Add(message);
         }
 
 
@@ -135,16 +135,16 @@ namespace Nova.Server
             {
                 message.Text = fleet.Name
                    + " attempted to unload cargo while not in orbit.";
-                stateData.AllMessages.Add(message);
+                serverState.AllMessages.Add(message);
                 return;
             }
 
-            Star targetStar = stateData.AllStars[waypoint.Destination];
+            Star targetStar = serverState.AllStars[waypoint.Destination];
 
             message.Text = "Fleet " + fleet.Name + " has unloaded its cargo at "
                           + targetStar.Name;
 
-            stateData.AllMessages.Add(message);
+            serverState.AllMessages.Add(message);
 
             waypoint.Task =  WaypointTask.None;
 
@@ -209,7 +209,7 @@ namespace Nova.Server
         public void Scrap(Fleet fleet, Star star, bool colonise)
         {
             double amount = 0;
-            EmpireData empire = stateData.AllEmpires[fleet.Owner];
+            EmpireData empire = serverState.AllEmpires[fleet.Owner];
             double resources = 0;
 
             if (star != null)
@@ -265,7 +265,7 @@ namespace Nova.Server
             Message message = new Message();
             message.Audience = fleet.Owner;
             message.Text = fleet.Name + " has been scrapped";
-            stateData.AllMessages.Add(message);
+            serverState.AllMessages.Add(message);
         }
         
 
@@ -285,7 +285,7 @@ namespace Nova.Server
             // certaintolerance in distance because it is unlikely that the
             // waypoint has been set exactly right.
 
-            foreach (Minefield minefield in stateData.AllMinefields.Values)
+            foreach (Minefield minefield in serverState.AllMinefields.Values)
             {
                 if (PointUtilities.IsNear(fleet.Position, minefield.Position))
                 {
@@ -305,7 +305,7 @@ namespace Nova.Server
             newField.Owner = fleet.Owner;
             newField.NumberOfMines = fleet.NumberOfMines;
 
-            stateData.AllMinefields[newField.Key] = newField;
+            serverState.AllMinefields[newField.Key] = newField;
         }
         
         
@@ -323,14 +323,14 @@ namespace Nova.Server
                 message.Audience = fleet.Owner;
                 message.Text = "Fleet " + fleet.Name + " has waypoint orders to "
                    + "invade but the waypoint is not a planet";
-                stateData.AllMessages.Add(message);
+                serverState.AllMessages.Add(message);
                 return;
             }
 
             // and that we have troops.
 
             int troops = fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
-            Star star = stateData.AllStars[fleet.InOrbit.Name];
+            Star star = serverState.AllStars[fleet.InOrbit.Name];
 
             if (troops == 0)
             {
@@ -338,7 +338,7 @@ namespace Nova.Server
                 message.Audience = fleet.Owner;
                 message.Text = "Fleet " + fleet.Name + " has waypoint orders to "
                    + "invade " + star.Name + " but there are no troops on board";
-                stateData.AllMessages.Add(message);
+                serverState.AllMessages.Add(message);
                 return;
             }
 
@@ -353,7 +353,7 @@ namespace Nova.Server
                 message.Text = "Fleet " + fleet.Name + " has waypoint orders to " +
                                "invade " + star.Name +
                                " but it is already ours. Troops have joined the local populace.";
-                stateData.AllMessages.Add(message);
+                serverState.AllMessages.Add(message);
                 return;
             }
             if (star.Owner == Global.Nobody)
@@ -364,10 +364,10 @@ namespace Nova.Server
                 message.Text = "Fleet " + fleet.Name + " has waypoint orders to " +
                                "invade " + star.Name +
                                " but it is not colonised. You must send a ship with a colony module and orders to colonise to take this system.";
-                stateData.AllMessages.Add(message);
+                serverState.AllMessages.Add(message);
                 return;
             }
-            PlayerRelation relation = stateData.AllEmpires[fleet.Owner].EmpireReports[star.Owner].Relation;
+            PlayerRelation relation = serverState.AllEmpires[fleet.Owner].EmpireReports[star.Owner].Relation;
             switch (relation)
             {
                 case PlayerRelation.Friend:
@@ -378,7 +378,7 @@ namespace Nova.Server
                         message.Text = "Fleet " + fleet.Name + " has waypoint orders to " +
                                        "invade " + star.Name +
                                        " but the " + star.Owner + " are not our enemies. Order has been cancelled.";
-                        stateData.AllMessages.Add(message);
+                        serverState.AllMessages.Add(message);
                         return;
                     }
                 case PlayerRelation.Enemy:
@@ -402,7 +402,7 @@ namespace Nova.Server
                 message.Text = "Fleet " + fleet.Name + " has waypoint orders to " +
                                "invade " + star.Name +
                                " but the starbase at " + star.Name + " would kill all invading troops. Order has been cancelled.";
-                stateData.AllMessages.Add(message);
+                serverState.AllMessages.Add(message);
                 return;
             }
 
@@ -421,13 +421,13 @@ namespace Nova.Server
 
             // Apply defender and attacker bonuses
             double attackerBonus = 1.1;
-            if (stateData.AllEmpires[fleet.Owner].Race.HasTrait("WM"))
+            if (serverState.AllEmpires[fleet.Owner].Race.HasTrait("WM"))
             {
                 attackerBonus *= 1.5;
             }
 
             double defenderBonus = 1.0;
-            if (stateData.AllEmpires[fleet.Owner].Race.HasTrait("IS"))
+            if (serverState.AllEmpires[fleet.Owner].Race.HasTrait("IS"))
             {
                 defenderBonus *= 2.0;
             }
@@ -452,10 +452,10 @@ namespace Nova.Server
                             " colonists were killed in the attack.";
 
                 wolfMessage.Text = messageText;
-                stateData.AllMessages.Add(wolfMessage);
+                serverState.AllMessages.Add(wolfMessage);
 
                 lambMessage.Text = messageText;
-                stateData.AllMessages.Add(lambMessage);
+                serverState.AllMessages.Add(lambMessage);
             }
             else if (survivorStrength < 0)
             {
@@ -466,17 +466,17 @@ namespace Nova.Server
                 int attackersKilled = troops - remainingAttackers;
                 star.Colonists = remainingAttackers;
                 // star.Owner = fleet.Owner; // FIXME (priority 4) - This doesn't work. Is star a copy?
-                stateData.AllStars[star.Name].Owner = fleet.Owner;
+                serverState.AllStars[star.Name].Owner = fleet.Owner;
 
                 messageText += "The defenders were slain but "
                             + attackersKilled +
                             " troops were killed in the attack.";
 
                 wolfMessage.Text = messageText;
-                stateData.AllMessages.Add(wolfMessage);
+                serverState.AllMessages.Add(wolfMessage);
 
                 lambMessage.Text = messageText;
-                stateData.AllMessages.Add(lambMessage);
+                serverState.AllMessages.Add(lambMessage);
             }
             else
             {
@@ -484,10 +484,10 @@ namespace Nova.Server
                 messageText += "Both sides fought to the last and none were left to claim the planet!";
 
                 wolfMessage.Text = messageText;
-                stateData.AllMessages.Add(wolfMessage);
+                serverState.AllMessages.Add(wolfMessage);
 
                 lambMessage.Text = messageText;
-                stateData.AllMessages.Add(lambMessage);
+                serverState.AllMessages.Add(lambMessage);
 
                 // clear out the colony
                 star.ManufacturingQueue.Queue.Clear();

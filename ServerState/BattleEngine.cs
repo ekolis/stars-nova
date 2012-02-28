@@ -78,7 +78,7 @@ namespace Nova.Server
         };
 
 
-        private ServerState stateData;
+        private ServerData serverState;
         private BattleReport battle;
 
         /// <summary>
@@ -97,9 +97,9 @@ namespace Nova.Server
         /// <param name="battleReport">
         /// A <see cref="BattleReport"/> onto which to write the battle results.
         /// </param>
-        public BattleEngine(ServerState serverState, BattleReport battleReport)
+        public BattleEngine(ServerData serverState, BattleReport battleReport)
         {
-            this.stateData = serverState;
+            this.serverState = serverState;
             this.battle = battleReport;
         }
 
@@ -180,7 +180,7 @@ namespace Nova.Server
                 DoBattle(zoneStacks);
                 ReportLosses();
 
-                stateData.AllBattles.Add(battle);
+                serverState.AllBattles.Add(battle);
             }
         }
 
@@ -195,7 +195,7 @@ namespace Nova.Server
             List<List<Fleet>> allFleetPositions = new List<List<Fleet>>();
             Dictionary<long, bool> fleetDone = new Dictionary<long, bool>();
             
-            foreach (Fleet fleetA in stateData.AllFleets.Values)
+            foreach (Fleet fleetA in serverState.AllFleets.Values)
             {
                 if (fleetDone.ContainsKey(fleetA.Key))
                 {
@@ -204,7 +204,7 @@ namespace Nova.Server
 
                 List<Fleet> coLocatedFleets = new List<Fleet>();
 
-                foreach (Fleet fleetB in stateData.AllFleets.Values)
+                foreach (Fleet fleetB in serverState.AllFleets.Values)
                 {
                     if (fleetB.Position != fleetA.Position)
                     {
@@ -466,7 +466,7 @@ namespace Nova.Server
                 return false;
             }
 
-            EmpireData wolfData = stateData.AllEmpires[wolf.Owner];
+            EmpireData wolfData = serverState.AllEmpires[wolf.Owner];
             PlayerRelation lambRelation = wolfData.EmpireReports[lamb.Owner].Relation;
 
             BattlePlan battlePlan = wolfData.BattlePlans[wolf.BattlePlan];
@@ -748,7 +748,7 @@ namespace Nova.Server
 
             battle.Steps.Add(destroy);
 
-            foreach (Fleet fleet in stateData.AllFleets.Values)
+            foreach (Fleet fleet in serverState.AllFleets.Values)
             {
                 if (fleet.FleetShips.Contains(target))
                 {
@@ -948,7 +948,7 @@ namespace Nova.Server
                        " of your ships were destroyed";
                 }
 
-                stateData.AllMessages.Add(message);
+                serverState.AllMessages.Add(message);
             }
         }
     }

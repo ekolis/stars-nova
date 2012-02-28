@@ -32,17 +32,17 @@ namespace Nova.Server.TurnSteps
     /// </summary>
     public class StarUpdateStep : ITurnStep
     {
-        private ServerState stateData;
+        private ServerData serverState;
         
         public StarUpdateStep()
         {
         }
         
-        public void Process(ServerState stateData)
+        public void Process(ServerData serverState)
         {
-            this.stateData = stateData;
+            this.serverState = serverState;
             
-            foreach (Star star in stateData.AllStars.Values)
+            foreach (Star star in serverState.AllStars.Values)
             {                
                 if (star.Owner == Global.Nobody || star.Colonists == 0)
                 {
@@ -55,13 +55,13 @@ namespace Nova.Server.TurnSteps
                 // Note that this sets the allocation for research to zero for all stars
                 // which have "contribute only leftover resources to research". This
                 // makes those stars be handled after manufacturing.
-                star.UpdateResearch(stateData.AllEmpires[star.Owner].ResearchBudget);
+                star.UpdateResearch(serverState.AllEmpires[star.Owner].ResearchBudget);
                 star.UpdateResources();
                 
                 ContributeAllocatedResearch(star);
                 
                 int initialPopulation = star.Colonists;
-                star.UpdatePopulation(stateData.AllEmpires[star.Owner].Race);
+                star.UpdatePopulation(serverState.AllEmpires[star.Owner].Race);
                 int finalPopulation = star.Colonists;
     
                 if (finalPopulation < initialPopulation)
@@ -72,12 +72,12 @@ namespace Nova.Server.TurnSteps
                     message.Text = died.ToString(System.Globalization.CultureInfo.InvariantCulture)
                        + " of your colonists have been killed"
                        + " by the environment on " + star.Name;
-                    stateData.AllMessages.Add(message);
+                    serverState.AllMessages.Add(message);
                 }
                 
                 ContributeLeftoverResearch(star);
                 
-                star.UpdateResearch(stateData.AllEmpires[star.Owner].ResearchBudget);
+                star.UpdateResearch(serverState.AllEmpires[star.Owner].ResearchBudget);
                 star.UpdateResources();
             }
         }
@@ -97,7 +97,7 @@ namespace Nova.Server.TurnSteps
                 return;
             }
 
-            EmpireData empire = stateData.AllEmpires[star.Owner];
+            EmpireData empire = serverState.AllEmpires[star.Owner];
 
             TechLevel targetAreas = empire.ResearchTopics;
             TechLevel.ResearchField targetArea = TechLevel.ResearchField.Energy; // default to Energy.
@@ -139,7 +139,7 @@ namespace Nova.Server.TurnSteps
                 return;
             }
             
-            EmpireData empire = stateData.AllEmpires[star.Owner];
+            EmpireData empire = serverState.AllEmpires[star.Owner];
             
             TechLevel targetAreas = empire.ResearchTopics;
             TechLevel.ResearchField targetArea = TechLevel.ResearchField.Energy; // default to Energy.
@@ -190,7 +190,7 @@ namespace Nova.Server.TurnSteps
                 "TechAdvance",
                 null);
             
-            stateData.AllMessages.Add(techAdvanceMessage);
+            serverState.AllMessages.Add(techAdvanceMessage);
 
             Dictionary<string, Component> allComponents = AllComponents.Data.Components;
 
@@ -226,7 +226,7 @@ namespace Nova.Server.TurnSteps
                            "You now have available the " + component.Name + " " + component.Type + " component",
                            null);
                     }
-                    stateData.AllMessages.Add(newComponentMessage);
+                    serverState.AllMessages.Add(newComponentMessage);
                 }
             }            
         }

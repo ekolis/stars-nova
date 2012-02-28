@@ -30,11 +30,11 @@ namespace Nova.Server
     /// </summary>
     public class Scores
     {
-        private ServerState stateData;
+        private ServerData serverState;
   
-        public Scores(ServerState serverState)
+        public Scores(ServerData serverState)
         {
-            this.stateData = serverState;
+            this.serverState = serverState;
         }
         
         /// <summary>
@@ -44,7 +44,7 @@ namespace Nova.Server
         {
             List<ScoreRecord> scores = new List<ScoreRecord>();
 
-            foreach (EmpireData empire in stateData.AllEmpires.Values)
+            foreach (EmpireData empire in serverState.AllEmpires.Values)
             {
                 scores.Add(GetScoreRecord(empire.Id));
             }
@@ -71,7 +71,7 @@ namespace Nova.Server
             int starBases = 0;
             int resources = 0;
 
-            foreach (Star star in stateData.AllStars.Values)
+            foreach (Star star in serverState.AllStars.Values)
             {
                 if (star.Owner == empireId)
                 {
@@ -101,7 +101,7 @@ namespace Nova.Server
             int capitalShips = 0;
 
 
-            foreach (Fleet fleet in stateData.AllFleets.Values)
+            foreach (Fleet fleet in serverState.AllFleets.Values)
             {
                 if (fleet.Owner == empireId)
                 {
@@ -143,9 +143,9 @@ namespace Nova.Server
             // ----------------------------------------------------------------------------
 
             score.EmpireId = empireId;
-            if (stateData.AllTechLevels.ContainsKey(empireId))
+            if (serverState.AllTechLevels.ContainsKey(empireId))
             {
-                score.TechLevel = stateData.AllTechLevels[empireId];
+                score.TechLevel = serverState.AllTechLevels[empireId];
 
                 if (score.TechLevel < 4)
                 {

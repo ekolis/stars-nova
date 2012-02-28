@@ -33,11 +33,11 @@ namespace Nova.Server
     public class Manufacture
     {
         private List<ProductionItem> deletions = new List<ProductionItem>();
-        private ServerState stateData;
+        private ServerData serverState;
   
-        public Manufacture(ServerState serverState)
+        public Manufacture(ServerData serverState)
         {
-            this.stateData = serverState;
+            this.serverState = serverState;
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Nova.Server
         /// <returns>true if the star is unable to finish productio of this item.</returns>
         private bool BuildDesign(ProductionItem productionItem, Star star)
         {
-            Design design = stateData.AllDesigns[productionItem.Key];
+            Design design = serverState.AllDesigns[productionItem.Key];
             Nova.Common.Resources needed = productionItem.BuildState;
 
             // Try and build as many of this item as we can
@@ -154,7 +154,7 @@ namespace Nova.Server
                         {
                             if (star.Starbase != null)
                             {
-                                stateData.AllFleets.Remove(star.Starbase.Key);
+                                serverState.AllFleets.Remove(star.Starbase.Key);
                                 star.Starbase = null;
                             }
 
@@ -245,7 +245,7 @@ namespace Nova.Server
         /// <param name="star">The star system producing the ship.</param>
         private void CreateShip(ShipDesign design, Star star, int countToBuild)
         {
-            EmpireData empire = stateData.AllEmpires[star.Owner];
+            EmpireData empire = serverState.AllEmpires[star.Owner];
 
             Fleet fleet = null;
             for (int i = 0; i < countToBuild; ++i)
@@ -269,11 +269,11 @@ namespace Nova.Server
             Message message = new Message();
             message.Audience = star.Owner;
             message.Text = star.Name + " has produced " + countToBuild + " new " + design.Name;
-            stateData.AllMessages.Add(message);
+            serverState.AllMessages.Add(message);
 
             
             // Add the fleet to the state data so it can be tracked.
-            stateData.AllFleets[fleet.Key] = fleet;          
+            serverState.AllFleets[fleet.Key] = fleet;          
 
             if (design.Type == ItemType.Starbase)
             {

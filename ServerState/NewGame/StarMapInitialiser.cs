@@ -35,13 +35,13 @@ namespace Nova.Server.NewGame
     /// </summary>
     public class StarMapInitialiser
     {
-        private ServerState stateData;
+        private ServerData serverState;
         private StarMapGenerator map;
         private NameGenerator nameGenerator = new NameGenerator();
         
-        public StarMapInitialiser(ServerState serverState)
+        public StarMapInitialiser(ServerData serverState)
         {
-            this.stateData = serverState;
+            this.serverState = serverState;
             this.map = new StarMapGenerator(
                 GameSettings.Data.MapWidth,
                 GameSettings.Data.MapHeight,
@@ -63,7 +63,7 @@ namespace Nova.Server.NewGame
         /// </remarks>
         public void GenerateStars()
         {
-            map.Generate(stateData.AllPlayers.Count);
+            map.Generate(serverState.AllPlayers.Count);
 
             Random random = new Random(); // NB: do this outside the loop so that random is seeded only once.
             foreach (int[] starPosition in map.Stars)
@@ -89,7 +89,7 @@ namespace Nova.Server.NewGame
                 star.OriginalGravity = star.Gravity;
                 star.OriginalTemperature = star.Temperature;
 
-                stateData.AllStars[star.Name] = star;
+                serverState.AllStars[star.Name] = star;
             }
         }
         
@@ -100,7 +100,7 @@ namespace Nova.Server.NewGame
         /// </summary>
         public void GeneratePlayerAssets()
         {
-            foreach (EmpireData empire in stateData.AllEmpires.Values)
+            foreach (EmpireData empire in serverState.AllEmpires.Values)
             {
                 string player = empire.Race.Name;
 
@@ -123,9 +123,9 @@ namespace Nova.Server.NewGame
                 defense.Name = "Defenses";
                 defense.Type = ItemType.Defenses;
                 
-                stateData.AllDesigns[mine.Key] = mine;
-                stateData.AllDesigns[factory.Key] = factory;
-                stateData.AllDesigns[defense.Key] = defense;
+                serverState.AllDesigns[mine.Key] = mine;
+                serverState.AllDesigns[factory.Key] = factory;
+                serverState.AllDesigns[defense.Key] = defense;
                 PrepareDesigns(empire, player);
                 InitialiseHomeStar(empire, player);
             }
@@ -134,7 +134,7 @@ namespace Nova.Server.NewGame
             welcome.Text = "Your race is ready to explore the universe.";
             welcome.Audience = Global.AllEmpires;
 
-            stateData.AllMessages.Add(welcome);
+            serverState.AllMessages.Add(welcome);
         }
   
         
@@ -272,9 +272,9 @@ namespace Nova.Server.NewGame
 
             starbase.Update();
 
-            stateData.AllDesigns[starbase.Key] = starbase;
-            stateData.AllDesigns[cs.Key] = cs;
-            stateData.AllDesigns[scout.Key] = scout;
+            serverState.AllDesigns[starbase.Key] = starbase;
+            serverState.AllDesigns[cs.Key] = cs;
+            serverState.AllDesigns[scout.Key] = scout;
             /*
             switch (race.Traits.Primary.Code)
             {
@@ -350,7 +350,7 @@ namespace Nova.Server.NewGame
                 AllocateHomeStarResources(star, empire);
                 AllocateHomeStarOrbitalInstallations(star, empire, player);
                 
-                stateData.AllStars[star.Name] = star;                
+                serverState.AllStars[star.Name] = star;                
                 
                 return;
             }
@@ -370,7 +370,7 @@ namespace Nova.Server.NewGame
         private void AllocateHomeStarOrbitalInstallations(Star star, EmpireData empire, string player)
         {
             ShipDesign colonyShipDesign = null;
-            foreach (Design design in stateData.AllDesigns.Values)
+            foreach (Design design in serverState.AllDesigns.Values)
             {
                 if (design.Owner == empire.Id && design.Name == "Santa Maria")
                 {
@@ -383,7 +383,7 @@ namespace Nova.Server.NewGame
                 Ship cs = new Ship(colonyShipDesign, empire.GetNextShipKey());
                 Fleet fleet1 = new Fleet(cs, star, empire.GetNextFleetKey());                               
                 fleet1.Name = colonyShipDesign.Name + " #1";
-                stateData.AllFleets[fleet1.Key] = fleet1;
+                serverState.AllFleets[fleet1.Key] = fleet1;
             }
             else
             {
@@ -392,12 +392,12 @@ namespace Nova.Server.NewGame
                     Ship cs = new Ship(colonyShipDesign, empire.GetNextShipKey());
                     Fleet fleet = new Fleet(cs, star, empire.GetNextFleetKey());                    
                     fleet.Name = String.Format("{0} #{1}", colonyShipDesign.Name, i);                    
-                    stateData.AllFleets[fleet.Key] = fleet;
+                    serverState.AllFleets[fleet.Key] = fleet;
                 }
             }
    
             ShipDesign scoutDesign = null;
-            foreach (Design design in stateData.AllDesigns.Values)
+            foreach (Design design in serverState.AllDesigns.Values)
             {
                 if (design.Owner == empire.Id && design.Name == "Scout")
                 {
@@ -408,10 +408,10 @@ namespace Nova.Server.NewGame
             Ship scout = new Ship(scoutDesign, empire.GetNextShipKey());
             Fleet scoutFleet = new Fleet(scout, star, empire.GetNextFleetKey());
             scoutFleet.Name = "Scout #1";       
-            stateData.AllFleets[scoutFleet.Key] = scoutFleet;
+            serverState.AllFleets[scoutFleet.Key] = scoutFleet;
  
             ShipDesign starbaseDesign = null;
-            foreach (Design design in stateData.AllDesigns.Values)
+            foreach (Design design in serverState.AllDesigns.Values)
             {
                 if (design.Owner == empire.Id && design.Name == "Starbase")
                 {
@@ -422,7 +422,7 @@ namespace Nova.Server.NewGame
             Ship starbase = new Ship(starbaseDesign, empire.GetNextShipKey());
             Fleet starbaseFleet = new Fleet(starbase, star, empire.GetNextFleetKey());            
             starbaseFleet.Name = star.Name + " Starbase";
-            stateData.AllFleets[starbaseFleet.Key] = starbaseFleet;
+            serverState.AllFleets[starbaseFleet.Key] = starbaseFleet;
             star.Starbase = starbaseFleet;
         }
   
