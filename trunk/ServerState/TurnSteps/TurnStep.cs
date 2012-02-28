@@ -31,7 +31,7 @@ namespace Nova.Server.TurnSteps
         /// <summary>
         /// Executes this turnstep.
         /// </summary>
-        void Process(ServerState stateData);
+        void Process(ServerData serverState);
     }
 }
 

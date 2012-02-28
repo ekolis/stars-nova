@@ -39,13 +39,13 @@ namespace Nova.Server
     /// </summary>
     public class IntelWriter
     {
-        private readonly ServerState StateData;
+        private readonly ServerData serverState;
         private readonly Scores Scores;
         private Intel turnData;
         
-        public IntelWriter(ServerState serverState, Scores scores)
+        public IntelWriter(ServerData serverState, Scores scores)
         {
-            this.StateData = serverState;
+            this.serverState = serverState;
             this.Scores = scores;
         }
 
@@ -62,15 +62,15 @@ namespace Nova.Server
         /// </remarks>
         public void WriteIntel()
         {
-            foreach (EmpireData empire in StateData.AllEmpires.Values)
+            foreach (EmpireData empire in serverState.AllEmpires.Values)
             {
                 turnData = new Intel();
-                turnData.AllMinefields = StateData.AllMinefields;
-                turnData.AllDesigns = StateData.AllDesigns;
-                turnData.EmpireState = StateData.AllEmpires[empire.Id];
+                turnData.AllMinefields = serverState.AllMinefields;
+                turnData.AllDesigns = serverState.AllDesigns;
+                turnData.EmpireState = serverState.AllEmpires[empire.Id];
                 
                 // Copy any messages
-                foreach (Message message in StateData.AllMessages)
+                foreach (Message message in serverState.AllMessages)
                 {
                     if (message.Audience == Global.AllEmpires || message.Audience == empire.Id)
                     {
@@ -79,7 +79,7 @@ namespace Nova.Server
                 }
 
                 // Copy any battle reports
-                foreach (BattleReport report in StateData.AllBattles)
+                foreach (BattleReport report in serverState.AllBattles)
                 {
                     turnData.Battles.Add(report);
                 }
@@ -87,7 +87,7 @@ namespace Nova.Server
                 // Don't try and generate a scores report on the very start of a new
                 // game.
 
-                if (StateData.TurnYear > Global.StartingYear)
+                if (serverState.TurnYear > Global.StartingYear)
                 {
                     turnData.AllScores = Scores.GetScores();
                 }
@@ -96,13 +96,13 @@ namespace Nova.Server
                     turnData.AllScores = new List<ScoreRecord>();
                 }
 
-                StateData.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
-                if (StateData.GameFolder == null)
+                serverState.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
+                if (serverState.GameFolder == null)
                 {
                     Report.Error("Intel Writer: WriteIntel() - Unable to create file \"Nova.intel\".");
                     return;
                 }
-                string turnFileName = Path.Combine(StateData.GameFolder, empire.Race.Name + Global.IntelExtension);
+                string turnFileName = Path.Combine(serverState.GameFolder, empire.Race.Name + Global.IntelExtension);
 
                 // Write out the intel file, as xml, but also handle the case of it being locked (in use).
                 bool locked = false;

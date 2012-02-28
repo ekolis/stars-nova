@@ -53,25 +53,25 @@ namespace Nova.Tests.IntegrationTests
             const int NUM_ATTEMPTS = 1; 
 
             // Generate the map
-            ServerState stateData = new ServerState();
+            ServerData serverState = new ServerData();
             try
             {
                 // some inital data
                 
 
-                stateData.AllRaces.Clear();
+                serverState.AllRaces.Clear();
                 Race race = new Race();
 
                 for (int i = 0; i < 7; i++)
                 {
                     race.Name = "foo" + i;
-                    stateData.AllRaces.Add(race.Name, race);
-                    stateData.AllPlayers.Add(new PlayerSettings());
+                    serverState.AllRaces.Add(race.Name, race);
+                    serverState.AllPlayers.Add(new PlayerSettings());
                 }      
 
                 for (int attempts = 0; attempts < NUM_ATTEMPTS; ++attempts)
                 {
-                    stateData.AllStars.Clear();
+                    serverState.AllStars.Clear();
 
                     // make a map
                     GameSettings.Data.MapHeight = 800;
@@ -80,7 +80,7 @@ namespace Nova.Tests.IntegrationTests
                     GameSettings.Data.StarSeparation = 10;
                     GameSettings.Data.StarUniformity = 60;
      
-                    StarMapInitialiser starMapInitializer = new StarMapInitialiser(stateData);
+                    StarMapInitialiser starMapInitializer = new StarMapInitialiser(serverState);
                     
                     starMapInitializer.GenerateStars();
                     starMapInitializer.GeneratePlayerAssets();
@@ -89,7 +89,7 @@ namespace Nova.Tests.IntegrationTests
             catch
             {
                 // fail on any exception
-                System.Windows.Forms.MessageBox.Show("Number of stars: " + stateData.AllStars.Count); // keep this line for debugging - Dan 01 Jul 11
+                System.Windows.Forms.MessageBox.Show("Number of stars: " + serverState.AllStars.Count); // keep this line for debugging - Dan 01 Jul 11
                 Assert.Fail();
             }
         }

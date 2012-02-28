@@ -32,13 +32,13 @@ namespace Nova.Server
     /// </summary>
     public class VictoryCheck
     {
-        private readonly ServerState StateData;
+        private readonly ServerData serverState;
         private readonly Scores Scores;
         private bool messageSent;
         
-        public VictoryCheck(ServerState serverState, Scores scores)
+        public VictoryCheck(ServerData serverState, Scores scores)
         {
-            this.StateData = serverState;
+            this.serverState = serverState;
             this.Scores = scores;
         }
 
@@ -49,7 +49,7 @@ namespace Nova.Server
         {
             // check for last man standing - doesn't matter the year
             List<ushort> remainingEmpires = new List<ushort>();
-            foreach (Star star in StateData.AllStars.Values)
+            foreach (Star star in serverState.AllStars.Values)
             {
                 if (star.Owner == Global.Nobody)
                 {
@@ -63,24 +63,24 @@ namespace Nova.Server
 
             if (remainingEmpires.Count == 1)
             {
-                EmpireData empire = StateData.AllEmpires[remainingEmpires[0]];
+                EmpireData empire = serverState.AllEmpires[remainingEmpires[0]];
                 Message message = new Message();
                 message.Audience = Global.AllEmpires;
                 message.Text = "The " + empire.Race.PluralName +
                                    " have won the game";
-                StateData.AllMessages.Add(message);
+                serverState.AllMessages.Add(message);
                 return;
             }
             else
             {
-                int gameTime = StateData.TurnYear - Global.StartingYear;
+                int gameTime = serverState.TurnYear - Global.StartingYear;
 
                 if (gameTime < GameSettings.Data.MinimumGameTime)
                 {
                     return;
                 }
 
-                foreach (EmpireData empire in StateData.AllEmpires.Values)
+                foreach (EmpireData empire in serverState.AllEmpires.Values)
                 {
                     int targetsMet = 0;
 
@@ -100,7 +100,7 @@ namespace Nova.Server
                         message.Audience = Global.AllEmpires;
                         message.Text = "The " + empire.Race.PluralName +
                                            " have won the game";
-                        StateData.AllMessages.Add(message);
+                        serverState.AllMessages.Add(message);
                         return;
                     }
                 }
@@ -123,7 +123,7 @@ namespace Nova.Server
 
             int starsOwned = 0;
 
-            foreach (Star star in StateData.AllStars.Values)
+            foreach (Star star in serverState.AllStars.Values)
             {
                 if (star.Owner == empireId)
                 {
@@ -132,7 +132,7 @@ namespace Nova.Server
             }
 
             int percentage = (starsOwned * 100)
-                           / StateData.AllStars.Count;
+                           / serverState.AllStars.Count;
 
             if (percentage >= GameSettings.Data.PlanetsOwned.NumericValue)
             {
@@ -169,7 +169,7 @@ namespace Nova.Server
             }
 
             int highestFields = 0;
-            TechLevel raceTechLevels = StateData.AllEmpires[empireId].ResearchLevels;
+            TechLevel raceTechLevels = serverState.AllEmpires[empireId].ResearchLevels;
 
             foreach (int level in raceTechLevels)
             {
@@ -233,7 +233,7 @@ namespace Nova.Server
 
             int capacity = 0;
 
-            foreach (Star star in StateData.AllStars.Values)
+            foreach (Star star in serverState.AllStars.Values)
             {
                 if (star.Owner == empireId)
                 {

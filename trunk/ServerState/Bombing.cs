@@ -33,11 +33,11 @@ namespace Nova.Server
     /// </summary>
     public class Bombing
     {
-        private ServerState stateData;
+        private ServerData serverState;
         
-        public Bombing(ServerState serverState)
+        public Bombing(ServerData serverState)
         {
-            this.stateData = serverState;
+            this.serverState = serverState;
         }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace Nova.Server
 
             // See if this is an enemy planet. If not, leave it alone.
 
-            if (!stateData.AllEmpires[fleet.Owner].IsEnemy(star.Owner))
+            if (!serverState.AllEmpires[fleet.Owner].IsEnemy(star.Owner))
             {
                 return;
             }
@@ -147,12 +147,12 @@ namespace Nova.Server
             Message lamb = new Message();
             lamb.Text = messageText;
             lamb.Audience = star.Owner;
-            stateData.AllMessages.Add(lamb);
+            serverState.AllMessages.Add(lamb);
 
             Message wolf = new Message();
             wolf.Text = messageText;
             wolf.Audience = fleet.Owner;
-            stateData.AllMessages.Add(wolf);
+            serverState.AllMessages.Add(wolf);
         }
     }
 }

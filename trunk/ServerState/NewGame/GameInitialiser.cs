@@ -33,29 +33,29 @@ namespace Nova.Server.NewGame
     /// </summary>
     public class GameInitialiser
     {
-        private ServerState stateData;
+        private ServerData serverState;
         private StarMapInitialiser starMapInitialiser;
         private NameGenerator nameGenerator = new NameGenerator();
         
-        public ServerState StateData
+        public ServerData ServerState
         {
             get
             {
-                return stateData;
+                return serverState;
             }
         }
         
         
         public GameInitialiser(string gameFolderPath)
         {
-            stateData = new ServerState();
+            serverState = new ServerData();
             
             // store the updated Game Folder information
             using (Config conf = new Config())
             {
                 conf[Global.ServerFolderKey] = gameFolderPath;
                 
-                stateData.GameFolder = gameFolderPath;
+                serverState.GameFolder = gameFolderPath;
                 // Don't set ClientFolderKey in case we want to simulate a LAN game 
                 // on one PC for testing. 
                 // Should be set when the ClientState is initialised. If that is by 
@@ -64,50 +64,50 @@ namespace Nova.Server.NewGame
                 // be updated.
 
                 // Construct appropriate state and settings file names
-                stateData.StatePathName = gameFolderPath + Path.DirectorySeparatorChar +
+                serverState.StatePathName = gameFolderPath + Path.DirectorySeparatorChar +
                                           GameSettings.Data.GameName + Global.ServerStateExtension;
                 
                 GameSettings.Data.SettingsPathName = gameFolderPath + Path.DirectorySeparatorChar +
                                                      GameSettings.Data.GameName + Global.SettingsExtension;
                 
-                conf[Global.ServerStateKey] = stateData.StatePathName;
+                conf[Global.ServerStateKey] = serverState.StatePathName;
             }
             
-            starMapInitialiser = new StarMapInitialiser(stateData);
+            starMapInitialiser = new StarMapInitialiser(serverState);
         }
         
         
         public void GenerateEmpires(List<PlayerSettings> players, Dictionary<string, Race> knownRaces)
         {
             // Copy the player & race data to the ServerState
-            stateData.AllPlayers = players;
+            serverState.AllPlayers = players;
 
             // Assemble empires.
-            foreach (PlayerSettings settings in stateData.AllPlayers)
+            foreach (PlayerSettings settings in serverState.AllPlayers)
             {
-                if (stateData.AllRaces.ContainsKey(settings.RaceName))
+                if (serverState.AllRaces.ContainsKey(settings.RaceName))
                 {
                     // Copy the race to a new key and change the setting to de-duplicate the race.
                     // This may mean a 2nd copy of the race in the data, but it's not much data and
                     // a copy of it doesn't really matter
-                    Race cloneRace = stateData.AllRaces[settings.RaceName].Clone();
+                    Race cloneRace = serverState.AllRaces[settings.RaceName].Clone();
                     cloneRace.Name = nameGenerator.GetNextRaceName(settings.RaceName);
                     cloneRace.PluralName = cloneRace.Name + "s";
                     settings.RaceName = cloneRace.Name;
 
-                    stateData.AllRaces.Add(cloneRace.Name, cloneRace);
+                    serverState.AllRaces.Add(cloneRace.Name, cloneRace);
                 }
                 else
                 {
-                    stateData.AllRaces.Add(settings.RaceName, knownRaces[settings.RaceName]);    
+                    serverState.AllRaces.Add(settings.RaceName, knownRaces[settings.RaceName]);    
                 }                
 
                 // Initialize clean data for them. 
                 EmpireData empireData = new EmpireData();
                 empireData.Id = settings.PlayerNumber;
-                empireData.Race = stateData.AllRaces[settings.RaceName];
+                empireData.Race = serverState.AllRaces[settings.RaceName];
 
-                stateData.AllEmpires[empireData.Id] = empireData;
+                serverState.AllEmpires[empireData.Id] = empireData;
 
                 // Add initial state to the intel files.
                 ProcessPrimaryTraits(empireData);
@@ -121,9 +121,9 @@ namespace Nova.Server.NewGame
             }
             
             // Create initial relations.
-            foreach (EmpireData wolf in stateData.AllEmpires.Values)
+            foreach (EmpireData wolf in serverState.AllEmpires.Values)
             {
-                foreach (EmpireData lamb in stateData.AllEmpires.Values)
+                foreach (EmpireData lamb in serverState.AllEmpires.Values)
                 {
                     if (wolf.Id != lamb.Id)
                     {
@@ -150,12 +150,12 @@ namespace Nova.Server.NewGame
         
         public void GenerateIntel()
         {
-            TurnGenerator firstTurn = new TurnGenerator(stateData);
+            TurnGenerator firstTurn = new TurnGenerator(serverState);
                 
             firstTurn.AssembleEmpireData();
                             
-            Scores scores = new Scores(stateData);
-            IntelWriter intelWriter = new IntelWriter(stateData, scores);
+            Scores scores = new Scores(serverState);
+            IntelWriter intelWriter = new IntelWriter(serverState, scores);
             intelWriter.WriteIntel();
         }
         

@@ -86,7 +86,7 @@
     <Compile Include="Manufacture.cs" />
     <Compile Include="Persistence\OrderReader.cs" />
     <Compile Include="Scores.cs" />
-    <Compile Include="Persistence\ServerState.cs" />
+    <Compile Include="Persistence\ServerData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="TurnSteps\StarUpdateStep.cs" />
     <Compile Include="VictoryCheck.cs" />

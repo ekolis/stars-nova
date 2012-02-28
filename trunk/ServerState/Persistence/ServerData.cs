@@ -41,7 +41,7 @@ namespace Nova.Server
     /// but it's just convenient to keep all "global" data in one place.
     /// </summary>
     [Serializable]
-    public sealed class ServerState
+    public sealed class ServerData
     {
         public Dictionary<int, Stack<ICommand>> AllCommands     = new Dictionary<int, Stack<ICommand>>();
         public List<BattleReport>               AllBattles      = new List<BattleReport>();
@@ -63,7 +63,7 @@ namespace Nova.Server
         /// <summary>
         /// Creates a new fresh server state.
         /// </summary>
-        public ServerState()
+        public ServerData()
         { 
         }
   
@@ -71,7 +71,7 @@ namespace Nova.Server
         /// Load <see cref="Intel">ServerState</see> from an xml document.
         /// </summary>
         /// <param name="xmldoc">Produced using XmlDocument.Load(filename).</param>
-        public ServerState(XmlDocument xmldoc)
+        public ServerData(XmlDocument xmldoc)
         {            
             XmlNode xmlnode = xmldoc.DocumentElement;
             XmlNode textNode;
@@ -238,7 +238,7 @@ namespace Nova.Server
                 xmldoc.Load(stateFile);
                 
                 // Temporary data store only!
-                ServerState restoredState = new ServerState(xmldoc);
+                ServerData restoredState = new ServerData(xmldoc);
                 
                 // We need to copy the restored values
                 AllCommands     = restoredState.AllCommands;
@@ -265,7 +265,7 @@ namespace Nova.Server
         /// <summary>
         /// Restore the persistent data. 
         /// </summary>
-        public ServerState Restore()
+        public ServerData Restore()
         {
             using (FileStream stateFile = new FileStream(StatePathName, FileMode.Open))
             {
@@ -274,7 +274,7 @@ namespace Nova.Server
                 xmldoc.Load(stateFile);
 
                 // Temporary data store only!
-                ServerState restoredState = new ServerState(xmldoc);
+                ServerData restoredState = new ServerData(xmldoc);
 
                 // We need to copy the restored values
                 AllCommands = restoredState.AllCommands;

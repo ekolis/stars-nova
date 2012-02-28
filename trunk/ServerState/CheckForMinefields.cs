@@ -34,11 +34,11 @@ namespace Nova.Server
     public class CheckForMinefields
     {
         private readonly Random random = new Random();
-        private ServerState stateData;
+        private ServerData serverState;
         
-        public CheckForMinefields(ServerState serverState)
+        public CheckForMinefields(ServerData serverState)
         {
-            this.stateData = serverState;
+            this.serverState = serverState;
         }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace Nova.Server
         public bool Check(Fleet fleet)
         {
             foreach (Minefield minefield in
-                     stateData.AllMinefields.Values)
+                     serverState.AllMinefields.Values)
             {
                 if (IsInField(fleet, minefield))
                 {
@@ -67,7 +67,7 @@ namespace Nova.Server
                 minefield.NumberOfMines -= minefield.NumberOfMines / 100;
                 if (minefield.NumberOfMines <= 10)
                 {
-                    stateData.AllMinefields.Remove(minefield.Key);
+                    serverState.AllMinefields.Remove(minefield.Key);
                 }
             }
 
@@ -198,10 +198,10 @@ namespace Nova.Server
             {
                 message.Text += "All of your ships were destroyed.\n";
                 message.Text += "You lost this fleet.";
-                stateData.AllFleets.Remove(fleet.Key);
+                serverState.AllFleets.Remove(fleet.Key);
             }
 
-            stateData.AllMessages.Add(message);
+            serverState.AllMessages.Add(message);
         }
     }
 }

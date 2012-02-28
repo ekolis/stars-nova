@@ -120,7 +120,7 @@ namespace Nova.WinForms
                 game.GenerateStarMap();
                 game.GenerateAssets();
                 game.GenerateIntel();                
-                game.StateData.Save();
+                game.ServerState.Save();
                 GameSettings.Save();
             }
             catch (Exception e)

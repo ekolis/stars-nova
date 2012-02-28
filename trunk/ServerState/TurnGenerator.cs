@@ -36,7 +36,7 @@ namespace Nova.Server
     /// </summary>
     public class TurnGenerator
     {
-        private ServerState stateData;
+        private ServerData serverState;
         
         private SortedList<int, ITurnStep> turnSteps;
         
@@ -58,9 +58,9 @@ namespace Nova.Server
         /// <summary>
         /// Construct a turn processor. 
         /// </summary>
-        public TurnGenerator(ServerState serverState)
+        public TurnGenerator(ServerData serverState)
         {
-            stateData = serverState;
+            this.serverState = serverState;
             
             turnSteps = new SortedList<int, ITurnStep>();
             
@@ -68,15 +68,15 @@ namespace Nova.Server
             // TODO ??? (priority 4): Use dependency injection for this? It would
             // generate a HUGE constructor call... a factory to
             // abstract it perhaps? -Aeglos
-            orderReader = new OrderReader(this.stateData);
-            battleEngine = new BattleEngine(this.stateData, new BattleReport());
-            bombing = new Bombing(this.stateData);
-            checkForMinefields = new CheckForMinefields(this.stateData);
-            waypointTasks = new WaypointTasks(this.stateData);
-            manufacture = new Manufacture(this.stateData);
-            scores = new Scores(this.stateData);
-            intelWriter = new IntelWriter(this.stateData, this.scores);
-            victoryCheck = new VictoryCheck(this.stateData, this.scores);
+            orderReader = new OrderReader(this.serverState);
+            battleEngine = new BattleEngine(this.serverState, new BattleReport());
+            bombing = new Bombing(this.serverState);
+            checkForMinefields = new CheckForMinefields(this.serverState);
+            waypointTasks = new WaypointTasks(this.serverState);
+            manufacture = new Manufacture(this.serverState);
+            scores = new Scores(this.serverState);
+            intelWriter = new IntelWriter(this.serverState, this.scores);
+            victoryCheck = new VictoryCheck(this.serverState, this.scores);
             
             turnSteps.Add(SCANSTEP, new ScanStep());
             turnSteps.Add(STARSTEP, new StarUpdateStep());
@@ -100,7 +100,7 @@ namespace Nova.Server
 
             // Do all fleet movement and actions 
             // TODO (priority 4) - split this up into waypoint zero and waypoint 1 actions
-            foreach (Fleet fleet in stateData.AllFleets.Values)
+            foreach (Fleet fleet in serverState.AllFleets.Values)
             {
                 ProcessFleet(fleet);
             }
@@ -109,37 +109,37 @@ namespace Nova.Server
             // Handle star based actions - growth and production
             // TODO (priority 4) - split these up as per Stars! turn order
             // UPDATE May 11: Some of this is updated -Aeglos
-            foreach (Star star in stateData.AllStars.Values)
+            foreach (Star star in serverState.AllStars.Values)
             {                
                 ProcessStar(star);
             }
                         
             CleanupFleets();
 
-            stateData.AllBattles.Clear(); // remove battle from old turns
+            serverState.AllBattles.Clear(); // remove battle from old turns
             battleEngine.Run();
             
             CleanupFleets();            
 
             victoryCheck.Victor();
 
-            stateData.TurnYear++;
+            serverState.TurnYear++;
             
-            foreach (EmpireData empire in stateData.AllEmpires.Values)
+            foreach (EmpireData empire in serverState.AllEmpires.Values)
             {
-                empire.TurnYear = stateData.TurnYear;
+                empire.TurnYear = serverState.TurnYear;
                 empire.TurnSubmitted = false;
             }
                        
             foreach (ITurnStep turnStep in turnSteps.Values)
             {
-                turnStep.Process(stateData);    
+                turnStep.Process(serverState);    
             }
             
             intelWriter.WriteIntel();
 
             // remove old messages, do this last so that the 1st turn intro message is not removed before it is delivered.
-            stateData.AllMessages = new List<Message>();
+            serverState.AllMessages = new List<Message>();
             
             CleanupOrders();
         }
@@ -149,14 +149,14 @@ namespace Nova.Server
         /// </summary>
         private void ParseCommands()
         {
-            foreach (EmpireData empire in stateData.AllEmpires.Values)
+            foreach (EmpireData empire in serverState.AllEmpires.Values)
             {
-                if (!stateData.AllCommands.ContainsKey(empire.Id))
+                if (!serverState.AllCommands.ContainsKey(empire.Id))
                 {
                     continue;   
                 }
                 
-                foreach (ICommand command in stateData.AllCommands[empire.Id])
+                foreach (ICommand command in serverState.AllCommands[empire.Id])
                 {
                     if (command.isValid(empire))
                     {
@@ -170,12 +170,12 @@ namespace Nova.Server
                 
                 foreach (Fleet fleet in empire.OwnedFleets.Values)
                 {
-                    stateData.AllFleets[fleet.Key] = fleet;
+                    serverState.AllFleets[fleet.Key] = fleet;
                 }
                 
                 foreach (Star star in empire.OwnedStars.Values)
                 {
-                    stateData.AllStars[star.Key] = star;
+                    serverState.AllStars[star.Key] = star;
                 }
             }
         }
@@ -188,7 +188,7 @@ namespace Nova.Server
         {
             // create a list of all fleets that have been destroyed
             List<long> destroyedFleets = new List<long>();
-            foreach (Fleet fleet in stateData.AllFleets.Values)
+            foreach (Fleet fleet in serverState.AllFleets.Values)
             {
                 if (fleet.FleetShips.Count == 0)
                 {
@@ -197,12 +197,12 @@ namespace Nova.Server
             }
             foreach (int key in destroyedFleets)
             {
-                stateData.AllFleets.Remove(key);
+                serverState.AllFleets.Remove(key);
             }
 
             // And remove stations too.
             List<string> destroyedStations = new List<string>();
-            foreach (Star star in stateData.AllStars.Values)
+            foreach (Star star in serverState.AllStars.Values)
             {
                 if (star.Starbase != null && star.Starbase.FleetShips.Count == 0)
                 {
@@ -211,7 +211,7 @@ namespace Nova.Server
             }
             foreach (string key in destroyedStations)
             {
-                stateData.AllStars[key].Starbase = null;
+                serverState.AllStars[key].Starbase = null;
 
             }            
         }
@@ -223,7 +223,7 @@ namespace Nova.Server
         {
             // Delete orders on turn generation.
             // Copy each file into it’s new directory.
-            DirectoryInfo source = new DirectoryInfo(stateData.GameFolder);
+            DirectoryInfo source = new DirectoryInfo(serverState.GameFolder);
             foreach (FileInfo fi in source.GetFiles())
             {
                 if (fi.Name.ToLower().EndsWith(Global.OrdersExtension))
@@ -239,8 +239,8 @@ namespace Nova.Server
         private void BackupTurn()
         {
             // TODO (priority 3) - Add a setting to control the number of backups.
-            int currentTurn = stateData.TurnYear;
-            string gameFolder = stateData.GameFolder;
+            int currentTurn = serverState.TurnYear;
+            string gameFolder = serverState.GameFolder;
 
 
             try
@@ -302,7 +302,7 @@ namespace Nova.Server
 
             // See if the fleet is orbiting a star
             fleet.InOrbit = null;
-            foreach (Star star in stateData.AllStars.Values)
+            foreach (Star star in serverState.AllStars.Values)
             {
                 if (star.Position.X == fleet.Position.X && star.Position.Y == fleet.Position.Y)
                 {
@@ -320,14 +320,14 @@ namespace Nova.Server
                 Message message = new Message();
                 message.Audience = fleet.Owner;
                 message.Text = fleet.Name + " has ran out of fuel.";
-                stateData.AllMessages.Add(message);
+                serverState.AllMessages.Add(message);
             }
 
             // See if we need to bomb this place.
 
             if (fleet.InOrbit != null && fleet.HasBombers)
             {
-                bombing.Bomb(fleet, stateData.AllStars[fleet.InOrbit.Name]);
+                bombing.Bomb(fleet, serverState.AllStars[fleet.InOrbit.Name]);
             }
 
             // ??? (priority 4) - why does this always return false?
@@ -363,7 +363,7 @@ namespace Nova.Server
             
             if (fleet.InOrbit != null)
             {
-                star = stateData.AllStars[fleet.InOrbit.Name];
+                star = serverState.AllStars[fleet.InOrbit.Name];
             }
             // refuel
             if (star != null && star.Owner == fleet.Owner /* TODO (priority 6) or friendly*/ && star.Starbase != null && star.Starbase.CanRefuel)
@@ -440,7 +440,7 @@ namespace Nova.Server
         /// <returns>Always returns false.</returns>
         private bool UpdateFleet(Fleet fleet)
         {
-            Race race = stateData.AllEmpires[fleet.Owner].Race;
+            Race race = serverState.AllEmpires[fleet.Owner].Race;
 
             Waypoint currentPosition = new Waypoint();
             double availableTime = 1.0;
@@ -461,7 +461,7 @@ namespace Nova.Server
                     message.Text = "Fleet " + fleet.Name + "'s engines failed to start. Fleet has not moved this turn.";
                     message.Type = "Cheap Engines";
                     message.Event = this;
-                    stateData.AllMessages.Add(message);
+                    serverState.AllMessages.Add(message);
                     fleetMoveResult = Fleet.TravelStatus.InTransit;
                 }
                 else
@@ -487,7 +487,7 @@ namespace Nova.Server
                 else
                 {
                     Star star;
-                    stateData.AllStars.TryGetValue(thisWaypoint.Destination, out star);
+                    serverState.AllStars.TryGetValue(thisWaypoint.Destination, out star);
 
                     if (star != null)
                     {
@@ -528,7 +528,7 @@ namespace Nova.Server
         public void AssembleEmpireData()
         {
             // Generates initial reports.
-            turnSteps[SCANSTEP].Process(stateData);
+            turnSteps[SCANSTEP].Process(serverState);
         }
     }
 }

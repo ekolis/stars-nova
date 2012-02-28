@@ -56,7 +56,7 @@ namespace Nova.Tests.UnitTests
         private const int Player2Id = 2;
         private const int Player3Id = 3;
 
-        private ServerState stateData = new ServerState();
+        private ServerData serverState = new ServerData();
         private BattleEngine battleEngine;
 
         private Fleet fleet1 = new Fleet("fleet1", Player1Id, 1, new Point(100, 200));
@@ -87,7 +87,7 @@ namespace Nova.Tests.UnitTests
         /// </Summary>
         public BattleEngineTest()
         {
-            battleEngine = new BattleEngine(stateData, new BattleReport());
+            battleEngine = new BattleEngine(serverState, new BattleReport());
             Resources cost = new Resources(10, 20, 30, 40);
 
             // Initialize empires 
@@ -101,9 +101,9 @@ namespace Nova.Tests.UnitTests
             empireData2.Race.Name = "Dick";
             empireData2.Race.Name = "Harry";
 
-            stateData.AllEmpires[empireData1.Id] = empireData1;
-            stateData.AllEmpires[empireData2.Id] = empireData2;
-            stateData.AllEmpires[empireData3.Id] = empireData3;
+            serverState.AllEmpires[empireData1.Id] = empireData1;
+            serverState.AllEmpires[empireData2.Id] = empireData2;
+            serverState.AllEmpires[empireData3.Id] = empireData3;
 
             empireData1.BattlePlans["Default"] = new BattlePlan();
             empireData2.BattlePlans["Default"] = new BattlePlan();
@@ -153,10 +153,10 @@ namespace Nova.Tests.UnitTests
             fleet3.FleetShips.Add(ship3);
             fleet4.FleetShips.Add(ship4);
 
-            stateData.AllFleets[fleet1.Key] = fleet1;
-            stateData.AllFleets[fleet2.Key] = fleet2;
-            stateData.AllFleets[fleet3.Key] = fleet3;
-            stateData.AllFleets[fleet4.Key] = fleet4;
+            serverState.AllFleets[fleet1.Key] = fleet1;
+            serverState.AllFleets[fleet2.Key] = fleet2;
+            serverState.AllFleets[fleet3.Key] = fleet3;
+            serverState.AllFleets[fleet4.Key] = fleet4;
         }
 
         /// <Summary>
