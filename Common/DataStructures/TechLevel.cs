@@ -27,6 +27,7 @@ namespace Nova.Common
     using System.Collections.Generic;
     using System.ComponentModel;
     using System.Xml;
+	using System.Linq;
 
     using Nova.Common.Converters;
 
@@ -363,5 +364,14 @@ namespace Nova.Common
 
             return xmlelResource;
         }
+
+		/// <summary>
+		/// Provides a string representation of this tech level. Useful for debugging!
+		/// </summary>
+		/// <returns></returns>
+		public override string ToString()
+		{
+			return string.Join(", ", techValues.Where(tech => tech.Value > 0).Select(tech => tech.Key + ": " + tech.Value).ToArray());
+		}
     }
 }
