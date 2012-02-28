@@ -28,6 +28,7 @@ namespace Nova.Server
     
     using Nova.Common;
     using Nova.Common.Commands;
+    using Nova.Common.Components;
     using Nova.Common.DataStructures;
     using Nova.Server.TurnSteps;
 
@@ -79,7 +80,6 @@ namespace Nova.Server
             intelWriter = new IntelWriter(this.serverState, this.scores);
             victoryCheck = new VictoryCheck(this.serverState, this.scores);
             
-            turnSteps.Add(FIRSTSTEP, new FirstStep());
             turnSteps.Add(SCANSTEP, new ScanStep());
             turnSteps.Add(STARSTEP, new StarUpdateStep());
         }
@@ -151,8 +151,14 @@ namespace Nova.Server
         /// </summary>
         private void ParseCommands()
         {
+            // Just rebuild these collections to avoid errors when
+            // commands remove items from them.
+            serverState.AllFleets.Clear();
+            serverState.AllDesigns.Clear();
+            
             foreach (EmpireData empire in serverState.AllEmpires.Values)
             {
+                // Ignore commands for unexisting empires.
                 if (!serverState.AllCommands.ContainsKey(empire.Id))
                 {
                     continue;   
@@ -168,6 +174,11 @@ namespace Nova.Server
                     {
                         // Flag as cheater or something?
                     }
+                }
+                
+                foreach (Design design in empire.Designs.Values)
+                {
+                    serverState.AllDesigns[design.Key] = design;
                 }
                 
                 foreach (Fleet fleet in empire.OwnedFleets.Values)
@@ -530,8 +541,10 @@ namespace Nova.Server
         public void AssembleEmpireData()
         {
             // Generates initial reports.
-            turnSteps[FIRSTSTEP].Process(serverState);
-            turnSteps[SCANSTEP].Process(serverState);
+            ITurnStep firstStep = new FirstStep();
+            firstStep.Process(serverState);
+            ITurnStep scanStep = new ScanStep();
+            scanStep.Process(serverState);
         }
     }
 }

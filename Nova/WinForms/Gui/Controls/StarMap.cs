@@ -830,7 +830,7 @@ namespace Nova.WinForms.Gui
                 return;
             }
             
-            WaypointCommand command = new WaypointCommand(WaypointCommand.Mode.Add, waypoint, fleet.Key);
+            WaypointCommand command = new WaypointCommand(CommandMode.Add, waypoint, fleet.Key);
             
             clientState.Commands.Push(command);
             

@@ -46,7 +46,6 @@ namespace Nova.Client
         
         public Stack<ICommand>   Commands = new Stack<ICommand>();
 
-        public List<long>       DeletedDesigns  = new List<long>();
         public List<long>       DeletedFleets   = new List<long>();
         public List<Message>    Messages        = new List<Message>();
 
@@ -115,18 +114,11 @@ namespace Nova.Client
                                 textNode = textNode.NextSibling;
                             }
                             break;                        
-                        case "deleteddesigns":
-                            textNode = xmlnode.FirstChild;
-                            while (textNode != null)
-                            {
-                                int deletedDesignKey = int.Parse(textNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
-                                DeletedDesigns.Add(deletedDesignKey);
-                                textNode = textNode.NextSibling;
-                            }
-                            break;                        
+                        
                         case "message":
                             Messages.Add(new Message(xmlnode));
-                            break;                        
+                            break;
+                            
                         case "enemydesigns":
                             textNode = xmlnode.FirstChild;
                             while (textNode != null)
@@ -148,6 +140,7 @@ namespace Nova.Client
                                 textNode = textNode.NextSibling;
                             }
                             break;
+                            
                         case "intel":
                             // THIS HAS TO GO!
                             InputTurn = new Intel();
@@ -345,7 +338,6 @@ namespace Nova.Client
         {
             ClientData newState = Restore(GameFolder, EmpireState.Race.Name);
             
-            DeletedDesigns  = newState.DeletedDesigns;
             DeletedFleets   = newState.DeletedFleets;
             Messages        = newState.Messages;
            
@@ -473,15 +465,7 @@ namespace Nova.Client
                     // only need to store enough data to find the deleted fleet.
                     Global.SaveData(xmldoc, xmlelDeletedFleets, "FleetId", fleetId.ToString("X"));
                 }
-                xmlelClientState.AppendChild(xmlelDeletedFleets);
-                
-                // Deleted Designs
-                XmlElement xmlelDeletedDesigns = xmldoc.CreateElement("DeletedDesigns");
-                foreach (int designKey in DeletedDesigns)
-                {
-                    Global.SaveData(xmldoc, xmlelDeletedDesigns, "DesignKey", designKey.ToString("X"));
-                }
-                xmlelClientState.AppendChild(xmlelDeletedDesigns);
+                xmlelClientState.AppendChild(xmlelDeletedFleets);                
                 
                 // Messages
                 foreach (Nova.Common.Message message in Messages)

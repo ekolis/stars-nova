@@ -192,6 +192,9 @@
     <Compile Include="WinForms\Gui\Dialogs\CargoTransferDialog.Designer.cs">
       <DependentUpon>CargoTransferDialog.cs</DependentUpon>
     </Compile>
+    <Compile Include="WinForms\Gui\Dialogs\ShipDesignDialog.Designer.cs">
+      <DependentUpon>ShipDesignDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="WinForms\Gui\Dialogs\SplitFleetsDialog.cs">
       <SubType>Form</SubType>
     </Compile>
