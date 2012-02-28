@@ -110,11 +110,6 @@ namespace Nova.Client
                     outputTurn.DeletedFleets.Add(fleetKey);
                 }
 
-                foreach (int designId in clientState.DeletedDesigns)
-                {
-                    outputTurn.DeletedDesigns.Add(designId);
-                }
-
                 string turnFileName = Path.Combine(clientState.GameFolder, clientState.EmpireState.Race.Name + Global.OrdersExtension);
 
                 outputTurn.ToXml(turnFileName);

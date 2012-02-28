@@ -37,4 +37,11 @@ namespace Nova.Common.Commands
         XmlElement ToXml(XmlDocument xmldoc);
         
     }
+    
+    public enum CommandMode
+    {
+        Add,
+        Edit,
+        Delete
+    }
 }

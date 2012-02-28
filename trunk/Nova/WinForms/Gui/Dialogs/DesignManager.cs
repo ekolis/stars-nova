@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011, 2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,13 +20,6 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// Dialog to display and optionally delete designs.
-// ===========================================================================
-#endregion
-
-
 
 namespace Nova.WinForms.Gui
 {
@@ -36,6 +29,7 @@ namespace Nova.WinForms.Gui
     
     using Nova.Client;
     using Nova.Common;
+    using Nova.Common.Commands;
     using Nova.Common.Components;
         
     /// <Summary>
@@ -177,48 +171,16 @@ Are you sure you want to do this?";
                 return;
             }
 
-            Design design = this.designList.SelectedItems[0].Tag as Design;
+            Design design = designList.SelectedItems[0].Tag as Design;
 
-
-            // Note that we are not allowed to delete the ships or fleets on the
-            // scan through FleetShips and AllFleets and as that is not allowed (it
-            // destroys the validity of the iterator). Consequently we identify
-            // anything that needs deleting and remove them separately from their
-            // identification.
-
-            List<Fleet> fleetsToRemove = new List<Fleet>();
-
-            foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
+            DesignCommand command = new DesignCommand(CommandMode.Delete, design.Key);
+            
+            if (command.isValid(clientState.EmpireState))
             {
-                List<Ship> shipsToRemove = new List<Ship>();
-
-                foreach (Ship ship in fleet.FleetShips)
-                {
-                    if (ship.DesignKey == design.Key)
-                    {
-                        shipsToRemove.Add(ship);
-                    }
-                }
-
-                foreach (Ship ship in shipsToRemove)
-                {
-                    fleet.FleetShips.Remove(ship);
-                }
-
-                if (fleet.FleetShips.Count == 0)
-                {
-                    fleetsToRemove.Add(fleet);
-                }
+                clientState.Commands.Push(command);
+                command.ApplyToState(clientState.EmpireState);
             }
-
-            foreach (Fleet fleet in fleetsToRemove)
-            {
-                clientState.EmpireState.OwnedFleets.Remove(fleet.Key);
-                clientState.DeletedFleets.Add(fleet.Key);
-            }
-
-            clientState.DeletedDesigns.Add(design.Key);
-            clientState.EmpireState.Designs.Remove(design.Key);
+            
             DesignOwner_SelectedIndexChanged(null, null);
 
             // Ensure the Star map is updated in case we've completely removed any

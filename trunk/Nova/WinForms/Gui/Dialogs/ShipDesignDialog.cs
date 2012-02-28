@@ -31,6 +31,7 @@ namespace Nova.WinForms.Gui
     using Nova.Client;
     using Nova.Common;
     using Nova.Common.Components;
+    using Nova.Common.Commands;
     using Nova.ControlLibrary;
 
     /// <Summary>
@@ -147,12 +148,12 @@ namespace Nova.WinForms.Gui
         private void OK_Click(object sender, System.EventArgs e)
         {
             ShipDesign newDesign = new ShipDesign(clientState.EmpireState.GetNextDesignKey());
-            Hull hullProperties = this.selectedHull.Properties["Hull"] as Hull;
+            Hull hullProperties = selectedHull.Properties["Hull"] as Hull;
 
             hullProperties.Modules = HullGrid.ActiveModules;
             newDesign.Name = DesignName.Text;
             newDesign.Owner = clientState.EmpireState.Id;
-            newDesign.ShipHull = this.selectedHull;
+            newDesign.ShipHull = selectedHull;
             newDesign.Cost = DesignResources.Value;
             newDesign.Mass = Convert.ToInt32(ShipMass.Text);
             newDesign.Icon = shipIcon;
@@ -171,22 +172,17 @@ namespace Nova.WinForms.Gui
                     return;
                 }
             }
-
-            /* 
-             * If you create a new design you might accidently give it the same 
-             * name as another design, esspecialy if you keep the hull name for 
-             * the ship name. However if you are edditing a design then this 
-             * might be exactly what you want to do. Need to at least ask the 
-             * user. TODO (priority 6).
-           if (AllDesigns.Contains(newDesign.Key)) 
-           {
-              Report.Error("Design names must be unique");
-              return;
-             
-           }
-            */
-
+#if USE_COMMAND_ORDERS
+            DesignCommand command = new DesignCommand(CommandMode.Add, newDesign);
+            
+            if (command.isValid(clientState.EmpireState))
+            {
+                clientState.Commands.Push(command);
+                command.ApplyToState(clientState.EmpireState);
+            }
+#else                        
             this.allDesigns[newDesign.Key] = newDesign;
+#endif
             Close();
         }
 

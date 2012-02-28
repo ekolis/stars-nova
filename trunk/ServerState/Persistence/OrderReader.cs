@@ -124,10 +124,17 @@ namespace Nova.Server
                         {
                             case "research":
                                 commands.Push(new ResearchCommand(subnode));
-                                break;
+                            break;
+                                
                             case "waypoint":
                                 commands.Push(new WaypointCommand(subnode));
                             break;
+                            
+                            case "design":
+                                commands.Push(new DesignCommand(subnode));
+                            break;
+                            
+                            
                         }
                         subnode = subnode.NextSibling;
                     }

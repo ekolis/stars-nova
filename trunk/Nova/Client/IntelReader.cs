@@ -101,7 +101,6 @@ namespace Nova.Client
 
             // Clear old turn data from StateData
             clientState.DeletedFleets.Clear();
-            clientState.DeletedDesigns.Clear();
             clientState.Messages.Clear();
 
             // fix object references after loading

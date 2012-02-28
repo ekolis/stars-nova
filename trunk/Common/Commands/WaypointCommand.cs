@@ -28,14 +28,7 @@ namespace Nova.Common.Commands
     /// Description of WaypointCommand.
     /// </summary>
     public class WaypointCommand : ICommand
-    {
-        public enum Mode
-        {
-            Add,
-            Delete,
-            Edit,
-        }
-        
+    {        
         public Waypoint Waypoint
         {
             get;
@@ -48,7 +41,7 @@ namespace Nova.Common.Commands
             set;
         }
         
-        public Mode Action
+        public CommandMode Mode
         {
             get;
             set;
@@ -65,25 +58,25 @@ namespace Nova.Common.Commands
         public WaypointCommand()
         {
             Waypoint = new Waypoint();
-            Action = Mode.Add;
+            Mode = CommandMode.Add;
             FleetKey = Global.None;
             Index = 0;
         }
         
         
-        public WaypointCommand(Mode mode, long fleetKey = Global.None, int index = 0)
+        public WaypointCommand(CommandMode mode, long fleetKey = Global.None, int index = 0)
         {
             Waypoint = new Waypoint();
-            Action = mode;
+            Mode = mode;
             FleetKey = fleetKey;
             Index = index;
         }
         
 
-        public WaypointCommand(Mode mode, Waypoint waypoint, long fleetKey = Global.None, int index = 0)
+        public WaypointCommand(CommandMode mode, Waypoint waypoint, long fleetKey = Global.None, int index = 0)
         {
             Waypoint = waypoint;
-            Action = mode;
+            Mode = mode;
             FleetKey = fleetKey;
             Index = index;
         }
@@ -106,8 +99,8 @@ namespace Nova.Common.Commands
                     case "fleetkey":
                       FleetKey = long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                     break;
-                    case "action":
-                        Action = (Mode)Enum.Parse(typeof(Mode), subnode.FirstChild.Value);
+                    case "mode":
+                        Mode = (CommandMode)Enum.Parse(typeof(CommandMode), subnode.FirstChild.Value);
                     break;
                     case "index":
                         Index = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -135,15 +128,15 @@ namespace Nova.Common.Commands
         
         public void ApplyToState(EmpireData empire)
         {
-            switch(Action)
+            switch(Mode)
             {
-                case Mode.Add:
+                case CommandMode.Add:
                     empire.OwnedFleets[FleetKey].Waypoints.Add(Waypoint);
                 break;
-                case Mode.Delete:
+                case CommandMode.Delete:
                     empire.OwnedFleets[FleetKey].Waypoints.RemoveAt(Index);
                 break;
-                case Mode.Edit:
+                case CommandMode.Edit:
                     empire.OwnedFleets[FleetKey].Waypoints.RemoveAt(Index);
                     empire.OwnedFleets[FleetKey].Waypoints.Insert(Index, Waypoint);
                 break;
@@ -161,7 +154,7 @@ namespace Nova.Common.Commands
         {
             XmlElement xmlelCom = xmldoc.CreateElement("Command");
             xmlelCom.SetAttribute("Type", "Waypoint");
-            Global.SaveData(xmldoc, xmlelCom, "Action", Action.ToString());
+            Global.SaveData(xmldoc, xmlelCom, "Mode", Mode.ToString());
             Global.SaveData(xmldoc, xmlelCom, "FleetKey", FleetKey.ToString("X"));
             Global.SaveData(xmldoc, xmlelCom, "Index", Index.ToString(System.Globalization.CultureInfo.InvariantCulture));
             xmlelCom.AppendChild(Waypoint.ToXml(xmldoc));            

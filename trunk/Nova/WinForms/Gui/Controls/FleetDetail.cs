@@ -119,7 +119,7 @@ namespace Nova.WinForms.Gui
                 
                 editedWaypoint.WarpFactor = warpFactor.Value;
                 
-                WaypointCommand command = new WaypointCommand(WaypointCommand.Mode.Edit, editedWaypoint, selectedFleet.Key, index);
+                WaypointCommand command = new WaypointCommand(CommandMode.Edit, editedWaypoint, selectedFleet.Key, index);
                 
                 // Minimizing clutter. If the last command was a speed/task change for this same waypoint,
                 // then just use that instead of adding a potentialy huge pile of speed edits.
@@ -132,7 +132,7 @@ namespace Nova.WinForms.Gui
                 {
                     if ((lastCommand as WaypointCommand).Waypoint.Destination == editedWaypoint.Destination &&
                         (lastCommand as WaypointCommand).Waypoint.Position == editedWaypoint.Position &&
-                        (lastCommand as WaypointCommand).Action != WaypointCommand.Mode.Add)
+                        (lastCommand as WaypointCommand).Mode != CommandMode.Add)
                     {
                         //Discard it.
                         commands.Pop();
@@ -214,7 +214,7 @@ namespace Nova.WinForms.Gui
                 return;
             }
             
-            WaypointCommand command = new WaypointCommand(WaypointCommand.Mode.Delete, selectedFleet.Key, index);
+            WaypointCommand command = new WaypointCommand(CommandMode.Delete, selectedFleet.Key, index);
             
             commands.Push(command);
             
@@ -244,7 +244,7 @@ namespace Nova.WinForms.Gui
                 int index = wayPoints.SelectedIndices[0];
                 if (index > 0)
                 {
-                    WaypointCommand command = new WaypointCommand(WaypointCommand.Mode.Delete, selectedFleet.Key, index);
+                    WaypointCommand command = new WaypointCommand(CommandMode.Delete, selectedFleet.Key, index);
 
                     commands.Push(command);
                     
@@ -290,7 +290,7 @@ namespace Nova.WinForms.Gui
             
             editedWaypoint.SetTask(WaypointTasks.Text);
             
-            WaypointCommand command = new WaypointCommand(WaypointCommand.Mode.Edit, editedWaypoint, selectedFleet.Key, index);
+            WaypointCommand command = new WaypointCommand(CommandMode.Edit, editedWaypoint, selectedFleet.Key, index);
             
             // Minimizing clutter. If the last command was a speed/task change for this same waypoint,
             // then just use that instead of adding a potentialy huge pile of task edits.
@@ -303,7 +303,7 @@ namespace Nova.WinForms.Gui
             {
                 if ((lastCommand as WaypointCommand).Waypoint.Destination == editedWaypoint.Destination &&
                     (lastCommand as WaypointCommand).Waypoint.Position == editedWaypoint.Position &&
-                    (lastCommand as WaypointCommand).Action != WaypointCommand.Mode.Add)
+                    (lastCommand as WaypointCommand).Mode != CommandMode.Add)
                 {
                     //Discard it.
                     commands.Pop();
