@@ -74,7 +74,7 @@ namespace Nova.WinForms.Gui
         private readonly Font nameFont;
         
         private Intel turnData;
-        private ClientState stateData;
+        private ClientData clientState;
         private NovaPoint cursorPosition    = new Point(0, 0);
         private NovaPoint lastClick         = new Point(0, 0);
 
@@ -128,9 +128,9 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Post-construction initialisation.
         /// </Summary>
-        public void Initialise(ClientState stateData)
+        public void Initialise(ClientData clientState)
         {
-            this.stateData = stateData;
+            this.clientState = clientState;
             
             GameSettings.Restore();
 
@@ -141,7 +141,7 @@ namespace Nova.WinForms.Gui
             extent.X = (int)(this.logical.X * this.zoomFactor) + (extraSpace.X * 2);
             extent.Y = (int)(this.logical.Y * this.zoomFactor) + (extraSpace.Y * 2);
 
-            turnData = this.stateData.InputTurn;
+            turnData = this.clientState.InputTurn;
             isInitialised = true;
 
             horizontalScrollBar.Enabled = true;
@@ -223,9 +223,9 @@ namespace Nova.WinForms.Gui
 
             // (1a) Planetary long-range scanners.
 
-            foreach (Star report in stateData.EmpireState.OwnedStars.Values)
+            foreach (Star report in clientState.EmpireState.OwnedStars.Values)
             {
-                if (report.Owner == stateData.EmpireState.Id)
+                if (report.Owner == clientState.EmpireState.Id)
                 {
                     DrawCircle(g, lrScanBrush, (Point)report.Position, report.ScanRange);
                 }
@@ -233,9 +233,9 @@ namespace Nova.WinForms.Gui
 
             // (1b) Fleet non-pen scanners.
 
-            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
+            foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
             {
-                if (fleet.Owner == stateData.EmpireState.Id)
+                if (fleet.Owner == clientState.EmpireState.Id)
                 {
                     DrawCircle(g, lrScanBrush, (Point)fleet.Position, fleet.ScanRange);
                 }
@@ -243,9 +243,9 @@ namespace Nova.WinForms.Gui
 
             // (2) Fleet pen-scanners scanners.
 
-            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
+            foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
             {
-                if (fleet.Owner == stateData.EmpireState.Id)
+                if (fleet.Owner == clientState.EmpireState.Id)
                 {
                     DrawCircle(g, srScanBrush, (Point)fleet.Position, fleet.PenScanRange);
                 }
@@ -258,7 +258,7 @@ namespace Nova.WinForms.Gui
                 Color cb;
                 Color cf;
 
-                if (minefield.Owner == stateData.EmpireState.Id)
+                if (minefield.Owner == clientState.EmpireState.Id)
                 {
                     cb = Color.FromArgb(0, 0, 0, 0);
                     cf = Color.FromArgb(128, 0, 128, 0);
@@ -279,7 +279,7 @@ namespace Nova.WinForms.Gui
 
             // (4) Visible fleets.
 
-            foreach (FleetIntel report in stateData.EmpireState.FleetReports.Values)
+            foreach (FleetIntel report in clientState.EmpireState.FleetReports.Values)
             {
                 if (report.Type != ItemType.Starbase)
                 {
@@ -290,7 +290,7 @@ namespace Nova.WinForms.Gui
             // (5) Stars plus starbases and orbiting fleet indications that are
             // the results of scans.
 
-            foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
+            foreach (StarIntel report in clientState.EmpireState.StarReports.Values)
             {
                 DrawStar(g, report);
                 DrawOrbitingFleets(g, report);
@@ -384,7 +384,7 @@ namespace Nova.WinForms.Gui
                 g.TranslateTransform(position.X, position.Y);
                 g.RotateTransform((float)report.Bearing);
 
-                if (report.Owner == stateData.EmpireState.Id)
+                if (report.Owner == clientState.EmpireState.Id)
                 {
                     g.FillPolygon(Brushes.Blue, triangle);
                 }
@@ -396,9 +396,9 @@ namespace Nova.WinForms.Gui
                 g.ResetTransform();
             }
 
-            if (report.Owner == stateData.EmpireState.Id)
+            if (report.Owner == clientState.EmpireState.Id)
             {
-                Fleet fleet = stateData.EmpireState.OwnedFleets[report.Key];
+                Fleet fleet = clientState.EmpireState.OwnedFleets[report.Key];
                 
                 Waypoint first = fleet.Waypoints[0];
                 NovaPoint from = LogicalToDevice(first.Position);
@@ -440,7 +440,7 @@ namespace Nova.WinForms.Gui
             // Our stars are greenish, other's are red, unknown or uncolonised
             // stars are white.
 
-            if (report.Owner == stateData.EmpireState.Id)
+            if (report.Owner == clientState.EmpireState.Id)
             {
                 starBrush = Brushes.GreenYellow;
             }
@@ -518,7 +518,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Fleet fleet in turnData.EmpireState.OwnedFleets.Values)
             {
-                if (fleet.Owner == stateData.EmpireState.Id)
+                if (fleet.Owner == clientState.EmpireState.Id)
                 {
                     playersFleets.Add(fleet);
                 }
@@ -530,7 +530,7 @@ namespace Nova.WinForms.Gui
 
             foreach (Minefield minefield in this.turnData.AllMinefields.Values)
             {
-                if (minefield.Owner == stateData.EmpireState.Id)
+                if (minefield.Owner == clientState.EmpireState.Id)
                 {
                     this.visibleMinefields[minefield.Key] = minefield;
                 }
@@ -565,9 +565,9 @@ namespace Nova.WinForms.Gui
 
             foreach (Minefield minefield in turnData.AllMinefields.Values)
             {
-                foreach (Star report in stateData.EmpireState.OwnedStars.Values)
+                foreach (Star report in clientState.EmpireState.OwnedStars.Values)
                 {
-                    if (report.Owner == stateData.EmpireState.Id)
+                    if (report.Owner == clientState.EmpireState.Id)
                     {
                         bool isIn = PointUtilities.CirclesOverlap(
                             report.Position,
@@ -832,11 +832,11 @@ namespace Nova.WinForms.Gui
             
             WaypointCommand command = new WaypointCommand(WaypointCommand.Mode.Add, waypoint, fleet.Key);
             
-            stateData.Commands.Push(command);
+            clientState.Commands.Push(command);
             
-            if (command.isValid(stateData.EmpireState))
+            if (command.isValid(clientState.EmpireState))
             {
-                command.ApplyToState(stateData.EmpireState);
+                command.ApplyToState(clientState.EmpireState);
             }
 
             RefreshStarMap();
@@ -967,7 +967,7 @@ namespace Nova.WinForms.Gui
         {
             List<Item> nearObjects = new List<Item>();
 
-            foreach (FleetIntel report in stateData.EmpireState.FleetReports.Values)
+            foreach (FleetIntel report in clientState.EmpireState.FleetReports.Values)
             {
                 if (!report.IsStarbase)
                 {
@@ -978,7 +978,7 @@ namespace Nova.WinForms.Gui
                 }
             }
 
-            foreach (StarIntel report in stateData.EmpireState.StarReports.Values)
+            foreach (StarIntel report in clientState.EmpireState.StarReports.Values)
             {
                 if (PointUtilities.IsNear(report.Position, position))
                 {
@@ -1087,9 +1087,9 @@ namespace Nova.WinForms.Gui
             {
                 summaryArgs = new SummarySelectionArgs(newSelection as FleetIntel);
 
-                if (newSelection.Owner == stateData.EmpireState.Id)
+                if (newSelection.Owner == clientState.EmpireState.Id)
                 {
-                    detailArgs = new DetailSelectionArgs(stateData.EmpireState.OwnedFleets[newSelection.Key]);
+                    detailArgs = new DetailSelectionArgs(clientState.EmpireState.OwnedFleets[newSelection.Key]);
                     if (DetailSelectionChangedEvent != null)
                     {
                         DetailSelectionChangedEvent(this, detailArgs);
@@ -1100,9 +1100,9 @@ namespace Nova.WinForms.Gui
             {
                 summaryArgs = new SummarySelectionArgs(newSelection as StarIntel);
                 
-                if (newSelection.Owner == stateData.EmpireState.Id)
+                if (newSelection.Owner == clientState.EmpireState.Id)
                 {
-                    detailArgs = new DetailSelectionArgs(stateData.EmpireState.OwnedStars[newSelection.Name]);
+                    detailArgs = new DetailSelectionArgs(clientState.EmpireState.OwnedStars[newSelection.Name]);
                     if (DetailSelectionChangedEvent != null)
                     {
                         DetailSelectionChangedEvent(this, detailArgs);

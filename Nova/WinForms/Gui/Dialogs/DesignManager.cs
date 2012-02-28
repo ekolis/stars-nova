@@ -43,7 +43,7 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class DesignManager : Form
     {
-        private readonly ClientState stateData;
+        private readonly ClientData clientState;
 
         /// <Summary>
         /// This event should be fired when a waypoint is deleted,
@@ -54,10 +54,10 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the DesignManager class.
         /// </Summary>
-        public DesignManager(ClientState stateData)
+        public DesignManager(ClientData clientState)
         {
             InitializeComponent();
-            this.stateData = stateData;
+            this.clientState = clientState;
             this.hullGrid.ModuleSelected += DesignModuleSelected;
         }
 
@@ -82,16 +82,16 @@ namespace Nova.WinForms.Gui
             // Populate the "Design Owner" ComboBox with a list of players and
             // select the current race as the default
 
-            ComboBoxItem<int> thisRace = new ComboBoxItem<int>(stateData.EmpireState.Race.Name, stateData.EmpireState.Id);
+            ComboBoxItem<int> thisRace = new ComboBoxItem<int>(clientState.EmpireState.Race.Name, clientState.EmpireState.Id);
             comboDesignOwner.Items.Add(thisRace);
 
-            foreach (ushort empireId in stateData.EmpireState.EmpireReports.Keys)
+            foreach (ushort empireId in clientState.EmpireState.EmpireReports.Keys)
             {
-                comboDesignOwner.Items.Add(new ComboBoxItem<int>(stateData.EmpireState.EmpireReports[empireId].RaceName, empireId));
+                comboDesignOwner.Items.Add(new ComboBoxItem<int>(clientState.EmpireState.EmpireReports[empireId].RaceName, empireId));
             }
 
             comboDesignOwner.SelectedItem = thisRace;
-            ListDesigns(stateData.EmpireState.Id);
+            ListDesigns(clientState.EmpireState.Id);
         }
 
         private int GetSelectedEmpireId()
@@ -118,7 +118,7 @@ namespace Nova.WinForms.Gui
 
             long designKey = (this.designList.SelectedItems[0].Tag as ShipDesign).Key;
 
-            ShipDesign design = stateData.InputTurn.AllDesigns[designKey] as ShipDesign;
+            ShipDesign design = clientState.InputTurn.AllDesigns[designKey] as ShipDesign;
 
             DisplayDesign(design);
         }
@@ -188,7 +188,7 @@ Are you sure you want to do this?";
 
             List<Fleet> fleetsToRemove = new List<Fleet>();
 
-            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
+            foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
             {
                 List<Ship> shipsToRemove = new List<Ship>();
 
@@ -213,12 +213,12 @@ Are you sure you want to do this?";
 
             foreach (Fleet fleet in fleetsToRemove)
             {
-                stateData.EmpireState.OwnedFleets.Remove(fleet.Key);
-                stateData.DeletedFleets.Add(fleet.Key);
+                clientState.EmpireState.OwnedFleets.Remove(fleet.Key);
+                clientState.DeletedFleets.Add(fleet.Key);
             }
 
-            stateData.DeletedDesigns.Add(design.Key);
-            stateData.InputTurn.AllDesigns.Remove(design.Key);
+            clientState.DeletedDesigns.Add(design.Key);
+            clientState.InputTurn.AllDesigns.Remove(design.Key);
             DesignOwner_SelectedIndexChanged(null, null);
 
             // Ensure the Star map is updated in case we've completely removed any
@@ -248,7 +248,7 @@ Are you sure you want to do this?";
             shipShields.Text = "0";
             shipCloak.Text = "0";
            
-            if (empireId == stateData.EmpireState.Id)
+            if (empireId == clientState.EmpireState.Id)
             {
                 delete.Enabled = true;
             }
@@ -269,13 +269,13 @@ Are you sure you want to do this?";
             this.designList.Items.Clear();
             this.designList.BeginUpdate();
 
-            foreach (Design design in stateData.InputTurn.AllDesigns.Values)
+            foreach (Design design in clientState.InputTurn.AllDesigns.Values)
             {
                 if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
                 {
                     if (design.Owner == ownerId)
                     {
-                        if (ownerId == stateData.EmpireState.Id || this.stateData.EnemyDesigns.ContainsKey(design.Key))
+                        if (ownerId == clientState.EmpireState.Id || this.clientState.EnemyDesigns.ContainsKey(design.Key))
                         {
                             AddToDesignList(design);
                         }
@@ -297,7 +297,7 @@ Are you sure you want to do this?";
             itemToAdd.Text = design.Name;
             itemToAdd.Tag = design;
 
-            if (design.Owner == stateData.EmpireState.Id)
+            if (design.Owner == clientState.EmpireState.Id)
             {
                 int quantity = CountDesigns(design);
                 itemToAdd.SubItems.Add(quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
@@ -319,7 +319,7 @@ Are you sure you want to do this?";
         {
             int quantity = 0;
 
-            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
+            foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
             {
                 foreach (Ship ship in fleet.FleetShips)
                 {

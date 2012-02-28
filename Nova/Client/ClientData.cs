@@ -40,7 +40,7 @@ namespace Nova.Client
     /// used by the AI, hence it is applicable to any Nova client. 
     /// </summary>
     [Serializable]
-    public sealed class ClientState
+    public sealed class ClientData
     {
         public EmpireData EmpireState = new EmpireData();
         
@@ -63,7 +63,7 @@ namespace Nova.Client
         /// <summary>
         /// Default Constructor.
         /// </summary>
-        public ClientState() 
+        public ClientData() 
         { 
         }
         
@@ -71,7 +71,7 @@ namespace Nova.Client
         /// Load <see cref="Intel">ClientState</see> from an xml document.
         /// </summary>
         /// <param name="xmldoc">Produced using XmlDocument.Load(filename).</param>
-        public ClientState(XmlDocument xmldoc)
+        public ClientData(XmlDocument xmldoc)
         {            
             XmlNode xmlnode = xmldoc.DocumentElement;
             XmlNode textNode;
@@ -341,9 +341,9 @@ namespace Nova.Client
         /// file Nova.intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
-        public ClientState Restore()
+        public ClientData Restore()
         {
-            ClientState newState = Restore(GameFolder, EmpireState.Race.Name);
+            ClientData newState = Restore(GameFolder, EmpireState.Race.Name);
             
             DeletedDesigns  = newState.DeletedDesigns;
             DeletedFleets   = newState.DeletedFleets;
@@ -376,7 +376,7 @@ namespace Nova.Client
         /// file Nova.intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
-        public ClientState Restore(string gameFolder)
+        public ClientData Restore(string gameFolder)
         {
             // Scan the game directory for .race files. If only one is present then that is
             // the race we will use (single race test bed or remote server). If more than one is
@@ -397,10 +397,10 @@ namespace Nova.Client
         /// file Nova.intel we will reset the persistent data fields if the turn file
         /// indicates the first turn of a new game.
         /// </remarks>
-        public ClientState Restore(string gameFolder, string raceName)
+        public ClientData Restore(string gameFolder, string raceName)
         {            
             StatePathName = Path.Combine(gameFolder, raceName + Global.ClientStateExtension);
-            ClientState clientState = new ClientState();
+            ClientData clientState = new ClientData();
             
             if (File.Exists(StatePathName))
             {
@@ -412,7 +412,7 @@ namespace Nova.Client
 
                         xmldoc.Load(stream);
                         
-                        clientState = new ClientState(xmldoc);                        
+                        clientState = new ClientData(xmldoc);                        
                     }
                 }
                 catch (Exception e)

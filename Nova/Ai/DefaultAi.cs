@@ -39,9 +39,9 @@ namespace Nova.Ai
         /// </summary>
         private void HandleProduction()
         {
-            foreach (Star star in stateData.EmpireState.OwnedStars.Values)
+            foreach (Star star in clientState.EmpireState.OwnedStars.Values)
             {
-                if (star.Owner == stateData.EmpireState.Id)
+                if (star.Owner == clientState.EmpireState.Id)
                 {
                     star.ManufacturingQueue.Queue.Clear();
                     ProductionItem productionItem = new ProductionItem();
@@ -49,12 +49,12 @@ namespace Nova.Ai
                     // build factories (limited by Germanium, and don't want to use it all)
                     if (star.ResourcesOnHand.Germanium > 50)
                     {
-                        int factoryBuildCostGerm = stateData.EmpireState.Race.HasTrait("CF") ? 3 : 4;
+                        int factoryBuildCostGerm = clientState.EmpireState.Race.HasTrait("CF") ? 3 : 4;
                         int factoriesToBuild = (int)((star.ResourcesOnHand.Germanium - 50) / factoryBuildCostGerm);
                         Design factoryDesign = null;
                         foreach (Design design in turnData.AllDesigns.Values)
                         {
-                            if (design.Owner == stateData.EmpireState.Id && design.Type == ItemType.Factory)
+                            if (design.Owner == clientState.EmpireState.Id && design.Type == ItemType.Factory)
                             {
                                 factoryDesign = design;
                             }
@@ -74,7 +74,7 @@ namespace Nova.Ai
                         Design mineDesign = null;
                         foreach (Design design in turnData.AllDesigns.Values)
                         {
-                            if (design.Owner == stateData.EmpireState.Id && design.Type == ItemType.Mine)
+                            if (design.Owner == clientState.EmpireState.Id && design.Type == ItemType.Mine)
                             {
                                 mineDesign = design;
                             }
@@ -94,7 +94,7 @@ namespace Nova.Ai
                         Design defenceDesign = null;
                         foreach (Design design in turnData.AllDesigns.Values)
                         {
-                            if (design.Owner == stateData.EmpireState.Id && design.Type == ItemType.Defenses)
+                            if (design.Owner == clientState.EmpireState.Id && design.Type == ItemType.Defenses)
                             {
                                 defenceDesign = design;
                             }
@@ -112,7 +112,7 @@ namespace Nova.Ai
 
         public override void DoMove()
         {
-            turnData = stateData.InputTurn;
+            turnData = clientState.InputTurn;
 
             HandleProduction();
             HandleResearch();
@@ -123,7 +123,7 @@ namespace Nova.Ai
         {
             // scout
             List<Fleet> scoutFleets = new List<Fleet>();
-            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
+            foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.Name.Contains("Scout") == true && fleet.Waypoints.Count == 1)
                 {
@@ -145,7 +145,7 @@ namespace Nova.Ai
             }
             // colonization
             List<Fleet> colonyShipsFleets = new List<Fleet>();
-            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
+            foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.CanColonize == true && fleet.Waypoints.Count == 1)
                 {
@@ -158,7 +158,7 @@ namespace Nova.Ai
                 // check if there is any good star to colonize
                 foreach (StarIntel report in turnData.EmpireState.StarReports.Values)
                 {
-                    if (stateData.EmpireState.Race.HabitalValue(report) > 0 && report.Owner == Global.Nobody)
+                    if (clientState.EmpireState.Race.HabitalValue(report) > 0 && report.Owner == Global.Nobody)
                     {
                         SendFleet(report, colonyShipsFleets[0], WaypointTask.Colonise);
                         colonyShipsFleets.RemoveAt(0);
@@ -210,7 +210,7 @@ namespace Nova.Ai
         private void HandleResearch()
         {
             // check if messages contains info about tech advence
-            foreach (Message msg in stateData.Messages)
+            foreach (Message msg in clientState.Messages)
             {
                 if (msg.Text.Contains("Your race has advanced to Tech Level") == true)
                 {
@@ -218,14 +218,14 @@ namespace Nova.Ai
                     Nova.Common.TechLevel.ResearchField targetResearchField = TechLevel.ResearchField.Weapons; // default to researching weapons
                     for (TechLevel.ResearchField field = TechLevel.FirstField; field <= TechLevel.LastField; field++)
                     {
-                        if (stateData.EmpireState.ResearchLevels[field] < minLevel)
+                        if (clientState.EmpireState.ResearchLevels[field] < minLevel)
                         {
-                            minLevel = stateData.EmpireState.ResearchLevels[field];
+                            minLevel = clientState.EmpireState.ResearchLevels[field];
                             targetResearchField = field;
                         }
                     }
-                    stateData.EmpireState.ResearchTopics.Zero();
-                    stateData.EmpireState.ResearchTopics[targetResearchField] = 1;                        
+                    clientState.EmpireState.ResearchTopics.Zero();
+                    clientState.EmpireState.ResearchTopics[targetResearchField] = 1;                        
                 }
             }
         }

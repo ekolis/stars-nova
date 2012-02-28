@@ -44,7 +44,7 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public class ShipDesignDialog : System.Windows.Forms.Form
     {
-        private readonly ClientState stateData;
+        private readonly ClientData clientState;
         private readonly Dictionary<string, Component> allComponents;
         private readonly Dictionary<long, Design> allDesigns;
         private readonly Dictionary<string, int> imageIndices = new Dictionary<string, int>();
@@ -765,15 +765,15 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the ShipDesignDialog class.
         /// </Summary>
-        public ShipDesignDialog(ClientState stateData)
+        public ShipDesignDialog(ClientData clientState)
         {
             InitializeComponent();
 
             // Some abbreviations (just to save a bit of typing)
 
-            this.stateData = stateData;
+            this.clientState = clientState;
             this.allComponents = Nova.Common.Components.AllComponents.Data.Components;
-            this.allDesigns = this.stateData.InputTurn.AllDesigns;
+            this.allDesigns = this.clientState.InputTurn.AllDesigns;
 
             this.componentImages.ImageSize = new Size(64, 64);
             this.componentImages.ColorDepth = ColorDepth.Depth32Bit;
@@ -785,7 +785,7 @@ namespace Nova.WinForms.Gui
             // first one in the list as the default. Also, make the default design
             // name the same as the hull name as a first guess. 
             HullList.Items.Clear();
-            foreach (Component component in stateData.EmpireState.AvailableComponents.Values)
+            foreach (Component component in clientState.EmpireState.AvailableComponents.Values)
             {
                 if (component.Properties.ContainsKey("Hull"))
                 {
@@ -797,7 +797,7 @@ namespace Nova.WinForms.Gui
             {
                 HullList.SelectedIndex = 0;
                 string selectedHullName = HullList.SelectedItem as string;
-                this.selectedHull = stateData.EmpireState.AvailableComponents[selectedHullName];
+                this.selectedHull = clientState.EmpireState.AvailableComponents[selectedHullName];
                 this.selectedHull.Name = selectedHullName;
                 HullGrid.HullName = selectedHullName;
                 UpdateHullFields();
@@ -811,7 +811,7 @@ namespace Nova.WinForms.Gui
             // Populate the tree view control from the AvailableComponents
             List<string> techList = new List<string>();
 
-            foreach (Component component in stateData.EmpireState.AvailableComponents.Values)
+            foreach (Component component in clientState.EmpireState.AvailableComponents.Values)
             {
                 if (component.Type.ToDescription().Contains("Planetary"))
                 {
@@ -878,12 +878,12 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OK_Click(object sender, System.EventArgs e)
         {
-            ShipDesign newDesign = new ShipDesign(stateData.EmpireState.GetNextDesignKey());
+            ShipDesign newDesign = new ShipDesign(clientState.EmpireState.GetNextDesignKey());
             Hull hullProperties = this.selectedHull.Properties["Hull"] as Hull;
 
             hullProperties.Modules = HullGrid.ActiveModules;
             newDesign.Name = DesignName.Text;
-            newDesign.Owner = stateData.EmpireState.Id;
+            newDesign.Owner = clientState.EmpireState.Id;
             newDesign.ShipHull = this.selectedHull;
             newDesign.Cost = DesignResources.Value;
             newDesign.Mass = Convert.ToInt32(ShipMass.Text);
@@ -947,7 +947,7 @@ namespace Nova.WinForms.Gui
 
             ListView.LargeImageList = this.componentImages;
 
-            foreach (Component component in stateData.EmpireState.AvailableComponents.Values)
+            foreach (Component component in clientState.EmpireState.AvailableComponents.Values)
             {
                 if (component.Type.ToDescription() == nodeType)
                 {
@@ -1106,7 +1106,7 @@ namespace Nova.WinForms.Gui
             string selectedHullName = HullList.SelectedItem as string;
 
             DesignName.Text = selectedHullName;
-            Nova.Common.Components.Component hull = stateData.EmpireState.AvailableComponents[selectedHullName];
+            Nova.Common.Components.Component hull = clientState.EmpireState.AvailableComponents[selectedHullName];
             this.selectedHull = new Nova.Common.Components.Component(hull);
             this.selectedHull.Name = selectedHullName;
             HullGrid.HullName = selectedHullName;
@@ -1201,7 +1201,7 @@ namespace Nova.WinForms.Gui
         {
             int index = 0;
 
-            foreach (Component component in stateData.EmpireState.AvailableComponents.Values)
+            foreach (Component component in clientState.EmpireState.AvailableComponents.Values)
             {
                 // TODO (priority 4) - work out why it sometimes is null.
                 if (component != null)

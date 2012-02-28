@@ -35,11 +35,11 @@ namespace Nova.Client
 
     public class IntelReader
     {
-        private ClientState stateData;
+        private ClientData clientState;
         
-        public IntelReader(ClientState stateData)
+        public IntelReader(ClientData clientState)
         {
-            this.stateData = stateData;
+            this.clientState = clientState;
         }
 
         /// <summary>
@@ -76,11 +76,11 @@ namespace Nova.Client
                 Intel newIntel = new Intel(xmldoc);
 
                 // check this is a new turn, not an old one or the same one.
-                if (newIntel.EmpireState.TurnYear >= stateData.EmpireState.TurnYear)
+                if (newIntel.EmpireState.TurnYear >= clientState.EmpireState.TurnYear)
                 {
-                    stateData.GameFolder = Path.GetDirectoryName(turnFileName);
-                    stateData.Restore();
-                    stateData.InputTurn = newIntel;
+                    clientState.GameFolder = Path.GetDirectoryName(turnFileName);
+                    clientState.Restore();
+                    clientState.InputTurn = newIntel;
                     ProcessIntel();
                 }
                 else
@@ -97,12 +97,12 @@ namespace Nova.Client
         /// </summary>
         public void ProcessIntel()
         {
-            stateData.EmpireState = stateData.InputTurn.EmpireState;
+            clientState.EmpireState = clientState.InputTurn.EmpireState;
 
             // Clear old turn data from StateData
-            stateData.DeletedFleets.Clear();
-            stateData.DeletedDesigns.Clear();
-            stateData.Messages.Clear();
+            clientState.DeletedFleets.Clear();
+            clientState.DeletedDesigns.Clear();
+            clientState.Messages.Clear();
 
             // fix object references after loading
             LinkIntelReferences();
@@ -122,7 +122,7 @@ namespace Nova.Client
         private void LinkIntelReferences()
         {
             // HullModule reference to a component
-            foreach (Design design in stateData.InputTurn.AllDesigns.Values)
+            foreach (Design design in clientState.InputTurn.AllDesigns.Values)
             {
                 if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
                 {
@@ -138,35 +138,35 @@ namespace Nova.Client
             }
 
             // Fleet reference to Star
-            foreach (Fleet fleet in stateData.EmpireState.OwnedFleets.Values)
+            foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
             {
                 if (fleet.InOrbit != null)
                 {
-                    if (stateData.EmpireState.StarReports[fleet.InOrbit.Name].Owner == fleet.Owner)
+                    if (clientState.EmpireState.StarReports[fleet.InOrbit.Name].Owner == fleet.Owner)
                     {
-                        fleet.InOrbit = stateData.EmpireState.OwnedStars[fleet.InOrbit.Name];
+                        fleet.InOrbit = clientState.EmpireState.OwnedStars[fleet.InOrbit.Name];
                     }
                     else
                     {
-                        fleet.InOrbit = stateData.EmpireState.StarReports[fleet.InOrbit.Name];
+                        fleet.InOrbit = clientState.EmpireState.StarReports[fleet.InOrbit.Name];
                     }
                 }
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(stateData.InputTurn.AllDesigns[ship.DesignKey] as ShipDesign);
+                    ship.DesignUpdate(clientState.InputTurn.AllDesigns[ship.DesignKey] as ShipDesign);
                 }
             }
             
             // Star reference to Race
             // Star reference to Fleet (starbase)
-            foreach (Star star in stateData.EmpireState.OwnedStars.Values)
+            foreach (Star star in clientState.EmpireState.OwnedStars.Values)
             {
                 if (star.ThisRace != null)
                 {
-                    if (star.Owner == stateData.EmpireState.Id)
+                    if (star.Owner == clientState.EmpireState.Id)
                     {
-                        star.ThisRace = stateData.EmpireState.Race;
+                        star.ThisRace = clientState.EmpireState.Race;
                     }
                     else
                     {
@@ -176,31 +176,31 @@ namespace Nova.Client
 
                 if (star.Starbase != null)
                 {
-                    star.Starbase = stateData.EmpireState.OwnedFleets[star.Starbase.Key];                  
+                    star.Starbase = clientState.EmpireState.OwnedFleets[star.Starbase.Key];                  
                 }
             }
 
             // link the ship designs in battle reports to the stacks
-            foreach (BattleReport battle in stateData.InputTurn.Battles)
+            foreach (BattleReport battle in clientState.InputTurn.Battles)
             {
                 foreach (Fleet fleet in battle.Stacks.Values)
                 {
                     foreach (Ship ship in fleet.FleetShips)
                     {
-                        if (stateData.EnemyDesigns.ContainsKey(ship.DesignKey))
+                        if (clientState.EnemyDesigns.ContainsKey(ship.DesignKey))
                         {
-                            ship.DesignUpdate((ShipDesign)stateData.EnemyDesigns[ship.DesignKey]);
+                            ship.DesignUpdate((ShipDesign)clientState.EnemyDesigns[ship.DesignKey]);
                         }
                         else
                         {
-                            ship.DesignUpdate((ShipDesign)stateData.InputTurn.AllDesigns[ship.DesignKey]);
+                            ship.DesignUpdate((ShipDesign)clientState.InputTurn.AllDesigns[ship.DesignKey]);
                         }
                     }
                 }
             }
 
             // Messages to Event objects
-            foreach (Message message in stateData.InputTurn.Messages)
+            foreach (Message message in clientState.InputTurn.Messages)
             {
                 switch (message.Type)
                 {
@@ -215,7 +215,7 @@ namespace Nova.Client
                     case "BattleReport":
                         // The message is loaded such that the Event is a string containing the BattleReport.Key.
                         // FIXME (priority 4) - linking battle messages to the right battle report is inefficient because the turnData.Battles does not have a meaningful key.
-                        foreach (BattleReport battle in stateData.InputTurn.Battles)
+                        foreach (BattleReport battle in clientState.InputTurn.Battles)
                         {
                             if (battle.Key == ((string)message.Event))
                             {
@@ -240,12 +240,12 @@ namespace Nova.Client
         /// </summary>
         private void ProcessMessages()
         {
-            foreach (Message message in stateData.InputTurn.Messages)
+            foreach (Message message in clientState.InputTurn.Messages)
             {
-                if ((message.Audience == stateData.EmpireState.Id) ||
+                if ((message.Audience == clientState.EmpireState.Id) ||
                     (message.Audience == Global.AllEmpires))
                 {
-                    stateData.Messages.Add(message);
+                    clientState.Messages.Add(message);
                 }
             }
         }
