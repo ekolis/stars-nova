@@ -208,9 +208,13 @@ namespace Nova.Server
                     destroyedFleets.Add(fleet.Key);
                 }
             }
-            foreach (int key in destroyedFleets)
+            foreach (long key in destroyedFleets)
             {
                 serverState.AllFleets.Remove(key);
+                foreach (int player in stateData.AllEmpires.Keys)
+                {
+                    stateData.AllEmpires[player].OwnedFleets.Remove(key);
+                }
             }
 
             // And remove stations too.
