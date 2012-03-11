@@ -44,7 +44,7 @@ namespace Nova.Server.TurnSteps
             
             foreach (EmpireData empire in serverState.AllEmpires.Values)
             {               
-                foreach (Design design in serverState.AllDesigns.Values)
+                foreach (ShipDesign design in serverState.AllDesigns.Values)
                 {
                     if (design.Owner == empire.Id || design.Owner == Global.Everyone)
                     {

@@ -167,7 +167,7 @@ namespace Nova.Server
                     }
                 }
                 
-                foreach (Design design in empire.Designs.Values)
+                foreach (ShipDesign design in empire.Designs.Values)
                 {
                     serverState.AllDesigns[design.Key] = design;
                 }

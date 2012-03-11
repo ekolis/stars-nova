@@ -86,7 +86,7 @@ namespace Nova.WinForms.Gui
                 dockCapacity = starbase.TotalDockCapacity;
             }
 
-            foreach (Design design in clientState.EmpireState.Designs.Values)
+            foreach (ShipDesign design in clientState.EmpireState.Designs.Values)
             {
                 // what the purpose of this next line (shadallark) ???
                 // Looks like it is ment to prevent the current starbase design being re-used - Dan.
@@ -102,7 +102,7 @@ namespace Nova.WinForms.Gui
                 {
                     item = new ListViewItem();
                     item.Text = design.Name;
-                    item.Tag = new ShipProductionUnit(design as ShipDesign);
+                    item.Tag = new ShipProductionUnit(design);
                     designList.Items.Add(item);
                 }
 
@@ -136,7 +136,7 @@ namespace Nova.WinForms.Gui
                 }
     
                 // is it a starbase?                
-                Design productionItemDesign = clientState.EmpireState.Designs[(productionOrder.Unit as ShipProductionUnit).DesignKey];
+                ShipDesign productionItemDesign = clientState.EmpireState.Designs[(productionOrder.Unit as ShipProductionUnit).DesignKey];
 
                 if (productionItemDesign.Type == ItemType.Starbase)
                 {
@@ -502,7 +502,7 @@ namespace Nova.WinForms.Gui
         /// add.
         /// FIXME (priority 6) - Dan - What if I want to build a small base first, then add a larger base latter. I can queue two different base designs in Stars! 
         /// </remarks>
-        private void AddStarbase(Design design)
+        private void AddStarbase(ShipDesign design)
         {
             // First run through the production queue to see if there is already a
             // starbase there. If there is remove it.

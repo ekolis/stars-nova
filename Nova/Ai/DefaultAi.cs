@@ -68,18 +68,6 @@ namespace Nova.Ai
                     int defenceToBuild = Global.MaxDefenses - star.Defenses;
                     if (defenceToBuild > 0)
                     {
-                        Design defenceDesign = null;
-                        foreach (Design design in clientState.EmpireState.Designs.Values)
-                        {
-                            if (design.Type == ItemType.Defenses)
-                            {
-                                defenceDesign = design;
-                            }
-                        }
-                        if (defenceDesign == null)
-                        {
-                            throw new System.Exception("Could not locate a defence design.");
-                        }
                         productionOrder = new ProductionOrder(defenceToBuild, new DefenseProductionUnit(), false);
                         star.ManufacturingQueue.Queue.Add(productionOrder);
                     }

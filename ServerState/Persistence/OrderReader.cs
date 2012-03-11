@@ -293,7 +293,7 @@ namespace Nova.Server
                     // Ship reference to Design
                     foreach (Ship ship in fleet.FleetShips)
                     {
-                        ship.DesignUpdate(playerOrders.RaceDesigns[ship.DesignKey] as ShipDesign);
+                        ship.DesignUpdate(playerOrders.RaceDesigns[ship.DesignKey]);
                     }
                 }
             }
@@ -314,15 +314,11 @@ namespace Nova.Server
             // HullModule reference to a component
             foreach (Design design in playerOrders.RaceDesigns.Values)
             {
-                if (design.Type == ItemType.Ship)
+                foreach (HullModule module in (design.ShipHull.Properties["Hull"] as Hull).Modules)
                 {
-                    ShipDesign ship = design as ShipDesign;
-                    foreach (HullModule module in ((Hull)ship.ShipHull.Properties["Hull"]).Modules)
+                    if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                     {
-                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
-                        {
-                            AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
-                        }
+                        AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
                     }
                 }
             }

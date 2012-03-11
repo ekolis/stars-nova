@@ -159,9 +159,6 @@
     <Compile Include="Components\Radiation.cs" />
     <Compile Include="Components\SimpleProperty.cs" />
     <Compile Include="Components\DoubleProperty.cs" />
-    <Compile Include="Components\Design.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="Components\Computer.cs" />
     <Compile Include="Components\Fuel.cs" />
     <Compile Include="Components\HullAffinity.cs" />

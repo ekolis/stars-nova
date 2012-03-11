@@ -68,7 +68,7 @@ namespace Nova.Common
         public TechLevel    ResearchTopics          = new TechLevel(); // order of researching
         
         public RaceComponents   AvailableComponents = new RaceComponents();
-        public Dictionary<long, Design> Designs     = new Dictionary<long, Design>(); 
+        public Dictionary<long, ShipDesign> Designs     = new Dictionary<long, ShipDesign>(); 
         
         public StarList OwnedStars = new StarList();
         public Dictionary<string, StarIntel> StarReports  = new Dictionary<string, StarIntel>();
@@ -272,23 +272,7 @@ namespace Nova.Common
                         subNode = mainNode.FirstChild;
                         while (subNode != null)
                         {
-                            Design design;
-                            
-                            if (subNode.Name.ToLower() == "design")
-                            {
-                                design = new Design(subNode);
-                                
-                            }
-                            else if (subNode.Name.ToLower() == "shipdesign")
-                            {
-                                design = new ShipDesign(subNode);
-                                
-                            }
-                            else
-                            {
-                                throw new System.NotImplementedException("Unrecognised design type.");
-                            }
-                            
+                            ShipDesign design = new ShipDesign(subNode);
                             Designs.Add(design.Key, design);
                             
                             subNode = subNode.NextSibling;
@@ -345,16 +329,9 @@ namespace Nova.Common
             
             // Own Designs
             XmlElement xmlelDesigns = xmldoc.CreateElement("Designs");
-            foreach (Design design in Designs.Values)
+            foreach (ShipDesign design in Designs.Values)
             {
-                if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
-                {
-                    xmlelDesigns.AppendChild((design as ShipDesign).ToXml(xmldoc));
-                }
-                else
-                {
-                    xmlelDesigns.AppendChild(design.ToXml(xmldoc));
-                }                                              
+                xmlelDesigns.AppendChild(design.ToXml(xmldoc));                                             
             }            
             xmlelEmpireData.AppendChild(xmlelDesigns);
             
@@ -421,7 +398,7 @@ namespace Nova.Common
             ResearchTopics          = new TechLevel();
             
             AvailableComponents     = new RaceComponents();
-            Designs                 = new Dictionary<long, Design>();
+            Designs                 = new Dictionary<long, ShipDesign>();
             
             OwnedStars.Clear();
             StarReports.Clear();

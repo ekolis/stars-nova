@@ -65,7 +65,7 @@ namespace Nova.Server
                 
                 if (done > 0 && productionOrder.Unit is ShipProductionUnit)
                 {
-                    CreateShips(serverState.AllDesigns[(productionOrder.Unit as ShipProductionUnit).DesignKey] as ShipDesign, star, done);
+                    CreateShips(serverState.AllDesigns[(productionOrder.Unit as ShipProductionUnit).DesignKey], star, done);
                 }
                     
                 if (productionOrder.Quantity == 0)

@@ -35,9 +35,9 @@ namespace Nova.WinForms.Gui.Dialogs
 
     public partial class SplitFleetDialog : Form
     {
-        private List<Design> designs;
-        private Dictionary<Design, int> leftFleet;
-        private Dictionary<Design, int> rightFleet;
+        private List<ShipDesign> designs;
+        private Dictionary<ShipDesign, int> leftFleet;
+        private Dictionary<ShipDesign, int> rightFleet;
         private List<NumericUpDown> leftNumerics;
         private List<NumericUpDown> rightNumerics;
 
@@ -56,15 +56,15 @@ namespace Nova.WinForms.Gui.Dialogs
         public void SetFleet(Fleet sourceFleet, Fleet otherFleet)
         {
             leftFleet = sourceFleet.Composition;
-            rightFleet = otherFleet == null ? new Dictionary<Design, int>() : otherFleet.Composition;
-            foreach (Design des in leftFleet.Keys)
+            rightFleet = otherFleet == null ? new Dictionary<ShipDesign, int>() : otherFleet.Composition;
+            foreach (ShipDesign des in leftFleet.Keys)
             {
                 if (!rightFleet.ContainsKey(des))
                 {
                     rightFleet[des] = 0;
                 }
             }
-            foreach (Design des in rightFleet.Keys)
+            foreach (ShipDesign des in rightFleet.Keys)
             {
                 if (!leftFleet.ContainsKey(des))
                 {
@@ -72,7 +72,7 @@ namespace Nova.WinForms.Gui.Dialogs
                 }
             }
 
-            designs = new List<Design>();
+            designs = new List<ShipDesign>();
             designs.AddRange(leftFleet.Keys.OrderBy(x => x.Name));
             
             leftNumerics = new List<NumericUpDown>();

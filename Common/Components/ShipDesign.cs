@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011, 2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,29 +20,19 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module defines the potential design of a ship. Details of the actual
-// design are ony available once the hull modules have been populated.
-// ===========================================================================
-#endregion
-
 namespace Nova.Common.Components
 {
-    #region Using Statements
     using System;
     using System.Collections.Generic;
     using System.Xml;
-    #endregion
 
     /// <summary>
-    /// The blueprint for building a ship.
+    /// This module defines the potential design of a ship. Details of the actual
+    /// design are ony available once the hull modules have been populated.
     /// </summary>
     [Serializable]
-    public class ShipDesign : Design
+    public class ShipDesign : Item
     {
-        #region Data
-
         // This is the component that contains the Hull property, to which all other ships components attach.
         public Component ShipHull = null;
 
@@ -73,190 +63,7 @@ namespace Nova.Common.Components
         /// The ship image shall be selectable when the ship is designed.
         /// </summary>
         public ShipIcon Icon = null;
-
-        #endregion
-
-        #region Construction
-
-        public ShipDesign(long designkey)
-            : base(designkey)
-        {
-            Key = designkey;
-        }
-
-        #endregion
-
-        #region Methods
-
-
-        /// <summary>
-        /// The ship design object has all information that could be found from a scan
-        /// of the the ship hull modules. However scanning these for a particular piece
-        /// of information is inefficient. This method reorganises the information
-        /// to save other routines from having to do this.
-        /// </summary>
-        public void Update()
-        {
-            if (ShipHull == null)
-            {
-                return; // not much of a ship yet
-            }
-            Hull hullProperties = null;
-            if (ShipHull.Properties.ContainsKey("Hull"))
-            {
-                hullProperties = ShipHull.Properties["Hull"] as Hull;
-            }
-            else
-            {
-                return; // still not much of a ship.
-            }
-
-            // Start by copying the basic properties of the hull
-            Summary = new Component(ShipHull);
-
-            // Add those properties which are included with the hull
-            
-            IntegerProperty armor = new IntegerProperty(hullProperties.ArmorStrength);
-            Summary.Properties.Add("Armor", armor);
-            IntegerProperty cargo = new IntegerProperty(hullProperties.BaseCargo);
-            Summary.Properties.Add("Cargo", cargo);
-            Fuel fuel = new Fuel(hullProperties.FuelCapacity, 0);
-            Summary.Properties.Add("Fuel", fuel);
-
-            // Check any non Hull properties of the ShipHull
-            foreach (string key in ShipHull.Properties.Keys)
-            {
-                if (key == "Hull")
-                {
-                    continue;
-                }
-                SumProperty(ShipHull.Properties[key], key, 1);
-            }
-
-            // Then add all of the components fitted to the hull modules.
-            foreach (HullModule module in hullProperties.Modules)
-            {
-                if (module.AllocatedComponent == null)
-                {
-                    continue;
-                }
-                // Sumarise the mass & cost
-                Summary.Mass += module.AllocatedComponent.Mass;
-                Summary.Cost += module.AllocatedComponent.Cost;
-                // Summarise the properties
-                foreach (string key in module.AllocatedComponent.Properties.Keys)
-                {
-                    SumProperty(module.AllocatedComponent.Properties[key], key, module.ComponentCount);
-                }
-            }
-            this.Mass = Summary.Mass;
-            this.Cost = Summary.Cost;
-        }
-
-        /// <summary>
-        /// Add a property to the ShipDesign.Summary.
-        /// </summary>
-        /// <param name="property">
-        /// The property to be added to the ShipDesign.Summary.
-        /// </param><param name="type">
-        /// The type of the property: one of Component.propertyKeys, normally 
-        /// the key used to obtain it from a Properties dictionary.
-        /// </param>
-        private void SumProperty(ComponentProperty property, string type, int componentCount)
-        {
-            switch (type)
-            {
-                // properties that can be summed up to a single property
-                case "Armor":
-                case "Capacitor":
-                case "Cargo":
-                case "Cloak":
-                case "Computer":
-                case "Defense":
-                case "Driver":
-                case "Fuel":
-                case "Jammer":
-                case "Movement":
-                case "Orbital Adjuster":
-                case "Radiation":
-                case "Robot":
-                case "Scanner":
-                case "Shield":
-                case "Terraforming":
-                    if (Summary.Properties.ContainsKey(type))
-                    {
-                        ComponentProperty toAdd = property.Clone() as ComponentProperty; // create a copy so scaling doesn't mess it up.
-                        toAdd.Scale(componentCount);
-                        Summary.Properties[type].Add(toAdd);
-                    }
-                    else
-                    {
-                        ComponentProperty toAdd = property.Clone() as ComponentProperty; // create a copy so scaling doesn't mess it up.
-                        toAdd.Scale(componentCount);
-                        Summary.Properties.Add(type, toAdd);
-                    }
-                    break;
-
-                // sum up the components in the slot, but keep a separate entry for 'different components'<-- has different meaning for each of these
-                case "Bomb":
-                    Bomb bomb = property as Bomb;
-                    if (bomb.IsSmart)
-                    {
-                        SmartBombs += bomb * componentCount;
-                    }
-                    else
-                    {
-                        ConventionalBombs += bomb * componentCount;
-                    }
-                    break;
-                case "Mine Layer":
-                    MineLayer layer = property as MineLayer;
-                    if (layer.HitChance == MineLayer.HeavyHitChance)
-                    {
-                        HeavyMines += layer * componentCount;
-                    }
-                    else if (layer.HitChance == MineLayer.SpeedTrapHitChance)
-                    {
-                        SpeedBumbMines += layer * componentCount;
-                    }
-                    else
-                    {
-                        StandardMines += layer * componentCount;
-                    }
-                    break;
-
-                case "Weapon":
-                    Weapon weapon = property as Weapon;
-                    Weapons.Add(weapon * componentCount);
-                    break;
-
-                // keep one of each type only - TODO (priority 2) keep the right one
-                case "Colonizer":
-                case "Engine":
-                case "Gate":
-                case "Hull":
-                case "Mine Layer Efficiency":
-                    if (Summary.Properties.ContainsKey(type))
-                    {
-                        break;
-                    }
-                    else
-                    {
-                        Summary.Properties.Add(type, property);
-                    }
-                    break;
-
-                // Ignore in this context
-                case "Hull Affinity":
-                case "Transport Ships Only":
-                    break;
-            }
-        }
-
-        #endregion
-
-        #region Properties
-
+        
         /// <summary>
         /// Get the total sheild value of this ShipDesign.
         /// </summary>
@@ -553,9 +360,178 @@ namespace Nova.Common.Components
             }
         }
 
-        #endregion
 
-        #region Load Save Xml
+        public ShipDesign(long designkey)
+            : base(designkey)
+        {
+            Key = designkey;
+        }
+
+
+        /// <summary>
+        /// The ship design object has all information that could be found from a scan
+        /// of the the ship hull modules. However scanning these for a particular piece
+        /// of information is inefficient. This method reorganises the information
+        /// to save other routines from having to do this.
+        /// </summary>
+        public void Update()
+        {
+            if (ShipHull == null)
+            {
+                return; // not much of a ship yet
+            }
+            Hull hullProperties = null;
+            if (ShipHull.Properties.ContainsKey("Hull"))
+            {
+                hullProperties = ShipHull.Properties["Hull"] as Hull;
+            }
+            else
+            {
+                return; // still not much of a ship.
+            }
+
+            // Start by copying the basic properties of the hull
+            Summary = new Component(ShipHull);
+
+            // Add those properties which are included with the hull
+            
+            IntegerProperty armor = new IntegerProperty(hullProperties.ArmorStrength);
+            Summary.Properties.Add("Armor", armor);
+            IntegerProperty cargo = new IntegerProperty(hullProperties.BaseCargo);
+            Summary.Properties.Add("Cargo", cargo);
+            Fuel fuel = new Fuel(hullProperties.FuelCapacity, 0);
+            Summary.Properties.Add("Fuel", fuel);
+
+            // Check any non Hull properties of the ShipHull
+            foreach (string key in ShipHull.Properties.Keys)
+            {
+                if (key == "Hull")
+                {
+                    continue;
+                }
+                SumProperty(ShipHull.Properties[key], key, 1);
+            }
+
+            // Then add all of the components fitted to the hull modules.
+            foreach (HullModule module in hullProperties.Modules)
+            {
+                if (module.AllocatedComponent == null)
+                {
+                    continue;
+                }
+                // Sumarise the mass & cost
+                Summary.Mass += module.AllocatedComponent.Mass;
+                Summary.Cost += module.AllocatedComponent.Cost;
+                // Summarise the properties
+                foreach (string key in module.AllocatedComponent.Properties.Keys)
+                {
+                    SumProperty(module.AllocatedComponent.Properties[key], key, module.ComponentCount);
+                }
+            }
+            this.Mass = Summary.Mass;
+            this.Cost = Summary.Cost;
+        }
+
+        /// <summary>
+        /// Add a property to the ShipDesign.Summary.
+        /// </summary>
+        /// <param name="property">
+        /// The property to be added to the ShipDesign.Summary.
+        /// </param><param name="type">
+        /// The type of the property: one of Component.propertyKeys, normally 
+        /// the key used to obtain it from a Properties dictionary.
+        /// </param>
+        private void SumProperty(ComponentProperty property, string type, int componentCount)
+        {
+            switch (type)
+            {
+                // properties that can be summed up to a single property
+                case "Armor":
+                case "Capacitor":
+                case "Cargo":
+                case "Cloak":
+                case "Computer":
+                case "Defense":
+                case "Driver":
+                case "Fuel":
+                case "Jammer":
+                case "Movement":
+                case "Orbital Adjuster":
+                case "Radiation":
+                case "Robot":
+                case "Scanner":
+                case "Shield":
+                case "Terraforming":
+                    if (Summary.Properties.ContainsKey(type))
+                    {
+                        ComponentProperty toAdd = property.Clone() as ComponentProperty; // create a copy so scaling doesn't mess it up.
+                        toAdd.Scale(componentCount);
+                        Summary.Properties[type].Add(toAdd);
+                    }
+                    else
+                    {
+                        ComponentProperty toAdd = property.Clone() as ComponentProperty; // create a copy so scaling doesn't mess it up.
+                        toAdd.Scale(componentCount);
+                        Summary.Properties.Add(type, toAdd);
+                    }
+                    break;
+
+                // sum up the components in the slot, but keep a separate entry for 'different components'<-- has different meaning for each of these
+                case "Bomb":
+                    Bomb bomb = property as Bomb;
+                    if (bomb.IsSmart)
+                    {
+                        SmartBombs += bomb * componentCount;
+                    }
+                    else
+                    {
+                        ConventionalBombs += bomb * componentCount;
+                    }
+                    break;
+                case "Mine Layer":
+                    MineLayer layer = property as MineLayer;
+                    if (layer.HitChance == MineLayer.HeavyHitChance)
+                    {
+                        HeavyMines += layer * componentCount;
+                    }
+                    else if (layer.HitChance == MineLayer.SpeedTrapHitChance)
+                    {
+                        SpeedBumbMines += layer * componentCount;
+                    }
+                    else
+                    {
+                        StandardMines += layer * componentCount;
+                    }
+                    break;
+
+                case "Weapon":
+                    Weapon weapon = property as Weapon;
+                    Weapons.Add(weapon * componentCount);
+                    break;
+
+                // keep one of each type only - TODO (priority 2) keep the right one
+                case "Colonizer":
+                case "Engine":
+                case "Gate":
+                case "Hull":
+                case "Mine Layer Efficiency":
+                    if (Summary.Properties.ContainsKey(type))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Summary.Properties.Add(type, property);
+                    }
+                    break;
+
+                // Ignore in this context
+                case "Hull Affinity":
+                case "Transport Ships Only":
+                    break;
+            }
+        }
+
 
         /// <summary>
         /// Generate an XmlElement representation of the ShipDesign for saving to file.
@@ -579,7 +555,7 @@ namespace Nova.Common.Components
         /// </summary>
         /// <param name="node">A "ShipDesign" node Nova save file (xml document).</param>
         public ShipDesign(XmlNode node)
-            : base(node.SelectSingleNode("Design"))
+            : base(node)
         {
             XmlNode subnode = node.FirstChild;
             while (subnode != null)
@@ -604,8 +580,6 @@ namespace Nova.Common.Components
                 subnode = subnode.NextSibling;
             }
         }
-
-        #endregion
     }
 }
 

@@ -32,7 +32,7 @@ namespace Nova.Common.Commands
     /// </summary>
     public class DesignCommand : ICommand
     {        
-        public Design Design
+        public ShipDesign Design
         {
             private set;
             get;
@@ -48,7 +48,7 @@ namespace Nova.Common.Commands
         // Create a blank design command.
         public DesignCommand()
         {
-            Design = new Design(Global.None);
+            Design = new ShipDesign(Global.None);
             Mode = CommandMode.Add;
         }
         
@@ -59,7 +59,7 @@ namespace Nova.Common.Commands
         /// </summary>
         public DesignCommand(CommandMode mode, long designKey)
         {
-            Design = new Design(designKey);
+            Design = new ShipDesign(designKey);
             Mode = mode;
         }
         
@@ -68,7 +68,7 @@ namespace Nova.Common.Commands
         /// Creates a design command by providing a full design object. Use when adding or
         /// modifying designs.
         /// </summary>
-        public DesignCommand(CommandMode mode, Design design)
+        public DesignCommand(CommandMode mode, ShipDesign design)
         {
             Design = design;
             Mode = mode;
@@ -94,7 +94,7 @@ namespace Nova.Common.Commands
                     break;                   
                     
                     case "design":
-                        Design = new Design(mainNode);
+                        Design = new ShipDesign(mainNode);
                     break;
                     
                     case "shipdesign":
@@ -208,14 +208,7 @@ namespace Nova.Common.Commands
             XmlElement xmlelCom = xmldoc.CreateElement("Command");
             xmlelCom.SetAttribute("Type", "Design");
             Global.SaveData(xmldoc, xmlelCom, "Mode", Mode.ToString());
-            if (Design.Type == ItemType.Ship || Design.Type == ItemType.Starbase)
-            {
-                xmlelCom.AppendChild((Design as ShipDesign).ToXml(xmldoc));
-            }
-            else
-            {
-                xmlelCom.AppendChild(Design.ToXml(xmldoc));
-            }
+            xmlelCom.AppendChild(Design.ToXml(xmldoc));
             
             return xmlelCom;    
         }

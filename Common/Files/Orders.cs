@@ -39,7 +39,7 @@ namespace Nova.Common
     [Serializable]
     public sealed class Orders
     {
-        public Dictionary<long, Design> RaceDesigns = new Dictionary<long, Design>();     // For any new designs
+        public Dictionary<long, ShipDesign> RaceDesigns = new Dictionary<long, ShipDesign>();     // For any new designs
         
         /// <summary>
         /// List of fleets (Fleet.Key) to delete.
@@ -68,8 +68,7 @@ namespace Nova.Common
         public Orders(XmlNode xmlnode)
         {
             // temporary variables for reading in designs, fleets, stars
-            Design design = null;
-            ShipDesign shipDesign = null;
+            ShipDesign design = null;
 
             // Read the node
             while (xmlnode != null)
@@ -85,30 +84,9 @@ namespace Nova.Common
                             xmlnode = xmlnode.FirstChild;
                             continue;
 
-                        // When loading designs we need to know what type of design it is.
-                        // To do this we first look ahead at the Type field of the design,
-                        // then load a design of the appropriate type (currently Design or ShipDesign).
-                        case "design":
-                            {
-                                string type = xmlnode.FirstChild.SelectSingleNode("Type").FirstChild.Value;
-                                if (type.ToLower() == "ship" || type == "starbase")
-                                {
-                                    shipDesign = new ShipDesign(xmlnode);
-                                    RaceDesigns.Add(shipDesign.Key, shipDesign);
-                                }
-                                else
-                                {
-                                    design = new Design(xmlnode);
-                                    RaceDesigns.Add(design.Key, design);
-                                }
-                            }
-                            break;
-
                         case "shipdesign":
-                            {
-                                shipDesign = new ShipDesign(xmlnode);
-                                RaceDesigns.Add(shipDesign.Key, shipDesign);
-                            }
+                            design = new ShipDesign(xmlnode);
+                            RaceDesigns.Add(design.Key, design);
                             break;
 
                         // Deleted designs are in their own section to seperate them from 
@@ -172,16 +150,9 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelOrders, "Turn", EmpireStatus.TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
             // store the designs, for any new designs
-            foreach (Design design in RaceDesigns.Values)
+            foreach (ShipDesign design in RaceDesigns.Values)
             {
-                if (design.Type == ItemType.Starbase || design.Type == ItemType.Ship)
-                {
-                    xmlelOrders.AppendChild(((ShipDesign)design).ToXml(xmldoc));
-                }
-                else
-                {
-                    xmlelOrders.AppendChild(design.ToXml(xmldoc));
-                }
+                xmlelOrders.AppendChild(design.ToXml(xmldoc));
             }
 
             // Deleted fleets and designs are wrapped in a section node

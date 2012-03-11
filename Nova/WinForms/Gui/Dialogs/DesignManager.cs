@@ -112,7 +112,7 @@ namespace Nova.WinForms.Gui
 
             long designKey = (this.designList.SelectedItems[0].Tag as ShipDesign).Key;
 
-            ShipDesign design = clientState.EmpireState.Designs[designKey] as ShipDesign;
+            ShipDesign design = clientState.EmpireState.Designs[designKey];
 
             DisplayDesign(design);
         }
@@ -171,7 +171,7 @@ Are you sure you want to do this?";
                 return;
             }
 
-            Design design = designList.SelectedItems[0].Tag as Design;
+            ShipDesign design = designList.SelectedItems[0].Tag as ShipDesign;
 
             DesignCommand command = new DesignCommand(CommandMode.Delete, design.Key);
             
@@ -228,31 +228,28 @@ Are you sure you want to do this?";
         /// <param name="raceName"></param>
         private void ListDesigns(int ownerId)
         {
-            this.designList.Items.Clear();
-            this.designList.BeginUpdate();
+            designList.Items.Clear();
+            designList.BeginUpdate();
 
-            foreach (Design design in clientState.EmpireState.Designs.Values)
+            foreach (ShipDesign design in clientState.EmpireState.Designs.Values)
             {
-                if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
+                if (design.Owner == ownerId)
                 {
-                    if (design.Owner == ownerId)
+                    if (ownerId == clientState.EmpireState.Id || clientState.EnemyDesigns.ContainsKey(design.Key))
                     {
-                        if (ownerId == clientState.EmpireState.Id || this.clientState.EnemyDesigns.ContainsKey(design.Key))
-                        {
-                            AddToDesignList(design);
-                        }
+                        AddToDesignList(design);
                     }
                 }
             }
 
-            this.designList.EndUpdate();
+            designList.EndUpdate();
         }
 
         /// <Summary>
         /// Add a design into the list of designs
         /// </Summary>
         /// <param name="design">The design to add to the design list.</param>
-        private void AddToDesignList(Design design)
+        private void AddToDesignList(ShipDesign design)
         {
             ListViewItem itemToAdd = new ListViewItem();
 
@@ -269,7 +266,7 @@ Are you sure you want to do this?";
                 itemToAdd.SubItems.Add("Unknown");
             }
 
-            this.designList.Items.Add(itemToAdd);
+            designList.Items.Add(itemToAdd);
         }
 
         /// <Summary>
@@ -277,7 +274,7 @@ Are you sure you want to do this?";
         /// </Summary>
         /// <param name="design">The design to count instances of.</param>
         /// <returns>The number of ships of the given design that have been built.</returns>
-        private int CountDesigns(Design design)
+        private int CountDesigns(ShipDesign design)
         {
             int quantity = 0;
 
