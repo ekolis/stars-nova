@@ -23,10 +23,12 @@
 namespace Nova.WinForms.Gui
 {
     using System;
+    using System.Collections.Generic;
     using System.Windows.Forms;
 
     using Nova.Client;
     using Nova.Common;
+    using Nova.Common.Commands;
     using Nova.Common.Components;
 
     /// <Summary>
@@ -34,10 +36,6 @@ namespace Nova.WinForms.Gui
     /// </Summary>
     public partial class ProductionDialog : System.Windows.Forms.Form
     {        
-        // ----------------------------------------------------------------------------
-        // Non-designer generated data items
-        // ----------------------------------------------------------------------------
-
         private readonly Star queueStar;
         private readonly ClientData clientState;
 
@@ -65,11 +63,22 @@ namespace Nova.WinForms.Gui
         private void OnLoad(object sender, System.EventArgs e)
         {
             // Check the Star's budget state.
-            this.onlyLeftovers.Checked = this.queueStar.OnlyLeftover;
+            onlyLeftovers.Checked = queueStar.OnlyLeftover;
             
-            this.designList.BeginUpdate();
+            designList.BeginUpdate();
+            
+            // Add default items.
+            ListViewItem item = new ListViewItem();
+            item.Text = "Factory";
+            item.Tag = new FactoryProductionUnit(queueStar.ThisRace);
+            designList.Items.Add(item);
+            
+            item = new ListViewItem();
+            item.Text = "Mine";
+            item.Tag = new MineProductionUnit(queueStar.ThisRace);
+            designList.Items.Add(item);
 
-            Fleet starbase = this.queueStar.Starbase;
+            Fleet starbase = queueStar.Starbase;
             int dockCapacity = 0;
 
             if (starbase != null)
@@ -88,42 +97,54 @@ namespace Nova.WinForms.Gui
                 }
 
                 // Check if this design can be built at this Star - ships are limited by dock capacity of the starbase.
-                if (design.Type == ItemType.Ship)
+
+                if (design is ShipDesign && dockCapacity > design.Mass)
                 {
-                    if (dockCapacity > design.Mass)
-                    {
-                        ListViewItem item = new ListViewItem(design.Name);
-                        item.Tag = design;
-                        this.designList.Items.Add(item);
-                    }
+                    item = new ListViewItem();
+                    item.Text = design.Name;
+                    item.Tag = new ShipProductionUnit(design as ShipDesign);
+                    designList.Items.Add(item);
                 }
-                else
-                {
-                    ListViewItem item = new ListViewItem(design.Name);
-                    item.Tag = design;
-                    this.designList.Items.Add(item);
-                }
+
             }
 
-            this.designList.EndUpdate();
-            this.addToQueue.Enabled = false;
-
-            Gui.QueueList.Populate(this.queueList, this.queueStar.ManufacturingQueue);
+            designList.EndUpdate();
+            addToQueue.Enabled = false;
+                
+            queueList.Populate(queueStar);
+            
+            // Add the Header after populating as Populate() clears the Item list.
+            // Header name doesn't matter as it's handled elsewhere.
+            item = new ListViewItem();
+            item.Tag = new ProductionOrder(0, new NoProductionUnit(), true);
+            item.Text = (item.Tag as ProductionOrder).Name;            
+            queueList.Items.Insert(0, item);
+            
+            queueList.UpdateHeader();
+            
             // check if a starbase design is in the Production Queue and if so remove it from the Design List
-            int itemLoopCounter = 0; // outer loop counter used for stepping through the Production Queue
-            for (itemLoopCounter = 0; itemLoopCounter < this.queueList.Items.Count; itemLoopCounter++)
+            ProductionOrder productionOrder;
+            // outer loop used for stepping through the Production Queue
+            for (int queueLoopCounter = 0; queueLoopCounter < queueList.Items.Count; queueLoopCounter++)
             {
-                // is it a starbase?
-                long tempKey = (queueList.Items[itemLoopCounter].Tag as ProductionItem).Key;
-                Design productionItemDesign = clientState.EmpireState.Designs[tempKey];
+                // is this a ship at all?
+                productionOrder = queueList.Items[queueLoopCounter].Tag as ProductionOrder;
+                                
+                if (!(productionOrder.Unit is ShipProductionUnit))
+                {
+                    continue;        
+                }
+    
+                // is it a starbase?                
+                Design productionItemDesign = clientState.EmpireState.Designs[(productionOrder.Unit as ShipProductionUnit).DesignKey];
 
                 if (productionItemDesign.Type == ItemType.Starbase)
                 {
-                    this.queueList.Items[itemLoopCounter].Checked = true;
-                    int designsLoopCounter = 0; // inner loop counter used for stepping through the Design List
-                    for (designsLoopCounter = 0; designsLoopCounter < this.designList.Items.Count; designsLoopCounter++)
+                    queueList.Items[queueLoopCounter].Checked = true;
+                    // inner loop counter used for stepping through the Design List
+                    for (int designsLoopCounter = 0; designsLoopCounter < designList.Items.Count; designsLoopCounter++)
                     {
-                        if (this.queueList.Items[itemLoopCounter].Text == this.designList.Items[designsLoopCounter].Text)
+                        if (queueList.Items[queueLoopCounter].Text == designList.Items[designsLoopCounter].Text)
                         {
                             // remove the starbase from the Design List
                             designList.Items.RemoveAt(designsLoopCounter);
@@ -133,20 +154,11 @@ namespace Nova.WinForms.Gui
                 }
                 else
                 {
-                    this.queueList.Items[itemLoopCounter].Checked = false;
+                    queueList.Items[queueLoopCounter].Checked = false;
                 }
             }
             
-            // add the "--- Top of Queue ---" or "--- Queue Empty ---" message to the production Queue
-            if (this.queueList.Items.Count == 0)
-            {
-                this.queueList.Items.Insert(0, "--- Queue is Empty ---");
-            }
-            else
-            {
-                this.queueList.Items.Insert(0, "--- Top of Queue ---");
-            }
-            this.queueList.Items[this.queueList.Items.Count - 1].Selected = true;
+            queueList.Items[queueList.Items.Count - 1].Selected = true;
             
             UpdateProductionCost();
         }
@@ -158,23 +170,19 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void AvailableSelected(object sender, System.EventArgs e)
         {
-            if (this.designList.SelectedItems.Count <= 0)  
+            if (designList.SelectedItems.Count <= 0)  
             {
                 // nothing selected in the design list
-                this.addToQueue.Enabled = false;
-                Resources emptyResources = new Resources();
-                this.designCost.Value = emptyResources;
+                addToQueue.Enabled = false;
+                designCost.Value = new Resources();
                 return;
             }
-            else
-            {
-                this.addToQueue.Enabled = true;
-                long designKey = (this.designList.SelectedItems[0].Tag as Design).Key;
-
-                Design design = clientState.EmpireState.Designs[designKey];
-
-                this.designCost.Value = design.Cost;
-            }
+            
+            addToQueue.Enabled = true;
+            designCost.Value = (designList.SelectedItems[0].Tag as IProductionUnit).Cost;
+            
+            return;
+                      
         }
 
         /// <Summary>
@@ -185,46 +193,46 @@ namespace Nova.WinForms.Gui
         private void QueueSelected(object sender, EventArgs e)
         {
             // check if selected Item is the "--- Top of Queue ---" which cannot be moved down or removed
-            if (this.queueList.SelectedItems.Count > 0)
+            if (queueList.SelectedItems.Count > 0)
             {
-                if (this.queueList.SelectedIndices[0] == 0)
+                if (queueList.SelectedIndices[0] == 0)
                 {
                     // "--- Top of Queue ---" selected
                     this.queueUp.Enabled = false;
-                    this.queueDown.Enabled = false;
-                    this.removeFromQueue.Enabled = false;
-                    // this.addToQueue.Enabled = true;
+                    queueDown.Enabled = false;
+                    removeFromQueue.Enabled = false;
+                    // addToQueue.Enabled = true;
                 }
                 else
                 {
-                    this.removeFromQueue.Enabled = true;
+                    removeFromQueue.Enabled = true;
                     // check if >1 to ignore top two items ("--- Top of Queue ---" placeholder which cannot be moved and Item below it)
-                    if (this.queueList.SelectedIndices[0] > 1)
+                    if (queueList.SelectedIndices[0] > 1)
                     {
-                        this.queueUp.Enabled = true;
+                        queueUp.Enabled = true;
                     }
                     else
                     {
-                        this.queueUp.Enabled = false;
+                        queueUp.Enabled = false;
                     }
                           
                           
-                    if (this.queueList.SelectedIndices[0] < this.queueList.Items.Count - 1)
+                    if (queueList.SelectedIndices[0] < queueList.Items.Count - 1)
                     {
-                        this.queueDown.Enabled = true;
+                        queueDown.Enabled = true;
                     }
                     else
                     {
-                        this.queueDown.Enabled = false;
+                        queueDown.Enabled = false;
                     }
                 }
             }
             else
             {
                 // no items are selected
-                this.queueUp.Enabled = false;
-                this.queueDown.Enabled = false;
-                this.removeFromQueue.Enabled = false;
+                queueUp.Enabled = false;
+                queueDown.Enabled = false;
+                removeFromQueue.Enabled = false;
             }
             
             // it does not matter if an Item is selected the Production Costs can still be updated.
@@ -248,44 +256,32 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void AddToQueue_Click(object sender, System.EventArgs e)
         {
-            if (this.designList.SelectedItems.Count <= 0)
+            if (designList.SelectedItems.Count <= 0)
             {
                 return;
             }
+            
+            IProductionUnit productionUnit = designList.SelectedItems[0].Tag as IProductionUnit;
 
-            long designKey = (designList.SelectedItems[0].Tag as Design).Key;
-            Design design = clientState.EmpireState.Designs[designKey];
-
-            // Starbases are handled differently to the other component types.
-            if (design.Type == ItemType.Starbase)
-            {
-                AddStarbase(design);
-                return;
-            }
-
+            // Starbases are handled differently to the other component types.            
+            
             // Ctrl-Add + 100 items
             // shift-Add +10 items
             // Add +1 items
+            int quantity = 1;
+            
             if (Button.ModifierKeys == Keys.Control)
             {
-                AddDesign(design, 100);
+                quantity = 100;
             }
             else if (Button.ModifierKeys == Keys.Shift)
             {
-                AddDesign(design, 10);
+                quantity = 10;
             }
-            else
-            {
-                AddDesign(design, 1);
-            }
+
+            ProductionOrder productionOrder = new ProductionOrder(quantity, productionUnit, false);
             
-            // confirm the Production Queue is not empty and ensure top of queue placeholder is labelled correctly
-            if (this.queueList.Items.Count == 1)
-            {
-                this.queueList.Items.RemoveAt(0);
-                this.queueList.Items.Insert(0, "--- Top of Queue ---");
-                // this.queueList.Items[0].Selected = true;
-            }
+            AddProduction(productionOrder);
         }
 
         /// <Summary>
@@ -306,57 +302,34 @@ namespace Nova.WinForms.Gui
         private void RemoveFromQueue_Click(object sender, EventArgs e)
         {
             int s = queueList.SelectedIndices[0];
-            int currentQuantity = Convert.ToInt32(queueList.Items[s].SubItems[1].Text);
-            int numToRemove = 0;
+            ProductionOrder productionOrder = (queueList.Items[s].Tag as ProductionOrder);
 
-            if (this.queueList.SelectedItems.Count > 0)
+            if (queueList.SelectedItems.Count > 0)
             {
-                long designKey = (queueList.Items[queueList.SelectedIndices[0]].Tag as ProductionItem).Key;
-                string designName = this.queueList.Items[queueList.SelectedIndices[0]].Text;
-                Design selectedDesign = clientState.EmpireState.Designs[designKey] as Design;
-                
-                if (queueList.Items[s].Checked == true)
-                {
-                    ListViewItem item = new ListViewItem(designName);
-                    item.Tag = selectedDesign;
-                    designList.Items.Add(item);
-                }
-
                 // Ctrl -Remove 100 items
                 // Shift -Remove 10 items
                 //       -Remove 1 Item
-                switch (Button.ModifierKeys)
+                int numToRemove = 1;                
+                if (Button.ModifierKeys == Keys.Control)
                 {
-                    case Keys.Control:
-                        numToRemove = 100;
-                        break;
-                    case Keys.Shift:
-                        numToRemove = 10;
-                        break;
-                    default:
-                        numToRemove = 1;
-                        break;
+                    numToRemove = 100;
+                }
+                else if (Button.ModifierKeys == Keys.Shift)
+                {
+                    numToRemove = 10;
                 }
 
-                if (numToRemove >= currentQuantity)
+                if (numToRemove >= productionOrder.Quantity)
                 {
-                    queueList.Items.RemoveAt(queueList.SelectedIndices[0]);
+                    queueList.RemoveProductionOrder(s);
                 }
                 else
                 {
-                    int remaining = currentQuantity - numToRemove;
-                    queueList.Items[s].SubItems[1].Text = remaining.ToString();
+                    productionOrder.Quantity -= numToRemove;
+                    queueList.EditProductionOrder(productionOrder, s);
                 }
 
                 UpdateProductionCost();
-                
-                // check if the Production Queue is now empty and if so change the text of the top of queue place holder
-                if (this.queueList.Items.Count == 1)
-                {
-                    this.queueList.Items.RemoveAt(0);
-                    this.queueList.Items.Insert(0, "--- Queue is Empty ---");
-                    this.queueList.Items[0].Selected = true;
-                }
             }
         }
 
@@ -367,19 +340,19 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void QueueUp_Click(object sender, EventArgs e)
         {
-            if (this.queueList.SelectedItems.Count > 0)
+            if (queueList.SelectedItems.Count > 0)
             {
-                int source = this.queueList.SelectedIndices[0];
+                int source = queueList.SelectedIndices[0];
                 // must be greater than 0 due to "--- Top of Queue ---" Placeholder
                 if (source > 0)
                 {
-                    ListViewItem newItem = this.queueList.Items[source];
-                    ListViewItem oldItem = this.queueList.Items[source - 1];
-                    this.queueList.Items.RemoveAt(source);
-                    this.queueList.Items.RemoveAt(source - 1);
-                    this.queueList.Items.Insert(source - 1, newItem);
-                    this.queueList.Items.Insert(source, oldItem);
-                    this.queueDown.Enabled = true;
+                    ListViewItem movedItem = (ListViewItem)queueList.Items[source].Clone();
+                    ListViewItem displacedItem = (ListViewItem)queueList.Items[source - 1].Clone();                    
+                    
+                    queueList.EditProductionOrder(displacedItem.Tag as ProductionOrder, source);
+                    queueList.EditProductionOrder(movedItem.Tag as ProductionOrder, source -1);
+
+                    queueDown.Enabled = true;
                 }                
             }
             UpdateProductionCost();
@@ -392,19 +365,17 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void QueueDown_Click(object sender, EventArgs e)
         {
-            if (this.queueList.SelectedItems.Count > 0)
+            if (queueList.SelectedItems.Count > 0)
             {
-                int source = this.queueList.SelectedIndices[0];
+                int source = queueList.SelectedIndices[0];
                  // check if > 0 for Top of Queue place holder
-                if (source < this.queueList.Items.Count - 1 && source > 0)
+                if (source < queueList.Items.Count - 1 && source > 0)
                 {
-                    ListViewItem newItem = this.queueList.Items[source];
-                    ListViewItem oldItem = this.queueList.Items[source + 1];
-                    this.queueList.Items.RemoveAt(source + 1);
-                    this.queueList.Items.RemoveAt(source);
-                    this.queueList.Items.Insert(source, oldItem);
-                    this.queueList.Items.Insert(source + 1, newItem);
-                    this.queueList.Items[source + 1].Selected = true;
+                    ListViewItem movedItem = (ListViewItem)queueList.Items[source].Clone();
+                    ListViewItem displacedItem = (ListViewItem)queueList.Items[source + 1].Clone();
+                    
+                    queueList.EditProductionOrder(displacedItem.Tag as ProductionOrder, source);
+                    queueList.EditProductionOrder(movedItem.Tag as ProductionOrder, source +1);                   
                 }
             }
             UpdateProductionCost();
@@ -420,101 +391,75 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-        private void AddDesign(Design design, int quantity)
+        private void AddProduction(ProductionOrder productionOrder)
         {
-            ListViewItem itemToAdd = new ListViewItem();
-            ProductionItem newProductionItem = new ProductionItem();
-            ListViewItem itemAdded;
-   
-            newProductionItem.Name = design.Name;
-            newProductionItem.Key = design.Key;
-            newProductionItem.BuildState = design.Cost;
+            ListViewItem newItem = null;
             
-            itemToAdd.Text = design.Name;
-            itemToAdd.SubItems.Add(quantity.ToString());
-            itemToAdd.Tag = newProductionItem;    // when first added the partial BuildState is the full design cost
-            // set the Checked Status if this is a Starbase
-            if (design.Type == ItemType.Starbase)
-            {
-                itemToAdd.Checked = true;
-            }
-            else
-            {
-                itemToAdd.Checked = false;
-            }
-
-
             // if no items are selected add the quantity of design as indicated
-            if (this.queueList.SelectedItems.Count == 0)
+            if (queueList.SelectedItems.Count == 0)
             {
-                itemAdded = this.queueList.Items.Add(itemToAdd);
-                itemToAdd.Selected = true;
+                newItem = queueList.InsertProductionOrder(productionOrder, queueList.Items.Count);
             }
             else
             {
-                int selectedProduction = this.queueList.SelectedIndices[0];
-
+                int s = queueList.SelectedIndices[0];
+                
                 // if the Item selected in the queue is the same as the design being added increase the quantity
-                if (design.Name == this.queueList.Items[selectedProduction].Text)
+                if (productionOrder.Name == (queueList.Items[s].Tag as ProductionOrder).Name)
                 {
-                    itemAdded = this.queueList.Items[selectedProduction];
-                    int total = quantity;
-                    total += Convert.ToInt32(this.queueList.Items[selectedProduction].SubItems[1].Text);
-                    this.queueList.Items[selectedProduction].SubItems[1].Text = total.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    productionOrder.Quantity += (queueList.Items[s].Tag as ProductionOrder).Quantity;
+                    
+                    newItem = queueList.EditProductionOrder(productionOrder, s);
                 }
                 else
                 {
                     // as the Item selected in the queue is different from the design being added check the Item
                     // below the selected Item (first confirm it exists) to see if it matches, if so increase its
                     // quantity and have it become the selected Item, if not add the Item after the Item selected in the queue
-                    int numInQueue = this.queueList.Items.Count;
-                    int nextIndex = selectedProduction + 1;
-                    if (numInQueue > nextIndex)    
+                    int nextIndex = s + 1;
+                    if (queueList.Items.Count > nextIndex)    
                     {
-                        if (design.Name == this.queueList.Items[nextIndex].Text)
+                        if (productionOrder.Name == (queueList.Items[nextIndex].Tag as ProductionOrder).Name)
                         {    
                             // the design is the same as the Item after the selected Item in the queue so update the Item after
-                            itemAdded = this.queueList.Items[nextIndex];
-                            int total = quantity;
-                            total += Convert.ToInt32(this.queueList.Items[nextIndex].SubItems[1].Text);
-                            this.queueList.Items[nextIndex].SubItems[1].Text = total.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                            this.queueList.Items[nextIndex].Selected = true;
+                            productionOrder.Quantity += (queueList.Items[nextIndex].Tag as ProductionOrder).Quantity;
+
+                            newItem = queueList.EditProductionOrder(productionOrder, nextIndex);
                         }
                         else
                         {
                             // add the design after the Item selected in the queue
-                            itemAdded = this.queueList.Items.Insert(nextIndex, itemToAdd);
-                            this.queueList.Items[nextIndex].Selected = true;
+                            newItem = queueList.InsertProductionOrder(productionOrder, nextIndex);                            
                         }
                     }
                     else
-                    {
-                        this.queueList.Items[selectedProduction].Selected = false;
-                        itemAdded = this.queueList.Items.Add(itemToAdd);
-                        itemAdded.Selected = true;
+                    {                        
+                        queueList.Items[s].Selected = false;
+                        newItem = queueList.InsertProductionOrder(productionOrder, queueList.Items.Count);
                     }
                 }
             }
 
             // Limit the number of defenses built.
             // TODO (Priority 4) - update this section to handle the quantity when too many have been added!
-            if (design.Name == "Defenses")
+            if (productionOrder.Unit is DefenseProductionUnit)
             {
-                int newDefensesAllowed = Global.MaxDefenses - this.queueStar.Defenses;
-                int newDefensesInQueue = Convert.ToInt32(itemAdded.SubItems[1].Text);
-                if (newDefensesInQueue > newDefensesAllowed)
+                int newDefensesAllowed = Global.MaxDefenses - queueStar.Defenses;
+                
+                if (productionOrder.Quantity > newDefensesAllowed)
                 {
                     if (newDefensesAllowed <= 0)
                     {
-                        this.queueList.Items.Remove(itemAdded);
+                        queueList.RemoveProductionOrder(newItem);
                     }
                     else
                     {
-                        itemAdded.SubItems[1].Text = newDefensesAllowed.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                        productionOrder.Quantity = newDefensesAllowed;
+                        queueList.EditProductionOrder(productionOrder, queueList.Items.IndexOf(newItem));
                     }
                 }
             }
-            this.queueList.Items[0].Text = "--- Top of Queue ---";
+
             UpdateProductionCost();
         }
 
@@ -524,23 +469,18 @@ namespace Nova.WinForms.Gui
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OK_Click(object sender, System.EventArgs e)
-        {            
-            this.queueStar.ManufacturingQueue.Queue.Clear();
+        {   
+            //Reverse the stack, so that older production commands are on top.            
+            queueList.ProductionCommands = new Stack<ICommand>(queueList.ProductionCommands.ToArray());
             
-            // remove the "--- Top of Queue ---" / "--- Queue Empty ---" placeholder prior to saving the Production Queue
-            queueList.Items.RemoveAt(0);
-            
-            foreach (ListViewItem itemInList in this.queueList.Items)
+            while (queueList.ProductionCommands.Count > 0)
             {
-                ProductionItem productionItem = new ProductionItem();
-
-                productionItem.Name = itemInList.SubItems[0].Text;
-                productionItem.Key = (itemInList.Tag as ProductionItem).Key;
-                productionItem.Quantity = Convert.ToInt32(itemInList.SubItems[1].Text);
-
-                productionItem.BuildState = (itemInList.Tag as ProductionItem).BuildState;
-
-                this.queueStar.ManufacturingQueue.Queue.Add(productionItem);
+                ICommand command = queueList.ProductionCommands.Pop();
+                if (command.isValid(clientState.EmpireState))
+                {
+                    clientState.Commands.Push(command);
+                    command.ApplyToState(clientState.EmpireState);
+                }
             }
             
             Close();
@@ -550,7 +490,7 @@ namespace Nova.WinForms.Gui
         {
             // Update estimated time if user changes resource
             // contribution method.
-            this.queueStar.OnlyLeftover = this.onlyLeftovers.Checked;
+            queueStar.OnlyLeftover = onlyLeftovers.Checked;
             UpdateProductionCost();
         }
 
@@ -577,7 +517,7 @@ namespace Nova.WinForms.Gui
 
             designList.Items.RemoveAt(i);
 
-            AddDesign(design, 1);
+            //AddProduction(design, 1);
         }
 
         /// <Summary>
@@ -597,7 +537,7 @@ namespace Nova.WinForms.Gui
             int yearsSoFar, yearsToCompleteOne;
             minYearsSelected = maxYearsSelected = minYearsTotal = maxYearsTotal = 0;
 
-            Race starOwnerRace = this.queueStar.ThisRace;
+            Race starOwnerRace = queueStar.ThisRace;
             Resources potentialResources = new Resources();
 
             if (starOwnerRace == null)
@@ -610,19 +550,19 @@ namespace Nova.WinForms.Gui
             {
                 yearsSoFar = 1;
                 // initialize the mineral portion of the potentialResources
-                potentialResources.Ironium = this.queueStar.ResourcesOnHand.Ironium;
-                potentialResources.Boranium = this.queueStar.ResourcesOnHand.Boranium;
-                potentialResources.Germanium = this.queueStar.ResourcesOnHand.Germanium;
+                potentialResources.Ironium = queueStar.ResourcesOnHand.Ironium;
+                potentialResources.Boranium = queueStar.ResourcesOnHand.Boranium;
+                potentialResources.Germanium = queueStar.ResourcesOnHand.Germanium;
             }
 
             // check if there are any items in the Production Queue before attempting to determine costs
-            // requires checking if this.queueList.Items.Count > than 1 due to Placeholder value at Top of the Queue
-            if (this.queueList.Items.Count > 1)
+            // requires checking if queueList.Items.Count > than 1 due to Placeholder value at Top of the Queue
+            if (queueList.Items.Count > 1)
             {
                 int selectedItemIndex = 0;
-                if (this.queueList.SelectedItems.Count > 0)
+                if (queueList.SelectedItems.Count > 0)
                 {
-                    selectedItemIndex = this.queueList.SelectedIndices[0];
+                    selectedItemIndex = queueList.SelectedIndices[0];
                     if (selectedItemIndex == 0)
                     {
                         minYearsSelected = maxYearsSelected = -2;
@@ -637,17 +577,16 @@ namespace Nova.WinForms.Gui
                 //  currentStackCost : used to store the cost of the Stack of items being evaluated
                 //  allBuilt : used to determine if all items remaining in the stack can be built
                 //  quantityYetToBuild : used to track how many items in the current stack still need to have their build time estimated
-                Resources currentStackCost = new Resources();
+                Resources currentStackCost = null;
+                ProductionOrder productionOrder = null;
                 bool allBuilt = false;
                 int quantityYetToBuild;
 
                 for (int queueIndex = 1; queueIndex < queueList.Items.Count; queueIndex++)
                 {
-                    long designKey = (queueList.Items[queueIndex].Tag as ProductionItem).Key;
-                    Design currentDesign = clientState.EmpireState.Designs[designKey];
-
-                    quantityYetToBuild = Convert.ToInt32(queueList.Items[queueIndex].SubItems[1].Text);
-                    currentStackCost = GetProductionCosts(queueList.Items[queueIndex]);
+                    productionOrder = (queueList.Items[queueIndex].Tag as ProductionOrder);
+                    quantityYetToBuild = productionOrder.Quantity;
+                    currentStackCost = productionOrder.NeededResources();
                     wholeQueueCost += currentStackCost;
 
                     if (yearsSoFar < 0)
@@ -680,7 +619,7 @@ namespace Nova.WinForms.Gui
                             // determine the number of years to build this based on current mines / factories
                             // then update to include the effect of any mines or factories in the queue
                             // UPDATED May 11: to use native Star method of resource rate prediction. -Aeglos
-                            potentialResources.Energy += this.queueStar.GetFutureResourceRate(factoriesInQueue);
+                            potentialResources.Energy += queueStar.GetFutureResourceRate(factoriesInQueue);
                             
                             // Account for resources destinated for research.
                             // Use the set client percentage, not the planet allocation. This is because the
@@ -688,19 +627,19 @@ namespace Nova.WinForms.Gui
                             // many times while playing a turn. This makes the Star's values out of sync, so,
                             // predict them for now.
                             // Only do this if the Star is respecting research budget.
-                            if (this.queueStar.OnlyLeftover == false)
+                            if (queueStar.OnlyLeftover == false)
                             {
                                 potentialResources.Energy -= potentialResources.Energy * clientState.EmpireState.ResearchBudget / 100;
                             }
 
-                            // need to know how much of each mineral is currently available on the Star (this.queueStar.ResourcesOnHand)
+                            // need to know how much of each mineral is currently available on the Star (queueStar.ResourcesOnHand)
                             // need race information to determine how many minerals are produced by each mine each year
                             // need to make sure that no more than the maximum number of mines operable by colonists are being operated
                             // add one year of mining results to the remaining potentialResources
                             // UPDATED May 11: to use native Star methods of mining rate prediction.
-                            potentialResources.Ironium += this.queueStar.GetFutureMiningRate(this.queueStar.MineralConcentration.Ironium, minesInQueue);
-                            potentialResources.Boranium += this.queueStar.GetFutureMiningRate(this.queueStar.MineralConcentration.Boranium, minesInQueue);
-                            potentialResources.Germanium += this.queueStar.GetFutureMiningRate(this.queueStar.MineralConcentration.Germanium, minesInQueue);
+                            potentialResources.Ironium += queueStar.GetFutureMiningRate(queueStar.MineralConcentration.Ironium, minesInQueue);
+                            potentialResources.Boranium += queueStar.GetFutureMiningRate(queueStar.MineralConcentration.Boranium, minesInQueue);
+                            potentialResources.Germanium += queueStar.GetFutureMiningRate(queueStar.MineralConcentration.Germanium, minesInQueue);
 
                             // check how much can be done with resources available
 
@@ -732,11 +671,11 @@ namespace Nova.WinForms.Gui
                                     minYearsTotal = yearsSoFar;
                                 }
                                 maxYearsTotal = yearsSoFar;
-                                if (currentDesign.Type == ItemType.Mine)
+                                if (productionOrder.Unit is MineProductionUnit)
                                 {
                                     minesInQueue += quantityYetToBuild;
                                 }
-                                if (currentDesign.Type == ItemType.Factory)
+                                if (productionOrder.Unit is FactoryProductionUnit)
                                 {
                                     factoriesInQueue += quantityYetToBuild;
                                 }
@@ -746,52 +685,36 @@ namespace Nova.WinForms.Gui
                                 // not everything in the stack can be built this year
                                 maxYearsSelected = -1;
 
-                                // the current build state is the cost of the first Item found by (total cost - (cost of all but one))
-                                Resources currentBuildState = new Resources();
-                                currentBuildState = currentStackCost - ((quantityYetToBuild - 1) * currentDesign.Cost);
+                                // the current build state is the remaining cost of the production unit.
+                                Resources currentBuildState = productionOrder.Unit.RemainingCost;
 
-                                // determine the percentage able to be completed by whichever resource is limiting production
+                                // Normialized to 1.0 = 100%
                                 double fractionComplete = 1.0;
-                                if (currentStackCost.Ironium > 0)
+                                
+                                // determine the percentage able to be completed by whichever resource is limiting production
+                                if (fractionComplete > (double)potentialResources.Ironium / currentStackCost.Ironium && currentStackCost.Ironium > 0)
                                 {
-                                    fractionComplete = Convert.ToDouble(potentialResources.Ironium) / currentStackCost.Ironium;
+                                    fractionComplete = (double)potentialResources.Ironium / currentStackCost.Ironium;
                                 }
-                                if (currentStackCost.Boranium > 0)
+                                if (fractionComplete > (double)potentialResources.Boranium / currentStackCost.Boranium && currentStackCost.Boranium > 0)
                                 {
-                                    if (Convert.ToDouble(potentialResources.Boranium) / currentStackCost.Boranium < fractionComplete)
-                                    {
-                                        fractionComplete = Convert.ToDouble(potentialResources.Boranium) / currentStackCost.Boranium;
-                                    }
+                                    fractionComplete = (double)potentialResources.Boranium / currentStackCost.Boranium;
                                 }
-                                if (currentStackCost.Germanium > 0)
+                                if (fractionComplete > (double)potentialResources.Germanium / currentStackCost.Germanium && currentStackCost.Germanium > 0)
                                 {
-                                    if (Convert.ToDouble(potentialResources.Germanium) / currentStackCost.Germanium < fractionComplete)
-                                    {
-                                        fractionComplete = Convert.ToDouble(potentialResources.Germanium) / currentStackCost.Germanium;
-                                    }
+                                    fractionComplete = (double)potentialResources.Germanium / currentStackCost.Germanium;
                                 }
-                                if (currentStackCost.Energy > 0)
+                                if (fractionComplete > (double)potentialResources.Energy / currentStackCost.Energy && currentStackCost.Energy > 0)
                                 {
-                                    if (Convert.ToDouble(potentialResources.Energy) / currentStackCost.Energy < fractionComplete)
-                                    {
-                                        fractionComplete = Convert.ToDouble(potentialResources.Energy) / currentStackCost.Energy;
-                                    }
+                                    fractionComplete = (double)potentialResources.Energy / currentStackCost.Energy;
                                 }
                                 // apply this percentage to the currentStackCost to determine how much to remove from
                                 // potentialResources and currentStackCost
-                                Resources amountUsed = new Resources();
-                                
-                                // Use the Resource operator * instead! -Aeglos
-                                // amountUsed.Ironium = fractionComplete * currentStackCost.Ironium;
-                                // amountUsed.Boranium = fractionComplete * currentStackCost.Boranium;
-                                // amountUsed.Germanium = fractionComplete * currentStackCost.Germanium;
-                                // amountUsed.Energy = fractionComplete * currentStackCost.Energy;
-                                amountUsed = fractionComplete * currentStackCost;
-                                
-                                potentialResources = potentialResources - amountUsed;
-                                currentStackCost = currentStackCost - amountUsed;
+                                Resources amountUsed = fractionComplete * currentStackCost;
+                                potentialResources -= amountUsed;
+                                currentStackCost -= amountUsed;
 
-                                // check if at least one Item in the stack can be built "this" year
+                                // check if at least the top Item in the stack can be built "this" year
                                 if (amountUsed >= currentBuildState)
                                 {
                                     // at least one Item can be built this year
@@ -811,9 +734,9 @@ namespace Nova.WinForms.Gui
                                     // determine how many items are able to be built and reduce quantity accordingly
                                     for (int quantityStepper = 1; quantityStepper < quantityYetToBuild; quantityStepper++)
                                     {
-                                        if (amountUsed <= (currentBuildState + (quantityStepper * currentDesign.Cost)))
+                                        if (amountUsed <= (currentBuildState + (quantityStepper * productionOrder.Unit.Cost)))
                                         {
-                                            quantityYetToBuild = quantityYetToBuild - quantityStepper;
+                                            quantityYetToBuild -= quantityStepper;
                                             quantityStepper = quantityYetToBuild + 1;
                                         }
                                     }
@@ -855,48 +778,49 @@ namespace Nova.WinForms.Gui
                         {
                             if (maxYearsCurrent == 1)
                             {
-                                this.queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Green;
+                                queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Green;
                             }
                             else
                             {
-                                this.queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Blue;
+                                queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Blue;
                             }
                         }
                         else
                         {
                             if (minYearsCurrent == -1)
                             {
-                                this.queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Red;
+                                queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Red;
                             }
                             else
                             {
-                                this.queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Black;
+                                queueList.Items[queueIndex].ForeColor = System.Drawing.Color.Black;
                             }
                         }
                     }
 
+                    // Update for the currently selected Item.
                     if (queueIndex == selectedItemIndex)
                     {
-                        selectedItemCost = GetProductionCosts(this.queueList.Items[queueIndex]);
+                        selectedItemCost = productionOrder.NeededResources();
 
-                        Resources currentBuildState = (queueList.Items[queueIndex].Tag as ProductionItem).BuildState;
+                        Resources currentBuildState = productionOrder.Unit.RemainingCost;
 
                         // determine the percent complete; defined as the resource that is the most complete
-                        if (currentDesign.Cost.Ironium > 0)
+                        if (productionOrder.Unit.Cost.Ironium > 0)
                         {
-                            percentComplete = 100 * (1.0 - (Convert.ToDouble(currentBuildState.Ironium) / currentDesign.Cost.Ironium));
+                            percentComplete = 100 * (1.0 - (Convert.ToDouble(currentBuildState.Ironium) / productionOrder.Unit.Cost.Ironium));
                         }
-                        if (currentDesign.Cost.Boranium > 0 && percentComplete < 100 * (1.0 - (Convert.ToDouble(currentBuildState.Boranium) / currentDesign.Cost.Boranium)))
+                        if (productionOrder.Unit.Cost.Boranium > 0 && percentComplete < 100 * (1.0 - (Convert.ToDouble(currentBuildState.Boranium) / productionOrder.Unit.Cost.Boranium)))
                         {
-                            percentComplete = 100 * (1.0 - (Convert.ToDouble(currentBuildState.Boranium) / currentDesign.Cost.Boranium));
+                            percentComplete = 100 * (1.0 - (Convert.ToDouble(currentBuildState.Boranium) / productionOrder.Unit.Cost.Boranium));
                         }
-                        if (currentDesign.Cost.Germanium > 0 && percentComplete < 100 * (1.0 - (Convert.ToDouble(currentBuildState.Germanium) / currentDesign.Cost.Germanium)))
+                        if (productionOrder.Unit.Cost.Germanium > 0 && percentComplete < 100 * (1.0 - (Convert.ToDouble(currentBuildState.Germanium) / productionOrder.Unit.Cost.Germanium)))
                         {
-                            percentComplete = 100 * (1.0 - (Convert.ToDouble(currentBuildState.Germanium) / currentDesign.Cost.Germanium));
+                            percentComplete = 100 * (1.0 - (Convert.ToDouble(currentBuildState.Germanium) / productionOrder.Unit.Cost.Germanium));
                         }
-                        if (currentDesign.Cost.Energy > 0 && percentComplete < 100 * (1.0 - (Convert.ToDouble(currentBuildState.Energy) / currentDesign.Cost.Energy)))
+                        if (productionOrder.Unit.Cost.Energy > 0 && percentComplete < 100 * (1.0 - (Convert.ToDouble(currentBuildState.Energy) / productionOrder.Unit.Cost.Energy)))
                         {
-                            percentComplete = 100 * (1.0 - (Convert.ToDouble(currentBuildState.Energy) / currentDesign.Cost.Energy));
+                            percentComplete = 100 * (1.0 - (Convert.ToDouble(currentBuildState.Energy) / productionOrder.Unit.Cost.Energy));
                         }
                     }
                 }
@@ -993,43 +917,6 @@ namespace Nova.WinForms.Gui
                     }
                 }
             }
-        }
-
-        /// <Summary>
-        /// Determine the amount of Resources required to produce a stack of items from the ListView
-        /// For each stack of items the first Item might be partially built as defined by
-        /// the BuildState and therefore require less Resources than the rest of the items
-        /// in the stack which require the design.cost.
-        /// </Summary>
-        /// <returns>The resources required to produce the Item(s) of interest.</returns>
-        /// <param name="itemOfInterest">The Item(s) from the Production ListView to be evaluated.</param>
-        private Resources GetProductionCosts(ListViewItem stackOfInterest)
-        {
-            Resources costsToProduce = new Resources();
-
-            if (stackOfInterest.Tag == null)
-            {
-                Report.Error("No Buildstate associated with: " + stackOfInterest.Text);
-                return costsToProduce;
-            }
-            else
-            {
-                costsToProduce = (stackOfInterest.Tag as ProductionItem).BuildState;
-            }
-
-            int stackQuantity = Convert.ToInt32(stackOfInterest.SubItems[1].Text);
-
-            // this check should not be required, but better to be safe than sorry
-            if (stackQuantity > 1)  
-            {
-                long designKey = (stackOfInterest.Tag as ProductionItem).Key;
-                Design currentDesign = clientState.EmpireState.Designs[designKey];
-                    // as the first Item in the stack costs BuildState to complete the design cost
-                    // is multiplied by the quantity - 1
-                costsToProduce += currentDesign.Cost * (stackQuantity - 1);
-            }
-
-            return costsToProduce;
         }
     }
 }

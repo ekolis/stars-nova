@@ -104,27 +104,12 @@ namespace Nova.Server.NewGame
             {
                 string player = empire.Race.Name;
 
-                Design mine = new Design(empire.GetNextDesignKey());
-                Design factory = new Design(empire.GetNextDesignKey());
                 Design defense = new Design(empire.GetNextDesignKey());
-
-                mine.Cost = new Nova.Common.Resources(0, 0, 0, empire.Race.MineBuildCost);
-                mine.Name = "Mine";
-                mine.Type = ItemType.Mine;
-
-                // If we have the secondary racial trait Cheap Factories they need 1K
-                // less germanium to build.
-                int factoryBuildCostGerm = empire.Race.HasTrait("CF") ? 3 : 4;
-                factory.Cost = new Nova.Common.Resources(0, 0, factoryBuildCostGerm, empire.Race.FactoryBuildCost);
-                factory.Name = "Factory";
-                factory.Type = ItemType.Factory;
 
                 defense.Cost = new Nova.Common.Resources(5, 5, 5, 15);
                 defense.Name = "Defenses";
                 defense.Type = ItemType.Defenses;
                 
-                serverState.AllDesigns[mine.Key] = mine;
-                serverState.AllDesigns[factory.Key] = factory;
                 serverState.AllDesigns[defense.Key] = defense;
                 PrepareDesigns(empire, player);
                 InitialiseHomeStar(empire, player);

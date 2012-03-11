@@ -1,6 +1,6 @@
-#region Copyright Notice
+﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2010 stars-nova
+// Copyright (C) 2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -25,64 +25,47 @@ namespace Nova.Common
     using System.Xml;
 
     /// <summary>
-    /// This class is used for "constructing" terraform 1%.
+    /// Class representing an empty production unit. Useful for
+    /// the production list header.
     /// </summary>
-    public class TerraformProductionUnit : IProductionUnit
+    public class NoProductionUnit : IProductionUnit
     {
-        private Resources cost;
-        private Resources remainingCost;        
-        
         public Resources Cost
         {
-            get {return cost;}
+            private set;
+            get;
         }
                 
         public Resources RemainingCost
         {
-            get {return remainingCost;}
+            private set;
+            get;
         }
         
         public string Name
         {
-            get {return "Terraform";}
+            get { return "None";}
         }
-        
-        /// <summary>
-        /// Initialising constructor.
-        /// </summary>
-        /// <param name="star">The star that is producing this item.</param>
-        public TerraformProductionUnit()
+                
+        public NoProductionUnit()
         {
+            Cost = new Resources();
+            RemainingCost = Cost;
         }
 
-        /// <summary>
-        /// Returns true if this production item is to be skipped this year.
-        /// </summary>
         public bool IsSkipped(Star star)
         {
-            throw new NotImplementedException();
+            return true;
         }
 
-        /// <summary>
-        /// Construct a 1% terraform.
-        /// </summary>
         public bool Construct(Star star)
         {
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Return the Resources needed for this production item.
-        /// </summary>
-        public Resources NeededResources()
-        {
-            throw new NotImplementedException();
+            return false;
         }
         
-                
         public XmlElement ToXml(XmlDocument xmldoc)
         {
-            throw new NotImplementedException();
+            return null;
         }
     }
 }

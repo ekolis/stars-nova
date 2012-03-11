@@ -460,7 +460,7 @@ namespace Nova.Server
             else if (survivorStrength < 0)
             {
                 // attacker wins
-                star.ManufacturingQueue.Queue.Clear();
+                star.ManufacturingQueue.Clear();
                 int remainingAttackers = (int)(-survivorStrength / attackerBonus);
                 remainingAttackers = Math.Max(remainingAttackers, Global.ColonistsPerKiloton);
                 int attackersKilled = troops - remainingAttackers;
@@ -490,7 +490,7 @@ namespace Nova.Server
                 serverState.AllMessages.Add(lambMessage);
 
                 // clear out the colony
-                star.ManufacturingQueue.Queue.Clear();
+                star.ManufacturingQueue.Clear();
                 star.Colonists = 0;
                 star.Mines = 0;
                 star.Factories = 0;

@@ -43,48 +43,25 @@ namespace Nova.Ai
             {
                 if (star.Owner == clientState.EmpireState.Id)
                 {
-                    star.ManufacturingQueue.Queue.Clear();
-                    ProductionItem productionItem = new ProductionItem();
+                    star.ManufacturingQueue.Clear();
+                    ProductionOrder productionOrder;
 
                     // build factories (limited by Germanium, and don't want to use it all)
                     if (star.ResourcesOnHand.Germanium > 50)
                     {
                         int factoryBuildCostGerm = clientState.EmpireState.Race.HasTrait("CF") ? 3 : 4;
                         int factoriesToBuild = (int)((star.ResourcesOnHand.Germanium - 50) / factoryBuildCostGerm);
-                        Design factoryDesign = null;
-                        foreach (Design design in clientState.EmpireState.Designs.Values)
-                        {
-                            if (design.Type == ItemType.Factory)
-                            {
-                                factoryDesign = design;
-                            }
-                        }
-                        if (factoryDesign == null)
-                        {
-                            throw new System.Exception("Could not locate a factory design.");
-                        }
-                        productionItem = new ProductionItem(factoriesToBuild, factoryDesign);
-                        star.ManufacturingQueue.Queue.Add(productionItem);
+
+                        productionOrder = new ProductionOrder(factoriesToBuild, new FactoryProductionUnit(clientState.EmpireState.Race), true);
+                        star.ManufacturingQueue.Queue.Add(productionOrder);
                     }
 
                     // build mines
                     int maxMines = 5000; // FIXME (priority 3) - determine the maximum number of mines for this star.
                     if (star.Mines < maxMines) 
                     {
-                        Design mineDesign = null;
-                        foreach (Design design in clientState.EmpireState.Designs.Values)
-                        {
-                            if (design.Type == ItemType.Mine)
-                            {
-                                mineDesign = design;
-                            }
-                        }
-                        if (mineDesign == null)
-                        {
-                            throw new System.Exception("Could not locate a mine design.");
-                        }
-                        productionItem = new ProductionItem(maxMines - star.Mines, mineDesign);
-                        star.ManufacturingQueue.Queue.Add(productionItem);
+                        productionOrder = new ProductionOrder(maxMines - star.Mines, new MineProductionUnit(clientState.EmpireState.Race), true);
+                        star.ManufacturingQueue.Queue.Add(productionOrder);
                     }
 
                     // build defenses
@@ -103,8 +80,8 @@ namespace Nova.Ai
                         {
                             throw new System.Exception("Could not locate a defence design.");
                         }
-                        productionItem = new ProductionItem(defenceToBuild, defenceDesign);
-                        star.ManufacturingQueue.Queue.Add(productionItem);
+                        productionOrder = new ProductionOrder(defenceToBuild, new DefenseProductionUnit(), false);
+                        star.ManufacturingQueue.Queue.Add(productionOrder);
                     }
                 }
             }

@@ -1,6 +1,7 @@
 #region Copyright Notice
 // ============================================================================
-// Copyright (C) 2010, 2011 stars-nova
+// COpyright (C) 2010 Pavel Kazlou
+// Copyright (C) 2011, 2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -19,57 +20,57 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This class is used for constructing 1 defense unit.
-// ===========================================================================
-#endregion
-
 namespace Nova.Common
 {
-    #region Using Statements
     using System;
-    using System.Collections.Generic;
-    using System.Text;
-    #endregion
+    using System.Xml;
 
     /// <summary>
     /// Class for constructing 1 defense unit.
     /// </summary>
     public class DefenseProductionUnit : IProductionUnit
     {
+        public Resources Cost
+        {
+            private set;
+            get;
+        }
+                
+        public Resources RemainingCost
+        {
+            private set;
+            get;
+        }
+        
+        public string Name
+        {
+            get {return "Defenses";}
+        }
+        
         /// <summary>
         /// Initialising constructor.
         /// </summary>
         /// <param name="star">The <see cref="Star"/> to create the defense on.</param>
-        public DefenseProductionUnit(Star star)
+        public DefenseProductionUnit()
         {
         }
-
-        #region ProductionUnit Members
 
         /// <summary>
         /// Return true if this production item is to be skipped.
         /// </summary>
-        public bool IsSkipped()
+        public bool IsSkipped(Star star)
         {
             throw new NotImplementedException();
         }
 
-        public void Construct()
+        public bool Construct(Star star)
         {
             throw new NotImplementedException();
         }
-
-        /// <summary>
-        /// Return the <see cref="Resources"/> needed to build this defense.
-        /// ??? (priority 6) - is this before or after some resources have already been spent?.
-        /// </summary>
-        public Resources NeededResources()
+                
+        public XmlElement ToXml(XmlDocument xmldoc)
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 }

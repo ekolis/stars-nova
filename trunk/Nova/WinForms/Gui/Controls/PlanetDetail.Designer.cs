@@ -16,7 +16,7 @@ namespace Nova.WinForms.Gui
             this.mines = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
-            this.productionQueue = new System.Windows.Forms.ListView();
+            this.productionQueue = new QueueList();
             this.description = (System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader());
             this.quantity = (System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader());
             this.changeProductionQueue = new System.Windows.Forms.Button();
@@ -743,7 +743,7 @@ namespace Nova.WinForms.Gui
         private Label mines;
         private Label label3;
         private Label label5;
-        private ListView productionQueue;
+        private QueueList productionQueue;
         private ColumnHeader description;
         private ColumnHeader quantity;
         private Button changeProductionQueue;

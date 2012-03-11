@@ -20,7 +20,7 @@ namespace Nova.WinForms.Gui
             this.designList = new System.Windows.Forms.ListView();
             this.description = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.queueList = new System.Windows.Forms.ListView();
+            this.queueList = new QueueList();
             this.queueDescription = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.queueQuantity = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.addToQueue = new System.Windows.Forms.Button();
@@ -566,7 +566,7 @@ namespace Nova.WinForms.Gui
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button addToQueue;
         private System.Windows.Forms.ListView designList;
-        private System.Windows.Forms.ListView queueList;
+        private QueueList queueList;
         private System.Windows.Forms.Button ok;
         private System.Windows.Forms.ColumnHeader description;
         private System.Windows.Forms.Button cancel;

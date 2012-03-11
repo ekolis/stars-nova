@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,48 +20,186 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module provides a control to display the production queue for the 
-// currently selected Star system.
-// ===========================================================================
-#endregion
-
-
 namespace Nova.WinForms.Gui
 {
+    using System.Collections.Generic;
     using System.Windows.Forms;
 
     using Nova.Common;
+    using Nova.Common.Commands;
 
     /// <Summary>
-    /// Populate a list control with the details of a production queue.
+    /// This module provides a control to display the production queue for the 
+    /// currently selected Star system.
     /// </Summary>
-    public static class QueueList
+    public class QueueList : ListView
     {
-        /// <Summary>
-        /// Populate a list control with the details of a production queue.
-        /// </Summary>
-        /// <param name="listView">The <see cref="ListView"/> to display the queue in.</param>
-        /// <param name="toMake">The <see cref="ProductionQueue"/> to display.</param>
-        public static void Populate(ListView listView, ProductionQueue toMake)
-        {
-            listView.Items.Clear();
-            listView.BeginUpdate();
+        /// <summary>
+        /// This holds the commands to be applied when the ProductionDialog presses OK.
+        /// </summary>
+        public Stack<ICommand> ProductionCommands = new Stack<ICommand>();
+        
+        
+        /// <summary>
+        /// Reference to the star that holds this Queue.
+        /// </summary>
+        private string starKey;
 
-            foreach (ProductionItem itemToMake in toMake.Queue)
+        
+        /// <Summary>
+        /// Populate a QueueList control with the details of a production queue.
+        /// </Summary>
+        /// <param name="star">The <see cref="Star"/> whose queue will be displaed.</param>
+        public void Populate(Star star)
+        {   
+            // Placed here because it's difficult to pass this on the constructor
+            // as the star may not be selected yet when creating the Queue control.            
+            starKey = star.Key;
+            
+            Items.Clear();
+            BeginUpdate();
+
+            // Note that we don't add these to the commandqueue, as we only use
+            // commands to denote CHANGES in the queue.
+            
+            foreach (ProductionOrder productionOrder in star.ManufacturingQueue.Queue)
             {
                 ListViewItem item = new ListViewItem();
-                item.Text = itemToMake.Name;
-                item.Tag = itemToMake; // add the BuildState to the ListViewItem.Tag (as Tag.BuildState!)
-                item.SubItems.Add(itemToMake.Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
-                              
-                // either set the Checked stat here for Starbases or in the OnLoad Method of ProductionDialog.cs
+                
+                item.Text = productionOrder.Name;
+                item.Tag = productionOrder;   
+                item.SubItems.Add(productionOrder.Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
-                listView.Items.Add(item);
+                // either set the Checked stat here for Starbases or in the OnLoad Method of ProductionDialog.cs
+                Items.Add(item);
+            }
+            
+            UpdateHeader();
+
+            EndUpdate();
+        }
+        
+        
+        /// <summary>
+        /// Inserts a production order to the Queue at a specific index.
+        /// </summary>
+        /// <param name="productionOrder">The ProductionOrder to insert</param>
+        /// <returns>The added ListViewItem</returns>
+        public ListViewItem InsertProductionOrder(ProductionOrder productionOrder, int index)
+        {
+            ICommand command = new ProductionCommand(CommandMode.Add, productionOrder, starKey, index-1);
+            ProductionCommands.Push(command);
+            
+            ListViewItem item = new ListViewItem();
+            item.Text = productionOrder.Name;
+            item.Tag = productionOrder;
+            item.SubItems.Add(productionOrder.Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));            
+            
+            Items.Insert(index, item);
+            Items[index].Selected = true;
+                
+            UpdateHeader();
+            
+            return item;    
+        }
+        
+        
+        /// <summary>
+        /// Edits a production order at a certain queue position
+        /// </summary>
+        /// <param name="productionOrder">The new production order</param>
+        /// <param name="index">The queue position</param>
+        /// <returns>The new edited item</returns>
+        public ListViewItem EditProductionOrder(ProductionOrder productionOrder, int index)
+        {
+            // Can't edit header!
+            if (index == 0)
+            {
+                return null;
+            }
+            
+            ICommand command = new ProductionCommand(CommandMode.Edit, productionOrder, starKey, index-1);
+            ProductionCommands.Push(command);
+            
+            Items[index].SubItems.Clear();
+            Items[index].Text = productionOrder.Name;
+            Items[index].Tag = productionOrder;            
+            Items[index].SubItems.Add(productionOrder.Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            
+            Items[index].Selected = true;
+            
+            return Items[index];
+        }
+        
+        
+        /// <summary>
+        /// Removes a production order from the Queue control.
+        /// </summary>
+        /// <param name="productionOrder">index to remove</param>
+        public void RemoveProductionOrder(int index)
+        {
+            // Can't remove header!
+            if (index == 0)
+            {
+                return;
+            }
+            
+            ICommand command = new ProductionCommand(CommandMode.Delete, null, starKey, index-1);
+            ProductionCommands.Push(command);
+            
+            Items.RemoveAt(index);
+            
+            UpdateHeader();
+        }
+        
+        
+        /// <summary>
+        /// Removes a production order from the Queue control.
+        /// </summary>
+        /// <param name="productionOrder">ListViewItem to remove</param>
+        public void RemoveProductionOrder(ListViewItem item)
+        {
+            if (!Items.Contains(item))
+            {
+                return; 
+            }
+            
+            ICommand command = new ProductionCommand(CommandMode.Edit, null, starKey, Items.IndexOf(item)-1);
+            ProductionCommands.Push(command);
+            
+            // Can't remove the header!
+            if (Items[0] == item)
+            {
+                return;
+            }
+            
+            Items.Remove(item);
+            
+            UpdateHeader();
+        }
+        
+        /// <summary>
+        /// Updates the header to read "Top of the Queue" or "Queue empty" when necessary.
+        /// </summary>
+        public void UpdateHeader()
+        {
+            if (Items.Count == 0)
+            {
+                return;    
+            }
+            
+            if ((Items[0].Tag as ProductionOrder).Unit is NoProductionUnit)
+            {
+                if (Items.Count > 1)
+                {
+                    Items[0].Text = "--- Top of the Queue ---";
+                }
+                else
+                {
+                    Items[0].Text = "--- Queue is empty ---";
+                }
             }
 
-            listView.EndUpdate();
         }
     }
 }

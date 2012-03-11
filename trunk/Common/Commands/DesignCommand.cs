@@ -34,14 +34,14 @@ namespace Nova.Common.Commands
     {        
         public Design Design
         {
+            private set;
             get;
-            set;
         }
         
         public CommandMode Mode
         {
+            private set;
             get;
-            set;
         }
         
         
@@ -107,6 +107,7 @@ namespace Nova.Common.Commands
         }
         
         
+        
         public bool isValid(EmpireData empire)
         {           
             switch(Mode)
@@ -131,6 +132,7 @@ namespace Nova.Common.Commands
         }
         
         
+        
         public void ApplyToState(EmpireData empire)
         {
             switch(Mode)
@@ -139,50 +141,58 @@ namespace Nova.Common.Commands
                     empire.Designs.Add(Design.Key, Design);
                 break;
                 case CommandMode.Delete:
-                    empire.Designs.Remove(Design.Key);
-                    // Handle destroying ships of the deleted design.
-                    // Note that we are not allowed to delete the ships or fleets on the
-                    // iteration as that is not allowed (it
-                    // destroys the validity of the iterator). Consequently we identify
-                    // anything that needs deleting and remove them separately from their
-                    // identification.
-            
-                    List<Fleet> fleetsToRemove = new List<Fleet>();
-            
-                    foreach (Fleet fleet in empire.OwnedFleets.Values)
-                    {
-                        List<Ship> shipsToRemove = new List<Ship>();
-            
-                        foreach (Ship ship in fleet.FleetShips)
-                        {
-                            if (ship.DesignKey == Design.Key)
-                            {
-                                shipsToRemove.Add(ship);
-                            }
-                        }
-            
-                        foreach (Ship ship in shipsToRemove)
-                        {
-                            fleet.FleetShips.Remove(ship);
-                        }
-            
-                        if (fleet.FleetShips.Count == 0)
-                        {
-                            fleetsToRemove.Add(fleet);
-                        }
-                    }
-            
-                    foreach (Fleet fleet in fleetsToRemove)
-                    {
-                        empire.OwnedFleets.Remove(fleet.Key);
-                        empire.FleetReports.Remove(fleet.Key);
-                    }
-
+                    empire.Designs.Remove(Design.Key);                
+                    UpdateFleetCompositions(empire);
                 break;
                 case CommandMode.Edit:
                     empire.Designs.Remove(Design.Key);
+                    UpdateFleetCompositions(empire);
                     empire.Designs.Add(Design.Key, Design);
                 break;
+            }
+            
+        }
+        
+        
+        /// <summary>
+        /// Handle destroying ships of the deleted/edited design.
+        /// </summary>
+        private void UpdateFleetCompositions(EmpireData empire)
+        {
+            // Note that we are not allowed to delete the ships or fleets on the
+            // iteration as that is not allowed (it
+            // destroys the validity of the iterator). Consequently we identify
+            // anything that needs deleting and remove them separately from their
+            // identification.
+            List<Fleet> fleetsToRemove = new List<Fleet>();
+            
+            foreach (Fleet fleet in empire.OwnedFleets.Values)
+            {
+                List<Ship> shipsToRemove = new List<Ship>();
+    
+                foreach (Ship ship in fleet.FleetShips)
+                {
+                    if (ship.DesignKey == Design.Key)
+                    {
+                        shipsToRemove.Add(ship);
+                    }
+                }
+    
+                foreach (Ship ship in shipsToRemove)
+                {
+                    fleet.FleetShips.Remove(ship);
+                }
+    
+                if (fleet.FleetShips.Count == 0)
+                {
+                    fleetsToRemove.Add(fleet);
+                }
+            }
+    
+            foreach (Fleet fleet in fleetsToRemove)
+            {
+                empire.OwnedFleets.Remove(fleet.Key);
+                empire.FleetReports.Remove(fleet.Key);
             }
             
         }
