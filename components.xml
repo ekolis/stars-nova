@@ -4,12 +4,12 @@
     <Item>
       <Name>Scoper 150</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
         <Germanium>70</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -35,12 +35,12 @@
       <Name>Elephant Scanner</Name>
       <Type>Scanner</Type>
       <Mass>6</Mass>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>8</Ironium>
         <Germanium>14</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>7</Biotechnology>
@@ -67,12 +67,12 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
     <Item>
       <Name>Planetary Shield</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>5</Ironium>
         <Germanium>5</Germanium>
         <Energy>15</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -97,12 +97,12 @@ This scanner is capable of determining planetary statistics up to 200 ly away.</
       <Name>Mole Scanner</Name>
       <Type>Scanner</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>2</Ironium>
         <Germanium>2</Germanium>
         <Energy>9</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -127,12 +127,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Missile Battery</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>5</Ironium>
         <Germanium>5</Germanium>
         <Energy>15</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -155,12 +155,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Total ±30</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>25</Biotechnology>
@@ -180,12 +180,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Bludgeon</Name>
       <Type>BeamWeapons</Type>
       <Mass>10</Mass>
-      <Resource>
+      <Cost>
         <Boranium>22</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>9</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -211,12 +211,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Trans-Galactic Super Scoop</Name>
       <Type>Engine</Type>
       <Mass>19</Mass>
-      <Resource>
+      <Cost>
         <Boranium>4</Boranium>
         <Ironium>6</Ironium>
         <Germanium>16</Germanium>
         <Energy>24</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -254,12 +254,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Stealth Bomber</Name>
       <Type>Hull</Type>
       <Mass>70</Mass>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>55</Ironium>
         <Germanium>15</Germanium>
         <Energy>175</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -318,12 +318,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>B-52 Bomber</Name>
       <Type>Hull</Type>
       <Mass>110</Mass>
-      <Resource>
+      <Cost>
         <Boranium>15</Boranium>
         <Ironium>90</Ironium>
         <Germanium>10</Germanium>
         <Energy>280</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -392,12 +392,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Retro Bomb</Name>
       <Type>Bomb</Type>
       <Mass>45</Mass>
-      <Resource>
+      <Cost>
         <Boranium>15</Boranium>
         <Ironium>15</Ironium>
         <Germanium>10</Germanium>
         <Energy>50</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>12</Biotechnology>
@@ -422,12 +422,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Upsilon Torpedo</Name>
       <Type>Torpedoes</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>14</Boranium>
         <Ironium>40</Ironium>
         <Germanium>9</Germanium>
         <Energy>15</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -453,12 +453,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Enriched Neutron Bomb</Name>
       <Type>Bomb</Type>
       <Mass>64</Mass>
-      <Resource>
+      <Cost>
         <Boranium>36</Boranium>
         <Ironium>1</Ironium>
         <Germanium>0</Germanium>
         <Energy>25</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -482,12 +482,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Stargate 300/500</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>50</Ironium>
         <Germanium>20</Germanium>
         <Energy>600</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -512,12 +512,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Gorilla Delegator</Name>
       <Type>Shield</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>5</Ironium>
         <Germanium>6</Germanium>
         <Energy>11</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -539,12 +539,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Epsilon Torpedo</Name>
       <Type>Torpedoes</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>30</Ironium>
         <Germanium>6</Germanium>
         <Energy>10</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -570,12 +570,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Streaming Pulverizer</Name>
       <Type>BeamWeapons</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>16</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -601,12 +601,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Robo-Midget Miner</Name>
       <Type>MiningRobot</Type>
       <Mass>80</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>14</Ironium>
         <Germanium>4</Germanium>
         <Energy>50</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -628,12 +628,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Mine Dispenser 80</Name>
       <Type>MineLayer</Type>
       <Mass>30</Mass>
-      <Resource>
+      <Cost>
         <Boranium>14</Boranium>
         <Ironium>2</Ironium>
         <Germanium>10</Germanium>
         <Energy>65</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>7</Biotechnology>
@@ -660,12 +660,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Ultra Station</Name>
       <Type>Hull</Type>
-      <Resource>
+      <Cost>
         <Boranium>80</Boranium>
         <Ironium>120</Ironium>
         <Germanium>300</Germanium>
         <Energy>600</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -796,12 +796,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Meta Morph</Name>
       <Type>Hull</Type>
       <Mass>85</Mass>
-      <Resource>
+      <Cost>
         <Boranium>12</Boranium>
         <Ironium>50</Ironium>
         <Germanium>12</Germanium>
         <Energy>120</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -878,12 +878,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Battleship</Name>
       <Type>Hull</Type>
       <Mass>222</Mass>
-      <Resource>
+      <Cost>
         <Boranium>25</Boranium>
         <Ironium>120</Ironium>
         <Germanium>20</Germanium>
         <Energy>225</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -975,12 +975,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Radiation ±7</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>2</Biotechnology>
@@ -998,12 +998,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Cheetah Scanner</Name>
       <Type>Scanner</Type>
       <Mass>5</Mass>
-      <Resource>
+      <Cost>
         <Boranium>1</Boranium>
         <Ironium>3</Ironium>
         <Germanium>13</Germanium>
         <Energy>50</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1029,12 +1029,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Colloidal Phaser</Name>
       <Type>BeamWeapons</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>14</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>18</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1060,12 +1060,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Speed Trap 20</Name>
       <Type>MineLayer</Type>
       <Mass>100</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>30</Ironium>
         <Germanium>12</Germanium>
         <Energy>60</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>2</Biotechnology>
@@ -1092,12 +1092,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Space Station</Name>
       <Type>Hull</Type>
-      <Resource>
+      <Cost>
         <Boranium>80</Boranium>
         <Ironium>120</Ironium>
         <Germanium>250</Germanium>
         <Energy>600</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1202,12 +1202,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Yakimora Light Phaser</Name>
       <Type>BeamWeapons</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>8</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>7</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1233,12 +1233,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Blackjack</Name>
       <Type>BeamWeapons</Type>
       <Mass>10</Mass>
-      <Resource>
+      <Cost>
         <Boranium>16</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>7</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1264,12 +1264,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Mark IV Blaster</Name>
       <Type>BeamWeapons</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>12</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>15</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1295,12 +1295,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Cow-hide Shield</Name>
       <Type>Shield</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>2</Boranium>
         <Ironium>2</Ironium>
         <Germanium>0</Germanium>
         <Energy>5</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1321,12 +1321,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Gravity ±3</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>1</Biotechnology>
@@ -1344,12 +1344,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Pulsed Sapper</Name>
       <Type>BeamWeapons</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>4</Germanium>
         <Energy>12</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1375,12 +1375,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Superlatanium</Name>
       <Type>Armor</Type>
       <Mass>30</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>25</Ironium>
         <Germanium>0</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1402,12 +1402,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Delta Torpedo</Name>
       <Type>Torpedoes</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>8</Boranium>
         <Ironium>22</Ironium>
         <Germanium>5</Germanium>
         <Energy>8</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1432,12 +1432,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Snooper 620X</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
         <Germanium>70</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>9</Biotechnology>
@@ -1466,12 +1466,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Heavy Blaster</Name>
       <Type>BeamWeapons</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>25</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1497,12 +1497,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Gatling Neutrino Cannnon</Name>
       <Type>BeamWeapons</Type>
       <Mass>3</Mass>
-      <Resource>
+      <Cost>
         <Boranium>28</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>17</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1530,12 +1530,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Jammer 20</Name>
       <Type>Electrical</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>1</Ironium>
         <Germanium>5</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1557,12 +1557,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Transport Cloaking</Name>
       <Type>Electrical</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>2</Ironium>
         <Germanium>2</Germanium>
         <Energy>3</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1589,12 +1589,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>RNA Scanner</Name>
       <Type>Scanner</Type>
       <Mass>5</Mass>
-      <Resource>
+      <Cost>
         <Boranium>1</Boranium>
         <Ironium>1</Ironium>
         <Germanium>2</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>10</Biotechnology>
@@ -1620,12 +1620,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Trans-Star 10</Name>
       <Type>Engine</Type>
       <Mass>5</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>3</Ironium>
         <Germanium>3</Germanium>
         <Energy>10</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1660,12 +1660,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Anti-matter Generator</Name>
       <Type>Electrical</Type>
-      <Resource>
+      <Cost>
         <Boranium>3</Boranium>
         <Ironium>8</Ironium>
         <Germanium>3</Germanium>
         <Energy>10</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>7</Biotechnology>
@@ -1690,12 +1690,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Gatling Gun</Name>
       <Type>BeamWeapons</Type>
       <Mass>3</Mass>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>13</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1721,12 +1721,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Ultra Miner</Name>
       <Type>Hull</Type>
       <Mass>100</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>30</Ironium>
         <Germanium>6</Germanium>
         <Energy>130</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1791,12 +1791,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Smart Bomb</Name>
       <Type>Bomb</Type>
       <Mass>50</Mass>
-      <Resource>
+      <Cost>
         <Boranium>22</Boranium>
         <Ironium>1</Ironium>
         <Germanium>0</Germanium>
         <Energy>27</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1821,12 +1821,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Trans-Galactic Drive</Name>
       <Type>Engine</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>20</Ironium>
         <Germanium>9</Germanium>
         <Energy>50</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1863,12 +1863,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Stargate 100/any</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>50</Ironium>
         <Germanium>20</Germanium>
         <Energy>700</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1893,12 +1893,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Galaxy Scoop</Name>
       <Type>Engine</Type>
       <Mass>19</Mass>
-      <Resource>
+      <Cost>
         <Boranium>2</Boranium>
         <Ironium>4</Ironium>
         <Germanium>9</Germanium>
         <Energy>12</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1937,12 +1937,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Trans-Galactic Mizer Scoop</Name>
       <Type>Engine</Type>
       <Mass>19</Mass>
-      <Resource>
+      <Cost>
         <Boranium>2</Boranium>
         <Ironium>5</Ironium>
         <Germanium>13</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -1980,12 +1980,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Privateer</Name>
       <Type>Hull</Type>
       <Mass>65</Mass>
-      <Resource>
+      <Cost>
         <Boranium>3</Boranium>
         <Ironium>50</Ironium>
         <Germanium>2</Germanium>
         <Energy>50</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2048,12 +2048,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Robo-Miner</Name>
       <Type>MiningRobot</Type>
       <Mass>240</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>30</Ironium>
         <Germanium>7</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2075,12 +2075,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Flux Capacitor</Name>
       <Type>Electrical</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>8</Germanium>
         <Energy>5</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2104,12 +2104,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>M-70 Bomb</Name>
       <Type>Bomb</Type>
       <Mass>50</Mass>
-      <Resource>
+      <Cost>
         <Boranium>24</Boranium>
         <Ironium>1</Ironium>
         <Germanium>0</Germanium>
         <Energy>9</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2134,12 +2134,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Strobnium</Name>
       <Type>Armor</Type>
       <Mass>54</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>8</Ironium>
         <Germanium>0</Germanium>
         <Energy>18</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2160,12 +2160,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Temp ±15</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>4</Biotechnology>
@@ -2183,12 +2183,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Stealth Cloak</Name>
       <Type>Electrical</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>2</Ironium>
         <Germanium>2</Germanium>
         <Energy>3</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2210,12 +2210,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Fuel Transport</Name>
       <Type>Hull</Type>
       <Mass>12</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>10</Ironium>
         <Germanium>5</Germanium>
         <Energy>50</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2261,12 +2261,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Jammer 50</Name>
       <Type>Electrical</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>2</Ironium>
         <Germanium>7</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2289,12 +2289,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Stargate any/800</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>50</Ironium>
         <Germanium>20</Germanium>
         <Energy>700</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2319,12 +2319,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Battle Cruiser</Name>
       <Type>Hull</Type>
       <Mass>120</Mass>
-      <Resource>
+      <Cost>
         <Boranium>8</Boranium>
         <Ironium>55</Ironium>
         <Germanium>12</Germanium>
         <Energy>120</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2395,12 +2395,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Blunderbuss</Name>
       <Type>BeamWeapons</Type>
       <Mass>10</Mass>
-      <Resource>
+      <Cost>
         <Boranium>30</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>13</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2428,12 +2428,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Maxi Miner</Name>
       <Type>Hull</Type>
       <Mass>110</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>32</Ironium>
         <Germanium>6</Germanium>
         <Energy>140</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2498,12 +2498,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Black Cat Bomb</Name>
       <Type>Bomb</Type>
       <Mass>45</Mass>
-      <Resource>
+      <Cost>
         <Boranium>22</Boranium>
         <Ironium>1</Ironium>
         <Germanium>0</Germanium>
         <Energy>7</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2528,12 +2528,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Settler's Delight</Name>
       <Type>Engine</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>1</Ironium>
         <Germanium>1</Germanium>
         <Energy>2</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2575,12 +2575,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Mine Dispenser 40</Name>
       <Type>MineLayer</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>2</Ironium>
         <Germanium>8</Germanium>
         <Energy>45</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2608,12 +2608,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Cargo Pod</Name>
       <Type>Mechanical</Type>
       <Mass>5</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>5</Ironium>
         <Germanium>2</Germanium>
         <Energy>10</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2635,12 +2635,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Super Freighter</Name>
       <Type>Hull</Type>
       <Mass>175</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>45</Ironium>
         <Germanium>21</Germanium>
         <Energy>125</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2699,12 +2699,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Super-Stealth Cloak</Name>
       <Type>Electrical</Type>
       <Mass>3</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>8</Ironium>
         <Germanium>8</Germanium>
         <Energy>15</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2726,12 +2726,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Battle Nexus</Name>
       <Type>Electrical</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>30</Germanium>
         <Energy>15</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2753,12 +2753,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Total ±25</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>22</Biotechnology>
@@ -2778,12 +2778,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Speed Trap 50</Name>
       <Type>MineLayer</Type>
       <Mass>140</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>40</Ironium>
         <Germanium>15</Germanium>
         <Energy>80</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>11</Biotechnology>
@@ -2810,12 +2810,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Stargate any/any</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>50</Ironium>
         <Germanium>20</Germanium>
         <Energy>800</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2839,12 +2839,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Total ±20</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>17</Biotechnology>
@@ -2864,12 +2864,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Cherry Bomb</Name>
       <Type>Bomb</Type>
       <Mass>52</Mass>
-      <Resource>
+      <Cost>
         <Boranium>25</Boranium>
         <Ironium>1</Ironium>
         <Germanium>0</Germanium>
         <Energy>11</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2893,12 +2893,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Scoper 220</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
         <Germanium>70</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2924,12 +2924,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Alpha Torpedo</Name>
       <Type>Torpedoes</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>3</Boranium>
         <Ironium>9</Ironium>
         <Germanium>3</Germanium>
         <Energy>5</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2955,12 +2955,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Beta Torpedo</Name>
       <Type>Torpedoes</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>6</Boranium>
         <Ironium>18</Ironium>
         <Germanium>4</Germanium>
         <Energy>6</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -2986,12 +2986,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Crobmnium</Name>
       <Type>Armor</Type>
       <Mass>56</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>6</Ironium>
         <Germanium>0</Germanium>
         <Energy>13</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3012,12 +3012,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Scoper 280</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
         <Germanium>70</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3042,12 +3042,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Snooper 320X</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
         <Germanium>70</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>3</Biotechnology>
@@ -3075,12 +3075,12 @@ This scanner is capable of determining a planets basics statistics at a range up
     <Item>
       <Name>Super Drvier 7</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>100</Boranium>
         <Ironium>100</Ironium>
         <Germanium>100</Germanium>
         <Energy>512</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3102,12 +3102,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Heavy Dispenser 50</Name>
       <Type>MineLayer</Type>
       <Mass>10</Mass>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>2</Ironium>
         <Germanium>5</Germanium>
         <Energy>50</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>3</Biotechnology>
@@ -3136,12 +3136,12 @@ This scanner is capable of determining a planets basics statistics at a range up
     <Item>
       <Name>Super Driver 9</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>24</Ironium>
         <Germanium>20</Germanium>
         <Energy>324</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3165,12 +3165,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Elephant Hide Fortress</Name>
       <Type>Shield</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>8</Ironium>
         <Germanium>10</Germanium>
         <Energy>15</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3191,12 +3191,12 @@ This scanner is capable of determining a planets basics statistics at a range up
     <Item>
       <Name>Temp ±3</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>1</Biotechnology>
@@ -3213,12 +3213,12 @@ This scanner is capable of determining a planets basics statistics at a range up
     <Item>
       <Name>Gravity ±7</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>2</Biotechnology>
@@ -3235,12 +3235,12 @@ This scanner is capable of determining a planets basics statistics at a range up
     <Item>
       <Name>Temp ±7</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>2</Biotechnology>
@@ -3258,12 +3258,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Quick Jump 5</Name>
       <Type>Engine</Type>
       <Mass>4</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>3</Ironium>
         <Germanium>1</Germanium>
         <Energy>2</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3299,12 +3299,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Interspace 10</Name>
       <Type>Engine</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>25</Boranium>
         <Ironium>18</Ironium>
         <Germanium>10</Germanium>
         <Energy>60</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3342,12 +3342,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Phased Sapper</Name>
       <Type>BeamWeapons</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>6</Germanium>
         <Energy>16</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3372,12 +3372,12 @@ This scanner is capable of determining a planets basics statistics at a range up
     <Item>
       <Name>Stargate 100/250</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>50</Ironium>
         <Germanium>20</Germanium>
         <Energy>200</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3402,12 +3402,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Orbital Adjuster</Name>
       <Type>MiningRobot</Type>
       <Mass>80</Mass>
-      <Resource>
+      <Cost>
         <Boranium>25</Boranium>
         <Ironium>25</Ironium>
         <Germanium>25</Germanium>
         <Energy>50</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>6</Biotechnology>
@@ -3436,12 +3436,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Mini Bomber</Name>
       <Type>Hull</Type>
       <Mass>28</Mass>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>20</Ironium>
         <Germanium>10</Germanium>
         <Energy>35</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3479,12 +3479,12 @@ This scanner is capable of determining a planets basics statistics at a range up
     <Item>
       <Name>Neutron Shield</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>5</Ironium>
         <Germanium>5</Germanium>
         <Energy>15</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3509,12 +3509,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Heavy Dispenser 110</Name>
       <Type>MineLayer</Type>
       <Mass>15</Mass>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>2</Ironium>
         <Germanium>5</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>5</Biotechnology>
@@ -3544,12 +3544,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Robo-Mini Miner</Name>
       <Type>MiningRobot</Type>
       <Mass>240</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>30</Ironium>
         <Germanium>7</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3571,12 +3571,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Fuel Tank</Name>
       <Type>Mechanical</Type>
       <Mass>3</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>6</Ironium>
         <Germanium>0</Germanium>
         <Energy>4</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3599,12 +3599,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Speed Trap 30</Name>
       <Type>MineLayer</Type>
       <Mass>135</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>32</Ironium>
         <Germanium>14</Germanium>
         <Energy>72</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>6</Biotechnology>
@@ -3631,12 +3631,12 @@ This scanner is capable of determining a planets basics statistics at a range up
     <Item>
       <Name>Stargate 150/600</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>50</Ironium>
         <Germanium>20</Germanium>
         <Energy>500</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3661,12 +3661,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Possum Scanner</Name>
       <Type>Scanner</Type>
       <Mass>3</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>3</Ironium>
         <Germanium>3</Germanium>
         <Energy>18</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3692,12 +3692,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Super Fuel Tank</Name>
       <Type>Mechanical</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>8</Ironium>
         <Germanium>0</Germanium>
         <Energy>8</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3720,12 +3720,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Organic Armor</Name>
       <Type>Armor</Type>
       <Mass>15</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>6</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>7</Biotechnology>
@@ -3747,12 +3747,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Radiating Hydro-Ram Scoop</Name>
       <Type>Engine</Type>
       <Mass>10</Mass>
-      <Resource>
+      <Cost>
         <Boranium>2</Boranium>
         <Ironium>3</Ironium>
         <Germanium>9</Germanium>
         <Energy>12</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3794,12 +3794,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Mini Gun</Name>
       <Type>BeamWeapons</Type>
       <Mass>3</Mass>
-      <Resource>
+      <Cost>
         <Boranium>16</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>10</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3827,12 +3827,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Doomsday Missile</Name>
       <Type>Torpedoes</Type>
       <Mass>35</Mass>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>60</Ironium>
         <Germanium>13</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3858,12 +3858,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Energy Dampener</Name>
       <Type>Electrical</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>5</Ironium>
         <Germanium>0</Germanium>
         <Energy>50</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3884,12 +3884,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Mass Driver 5</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>24</Ironium>
         <Germanium>20</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3913,12 +3913,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Battle Computer</Name>
       <Type>Electrical</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>15</Germanium>
         <Energy>6</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3941,12 +3941,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Super Cargo Pod</Name>
       <Type>Mechanical</Type>
       <Mass>7</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>8</Ironium>
         <Germanium>2</Germanium>
         <Energy>15</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -3968,12 +3968,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Mini Mine Layer</Name>
       <Type>Hull</Type>
       <Mass>10</Mass>
-      <Resource>
+      <Cost>
         <Boranium>2</Boranium>
         <Ironium>8</Ironium>
         <Germanium>5</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4030,12 +4030,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Dolphin Scanner</Name>
       <Type>Scanner</Type>
       <Mass>3</Mass>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>5</Ironium>
         <Germanium>10</Germanium>
         <Energy>40</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>4</Biotechnology>
@@ -4063,12 +4063,12 @@ This scanner is capable of determining planetary statistics up to 100 ly away.</
       <Name>Omega Torpedo</Name>
       <Type>Torpedoes</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>18</Boranium>
         <Ironium>52</Ironium>
         <Germanium>12</Germanium>
         <Energy>18</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4094,12 +4094,12 @@ This scanner is capable of determining planetary statistics up to 100 ly away.</
       <Name>Mini Miner</Name>
       <Type>Hull</Type>
       <Mass>80</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>25</Ironium>
         <Germanium>6</Germanium>
         <Energy>50</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4150,12 +4150,12 @@ This scanner is capable of determining planetary statistics up to 100 ly away.</
       <Name>Rhino Scanner</Name>
       <Type>Scanner</Type>
       <Mass>5</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>3</Ironium>
         <Germanium>2</Germanium>
         <Energy>3</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4180,12 +4180,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Temp ±11</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>3</Biotechnology>
@@ -4203,12 +4203,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Chameleon Scanner</Name>
       <Type>Scanner</Type>
       <Mass>6</Mass>
-      <Resource>
+      <Cost>
         <Boranium>6</Boranium>
         <Ironium>4</Ironium>
         <Germanium>4</Germanium>
         <Energy>25</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4242,12 +4242,12 @@ This scanner has an intrinsic 20% cloaking ability.</Description>
       <Name>Jammer 10</Name>
       <Type>Electrical</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>2</Germanium>
         <Energy>6</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4270,12 +4270,12 @@ This scanner has an intrinsic 20% cloaking ability.</Description>
     <Item>
       <Name>Total ±7</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>6</Biotechnology>
@@ -4295,12 +4295,12 @@ This scanner has an intrinsic 20% cloaking ability.</Description>
       <Name>Super Mine Layer</Name>
       <Type>Hull</Type>
       <Mass>30</Mass>
-      <Resource>
+      <Cost>
         <Boranium>3</Boranium>
         <Ironium>200</Ironium>
         <Germanium>9</Germanium>
         <Energy>30</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4369,12 +4369,12 @@ This scanner has an intrinsic 20% cloaking ability.</Description>
       <Name>Large Freighter</Name>
       <Type>Hull</Type>
       <Mass>100</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>35</Ironium>
         <Germanium>21</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4425,12 +4425,12 @@ This scanner has an intrinsic 20% cloaking ability.</Description>
       <Name>Ultra-Stealth Cloak</Name>
       <Type>Electrical</Type>
       <Mass>5</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>10</Ironium>
         <Germanium>10</Germanium>
         <Energy>25</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4453,12 +4453,12 @@ This scanner has an intrinsic 20% cloaking ability.</Description>
     <Item>
       <Name>Laser Battery</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>5</Ironium>
         <Germanium>5</Germanium>
         <Energy>15</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4483,12 +4483,12 @@ This scanner has an intrinsic 20% cloaking ability.</Description>
       <Name>Eagle Eye Scanner</Name>
       <Type>Scanner</Type>
       <Mass>3</Mass>
-      <Resource>
+      <Cost>
         <Boranium>2</Boranium>
         <Ironium>3</Ironium>
         <Germanium>21</Germanium>
         <Energy>64</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4514,12 +4514,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Peerless Scanner</Name>
       <Type>Scanner</Type>
       <Mass>4</Mass>
-      <Resource>
+      <Cost>
         <Boranium>2</Boranium>
         <Ironium>3</Ironium>
         <Germanium>30</Germanium>
         <Energy>90</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4545,12 +4545,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>LBU-32 Bomb</Name>
       <Type>Bomb</Type>
       <Mass>35</Mass>
-      <Resource>
+      <Cost>
         <Boranium>24</Boranium>
         <Ironium>1</Ironium>
         <Germanium>15</Germanium>
         <Energy>10</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4575,12 +4575,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Super-Fuel Transport</Name>
       <Type>Hull</Type>
       <Mass>111</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>20</Ironium>
         <Germanium>8</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4611,12 +4611,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Ultra Driver 10</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>100</Boranium>
         <Ironium>100</Ironium>
         <Germanium>100</Germanium>
         <Energy>968</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4638,12 +4638,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Frigate</Name>
       <Type>Hull</Type>
       <Mass>8</Mass>
-      <Resource>
+      <Cost>
         <Boranium>2</Boranium>
         <Ironium>4</Ironium>
         <Germanium>4</Germanium>
         <Energy>12</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4694,12 +4694,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Robber Barron Scanner</Name>
       <Type>Scanner</Type>
       <Mass>20</Mass>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
         <Germanium>10</Germanium>
         <Energy>90</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>10</Biotechnology>
@@ -4729,12 +4729,12 @@ This scanner alows you to steal minerals from other races planets.</Description>
       <Name>Myopic Disruptor</Name>
       <Type>BeamWeapons</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>14</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>12</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4760,12 +4760,12 @@ This scanner alows you to steal minerals from other races planets.</Description>
       <Name>Alpha Drive 8</Name>
       <Type>Engine</Type>
       <Mass>17</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>16</Ironium>
         <Germanium>3</Germanium>
         <Energy>28</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4801,12 +4801,12 @@ This scanner alows you to steal minerals from other races planets.</Description>
       <Name>Dreadnought</Name>
       <Type>Hull</Type>
       <Mass>250</Mass>
-      <Resource>
+      <Cost>
         <Boranium>30</Boranium>
         <Ironium>140</Ironium>
         <Germanium>25</Germanium>
         <Energy>275</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4913,12 +4913,12 @@ This scanner alows you to steal minerals from other races planets.</Description>
       <Name>Battle Super Computer</Name>
       <Type>Electrical</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>25</Germanium>
         <Energy>14</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4941,12 +4941,12 @@ This scanner alows you to steal minerals from other races planets.</Description>
       <Name>Fuel Mizer</Name>
       <Type>Engine</Type>
       <Mass>6</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>8</Ironium>
         <Germanium>0</Germanium>
         <Energy>11</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -4984,12 +4984,12 @@ This scanner alows you to steal minerals from other races planets.</Description>
       <Name>Shadow Shield</Name>
       <Type>Shield</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>3</Ironium>
         <Germanium>3</Germanium>
         <Energy>7</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5018,12 +5018,12 @@ This scanner alows you to steal minerals from other races planets.</Description>
       <Name>Galleon</Name>
       <Type>Hull</Type>
       <Mass>125</Mass>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>70</Ironium>
         <Germanium>5</Germanium>
         <Energy>105</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5104,12 +5104,12 @@ This scanner alows you to steal minerals from other races planets.</Description>
       <Name>Orbital Construction Module</Name>
       <Type>Mechanical</Type>
       <Mass>50</Mass>
-      <Resource>
+      <Cost>
         <Boranium>15</Boranium>
         <Ironium>20</Ironium>
         <Germanium>15</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5144,12 +5144,12 @@ This scanner alows you to steal minerals from other races planets.</Description>
       <Name>DNA Scanner</Name>
       <Type>Scanner</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>1</Boranium>
         <Ironium>1</Ironium>
         <Germanium>1</Germanium>
         <Energy>5</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>6</Biotechnology>
@@ -5174,12 +5174,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Total ±5</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>3</Biotechnology>
@@ -5199,12 +5199,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>LBU-17 Bomb</Name>
       <Type>Bomb</Type>
       <Mass>30</Mass>
-      <Resource>
+      <Cost>
         <Boranium>15</Boranium>
         <Ironium>1</Ironium>
         <Germanium>15</Germanium>
         <Energy>7</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5229,12 +5229,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>M-80 Bomb</Name>
       <Type>Bomb</Type>
       <Mass>55</Mass>
-      <Resource>
+      <Cost>
         <Boranium>25</Boranium>
         <Ironium>1</Ironium>
         <Germanium>0</Germanium>
         <Energy>12</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5259,12 +5259,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Ferret Scanner</Name>
       <Type>Scanner</Type>
       <Mass>3</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>2</Ironium>
         <Germanium>8</Germanium>
         <Energy>36</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>2</Biotechnology>
@@ -5292,12 +5292,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
       <Name>Overthruster</Name>
       <Type>Mechanical</Type>
       <Mass>35</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>10</Ironium>
         <Germanium>8</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5318,12 +5318,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
     <Item>
       <Name>Viewer 90</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
         <Germanium>70</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5349,12 +5349,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
       <Name>Medium Freighter</Name>
       <Type>Hull</Type>
       <Mass>60</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>20</Ironium>
         <Germanium>19</Germanium>
         <Energy>40</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5405,12 +5405,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
       <Name>Cruiser</Name>
       <Type>Hull</Type>
       <Mass>90</Mass>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>40</Ironium>
         <Germanium>8</Germanium>
         <Energy>85</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5479,12 +5479,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
       <Name>Annihilator Bomb</Name>
       <Type>Bomb</Type>
       <Mass>50</Mass>
-      <Resource>
+      <Cost>
         <Boranium>30</Boranium>
         <Ironium>1</Ironium>
         <Germanium>0</Germanium>
         <Energy>28</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5511,12 +5511,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
       <Name>Mine Dispenser 130</Name>
       <Type>MineLayer</Type>
       <Mass>30</Mass>
-      <Resource>
+      <Cost>
         <Boranium>18</Boranium>
         <Ironium>2</Ironium>
         <Germanium>10</Germanium>
         <Energy>80</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>12</Biotechnology>
@@ -5544,12 +5544,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
       <Name>Mine Dispenser 50</Name>
       <Type>MineLayer</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>12</Boranium>
         <Ironium>2</Ironium>
         <Germanium>10</Germanium>
         <Energy>55</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>4</Biotechnology>
@@ -5577,12 +5577,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
       <Name>Trans-Galactic Fuel Scoop</Name>
       <Type>Engine</Type>
       <Mass>19</Mass>
-      <Resource>
+      <Cost>
         <Boranium>4</Boranium>
         <Ironium>5</Ironium>
         <Germanium>12</Germanium>
         <Energy>18</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5619,12 +5619,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
     <Item>
       <Name>Total ±15</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>13</Biotechnology>
@@ -5643,12 +5643,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
     <Item>
       <Name>Radiation ±11</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>3</Biotechnology>
@@ -5665,12 +5665,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
     <Item>
       <Name>Total ±10</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>9</Biotechnology>
@@ -5689,12 +5689,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
     <Item>
       <Name>Radiation ±15</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>4</Biotechnology>
@@ -5712,12 +5712,12 @@ This scanner is capable of determining planetary statistics up to 50 ly away.</D
       <Name>Gazelle Scanner</Name>
       <Type>Scanner</Type>
       <Mass>5</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>4</Ironium>
         <Germanium>5</Germanium>
         <Energy>24</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5742,12 +5742,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Viewer 50</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
         <Germanium>70</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5773,12 +5773,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Laser</Name>
       <Type>BeamWeapons</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>6</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>5</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5804,12 +5804,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Robo-Super Miner</Name>
       <Type>MiningRobot</Type>
       <Mass>240</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>30</Ironium>
         <Germanium>7</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5831,12 +5831,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Maneuvering Jet</Name>
       <Type>Mechanical</Type>
       <Mass>35</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>5</Ironium>
         <Germanium>5</Germanium>
         <Energy>10</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5857,12 +5857,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Death Star</Name>
       <Type>Hull</Type>
-      <Resource>
+      <Cost>
         <Boranium>80</Boranium>
         <Ironium>120</Ironium>
         <Germanium>350</Germanium>
         <Energy>750</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -5993,12 +5993,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Bat Scanner</Name>
       <Type>Scanner</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>1</Ironium>
         <Germanium>1</Germanium>
         <Energy>1</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6023,12 +6023,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Super Driver 8</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>24</Ironium>
         <Germanium>20</Germanium>
         <Energy>256</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6052,12 +6052,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Mini Blaster</Name>
       <Type>BeamWeapons</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>9</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6083,12 +6083,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Beam Deflector</Name>
       <Type>Mechanical</Type>
       <Mass>35</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>10</Germanium>
         <Energy>8</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6110,12 +6110,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Neutron Bomb</Name>
       <Type>Bomb</Type>
       <Mass>57</Mass>
-      <Resource>
+      <Cost>
         <Boranium>30</Boranium>
         <Ironium>1</Ironium>
         <Germanium>0</Germanium>
         <Energy>30</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6140,12 +6140,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Kelarium</Name>
       <Type>Armor</Type>
       <Mass>50</Mass>
-      <Resource>
+      <Cost>
         <Boranium>1</Boranium>
         <Ironium>9</Ironium>
         <Germanium>0</Germanium>
         <Energy>25</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6166,12 +6166,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Gravity ±15</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>3</Biotechnology>
@@ -6188,12 +6188,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Stargate any/300</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>50</Ironium>
         <Germanium>20</Germanium>
         <Energy>250</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6218,12 +6218,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Midget Miner</Name>
       <Type>Hull</Type>
       <Mass>10</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>10</Ironium>
         <Germanium>3</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6264,12 +6264,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>LBU-74 Bomb</Name>
       <Type>Bomb</Type>
       <Mass>35</Mass>
-      <Resource>
+      <Cost>
         <Boranium>33</Boranium>
         <Ironium>1</Ironium>
         <Germanium>12</Germanium>
         <Energy>14</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6294,12 +6294,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Tachyon Detector</Name>
       <Type>Electrical</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>1</Ironium>
         <Germanium>0</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6323,12 +6323,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Anti-Matter Pulverizer</Name>
       <Type>BeamWeapons</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>22</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>27</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6354,12 +6354,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Rogue</Name>
       <Type>Hull</Type>
       <Mass>75</Mass>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>80</Ironium>
         <Germanium>5</Germanium>
         <Energy>60</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6448,12 +6448,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Colony Ship</Name>
       <Type>Hull</Type>
       <Mass>20</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>10</Ironium>
         <Germanium>15</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6498,12 +6498,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Armegeddon Missile</Name>
       <Type>Torpedoes</Type>
       <Mass>35</Mass>
-      <Resource>
+      <Cost>
         <Boranium>23</Boranium>
         <Ironium>67</Ironium>
         <Germanium>16</Germanium>
         <Energy>24</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6529,12 +6529,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Destroyer</Name>
       <Type>Hull</Type>
       <Mass>30</Mass>
-      <Resource>
+      <Cost>
         <Boranium>3</Boranium>
         <Ironium>15</Ironium>
         <Germanium>5</Germanium>
         <Energy>35</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6602,12 +6602,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Total ±3</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>70</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6627,12 +6627,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Heavy Dispenser 200</Name>
       <Type>MineLayer</Type>
       <Mass>20</Mass>
-      <Resource>
+      <Cost>
         <Boranium>45</Boranium>
         <Ironium>2</Ironium>
         <Germanium>5</Germanium>
         <Energy>90</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>7</Biotechnology>
@@ -6662,12 +6662,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Nubian</Name>
       <Type>Hull</Type>
       <Mass>100</Mass>
-      <Resource>
+      <Cost>
         <Boranium>12</Boranium>
         <Ironium>75</Ironium>
         <Germanium>12</Germanium>
         <Energy>150</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6771,12 +6771,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>SDI</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>5</Ironium>
         <Germanium>5</Germanium>
         <Energy>15</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6800,12 +6800,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Scout</Name>
       <Type>Hull</Type>
       <Mass>8</Mass>
-      <Resource>
+      <Cost>
         <Boranium>2</Boranium>
         <Ironium>4</Ironium>
         <Germanium>4</Germanium>
         <Energy>10</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6850,12 +6850,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Carbonic Armor</Name>
       <Type>Armor</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>5</Germanium>
         <Energy>15</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>4</Biotechnology>
@@ -6876,12 +6876,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Orbital Fort</Name>
       <Type>Hull</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>12</Ironium>
         <Germanium>17</Germanium>
         <Energy>40</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6937,12 +6937,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Mass Driver 6</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>24</Ironium>
         <Germanium>20</Germanium>
         <Energy>144</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6966,12 +6966,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Valanium</Name>
       <Type>Armor</Type>
       <Mass>40</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>15</Ironium>
         <Germanium>0</Germanium>
         <Energy>50</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -6993,12 +6993,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Miner</Name>
       <Type>Hull</Type>
       <Mass>110</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>32</Ironium>
         <Germanium>6</Germanium>
         <Energy>110</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7063,12 +7063,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>B-17 Bomber</Name>
       <Type>Hull</Type>
       <Mass>69</Mass>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>55</Ironium>
         <Germanium>10</Germanium>
         <Energy>150</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7119,12 +7119,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Robo-Ultra Miner</Name>
       <Type>MiningRobot</Type>
       <Mass>80</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>14</Ironium>
         <Germanium>4</Germanium>
         <Energy>50</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7146,12 +7146,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Rho Torpedo</Name>
       <Type>Torpedoes</Type>
       <Mass>25</Mass>
-      <Resource>
+      <Cost>
         <Boranium>12</Boranium>
         <Ironium>34</Ironium>
         <Germanium>8</Germanium>
         <Energy>12</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7176,12 +7176,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Space Dock</Name>
       <Type>Hull</Type>
-      <Resource>
+      <Cost>
         <Boranium>5</Boranium>
         <Ironium>20</Ironium>
         <Germanium>25</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7263,12 +7263,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
     <Item>
       <Name>Radiation ±3</Name>
       <Type>Terraforming</Type>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>1</Biotechnology>
@@ -7286,12 +7286,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Lady Finger Bomb</Name>
       <Type>Bomb</Type>
       <Mass>40</Mass>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>1</Ironium>
         <Germanium>0</Germanium>
         <Energy>5</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7316,12 +7316,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Jammer 30</Name>
       <Type>Electrical</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>1</Ironium>
         <Germanium>6</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7343,12 +7343,12 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Name>Pick Pocket Scanner</Name>
       <Type>Scanner</Type>
       <Mass>15</Mass>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>8</Ironium>
         <Germanium>6</Germanium>
         <Energy>35</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>4</Biotechnology>
@@ -7378,12 +7378,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
       <Name>Mini-Colony Ship</Name>
       <Type>Hull</Type>
       <Mass>8</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>2</Ironium>
         <Germanium>2</Germanium>
         <Energy>3</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7430,12 +7430,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
       <Name>Energy Capacitor</Name>
       <Type>Electrical</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>8</Germanium>
         <Energy>5</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7457,12 +7457,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
       <Name>Juggernaut Missile</Name>
       <Type>Torpedoes</Type>
       <Mass>35</Mass>
-      <Resource>
+      <Cost>
         <Boranium>16</Boranium>
         <Ironium>48</Ironium>
         <Germanium>11</Germanium>
         <Energy>16</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7487,12 +7487,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
     <Item>
       <Name>Ultra Driver 12</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>24</Ironium>
         <Germanium>20</Germanium>
         <Energy>576</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7515,12 +7515,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
     <Item>
       <Name>Ultra Driver 13</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>24</Ironium>
         <Germanium>20</Germanium>
         <Energy>676</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7544,12 +7544,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
       <Name>Syncro Sapper</Name>
       <Type>BeamWeapons</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>0</Ironium>
         <Germanium>8</Germanium>
         <Energy>21</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7574,12 +7574,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
     <Item>
       <Name>Ultra Driver 11</Name>
       <Type>Orbital</Type>
-      <Resource>
+      <Cost>
         <Boranium>20</Boranium>
         <Ironium>24</Ironium>
         <Germanium>20</Germanium>
         <Energy>484</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7603,12 +7603,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
       <Name>Long Hump 6</Name>
       <Type>Engine</Type>
       <Mass>9</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>5</Ironium>
         <Germanium>1</Germanium>
         <Energy>6</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7644,12 +7644,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
       <Name>Mole-skin Shield</Name>
       <Type>Shield</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>1</Ironium>
         <Germanium>1</Germanium>
         <Energy>4</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7671,12 +7671,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
       <Name>Complete Phase Shield</Name>
       <Type>Shield</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>12</Ironium>
         <Germanium>15</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7698,12 +7698,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
       <Name>Neutronium</Name>
       <Type>Armor</Type>
       <Mass>45</Mass>
-      <Resource>
+      <Cost>
         <Boranium>2</Boranium>
         <Ironium>11</Ironium>
         <Germanium>1</Germanium>
         <Energy>30</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7725,12 +7725,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
       <Name>X-Ray Laser</Name>
       <Type>BeamWeapons</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>6</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>6</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7755,12 +7755,12 @@ This scanner alows you to steal minerals from other races ships.</Description>
     <Item>
       <Name>Snooper 500X</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
         <Germanium>70</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>7</Biotechnology>
@@ -7789,12 +7789,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Croby Sharmor</Name>
       <Type>Shield</Type>
       <Mass>10</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>3</Ironium>
         <Germanium>3</Germanium>
         <Energy>6</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7823,12 +7823,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Small Freighter</Name>
       <Type>Hull</Type>
       <Mass>255</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>12</Ironium>
         <Germanium>17</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7879,12 +7879,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Wolverine Diffuse Shield</Name>
       <Type>Shield</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>3</Ironium>
         <Germanium>3</Germanium>
         <Energy>6</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7906,12 +7906,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Peerless Bomb</Name>
       <Type>Bomb</Type>
       <Mass>55</Mass>
-      <Resource>
+      <Cost>
         <Boranium>33</Boranium>
         <Ironium>1</Ironium>
         <Germanium>0</Germanium>
         <Energy>32</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7938,12 +7938,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Daddy Long Legs 7</Name>
       <Type>Engine</Type>
       <Mass>13</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>11</Ironium>
         <Germanium>3</Germanium>
         <Energy>12</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -7979,12 +7979,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Mega Disruptor</Name>
       <Type>BeamWeapons</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>30</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>33</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -8010,12 +8010,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Jihad Missile</Name>
       <Type>Torpedoes</Type>
       <Mass>35</Mass>
-      <Resource>
+      <Cost>
         <Boranium>13</Boranium>
         <Ironium>37</Ironium>
         <Germanium>9</Germanium>
         <Energy>13</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -8041,12 +8041,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Phaser Bazooka</Name>
       <Type>BeamWeapons</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>8</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>11</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -8072,12 +8072,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Fielded Kelarium</Name>
       <Type>Armor</Type>
       <Mass>50</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>10</Ironium>
         <Germanium>2</Germanium>
         <Energy>28</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -8106,12 +8106,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Robo-Maxi Miner</Name>
       <Type>MiningRobot</Type>
       <Mass>240</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>30</Ironium>
         <Germanium>7</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -8133,12 +8133,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Bear Neutrino Barrier</Name>
       <Type>Shield</Type>
       <Mass>1</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>4</Ironium>
         <Germanium>4</Germanium>
         <Energy>8</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -8160,12 +8160,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Disruptor</Name>
       <Type>BeamWeapons</Type>
       <Mass>2</Mass>
-      <Resource>
+      <Cost>
         <Boranium>16</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>20</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -8191,12 +8191,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Sub-Galactic Fuel Scoop</Name>
       <Type>Engine</Type>
       <Mass>20</Mass>
-      <Resource>
+      <Cost>
         <Boranium>4</Boranium>
         <Ironium>4</Ironium>
         <Germanium>7</Germanium>
         <Energy>12</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -8234,12 +8234,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Depleted Neutronium</Name>
       <Type>Armor</Type>
       <Mass>50</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>10</Ironium>
         <Germanium>2</Germanium>
         <Energy>28</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -8268,12 +8268,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Tritanium</Name>
       <Type>Armor</Type>
       <Mass>60</Mass>
-      <Resource>
+      <Cost>
         <Boranium>0</Boranium>
         <Ironium>5</Ironium>
         <Germanium>0</Germanium>
         <Energy>10</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -8295,12 +8295,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Colonization Module</Name>
       <Type>Mechanical</Type>
       <Mass>32</Mass>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>12</Ironium>
         <Germanium>10</Germanium>
         <Energy>10</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>
@@ -8323,12 +8323,12 @@ This scanner is capable of determining a planets basics statistics at a range up
     <Item>
       <Name>Snooper 400X</Name>
       <Type>PlanetaryInstallations</Type>
-      <Resource>
+      <Cost>
         <Boranium>10</Boranium>
         <Ironium>10</Ironium>
         <Germanium>70</Germanium>
         <Energy>100</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>6</Biotechnology>
@@ -8357,12 +8357,12 @@ This scanner is capable of determining a planets basics statistics at a range up
       <Name>Big Mutha Cannon</Name>
       <Type>BeamWeapons</Type>
       <Mass>3</Mass>
-      <Resource>
+      <Cost>
         <Boranium>36</Boranium>
         <Ironium>0</Ironium>
         <Germanium>0</Germanium>
         <Energy>23</Energy>
-      </Resource>
+      </Cost>
     </Item>
     <Tech>
       <Biotechnology>0</Biotechnology>

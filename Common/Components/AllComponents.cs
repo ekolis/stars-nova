@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009, 2010, 2011, 2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,26 +20,19 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This module maintains a (singleton) list of all components.
-// ===========================================================================
-#endregion
 
 namespace Nova.Common.Components
 {
-    #region Using Statements
+
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
     using System.IO.Compression;
     using System.Runtime.Serialization;
     using System.Windows.Forms;
     using System.Xml;
-    using Microsoft.Win32;
+
     using Nova.Common;
-    #endregion
 
     /// <summary>
     /// Provides singleton access (via AllComponents.Data) to a <see cref="Hashtable"/> containing all <see cref="Component"/>s indexed on the component's name.
@@ -47,21 +40,13 @@ namespace Nova.Common.Components
     [Serializable]
     public sealed class AllComponents
     {
-        #region Singleton Setup
-
         private static readonly object Padlock = new object();
         private static AllComponents instance;
 
-        // ============================================================================
         // All component data
-        // ============================================================================
-
         public Dictionary<string, Component> Components = new Dictionary<string, Component>();
 
-        // ============================================================================
         // Data private to this module.
-        // ============================================================================
-
         private static string saveFilePath;
         private static string graphicsFilePath;
         private static bool isLoaded = false;
@@ -94,17 +79,12 @@ namespace Nova.Common.Components
                 return instance;
             }
 
-            // ----------------------------------------------------------------------------
-
             set
             {
                 instance = value;
             }
         }
 
-        #endregion
-
-        #region Methods
 
         /// <summary>
         /// Check if AllComponents contains a particular Component.
@@ -180,9 +160,6 @@ namespace Nova.Common.Components
             isLoaded = false;
         }
 
-        #endregion
-
-        #region Load Save Xml
 
         /// <summary>
         /// Load all the components form the component definition file, nominally components.xml.
@@ -304,9 +281,6 @@ namespace Nova.Common.Components
             }
         } // Save
 
-        #endregion
-
-        #region File Paths
 
         /// <summary>
         /// Get the path where the graphics files are stored.
@@ -351,7 +325,5 @@ namespace Nova.Common.Components
                 return saveFilePath;
             }
         }
-
-        #endregion
     }
 }

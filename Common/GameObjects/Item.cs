@@ -202,32 +202,32 @@ namespace Nova.Common
                 }
             }
 
-            XmlNode subnode = itemNode.FirstChild;
+            XmlNode mainNode = itemNode.FirstChild;
 
-            while (subnode != null)
+            while (mainNode != null)
             {
                 try
                 {
-                    switch (subnode.Name.ToLower())
+                    switch (mainNode.Name.ToLower())
                     {
                         case "key":
-                            key = long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                            key = long.Parse(mainNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                             break;
                         case "mass":
-                            Mass = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Mass = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "name":
-                            Name = subnode.FirstChild.Value;
+                            Name = mainNode.FirstChild.Value;
                             break;
                         case "type":
-                            Type = (ItemType)Enum.Parse(typeof(ItemType), subnode.FirstChild.Value);
+                            Type = (ItemType)Enum.Parse(typeof(ItemType), mainNode.FirstChild.Value);
                             break;
                         case "position":
-                            Position.X = int.Parse(subnode.SelectSingleNode("X").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            Position.Y = int.Parse(subnode.SelectSingleNode("Y").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Position.X = int.Parse(mainNode.SelectSingleNode("X").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Position.Y = int.Parse(mainNode.SelectSingleNode("Y").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
-                        case "resource":
-                            Cost = new Resources(subnode);
+                        case "cost":
+                            Cost = new Resources(mainNode);
                             break;
                     }
                 }
@@ -237,7 +237,7 @@ namespace Nova.Common
                     Report.Error(e.Message + " \n Details: \n " + e.ToString());
                 }
 
-                subnode = subnode.NextSibling;
+                mainNode = mainNode.NextSibling;
             }
 
         }
@@ -264,10 +264,8 @@ namespace Nova.Common
             {
                 Global.SaveData(xmldoc, xmlelItem, "Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
             }
-            if (Cost != null)
-            {
-                xmlelItem.AppendChild(Cost.ToXml(xmldoc));
-            }
+
+            xmlelItem.AppendChild(Cost.ToXml(xmldoc, "Cost"));
 
             if (Position.X != 0 || Position.Y != 0)
             {

@@ -428,8 +428,8 @@ namespace Nova.Common.Components
                     SumProperty(module.AllocatedComponent.Properties[key], key, module.ComponentCount);
                 }
             }
-            this.Mass = Summary.Mass;
-            this.Cost = Summary.Cost;
+            Mass = Summary.Mass;
+            Cost = Summary.Cost;
         }
 
         /// <summary>
@@ -557,18 +557,18 @@ namespace Nova.Common.Components
         public ShipDesign(XmlNode node)
             : base(node)
         {
-            XmlNode subnode = node.FirstChild;
-            while (subnode != null)
+            XmlNode mainNode = node.FirstChild;
+            while (mainNode != null)
             {
                 try
                 {
-                    switch (subnode.Name.ToLower())
+                    switch (mainNode.Name.ToLower())
                     {
                         case "component":
-                            ShipHull = new Component(subnode);
+                            ShipHull = new Component(mainNode);
                             break;
                         case "icon":
-                            string iconSource = subnode.FirstChild.Value;
+                            string iconSource = mainNode.FirstChild.Value;
                             Icon = AllShipIcons.Data.GetIconBySource(iconSource);
                             break;
                     }
@@ -577,7 +577,7 @@ namespace Nova.Common.Components
                 {
                     Report.Error("Error loading Ship Design : " + e.Message);
                 }
-                subnode = subnode.NextSibling;
+                mainNode = mainNode.NextSibling;
             }
         }
     }

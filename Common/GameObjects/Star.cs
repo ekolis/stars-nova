@@ -488,73 +488,73 @@ namespace Nova.Common
         public Star(XmlNode node)
             : base(node)
         {
-            this.Starbase = null;
+            Starbase = null;
 
-            XmlNode subnode = node.FirstChild;
+            XmlNode mainNode = node.FirstChild;
 
             // Read the node
-            while (subnode != null)
+            while (mainNode != null)
             {
                 try
                 {
-                    switch (subnode.Name.ToLower())
+                    switch (mainNode.Name.ToLower())
                     {
                         case "hasfleetsinorbit":
-                            HasFleetsInOrbit = bool.Parse(subnode.FirstChild.Value);
+                            HasFleetsInOrbit = bool.Parse(mainNode.FirstChild.Value);
                             break;
                         case "productionqueue":
-                            ManufacturingQueue = new ProductionQueue(subnode);
+                            ManufacturingQueue = new ProductionQueue(mainNode);
                             break;
                         case "mineralconcentration":
-                            MineralConcentration = new Resources(subnode.FirstChild);
+                            MineralConcentration = new Resources(mainNode);
                             break;
                         case "resourcesonhand":
-                            ResourcesOnHand = new Resources(subnode.FirstChild);
+                            ResourcesOnHand = new Resources(mainNode);
                             break;
                         case "colonists":
-                            Colonists = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Colonists = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "defenses":
-                            Defenses = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Defenses = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "factories":
-                            Factories = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Factories = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "mines":
-                            Mines = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Mines = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "researchallocation":
-                            ResearchAllocation = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            ResearchAllocation = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "onlyleftover":
-                            OnlyLeftover = bool.Parse(subnode.FirstChild.Value);
+                            OnlyLeftover = bool.Parse(mainNode.FirstChild.Value);
                             break;
                         case "scanrange":
-                            ScanRange = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            ScanRange = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "defensetype":
-                            DefenseType = subnode.FirstChild.Value;
+                            DefenseType = mainNode.FirstChild.Value;
                             break;
                         case "scannertype":
-                            ScannerType = subnode.FirstChild.Value;
+                            ScannerType = mainNode.FirstChild.Value;
                             break;
                         case "gravity":
-                            Gravity = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Gravity = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "radiation":
-                            Radiation = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Radiation = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "temperature":
-                            Temperature = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Temperature = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "originalgravity":
-                            OriginalGravity = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            OriginalGravity = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "originalradiation":
-                            OriginalRadiation = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            OriginalRadiation = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "originaltemperature":
-                            OriginalTemperature = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            OriginalTemperature = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
 
                         // These are placeholder objects that will be linked to the real objects once 
@@ -566,13 +566,13 @@ namespace Nova.Common
                         // for now create a placeholder Race and load its Name
                         case "thisrace":
                             ThisRace = new Race();
-                            ThisRace.Name = subnode.FirstChild.Value;
+                            ThisRace.Name = mainNode.FirstChild.Value;
                             break;
 
                         // Starbase will point to the Fleet that is this planet's starbase (if any), 
                         // for now create a placeholder Fleet and load its FleetID
                         case "starbase":
-                            Starbase = new Fleet(long.Parse(subnode.FirstChild.Value, NumberStyles.HexNumber));
+                            Starbase = new Fleet(long.Parse(mainNode.FirstChild.Value, NumberStyles.HexNumber));
                             break;
 
                         default:
@@ -583,7 +583,7 @@ namespace Nova.Common
                 {
                     Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
                 }
-                subnode = subnode.NextSibling;
+                mainNode = mainNode.NextSibling;
             }
         }
 
@@ -601,14 +601,9 @@ namespace Nova.Common
 
             xmlelStar.AppendChild(ManufacturingQueue.ToXml(xmldoc));
 
-            // MineralConcentraion and ResourcesOnHand need wrapper nodes so we can tell what they are (other than Resources) when we read them back in.
-            XmlElement xmlelMineralConcentration = xmldoc.CreateElement("MineralConcentration");
-            xmlelMineralConcentration.AppendChild(MineralConcentration.ToXml(xmldoc));
-            xmlelStar.AppendChild(xmlelMineralConcentration);
+            xmlelStar.AppendChild(MineralConcentration.ToXml(xmldoc, "MineralConcentration"));
 
-            XmlElement xmlelResourcesOnHand = xmldoc.CreateElement("ResourcesOnHand");
-            xmlelResourcesOnHand.AppendChild(ResourcesOnHand.ToXml(xmldoc));
-            xmlelStar.AppendChild(xmlelResourcesOnHand);
+            xmlelStar.AppendChild(ResourcesOnHand.ToXml(xmldoc, "ResourcesOnHand"));
 
             Global.SaveData(xmldoc, xmlelStar, "HasFleetsInOrbit", HasFleetsInOrbit.ToString());
   

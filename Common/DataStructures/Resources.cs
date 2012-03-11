@@ -174,24 +174,24 @@ namespace Nova.Common
         /// </param>
         public Resources(XmlNode node)
         {
-            XmlNode subnode = node.FirstChild;
-            while (subnode != null)
+            XmlNode mainNode = node.FirstChild;
+            while (mainNode != null)
             {
                 try
                 {
-                    switch (subnode.Name.ToLower())
+                    switch (mainNode.Name.ToLower())
                     {
                         case "ironium":
-                            Ironium = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Ironium = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "boranium":
-                            Boranium = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Boranium = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "germanium":
-                            Germanium = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Germanium = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "energy":
-                            Energy = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Energy = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                     }
                 }
@@ -199,18 +199,19 @@ namespace Nova.Common
                 {
                     Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
                 }
-                subnode = subnode.NextSibling;
+                mainNode = mainNode.NextSibling;
             }
         }
-
+        
         /// <summary>
         /// Save: Serialise this Resources to an <see cref="XmlElement"/>.
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
+        /// <param name ="nodeName">The name this resrouce node will have on the XML file. Default is "Cost"</param>
         /// <returns>Return an <see cref="XmlElement"/> representation of the resource cost.</returns>
-        public XmlElement ToXml(XmlDocument xmldoc)
+        public XmlElement ToXml(XmlDocument xmldoc, string nodeName = "Cost")
         {
-            XmlElement xmlelResource = xmldoc.CreateElement("Resource");
+            XmlElement xmlelResource = xmldoc.CreateElement(nodeName);
 
             // Boranium
             XmlElement xmlelBoranium = xmldoc.CreateElement("Boranium");
