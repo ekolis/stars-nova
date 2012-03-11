@@ -465,10 +465,10 @@ namespace Nova.WinForms.Gui
 
             groupFleetSelection.Text = "Fleet " + selectedFleet.Name;
 
-            Dictionary<Design, int> designs = selectedFleet.Composition;
+            Dictionary<ShipDesign, int> designs = selectedFleet.Composition;
             fleetComposition.Items.Clear();
 
-            foreach (KeyValuePair<Design, int> design in designs)
+            foreach (KeyValuePair<ShipDesign, int> design in designs)
             {
                 ListViewItem listItem = new ListViewItem(design.Key.Name);
                 listItem.SubItems.Add(design.Value.ToString(System.Globalization.CultureInfo.InvariantCulture));

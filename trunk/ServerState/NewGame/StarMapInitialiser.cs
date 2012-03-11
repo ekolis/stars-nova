@@ -103,14 +103,7 @@ namespace Nova.Server.NewGame
             foreach (EmpireData empire in serverState.AllEmpires.Values)
             {
                 string player = empire.Race.Name;
-
-                Design defense = new Design(empire.GetNextDesignKey());
-
-                defense.Cost = new Nova.Common.Resources(5, 5, 5, 15);
-                defense.Name = "Defenses";
-                defense.Type = ItemType.Defenses;
                 
-                serverState.AllDesigns[defense.Key] = defense;
                 PrepareDesigns(empire, player);
                 InitialiseHomeStar(empire, player);
             }
@@ -355,11 +348,11 @@ namespace Nova.Server.NewGame
         private void AllocateHomeStarOrbitalInstallations(Star star, EmpireData empire, string player)
         {
             ShipDesign colonyShipDesign = null;
-            foreach (Design design in serverState.AllDesigns.Values)
+            foreach (ShipDesign design in serverState.AllDesigns.Values)
             {
                 if (design.Owner == empire.Id && design.Name == "Santa Maria")
                 {
-                    colonyShipDesign = design as ShipDesign;    
+                    colonyShipDesign = design;    
                 }
             }
             
@@ -382,11 +375,11 @@ namespace Nova.Server.NewGame
             }
    
             ShipDesign scoutDesign = null;
-            foreach (Design design in serverState.AllDesigns.Values)
+            foreach (ShipDesign design in serverState.AllDesigns.Values)
             {
                 if (design.Owner == empire.Id && design.Name == "Scout")
                 {
-                    scoutDesign = design as ShipDesign;    
+                    scoutDesign = design;    
                 }
             }
             
@@ -396,11 +389,11 @@ namespace Nova.Server.NewGame
             serverState.AllFleets[scoutFleet.Key] = scoutFleet;
  
             ShipDesign starbaseDesign = null;
-            foreach (Design design in serverState.AllDesigns.Values)
+            foreach (ShipDesign design in serverState.AllDesigns.Values)
             {
                 if (design.Owner == empire.Id && design.Name == "Starbase")
                 {
-                    starbaseDesign = design as ShipDesign;    
+                    starbaseDesign = design;    
                 }
             }
             

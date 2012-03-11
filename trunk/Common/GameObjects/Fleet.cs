@@ -329,11 +329,11 @@ namespace Nova.Common
         /// Return the composition of a fleet (ship design and number of ships of that
         /// design).
         /// </summary>
-        public Dictionary<Design, int> Composition
+        public Dictionary<ShipDesign, int> Composition
         {
             get
             {
-                Dictionary<Design, int> fleetComposition = new Dictionary<Design, int>();
+                Dictionary<ShipDesign, int> fleetComposition = new Dictionary<ShipDesign, int>();
 
                 foreach (Ship ship in FleetShips)
                 {

@@ -41,7 +41,7 @@ namespace Nova.WinForms.Gui
     {
         private readonly ClientData clientState;
         private readonly Dictionary<string, Component> allComponents;
-        private readonly Dictionary<long, Design> allDesigns;
+        private readonly Dictionary<long, ShipDesign> allDesigns;
         private readonly Dictionary<string, int> imageIndices = new Dictionary<string, int>();
         private readonly ImageList componentImages = new ImageList();
 
@@ -105,10 +105,7 @@ namespace Nova.WinForms.Gui
                 {
                     continue;
                 }
-                if (component.Type == ItemType.Defenses)
-                {
-                    continue;
-                }
+
                 if (component.Type == ItemType.Hull)
                 {
                     continue;

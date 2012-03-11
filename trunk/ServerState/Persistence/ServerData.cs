@@ -47,7 +47,7 @@ namespace Nova.Server
         public List<BattleReport>               AllBattles      = new List<BattleReport>();
         public List<PlayerSettings>             AllPlayers      = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
         public Dictionary<int, int>             AllTechLevels   = new Dictionary<int, int>(); // Sum of a player's techlevels, for scoring purposes.
-        public Dictionary<long, Design>         AllDesigns      = new Dictionary<long, Design>();
+        public Dictionary<long, ShipDesign>     AllDesigns      = new Dictionary<long, ShipDesign>();
         public Dictionary<long, Fleet>          AllFleets       = new Dictionary<long, Fleet>();
         public Dictionary<int, EmpireData>      AllEmpires      = new Dictionary<int, EmpireData>(); // Game specific data about the race; relations, battle plans, research, etc.
         public Dictionary<string, Race>         AllRaces        = new Dictionary<string, Race>(); // Data about the race (traits etc)
@@ -137,18 +137,7 @@ namespace Nova.Server
                             while (textNode != null)
                             {
                                 long designKey = long.Parse(textNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber);
-                                if (textNode.Name.ToLower() == "design")
-                                {
-                                    AllDesigns.Add(designKey, new Design(textNode));
-                                }
-                                else if (textNode.Name.ToLower() == "shipdesign")
-                                {
-                                    AllDesigns.Add(designKey, new ShipDesign(textNode));
-                                }
-                                else
-                                {
-                                    throw new System.NotImplementedException("Unrecognised design type.");
-                                }
+                                AllDesigns.Add(designKey, new ShipDesign(textNode));
                                 textNode = textNode.NextSibling;
                             }
                             break;
@@ -398,17 +387,9 @@ namespace Nova.Server
 
             // Store the designs
             XmlElement xmlelAllDesigns = xmldoc.CreateElement("AllDesigns");
-            foreach (KeyValuePair<long, Design> design in AllDesigns)
+            foreach (KeyValuePair<long, ShipDesign> design in AllDesigns)
             {
-                if (design.Value.Type == ItemType.Ship || design.Value.Type == ItemType.Starbase)
-                {
-                    child = ((ShipDesign)design.Value).ToXml(xmldoc);                    
-                }
-                else
-                {
-                    child = design.Value.ToXml(xmldoc);
-                }    
-                
+                child = design.Value.ToXml(xmldoc);  
                 child.SetAttribute("Key", design.Key.ToString("X"));
                 xmlelAllDesigns.AppendChild(child);                                            
             }
@@ -465,16 +446,13 @@ namespace Nova.Server
         private void LinkServerStateReferences()
         {
             // HullModule reference to a component
-            foreach (Design design in AllDesigns.Values)
+            foreach (ShipDesign design in AllDesigns.Values)
             {
-                if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
+                foreach (HullModule module in (design.ShipHull.Properties["Hull"] as Hull).Modules)
                 {
-                    foreach (HullModule module in ((design as ShipDesign).ShipHull.Properties["Hull"] as Hull).Modules)
+                    if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                     {
-                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
-                        {
-                            AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
-                        }
+                        AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
                     }
                 }
             }
@@ -491,7 +469,7 @@ namespace Nova.Server
                 // Individual Ship reference to it's Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(AllDesigns[ship.DesignKey] as ShipDesign);
+                    ship.DesignUpdate(AllDesigns[ship.DesignKey]);
                 }
             }
             
@@ -531,7 +509,7 @@ namespace Nova.Server
                     // Ship reference to Design
                     foreach (Ship ship in fleet.FleetShips)
                     {
-                        ship.DesignUpdate(AllDesigns[ship.DesignKey] as ShipDesign);
+                        ship.DesignUpdate(AllDesigns[ship.DesignKey]);
                     }
                 }
                  

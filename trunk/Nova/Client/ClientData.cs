@@ -49,7 +49,7 @@ namespace Nova.Client
         public List<long>       DeletedFleets   = new List<long>();
         public List<Message>    Messages        = new List<Message>();
 
-        public Dictionary<long, Design> EnemyDesigns = new Dictionary<long, Design>();
+        public Dictionary<long, ShipDesign> EnemyDesigns = new Dictionary<long, ShipDesign>();
         
         public Intel InputTurn = null;            
         
@@ -123,20 +123,8 @@ namespace Nova.Client
                             textNode = xmlnode.FirstChild;
                             while (textNode != null)
                             {
-                                if (textNode.Name.ToLower() == "design")
-                                {
-                                    Design design = new Design(textNode);
-                                    EnemyDesigns.Add(design.Key, design);
-                                }
-                                else if (textNode.Name.ToLower() == "shipdesign")
-                                {
-                                    ShipDesign design = new ShipDesign(textNode);
-                                    EnemyDesigns.Add(design.Key, design);
-                                }
-                                else
-                                {
-                                    throw new System.NotImplementedException("Unrecognised design type.");
-                                }
+                                ShipDesign design = new ShipDesign(textNode);
+                                EnemyDesigns.Add(design.Key, design);
                                 textNode = textNode.NextSibling;
                             }
                             break;
@@ -476,16 +464,9 @@ namespace Nova.Client
     
                 // Enemy Designs
                 XmlElement xmlelEnemyDesigns = xmldoc.CreateElement("EnemyDesigns");
-                foreach (Design design in EnemyDesigns.Values)
+                foreach (ShipDesign design in EnemyDesigns.Values)
                 {
-                    if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
-                    {
-                        xmlelEnemyDesigns.AppendChild(((ShipDesign)design).ToXml(xmldoc));
-                    }
-                    else
-                    {
-                        xmlelEnemyDesigns.AppendChild(design.ToXml(xmldoc));
-                    }
+                    xmlelEnemyDesigns.AppendChild(design.ToXml(xmldoc));
                 }
                 xmlelClientState.AppendChild(xmlelEnemyDesigns);
                 
@@ -564,16 +545,13 @@ namespace Nova.Client
         private void LinkClientStateReferences()
         {
             // HullModule reference to a component
-            foreach (Design design in EmpireState.Designs.Values)
+            foreach (ShipDesign design in EmpireState.Designs.Values)
             {
-                if (design.Type == ItemType.Ship || design.Type == ItemType.Starbase)
+                foreach (HullModule module in (design.ShipHull.Properties["Hull"] as Hull).Modules)
                 {
-                    foreach (HullModule module in ((design as ShipDesign).ShipHull.Properties["Hull"] as Hull).Modules)
+                    if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                     {
-                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
-                        {
-                            AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
-                        }
+                        AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
                     }
                 }
             }
@@ -595,7 +573,7 @@ namespace Nova.Client
                 // Ship reference to Design
                 foreach (Ship ship in fleet.FleetShips)
                 {
-                    ship.DesignUpdate(EmpireState.Designs[ship.DesignKey] as ShipDesign);
+                    ship.DesignUpdate(EmpireState.Designs[ship.DesignKey]);
                 }
             }
 
