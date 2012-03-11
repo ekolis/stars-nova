@@ -33,14 +33,17 @@ namespace Nova.Server.TurnSteps
     public class StarUpdateStep : ITurnStep
     {
         private ServerData serverState;
+        private Manufacture manufacture;
         
         public StarUpdateStep()
         {
+           
         }
         
         public void Process(ServerData serverState)
         {
             this.serverState = serverState;
+            manufacture = new Manufacture(serverState);
             
             foreach (Star star in serverState.AllStars.Values)
             {                
@@ -74,6 +77,8 @@ namespace Nova.Server.TurnSteps
                        + " by the environment on " + star.Name;
                     serverState.AllMessages.Add(message);
                 }
+                
+                manufacture.Items(star);
                 
                 ContributeLeftoverResearch(star);
                 

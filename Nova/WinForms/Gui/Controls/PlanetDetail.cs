@@ -86,7 +86,7 @@ namespace Nova.WinForms.Gui
             
             UpdateFields();
 
-            QueueList.Populate(productionQueue, selectedStar.ManufacturingQueue);
+            productionQueue.Populate(selectedStar);
 
         }
 
@@ -196,7 +196,7 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            QueueList.Populate(productionQueue, selectedStar.ManufacturingQueue);
+            productionQueue.Populate(selectedStar);
 
             Defenses.ComputeDefenseCoverage(selectedStar);
 

@@ -22,8 +22,7 @@
 namespace Nova.Common
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+    using System.Xml;
 
     /// <summary>
     /// This interface is to be used in ProductionOrder for specifying what is
@@ -37,6 +36,21 @@ namespace Nova.Common
     public interface IProductionUnit
     {
         /// <summary>
+        /// The total Cost of this unit.
+        /// </summary>
+        Resources Cost {get;}
+        
+        /// <summary>
+        /// Resources still needed to complete this unit
+        /// </summary>
+        Resources RemainingCost {get;}
+        
+        /// <summary>
+        /// Returns this unit's name, for display on the GUI.
+        /// </summary>
+        string Name {get;}
+        
+        /// <summary>
         /// Method which checks whether another one unit can be constructed.
         /// The unit cannot be constructed either because of lack 
         /// of minerals/resources or because of other game restrictions
@@ -44,16 +58,19 @@ namespace Nova.Common
         /// factory number limit is reached).
         /// </summary>
         /// <returns>Returns true in case unit can be constructed, false otherwise.</returns>
-        bool IsSkipped();
+        bool IsSkipped(Star star);
 
         /// <summary>
         /// Method which performs actual construction.
         /// </summary>
-        void Construct();
-
+        /// <returns>Returns true if the unit is done constructing, false otherwise</returns>
+        bool Construct(Star star);
+        
         /// <summary>
-        /// Return the resources needed to construct this unit.
+        /// Save: Generate an XmlElement representation of the ProductionUnit for saving.
         /// </summary>
-        Resources NeededResources();
+        /// <param name="xmldoc">The parent XmlDocument.</param>
+        /// <returns>An XmlElement representation of the ProductionQueue.Item.</returns>
+        XmlElement ToXml(XmlDocument xmldoc);
     }
 }

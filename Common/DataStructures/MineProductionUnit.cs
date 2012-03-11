@@ -22,36 +22,84 @@
 namespace Nova.Common
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+    using System.Xml;
 
     /// <summary>
     /// Implementation of ProductionUnit for constructing one mine.
     /// </summary>
     public class MineProductionUnit : IProductionUnit
     {
-        private Star star;
+        private Resources cost;
+        private Resources remainingCost; 
+        
+        public Resources Cost
+        {
+            get {return cost;}
+        }
+                
+        public Resources RemainingCost
+        {
+            get {return remainingCost;}
+        }
+        
+        public string Name
+        {
+            get {return "Mine";}
+        }
 
         /// <summary>
         /// Initialising constructor.
         /// </summary>
         /// <param name="star">Star on which the mine is to be constructed.</param>
-        public MineProductionUnit(Star star)
+        public MineProductionUnit(Race race)
         {
-            this.star = star;
+            cost = race.GetMineResources();
+            remainingCost = cost;
         }
+        
+        
+        /// <summary>
+        /// Load: Read in a ProductionUnit from and XmlNode representation.
+        /// </summary>
+        /// <param name="node">An XmlNode containing a representation of a ProductionUnit</param>
+        public MineProductionUnit(XmlNode node)
+        {
+            XmlNode subnode = node.FirstChild;
+            while (subnode != null)
+            {
+                try
+                {
+                    switch (subnode.Name.ToLower())
+                    {
+                        case "cost":
+                            cost = new Resources(subnode.FirstChild);
+                            break;
+                            
+                        case "remainingcost":
+                            remainingCost = new Resources(subnode.FirstChild);
+                            break;                            
+                    }
+                }
+                catch (Exception e)
+                {
+                    Report.Error(e.Message);
+                }
+                subnode = subnode.NextSibling;
+            }
+        }
+        
 
         /// <summary>
         /// Return true if this item will be skipped in production.
         /// </summary>
-        public bool IsSkipped()
+        public bool IsSkipped(Star star)
         {
             if (star.Mines >= star.GetOperableMines())
             {
                 return true;
             }
 
-            if (!(star.ResourcesOnHand >= NeededResources()))
+            if (star.ResourcesOnHand.Energy == 0)
             {
                 return true;
             }
@@ -62,23 +110,51 @@ namespace Nova.Common
         /// <summary>
         /// Produce the mine.
         /// </summary>
-        public void Construct()
+        public bool Construct(Star star)
         {
-            if (IsSkipped())
+            // Partial build.
+            if (!(star.ResourcesOnHand >= remainingCost))
             {
-                return;
+                // used to temporarily store the amount of resources we are short
+                Resources lacking = remainingCost - star.ResourcesOnHand; 
+                
+                // Normalized; 1.0 = 100%
+                double percentBuildable = 1.0;
+    
+                // determine which resource limits production (i.e. is able to complete the smallest percentage of production)
+                if (percentBuildable > (1 - ((double)lacking.Energy / remainingCost.Energy)) && lacking.Energy > 0)
+                {
+                    percentBuildable = 1 - ((double)lacking.Energy / remainingCost.Energy);
+                }
+    
+                // What we spend on the partial builld.
+                star.ResourcesOnHand -= remainingCost * percentBuildable;    
+                remainingCost -= remainingCost * percentBuildable;
+                
+                return false;                
             }
-
-            star.ResourcesOnHand = star.ResourcesOnHand - NeededResources();
-            star.Mines++;
+            else // Fully build this unit.
+            {
+                star.ResourcesOnHand -= remainingCost;
+                star.Mines++;
+                return true;
+            }  
         }
-
-        /// <summary>
-        /// Returns the <see cref="Resources"/> needed to build this Mine.
-        /// </summary>
-        public Resources NeededResources()
+        
+                
+        public XmlElement ToXml(XmlDocument xmldoc)
         {
-            return star.ThisRace.GetMineResources();
+            XmlElement xmlelUnit = xmldoc.CreateElement("MineUnit");
+            
+            XmlElement xmlelCost = xmldoc.CreateElement("Cost");
+            xmlelCost.AppendChild(cost.ToXml(xmldoc));
+            xmlelUnit.AppendChild(xmlelCost);
+            
+            XmlElement xmlelRemCost = xmldoc.CreateElement("RemainingCost");
+            xmlelRemCost.AppendChild(remainingCost.ToXml(xmldoc));
+            xmlelUnit.AppendChild(xmlelRemCost);
+            
+            return xmlelUnit;
         }
     }
 }

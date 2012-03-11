@@ -137,7 +137,7 @@ namespace Nova.Server
                 messageText += " killing all of the colonists.";
 
                 // clear out the colony
-                star.ManufacturingQueue.Queue.Clear();
+                star.ManufacturingQueue.Clear();
                 star.Colonists = 0;
                 star.Mines = 0;
                 star.Factories = 0;

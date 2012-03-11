@@ -23,7 +23,6 @@
 namespace Nova.Common
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Xml;
 
@@ -36,13 +35,14 @@ namespace Nova.Common
         /// <summary>
         /// The production queue itself.
         /// </summary>
-        public List<ProductionItem> Queue = new List<ProductionItem>();
+        public List<ProductionOrder> Queue = new List<ProductionOrder>();
 
         /// <summary>
         /// Default constructor.
         /// </summary>
         public ProductionQueue() 
-        { 
+        {  
+
         }
 
         /// <summary>
@@ -50,15 +50,15 @@ namespace Nova.Common
         /// </summary>
         /// <param name="node">A ProductionQueue XmlNode, normally read from a nova data file.</param>
         public ProductionQueue(XmlNode node)
-        {
-            XmlNode subnode = node.FirstChild;
-            while (subnode != null)
+        {                         
+            XmlNode subNode = node.FirstChild;
+            while (subNode != null)
             {
                 try
                 {
-                    if (subnode.Name.ToLower() == "productionorder")
+                    if (subNode.Name.ToLower() == "productionorder")
                     {
-                        ProductionItem order = new ProductionItem(subnode);
+                        ProductionOrder order = new ProductionOrder(subNode);
                         if (order != null)
                         {
                             Queue.Add(order); // TODO (priority 6) ensure they load in the correct order.
@@ -69,10 +69,19 @@ namespace Nova.Common
                 {
                     Report.Error(e.Message);
                 }
-                subnode = subnode.NextSibling;
+                subNode = subNode.NextSibling;
             }
         }
-
+        
+        
+        /// <summary>
+        /// Empties the Production Queue.
+        /// </summary>
+        public void Clear()
+        {
+            Queue.Clear();            
+        }
+        
         /// <summary>
         /// Save: Generate an XmlElement representation of the ProductionQueue to save to file.
         /// </summary>
@@ -81,8 +90,8 @@ namespace Nova.Common
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelProductionQueue = xmldoc.CreateElement("ProductionQueue");
-            foreach (ProductionItem item in Queue)
-            {
+            foreach (ProductionOrder item in Queue)
+            {                
                 xmlelProductionQueue.AppendChild(item.ToXml(xmldoc));
             }
             return xmlelProductionQueue;

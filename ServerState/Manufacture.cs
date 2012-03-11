@@ -32,7 +32,6 @@ namespace Nova.Server
     /// </summary>
     public class Manufacture
     {
-        private List<ProductionItem> deletions = new List<ProductionItem>();
         private ServerData serverState;
   
         public Manufacture(ServerData serverState)
@@ -50,192 +49,37 @@ namespace Nova.Server
         /// </remarks>
         public void Items(Star star)
         {
-            deletions.Clear();
-
-            foreach (ProductionItem item in star.ManufacturingQueue.Queue)
-            {
-                bool resourcesExhausted = BuildQueueItem(item, star);
-                if (resourcesExhausted)
-                {
-                    break;
-                }
-            }
-
-            foreach (ProductionItem item in deletions)
-            {
-                star.ManufacturingQueue.Queue.Remove(item);
-            }
-        }
-
-        /// <summary>
-        /// Deal with one entry in the production queue (which may be for a quantity of
-        /// more than one of that design).
-        /// </summary>
-        /// <param name="productionItem">An item to be produced.</param>
-        /// <param name="star">The star doing production.</param>
-        /// <returns>true if all resources have been exhausted.</returns>
-        private bool BuildQueueItem(ProductionItem productionItem, Star star)
-        {
-            bool resourcesExhausted = false;
-
-            while (productionItem.Quantity > 0)
-            {
-                resourcesExhausted = BuildDesign(productionItem, star);
-                if (resourcesExhausted)
-                {
-                    break;
-                }
-            }
-
-            return resourcesExhausted;
-        }
-
-        /// <summary>
-        /// Build one instance of a particular design. Even if we can't complete
-        /// manufacture this year decrement the required resources by the percentage
-        /// we can achieve.
-        /// </summary>
-        /// <param name="productionItem">An item to be produced.</param>
-        /// <param name="star">The star system doing production.</param>
-        /// <returns>true if the star is unable to finish productio of this item.</returns>
-        private bool BuildDesign(ProductionItem productionItem, Star star)
-        {
-            Design design = serverState.AllDesigns[productionItem.Key];
-            Nova.Common.Resources needed = productionItem.BuildState;
-
-            // Try and build as many of this item as we can
-            // If we've ran out of resources then give up. Note that there may be
-            // a surplus in some areas and a deficit in others so we have to check
-            // the individual resource components for over-payment.
-            int countToBuild = 0;
-            bool doAPartialBuild = false;
-            while (productionItem.Quantity > 0)
-            {
-                if (!(star.ResourcesOnHand >= needed))
-                {
-                    doAPartialBuild = true;
-                    break;                    
-                }
-
-                star.ResourcesOnHand -= needed;
-                productionItem.Quantity--;
-                countToBuild++;                
-            }
-
-            if (countToBuild > 0)
-            {
-                switch (design.Type)
-                {
-                    case ItemType.Mine:
-                        star.Mines += countToBuild;
-                        break;
-
-                    case ItemType.Factory:
-                        star.Factories += countToBuild;
-                        break;
-
-                    case ItemType.Defenses:
-                        star.Defenses += countToBuild;
-                        if (star.Defenses >= Global.MaxDefenses)
-                        {
-                            star.Defenses = Global.MaxDefenses; // This should never be required, but just in case.
-                            // TODO: Should probably refund the resources if it is required though!
-                            productionItem.Quantity = 0;
-                        }
-                        break;
-
-                    case ItemType.Ship:
-                        CreateShip(design as ShipDesign, star, countToBuild);
-                        break;
-
-                    case ItemType.Starbase:
-                        // first remove the old starbase
-                        while (countToBuild > 0)
-                        {
-                            if (star.Starbase != null)
-                            {
-                                serverState.AllFleets.Remove(star.Starbase.Key);
-                                star.Starbase = null;
-                            }
-
-                            CreateShip(design as ShipDesign, star, 1);
-                            countToBuild--;
-                        }
-                        break;
-
-                    default:
-                        Report.Error("Unknown item in production queue " + design.Type.ToDescription());
-                        break;
-                }
-            }
-
-
-            if (doAPartialBuild)
-            {
-                PartialBuild(productionItem, needed, star);
-                return true;
-            }
-            else
-            {
-                if (productionItem.Quantity == 0)
-                {
-                    deletions.Add(productionItem);
-                }
-                else
-                {
-                    productionItem.BuildState = design.Cost;
-                }
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// We do not have quite enough resources to complete production so use the percent
-        /// that we can achieve, deplete the reserves, and adjust the BuildState accordingly.
-        /// </summary>
-        /// <param name="productionItem">The item to be partially produced.</param>
-        /// <param name="neededResources">The Resources cost to complete production of the item (either BuildState or design.Cost).</param>
-        /// <param name="star">The Star System doing the production.</param>
-        private void PartialBuild(
-            ProductionItem productionItem,
-            Resources neededResources,
-            Star star)
-        {
-            Resources insufficientResources = new Resources();  // used to temporarily store the amount of resources we are short for any resources that are short
-            insufficientResources = neededResources - star.ResourcesOnHand;
-
-            // determine which resource limits production (i.e. is able to complete the smallest percentage of production)
-            double percentCompleted = 1.0;
-            if (percentCompleted > (1 - ((float)insufficientResources.Ironium / neededResources.Ironium)) && insufficientResources.Ironium > 0)
-            {
-                percentCompleted = 1 - ((float)insufficientResources.Ironium / neededResources.Ironium);
-            }
-
-            if (percentCompleted > (1 - ((float)insufficientResources.Boranium / neededResources.Boranium)) && insufficientResources.Boranium > 0)
-            {
-                percentCompleted = 1 - ((float)insufficientResources.Boranium / neededResources.Boranium);
-            }
-
-            if (percentCompleted > (1 - ((float)insufficientResources.Germanium / neededResources.Germanium)) && insufficientResources.Germanium > 0)
-            {
-                percentCompleted = 1 - ((float)insufficientResources.Germanium / neededResources.Germanium);
-            }
-
-            if (percentCompleted > (1 - ((float)insufficientResources.Energy / neededResources.Energy)) && insufficientResources.Energy > 0)
-            {
-                percentCompleted = 1 - ((float)insufficientResources.Energy / neededResources.Energy);
-            }
-
-
-            Resources usedResources = new Resources();
+            List<ProductionOrder> completed = new List<ProductionOrder>();
             
-            usedResources = neededResources * percentCompleted;
- 
-            star.ResourcesOnHand -= usedResources;
-
-            neededResources -= usedResources;
-            productionItem.BuildState = neededResources;
+            foreach (ProductionOrder productionOrder in star.ManufacturingQueue.Queue)
+            {
+                if (productionOrder.IsBlocking(star))
+                {
+                    // Items block the queue when they can't be processed (i.e. not enough resources)
+                    // AND they are not autobuild orders (autobuild never blocks the Queue).
+                    break;
+                }
+                
+                // Deal with the production Order.
+                int done = productionOrder.Process(star);
+                
+                if (done > 0 && productionOrder.Unit is ShipProductionUnit)
+                {
+                    CreateShips(serverState.AllDesigns[(productionOrder.Unit as ShipProductionUnit).DesignKey] as ShipDesign, star, done);
+                }
+                    
+                if (productionOrder.Quantity == 0)
+                {
+                    completed.Add(productionOrder);
+                }
+            }
+            
+            foreach (ProductionOrder done in completed)
+            {
+                star.ManufacturingQueue.Queue.Remove(done);
+            }
         }
+        
 
         /// <summary>
         /// Create a new ship or starbase at the specified location. Starbases are
@@ -243,7 +87,7 @@ namespace Nova.Server
         /// </summary>
         /// <param name="design">A ShipDesign to be constructed.</param>
         /// <param name="star">The star system producing the ship.</param>
-        private void CreateShip(ShipDesign design, Star star, int countToBuild)
+        private void CreateShips(ShipDesign design, Star star, int countToBuild)
         {
             EmpireData empire = serverState.AllEmpires[star.Owner];
 

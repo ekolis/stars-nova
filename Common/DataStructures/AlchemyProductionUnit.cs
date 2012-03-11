@@ -1,45 +1,67 @@
+#region Copyright Notice
 // ============================================================================
-// Nova. (c) 2010 Pavel Kazlou
-// (c) 2011 stars-nova
+// COpyright (C) 2010 Pavel Kazlou
+// Copyright (C) 2011, 2012 The Stars-Nova Project
 //
-// This class is used for "constructing" alchemy.
+// This file is part of Stars-Nova.
+// See <http://sourceforge.net/projects/stars-nova/>.
 //
-// This is free software. You can redistribute it and/or modify it under the
-// terms of the GNU General Public License version 2 as published by the Free
-// Software Foundation.
-// ============================================================================
+// This program is free software; you can redistribute it and/or modify
+// it under the terms of the GNU General Public License version 2 as
+// published by the Free Software Foundation.
+//
+// This program is distributed in the hope that it will be useful,
+// but WITHOUT ANY WARRANTY; without even the implied warranty of
+// MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+// GNU General Public License for more details.
+//
+// You should have received a copy of the GNU General Public License
+// along with this program.  If not, see <http://www.gnu.org/licenses/>
+// ===========================================================================
+#endregion
 
 namespace Nova.Common
 {
-    #region Using Statements
     using System;
-    using System.Collections.Generic;
-    using System.Text;
-    #endregion
+    using System.Xml;
+
 
     public class AlchemyProductionUnit : IProductionUnit
     {
-        public AlchemyProductionUnit(Star star)
+        public Resources Cost
+        {
+            private set;
+            get;
+        }
+                
+        public Resources RemainingCost
+        {
+            private set;
+            get;
+        }
+        
+        public string Name
+        {
+            get { return "Alchemy";}
+        }
+                
+        public AlchemyProductionUnit()
         {
         }
 
-        #region ProductionUnit Members
-
-        public bool IsSkipped()
+        public bool IsSkipped(Star star)
         {
             throw new NotImplementedException();
         }
 
-        public void Construct()
+        public bool Construct(Star star)
         {
             throw new NotImplementedException();
         }
-
-        public Resources NeededResources()
+        
+        public XmlElement ToXml(XmlDocument xmldoc)
         {
             throw new NotImplementedException();
         }
-
-        #endregion
     }
 }

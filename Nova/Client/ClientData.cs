@@ -450,7 +450,8 @@ namespace Nova.Client
                 // Empire Data
                 xmlelClientState.AppendChild(EmpireState.ToXml(xmldoc));
                 
-                // Commands
+                // Commands. This places the first command at the bottom of the list, and the newset
+                // at the top.
                 XmlElement xmlelCommands = xmldoc.CreateElement("Commands");
                 foreach (ICommand command in Commands)
                 {

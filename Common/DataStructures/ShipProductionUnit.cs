@@ -22,8 +22,8 @@
 namespace Nova.Common
 {
     using System;
-    using System.Collections.Generic;
-    using System.Text;
+    using System.Xml;
+    
     using Nova.Common.Components;
 
     /// <summary>
@@ -31,40 +31,171 @@ namespace Nova.Common
     /// </summary>
     public class ShipProductionUnit : IProductionUnit
     {
-        private ShipDesign shipDesign;
-
+        private long designKey;
+        private string name;
+        private Resources cost;
+        private Resources remainingCost;        
+        
+        public Resources Cost
+        {
+            get {return cost;}
+        }
+                
+        public Resources RemainingCost
+        {
+            get {return remainingCost;}
+        }
+        
+        public string Name
+        {
+            get {return name;}
+        }
+        
+        public long DesignKey
+        {
+            get {return designKey;}   
+        }
+        
+        
         /// <summary>
         /// Initialising constructor.
         /// </summary>
         /// <param name="star">Star with this production queue.</param>
         /// <param name="shipDesign"><see cref="ShipDesign"/> to produce.</param>
-        public ShipProductionUnit(Star star, ShipDesign shipDesign)
+        public ShipProductionUnit(ShipDesign shipDesign)
         {
-            this.shipDesign = shipDesign;
+            designKey = shipDesign.Key;
+            name = shipDesign.Name;
+            cost = shipDesign.Cost;
+            remainingCost = cost;
         }
+        
+        
+         /// <summary>
+        /// Load: Read in a ProductionUnit from and XmlNode representation.
+        /// </summary>
+        /// <param name="node">An XmlNode containing a representation of a ProductionUnit</param>
+        public ShipProductionUnit(XmlNode node)
+        {
+            XmlNode subnode = node.FirstChild;
+            while (subnode != null)
+            {
+                try
+                {
+                    switch (subnode.Name.ToLower())
+                    {
+                        case "cost":
+                            cost = new Resources(subnode.FirstChild);
+                            break;
+                            
+                        case "remainingcost":
+                            remainingCost = new Resources(subnode.FirstChild);
+                            break;
+                            
+                        case "name":
+                            name = subnode.FirstChild.Value;
+                            break;
+
+                        case "designkey":
+                            designKey = long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
+                            break;                            
+                    }
+                }
+                catch (Exception e)
+                {
+                    Report.Error(e.Message);
+                }
+                subnode = subnode.NextSibling;
+            }
+        }
+        
         
         /// <summary>
         /// Return true if production of this item will be skipped.
         /// </summary>
-        public bool IsSkipped()
+        public bool IsSkipped(Star star)
         {
-            throw new NotImplementedException();
+            // Skip if unit needs a resource and there is no amount of that resource available
+            // Note that a zero resrouce cost unit does not exist.
+            if (
+                star.ResourcesOnHand.Energy == 0 ||
+                (star.ResourcesOnHand.Germanium == 0 && cost.Germanium > 0) ||
+                (star.ResourcesOnHand.Boranium == 0 && cost.Boranium > 0) ||
+                (star.ResourcesOnHand.Ironium == 0 && cost.Ironium > 0)
+                )
+            {
+                return true;
+            }
+
+            return false;
         }
 
+        
         /// <summary>
         /// Construct the ship.
         /// </summary>
-        public void Construct()
+        public bool Construct(Star star)
         {
-            throw new NotImplementedException();
+            // Partial Build
+            if (!(star.ResourcesOnHand >= remainingCost))
+            {
+                // used to temporarily store the amount of resources we are short
+                Resources lacking = remainingCost - star.ResourcesOnHand;               
+                
+                // Normalized; 1.0 = 100%
+                double percentBuildable = 1.0;
+                
+                // determine which resource limits production (i.e. is able to complete the smallest percentage of production)
+                if (percentBuildable > (1 - ((double)lacking.Ironium / remainingCost.Ironium)) && lacking.Ironium > 0)
+                {
+                    percentBuildable = 1 - ((double)lacking.Ironium / remainingCost.Ironium);
+                }
+    
+                if (percentBuildable > (1 - ((double)lacking.Boranium / remainingCost.Boranium)) && lacking.Boranium > 0)
+                {
+                    percentBuildable = 1 - ((double)lacking.Boranium / remainingCost.Boranium);
+                }
+    
+                if (percentBuildable > (1 - ((double)lacking.Germanium / remainingCost.Germanium)) && lacking.Germanium > 0)
+                {
+                    percentBuildable = 1 - ((double)lacking.Germanium / remainingCost.Germanium);
+                }
+    
+                if (percentBuildable > (1 - ((double)lacking.Energy / remainingCost.Energy)) && lacking.Energy > 0)
+                {
+                    percentBuildable = 1 - ((double)lacking.Energy / remainingCost.Energy);
+                }
+                
+                // What we spend on the partial builld.
+                star.ResourcesOnHand -= remainingCost * percentBuildable;    
+                remainingCost -= remainingCost * percentBuildable;
+                
+                return false;
+            }
+            else
+            {
+                star.ResourcesOnHand -= remainingCost;
+                return true;
+            }
         }
-
-        /// <summary>
-        /// Return the resources needed for construction.
-        /// </summary>
-        public Resources NeededResources()
+           
+        
+        public XmlElement ToXml(XmlDocument xmldoc)
         {
-            return shipDesign.Cost;
+            XmlElement xmlelUnit = xmldoc.CreateElement("ShipUnit");
+            
+            XmlElement xmlelCost = xmldoc.CreateElement("Cost");
+            xmlelCost.AppendChild(cost.ToXml(xmldoc));
+            xmlelUnit.AppendChild(xmlelCost);
+            
+            XmlElement xmlelRemCost = xmldoc.CreateElement("RemainingCost");
+            xmlelRemCost.AppendChild(remainingCost.ToXml(xmldoc));
+            xmlelUnit.AppendChild(xmlelRemCost);
+
+            Global.SaveData(xmldoc, xmlelUnit, "Name", Name);
+            Global.SaveData(xmldoc, xmlelUnit, "DesignKey", designKey.ToString("X"));
+                       
+            return xmlelUnit;
         }
     }
 }

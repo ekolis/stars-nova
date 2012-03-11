@@ -116,8 +116,9 @@ namespace Nova.Server
 
                     XmlNode subnode = xmldoc.SelectSingleNode("ROOT/Orders").FirstChild;
 
-                    // Note that this reads the command stack in reverse with respect to the client's stack;
-                    // server reads oldest commands first so that they are applied in the correct order.                    
+                    // Note that this assembles the command stack reversed with respect to the client's stack;
+                    // The file contains the newest commands first, and the oldest last. Thus the server's
+                    // stack for the turn pops the oldest commands first, thus applying them in the correct order.                    
                     while (subnode != null)
                     {
                         switch (subnode.Attributes["Type"].Value.ToString().ToLower())
@@ -134,6 +135,9 @@ namespace Nova.Server
                                 commands.Push(new DesignCommand(subnode));
                             break;
                             
+                            case "production":
+                                commands.Push(new ProductionCommand(subnode));
+                            break;
                             
                         }
                         subnode = subnode.NextSibling;

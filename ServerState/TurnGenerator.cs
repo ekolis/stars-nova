@@ -107,14 +107,6 @@ namespace Nova.Server
                 ProcessFleet(fleet);
             }
             CleanupFleets();
-
-            // Handle star based actions - growth and production
-            // TODO (priority 4) - split these up as per Stars! turn order
-            // UPDATE May 11: Some of this is updated -Aeglos
-            foreach (Star star in serverState.AllStars.Values)
-            {                
-                ProcessStar(star);
-            }
                         
             CleanupFleets();
 
@@ -158,21 +150,20 @@ namespace Nova.Server
             
             foreach (EmpireData empire in serverState.AllEmpires.Values)
             {
-                // Ignore commands for unexisting empires.
-                if (!serverState.AllCommands.ContainsKey(empire.Id))
-                {
-                    continue;   
-                }
-                
-                foreach (ICommand command in serverState.AllCommands[empire.Id])
-                {
-                    if (command.isValid(empire))
+                if (serverState.AllCommands.ContainsKey(empire.Id))
+                {                
+                    while (serverState.AllCommands[empire.Id].Count > 0)
                     {
-                        command.ApplyToState(empire);
-                    }
-                    else
-                    {
-                        // Flag as cheater or something?
+                        ICommand command = serverState.AllCommands[empire.Id].Pop();
+                        
+                        if (command.isValid(empire))
+                        {
+                            command.ApplyToState(empire);
+                        }
+                        else
+                        {
+                            // Flag as cheater or something?
+                        }
                     }
                 }
                 
@@ -211,9 +202,9 @@ namespace Nova.Server
             foreach (long key in destroyedFleets)
             {
                 serverState.AllFleets.Remove(key);
-                foreach (int player in stateData.AllEmpires.Keys)
+                foreach (int player in serverState.AllEmpires.Keys)
                 {
-                    stateData.AllEmpires[player].OwnedFleets.Remove(key);
+                    serverState.AllEmpires[player].OwnedFleets.Remove(key);
                 }
             }
 
@@ -285,19 +276,6 @@ namespace Nova.Server
             }
         }
 
-        /// <summary>
-        /// Process the elapse of one year (turn) for a star.
-        /// </summary>
-        /// <param name="star">The <see cref="Star"/> to process.</param>
-        private void ProcessStar(Star star)
-        {            
-            if (star.Owner == Global.Nobody)
-            {
-                return; // nothing to do for an empty star system.
-            }
-
-            manufacture.Items(star);           
-        }
 
         /// <summary>
         /// Process the elapse of one year (turn) for a fleet.

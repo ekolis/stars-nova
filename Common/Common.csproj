@@ -111,6 +111,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ComboBoxItem.cs" />
+    <Compile Include="Commands\ProductionCommand.cs" />
     <Compile Include="Commands\DesignCommand.cs" />
     <Compile Include="Commands\ICommand.cs" />
     <Compile Include="Commands\ResearchCommand.cs" />
@@ -125,11 +126,12 @@
     <Compile Include="Converters\InstanceDescriptorConverter.cs" />
     <Compile Include="Converters\ResourcesConverter.cs" />
     <Compile Include="Converters\TechLevelConverter.cs" />
+    <Compile Include="DataStructures\NoProductionUnit.cs" />
     <Compile Include="DataStructures\FleetList.cs" />
     <Compile Include="DataStructures\Gravity.cs" />
     <Compile Include="DataStructures\GravityTolerance.cs" />
     <Compile Include="DataStructures\NovaPoint.cs" />
-    <Compile Include="DataStructures\ProductionItem.cs" />
+    <Compile Include="DataStructures\ProductionOrder.cs" />
     <Compile Include="DataStructures\ShipIcon.cs" />
     <Compile Include="DataStructures\RadiationTolerance.cs" />
     <Compile Include="DataStructures\ShipIntel.cs" />
