@@ -50,19 +50,20 @@ namespace Nova.Common
         public Ship(ShipDesign shipDesign, long key)
         {
             Key = key;
+            
+            design = shipDesign;
+            
+            design.Update(); // ensure summary properties have been calculated
 
-            this.design = shipDesign;
-            this.design.Update(); // ensure summary properties have been calculated
-
-            Shields = shipDesign.Shield;
-            Armor = shipDesign.Armor;
+            Shields = design.Shield;
+            Armor = design.Armor;
 
             // Initialise inherited fields.
-            Mass = shipDesign.Mass;
-            Cost = shipDesign.Cost;
-            Name = shipDesign.Name;
-            Owner = shipDesign.Owner;
-            Type = shipDesign.Type;            
+            Mass = design.Mass;
+            Cost = design.Cost;
+            Name = design.Name;
+            Owner = design.Owner;
+            Type = design.Type;            
         }
 
         /// <summary>
@@ -74,11 +75,11 @@ namespace Nova.Common
         public Ship(Ship copy)
             : base(copy)
         {
-            this.design = copy.design;
-            this.design.Update(); // ensure summary properties are calculated
+            design = copy.design;
+            design.Update(); // ensure summary properties are calculated
             Shields = copy.Shields;
             Armor = copy.Armor;
-            this.Key = copy.Key;
+            Key = copy.Key;
         }
 
         public ShipDesign Design
@@ -90,20 +91,20 @@ namespace Nova.Common
         /// Replace the design of the ship.
         /// </summary>
         /// <param name="design"></param>
-        public void DesignUpdate(ShipDesign design)
+        public void DesignUpdate(ShipDesign shipDesign)
         {
-            this.design = design;
-            this.design.Update(); // ensure summary properties have been calculated
+            design = shipDesign;
+            design.Update(); // ensure summary properties have been calculated
 
-            Shields = this.design.Shield;
-            Armor = this.design.Armor;
+            Shields = design.Shield;
+            Armor = design.Armor;
 
             // Initialise inherited fields.
-            Mass = this.design.Mass;
-            Cost = this.design.Cost;
-            Name = this.design.Name;
-            Owner = this.design.Owner;
-            Type = this.design.Type;
+            Mass = design.Mass;
+            Cost = design.Cost;
+            Name = design.Name;
+            Owner = design.Owner;
+            Type = design.Type;
         }
 
         /// <summary>
@@ -113,7 +114,7 @@ namespace Nova.Common
         {
             if (!summaryUpdated)
             {
-                this.design.Update();
+                design.Update();
                 summaryUpdated = true;
             }
         }
@@ -140,12 +141,12 @@ namespace Nova.Common
             {
                 return 0;
             }
-            if (this.design.Engine == null)
+            if (design.Engine == null)
             {
                 return 0; // may be a star base
             }
 
-            double fuelFactor = this.design.Engine.FuelConsumption[warp - 1];
+            double fuelFactor = design.Engine.FuelConsumption[warp - 1];
             double efficiency = fuelFactor / 100.0;
             double speed = warp * warp;
 
@@ -188,7 +189,7 @@ namespace Nova.Common
         {
             get
             {
-                return this.design.BattleSpeed;
+                return design.BattleSpeed;
             }
         }
 
@@ -203,7 +204,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return this.design.ConventionalBombs;
+                return design.ConventionalBombs;
             }
         }
 
@@ -214,7 +215,7 @@ namespace Nova.Common
         {
             get
             {
-                return this.design.CanRefuel;
+                return design.CanRefuel;
             }
         }
 
@@ -227,7 +228,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return this.design.CargoCapacity;
+                return design.CargoCapacity;
             }
         }
 
@@ -238,7 +239,7 @@ namespace Nova.Common
         {
             get
             {
-                return this.design.Armor;
+                return design.Armor;
             }
         }
 
@@ -249,7 +250,7 @@ namespace Nova.Common
         {
             get
             {
-                return this.design.Cost;
+                return design.Cost;
             }
         }
         
@@ -261,7 +262,7 @@ namespace Nova.Common
         {
             get
             {
-                return this.design.Key;
+                return design.Key;
             }
         }
 
@@ -272,7 +273,7 @@ namespace Nova.Common
         {
             get
             {
-                return this.design.Shield;
+                return design.Shield;
             }
         }
 
@@ -284,7 +285,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return this.design.DockCapacity;
+                return design.DockCapacity;
             }
         }
 
@@ -296,7 +297,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return this.design.FuelCapacity;
+                return design.FuelCapacity;
             }
         }
 
@@ -308,7 +309,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                if (this.design.Weapons == null)
+                if (design.Weapons == null)
                 {
                     return false;
                 }
@@ -323,7 +324,7 @@ namespace Nova.Common
         {
             get
             {
-                return this.design.Icon;
+                return design.Icon;
             }
         }
 
@@ -335,7 +336,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                if (this.design.ConventionalBombs.PopKill == 0 && this.design.SmartBombs.PopKill == 0)
+                if (design.ConventionalBombs.PopKill == 0 && this.design.SmartBombs.PopKill == 0)
                 {
                     return false;
                 }
@@ -350,7 +351,7 @@ namespace Nova.Common
         {
             get
             {
-                return this.design.IsStarbase;
+                return design.IsStarbase;
             }
         }
 
@@ -365,7 +366,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return this.design.StandardMines.LayerRate;
+                return design.StandardMines.LayerRate;
             }
         }
 
@@ -407,7 +408,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return this.design.NormalScan;
+                return design.NormalScan;
             }
         }
 
@@ -419,7 +420,7 @@ namespace Nova.Common
             get
             {
                 Update();
-                return this.design.PenetratingScan;
+                return design.PenetratingScan;
             }
         }
 
@@ -430,7 +431,7 @@ namespace Nova.Common
         {
             get
             {
-                return this.design.Weapons;
+                return design.Weapons;
             }
         }
 
@@ -444,29 +445,29 @@ namespace Nova.Common
         {
             try
             {
-                XmlNode subnode = node.FirstChild;
-                while (subnode != null)
+                XmlNode mainNode = node.FirstChild;
+                while (mainNode != null)
                 {
-                    switch (subnode.Name.ToLower())
+                    switch (mainNode.Name.ToLower())
                     {
                         case "design":
-                            this.design = new ShipDesign(long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber));
+                            design = new ShipDesign(long.Parse(mainNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber));
                             break;
                         case "mass":
-                            Mass = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Mass = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "shields":
-                            Shields = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Shields = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "armor":
-                            Armor = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Armor = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "cost":
-                            Cost = new Resources(subnode);
+                            Cost = new Resources(mainNode);
                             break;
                     }
 
-                    subnode = subnode.NextSibling;
+                    mainNode = mainNode.NextSibling;
                 }
                 this.design.Update(); // ensure summary properties are calculated
             }

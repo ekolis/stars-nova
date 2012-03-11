@@ -64,19 +64,19 @@ namespace Nova.Common
         /// <param name="node">An XmlNode containing a representation of a ProductionUnit</param>
         public MineProductionUnit(XmlNode node)
         {
-            XmlNode subnode = node.FirstChild;
-            while (subnode != null)
+            XmlNode mainNode = node.FirstChild;
+            while (mainNode != null)
             {
                 try
                 {
-                    switch (subnode.Name.ToLower())
+                    switch (mainNode.Name.ToLower())
                     {
                         case "cost":
-                            cost = new Resources(subnode.FirstChild);
+                            cost = new Resources(mainNode);
                             break;
                             
                         case "remainingcost":
-                            remainingCost = new Resources(subnode.FirstChild);
+                            remainingCost = new Resources(mainNode);
                             break;                            
                     }
                 }
@@ -84,7 +84,7 @@ namespace Nova.Common
                 {
                     Report.Error(e.Message);
                 }
-                subnode = subnode.NextSibling;
+                mainNode = mainNode.NextSibling;
             }
         }
         
@@ -146,13 +146,9 @@ namespace Nova.Common
         {
             XmlElement xmlelUnit = xmldoc.CreateElement("MineUnit");
             
-            XmlElement xmlelCost = xmldoc.CreateElement("Cost");
-            xmlelCost.AppendChild(cost.ToXml(xmldoc));
-            xmlelUnit.AppendChild(xmlelCost);
+            xmlelUnit.AppendChild(cost.ToXml(xmldoc, "Cost"));
             
-            XmlElement xmlelRemCost = xmldoc.CreateElement("RemainingCost");
-            xmlelRemCost.AppendChild(remainingCost.ToXml(xmldoc));
-            xmlelUnit.AppendChild(xmlelRemCost);
+            xmlelUnit.AppendChild(remainingCost.ToXml(xmldoc, "RemainingCost"));
             
             return xmlelUnit;
         }

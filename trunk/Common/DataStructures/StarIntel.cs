@@ -68,40 +68,40 @@ namespace Nova.Common
         /// Load: Initialising constructor to read in a Star report from an XmlNode (from a saved file).
         /// </summary>
         /// <param name="xmlnode">An XmlNode representing a Star report.</param>
-        public StarIntel(XmlNode xmlnode) :
-            base(xmlnode)
+        public StarIntel(XmlNode node) :
+            base(node)
         {
-            XmlNode node = xmlnode.FirstChild;
+            XmlNode mainNode = node.FirstChild;
             
-            while (node != null)
+            while (mainNode != null)
             {
                 try
                 {
-                    switch (node.Name.ToLower())
+                    switch (mainNode.Name.ToLower())
                     {
                     case "year":
-                        Year = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        Year = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "mineralconcentration":
-                        MineralConcentration = new Resources(node.FirstChild);
+                        MineralConcentration = new Resources(mainNode);
                         break;
                     case "gravity":
-                        Gravity = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        Gravity = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "radiation":
-                        Radiation = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        Radiation = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "temperature":
-                        Temperature = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        Temperature = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "colonists":
-                        Colonists = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        Colonists = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "hasfleetsinorbit":
-                        HasFleetsInOrbit = bool.Parse(node.FirstChild.Value);
+                        HasFleetsInOrbit = bool.Parse(mainNode.FirstChild.Value);
                         break;
                     case "starbase":
-                        Starbase = new Fleet(long.Parse(node.FirstChild.Value, System.Globalization.NumberStyles.HexNumber));
+                        Starbase = new Fleet(long.Parse(mainNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber));
                         break;
                     }
                 }
@@ -110,7 +110,7 @@ namespace Nova.Common
                     Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
                 }
                 
-                node = node.NextSibling;
+                mainNode = mainNode.NextSibling;
             }           
         }
         
@@ -223,9 +223,7 @@ namespace Nova.Common
             // include inherited Item properties
             xmlelStarIntel.AppendChild(base.ToXml(xmldoc));
             
-            XmlElement xmlelMineralConcentration = xmldoc.CreateElement("MineralConcentration");
-            xmlelMineralConcentration.AppendChild(MineralConcentration.ToXml(xmldoc));
-            xmlelStarIntel.AppendChild(xmlelMineralConcentration);
+            xmlelStarIntel.AppendChild(MineralConcentration.ToXml(xmldoc, "MineralConcentration"));
             
             Global.SaveData(xmldoc, xmlelStarIntel, "Gravity", Gravity.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelStarIntel, "Radiation", Radiation.ToString(System.Globalization.CultureInfo.InvariantCulture));
