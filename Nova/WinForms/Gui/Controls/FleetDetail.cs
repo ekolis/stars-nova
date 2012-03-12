@@ -611,11 +611,11 @@ namespace Nova.WinForms.Gui
                     splitFleet.ReassignShips(selectedFleet, otherFleet);
 
                     // Now remove any empty fleets...
-                    if (otherFleet.FleetShips.Count == 0)
+                    if (otherFleet.Tokens.Count == 0)
                     {
                         empireState.OwnedFleets.Remove(otherFleet.Key);
                     }
-                    if (selectedFleet.FleetShips.Count == 0)
+                    if (selectedFleet.Tokens.Count == 0)
                     {
                         empireState.OwnedFleets.Remove(selectedFleet.Key);
                         // Set the other fleet to be selected

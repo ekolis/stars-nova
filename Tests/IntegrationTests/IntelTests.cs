@@ -168,10 +168,10 @@ namespace Nova.Tests.IntegrationTests
 
                 // test if it worked
                 Assert.IsTrue(loadedData.EmpireState.TurnYear == 3500);
-                Assert.IsTrue(loadedData.EmpireState.OwnedStars.Contains("Pluto") &&
-                              loadedData.EmpireState.OwnedStars["Pluto"].Name == "Pluto");
-                Assert.IsTrue(loadedData.EmpireState.OwnedStars.Contains("Pluto") &&
-                              loadedData.EmpireState.OwnedStars["Pluto"].Colonists == 25000);
+                Assert.IsTrue(loadedData.EmpireState.StarReports.ContainsKey("Pluto") &&
+                              loadedData.EmpireState.StarReports["Pluto"].Name == "Pluto");
+                Assert.IsTrue(loadedData.EmpireState.StarReports.ContainsKey("Pluto") &&
+                              loadedData.EmpireState.StarReports["Pluto"].Colonists == 25000);
 
             }
             catch (Exception e)

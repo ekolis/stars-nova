@@ -100,7 +100,6 @@ namespace Nova.Client
             clientState.EmpireState = clientState.InputTurn.EmpireState;
 
             // Clear old turn data from StateData
-            clientState.DeletedFleets.Clear();
             clientState.Messages.Clear();
 
             // fix object references after loading
@@ -131,6 +130,21 @@ namespace Nova.Client
                     }
                 }
             }
+            
+            // Link enemy designs too
+            foreach (EmpireIntel enemy in clientState.EmpireState.EmpireReports.Values)
+            {
+                foreach (ShipDesign design in enemy.Designs.Values)
+                {
+                    foreach (HullModule module in (design.ShipHull.Properties["Hull"] as Hull).Modules)
+                    {
+                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
+                        {
+                            AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
+                        }
+                    }
+                }
+            }
 
             // Fleet reference to Star
             foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
@@ -147,9 +161,9 @@ namespace Nova.Client
                     }
                 }
                 // Ship reference to Design
-                foreach (Ship ship in fleet.FleetShips)
+                foreach (ShipToken token in fleet.Tokens)
                 {
-                    ship.DesignUpdate(clientState.EmpireState.Designs[ship.DesignKey]);
+                    token.Design = clientState.EmpireState.Designs[token.Design.Key];
                 }
             }
             
@@ -180,15 +194,15 @@ namespace Nova.Client
             {
                 foreach (Fleet fleet in battle.Stacks.Values)
                 {
-                    foreach (Ship ship in fleet.FleetShips)
+                    foreach (ShipToken token in fleet.Tokens)
                     {
-                        if (clientState.EnemyDesigns.ContainsKey(ship.DesignKey))
+                        if (clientState.EmpireState.Designs.ContainsKey(token.Design.Key))
                         {
-                            ship.DesignUpdate((ShipDesign)clientState.EnemyDesigns[ship.DesignKey]);
+                            token.Design = clientState.EmpireState.Designs[token.Design.Key];                            
                         }
                         else
                         {
-                            ship.DesignUpdate((ShipDesign)clientState.EmpireState.Designs[ship.DesignKey]);
+                            token.Design = clientState.EmpireState.EmpireReports[fleet.Owner].Designs[token.Design.Key];                            
                         }
                     }
                 }

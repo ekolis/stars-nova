@@ -88,12 +88,12 @@ namespace Nova.WinForms.Gui
             ListDesigns(clientState.EmpireState.Id);
         }
 
-        private int GetSelectedEmpireId()
+        private ushort GetSelectedEmpireId()
         {
             ComboBoxItem<int> item = this.comboDesignOwner.SelectedItem as ComboBoxItem<int>;
             if (item != null)
             {
-                return item.Tag;
+                return (ushort)(item.Tag);
             }
             return 0;
         }
@@ -110,9 +110,18 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
+            ShipDesign design;
             long designKey = (this.designList.SelectedItems[0].Tag as ShipDesign).Key;
+            ushort owner = (this.designList.SelectedItems[0].Tag as ShipDesign).Owner;
 
-            ShipDesign design = clientState.EmpireState.Designs[designKey];
+            if (owner == clientState.EmpireState.Id)
+            {
+                design = clientState.EmpireState.Designs[designKey];
+            }
+            else
+            {
+                design = clientState.EmpireState.EmpireReports[owner].Designs[designKey];
+            }
 
             DisplayDesign(design);
         }
@@ -199,7 +208,7 @@ Are you sure you want to do this?";
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void DesignOwner_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int empireId = GetSelectedEmpireId();
+            ushort empireId = GetSelectedEmpireId();
             ListDesigns(empireId);
             hullGrid.Clear(true);
             designName.Text = null;
@@ -226,20 +235,25 @@ Are you sure you want to do this?";
         /// battle. We also only deal with ship or starbase designs.
         /// </Summary>
         /// <param name="raceName"></param>
-        private void ListDesigns(int ownerId)
+        private void ListDesigns(ushort ownerId)
         {
             designList.Items.Clear();
             designList.BeginUpdate();
+            
+            Dictionary<long, ShipDesign> designSource;
 
-            foreach (ShipDesign design in clientState.EmpireState.Designs.Values)
+            if (ownerId == clientState.EmpireState.Id)
+            {     
+                designSource = clientState.EmpireState.Designs;
+            }
+            else
             {
-                if (design.Owner == ownerId)
-                {
-                    if (ownerId == clientState.EmpireState.Id || clientState.EnemyDesigns.ContainsKey(design.Key))
-                    {
-                        AddToDesignList(design);
-                    }
-                }
+                designSource = clientState.EmpireState.EmpireReports[ownerId].Designs;
+            }
+            
+            foreach (ShipDesign design in designSource.Values)
+            {
+                AddToDesignList(design);    
             }
 
             designList.EndUpdate();
@@ -280,9 +294,9 @@ Are you sure you want to do this?";
 
             foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
             {
-                foreach (Ship ship in fleet.FleetShips)
+                foreach (ShipToken token in fleet.Tokens)
                 {
-                    if (ship.DesignKey == design.Key)
+                    if (token.Design.Key == design.Key)
                     {
                         quantity++;
                     }

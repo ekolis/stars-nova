@@ -262,35 +262,23 @@ namespace Nova.Server
         public List<Fleet> BuildFleetStacks(Fleet fleet)
         {
             Dictionary<long, Fleet> fleetStacks = new Dictionary<long, Fleet>();
-
-            foreach (Ship ship in fleet.FleetShips)
+            Fleet stack;
+            
+            foreach (ShipToken token in fleet.Tokens)
             {
-                ship.Cost = ship.DesignCost; // FIXME (priority 3) - Why is the cost of the ship being reset here? It may be different than the design cost because of the level of minaturisation available at the time it was built.
-                Fleet stack;
-                fleetStacks.TryGetValue(ship.DesignKey, out stack);
+                string name = "Stack #" + stackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                
+                stack = new Fleet(name, fleet.Owner, stackId++, fleet.Position);
 
-                // If no stack exists for this design then create one now.
-                if (stack == null)
-                {
-                    string name = "Stack #" + stackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
-                    stack = new Fleet(name, fleet.Owner, stackId, fleet.Position);
-                    stackId++;
-
-                    stack.BattlePlan = fleet.BattlePlan;
-                    stack.BattleSpeed = ship.BattleSpeed;
-
-                    fleetStacks[ship.DesignKey] = stack;
-                }
-
-                // Add this ship into the stack but give each ship a name (normally
-                // ships don't have names, only fleets do) based on its source
-                // stack.
-
-                ship.Name = fleet.Name;
-                stack.FleetShips.Add(ship);
+                stack.BattlePlan = fleet.BattlePlan;
+                stack.BattleSpeed = token.Design.BattleSpeed;
+                stack.Tokens.Add(token);
+               
+                fleetStacks[stack.Key] = stack;                
             }
 
             List<Fleet> stackList = new List<Fleet>();
+            
             foreach (Fleet thisFleet in fleetStacks.Values)
             {
                 stackList.Add(thisFleet);
@@ -369,6 +357,26 @@ namespace Nova.Server
             {
                 stack.Position = racePositions[stack.Owner];
             }
+            
+            // Update the known designs of enemy ships.
+            foreach (int empireId in empires.Values)
+            {
+                foreach (Fleet stack in zoneStacks)
+                {
+                    if (stack.Owner != empireId)
+                    {
+                        if (serverState.AllEmpires[empireId].EmpireReports[stack.Owner].Designs.ContainsKey(stack.Tokens[0].Design.Key))
+                        {
+                            serverState.AllEmpires[empireId].EmpireReports[stack.Owner].Designs[stack.Tokens[0].Design.Key] = stack.Tokens[0].Design;
+                        }
+                        else
+                        {
+                            serverState.AllEmpires[empireId].EmpireReports[stack.Owner].Designs.Add(stack.Tokens[0].Design.Key, stack.Tokens[0].Design);
+                        }                             
+                    }
+                }
+            }
+            
         }
 
         /// <summary>
@@ -606,15 +614,15 @@ namespace Nova.Server
         private void FireWeapons(List<Fleet> zoneStacks)
         {
             // First, identify all of the weapons and their characteristics for
-            // every ship present at the battle and who they are pointed at.
+            // every ship token present at the battle and who they are pointed at.
 
             List<WeaponDetails> allWeapons = new List<WeaponDetails>();
 
             foreach (Fleet stack in zoneStacks)
             {
-                foreach (Ship ship in stack.FleetShips)
+                foreach (ShipToken token in stack.Tokens)
                 {
-                    foreach (Weapon weaponSystem in ship.Weapons)
+                    foreach (Weapon weaponSystem in token.Design.Weapons)
                     {
                         WeaponDetails weapon = new WeaponDetails();
 
@@ -623,21 +631,21 @@ namespace Nova.Server
                         weapon.Weapon = weaponSystem;
 
                         allWeapons.Add(weapon);
-                        Attack(ship, allWeapons);
+                        Attack(token, allWeapons);
                     }
                 }
             }
         }
 
         /// <summary>
-        /// Launch the attack. We need the ship object as it may have components that
+        /// Launch the attack. We need the token object as the design may have components that
         /// affect the hit power of a weapon discharge (capacitors and battle computers).
         /// </summary>
-        /// <param name="ship">A single ship.</param>
-        /// <param name="allWeapons">A list of the ship's weapons.</param>
+        /// <param name="ship">A single ship token.</param>
+        /// <param name="allWeapons">A list of the token's weapons.</param>
         /// FIXME (priority 6) - It seems this allows one ship to fire each of its weapons 
         /// before any other ship. Each weapon in the battle should fire in priority order.
-        private void Attack(Ship ship, List<WeaponDetails> allWeapons)
+        private void Attack(ShipToken attacker, List<WeaponDetails> allWeapons)
         {
             // Sort the weapon list according to weapon system initiative and then
             // fire the weapons in that order.
@@ -646,24 +654,20 @@ namespace Nova.Server
 
             foreach (WeaponDetails weapon in allWeapons)
             {
-                Fire(ship, weapon);
+                Fire(attacker, weapon);
             }
         }
 
         /// <summary>
-        /// Fire a weapon. 
-        /// Note that, unlike Stars!, we fire at individual ships (not
-        /// stacks). So, we have to be careful that the target originally identified has
-        /// not already been destroyed.
-        /// FIXME (priority 3) - implement the stars system of targeting stacks (posibly with targeting ships as an optional rule).
+        /// Fire a weapon against a target token
         /// </summary>
-        /// <param name="ship">A ship in the battle.</param>
-        /// <param name="weapon">One of ship's weapons.</param>
-        private void Fire(Ship ship, WeaponDetails weapon)
+        /// <param name="ship">A token in the battle.</param>
+        /// <param name="weapon">One of token's weapons.</param>
+        private void Fire(ShipToken attacker, WeaponDetails weapon)
         {
             // First, check that the target stack we originally identified has not
             // been destroyed (actually, the stack still exists at this point but
-            // it may have no ships left). In which case, don't bother trying to
+            // it may have no ship tokens left). In which case, don't bother trying to
             // fire this weapon system (we'll wait until the next battle clock
             // "tick" and re-target then).
 
@@ -674,7 +678,7 @@ namespace Nova.Server
 
             Fleet targetStack = weapon.TargetStack;
 
-            if (targetStack.FleetShips.Count == 0)
+            if (targetStack.Tokens.Count == 0)
             {
                 return;
             }
@@ -691,33 +695,32 @@ namespace Nova.Server
                 return;
             }
 
-            // We pick off the ships in the stack one-by-one so make the actual
-            // target of this weapon system the first (perhaps only) ship in the
-            // stack.
+            // Each stack SHOULD contain only ONE token of ships, so target the
+            // first token.
 
-            Ship target = targetStack.FleetShips[0];
-            DischargeWeapon(ship, weapon, target);
+            ShipToken target = targetStack.Tokens[0];
+            DischargeWeapon(attacker, weapon, target);
         }
 
         /// <summary>
-        /// DischargeWeapon. We know the weapon and we know the target ship so attack.
+        /// DischargeWeapon. We know the weapon and we know the target token so attack.
         /// </summary>
-        /// <param name="ship">The firing ship.</param>
+        /// <param name="ship">The firing token.</param>
         /// <param name="details">The weapon being fired.</param>
-        /// <param name="target">The target ship.</param>
-        private void DischargeWeapon(Ship ship, WeaponDetails details, Ship target)
+        /// <param name="target">The target token.</param>
+        private void DischargeWeapon(ShipToken attacker, WeaponDetails details, ShipToken target)
         {
             BattleStepTarget report = new BattleStepTarget();
             // FIXME:(priority 8) this will probably display yunk on the battle viewer!
-            report.TargetShip = target.Name; // err.. shouldn't targetship be a fleet?
+            report.TargetShip = target.Design.Name;
             battle.Steps.Add(report);
 
             // Identify the attack parameters that have to take into account
             // factors other than the base values (e.g. jammers, capacitors, etc.)
 
             Weapon weapon = details.Weapon;
-            double hitPower = CalculateWeaponPower(ship, weapon, target);
-            double accuracy = CalculateWeaponAccuracy(ship, weapon, target);
+            double hitPower = CalculateWeaponPower(attacker.Design, weapon, target.Design);
+            double accuracy = CalculateWeaponAccuracy(attacker.Design, weapon, target.Design);
 
             if (weapon.IsMissile)
             {
@@ -735,28 +738,40 @@ namespace Nova.Server
                 return;
             }
 
-            // All Defenses have gone. Remove the ship from its stack (which
+            // All Defenses have gone. Remove the token from its stack (which
             // exists only during the battle and, more importantly, remove the
             // ship from its "real" fleet. Also, generate a "destroy" event to
             // update the battle visualisation display.
 
-            details.TargetStack.FleetShips.Remove(target);
+            details.TargetStack.Tokens.Remove(target);
 
             BattleStepDestroy destroy = new BattleStepDestroy();
-            destroy.ShipName = target.Name;
+            destroy.ShipName = target.Design.Name;
             destroy.StackName = details.TargetStack.Name;
 
             battle.Steps.Add(destroy);
 
             foreach (Fleet fleet in serverState.AllFleets.Values)
             {
-                if (fleet.FleetShips.Contains(target))
+                if (fleet.Tokens.Contains(target))
                 {
-                    fleet.FleetShips.Remove(target);
+                    fleet.Tokens.Remove(target);
+                    
+                    if (serverState.AllEmpires[fleet.Owner].OwnedFleets.Contains(fleet))
+                    {
+                        serverState.AllEmpires[fleet.Owner].OwnedFleets[fleet.Key].Tokens.Remove(target);
+                        
+                        if (serverState.AllEmpires[fleet.Owner].OwnedFleets[fleet.Key].Tokens.Count == 0)
+                        {
+                            serverState.AllEmpires[fleet.Owner].OwnedFleets.Remove(fleet.Key);                    
+                            serverState.AllEmpires[fleet.Owner].FleetReports.Remove(fleet.Key);
+                        }
+                    }
+                    
                     break;
                 }
             }
-
+            
             int targetEmpire = details.TargetStack.Owner;
             battle.Losses[targetEmpire] = battle.Losses[targetEmpire] + 1;
         }
@@ -766,7 +781,7 @@ namespace Nova.Server
         /// </summary>
         /// <param name="target">Weapon target.</param>
         /// <param name="hitPower">Damage done by the weapon.</param>
-        private void FireBeam(Ship target, double hitPower)
+        private void FireBeam(ShipToken target, double hitPower)
         {
             // First we have to take down the shields of the target ship. If
             // there is any power left over from firing this weapon system at the
@@ -792,7 +807,7 @@ namespace Nova.Server
         /// <remarks>
         /// FIXME (priority 3) - Missile accuracy is not calculated this way in Stars! The effect of computers and jammers must be considered at the same time.
         /// </remarks>
-        private void FireMissile(Ship target, double hitPower, double accuracy)
+        private void FireMissile(ShipToken target, double hitPower, double accuracy)
         {
             // First, determine if this missile is going to hit or miss (based on
             // it's accuracy. 
@@ -819,7 +834,7 @@ namespace Nova.Server
         /// <param name="target">Ship being fired on.</param>
         /// <param name="hitPower">Damage output of the weapon.</param>
         /// <returns>Residual damage after shields or zero.</returns>
-        private double AttackShields(Ship target, double hitPower)
+        private double AttackShields(ShipToken target, double hitPower)
         {
             if (target.Shields <= 0)
             {
@@ -827,19 +842,21 @@ namespace Nova.Server
             }
 
             double initialShields = target.Shields;
-            target.Shields -= hitPower;
+            target.Shields -= (int)hitPower;
 
             if (target.Shields < 0)
             {
                 target.Shields = 0;
             }
 
-            hitPower -= initialShields - target.Shields; // FIXME (priority 6) - This seems wrong, has it been tested? Why reduce the hitPower twice? - Dan 25/4/10
+            // FIXED (priority 6) - This seems wrong, has it been tested? Why reduce the hitPower twice? - Dan 25/4/10
+            // It was lacking parenthesis which make it clearer; we reduce hitpower by the amount if shields depleted - Aeglos 11/03/12
+            hitPower -= (initialShields - target.Shields);
 
             BattleStepWeapons fire = new BattleStepWeapons();
             fire.HitPower = hitPower;
             fire.Targeting = "Shields";
-            fire.WeaponTarget.TargetShip = target.Name;
+            fire.WeaponTarget.TargetShip = target.Design.Name;
             battle.Steps.Add(fire);
 
             return hitPower;
@@ -850,14 +867,14 @@ namespace Nova.Server
         /// </summary>
         /// <param name="target">Target being fired on.</param>
         /// <param name="hitPower">Weapon damage.</param>
-        private void AttackArmor(Ship target, double hitPower)
+        private void AttackArmor(ShipToken target, double hitPower)
         {
-            target.Armor -= hitPower;
+            target.Armor -= (int)hitPower;
 
             BattleStepWeapons armor = new BattleStepWeapons();
             armor.HitPower = hitPower;
             armor.Targeting = "Armor";
-            armor.WeaponTarget.TargetShip = target.Name;
+            armor.WeaponTarget.TargetShip = target.Design.Name;
             battle.Steps.Add(armor);
         }
 
@@ -873,7 +890,7 @@ namespace Nova.Server
         /// <param name="weapon">Firing weapon.</param>
         /// <param name="target">Ship being fired on.</param>
         /// <returns>Damage weapon is able to do.</returns>
-        private double CalculateWeaponPower(Ship ship, Weapon weapon, Ship target)
+        private double CalculateWeaponPower(ShipDesign ship, Weapon weapon, ShipDesign target)
         {
             // TODO (priority 5) Stub - just return the base power of weapon. Also need to comment the return value of this function with what defences have been considered by this (when done).
             return weapon.Power;
@@ -913,7 +930,7 @@ namespace Nova.Server
         /// <param name="weapon">Firing weapon.</param>
         /// <param name="target">Ship being fired on.</param>
         /// <returns>Chance that weapon will hit.</returns>
-        private double CalculateWeaponAccuracy(Ship ship, Weapon weapon, Ship target)
+        private double CalculateWeaponAccuracy(ShipDesign ship, Weapon weapon, ShipDesign target)
         {
             double weaponAccuracy = weapon.Accuracy;
 

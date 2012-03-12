@@ -51,7 +51,7 @@ namespace Nova.WinForms.Gui
         /// <Summary>
         /// Initializes a new instance of the SelectionDetail class.
         /// </Summary>
-        public SelectionDetail(EmpireData empireState, List<long> deletedFleets,  ClientData clientState)
+        public SelectionDetail(EmpireData empireState, ClientData clientState)
         {
             this.empireState = empireState;
             

@@ -161,12 +161,12 @@ namespace Nova.WinForms.Gui.Dialogs
                     moveCount = leftOldCount - leftNewCount;
                 }
 
-                List<Ship> toMove = new List<Ship>();
-                foreach (Ship fleetShip in from.FleetShips)
+                List<ShipToken> toMove = new List<ShipToken>();
+                foreach (ShipToken fleetToken in from.Tokens)
                 {
-                    if (fleetShip.Design.Key == designs[i].Key)
+                    if (fleetToken.Design.Key == designs[i].Key)
                     {
-                        toMove.Add(fleetShip);
+                        toMove.Add(fleetToken);
                         --moveCount;
                         if (moveCount == 0)
                         {
@@ -174,10 +174,10 @@ namespace Nova.WinForms.Gui.Dialogs
                         }
                     }
                 }
-                foreach (Ship ship in toMove)
+                foreach (ShipToken token in toMove)
                 {
-                    from.FleetShips.Remove(ship);
-                    to.FleetShips.Add(ship);
+                    from.Tokens.Remove(token);
+                    to.Tokens.Add(token);
                 }
             }
 

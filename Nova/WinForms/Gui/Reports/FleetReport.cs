@@ -126,7 +126,7 @@ namespace Nova.WinForms.Gui
                     row[i++] = task;
                     row[i++] = fleet.FuelAvailable.ToString("f1");
                     row[i++] = cargoText.ToString();
-                    row[i++] = fleet.FleetShips.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
+                    row[i++] = fleet.Tokens.Count.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     row[i++] = "-";
                     row[i++] = fleet.BattlePlan;
                     row[i++] = fleet.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);

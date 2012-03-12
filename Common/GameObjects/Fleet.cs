@@ -39,8 +39,11 @@ namespace Nova.Common
     /// </summary>
     [Serializable]
     public class Fleet : Item
-    {       
-        public List<Ship>       FleetShips  = new List<Ship>();
+    {   
+        /// <summary>
+        /// Holds the ship tokens in the format "ShipDesign, Quantity, Damage%"
+        /// </summary>
+        public List<ShipToken> Tokens  = new List<ShipToken>();
         public List<Waypoint>   Waypoints   = new List<Waypoint>();
 
         /// <summary>
@@ -63,6 +66,7 @@ namespace Nova.Common
             Arrived, InTransit 
         }
 
+        
         /// <summary>
         /// Placeholder constructor - Fleet should be replaced by a reference to the fleet with the same Key.
         /// </summary>
@@ -71,6 +75,7 @@ namespace Nova.Common
             Key = newKey; 
         }
 
+        
         /// <summary>
         /// Fleet construction for unit testing and stack creation during a battle.
         /// </summary>
@@ -85,6 +90,7 @@ namespace Nova.Common
             Position = position;
         }
 
+        
         /// <summary>
         /// Copy constructor. This is only used by the battle engine so only the fields
         /// used by it in creating stacks need to be copied. Note that we copy the
@@ -105,21 +111,22 @@ namespace Nova.Common
             Target = copy.Target;
             InOrbit = copy.InOrbit;
        
-            foreach (Ship ship in copy.FleetShips)
+            foreach (ShipToken token in copy.Tokens)
             {
-                this.FleetShips.Add(new Ship(ship));
+                this.Tokens.Add(token);
             }
         }
 
+        
         /// <summary>
-        /// Fleet construction based on a ship and some parameters from a star (this is
+        /// Fleet construction based on a ShipToken and some parameters from a star (this is
         /// the usual case for most fleets when a new ship is manufactured at a star).
         /// </summary>
-        /// <param name="ship">The ship being constructed.</param>
+        /// <param name="ship">The ShipToken being constructed.</param>
         /// <param name="star">The star constructing the ship.</param>
-        public Fleet(Ship ship, Star star, long newKey)
+        public Fleet(ShipToken token, Star star, long newKey)
         {
-            FleetShips.Add(ship);
+            Tokens.Add(token);
 
             FuelAvailable = TotalFuelCapacity;
             Type          = ItemType.Fleet;
@@ -138,9 +145,23 @@ namespace Nova.Common
 
             Position     = star.Position;       
             InOrbit      = star;                
-            Key          = newKey;
+            Key          = newKey;    
+        }
+        
+        
+        /// <summary>
+        /// Fleet construction based on a ship and some parameters from a star (this is
+        /// the usual case for most fleets when a new ship is manufactured at a star).
+        /// </summary>
+        /// <param name="ship">The ship being constructed.</param>
+        /// <param name="star">The star constructing the ship.</param>
+        public Fleet(ShipDesign design, int quantity, Star star, long newKey) :
+            this(new ShipToken(design, quantity), star, newKey)
+        {
+            
         }
 
+        
         /// <summary>
         /// Move the fleet towards the waypoint at the top of the list. Fuel is consumed
         /// at the rate of the sum of each of the individual ships (i.e. available fuel
@@ -242,9 +263,9 @@ namespace Nova.Common
             }
 
 
-            foreach (Ship ship in FleetShips)
+            foreach (ShipToken token in Tokens)
             {
-                fuelConsumption += ship.FuelConsumption(warpFactor, race, (int)(ship.CargoCapacity * cargoFullness)); 
+                fuelConsumption += token.Design.FuelConsumption(warpFactor, race, (int)(token.Design.CargoCapacity * cargoFullness)); 
             }
 
             return fuelConsumption;
@@ -258,9 +279,9 @@ namespace Nova.Common
             get
             {
                 Bomb totalBombs = new Bomb();
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    Bomb bomb = ship.BombCapability;
+                    Bomb bomb = (token.Design.BombCapability * token.Quantity);
                     totalBombs.PopKill += bomb.PopKill;
                     totalBombs.Installations += bomb.Installations;
                     totalBombs.MinimumKill += bomb.MinimumKill;
@@ -276,16 +297,14 @@ namespace Nova.Common
         {
             get
             {
-                bool returnVal = false;
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    if (ship.CanColonize == true)
+                    if (token.Design.CanColonize)
                     {
-                        returnVal = true;
-                        break;
+                        return true;
                     }
                 }
-                return returnVal;
+                return false;
             }
         }
 
@@ -296,9 +315,9 @@ namespace Nova.Common
         {
             get
             {
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    if (ship.CanRefuel)
+                    if (token.Design.CanRefuel)
                     {
                         return true;
                     }
@@ -314,9 +333,9 @@ namespace Nova.Common
         {
             get
             {
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    if (ship.CanScan)
+                    if (token.Design.CanScan)
                     {
                         return true;
                     }
@@ -335,15 +354,15 @@ namespace Nova.Common
             {
                 Dictionary<ShipDesign, int> fleetComposition = new Dictionary<ShipDesign, int>();
 
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
                     int count;
-                    if (!fleetComposition.TryGetValue(ship.Design, out count))
+                    if (!fleetComposition.TryGetValue(token.Design, out count))
                     {
                         count = 0;
                     }
-                    count++;
-                    fleetComposition[ship.Design] = count;
+                    count += token.Quantity;
+                    fleetComposition[token.Design] = count;
                 }
 
                 return fleetComposition;
@@ -356,15 +375,15 @@ namespace Nova.Common
             {
                 Dictionary<long, ShipIntel> compositionReport = new Dictionary<long, ShipIntel>();
                 
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    if (!compositionReport.ContainsKey(ship.Key))
+                    if (!compositionReport.ContainsKey(token.Design.Key))
                     {
-                        compositionReport.Add(ship.Key, ship.GenerateReport());
+                        compositionReport.Add(token.Design.Key, token.Design.GenerateReport());
                     }
                     else
                     {
-                        compositionReport[ship.Key].Count++;
+                        compositionReport[token.Design.Key].Count++;
                     }
                 }
                 
@@ -381,10 +400,10 @@ namespace Nova.Common
             {
                 double totalDefenses = 0;
 
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    totalDefenses += ship.Armor;
-                    totalDefenses += ship.Shields;
+                    totalDefenses += (token.Design.Armor * token.Quantity);
+                    totalDefenses += (token.Design.Shield * token.Quantity);
                 }
                 return totalDefenses;
             }
@@ -398,9 +417,9 @@ namespace Nova.Common
             get
             {
                 int speed = 10;
-                foreach (Ship ship in this.FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    speed = Math.Min(speed, ship.FreeWarpSpeed);
+                    speed = Math.Min(speed, token.Design.FreeWarpSpeed);
                 }
 
                 return speed;
@@ -415,9 +434,9 @@ namespace Nova.Common
             get
             {
                 bool bombers = false;
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    if (ship.IsBomber)
+                    if (token.Design.IsBomber)
                     {
                         bombers = true;
                     }
@@ -435,8 +454,8 @@ namespace Nova.Common
             {
                 try
                 {
-                    Ship ship = FleetShips[0];
-                    return ship.Icon;
+                    ShipToken token = Tokens[0];
+                    return token.Design.Icon;
                 }
                 catch
                 {
@@ -453,9 +472,9 @@ namespace Nova.Common
         {
             get
             {
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    if (ship.HasWeapons)
+                    if (token.Design.HasWeapons)
                     {
                         return true;
                     }
@@ -471,9 +490,9 @@ namespace Nova.Common
         {
             get
             {
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    if (ship.IsStarbase)
+                    if (token.Design.IsStarbase)
                     {
                         return true;
                     }
@@ -491,9 +510,9 @@ namespace Nova.Common
             {
                 double totalMass = 0;
 
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    totalMass += ship.Mass;
+                    totalMass += (token.Design.Mass * token.Quantity);
                 }
                 totalMass += Cargo.Mass;
 
@@ -510,9 +529,9 @@ namespace Nova.Common
             {
                 int mineCount = 0;
 
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    mineCount += ship.MineCount;
+                    mineCount += (token.Design.MineCount * token.Quantity);
                 }
 
                 return mineCount;
@@ -529,11 +548,11 @@ namespace Nova.Common
             {
                 int penRange = 0;
                 
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    if (ship.ScanRangePenetrating > penRange)
+                    if (token.Design.ScanRangePenetrating > penRange)
                     {
-                        penRange = ship.ScanRangePenetrating;
+                        penRange = token.Design.ScanRangePenetrating;
                     }
                 }
                 return penRange;
@@ -550,11 +569,11 @@ namespace Nova.Common
             {
                 int scanRange = 0;
                 
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    if (ship.ScanRangeNormal > scanRange)
+                    if (token.Design.ScanRangeNormal > scanRange)
                     {
-                        scanRange = ship.ScanRangeNormal;
+                        scanRange = token.Design.ScanRangeNormal;
                     }
                 }
                 return scanRange;
@@ -589,9 +608,9 @@ namespace Nova.Common
             {
                 double armor = 0;
 
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    armor += ship.Armor;
+                    armor += (token.Design.Armor * token.Quantity);
                 }
 
                 return armor;
@@ -605,7 +624,7 @@ namespace Nova.Common
         {
             get
             {
-                return FleetShips.Sum(ship => ship.CargoCapacity);
+                return Tokens.Sum(token => token.Design.CargoCapacity);
             }
         }
 
@@ -618,9 +637,9 @@ namespace Nova.Common
             {
                 Resources cost = new Resources();
 
-                foreach (Ship ship in FleetShips)
+                foreach (ShipToken token in Tokens)
                 {
-                    cost = cost + ship.Cost;
+                    cost += token.Design.Cost;
                 }
 
                 return cost;
@@ -634,7 +653,7 @@ namespace Nova.Common
         {
             get
             {
-                return FleetShips.Sum(ship => ship.DockCapacity);
+                return Tokens.Sum(token => token.Design.DockCapacity);
             }
         }
 
@@ -645,7 +664,7 @@ namespace Nova.Common
         {
             get
             {
-                return FleetShips.Sum(ship => ship.FuelCapacity);
+                return Tokens.Sum(token => token.Design.FuelCapacity);
             }
         }
 
@@ -656,14 +675,7 @@ namespace Nova.Common
         {
             get
             {
-                double shield = 0;
-
-                foreach (Ship ship in FleetShips)
-                {
-                    shield += ship.Shields;
-                }
-
-                return shield;
+                return Tokens.Sum(token => token.Design.Shield);
             }
         }
 
@@ -675,50 +687,54 @@ namespace Nova.Common
             : base(node)
         {
             // Read the node
-            XmlNode subnode = node.FirstChild;
+            XmlNode mainNode = node.FirstChild;
             try
             {
-                while (subnode != null)
+                while (mainNode != null)
                 {
-                    switch (subnode.Name.ToLower())
+                    switch (mainNode.Name.ToLower())
                     {
                         case "fleetid":
-                            Id = uint.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Id = uint.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "targetid":
-                            Target = new Fleet(long.Parse(subnode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber));
+                            Target = new Fleet(long.Parse(mainNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber));
                             break;
                         case "cargo":
-                            Cargo = new Cargo(subnode);
+                            Cargo = new Cargo(mainNode);
                             break;
                         case "inorbit":
                             InOrbit = new Star();
-                            InOrbit.Name = subnode.FirstChild.Value;
+                            InOrbit.Name = mainNode.FirstChild.Value;
                             break;
                         case "battlespeed":
-                            BattleSpeed = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            BattleSpeed = double.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "bearing":
-                            Bearing = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Bearing = double.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "cloaked":
-                            Cloaked = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            Cloaked = double.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "fuelavailable":
-                            FuelAvailable = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            FuelAvailable = double.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "targetdistance":
-                            TargetDistance = double.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                            TargetDistance = double.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
                         case "battleplan":
-                            BattlePlan = subnode.FirstChild.Value;
+                            BattlePlan = mainNode.FirstChild.Value;
                             break;
-                        case "ship":
-                            Ship ship = new Ship(subnode);
-                            FleetShips.Add(ship);
+                        case "tokens":
+                            XmlNode subNode = mainNode.FirstChild;
+                            while (subNode != null)
+                            {
+                                Tokens.Add(new ShipToken(subNode));
+                                subNode = subNode.NextSibling;
+                            }
                             break;
                         case "waypoint":
-                            Waypoint waypoint = new Waypoint(subnode);
+                            Waypoint waypoint = new Waypoint(mainNode);
                             Waypoints.Add(waypoint);
                             break;
 
@@ -726,7 +742,7 @@ namespace Nova.Common
                     }
 
 
-                    subnode = subnode.NextSibling;
+                    mainNode = mainNode.NextSibling;
                 }
             }
             catch (Exception e)
@@ -779,17 +795,19 @@ namespace Nova.Common
             }
             Global.SaveData(xmldoc, xmlelFleet, "BattlePlan", this.BattlePlan);
 
-            xmlelFleet.AppendChild(this.Cargo.ToXml(xmldoc));
+            xmlelFleet.AppendChild(Cargo.ToXml(xmldoc));
 
-            foreach (Waypoint waypoint in this.Waypoints)
+            foreach (Waypoint waypoint in Waypoints)
             {
                 xmlelFleet.AppendChild(waypoint.ToXml(xmldoc));
             }
 
-            foreach (Ship ship in this.FleetShips)
+            XmlElement xmlelTokens = xmldoc.CreateElement("Tokens");
+            foreach (ShipToken token in Tokens)
             {
-                xmlelFleet.AppendChild(ship.ToXml(xmldoc));
-            }
+                xmlelTokens.AppendChild(token.ToXml(xmldoc));
+            }            
+            xmlelFleet.AppendChild(xmlelTokens);
 
             return xmlelFleet;
         }

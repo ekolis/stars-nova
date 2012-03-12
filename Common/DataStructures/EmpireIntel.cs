@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2011 The Stars-Nova Project
+// Copyright (C) 2011, 2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -22,13 +22,18 @@
 namespace Nova.Common
 {
     using System;
+    using System.Collections.Generic;
     using System.Xml;
+    
+    using Nova.Common.Components;
     
     /// <summary>
     /// Report on enemy or neutral empires.
     /// </summary>
     public class EmpireIntel
     {
+        public Dictionary<long, ShipDesign> Designs = new Dictionary<long, ShipDesign>();
+        
         public ushort           Id          { get; set; }        
         public string           RaceName    { get; set; }
         public PlayerRelation   Relation    { get; set; }
@@ -73,6 +78,15 @@ namespace Nova.Common
                         case "raceicon":
                             Icon = new RaceIcon(node);
                             break;
+                        case "enemydesigns":
+                            XmlNode subNode = node.FirstChild;
+                            while (subNode != null)
+                            {
+                                ShipDesign design = new ShipDesign(subNode);
+                                Designs.Add(design.Key, design);
+                                subNode = subNode.NextSibling;
+                            }
+                            break;
                     }
                 }
                 catch (Exception e)
@@ -104,6 +118,14 @@ namespace Nova.Common
             {
                 xmlelEnemy.AppendChild(Icon.ToXml(xmldoc));
             }
+            
+            // Enemy Designs
+            XmlElement xmlelEnemyDesigns = xmldoc.CreateElement("EnemyDesigns");
+            foreach (ShipDesign design in Designs.Values)
+            {
+                xmlelEnemyDesigns.AppendChild(design.ToXml(xmldoc));
+            }
+            xmlelEnemy.AppendChild(xmlelEnemyDesigns);
             
             return xmlelEnemy;
         }

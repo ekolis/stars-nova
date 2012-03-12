@@ -67,10 +67,10 @@ namespace Nova.Tests.UnitTests
         private ShipDesign cruiser = new ShipDesign(12345);
         private ShipDesign frigate = new ShipDesign(67890);
 
-        private Ship ship1;
-        private Ship ship2;
-        private Ship ship3;
-        private Ship ship4;
+        private ShipToken token1;
+        private ShipToken token2;
+        private ShipToken token3;
+        private ShipToken token4;
 
         // Outputs and subsequent inputs to the various routines. These have the
         // same name as the equivalent variables in the actual code.
@@ -133,25 +133,25 @@ namespace Nova.Tests.UnitTests
             // frigate.Cost = cost;
             frigate.Name = "Frigate";
 
-            ship1 = new Ship(cruiser, empireData1.GetNextShipKey());
-            ship2 = new Ship(frigate, empireData2.GetNextShipKey());
-            ship3 = new Ship(cruiser, empireData3.GetNextShipKey());
-            ship4 = new Ship(frigate, empireData3.GetNextShipKey());
+            token1 = new ShipToken(cruiser, 1);
+            token2 = new ShipToken(frigate, 1);
+            token3 = new ShipToken(cruiser, 1);
+            token4 = new ShipToken(frigate, 1);
 
-            ship1.Armor = 100;
-            ship2.Armor = 200;
-            ship3.Armor = 100;
-            ship4.Armor = 200;
+            token1.Armor = 100;
+            token2.Armor = 200;
+            token3.Armor = 100;
+            token4.Armor = 200;
 
-            ship1.Cost = cost;
-            ship2.Cost = cost;
-            ship3.Cost = cost;
-            ship4.Cost = cost;
+            token1.Design.Cost = cost;
+            token2.Design.Cost = cost;
+            token3.Design.Cost = cost;
+            token4.Design.Cost = cost;
 
-            fleet1.FleetShips.Add(ship1);
-            fleet2.FleetShips.Add(ship2);
-            fleet3.FleetShips.Add(ship3);
-            fleet4.FleetShips.Add(ship4);
+            fleet1.Tokens.Add(token1);
+            fleet2.Tokens.Add(token2);
+            fleet3.Tokens.Add(token3);
+            fleet4.Tokens.Add(token4);
 
             serverState.AllFleets[fleet1.Key] = fleet1;
             serverState.AllFleets[fleet2.Key] = fleet2;
