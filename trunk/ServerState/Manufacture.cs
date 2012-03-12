@@ -91,23 +91,13 @@ namespace Nova.Server
         {
             EmpireData empire = serverState.AllEmpires[star.Owner];
 
-            Fleet fleet = null;
-            for (int i = 0; i < countToBuild; ++i)
-            {
-                Ship ship = new Ship(design, empire.GetNextShipKey());
-                ship.Name = design.Name;
-                ship.Owner = star.Owner;
-                if (fleet == null)
-                {
-                    fleet = new Fleet(ship, star, empire.GetNextFleetKey());
-                    fleet.Name = design.Name + " #" + fleet.Id;
-                }
-                else
-                {
-                    fleet.FleetShips.Add(ship);
-                }
-                fleet.FuelAvailable = fleet.TotalFuelCapacity;
-            }
+            ShipToken token = new ShipToken(design, countToBuild);
+            
+            Fleet fleet = new Fleet(token, star, empire.GetNextFleetKey());
+            
+            fleet.Name = design.Name + " #" + fleet.Id;
+            fleet.FuelAvailable = fleet.TotalFuelCapacity;
+
             
 
             Message message = new Message();

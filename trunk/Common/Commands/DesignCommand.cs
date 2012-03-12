@@ -168,22 +168,22 @@ namespace Nova.Common.Commands
             
             foreach (Fleet fleet in empire.OwnedFleets.Values)
             {
-                List<Ship> shipsToRemove = new List<Ship>();
+                List<ShipToken> tokensToRemove = new List<ShipToken>();
     
-                foreach (Ship ship in fleet.FleetShips)
+                foreach (ShipToken token in fleet.Tokens)
                 {
-                    if (ship.DesignKey == Design.Key)
+                    if (token.Design.Key == Design.Key)
                     {
-                        shipsToRemove.Add(ship);
+                        tokensToRemove.Add(token);
                     }
                 }
     
-                foreach (Ship ship in shipsToRemove)
+                foreach (ShipToken token in tokensToRemove)
                 {
-                    fleet.FleetShips.Remove(ship);
+                    fleet.Tokens.Remove(token);
                 }
     
-                if (fleet.FleetShips.Count == 0)
+                if (fleet.Tokens.Count == 0)
                 {
                     fleetsToRemove.Add(fleet);
                 }

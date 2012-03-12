@@ -32,7 +32,7 @@
             this.aboutToolStripMenuItem         = new System.Windows.Forms.ToolStripMenuItem();
             
             this.messages           = new Nova.WinForms.Gui.Messages();
-            this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(clientState.EmpireState, clientState.DeletedFleets, clientState);
+            this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(clientState.EmpireState, clientState);
             this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(clientState.EmpireState);
             this.mapControl         = new Nova.WinForms.Gui.StarMap();
 

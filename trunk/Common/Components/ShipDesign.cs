@@ -101,6 +101,18 @@ namespace Nova.Common.Components
         }
 
         /// <summary>
+        /// Get the power rating of this ship - stub: TODO (priority 6).
+        /// </summary>
+        public int PowerRating
+        {
+            get
+            {
+                Update(); 
+                return 0;
+            }
+        }
+        
+        /// <summary>
         /// Get the total FuelCapacity of this ShipDesign.
         /// </summary>
         public int FuelCapacity
@@ -223,6 +235,17 @@ namespace Nova.Common.Components
                 {
                     return null;
                 }
+            }
+        }
+        
+        /// <summary>
+        /// Get the highest speed the ship can travel for 0 fuel.
+        /// </summary>
+        public int FreeWarpSpeed
+        {
+            get
+            {
+                return Engine.FreeWarpSpeed; 
             }
         }
 
@@ -358,8 +381,105 @@ namespace Nova.Common.Components
                 }
                 return initiative;
             }
+        }        
+        
+        /// <summary>
+        /// Get total bomb capability. 
+        /// </summary>
+        /// <remarks>
+        /// TODO (priority 6) Whatever code uses this seems to be ignoring smart bombs?
+        /// </remarks>
+        public Bomb BombCapability
+        {
+            get
+            {
+                Update();
+                return ConventionalBombs;
+            }
+        }
+                
+        /// <summary>
+        /// Get if the ship is a bomber.
+        /// </summary>
+        public bool IsBomber
+        {
+            get
+            {
+                Update();
+                if (ConventionalBombs.PopKill == 0 && SmartBombs.PopKill == 0)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+        
+        /// <summary>
+        /// Get total mine laying capacity for this ship.
+        /// </summary>
+        /// <remarks>
+        /// TODO (priority 6) Client code must handle heavy and speed trap mines too.
+        /// </remarks>
+        public int MineCount
+        {
+            get
+            {
+                Update();
+                return StandardMines.LayerRate;
+            }
+        }
+        
+        /// <summary>
+        /// Get if this ship has weapons.
+        /// </summary>
+        public bool HasWeapons
+        {
+            get
+            {
+                Update();
+                if (Weapons == null)
+                {
+                    return false;
+                }
+                return true;
+            }
+        }
+        
+        /// <summary>
+        /// The range of the ship's normal scanners.
+        /// </summary>
+        public int ScanRangeNormal
+        {
+            get
+            {
+                Update();
+                return NormalScan;
+            }
         }
 
+        /// <summary>
+        /// The range of the ship's penetrating scanners.
+        /// </summary>
+        public int ScanRangePenetrating
+        {
+            get
+            {
+                Update();
+                return PenetratingScan;
+            }
+        }
+        
+        /// <summary>
+        /// Checks if ship can colonize.
+        /// </summary>
+        public bool CanColonize
+        {
+            get
+            {
+                return Summary.Properties.ContainsKey("Colonizer");
+            }
+        }
+        
 
         public ShipDesign(long designkey)
             : base(designkey)
@@ -530,6 +650,59 @@ namespace Nova.Common.Components
                 case "Transport Ships Only":
                     break;
             }
+        }
+        
+        
+        /// <summary>
+        /// Calculate fuel consumption.
+        /// </summary>
+        /// <param name="warp">The speed the ship is travelling.</param>
+        /// <param name="race">The race the ship belongs too.</param>
+        /// <param name="cargoMass">The mass of any cargo carried (ship mass will be added automatically).</param>
+        /// <returns>The ship fuel consumption rate in mg per year.</returns>
+        /// <remarks>
+        /// Ship_fuel_usage = ship_mass x efficiency x distance / 200
+        ///
+        /// As distance = speed * time, and we are setting time to 1 year, then we can
+        /// just drop speed into the above equation and end up with mg per year. 
+        ///
+        /// If the secondary racial trait "improved fuel efficiency" is set then
+        /// fuel consumption is 15% less than advertised.
+        /// </remarks>
+        public double FuelConsumption(int warp, Race race, int cargoMass)
+        {
+            if (warp == 0)
+            {
+                return 0;
+            }
+            if (Engine == null)
+            {
+                return 0; // may be a star base
+            }
+
+            double fuelFactor = Engine.FuelConsumption[warp - 1];
+            double efficiency = fuelFactor / 100.0;
+            double speed = warp * warp;
+
+            double fuelConsumption = (Mass + cargoMass) * efficiency * speed / 200.0;
+
+            if (race.HasTrait("IFE"))
+            {
+                fuelConsumption *= 0.85;
+            }
+
+            return fuelConsumption;
+        }
+        
+        
+        public ShipIntel GenerateReport()
+        {
+            ShipIntel report = new ShipIntel();
+            report.Design   = Key;
+            report.Name     = Name;
+            report.Count    = 1; // This has to be updated at Fleet or FleetIntel level
+            
+            return report;
         }
 
 

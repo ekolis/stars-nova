@@ -105,16 +105,16 @@ namespace Nova.Server
             {
                 if (fleet.Owner == empireId)
                 {
-                    foreach (Ship ship in fleet.FleetShips)
+                    foreach (ShipToken token in fleet.Tokens)
                     {
-                        if (ship.HasWeapons == false)
+                        if (token.Design.HasWeapons == false)
                         {
                             unarmedShips++;
                             totalScore += 0.5;
                         }
                         else
                         {
-                            if (ship.PowerRating < 2000)
+                            if (token.Design.PowerRating < 2000)
                             {
                                 escortShips++;
                                 totalScore += 2;

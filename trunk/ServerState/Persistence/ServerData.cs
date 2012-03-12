@@ -467,9 +467,9 @@ namespace Nova.Server
                 }
 
                 // Individual Ship reference to it's Design
-                foreach (Ship ship in fleet.FleetShips)
+                foreach (ShipToken token in fleet.Tokens)
                 {
-                    ship.DesignUpdate(AllDesigns[ship.DesignKey]);
+                    token.Design  = AllDesigns[token.Design.Key];
                 }
             }
             
@@ -507,9 +507,9 @@ namespace Nova.Server
                         fleet.InOrbit = AllStars[fleet.InOrbit.Name];
                     }
                     // Ship reference to Design
-                    foreach (Ship ship in fleet.FleetShips)
+                    foreach (ShipToken token in fleet.Tokens)
                     {
-                        ship.DesignUpdate(AllDesigns[ship.DesignKey]);
+                        token.Design = AllDesigns[token.Design.Key];
                     }
                 }
                  

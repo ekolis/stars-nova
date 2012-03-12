@@ -194,7 +194,7 @@ namespace Nova.Server
             List<long> destroyedFleets = new List<long>();
             foreach (Fleet fleet in serverState.AllFleets.Values)
             {
-                if (fleet.FleetShips.Count == 0)
+                if (fleet.Tokens.Count == 0)
                 {
                     destroyedFleets.Add(fleet.Key);
                 }
@@ -212,7 +212,7 @@ namespace Nova.Server
             List<string> destroyedStations = new List<string>();
             foreach (Star star in serverState.AllStars.Values)
             {
-                if (star.Starbase != null && star.Starbase.FleetShips.Count == 0)
+                if (star.Starbase != null && star.Starbase.Tokens.Count == 0)
                 {
                     destroyedStations.Add(star.Name);
                 }
@@ -415,14 +415,14 @@ namespace Nova.Server
                 }
             }
 
-            foreach (Ship ship in fleet.FleetShips)
+            foreach (ShipToken token in fleet.Tokens)
             {
-                ship.Shields = ship.DesignShield;
+                token.Shields = token.Design.Shield;
                 if (repairRate > 0)
                 {
-                    int repairAmount = Math.Min(ship.DesignArmor * repairRate / 100, 1);
-                    ship.Armor += repairAmount;
-                    ship.Armor = Math.Min(ship.Armor, ship.DesignArmor);
+                    int repairAmount = Math.Min(token.Design.Armor * repairRate / 100, 1);
+                    token.Armor += repairAmount;
+                    token.Armor = Math.Min(token.Armor, token.Design.Armor);
                 }
             }
         }

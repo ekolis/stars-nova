@@ -25,6 +25,7 @@ namespace Nova.Server
     using System;
     
     using Nova.Common;
+    using Nova.Common.Components;
     using Nova.Server;
     
     /// <summary>
@@ -178,11 +179,11 @@ namespace Nova.Server
         /// <param name="star"></param>
         /// <param name="amount"></param>
         /// <param name="resources"></param>
-        public void Scrap(Ship ship, Star star, double amount, double resources)
+        public void Scrap(ShipToken token, Star star, double amount, double resources)
         {
             double factor = amount / 100;            
             
-            star.ResourcesOnHand += ship.Cost * factor;
+            star.ResourcesOnHand += token.Design.Cost * token.Quantity * factor;
         }
 
 
@@ -248,9 +249,9 @@ namespace Nova.Server
                     }
                 }
 
-                foreach (Ship ship in fleet.FleetShips)
+                foreach (ShipToken token in fleet.Tokens)
                 {
-                    Scrap(ship, star, amount, resources);
+                    Scrap(token, star, amount, resources);
                 }
             }
             else
@@ -259,7 +260,7 @@ namespace Nova.Server
             }
 
             // ServerState.Data.AllFleets.Remove(fleet.Key); // issue 2998887 - causes a crash on colonising due to modification of the itterator list
-            fleet.FleetShips.Clear(); // disapear the ships. The (now empty) fleet will be cleaned up latter.
+            fleet.Tokens.Clear(); // disapear the ships. The (now empty) fleet will be cleaned up latter.
 
 
             Message message = new Message();

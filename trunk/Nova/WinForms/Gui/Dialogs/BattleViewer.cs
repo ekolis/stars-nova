@@ -226,20 +226,20 @@ namespace Nova.WinForms.Gui
         /// <param name="destroy"></param>
         private void UpdateDestroy(BattleStepDestroy destroy)
         {
-            this.damage.Text = "Ship destroyed";
+            damage.Text = "Ship destroyed";
 
             Fleet stack = myStacks[destroy.StackName];
 
             // TODO (priority 3) Needs testing. Unknown if the constructed ship name will correctly match ships in the FleetShips list.
             string shipName = stack.Owner + "/" + destroy.ShipName;
 
-            IEnumerable<Ship> ships = stack.FleetShips.Where(x => x.Name == shipName);
-            if (ships.Any())
+            IEnumerable<ShipToken> tokens = stack.Tokens.Where(x => x.Design.Name == shipName);
+            if (tokens.Any())
             {
-                stack.FleetShips.Remove(ships.First());
+                stack.Tokens.Remove(tokens.First());
             }
 
-            if (stack.FleetShips.Count == 0)
+            if (stack.Tokens.Count == 0)
             {
                 this.myStacks.Remove(stack.Name);
                 this.battlePanel.Invalidate();

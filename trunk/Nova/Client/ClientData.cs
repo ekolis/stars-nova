@@ -46,10 +46,7 @@ namespace Nova.Client
         
         public Stack<ICommand>   Commands = new Stack<ICommand>();
 
-        public List<long>       DeletedFleets   = new List<long>();
         public List<Message>    Messages        = new List<Message>();
-
-        public Dictionary<long, ShipDesign> EnemyDesigns = new Dictionary<long, ShipDesign>();
         
         public Intel InputTurn = null;            
         
@@ -104,29 +101,10 @@ namespace Nova.Client
                                 }
                                 textNode = textNode.NextSibling;
                             }
-                            break;
-                            
-                        case "deletedfleets":
-                            textNode = xmlnode.FirstChild;
-                            while (textNode != null)
-                            {
-                                DeletedFleets.Add(Int32.Parse(textNode.FirstChild.Value));
-                                textNode = textNode.NextSibling;
-                            }
-                            break;                        
+                            break;                       
                         
                         case "message":
                             Messages.Add(new Message(xmlnode));
-                            break;
-                            
-                        case "enemydesigns":
-                            textNode = xmlnode.FirstChild;
-                            while (textNode != null)
-                            {
-                                ShipDesign design = new ShipDesign(textNode);
-                                EnemyDesigns.Add(design.Key, design);
-                                textNode = textNode.NextSibling;
-                            }
                             break;
                             
                         case "intel":
@@ -326,10 +304,7 @@ namespace Nova.Client
         {
             ClientData newState = Restore(GameFolder, EmpireState.Race.Name);
             
-            DeletedFleets   = newState.DeletedFleets;
-            Messages        = newState.Messages;
-           
-            EnemyDesigns   = newState.EnemyDesigns;     
+            Messages        = newState.Messages;   
             
             InputTurn      = newState.InputTurn;
             
@@ -445,30 +420,13 @@ namespace Nova.Client
                 {
                     xmlelCommands.AppendChild(command.ToXml(xmldoc));
                 }
-                xmlelClientState.AppendChild(xmlelCommands);
-                
-                // Deleted Fleets
-                XmlElement xmlelDeletedFleets = xmldoc.CreateElement("DeletedFleets");
-                foreach (int fleetId in DeletedFleets)
-                {
-                    // only need to store enough data to find the deleted fleet.
-                    Global.SaveData(xmldoc, xmlelDeletedFleets, "FleetId", fleetId.ToString("X"));
-                }
-                xmlelClientState.AppendChild(xmlelDeletedFleets);                
+                xmlelClientState.AppendChild(xmlelCommands);                              
                 
                 // Messages
                 foreach (Nova.Common.Message message in Messages)
                 {
                    xmlelClientState.AppendChild(message.ToXml(xmldoc));
-                }
-    
-                // Enemy Designs
-                XmlElement xmlelEnemyDesigns = xmldoc.CreateElement("EnemyDesigns");
-                foreach (ShipDesign design in EnemyDesigns.Values)
-                {
-                    xmlelEnemyDesigns.AppendChild(design.ToXml(xmldoc));
-                }
-                xmlelClientState.AppendChild(xmlelEnemyDesigns);
+                }                
                 
                 // FIXME (priority 6) - THIS HAS TO GO!
                 xmlelClientState.AppendChild(InputTurn.ToXml(xmldoc));
@@ -556,6 +514,21 @@ namespace Nova.Client
                 }
             }
             
+            // Link enemy designs too
+            foreach (EmpireIntel enemy in EmpireState.EmpireReports.Values)
+            {
+                foreach (ShipDesign design in enemy.Designs.Values)
+                {
+                    foreach (HullModule module in (design.ShipHull.Properties["Hull"] as Hull).Modules)
+                    {
+                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
+                        {
+                            AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
+                        }
+                    }
+                }
+            }
+            
             // Fleet reference to Star
             foreach (Fleet fleet in EmpireState.OwnedFleets.Values)
             {
@@ -571,9 +544,9 @@ namespace Nova.Client
                     }
                 }
                 // Ship reference to Design
-                foreach (Ship ship in fleet.FleetShips)
+                foreach (ShipToken token in fleet.Tokens)
                 {
-                    ship.DesignUpdate(EmpireState.Designs[ship.DesignKey]);
+                    token.Design = EmpireState.Designs[token.Design.Key];
                 }
             }
 

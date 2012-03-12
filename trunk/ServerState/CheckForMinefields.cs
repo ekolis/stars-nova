@@ -160,22 +160,22 @@ namespace Nova.Server
             int shipsLost = 0;
             fleet.Speed = 0;
 
-            List<Ship> shipsToRemove = new List<Ship>();
+            List<ShipToken> tokensToRemove = new List<ShipToken>();
 
-            foreach (Ship ship in fleet.FleetShips)
+            foreach (ShipToken token in fleet.Tokens)
             {
-                ship.Armor -= shipDamage;
+                token.Armor -= shipDamage;
 
-                if (ship.Armor < 0)
+                if (token.Damage >= 100)
                 {
-                    shipsToRemove.Add(ship);
+                    tokensToRemove.Add(token);
                     shipsLost++;
                 }
             }
 
-            foreach (Ship removeShip in shipsToRemove)
+            foreach (ShipToken removeToken in tokensToRemove)
             {
-                fleet.FleetShips.Remove(removeShip);
+                fleet.Tokens.Remove(removeToken);
             }
 
             Message message = new Message();
@@ -189,7 +189,7 @@ namespace Nova.Server
                 message.Text += "None of your ships were destroyed.";
                 fleet.Speed = 0;
             }
-            else if (fleet.FleetShips.Count != 0)
+            else if (fleet.Tokens.Count != 0)
             {
                 message.Text += shipsLost.ToString(System.Globalization.CultureInfo.InvariantCulture)
                    + " of your ships were destroyed.\n";
