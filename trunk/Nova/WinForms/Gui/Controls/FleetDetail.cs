@@ -121,21 +121,24 @@ namespace Nova.WinForms.Gui
                 
                 WaypointCommand command = new WaypointCommand(CommandMode.Edit, editedWaypoint, selectedFleet.Key, index);
                 
-                // Minimizing clutter. If the last command was a speed/task change for this same waypoint,
+                // Minimizing clutter. If the last command (at all) was a speed/task change for this same waypoint,
                 // then just use that instead of adding a potentialy huge pile of speed edits.
                 
-                ICommand lastCommand = commands.Peek();
-                
-                // Make sure it's the same waypoint except for speed/task, and that it's not a freshly added
-                // waypoint.
-                if (lastCommand is WaypointCommand)
+                if (commands.Count > 0)
                 {
-                    if ((lastCommand as WaypointCommand).Waypoint.Destination == editedWaypoint.Destination &&
-                        (lastCommand as WaypointCommand).Waypoint.Position == editedWaypoint.Position &&
-                        (lastCommand as WaypointCommand).Mode != CommandMode.Add)
+                    ICommand lastCommand = commands.Peek();                
+                
+                    // Make sure it's the same waypoint except for speed/task, and that it's not a freshly added
+                    // waypoint.
+                    if (lastCommand is WaypointCommand)
                     {
-                        //Discard it.
-                        commands.Pop();
+                        if ((lastCommand as WaypointCommand).Waypoint.Destination == editedWaypoint.Destination &&
+                            (lastCommand as WaypointCommand).Waypoint.Position == editedWaypoint.Position &&
+                            (lastCommand as WaypointCommand).Mode != CommandMode.Add)
+                        {
+                            //Discard it.
+                            commands.Pop();
+                        }
                     }
                 }
                 
