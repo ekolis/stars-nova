@@ -63,12 +63,23 @@ namespace Nova.Common
             set;
         }
         
+        /// <summary>
+        /// Creates a Token of ships
+        /// </summary>
+        /// <param name="design">The ship design of this token</param>
+        /// <param name="quantity">The amount of ships in this token</param>
+        /// <param name="armor">The amount of armor remaining in this token</param>
         public ShipToken(ShipDesign design, int quantity, int armor) :
             this(design, quantity)
         {
             Armor = armor;
         }
         
+        /// <summary>
+        /// Creates a token of ships
+        /// </summary>
+        /// <param name="design">The ship design of this token</param>
+        /// <param name="quantity">The amount of ships in this token</param>
         public ShipToken(ShipDesign design, int quantity)
         {
             Design = design;
