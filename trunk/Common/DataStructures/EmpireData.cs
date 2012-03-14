@@ -83,7 +83,6 @@ namespace Nova.Common
         // See associated properties.
         private long        fleetCounter             = 0;
         private long        designCounter            = 0;
-        private long        shipCounter              = 0;
         
         public Race Race
         {
@@ -140,12 +139,6 @@ namespace Nova.Common
             return (long)designCounter | ((long)empireId << 32);
         }
 
-        public long GetNextShipKey()
-        {
-            ++shipCounter;
-            return (long)shipCounter | ((long)empireId << 32);
-        }
-
         /// <summary>
         /// Default constructor.
         /// </summary>
@@ -184,9 +177,6 @@ namespace Nova.Common
                         break;
                     case "designcounter":
                         designCounter = long.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                        break;
-                    case "shipcounter":
-                        shipCounter = long.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     case "turnyear":
                         TurnYear = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
@@ -303,8 +293,6 @@ namespace Nova.Common
                         
             Global.SaveData(xmldoc, xmlelEmpireData, "FleetCounter", fleetCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelEmpireData, "DesignCounter", designCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            Global.SaveData(xmldoc, xmlelEmpireData, "ShipCounter", shipCounter.ToString(System.Globalization.CultureInfo.InvariantCulture));
-
             
             Global.SaveData(xmldoc, xmlelEmpireData, "TurnYear", TurnYear.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelEmpireData, "TurnSubmitted", TurnSubmitted.ToString());
