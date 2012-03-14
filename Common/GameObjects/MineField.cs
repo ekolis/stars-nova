@@ -35,7 +35,7 @@ using System.Xml;
 namespace Nova.Common
 {
     [Serializable]
-    public class Minefield : Item
+    public class Minefield : Mappable
     {
         public int NumberOfMines;
         public int SafeSpeed = 4;

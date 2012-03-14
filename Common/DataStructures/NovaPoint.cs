@@ -186,21 +186,21 @@ namespace Nova.Common.DataStructures
         /// <param name="node">An <see cref="XmlNode"/> within a Nova xml document.</param>
         public NovaPoint(XmlNode node)
         {
-            XmlNode subnode = node.FirstChild;
-            while (subnode != null)
+            XmlNode mainNode = node.FirstChild;
+            while (mainNode != null)
             {
                 try
                 {
-                    switch (subnode.Name.ToLower())
+                    switch (mainNode.Name.ToLower())
                     {
                         case "x":
                             {
-                                X = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                                X = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                                 break;
                             }
                         case "y":
                             {
-                                Y = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                                Y = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                                 break;
                             }
                     }
@@ -209,7 +209,7 @@ namespace Nova.Common.DataStructures
                 {
                     Report.Error(e.Message);
                 }
-                subnode = subnode.NextSibling;
+                mainNode = mainNode.NextSibling;
             }
         }
 

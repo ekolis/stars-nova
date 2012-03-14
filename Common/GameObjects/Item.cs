@@ -70,42 +70,6 @@ namespace Nova.Common
         /// The type of the derived item (e.g. "Ship", "Star", "Starbase", etc).
         /// </summary>
         public ItemType Type = ItemType.None;
-
-        /// <summary>
-        /// Position of the Item (if any).
-        /// </summary>
-        public NovaPoint Position = new NovaPoint();
-        
-        /// <summary>
-        /// Default Construction.
-        /// </summary>
-        public Item() 
-        { 
-        }
-
-        public Item(long key)
-        {
-            Key = key;
-        }
-
-        /// <summary>
-        /// Copy (initialising) constructor.
-        /// </summary>
-        /// <param name="existing">An existing <see cref="Item"/>.</param>
-        public Item(Item existing)
-        {
-            if (existing == null)
-            {
-                return;
-            }
-
-            this.Mass = existing.Mass;
-            this.Name = existing.Name;
-            this.Owner = existing.Owner;
-            this.Type = existing.Type;
-            this.Position = existing.Position;
-            this.Cost = new Resources(existing.Cost);
-        }
         
         /// <summary>
         /// Property for accessing the game wide unique key.
@@ -169,7 +133,37 @@ namespace Nova.Common
                 key |= value;
             }
         }
-                
+
+        /// <summary>
+        /// Default Construction.
+        /// </summary>
+        public Item() 
+        { 
+        }
+
+        public Item(long key)
+        {
+            Key = key;
+        }
+
+        /// <summary>
+        /// Copy (initialising) constructor.
+        /// </summary>
+        /// <param name="existing">An existing <see cref="Item"/>.</param>
+        public Item(Item existing)
+        {
+            if (existing == null)
+            {
+                return;
+            }
+
+            this.Mass = existing.Mass;
+            this.Name = existing.Name;
+            this.Owner = existing.Owner;
+            this.Type = existing.Type;
+            this.Cost = new Resources(existing.Cost);
+        }
+        
         /// <summary>
         /// Load: Initialising constructor from an XmlNode representing the Item (from a save file).
         /// </summary>
@@ -182,24 +176,23 @@ namespace Nova.Common
                 return;
             }
 
-            // There are two acceptable entry points to this constructor. Either node is 
-            // an Item node, or it is a parent node of an Item node. The second case is allowed
-            // for loading objects which inherit from Item.
-
-            // Check if this is an Item node, or a parent of an Item
-            XmlNode itemNode;
-            if (node.Name.ToLower() == "item")
+            XmlNode itemNode = null;
+            
+            // Search for the first Item node in this Xml representation.
+            while (node != null)
             {
-                itemNode = node;
-            }
-            else
-            {
-                itemNode = node.SelectSingleNode("Item");
-                if (itemNode == null)
+                if ((itemNode = node.SelectSingleNode("Item")) != null)
                 {
-                    Report.FatalError("Item.cs: Item(XmlNode node) - could not find Item node, input file may be corrupt.");
-                    return;
+                    break;
                 }
+                
+                node = node.FirstChild;
+            }
+            
+            if (itemNode == null)
+            {
+                Report.FatalError("Item.cs: Item(XmlNode node) - could not find Item node, input file may be corrupt.");
+                return;
             }
 
             XmlNode mainNode = itemNode.FirstChild;
@@ -222,10 +215,6 @@ namespace Nova.Common
                         case "type":
                             Type = (ItemType)Enum.Parse(typeof(ItemType), mainNode.FirstChild.Value);
                             break;
-                        case "position":
-                            Position.X = int.Parse(mainNode.SelectSingleNode("X").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            Position.Y = int.Parse(mainNode.SelectSingleNode("Y").FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
                         case "cost":
                             Cost = new Resources(mainNode);
                             break;
@@ -241,7 +230,8 @@ namespace Nova.Common
             }
 
         }
-
+                       
+        
         /// <summary>
         /// Save: Return an XmlElement representation of the <see cref="Item"/>.
         /// </summary>
@@ -267,13 +257,6 @@ namespace Nova.Common
 
             xmlelItem.AppendChild(Cost.ToXml(xmldoc, "Cost"));
 
-            if (Position.X != 0 || Position.Y != 0)
-            {
-                XmlElement xmlelPoint = xmldoc.CreateElement("Position");
-                Global.SaveData(xmldoc, xmlelPoint, "X", Position.X.ToString(System.Globalization.CultureInfo.InvariantCulture));
-                Global.SaveData(xmldoc, xmlelPoint, "Y", Position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture));
-                xmlelItem.AppendChild(xmlelPoint);
-            }
             return xmlelItem;
         }
     }

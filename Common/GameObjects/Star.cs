@@ -32,7 +32,7 @@ namespace Nova.Common
     /// This object represents a Star system, the basic unit of stars-nova settlement/expansion.
     /// </summary>
     [Serializable]
-    public class Star : Item
+    public class Star : Mappable
     {
         public bool HasFleetsInOrbit;
         public ProductionQueue ManufacturingQueue;

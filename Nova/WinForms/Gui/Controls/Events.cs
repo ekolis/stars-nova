@@ -39,7 +39,7 @@ namespace Nova.WinForms.Gui
     /// Objects who subscribe to this should return an Item corresponding
     /// to the currently selected Item (Fleet, Star, etc).
     /// </Summary>
-    public delegate Item RequestSelection();
+    public delegate Mappable RequestSelection();
 
     /// <Summary>
     /// This is the hook to listen for changes in the cursor on the map.
