@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009, 2010, 2011, 2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -19,19 +19,10 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// The environmental range a race can tollerate.
-//
-// ===========================================================================
-#endregion
-
 namespace Nova.Common
 {
-    #region Using Statements
     using System;
     using System.Xml;
-    #endregion
 
     /// <summary>
     /// Class to hold environmental tolerance details.
@@ -51,16 +42,12 @@ namespace Nova.Common
         private int maximumInternalValue = 85;
         private bool immune = false;
 
-        #region Construction
-
         /// <summary>
         /// Default constructor, required for serialization.
         /// </summary>
         public EnvironmentTolerance() 
         { 
         }
-
-        #endregion
 
         /// <summary>
         /// Return the Median value of an integer range.
@@ -116,8 +103,6 @@ namespace Nova.Common
             return "N/A";
         }
 
-        #region Load Save Xml
-
         /// <summary>
         /// Load from XML.
         /// </summary>
@@ -164,9 +149,9 @@ namespace Nova.Common
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the EnvironmentTolerance.</returns>
-        public XmlElement ToXml(XmlDocument xmldoc)
+        public XmlElement ToXml(XmlDocument xmldoc, string nodeName = "EnvironmentTolerance")
         {
-            XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement("EnvironmentTolerance");
+            XmlElement xmlelEnvironmentTolerance = xmldoc.CreateElement(nodeName);
             Global.SaveData(xmldoc, xmlelEnvironmentTolerance, MinInternalIdentifier, MinimumValue);
             Global.SaveData(xmldoc, xmlelEnvironmentTolerance, MaxInternalIdentifier, MaximumValue);
             // "correct" values for human readability only
@@ -175,7 +160,5 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelEnvironmentTolerance, ImmuneIdentifier, Immune.ToString());
             return xmlelEnvironmentTolerance;
         }
-
-        #endregion
     }
 }
