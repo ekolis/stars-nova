@@ -120,6 +120,16 @@ namespace Nova.Common
             }   
         }
         
+        public ShipIntel GenerateReport()
+        {
+            ShipIntel report = new ShipIntel();
+            report.Design   = Design.Key;
+            report.Name     = Design.Name;
+            report.Count    = Quantity;
+            report.Mass     = Design.Mass * Quantity;
+            
+            return report;
+        }
         
         /// <summary>
         /// Save: Serialise this property to an <see cref="XmlElement"/>.

@@ -37,6 +37,9 @@ namespace Nova.Common
     {
         /// <summary>
         /// The total Cost of this unit.
+        /// TODO (priority 6): Maybe this could be removed. It's convenient to have
+        /// this data here, but it leads to extra data on the XML files and can lead
+        /// to potential exploits. -Aeglos 13 Mar 12
         /// </summary>
         Resources Cost {get;}
         

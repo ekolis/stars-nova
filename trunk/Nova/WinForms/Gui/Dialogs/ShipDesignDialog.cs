@@ -151,8 +151,6 @@ namespace Nova.WinForms.Gui
             newDesign.Name = DesignName.Text;
             newDesign.Owner = clientState.EmpireState.Id;
             newDesign.ShipHull = selectedHull;
-            newDesign.Cost = DesignResources.Value;
-            newDesign.Mass = Convert.ToInt32(ShipMass.Text);
             newDesign.Icon = shipIcon;
             newDesign.Update();
 

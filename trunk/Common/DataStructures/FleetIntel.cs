@@ -42,6 +42,9 @@ namespace Nova.Common
         public bool                         IsStarbase  { get; set; }
         public Dictionary<long, ShipIntel>  Composition { get; set; }
         
+        /// <summary>
+        /// The Fleet's total ship count.
+        /// </summary>
         public int Count
         {
             get
@@ -55,7 +58,24 @@ namespace Nova.Common
                 return qty;
             }
         }
-
+        
+        /// <summary>
+        /// The Fleet's total mass in kTs.
+        /// </summary>
+        public int Mass
+        {
+            get
+            {
+                int mass = 0;
+                foreach (ShipIntel report in Composition.Values)
+                {
+                    mass += report.Mass;
+                }
+                
+                return mass;   
+            }
+        }
+        
         /// <summary>
         /// Default constructor. Sets sensible but meaningless default values for this report.
         /// </summary>

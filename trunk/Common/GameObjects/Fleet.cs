@@ -65,6 +65,407 @@ namespace Nova.Common
         { 
             Arrived, InTransit 
         }
+                
+        /// <summary>
+        /// Return the total normal bombing capability.
+        /// </summary>
+        public Bomb BombCapability
+        {
+            get
+            {
+                Bomb totalBombs = new Bomb();
+                foreach (ShipToken token in Tokens)
+                {
+                    Bomb bomb = (token.Design.BombCapability * token.Quantity);
+                    totalBombs.PopKill += bomb.PopKill;
+                    totalBombs.Installations += bomb.Installations;
+                    totalBombs.MinimumKill += bomb.MinimumKill;
+                }
+                return totalBombs;
+            }
+        }
+
+        /// <summary>
+        /// Check if any of the ships has colonization module.
+        /// </summary>
+        public bool CanColonize
+        {
+            get
+            {
+                foreach (ShipToken token in Tokens)
+                {
+                    if (token.Design.CanColonize)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Property to determine if a fleet can re-fuel.
+        /// </summary>
+        public bool CanRefuel
+        {
+            get
+            {
+                foreach (ShipToken token in Tokens)
+                {
+                    if (token.Design.CanRefuel)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// This property is true if the fleet has at least one ship with a scanner.
+        /// </summary>
+        public bool CanScan
+        {
+            get
+            {
+                foreach (ShipToken token in Tokens)
+                {
+                    if (token.Design.CanScan)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Return the composition of a fleet (ship design and number of ships of that
+        /// design).
+        /// </summary>
+        public Dictionary<ShipDesign, int> Composition
+        {
+            get
+            {
+                Dictionary<ShipDesign, int> fleetComposition = new Dictionary<ShipDesign, int>();
+
+                foreach (ShipToken token in Tokens)
+                {
+                    int count;
+                    if (!fleetComposition.TryGetValue(token.Design, out count))
+                    {
+                        count = 0;
+                    }
+                    count += token.Quantity;
+                    fleetComposition[token.Design] = count;
+                }
+
+                return fleetComposition;
+            }
+        }
+        
+        public Dictionary<long, ShipIntel> CompositionReport
+        {
+            get
+            {
+                Dictionary<long, ShipIntel> compositionReport = new Dictionary<long, ShipIntel>();
+                
+                foreach (ShipToken token in Tokens)
+                {
+                    compositionReport.Add(token.Design.Key, token.GenerateReport());
+                }
+                
+                return compositionReport;
+            }
+        }
+
+        /// <summary>
+        /// Return the current Defense capability of a fleet.
+        /// </summary>
+        public double Defenses
+        {
+            get
+            {
+                double totalDefenses = 0;
+
+                foreach (ShipToken token in Tokens)
+                {
+                    totalDefenses += (token.Design.Armor * token.Quantity);
+                    totalDefenses += (token.Design.Shield * token.Quantity);
+                }
+                return totalDefenses;
+            }
+        }
+
+        /// <summary>
+        /// Return Free Warp speed for fleet.
+        /// </summary>
+        public int FreeWarpSpeed
+        {
+            get
+            {
+                int speed = 10;
+                foreach (ShipToken token in Tokens)
+                {
+                    speed = Math.Min(speed, token.Design.FreeWarpSpeed);
+                }
+
+                return speed;
+            }
+        }
+
+        /// <summary>
+        /// Determine if the fleet has bombers.
+        /// </summary>
+        public bool HasBombers
+        {
+            get
+            {
+                bool bombers = false;
+                foreach (ShipToken token in Tokens)
+                {
+                    if (token.Design.IsBomber)
+                    {
+                        bombers = true;
+                    }
+                }
+                return bombers;
+            }
+        }
+
+        /// <summary>
+        /// Choose an image from one of the ships in the fleet.
+        /// </summary>
+        public ShipIcon Icon
+        {
+            get
+            {
+                try
+                {
+                    ShipToken token = Tokens[0];
+                    return token.Design.Icon;
+                }
+                catch
+                {
+                    Report.Error("Fleet.cs Fleet.Image (get): unable to get ship image.");
+                }
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// Report if a fleet is armed.
+        /// </summary>
+        public bool IsArmed
+        {
+            get
+            {
+                foreach (ShipToken token in Tokens)
+                {
+                    if (token.Design.HasWeapons)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// Property to determine if a fleet is a starbase.
+        /// </summary>
+        public bool IsStarbase
+        {
+            get
+            {
+                foreach (ShipToken token in Tokens)
+                {
+                    if (token.Design.IsStarbase)
+                    {
+                        return true;
+                    }
+                }
+                return false;
+            }
+        }
+        
+        /// <summary>
+        /// Return the mass of a fleet.
+        /// </summary>
+        public int Mass
+        {
+            get
+            {
+                int totalMass = 0;
+
+                foreach (ShipToken token in Tokens)
+                {
+                    totalMass += (token.Design.Mass * token.Quantity);
+                }
+                totalMass += Cargo.Mass;
+
+                return totalMass;
+            }
+        }
+
+        /// <summary>
+        /// Return the the number of mines this fleet can lay.
+        /// </summary>
+        public int NumberOfMines
+        {
+            get
+            {
+                int mineCount = 0;
+
+                foreach (ShipToken token in Tokens)
+                {
+                    mineCount += (token.Design.MineCount * token.Quantity);
+                }
+
+                return mineCount;
+            }
+        }
+        
+        /// <summary>
+        /// Return the penetrating range scan capability of the fleet.
+        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear).
+        /// </summary>
+        public int PenScanRange
+        {
+            get
+            {
+                int penRange = 0;
+                
+                foreach (ShipToken token in Tokens)
+                {
+                    if (token.Design.ScanRangePenetrating > penRange)
+                    {
+                        penRange = token.Design.ScanRangePenetrating;
+                    }
+                }
+                return penRange;
+            }
+        }
+        
+        /// <summary>
+        /// Return the non penetrating range scan capability of the fleet.
+        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear).
+        /// </summary>
+        public int ScanRange
+        {
+            get
+            {
+                int scanRange = 0;
+                
+                foreach (ShipToken token in Tokens)
+                {
+                    if (token.Design.ScanRangeNormal > scanRange)
+                    {
+                        scanRange = token.Design.ScanRangeNormal;
+                    }
+                }
+                return scanRange;
+            }
+        }
+
+        /// <summary>
+        /// Return the current speed of the fleet.
+        /// </summary>
+        public int Speed
+        {
+            get
+            {
+                Waypoint target = Waypoints[0];
+                return target.WarpFactor;
+            }
+
+            set
+            {
+                Waypoint target = Waypoints[0];
+                target.WarpFactor = 0;
+            }
+
+        }
+
+        /// <summary>
+        /// Return the total amour strength of the fleet.
+        /// </summary>
+        public double TotalArmorStrength
+        {
+            get
+            {
+                double armor = 0;
+
+                foreach (ShipToken token in Tokens)
+                {
+                    armor += (token.Design.Armor * token.Quantity);
+                }
+
+                return armor;
+            }
+        }
+
+        /// <summary>
+        /// Find the total cargo capacity of the fleet.
+        /// </summary>
+        public int TotalCargoCapacity
+        {
+            get
+            {
+                return Tokens.Sum(token => token.Design.CargoCapacity);
+            }
+        }
+
+        /// <summary>
+        /// Return the cost of a fleet. 
+        /// </summary>
+        public Resources TotalCost
+        {
+            get
+            {
+                Resources cost = new Resources();
+
+                foreach (ShipToken token in Tokens)
+                {
+                    cost += token.Design.Cost;
+                }
+
+                return cost;
+            }
+        }
+
+        /// <summary>
+        /// Find the total dock capacity of the fleet.
+        /// </summary>
+        public int TotalDockCapacity
+        {
+            get
+            {
+                return Tokens.Sum(token => token.Design.DockCapacity);
+            }
+        }
+
+        /// <summary>
+        /// Find the total fuel capacity of all ships in the fleet.
+        /// </summary>
+        public int TotalFuelCapacity
+        {
+            get
+            {
+                return Tokens.Sum(token => token.Design.FuelCapacity);
+            }
+        }
+
+        /// <summary>
+        /// Return the total shield strength of the fleet.
+        /// </summary>
+        public double TotalShieldStrength
+        {
+            get
+            {
+                return Tokens.Sum(token => token.Design.Shield);
+            }
+        }
 
         
         /// <summary>
@@ -270,414 +671,7 @@ namespace Nova.Common
 
             return fuelConsumption;
         }
-
-        /// <summary>
-        /// Return the total normal bombing capability.
-        /// </summary>
-        public Bomb BombCapability
-        {
-            get
-            {
-                Bomb totalBombs = new Bomb();
-                foreach (ShipToken token in Tokens)
-                {
-                    Bomb bomb = (token.Design.BombCapability * token.Quantity);
-                    totalBombs.PopKill += bomb.PopKill;
-                    totalBombs.Installations += bomb.Installations;
-                    totalBombs.MinimumKill += bomb.MinimumKill;
-                }
-                return totalBombs;
-            }
-        }
-
-        /// <summary>
-        /// Check if any of the ships has colonization module.
-        /// </summary>
-        public bool CanColonize
-        {
-            get
-            {
-                foreach (ShipToken token in Tokens)
-                {
-                    if (token.Design.CanColonize)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Property to determine if a fleet can re-fuel.
-        /// </summary>
-        public bool CanRefuel
-        {
-            get
-            {
-                foreach (ShipToken token in Tokens)
-                {
-                    if (token.Design.CanRefuel)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// This property is true if the fleet has at least one ship with a scanner.
-        /// </summary>
-        public bool CanScan
-        {
-            get
-            {
-                foreach (ShipToken token in Tokens)
-                {
-                    if (token.Design.CanScan)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Return the composition of a fleet (ship design and number of ships of that
-        /// design).
-        /// </summary>
-        public Dictionary<ShipDesign, int> Composition
-        {
-            get
-            {
-                Dictionary<ShipDesign, int> fleetComposition = new Dictionary<ShipDesign, int>();
-
-                foreach (ShipToken token in Tokens)
-                {
-                    int count;
-                    if (!fleetComposition.TryGetValue(token.Design, out count))
-                    {
-                        count = 0;
-                    }
-                    count += token.Quantity;
-                    fleetComposition[token.Design] = count;
-                }
-
-                return fleetComposition;
-            }
-        }
         
-        public Dictionary<long, ShipIntel> CompositionReport
-        {
-            get
-            {
-                Dictionary<long, ShipIntel> compositionReport = new Dictionary<long, ShipIntel>();
-                
-                foreach (ShipToken token in Tokens)
-                {
-                    if (!compositionReport.ContainsKey(token.Design.Key))
-                    {
-                        compositionReport.Add(token.Design.Key, token.Design.GenerateReport());
-                    }
-                    else
-                    {
-                        compositionReport[token.Design.Key].Count++;
-                    }
-                }
-                
-                return compositionReport;
-            }
-        }
-
-        /// <summary>
-        /// Return the current Defense capability of a fleet.
-        /// </summary>
-        public double Defenses
-        {
-            get
-            {
-                double totalDefenses = 0;
-
-                foreach (ShipToken token in Tokens)
-                {
-                    totalDefenses += (token.Design.Armor * token.Quantity);
-                    totalDefenses += (token.Design.Shield * token.Quantity);
-                }
-                return totalDefenses;
-            }
-        }
-
-        /// <summary>
-        /// Return Free Warp speed for fleet.
-        /// </summary>
-        public int FreeWarpSpeed
-        {
-            get
-            {
-                int speed = 10;
-                foreach (ShipToken token in Tokens)
-                {
-                    speed = Math.Min(speed, token.Design.FreeWarpSpeed);
-                }
-
-                return speed;
-            }
-        }
-
-        /// <summary>
-        /// Determine if the fleet has bombers.
-        /// </summary>
-        public bool HasBombers
-        {
-            get
-            {
-                bool bombers = false;
-                foreach (ShipToken token in Tokens)
-                {
-                    if (token.Design.IsBomber)
-                    {
-                        bombers = true;
-                    }
-                }
-                return bombers;
-            }
-        }
-
-        /// <summary>
-        /// Choose an image from one of the ships in the fleet.
-        /// </summary>
-        public ShipIcon Icon
-        {
-            get
-            {
-                try
-                {
-                    ShipToken token = Tokens[0];
-                    return token.Design.Icon;
-                }
-                catch
-                {
-                    Report.Error("Fleet.cs Fleet.Image (get): unable to get ship image.");
-                }
-                return null;
-            }
-        }
-
-        /// <summary>
-        /// Report if a fleet is armed.
-        /// </summary>
-        public bool IsArmed
-        {
-            get
-            {
-                foreach (ShipToken token in Tokens)
-                {
-                    if (token.Design.HasWeapons)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// Property to determine if a fleet is a starbase.
-        /// </summary>
-        public bool IsStarbase
-        {
-            get
-            {
-                foreach (ShipToken token in Tokens)
-                {
-                    if (token.Design.IsStarbase)
-                    {
-                        return true;
-                    }
-                }
-                return false;
-            }
-        }
-        
-        /// <summary>
-        /// Return the mass of a fleet.
-        /// </summary>
-        public new int Mass
-        {
-            get
-            {
-                double totalMass = 0;
-
-                foreach (ShipToken token in Tokens)
-                {
-                    totalMass += (token.Design.Mass * token.Quantity);
-                }
-                totalMass += Cargo.Mass;
-
-                return (int)totalMass;
-            }
-        }
-
-        /// <summary>
-        /// Return the the number of mines this fleet can lay.
-        /// </summary>
-        public int NumberOfMines
-        {
-            get
-            {
-                int mineCount = 0;
-
-                foreach (ShipToken token in Tokens)
-                {
-                    mineCount += (token.Design.MineCount * token.Quantity);
-                }
-
-                return mineCount;
-            }
-        }
-        
-        /// <summary>
-        /// Return the penetrating range scan capability of the fleet.
-        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear).
-        /// </summary>
-        public int PenScanRange
-        {
-            get
-            {
-                int penRange = 0;
-                
-                foreach (ShipToken token in Tokens)
-                {
-                    if (token.Design.ScanRangePenetrating > penRange)
-                    {
-                        penRange = token.Design.ScanRangePenetrating;
-                    }
-                }
-                return penRange;
-            }
-        }
-        
-        /// <summary>
-        /// Return the non penetrating range scan capability of the fleet.
-        /// FIXME (priority 4) - scanning capability can be addative (but the formula is non-linear).
-        /// </summary>
-        public int ScanRange
-        {
-            get
-            {
-                int scanRange = 0;
-                
-                foreach (ShipToken token in Tokens)
-                {
-                    if (token.Design.ScanRangeNormal > scanRange)
-                    {
-                        scanRange = token.Design.ScanRangeNormal;
-                    }
-                }
-                return scanRange;
-            }
-        }
-
-        /// <summary>
-        /// Return the current speed of the fleet.
-        /// </summary>
-        public int Speed
-        {
-            get
-            {
-                Waypoint target = Waypoints[0];
-                return target.WarpFactor;
-            }
-
-            set
-            {
-                Waypoint target = Waypoints[0];
-                target.WarpFactor = 0;
-            }
-
-        }
-
-        /// <summary>
-        /// Return the total amour strength of the fleet.
-        /// </summary>
-        public double TotalArmorStrength
-        {
-            get
-            {
-                double armor = 0;
-
-                foreach (ShipToken token in Tokens)
-                {
-                    armor += (token.Design.Armor * token.Quantity);
-                }
-
-                return armor;
-            }
-        }
-
-        /// <summary>
-        /// Find the total cargo capacity of the fleet.
-        /// </summary>
-        public int TotalCargoCapacity
-        {
-            get
-            {
-                return Tokens.Sum(token => token.Design.CargoCapacity);
-            }
-        }
-
-        /// <summary>
-        /// Return the cost of a fleet. 
-        /// </summary>
-        public Resources TotalCost
-        {
-            get
-            {
-                Resources cost = new Resources();
-
-                foreach (ShipToken token in Tokens)
-                {
-                    cost += token.Design.Cost;
-                }
-
-                return cost;
-            }
-        }
-
-        /// <summary>
-        /// Find the total dock capacity of the fleet.
-        /// </summary>
-        public int TotalDockCapacity
-        {
-            get
-            {
-                return Tokens.Sum(token => token.Design.DockCapacity);
-            }
-        }
-
-        /// <summary>
-        /// Find the total fuel capacity of all ships in the fleet.
-        /// </summary>
-        public int TotalFuelCapacity
-        {
-            get
-            {
-                return Tokens.Sum(token => token.Design.FuelCapacity);
-            }
-        }
-
-        /// <summary>
-        /// Return the total shield strength of the fleet.
-        /// </summary>
-        public double TotalShieldStrength
-        {
-            get
-            {
-                return Tokens.Sum(token => token.Design.Shield);
-            }
-        }
 
         /// <summary>
         /// Load: Initialising constructor to load a fleet from an XmlNode (save file).

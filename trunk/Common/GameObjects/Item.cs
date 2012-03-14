@@ -50,17 +50,7 @@ namespace Nova.Common
         /// +-- sign bit       +-- reserved     +-- owner    +-- client generated Id.
         /// </summary>
         private long key = Global.Nobody; // Default to no-id and no owner.
-
-        /// <summary>
-        /// The mass of the item (in kT).
-        /// </summary>
-        public int Mass;
-
-        /// <summary>
-        /// The resource cost to build (germanium, ironium, etc.).
-        /// </summary>
-        public Resources Cost = new Resources();
-
+        
         /// <summary>
         /// The name of the derived item, for example the name of a star.
         /// </summary>
@@ -157,11 +147,9 @@ namespace Nova.Common
                 return;
             }
 
-            this.Mass = existing.Mass;
-            this.Name = existing.Name;
-            this.Owner = existing.Owner;
-            this.Type = existing.Type;
-            this.Cost = new Resources(existing.Cost);
+            Name = existing.Name;
+            Owner = existing.Owner;
+            Type = existing.Type;
         }
         
         /// <summary>
@@ -206,17 +194,11 @@ namespace Nova.Common
                         case "key":
                             key = long.Parse(mainNode.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                             break;
-                        case "mass":
-                            Mass = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
-                            break;
                         case "name":
                             Name = mainNode.FirstChild.Value;
                             break;
                         case "type":
                             Type = (ItemType)Enum.Parse(typeof(ItemType), mainNode.FirstChild.Value);
-                            break;
-                        case "cost":
-                            Cost = new Resources(mainNode);
                             break;
                     }
                 }
@@ -249,13 +231,6 @@ namespace Nova.Common
             }
             
             Global.SaveData(xmldoc, xmlelItem, "Type", Type.ToString());
-
-            if (Mass != 0)
-            {
-                Global.SaveData(xmldoc, xmlelItem, "Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            }
-
-            xmlelItem.AppendChild(Cost.ToXml(xmldoc, "Cost"));
 
             return xmlelItem;
         }

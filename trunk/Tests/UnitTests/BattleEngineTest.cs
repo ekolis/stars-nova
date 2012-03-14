@@ -124,13 +124,9 @@ namespace Nova.Tests.UnitTests
             shipHull.Properties.Add("Battle Movement", new DoubleProperty(1.0));
 
             cruiser.ShipHull = shipHull;
-            // cruiser.Mass = 5000;
-            // cruiser.Cost = cost;
             cruiser.Name = "Cruiser";
 
             frigate.ShipHull = shipHull;
-            // frigate.Mass = 5000;
-            // frigate.Cost = cost;
             frigate.Name = "Frigate";
 
             token1 = new ShipToken(cruiser, 1);
@@ -142,11 +138,6 @@ namespace Nova.Tests.UnitTests
             token2.Armor = 200;
             token3.Armor = 100;
             token4.Armor = 200;
-
-            token1.Design.Cost = cost;
-            token2.Design.Cost = cost;
-            token3.Design.Cost = cost;
-            token4.Design.Cost = cost;
 
             fleet1.Tokens.Add(token1);
             fleet2.Tokens.Add(token2);

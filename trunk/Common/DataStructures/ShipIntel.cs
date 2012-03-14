@@ -48,6 +48,11 @@ namespace Nova.Common
         public int      Count   { get; set; }
         
         /// <summary>
+        /// Total mass of the Fleet
+        /// </summary>
+        public int      Mass    { get; set; }
+        
+        /// <summary>
         /// Default constructor. Sets sensible but meaningless default values for this report.
         /// </summary>
         public ShipIntel()
@@ -72,11 +77,17 @@ namespace Nova.Common
                     case "name":
                         Name = node.FirstChild.Value;
                         break;
+                        
                     case "design":
                         Design = long.Parse(node.FirstChild.Value, System.Globalization.NumberStyles.HexNumber);
                         break;
+                        
                     case "count":
                         Count = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
+                        break;
+                        
+                    case "mass":
+                        Mass = int.Parse(node.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                         break;
                     }
                 }
@@ -111,6 +122,7 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelShipIntel, "Name", Name);
             Global.SaveData(xmldoc, xmlelShipIntel, "Design", Design.ToString("X"));
             Global.SaveData(xmldoc, xmlelShipIntel, "Count", Count.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelShipIntel, "Mass", Mass.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             return xmlelShipIntel;   
         }
