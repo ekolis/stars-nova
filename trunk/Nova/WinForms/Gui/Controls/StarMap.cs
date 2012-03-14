@@ -785,7 +785,7 @@ namespace Nova.WinForms.Gui
         /// <param name="snapToObject"></param>
         private void LeftShiftMouse(MouseEventArgs e, bool snapToObject)
         {
-            Item item = RequestSelectionEvent();
+            Mappable item = RequestSelectionEvent();
 
             if (item == null || !(item is Fleet))
             {
@@ -795,7 +795,7 @@ namespace Nova.WinForms.Gui
             NovaPoint click = new NovaPoint(e.X, e.Y);
             Fleet fleet = item as Fleet;
             NovaPoint position = DeviceToLogical(click);
-            List<Item> nearObjects = FindNearObjects(position);
+            List<Mappable> nearObjects = FindNearObjects(position);
             Waypoint waypoint = new Waypoint();
 
             waypoint.Position = position;
@@ -815,7 +815,7 @@ namespace Nova.WinForms.Gui
             }
             else
             {
-                Item selected = nearObjects[0];
+                Mappable selected = nearObjects[0];
                 waypoint.Position = selected.Position;
                 waypoint.Destination = selected.Name;
             }
@@ -858,7 +858,7 @@ namespace Nova.WinForms.Gui
             NovaPoint click = new NovaPoint(e.X, e.Y);
             position = DeviceToLogical(click);
 
-            List<Item> nearObjects = FindNearObjects(position);
+            List<Mappable> nearObjects = FindNearObjects(position);
             if (nearObjects.Count == 0)
             {
                 return;
@@ -883,7 +883,7 @@ namespace Nova.WinForms.Gui
             }
 
             lastClick = click;
-            Item item = nearObjects[selection];       
+            Mappable item = nearObjects[selection];       
 
             SetCursor(item.Position);
             
@@ -896,7 +896,7 @@ namespace Nova.WinForms.Gui
             NovaPoint click = new NovaPoint(e.X, e.Y);
             position = DeviceToLogical(click);
 
-            List<Item> nearObjects = FindNearObjects(position);
+            List<Mappable> nearObjects = FindNearObjects(position);
             if (nearObjects.Count == 0)
             {
                 return;
@@ -937,7 +937,7 @@ namespace Nova.WinForms.Gui
                 return;
             }
 
-            Item item = menuItem.Tag as Item;
+            Mappable item = menuItem.Tag as Mappable;
             if (item == null)
             {
                 return;
@@ -963,9 +963,9 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         /// <param name="position">Starting Point for the search.</param>
         /// <returns>A list of Fleet and Star objects.</returns>
-        private List<Item> FindNearObjects(NovaPoint position)
+        private List<Mappable> FindNearObjects(NovaPoint position)
         {
-            List<Item> nearObjects = new List<Item>();
+            List<Mappable> nearObjects = new List<Mappable>();
 
             foreach (FleetIntel report in clientState.EmpireState.FleetReports.Values)
             {

@@ -38,7 +38,7 @@ namespace Nova.Common
     /// A fleet may be a starbase.
     /// </summary>
     [Serializable]
-    public class Fleet : Item
+    public class Fleet : Mappable
     {   
         /// <summary>
         /// Holds the ship tokens in the format "ShipDesign, Quantity, Damage%"
@@ -53,7 +53,7 @@ namespace Nova.Common
         public Cargo Cargo = new Cargo(); 
 
         public Fleet Target = null;
-        public Item InOrbit = null;
+        public Mappable InOrbit = null;
         public double BattleSpeed = 0; // used by a stack on the battle board
         public double Bearing = 0;
         public double Cloaked = 0;

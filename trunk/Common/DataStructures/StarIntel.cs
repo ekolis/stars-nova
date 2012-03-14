@@ -31,7 +31,7 @@ namespace Nova.Common
     /// know about a Star system.
     /// </summary>
     [Serializable]
-    public class StarIntel : Item
+    public class StarIntel : Mappable
     {
         public int          Year                    { get; set; }
         public Resources    MineralConcentration    { get; set; }
@@ -218,10 +218,10 @@ namespace Nova.Common
         {
             XmlElement xmlelStarIntel = xmldoc.CreateElement("StarIntel");
             
-            Global.SaveData(xmldoc, xmlelStarIntel, "Year", Year.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            
             // include inherited Item properties
             xmlelStarIntel.AppendChild(base.ToXml(xmldoc));
+            
+            Global.SaveData(xmldoc, xmlelStarIntel, "Year", Year.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
             xmlelStarIntel.AppendChild(MineralConcentration.ToXml(xmldoc, "MineralConcentration"));
             

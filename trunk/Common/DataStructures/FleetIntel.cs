@@ -1,4 +1,3 @@
-using NUnit.Framework;
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2011 The Stars-Nova Project
@@ -33,7 +32,7 @@ namespace Nova.Common
     /// know about a Fleet.
     /// </summary>
     [Serializable]
-    public class FleetIntel : Item
+    public class FleetIntel : Mappable
     {
         public int                          Year        { get; set; }
         public ShipIcon                     Icon        { get; set; }
@@ -223,10 +222,10 @@ namespace Nova.Common
             
             XmlElement xmlelFleetIntel = xmldoc.CreateElement("FleetIntel");
             
-            Global.SaveData(xmldoc, xmlelFleetIntel, "Year", Year.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            
             // include inherited Item properties
             xmlelFleetIntel.AppendChild(base.ToXml(xmldoc));
+            
+            Global.SaveData(xmldoc, xmlelFleetIntel, "Year", Year.ToString(System.Globalization.CultureInfo.InvariantCulture));
             
             Global.SaveData(xmldoc, xmlelFleetIntel, "Icon", Icon.Source);
             

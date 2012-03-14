@@ -37,7 +37,7 @@ namespace Nova.WinForms.Gui
     {
         private readonly EmpireData empireState;
         
-        private Item selectedItem = null;
+        private Mappable selectedItem = null;
         private UserControl selectedControl = null;
         
         public PlanetDetail PlanetDetail; 
@@ -135,7 +135,7 @@ namespace Nova.WinForms.Gui
             }
         }
         
-        public Item ReportItem()
+        public Mappable ReportItem()
         {
             return selectedItem;
         }

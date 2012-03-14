@@ -349,7 +349,7 @@ namespace Nova.WinForms.Gui
             }
         }
         
-        private void UpdateListeners(Item item)
+        private void UpdateListeners(Mappable item)
         {
             if (DetailSelectionChangedEvent != null && item.Owner == empireState.Id)
             {
