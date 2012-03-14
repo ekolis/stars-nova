@@ -55,7 +55,8 @@ namespace Nova.Common
                 return;
             }
             
-            Position = existing.Position;
+            // Use a new object, no just a reference to the copy's NovaPoint
+            Position = new NovaPoint(existing.Position);
         }
         
         /// <summary>

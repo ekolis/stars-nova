@@ -65,6 +65,28 @@ namespace Nova.Common.Components
         public ShipIcon Icon = null;
         
         /// <summary>
+        /// Returns the total Mass (No cargo) of this design.
+        /// </summary>
+        public int Mass
+        {
+            get
+            {
+                return Summary.Mass;   
+            }
+        }
+        
+        /// <summary>
+        /// Returns the total Cost of this design.
+        /// </summary>
+        public Resources Cost
+        {
+            get
+            {
+                return Summary.Cost;
+            }
+        }
+        
+        /// <summary>
         /// Get the total sheild value of this ShipDesign.
         /// </summary>
         public int Shield
@@ -500,7 +522,9 @@ namespace Nova.Common.Components
             {
                 return; // not much of a ship yet
             }
+            
             Hull hullProperties = null;
+            
             if (ShipHull.Properties.ContainsKey("Hull"))
             {
                 hullProperties = ShipHull.Properties["Hull"] as Hull;
@@ -548,8 +572,6 @@ namespace Nova.Common.Components
                     SumProperty(module.AllocatedComponent.Properties[key], key, module.ComponentCount);
                 }
             }
-            Mass = Summary.Mass;
-            Cost = Summary.Cost;
         }
 
         /// <summary>
@@ -695,17 +717,6 @@ namespace Nova.Common.Components
         }
         
         
-        public ShipIntel GenerateReport()
-        {
-            ShipIntel report = new ShipIntel();
-            report.Design   = Key;
-            report.Name     = Name;
-            report.Count    = 1; // This has to be updated at Fleet or FleetIntel level
-            
-            return report;
-        }
-
-
         /// <summary>
         /// Generate an XmlElement representation of the ShipDesign for saving to file.
         /// Note this uses the minimal approach of storing the ship hull object 
