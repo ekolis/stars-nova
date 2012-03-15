@@ -165,8 +165,8 @@ namespace Nova.Server.NewGame
             }
 
             ShipDesign cs = new ShipDesign(empire.GetNextDesignKey());
-            cs.ShipHull = colonyShipHull;
-            foreach (HullModule module in (cs.ShipHull.Properties["Hull"] as Hull).Modules)
+            cs.Blueprint = colonyShipHull;
+            foreach (HullModule module in (cs.Blueprint.Properties["Hull"] as Hull).Modules)
             {
                 if (module.ComponentType == "Engine")
                 {
@@ -186,8 +186,8 @@ namespace Nova.Server.NewGame
             cs.Update();
 
             ShipDesign scout = new ShipDesign(empire.GetNextDesignKey());
-            scout.ShipHull = scoutHull;
-            foreach (HullModule module in (scout.ShipHull.Properties["Hull"] as Hull).Modules)
+            scout.Blueprint = scoutHull;
+            foreach (HullModule module in (scout.Blueprint.Properties["Hull"] as Hull).Modules)
             {
                 if (module.ComponentType == "Engine")
                 {
@@ -208,12 +208,12 @@ namespace Nova.Server.NewGame
 
             ShipDesign starbase = new ShipDesign(empire.GetNextDesignKey());
             starbase.Name = "Starbase";
-            starbase.ShipHull = starbaseHull;
+            starbase.Blueprint = starbaseHull;
             starbase.Type = ItemType.Starbase;
             starbase.Icon = new ShipIcon(starbaseHull.ImageFile, (Bitmap)starbaseHull.ComponentImage);
             bool weaponSwitcher = false; // start with laser
             bool armorSwitcher = false; // start with armor
-            foreach (HullModule module in (starbase.ShipHull.Properties["Hull"] as Hull).Modules)
+            foreach (HullModule module in (starbase.Blueprint.Properties["Hull"] as Hull).Modules)
             {
                 if (module.ComponentType == "Weapon")
                 {

@@ -123,10 +123,10 @@ namespace Nova.Tests.UnitTests
             shipHull.Properties.Add("Hull", hull);
             shipHull.Properties.Add("Battle Movement", new DoubleProperty(1.0));
 
-            cruiser.ShipHull = shipHull;
+            cruiser.Blueprint = shipHull;
             cruiser.Name = "Cruiser";
 
-            frigate.ShipHull = shipHull;
+            frigate.Blueprint = shipHull;
             frigate.Name = "Frigate";
 
             token1 = new ShipToken(cruiser, 1);

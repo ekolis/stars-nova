@@ -34,7 +34,7 @@ namespace Nova.Common.Components
     public class ShipDesign : Item
     {
         // This is the component that contains the Hull property, to which all other ships components attach.
-        public Component ShipHull = null;
+        public Component Blueprint = null;
 
         // Note there are get properties for: Armor, Shield, FuelCapcity, CargoCapacity, etc
 
@@ -177,9 +177,9 @@ namespace Nova.Common.Components
         {
             get
             {
-                if (ShipHull.Properties.ContainsKey("Hull"))
+                if (Blueprint.Properties.ContainsKey("Hull"))
                 {
-                    return ((Hull)ShipHull.Properties["Hull"]).DockCapacity;
+                    return ((Hull)Blueprint.Properties["Hull"]).DockCapacity;
                 }
                 else
                 {
@@ -334,9 +334,9 @@ namespace Nova.Common.Components
         {
             get
             {
-                if (ShipHull.Properties.ContainsKey("Hull"))
+                if (Blueprint.Properties.ContainsKey("Hull"))
                 {
-                    Hull hull = ShipHull.Properties["Hull"] as Hull;
+                    Hull hull = Blueprint.Properties["Hull"] as Hull;
                     foreach (HullModule module in hull.Modules)
                     {
                         if (module.AllocatedComponent != null && module.AllocatedComponent.Type == ItemType.Engine)
@@ -356,9 +356,9 @@ namespace Nova.Common.Components
         {
             get
             {
-                if (ShipHull.Properties.ContainsKey("Hull"))
+                if (Blueprint.Properties.ContainsKey("Hull"))
                 {
-                    Hull hull = ShipHull.Properties["Hull"] as Hull;
+                    Hull hull = Blueprint.Properties["Hull"] as Hull;
                     return hull.IsStarbase;
                 }
                 // It doesn't even have a Hull!
@@ -374,9 +374,9 @@ namespace Nova.Common.Components
         {
             get
             {
-                if (ShipHull.Properties.ContainsKey("Hull"))
+                if (Blueprint.Properties.ContainsKey("Hull"))
                 {
-                    Hull hull = ShipHull.Properties["Hull"] as Hull;
+                    Hull hull = Blueprint.Properties["Hull"] as Hull;
                     return hull.CanRefuel;
                 }
                 // It doesn't even have a Hull!
@@ -393,9 +393,9 @@ namespace Nova.Common.Components
             get
             {
                 int initiative = 0;
-                if (ShipHull.Properties.ContainsKey("Hull"))
+                if (Blueprint.Properties.ContainsKey("Hull"))
                 {
-                    initiative += ((Hull)ShipHull.Properties["Hull"]).BattleInitiative;
+                    initiative += ((Hull)Blueprint.Properties["Hull"]).BattleInitiative;
                 }
                 if (Summary.Properties.ContainsKey("Computer"))
                 {
@@ -518,16 +518,16 @@ namespace Nova.Common.Components
         /// </summary>
         public void Update()
         {
-            if (ShipHull == null)
+            if (Blueprint == null)
             {
                 return; // not much of a ship yet
             }
             
             Hull hullProperties = null;
             
-            if (ShipHull.Properties.ContainsKey("Hull"))
+            if (Blueprint.Properties.ContainsKey("Hull"))
             {
-                hullProperties = ShipHull.Properties["Hull"] as Hull;
+                hullProperties = Blueprint.Properties["Hull"] as Hull;
             }
             else
             {
@@ -535,7 +535,7 @@ namespace Nova.Common.Components
             }
 
             // Start by copying the basic properties of the hull
-            Summary = new Component(ShipHull);
+            Summary = new Component(Blueprint);
 
             // Add those properties which are included with the hull
             
@@ -547,13 +547,13 @@ namespace Nova.Common.Components
             Summary.Properties.Add("Fuel", fuel);
 
             // Check any non Hull properties of the ShipHull
-            foreach (string key in ShipHull.Properties.Keys)
+            foreach (string key in Blueprint.Properties.Keys)
             {
                 if (key == "Hull")
                 {
                     continue;
                 }
-                SumProperty(ShipHull.Properties[key], key, 1);
+                SumProperty(Blueprint.Properties[key], key, 1);
             }
 
             // Then add all of the components fitted to the hull modules.
@@ -728,9 +728,9 @@ namespace Nova.Common.Components
         public new XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelShipDesign = xmldoc.CreateElement("ShipDesign");
-            Global.SaveData(xmldoc, xmlelShipDesign, "Icon", Icon.Source);
-            xmlelShipDesign.AppendChild(ShipHull.ToXml(xmldoc));
             xmlelShipDesign.AppendChild(base.ToXml(xmldoc));
+            Global.SaveData(xmldoc, xmlelShipDesign, "Icon", Icon.Source);
+            xmlelShipDesign.AppendChild(Blueprint.ToXml(xmldoc));            
             return xmlelShipDesign;
         }
 
@@ -749,7 +749,7 @@ namespace Nova.Common.Components
                     switch (mainNode.Name.ToLower())
                     {
                         case "component":
-                            ShipHull = new Component(mainNode);
+                            Blueprint = new Component(mainNode);
                             break;
                         case "icon":
                             string iconSource = mainNode.FirstChild.Value;

@@ -150,7 +150,7 @@ namespace Nova.WinForms.Gui
             hullProperties.Modules = HullGrid.ActiveModules;
             newDesign.Name = DesignName.Text;
             newDesign.Owner = clientState.EmpireState.Id;
-            newDesign.ShipHull = selectedHull;
+            newDesign.Blueprint = selectedHull;
             newDesign.Icon = shipIcon;
             newDesign.Update();
 
