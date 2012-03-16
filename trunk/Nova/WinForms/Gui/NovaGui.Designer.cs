@@ -31,7 +31,7 @@
             this.helpToolStripMenuItem          = new System.Windows.Forms.ToolStripMenuItem();
             this.aboutToolStripMenuItem         = new System.Windows.Forms.ToolStripMenuItem();
             
-            this.messages           = new Nova.WinForms.Gui.MessageDisplay();
+            this.messages           = new Nova.WinForms.Gui.Messages();
             this.selectionDetail    = new Nova.WinForms.Gui.SelectionDetail(clientState.EmpireState, clientState);
             this.selectionSummary   = new Nova.WinForms.Gui.SelectionSummary(clientState.EmpireState);
             this.mapControl         = new Nova.WinForms.Gui.StarMap();
@@ -219,12 +219,16 @@
             this.aboutToolStripMenuItem.Size = new System.Drawing.Size(107, 22);
             this.aboutToolStripMenuItem.Text = "&About";
             this.aboutToolStripMenuItem.Click += new System.EventHandler(this.MenuAbout);
-            //
+            // 
             // messages
-            //
+            // 
+            this.messages.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+                        | System.Windows.Forms.AnchorStyles.Left)));
             this.messages.Location = new System.Drawing.Point(8, 412);
+            this.messages.Name = "messages";
+            this.messages.Size = new System.Drawing.Size(360, 116);
             this.messages.TabIndex = 18;
-            this.messages.TabStop = false;            
+            this.messages.Year = Global.StartingYear;
             // 
             // selectionDetail
             // 
@@ -289,7 +293,7 @@
         private ToolStripMenuItem scoresMenuItem;
         private ToolStripMenuItem generateTurnToolStripMenuItem;
         private ToolStripMenuItem loadNextTurnToolStripMenuItem;
-        private MessageDisplay messages;
+        private Messages messages;
         private SelectionSummary selectionSummary;
         private SelectionDetail selectionDetail;
         private StarMap mapControl;
