@@ -87,7 +87,7 @@ namespace Nova.WinForms.Gui
             get { return selectionSummary; }
         }
 
-        public Messages Messages
+        public MessageDisplay Messages
         {
             get { return messages; }
         }
