@@ -177,9 +177,6 @@
     <Compile Include="WinForms\Gui\Controls\FleetDetail.Designer.cs">
       <DependentUpon>FleetDetail.cs</DependentUpon>
     </Compile>
-    <Compile Include="WinForms\Gui\Controls\MessageDisplay.Designer.cs">
-      <DependentUpon>MessageDisplay.cs</DependentUpon>
-    </Compile>
     <Compile Include="WinForms\Gui\Controls\PlanetDetail.Designer.cs">
       <DependentUpon>PlanetDetail.cs</DependentUpon>
     </Compile>
@@ -228,7 +225,7 @@
     <Compile Include="WinForms\Gui\Controls\FleetSummary.Designer.cs">
       <DependentUpon>FleetSummary.cs</DependentUpon>
     </Compile>
-    <Compile Include="WinForms\Gui\Controls\MessageDisplay.cs">
+    <Compile Include="WinForms\Gui\Controls\Messages.cs">
       <SubType>UserControl</SubType>
     </Compile>
     <Compile Include="WinForms\Gui\Controls\StarMapPanel.cs">
@@ -422,8 +419,8 @@
       <DependentUpon>FleetSummary.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
-    <EmbeddedResource Include="WinForms\Gui\Controls\MessageDisplay.resx">
-      <DependentUpon>MessageDisplay.cs</DependentUpon>
+    <EmbeddedResource Include="WinForms\Gui\Controls\Messages.resx">
+      <DependentUpon>Messages.cs</DependentUpon>
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <EmbeddedResource Include="WinForms\Gui\Controls\PlanetSummary.resx">
