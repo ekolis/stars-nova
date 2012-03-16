@@ -57,7 +57,7 @@ namespace Nova.Ai
                     }
 
                     // build mines
-                    int maxMines = 5000; // FIXME (priority 3) - determine the maximum number of mines for this star.
+                    int maxMines = star.GetOperableMines();
                     if (star.Mines < maxMines) 
                     {
                         productionOrder = new ProductionOrder(maxMines - star.Mines, new MineProductionUnit(clientState.EmpireState.Race), true);
