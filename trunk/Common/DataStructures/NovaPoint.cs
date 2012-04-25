@@ -110,7 +110,11 @@ namespace Nova.Common.DataStructures
         /// <returns>Returns true if this.X == obj.X and this.Y == obj.Y and obj is a NovaPoint or Point.</returns>
         public override bool Equals(object obj)
         {
-            if (obj is NovaPoint)
+            if (obj == null)
+            {
+                return false;
+            }
+            else if (obj is NovaPoint)
             {
                 return this.X == ((NovaPoint)obj).X && this.Y == ((NovaPoint)obj).Y;
             }

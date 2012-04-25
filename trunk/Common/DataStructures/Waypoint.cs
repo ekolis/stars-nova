@@ -122,7 +122,7 @@ namespace Nova.Common
             Global.SaveData(xmldoc, xmlelWaypoint, "Task", GetTask());
             Global.SaveData(xmldoc, xmlelWaypoint, "WarpFactor", WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
             // point
-            if (Position.X != 0 || Position.Y != 0)
+            if (Position != null && (Position.X != 0 || Position.Y != 0))
             {
                 XmlElement xmlelPoint = xmldoc.CreateElement("Position");
                 Global.SaveData(xmldoc, xmlelPoint, "X", Position.X.ToString(System.Globalization.CultureInfo.InvariantCulture));
