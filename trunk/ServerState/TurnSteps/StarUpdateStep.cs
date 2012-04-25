@@ -210,8 +210,8 @@ namespace Nova.Server.TurnSteps
                     {
                         newComponentMessage = new Message(
                             empire.Id,
-                            null,
                             "All existing planetary scanners has been replaced by " + component.Name + " " + component.Type,
+                            "NewComponentMessage",
                             null);
                         
                         foreach (Star star in empire.OwnedStars.Values)
@@ -227,8 +227,8 @@ namespace Nova.Server.TurnSteps
                     {
                         newComponentMessage = new Message(
                            empire.Id,
-                           null,
                            "You now have available the " + component.Name + " " + component.Type + " component",
+                           "NewComponentMessage", // TODO (priority 4) - Is this used? Is it documented somewhere? Why a string and not an enum?
                            null);
                     }
                     serverState.AllMessages.Add(newComponentMessage);

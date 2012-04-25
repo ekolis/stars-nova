@@ -177,7 +177,8 @@ namespace Nova.Ai
             // check if messages contains info about tech advence
             foreach (Message msg in clientState.Messages)
             {
-                if (msg.Text.Contains("Your race has advanced to Tech Level") == true)
+                
+                if ( ! String.IsNullOrEmpty(msg.Text) && msg.Text.Contains("Your race has advanced to Tech Level") == true)
                 {
                     int minLevel = int.MaxValue;
                     Nova.Common.TechLevel.ResearchField targetResearchField = TechLevel.ResearchField.Weapons; // default to researching weapons
