@@ -141,6 +141,7 @@ namespace Nova.Common.Components
         {
             get
             {
+                if (Summary.Properties.Count == 0) Update();
                 if (Summary.Properties.ContainsKey("Fuel"))
                 {
                     return ((Fuel)Summary.Properties["Fuel"]).Capacity;
