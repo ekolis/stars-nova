@@ -523,9 +523,9 @@ namespace Nova.Common.Components
             {
                 return; // not much of a ship yet
             }
-            
+
             Hull hullProperties = null;
-            
+
             if (Blueprint.Properties.ContainsKey("Hull"))
             {
                 hullProperties = Blueprint.Properties["Hull"] as Hull;
@@ -539,14 +539,17 @@ namespace Nova.Common.Components
             Summary = new Component(Blueprint);
 
             // Add those properties which are included with the hull
-            
+
             IntegerProperty armor = new IntegerProperty(hullProperties.ArmorStrength);
             Summary.Properties.Add("Armor", armor);
             IntegerProperty cargo = new IntegerProperty(hullProperties.BaseCargo);
             Summary.Properties.Add("Cargo", cargo);
-            Fuel fuel = new Fuel(hullProperties.FuelCapacity, 0);
-            Summary.Properties.Add("Fuel", fuel);
 
+            if (!Summary.Properties.ContainsKey("Fuel"))
+            {
+                Fuel fuel = new Fuel(hullProperties.FuelCapacity, 0);
+                Summary.Properties.Add("Fuel", fuel);
+            }
             // Check any non Hull properties of the ShipHull
             foreach (string key in Blueprint.Properties.Keys)
             {
