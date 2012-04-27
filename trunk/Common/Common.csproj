@@ -126,12 +126,10 @@
     <Compile Include="Converters\InstanceDescriptorConverter.cs" />
     <Compile Include="Converters\ResourcesConverter.cs" />
     <Compile Include="Converters\TechLevelConverter.cs" />
-    <Compile Include="DataStructures\NoProductionUnit.cs" />
     <Compile Include="DataStructures\FleetList.cs" />
     <Compile Include="DataStructures\Gravity.cs" />
     <Compile Include="DataStructures\GravityTolerance.cs" />
     <Compile Include="DataStructures\NovaPoint.cs" />
-    <Compile Include="DataStructures\ProductionOrder.cs" />
     <Compile Include="DataStructures\ShipIcon.cs" />
     <Compile Include="DataStructures\RadiationTolerance.cs" />
     <Compile Include="DataStructures\ShipIntel.cs" />
@@ -145,6 +143,18 @@
     <Compile Include="GameObjects\Mappable.cs" />
     <Compile Include="GameObjects\ShipToken.cs" />
     <Compile Include="PasswordUtility.cs" />
+    <Compile Include="Production\AlchemyProductionUnit.cs" />
+    <Compile Include="Production\DefenseProductionUnit.cs" />
+    <Compile Include="Production\FactoryProductionUnit.cs" />
+    <Compile Include="Production\MineProductionUnit.cs" />
+    <Compile Include="Production\NoProductionUnit.cs" />
+    <Compile Include="Production\ProductionOrder.cs" />
+    <Compile Include="Production\ProductionQueue.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Production\ProductionUnit.cs" />
+    <Compile Include="Production\ShipProductionUnit.cs" />
+    <Compile Include="Production\TerraformProductionUnit.cs" />
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -207,26 +217,18 @@
     <Compile Include="GameObjects\Item.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DataStructures\DefenseProductionUnit.cs" />
     <Compile Include="DataStructures\EnabledValue.cs" />
     <Compile Include="DataStructures\EnvironmentTolerance.cs" />
-    <Compile Include="DataStructures\FactoryProductionUnit.cs" />
     <Compile Include="Files\GameSettings.cs" />
     <Compile Include="DataStructures\Message.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GameObjects\MineField.cs" />
     <Compile Include="RaceDefinition\PrimaryTraits.cs" />
-    <Compile Include="DataStructures\MineProductionUnit.cs" />
-    <Compile Include="DataStructures\AlchemyProductionUnit.cs" />
     <Compile Include="DataStructures\PlayerSettings.cs" />
-    <Compile Include="DataStructures\ProductionUnit.cs" />
     <Compile Include="RaceDefinition\RaceIcon.cs" />
     <Compile Include="RaceDefinition\RaceRestriction.cs" />
     <Compile Include="PointUtilities.cs">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DataStructures\ProductionQueue.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="RaceDefinition\Race.cs">
@@ -243,9 +245,7 @@
     <Compile Include="Files\Intel.cs" />
     <Compile Include="DataStructures\ScoreRecord.cs" />
     <Compile Include="RaceDefinition\SecondaryTraits.cs" />
-    <Compile Include="DataStructures\ShipProductionUnit.cs" />
     <Compile Include="DataStructures\TechLevel.cs" />
-    <Compile Include="DataStructures\TerraformProductionUnit.cs" />
     <Compile Include="DataStructures\Waypoint.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -307,5 +307,7 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
     <ProjectGuid>{EF679930-F4C9-4D62-9A6A-DE29F8D328C0}</ProjectGuid>
     <RootNamespace>Nova.Common</RootNamespace>
   </PropertyGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Production" />
+  </ItemGroup>
 </Project>
