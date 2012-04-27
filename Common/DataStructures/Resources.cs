@@ -128,7 +128,7 @@ namespace Nova.Common
         public static Resources operator *(Resources lhs, int rhs)
         {
             Resources result = new Resources();
-
+            
             result.Ironium = lhs.Ironium * rhs;
             result.Boranium = lhs.Boranium * rhs;
             result.Germanium = lhs.Germanium * rhs;
@@ -146,10 +146,10 @@ namespace Nova.Common
         {
             Resources result = new Resources();
             
-            result.Ironium = (int)(lhs.Ironium * rhs);
-            result.Boranium = (int)(lhs.Boranium * rhs);
-            result.Germanium = (int)(lhs.Germanium * rhs);
-            result.Energy = (int)(lhs.Energy * rhs);
+            result.Ironium = (int)Math.Ceiling((double)lhs.Ironium * rhs);
+            result.Boranium = (int)Math.Ceiling((double)lhs.Boranium * rhs);
+            result.Germanium = (int)Math.Ceiling((double)lhs.Germanium * rhs);
+            result.Energy = (int)Math.Ceiling((double)lhs.Energy * rhs);
             
             return result;
         }
