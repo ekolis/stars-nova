@@ -146,7 +146,7 @@ namespace Nova.Common.DataStructures
         /// <param name="b">Another NovaPoint to compare.</param>
         /// <returns>Returns false if the points have the same location (X, Y).</returns>
         public static bool operator !=(NovaPoint a, NovaPoint b)
-        {
+        {            
             return !a.Equals(b);
         }
 

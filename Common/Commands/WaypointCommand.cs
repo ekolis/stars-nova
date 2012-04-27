@@ -157,7 +157,7 @@ namespace Nova.Common.Commands
             Global.SaveData(xmldoc, xmlelCom, "Mode", Mode.ToString());
             Global.SaveData(xmldoc, xmlelCom, "FleetKey", FleetKey.ToString("X"));
             Global.SaveData(xmldoc, xmlelCom, "Index", Index.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            xmlelCom.AppendChild(Waypoint.ToXml(xmldoc));            
+            if (Waypoint != null) xmlelCom.AppendChild(Waypoint.ToXml(xmldoc));            
             
             return xmlelCom;    
         }

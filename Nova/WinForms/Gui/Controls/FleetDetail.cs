@@ -218,7 +218,8 @@ namespace Nova.WinForms.Gui
             }
             
             WaypointCommand command = new WaypointCommand(CommandMode.Delete, selectedFleet.Key, index);
-            
+            command.Waypoint = null; // there is no waypoint, just delete it.
+
             commands.Push(command);
             
             if (command.isValid(empireState))
