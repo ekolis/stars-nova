@@ -3620,7 +3620,7 @@ This scanner is capable of determining a planets basics statistics at a range up
     </Race_Restrictions>
     <Image>Defense/Neutron_Shield.png</Image>
     <Property>
-      <Value>3,5</Value>
+      <Value>35</Value>
       <Type>Defense</Type>
     </Property>
   </Component>
@@ -4627,7 +4627,7 @@ This scanner has an intrinsic 20% cloaking ability.</Description>
     </Race_Restrictions>
     <Image>Defense/Laser_Battery.png</Image>
     <Property>
-      <Value>2,5</Value>
+      <Value>25</Value>
       <Type>Defense</Type>
     </Property>
   </Component>
@@ -4747,6 +4747,8 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <Weapons>0</Weapons>
       <Construction>7</Construction>
     </Tech>
+    <Description>
+    </Description>
     <Race_Restrictions />
     <Image>Ship/Super_Fuel_Transport0000.png</Image>
     <Property>
@@ -4761,6 +4763,24 @@ This scanner is capable of determining planetary statistics whilst in orbit.</De
       <BaseCargo>0</BaseCargo>
       <ArmorStrength>12</ArmorStrength>
       <BattleInitiative>0</BattleInitiative>
+      <Module>
+        <CellNumber>11</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>2</ComponentMaximum>
+        <ComponentType>Engine</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>12</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>2</ComponentMaximum>
+        <ComponentType>Shield</ComponentType>
+      </Module>
+      <Module>
+        <CellNumber>13</CellNumber>
+        <ComponentCount>0</ComponentCount>
+        <ComponentMaximum>1</ComponentMaximum>
+        <ComponentType>Scanner</ComponentType>
+      </Module>
       <Type>Hull</Type>
     </Property>
   </Component>
