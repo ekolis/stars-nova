@@ -126,36 +126,38 @@ namespace Nova.Server.NewGame
             // Read components data and create some basic stuff
             AllComponents.Restore();
             Dictionary<string, Component> components = AllComponents.Data.Components;
-            Component colonyShipHull = null, scoutHull = null; 
-            Component engine = null, colonyShipEngine = null;
+            
+            Component colonyShipHull = null, scoutHull = null;            
             Component colonizer = null;
-            Component scaner = components["Bat Scanner"];
-            Component armor = components["Tritanium"];
-            Component shield = components["Mole-skin Shield"];
-            Component laser = components["Laser"];
-            Component torpedo = components["Alpha Torpedo"];
+            Component scaner = new Component(components["Bat Scanner"]);
+            Component armor = new Component(components["Tritanium"]);
+            Component shield = new Component(components["Mole-skin Shield"]);
+            Component laser = new Component(components["Laser"]);
+            Component torpedo = new Component(components["Alpha Torpedo"]);
 
-            Component starbaseHull = components["Space Station"];
-            engine = components["Quick Jump 5"];
+            Component starbaseHull = new Component(components["Space Station"]);
+            Component engine = new Component(components["Quick Jump 5"]);
+            Component colonyShipEngine = null;
 
             if (empire.Race.Traits.Primary.Code != "HE")
             {
-                colonyShipHull = components["Colony Ship"]; // (components["Colony Ship"] as Component).Properties["Hull"] as Hull;
+                colonyShipHull = new Component(components["Colony Ship"]);
             }
             else
             {
-                colonyShipEngine = components["Settler's Delight"];
-                colonyShipHull = components["Mini-Colony Ship"];
+                colonyShipEngine = new Component(components["Settler's Delight"]);
+                colonyShipHull = new Component(components["Mini-Colony Ship"]);
             }
-            scoutHull = components["Scout"]; // (components["Scout"] as Component).Properties["Hull"] as Hull;
+            
+            scoutHull = new Component(components["Scout"]);
 
             if (empire.Race.HasTrait("AR") == true)
             {
-                colonizer = components["Orbital Construction Module"]; // (components["Orbital Construction Module"] as Component).Properties["Colonizer"] as Colonizer;
+                colonizer = new Component(components["Orbital Construction Module"]);
             }
             else
             {
-                colonizer = components["Colonization Module"]; // (components["Colonization Module"] as Component).Properties["Colonizer"] as Colonizer; ;
+                colonizer = new Component(components["Colonization Module"]);
             }
 
 
