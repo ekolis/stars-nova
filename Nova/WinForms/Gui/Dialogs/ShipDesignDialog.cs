@@ -300,9 +300,9 @@ namespace Nova.WinForms.Gui
         /// </Summary>
         private void UpdateDesignParameters()
         {
-            Hull hull = this.selectedHull.Properties["Hull"] as Hull;
-            Resources cost = this.selectedHull.Cost;
-            int mass = this.selectedHull.Mass;
+            Hull hull = selectedHull.Properties["Hull"] as Hull;
+            Resources cost = selectedHull.Cost;
+            int mass = selectedHull.Mass;
             int armor = hull.ArmorStrength;
             int shield = 0;
             int cargo = hull.BaseCargo;
@@ -342,12 +342,13 @@ namespace Nova.WinForms.Gui
             }
 
             DesignResources.Value = cost;
-            this.designMass = mass;
+            designMass = mass;
 
-            ShipMass.Text = this.designMass.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            ShipMass.Text = designMass.ToString(System.Globalization.CultureInfo.InvariantCulture);
             ShipArmor.Text = armor.ToString(System.Globalization.CultureInfo.InvariantCulture);
             ShipShields.Text = shield.ToString(System.Globalization.CultureInfo.InvariantCulture);
             CargoCapacity.Text = cargo.ToString(System.Globalization.CultureInfo.InvariantCulture);
+            
             if (!hull.IsStarbase)
             {
                 MaxCapacity.Text = fuel.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -408,29 +409,12 @@ namespace Nova.WinForms.Gui
         /// </remarks>
         private void UpdateHullFields()
         {
-            Hull hullProperties = this.selectedHull.Properties["Hull"] as Hull;
+            Hull hullProperties = selectedHull.Properties["Hull"] as Hull;
             HullGrid.ActiveModules = hullProperties.Modules;
-            // get the base hull of this icon
-
-            /*
-            string[] baseHullParts = selectedHull.ImageFile.Split(System.IO.Path.DirectorySeparatorChar);
-
-            string baseHull = baseHullParts[baseHullParts.Length - 1].Substring(0, baseHullParts[baseHullParts.Length - 1].IndexOf('.') - Global.ShipIconNumberingLength);
-
-            if (AllShipIcons.Data.Hulls.ContainsKey(baseHull))
-            {
-                ShipIcon = (ShipIcon)AllShipIcons.Data.Hulls[baseHull][0];
-            }
-            else
-            {
-                ShipIcon = (ShipIcon)AllShipIcons.Data.IconList[0];
-            }
-            HullImage.Image = ShipIcon.Image;
-            */
             shipIcon = AllShipIcons.Data.GetIconBySource(selectedHull.ImageFile);
             HullImage.Image = shipIcon.Image;
 
-            Description.Text = this.selectedHull.Description;
+            Description.Text = selectedHull.Description;
 
             if (hullProperties.IsStarbase)
             {
