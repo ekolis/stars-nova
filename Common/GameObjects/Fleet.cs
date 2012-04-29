@@ -30,6 +30,7 @@ namespace Nova.Common
 
     using Nova.Common.Components;
     using Nova.Common.DataStructures;
+    using Nova.Common.Waypoints;
 
     /// <summary>
     /// Fleet class. A fleet is a container for one or more ships (which may be of

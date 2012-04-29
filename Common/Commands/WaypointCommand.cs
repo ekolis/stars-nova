@@ -24,6 +24,8 @@ namespace Nova.Common.Commands
     using System;
     using System.Xml;
     
+    using Nova.Common.Waypoints;
+    
     /// <summary>
     /// Description of WaypointCommand.
     /// </summary>

@@ -32,7 +32,8 @@ namespace Nova.WinForms.Gui
     using Nova.Client;
     using Nova.Common;
     using Nova.Common.Commands;
-    using Nova.Common.DataStructures;     
+    using Nova.Common.DataStructures; 
+    using Nova.Common.Waypoints;    
 
     /// <Summary>
     /// StarMap is the control which holds the actual playing map. 
@@ -800,7 +801,7 @@ namespace Nova.WinForms.Gui
 
             waypoint.Position = position;
             waypoint.WarpFactor = 6;
-            waypoint.Task =  WaypointTask.None;
+            waypoint.Task =  new NoTask();
 
             // If there are no items near the selected position then set the
             // waypoint to just be a position in space. Otherwise, make the target

@@ -1,6 +1,7 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2011, 2012 The Stars-Nova Project
+// Copyright (C) 2008 Ken Reed
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -19,45 +20,51 @@
 // ===========================================================================
 #endregion
 
-namespace Nova.Server.TurnSteps
+namespace Nova.Common.Waypoints
 {
     using System;
     using System.Collections.Generic;
+    using System.Xml;
     
     using Nova.Common;
-    using Nova.Common.Components;
+    using Nova.Common.DataStructures;
     
     /// <summary>
-    /// Manages any pre-turn generation data setup.
+    /// Performs Star Colonisation.
     /// </summary>
-    public class FirstStep : ITurnStep
+    public class InvadeTask : IWaypointTask
     {
-        private ServerData serverState;
+        private List<Message> messages = new List<Message>();
         
-        public FirstStep()
+        public List<Message> Messages
         {
+            get{ return messages;}
         }
         
-        public void Process(ServerData serverState)
+        public string Name
         {
-            this.serverState = serverState;
+            get{return "Invade";}
+        }
+        
+        public InvadeTask()
+        {
+             
+        }
+        
+        /// <summary>
+        /// Load: Read in a ColoniseTask from and XmlNode representation.
+        /// </summary>
+        /// <param name="node">An XmlNode containing a representation of a ProductionUnit</param>
+        public InvadeTask(XmlNode node)
+        {
             
-            // Generate StarMaps for each player.
-            foreach (EmpireData empire in serverState.AllEmpires.Values)
-            {               
-                foreach (Star star in serverState.AllStars.Values)
-                {
-                    if (star.Owner == empire.Id)
-                    {
-                        empire.OwnedStars.Add(star);
-                        empire.StarReports.Add(star.Key, star.GenerateReport(ScanLevel.Owned, serverState.TurnYear));
-                    }
-                    else
-                    {
-                        empire.StarReports.Add(star.Key, star.GenerateReport(ScanLevel.None, serverState.TurnYear));    
-                    }
-                }
-            }  
+        }
+        
+        public XmlElement ToXml(XmlDocument xmldoc)
+        {
+            XmlElement xmlelTask = xmldoc.CreateElement("InvadeTask");
+            
+            return xmlelTask;
         }
     }
 }

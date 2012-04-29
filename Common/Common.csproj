@@ -246,9 +246,6 @@
     <Compile Include="DataStructures\ScoreRecord.cs" />
     <Compile Include="RaceDefinition\SecondaryTraits.cs" />
     <Compile Include="DataStructures\TechLevel.cs" />
-    <Compile Include="DataStructures\Waypoint.cs">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="SpaceAllocator.cs" />
     <Compile Include="..\VersionInfo.cs" />
     <Compile Include="Research.cs" />
@@ -258,6 +255,17 @@
     <Compile Include="ScanLevel.cs" />
     <Compile Include="DataStructures\StarList.cs" />
     <Compile Include="DataStructures\EmpireIntel.cs" />
+    <Compile Include="Waypoints\ColoniseTask.cs" />
+    <Compile Include="Waypoints\InvadeTask.cs" />
+    <Compile Include="Waypoints\IWaypointTask.cs" />
+    <Compile Include="Waypoints\LayMinesTask.cs" />
+    <Compile Include="Waypoints\LoadTask.cs" />
+    <Compile Include="Waypoints\NoTask.cs" />
+    <Compile Include="Waypoints\ScrapTask.cs" />
+    <Compile Include="Waypoints\UnloadTask.cs" />
+    <Compile Include="Waypoints\Waypoint.cs">
+      <SubType>Code</SubType>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="ProgressDialog.resx">
@@ -308,6 +316,7 @@ if exist "$(TargetPath)" if not exist "$(TargetPath).locked" move "$(TargetPath)
     <RootNamespace>Nova.Common</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
+    <Folder Include="Waypoints" />
     <Folder Include="Production" />
   </ItemGroup>
 </Project>

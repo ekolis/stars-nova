@@ -1,3 +1,4 @@
+using System.Reflection;
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
@@ -30,7 +31,10 @@ namespace Nova.Server
     using Nova.Common.Commands;
     using Nova.Common.Components;
     using Nova.Common.DataStructures;
+    using Nova.Common.Waypoints;
+    
     using Nova.Server.TurnSteps;
+    using Nova.Server.Waypoints;
 
     /// <summary>
     /// Class to process a new turn.
@@ -55,7 +59,6 @@ namespace Nova.Server
         private Manufacture manufacture;
         private Scores scores;
         private VictoryCheck victoryCheck;
-        private WaypointTasks waypointTasks;
         
         /// <summary>
         /// Construct a turn processor. 
@@ -74,7 +77,6 @@ namespace Nova.Server
             battleEngine = new BattleEngine(this.serverState, new BattleReport());
             bombing = new Bombing(this.serverState);
             checkForMinefields = new CheckForMinefields(this.serverState);
-            waypointTasks = new WaypointTasks(this.serverState);
             manufacture = new Manufacture(this.serverState);
             scores = new Scores(this.serverState);
             intelWriter = new IntelWriter(this.serverState, this.scores);
@@ -106,8 +108,6 @@ namespace Nova.Server
             {
                 ProcessFleet(fleet);
             }
-            CleanupFleets();
-                        
             CleanupFleets();
 
             serverState.AllBattles.Clear(); // remove battle from old turns
@@ -474,7 +474,7 @@ namespace Nova.Server
                 if (fleetMoveResult == Fleet.TravelStatus.InTransit)
                 {
                     currentPosition.Position = fleet.Position;
-                    currentPosition.Task =  WaypointTask.None;
+                    currentPosition.Task =  new NoTask();
                     currentPosition.Destination = "Space at " + fleet.Position;
                     currentPosition.WarpFactor = thisWaypoint.WarpFactor;
                     break;
@@ -488,13 +488,25 @@ namespace Nova.Server
                     {
                         fleet.InOrbit = star;
                     }
+                    
+                    Star target = null;
+                    
+                    if (serverState.AllStars.ContainsKey(thisWaypoint.Destination))
+                    {
+                        target = serverState.AllStars[thisWaypoint.Destination];
+                    }
+                    
+                    if (thisWaypoint.LoadWorker().isValid(fleet, target, serverState))
+                    {
+                        (thisWaypoint.Task as IWaypointTaskWorker).Perform(fleet, target, serverState);
+                    }
+                    
+                    serverState.AllMessages.AddRange(thisWaypoint.Task.Messages);
 
-                    waypointTasks.Perform(fleet, thisWaypoint);
-
-                    if (thisWaypoint.Task != WaypointTask.LayMines)
+                    /*if (thisWaypoint.Task != WaypointTask.LayMines)
                     {
                         thisWaypoint.Task =  WaypointTask.None;
-                    }
+                    }*/
                 }
 
                 currentPosition = fleet.Waypoints[0];
