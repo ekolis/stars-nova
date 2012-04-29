@@ -27,6 +27,7 @@ namespace Nova.Server
     
     using Nova.Common;
     using Nova.Common.DataStructures;
+    using Nova.Common.Waypoints;
     
     /// <summary>
     /// Check to see if a fleet is in an enemy Minefield and inflict appropriate damage.

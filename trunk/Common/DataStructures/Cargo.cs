@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -37,19 +37,40 @@ namespace Nova.Common
     [TypeConverter(typeof(CargoTypeConverter))]
     public class Cargo
     {
-        public int Ironium = 0;
-        public int Boranium = 0;
-        public int Germanium = 0;
+        public int Ironium {set; get;}
+        public int Boranium {set; get;}
+        public int Germanium {set; get;}
+        
         /// <summary>
         /// Colonists in kT. Multiply by GlobalDefinitions.ColonistsPerKiloton to get the actual number of colonists.
         /// </summary>
-        public int ColonistsInKilotons = 0;
-
+        public int ColonistsInKilotons {set; get;}
+        
+        /// <summary>
+        /// Returns the actual number of Colonists (Colonists in kT * Colonists per kT).
+        /// </summary>
+        public int Colonists
+        {
+            get { return ColonistsInKilotons * Global.ColonistsPerKiloton; }
+        }                   
+        
+        /// <summary>
+        /// Get the Mass of the cargo.
+        /// </summary>
+        public int Mass
+        {
+            get { return Ironium + Boranium + Germanium + ColonistsInKilotons; }
+        }
+        
         /// <summary>
         /// Defualt constructor (needed if there is a copy constructor).
         /// </summary>
         public Cargo() 
-        { 
+        {
+            Ironium = 0;
+            Boranium = 0;
+            Germanium = 0;
+            ColonistsInKilotons = 0;
         }
 
         /// <summary>
@@ -58,18 +79,10 @@ namespace Nova.Common
         /// <param name="copy">Cargo object to copy.</param>
         public Cargo(Cargo copy)
         {
-            this.Ironium = copy.Ironium;
-            this.Boranium = copy.Boranium;
-            this.Germanium = copy.Germanium;
-            this.ColonistsInKilotons = copy.ColonistsInKilotons;
-        }
-
-        /// <summary>
-        /// Get the Mass of the cargo.
-        /// </summary>
-        public int Mass
-        {
-            get { return Ironium + Boranium + Germanium + ColonistsInKilotons; }
+            Ironium = copy.Ironium;
+            Boranium = copy.Boranium;
+            Germanium = copy.Germanium;
+            ColonistsInKilotons = copy.ColonistsInKilotons;
         }
 
         /// <summary>
@@ -89,22 +102,22 @@ namespace Nova.Common
                     {
                         case "ironium":
                             {
-                                Ironium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                                Ironium = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                                 break;
                             }
                         case "boranium":
                             {
-                                Boranium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                                Boranium = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                                 break;
                             }
                         case "germanium":
                             {
-                                Germanium = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                                Germanium = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                                 break;
                             }
                         case "colonists":
                             {
-                                ColonistsInKilotons = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                                ColonistsInKilotons = int.Parse(subnode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                                 break;
                             }
                     }
@@ -116,6 +129,34 @@ namespace Nova.Common
                 subnode = subnode.NextSibling;
             }
         }
+        
+        public void Add(Cargo rightCargo)
+        {
+            Ironium += rightCargo.Ironium;
+            Boranium += rightCargo.Boranium;
+            Germanium += rightCargo.Germanium;
+            ColonistsInKilotons += rightCargo.ColonistsInKilotons;
+        }
+        
+        /// <summary>
+        /// Clears all cargo.
+        /// </summary>
+        public void Clear()
+        {
+            Ironium = 0;
+            Boranium = 0;
+            Germanium = 0;
+            ColonistsInKilotons = 0;
+        }
+        
+        /// <summary>
+        /// Returns a Resource object containing the cargo.
+        /// Colonists are excluded.
+        /// </summary>
+        public Resources ToResource()
+        {
+            return new Resources(Ironium, Boranium, Germanium, 0);
+        }
 
         /// <summary>
         /// Save: Serialise this object to an <see cref="XmlElement"/>.
@@ -126,20 +167,12 @@ namespace Nova.Common
         {
             XmlElement xmlelCargo = xmldoc.CreateElement("Cargo");
 
-            Global.SaveData(xmldoc, xmlelCargo, "Ironium", this.Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            Global.SaveData(xmldoc, xmlelCargo, "Boranium", this.Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            Global.SaveData(xmldoc, xmlelCargo, "Germanium", this.Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            Global.SaveData(xmldoc, xmlelCargo, "Colonists", this.ColonistsInKilotons.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelCargo, "Ironium", Ironium.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelCargo, "Boranium", Boranium.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelCargo, "Germanium", Germanium.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            Global.SaveData(xmldoc, xmlelCargo, "Colonists", ColonistsInKilotons.ToString(System.Globalization.CultureInfo.InvariantCulture));
 
             return xmlelCargo;
-        }
-
-        public void Add(Cargo rightCargo)
-        {
-            Ironium += rightCargo.Ironium;
-            Boranium += rightCargo.Boranium;
-            Germanium += rightCargo.Germanium;
-            ColonistsInKilotons += rightCargo.ColonistsInKilotons;
         }
     }
 

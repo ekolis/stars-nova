@@ -456,8 +456,7 @@ namespace Nova.Server
                     }
                 }
             }
-                
-            
+        
             foreach (Fleet fleet in AllFleets.Values)
             {
                 // Fleet reference to Star it is orbiting
@@ -465,13 +464,12 @@ namespace Nova.Server
                 {
                     fleet.InOrbit = AllStars[fleet.InOrbit.Name];
                 }
-
-                // Individual Ship reference to it's Design
+                // Ship reference to Design
                 foreach (ShipToken token in fleet.Tokens)
                 {
-                    token.Design  = AllDesigns[token.Design.Key];
+                    token.Design = AllEmpires[fleet.Owner].Designs[token.Design.Key];
                 }
-            }
+            }            
             
             foreach (Star star in AllStars.Values)
             {
@@ -500,8 +498,20 @@ namespace Nova.Server
             // better safe than sorry...
             foreach (EmpireData empire in AllEmpires.Values)
             {
+                foreach (ShipDesign design in empire.Designs.Values)
+                {
+                    foreach (HullModule module in (design.Blueprint.Properties["Hull"] as Hull).Modules)
+                    {
+                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
+                        {
+                            AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
+                        }
+                    }
+                }
+            
                 foreach (Fleet fleet in empire.OwnedFleets.Values)
                 {
+                    // Fleet reference to Star it is orbiting
                     if (fleet.InOrbit != null)
                     {
                         fleet.InOrbit = AllStars[fleet.InOrbit.Name];
@@ -509,7 +519,7 @@ namespace Nova.Server
                     // Ship reference to Design
                     foreach (ShipToken token in fleet.Tokens)
                     {
-                        token.Design = AllDesigns[token.Design.Key];
+                        token.Design = empire.Designs[token.Design.Key];
                     }
                 }
                  

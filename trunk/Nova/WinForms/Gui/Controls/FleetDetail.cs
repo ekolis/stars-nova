@@ -32,6 +32,7 @@ namespace Nova.WinForms.Gui
     using Nova.Common;
     using Nova.Common.Commands;
     using Nova.Common.Components;
+    using Nova.Common.Waypoints;
     using Nova.ControlLibrary;
     using Nova.WinForms.Gui.Dialogs;
 
@@ -387,7 +388,7 @@ namespace Nova.WinForms.Gui
         {
             Waypoint thisWaypoint = selectedFleet.Waypoints[index];
 
-            WaypointTasks.Text = thisWaypoint.GetTask();
+            WaypointTasks.Text = thisWaypoint.Task.Name;
 
             if (selectedFleet.Waypoints.Count == 1)
             {

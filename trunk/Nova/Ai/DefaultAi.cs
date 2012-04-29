@@ -27,6 +27,7 @@ using System.Text;
 using Nova.Client;
 using Nova.Common;
 using Nova.Common.Components;
+using Nova.Common.Waypoints;
 
 namespace Nova.Ai
 {
@@ -104,7 +105,7 @@ namespace Nova.Ai
                     if (s != null)
                     {
                         excludedStars.Add(s);
-                        SendFleet(s, fleet, WaypointTask.None);
+                        SendFleet(s, fleet, new NoTask());
                     }
                 }
             }
@@ -125,7 +126,7 @@ namespace Nova.Ai
                 {
                     if (clientState.EmpireState.Race.HabitalValue(report) > 0 && report.Owner == Global.Nobody)
                     {
-                        SendFleet(report, colonyShipsFleets[0], WaypointTask.Colonise);
+                        SendFleet(report, colonyShipsFleets[0], new ColoniseTask());
                         colonyShipsFleets.RemoveAt(0);
                         if (colonyShipsFleets.Count == 0)
                         {
@@ -160,7 +161,7 @@ namespace Nova.Ai
             return target;
         }
         
-        private void SendFleet(StarIntel star, Fleet fleet, WaypointTask task)
+        private void SendFleet(StarIntel star, Fleet fleet, IWaypointTask task)
         {
             Waypoint w = new Waypoint();
             w.Position = star.Position;

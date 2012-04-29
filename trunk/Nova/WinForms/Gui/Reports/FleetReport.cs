@@ -23,14 +23,13 @@
 namespace Nova.WinForms.Gui
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
-    using System.Drawing;
     using System.Text;
     using System.Windows.Forms;
     
     using Nova.Client;
     using Nova.Common;
+    using Nova.Common.Waypoints;
         
     /// <Summary>
     /// Fleet Summary report dialog class
@@ -92,9 +91,9 @@ namespace Nova.WinForms.Gui
                         Waypoint waypoint = fleet.Waypoints[1];
 
                         destination = waypoint.Destination;
-                        if (waypoint.Task != WaypointTask.None)
+                        if (!(waypoint.Task is NoTask))
                         {
-                            task = waypoint.GetTask();
+                            task = waypoint.Task.Name;
                         }
 
                         double distance = PointUtilities.Distance(

@@ -43,7 +43,7 @@ namespace Nova.Server.TurnSteps
             
             foreach (EmpireData empire in serverState.AllEmpires.Values)
             {                            
-                AddStars(empire);
+                //AddStars(empire);
                 AddFleets(empire);
                 ScanWithFleets(empire);
                 ScanWithStars(empire);
@@ -90,6 +90,7 @@ namespace Nova.Server.TurnSteps
             }    
         }
         
+        // DEPRECATED!
         private void AddFleets(EmpireData empire)
         {
             // Get fleets owned by the player.

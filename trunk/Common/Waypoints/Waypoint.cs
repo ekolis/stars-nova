@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,44 +20,25 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// See Waypoint class summary.
-// ===========================================================================
-#endregion
-
-namespace Nova.Common
+namespace Nova.Common.Waypoints
 {
     using System;
     using System.Drawing;
     using System.Xml;
-    using System.Xml.Serialization;
 
     using Nova.Common.DataStructures;
-
-    public enum WaypointTask
-    {
-        None,
-        Colonise,
-        Invade,
-        Scrap,
-        LayMines,
-        UnloadCargo,
-        LoadCargo,
-    }
+    
     /// <summary>
     /// Waypoints have a position (i.e. where to go), a destination description
     /// (e.g. a star name), a speed to go there and a task to do on arrival (e.g. 
     /// colonise).
     /// </summary>
-    [Serializable]
     public class Waypoint
     {
-        public NovaPoint Position;        
-        public int WarpFactor = 6;
-        public WaypointTask Task = WaypointTask.None;
-        
-        public string Destination { get; set;}
+        public NovaPoint Position {get; set;}
+        public int WarpFactor {get; set;}
+        public IWaypointTask Task {get; set;}
+        public string Destination {get; set;}
 
         
         /// <summary>
@@ -65,6 +46,8 @@ namespace Nova.Common
         /// </summary>
         public Waypoint()
         {
+            WarpFactor = 6;
+            Task = new NoTask();
         }
         
 
@@ -75,27 +58,27 @@ namespace Nova.Common
         /// </param>
         public Waypoint(XmlNode node)
         {
-            XmlNode subnode = node.FirstChild;
-            while (subnode != null)
+            XmlNode mainNode = node.FirstChild;
+            while (mainNode != null)
             {
                 try
                 {
-                    switch (subnode.Name.ToLower())
+                    switch (mainNode.Name.ToLower())
                     {
                         case "destination":
-                            Destination = ((XmlText)subnode.FirstChild).Value;
-                            break;
-
-                        case "task":
-                            SetTask(((XmlText)subnode.FirstChild).Value);
+                            Destination = mainNode.FirstChild.Value;
                             break;
 
                         case "warpfactor":
-                            WarpFactor = int.Parse(((XmlText)subnode.FirstChild).Value, System.Globalization.CultureInfo.InvariantCulture);
+                            WarpFactor = int.Parse(mainNode.FirstChild.Value, System.Globalization.CultureInfo.InvariantCulture);
                             break;
 
                         case "position":
-                            Position = new NovaPoint(subnode);
+                            Position = new NovaPoint(mainNode);
+                            break;
+                            
+                        default:
+                            SetTask(mainNode.Name.ToString());
                             break;
                     }
                 }
@@ -104,8 +87,45 @@ namespace Nova.Common
                     Report.FatalError(e.Message + "\n Details: \n" + e.ToString());
                 }
 
-                subnode = subnode.NextSibling;
+                mainNode = mainNode.NextSibling;
             }
+        }
+        
+        public IWaypointTask SetTask(string taskName)
+        {
+            if (!taskName.Contains("Task"))
+            {
+                taskName += "Task";
+            }
+            
+            taskName.Replace(" ", "");
+            
+            switch(taskName.ToLower())
+            {
+                case "colonisetask":
+                    Task = new ColoniseTask();
+                    break;
+                case "invadetask":
+                    Task = new InvadeTask();
+                    break;
+                case "layminestask":
+                    Task = new LayMinesTask();
+                    break;
+                case "loadcargotask":
+                    Task = new LoadTask();
+                    break;
+                case "scraptask":
+                    Task = new ScrapTask();
+                    break;
+                case "unloadcargotask":
+                    Task = new UnloadTask();
+                    break;
+                default:
+                    Task = new NoTask();
+                    break;
+            }
+            
+            return Task;
         }
         
 
@@ -119,9 +139,7 @@ namespace Nova.Common
             XmlElement xmlelWaypoint = xmldoc.CreateElement("Waypoint");
 
             Global.SaveData(xmldoc, xmlelWaypoint, "Destination", Destination);
-            Global.SaveData(xmldoc, xmlelWaypoint, "Task", GetTask());
-            Global.SaveData(xmldoc, xmlelWaypoint, "WarpFactor", WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
-            // point
+            
             if (Position != null && (Position.X != 0 || Position.Y != 0))
             {
                 XmlElement xmlelPoint = xmldoc.CreateElement("Position");
@@ -129,49 +147,11 @@ namespace Nova.Common
                 Global.SaveData(xmldoc, xmlelPoint, "Y", Position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture));
                 xmlelWaypoint.AppendChild(xmlelPoint);
             }
-
+            
+            Global.SaveData(xmldoc, xmlelWaypoint, "WarpFactor", WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            xmlelWaypoint.AppendChild(Task.ToXml(xmldoc));
 
             return xmlelWaypoint;
-        }
-
-        
-        public string GetTask()
-        {
-            if (Task == WaypointTask.UnloadCargo)
-            {
-                return "Unload Cargo";
-            }
-            else if (Task == WaypointTask.LayMines)
-            {
-                return "Lay Mines";
-            }
-            else
-            {
-                return Enum.GetName(typeof(WaypointTask), Task);
-            }
-        }
-        public void SetTask(string task)
-        {
-            if (task == "Colonise")
-            {
-                Task = WaypointTask.Colonise;
-            }
-            else if (task == "Invade")
-            {
-                Task = WaypointTask.Invade;
-            }
-            else if (task == "Scrap")
-            {
-                Task = WaypointTask.Scrap;
-            }
-            else if (task == "Unload Cargo")
-            {
-                Task = WaypointTask.UnloadCargo;
-            }
-            else if (task == "Lay Mines")
-            {
-                Task = WaypointTask.LayMines;
-            }
-        }
+        }        
     }
 }

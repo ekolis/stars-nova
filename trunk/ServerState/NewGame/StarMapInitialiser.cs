@@ -252,9 +252,9 @@ namespace Nova.Server.NewGame
 
             starbase.Update();
 
-            serverState.AllDesigns[starbase.Key] = starbase;
-            serverState.AllDesigns[cs.Key] = cs;
-            serverState.AllDesigns[scout.Key] = scout;
+            empire.Designs[starbase.Key] = starbase;
+            empire.Designs[cs.Key] = cs;
+            empire.Designs[scout.Key] = scout;
             /*
             switch (race.Traits.Primary.Code)
             {
@@ -350,9 +350,9 @@ namespace Nova.Server.NewGame
         private void AllocateHomeStarOrbitalInstallations(Star star, EmpireData empire, string player)
         {
             ShipDesign colonyShipDesign = null;
-            foreach (ShipDesign design in serverState.AllDesigns.Values)
+            foreach (ShipDesign design in empire.Designs.Values)
             {
-                if (design.Owner == empire.Id && design.Name == "Santa Maria")
+                if (design.Name == "Santa Maria")
                 {
                     colonyShipDesign = design;    
                 }
@@ -377,9 +377,9 @@ namespace Nova.Server.NewGame
             }
    
             ShipDesign scoutDesign = null;
-            foreach (ShipDesign design in serverState.AllDesigns.Values)
+            foreach (ShipDesign design in empire.Designs.Values)
             {
-                if (design.Owner == empire.Id && design.Name == "Scout")
+                if (design.Name == "Scout")
                 {
                     scoutDesign = design;    
                 }
@@ -391,9 +391,9 @@ namespace Nova.Server.NewGame
             serverState.AllFleets[scoutFleet.Key] = scoutFleet;
  
             ShipDesign starbaseDesign = null;
-            foreach (ShipDesign design in serverState.AllDesigns.Values)
+            foreach (ShipDesign design in empire.Designs.Values)
             {
-                if (design.Owner == empire.Id && design.Name == "Starbase")
+                if (design.Name == "Starbase")
                 {
                     starbaseDesign = design;    
                 }
