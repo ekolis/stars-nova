@@ -348,8 +348,7 @@ namespace Nova.Common.Components
             {
                 if (Blueprint.Properties.ContainsKey("Hull"))
                 {
-                    Hull hull = Blueprint.Properties["Hull"] as Hull;
-                    foreach (HullModule module in hull.Modules)
+                    foreach (HullModule module in Hull.Modules)
                     {
                         if (module.AllocatedComponent != null && module.AllocatedComponent.Type == ItemType.Engine)
                         {
@@ -370,8 +369,7 @@ namespace Nova.Common.Components
             {
                 if (Blueprint.Properties.ContainsKey("Hull"))
                 {
-                    Hull hull = Blueprint.Properties["Hull"] as Hull;
-                    return hull.IsStarbase;
+                    return Hull.IsStarbase;
                 }
                 // It doesn't even have a Hull!
                 Report.Error("ShipDesign.IsStarbase called on a design with no hull.");
@@ -388,8 +386,7 @@ namespace Nova.Common.Components
             {
                 if (Blueprint.Properties.ContainsKey("Hull"))
                 {
-                    Hull hull = Blueprint.Properties["Hull"] as Hull;
-                    return hull.CanRefuel;
+                    return Hull.CanRefuel;
                 }
                 // It doesn't even have a Hull!
                 Report.Error("ShipDesign.CanRefuel called on a design with no hull.");
@@ -551,13 +548,7 @@ namespace Nova.Common.Components
                 return; // not much of a ship yet
             }
 
-            Hull hullProperties = null;
-
-            if (Blueprint.Properties.ContainsKey("Hull"))
-            {
-                hullProperties = Blueprint.Properties["Hull"] as Hull;
-            }
-            else
+            if (!Blueprint.Properties.ContainsKey("Hull"))
             {
                 return; // still not much of a ship.
             }
@@ -567,14 +558,14 @@ namespace Nova.Common.Components
 
             // Add those properties which are included with the hull
 
-            IntegerProperty armor = new IntegerProperty(hullProperties.ArmorStrength);
+            IntegerProperty armor = new IntegerProperty(Hull.ArmorStrength);
             Summary.Properties.Add("Armor", armor);
-            IntegerProperty cargo = new IntegerProperty(hullProperties.BaseCargo);
+            IntegerProperty cargo = new IntegerProperty(Hull.BaseCargo);
             Summary.Properties.Add("Cargo", cargo);
 
             if (!Summary.Properties.ContainsKey("Fuel"))
             {
-                Fuel fuel = new Fuel(hullProperties.FuelCapacity, 0);
+                Fuel fuel = new Fuel(Hull.FuelCapacity, 0);
                 Summary.Properties.Add("Fuel", fuel);
             }
             // Check any non Hull properties of the ShipHull
@@ -588,7 +579,7 @@ namespace Nova.Common.Components
             }
 
             // Then add all of the components fitted to the hull modules.
-            foreach (HullModule module in hullProperties.Modules)
+            foreach (HullModule module in Hull.Modules)
             {
                 if (module.AllocatedComponent == null)
                 {

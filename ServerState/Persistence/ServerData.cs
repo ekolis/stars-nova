@@ -427,7 +427,7 @@ namespace Nova.Server
             {
                 foreach (ShipDesign design in empire.Designs.Values)
                 {
-                    foreach (HullModule module in (design.Blueprint.Properties["Hull"] as Hull).Modules)
+                    foreach (HullModule module in design.Hull.Modules)
                     {
                         if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                         {

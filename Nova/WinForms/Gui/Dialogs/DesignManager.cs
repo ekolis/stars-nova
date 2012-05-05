@@ -313,7 +313,7 @@ Are you sure you want to do this?";
         private void DisplayDesign(ShipDesign design)
         {
             design.Update();
-            Hull hullProperties = design.Blueprint.Properties["Hull"] as Hull;
+            Hull hullProperties = design.Hull;
             this.hullGrid.ActiveModules = hullProperties.Modules;
             this.hullImage.Image = design.Blueprint.ComponentImage;
             this.designResources.Value = design.Cost;

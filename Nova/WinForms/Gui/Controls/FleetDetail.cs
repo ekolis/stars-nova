@@ -628,7 +628,7 @@ namespace Nova.WinForms.Gui
         /// Raise the Split/Merge fleet dialog.
         /// </summary>
         /// <param name="otherFleet">The second fleet to merge with or split into (may be null)</param>
-        private void DoSplitMerge(Fleet otherFleet)
+        private void DoSplitMerge(Fleet otherFleet = null)
         {
             using (SplitFleetDialog splitFleet = new SplitFleetDialog())
             {

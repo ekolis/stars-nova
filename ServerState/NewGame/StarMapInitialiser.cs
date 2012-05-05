@@ -168,7 +168,7 @@ namespace Nova.Server.NewGame
 
             ShipDesign cs = new ShipDesign(empire.GetNextDesignKey());
             cs.Blueprint = colonyShipHull;
-            foreach (HullModule module in (cs.Blueprint.Properties["Hull"] as Hull).Modules)
+            foreach (HullModule module in cs.Hull.Modules)
             {
                 if (module.ComponentType == "Engine")
                 {
@@ -189,7 +189,7 @@ namespace Nova.Server.NewGame
 
             ShipDesign scout = new ShipDesign(empire.GetNextDesignKey());
             scout.Blueprint = scoutHull;
-            foreach (HullModule module in (scout.Blueprint.Properties["Hull"] as Hull).Modules)
+            foreach (HullModule module in scout.Hull.Modules)
             {
                 if (module.ComponentType == "Engine")
                 {
@@ -215,7 +215,7 @@ namespace Nova.Server.NewGame
             starbase.Icon = new ShipIcon(starbaseHull.ImageFile, (Bitmap)starbaseHull.ComponentImage);
             bool weaponSwitcher = false; // start with laser
             bool armorSwitcher = false; // start with armor
-            foreach (HullModule module in (starbase.Blueprint.Properties["Hull"] as Hull).Modules)
+            foreach (HullModule module in starbase.Hull.Modules)
             {
                 if (module.ComponentType == "Weapon")
                 {
