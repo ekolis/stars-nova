@@ -57,7 +57,58 @@ namespace Nova.Common.Waypoints
         /// <param name="node">An XmlNode containing a representation of a ProductionUnit</param>
         public LayMinesTask(XmlNode node)
         {
+            if (node == null)
+            {
+                return;
+            }    
+        }
+        
+        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        {
+            Message message = new Message();
+            Messages.Add(message);            
+            message.Audience = fleet.Owner;
             
+            
+            if (fleet.NumberOfMines == 0)
+            {
+                message.Text = fleet.Name + " attempted to lay mines. The order has been canceled because no ship in the fleet has a mine laying pod.";
+                return false;
+            }
+            
+            Messages.Clear();
+            return true;           
+        }
+        
+        public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        {
+            // See if a Minefield is already here (owned by us). We allow a
+            // certaintolerance in distance because it is unlikely that the
+            // waypoint has been set exactly right.
+            
+            //TODO: Implement per empire minefields.
+            /*foreach (Minefield minefield in serverState.AllMinefields.Values)
+            {
+                if (PointUtilities.IsNear(fleet.Position, minefield.Position))
+                {
+                    if (minefield.Owner == fleet.Owner)
+                    {
+                        minefield.NumberOfMines += fleet.NumberOfMines;
+                        return true;
+                    }
+                }
+            }
+    
+            // No Minefield found. Start a new one.
+    
+            Minefield newField = new Minefield();
+    
+            newField.Position = fleet.Position;
+            newField.Owner = fleet.Owner;
+            newField.NumberOfMines = fleet.NumberOfMines;
+    
+            serverState.AllMinefields[newField.Key] = newField;*/
+            return true;
         }
         
         public XmlElement ToXml(XmlDocument xmldoc)

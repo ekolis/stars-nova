@@ -57,7 +57,74 @@ namespace Nova.Common.Waypoints
         /// <param name="node">An XmlNode containing a representation of a ProductionUnit</param>
         public ColoniseTask(XmlNode node)
         {
+            if (node == null)
+            {
+                return;
+            }    
+        }
+        
+        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        {
+            Message message = new Message();
+            Messages.Add(message);
             
+            message.Audience = fleet.Owner;
+            message.Text = fleet.Name + " attempted to colonise ";
+            
+            if (fleet.InOrbit == null || target == null || !(target is Star))
+            {
+                message.Text += "something that is not a star.";
+                return false;
+            }
+            
+            Star star = (Star)target;
+            message.Text += target.Name;
+            
+            if (star.Colonists != 0)
+            {
+                message.Text += " but it is already occupied.";
+                return false;
+            }
+            
+            if (fleet.Cargo.ColonistsInKilotons == 0)
+            {
+                message.Text += " but no colonists were on board.";
+                return false;
+            }
+            
+            if (fleet.CanColonize == false)
+            {
+                message.Text += " but no ships with colonization module were present.";
+                return false;
+            }
+            
+            Messages.Clear();
+            return true;           
+        }
+        
+        public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        {
+            Star star = (Star)target;
+            
+            Message message = new Message();
+            Messages.Add(message);
+            
+            message.Audience = fleet.Owner;            
+            message.Text = " You have colonised " + star.Name + ".";
+
+            star.ResourcesOnHand = fleet.Cargo.ToResource();
+            star.Colonists = fleet.Cargo.Colonists;
+            star.Owner = fleet.Owner; 
+            fleet.TotalCost.Energy = 0;            
+            star.ResourcesOnHand += fleet.TotalCost * 0.75;
+            
+            sender.OwnedFleets.Remove(fleet.Key);
+            sender.FleetReports.Remove(fleet.Key);
+            
+            sender.OwnedStars.Add(star);
+            sender.StarReports[star.Name].Update(star, ScanLevel.Owned, sender.TurnYear);
+            
+            return true;
         }
         
         public XmlElement ToXml(XmlDocument xmldoc)

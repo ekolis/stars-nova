@@ -50,6 +50,18 @@ namespace Nova.Common.Waypoints
             Task = new NoTask();
         }
         
+        /// <summary>
+        /// Copies everything about another Waypoint, except the Task.
+        /// Used for editing purposes.
+        /// </summary>
+        /// <param name="other">Waypoint to semi clone</param>
+        public Waypoint(Waypoint other)
+        {
+            Position = other.Position;
+            WarpFactor = other.WarpFactor;
+            Destination = other.Destination;
+        }
+        
 
         /// <summary>
         /// Load from XML: Initialising constructor from an XML node.
@@ -78,7 +90,7 @@ namespace Nova.Common.Waypoints
                             break;
                             
                         default:
-                            SetTask(mainNode.Name.ToString());
+                            LoadTask(mainNode.Name.ToString(), mainNode);
                             break;
                     }
                 }
@@ -90,8 +102,8 @@ namespace Nova.Common.Waypoints
                 mainNode = mainNode.NextSibling;
             }
         }
-        
-        public IWaypointTask SetTask(string taskName)
+
+        public IWaypointTask LoadTask(string taskName, XmlNode node)
         {
             if (!taskName.Contains("Task"))
             {
@@ -102,23 +114,20 @@ namespace Nova.Common.Waypoints
             
             switch(taskName.ToLower())
             {
+                case "cargotask":
+                    Task = new CargoTask(node);
+                    break;
                 case "colonisetask":
-                    Task = new ColoniseTask();
+                    Task = new ColoniseTask(node);
                     break;
                 case "invadetask":
-                    Task = new InvadeTask();
+                    Task = new InvadeTask(node);
                     break;
                 case "layminestask":
-                    Task = new LayMinesTask();
-                    break;
-                case "loadcargotask":
-                    Task = new LoadTask();
+                    Task = new LayMinesTask(node);
                     break;
                 case "scraptask":
-                    Task = new ScrapTask();
-                    break;
-                case "unloadcargotask":
-                    Task = new UnloadTask();
+                    Task = new ScrapTask(node);
                     break;
                 default:
                     Task = new NoTask();

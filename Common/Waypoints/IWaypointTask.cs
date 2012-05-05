@@ -41,6 +41,22 @@ namespace Nova.Common.Waypoints
         string Name {get;}  
         
         /// <summary>
+        /// Checks if this task can be performed
+        /// </summary>
+        /// <param name="fleet">The fleet that carries out the Task</param>
+        /// <param name="target">The Mappable (Fleet/Star) target of the Task</param>
+        /// <returns>True if the task can be performed</returns>
+        bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever = null);
+        
+        /// <summary>
+        /// Performs the Waypoint Task at hand.
+        /// </summary>
+        /// <param name="fleet">The fleet that carries out the Task</param>
+        /// <param name="target">The Mappable (Fleet/Star) target of the Task</param>
+        /// <returns>True if the task was succesful</returns>
+        bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever = null);   
+        
+        /// <summary>
         /// Save: Generate an XmlElement representation of the ProductionUnit for saving.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument.</param>
