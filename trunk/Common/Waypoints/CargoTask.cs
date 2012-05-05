@@ -32,13 +32,7 @@ namespace Nova.Common.Waypoints
     /// Performs Star Colonisation.
     /// </summary>
     public class CargoTask : IWaypointTask
-    {   
-        public enum CargoMode
-        {
-            Load = 0,
-            Unload
-        }
-        
+    { 
         private List<Message> messages = new List<Message>();
         
         public List<Message> Messages

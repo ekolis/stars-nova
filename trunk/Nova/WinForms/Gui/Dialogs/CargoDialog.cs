@@ -38,7 +38,7 @@ namespace Nova.ControlLibrary
         private Cargo fleetCargo;
         private Cargo starCargo;
         
-        public Dictionary<CargoTask.CargoMode, CargoTask> Tasks {get; private set;}
+        public Dictionary<CargoMode, CargoTask> Tasks {get; private set;}
 
         /// <summary>
         /// Initializes a new instance of the CargoDialog class.
@@ -51,7 +51,7 @@ namespace Nova.ControlLibrary
             cargoGerman.ValueChanged += CargoGermanium_ValueChanged;
             cargoColonists.ValueChanged += CargoColonists_ValueChanged;
             
-            Tasks = new Dictionary<CargoTask.CargoMode, CargoTask>();
+            Tasks = new Dictionary<CargoMode, CargoTask>();
         }
 
         public void CargoIron_ValueChanged(int newValue)
@@ -149,48 +149,48 @@ namespace Nova.ControlLibrary
 
         private void OkButton_Click(object sender, EventArgs e)
         {
-            Tasks.Add(CargoTask.CargoMode.Load, new CargoTask());
-            Tasks.Add(CargoTask.CargoMode.Unload, new CargoTask());
-            Tasks[CargoTask.CargoMode.Load].Mode = CargoTask.CargoMode.Load;
-            Tasks[CargoTask.CargoMode.Unload].Mode = CargoTask.CargoMode.Unload;
+            Tasks.Add(CargoMode.Load, new CargoTask());
+            Tasks.Add(CargoMode.Unload, new CargoTask());
+            Tasks[CargoMode.Load].Mode = CargoMode.Load;
+            Tasks[CargoMode.Unload].Mode = CargoMode.Unload;
             
             // See if this is a Load, Unload or Mixed operation.            
             // If original fleet >= dialog fleet, then Unload. Else, Load.
             // TODO: Refactor this?
             if (fleet.Cargo.Ironium >= fleetCargo.Ironium)
             {
-                Tasks[CargoTask.CargoMode.Unload].Amount.Ironium = Math.Abs(fleetCargo.Ironium - fleet.Cargo.Ironium);
+                Tasks[CargoMode.Unload].Amount.Ironium = Math.Abs(fleetCargo.Ironium - fleet.Cargo.Ironium);
             }
             else
             {
-                Tasks[CargoTask.CargoMode.Load].Amount.Ironium = Math.Abs(fleetCargo.Ironium - fleet.Cargo.Ironium);    
+                Tasks[CargoMode.Load].Amount.Ironium = Math.Abs(fleetCargo.Ironium - fleet.Cargo.Ironium);    
             }
             
             if (fleet.Cargo.Boranium >= fleetCargo.Boranium)
             {
-                Tasks[CargoTask.CargoMode.Unload].Amount.Boranium = Math.Abs(fleetCargo.Boranium - fleet.Cargo.Boranium);
+                Tasks[CargoMode.Unload].Amount.Boranium = Math.Abs(fleetCargo.Boranium - fleet.Cargo.Boranium);
             }
             else
             {
-                Tasks[CargoTask.CargoMode.Load].Amount.Boranium = Math.Abs(fleetCargo.Boranium - fleet.Cargo.Boranium);    
+                Tasks[CargoMode.Load].Amount.Boranium = Math.Abs(fleetCargo.Boranium - fleet.Cargo.Boranium);    
             }
             
             if (fleet.Cargo.Germanium >= fleetCargo.Germanium)
             {
-                Tasks[CargoTask.CargoMode.Unload].Amount.Germanium = Math.Abs(fleetCargo.Germanium - fleet.Cargo.Germanium);
+                Tasks[CargoMode.Unload].Amount.Germanium = Math.Abs(fleetCargo.Germanium - fleet.Cargo.Germanium);
             }
             else
             {
-                Tasks[CargoTask.CargoMode.Load].Amount.Germanium = Math.Abs(fleetCargo.Germanium - fleet.Cargo.Germanium);    
+                Tasks[CargoMode.Load].Amount.Germanium = Math.Abs(fleetCargo.Germanium - fleet.Cargo.Germanium);    
             }
                 
             if (fleet.Cargo.ColonistsInKilotons >= fleetCargo.ColonistsInKilotons)
             {
-                Tasks[CargoTask.CargoMode.Unload].Amount.ColonistsInKilotons = Math.Abs(fleetCargo.ColonistsInKilotons - fleet.Cargo.ColonistsInKilotons);
+                Tasks[CargoMode.Unload].Amount.ColonistsInKilotons = Math.Abs(fleetCargo.ColonistsInKilotons - fleet.Cargo.ColonistsInKilotons);
             }
             else
             {
-                Tasks[CargoTask.CargoMode.Load].Amount.ColonistsInKilotons = Math.Abs(fleetCargo.ColonistsInKilotons - fleet.Cargo.ColonistsInKilotons);    
+                Tasks[CargoMode.Load].Amount.ColonistsInKilotons = Math.Abs(fleetCargo.ColonistsInKilotons - fleet.Cargo.ColonistsInKilotons);    
             }
         }
 
