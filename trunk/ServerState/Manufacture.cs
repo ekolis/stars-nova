@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -65,7 +65,10 @@ namespace Nova.Server
                 
                 if (done > 0 && productionOrder.Unit is ShipProductionUnit)
                 {
-                    CreateShips(serverState.AllDesigns[(productionOrder.Unit as ShipProductionUnit).DesignKey], star, done);
+                    long designKey = (productionOrder.Unit as ShipProductionUnit).DesignKey;
+                    ushort owner = (productionOrder.Unit as ShipProductionUnit).DesignKey.Owner();
+                    
+                    CreateShips(serverState.AllEmpires[owner].Designs[designKey], star, done);
                 }
                     
                 if (productionOrder.Quantity == 0)
@@ -98,18 +101,14 @@ namespace Nova.Server
             fleet.Name = design.Name + " #" + fleet.Id;
             fleet.FuelAvailable = fleet.TotalFuelCapacity;
 
-            
-
             Message message = new Message();
             message.Audience = star.Owner;
             message.Text = star.Name + " has produced " + countToBuild + " new " + design.Name;
             serverState.AllMessages.Add(message);
-
             
             // Add the fleet to the state data so it can be tracked.
-            serverState.AllEmpires[fleet.Owner].OwnedFleets.Add(fleet);
-            serverState.AllEmpires[fleet.Owner].FleetReports.Add(fleet.Key, fleet.GenerateReport(ScanLevel.Owned, serverState.TurnYear));
-
+            serverState.AllEmpires[fleet.Owner].AddNewFleet(fleet);
+            
             if (design.Type == ItemType.Starbase)
             {
                 if (star.Starbase != null)
@@ -121,6 +120,7 @@ namespace Nova.Server
                     star.Starbase = null;
                     // waypointTasks.Scrap(star.Starbase, star, false);
                 }
+                
                 star.Starbase = fleet;
                 fleet.Type = ItemType.Starbase;
                 fleet.Name = star.Name + " " + fleet.Type;

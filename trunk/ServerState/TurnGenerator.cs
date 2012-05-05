@@ -2,7 +2,7 @@ using System.Reflection;
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -143,10 +143,6 @@ namespace Nova.Server
         /// </summary>
         private void ParseCommands()
         {
-            // Just rebuild these collections to avoid errors when
-            // commands remove items from them.
-            serverState.AllDesigns.Clear();
-            
             foreach (EmpireData empire in serverState.AllEmpires.Values)
             {
                 if (serverState.AllCommands.ContainsKey(empire.Id))
@@ -164,11 +160,6 @@ namespace Nova.Server
                             // Flag as cheater or something?
                         }
                     }
-                }
-                
-                foreach (ShipDesign design in empire.Designs.Values)
-                {
-                    serverState.AllDesigns[design.Key] = design;
                 }
                 
                 foreach (Star star in empire.OwnedStars.Values)

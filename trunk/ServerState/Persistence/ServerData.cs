@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -47,8 +47,6 @@ namespace Nova.Server
         public List<BattleReport>               AllBattles      = new List<BattleReport>();
         public List<PlayerSettings>             AllPlayers      = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
         public Dictionary<int, int>             AllTechLevels   = new Dictionary<int, int>(); // Sum of a player's techlevels, for scoring purposes.
-        public Dictionary<long, ShipDesign>     AllDesigns      = new Dictionary<long, ShipDesign>();
-        //public Dictionary<long, Fleet>          AllFleets       = new Dictionary<long, Fleet>();
         public Dictionary<int, EmpireData>      AllEmpires      = new Dictionary<int, EmpireData>(); // Game specific data about the race; relations, battle plans, research, etc.
         public Dictionary<string, Race>         AllRaces        = new Dictionary<string, Race>(); // Data about the race (traits etc)
         public Dictionary<string, Star>         AllStars        = new Dictionary<string, Star>();
@@ -128,16 +126,6 @@ namespace Nova.Server
                             while (textNode != null)
                             {
                                 AllTechLevels.Add(int.Parse(textNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber), int.Parse(textNode.FirstChild.Value));
-                                textNode = textNode.NextSibling;
-                            }
-                            break;
-                        
-                        case "alldesigns":
-                            textNode = xmlnode.FirstChild;
-                            while (textNode != null)
-                            {
-                                long designKey = long.Parse(textNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber);
-                                AllDesigns.Add(designKey, new ShipDesign(textNode));
                                 textNode = textNode.NextSibling;
                             }
                             break;
@@ -222,7 +210,6 @@ namespace Nova.Server
                 AllBattles      = restoredState.AllBattles;
                 AllPlayers      = restoredState.AllPlayers;
                 AllTechLevels   = restoredState.AllTechLevels;
-                AllDesigns      = restoredState.AllDesigns;
                 AllEmpires      = restoredState.AllEmpires;
                 AllRaces        = restoredState.AllRaces;
                 AllStars        = restoredState.AllStars;
@@ -372,16 +359,6 @@ namespace Nova.Server
             }
             xmlelServerState.AppendChild(xmlelAllStars);
 
-            // Store the designs
-            XmlElement xmlelAllDesigns = xmldoc.CreateElement("AllDesigns");
-            foreach (KeyValuePair<long, ShipDesign> design in AllDesigns)
-            {
-                child = design.Value.ToXml(xmldoc);  
-                child.SetAttribute("Key", design.Key.ToString("X"));
-                xmlelAllDesigns.AppendChild(child);                                            
-            }
-            xmlelServerState.AppendChild(xmlelAllDesigns);
-
             // Store the Minefields
             XmlElement xmlelAllMinefields = xmldoc.CreateElement("AllMinefields");
             foreach (KeyValuePair<long, Minefield> minefield in AllMinefields)
@@ -421,19 +398,7 @@ namespace Nova.Server
         /// so we do it here.
         /// </summary>
         private void LinkServerStateReferences()
-        {
-            // HullModule reference to a component
-            foreach (ShipDesign design in AllDesigns.Values)
-            {
-                foreach (HullModule module in (design.Blueprint.Properties["Hull"] as Hull).Modules)
-                {
-                    if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
-                    {
-                        AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
-                    }
-                }
-            }
-            
+        {            
             foreach (Star star in AllStars.Values)
             {
                 // Star reference to the Race that owns it
@@ -457,8 +422,7 @@ namespace Nova.Server
                 }
             }
             
-            // Also link inside empiredata. Not mandatory for now, but
-            // better safe than sorry...
+            // Link inside EmpireData
             foreach (EmpireData empire in AllEmpires.Values)
             {
                 foreach (ShipDesign design in empire.Designs.Values)
@@ -519,7 +483,6 @@ namespace Nova.Server
             AllBattles.Clear();
             AllPlayers.Clear();  
             AllTechLevels.Clear();
-            AllDesigns.Clear();
             AllEmpires.Clear();
             AllRaces.Clear();
             AllStars.Clear();
@@ -540,6 +503,16 @@ namespace Nova.Server
         public IEnumerable<Fleet> IterateAllFleets()
         {
             return AllEmpires.Values.SelectMany(empire => empire.OwnedFleets.Values);
+        }
+        
+        
+        /// <summary>
+        /// Iterates through all Designs in all Empires, in order.
+        /// </summary>
+        /// <returns>An enumerator containing all Designs from all empires.</returns>
+        public IEnumerable<ShipDesign> IterateAllDesigns()
+        {
+            return AllEmpires.Values.SelectMany(empire => empire.Designs.Values);
         }
     }
 }
