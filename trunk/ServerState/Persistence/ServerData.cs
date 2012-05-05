@@ -23,9 +23,9 @@
 namespace Nova.Server
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
+    using System.Linq;
     using System.Windows.Forms;
     using System.Xml;
     
@@ -48,7 +48,7 @@ namespace Nova.Server
         public List<PlayerSettings>             AllPlayers      = new List<PlayerSettings>(); // Player number, race, ai (program name or "Default AI" or "Human")
         public Dictionary<int, int>             AllTechLevels   = new Dictionary<int, int>(); // Sum of a player's techlevels, for scoring purposes.
         public Dictionary<long, ShipDesign>     AllDesigns      = new Dictionary<long, ShipDesign>();
-        public Dictionary<long, Fleet>          AllFleets       = new Dictionary<long, Fleet>();
+        //public Dictionary<long, Fleet>          AllFleets       = new Dictionary<long, Fleet>();
         public Dictionary<int, EmpireData>      AllEmpires      = new Dictionary<int, EmpireData>(); // Game specific data about the race; relations, battle plans, research, etc.
         public Dictionary<string, Race>         AllRaces        = new Dictionary<string, Race>(); // Data about the race (traits etc)
         public Dictionary<string, Star>         AllStars        = new Dictionary<string, Star>();
@@ -142,18 +142,6 @@ namespace Nova.Server
                             }
                             break;
                         
-                        case "allfleets":
-                            textNode = xmlnode.FirstChild;
-                            while (textNode != null)
-                            {
-                                Fleet fleet = new Fleet(textNode);
-                                AllFleets.Add(
-                                    long.Parse(textNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber),
-                                    fleet);
-                                textNode = textNode.NextSibling;
-                            }
-                            break;
-                        
                         case "allempires":
                             textNode = xmlnode.FirstChild;
                             while (textNode != null)
@@ -235,7 +223,6 @@ namespace Nova.Server
                 AllPlayers      = restoredState.AllPlayers;
                 AllTechLevels   = restoredState.AllTechLevels;
                 AllDesigns      = restoredState.AllDesigns;
-                AllFleets       = restoredState.AllFleets;
                 AllEmpires      = restoredState.AllEmpires;
                 AllRaces        = restoredState.AllRaces;
                 AllStars        = restoredState.AllStars;
@@ -394,16 +381,6 @@ namespace Nova.Server
                 xmlelAllDesigns.AppendChild(child);                                            
             }
             xmlelServerState.AppendChild(xmlelAllDesigns);
-            
-            // Store the fleets
-            XmlElement xmlelAllFleets = xmldoc.CreateElement("AllFleets");
-            foreach (KeyValuePair<long, Fleet> fleet in AllFleets)
-            {   
-                child = fleet.Value.ToXml(xmldoc);
-                child.SetAttribute("Key", fleet.Key.ToString("X"));                
-                xmlelAllFleets.AppendChild(child);
-            }
-            xmlelServerState.AppendChild(xmlelAllFleets);
 
             // Store the Minefields
             XmlElement xmlelAllMinefields = xmldoc.CreateElement("AllMinefields");
@@ -456,20 +433,6 @@ namespace Nova.Server
                     }
                 }
             }
-        
-            foreach (Fleet fleet in AllFleets.Values)
-            {
-                // Fleet reference to Star it is orbiting
-                if (fleet.InOrbit != null)
-                {
-                    fleet.InOrbit = AllStars[fleet.InOrbit.Name];
-                }
-                // Ship reference to Design
-                foreach (ShipToken token in fleet.Tokens)
-                {
-                    token.Design = AllEmpires[fleet.Owner].Designs[token.Design.Key];
-                }
-            }            
             
             foreach (Star star in AllStars.Values)
             {
@@ -490,7 +453,7 @@ namespace Nova.Server
                 // Star reference to it's Starbase if any
                 if (star.Starbase != null)
                 {
-                    star.Starbase = AllFleets[star.Starbase.Key];
+                    star.Starbase = AllEmpires[star.Starbase.Key.Owner()].OwnedFleets[star.Starbase.Key];
                 }
             }
             
@@ -540,7 +503,7 @@ namespace Nova.Server
     
                     if (star.Starbase != null)
                     {
-                        star.Starbase = AllFleets[star.Starbase.Key];
+                        star.Starbase = empire.OwnedFleets[star.Starbase.Key];
                     }
                 }
             }
@@ -557,7 +520,6 @@ namespace Nova.Server
             AllPlayers.Clear();  
             AllTechLevels.Clear();
             AllDesigns.Clear();
-            AllFleets.Clear();
             AllEmpires.Clear();
             AllRaces.Clear();
             AllStars.Clear();
@@ -568,6 +530,16 @@ namespace Nova.Server
             GameInProgress = false;
             TurnYear       = Global.StartingYear;            
             StatePathName  = null;  
+        }
+        
+        
+        /// <summary>
+        /// Iterates through all Fleets in all Empires, in order.
+        /// </summary>
+        /// <returns>An enumerator containing all Fleets from all empires.</returns>
+        public IEnumerable<Fleet> IterateAllFleets()
+        {
+            return AllEmpires.Values.SelectMany(empire => empire.OwnedFleets.Values);
         }
     }
 }

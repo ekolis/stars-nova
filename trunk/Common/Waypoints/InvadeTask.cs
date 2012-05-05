@@ -81,7 +81,7 @@ namespace Nova.Common.Waypoints
 
             // and that we have troops.
 
-            if (fleet.Cargo.ColonistsInKilotons == 0)
+            if (fleet.Cargo.Colonists == 0)
             {
                 message.Text += "but there are no troops on board.";
                 return false;
@@ -93,8 +93,8 @@ namespace Nova.Common.Waypoints
             if (fleet.Owner == star.Owner)
             {
                 // already own this planet, so colonists can beam down safely
-                star.Colonists += fleet.Cargo.ColonistsInKilotons;
-                fleet.Cargo.ColonistsInKilotons = 0;
+                star.Colonists += fleet.Cargo.ColonistNumbers;
+                fleet.Cargo.Colonists = 0;
                 
                 message.Text += star.Name + " but it is already ours. Troops have joined the local populace.";
                 return false;
@@ -145,8 +145,8 @@ namespace Nova.Common.Waypoints
             Star star = (Star)target;
             
             // The troops are now committed to take the star or die trying
-            int troops = fleet.Cargo.Colonists; 
-            fleet.Cargo.ColonistsInKilotons = 0; 
+            int troops = fleet.Cargo.ColonistNumbers; 
+            fleet.Cargo.Colonists = 0; 
 
             // Set up the message recipients before the star (potentially) changes hands.
             Message wolfMessage = new Message();

@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -27,6 +27,15 @@ namespace Nova.Common
     using System.Xml;
 
     using Nova.Common.Converters;
+    
+    public enum ResourceType
+    {
+        Ironium,
+        Boranium,
+        Germanium,
+        Energy,
+        Colonists
+    }
 
     /// <summary>
     /// Resource class which represents the resources needed to construct a game item. 

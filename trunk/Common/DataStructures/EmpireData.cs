@@ -397,6 +397,61 @@ namespace Nova.Common
             
             BattlePlans.Clear();
         }
+        
+        
+        /// <summary>
+        /// Adds a new fleet to this empire. Generates an appropiate report.
+        /// </summary>
+        /// <param name="fleet">Fleet to add</param>
+        public bool AddNewFleet(Fleet fleet)
+        {
+            if (OwnedFleets.ContainsKey(fleet.Key))
+            {
+                return false;
+            }
+            
+            OwnedFleets.Add(fleet);
+            
+            if (FleetReports.ContainsKey(fleet.Key))
+            {
+                FleetReports[fleet.Key].Update(fleet, ScanLevel.Owned, TurnYear);
+            }
+            else
+            {
+                FleetReports.Add(fleet.Key, fleet.GenerateReport(ScanLevel.Owned, TurnYear));
+            }
+            
+            return true;
+        }
+        
+        
+        /// <summary>
+        /// Removes an existing fleet from this empire. Deletes appropiate report.
+        /// </summary>
+        /// <param name="fleet">Fleet to remove.</param>
+        /// <returns>False if empire does not own the fleet.</returns>
+        public bool RemoveFleet(Fleet fleet)
+        {
+            return RemoveFleet(fleet.Key);                    
+        }
+        
+        /// <summary>
+        /// Removes an existing fleet from this empire. Deletes appropiate report.
+        /// </summary>
+        /// <param name="fleet">Fleet Key to remove.</param>
+        /// <returns>False if empire does not own the fleet.</returns>
+        public bool RemoveFleet(long fleetKey)
+        {
+            if (!OwnedFleets.ContainsKey(fleetKey))
+            {
+                return false;
+            }
+
+            OwnedFleets.Remove(fleetKey);            
+            FleetReports.Remove(fleetKey);
+            
+            return true;
+        }
     }
 }
 

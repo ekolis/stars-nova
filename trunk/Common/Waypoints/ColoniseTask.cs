@@ -86,7 +86,7 @@ namespace Nova.Common.Waypoints
                 return false;
             }
             
-            if (fleet.Cargo.ColonistsInKilotons == 0)
+            if (fleet.Cargo.Colonists == 0)
             {
                 message.Text += " but no colonists were on board.";
                 return false;
@@ -104,17 +104,17 @@ namespace Nova.Common.Waypoints
         
         public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
         {
-            Star star = (Star)target;
+            Star star = target as Star;
             
-            Message message = new Message();
-            Messages.Add(message);
-            
+            Message message = new Message();            
             message.Audience = fleet.Owner;            
             message.Text = " You have colonised " + star.Name + ".";
+            Messages.Add(message);
 
             star.ResourcesOnHand = fleet.Cargo.ToResource();
-            star.Colonists = fleet.Cargo.Colonists;
-            star.Owner = fleet.Owner; 
+            star.Colonists = fleet.Cargo.ColonistNumbers;
+            star.Owner = fleet.Owner;
+            
             fleet.TotalCost.Energy = 0;            
             star.ResourcesOnHand += fleet.TotalCost * 0.75;
             

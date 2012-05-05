@@ -84,7 +84,7 @@ namespace Nova.Server
             turnSteps.Add(SCANSTEP, new ScanStep());
             turnSteps.Add(STARSTEP, new StarUpdateStep());
         }
-
+        
         /// <summary>
         /// Generate a new turn by reading in the player turn files to update the master
         /// copy of stars, ships, etc. Then do the processing required to take in the
@@ -103,7 +103,8 @@ namespace Nova.Server
 
             // Do all fleet movement and actions 
             // TODO (priority 4) - split this up into waypoint zero and waypoint 1 actions
-            foreach (Fleet fleet in serverState.AllFleets.Values)
+            
+            foreach (Fleet fleet in serverState.IterateAllFleets())
             {
                 ProcessFleet(fleet);
             }
@@ -144,7 +145,6 @@ namespace Nova.Server
         {
             // Just rebuild these collections to avoid errors when
             // commands remove items from them.
-            serverState.AllFleets.Clear();
             serverState.AllDesigns.Clear();
             
             foreach (EmpireData empire in serverState.AllEmpires.Values)
@@ -171,11 +171,6 @@ namespace Nova.Server
                     serverState.AllDesigns[design.Key] = design;
                 }
                 
-                foreach (Fleet fleet in empire.OwnedFleets.Values)
-                {
-                    serverState.AllFleets[fleet.Key] = fleet;
-                }
-                
                 foreach (Star star in empire.OwnedStars.Values)
                 {
                     serverState.AllStars[star.Key] = star;
@@ -191,19 +186,19 @@ namespace Nova.Server
         {
             // create a list of all fleets that have been destroyed
             List<long> destroyedFleets = new List<long>();
-            foreach (Fleet fleet in serverState.AllFleets.Values)
+            foreach (Fleet fleet in serverState.IterateAllFleets())
             {
                 if (fleet.Tokens.Count == 0)
                 {
                     destroyedFleets.Add(fleet.Key);
                 }
             }
+            
             foreach (long key in destroyedFleets)
             {
-                serverState.AllFleets.Remove(key);
-                foreach (int player in serverState.AllEmpires.Keys)
+                foreach (EmpireData empire in serverState.AllEmpires.Values)
                 {
-                    serverState.AllEmpires[player].OwnedFleets.Remove(key);
+                    empire.RemoveFleet(key);
                 }
             }
 
@@ -480,23 +475,17 @@ namespace Nova.Server
                 }
                 else
                 {
-                    Star star;
-                    serverState.AllStars.TryGetValue(thisWaypoint.Destination, out star);
-
-                    if (star != null)
-                    {
-                        fleet.InOrbit = star;
-                    }
-                    
+                    EmpireData sender = serverState.AllEmpires[fleet.Owner];; 
+                    EmpireData reciever = null;
                     Star target = null;
                     
-                    if (serverState.AllStars.ContainsKey(thisWaypoint.Destination))
+                    serverState.AllStars.TryGetValue(thisWaypoint.Destination, out target);
+
+                    if (target != null)
                     {
-                        target = serverState.AllStars[thisWaypoint.Destination];
+                        fleet.InOrbit = target;
+                        serverState.AllEmpires.TryGetValue(target.Owner, out reciever);
                     }
-                    
-                    EmpireData sender = serverState.AllEmpires[fleet.Owner];
-                    EmpireData reciever = serverState.AllEmpires[target.Owner];
                     
                     if (thisWaypoint.Task.isValid(fleet, target, sender, reciever))
                     {

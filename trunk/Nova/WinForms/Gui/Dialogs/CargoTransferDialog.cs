@@ -147,18 +147,18 @@ namespace Nova.WinForms.Gui.Dialogs
         private void CargoColonistsLeft_ValueChanged(int newValue)
         {
             int newRightValue;
-            newValue = ReJigValues(newValue, out newRightValue, leftCargo.ColonistsInKilotons, rightCargo.ColonistsInKilotons, leftCargo.Mass, rightCargo.Mass, cargoMeterLeft.Maximum, cargoMeterRight.Maximum);
-            leftCargo.ColonistsInKilotons = newValue;
-            rightCargo.ColonistsInKilotons = newRightValue;
+            newValue = ReJigValues(newValue, out newRightValue, leftCargo.Colonists, rightCargo.Colonists, leftCargo.Mass, rightCargo.Mass, cargoMeterLeft.Maximum, cargoMeterRight.Maximum);
+            leftCargo.Colonists = newValue;
+            rightCargo.Colonists = newRightValue;
             UpdateMeters();
         }
 
         private void CargoColonistsRight_ValueChanged(int newValue)
         {
             int newLeftLevel;
-            newValue = ReJigValues(newValue, out newLeftLevel, rightCargo.ColonistsInKilotons, leftCargo.ColonistsInKilotons, rightCargo.Mass, leftCargo.Mass, cargoMeterRight.Maximum, cargoMeterLeft.Maximum);
-            leftCargo.ColonistsInKilotons = newLeftLevel;
-            rightCargo.ColonistsInKilotons = newValue;
+            newValue = ReJigValues(newValue, out newLeftLevel, rightCargo.Colonists, leftCargo.Colonists, rightCargo.Mass, leftCargo.Mass, cargoMeterRight.Maximum, cargoMeterLeft.Maximum);
+            leftCargo.Colonists = newLeftLevel;
+            rightCargo.Colonists = newValue;
             UpdateMeters();
         }
 
@@ -216,12 +216,12 @@ namespace Nova.WinForms.Gui.Dialogs
             cargoIronLeft.Value = leftCargo.Ironium;
             cargoBoraniumLeft.Value = leftCargo.Boranium;
             cargoGermaniumLeft.Value = leftCargo.Germanium;
-            cargoColonistsLeft.Value = leftCargo.ColonistsInKilotons;
+            cargoColonistsLeft.Value = leftCargo.Colonists;
 
             cargoIronRight.Value = rightCargo.Ironium;
             cargoBoraniumRight.Value = rightCargo.Boranium;
             cargoGermaniumRight.Value = rightCargo.Germanium;
-            cargoColonistsRight.Value = rightCargo.ColonistsInKilotons;
+            cargoColonistsRight.Value = rightCargo.Colonists;
 
             fuelLeft.Value = leftFuel;
             fuelRight.Value = rightFuel;

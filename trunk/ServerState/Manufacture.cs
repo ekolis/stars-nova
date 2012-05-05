@@ -107,7 +107,8 @@ namespace Nova.Server
 
             
             // Add the fleet to the state data so it can be tracked.
-            serverState.AllFleets[fleet.Key] = fleet;          
+            serverState.AllEmpires[fleet.Owner].OwnedFleets.Add(fleet);
+            serverState.AllEmpires[fleet.Owner].FleetReports.Add(fleet.Key, fleet.GenerateReport(ScanLevel.Owned, serverState.TurnYear));
 
             if (design.Type == ItemType.Starbase)
             {
