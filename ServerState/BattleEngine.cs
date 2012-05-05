@@ -195,7 +195,7 @@ namespace Nova.Server
             List<List<Fleet>> allFleetPositions = new List<List<Fleet>>();
             Dictionary<long, bool> fleetDone = new Dictionary<long, bool>();
             
-            foreach (Fleet fleetA in serverState.AllFleets.Values)
+            foreach (Fleet fleetA in serverState.IterateAllFleets())
             {
                 if (fleetDone.ContainsKey(fleetA.Key))
                 {
@@ -204,7 +204,7 @@ namespace Nova.Server
 
                 List<Fleet> coLocatedFleets = new List<Fleet>();
 
-                foreach (Fleet fleetB in serverState.AllFleets.Values)
+                foreach (Fleet fleetB in serverState.IterateAllFleets())
                 {
                     if (fleetB.Position != fleetA.Position)
                     {
@@ -751,7 +751,7 @@ namespace Nova.Server
 
             battle.Steps.Add(destroy);
 
-            foreach (Fleet fleet in serverState.AllFleets.Values)
+            foreach (Fleet fleet in serverState.IterateAllFleets())
             {
                 if (fleet.Tokens.Contains(target))
                 {

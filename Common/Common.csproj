@@ -140,6 +140,7 @@
     <Compile Include="Files\Config.cs" />
     <Compile Include="Files\Orders.cs" />
     <Compile Include="GameObjects\ItemType.cs" />
+    <Compile Include="GameObjects\KeyExtensions.cs" />
     <Compile Include="GameObjects\Mappable.cs" />
     <Compile Include="GameObjects\ShipToken.cs" />
     <Compile Include="PasswordUtility.cs" />

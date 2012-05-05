@@ -160,7 +160,7 @@ namespace Nova.Common.Waypoints
                 return toReturn;                
             }
             
-            return false;           
+            return true;           
         }
         
         
@@ -171,6 +171,7 @@ namespace Nova.Common.Waypoints
             {
                 case CargoMode.Load:
                     return Load(fleet, target, sender, reciever);
+                    
                 case CargoMode.Unload:
                     return Unload(fleet, target, sender, reciever);
             }
@@ -215,7 +216,7 @@ namespace Nova.Common.Waypoints
             star.ResourcesOnHand.Ironium -= Amount.Ironium;
             star.ResourcesOnHand.Boranium -= Amount.Boranium;
             star.ResourcesOnHand.Germanium -= Amount.Germanium;
-            star.Colonists -= Amount.ColonistsInKilotons * Global.ColonistsPerKiloton;
+            star.Colonists -= Amount.ColonistNumbers;
             
             return true;      
         }

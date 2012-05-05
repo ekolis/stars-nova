@@ -238,13 +238,13 @@ namespace Nova.WinForms.Gui.Dialogs
             if (ktToMove > 0)
             {
                 // Try and move cargo
-                int colsToMove = (int)Math.Ceiling(fromCargo.ColonistsInKilotons * proportion);
+                int colsToMove = (int)Math.Ceiling(fromCargo.Colonists * proportion);
                 if (colsToMove > ktToMove)
                 {
                     colsToMove = ktToMove;
                 }
-                toCargo.ColonistsInKilotons += colsToMove;
-                fromCargo.ColonistsInKilotons -= colsToMove;
+                toCargo.Colonists += colsToMove;
+                fromCargo.Colonists -= colsToMove;
                 ktToMove -= colsToMove;
             }
             Debug.Assert(ktToMove == 0, "Must not be negative.");

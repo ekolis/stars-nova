@@ -101,7 +101,7 @@ namespace Nova.Server
             int capitalShips = 0;
 
 
-            foreach (Fleet fleet in serverState.AllFleets.Values)
+            foreach (Fleet fleet in serverState.IterateAllFleets())
             {
                 if (fleet.Owner == empireId)
                 {

@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -34,9 +34,6 @@ namespace Nova.Common
     [Serializable]
     public class Item
     {
-        private const long IdMask = 0x00000000FFFFFFFF;
-        private const long OwnerMask = 0x000000FF00000000;
-
         /// <summary>
         /// Backing store for the game wide unique key. 
         /// First bit is for sign. Negative values are reserved for special flags.
@@ -88,17 +85,12 @@ namespace Nova.Common
         {
             get
             {
-                return (ushort)((key & OwnerMask) >> 32);
+                return key.Owner();
             }
 
             set
             {
-                if (value > 0xFF || value < 0) 
-                { 
-                    throw new ArgumentException("OwnerId out of range"); 
-                }
-                key &= IdMask;
-                key |= (long)value << 32;
+                key = key.SetOwner(value);
             }
         }
 
@@ -110,17 +102,12 @@ namespace Nova.Common
         {
             get
             {
-                return (uint)(key & IdMask);
+                return key.Id();
             }
 
             set
             {
-                if (value > IdMask || value < 0) 
-                { 
-                    throw new ArgumentException("ItemId out of range"); 
-                }
-                key &= OwnerMask;
-                key |= value;
+                key = key.SetId(value);
             }
         }
 

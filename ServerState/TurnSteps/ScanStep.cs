@@ -43,8 +43,7 @@ namespace Nova.Server.TurnSteps
             
             foreach (EmpireData empire in serverState.AllEmpires.Values)
             {                            
-                //AddStars(empire);
-                AddFleets(empire);
+                AddStars(empire);
                 ScanWithFleets(empire);
                 ScanWithStars(empire);
             }  
@@ -90,41 +89,15 @@ namespace Nova.Server.TurnSteps
             }    
         }
         
-        // DEPRECATED!
-        private void AddFleets(EmpireData empire)
-        {
-            // Get fleets owned by the player.
-            foreach (Fleet fleet in serverState.AllFleets.Values)
-            {
-                if (fleet.Owner == empire.Id)
-                {
-                    if (!empire.OwnedFleets.Contains(fleet))
-                    {
-                        empire.OwnedFleets.Add(fleet);
-                    }
-                    else
-                    {
-                        empire.OwnedFleets[fleet.Key] = serverState.AllFleets[fleet.Key];
-                    }
-                    
-                    if (!empire.FleetReports.ContainsKey(fleet.Key))
-                    {
-                       empire.FleetReports.Add(fleet.Key, fleet.GenerateReport(ScanLevel.Owned, serverState.TurnYear));   
-                    }
-                    else
-                    {
-                        empire.FleetReports[fleet.Key].Update(fleet, ScanLevel.Owned, serverState.TurnYear);
-                    }
-                }
-            }    
-        }
-        
         private void ScanWithFleets(EmpireData empire)
         {            
             foreach (Fleet fleet in empire.OwnedFleets.Values)
             {
+                // Update own reports
+                empire.FleetReports[fleet.Key].Update(fleet, ScanLevel.Owned, empire.TurnYear);
+                
                 // TODO: Need to restrict this to fleets under the scan range somehow. -Aeglos 27 Jun 11
-                foreach (Fleet scanned in serverState.AllFleets.Values)
+                foreach (Fleet scanned in serverState.IterateAllFleets())
                 {
                     if (scanned.Owner != empire.Id)
                     {
@@ -183,7 +156,7 @@ namespace Nova.Server.TurnSteps
         {
             foreach (Star star in empire.OwnedStars.Values)
             {
-                foreach (Fleet scanned in serverState.AllFleets.Values)
+                foreach (Fleet scanned in serverState.IterateAllFleets())
                 {
                     if (scanned.Owner != empire.Id)
                     {

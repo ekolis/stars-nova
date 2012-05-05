@@ -113,7 +113,7 @@ namespace Nova.WinForms.Gui
                         cargo.Ironium,
                         cargo.Boranium,
                         cargo.Germanium,
-                        cargo.ColonistsInKilotons);
+                        cargo.Colonists);
 
                     int i = 0;
                     string[] row = new string[NumColumns];

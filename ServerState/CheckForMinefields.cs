@@ -199,7 +199,8 @@ namespace Nova.Server
             {
                 message.Text += "All of your ships were destroyed.\n";
                 message.Text += "You lost this fleet.";
-                serverState.AllFleets.Remove(fleet.Key);
+                serverState.AllEmpires[fleet.Owner].OwnedFleets.Remove(fleet.Key);
+                serverState.AllEmpires[fleet.Owner].FleetReports.Remove(fleet.Key);
             }
 
             serverState.AllMessages.Add(message);

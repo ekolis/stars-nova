@@ -171,7 +171,7 @@ namespace Nova.WinForms.Gui.Controls
             x += FillBar(area, g, x, CargoLevels.Ironium, GetCargoBrush(CargoType.Ironium));
             x += FillBar(area, g, x, CargoLevels.Boranium, GetCargoBrush(CargoType.Boranium));
             x += FillBar(area, g, x, CargoLevels.Germanium, GetCargoBrush(CargoType.Germanium));
-            FillBar(area, g, x, CargoLevels.ColonistsInKilotons, GetCargoBrush(CargoType.Colonists));
+            FillBar(area, g, x, CargoLevels.Colonists, GetCargoBrush(CargoType.Colonists));
         }
 
         private int FillBar(Rectangle area, Graphics g, int x, int val, Brush brush)

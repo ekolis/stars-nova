@@ -144,10 +144,10 @@ namespace Nova.Tests.UnitTests
             fleet3.Tokens.Add(token3);
             fleet4.Tokens.Add(token4);
 
-            serverState.AllFleets[fleet1.Key] = fleet1;
-            serverState.AllFleets[fleet2.Key] = fleet2;
-            serverState.AllFleets[fleet3.Key] = fleet3;
-            serverState.AllFleets[fleet4.Key] = fleet4;
+            serverState.AllEmpires[Player1Id].OwnedFleets[fleet1.Key] = fleet1;
+            serverState.AllEmpires[Player2Id].OwnedFleets[fleet2.Key] = fleet2;
+            serverState.AllEmpires[Player3Id].OwnedFleets[fleet3.Key] = fleet3;
+            serverState.AllEmpires[Player3Id].OwnedFleets[fleet4.Key] = fleet4;
         }
 
         /// <Summary>
