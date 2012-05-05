@@ -314,7 +314,7 @@ namespace Nova.Server
             // HullModule reference to a component
             foreach (Design design in playerOrders.RaceDesigns.Values)
             {
-                foreach (HullModule module in (design.ShipHull.Properties["Hull"] as Hull).Modules)
+                foreach (HullModule module in design.ShipHull.Hull.Modules)
                 {
                     if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                     {

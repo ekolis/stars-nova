@@ -505,7 +505,7 @@ namespace Nova.Client
             // HullModule reference to a component
             foreach (ShipDesign design in EmpireState.Designs.Values)
             {
-                foreach (HullModule module in (design.Blueprint.Properties["Hull"] as Hull).Modules)
+                foreach (HullModule module in design.Hull.Modules)
                 {
                     if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                     {
@@ -521,7 +521,7 @@ namespace Nova.Client
             {
                 foreach (ShipDesign design in enemy.Designs.Values)
                 {
-                    foreach (HullModule module in (design.Blueprint.Properties["Hull"] as Hull).Modules)
+                    foreach (HullModule module in design.Hull.Modules)
                     {
                         if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                         {
