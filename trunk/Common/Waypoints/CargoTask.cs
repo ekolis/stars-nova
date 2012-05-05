@@ -32,32 +32,61 @@ namespace Nova.Common.Waypoints
     /// Performs Star Colonisation.
     /// </summary>
     public class CargoTask : IWaypointTask
-    { 
+    {        
         private List<Message> messages = new List<Message>();
         
+        /// <inheritdoc />
         public List<Message> Messages
         {
-            get{ return messages;}
+            get{return messages;}
         }
         
+        /// <inheritdoc />
         public string Name
         {
-            get{return "Load Cargo";}
+            get
+            {
+                if (Mode == CargoMode.Load) {return "Load Cargo";}
+                else {return "Unload Cargo";}
+            }
         }
-                
+        
+        /// <summary>
+        /// Cargo object representing the amount to Load or Unload
+        /// </summary>
         public Cargo Amount {get; set;}
+        
+        /// <summary>
+        /// Load or Unload cargo. Mixed operations are represented by more than one Task.
+        /// </summary>
         public CargoMode Mode {get; set;}
         
+        
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
         public CargoTask()
         {
             Amount = new Cargo();
             Mode = CargoMode.Unload;
         }
         
+        
         /// <summary>
-        /// Load: Read in a ProductionUnit from and XmlNode representation.
+        /// Copy Constructor.
         /// </summary>
-        /// <param name="node">An XmlNode containing a representation of a ProductionUnit</param>
+        /// <param name="other">CargoTask to copy</param>
+        public CargoTask(CargoTask copy)
+        {
+            Amount = new Cargo(copy.Amount);
+            Mode = copy.Mode;            
+        }
+        
+        
+        /// <summary>
+        /// Load: Read an object of this class from and XmlNode representation.
+        /// </summary>
+        /// <param name="node">An XmlNode containing a representation of this object</param>
         public CargoTask(XmlNode node)
         {
             if (node == null)
@@ -88,6 +117,8 @@ namespace Nova.Common.Waypoints
             }
         }
         
+        
+        /// <inheritdoc />
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelTask = xmldoc.CreateElement("CargoTask");
@@ -97,42 +128,43 @@ namespace Nova.Common.Waypoints
             return xmlelTask;
         }
 
+        
+        /// <inheritdoc />
         public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
         {
-            Message message = new Message();
-            Messages.Add(message);
-            
-            message.Audience = fleet.Owner;
-            message.Text = "Fleet " + fleet.Name;
-            
             if (fleet.InOrbit == null || target == null || !(target is Star))
             {
-                message.Text += " attempted to unload cargo while not in orbit.";
+                Message message = new Message();            
+                message.Audience = fleet.Owner;
+                message.Text = "Fleet " + fleet.Name +" attempted to unload cargo while not in orbit.";
+                Messages.Add(message);
                 return false;
             }
             
-            Star star = (Star)target;
+            Star star = target as Star;
             
+            // Check ownership.
             if (fleet.Owner != star.Owner)
             {
-                bool ret = false;
+                bool toReturn = false;
                 
-                IWaypointTask invade = new InvadeTask();
+                InvadeTask invade = new InvadeTask();
                 
                 if (invade.isValid(fleet, target, sender, reciever))
                 {
-                    ret = invade.Perform(fleet, target, sender, reciever);
+                    toReturn = invade.Perform(fleet, target, sender, reciever);
                 }
                 
                 Messages.AddRange(invade.Messages);
                 
-                return ret;                
+                return toReturn;                
             }
             
-            Messages.Clear();
-            return true;           
+            return false;           
         }
         
+        
+        /// <inheritdoc />
         public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
         {            
             switch(Mode)
@@ -146,13 +178,17 @@ namespace Nova.Common.Waypoints
             return false;
         }
 
+        
+        /// <summary>
+        /// Performs concrete unloading.
+        /// </summary>
         private bool Unload(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
         {
-            Star star = (Star)target;
+            Star star = target as Star;
             
-            Message message = new Message();
+            Message message = new Message();            
+            message.Text = "Fleet " + fleet.Name + " has unloaded its cargo at " + star.Name + ".";
             Messages.Add(message);
-            message.Text = "Fleet " + fleet.Name + " has unloaded its cargo at " + star.Name + "";
 
             star.ResourcesOnHand += fleet.Cargo.ToResource();
             star.Colonists += fleet.Cargo.Colonists;
@@ -162,12 +198,17 @@ namespace Nova.Common.Waypoints
             return true;    
         }
         
+        
+        /// <summary>
+        /// Performs concrete loading.
+        /// </summary>
         private bool Load(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
         {
-            Star star = (Star)target;
+            Star star = target as Star;
+            
             Message message = new Message();
-            Messages.Add(message);
-            message.Text = "Fleet " + fleet.Name + " has loaded cargo from " + star.Name + "";
+            message.Text = "Fleet " + fleet.Name + " has loaded cargo from " + star.Name + ".";
+            Messages.Add(message);            
 
             fleet.Cargo.Add(Amount);
             
