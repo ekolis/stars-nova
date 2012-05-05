@@ -1,6 +1,6 @@
 ﻿ #region Copyright Notice
  // ============================================================================
- // Copyright (C) 2011 The Stars-Nova Project
+ // Copyright (C) 2011-2012 The Stars-Nova Project
  //
  // This file is part of Stars-Nova.
  // See <http://sourceforge.net/projects/stars-nova/>;.
@@ -56,7 +56,9 @@ namespace Nova.Common.Commands
         }
         
         
-        // Create a blank waypoint command.
+        /// <summary>
+        /// Default Constructor.
+        /// </summary>
         public WaypointCommand()
         {
             Waypoint = new Waypoint();
@@ -65,16 +67,27 @@ namespace Nova.Common.Commands
             Index = 0;
         }
         
-        
+        /// <summary>
+        /// Deletion Constructor. Waypoint is null as it is not used.
+        /// </summary>
+        /// <param name="mode">CommandMode. Should be Delete.</param>
+        /// <param name="fleetKey">Fleet key whose waypoints will be affected.</param>
+        /// <param name="index">Waypoint Index to delete.</param>
         public WaypointCommand(CommandMode mode, long fleetKey = Global.None, int index = 0)
         {
-            Waypoint = new Waypoint();
+            Waypoint = null;
             Mode = mode;
             FleetKey = fleetKey;
             Index = index;
         }
         
-
+        /// <summary>
+        /// Add/Edit Constructor.
+        /// </summary>
+        /// <param name="mode">CommandMode</param>
+        /// <param name="waypoint">New Waipoint to create or that will replace an existing one.</param>
+        /// <param name="fleetKey">Fleet key whose waypoints will be affected.</param>
+        /// <param name="index">Waypoint Index to edit, or where to insert.</param>
         public WaypointCommand(CommandMode mode, Waypoint waypoint, long fleetKey = Global.None, int index = 0)
         {
             Waypoint = waypoint;
@@ -117,6 +130,7 @@ namespace Nova.Common.Commands
         }
         
         
+        /// <inheritdoc />
         public bool isValid(EmpireData empire)
         {
             if (!empire.OwnedFleets.ContainsKey(FleetKey))
@@ -128,6 +142,7 @@ namespace Nova.Common.Commands
         }
         
         
+        /// <inheritdoc />
         public void ApplyToState(EmpireData empire)
         {
             switch(Mode)
