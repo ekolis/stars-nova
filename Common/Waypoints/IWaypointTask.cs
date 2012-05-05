@@ -28,11 +28,21 @@ namespace Nova.Common.Waypoints
     
     using Nova.Common;
     
+    public enum CargoMode
+    {
+        Load = 0,
+        Unload
+    }
+    
     /// <summary>
     /// Interface for common Waypoint Tasks functionality
     /// </summary>
     public interface IWaypointTask
     {
+        /// <summary>
+        /// Returns the messages generated during validation and execution
+        /// of the Task.
+        /// </summary>
         List<Message> Messages {get;}
         
         /// <summary>
@@ -41,10 +51,12 @@ namespace Nova.Common.Waypoints
         string Name {get;}  
         
         /// <summary>
-        /// Checks if this task can be performed
+        /// Checks if this task can be legally performed
         /// </summary>
         /// <param name="fleet">The fleet that carries out the Task</param>
         /// <param name="target">The Mappable (Fleet/Star) target of the Task</param>
+        /// <param name="sender">The EmpireData that owns the fleet</param>
+        /// <param name="reciever">The EmpireData (if any) that owns the target</param>
         /// <returns>True if the task can be performed</returns>
         bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever = null);
         
@@ -53,6 +65,8 @@ namespace Nova.Common.Waypoints
         /// </summary>
         /// <param name="fleet">The fleet that carries out the Task</param>
         /// <param name="target">The Mappable (Fleet/Star) target of the Task</param>
+        /// <param name="sender">The EmpireData that owns the fleet</param>
+        /// <param name="reciever">The EmpireData (if any) that owns the target</param>
         /// <returns>True if the task was succesful</returns>
         bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever = null);   
         
