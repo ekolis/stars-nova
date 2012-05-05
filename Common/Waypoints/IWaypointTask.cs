@@ -71,10 +71,10 @@ namespace Nova.Common.Waypoints
         bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever = null);   
         
         /// <summary>
-        /// Save: Generate an XmlElement representation of the ProductionUnit for saving.
+        /// Save: Generate an XmlElement representation of this object for saving.
         /// </summary>
         /// <param name="xmldoc">The parent XmlDocument.</param>
-        /// <returns>An XmlElement representation of the ProductionQueue.Item.</returns>
+        /// <returns>An XmlElement representation of this object.</returns>
         XmlElement ToXml(XmlDocument xmldoc);
     }
 }
