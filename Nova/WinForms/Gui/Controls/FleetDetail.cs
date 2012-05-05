@@ -500,13 +500,12 @@ namespace Nova.WinForms.Gui
 
             groupFleetSelection.Text = "Fleet " + selectedFleet.Name;
 
-            Dictionary<ShipDesign, int> designs = selectedFleet.Composition;
             fleetComposition.Items.Clear();
 
-            foreach (KeyValuePair<ShipDesign, int> design in designs)
+            foreach (ShipToken token in selectedFleet.Composition.Values)
             {
-                ListViewItem listItem = new ListViewItem(design.Key.Name);
-                listItem.SubItems.Add(design.Value.ToString(System.Globalization.CultureInfo.InvariantCulture));
+                ListViewItem listItem = new ListViewItem(token.Design.Name);
+                listItem.SubItems.Add(token.Quantity.ToString(System.Globalization.CultureInfo.InvariantCulture));
                 fleetComposition.Items.Add(listItem);
             }
 

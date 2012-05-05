@@ -105,7 +105,7 @@ namespace Nova.Server
             {
                 if (fleet.Owner == empireId)
                 {
-                    foreach (ShipToken token in fleet.Tokens)
+                    foreach (ShipToken token in fleet.Tokens.Values)
                     {
                         if (token.Design.HasWeapons == false)
                         {

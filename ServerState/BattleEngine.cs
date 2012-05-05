@@ -265,7 +265,7 @@ namespace Nova.Server
             Dictionary<long, Fleet> fleetStacks = new Dictionary<long, Fleet>();
             Fleet stack;
             
-            foreach (ShipToken token in fleet.Tokens)
+            foreach (ShipToken token in fleet.Tokens.Values)
             {
                 string name = "Stack #" + stackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 
@@ -273,7 +273,7 @@ namespace Nova.Server
 
                 stack.BattlePlan = fleet.BattlePlan;
                 stack.BattleSpeed = token.Design.BattleSpeed;
-                stack.Tokens.Add(token);
+                stack.Tokens.Add(token.Key, token);
                
                 fleetStacks[stack.Key] = stack;                
             }
@@ -621,7 +621,7 @@ namespace Nova.Server
 
             foreach (Fleet stack in zoneStacks)
             {
-                foreach (ShipToken token in stack.Tokens)
+                foreach (ShipToken token in stack.Tokens.Values)
                 {
                     foreach (Weapon weaponSystem in token.Design.Weapons)
                     {
@@ -744,7 +744,7 @@ namespace Nova.Server
             // ship from its "real" fleet. Also, generate a "destroy" event to
             // update the battle visualisation display.
 
-            details.TargetStack.Tokens.Remove(target);
+            details.TargetStack.Tokens.Remove(target.Key);
 
             BattleStepDestroy destroy = new BattleStepDestroy();
             destroy.ShipName = target.Design.Name;
@@ -754,13 +754,13 @@ namespace Nova.Server
 
             foreach (Fleet fleet in serverState.IterateAllFleets())
             {
-                if (fleet.Tokens.Contains(target))
+                if (fleet.Tokens.ContainsKey(target.Key))
                 {
-                    fleet.Tokens.Remove(target);
+                    fleet.Tokens.Remove(target.Key);
                     
                     if (serverState.AllEmpires[fleet.Owner].OwnedFleets.Contains(fleet))
                     {
-                        serverState.AllEmpires[fleet.Owner].OwnedFleets[fleet.Key].Tokens.Remove(target);
+                        serverState.AllEmpires[fleet.Owner].OwnedFleets[fleet.Key].Tokens.Remove(target.Key);
                         
                         if (serverState.AllEmpires[fleet.Owner].OwnedFleets[fleet.Key].Tokens.Count == 0)
                         {

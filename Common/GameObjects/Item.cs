@@ -127,16 +127,16 @@ namespace Nova.Common
         /// Copy (initialising) constructor.
         /// </summary>
         /// <param name="existing">An existing <see cref="Item"/>.</param>
-        public Item(Item existing)
+        public Item(Item copy)
         {
-            if (existing == null)
+            if (copy == null)
             {
                 return;
             }
 
-            Name = existing.Name;
-            Owner = existing.Owner;
-            Type = existing.Type;
+            Name = copy.Name;
+            Owner = copy.Owner;
+            Type = copy.Type;
         }
         
         /// <summary>

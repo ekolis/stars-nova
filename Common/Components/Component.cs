@@ -81,23 +81,23 @@ namespace Nova.Common.Components
         /// Copy constructor.
         /// </summary>
         /// <param name="existing"></param>
-        public Component(Component existing)
-            : base(existing)
+        public Component(Component copy)
+            : base(copy)
         {
-            Mass = existing.Mass;
-            Cost = new Resources(existing.Cost);
+            Mass = copy.Mass;
+            Cost = new Resources(copy.Cost);
             Properties = new Dictionary<string, ComponentProperty>();
-            RequiredTech = new TechLevel(existing.RequiredTech);
-            ComponentImage = existing.ComponentImage;
-            ImageFile = existing.ImageFile;
-            Description = existing.Description;
-            foreach (string key in existing.Properties.Keys)
+            RequiredTech = new TechLevel(copy.RequiredTech);
+            ComponentImage = copy.ComponentImage;
+            ImageFile = copy.ImageFile;
+            Description = copy.Description;
+            foreach (string key in copy.Properties.Keys)
             {
-                Properties.Add(key, (ComponentProperty)existing.Properties[key].Clone());
+                Properties.Add(key, (ComponentProperty)copy.Properties[key].Clone());
             }
-            if (existing.Restrictions != null)
+            if (copy.Restrictions != null)
             {
-                Restrictions = new RaceRestriction(existing.Restrictions);
+                Restrictions = new RaceRestriction(copy.Restrictions);
             }
             else
             {

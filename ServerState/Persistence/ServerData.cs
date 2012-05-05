@@ -444,7 +444,7 @@ namespace Nova.Server
                         fleet.InOrbit = AllStars[fleet.InOrbit.Name];
                     }
                     // Ship reference to Design
-                    foreach (ShipToken token in fleet.Tokens)
+                    foreach (ShipToken token in fleet.Tokens.Values)
                     {
                         token.Design = empire.Designs[token.Design.Key];
                     }
@@ -513,6 +513,15 @@ namespace Nova.Server
         public IEnumerable<ShipDesign> IterateAllDesigns()
         {
             return AllEmpires.Values.SelectMany(empire => empire.Designs.Values);
+        }
+        
+        /// <summary>
+        /// Iterates through all Mappables in all Empires/Universe, in order.
+        /// </summary>
+        /// <returns>An enumerator containing all Mappables from all empires/universe.</returns>
+        public IEnumerable<Mappable> IterateAllMappables()
+        {
+            return AllStars.Values.Select(star => star as Mappable).Concat(AllEmpires.Values.SelectMany(empire => empire.OwnedFleets.Values.Select(fleet => fleet as Mappable)));
         }
     }
 }

@@ -139,10 +139,10 @@ namespace Nova.Tests.UnitTests
             token3.Armor = 100;
             token4.Armor = 200;
 
-            fleet1.Tokens.Add(token1);
-            fleet2.Tokens.Add(token2);
-            fleet3.Tokens.Add(token3);
-            fleet4.Tokens.Add(token4);
+            fleet1.Tokens.Add(token1.Key, token1);
+            fleet2.Tokens.Add(token2.Key, token2);
+            fleet3.Tokens.Add(token3.Key, token3);
+            fleet4.Tokens.Add(token4.Key, token4);
 
             serverState.AllEmpires[Player1Id].OwnedFleets.Add(fleet1);
             serverState.AllEmpires[Player2Id].OwnedFleets.Add(fleet2);

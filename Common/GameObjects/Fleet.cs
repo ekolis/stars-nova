@@ -44,8 +44,8 @@ namespace Nova.Common
         /// <summary>
         /// Holds the ship tokens in the format "ShipDesign, Quantity, Damage%"
         /// </summary>
-        public List<ShipToken> Tokens  = new List<ShipToken>();
-        public List<Waypoint>   Waypoints   = new List<Waypoint>();
+        public Dictionary<long, ShipToken> Tokens  = new Dictionary<long, ShipToken>();
+        public List<Waypoint> Waypoints   = new List<Waypoint>();
 
         /// <summary>
         /// The cargo carried by the entire fleet. 
@@ -75,7 +75,7 @@ namespace Nova.Common
             get
             {
                 Bomb totalBombs = new Bomb();
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     Bomb bomb = (token.Design.BombCapability * token.Quantity);
                     totalBombs.PopKill += bomb.PopKill;
@@ -93,7 +93,7 @@ namespace Nova.Common
         {
             get
             {
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     if (token.Design.CanColonize)
                     {
@@ -111,7 +111,7 @@ namespace Nova.Common
         {
             get
             {
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     if (token.Design.CanRefuel)
                     {
@@ -129,7 +129,7 @@ namespace Nova.Common
         {
             get
             {
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     if (token.Design.CanScan)
                     {
@@ -144,42 +144,15 @@ namespace Nova.Common
         /// Return the composition of a fleet (ship design and number of ships of that
         /// design).
         /// </summary>
-        public Dictionary<ShipDesign, int> Composition
+        public Dictionary<long, ShipToken> Composition
         {
             get
             {
-                Dictionary<ShipDesign, int> fleetComposition = new Dictionary<ShipDesign, int>();
-
-                foreach (ShipToken token in Tokens)
-                {
-                    int count;
-                    if (!fleetComposition.TryGetValue(token.Design, out count))
-                    {
-                        count = 0;
-                    }
-                    count += token.Quantity;
-                    fleetComposition[token.Design] = count;
-                }
-
-                return fleetComposition;
+                return Tokens;
             }
         }
         
-        public Dictionary<long, ShipIntel> CompositionReport
-        {
-            get
-            {
-                Dictionary<long, ShipIntel> compositionReport = new Dictionary<long, ShipIntel>();
-                
-                foreach (ShipToken token in Tokens)
-                {
-                    compositionReport.Add(token.Design.Key, token.GenerateReport());
-                }
-                
-                return compositionReport;
-            }
-        }
-
+        
         /// <summary>
         /// Return the current Defense capability of a fleet.
         /// </summary>
@@ -189,7 +162,7 @@ namespace Nova.Common
             {
                 double totalDefenses = 0;
 
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     totalDefenses += (token.Design.Armor * token.Quantity);
                     totalDefenses += (token.Design.Shield * token.Quantity);
@@ -206,7 +179,7 @@ namespace Nova.Common
             get
             {
                 int speed = 10;
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     speed = Math.Min(speed, token.Design.FreeWarpSpeed);
                 }
@@ -223,7 +196,7 @@ namespace Nova.Common
             get
             {
                 bool bombers = false;
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     if (token.Design.IsBomber)
                     {
@@ -243,12 +216,12 @@ namespace Nova.Common
             {
                 try
                 {
-                    ShipToken token = Tokens[0];
+                    ShipToken token = Tokens.Values.First();
                     return token.Design.Icon;
                 }
                 catch
                 {
-                    Report.Error("Fleet.cs Fleet.Image (get): unable to get ship image.");
+                    Report.Error("Fleet.cs Fleet.Icon (get): unable to get ship image.");
                 }
                 return null;
             }
@@ -261,7 +234,7 @@ namespace Nova.Common
         {
             get
             {
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     if (token.Design.HasWeapons)
                     {
@@ -279,7 +252,7 @@ namespace Nova.Common
         {
             get
             {
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     if (token.Design.IsStarbase)
                     {
@@ -299,7 +272,7 @@ namespace Nova.Common
             {
                 int totalMass = 0;
 
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     totalMass += (token.Design.Mass * token.Quantity);
                 }
@@ -318,7 +291,7 @@ namespace Nova.Common
             {
                 int mineCount = 0;
 
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     mineCount += (token.Design.MineCount * token.Quantity);
                 }
@@ -337,7 +310,7 @@ namespace Nova.Common
             {
                 int penRange = 0;
                 
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     if (token.Design.ScanRangePenetrating > penRange)
                     {
@@ -358,7 +331,7 @@ namespace Nova.Common
             {
                 int scanRange = 0;
                 
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     if (token.Design.ScanRangeNormal > scanRange)
                     {
@@ -397,7 +370,7 @@ namespace Nova.Common
             {
                 double armor = 0;
 
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     armor += (token.Design.Armor * token.Quantity);
                 }
@@ -413,7 +386,7 @@ namespace Nova.Common
         {
             get
             {
-                return Tokens.Sum(token => token.Design.CargoCapacity);
+                return Tokens.Values.Sum(token => token.Design.CargoCapacity);
             }
         }
 
@@ -426,7 +399,7 @@ namespace Nova.Common
             {
                 Resources cost = new Resources();
 
-                foreach (ShipToken token in Tokens)
+                foreach (ShipToken token in Tokens.Values)
                 {
                     cost += token.Design.Cost;
                 }
@@ -442,7 +415,7 @@ namespace Nova.Common
         {
             get
             {
-                return Tokens.Sum(token => token.Design.DockCapacity);
+                return Tokens.Values.Sum(token => token.Design.DockCapacity);
             }
         }
 
@@ -453,7 +426,7 @@ namespace Nova.Common
         {
             get
             {
-                return Tokens.Sum(token => token.Design.FuelCapacity);
+                return Tokens.Values.Sum(token => token.Design.FuelCapacity);
             }
         }
 
@@ -464,7 +437,7 @@ namespace Nova.Common
         {
             get
             {
-                return Tokens.Sum(token => token.Design.Shield);
+                return Tokens.Values.Sum(token => token.Design.Shield);
             }
         }
 
@@ -513,9 +486,9 @@ namespace Nova.Common
             Target = copy.Target;
             InOrbit = copy.InOrbit;
        
-            foreach (ShipToken token in copy.Tokens)
+            foreach (ShipToken token in copy.Tokens.Values)
             {
-                this.Tokens.Add(token);
+                Tokens.Add(token.Key, token);
             }
         }
 
@@ -528,7 +501,7 @@ namespace Nova.Common
         /// <param name="star">The star constructing the ship.</param>
         public Fleet(ShipToken token, Star star, long newKey)
         {
-            Tokens.Add(token);
+            Tokens.Add(token.Key, token);
 
             FuelAvailable = TotalFuelCapacity;
             Type          = ItemType.Fleet;
@@ -665,7 +638,7 @@ namespace Nova.Common
             }
 
 
-            foreach (ShipToken token in Tokens)
+            foreach (ShipToken token in Tokens.Values)
             {
                 fuelConsumption += token.Design.FuelConsumption(warpFactor, race, (int)(token.Design.CargoCapacity * cargoFullness)); 
             }
@@ -722,9 +695,11 @@ namespace Nova.Common
                             break;
                         case "tokens":
                             XmlNode subNode = mainNode.FirstChild;
+                            ShipToken token;
                             while (subNode != null)
                             {
-                                Tokens.Add(new ShipToken(subNode));
+                                token = new ShipToken(subNode);
+                                Tokens.Add(token.Key, token);
                                 subNode = subNode.NextSibling;
                             }
                             break;
@@ -798,7 +773,7 @@ namespace Nova.Common
             }
 
             XmlElement xmlelTokens = xmldoc.CreateElement("Tokens");
-            foreach (ShipToken token in Tokens)
+            foreach (ShipToken token in Tokens.Values)
             {
                 xmlelTokens.AppendChild(token.ToXml(xmldoc));
             }            

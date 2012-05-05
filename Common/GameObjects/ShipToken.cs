@@ -34,12 +34,27 @@ namespace Nova.Common
     [Serializable]
     public class ShipToken
     {
+        /// <summary>
+        /// Gets or sets the design of this token.
+        /// </summary>
         public ShipDesign Design
         {
             set;
             get;
         }
         
+        /// <summary>
+        /// Tokens are Keyed by Design.Key, so return that.
+        /// </summary>
+        public long Key
+        {
+            get {return Design.Key;}
+        }
+        
+        /// <summary>
+        /// Gets or sets the amount of ships of the same design
+        /// in this token.
+        /// </summary>
         public int Quantity
         {
             get;
@@ -118,17 +133,6 @@ namespace Nova.Common
             
                 mainNode = mainNode.NextSibling;
             }   
-        }
-        
-        public ShipIntel GenerateReport()
-        {
-            ShipIntel report = new ShipIntel();
-            report.Design   = Design.Key;
-            report.Name     = Design.Name;
-            report.Count    = Quantity;
-            report.Mass     = Design.Mass * Quantity;
-            
-            return report;
         }
         
         /// <summary>

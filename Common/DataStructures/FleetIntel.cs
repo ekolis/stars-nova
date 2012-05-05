@@ -40,7 +40,7 @@ namespace Nova.Common
         public int                          Speed       { get; set; }
         public bool                         InOrbit     { get; set; }
         public bool                         IsStarbase  { get; set; }
-        public Dictionary<long, ShipIntel>  Composition { get; set; }
+        public Dictionary<long, ShipToken>  Composition { get; set; }
         
         /// <summary>
         /// The Fleet's total ship count.
@@ -50,9 +50,9 @@ namespace Nova.Common
             get
             {
                 int qty = 0;
-                foreach (ShipIntel report in Composition.Values)
+                foreach (ShipToken token in Composition.Values)
                 {
-                    qty += report.Count;
+                    qty += token.Quantity;
                 }
                 
                 return qty;
@@ -67,9 +67,9 @@ namespace Nova.Common
             get
             {
                 int mass = 0;
-                foreach (ShipIntel report in Composition.Values)
+                foreach (ShipToken token in Composition.Values)
                 {
-                    mass += report.Mass;
+                    mass += token.Design.Mass;
                 }
                 
                 return mass;   
@@ -92,7 +92,7 @@ namespace Nova.Common
         /// <param name="scan">Amount of Knowledge to set.</param>
         /// <param name="year">Year of the data.</param>
         public FleetIntel(Fleet fleet, ScanLevel scan, int year) :
-            base()
+            base(fleet)
         {
             Clear();           
             Update(fleet, scan, year);
@@ -135,12 +135,13 @@ namespace Nova.Common
                             break;
                         case "composition":
                             // We can't call Clear() or we'll erase data set by base(xmlnode), so initialize collection here.
-                            Composition = new Dictionary<long, ShipIntel>();
-                            
+                            Composition = new Dictionary<long, ShipToken>();                            
                             subNode = node.FirstChild;
+                            ShipToken token;
                             while (subNode != null)
                             {
-                                Composition.Add(long.Parse(subNode.Attributes["Key"].Value, System.Globalization.NumberStyles.HexNumber), new ShipIntel(subNode));
+                                token = new ShipToken(subNode);
+                                Composition.Add(token.Key, token);
                                 subNode = subNode.NextSibling;
                             }
                             break;
@@ -167,7 +168,7 @@ namespace Nova.Common
             Type                    = ItemType.FleetIntel;
             Bearing                 = Global.Unset;
             Speed                   = Global.Unset;
-            Composition             = new Dictionary<long, ShipIntel>();
+            Composition             = new Dictionary<long, ShipToken>();
         }
         
         /// <summary>
@@ -182,18 +183,19 @@ namespace Nova.Common
             { 
                 return; 
             }
-            if (year < this.Year) 
-            { 
-                return; 
-            }
             
             // Information that is always available and doesn't
-            // depend on scanning level. Nothing for fleets.
+            // depend on scanning level.
             
             Key         = fleet.Key;
             Name        = fleet.Name;
             Icon        = fleet.Icon;
             Type        = ItemType.FleetIntel;
+            
+            if (year < this.Year) 
+            { 
+                return; 
+            }
              
             if (scan >= ScanLevel.None)
             {            
@@ -211,7 +213,7 @@ namespace Nova.Common
                 Speed       = fleet.Speed;
                 InOrbit     = (fleet.InOrbit == null) ? false : true;
                 IsStarbase  = fleet.IsStarbase;
-                Composition = fleet.CompositionReport;                                
+                Composition = fleet.Composition;                                
             }
             
             // If in the same position.
@@ -237,9 +239,7 @@ namespace Nova.Common
         /// <param name="xmldoc">The parent XmlDocument.</param>
         /// <returns>An XmlElement representation of the report.</returns>
         public new XmlElement ToXml(XmlDocument xmldoc)
-        {
-            XmlElement child;
-            
+        {            
             XmlElement xmlelFleetIntel = xmldoc.CreateElement("FleetIntel");
             
             // include inherited Item properties
@@ -256,11 +256,9 @@ namespace Nova.Common
             
             // Store the composition
             XmlElement xmlelComposition = xmldoc.CreateElement("Composition");
-            foreach (KeyValuePair<long, ShipIntel> report in Composition)
+            foreach (ShipToken token in Composition.Values)
             {
-                child = report.Value.ToXml(xmldoc);
-                child.SetAttribute("Key", report.Key.ToString("X"));
-                xmlelComposition.AppendChild(child);
+                xmlelComposition.AppendChild(token.ToXml(xmldoc));
             }
             xmlelFleetIntel.AppendChild(xmlelComposition);
 
