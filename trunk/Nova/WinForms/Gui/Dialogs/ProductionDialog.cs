@@ -91,9 +91,12 @@ namespace Nova.WinForms.Gui
                 // what the purpose of this next line (shadallark) ???
                 // Looks like it is ment to prevent the current starbase design being re-used - Dan.
                 // prevent the current starbase design from being re-used
-                if (starbase != null && starbase.Composition.ContainsKey(design))
+                foreach (ShipToken token in starbase.Composition.Values)
                 {
-                    continue;
+                    if (token.Design.Type == ItemType.Starbase && token.Design.Equals(design))
+                    {
+                        continue;
+                    }
                 }
 
                 // Check if this design can be built at this Star - ships are limited by dock capacity of the starbase.

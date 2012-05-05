@@ -294,7 +294,7 @@ Are you sure you want to do this?";
 
             foreach (Fleet fleet in clientState.EmpireState.OwnedFleets.Values)
             {
-                foreach (ShipToken token in fleet.Tokens)
+                foreach (ShipToken token in fleet.Tokens.Values)
                 {
                     if (token.Design.Key == design.Key)
                     {

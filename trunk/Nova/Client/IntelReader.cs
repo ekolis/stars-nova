@@ -129,6 +129,8 @@ namespace Nova.Client
                         AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
                     }
                 }
+                
+                design.Update();
             }
             
             // Link enemy designs too
@@ -143,6 +145,8 @@ namespace Nova.Client
                             AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
                         }
                     }
+                    
+                    design.Update();
                 }
             }
 
@@ -161,10 +165,26 @@ namespace Nova.Client
                     }
                 }
                 // Ship reference to Design
-                foreach (ShipToken token in fleet.Tokens)
+                foreach (ShipToken token in fleet.Tokens.Values)
                 {
                     token.Design = clientState.EmpireState.Designs[token.Design.Key];
                 }
+            }
+            
+            // Link reports to Designs to get accurate data.
+            foreach (FleetIntel report in clientState.EmpireState.FleetReports.Values)
+            {
+                foreach (ShipToken token in report.Composition.Values)
+                {
+                    if (report.Owner == clientState.EmpireState.Id)
+                    {
+                        token.Design = clientState.EmpireState.Designs[token.Design.Key];
+                    }
+                    else
+                    {
+                        token.Design = clientState.EmpireState.EmpireReports[report.Owner].Designs[token.Design.Key];
+                    }
+                }   
             }
             
             // Star reference to Race
@@ -194,7 +214,7 @@ namespace Nova.Client
             {
                 foreach (Fleet fleet in battle.Stacks.Values)
                 {
-                    foreach (ShipToken token in fleet.Tokens)
+                    foreach (ShipToken token in fleet.Tokens.Values)
                     {
                         if (clientState.EmpireState.Designs.ContainsKey(token.Design.Key))
                         {

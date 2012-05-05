@@ -36,8 +36,8 @@ namespace Nova.WinForms.Gui.Dialogs
     public partial class SplitFleetDialog : Form
     {
         private List<ShipDesign> designs;
-        private Dictionary<ShipDesign, int> leftFleet;
-        private Dictionary<ShipDesign, int> rightFleet;
+        private Dictionary<long, ShipToken> leftFleet;
+        private Dictionary<long, ShipToken> rightFleet;
         private List<NumericUpDown> leftNumerics;
         private List<NumericUpDown> rightNumerics;
 
@@ -56,24 +56,26 @@ namespace Nova.WinForms.Gui.Dialogs
         public void SetFleet(Fleet sourceFleet, Fleet otherFleet)
         {
             leftFleet = sourceFleet.Composition;
-            rightFleet = otherFleet == null ? new Dictionary<ShipDesign, int>() : otherFleet.Composition;
-            foreach (ShipDesign des in leftFleet.Keys)
+            rightFleet = otherFleet == null ? new Dictionary<long, ShipToken>() : otherFleet.Composition;
+            
+            foreach (long key in leftFleet.Keys)
             {
-                if (!rightFleet.ContainsKey(des))
+                if (!rightFleet.ContainsKey(key))
                 {
-                    rightFleet[des] = 0;
+                    rightFleet[key] = new ShipToken(leftFleet[key].Design, 0);
                 }
             }
-            foreach (ShipDesign des in rightFleet.Keys)
+            
+            foreach (long key in rightFleet.Keys)
             {
-                if (!leftFleet.ContainsKey(des))
+                if (!leftFleet.ContainsKey(key))
                 {
-                    leftFleet[des] = 0;
+                    leftFleet[key] = new ShipToken(rightFleet[key].Design, 0);
                 }
             }
 
             designs = new List<ShipDesign>();
-            designs.AddRange(leftFleet.Keys.OrderBy(x => x.Name));
+            designs.AddRange(leftFleet.Values.Select(d => d.Design).OrderBy(x => x.Name));
             
             leftNumerics = new List<NumericUpDown>();
             rightNumerics = new List<NumericUpDown>();
@@ -89,13 +91,14 @@ namespace Nova.WinForms.Gui.Dialogs
             } 
             fleetLayoutPanel.Height = designs.Count * 26;
             this.Height += (designs.Count * 26) - 26;
+            
             for (int i = 0; i < designs.Count; ++i)
             {
                 int index = i;
                 NumericUpDown num = new NumericUpDown();
                 num.Width = 62;
-                num.Maximum = leftFleet[designs[i]] + rightFleet[designs[i]];
-                num.Value = leftFleet[designs[i]];
+                num.Maximum = leftFleet[designs[i].Key].Quantity + rightFleet[designs[i].Key].Quantity;
+                num.Value = leftFleet[designs[i].Key].Quantity;
                 leftNumerics.Add(num);
                 num.ValueChanged += delegate { ValueChanged(Side.Left, index); };
                 fleetLayoutPanel.Controls.Add(num, 0, i);
@@ -108,8 +111,8 @@ namespace Nova.WinForms.Gui.Dialogs
 
                 num = new NumericUpDown();
                 num.Width = 62;
-                num.Maximum = leftFleet[designs[i]] + rightFleet[designs[i]];
-                num.Value = rightFleet[designs[i]];
+                num.Maximum = leftFleet[designs[i].Key].Quantity + rightFleet[designs[i].Key].Quantity;
+                num.Value = rightFleet[designs[i].Key].Quantity;
                 rightNumerics.Add(num);
                 num.ValueChanged += delegate { ValueChanged(Side.Right, index); };
                 fleetLayoutPanel.Controls.Add(num, 2, i);
@@ -137,7 +140,7 @@ namespace Nova.WinForms.Gui.Dialogs
         {
             for (int i = 0; i < designs.Count; i++)
             {
-                int leftOldCount = leftFleet[designs[i]];
+                int leftOldCount = leftFleet[designs[i].Key].Quantity;
                 int leftNewCount = (int)leftNumerics[i].Value;
 
                 if (leftNewCount == leftOldCount)
@@ -162,7 +165,7 @@ namespace Nova.WinForms.Gui.Dialogs
                 }
 
                 List<ShipToken> toMove = new List<ShipToken>();
-                foreach (ShipToken fleetToken in from.Tokens)
+                foreach (ShipToken fleetToken in from.Tokens.Values)
                 {
                     if (fleetToken.Design.Key == designs[i].Key)
                     {
@@ -176,8 +179,8 @@ namespace Nova.WinForms.Gui.Dialogs
                 }
                 foreach (ShipToken token in toMove)
                 {
-                    from.Tokens.Remove(token);
-                    to.Tokens.Add(token);
+                    from.Tokens.Remove(token.Key);
+                    to.Tokens.Add(token.Key, token);
                 }
             }
 

@@ -1,6 +1,6 @@
 #region Copyright Notice
 // ============================================================================
-// Copyright (C) 2011 The Stars-Nova Project
+// Copyright (C) 2011-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -23,8 +23,10 @@ namespace Nova.Server.TurnSteps
 {
     using System;
     using System.Collections.Generic;
+    using System.Linq;
     
     using Nova.Common;
+    using Nova.Common.Components;
     
     /// <summary>
     /// This step updates intel with scanning information.
@@ -37,6 +39,7 @@ namespace Nova.Server.TurnSteps
         {
         }
         
+        
         public void Process(ServerData serverState)
         {
             this.serverState = serverState;
@@ -44,10 +47,10 @@ namespace Nova.Server.TurnSteps
             foreach (EmpireData empire in serverState.AllEmpires.Values)
             {                            
                 AddStars(empire);
-                ScanWithFleets(empire);
-                ScanWithStars(empire);
+                Scan(empire);
             }  
         }
+        
         
         private void AddStars(EmpireData empire)
         {             
@@ -89,110 +92,58 @@ namespace Nova.Server.TurnSteps
             }    
         }
         
-        private void ScanWithFleets(EmpireData empire)
-        {            
-            foreach (Fleet fleet in empire.OwnedFleets.Values)
-            {
-                // Update own reports
-                empire.FleetReports[fleet.Key].Update(fleet, ScanLevel.Owned, empire.TurnYear);
-                
-                // TODO: Need to restrict this to fleets under the scan range somehow. -Aeglos 27 Jun 11
-                foreach (Fleet scanned in serverState.IterateAllFleets())
-                {
-                    if (scanned.Owner != empire.Id)
-                    {
-                        double range = 0;
-                        range = PointUtilities.Distance(fleet.Position, scanned.Position);
-                        if (range <= fleet.ScanRange)
-                        {
-                            if (!empire.FleetReports.ContainsKey(scanned.Key))
-                            {
-                                empire.FleetReports.Add(scanned.Key, scanned.GenerateReport(ScanLevel.InScan, serverState.TurnYear));
-                            }
-                            else
-                            {                        
-                                empire.FleetReports[scanned.Key].Update(scanned, ScanLevel.InScan, serverState.TurnYear);
-                            }
-                        }
-                    }
-                }
-                    
-                foreach (Star scanned in serverState.AllStars.Values)
-                {
-                    ScanLevel scanLevel;
-                    
-                    if (scanned.Owner != empire.Id)
-                    {
-                        if (scanned == fleet.InOrbit)
-                        {
-                            scanLevel = fleet.CanScan ? ScanLevel.InDeepScan : ScanLevel.InPlace;
-                        }
-                        else
-                        {
-                            double range = 0;
-                            range = PointUtilities.Distance(fleet.Position, scanned.Position);                                
-                            scanLevel = (range <= fleet.PenScanRange) ? ScanLevel.InDeepScan : ScanLevel.None;
-                        }
-                        
-                        if (scanLevel == ScanLevel.None)
-                        {
-                            continue;
-                        }
-                        
-                        if (empire.StarReports.ContainsKey(scanned.Name))
-                        {
-                            empire.StarReports[scanned.Name].Update(scanned, scanLevel, serverState.TurnYear);
-                        }
-                        else
-                        {
-                            empire.StarReports.Add(scanned.Name, scanned.GenerateReport(scanLevel, serverState.TurnYear));
-                        }                          
-                    }
-                }
-            }           
-        }     
-        
-        private void ScanWithStars(EmpireData empire)
+        private void Scan(EmpireData empire)
         {
-            foreach (Star star in empire.OwnedStars.Values)
+            foreach (Mappable scanner in empire.IterateAllMappables())
             {
-                foreach (Fleet scanned in serverState.IterateAllFleets())
+                int scanRange = 0;
+                int penScanRange = 0;
+                
+                //Do some self scanning (Update reports) and set ranges..
+                if (scanner is Star)
                 {
-                    if (scanned.Owner != empire.Id)
-                    {
-                        if (PointUtilities.Distance(star.Position, scanned.Position)
-                            <= star.ScanRange)
-                        {
-                            if (!empire.FleetReports.ContainsKey(scanned.Key))
-                            {
-                                empire.FleetReports.Add(scanned.Key, scanned.GenerateReport(ScanLevel.InScan, serverState.TurnYear));
-                            }
-                            else
-                            {                        
-                                empire.FleetReports[scanned.Key].Update(scanned, ScanLevel.InScan, serverState.TurnYear);
-                            }
-                        }
-                    }
+                    scanRange = (scanner as Star).ScanRange;
+                    penScanRange = (scanner as Star).ScanRange; // TODO:(priority 6) Planetary Pen-Scan not implemented yet.
+                    empire.StarReports[scanner.Name].Update(scanner as Star, ScanLevel.Owned, serverState.TurnYear);    
+                }
+                else
+                {
+                    scanRange = (scanner as Fleet).ScanRange;
+                    penScanRange = (scanner as Fleet).PenScanRange;
+                    empire.FleetReports[scanner.Key].Update(scanner as Fleet, ScanLevel.Owned, empire.TurnYear);    
                 }
                 
-                foreach (Star scanned in serverState.AllStars.Values)
+                // Scan everything
+                foreach (Mappable scanned in serverState.IterateAllMappables())
                 {
-                    ScanLevel scanLevel;
-                    
-                    if (scanned.Owner != empire.Id)
+                    // ...That isn't ours!
+                    if (scanned.Owner == empire.Id)
                     {
-                        double range = 0;
-                        range = PointUtilities.Distance(star.Position, scanned.Position);
-                        // TODO:(priority 6) Planetary Pen-Scan not implemented yet.
-                        if (range <= star.ScanRange)
+                        continue;
+                    }
+                    
+                    ScanLevel scanLevel = ScanLevel.None;
+                    double range = 0;
+                    range = PointUtilities.Distance(scanner.Position, scanned.Position);
+                    
+                    if (scanned is Star)
+                    {
+                        Star star = scanned as Star;
+                        
+                        // There are two ways to get information from a Star:
+                        // 1. In orbit with a fleet,
+                        // 2. Not in orbit with a Pen Scan (fleet or star).
+                        // Non penetrating distance scans won't tell anything about it.
+                        if((scanner is Fleet) && range == 0)
                         {
-                            scanLevel = ScanLevel.InScan;
+                            scanLevel = (scanner as Fleet).CanScan ? ScanLevel.InDeepScan : ScanLevel.InPlace;     
                         }
-                        else
+                        else // scanner is Star or non orbiting Fleet
                         {
-                            scanLevel = ScanLevel.None;
+                            scanLevel = (range <= penScanRange) ? ScanLevel.InDeepScan : ScanLevel.None;
                         }
                         
+                        // Dont update if we didn't scan to allow report to age.                        
                         if (scanLevel == ScanLevel.None)
                         {
                             continue;
@@ -200,16 +151,50 @@ namespace Nova.Server.TurnSteps
                         
                         if (empire.StarReports.ContainsKey(scanned.Name))
                         {
-                            empire.StarReports[scanned.Name].Update(scanned, scanLevel, serverState.TurnYear);
+                            empire.StarReports[scanned.Name].Update((scanned as Star), scanLevel, serverState.TurnYear);
                         }
                         else
                         {
-                            empire.StarReports.Add(scanned.Name, scanned.GenerateReport(scanLevel, serverState.TurnYear));
+                            empire.StarReports.Add(scanned.Name, (scanned as Star).GenerateReport(scanLevel, serverState.TurnYear));
+                        }
+                    }
+                    else // scanned is Fleet
+                    {
+                        // Fleets are simple as scan levels (PenScan for example) won't affect them. We only
+                        // care for non penetrating distance scans.
+                        if (range > scanRange)
+                        {
+                            continue;
+                        }
+
+                        // Check if we have a record of this design(s).
+                        foreach(ShipToken token in (scanned as Fleet).Composition.Values)
+                        {
+                            if (empire.EmpireReports[scanned.Owner].Designs.ContainsKey(token.Design.Key))
+                            {  
+                                continue;
+                            }
+                            
+                            // If not, add just the empty Hull.
+                            ShipDesign newDesign = new ShipDesign(token.Design);
+                            newDesign.Key = token.Design.Key;
+                            newDesign.ClearAllocated();
+                            empire.EmpireReports[scanned.Owner].Designs.Add(newDesign.Key, newDesign);
+                        }
+                        
+                        if (!empire.FleetReports.ContainsKey(scanned.Key))
+                        {
+                            empire.FleetReports.Add(scanned.Key, (scanned as Fleet).GenerateReport(ScanLevel.InScan, serverState.TurnYear));
+                        }
+                        else
+                        {                        
+                            empire.FleetReports[scanned.Key].Update((scanned as Fleet), ScanLevel.InScan, serverState.TurnYear);
                         }
                     }
                 }
-            }    
+            }
         }
+        
         
         // TODO: (priority 2) Move this to the client so players can decide how long to keep
         // old reports.

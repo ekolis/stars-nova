@@ -400,7 +400,7 @@ namespace Nova.Server
                 }
             }
 
-            foreach (ShipToken token in fleet.Tokens)
+            foreach (ShipToken token in fleet.Tokens.Values)
             {
                 token.Shields = token.Design.Shield;
                 if (repairRate > 0)

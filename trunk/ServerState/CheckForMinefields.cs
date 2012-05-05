@@ -163,7 +163,7 @@ namespace Nova.Server
 
             List<ShipToken> tokensToRemove = new List<ShipToken>();
 
-            foreach (ShipToken token in fleet.Tokens)
+            foreach (ShipToken token in fleet.Tokens.Values)
             {
                 token.Armor -= shipDamage;
 
@@ -176,7 +176,7 @@ namespace Nova.Server
 
             foreach (ShipToken removeToken in tokensToRemove)
             {
-                fleet.Tokens.Remove(removeToken);
+                fleet.Tokens.Remove(removeToken.Key);
             }
 
             Message message = new Message();

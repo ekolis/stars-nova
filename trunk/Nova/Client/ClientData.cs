@@ -512,6 +512,8 @@ namespace Nova.Client
                         AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
                     }
                 }
+                
+                design.Update();
             }
             
             // Link enemy designs too
@@ -526,6 +528,8 @@ namespace Nova.Client
                             AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
                         }
                     }
+                    
+                    design.Update();
                 }
             }
             
@@ -543,11 +547,28 @@ namespace Nova.Client
                         fleet.InOrbit = EmpireState.StarReports[fleet.InOrbit.Name];
                     }
                 }
+                
                 // Ship reference to Design
-                foreach (ShipToken token in fleet.Tokens)
+                foreach (ShipToken token in fleet.Tokens.Values)
                 {
                     token.Design = EmpireState.Designs[token.Design.Key];
                 }
+            }
+            
+            // Link reports to Designs to get accurate data.
+            foreach (FleetIntel report in EmpireState.FleetReports.Values)
+            {
+                foreach (ShipToken token in report.Composition.Values)
+                {
+                    if (report.Owner == EmpireState.Id)
+                    {
+                        token.Design = EmpireState.Designs[token.Design.Key];
+                    }
+                    else
+                    {
+                        token.Design = EmpireState.EmpireReports[report.Owner].Designs[token.Design.Key];
+                    }
+                }   
             }
 
             foreach (Star star in EmpireState.OwnedStars.Values)

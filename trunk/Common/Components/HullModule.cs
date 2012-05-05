@@ -1,7 +1,7 @@
 ﻿#region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,13 +20,6 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This file defines the Hull Module component. A hull module is on of the 
-// individuale grid squares that makes up a Hull.
-// ===========================================================================
-#endregion
-
 namespace Nova.Common.Components
 {
     using System;
@@ -39,6 +32,7 @@ namespace Nova.Common.Components
     /// The definition of the individual modules that make up a hull.
     /// These are the slots which define what components may be fitted.
     /// </summary>
+    ///
     [Serializable]
     [TypeConverter(typeof(HullModuleConverter))]
     public class HullModule : ICloneable
@@ -46,6 +40,9 @@ namespace Nova.Common.Components
         private int componentCount;
         public Component AllocatedComponent;
         public int CellNumber = -1;
+        public int ComponentMaximum = 1;
+        public string ComponentType;
+        
         public int ComponentCount
         {
             get
@@ -68,10 +65,7 @@ namespace Nova.Common.Components
                 componentCount = value;
             }
         }
-        public int ComponentMaximum = 1;
-        public string ComponentType;
 
-        #region Construction
 
         /// <summary>
         /// Default constructor.
@@ -79,19 +73,21 @@ namespace Nova.Common.Components
         public HullModule() 
         { 
         }
+        
 
         /// <summary>
         /// Copy constructor.
         /// </summary>
         /// <param name="existing">The existing <see cref="HullModule"/> to copy.</param>
-        public HullModule(HullModule existing)
+        public HullModule(HullModule copy)
         {
-            AllocatedComponent = existing.AllocatedComponent;
-            CellNumber = existing.CellNumber;
-            ComponentCount = existing.ComponentCount;
-            ComponentMaximum = existing.ComponentMaximum;
-            ComponentType = existing.ComponentType;
+            AllocatedComponent = copy.AllocatedComponent;
+            CellNumber = copy.CellNumber;
+            ComponentCount = copy.ComponentCount;
+            ComponentMaximum = copy.ComponentMaximum;
+            ComponentType = copy.ComponentType;
         }
+        
 
         public HullModule(int cellNumber, int componentMaximum, int componentCount, string componentType, string componentName)
         {
@@ -103,9 +99,6 @@ namespace Nova.Common.Components
             AllocatedComponent.Name = componentName;
         }
 
-        #endregion Construction
-
-        #region Methods
 
         /// <summary>
         /// Implement the ICloneable interface so modules can be cloned.
@@ -115,10 +108,16 @@ namespace Nova.Common.Components
         {
             return new HullModule(this);
         }
-
-        #endregion
-
-        #region Load Save Xml
+        
+        /// <summary>
+        /// Removes all allocated components on this module.
+        /// </summary>
+        public void Empty()
+        {
+            AllocatedComponent = null;
+            ComponentCount = 0;            
+        }
+        
 
         /// <summary>
         /// Load: Initialising Constructor from an xml node.
@@ -214,7 +213,5 @@ namespace Nova.Common.Components
 
             return xmlelModule;
         }
-
-        #endregion
     }
 }

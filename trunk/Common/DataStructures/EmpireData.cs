@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -23,8 +23,8 @@
 namespace Nova.Common
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
+    using System.Linq;
     using System.Xml;
     
     using Nova.Common.Components;
@@ -403,10 +403,12 @@ namespace Nova.Common
         /// Adds a new fleet to this empire. Generates an appropiate report.
         /// </summary>
         /// <param name="fleet">Fleet to add</param>
+        /// <returns>False if the fleet already exists for this empire</returns>
         public bool AddNewFleet(Fleet fleet)
         {
             if (OwnedFleets.ContainsKey(fleet.Key))
             {
+                FleetReports[fleet.Key].Update(fleet, ScanLevel.Owned, TurnYear);
                 return false;
             }
             
@@ -451,6 +453,15 @@ namespace Nova.Common
             FleetReports.Remove(fleetKey);
             
             return true;
+        }
+        
+        /// <summary>
+        /// Iterates through all Mappables in this Empire, in order.
+        /// </summary>
+        /// <returns>An enumerator containing all Mappables belonging to this empire.</returns>
+        public IEnumerable<Mappable> IterateAllMappables()
+        {
+            return OwnedFleets.Values.Select(fleet => fleet as Mappable).Concat(OwnedStars.Values.Select(star => star as Mappable));
         }
     }
 }

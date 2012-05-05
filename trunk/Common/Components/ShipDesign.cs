@@ -34,7 +34,7 @@ namespace Nova.Common.Components
     public class ShipDesign : Item
     {
         // This is the component that contains the Hull property, to which all other ships components attach.
-        public Component Blueprint = null;
+        public Component Blueprint {get; set;}
 
         // Note there are get properties for: Armor, Shield, FuelCapcity, CargoCapacity, etc
 
@@ -63,6 +63,17 @@ namespace Nova.Common.Components
         /// The ship image shall be selectable when the ship is designed.
         /// </summary>
         public ShipIcon Icon = null;
+        
+        /// <summary>
+        // Returns the Hull directly for easy Module access.
+        /// </summary>
+        public Hull Hull
+        {
+            get
+            {
+                return Blueprint.Properties["Hull"] as Hull;
+            }
+        }
         
         /// <summary>
         /// Returns the total Mass (No cargo) of this design.
@@ -503,13 +514,29 @@ namespace Nova.Common.Components
             }
         }
         
-
+        /// <summary>
+        /// Parametric Constructors. Stores just the
+        /// Design Key for later lookup.
+        /// </summary>
+        /// <param name="designkey"></param>
         public ShipDesign(long designkey)
             : base(designkey)
         {
             Key = designkey;
         }
 
+        /// <summary>
+        /// Copy Constructor.
+        /// </summary>
+        /// <param name="copy">ShipDesign to copy</param>
+        public ShipDesign(ShipDesign copy)
+            : base(copy)
+        {
+            Icon = (ShipIcon)copy.Icon.Clone();
+            Blueprint = new Component(copy.Blueprint);
+            Update();
+                        
+        }
 
         /// <summary>
         /// The ship design object has all information that could be found from a scan
@@ -718,6 +745,19 @@ namespace Nova.Common.Components
             }
 
             return fuelConsumption;
+        }
+        
+        
+        /// <summary>
+        /// Removes all allocated components on this design,
+        /// but keeps the Hull.
+        /// </summary>
+        public void ClearAllocated()
+        {
+            foreach(HullModule module in Hull.Modules)
+            {
+                module.Empty();
+            }
         }
         
         
