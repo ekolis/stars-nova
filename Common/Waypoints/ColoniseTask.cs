@@ -118,8 +118,7 @@ namespace Nova.Common.Waypoints
             fleet.TotalCost.Energy = 0;            
             star.ResourcesOnHand += fleet.TotalCost * 0.75;
             
-            sender.OwnedFleets.Remove(fleet.Key);
-            sender.FleetReports.Remove(fleet.Key);
+            fleet.Tokens.Clear();
             
             sender.OwnedStars.Add(star);
             sender.StarReports[star.Name].Update(star, ScanLevel.Owned, sender.TurnYear);
