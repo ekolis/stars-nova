@@ -112,12 +112,12 @@ namespace Nova.Server
             // Determine the positions of any potential battles. For a battle to
             // take place 2 or more fleets must be at the same location.
 
-            List<List<Fleet>> fleetPositions = DetermineCoLocatedFleets();
+            List<List<Fleet>> potentialBattles = DetermineCoLocatedFleets();
 
             // If there are no co-located fleets then there are no fleets at all
             // so there is nothing more to do so we can give up here.
 
-            if (fleetPositions.Count == 0)
+            if (potentialBattles.Count == 0)
             {
                 return;
             }
@@ -125,11 +125,11 @@ namespace Nova.Server
             // Eliminate potential battle locations where there is only one race
             // present.
 
-            List<List<Fleet>> battlePositions = EliminateSingleRaces(fleetPositions);
+            List<List<Fleet>> engagements = EliminateSingleRaces(potentialBattles);
 
             // Again this could result in an empty array. If so, give up here.
 
-            if (battlePositions.Count == 0)
+            if (engagements.Count == 0)
             {
                 return;
             }
@@ -139,9 +139,9 @@ namespace Nova.Server
             // build the fleet stacks and invoke the battle at each location
             // between any enemies.
 
-            foreach (List<Fleet> combatZone in battlePositions)
+            foreach (List<Fleet> battlingFleets in engagements)
             {
-                List<Fleet> zoneStacks = GenerateStacks(combatZone);
+                List<Fleet> zoneStacks = GenerateStacks(battlingFleets);
 
                 // If no targets get selected (for whatever reason) then there is
                 // no battle so we can give up here.
@@ -152,7 +152,7 @@ namespace Nova.Server
                 }
 
                 stackId = 0;
-                Fleet sample = combatZone[0] as Fleet;
+                Fleet sample = battlingFleets[0] as Fleet;
 
                 if (sample.InOrbit != null)
                 {
@@ -192,7 +192,7 @@ namespace Nova.Server
         /// <returns>A list of all lists of co-located fleets.</returns>
         public List<List<Fleet>> DetermineCoLocatedFleets()
         {
-            List<List<Fleet>> allFleetPositions = new List<List<Fleet>>();
+            List<List<Fleet>> allColocatedFleets = new List<List<Fleet>>();
             Dictionary<long, bool> fleetDone = new Dictionary<long, bool>();
             
             foreach (Fleet fleetA in serverState.IterateAllFleets())
@@ -217,10 +217,11 @@ namespace Nova.Server
 
                 if (coLocatedFleets.Count > 1)
                 {
-                    allFleetPositions.Add(coLocatedFleets);
+                    allColocatedFleets.Add(coLocatedFleets);
                 }
             }
-            return allFleetPositions;
+            
+            return allColocatedFleets;
         }
 
         /// <summary>
@@ -229,25 +230,25 @@ namespace Nova.Server
         /// </summary>
         /// <param name="fleetPositions">A list of all lists of co-located fleets.</param>
         /// <returns>The positions of all potential battles.</returns>
-        public List<List<Fleet>> EliminateSingleRaces(List<List<Fleet>> fleetPositions)
+        public List<List<Fleet>> EliminateSingleRaces(List<List<Fleet>> allColocatedFleets)
         {
-            List<List<Fleet>> battlePositions = new List<List<Fleet>>();
+            List<List<Fleet>> allEngagements = new List<List<Fleet>>();
 
-            foreach (List<Fleet> coLocatedFleets in fleetPositions)
+            foreach (List<Fleet> coLocatedFleets in allColocatedFleets)
             {
-                Dictionary<int, bool> races = new Dictionary<int, bool>();
+                Dictionary<int, bool> empires = new Dictionary<int, bool>();
 
                 foreach (Fleet fleet in coLocatedFleets)
                 {
-                    races[fleet.Owner] = true;
+                    empires[fleet.Owner] = true;
                 }
 
-                if (races.Count > 1)
+                if (empires.Count > 1)
                 {
-                    battlePositions.Add(coLocatedFleets);
+                    allEngagements.Add(coLocatedFleets);
                 }
             }
-            return battlePositions;
+            return allEngagements;
         }
 
         /// <summary>
