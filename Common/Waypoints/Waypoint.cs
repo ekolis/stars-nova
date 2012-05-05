@@ -149,12 +149,9 @@ namespace Nova.Common.Waypoints
 
             Global.SaveData(xmldoc, xmlelWaypoint, "Destination", Destination);
             
-            if (Position != null && (Position.X != 0 || Position.Y != 0))
+            if (Position != null)
             {
-                XmlElement xmlelPoint = xmldoc.CreateElement("Position");
-                Global.SaveData(xmldoc, xmlelPoint, "X", Position.X.ToString(System.Globalization.CultureInfo.InvariantCulture));
-                Global.SaveData(xmldoc, xmlelPoint, "Y", Position.Y.ToString(System.Globalization.CultureInfo.InvariantCulture));
-                xmlelWaypoint.AppendChild(xmlelPoint);
+                xmlelWaypoint.AppendChild(Position.ToXml(xmldoc, "Position"));
             }
             
             Global.SaveData(xmldoc, xmlelWaypoint, "WarpFactor", WarpFactor.ToString(System.Globalization.CultureInfo.InvariantCulture));

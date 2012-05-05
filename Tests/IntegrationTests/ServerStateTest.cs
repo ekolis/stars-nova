@@ -1,7 +1,7 @@
 ﻿using Nova.Common;
 #region Copyright Notice
 // ============================================================================
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -88,10 +88,8 @@ namespace Nova.Tests.IntegrationTests
             fleet2 = new Nova.Common.Fleet("fleetbar", Player1Id, 2, new Nova.Common.DataStructures.NovaPoint(0, 0));
             empire1.Id = Player1Id;
             empire2.Id = Player2Id;
-            serverState.AllEmpires.Add(Player1Id, empire1);
-            serverState.AllEmpires.Add(Player2Id, empire2);
             serverState.AllEmpires[Player1Id].OwnedFleets[fleet1.Key] = fleet1;
-            serverState.AllEmpires[Player2Id].OwnedFleets[fleet2.Key] =  fleet2;
+            serverState.AllEmpires[Player2Id].OwnedFleets[fleet2.Key] = fleet2;
 
             // deserialise
             serverState.Restore();

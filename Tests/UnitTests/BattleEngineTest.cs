@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2007, 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -144,10 +144,10 @@ namespace Nova.Tests.UnitTests
             fleet3.Tokens.Add(token3);
             fleet4.Tokens.Add(token4);
 
-            serverState.AllEmpires[Player1Id].OwnedFleets[fleet1.Key] = fleet1;
-            serverState.AllEmpires[Player2Id].OwnedFleets[fleet2.Key] = fleet2;
-            serverState.AllEmpires[Player3Id].OwnedFleets[fleet3.Key] = fleet3;
-            serverState.AllEmpires[Player3Id].OwnedFleets[fleet4.Key] = fleet4;
+            serverState.AllEmpires[Player1Id].OwnedFleets.Add(fleet1);
+            serverState.AllEmpires[Player2Id].OwnedFleets.Add(fleet2);
+            serverState.AllEmpires[Player3Id].OwnedFleets.Add(fleet3);
+            serverState.AllEmpires[Player3Id].OwnedFleets.Add(fleet4);
         }
 
         /// <Summary>

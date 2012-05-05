@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2010 stars-nova
+// Copyright (C) 2010-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -135,7 +135,11 @@ namespace Nova.Common.DataStructures
         /// <param name="b">Another NovaPoint to compare.</param>
         /// <returns>Returns true if the points have the same location (X, Y).</returns>
         public static bool operator ==(NovaPoint a, NovaPoint b)
-        {            
+        {
+            if (Object.ReferenceEquals(a, b)) { return true; }
+            
+            if (((object)a == null) || ((object)b == null)) { return false; }
+            
             return a.Equals(b);
         }
 
@@ -147,7 +151,7 @@ namespace Nova.Common.DataStructures
         /// <returns>Returns false if the points have the same location (X, Y).</returns>
         public static bool operator !=(NovaPoint a, NovaPoint b)
         {            
-            return !a.Equals(b);
+            return !(a == b);
         }
 
         /// <summary>
@@ -222,9 +226,9 @@ namespace Nova.Common.DataStructures
         /// </summary>
         /// <param name="xmldoc">The parent <see cref="XmlDocument"/>.</param>
         /// <returns>An <see cref="XmlElement"/> representation of the NovaPoint.</returns>
-        public XmlElement ToXml(XmlDocument xmldoc)
+        public XmlElement ToXml(XmlDocument xmldoc, string nodeName = "Point")
         {
-            XmlElement xmlelPoint = xmldoc.CreateElement("Point");
+            XmlElement xmlelPoint = xmldoc.CreateElement(nodeName);
 
             Global.SaveData(xmldoc, xmlelPoint, "X", X.ToString(System.Globalization.CultureInfo.InvariantCulture));
             Global.SaveData(xmldoc, xmlelPoint, "Y", Y.ToString(System.Globalization.CultureInfo.InvariantCulture));

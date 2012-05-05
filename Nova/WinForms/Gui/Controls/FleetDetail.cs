@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011, 2012 The Stars-Nova Project.
+// Copyright (C) 2009-2012 The Stars-Nova Project.
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -249,7 +249,6 @@ namespace Nova.WinForms.Gui
             }
             
             WaypointCommand command = new WaypointCommand(CommandMode.Delete, selectedFleet.Key, index);
-            command.Waypoint = null; // there is no waypoint, just delete it.
 
             commands.Push(command);
             
@@ -280,7 +279,7 @@ namespace Nova.WinForms.Gui
                 if (index > 0)
                 {
                     WaypointCommand command = new WaypointCommand(CommandMode.Delete, selectedFleet.Key, index);
-
+                    
                     commands.Push(command);
                     
                     if (command.isValid(empireState))
