@@ -180,10 +180,40 @@ namespace Nova.WinForms.Gui
         {
             try
             {
+                WaypointCommand command;
+                
                 using (CargoDialog cargoDialog = new CargoDialog())
                 {
                     cargoDialog.SetTarget(selectedFleet);
                     cargoDialog.ShowDialog();
+                    
+                    if(cargoDialog.DialogResult == DialogResult.OK)
+                    {
+                        foreach (CargoTask task in cargoDialog.Tasks.Values)
+                        {
+                            if(task.Amount.Mass != 0)
+                            {
+                                int index = wayPoints.SelectedIndices[0];            
+                                Waypoint waypoint = new Waypoint(selectedFleet.Waypoints[index]);
+                                waypoint.Task = task;
+                                command = new WaypointCommand(CommandMode.Add, selectedFleet.Key, index);
+                                command.Waypoint = waypoint;
+                                
+                                commands.Push(command);
+                                
+                                if (command.isValid(empireState))
+                                {
+                                    command.ApplyToState(empireState);
+                                    // Also perform it here, to update client state for manual xfer.
+                                    if (command.Waypoint.Task.isValid(selectedFleet, selectedFleet.InOrbit, empireState, null))
+                                    {
+                                        command.Waypoint.Task.Perform(selectedFleet, selectedFleet.InOrbit, empireState, null);
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
                     UpdateCargoMeters();
                     Invalidate();
                 }
@@ -293,7 +323,7 @@ namespace Nova.WinForms.Gui
             editedWaypoint.Position = selectedFleet.Waypoints[index].Position;
             editedWaypoint.WarpFactor = selectedFleet.Waypoints[index].WarpFactor;                
             
-            editedWaypoint.SetTask(WaypointTasks.Text);
+            editedWaypoint.LoadTask(WaypointTasks.Text, null);
             
             WaypointCommand command = new WaypointCommand(CommandMode.Edit, editedWaypoint, selectedFleet.Key, index);
             

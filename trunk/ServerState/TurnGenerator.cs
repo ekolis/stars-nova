@@ -34,7 +34,6 @@ namespace Nova.Server
     using Nova.Common.Waypoints;
     
     using Nova.Server.TurnSteps;
-    using Nova.Server.Waypoints;
 
     /// <summary>
     /// Class to process a new turn.
@@ -496,9 +495,12 @@ namespace Nova.Server
                         target = serverState.AllStars[thisWaypoint.Destination];
                     }
                     
-                    if (thisWaypoint.LoadWorker().isValid(fleet, target, serverState))
+                    EmpireData sender = serverState.AllEmpires[fleet.Owner];
+                    EmpireData reciever = serverState.AllEmpires[target.Owner];
+                    
+                    if (thisWaypoint.Task.isValid(fleet, target, sender, reciever))
                     {
-                        (thisWaypoint.Task as IWaypointTaskWorker).Perform(fleet, target, serverState);
+                        thisWaypoint.Task.Perform(fleet, target, sender, reciever);
                     }
                     
                     serverState.AllMessages.AddRange(thisWaypoint.Task.Messages);

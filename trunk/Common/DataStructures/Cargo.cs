@@ -138,6 +138,14 @@ namespace Nova.Common
             ColonistsInKilotons += rightCargo.ColonistsInKilotons;
         }
         
+        public void Remove(Cargo rightCargo)
+        {
+            Ironium -= rightCargo.Ironium;
+            Boranium -= rightCargo.Boranium;
+            Germanium -= rightCargo.Germanium;
+            ColonistsInKilotons -= rightCargo.ColonistsInKilotons;
+        }
+        
         /// <summary>
         /// Clears all cargo.
         /// </summary>

@@ -60,6 +60,16 @@ namespace Nova.Common.Waypoints
             
         }
         
+        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        {
+            return true;           
+        }
+        
+        public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        {
+            return true;
+        }
+        
         public XmlElement ToXml(XmlDocument xmldoc)
         {
             XmlElement xmlelTask = xmldoc.CreateElement("NoTask");

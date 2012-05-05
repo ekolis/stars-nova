@@ -259,10 +259,9 @@
     <Compile Include="Waypoints\InvadeTask.cs" />
     <Compile Include="Waypoints\IWaypointTask.cs" />
     <Compile Include="Waypoints\LayMinesTask.cs" />
-    <Compile Include="Waypoints\LoadTask.cs" />
+    <Compile Include="Waypoints\CargoTask.cs" />
     <Compile Include="Waypoints\NoTask.cs" />
     <Compile Include="Waypoints\ScrapTask.cs" />
-    <Compile Include="Waypoints\UnloadTask.cs" />
     <Compile Include="Waypoints\Waypoint.cs">
       <SubType>Code</SubType>
     </Compile>

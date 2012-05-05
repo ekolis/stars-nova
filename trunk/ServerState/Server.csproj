@@ -91,15 +91,6 @@
     <Compile Include="TurnSteps\FirstStep.cs" />
     <Compile Include="TurnSteps\StarUpdateStep.cs" />
     <Compile Include="VictoryCheck.cs" />
-    <Compile Include="Waypoints\ColoniseTaskWorker.cs" />
-    <Compile Include="Waypoints\InvadeTaskWorker.cs" />
-    <Compile Include="Waypoints\IWaypointTaskWorker.cs" />
-    <Compile Include="Waypoints\LayMinesTaskWorker.cs" />
-    <Compile Include="Waypoints\LoadTaskWorker.cs" />
-    <Compile Include="Waypoints\NoTaskWorker.cs" />
-    <Compile Include="Waypoints\ScrapTaskWorker.cs" />
-    <Compile Include="Waypoints\UnloadTaskWorker.cs" />
-    <Compile Include="Waypoints\WaypointExtension.cs" />
     <Compile Include="WeaponDetails.cs" />
     <Compile Include="TurnGenerator.cs" />
     <Compile Include="TurnSteps\TurnStep.cs" />
@@ -144,8 +135,5 @@
   <Target Name="AfterBuild">
   </Target>
   -->
-  <ItemGroup>
-    <Folder Include="Waypoints" />
-  </ItemGroup>
   <ItemGroup />
 </Project>

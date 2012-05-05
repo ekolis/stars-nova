@@ -57,7 +57,88 @@ namespace Nova.Common.Waypoints
         /// <param name="node">An XmlNode containing a representation of a ProductionUnit</param>
         public ScrapTask(XmlNode node)
         {
+            if (node == null)
+            {
+                return;
+            }    
+        }
+        
+        public bool isValid(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        { 
+            return true;           
+        }
+        
+        /// <summary>
+        /// Scrap a fleet (fleets include starbases).
+        /// </summary>
+        /// <param name="fleet"></param>
+        /// <param name="star"></param>
+        /// <remarks>
+        /// The minerals depositied are:
+        /// 
+        /// Colonisation                        - 75% (Handled in ColoniseWorkerTask)
+        /// Scrap at a starbase                 - 80%
+        /// Scrap at a planet without a stabase - 33%
+        /// Scrap in space                      - 0%
+        ///
+        /// If the secondary trait Ulitmate Recycling has been selected when you scrap a
+        /// fleet at a starbase, you recover 90% of the minerals and 70% of the
+        /// resources used to produce the fleet. The resources are available or use the
+        /// next year. Scrapping at a planet gives you 45% of the minerals and 35% of
+        /// the resources.These resources are not strictly additive.
+        /// </remarks>
+        public bool Perform(Fleet fleet, Mappable target, EmpireData sender, EmpireData reciever)
+        {
+            Message message = new Message();
+            Messages.Add(message);
+            message.Audience = fleet.Owner;
+            message.Text = fleet.Name + " has been scrapped";
+
+            double amount = 0;
+            double resources = 0;
+
+            if (fleet.InOrbit == null || target == null || !(target is Star))
+            {
+                // TODO (priority 4) - create a scrap packet in space
+                return false;
+            }
+            else
+            {
+                Star star = (Star)target;
+                
+                if (sender.Race.HasTrait("UR"))
+                {
+                    if (star.Starbase != null)
+                    {
+                        amount = 90;
+                        resources = 70;
+                    }
+                    else
+                    {
+                        amount = 45;
+                    }
+                }
+                else
+                {
+                    if (star.Starbase != null)
+                    {
+                        amount = 80;
+                    }
+                    else
+                    {
+                        amount = 33;
+                    }
+                }
+
+                double totalResources = fleet.TotalCost.Energy * resources/100;
+                Resources returned = fleet.TotalCost;
+                returned *= amount/100;
+                fleet.TotalCost.Energy = (int)totalResources;
+                star.ResourcesOnHand += fleet.TotalCost;
+            }
             
+            fleet.Tokens.Clear(); // disapear the ships. The (now empty) fleet will be cleaned up latter.
+            return true;
         }
         
         public XmlElement ToXml(XmlDocument xmldoc)
