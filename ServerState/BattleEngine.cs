@@ -366,18 +366,21 @@ namespace Nova.Server
                 {
                     if (stack.Owner != empireId)
                     {
-                        if (serverState.AllEmpires[empireId].EmpireReports[stack.Owner].Designs.ContainsKey(stack.Tokens[0].Design.Key))
+                        foreach (ShipToken token in stack.Tokens.Values)
                         {
-                            serverState.AllEmpires[empireId].EmpireReports[stack.Owner].Designs[stack.Tokens[0].Design.Key] = stack.Tokens[0].Design;
+                            if (serverState.AllEmpires[empireId].EmpireReports[stack.Owner].Designs.ContainsKey(token.Design.Key))
+                            {
+                                serverState.AllEmpires[empireId].EmpireReports[stack.Owner].Designs[token.Design.Key] = token.Design;
+                            }
+                            else
+                            {
+                                serverState.AllEmpires[empireId].EmpireReports[stack.Owner].Designs.Add(token.Design.Key, token.Design);
+                            }
+                            break;
                         }
-                        else
-                        {
-                            serverState.AllEmpires[empireId].EmpireReports[stack.Owner].Designs.Add(stack.Tokens[0].Design.Key, stack.Tokens[0].Design);
-                        }                             
                     }
                 }
             }
-            
         }
 
         /// <summary>
@@ -699,8 +702,11 @@ namespace Nova.Server
             // Each stack SHOULD contain only ONE token of ships, so target the
             // first token.
 
-            ShipToken target = targetStack.Tokens[0];
-            DischargeWeapon(attacker, weapon, target);
+            foreach (ShipToken target in targetStack.Tokens.Values)
+            {
+                DischargeWeapon(attacker, weapon, target);
+                break;
+            }
         }
 
         /// <summary>
