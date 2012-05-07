@@ -314,9 +314,7 @@ namespace Nova.Client
             
             FirstTurn     = newState.FirstTurn;             
             GameFolder    = newState.GameFolder; 
-            StatePathName = newState.StatePathName;
-            
-            LinkClientStateReferences();
+            StatePathName = newState.StatePathName;            
             
             return this;
         }
@@ -490,110 +488,6 @@ namespace Nova.Client
 
             return raceName;
         }
-        
-        /// <summary>
-        /// When state is loaded from file, objects may contain references to other objects.
-        /// As these may be loaded in any order (or be cross linked) it is necessary to tidy
-        /// up these references once the file is fully loaded and all objects exist.
-        /// In most cases a placeholder object has been created with the Name set from the file,
-        /// and we need to find the actual reference using this Name.
-        /// Objects can't do this themselves as they don't have access to the state data, 
-        /// so we do it here.
-        /// </summary>
-        private void LinkClientStateReferences()
-        {
-            AllComponents allComponents = new AllComponents();
-            
-            // HullModule reference to a component
-            foreach (ShipDesign design in EmpireState.Designs.Values)
-            {
-                foreach (HullModule module in design.Hull.Modules)
-                {
-                    if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
-                    {
-                        module.AllocatedComponent = allComponents.Fetch(module.AllocatedComponent.Name);
-                    }
-                }
-                
-                design.Update();
-            }
-            
-            // Link enemy designs too
-            foreach (EmpireIntel enemy in EmpireState.EmpireReports.Values)
-            {
-                foreach (ShipDesign design in enemy.Designs.Values)
-                {
-                    foreach (HullModule module in design.Hull.Modules)
-                    {
-                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
-                        {
-                            module.AllocatedComponent = allComponents.Fetch(module.AllocatedComponent.Name);
-                        }
-                    }
-                    
-                    design.Update();
-                }
-            }
-            
-            // Fleet reference to Star
-            foreach (Fleet fleet in EmpireState.OwnedFleets.Values)
-            {
-                if (fleet.InOrbit != null)
-                {
-                    if (EmpireState.StarReports[fleet.InOrbit.Name].Owner == fleet.Owner)
-                    {
-                        fleet.InOrbit = EmpireState.OwnedStars[fleet.InOrbit.Name];
-                    }
-                    else
-                    {
-                        fleet.InOrbit = EmpireState.StarReports[fleet.InOrbit.Name];
-                    }
-                }
-                
-                // Ship reference to Design
-                foreach (ShipToken token in fleet.Tokens.Values)
-                {
-                    token.Design = EmpireState.Designs[token.Design.Key];
-                }
-            }
-            
-            // Link reports to Designs to get accurate data.
-            foreach (FleetIntel report in EmpireState.FleetReports.Values)
-            {
-                foreach (ShipToken token in report.Composition.Values)
-                {
-                    if (report.Owner == EmpireState.Id)
-                    {
-                        token.Design = EmpireState.Designs[token.Design.Key];
-                    }
-                    else
-                    {
-                        token.Design = EmpireState.EmpireReports[report.Owner].Designs[token.Design.Key];
-                    }
-                }   
-            }
-
-            foreach (Star star in EmpireState.OwnedStars.Values)
-            {
-                if (star.ThisRace != null)
-                {
-                    // Reduntant, but works to check if race name is valid...
-                    if (star.Owner == EmpireState.Id)
-                    {
-                        star.ThisRace = EmpireState.Race;
-                    }
-                    else
-                    {
-                        star.ThisRace = null;
-                    }
-                }
-
-                if (star.Starbase != null)
-                {
-                    star.Starbase = EmpireState.OwnedFleets[star.Starbase.Key];        
-                }
-            }
-        }     
     }
 }
 
