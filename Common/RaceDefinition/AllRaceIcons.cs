@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -21,12 +21,9 @@
 
 namespace Nova.Common
 {
-    using System.Collections;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.IO;
-
-    using Nova.Common.Components;
+    using System.IO; 
 
     /// <summary>
     /// A singleton containing all the useable race icons, which is used to load and
@@ -82,13 +79,16 @@ namespace Nova.Common
             {
                 try
                 {
-                    // load the icons
-                    DirectoryInfo info = new DirectoryInfo(Path.Combine(AllComponents.Graphics, "Race"));
-                    foreach (FileInfo fi in info.GetFiles())
+                    using(Config conf = new Config())
                     {
-                        Bitmap i = new Bitmap(Path.Combine(fi.DirectoryName, fi.Name));
-                        RaceIcon icon = new RaceIcon(fi.Name, i);
-                        Data.IconList.Add(icon);
+                        // load the icons
+                        DirectoryInfo info = new DirectoryInfo(Path.Combine(conf[Global.GraphicsFolderKey], "Race"));
+                        foreach (FileInfo fi in info.GetFiles())
+                        {
+                            Bitmap i = new Bitmap(Path.Combine(fi.DirectoryName, fi.Name));
+                            RaceIcon icon = new RaceIcon(fi.Name, i);
+                            Data.IconList.Add(icon);
+                        }
                     }
                 }
                 catch

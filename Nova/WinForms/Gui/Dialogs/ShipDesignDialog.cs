@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011, 2012 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -23,16 +23,15 @@
 namespace Nova.WinForms.Gui
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Drawing;
     using System.Windows.Forms;
-
+    
     using Nova.Client;
     using Nova.Common;
-    using Nova.Common.Components;
     using Nova.Common.Commands;
-    using Nova.ControlLibrary;
+    using Nova.Common.Components;
+    using Nova.ControlLibrary;    
 
     /// <Summary>
     /// Dialog for designing a ship or starbase.
@@ -40,7 +39,7 @@ namespace Nova.WinForms.Gui
     public partial class ShipDesignDialog : System.Windows.Forms.Form
     {
         private readonly ClientData clientState;
-        private readonly Dictionary<string, Component> allComponents;
+        private readonly AllComponents allComponents = new AllComponents();
         private readonly Dictionary<long, ShipDesign> allDesigns;
         private readonly Dictionary<string, int> imageIndices = new Dictionary<string, int>();
         private readonly ImageList componentImages = new ImageList();
@@ -60,7 +59,6 @@ namespace Nova.WinForms.Gui
             // Some abbreviations (just to save a bit of typing)
 
             this.clientState = clientState;
-            this.allComponents = Nova.Common.Components.AllComponents.Data.Components;
             this.allDesigns = clientState.EmpireState.Designs;
 
             this.componentImages.ImageSize = new Size(64, 64);
@@ -232,7 +230,7 @@ namespace Nova.WinForms.Gui
             }
 
             ListViewItem item = ListView.SelectedItems[0];
-            Component selection = this.allComponents[item.Text];
+            Component selection = allComponents.GetAll[item.Text];
             ComponentCost.Value = selection.Cost;
             ComponentMass.Text = selection.Mass.ToString(System.Globalization.CultureInfo.InvariantCulture);
             Description.Text = selection.Description;
@@ -267,9 +265,9 @@ namespace Nova.WinForms.Gui
             HullGrid.DragDropData dragData = new HullGrid.DragDropData();
 
             ListViewItem item = ListView.SelectedItems[0];
-            dragData.HullName = this.selectedHull.Name;
+            dragData.HullName = selectedHull.Name;
             dragData.ComponentCount = 1;
-            dragData.SelectedComponent = this.allComponents[item.Text];
+            dragData.SelectedComponent = allComponents.GetAll[item.Text];
             dragData.Operation = DragDropEffects.Copy;
 
             if ((Control.ModifierKeys & Keys.Shift) != 0)

@@ -158,16 +158,21 @@ namespace Nova.Common.Components
                                     }
                                     else
                                     {
-                                        // guess it is relative, so convert
-                                        if (AllComponents.Graphics.Length == 0 || AllComponents.Graphics == "?")
+                                        using(Config conf = new Config())
                                         {
-                                            // All atempts to locate the graphics have failed, so skip them.
+                                            // guess it is relative, so convert
+                                            if (conf[Global.GraphicsFolderKey].Length == 0 || conf[Global.GraphicsFolderKey] == "?")
+                                            {
+                                                // All atempts to locate the graphics have failed, so skip them.
+                                            }
+                                            else
+                                            {
+                                                
+                                                ImageFile = Path.Combine(conf[Global.GraphicsFolderKey], ImageFile);
+                                                info = new FileInfo(ImageFile);
+                                            }
                                         }
-                                        else
-                                        {
-                                            ImageFile = Path.Combine(AllComponents.Graphics, ImageFile);
-                                            info = new FileInfo(ImageFile);
-                                        }
+                                        
                                         if (info.Exists)
                                         {
                                             // now we have an absolute path, load the image
@@ -403,9 +408,13 @@ namespace Nova.Common.Components
             XmlElement xmlelImage = xmldoc.CreateElement("Image");
 
             // Paths are always stored in external files using forward slashes.
-            XmlText xmltxtImage = xmldoc.CreateTextNode(Global.EvaluateRelativePath(AllComponents.Graphics, this.ImageFile).Replace(Path.DirectorySeparatorChar, '/'));
-            xmlelImage.AppendChild(xmltxtImage);
-            xmlelComponent.AppendChild(xmlelImage);
+            using (Config conf = new Config())
+            {
+                AllComponents allComponents = new AllComponents();
+                XmlText xmltxtImage = xmldoc.CreateTextNode(Global.EvaluateRelativePath(conf[Global.GraphicsFolderKey], this.ImageFile).Replace(Path.DirectorySeparatorChar, '/'));
+                xmlelImage.AppendChild(xmltxtImage);
+                xmlelComponent.AppendChild(xmlelImage);
+            }
 
             // Properties
             foreach (string key in this.Properties.Keys)

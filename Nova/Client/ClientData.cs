@@ -143,7 +143,7 @@ namespace Nova.Client
             // in designs can be linked to when loading the .intel file.
             try
             {
-                AllComponents.Restore();
+                AllComponents allComponents = new AllComponents();
             }
             catch
             {
@@ -502,6 +502,8 @@ namespace Nova.Client
         /// </summary>
         private void LinkClientStateReferences()
         {
+            AllComponents allComponents = new AllComponents();
+            
             // HullModule reference to a component
             foreach (ShipDesign design in EmpireState.Designs.Values)
             {
@@ -509,7 +511,7 @@ namespace Nova.Client
                 {
                     if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                     {
-                        AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
+                        module.AllocatedComponent = allComponents.Fetch(module.AllocatedComponent.Name);
                     }
                 }
                 
@@ -525,7 +527,7 @@ namespace Nova.Client
                     {
                         if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                         {
-                            AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
+                            module.AllocatedComponent = allComponents.Fetch(module.AllocatedComponent.Name);
                         }
                     }
                     

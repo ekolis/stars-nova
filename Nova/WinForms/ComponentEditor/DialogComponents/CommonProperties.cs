@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -23,12 +23,10 @@
 namespace Nova.WinForms.ComponentEditor
 {
     using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using System.Windows.Forms;
-
+    
     using Nova.Common;
-    using Nova.Common.Components;
+    using Nova.Common.Components;   
 
     /// <summary>
     /// Dialog component dealing with properties common to all components.
@@ -36,7 +34,7 @@ namespace Nova.WinForms.ComponentEditor
     public partial class CommonProperties : UserControl
     {
         public event EventHandler ListBoxChanged;
-        private readonly Dictionary<string, Component> allComponents;
+        private readonly AllComponents allComponents = new AllComponents();
 
         /// <Summary>
         /// Initializes a new instance of the CommonProperties class.
@@ -44,7 +42,6 @@ namespace Nova.WinForms.ComponentEditor
         public CommonProperties()
         {
             InitializeComponent();
-            this.allComponents = Nova.Common.Components.AllComponents.Data.Components;
         }
 
         /// <Summary>
@@ -74,7 +71,7 @@ namespace Nova.WinForms.ComponentEditor
         {
             ComponentList.Items.Clear();
 
-            foreach (Nova.Common.Components.Component thing in this.allComponents.Values)
+            foreach (Component thing in allComponents.GetAll.Values)
             {
                 if (thing.GetType() == objectType)
                 {
@@ -92,7 +89,7 @@ namespace Nova.WinForms.ComponentEditor
         {
             ComponentList.Items.Clear();
 
-            foreach (Nova.Common.Components.Component thing in this.allComponents.Values)
+            foreach (Component thing in allComponents.GetAll.Values)
             {
                 if (thing.Type.ToDescription() == objectName)
                 {

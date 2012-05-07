@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2010-2012 The Stars-Nova Project
 //
 // This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -19,14 +19,14 @@
 // ===========================================================================
 #endregion
 
-using System;
-using System.Linq;
-using System.Windows.Forms;
-
-using Nova.Common;
-
 namespace Nova
 {
+    using System;
+    using System.Linq;
+    using System.Windows.Forms;
+    
+    using Nova.Common;
+
     public static class Program
     {
         /// <Summary>

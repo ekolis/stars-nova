@@ -398,7 +398,9 @@ namespace Nova.Server
         /// so we do it here.
         /// </summary>
         private void LinkServerStateReferences()
-        {            
+        {
+            AllComponents allComponents = new AllComponents();
+
             foreach (Star star in AllStars.Values)
             {
                 // Star reference to the Race that owns it
@@ -431,7 +433,7 @@ namespace Nova.Server
                     {
                         if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                         {
-                            AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
+                            module.AllocatedComponent = allComponents.Fetch(module.AllocatedComponent.Name);
                         }
                     }
                 }

@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010 stars-nova
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,12 +20,6 @@
 // ===========================================================================
 #endregion
 
-#region Module Description
-// ===========================================================================
-// This dialog allows all components to be created and edited.
-// ===========================================================================
-#endregion
-
 #region New Property Checklist
 // Checklist for Adding a New Component Property 
 //
@@ -40,7 +34,7 @@
 // 9. Modify components.(xml/dat) save file to ensure correct loading of properties that are changed.
 // 10. Add to ShipDesign.SumProperty()
 #endregion
-// ============================================================================
+
 #region Bugs
 // == BUGS (FIXME priority 3) ==
 // Component->Copy seems to intermitently not copy race restrictions.
@@ -62,120 +56,133 @@
 //  - Up/Down key to navigate Component List
 // Display dock/cargo capacity in hull map.
 #endregion
-// ============================================================================
-
-#region Using Statements
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Drawing;
-using System.Windows.Forms;
-
-using Nova.Common;
-using Nova.Common.Components;
-
-#endregion
 
 namespace Nova.WinForms.ComponentEditor
 {
-   public partial class ComponentEditorWindow : Form
-   {
-       // Keep track of when to save.
-       private static bool fileDirty;
-       private static bool componentDirty;
+    using System;
+    using System.Collections.Concurrent;
+    using System.Collections.Generic;
+    using System.Drawing;
+    using System.Windows.Forms;
+    
+    using Nova.Common;
+    using Nova.Common.Components;
 
-       // Are we browsing or edditing?
-       private static bool editMode;
-
-       // Keep a copy of the race restrictions.
-       private static RaceRestriction restrictions;
-
-       // Keep a copy of the hull map, for ships.
-       private static List<HullModule> hullMap = new List<HullModule>();
-
-       // ============================================================================
-       //
-       //                       Setup
-       //
-       // ============================================================================
-       #region Setup
-
-       /// <Summary>
-       /// Initializes a new instance of the ComponentEditorWindow class.
-       /// </Summary>
-       public ComponentEditorWindow()
-       {
+    public partial class ComponentEditorWindow : Form
+        {
+        // Keep track of when to save.
+        private static bool fileDirty;
+        private static bool componentDirty;
+        
+        // Are we browsing or edditing?
+        private static bool editMode;
+        
+        // Keep a copy of the race restrictions.
+        private static RaceRestriction restrictions;
+        
+        // Keep a copy of the hull map, for ships.
+        private static List<HullModule> hullMap = new List<HullModule>();
+        
+        private static AllComponents allComponents = new AllComponents(false);
+        
+        /// <Summary>
+        /// Get and set the properties common to all components.
+        /// </Summary>
+        public Nova.Common.Components.Component CommonProperties
+        {
+          get
+          {
+              Nova.Common.Components.Component component = new Nova.Common.Components.Component();
+        
+              component.ComponentImage = this.componentImage.Image;
+              component.Cost = this.basicProperties.Cost;
+              component.Description = this.description.Text;
+              component.Mass = this.basicProperties.Mass;
+              component.Name = this.componentName.Text;
+              component.RequiredTech = this.techRequirements.Value;
+        
+              return component;
+          }
+        
+          set
+          {
+              this.basicProperties.Cost = value.Cost;
+              this.basicProperties.Mass = value.Mass;
+              this.componentImage.Image = value.ComponentImage;
+              this.componentName.Text = value.Name;
+              this.description.Text = value.Description;
+              this.restrictionSummary.Text = value.Restrictions.ToString();
+        
+              this.techRequirements.Value = value.RequiredTech;
+          }
+        }
+        
+        /// <Summary>
+        /// Initializes a new instance of the ComponentEditorWindow class.
+        /// </Summary>
+        public ComponentEditorWindow()
+        {
            InitializeComponent();
-       }
-
-
-       /// <Summary>
-       /// When the program starts, restore the component data. If the path to the
-       /// component data file has not been set then set it now.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void OnLoad(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// When the program starts, restore the component data. If the path to the
+        /// component data file has not been set then set it now.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void OnLoad(object sender, EventArgs e)
+        {
            // TODO (priority 3): without this an exception is raised when trying to launch a dialog 
            // from the non UI thread used to load the component definition file. The 
            // exception is caught and the program continues but no component images 
            // will be displayed. - dan_vale 28 Dec 09
-           string temp = AllComponents.Graphics; // force program to ask for the graphics path if not already defined.
-
+           string temp = allComponents.Graphics; // force program to ask for the graphics path if not already defined.
+        
            // Tidy up the tab control:
            // In case I forget to shrink it to fit when adding controls.
            this.propertyTabs.Width = 479; 
            // Start showing no property tabs, until some property is loaded.
            this.propertyTabs.TabPages.Clear();
-
-       }
-
-       #endregion Setup
-
-
-       #region Core Functions
-
-
-
-
-       #endregion
-
-       // ============================================================================
-       //
-       //                                  Menu Buttons
-       //  File         Component            Property         About
-       //   +-Open       +-Save               +-Add            +-About
-       //   +-New        +-Delete             +-Delete
-       //   +-Save       +-New
-       //   +-Save As    +-Edit
-       //   +-Exit       +-Copy
-       //                +-Discard Changes
-       //                +-Race Restrictions
-       //
-       // ============================================================================
-       #region Menu Buttons
-
-       #region File Menu
-
-       /// <Summary>
-       /// Menu->File->Open
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
-       {
+        
+        }
+        
+        
+        // ============================================================================
+        //
+        //                                  Menu Buttons
+        //  File         Component            Property         About
+        //   +-Open       +-Save               +-Add            +-About
+        //   +-New        +-Delete             +-Delete
+        //   +-Save       +-New
+        //   +-Save As    +-Edit
+        //   +-Exit       +-Copy
+        //                +-Discard Changes
+        //                +-Race Restrictions
+        //
+        // ============================================================================
+        
+        
+        /// <Summary>
+        /// Menu->File->Open
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void OpenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
            // Save the current work, if any.
            if (fileDirty)
            {
                SaveComponent();
-               AllComponents.Save();
+               allComponents.Save();
            }
+           
            OpenFileDialog fd = new OpenFileDialog();
            fd.Title = "Open component definition file";
-
+        
            DialogResult result = fd.ShowDialog();
-
+        
            if (result == DialogResult.OK)
            {
                // store the new component definition file name in the nova.conf
@@ -184,9 +191,9 @@ namespace Nova.WinForms.ComponentEditor
                    conf[Global.ComponentFileName] = fd.FileName;
                }
                
-               AllComponents.Restore();
+               allComponents.Restore();
                this.propertyTabs.TabPages.Clear();
-
+        
                // start with something showing
                this.componentType.Text = "Armor";
                UpdateListBox("Armor");
@@ -199,26 +206,26 @@ namespace Nova.WinForms.ComponentEditor
                EditModeOff();
                UpdateTitleBar();
            }
-
-       }
-
-
-       /// <Summary>
-       /// <para>Menu->File->New</para>
-       /// Create a new, empty component definition file.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void MenuItem_NewFile_Click(object sender, EventArgs e)
-       {
+        
+        }
+        
+        
+        /// <Summary>
+        /// <para>Menu->File->New</para>
+        /// Create a new, empty component definition file.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void MenuItem_NewFile_Click(object sender, EventArgs e)
+        {
            // clear the in memory component list
-           AllComponents.MakeNew();
-
+           allComponents.MakeNew();
+        
            // setup for editing
            EditModeOn();
            fileDirty = true;
            componentDirty = true;
-
+        
            // Tidy up the UI
            this.componentName.Text = "";
            this.description.Text = "";
@@ -229,36 +236,36 @@ namespace Nova.WinForms.ComponentEditor
            this.componentList.Items.Clear();
            this.propertyTabs.TabPages.Clear();
            hullMap = new List<HullModule>();
-
+        
            UpdateTitleBar();
-       }
-
-
-       /// <Summary>
-       /// Menu->File->Save
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void MenuItem_SaveFile_Click(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// Menu->File->Save
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void MenuItem_SaveFile_Click(object sender, EventArgs e)
+        {
            if (componentDirty)
            {
                SaveComponent();
            }
-           AllComponents.Save();
+           allComponents.Save();
            fileDirty = false;
            EditModeOff();
            UpdateTitleBar();
-       }
-
-
-       /// <Summary>
-       /// Menu->File->Save As
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void MenuItem_SaveFileAs_Click(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// Menu->File->Save As
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void MenuItem_SaveFileAs_Click(object sender, EventArgs e)
+        {
            if (componentDirty)
            {
                SaveComponent();
@@ -268,21 +275,21 @@ namespace Nova.WinForms.ComponentEditor
            fd.Filter = "dat files (*.dat)|*.dat|xml files (*.xml)|*.xml|compressed xml (*.xml.gz)|*.xml.gz|All files (*.*)|*.*";
            fd.FilterIndex = 3;
            fd.RestoreDirectory = true;
-
+        
            DialogResult result = fd.ShowDialog();
-
+        
            // only save if the user says OK!
            if (result == DialogResult.OK)
            {
                System.IO.FileInfo info = new System.IO.FileInfo(fd.FileName);
-
+        
                // FIXME (priority 3) - Create the selected file, if it doesn't already exist. This is a workaround for the FIXME below.
                if (!info.Exists)
                {
                    System.IO.FileStream saveFile = new System.IO.FileStream(fd.FileName, System.IO.FileMode.Create);
                    saveFile.Close();
                }
-
+        
                if (result == DialogResult.OK && fd.FileName != null)
                {
                    // FIXME (priority 3) - somehow the following line does not work! 
@@ -293,24 +300,24 @@ namespace Nova.WinForms.ComponentEditor
                    {
                        conf[Global.ComponentFileName] = fd.FileName;
                    }
-
-                   AllComponents.Save();
+        
+                   allComponents.Save();
                }
                EditModeOff();
                UpdateTitleBar();
                // fd.Dispose();
            }
-       }
-
-
-       /// <Summary>
-       /// <para>Menu-File-Exit</para>
-       /// Exit button press. Close the program only if data is saved.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void ExitButton_Click(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// <para>Menu-File-Exit</para>
+        /// Exit button press. Close the program only if data is saved.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void ExitButton_Click(object sender, EventArgs e)
+        {
            if (componentDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
@@ -336,7 +343,7 @@ namespace Nova.WinForms.ComponentEditor
                }
                else if (reply == DialogResult.Yes)
                {
-                   if (AllComponents.Save())
+                   if (allComponents.Save())
                    {
                        Close(); // close after saving
                    }
@@ -356,46 +363,43 @@ namespace Nova.WinForms.ComponentEditor
                Report.Debug("File not dirty.");
                Close(); // no need to save
            }
-       }
-
-       #endregion File Menu
-
-       #region Component Menu
-
-       /// <Summary>
-       /// Menu->Component->Save
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void SaveComponent_Click(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// Menu->Component->Save
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void SaveComponent_Click(object sender, EventArgs e)
+        {
            SaveComponent();
-       }
-
-
-       /// <Summary>
-       /// <para>Menu->Component->Delete</para>
-       /// Deletes the currently selected component.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void MenuItem_DeleteComponent_Click(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// <para>Menu->Component->Delete</para>
+        /// Deletes the currently selected component.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void MenuItem_DeleteComponent_Click(object sender, EventArgs e)
+        {
            DeleteComponent();
            EditModeOff();
            UpdateListBox(this.componentType.Text);
-       }
-
-
-       /// <Summary><para>
-       /// Menu->Component->New
-       /// </para><para>
-       /// Create a new component.
-       /// </para> </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void MenuItem_NewComponent_Click(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary><para>
+        /// Menu->Component->New
+        /// </para><para>
+        /// Create a new component.
+        /// </para> </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void MenuItem_NewComponent_Click(object sender, EventArgs e)
+        {
            if (componentDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
@@ -408,167 +412,164 @@ namespace Nova.WinForms.ComponentEditor
                    SaveComponent();
                }
            }
-
-
+        
+        
            ClearForm(); // To create a new component we just need to clear the form and set up default values.
-
+        
            EditModeOn();
            this.componentName.Text = "New Component";
            this.componentName.Focus();
            this.componentName.SelectAll();
-       }
-
-
-       /// <Summary>
-       /// <para>Menu->Component->Edit</para>
-       /// This is one way of entering 'edit' mode from 'browsing' mode. In edit
-       /// mode changing the component type changes the current component's type.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void MenuItem_EditComponent_Click(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// <para>Menu->Component->Edit</para>
+        /// This is one way of entering 'edit' mode from 'browsing' mode. In edit
+        /// mode changing the component type changes the current component's type.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void MenuItem_EditComponent_Click(object sender, EventArgs e)
+        {
            EditModeOn();
-       }
-
-
-       /// <Summary><para>
-       /// Menu->Component->Copy
-       /// </para><para>
-       /// Take a copy of a component to use for a template for a new component.
-       /// </para></Summary>
-       private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary><para>
+        /// Menu->Component->Copy
+        /// </para><para>
+        /// Take a copy of a component to use for a template for a new component.
+        /// </para></Summary>
+        private void CopyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
            EditModeOn();
            this.componentName.Text = "New Component";
            this.componentName.Focus();
            this.componentName.SelectAll();
-
-       }
-
-
-       /// <Summary>
-       /// <para>Menu->Component->Discard Changes</para>
-       /// Discardes any changes to the currently selected compoenent by refreshing 
-       /// the UI from the in memory components.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void MenuItem_DiscardComponentChanges_Click(object sender, EventArgs e)
-       {
+        
+        }
+        
+        
+        /// <Summary>
+        /// <para>Menu->Component->Discard Changes</para>
+        /// Discardes any changes to the currently selected compoenent by refreshing 
+        /// the UI from the in memory components.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void MenuItem_DiscardComponentChanges_Click(object sender, EventArgs e)
+        {
            UpdateListBox(this.componentType.Text);
            EditModeOff();
-       }
-
-
-       /// <Summary>
-       /// <para>Menu->Component->Race Restrictions</para>
-       /// Open the race restrictions dialog to edit what LRT or PRT restrictions
-       /// apply to this component.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void MenuItem_RaceRestrictions_Click(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// <para>Menu->Component->Race Restrictions</para>
+        /// Open the race restrictions dialog to edit what LRT or PRT restrictions
+        /// apply to this component.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void MenuItem_RaceRestrictions_Click(object sender, EventArgs e)
+        {
            EditModeOn();
            RaceRestrictionDialog dialog = new RaceRestrictionDialog(this.componentName.Text, (Bitmap)this.componentImage.Image, restrictions);
            dialog.ShowDialog();
            restrictions = new RaceRestriction(dialog.Restrictions);
            componentDirty = true;
-
+        
            this.restrictionSummary.Text = restrictions.ToString();
            dialog.Dispose();
-
-       }
-
-       #endregion Component Menu
-
-       #region Property Menu
-
-       /// <Summary>
-       /// <para>
-       /// Menu->Property->Add
-       /// </para><para>
-       /// Add the tab for the appropriate property, reset the values on the tab 
-       /// and give it focus.
-       /// </para>
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void MenuItem_AddProperty(object sender, EventArgs e)
-       {
+        
+        }
+        
+        
+        /// <Summary>
+        /// <para>
+        /// Menu->Property->Add
+        /// </para><para>
+        /// Add the tab for the appropriate property, reset the values on the tab 
+        /// and give it focus.
+        /// </para>
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void MenuItem_AddProperty(object sender, EventArgs e)
+        {
            ToolStripMenuItem menuSelection = sender as ToolStripMenuItem;
-
+        
            if (menuSelection == armorToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabArmor);
                this.propertyTabs.SelectedTab = tabArmor;
-
+        
                this.armor.Value = 0;
            }
            else if (menuSelection == beamDeflectorToolStripMenuItem1)
            {
                this.propertyTabs.TabPages.Add(tabDeflector);
                this.propertyTabs.SelectedTab = tabDeflector;
-
+        
                this.beamDeflector.Value = 0;
            }
            else if (menuSelection == battleMovementToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabMovement);
                this.propertyTabs.SelectedTab = tabMovement;
-
+        
                this.battleMovement.Value = 0;
-
+        
            }
            else if (menuSelection == bombToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabBomb);
                this.propertyTabs.SelectedTab = tabBomb;
-
+        
                this.populationKill.Value = 0;
                this.minimumPopKill.Value = 0;
                this.installationsDestroyed.Value = 0;
                this.smartBomb.Checked = false;
-
+        
            }
            else if (menuSelection == capacitorToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabCapacitor);
                this.propertyTabs.SelectedTab = tabCapacitor;
-
+        
                this.beamDamage.Value = 0;
-
+        
            }
            else if (menuSelection == cargoToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabCargo);
                this.propertyTabs.SelectedTab = tabCargo;
-
+        
                this.cargoCapacity.Value = 0;
-
+        
            }
            else if (menuSelection == cloakToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabCloak);
                this.propertyTabs.SelectedTab = tabCloak;
-
+        
                this.cloaking.Value = 0;
-
+        
            }
            else if (menuSelection == colonizationToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabColonization);
                this.propertyTabs.SelectedTab = tabColonization;
-
+        
                this.colonizationModule.Checked = true;
-
+        
            }
            else if (menuSelection == computerToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabComputer);
                this.propertyTabs.SelectedTab = tabComputer;
-
+        
                this.accuracy.Value = 0;
                this.initiative.Value = 0;
            }
@@ -576,7 +577,7 @@ namespace Nova.WinForms.ComponentEditor
            {
                this.propertyTabs.TabPages.Add(tabDefense);
                this.propertyTabs.SelectedTab = tabDefense;
-
+        
                this.defenseCover1.Value = 0.00M;
                this.defenseCover40.Text = "0.00";
                this.defenseCover80.Text = "0.00";
@@ -586,18 +587,18 @@ namespace Nova.WinForms.ComponentEditor
            {
                this.propertyTabs.TabPages.Add(tabEnergyDampener);
                this.propertyTabs.SelectedTab = tabEnergyDampener;
-
+        
                this.energyDampener.Value = 0.0M;
            }
            else if (menuSelection == engineToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabEngine);
                this.propertyTabs.SelectedTab = tabEngine;
-
+        
                this.ramScoopCheckBox.Checked = false;
                this.engineFastestSafeSpeed.Value = 1;
                this.engineOptimalSpeed.Value = 1;
-
+        
                this.warp1Fuel.Value = 0;
                this.warp2Fuel.Value = 0;
                this.warp3Fuel.Value = 0;
@@ -608,31 +609,31 @@ namespace Nova.WinForms.ComponentEditor
                this.warp8Fuel.Value = 0;
                this.warp9Fuel.Value = 0;
                this.warp10Fuel.Value = 0;
-
+        
            }
            else if (menuSelection == fuelToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabFuel);
                this.propertyTabs.SelectedTab = tabFuel;
-
+        
                this.fuelCapacity.Value = 0;
                this.fuelGeneration.Value = 0;
-
+        
            }
            else if (menuSelection == gateToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabGate);
                this.propertyTabs.SelectedTab = tabGate;
-
+        
                this.safeHullMass.Value = 0;
                this.safeRange.Value = 0;
-
+        
            }
            else if (menuSelection == hullToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabHull);
                this.propertyTabs.SelectedTab = tabHull;
-
+        
                hullMap = new List<HullModule>();
                this.hullArmor.Value = 0;
                this.hullInitiative.Value = 0;
@@ -640,14 +641,14 @@ namespace Nova.WinForms.ComponentEditor
                this.hullCargoCapacity.Value = 0;
                this.hullDockCapacity.Value = 0;
                this.alternateRealityMaxPop.Value = 0;
-
-
+        
+        
            }
            else if (menuSelection == hullAffinityToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabHullAffinity);
                this.propertyTabs.SelectedTab = tabHullAffinity;
-
+        
                this.componentHullAffinity.Text = "";
                ComponentHullAffinity_PopulateList();
            }
@@ -655,23 +656,23 @@ namespace Nova.WinForms.ComponentEditor
            {
                this.propertyTabs.TabPages.Add(tabJammer);
                this.propertyTabs.SelectedTab = tabJammer;
-
+        
                this.deflection.Value = 0;
-
+        
            }
            else if (menuSelection == massDriverToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabDriver);
                this.propertyTabs.SelectedTab = tabDriver;
-
+        
                this.massDriverSpeed.Value = 0;
-
+        
            }
            else if (menuSelection == mineLayerToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabMineLayer);
                this.propertyTabs.SelectedTab = tabMineLayer;
-
+        
                this.mineLayingRate.Value = 0;
                this.mineSafeSpeed.Value = 0;
                this.mineDamagePerEngine.Value = 0;
@@ -679,54 +680,54 @@ namespace Nova.WinForms.ComponentEditor
                this.mineMinFleetDamage.Value = 0;
                this.mineMinRamScoopDamage.Value = 0;
                this.mineHitChance.Value = 0.0M;
-
+        
            }
            else if (menuSelection == layerEfficencyToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabLayerEfficiency);
                this.propertyTabs.SelectedTab = tabLayerEfficiency;
-
+        
                this.mineLayerEfficiency.Value = 2.00M; // default to x2 
            }
            else if (menuSelection == miningRobotToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabRobot);
                this.propertyTabs.SelectedTab = tabRobot;
-
+        
                this.miningRate.Value = 0;
-
+        
            }
            else if (menuSelection == orbitalAdjusterToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabOrbitalAdjuster);
                this.propertyTabs.SelectedTab = tabOrbitalAdjuster;
-
+        
                this.adjusterRate.Value = 0;
-
+        
            }
            else if (menuSelection == radiationToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabRadiation);
                this.propertyTabs.SelectedTab = tabRadiation;
-
+        
                this.radiation.Value = 0;
            }
            else if (menuSelection == scannerToolStripMenuItem || menuSelection == planetaryScannerToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabScanner);
                this.propertyTabs.SelectedTab = tabScanner;
-
+        
                this.normalRange.Value = 0;
                this.penetratingRange.Value = 0;
-
+        
            }
            else if (menuSelection == shieldToolStripMenuItem)
            {
                this.propertyTabs.TabPages.Add(tabShield);
                this.propertyTabs.SelectedTab = tabShield;
-
+        
                this.shield.Value = 0;
-
+        
            }
            else if (menuSelection == tachyonDetectorToolStripMenuItem)
            {
@@ -738,11 +739,11 @@ namespace Nova.WinForms.ComponentEditor
            {
                this.propertyTabs.TabPages.Add(tabTerraforming);
                this.propertyTabs.SelectedTab = tabTerraforming;
-
+        
                this.gravityMod.Value = 0;
                this.temperatureMod.Value = 0;
                this.radiationMod.Value = 0;
-
+        
            }
            else if (menuSelection == transportOnlyToolStripMenuItem)
            {
@@ -753,159 +754,144 @@ namespace Nova.WinForms.ComponentEditor
            {
                this.propertyTabs.TabPages.Add(tabWeapon);
                this.propertyTabs.SelectedTab = tabWeapon;
-
-
+        
+        
                this.weaponPower.Value = 0;
                this.weaponRange.Value = 0;
                this.weaponInitiative.Value = 0;
                this.weaponAccuracy.Value = 0;
-
+        
                isStandardBeam.Checked = true;
-
+        
            }
-
+        
            EditModeOn();
-       } // add property
-
-
-       /// <Summary>
-       /// <para>Menu->Property->Delete Selected Property</para>
-       /// Remove the selected property tab from the tab control, hidding it and
-       /// letting us know not to add that property to the component.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void DeleteSelectedPropertyToolStripMenuItem_Click(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// <para>Menu->Property->Delete Selected Property</para>
+        /// Remove the selected property tab from the tab control, hidding it and
+        /// letting us know not to add that property to the component.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void DeleteSelectedPropertyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
            this.propertyTabs.TabPages.Remove(this.propertyTabs.SelectedTab);
            EditModeOn();
-       }
-
-       #endregion Property Menu
-
-       #region About
-
-       /// <Summary>
-       /// Display the About box dialog
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void AboutMenuClick(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// Display the About box dialog
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void AboutMenuClick(object sender, EventArgs e)
+        {
            DoDialog(new AboutBox());
-       }
-
-       #endregion About
-
-       #endregion Menu Buttons
-
-
-
-       // ============================================================================
-       //
-       //                       Event Methods
-       //
-       // ============================================================================
-       #region Event Methods
-
-       /// <Summary>
-       /// When a selection in the list box changes repopulate the dialog with the
-       /// values for that component. The processing of this event is
-       /// delegated from the Common Properties control.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void ComponentList_SelectedIndexChanged(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// When a selection in the list box changes repopulate the dialog with the
+        /// values for that component. The processing of this event is
+        /// delegated from the Common Properties control.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void ComponentList_SelectedIndexChanged(object sender, EventArgs e)
+        {
            if (this.componentList.SelectedItem == null)
            {
                return;
            }
-
+        
            string selectedComponentName = this.componentList.SelectedItem as string;
-
-           Nova.Common.Components.Component selectedComponent = AllComponents.Data.Components[selectedComponentName];
-
+        
+           Nova.Common.Components.Component selectedComponent = allComponents.GetAll[selectedComponentName];
+        
            CommonProperties = selectedComponent;
            restrictions = selectedComponent.Restrictions;
            this.componentImage.ImageFile = selectedComponent.ImageFile;
-
+        
            // Update all the property tabs with any properties of the selected component.
            try
            {
                this.propertyTabs.TabPages.Clear();                          // Start by clearing the current tabs.
-
+        
                // check for the property
                if (selectedComponent.Properties.ContainsKey("Armor"))
                {
                    IntegerProperty armorProperty = selectedComponent.Properties["Armor"] as IntegerProperty; // get the property
-
+        
                    this.armor.Value = (decimal)armorProperty.Value;         // set values on the tab
-
+        
                    this.propertyTabs.TabPages.Add(tabArmor);                // make the tab vissible
                    this.propertyTabs.SelectedTab = tabArmor;                // and selected
                }
                if (selectedComponent.Properties.ContainsKey("Battle Movement"))
                {
                    DoubleProperty movementProperty = selectedComponent.Properties["Battle Movement"] as DoubleProperty;
-
+        
                    this.battleMovement.Value = (decimal)movementProperty.Value;
-
+        
                    this.propertyTabs.TabPages.Add(tabMovement);
                    this.propertyTabs.SelectedTab = tabMovement;
                }
                if (selectedComponent.Properties.ContainsKey("Beam Deflector"))
                {
                    ProbabilityProperty deflectorProperty = selectedComponent.Properties["Beam Deflector"] as ProbabilityProperty;
-
+        
                    this.beamDeflector.Value = (decimal)deflectorProperty.Value;
-
+        
                    this.propertyTabs.TabPages.Add(tabDeflector);
                    this.propertyTabs.SelectedTab = tabDeflector;
                }
                if (selectedComponent.Properties.ContainsKey("Bomb"))
                {
                    Bomb bombProperty = selectedComponent.Properties["Bomb"] as Bomb;
-
+        
                    this.installationsDestroyed.Value = (decimal)bombProperty.Installations;
                    this.populationKill.Value = (decimal)bombProperty.PopKill;
                    this.minimumPopKill.Value = (decimal)bombProperty.MinimumKill;
                    this.smartBomb.Checked = bombProperty.IsSmart;
-
+        
                    this.propertyTabs.TabPages.Add(tabBomb);
                    this.propertyTabs.SelectedTab = tabBomb;
                }
                if (selectedComponent.Properties.ContainsKey("Capacitor"))
                {
                    CapacitorProperty capacitorProperty = selectedComponent.Properties["Capacitor"] as CapacitorProperty;
-
+        
                    this.beamDamage.Value = (decimal)capacitorProperty.Value;
-
+        
                    this.propertyTabs.TabPages.Add(tabCapacitor);
                    this.propertyTabs.SelectedTab = tabCapacitor;
                }
                if (selectedComponent.Properties.ContainsKey("Cargo"))
                {
                    IntegerProperty cargoProperty = selectedComponent.Properties["Cargo"] as IntegerProperty;
-
+        
                    this.cargoCapacity.Value = (decimal)cargoProperty.Value;
-
+        
                    this.propertyTabs.TabPages.Add(tabCargo);
                    this.propertyTabs.SelectedTab = tabCargo;
                }
                if (selectedComponent.Properties.ContainsKey("Cloak"))
                {
                    ProbabilityProperty cloakProperty = selectedComponent.Properties["Cloak"] as ProbabilityProperty;
-
+        
                    this.cloaking.Value = (decimal)cloakProperty.Value;
-
+        
                    this.propertyTabs.TabPages.Add(tabCloak);
                    this.propertyTabs.SelectedTab = tabCloak;
                }
                if (selectedComponent.Properties.ContainsKey("Colonizer"))
                {
                    Colonizer colonizationProperty = selectedComponent.Properties["Colonizer"] as Colonizer;
-
+        
                    if (colonizationProperty.Orbital)
                    {
                        this.orbitalColonizationModule.Checked = true;
@@ -914,25 +900,25 @@ namespace Nova.WinForms.ComponentEditor
                    {
                        this.colonizationModule.Checked = true;
                    }
-
+        
                    this.propertyTabs.TabPages.Add(tabColonization);
                    this.propertyTabs.SelectedTab = tabColonization;
-
+        
                }
                if (selectedComponent.Properties.ContainsKey("Computer"))
                {
                    Computer computerProperties = selectedComponent.Properties["Computer"] as Computer;
-
+        
                    this.initiative.Value = (decimal)computerProperties.Initiative;
                    this.accuracy.Value = (decimal)computerProperties.Accuracy;
-
+        
                    this.propertyTabs.TabPages.Add(tabComputer);
                    this.propertyTabs.SelectedTab = tabComputer;
                }
                if (selectedComponent.Properties.ContainsKey("Defense"))
                {
                    Defense defenseProperty = selectedComponent.Properties["Defense"] as Defense;
-
+        
                    this.defenseCover1.Value = (decimal)defenseProperty.Value;
                    this.propertyTabs.TabPages.Add(tabDefense);
                    this.propertyTabs.SelectedTab = tabDefense;
@@ -947,11 +933,11 @@ namespace Nova.WinForms.ComponentEditor
                if (selectedComponent.Properties.ContainsKey("Engine"))
                {
                    Engine engineProperties = selectedComponent.Properties["Engine"] as Engine;
-
+        
                    this.engineFastestSafeSpeed.Value = (decimal)engineProperties.FastestSafeSpeed;
                    this.engineOptimalSpeed.Value = (decimal)engineProperties.OptimalSpeed;
                    this.ramScoopCheckBox.Checked = engineProperties.RamScoop;
-
+        
                    this.warp1Fuel.Value = (decimal)engineProperties.FuelConsumption[0];
                    this.warp2Fuel.Value = (decimal)engineProperties.FuelConsumption[1];
                    this.warp3Fuel.Value = (decimal)engineProperties.FuelConsumption[2];
@@ -962,40 +948,40 @@ namespace Nova.WinForms.ComponentEditor
                    this.warp8Fuel.Value = (decimal)engineProperties.FuelConsumption[7];
                    this.warp9Fuel.Value = (decimal)engineProperties.FuelConsumption[8];
                    this.warp10Fuel.Value = (decimal)engineProperties.FuelConsumption[9];
-
+        
                    this.labelFreeWarpValue.Text = engineProperties.FreeWarpSpeed.ToString();
-
+        
                    this.propertyTabs.TabPages.Add(tabEngine);
                    this.propertyTabs.SelectedTab = tabEngine;
                }
-
+        
                if (selectedComponent.Properties.ContainsKey("Fuel"))
                {
                    Fuel fuelProperties = selectedComponent.Properties["Fuel"] as Fuel;
-
+        
                    this.fuelCapacity.Value = (decimal)fuelProperties.Capacity;
                    this.fuelGeneration.Value = (decimal)fuelProperties.Generation;
-
+        
                    this.propertyTabs.TabPages.Add(tabFuel);
                    this.propertyTabs.SelectedTab = tabFuel;
                }
-
+        
                if (selectedComponent.Properties.ContainsKey("Gate"))
                {
                    Gate gateProperties = selectedComponent.Properties["Gate"] as Gate;
-
+        
                    this.safeHullMass.Value = (decimal)gateProperties.SafeHullMass;
                    this.gateMassInfinite.Checked = this.safeHullMass.Value == -1;
                    this.safeRange.Value = (decimal)gateProperties.SafeRange;
                    this.gateRangeInfinite.Checked = this.safeRange.Value == -1;
-
+        
                    this.propertyTabs.TabPages.Add(tabGate);
                    this.propertyTabs.SelectedTab = tabGate;
                }
                if (selectedComponent.Properties.ContainsKey("Hull"))
                {
                    Hull hullProperties = selectedComponent.Properties["Hull"] as Hull;
-
+        
                    this.hullArmor.Value = (decimal)hullProperties.ArmorStrength;
                    this.hullFuelCapacity.Value = (decimal)hullProperties.FuelCapacity;
                    this.hullDockCapacity.Value = (decimal)hullProperties.DockCapacity;
@@ -1003,7 +989,7 @@ namespace Nova.WinForms.ComponentEditor
                    this.alternateRealityMaxPop.Value = (decimal)hullProperties.ARMaxPop;
                    this.hullCargoCapacity.Value = (decimal)hullProperties.BaseCargo;
                    this.hullInitiative.Value = (decimal)hullProperties.BattleInitiative;
-
+        
                    try
                    {
                        hullMap.Clear();
@@ -1018,8 +1004,8 @@ namespace Nova.WinForms.ComponentEditor
                        Report.Error("Hull map error - resetting map.");
                        hullMap = new List<HullModule>();
                    }
-
-
+        
+        
                    this.propertyTabs.TabPages.Add(tabHull);
                    this.propertyTabs.SelectedTab = tabHull;
                }
@@ -1027,35 +1013,35 @@ namespace Nova.WinForms.ComponentEditor
                {
                    HullAffinity hullAffinityProperty = selectedComponent.Properties["Hull Affinity"] as HullAffinity;
                    this.componentHullAffinity.Text = hullAffinityProperty.Value;
-
+        
                    ComponentHullAffinity_PopulateList();
-
+        
                    this.propertyTabs.TabPages.Add(tabHullAffinity);
                    this.propertyTabs.SelectedTab = tabHullAffinity;
                }
-
+        
                if (selectedComponent.Properties.ContainsKey("Jammer"))
                {
                    ProbabilityProperty jammerProperty = selectedComponent.Properties["Jammer"] as ProbabilityProperty;
-
+        
                    this.deflection.Value = (decimal)jammerProperty.Value;
-
+        
                    this.propertyTabs.TabPages.Add(tabJammer);
                    this.propertyTabs.SelectedTab = tabJammer;
                }
                if (selectedComponent.Properties.ContainsKey("Mass Driver"))
                {
                    MassDriver driverProperty = selectedComponent.Properties["Mass Driver"] as MassDriver;
-
+        
                    this.massDriverSpeed.Value = (decimal)driverProperty.Value;
-
+        
                    this.propertyTabs.TabPages.Add(tabDriver);
                    this.propertyTabs.SelectedTab = tabDriver;
                }
                if (selectedComponent.Properties.ContainsKey("Mine Layer"))
                {
                    MineLayer mineLayerProperties = selectedComponent.Properties["Mine Layer"] as MineLayer;
-
+        
                    this.mineLayingRate.Value = (decimal)mineLayerProperties.LayerRate;
                    this.mineSafeSpeed.Value = (decimal)mineLayerProperties.SafeSpeed;
                    this.mineHitChance.Value = (decimal)mineLayerProperties.HitChance;
@@ -1063,7 +1049,7 @@ namespace Nova.WinForms.ComponentEditor
                    this.mineDamagePerRamScoop.Value = (decimal)mineLayerProperties.DamagePerRamScoop;
                    this.mineMinFleetDamage.Value = (decimal)mineLayerProperties.MinFleetDamage;
                    this.mineMinRamScoopDamage.Value = (decimal)mineLayerProperties.MinRamScoopDamage;
-
+        
                    this.propertyTabs.TabPages.Add(tabMineLayer);
                    this.propertyTabs.SelectedTab = tabMineLayer;
                }
@@ -1077,67 +1063,67 @@ namespace Nova.WinForms.ComponentEditor
                if (selectedComponent.Properties.ContainsKey("Mining Robot"))
                {
                    IntegerProperty robotProperty = selectedComponent.Properties["Mining Robot"] as IntegerProperty;
-
+        
                    this.miningRate.Value = (decimal)robotProperty.Value;
-
+        
                    this.propertyTabs.TabPages.Add(tabRobot);
                    this.propertyTabs.SelectedTab = tabRobot;
                }
                if (selectedComponent.Properties.ContainsKey("Orbital Adjuster"))
                {
                    IntegerProperty adjusterProperty = selectedComponent.Properties["Orbital Adjuster"] as IntegerProperty;
-
+        
                    this.adjusterRate.Value = (decimal)adjusterProperty.Value;
-
+        
                    this.propertyTabs.TabPages.Add(tabOrbitalAdjuster);
                    this.propertyTabs.SelectedTab = tabOrbitalAdjuster;
                }
                if (selectedComponent.Properties.ContainsKey("Radiation"))
                {
                    Radiation radiationProperty = selectedComponent.Properties["Radiation"] as Radiation;
-
+        
                    this.radiation.Value = (decimal)radiationProperty.Value;
-
+        
                    this.propertyTabs.TabPages.Add(tabRadiation);
                    this.propertyTabs.SelectedTab = tabRadiation;
                }
-
+        
                if (selectedComponent.Properties.ContainsKey("Scanner"))
                {
                    Scanner scannerProperties = selectedComponent.Properties["Scanner"] as Scanner;
-
+        
                    this.normalRange.Value = (decimal)scannerProperties.NormalScan;
                    this.penetratingRange.Value = (decimal)scannerProperties.PenetratingScan;
-
+        
                    this.propertyTabs.TabPages.Add(tabScanner);
                    this.propertyTabs.SelectedTab = tabScanner;
                }
                if (selectedComponent.Properties.ContainsKey("Shield"))
                {
                    IntegerProperty shieldProperty = selectedComponent.Properties["Shield"] as IntegerProperty;
-
+        
                    this.shield.Value = (decimal)shieldProperty.Value;
-
+        
                    this.propertyTabs.TabPages.Add(tabShield);
                    this.propertyTabs.SelectedTab = tabShield;
                }
                if (selectedComponent.Properties.ContainsKey("Tachyon Detector"))
                {
                    ProbabilityProperty detectorProoperties = selectedComponent.Properties["Tachyon Detector"] as ProbabilityProperty;
-
+        
                    this.tachyonDetector.Value = (decimal)detectorProoperties.Value;
-
+        
                    this.propertyTabs.TabPages.Add(tabTachyonDetector);
                    this.propertyTabs.SelectedTab = tabTachyonDetector;
                }
                if (selectedComponent.Properties.ContainsKey("Terraform"))
                {
                    Terraform terraformProperties = selectedComponent.Properties["Terraform"] as Terraform;
-
+        
                    this.gravityMod.Value = (decimal)terraformProperties.MaxModifiedGravity;
                    this.temperatureMod.Value = (decimal)terraformProperties.MaxModifiedTemperature;
                    this.radiationMod.Value = (decimal)terraformProperties.MaxModifiedRadiation;
-
+        
                    this.propertyTabs.TabPages.Add(tabTerraforming);
                    this.propertyTabs.SelectedTab = tabTerraforming;
                }
@@ -1149,7 +1135,7 @@ namespace Nova.WinForms.ComponentEditor
                if (selectedComponent.Properties.ContainsKey("Weapon"))
                {
                    Weapon weaponProperties = selectedComponent.Properties["Weapon"] as Weapon;
-
+        
                    this.weaponPower.Value = (decimal)weaponProperties.Power;
                    this.weaponRange.Value = (decimal)weaponProperties.Range;
                    this.weaponInitiative.Value = (decimal)weaponProperties.Initiative;
@@ -1174,30 +1160,30 @@ namespace Nova.WinForms.ComponentEditor
                        default:
                            isStandardBeam.Checked = true;
                            break;
-
+        
                    }
-
+        
                    this.propertyTabs.TabPages.Add(tabWeapon);
                    this.propertyTabs.SelectedTab = tabWeapon;
                }
-
+        
            }
            catch
            {
                MessageBox.Show("Error accessing component properties.");
            }
-
-       }
-
-
-       /// <Summary>
-       /// Clicking in the component type box brings up a 'drop down' menu to 
-       /// select from.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void ComponentType_Changed(object sender, EventArgs e)
-       {
+        
+        }
+        
+        
+        /// <Summary>
+        /// Clicking in the component type box brings up a 'drop down' menu to 
+        /// select from.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void ComponentType_Changed(object sender, EventArgs e)
+        {
            // in edit mode, just change the component type. In view mode, repopulate the component list.
            if (!editMode)
            {
@@ -1217,18 +1203,19 @@ namespace Nova.WinForms.ComponentEditor
                    this.description.Text = "";
                    this.techRequirements.Value = new TechLevel(0);
                }
-
+        
            }
-
-       }
-
-       /// <summary>
-       /// Update the Fastest Free Fuel Speed whenever fuel costs are changed.
-       /// </summary>
-       /// <param name="sender"></param>
-       /// <param name="e"></param>
-       private void FuelCostChanged(object sender, EventArgs e)
-       {
+        
+        }
+        
+        
+        /// <summary>
+        /// Update the Fastest Free Fuel Speed whenever fuel costs are changed.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void FuelCostChanged(object sender, EventArgs e)
+        {
            int fastestFreeWarpSpeed = 1;
            if (warp10Fuel.Value == 0)
            {
@@ -1270,35 +1257,36 @@ namespace Nova.WinForms.ComponentEditor
            {
                fastestFreeWarpSpeed = 1;
            }
-  
+        
            this.labelFreeWarpValue.Text = fastestFreeWarpSpeed.ToString();
-
-       }
-
-       /// <Summary>
-       /// Draw tabs horizontally to the right of the tab control.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void PropertyTabs_DrawItem(object sender, DrawItemEventArgs e)
-       {
+        
+        }
+        
+        
+        /// <Summary>
+        /// Draw tabs horizontally to the right of the tab control.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void PropertyTabs_DrawItem(object sender, DrawItemEventArgs e)
+        {
            Graphics g = e.Graphics;
-
+        
            // Get the Item from the collection.
            TabPage tabPage = this.propertyTabs.TabPages[e.Index];
-
+        
            // Make the tab background 'Control' grey. 
            // Everytime I change the colection they are reset, so easiest to do it programatically here.
            tabPage.BackColor = Color.FromKnownColor(KnownColor.Control);
-
+        
            // Get the real bounds for the tab rectangle.
            Rectangle tabBounds = this.propertyTabs.GetTabRect(e.Index);
-
+        
            Brush textBrush = new SolidBrush(Color.Black);
-
+        
            // Use our own font. Because we CAN.
            Font tabFont = new Font("Sans Serif", 10, FontStyle.Regular, GraphicsUnit.Pixel);
-
+        
            // Draw string. Center the text.
            StringFormat stringFlags = new StringFormat();
            stringFlags.Alignment = StringAlignment.Center;
@@ -1306,42 +1294,42 @@ namespace Nova.WinForms.ComponentEditor
            
            g.DrawString(tabPage.Text, tabFont, textBrush, tabBounds, new StringFormat(stringFlags));
            
-       }
-
-
-       /// <Summary>
-       /// When the 'Edit Hull' button is clicked, pop up the <see cref='HullDialog'/>.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void ButtonEditHull_Click(object sender, EventArgs e)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// When the 'Edit Hull' button is clicked, pop up the <see cref='HullDialog'/>.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void ButtonEditHull_Click(object sender, EventArgs e)
+        {
            // create a new hull grid dialog
            HullDialog dialog = new HullDialog();
-
+        
            // and populate it
            dialog.HullGrid.ActiveModules = hullMap;
-
+        
            // do the dialog
            dialog.ShowDialog();
-
+        
            // copy the new hull map
            hullMap.Clear();
            hullMap = dialog.HullGrid.ActiveModules;
-
+        
            dialog.Dispose();
-
-       }
-
-
-       /// <Summary>
-       /// When the program is terminated, save the component data. This function is
-       /// invoked no matter which method is used to terminate the program.
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       private void OnFormClosing(object sender, FormClosingEventArgs e)
-       {
+        
+        }
+        
+        
+        /// <Summary>
+        /// When the program is terminated, save the component data. This function is
+        /// invoked no matter which method is used to terminate the program.
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        private void OnFormClosing(object sender, FormClosingEventArgs e)
+        {
            if (componentDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
@@ -1354,12 +1342,12 @@ namespace Nova.WinForms.ComponentEditor
                    SaveComponent();
                }
            }
-#if (DEBUG)
+        #if (DEBUG)
            else
            {
                MessageBox.Show("Component not dirty.");
            }
-#endif
+        #endif
            if (fileDirty)
            {
                DialogResult reply = MessageBox.Show("Save the current component definition file?", "Caption", MessageBoxButtons.YesNoCancel, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1);
@@ -1369,7 +1357,7 @@ namespace Nova.WinForms.ComponentEditor
                }
                else if (reply == DialogResult.Yes)
                {
-                   if (!AllComponents.Save())
+                   if (!allComponents.Save())
                    {
                        MessageBox.Show("Failed to save data.");
                    }
@@ -1377,31 +1365,20 @@ namespace Nova.WinForms.ComponentEditor
            }
            else
            {
-#if (DEBUG)
+        #if (DEBUG)
                MessageBox.Show("File not dirty.");
-#endif
+        #endif
            }
-       }
-
-
-       #endregion Event Methods
-
-
-       // ============================================================================
-       //
-       //                            Utility Functions
-       //
-       // ============================================================================
-       #region Utility
-
-
-       /// <Summary>
-       /// Save the currently selected component.
-       /// </Summary>
-       private void SaveComponent()
-       {
+        }
+        
+        
+        /// <Summary>
+        /// Save the currently selected component.
+        /// </Summary>
+        private void SaveComponent()
+        {
            string componentName = this.componentName.Text;
-
+        
            if (string.IsNullOrEmpty(componentName))
            {
                Report.Error("You must specify a component name");
@@ -1412,18 +1389,18 @@ namespace Nova.WinForms.ComponentEditor
                Report.Error("You must specify a component type");
                return;
            }
-
+        
            Nova.Common.Components.Component newComponent = new Nova.Common.Components.Component(CommonProperties);
            newComponent.Type = (ItemType)Enum.Parse(typeof(ItemType), this.componentType.Text);
            newComponent.Restrictions = new RaceRestriction(restrictions);
            newComponent.ImageFile = this.componentImage.ImageFile;
-
+        
            if (this.propertyTabs.Contains(tabArmor))
            {
                IntegerProperty armorProperty = new IntegerProperty();
                armorProperty.Value = (int)this.armor.Value;
                newComponent.Properties.Add("Armor", armorProperty);
-
+        
            }
            if (this.propertyTabs.Contains(tabMovement))
            {
@@ -1506,7 +1483,7 @@ namespace Nova.WinForms.ComponentEditor
                engineProperties.FuelConsumption[8] = (int)this.warp9Fuel.Value;
                engineProperties.FuelConsumption[9] = (int)this.warp10Fuel.Value;
                newComponent.Properties.Add("Engine", engineProperties);
-
+        
            }
            if (this.propertyTabs.Contains(tabFuel))
            {
@@ -1531,14 +1508,14 @@ namespace Nova.WinForms.ComponentEditor
                hullProperties.ARMaxPop = (int)this.alternateRealityMaxPop.Value;
                hullProperties.BaseCargo = (int)this.hullCargoCapacity.Value;
                hullProperties.BattleInitiative = (int)this.hullInitiative.Value;
-
+        
                hullProperties.Modules = new List<HullModule>();
                foreach (HullModule module in hullMap)
                {
                    HullModule newModule = new HullModule(module);
                    hullProperties.Modules.Add(newModule);
                }
-
+        
                newComponent.Properties.Add("Hull", hullProperties);
            }
            if (this.propertyTabs.Contains(tabHullAffinity))
@@ -1630,7 +1607,7 @@ namespace Nova.WinForms.ComponentEditor
            if (this.propertyTabs.Contains(tabWeapon))
            {
                Weapon weaponProperty = new Weapon();
-
+        
                weaponProperty.Power = (int)this.weaponPower.Value;
                weaponProperty.Range = (int)this.weaponRange.Value;
                weaponProperty.Initiative = (int)this.weaponInitiative.Value;
@@ -1659,27 +1636,27 @@ namespace Nova.WinForms.ComponentEditor
                {
                    weaponProperty.Group = WeaponType.standardBeam;
                }
-
+        
                newComponent.Properties.Add("Weapon", weaponProperty);
            }
-
-           Nova.Common.Components.AllComponents.Data.Components[newComponent.Name] = newComponent;
-
+        
+           allComponents.GetAll[newComponent.Name] = newComponent;
+        
            EditModeOff();
            fileDirty = true;
            componentDirty = false;
-
+        
            SelectComponent(this.componentType.Text, newComponent.Name);
-
+        
            Report.Information("Component design has been saved.");
-       }
-
-
-       /// <Summary>
-       /// Update the title with key information.
-       /// </Summary>
-       private void UpdateTitleBar()
-       {
+        }
+        
+        
+        /// <Summary>
+        /// Update the title with key information.
+        /// </Summary>
+        private void UpdateTitleBar()
+        {
            using (Config conf = new Config())
            {
                Text = "Nova Component Editor - ";
@@ -1691,7 +1668,7 @@ namespace Nova.WinForms.ComponentEditor
                {
                    Text += "New Component Definintions";
                }
-
+        
                if (editMode)
                {
                    Text += " - Edit Mode";
@@ -1701,37 +1678,37 @@ namespace Nova.WinForms.ComponentEditor
                    Text += " - Browsing Mode";
                }
            }
-       }
-
-
-       /// <Summary>
-       /// Update the list box of components base on the selected <see cref="Type"/>
-       /// </Summary>
-       /// <param name="componentTypeSelected">Type of component.</param>
-       public void UpdateListBox(string componentTypeSelected)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// Update the list box of components base on the selected <see cref="Type"/>
+        /// </Summary>
+        /// <param name="componentTypeSelected">Type of component.</param>
+        public void UpdateListBox(string componentTypeSelected)
+        {
            this.componentList.Items.Clear();
-
-           foreach (Component thing in AllComponents.Data.Components.Values)
+        
+           foreach (Component thing in allComponents.GetAll.Values)
            {
                if (thing.Type.ToDescription() == componentTypeSelected)
                {
                    this.componentList.Items.Add(thing.Name);
                }
            }
-       }
-
-
-       /// <Summary>
-       /// Makes a given component the selected component in the Component Editor
-       /// </Summary>
-       /// <param name="sender">The source of the event.</param>
-       /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
-       public void SelectComponent(string type, string name)
-       {
+        }
+        
+        
+        /// <Summary>
+        /// Makes a given component the selected component in the Component Editor
+        /// </Summary>
+        /// <param name="sender">The source of the event.</param>
+        /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
+        public void SelectComponent(string type, string name)
+        {
            UpdateListBox(type);
            EditModeOff();
-
+        
            // keep the current component selected
            for (int n = 0; n < this.componentList.Items.Count; n++)
            {
@@ -1741,85 +1718,85 @@ namespace Nova.WinForms.ComponentEditor
                    break;
                }
            }
-       }
-
-
-       /// <Summary>
-       /// Delete the currently selected component.
-       /// </Summary>
-       public void DeleteComponent()
-       {
+        }
+        
+        
+        /// <Summary>
+        /// Delete the currently selected component.
+        /// </Summary>
+        public void DeleteComponent()
+        {
            string componentName = this.componentName.Text;
-
+        
            if (string.IsNullOrEmpty(componentName))
            {
                Report.Error("You must select a component to delete");
                return;
            }
-
-           AllComponents.Data.Components.Remove(componentName);
+        
+           allComponents.Remove(componentName);
            this.componentList.Items.Remove(componentName);
-
+        
            if (this.componentList.Items.Count > 0)
            {
                this.componentList.SelectedIndex = 0;
            }
-
+        
            fileDirty = true;
            componentDirty = false;
            EditModeOff();
-       }
-
-
-      /// <Summary><para>
-      /// Enter component editing mode.
-      /// </para><para>
-      /// In this mode changing the component type modifies the currently selected 
-      /// component.
-      /// </para></Summary>
-      private void EditModeOn()
-      {
+        }
+        
+        
+        /// <Summary><para>
+        /// Enter component editing mode.
+        /// </para><para>
+        /// In this mode changing the component type modifies the currently selected 
+        /// component.
+        /// </para></Summary>
+        private void EditModeOn()
+        {
           editMode = true;
           this.componentName.ReadOnly = false;
           this.description.ReadOnly = false;
           // TODO (priority 2) - enable all component editing fields/menu items
           UpdateTitleBar();
-      }
-
-
-      /// <Summary><para>
-      /// Enter component browsing mode. 
-      /// </para><para>
-      /// In this mode changing the component type updates the component list with 
-      /// components of the new type.
-      /// </para></Summary>
-      private void EditModeOff()
-      {
+        }
+        
+        
+        /// <Summary><para>
+        /// Enter component browsing mode. 
+        /// </para><para>
+        /// In this mode changing the component type updates the component list with 
+        /// components of the new type.
+        /// </para></Summary>
+        private void EditModeOff()
+        {
           editMode = false;
           this.componentName.ReadOnly = true;
           this.description.ReadOnly = true;
           // TODO (priority 2) - disable all component editing fields.
           UpdateTitleBar();
-
-      }
-
-
-      /// <Summary>
-      /// General dialog handling.
-      /// </Summary>
-      /// <param name="dialog">A dialog <see cref="Form"/>.</param>
-      private void DoDialog(Form dialog)
-      {
+        
+        }
+        
+        
+        /// <Summary>
+        /// General dialog handling.
+        /// </Summary>
+        /// <param name="dialog">A dialog <see cref="Form"/>.</param>
+        private void DoDialog(Form dialog)
+        {
           dialog.ShowDialog();
           dialog.Dispose();
-      }
-
-
-      /// <Summary>
-      /// Clear all the entry fields on the component editor and associated forms.
-      /// </Summary>
-      private void ClearForm()
-      {
+        }
+        
+        
+        /// <Summary>
+        /// Clear all the entry fields on the component editor and associated forms.
+        /// </Summary>
+        private void ClearForm()
+        {
           this.propertyTabs.TabPages.Clear();
           this.basicProperties.Cost = new Nova.Common.Resources(0, 0, 0, 0);
           this.basicProperties.Mass = 0;
@@ -1830,72 +1807,25 @@ namespace Nova.WinForms.ComponentEditor
           this.techRequirements.Value = new TechLevel(0);
           restrictions = new RaceRestriction();
           hullMap = new List<HullModule>();
-      }
-
-
-      /// <Summary>
-      /// Update the list of Hulls so that only the hulls this Item may be fitted to can be selected. 
-      /// (Hull affinity limits which hulls an Item may be fitted too.)
-      /// </Summary>
-      private void ComponentHullAffinity_PopulateList()
-      {
+        }
+        
+        
+        /// <Summary>
+        /// Update the list of Hulls so that only the hulls this Item may be fitted to can be selected. 
+        /// (Hull affinity limits which hulls an Item may be fitted too.)
+        /// </Summary>
+        private void ComponentHullAffinity_PopulateList()
+        {
           this.componentHullAffinity.Items.Clear();
-          foreach (Nova.Common.Components.Component thing in Nova.Common.Components.AllComponents.Data.Components.Values)
+          foreach (Component thing in allComponents.GetAll.Values)
           {
               if (thing.Type == ItemType.Hull)
               {
                   this.componentHullAffinity.Items.Add(thing.Name);
               }
           }
-      }
-
-      #endregion Utility
-
-
-
-      // ============================================================================
-      //
-      //                            Properties
-      // - CommonProperties
-      //
-      // ============================================================================
-      #region Properties
-
-      /// <Summary>
-      /// Get and set the properties common to all components.
-      /// </Summary>
-      public Nova.Common.Components.Component CommonProperties
-      {
-          get
-          {
-              Nova.Common.Components.Component component = new Nova.Common.Components.Component();
-
-              component.ComponentImage = this.componentImage.Image;
-              component.Cost = this.basicProperties.Cost;
-              component.Description = this.description.Text;
-              component.Mass = this.basicProperties.Mass;
-              component.Name = this.componentName.Text;
-              component.RequiredTech = this.techRequirements.Value;
-
-              return component;
-          }
-
-          set
-          {
-              this.basicProperties.Cost = value.Cost;
-              this.basicProperties.Mass = value.Mass;
-              this.componentImage.Image = value.ComponentImage;
-              this.componentName.Text = value.Name;
-              this.description.Text = value.Description;
-              this.restrictionSummary.Text = value.Restrictions.ToString();
-
-              this.techRequirements.Value = value.RequiredTech;
-          }
-      }
-
-      #endregion
-
-   }
+        }
+    }
 }
 
 
