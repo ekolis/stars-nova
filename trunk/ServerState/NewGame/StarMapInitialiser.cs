@@ -1,6 +1,6 @@
 #region Copyright Notice
 // ============================================================================
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -21,13 +21,12 @@
 
 namespace Nova.Server.NewGame
 {
-    using System;    
+    using System;
     using System.Collections.Generic;
     using System.Drawing;
-
+    
     using Nova.Common;
     using Nova.Common.Components;
-    using Nova.Server;
 
     /// <summary>
     /// This object contains static methods to initialise the star map. 
@@ -124,40 +123,39 @@ namespace Nova.Server.NewGame
         private void PrepareDesigns(EmpireData empire, string player)
         {
             // Read components data and create some basic stuff
-            AllComponents.Restore();
-            Dictionary<string, Component> components = AllComponents.Data.Components;
+            AllComponents components = new AllComponents();
             
             Component colonyShipHull = null, scoutHull = null;            
             Component colonizer = null;
-            Component scaner = new Component(components["Bat Scanner"]);
-            Component armor = new Component(components["Tritanium"]);
-            Component shield = new Component(components["Mole-skin Shield"]);
-            Component laser = new Component(components["Laser"]);
-            Component torpedo = new Component(components["Alpha Torpedo"]);
+            Component scaner = components.Fetch("Bat Scanner");
+            Component armor = components.Fetch("Tritanium");
+            Component shield = components.Fetch("Mole-skin Shield");
+            Component laser = components.Fetch("Laser");
+            Component torpedo = components.Fetch("Alpha Torpedo");
 
-            Component starbaseHull = new Component(components["Space Station"]);
-            Component engine = new Component(components["Quick Jump 5"]);
+            Component starbaseHull = components.Fetch("Space Station");
+            Component engine = components.Fetch("Quick Jump 5");
             Component colonyShipEngine = null;
 
             if (empire.Race.Traits.Primary.Code != "HE")
             {
-                colonyShipHull = new Component(components["Colony Ship"]);
+                colonyShipHull = components.Fetch("Colony Ship");
             }
             else
             {
-                colonyShipEngine = new Component(components["Settler's Delight"]);
-                colonyShipHull = new Component(components["Mini-Colony Ship"]);
+                colonyShipEngine = components.Fetch("Settler's Delight");
+                colonyShipHull = components.Fetch("Mini-Colony Ship");
             }
             
-            scoutHull = new Component(components["Scout"]);
+            scoutHull = components.Fetch("Scout");
 
             if (empire.Race.HasTrait("AR") == true)
             {
-                colonizer = new Component(components["Orbital Construction Module"]);
+                colonizer = components.Fetch("Orbital Construction Module");
             }
             else
             {
-                colonizer = new Component(components["Colonization Module"]);
+                colonizer = components.Fetch("Colonization Module");
             }
 
 

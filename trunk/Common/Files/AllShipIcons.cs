@@ -87,16 +87,19 @@ namespace Nova.Common
             {
                 try
                 {
-                    // load the icons
-                    DirectoryInfo info = new DirectoryInfo(Path.Combine(AllComponents.Graphics, "Ship"));
-                    foreach (FileInfo fi in info.GetFiles())
+                    using(Config conf = new Config())
                     {
-                        LoadIcon(fi);
-                    }
-                    info = new DirectoryInfo(Path.Combine(AllComponents.Graphics, "Base"));
-                    foreach (FileInfo fi in info.GetFiles())
-                    {
-                        LoadIcon(fi);
+                        // load the icons
+                        DirectoryInfo info = new DirectoryInfo(Path.Combine(conf[Global.GraphicsFolderKey], "Ship"));
+                        foreach (FileInfo fi in info.GetFiles())
+                        {
+                            LoadIcon(fi);
+                        }
+                        info = new DirectoryInfo(Path.Combine(conf[Global.GraphicsFolderKey], "Base"));
+                        foreach (FileInfo fi in info.GetFiles())
+                        {
+                            LoadIcon(fi);
+                        }
                     }
                 }
                 catch

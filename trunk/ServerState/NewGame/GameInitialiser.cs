@@ -1,6 +1,6 @@
 #region Copyright Notice
 // ============================================================================
-// Copyright (C) 2011 The Stars-Nova Project
+// Copyright (C) 2011-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,13 +20,12 @@
 #endregion
 
 namespace Nova.Server.NewGame
-{    
+{
     using System.Collections.Generic;
     using System.IO;
     
     using Nova.Common;
     using Nova.Common.Components;
-    using Nova.Server;
     
     /// <summary>
     /// Creates a game from scratch.
@@ -116,7 +115,6 @@ namespace Nova.Server.NewGame
                 // TODO: (priority 6) Set spent resources according to initial levels, instead of zero.
                 
                 // Load components!
-                AllComponents.Restore();
                 empireData.AvailableComponents = new RaceComponents(empireData.Race, empireData.ResearchLevels);
             }
             

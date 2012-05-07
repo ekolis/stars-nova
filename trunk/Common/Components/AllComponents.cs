@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011, 2012 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,72 +20,55 @@
 // ===========================================================================
 #endregion
 
-
 namespace Nova.Common.Components
 {
-
     using System;
     using System.Collections.Generic;
+    using System.Collections.Concurrent;
     using System.IO;
-    using System.IO.Compression;
-    using System.Runtime.Serialization;
-    using System.Windows.Forms;
+    using System.Threading;
     using System.Xml;
 
-    using Nova.Common;
-
     /// <summary>
-    /// Provides singleton access (via AllComponents.Data) to a <see cref="Hashtable"/> containing all <see cref="Component"/>s indexed on the component's name.
+    /// Provides access to a <see cref="ConcurrentDictionary"/>
+    /// containing all <see cref="Component"/>s indexed by their names.
     /// </summary>
-    [Serializable]
     public sealed class AllComponents
     {
-        private static readonly object Padlock = new object();
-        private static AllComponents instance;
-
-        // All component data
-        public Dictionary<string, Component> Components = new Dictionary<string, Component>();
+        // Contains all components
+        private static ConcurrentDictionary<string, Component> components = new ConcurrentDictionary<string, Component>();
 
         // Data private to this module.
         private static string saveFilePath;
         private static string graphicsFilePath;
         private static bool isLoaded = false;
-
+        
         /// <summary>
-        /// Prevents a default instance of the AllComponents class from being created.
+        /// Returns an IDictionary (Compatible with Dictionary and ConcurrentDictionary)
+        /// containing all game components.
         /// </summary>
-        private AllComponents()
-        {
-        }
-
-        /// <summary>
-        /// Provide a mechanism of accessing the single instance of this class that we
-        /// will create locally. Creation of the data is thread-safe.
-        /// </summary>
-        public static AllComponents Data
+        public IDictionary<string, Component> GetAll
         {
             get
             {
-                if (instance == null)
-                {
-                    lock (Padlock)
-                    {
-                        if (instance == null)
-                        {
-                            instance = new AllComponents();
-                        }
-                    }
-                }
-                return instance;
-            }
-
-            set
-            {
-                instance = value;
+                return components;
             }
         }
 
+        /// <summary>
+        /// Default Constructor.
+        /// </summary>
+        /// <param name="restore">If true (by default) it will also restore
+        /// all components on creation.</param>
+        public AllComponents(bool restore = true)
+        {
+            if (restore)
+            {
+                Restore();
+            }
+        }
 
+        
         /// <summary>
         /// Check if AllComponents contains a particular Component.
         /// </summary>
@@ -93,9 +76,10 @@ namespace Nova.Common.Components
         /// <returns>True if the component is included.</returns>
         public bool Contains(string componentName)
         {
-            return Data.Components.ContainsKey(componentName);
+            return components.ContainsKey(componentName);
         }
 
+        
         /// <summary>
         /// Check if AllComponents contains a particular Component.
         /// </summary>
@@ -103,22 +87,72 @@ namespace Nova.Common.Components
         /// <returns>True if the component is included.</returns>
         public bool Contains(Component component)
         {
-            return Data.Components.ContainsValue(component);
+            return Contains(component.Name);
         }
 
+        
+        /// <summary>
+        /// Returns a new instance of the requested component
+        /// </summary>
+        /// <param name="componentName">The desired Component's name</param>
+        /// <returns>The new requested Component, or null.</returns>
+        public Component Fetch(string componentName)
+        {
+            if (Contains(componentName))
+            {
+                return new Component(components[componentName]);
+            }
+            
+            return null;
+        }
+        
+        
+        /// <summary>
+        /// Removes and returns a Component
+        /// </summary>
+        /// <param name="componentName">Component name to remove</param>
+        /// <returns>The removed Component, or null.</returns>
+        public Component Remove(string componentName)
+        {
+            Component removed = null;
+            components.TryRemove(componentName, out removed);
+            
+            return removed;
+        }
+        
+        
+        /// <summary>
+        /// Start a new component definition set. This simply wipes all components from
+        /// the in memory component definitions.
+        /// </summary>
+        public void MakeNew()
+        {
+            components = new ConcurrentDictionary<string, Component>();
+            
+            using (Config conf = new Config())
+            {
+                conf.Remove(Global.ComponentFileName);
+            }
+            
+            saveFilePath = null;
+            isLoaded = false;
+        }
+        
+        
         /// <summary>
         /// Restore the component definitions.
         /// </summary>
         /// <exception cref="System.Data.OperationAbortedException">
         /// The loading of the component definition was aborted.
         /// </exception>
-        public static void Restore()
+        public void Restore()
         {
             // If components are already loaded, GO AWAY DAMN DIALOG -Aeglos 25 Jun 11
             if (isLoaded)
             {
                 return;
             }
+            
             // Ensure we have the component definition file before starting the worker thread, or die.
             if (String.IsNullOrEmpty(saveFilePath))
             {
@@ -128,36 +162,16 @@ namespace Nova.Common.Components
                     Report.FatalError("Unable to locate component definition file.");
                 }
             }
+            
             ProgressDialog progress = new ProgressDialog();
-            progress.Text = "Work";
-            System.Threading.ThreadPool.QueueUserWorkItem(new System.Threading.WaitCallback(AllComponents.Data.LoadComponents), progress);
+            progress.Text = "Loading Components";
+            ThreadPool.QueueUserWorkItem(new WaitCallback(LoadComponents), progress);
             progress.ShowDialog();
+            
             if (!progress.Success)
             {
                 throw new System.Exception();
             }
-        }
-
-        /// <summary>
-        /// Start a new component definition set. This simply wipes all components from
-        /// the in memory component definitions.
-        /// </summary>
-        public static void MakeNew()
-        {
-            lock (Padlock)
-            {
-                if (instance == null)
-                {
-                    instance = new AllComponents();
-                }
-            }
-            AllComponents.instance.Components = new Dictionary<string, Component>();
-            using (Config conf = new Config())
-            {
-                conf.Remove(Global.ComponentFileName);
-            }
-            saveFilePath = null;
-            isLoaded = false;
         }
 
 
@@ -175,7 +189,7 @@ namespace Nova.Common.Components
             try
             {
                 // blank the component data
-                Data = new AllComponents();
+                components = new ConcurrentDictionary<string, Component>();
                 isLoaded = false;
                 
                 XmlDocument xmldoc = new XmlDocument();
@@ -202,7 +216,7 @@ namespace Nova.Common.Components
                             callback.SetText(String.Format("Loading component: {0}", nodesLoaded));
                             callback.StepTo(nodesLoaded);
                             Component newComponent = new Component(xmlnode);
-                            AllComponents.Data.Components[newComponent.Name] = newComponent;
+                            components[newComponent.Name] = newComponent;
                             xmlnode = xmlnode.NextSibling;
                         }
                         else
@@ -230,12 +244,10 @@ namespace Nova.Common.Components
                 // And here, if we can
                 Report.Error("AllComponents: LoadComponents() - Thread Interrupted Exception.");
             }
-
             catch (Exception e)
             {
                 Report.Error("Failed to load file: \r\n" + e.Message);
             }
-
             finally
             {
                 if (callback != null)
@@ -245,8 +257,11 @@ namespace Nova.Common.Components
             }
         }
 
-        /// <summary> Save the component data. </summary>
-        public static bool Save()
+        
+        /// <summary>
+        /// Save the component data.
+        /// </summary>
+        public bool Save()
         {
             try
             {
@@ -258,7 +273,7 @@ namespace Nova.Common.Components
                 Global.InitializeXmlDocument(xmldoc);
 
                 // add the components to the document
-                foreach (Component thing in AllComponents.Data.Components.Values)
+                foreach (Component thing in components.Values)
                 {
                     xmldoc.ChildNodes.Item(1).AppendChild(thing.ToXml(xmldoc));
                 }
@@ -279,13 +294,13 @@ namespace Nova.Common.Components
                 Report.Error("Error: Failed to save component definition file. " + e.Message);
                 return false;
             }
-        } // Save
+        }
 
 
         /// <summary>
         /// Get the path where the graphics files are stored.
         /// </summary>
-        public static string Graphics
+        public string Graphics
         {
             get
             {
@@ -300,14 +315,16 @@ namespace Nova.Common.Components
                         }
                     }
                 }
+                
                 return graphicsFilePath;
             }
         }
 
+        
         /// <summary>
         /// Path and file name of the component definition file, automatically located and persisted, or null.
         /// </summary>
-        public static string ComponentFile
+        public string ComponentFile
         {
             get
             {
@@ -322,6 +339,7 @@ namespace Nova.Common.Components
                         }
                     }
                 }
+                
                 return saveFilePath;
             }
         }

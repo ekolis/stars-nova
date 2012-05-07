@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2010 stars-nova
+// Copyright (C) 2010-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -19,17 +19,15 @@
 // ===========================================================================
 #endregion
 
+
 namespace Nova.Common
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.IO;
-    using System.Reflection;
-    using System.Security.AccessControl;
     using System.Windows.Forms;
     using System.Xml.Schema;
-    using System.Xml.Serialization;
+    using System.Xml.Serialization; 
 
     /// <summary>
     /// Class to manage the application configuration settings. 

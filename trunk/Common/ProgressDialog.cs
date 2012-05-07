@@ -6,15 +6,12 @@
 // Modified for stars-nova.
 // ===========================================================================
 
+
 namespace Nova.Common
 {
     using System;
-    using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
-    using System.Drawing;
-    using System.Text;
-    using System.Windows.Forms;
+    using System.Threading;
+    using System.Windows.Forms;  
 
     /// <summary>
     /// A progress dialog box.
@@ -27,8 +24,8 @@ namespace Nova.Common
         public delegate void RangeInvoker(int minimum, int maximum);
 
         private string titleRoot = "";
-        private System.Threading.ManualResetEvent initEvent = new System.Threading.ManualResetEvent(false);
-        private System.Threading.ManualResetEvent abortEvent = new System.Threading.ManualResetEvent(false);
+        private ManualResetEvent initEvent = new ManualResetEvent(false);
+        private ManualResetEvent abortEvent = new ManualResetEvent(false);
         private bool requiresClose = true;
         private bool operationSuccess; // shadow for property Success
 

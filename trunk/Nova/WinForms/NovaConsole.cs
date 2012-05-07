@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars! Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,18 +20,15 @@
 // ===========================================================================
 #endregion
 
-
 namespace Nova.WinForms.Console
 {
     using System;
-    using System.ComponentModel;
     using System.Diagnostics;
     using System.IO;
     using System.Reflection;
     using System.Windows.Forms;
-
+    
     using Nova.Common;
-    using Nova.Common.Components;
     using Nova.Server;
 
     /// <Summary>
@@ -83,8 +80,6 @@ namespace Nova.WinForms.Console
             serverState.StatePathName = FileSearcher.GetFile(Global.ServerStateKey, false, "", "", "", false);
             serverState.GameFolder = FileSearcher.GetFolder(Global.ServerFolderKey, Global.ServerFolderName);
             folderPath.Text = serverState.GameFolder;            
-
-            AllComponents.Restore();
 
             if (File.Exists(serverState.StatePathName))
             { 
@@ -345,8 +340,6 @@ namespace Nova.WinForms.Console
             // TODO (priority 4) - This code is a repeat of what we do when the console is normally opened. Consider consolodating these sections.
             serverState.GameFolder = System.IO.Path.GetDirectoryName(serverState.StatePathName);
             folderPath.Text = serverState.GameFolder;            
-
-            AllComponents.Restore();
 
             if (File.Exists(serverState.StatePathName))
             {

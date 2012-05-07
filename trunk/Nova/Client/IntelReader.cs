@@ -119,6 +119,8 @@ namespace Nova.Client
         /// </summary>
         private void LinkIntelReferences()
         {
+            AllComponents allComponents = new AllComponents();
+            
             // HullModule reference to a component
             foreach (ShipDesign design in clientState.EmpireState.Designs.Values)
             {
@@ -126,7 +128,7 @@ namespace Nova.Client
                 {
                     if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                     {
-                        AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
+                        module.AllocatedComponent = allComponents.Fetch(module.AllocatedComponent.Name);
                     }
                 }
                 
@@ -142,7 +144,7 @@ namespace Nova.Client
                     {
                         if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
                         {
-                            AllComponents.Data.Components.TryGetValue(module.AllocatedComponent.Name, out module.AllocatedComponent);
+                            module.AllocatedComponent = allComponents.Fetch(module.AllocatedComponent.Name);
                         }
                     }
                     

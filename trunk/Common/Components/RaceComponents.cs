@@ -22,6 +22,7 @@
 namespace Nova.Common.Components
 {
     using System;
+    using System.Collections.Concurrent;
     using System.Collections.Generic;
     
     using Nova.Common;
@@ -39,6 +40,7 @@ namespace Nova.Common.Components
     {
         private Race race = null;
         private TechLevel tech = null;
+        private AllComponents allComponents = new AllComponents();
 
         /// <summary>
         /// Default Constructor. Use this when loading from XML and adding components
@@ -77,9 +79,9 @@ namespace Nova.Common.Components
             {
                 throw new System.NullReferenceException();
             }
-
+            
             // go through the AllCompoents list
-            foreach (Component component in AllComponents.Data.Components.Values)
+            foreach (Component component in allComponents.GetAll.Values)
             {
                 // first check the required tech level
                 if (tech < component.RequiredTech)
@@ -143,9 +145,9 @@ namespace Nova.Common.Components
         /// <param name="componentName">The Name of the Component to add.</param>
         public void Add(string componentName)
         {
-            if (AllComponents.Data.Contains(componentName))
+            if (allComponents.Contains(componentName))
             {
-                Component c = AllComponents.Data.Components[componentName];
+                Component c =allComponents.Fetch(componentName);
 
                 Add(c.Name, c);
             }

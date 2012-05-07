@@ -1,7 +1,7 @@
 #region Copyright Notice
 // ============================================================================
 // Copyright (C) 2008 Ken Reed
-// Copyright (C) 2009, 2010, 2011 The Stars-Nova Project
+// Copyright (C) 2009-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -20,17 +20,17 @@
 // ============================================================================
 #endregion
 
+
 namespace Nova.WinForms.Gui
 {
     using System;
-    using System.Collections;
     using System.Collections.Generic;
     using System.Windows.Forms;
-
+    
     using Nova.Client;
     using Nova.Common;
-    using Nova.Common.Components;
     using Nova.Common.Commands;
+    using Nova.Common.Components;    
     
     /// <Summary>
     /// This is the hook to listen for changes in research budget.
@@ -146,14 +146,15 @@ namespace Nova.WinForms.Gui
             }
             
             // Populate the expected research benefits list
-            Dictionary<string, Component> allComponents = AllComponents.Data.Components;
+            AllComponents allComponents = new AllComponents();
+
             TechLevel oldResearchLevel = currentLevel;
             TechLevel newResearchLevel = new TechLevel(oldResearchLevel);
 
             newResearchLevel[targetArea] = oldResearchLevel[targetArea] + 1;
             researchBenefits.Items.Clear();
 
-            foreach (Nova.Common.Components.Component component in allComponents.Values)
+            foreach (Nova.Common.Components.Component component in allComponents.GetAll.Values)
             {
                 if (component.RequiredTech > oldResearchLevel &&
                     component.RequiredTech <= newResearchLevel)

@@ -197,9 +197,9 @@ namespace Nova.Server.TurnSteps
             
             serverState.AllMessages.Add(techAdvanceMessage);
 
-            Dictionary<string, Component> allComponents = AllComponents.Data.Components;
+            AllComponents allComponents = new AllComponents();
 
-            foreach (Component component in allComponents.Values)
+            foreach (Component component in allComponents.GetAll.Values)
             {
                 if (oldResearchLevel < component.RequiredTech && newResearchLevel >= component.RequiredTech)
                 {
