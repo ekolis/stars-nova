@@ -278,6 +278,8 @@ namespace Nova.Common
 
                 mainNode = mainNode.NextSibling;
             }
+            
+            LinkReferences();
         }
 
         /// <summary>
@@ -437,6 +439,7 @@ namespace Nova.Common
             return RemoveFleet(fleet.Key);                    
         }
         
+        
         /// <summary>
         /// Removes an existing fleet from this empire. Deletes appropiate report.
         /// </summary>
@@ -455,6 +458,7 @@ namespace Nova.Common
             return true;
         }
         
+        
         /// <summary>
         /// Iterates through all Mappables in this Empire, in order.
         /// </summary>
@@ -462,6 +466,111 @@ namespace Nova.Common
         public IEnumerable<Mappable> IterateAllMappables()
         {
             return OwnedFleets.Values.Select(fleet => fleet as Mappable).Concat(OwnedStars.Values.Select(star => star as Mappable));
+        }
+        
+        
+        /// <summary>
+        /// When state is loaded from file, objects may contain references to other objects.
+        /// As these may be loaded in any order (or be cross linked) it is necessary to tidy
+        /// up these references once the state is fully loaded and all objects exist.
+        /// In most cases a placeholder object has been created with the Key set from the file,
+        /// and we need to find the actual reference using this Key.
+        /// Objects can't do this themselves as they don't have access to the state data, 
+        /// so we do it here.
+        /// </summary>
+        private void LinkReferences()
+        {
+            AllComponents allComponents = new AllComponents();
+            
+            // HullModule reference to a component
+            foreach (ShipDesign design in Designs.Values)
+            {
+                foreach (HullModule module in design.Hull.Modules)
+                {
+                    if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
+                    {
+                        module.AllocatedComponent = allComponents.Fetch(module.AllocatedComponent.Name);
+                    }
+                }
+                
+                design.Update();
+            }
+            
+            // Link enemy designs too
+            foreach (EmpireIntel enemy in EmpireReports.Values)
+            {
+                foreach (ShipDesign design in enemy.Designs.Values)
+                {
+                    foreach (HullModule module in design.Hull.Modules)
+                    {
+                        if (module.AllocatedComponent != null && module.AllocatedComponent.Name != null)
+                        {
+                            module.AllocatedComponent = allComponents.Fetch(module.AllocatedComponent.Name);
+                        }
+                    }
+                    
+                    design.Update();
+                }
+            }
+            
+            // Fleet reference to Star
+            foreach (Fleet fleet in OwnedFleets.Values)
+            {
+                if (fleet.InOrbit != null)
+                {
+                    if (StarReports[fleet.InOrbit.Name].Owner == fleet.Owner)
+                    {
+                        fleet.InOrbit = OwnedStars[fleet.InOrbit.Name];
+                    }
+                    else
+                    {
+                        fleet.InOrbit = StarReports[fleet.InOrbit.Name];
+                    }
+                }
+                
+                // Ship reference to Design
+                foreach (ShipToken token in fleet.Tokens.Values)
+                {
+                    token.Design = Designs[token.Design.Key];
+                }
+            }
+            
+            // Link reports to Designs to get accurate data.
+            foreach (FleetIntel report in FleetReports.Values)
+            {
+                foreach (ShipToken token in report.Composition.Values)
+                {
+                    if (report.Owner == Id)
+                    {
+                        token.Design = Designs[token.Design.Key];
+                    }
+                    else
+                    {
+                        token.Design = EmpireReports[report.Owner].Designs[token.Design.Key];
+                    }
+                }   
+            }
+
+            foreach (Star star in OwnedStars.Values)
+            {
+                if (star.ThisRace != null)
+                {
+                    // Reduntant, but works to check if race name is valid...
+                    if (star.Owner == Id)
+                    {
+                        star.ThisRace = Race;
+                    }
+                    else
+                    {
+                        star.ThisRace = null;
+                    }
+                }
+
+                if (star.Starbase != null)
+                {
+                    star.Starbase = OwnedFleets[star.Starbase.Key];        
+                }
+            }    
         }
     }
 }
