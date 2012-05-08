@@ -137,7 +137,7 @@ namespace Nova.Common.Waypoints
                 star.ResourcesOnHand += fleet.TotalCost;
             }
             
-            fleet.Tokens.Clear(); // disapear the ships. The (now empty) fleet will be cleaned up latter.
+            fleet.Composition.Clear(); // disapear the ships. The (now empty) fleet will be cleaned up latter.
             return true;
         }
         

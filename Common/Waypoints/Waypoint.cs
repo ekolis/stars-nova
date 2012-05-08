@@ -129,6 +129,9 @@ namespace Nova.Common.Waypoints
                 case "scraptask":
                     Task = new ScrapTask(node);
                     break;
+                case "splitmergetask":
+                    Task = new SplitMergeTask(node);
+                    break;
                 default:
                     Task = new NoTask();
                     break;

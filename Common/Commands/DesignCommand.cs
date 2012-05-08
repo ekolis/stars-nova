@@ -170,7 +170,7 @@ namespace Nova.Common.Commands
             {
                 List<ShipToken> tokensToRemove = new List<ShipToken>();
     
-                foreach (ShipToken token in fleet.Tokens.Values)
+                foreach (ShipToken token in fleet.Composition.Values)
                 {
                     if (token.Design.Key == Design.Key)
                     {
@@ -180,10 +180,10 @@ namespace Nova.Common.Commands
     
                 foreach (ShipToken token in tokensToRemove)
                 {
-                    fleet.Tokens.Remove(token.Design.Key);
+                    fleet.Composition.Remove(token.Design.Key);
                 }
     
-                if (fleet.Tokens.Count == 0)
+                if (fleet.Composition.Count == 0)
                 {
                     fleetsToRemove.Add(fleet);
                 }

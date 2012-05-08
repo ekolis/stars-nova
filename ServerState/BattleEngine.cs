@@ -265,7 +265,7 @@ namespace Nova.Server
             Dictionary<long, Fleet> fleetStacks = new Dictionary<long, Fleet>();
             Fleet stack;
             
-            foreach (ShipToken token in fleet.Tokens.Values)
+            foreach (ShipToken token in fleet.Composition.Values)
             {
                 string name = "Stack #" + stackId.ToString(System.Globalization.CultureInfo.InvariantCulture);
                 
@@ -273,7 +273,7 @@ namespace Nova.Server
 
                 stack.BattlePlan = fleet.BattlePlan;
                 stack.BattleSpeed = token.Design.BattleSpeed;
-                stack.Tokens.Add(token.Key, token);
+                stack.Composition.Add(token.Key, token);
                
                 fleetStacks[stack.Key] = stack;                
             }
@@ -366,7 +366,7 @@ namespace Nova.Server
                 {
                     if (stack.Owner != empireId)
                     {
-                        foreach (ShipToken token in stack.Tokens.Values)
+                        foreach (ShipToken token in stack.Composition.Values)
                         {
                             if (serverState.AllEmpires[empireId].EmpireReports[stack.Owner].Designs.ContainsKey(token.Design.Key))
                             {
@@ -624,7 +624,7 @@ namespace Nova.Server
 
             foreach (Fleet stack in zoneStacks)
             {
-                foreach (ShipToken token in stack.Tokens.Values)
+                foreach (ShipToken token in stack.Composition.Values)
                 {
                     foreach (Weapon weaponSystem in token.Design.Weapons)
                     {
@@ -682,7 +682,7 @@ namespace Nova.Server
 
             Fleet targetStack = weapon.TargetStack;
 
-            if (targetStack.Tokens.Count == 0)
+            if (targetStack.Composition.Count == 0)
             {
                 return;
             }
@@ -702,7 +702,7 @@ namespace Nova.Server
             // Each stack SHOULD contain only ONE token of ships, so target the
             // first token.
 
-            foreach (ShipToken target in targetStack.Tokens.Values)
+            foreach (ShipToken target in targetStack.Composition.Values)
             {
                 DischargeWeapon(attacker, weapon, target);
                 break;
@@ -750,7 +750,7 @@ namespace Nova.Server
             // ship from its "real" fleet. Also, generate a "destroy" event to
             // update the battle visualisation display.
 
-            details.TargetStack.Tokens.Remove(target.Key);
+            details.TargetStack.Composition.Remove(target.Key);
 
             BattleStepDestroy destroy = new BattleStepDestroy();
             destroy.ShipName = target.Design.Name;
@@ -760,15 +760,15 @@ namespace Nova.Server
 
             foreach (Fleet fleet in serverState.IterateAllFleets())
             {
-                if (fleet.Tokens.ContainsKey(target.Key))
+                if (fleet.Composition.ContainsKey(target.Key))
                 {
-                    fleet.Tokens.Remove(target.Key);
+                    fleet.Composition.Remove(target.Key);
                     
                     if (serverState.AllEmpires[fleet.Owner].OwnedFleets.Contains(fleet))
                     {
-                        serverState.AllEmpires[fleet.Owner].OwnedFleets[fleet.Key].Tokens.Remove(target.Key);
+                        serverState.AllEmpires[fleet.Owner].OwnedFleets[fleet.Key].Composition.Remove(target.Key);
                         
-                        if (serverState.AllEmpires[fleet.Owner].OwnedFleets[fleet.Key].Tokens.Count == 0)
+                        if (serverState.AllEmpires[fleet.Owner].OwnedFleets[fleet.Key].Composition.Count == 0)
                         {
                             serverState.AllEmpires[fleet.Owner].OwnedFleets.Remove(fleet.Key);                    
                             serverState.AllEmpires[fleet.Owner].FleetReports.Remove(fleet.Key);

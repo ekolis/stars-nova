@@ -233,13 +233,13 @@ namespace Nova.WinForms.Gui
             // TODO (priority 3) Needs testing. Unknown if the constructed ship name will correctly match ships in the FleetShips list.
             string shipName = stack.Owner + "/" + destroy.ShipName;
 
-            IEnumerable<ShipToken> tokens = stack.Tokens.Values.Where(x => x.Design.Name == shipName);
+            IEnumerable<ShipToken> tokens = stack.Composition.Values.Where(x => x.Design.Name == shipName);
             if (tokens.Any())
             {
-                stack.Tokens.Remove(tokens.First().Key);
+                stack.Composition.Remove(tokens.First().Key);
             }
 
-            if (stack.Tokens.Count == 0)
+            if (stack.Composition.Count == 0)
             {
                 this.myStacks.Remove(stack.Name);
                 this.battlePanel.Invalidate();

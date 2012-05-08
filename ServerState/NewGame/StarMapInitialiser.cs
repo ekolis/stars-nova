@@ -361,7 +361,7 @@ namespace Nova.Server.NewGame
                 ShipToken cs = new ShipToken(colonyShipDesign, 1);
                 Fleet fleet1 = new Fleet(cs, star, empire.GetNextFleetKey());                               
                 fleet1.Name = colonyShipDesign.Name + " #1";
-                empire.AddNewFleet(fleet1);
+                empire.AddOrUpdateFleet(fleet1);
             }
             else
             {
@@ -370,7 +370,7 @@ namespace Nova.Server.NewGame
                     ShipToken cs = new ShipToken(colonyShipDesign, 1);
                     Fleet fleet = new Fleet(cs, star, empire.GetNextFleetKey());                    
                     fleet.Name = String.Format("{0} #{1}", colonyShipDesign.Name, i);                    
-                    empire.AddNewFleet(fleet);
+                    empire.AddOrUpdateFleet(fleet);
                 }
             }
    
@@ -386,7 +386,7 @@ namespace Nova.Server.NewGame
             ShipToken scout = new ShipToken(scoutDesign, 1);
             Fleet scoutFleet = new Fleet(scout, star, empire.GetNextFleetKey());
             scoutFleet.Name = "Scout #1";       
-            empire.AddNewFleet(scoutFleet);
+            empire.AddOrUpdateFleet(scoutFleet);
  
             ShipDesign starbaseDesign = null;
             foreach (ShipDesign design in empire.Designs.Values)
@@ -401,7 +401,7 @@ namespace Nova.Server.NewGame
             Fleet starbaseFleet = new Fleet(starbase, star, empire.GetNextFleetKey());            
             starbaseFleet.Name = star.Name + " Starbase";;
             star.Starbase = starbaseFleet;
-            empire.AddNewFleet(starbaseFleet);
+            empire.AddOrUpdateFleet(starbaseFleet);
         }
   
         

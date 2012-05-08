@@ -163,7 +163,7 @@ namespace Nova.Server
 
             List<ShipToken> tokensToRemove = new List<ShipToken>();
 
-            foreach (ShipToken token in fleet.Tokens.Values)
+            foreach (ShipToken token in fleet.Composition.Values)
             {
                 token.Armor -= shipDamage;
 
@@ -176,7 +176,7 @@ namespace Nova.Server
 
             foreach (ShipToken removeToken in tokensToRemove)
             {
-                fleet.Tokens.Remove(removeToken.Key);
+                fleet.Composition.Remove(removeToken.Key);
             }
 
             Message message = new Message();
@@ -190,7 +190,7 @@ namespace Nova.Server
                 message.Text += "None of your ships were destroyed.";
                 fleet.Speed = 0;
             }
-            else if (fleet.Tokens.Count != 0)
+            else if (fleet.Composition.Count != 0)
             {
                 message.Text += shipsLost.ToString(System.Globalization.CultureInfo.InvariantCulture)
                    + " of your ships were destroyed.\n";

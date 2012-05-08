@@ -633,57 +633,77 @@ namespace Nova.WinForms.Gui
             using (SplitFleetDialog splitFleet = new SplitFleetDialog())
             {
                 splitFleet.SetFleet(selectedFleet, otherFleet);
+                
                 if (splitFleet.ShowDialog() == DialogResult.OK)
                 {
-                    // TODO need to create a new fleet for split. The below will ignore the changes
-                    if (otherFleet == null)
+                    int index = wayPoints.SelectedIndices[0];            
+                    Waypoint waypoint = new Waypoint(selectedFleet.Waypoints[index]);
+                    
+                    waypoint.Task = new SplitMergeTask(splitFleet.SourceComposition,                                                  
+                                                  splitFleet.OtherComposition,
+                                                  (otherFleet == null) ? 0 : otherFleet.Key);
+                    
+                    WaypointCommand command = new WaypointCommand(CommandMode.Add, selectedFleet.Key, index);
+                    command.Waypoint = waypoint;
+                    
+                    if (command.isValid(empireState))
                     {
-                        // Need a new fleet. Clone existing then change stuff
-                        otherFleet = MakeNewFleet(selectedFleet);
-                        empireState.OwnedFleets[otherFleet.Key] = otherFleet;
+                        commands.Push(command);
+                        
+                        command.ApplyToState(empireState);
+                        // Also perform it here, to update client state for manual split/merge.
+                        if (command.Waypoint.Task.isValid(selectedFleet, otherFleet, empireState, empireState))
+                        {
+                            command.Waypoint.Task.Perform(selectedFleet, otherFleet, empireState, empireState);
+                            
+                            // Now clean and remove empty fleets and update remaining ones
+                            // This is done to update the Client State visuals only, the server
+                            // will handle this "for real".
+                            
+                            // Check if original fleet was wiped.
+                            if (selectedFleet.Composition.Count == 0)
+                            {
+                                empireState.RemoveFleet(selectedFleet);
+                            }
+                            else
+                            {
+                                empireState.AddOrUpdateFleet(selectedFleet);
+                            }
+                            
+                            // If this was a merge, update old fleet.
+                            if (otherFleet != null)
+                            {
+                                if (otherFleet.Composition.Count == 0)
+                                {
+                                    empireState.RemoveFleet(otherFleet);
+                                }
+                                else
+                                {
+                                    empireState.AddOrUpdateFleet(otherFleet);
+                                }
+                            }
+                            
+                            // otherFleet won't come out modified in the case
+                            // of a split, so check the fleet Limbo.
+                            foreach (Fleet newFleet in empireState.TemporaryFleets)
+                            {
+                                if (newFleet.Composition.Count == 0)
+                                {
+                                    empireState.RemoveFleet(newFleet);
+                                }
+                                else
+                                {
+                                    empireState.AddOrUpdateFleet(newFleet);
+                                }
+                            }
+                        }
                     }
-                    splitFleet.ReassignShips(selectedFleet, otherFleet);
-
-                    // Now remove any empty fleets...
-                    if (otherFleet.Tokens.Count == 0)
-                    {
-                        empireState.OwnedFleets.Remove(otherFleet.Key);
-                    }
-                    if (selectedFleet.Tokens.Count == 0)
-                    {
-                        empireState.OwnedFleets.Remove(selectedFleet.Key);
-                        // Set the other fleet to be selected
-                        selectedFleet = otherFleet;
-                    }
+                    
+                    selectedFleet = (otherFleet == null) ? selectedFleet : otherFleet;
                 }
+                
                 ReselectFleetToUpdateUi();
             }
-        }
-
-        private Fleet MakeNewFleet(Fleet existing)
-        {
-            Fleet newFleet = new Fleet(empireState.GetNextFleetKey());
-
-            newFleet.Type = ItemType.Fleet;
-
-            // Have one waypoint to reflect the fleet's current position and the
-            // planet it is in orbit around.
-
-            Waypoint w = new Waypoint();
-            w.Position = existing.Waypoints[0].Position;
-            w.Destination = existing.Waypoints[0].Destination;
-            w.WarpFactor = 0;
-
-            newFleet.Waypoints.Add(w);
-
-            // Inititialise the fleet elements that come from the star.
-
-            newFleet.Position = existing.Position;
-            newFleet.InOrbit = existing.InOrbit;
-
-            newFleet.Name = "New Fleet #" + newFleet.Id;
-
-            return newFleet;
         }
 
         private void ButtonCargoXfer_Click(object sender, EventArgs e)

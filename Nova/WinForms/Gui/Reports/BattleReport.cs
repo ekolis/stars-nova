@@ -76,11 +76,11 @@ namespace Nova.WinForms.Gui
                 {
                     if (fleet.Owner == empireState.Id)
                     {
-                        ourShips += fleet.Tokens.Count;
+                        ourShips += fleet.Composition.Count;
                     }
                     else
                     {
-                        theirShips += fleet.Tokens.Count;
+                        theirShips += fleet.Composition.Count;
                     }
                 }
 

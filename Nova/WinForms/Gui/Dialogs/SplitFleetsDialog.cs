@@ -1,6 +1,6 @@
 ﻿#region Copyright Notice
 // ============================================================================
-// Copyright (C) 2011 stars-nova
+// Copyright (C) 2011-2012 The Stars-Nova Project
 //
 // This file is part of Stars-Nova.
 // See <http://sourceforge.net/projects/stars-nova/>.
@@ -23,21 +23,18 @@ namespace Nova.WinForms.Gui.Dialogs
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel;
-    using System.Data;
-    using System.Diagnostics;
     using System.Drawing;
     using System.Linq;
-    using System.Text;
     using System.Windows.Forms;
+    
     using Nova.Common;
     using Nova.Common.Components;
-
+    
     public partial class SplitFleetDialog : Form
     {
         private List<ShipDesign> designs;
-        private Dictionary<long, ShipToken> leftFleet;
-        private Dictionary<long, ShipToken> rightFleet;
+        public Dictionary<long, ShipToken> SourceComposition {get; private set;}
+        public Dictionary<long, ShipToken> OtherComposition {get; private set;}
         private List<NumericUpDown> leftNumerics;
         private List<NumericUpDown> rightNumerics;
 
@@ -55,27 +52,45 @@ namespace Nova.WinForms.Gui.Dialogs
 
         public void SetFleet(Fleet sourceFleet, Fleet otherFleet)
         {
-            leftFleet = sourceFleet.Composition;
-            rightFleet = otherFleet == null ? new Dictionary<long, ShipToken>() : otherFleet.Composition;
+            // Use copies as fleets will get modified in the Task, not here.
+            SourceComposition = new Dictionary<long, ShipToken>();
+            OtherComposition = new Dictionary<long, ShipToken>();
             
-            foreach (long key in leftFleet.Keys)
+            foreach (long key in sourceFleet.Composition.Keys)
             {
-                if (!rightFleet.ContainsKey(key))
+                if (!SourceComposition.ContainsKey(key))
                 {
-                    rightFleet[key] = new ShipToken(leftFleet[key].Design, 0);
+                    SourceComposition[key] = new ShipToken(sourceFleet.Composition[key].Design, sourceFleet.Composition[key].Quantity);
+                }
+                
+                if (!OtherComposition.ContainsKey(key))
+                {
+                    OtherComposition[key] = new ShipToken(SourceComposition[key].Design, 0);
                 }
             }
             
-            foreach (long key in rightFleet.Keys)
+            if (otherFleet != null)
             {
-                if (!leftFleet.ContainsKey(key))
+                foreach (long key in otherFleet.Composition.Keys)
                 {
-                    leftFleet[key] = new ShipToken(rightFleet[key].Design, 0);
+                    if (!OtherComposition.ContainsKey(key))
+                    {
+                        OtherComposition[key] = new ShipToken(otherFleet.Composition[key].Design, otherFleet.Composition[key].Quantity);
+                    }
+                    else
+                    {
+                        OtherComposition[key].Quantity += otherFleet.Composition[key].Quantity;
+                    }
+                    
+                    if (!SourceComposition.ContainsKey(key))
+                    {
+                        SourceComposition[key] = new ShipToken(OtherComposition[key].Design, 0);
+                    }
                 }
             }
 
             designs = new List<ShipDesign>();
-            designs.AddRange(leftFleet.Values.Select(d => d.Design).OrderBy(x => x.Name));
+            designs.AddRange(SourceComposition.Values.Select(d => d.Design).OrderBy(x => x.Name));
             
             leftNumerics = new List<NumericUpDown>();
             rightNumerics = new List<NumericUpDown>();
@@ -97,8 +112,8 @@ namespace Nova.WinForms.Gui.Dialogs
                 int index = i;
                 NumericUpDown num = new NumericUpDown();
                 num.Width = 62;
-                num.Maximum = leftFleet[designs[i].Key].Quantity + rightFleet[designs[i].Key].Quantity;
-                num.Value = leftFleet[designs[i].Key].Quantity;
+                num.Maximum = SourceComposition[designs[i].Key].Quantity + OtherComposition[designs[i].Key].Quantity;
+                num.Value = SourceComposition[designs[i].Key].Quantity;
                 leftNumerics.Add(num);
                 num.ValueChanged += delegate { ValueChanged(Side.Left, index); };
                 fleetLayoutPanel.Controls.Add(num, 0, i);
@@ -111,8 +126,8 @@ namespace Nova.WinForms.Gui.Dialogs
 
                 num = new NumericUpDown();
                 num.Width = 62;
-                num.Maximum = leftFleet[designs[i].Key].Quantity + rightFleet[designs[i].Key].Quantity;
-                num.Value = rightFleet[designs[i].Key].Quantity;
+                num.Maximum = SourceComposition[designs[i].Key].Quantity + OtherComposition[designs[i].Key].Quantity;
+                num.Value = OtherComposition[designs[i].Key].Quantity;
                 rightNumerics.Add(num);
                 num.ValueChanged += delegate { ValueChanged(Side.Right, index); };
                 fleetLayoutPanel.Controls.Add(num, 2, i);
@@ -124,147 +139,18 @@ namespace Nova.WinForms.Gui.Dialogs
             NumericUpDown left = leftNumerics[index];
             NumericUpDown right = rightNumerics[index];
             decimal max = left.Maximum;
-            decimal newval = side == Side.Left ? left.Value : right.Value;
+            decimal newval = (side == Side.Left) ? left.Value : right.Value;
             newval = max - newval;
             if (side == Side.Left)
             {
                 right.Value = newval;
+                OtherComposition[designs[index].Key].Quantity = (int)newval;
             }
             else
             {
                 left.Value = newval;
+                SourceComposition[designs[index].Key].Quantity = (int)newval;
             }
-        }
-
-        public void ReassignShips(Fleet left, Fleet right)
-        {
-            for (int i = 0; i < designs.Count; i++)
-            {
-                int leftOldCount = leftFleet[designs[i].Key].Quantity;
-                int leftNewCount = (int)leftNumerics[i].Value;
-
-                if (leftNewCount == leftOldCount)
-                {
-                    continue; // no moves of this design
-                }
-
-                Fleet from;
-                Fleet to;
-                int moveCount;
-                if (leftNewCount > leftOldCount)
-                {
-                    from = right;
-                    to = left;
-                    moveCount = leftNewCount - leftOldCount;
-                }
-                else
-                {
-                    from = left;
-                    to = right;
-                    moveCount = leftOldCount - leftNewCount;
-                }
-
-                List<ShipToken> toMove = new List<ShipToken>();
-                foreach (ShipToken fleetToken in from.Tokens.Values)
-                {
-                    if (fleetToken.Design.Key == designs[i].Key)
-                    {
-                        toMove.Add(fleetToken);
-                        --moveCount;
-                        if (moveCount == 0)
-                        {
-                            break;
-                        }
-                    }
-                }
-                foreach (ShipToken token in toMove)
-                {
-                    from.Tokens.Remove(token.Key);
-                    to.Tokens.Add(token.Key, token);
-                }
-            }
-
-            // Ships are moved. Now to reassign fuel/cargo
-            int ktToMove = 0;
-            Cargo fromCargo = left.Cargo;
-            Cargo toCargo = right.Cargo;
-            if (left.Cargo.Mass > left.TotalCargoCapacity)
-            {
-                fromCargo = left.Cargo;
-                toCargo = right.Cargo;
-                ktToMove = left.Cargo.Mass - left.TotalCargoCapacity;
-            }
-            else if (right.Cargo.Mass > right.TotalCargoCapacity)
-            {
-                fromCargo = right.Cargo;
-                toCargo = left.Cargo;
-                ktToMove = right.Cargo.Mass - right.TotalCargoCapacity;
-            }
-
-            double proportion = (double)ktToMove / fromCargo.Mass;
-            if (ktToMove > 0)
-            {
-                // Try and move cargo
-                int ironToMove = (int)Math.Ceiling(fromCargo.Ironium * proportion);
-                if (ironToMove > ktToMove)
-                {
-                    ironToMove = ktToMove;
-                }
-                toCargo.Ironium += ironToMove;
-                fromCargo.Ironium -= ironToMove;
-                ktToMove -= ironToMove;
-            }
-            if (ktToMove > 0)
-            {
-                // Try and move cargo
-                int borToMove = (int)Math.Ceiling(fromCargo.Boranium * proportion);
-                if (borToMove > ktToMove)
-                {
-                    borToMove = ktToMove;
-                }
-                toCargo.Boranium += borToMove;
-                fromCargo.Boranium -= borToMove;
-                ktToMove -= borToMove;
-            }
-            if (ktToMove > 0)
-            {
-                // Try and move cargo
-                int germToMove = (int)Math.Ceiling(fromCargo.Germanium * proportion);
-                if (germToMove > ktToMove)
-                {
-                    germToMove = ktToMove;
-                }
-                toCargo.Germanium += germToMove;
-                fromCargo.Germanium -= germToMove;
-                ktToMove -= germToMove;
-            }
-            if (ktToMove > 0)
-            {
-                // Try and move cargo
-                int colsToMove = (int)Math.Ceiling(fromCargo.Colonists * proportion);
-                if (colsToMove > ktToMove)
-                {
-                    colsToMove = ktToMove;
-                }
-                toCargo.Colonists += colsToMove;
-                fromCargo.Colonists -= colsToMove;
-                ktToMove -= colsToMove;
-            }
-            Debug.Assert(ktToMove == 0, "Must not be negative.");
-
-            // fuel
-            if (left.FuelAvailable > left.TotalFuelCapacity)
-            {
-                // Move excess to right and set left to max
-                right.FuelAvailable += left.FuelAvailable - left.TotalFuelCapacity;
-                left.FuelAvailable = left.TotalFuelCapacity;
-            }
-            else if (right.FuelAvailable > right.TotalFuelCapacity)
-            {
-                // Move excess to left and set right to max
-                left.FuelAvailable += right.FuelAvailable - right.TotalFuelCapacity;
-                right.FuelAvailable = right.TotalFuelCapacity;
-            }
-        }
+        } 
     }
 }
