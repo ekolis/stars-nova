@@ -177,9 +177,10 @@ namespace Nova.Server
         {
             // create a list of all fleets that have been destroyed
             List<long> destroyedFleets = new List<long>();
+            
             foreach (Fleet fleet in serverState.IterateAllFleets())
             {
-                if (fleet.Tokens.Count == 0)
+                if (fleet.Composition.Count == 0)
                 {
                     destroyedFleets.Add(fleet.Key);
                 }
@@ -197,7 +198,7 @@ namespace Nova.Server
             List<string> destroyedStations = new List<string>();
             foreach (Star star in serverState.AllStars.Values)
             {
-                if (star.Starbase != null && star.Starbase.Tokens.Count == 0)
+                if (star.Starbase != null && star.Starbase.Composition.Count == 0)
                 {
                     destroyedStations.Add(star.Name);
                 }
@@ -206,6 +207,18 @@ namespace Nova.Server
             {
                 serverState.AllStars[key].Starbase = null;
 
+            }
+
+            // Get fleets out of limbo.
+            foreach (EmpireData empire in serverState.AllEmpires.Values)
+            {
+                if (empire.TemporaryFleets.Count > 0)
+                {
+                    foreach (Fleet newFleet in empire.TemporaryFleets)
+                    {
+                        empire.AddOrUpdateFleet(newFleet);
+                    }
+                }
             }            
         }
         
@@ -275,6 +288,7 @@ namespace Nova.Server
             }
             
             bool destroyed = UpdateFleet(fleet);
+            
             if (destroyed == true)
             {
                 return true;
@@ -400,7 +414,7 @@ namespace Nova.Server
                 }
             }
 
-            foreach (ShipToken token in fleet.Tokens.Values)
+            foreach (ShipToken token in fleet.Composition.Values)
             {
                 token.Shields = token.Design.Shield;
                 if (repairRate > 0)
@@ -428,12 +442,12 @@ namespace Nova.Server
 
             while (fleet.Waypoints.Count > 0)
             {
-                Waypoint thisWaypoint = fleet.Waypoints[0];
+                Waypoint waypointZero = fleet.Waypoints[0];
 
                 Fleet.TravelStatus fleetMoveResult;
 
                 // Check for Cheap Engines failing to start
-                if (thisWaypoint.WarpFactor > 6 && race.Traits.Contains("CE") && rand.Next(10) == 1)
+                if (waypointZero.WarpFactor > 6 && race.Traits.Contains("CE") && rand.Next(10) == 1)
                 {
                     // Engines fail
                     Message message = new Message();
@@ -461,16 +475,16 @@ namespace Nova.Server
                     currentPosition.Position = fleet.Position;
                     currentPosition.Task =  new NoTask();
                     currentPosition.Destination = "Space at " + fleet.Position;
-                    currentPosition.WarpFactor = thisWaypoint.WarpFactor;
+                    currentPosition.WarpFactor = waypointZero.WarpFactor;
                     break;
                 }
-                else
+                else // Arrived
                 {
-                    EmpireData sender = serverState.AllEmpires[fleet.Owner];; 
+                    EmpireData sender = serverState.AllEmpires[fleet.Owner];
                     EmpireData reciever = null;
                     Star target = null;
                     
-                    serverState.AllStars.TryGetValue(thisWaypoint.Destination, out target);
+                    serverState.AllStars.TryGetValue(waypointZero.Destination, out target);
 
                     if (target != null)
                     {
@@ -478,12 +492,15 @@ namespace Nova.Server
                         serverState.AllEmpires.TryGetValue(target.Owner, out reciever);
                     }
                     
-                    if (thisWaypoint.Task.isValid(fleet, target, sender, reciever))
+                    if (waypointZero.Task.isValid(fleet, target, sender, reciever))
                     {
-                        thisWaypoint.Task.Perform(fleet, target, sender, reciever);
+                        waypointZero.Task.Perform(fleet, target, sender, reciever);
                     }
                     
-                    serverState.AllMessages.AddRange(thisWaypoint.Task.Messages);
+                    serverState.AllMessages.AddRange(waypointZero.Task.Messages);
+                    
+                    // Task is done, clear it.
+                    waypointZero.Task = new NoTask();
 
                     /*if (thisWaypoint.Task != WaypointTask.LayMines)
                     {
@@ -493,7 +510,6 @@ namespace Nova.Server
 
                 currentPosition = fleet.Waypoints[0];
                 fleet.Waypoints.RemoveAt(0);
-
             }
 
             fleet.Waypoints.Insert(0, currentPosition);

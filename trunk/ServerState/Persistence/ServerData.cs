@@ -446,7 +446,7 @@ namespace Nova.Server
                         fleet.InOrbit = AllStars[fleet.InOrbit.Name];
                     }
                     // Ship reference to Design
-                    foreach (ShipToken token in fleet.Tokens.Values)
+                    foreach (ShipToken token in fleet.Composition.Values)
                     {
                         token.Design = empire.Designs[token.Design.Key];
                     }

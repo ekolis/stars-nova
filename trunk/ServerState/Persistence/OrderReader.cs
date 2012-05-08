@@ -291,7 +291,7 @@ namespace Nova.Server
                 if (fleet.Owner == playerOrders.EmpireStatus.Id)
                 {
                     // Ship reference to Design
-                    foreach (Ship ship in fleet.Tokens)
+                    foreach (Ship ship in fleet.tokens)
                     {
                         ship.DesignUpdate(playerOrders.RaceDesigns[ship.DesignKey]);
                     }

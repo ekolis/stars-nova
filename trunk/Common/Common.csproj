@@ -262,6 +262,7 @@
     <Compile Include="Waypoints\CargoTask.cs" />
     <Compile Include="Waypoints\NoTask.cs" />
     <Compile Include="Waypoints\ScrapTask.cs" />
+    <Compile Include="Waypoints\SplitMergeTask.cs" />
     <Compile Include="Waypoints\Waypoint.cs">
       <SubType>Code</SubType>
     </Compile>

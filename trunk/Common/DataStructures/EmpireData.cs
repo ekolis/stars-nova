@@ -28,6 +28,7 @@ namespace Nova.Common
     using System.Xml;
     
     using Nova.Common.Components;
+    using Nova.Common.Waypoints;
 
     public enum PlayerRelation
     {
@@ -75,6 +76,9 @@ namespace Nova.Common
         
         public FleetList OwnedFleets = new FleetList();
         public Dictionary<long, FleetIntel> FleetReports  = new Dictionary<long, FleetIntel>();
+        
+        // This is Fleet Limbo~
+        public List<Fleet> TemporaryFleets = new List<Fleet>();
         
         public Dictionary<ushort, EmpireIntel>  EmpireReports   = new Dictionary<ushort, EmpireIntel>();
         
@@ -406,7 +410,7 @@ namespace Nova.Common
         /// </summary>
         /// <param name="fleet">Fleet to add</param>
         /// <returns>False if the fleet already exists for this empire</returns>
-        public bool AddNewFleet(Fleet fleet)
+        public bool AddOrUpdateFleet(Fleet fleet)
         {
             if (OwnedFleets.ContainsKey(fleet.Key))
             {
@@ -426,6 +430,38 @@ namespace Nova.Common
             }
             
             return true;
+        }
+        
+        
+        /// <summary>
+        /// Creates a brand new Fleet at the position of
+        /// an already existing one.
+        /// </summary>
+        /// <param name="existing">Fleet from which to take a position.</param>
+        /// <returns></returns>
+        public Fleet MakeNewFleet(Fleet existing)
+        {
+            Fleet newFleet = new Fleet(GetNextFleetKey());
+
+            newFleet.Type = ItemType.Fleet;
+
+            // Have one waypoint to reflect the fleet's current position and the
+            // planet it is in orbit around.
+            Waypoint w = new Waypoint();
+            w.Position = existing.Waypoints[0].Position;
+            w.Destination = existing.Waypoints[0].Destination;
+            w.WarpFactor = 0;
+
+            newFleet.Waypoints.Add(w);
+
+            // Inititialise the fleet elements that come from the star.
+
+            newFleet.Position = existing.Position;
+            newFleet.InOrbit = existing.InOrbit;
+
+            newFleet.Name = "New Fleet #" + newFleet.Id;
+
+            return newFleet;
         }
         
         
@@ -529,7 +565,7 @@ namespace Nova.Common
                 }
                 
                 // Ship reference to Design
-                foreach (ShipToken token in fleet.Tokens.Values)
+                foreach (ShipToken token in fleet.Composition.Values)
                 {
                     token.Design = Designs[token.Design.Key];
                 }
