@@ -190,7 +190,6 @@ namespace Nova.Server
             }
         }
 
-#if USE_COMMAND_ORDERS
         /// <summary>
         /// Restore the persistent data. 
         /// </summary>
@@ -224,45 +223,6 @@ namespace Nova.Server
                 LinkServerStateReferences(); 
             }
         }
-#else
-        /// <summary>
-        /// Restore the persistent data. 
-        /// </summary>
-        public ServerData Restore()
-        {
-            using (FileStream stateFile = new FileStream(StatePathName, FileMode.Open))
-            {
-                XmlDocument xmldoc = new XmlDocument();
-
-                xmldoc.Load(stateFile);
-
-                // Temporary data store only!
-                ServerData restoredState = new ServerData(xmldoc);
-
-                // We need to copy the restored values
-                AllCommands = restoredState.AllCommands;
-                AllBattles = restoredState.AllBattles;
-                AllPlayers = restoredState.AllPlayers;
-                AllTechLevels = restoredState.AllTechLevels;
-                AllDesigns = restoredState.AllDesigns;
-                AllFleets = restoredState.AllFleets;
-                AllEmpires = restoredState.AllEmpires;
-                AllRaces = restoredState.AllRaces;
-                AllStars = restoredState.AllStars;
-                AllMinefields = restoredState.AllMinefields;
-                AllMessages = restoredState.AllMessages;
-
-                GameInProgress = restoredState.GameInProgress;
-                TurnYear = restoredState.TurnYear;
-                GameFolder = restoredState.GameFolder; // The path&folder where client files are held.
-                StatePathName = restoredState.StatePathName;
-
-                LinkServerStateReferences();
-
-                return restoredState;
-            }
-        }
-#endif
 
         /// <summary>
         /// Save the console persistent data.

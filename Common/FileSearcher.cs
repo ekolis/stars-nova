@@ -351,7 +351,7 @@ namespace Nova.Common
 
             // try working upward from the application directory
             // two likely structures - the installation structure (deployed) (e.g. Program Files/Stars! Nova/Nova.exe)
-            // or the development structure (development) (e.g. stars-nova/trunk/AppName/bin/<debug|release/USE_COMMAND_ORDERS>/AppName.exe)
+            // or the development structure (development) (e.g. stars-nova/trunk/AppName/bin/<debug|release>/AppName.exe)
             string applicationDirectory = (new System.IO.FileInfo(Assembly.GetExecutingAssembly().Location)).DirectoryName;
 
             string[] folders = applicationDirectory.Split(Path.DirectorySeparatorChar);
@@ -365,10 +365,6 @@ namespace Nova.Common
             else if (folders[folders.Length - 1].ToLower() == "release")
             {
                 novaRoot = Path.Combine(applicationDirectory, upTwo);
-            }
-            else if (folders[folders.Length - 1].ToLower() == "use_command_orders")
-            {
-                novaRoot = Path.Combine(applicationDirectory, upThree);
             }
             else
             {
