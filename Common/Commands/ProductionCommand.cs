@@ -126,7 +126,9 @@ namespace Nova.Common.Commands
                 
                 case CommandMode.Edit:
                     // Check the order actually exists.
-                    if (!empire.OwnedStars[StarKey].ManufacturingQueue.Queue.Contains(ProductionOrder)) {return false;}
+
+                    // FIXME (priority 5) - this causes a false positive when edditing production orders
+                    // if (!empire.OwnedStars[StarKey].ManufacturingQueue.Queue.Contains(ProductionOrder)) {return false;}
                     
                     // Don't allow modification of the total cost.                    
                     if (!(ProductionOrder.Unit.RemainingCost >= empire.OwnedStars[StarKey].ManufacturingQueue.Queue[Index].Unit.RemainingCost))
@@ -138,6 +140,7 @@ namespace Nova.Common.Commands
                     {
                         return false;    
                     }
+                     
                     break;
                 
                 case CommandMode.Delete:
