@@ -17,7 +17,7 @@
 
 Some example command lines:
 
-To open the GUI with the Googly race on Dan's computer:
+To open the GUI with the Humanoid race on Dan's computer:
 Nova --gui -r humanoid -t 2114 -i "C:\Users\daniel\Desktop\TurnTest\Humanoid.intel"
 
 To open the Nova Console on Dan's computer:
