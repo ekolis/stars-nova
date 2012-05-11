@@ -65,7 +65,7 @@ namespace Nova.Common
         public int OriginalTemperature = 0;
 
         /// <summary>
-        /// A reference the the race information for the owner of this star.
+        /// A reference to the race information for the owner of this star.
         /// This is a convinience for the server. It will be null for races other than the player's race in the client.
         /// </summary>
         public Race ThisRace = null;

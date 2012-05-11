@@ -62,6 +62,13 @@ namespace Nova.WinForms.Gui
         /// <param name="e">A <see cref="EventArgs"/> that contains the event data.</param>
         private void OnLoad(object sender, System.EventArgs e)
         {
+            // Check this star belongs to the player
+            if (!clientState.EmpireState.OwnedStars.Contains(queueStar.Name))
+            {
+                Report.Information("You can not edit the production queue for a star you do not own. Try sending a coloniser to colonise this star.");
+            }
+            
+
             // Check the Star's budget state.
             onlyLeftovers.Checked = queueStar.OnlyLeftover;
             
@@ -70,12 +77,12 @@ namespace Nova.WinForms.Gui
             // Add default items.
             ListViewItem item = new ListViewItem();
             item.Text = "Factory";
-            item.Tag = new FactoryProductionUnit(queueStar.ThisRace);
+            item.Tag = new FactoryProductionUnit(clientState.EmpireState.Race);
             designList.Items.Add(item);
             
             item = new ListViewItem();
             item.Text = "Mine";
-            item.Tag = new MineProductionUnit(queueStar.ThisRace);
+            item.Tag = new MineProductionUnit(clientState.EmpireState.Race);
             designList.Items.Add(item);
 
             Fleet starbase = queueStar.Starbase;
@@ -88,14 +95,16 @@ namespace Nova.WinForms.Gui
 
             foreach (ShipDesign design in clientState.EmpireState.Designs.Values)
             {
-                // what the purpose of this next line (shadallark) ???
-                // Looks like it is ment to prevent the current starbase design being re-used - Dan.
+
                 // prevent the current starbase design from being re-used
-                foreach (ShipToken token in starbase.Composition.Values)
+                if (starbase != null)
                 {
-                    if (token.Design.Type == ItemType.Starbase && token.Design.Equals(design))
+                    foreach (ShipToken token in starbase.Composition.Values)
                     {
-                        continue;
+                        if (token.Design.Type == ItemType.Starbase && token.Design.Equals(design))
+                        {
+                            continue;
+                        }
                     }
                 }
 

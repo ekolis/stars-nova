@@ -356,7 +356,6 @@ namespace Nova.Common
 
             string[] folders = applicationDirectory.Split(Path.DirectorySeparatorChar);
             string upTwo = "../..";
-            string upThree = "../../..";
             upTwo = upTwo.Replace('/', Path.DirectorySeparatorChar);
             if (folders[folders.Length - 1].ToLower() == "debug")
             {
