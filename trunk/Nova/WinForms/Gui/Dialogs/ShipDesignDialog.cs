@@ -165,7 +165,6 @@ namespace Nova.WinForms.Gui
                     return;
                 }
             }
-#if USE_COMMAND_ORDERS
             DesignCommand command = new DesignCommand(CommandMode.Add, newDesign);
             
             if (command.isValid(clientState.EmpireState))
@@ -173,9 +172,6 @@ namespace Nova.WinForms.Gui
                 clientState.Commands.Push(command);
                 command.ApplyToState(clientState.EmpireState);
             }
-#else                        
-            this.allDesigns[newDesign.Key] = newDesign;
-#endif
             Close();
         }
 

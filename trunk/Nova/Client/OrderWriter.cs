@@ -58,7 +58,6 @@ namespace Nova.Client
         /// </summary>
         public void WriteOrders()
         {
-#if USE_COMMAND_ORDERS
             {
                 // Advance the turn year, to show this empire has finished with the current turn year.
                 clientState.EmpireState.TurnSubmitted = true;
@@ -87,34 +86,6 @@ namespace Nova.Client
                 xmldoc.Save(output);
                 output.Close();
             }
-            
-#else
-            {
-                // Advance the turn year, to show this empire has finished with the current turn year.
-                clientState.EmpireState.TurnSubmitted = true;
-                clientState.EmpireState.LastTurnSubmitted = clientState.EmpireState.TurnYear;
-
-                Orders outputTurn = new Orders();
-
-                outputTurn.EmpireStatus = clientState.EmpireState;
-
-                outputTurn.TechLevel = CountTechLevels();
-
-                foreach (Design design in clientState.EmpireState.Designs.Values)
-                {
-                    outputTurn.RaceDesigns.Add(design.Key, design);
-                }
-
-                foreach (int fleetKey in clientState.DeletedFleets)
-                {
-                    outputTurn.DeletedFleets.Add(fleetKey);
-                }
-
-                string turnFileName = Path.Combine(clientState.GameFolder, clientState.EmpireState.Race.Name + Global.OrdersExtension);
-
-                outputTurn.ToXml(turnFileName);
-            }
-#endif
         }
     
     
