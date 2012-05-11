@@ -99,12 +99,26 @@ namespace Nova.Common
                 }
 
             }
-            using (Stream stream = new FileStream(fileName, FileMode.Create))
-            {
-                XmlSerializer s = new XmlSerializer(typeof(Config));
-                s.Serialize(stream, this);
-            }
 
+            bool waitingForConfigFile = false;
+            do
+            {
+                try
+                {
+                    using (Stream stream = new FileStream(fileName, FileMode.Create))
+                    {
+                        XmlSerializer s = new XmlSerializer(typeof(Config));
+                        s.Serialize(stream, this);
+                    }
+                    waitingForConfigFile = false;
+                }
+                catch (System.IO.IOException)
+                {
+                    // handle "The process cannot access the file 'D:\Dan\src\stars\nova\stars-nova\nova.conf' because it is being used by another process."
+                    waitingForConfigFile = true;
+                }
+            }
+            while (waitingForConfigFile);
         }
 
         /// <summary>
