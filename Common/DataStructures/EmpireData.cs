@@ -589,9 +589,9 @@ namespace Nova.Common
 
             foreach (Star star in OwnedStars.Values)
             {
-                if (star.ThisRace != null)
+                // Link the star to the race that owns it.
+                if (star.ThisRace == null)
                 {
-                    // Reduntant, but works to check if race name is valid...
                     if (star.Owner == Id)
                     {
                         star.ThisRace = Race;
