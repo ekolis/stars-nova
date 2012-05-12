@@ -121,7 +121,7 @@ namespace Nova.Common.Commands
                         if (!(ProductionOrder.Unit.Cost >= empire.Race.GetMineResources())) { return false; }
                     }                    
                     // Don't add cheated pre-built units.
-                    if (!(ProductionOrder.Unit.Cost >= ProductionOrder.Unit.RemainingCost)) { return false; }
+                    if (!(ProductionOrder.Unit.Cost == ProductionOrder.Unit.RemainingCost)) { return false; }
                     break;
                 
                 case CommandMode.Edit:

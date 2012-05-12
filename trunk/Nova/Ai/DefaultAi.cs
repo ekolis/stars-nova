@@ -26,6 +26,7 @@ using System.Text;
 
 using Nova.Client;
 using Nova.Common;
+using Nova.Common.Commands;
 using Nova.Common.Components;
 using Nova.Common.Waypoints;
 
@@ -44,8 +45,16 @@ namespace Nova.Ai
             {
                 if (star.Owner == clientState.EmpireState.Id)
                 {
-                    star.ManufacturingQueue.Clear();
-                    ProductionOrder productionOrder;
+                    // Clear the current manufacturing queue
+                    foreach (ProductionOrder productionOrderToclear in star.ManufacturingQueue.Queue)
+                    {
+                        ProductionCommand clearProductionCommand = new ProductionCommand(CommandMode.Delete, productionOrderToclear, star.Key);
+                        if (clearProductionCommand.isValid(clientState.EmpireState))
+                        {
+                            //clearProductionCommand.ApplyToState(clientState.EmpireState); // FIXME - can't change the state inside the for each loop.
+                            clientState.Commands.Push(clearProductionCommand);
+                        }
+                    }
 
                     // build factories (limited by Germanium, and don't want to use it all)
                     if (star.ResourcesOnHand.Germanium > 50)
@@ -53,25 +62,42 @@ namespace Nova.Ai
                         int factoryBuildCostGerm = clientState.EmpireState.Race.HasTrait("CF") ? 3 : 4;
                         int factoriesToBuild = (int)((star.ResourcesOnHand.Germanium - 50) / factoryBuildCostGerm);
 
-                        productionOrder = new ProductionOrder(factoriesToBuild, new FactoryProductionUnit(clientState.EmpireState.Race), true);
-                        star.ManufacturingQueue.Queue.Add(productionOrder);
+                        ProductionOrder factoryOrder = new ProductionOrder(factoriesToBuild, new FactoryProductionUnit(clientState.EmpireState.Race), false);
+                        ProductionCommand factoryCommand = new ProductionCommand(CommandMode.Add, factoryOrder, star.Key);
+                        if (factoryCommand.isValid(clientState.EmpireState))
+                        {
+                            factoryCommand.ApplyToState(clientState.EmpireState);
+                            clientState.Commands.Push(factoryCommand);
+                        }
                     }
 
                     // build mines
                     int maxMines = star.GetOperableMines();
                     if (star.Mines < maxMines) 
                     {
-                        productionOrder = new ProductionOrder(maxMines - star.Mines, new MineProductionUnit(clientState.EmpireState.Race), true);
-                        star.ManufacturingQueue.Queue.Add(productionOrder);
+                        ProductionOrder mineOrder = new ProductionOrder(maxMines - star.Mines, new MineProductionUnit(clientState.EmpireState.Race), false);
+                        ProductionCommand mineCommand = new ProductionCommand(CommandMode.Add, mineOrder, star.Key);
+                        if (mineCommand.isValid(clientState.EmpireState))
+                        {
+                            mineCommand.ApplyToState(clientState.EmpireState);
+                            clientState.Commands.Push(mineCommand);
+                        }
                     }
 
-                    // build defenses
+                    // build defenses - TODO (priority 4) - need DefenseProductionUnit to be finished first.
+                    /*
                     int defenceToBuild = Global.MaxDefenses - star.Defenses;
                     if (defenceToBuild > 0)
                     {
-                        productionOrder = new ProductionOrder(defenceToBuild, new DefenseProductionUnit(), false);
-                        star.ManufacturingQueue.Queue.Add(productionOrder);
+                        ProductionOrder defenceOrder = new ProductionOrder(defenceToBuild, new DefenseProductionUnit(), false);
+                        ProductionCommand defenceCommand = new ProductionCommand(CommandMode.Add, defenceOrder, star.Key);
+                        if (defenceCommand.isValid(clientState.EmpireState))
+                        {
+                            defenceCommand.ApplyToState(clientState.EmpireState);
+                            clientState.Commands.Push(defenceCommand);
+                        }
                     }
+                     */
                 }
             }
         }
