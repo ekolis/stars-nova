@@ -93,31 +93,37 @@ namespace Nova.WinForms.Gui
                 dockCapacity = starbase.TotalDockCapacity;
             }
 
+            // Add player designs
             foreach (ShipDesign design in clientState.EmpireState.Designs.Values)
             {
 
                 // prevent the current starbase design from being re-used
                 if (starbase != null)
                 {
+                    long starbaseDesignId = 0;
+
                     foreach (ShipToken token in starbase.Composition.Values)
                     {
-                        if (token.Design.Type == ItemType.Starbase && token.Design.Equals(design))
-                        {
-                            continue;
-                        }
+                        starbaseDesignId = token.Design.Id;
+                        break;
+                    }
+                    if (starbaseDesignId == design.Id)
+                    {
+                        continue; // skip this design as it is the starbase in orbit.
                     }
                 }
 
                 // Check if this design can be built at this Star - ships are limited by dock capacity of the starbase.
-
-                if (design is ShipDesign && dockCapacity > design.Mass)
+                if (design is ShipDesign && ! design.IsStarbase && dockCapacity < design.Mass)
                 {
-                    item = new ListViewItem();
-                    item.Text = design.Name;
-                    item.Tag = new ShipProductionUnit(design);
-                    designList.Items.Add(item);
+                    continue; // can not build this ship as it is too big for the dock
                 }
 
+                // build anything else
+                item = new ListViewItem();
+                item.Text = design.Name;
+                item.Tag = new ShipProductionUnit(design);
+                designList.Items.Add(item);
             }
 
             designList.EndUpdate();
