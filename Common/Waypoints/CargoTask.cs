@@ -192,7 +192,7 @@ namespace Nova.Common.Waypoints
             Messages.Add(message);
 
             star.ResourcesOnHand += fleet.Cargo.ToResource();
-            star.Colonists += fleet.Cargo.Colonists * Global.ColonistsPerKiloton;
+            star.Colonists += fleet.Cargo.ColonistsInKilotons * Global.ColonistsPerKiloton;
             
             fleet.Cargo.Clear();
             

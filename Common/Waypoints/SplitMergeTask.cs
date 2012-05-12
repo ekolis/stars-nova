@@ -377,14 +377,14 @@ namespace Nova.Common.Waypoints
             if (ktToMove > 0)
             {
                 // Try and move cargo
-                int colsToMove = (int)Math.Ceiling(fromCargo.Colonists * proportion);
-                if (colsToMove > ktToMove)
+                int colonistsToMoveInKilotons = (int)Math.Ceiling(fromCargo.ColonistsInKilotons * proportion);
+                if (colonistsToMoveInKilotons > ktToMove)
                 {
-                    colsToMove = ktToMove;
+                    colonistsToMoveInKilotons = ktToMove;
                 }
-                toCargo.Colonists += colsToMove;
-                fromCargo.Colonists -= colsToMove;
-                ktToMove -= colsToMove;
+                toCargo.ColonistsInKilotons += colonistsToMoveInKilotons;
+                fromCargo.ColonistsInKilotons -= colonistsToMoveInKilotons;
+                ktToMove -= colonistsToMoveInKilotons;
             }
             Debug.Assert(ktToMove == 0, "Must not be negative.");
 

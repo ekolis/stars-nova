@@ -34,7 +34,7 @@ namespace Nova.Common
         Boranium,
         Germanium,
         Energy,
-        Colonists
+        ColonistsInKilotons
     }
 
     /// <summary>

@@ -24,8 +24,8 @@ namespace Nova.ControlLibrary
             this.cargoBoran = new Nova.WinForms.Gui.Controls.CargoMeterCounter();
             this.labelGerman = new System.Windows.Forms.Label();
             this.cargoGerman = new Nova.WinForms.Gui.Controls.CargoMeterCounter();
-            this.labelColonists = new System.Windows.Forms.Label();
-            this.cargoColonists = new Nova.WinForms.Gui.Controls.CargoMeterCounter();
+            this.labelColonistsInKilotons = new System.Windows.Forms.Label();
+            this.cargoColonistsInKilotons = new Nova.WinForms.Gui.Controls.CargoMeterCounter();
             this.label8 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.label10 = new System.Windows.Forms.Label();
@@ -152,23 +152,23 @@ namespace Nova.ControlLibrary
             // 
             // labelColonists
             // 
-            this.labelColonists.Location = new System.Drawing.Point(4, 194);
-            this.labelColonists.Name = "labelColonists";
-            this.labelColonists.Size = new System.Drawing.Size(100, 20);
-            this.labelColonists.TabIndex = 27;
-            this.labelColonists.Text = "999999KT";
-            this.labelColonists.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.labelColonistsInKilotons.Location = new System.Drawing.Point(4, 194);
+            this.labelColonistsInKilotons.Name = "labelColonists";
+            this.labelColonistsInKilotons.Size = new System.Drawing.Size(100, 20);
+            this.labelColonistsInKilotons.TabIndex = 27;
+            this.labelColonistsInKilotons.Text = "999999KT";
+            this.labelColonistsInKilotons.TextAlign = System.Drawing.ContentAlignment.MiddleRight;
             // 
             // cargoColonists
             // 
-            this.cargoColonists.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Colonists;
-            this.cargoColonists.Location = new System.Drawing.Point(110, 196);
-            this.cargoColonists.Maximum = 100;
-            this.cargoColonists.Name = "cargoColonists";
-            this.cargoColonists.Reversed = true;
-            this.cargoColonists.Size = new System.Drawing.Size(269, 20);
-            this.cargoColonists.TabIndex = 26;
-            this.cargoColonists.Value = 0;
+            this.cargoColonistsInKilotons.Cargo = Nova.WinForms.Gui.Controls.CargoMeter.CargoType.Colonists;
+            this.cargoColonistsInKilotons.Location = new System.Drawing.Point(110, 196);
+            this.cargoColonistsInKilotons.Maximum = 100;
+            this.cargoColonistsInKilotons.Name = "cargoColonists";
+            this.cargoColonistsInKilotons.Reversed = true;
+            this.cargoColonistsInKilotons.Size = new System.Drawing.Size(269, 20);
+            this.cargoColonistsInKilotons.TabIndex = 26;
+            this.cargoColonistsInKilotons.Value = 0;
             // 
             // label8
             // 
@@ -220,8 +220,8 @@ namespace Nova.ControlLibrary
             this.Controls.Add(this.label10);
             this.Controls.Add(this.label9);
             this.Controls.Add(this.label8);
-            this.Controls.Add(this.labelColonists);
-            this.Controls.Add(this.cargoColonists);
+            this.Controls.Add(this.labelColonistsInKilotons);
+            this.Controls.Add(this.cargoColonistsInKilotons);
             this.Controls.Add(this.labelGerman);
             this.Controls.Add(this.cargoGerman);
             this.Controls.Add(this.labelBoran);
@@ -275,8 +275,8 @@ namespace Nova.ControlLibrary
         private WinForms.Gui.Controls.CargoMeterCounter cargoBoran;
         private System.Windows.Forms.Label labelGerman;
         private WinForms.Gui.Controls.CargoMeterCounter cargoGerman;
-        private System.Windows.Forms.Label labelColonists;
-        private WinForms.Gui.Controls.CargoMeterCounter cargoColonists;
+        private System.Windows.Forms.Label labelColonistsInKilotons;
+        private WinForms.Gui.Controls.CargoMeterCounter cargoColonistsInKilotons;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Label label10;
