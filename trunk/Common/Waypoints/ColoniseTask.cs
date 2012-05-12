@@ -114,6 +114,7 @@ namespace Nova.Common.Waypoints
             star.ResourcesOnHand = fleet.Cargo.ToResource();
             star.Colonists = fleet.Cargo.ColonistNumbers;
             star.Owner = fleet.Owner;
+            star.ThisRace = sender.Race;
             
             fleet.TotalCost.Energy = 0;            
             star.ResourcesOnHand += fleet.TotalCost * 0.75;
