@@ -49,7 +49,7 @@ namespace Nova.ControlLibrary
             cargoIron.ValueChanged += CargoIron_ValueChanged;
             cargoBoran.ValueChanged += CargoBoran_ValueChanged;
             cargoGerman.ValueChanged += CargoGermanium_ValueChanged;
-            cargoColonists.ValueChanged += CargoColonists_ValueChanged;
+            cargoColonistsInKilotons.ValueChanged += CargoColonists_ValueChanged;
             
             Tasks = new Dictionary<CargoMode, CargoTask>();
         }
@@ -114,20 +114,20 @@ namespace Nova.ControlLibrary
 
         public void CargoColonists_ValueChanged(int newValue)
         {
-            if (fleetCargo.Mass - fleetCargo.Colonists + newValue > meterCargo.Maximum)
+            if (fleetCargo.Mass - fleetCargo.ColonistsInKilotons + newValue > meterCargo.Maximum)
             {
-                newValue = meterCargo.Maximum - fleetCargo.Mass + fleetCargo.Colonists;
+                newValue = meterCargo.Maximum - fleetCargo.Mass + fleetCargo.ColonistsInKilotons;
             }
 
-            int total = fleetCargo.Colonists + starCargo.Colonists;
+            int total = fleetCargo.ColonistsInKilotons + starCargo.ColonistsInKilotons;
 
             if (newValue > total)
             {
                 newValue = total;
             }
 
-            fleetCargo.Colonists = newValue;
-            starCargo.Colonists = total - newValue;
+            fleetCargo.ColonistsInKilotons = newValue;
+            starCargo.ColonistsInKilotons = total - newValue;
             UpdateMeters();
         }
 
@@ -137,12 +137,12 @@ namespace Nova.ControlLibrary
             cargoIron.Value = fleetCargo.Ironium;
             cargoBoran.Value = fleetCargo.Boranium;
             cargoGerman.Value = fleetCargo.Germanium;
-            cargoColonists.Value = fleetCargo.Colonists;
+            cargoColonistsInKilotons.Value = fleetCargo.ColonistsInKilotons;
 
             labelIron.Text = starCargo.Ironium + " kT";
             labelBoran.Text = starCargo.Boranium + " kT";
             labelGerman.Text = starCargo.Germanium + " kT";
-            labelColonists.Text = starCargo.Colonists + " kT";
+            labelColonistsInKilotons.Text = starCargo.ColonistsInKilotons + " kT";
 
             meterCargo.CargoLevels = fleetCargo;
         }
@@ -188,20 +188,20 @@ namespace Nova.ControlLibrary
                 starCargo.Ironium = (targetFleet.InOrbit as Star).ResourcesOnHand.Ironium;
                 starCargo.Boranium =  (targetFleet.InOrbit as Star).ResourcesOnHand.Boranium;
                 starCargo.Germanium =  (targetFleet.InOrbit as Star).ResourcesOnHand.Germanium;
-                starCargo.Colonists = (targetFleet.InOrbit as Star).Colonists / Global.ColonistsPerKiloton;
+                starCargo.ColonistsInKilotons = (targetFleet.InOrbit as Star).Colonists / Global.ColonistsPerKiloton;
             }
             else
             {
                 starCargo.Ironium = 0;
                 starCargo.Boranium =  0;
                 starCargo.Germanium =  0;
-                starCargo.Colonists = 0;    
+                starCargo.ColonistsInKilotons = 0;    
             }
 
             cargoIron.Maximum = targetFleet.TotalCargoCapacity;
             cargoBoran.Maximum = targetFleet.TotalCargoCapacity;
             cargoGerman.Maximum = targetFleet.TotalCargoCapacity;
-            cargoColonists.Maximum = targetFleet.TotalCargoCapacity;
+            cargoColonistsInKilotons.Maximum = targetFleet.TotalCargoCapacity;
 
             meterCargo.Maximum = targetFleet.TotalCargoCapacity;
 

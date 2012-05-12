@@ -86,7 +86,7 @@ namespace Nova.Common.Waypoints
                 return false;
             }
             
-            if (fleet.Cargo.Colonists == 0)
+            if (fleet.Cargo.ColonistsInKilotons == 0)
             {
                 message.Text += " but no colonists were on board.";
                 return false;
